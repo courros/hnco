@@ -1,0 +1,897 @@
+{
+    "name": [ "hnco" ],
+
+    "description": "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors",
+
+    "version": "0.1",
+
+    "tab_order": [
+        "General",
+        "Function",
+        "Map",
+        "Algorithm",
+        "Local Search",
+        "Simulated Annealing",
+        "Evolutionary Algorithms",
+        "EDA",
+        "HEA",
+        "Boltzmann Machine PBIL"
+    ],
+
+    "flags": {
+
+        "print_default_parameters":
+        {
+            "description": "Print the default parameters and exit",
+            "category": "General"
+        },
+
+        "no_header":
+        {
+            "description": "Do not print the header",
+            "category": "General"
+        },
+
+        "print_performances":
+        {
+            "description": "At the end, print the maximum and the number of function evaluations needed to reach it",
+            "category": "General"
+        },
+
+        "print_solution":
+        {
+            "description": "At the end, print the solution",
+            "category": "General"
+        },
+
+        "log_improvement":
+        {
+            "description": "Log improvement",
+            "category": "Function"
+        },
+
+        "stop_on_maximum":
+        {
+            "description": "Stop on maximum",
+            "category": "Function"
+        },
+
+        "negation":
+        {
+            "description": "Negation (hence minimization) of the function",
+            "category": "Function"
+        },
+
+        "additive_gaussian_noise":
+        {
+            "description": "Additive Gaussian noise",
+            "category": "Function"
+        },
+
+        "cache":
+        {
+            "description": "Cache function evaluations",
+            "category": "Function"
+        },
+
+        "map_random":
+        {
+            "description": "Sample a random map",
+            "category": "Map"
+        },
+
+        "restart":
+        {
+            "description": "Restart any algorithm an indefinite number of times",
+            "category": "Algorithm"
+        },
+
+        "pv_log_pv":
+        {
+            "description": "Log probability vector",
+            "category": "EDA"
+        },
+
+        "pv_log_entropy":
+        {
+            "description": "Log entropy of probability vector",
+            "category": "EDA"
+        },
+
+        "hea_randomize_bit_order":
+        {
+            "description": "Randomize bit order",
+            "category": "HEA"
+        },
+
+        "hea_log_error":
+        {
+            "description": "Log error (moment discrepancy)",
+            "category": "HEA"
+        },
+
+        "hea_log_dtu":
+        {
+            "description": "Log distance to uniform",
+            "category": "HEA"
+        },
+
+        "hea_log_delta":
+        {
+            "description": "Log norm of delta, the moment increment",
+            "category": "HEA"
+        },
+
+        "hea_log_selection":
+        {
+            "description": "Log the distance between the target and the selection moment",
+            "category": "HEA"
+        },
+
+        "hea_bound_moment":
+        {
+            "description": "Bound moment after update",
+            "category": "HEA"
+        },
+
+        "bm_negative_positive_selection":
+        {
+            "description": "Negative and positive selection",
+            "category": "Boltzmann Machine PBIL"
+        },
+
+        "bm_log_norm_infinite":
+        {
+            "description": "Log infinite norm of the parameters",
+            "category": "Boltzmann Machine PBIL"
+        },
+
+        "bm_log_norm_l1":
+        {
+            "description": "Log L1 norm of the parameters",
+            "category": "Boltzmann Machine PBIL"
+        }
+
+    },
+
+    "parameters": {
+
+        "seed":
+        {
+            "type": "unsigned",
+            "value": 0,
+            "description": "Seed for the random number generator",
+            "category": "General"
+        },
+
+        "function":
+        {
+            "optchar": "F",
+            "type": "int",
+            "value": 0,
+            "description": "Type of function",
+            "category": "Function",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "OneMax"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Linear function"
+                },
+
+                {
+                    "value": 10,
+                    "description": "Leading ones"
+                },
+
+                {
+                    "value": 11,
+                    "description": "Ridge"
+                },
+
+                {
+                    "value": 20,
+                    "description": "Needle"
+                },
+
+                {
+                    "value": 30,
+                    "description": "Jump"
+                },
+
+                {
+                    "value": 31,
+                    "description": "Deceptive jump (aka Jump_k)"
+                },
+
+                {
+                    "value": 40,
+                    "description": "Four peaks"
+                },
+
+                {
+                    "value": 50,
+                    "description": "Quadratic function"
+                },
+
+                {
+                    "value": 60,
+                    "description": "NK landscape"
+                },
+
+                {
+                    "value": 70,
+                    "description": "Max-SAT"
+                },
+
+                {
+                    "value": 80,
+                    "description": "Low autocorrelation binary sequence"
+                },
+
+                {
+                    "value": 90,
+                    "description": "Equal products"
+                },
+
+                {
+                    "value": 100,
+                    "description": "Cancellation"
+                },
+
+                {
+                    "value": 101,
+                    "description": "Cancellation with sinus"
+                },
+
+                {
+                    "value": 110,
+                    "description": "Trap"
+                },
+
+                {
+                    "value": 120,
+                    "description": "Hierarchical if and only if (Hiff)"
+                },
+
+                {
+                    "value": 130,
+                    "description": "Plateau"
+                },
+
+                {
+                    "value": 1000,
+                    "description": "Plugin"
+                }
+
+            ]
+
+        },
+
+        "bv_size":
+        {
+            "optchar": "s",
+            "type": "int",
+            "value": 100,
+            "description": "Size of bit vectors",
+            "category": "Function"
+        },
+
+        "budget":
+        {
+            "optchar": "b",
+            "type": "int",
+            "value": 10000,
+            "description": "Number of allowed function evaluations (<= 0 means indefinite)",
+            "category": "Function"
+        },
+
+        "path":
+        {
+            "optchar": "p",
+            "type": "string",
+            "value": "nopath",
+            "description": "Path of a function file",
+            "category": "Function",
+            "file": "open"
+        },
+
+        "fun_threshold":
+        {
+            "optchar": "t",
+            "type": "int",
+            "value": 10,
+            "description": "Threshold (in bits) for Jump and Four peaks",
+            "category": "Function"
+        },
+
+        "fun_num_traps":
+        {
+            "type": "int",
+            "value": 10,
+            "description": "Number of traps",
+            "category": "Function"
+        },
+
+        "noise_stddev":
+        {
+            "type": "double",
+            "value": 1.0,
+            "description": "Noise standard deviation",
+            "category": "Function"
+        },
+
+        "plugin_function_name":
+        {
+            "type": "string",
+            "value": "nofunction",
+            "description": "Name of the function in the dynamic library",
+            "category": "Function"
+        },
+
+        "map":
+        {
+            "optchar": "M",
+            "type": "int",
+            "value": 0,
+            "description": "Type of map",
+            "category": "Map",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "None"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Translation"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Permutation"
+                },
+
+                {
+                    "value": 3,
+                    "description": "Linear"
+                },
+
+                {
+                    "value": 4,
+                    "description": "Affine"
+                }
+
+            ]
+
+        },
+
+        "map_input_size":
+        {
+            "type": "int",
+            "value": 100,
+            "description": "Input size of linear and affine maps",
+            "category": "Map"
+        },
+
+        "map_path":
+        {
+            "type": "string",
+            "value": "nopath",
+            "description": "Path of a map file",
+            "category": "Map",
+            "file": "open"
+        },
+
+        "algorithm":
+        {
+            "optchar": "A",
+            "type": "int",
+            "value": 100,
+            "description": "Type of algorithm",
+            "category": "Algorithm",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Complete search"
+                },
+
+                {
+                    "value": 10,
+                    "description": "Random search"
+                },
+
+                {
+                    "value": 100,
+                    "description": "Non strict (>=) random local search"
+                },
+
+                {
+                    "value": 101,
+                    "description": "Strict (>) random local search"
+                },
+
+                {
+                    "value": 150,
+                    "description": "Steepest ascent hill climbing"
+                },
+
+                {
+                    "value": 200,
+                    "description": "Simulated annealing"
+                },
+
+                {
+                    "value": 300,
+                    "description": "(1+1) evolutionary algorithm"
+                },
+
+                {
+                    "value": 310,
+                    "description": "(mu+lambda) evolutionary algorithm"
+                },
+
+                {
+                    "value": 320,
+                    "description": "(mu,lambda) evolutionary algorithm"
+                },
+
+                {
+                    "value": 400,
+                    "description": "Genetic algorithm"
+                },
+
+                {
+                    "value": 500,
+                    "description": "Population-based incremental learning"
+                },
+
+                {
+                    "value": 501,
+                    "description": "PBIL with negative and positive selection"
+                },
+
+                {
+                    "value": 600,
+                    "description": "Univariate marginal distribution algorithm"
+                },
+
+                {
+                    "value": 700,
+                    "description": "Compact genetic algorithm"
+                },
+
+                {
+                    "value": 800,
+                    "description": "Non strict (>=) max-min ant system"
+                },
+
+                {
+                    "value": 801,
+                    "description": "Strict (>) max-min ant system"
+                },
+
+                {
+                    "value": 900,
+                    "description": "Herding evolutionary algorithm, herding with binary variables"
+                },
+
+                {
+                    "value": 901,
+                    "description": "Herding evolutionary algorithm, herding with spin variables"
+                },
+
+                {
+                    "value": 1000,
+                    "description": "Boltzmann machine PBIL"
+                }
+
+            ]
+
+        },
+
+        "num_iterations":
+        {
+            "optchar": "i",
+            "type": "int",
+            "value": 0,
+            "description": "Number of iterations (<= 0 means indefinite)",
+            "category": "Algorithm"
+        },
+
+        "scaled_mutation_probability":
+        {
+            "optchar": "m",
+            "type": "double",
+            "value": 1.0,
+            "description": "Scaled mutation probability m = n * p (p = m / n)",
+            "category": "Algorithm"
+        },
+
+        "neighborhood":
+        {
+            "optchar": "N",
+            "type": "int",
+            "value": 0,
+            "description": "Type of neighborhood",
+            "category": "Local Search",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "One bit flip"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Binomial"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Hamming ball"
+                },
+
+                {
+                    "value": 3,
+                    "description": "Hamming sphere"
+                }
+
+            ]
+
+        },
+
+        "neighborhood_iterator":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Type of neighborhood iterator",
+            "category": "Local Search",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "One bit flip iterator"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Hamming ball iterator"
+                }
+
+            ]
+
+        },
+
+        "patience":
+        {
+            "type": "int",
+            "value": 50,
+            "description": "Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)",
+            "category": "Local Search"
+        },
+
+        "radius":
+        {
+            "type": "int",
+            "value": 2,
+            "description": "Radius of Hamming ball or sphere",
+            "category": "Local Search"
+        },
+
+        "sa_num_transitions":
+        {
+            "type": "int",
+            "value": 50,
+            "description": "Number of accepted transitions before annealing",
+            "category": "Simulated Annealing"
+        },
+
+        "sa_num_trials":
+        {
+            "type": "int",
+            "value": 100,
+            "description": "Number of trials to estimate initial inverse temperature",
+            "category": "Simulated Annealing"
+        },
+
+        "sa_initial_acceptance_probability":
+        {
+            "type": "double",
+            "value": 0.6,
+            "description": "Initial acceptance probability",
+            "category": "Simulated Annealing"
+        },
+
+        "sa_rate":
+        {
+            "type": "double",
+            "value": 1.2,
+            "description": "Increase rate for inverse temperature",
+            "category": "Simulated Annealing"
+        },
+
+        "ea_mu":
+        {
+            "type": "int",
+            "value": 10,
+            "description": "Parent population size",
+            "category": "Evolutionary Algorithms"
+        },
+
+        "ea_lambda":
+        {
+            "type": "int",
+            "value": 100,
+            "description": "Offspring population size",
+            "category": "Evolutionary Algorithms"
+        },
+
+        "ga_tournament_size":
+        {
+            "type": "int",
+            "value": 10,
+            "description": "Tournament size",
+            "category": "Evolutionary Algorithms"
+        },
+
+        "ga_crossover_probability":
+        {
+            "type": "double",
+            "value": 0.5,
+            "description": "Crossover probability",
+            "category": "Evolutionary Algorithms"
+        },
+
+        "population_size":
+        {
+            "optchar": "x",
+            "type": "int",
+            "value": 10,
+            "description": "Size of the population",
+            "category": "EDA"
+        },
+
+        "selection_size":
+        {
+            "optchar": "y",
+            "type": "int",
+            "value": 1,
+            "description": "Size of the selection (number of selected individuals)",
+            "category": "EDA"
+        },
+
+        "learning_rate":
+        {
+            "optchar": "r",
+            "type": "double",
+            "value": 1e-3,
+            "description": "Learning rate",
+            "category": "EDA"
+        },
+
+        "pv_log_num_components":
+        {
+            "type": "int",
+            "value": 5,
+            "description": "Number of probability vector components to log",
+            "category": "EDA"
+        },
+
+        "hea_sampling_method":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Sampling method for spin variables only",
+            "category": "HEA",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Greedy algorithm"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Random local search"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Deterministic local search"
+                },
+
+                {
+                    "value": 3,
+                    "description": "Neural network"
+                }
+
+            ]
+        },
+
+        "hea_rate_strategy":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Rate strategy",
+            "category": "HEA",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Constant rate"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Exponential decay"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Inverse decay"
+                }
+
+            ]
+
+        },
+
+        "hea_binary_dynamics":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Herding dynamics for binary variables",
+            "category": "HEA",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Minimize distance"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Maximize inner product"
+                }
+
+            ]
+
+        },
+
+        "hea_time_constant":
+        {
+            "type": "double",
+            "value": 1000,
+            "description": "Time constant for exponential decay",
+            "category": "HEA"
+        },
+
+        "hea_weight":
+        {
+            "type": "double",
+            "value": 1,
+            "description": "Weight of second moments",
+            "category": "HEA"
+        },
+
+        "hea_num_seq_updates":
+        {
+            "type": "int",
+            "value": 100,
+            "description": "Number of sequential updates per sample",
+            "category": "HEA"
+        },
+
+        "hea_num_par_updates":
+        {
+            "type": "int",
+            "value": 1,
+            "description": "Number of parallel updates per sample",
+            "category": "HEA"
+        },
+
+        "hea_reset_period":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Reset period (<= 0 means no reset)",
+            "category": "HEA"
+        },
+
+        "hea_delay":
+        {
+            "type": "int",
+            "value": 10000,
+            "description": "Delay before learning rate decay",
+            "category": "HEA"
+        },
+
+        "bm_num_gs_steps":
+        {
+            "type": "int",
+            "value": 100,
+            "description": "Number of Gibbs sampler steps per bit vector",
+            "category": "Boltzmann Machine PBIL"
+        },
+
+        "bm_num_gs_cycles":
+        {
+            "type": "int",
+            "value": 1,
+            "description": "Number of Gibbs sampler cycles per bit vector",
+            "category": "Boltzmann Machine PBIL"
+        },
+
+        "bm_sampling":
+        {
+            "type": "int",
+            "value": 1,
+            "description": "Sampling mode for the Boltzmann machine",
+            "category": "Boltzmann Machine PBIL",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Asynchronous sampling"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Asynchronous sampling with full scan"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Synchronous sampling"
+                }
+
+            ]
+
+        },
+
+        "bm_mc_reset_strategy":
+        {
+            "type": "int",
+            "value": 1,
+            "description": "Markov chain reset strategy",
+            "category": "Boltzmann Machine PBIL",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "No reset"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Reset MC at the beginning of each iteration"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Reset MC before sampling each bit vector"
+                }
+
+            ]
+
+        }
+
+    }
+
+}

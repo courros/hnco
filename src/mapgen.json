@@ -1,0 +1,83 @@
+{
+    "name": [ "mapgen" ],
+
+    "description": "Map generator for HNCO",
+
+    "version": "0.1",
+
+    "tab_order": [ "General", "Map" ],
+
+    "parameters": {
+
+        "seed":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Seed for the random number generator",
+            "category": "General"
+        },
+
+        "bv_size":
+        {
+            "optchar": "s",
+            "type": "int",
+            "value": 100,
+            "description": "Size of bit vectors",
+            "category": "General"
+        },
+
+        "path":
+        {
+            "optchar": "p",
+            "type": "string",
+            "value": "nopath",
+            "description": "Path (relative or absolute) of a map file",
+            "category": "General",
+            "file": "open"
+        },
+
+        "map":
+        {
+            "optchar": "M",
+            "type": "int",
+            "value": 1,
+            "description": "Type of map",
+            "category": "Map",
+            "alternatives":
+            [
+
+                {
+                    "value": 1,
+                    "description": "Translation"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Permutation"
+                },
+
+                {
+                    "value": 3,
+                    "description": "Linear map"
+                },
+
+                {
+                    "value": 4,
+                    "description": "Affine map"
+                }
+
+            ]
+
+        },
+
+        "map_input_size":
+        {
+            "type": "int",
+            "value": 100,
+            "description": "Input size of linear and affine maps",
+            "category": "Map"
+        }
+
+    }
+
+}

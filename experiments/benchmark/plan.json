@@ -1,0 +1,186 @@
+{
+    "exec": "hnco",
+    "opt": "--no-header --print-performances --map 1 --map-random -s 100 -i 0 -b 300000",
+
+    "num_runs": 20,
+
+    "results": "results",
+    "graphics": "graphics",
+    "report": "report",
+
+    "functions": [
+
+        {
+            "id": "one-max",
+	    "opt": "-F 0 --stop-on-maximum",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "lin",
+	    "opt": "-F 1 -p instances/lin.100",
+            "col": ">{{\\nprounddigits{2}}}N{2}{2}"
+        },
+
+        {
+            "id": "leading-ones",
+	    "opt": "-F 10 --stop-on-maximum",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "ridge",
+	    "opt": "-F 11 --stop-on-maximum",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "jmp-5",
+	    "opt": "-F 30 --stop-on-maximum -t 5",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "jmp-10",
+	    "opt": "-F 30 --stop-on-maximum -t 10",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "djmp-5",
+	    "opt": "-F 31 --stop-on-maximum -t 5",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "djmp-10",
+	    "opt": "-F 31 --stop-on-maximum -t 10",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "fp-5",
+	    "opt": "-F 40 --stop-on-maximum -t 5",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "fp-10",
+	    "opt": "-F 40 --stop-on-maximum -t 10",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "quad",
+	    "opt": "-F 50 -p instances/quad.100 --cache",
+            "col": ">{{\\nprounddigits{2}}}N{3}{2}"
+        },
+
+        {
+            "id": "nk",
+	    "opt": "-F 60 -p instances/nk.100.4",
+            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+        },
+
+        {
+            "id": "max-sat",
+	    "opt": "-F 70 -p instances/ms.100.3.1000 --cache",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "labs",
+	    "opt": "-F 80",
+            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+        },
+
+        {
+            "id": "ep",
+	    "opt": "-F 90 -p instances/ep.100",
+            "reverse": true,
+            "logscale": true,
+            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+        },
+
+        {
+            "id": "cancel",
+	    "opt": "-F 100 -s 99",
+            "reverse": true,
+            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+        },
+
+        {
+            "id": "trap",
+	    "opt": "-F 110 --stop-on-maximum --fun-num-traps 10",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "hiff",
+	    "opt": "-F 120 --stop-on-maximum -s 128",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "plateau",
+	    "opt": "-F 130 --stop-on-maximum",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        }
+
+    ],
+
+    "algorithms": [
+
+        {
+            "id": "rls",
+	    "opt": "-A 100 --restart"
+        },
+
+        {
+            "id": "hc",
+	    "opt": "-A 150 --restart"
+        },
+
+        {
+            "id": "sa",
+	    "opt": "-A 200 --sa-rate 1.05 --sa-num-trials 10"
+        },
+
+        {
+            "id": "ea-1p1",
+	    "opt": "-A 300"
+        },
+
+        {
+            "id": "ea-1p10",
+	    "opt": "-A 310 --ea-mu 1 --ea-lambda 10"
+        },
+
+        {
+            "id": "ea-10p1",
+	    "opt": "-A 310 --ea-mu 10 --ea-lambda 1"
+        },
+
+        {
+            "id": "ea-1c10",
+	    "opt": "-A 320 --ea-mu 1 --ea-lambda 10"
+        },
+
+        {
+            "id": "ga",
+	    "opt": "-A 400 --ea-mu 100"
+        },
+
+        {
+            "id": "pbil",
+	    "opt": "-A 500 -r 5e-3"
+        },
+
+        {
+            "id": "umda",
+	    "opt": "-A 600 -x 100 -y 10"
+        }
+
+    ]
+
+}

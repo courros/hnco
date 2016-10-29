@@ -1,0 +1,59 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{color}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\geometry{top=1cm,bottom=2cm,left=1cm,right=1cm}
+
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+% Numprint
+\nprounddigits{3}
+%\npproductsign{\times}
+
+%\pagestyle{empty}
+
+\renewcommand{\thesubfigure}{\arabic{subfigure}}
+
+\begin{document}
+
+%\thispagestyle{empty}
+
+\title{HNCO\\
+  Dynamics of performances\\
+  of various black box optimization algorithms}
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Default parameters}
+
+\inputminted[breaklines=true]{text}{../log.default}
+
+\section{Plan}
+
+\inputminted[breaklines=true]{json}{../plan-compact.json}
+
+\input{results.tex}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% mode: reftex
+%%% mode: auto-fill
+%%% TeX-master: t
+%%% Local IspellDict: "american"
+%%% End: 

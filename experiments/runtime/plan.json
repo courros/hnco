@@ -1,0 +1,45 @@
+{
+    "exec": "hnco",
+    "opt": "--no-header --print-performances --map 1 --map-random -i 0 -b 0 --stop-on-maximum",
+
+    "num_runs": 10,
+
+    "results": "results",
+    "report": "report",
+    "graphics": "graphics",
+
+    "parameter": "bv-size",
+    "values": [ 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000 ],
+    "values_perl": "map { 10 * $_ + 100 } (0 .. 10)",
+
+    "functions": [
+
+        {
+            "id": "one-max",
+	    "opt": "-F 0"
+        },
+
+        {
+            "id": "leading-ones",
+	    "opt": "-F 10"
+        }
+
+    ],
+
+    "algorithms": [
+
+        {
+            "id": "ea-1p1",
+            "title": "(1+1) EA",
+	    "opt": "-A 300"
+        },
+
+        {
+            "id": "rls",
+            "title": "RLS",
+	    "opt": "-A 100 --patience 0"
+        }
+
+    ]
+
+}

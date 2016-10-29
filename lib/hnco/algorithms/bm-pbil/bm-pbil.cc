@@ -1,0 +1,149 @@
+/* Copyright (C) 2016 Arnaud Berny
+
+   This file is part of HNCO.
+
+   HNCO is free software: you can redistribute it and/or modify it
+   under the terms of the GNU Lesser General Public License as
+   published by the Free Software Foundation, either version 3 of the
+   License, or (at your option) any later version.
+
+   HNCO is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+   or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General
+   Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public
+   License along with HNCO. If not, see
+   <http://www.gnu.org/licenses/>.
+
+*/
+
+#include <math.h>               // exp, sqrt
+
+#include "hnco/exception.hh"
+
+#include "bm-pbil.hh"
+
+using namespace hnco::algorithm::bm_pbil;
+using namespace hnco::exception;
+using namespace hnco::function;
+using namespace hnco;
+using namespace std;
+
+
+void
+BmPbil::init()
+{
+  random_solution();
+  _model.init();
+}
+
+
+void
+BmPbil::sample(bit_vector_t& x)
+{
+  switch (_sampling) {
+  case SAMPLING_ASYNCHRONOUS:
+    sample_asynchronous();
+    break;
+  case SAMPLING_ASYNCHRONOUS_FULL_SCAN:
+    sample_asynchronous_full_scan();
+    break;
+  case SAMPLING_SYNCHRONOUS:
+    sample_synchronous();
+    break;
+  default:
+    ostringstream stream;
+    stream << _sampling;
+    throw Error("BmPbil::sample: Unknown _sampling: " + stream.str());
+  }
+  x = _model.get_state();
+}
+
+
+void
+BmPbil::sample_asynchronous()
+{
+  for (int t = 0; t < _num_gs_steps; t++)
+    _model.gibbs_sampler(_choose_bit(random::Random::engine));
+}
+
+
+void
+BmPbil::sample_asynchronous_full_scan()
+{
+  for (int t = 0; t < _num_gs_cycles; t++) {
+    perm_random(_permutation);
+    for (size_t i = 0; i < _permutation.size(); i++)
+      _model.gibbs_sampler(_permutation[i]);
+  }
+}
+
+
+void
+BmPbil::sample_synchronous()
+{
+  for (int t = 0; t < _num_gs_cycles; t++)
+    _model.gibbs_sampler_synchronous();
+}
+
+
+void
+BmPbil::iterate()
+{
+  if (_mc_reset_strategy == RESET_ITERATION)
+    _model.reset_mc();
+
+  // Sample population
+  for (size_t i = 0; i < _population.size(); i++) {
+    if (_mc_reset_strategy == RESET_BIT_VECTOR)
+      _model.reset_mc();
+    sample(_population.get_bv(i));
+  }
+
+  // Evaluate population
+  _population.eval(_function);
+  _population.sort();
+
+  update_solution(_population.get_nth_bv(0),
+                  _population.get_evaluation(0).value);
+
+  // Average best individuals
+  _parameters_best.init();
+  for (int i = 0; i < _selection_size; i++)
+    _parameters_best.add(_population.get_nth_bv(i));
+  _parameters_best.average(_selection_size);
+
+  if (_negative_positive_selection) {
+    // Average worst individuals
+    _parameters_worst.init();
+    for (int i = 0; i < _selection_size; i++)
+      _parameters_worst.add(_population.get_nth_bv(_population.size() - 1 - i));
+    _parameters_worst.average(_selection_size);
+    _model.update(_parameters_best, _parameters_worst, _rate);
+  } else {
+    // Average all individuals
+    _parameters_all.init();
+    for (size_t i = 0; i < _population.size(); i++)
+      _parameters_all.add(_population.get_bv(i));
+    _parameters_all.average(_population.size());
+    _model.update(_parameters_best, _parameters_all, _rate);
+  }
+
+}
+
+
+void
+BmPbil::log()
+{
+  assert(_log_flags.any());
+
+  if (_log_flags[LOG_NORM_INFINITE])
+    cout << _model.norm_infinite() << " ";
+
+  if (_log_flags[LOG_NORM_L1])
+    cout << _model.norm_l1() << " ";
+
+  cout << endl;
+
+}

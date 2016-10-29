@@ -1,0 +1,146 @@
+{
+    "name": [ "ffgen" ],
+
+    "description": "Fitness function generator for HNCO",
+
+    "version": "0.1",
+
+    "tab_order": [ "General", "QuadraticFunction", "NkLandscape", "MaxSat", "EqualProducts" ],
+
+    "flags": {
+
+        "ms_known_maximum":
+        {
+            "description": "Generate an instance with known maximum",
+            "category": "MaxSat"
+        }
+
+    },
+
+    "parameters": {
+
+        "seed":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Seed for the random number generator",
+            "category": "General"
+        },
+
+        "bv_size":
+        {
+            "optchar": "s",
+            "type": "int",
+            "value": 100,
+            "description": "Size of bit vectors",
+            "category": "General"
+        },
+
+        "path":
+        {
+            "optchar": "p",
+            "type": "string",
+            "value": "nopath",
+            "description": "Path (relative or absolute) of a function file",
+            "category": "General",
+            "file": "open"
+        },
+
+        "function":
+        {
+            "optchar": "F",
+            "type": "int",
+            "value": 1,
+            "description": "Type of function",
+            "category": "General",
+            "alternatives":
+            [
+
+                {
+                    "value": 1,
+                    "description": "Linear function"
+                },
+
+                {
+                    "value": 50,
+                    "description": "Quadratic function"
+                },
+
+                {
+                    "value": 60,
+                    "description": "NK landscape"
+                },
+
+                {
+                    "value": 70,
+                    "description": "Max-SAT"
+                },
+
+                {
+                    "value": 90,
+                    "description": "Equal products"
+                }
+
+            ]
+
+        },
+
+        "quad_stddev_lin":
+        {
+            "type": "double",
+            "value": 1,
+            "description": "Standard deviation of linear part",
+            "category": "QuadraticFunction"
+        },
+
+        "quad_stddev_quad":
+        {
+            "type": "double",
+            "value": 1,
+            "description": "Standard deviation of quadratic part",
+            "category": "QuadraticFunction"
+        },
+
+        "nk_k":
+        {
+            "type": "int",
+            "value": 3,
+            "description": "Each bit is connected to k other bits",
+            "category": "NkLandscape"
+        },
+
+        "nk_stddev":
+        {
+            "type": "double",
+            "value": 1,
+            "description": "Standard deviation of partial values",
+            "category": "NkLandscape"
+        },
+
+        "ms_num_literals_per_clause":
+        {
+            "type": "int",
+            "value": 3,
+            "description": "Number of literals per clause",
+            "category": "MaxSat"
+        },
+
+        "ms_num_clauses":
+        {
+            "type": "int",
+            "value": 100,
+            "description": "Number of clauses",
+            "category": "MaxSat"
+        },
+
+        "ep_upper_bound":
+        {
+            "type": "double",
+            "value": 1,
+            "description": "Parameter upper bound",
+            "category": "EqualProducts"
+        }
+
+    }
+
+}

@@ -1,0 +1,87 @@
+/* Copyright (C) 2016 Arnaud Berny
+
+   This file is part of HNCO.
+
+   HNCO is free software: you can redistribute it and/or modify it
+   under the terms of the GNU Lesser General Public License as
+   published by the Free Software Foundation, either version 3 of the
+   License, or (at your option) any later version.
+
+   HNCO is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+   or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General
+   Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public
+   License along with HNCO. If not, see
+   <http://www.gnu.org/licenses/>.
+
+*/
+
+#ifndef HNCO_FUNCTIONS_TRAP_H
+#define HNCO_FUNCTIONS_TRAP_H
+
+#include "hnco/exception.hh"
+
+#include "function.hh"
+
+
+namespace hnco {
+namespace function {
+
+
+  /// Trap
+  class Trap:
+    public Function {
+
+    /// Bit vector size
+    size_t _bv_size;
+
+    /// Number of traps
+    int _num_traps;
+
+    /// Trap size
+    int _trap_size;
+
+  public:
+
+    /** Constructor.
+
+        \param bv_size Bit vector size
+        \param num_traps Number of traps
+
+        \warning bv_size must be a multiple of num_traps
+    */
+    Trap(int bv_size, int num_traps):
+      _bv_size(bv_size),
+      _num_traps(num_traps)
+    {
+      assert(num_traps > 0);
+      if (bv_size % num_traps != 0)
+        throw exception::Error("Trap::Trap: _bv_size must be a multiple of _num_traps");
+      _trap_size = bv_size / num_traps;
+    }
+
+    /// Get bit vector size
+    size_t get_bv_size() { return _bv_size; }
+
+    /// Evaluate a bit vector
+    double eval(const bit_vector_t&);
+
+    /** Check for a known maximum.
+     *
+     * \return true
+     */
+    bool has_known_maximum() { return true; }
+
+    /// Get the global maximum
+    double get_maximum() { return _bv_size; }
+
+  };
+
+
+} // end of namespace function
+} // end of namespace hnco
+
+
+#endif
