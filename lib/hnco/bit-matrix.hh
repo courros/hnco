@@ -53,7 +53,7 @@ namespace hnco {
     std::size_t num_columns = M[0].size();
     if (num_columns == 0)
       return false;
-    return all_of(M.begin(), M.end(), [num_columns](const bit_vector_t& row){ return row.size() == num_columns; });
+    return std::all_of(M.begin(), M.end(), [num_columns](const bit_vector_t& row){ return row.size() == num_columns; });
   }
 
   /// Number of rows
@@ -74,7 +74,10 @@ namespace hnco {
   /// Clear bit matrix
   inline void bm_clear(bit_matrix_t& M) { std::for_each(M.begin(), M.end(), [](bit_vector_t& row){ bv_clear(row); }); }
 
-  /// Set the matrix to the identity matrix
+  /** Set the matrix to the identity matrix.
+
+      \pre bm_is_square(M)
+  */
   void bm_identity(bit_matrix_t& M);
 
   /// Sample a random bit matrix
@@ -93,6 +96,9 @@ namespace hnco {
 
       \param M input matrix
       \param N inverse matrix
+
+      \pre bm_is_square(M)
+      \pre bm_is_square(N)
 
       \return true if M is invertible
 
