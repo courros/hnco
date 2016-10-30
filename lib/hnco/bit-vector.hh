@@ -80,6 +80,7 @@ namespace hnco {
   inline int bv_hamming_distance(const bit_vector_t& x, const bit_vector_t& y)
   {
     assert(x.size() == y.size());
+
     int d = 0;
     for (std::size_t i = 0; i < x.size(); i++)
       if (x[i] != y[i])
@@ -91,6 +92,7 @@ namespace hnco {
   inline bit_t bv_dot_product(const bit_vector_t& x, const bit_vector_t& y)
   {
     assert(x.size() == y.size());
+
     int result = 0;
     for (std::size_t i = 0; i < x.size(); i++)
       if (x[i] && y[i])
@@ -102,12 +104,13 @@ namespace hnco {
   inline void bv_clear(bit_vector_t& x) { fill(x.begin(), x.end(), 0); }
 
   /// Flip a single bit
-  inline void bv_flip(bit_vector_t& x, int i) { x[i] = bit_flip(x[i]); }
+  inline void bv_flip(bit_vector_t& x, std::size_t i) { x[i] = bit_flip(x[i]); }
 
   /// Flip many bits
   inline void bv_flip(bit_vector_t& x, bit_vector_t& mask)
   {
     assert(mask.size() == x.size());
+
     for (std::size_t i = 0; i < x.size(); i++)
       if (mask[i])
         x[i] = bit_flip(x[i]);
@@ -135,6 +138,7 @@ namespace hnco {
   inline void bv_add(const bit_vector_t& src, bit_vector_t& dest)
   {
     assert(dest.size() == src.size());
+
     for (std::size_t i = 0; i < dest.size(); i++)
       dest[i] = (src[i] + dest[i]) % 2;
   }
@@ -144,6 +148,7 @@ namespace hnco {
   {
     assert(dest.size() == x.size());
     assert(dest.size() == y.size());
+
     for (std::size_t i = 0; i < dest.size(); i++)
       dest[i] = (x[i] + y[i]) % 2;
   }
