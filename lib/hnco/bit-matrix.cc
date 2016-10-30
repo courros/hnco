@@ -59,7 +59,9 @@ void hnco::bm_resize(bit_matrix_t& M, int num_rows, int num_columns)
   assert(num_rows > 0);
   assert(num_columns > 0);
 
-  M.resize(num_rows, bit_vector_t(num_columns));
+  M.resize(num_rows);
+  for (auto& row: M)
+    row.resize(num_columns);
 }
 
 void hnco::bm_random(bit_matrix_t& M)
