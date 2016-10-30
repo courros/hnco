@@ -68,7 +68,7 @@ void hnco::bm_random(bit_matrix_t& M)
     bv_random(bv);
 }
 
-void hnco::bm_swap_rows(bit_matrix_t& M, size_t i, size_t j)
+void hnco::bm_swap_rows(bit_matrix_t& M, std::size_t i, std::size_t j)
 {
   assert(i < M.size());
   assert(j < M.size());
@@ -79,7 +79,7 @@ void hnco::bm_swap_rows(bit_matrix_t& M, size_t i, size_t j)
   }
 }
 
-void hnco::bm_add_rows(bit_matrix_t& M, size_t i, size_t j)
+void hnco::bm_add_rows(bit_matrix_t& M, std::size_t i, std::size_t j)
 {
   assert(i < M.size());
   assert(j < M.size());
