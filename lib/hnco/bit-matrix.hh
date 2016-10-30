@@ -62,11 +62,14 @@ namespace hnco {
   /// Number of columns
   inline size_t bm_num_columns(const bit_matrix_t& M) { return M[0].size(); }
 
+  /// Check whether the matrix is a square matrix
+  inline bool bm_is_square(const bit_matrix_t& M) { return bm_num_rows(M) == bm_num_columns(M); }
+
   /// Check whether the matrix is the identity matrix
   bool bm_is_identity(const bit_matrix_t& M);
 
   /// Resize a bit matrix
-  void bm_resize(bit_matrix_t& M, int num_rows, int num_columns);
+  void bm_resize(bit_matrix_t& M, std::size_t num_rows, std::size_t num_columns);
 
   /// Clear bit matrix
   inline void bm_clear(bit_matrix_t& M) { std::for_each(M.begin(), M.end(), [](bit_vector_t& row){ bv_clear(row); }); }

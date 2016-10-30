@@ -21,15 +21,15 @@
 #include <assert.h>		// assert
 
 #include "bit-matrix.hh"
-#include "exception.hh"
 
 
 using namespace std;
 using namespace hnco;
-using namespace hnco::exception;
 
 void hnco::bm_identity(bit_matrix_t& M)
 {
+  assert(bm_is_square(M));
+
   for (size_t i = 0; i < M.size(); i++)
     for (size_t j = 0; j < M.size(); j++) {
       if (i == j)
@@ -41,6 +41,9 @@ void hnco::bm_identity(bit_matrix_t& M)
 
 bool hnco::bm_is_identity(const bit_matrix_t& M)
 {
+  if (!bm_is_square(M))
+    return false;
+
   for (size_t i = 0; i < M.size(); i++)
     for (size_t j = 0; j < M.size(); j++) {
       if (i == j) {
@@ -54,11 +57,8 @@ bool hnco::bm_is_identity(const bit_matrix_t& M)
   return true;
 }
 
-void hnco::bm_resize(bit_matrix_t& M, int num_rows, int num_columns)
+void hnco::bm_resize(bit_matrix_t& M, std::size_t num_rows, std::size_t num_columns)
 {
-  assert(num_rows > 0);
-  assert(num_columns > 0);
-
   M.resize(num_rows);
   for (auto& row: M)
     row.resize(num_columns);
@@ -66,31 +66,34 @@ void hnco::bm_resize(bit_matrix_t& M, int num_rows, int num_columns)
 
 void hnco::bm_random(bit_matrix_t& M)
 {
-  for (auto& bv: M)
-    bv_random(bv);
+  for (auto& row: M)
+    bv_random(row);
 }
 
 void hnco::bm_swap_rows(bit_matrix_t& M, std::size_t i, std::size_t j)
 {
-  assert(i < M.size());
-  assert(j < M.size());
-  for (size_t k = 0; k < M.size(); k++) {
-    int tmp = M[i][k];
-    M[i][k] = M[j][k];
-    M[j][k] = tmp;
-  }
+  assert(i < bm_num_rows(M));
+  assert(j < bm_num_rows(M));
+
+  for (size_t k = 0; k < bm_num_columns(M); k++)
+    std::swap(M[i][k], M[j][k]);
 }
 
 void hnco::bm_add_rows(bit_matrix_t& M, std::size_t i, std::size_t j)
 {
-  assert(i < M.size());
-  assert(j < M.size());
+  assert(i < bm_num_rows(M));
+  assert(j < bm_num_rows(M));
   assert(i != j);
+
   bv_add(M[i], M[j]);
 }
 
 bool hnco::bm_invert(bit_matrix_t& M, bit_matrix_t& N)
 {
+  assert(bm_is_square(M));
+  assert(bm_is_square(N));
+  assert(M.size() == N.size());
+
   bm_identity(N);
   for (size_t i = 0; i < M.size(); i++) {
     bool found = false;
