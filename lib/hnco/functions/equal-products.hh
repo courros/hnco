@@ -79,6 +79,7 @@ namespace function {
 
     /** Random instance.
 
+        \param n Size of bit vector
         \param upper_bound Upper bound of numbers
     */
     void random(int n, double upper_bound);

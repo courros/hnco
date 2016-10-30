@@ -71,6 +71,8 @@ namespace function {
 
     /** Random instance.
 
+        \param n Size of bit vector
+        \param k Number of neighbors of each bit
         \param stddev Standard deviation of the values of the partial
         functions
     */

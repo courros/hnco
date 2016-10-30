@@ -305,6 +305,7 @@ namespace neighborhood {
     /** Constructor.
 
         \param n Size of bit vectors
+        \param r Radius of Hamming Ball
     */
     HammingBallIterator(int n, int r):
       NeighborhoodIterator(n),
