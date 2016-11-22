@@ -1,3 +1,9 @@
+* Version 0.2 (unreleased)
+
+- Added report/Makefile and report/report.tex to the distribution for all experiments
+- hnco-runtime-stat.pl uses the same parameter specification as hnco-parameter-stat.pl
+- Updated experiments/runtime/plan.json
+
 * Version 0.1 (2016-10-29)
 
   First public release.

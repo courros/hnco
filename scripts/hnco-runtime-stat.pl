@@ -51,7 +51,9 @@ my $path_results        = $obj->{results};
 my $path_report         = $obj->{report};
 
 my $parameter           = $obj->{parameter};
-my $values              = $obj->{values};
+my $parameter_id        = $parameter->{id};
+my $values              = $parameter->{values};
+my $boxwidth            = $parameter->{boxwidth};
 
 my $all_stat = {};
 my $all_best = {};
@@ -78,7 +80,7 @@ sub compute_statistics
             foreach my $value (@$values) {
                 my $id = "$algorithm_id-$value";
 
-                my $path = "$path_results/$function_id/$algorithm_id/$parameter-$value.dat";
+                my $path = "$path_results/$function_id/$algorithm_id/$parameter_id-$value.dat";
                 my $input = IO::File->new($path, '<') or die "hnco-runtime-stat.pl: compute_statistics: Cannot open '$path': $!\n";
                 my $SD = Statistics::Descriptive::Full->new();
 
@@ -164,11 +166,17 @@ sub generate_gnuplot_candlesticks
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"$parameter\"\n",
+        "set xlabel \"$parameter_id\"\n",
         "set ylabel \"Runtime\"\n",
-        "set autoscale y\n",
-        "set boxwidth 0.5 relative\n",
-        "set offsets 0.05, 0.05, 0.05, 0.05\n\n";
+        "set autoscale fix\n",
+        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
+
+    if ($parameter->{logscale}) {
+        my $fmt = quote("10^{\%T}");
+        print CANDLESTICKS
+            "set logscale x\n",
+            "set format x $fmt\n";
+    }
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
@@ -189,8 +197,8 @@ sub generate_gnuplot_candlesticks
                 "set output $quoted_string\n";
             $quoted_string = quote("$path_results/$function_id/$algorithm_id/quartiles.dat");
             print CANDLESTICKS
-                "plot $quoted_string using 1:3:2:6:5 with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
-                "     $quoted_string using 1:4:4:4:4 with candlesticks lw 2 lt 1 notitle\n";
+                "plot $quoted_string using 1:3:2:6:5:$boxwidth with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
+                "     $quoted_string using 1:4:4:4:4:$boxwidth with candlesticks lw 2 lt 1 notitle\n";
 
             $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.eps");
             print CANDLESTICKS
@@ -218,7 +226,7 @@ sub generate_gnuplot_mean
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"$parameter\"\n",
+        "set xlabel \"$parameter_id\"\n",
         "set ylabel \"Mean runtime\"\n",
         "set logscale y\n",
         "set format y", quote("10^{\%T}"), "\n",
@@ -236,7 +244,7 @@ sub generate_gnuplot_mean
             $terminal{pdf}, "\n",
             "set output $quoted_string\n";
 
-        $quoted_string = quote("$function_id: Mean runtime as a function of $parameter");
+        $quoted_string = quote("$function_id: Mean runtime as a function of $parameter_id");
         print MEAN
             "set title $quoted_string\n";
 
@@ -276,7 +284,7 @@ sub generate_gnuplot_stddev
     print STDDEV
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"$parameter\"\n",
+        "set xlabel \"$parameter_id\"\n",
         "set ylabel \"Standard deviation of runtime\"\n",
         "set logscale y\n",
         "set format y", quote("10^{\%T}"), "\n",
@@ -294,7 +302,7 @@ sub generate_gnuplot_stddev
             $terminal{pdf}, "\n",
             "set output $quoted_string\n";
 
-        $quoted_string = quote("$function_id: Standard deviation of runtime as a function of $parameter");
+        $quoted_string = quote("$function_id: Standard deviation of runtime as a function of $parameter_id");
         print STDDEV
             "set title $quoted_string\n";
 

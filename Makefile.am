@@ -11,6 +11,8 @@ EXTRA_DIST = \
 	experiments/benchmark/instances/nk.100.4 \
 	experiments/benchmark/instances/quad.100 \
 	experiments/benchmark/plan.json \
+	experiments/benchmark/report/Makefile \
+	experiments/benchmark/report/report.tex \
 	experiments/dynamics/Makefile \
 	experiments/dynamics/instances/Makefile \
 	experiments/dynamics/instances/ep.100 \
@@ -19,6 +21,8 @@ EXTRA_DIST = \
 	experiments/dynamics/instances/nk.100.4 \
 	experiments/dynamics/instances/quad.100 \
 	experiments/dynamics/plan.json \
+	experiments/dynamics/report/Makefile \
+	experiments/dynamics/report/report.tex \
 	experiments/parameter/Makefile \
 	experiments/parameter/instances/Makefile \
 	experiments/parameter/instances/ep.100 \
@@ -27,8 +31,12 @@ EXTRA_DIST = \
 	experiments/parameter/instances/nk.100.4 \
 	experiments/parameter/instances/quad.100 \
 	experiments/parameter/plan.json \
+	experiments/parameter/report/Makefile \
+	experiments/parameter/report/report.tex \
 	experiments/runtime/Makefile \
-	experiments/runtime/plan.json
+	experiments/runtime/plan.json \
+	experiments/runtime/report/Makefile \
+	experiments/runtime/report/report.tex
 
 #
 # Code management

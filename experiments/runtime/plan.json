@@ -8,9 +8,11 @@
     "report": "report",
     "graphics": "graphics",
 
-    "parameter": "bv-size",
-    "values": [ 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000 ],
-    "values_perl": "map { 10 * $_ + 100 } (0 .. 10)",
+    "parameter": {
+        "id": "bv-size",
+        "values": [ 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000 ],
+        "boxwidth": "(40)"
+    },
 
     "functions": [
 
