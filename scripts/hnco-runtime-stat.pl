@@ -186,7 +186,7 @@ sub generate_gnuplot_candlesticks
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
 
-            my $quoted_string = quote("$algorithm_id on $function_id");
+            my $quoted_string = quote("$a->{title} on $function_id");
 
             print CANDLESTICKS
                 "set title $quoted_string\n";
