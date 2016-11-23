@@ -108,7 +108,9 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-serialize-nk-landscape$(EXEEXT) \
 	test-serialize-quadratic-function$(EXEEXT) \
 	test-serialize-translation$(EXEEXT) \
+	test-serialize-permutation$(EXEEXT) \
 	test-serialize-affine-map$(EXEEXT) \
+	test-serialize-linear-map$(EXEEXT) \
 	test-steepest-ascent-hill-climbing$(EXEEXT)
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -242,6 +244,12 @@ test_serialize_linear_function_OBJECTS =  \
 	$(am_test_serialize_linear_function_OBJECTS)
 test_serialize_linear_function_LDADD = $(LDADD)
 test_serialize_linear_function_DEPENDENCIES = ../lib/libhnco.la
+am_test_serialize_linear_map_OBJECTS =  \
+	test-serialize-linear-map.$(OBJEXT)
+test_serialize_linear_map_OBJECTS =  \
+	$(am_test_serialize_linear_map_OBJECTS)
+test_serialize_linear_map_LDADD = $(LDADD)
+test_serialize_linear_map_DEPENDENCIES = ../lib/libhnco.la
 am_test_serialize_max_sat_OBJECTS = test-serialize-max-sat.$(OBJEXT)
 test_serialize_max_sat_OBJECTS = $(am_test_serialize_max_sat_OBJECTS)
 test_serialize_max_sat_LDADD = $(LDADD)
@@ -252,6 +260,12 @@ test_serialize_nk_landscape_OBJECTS =  \
 	$(am_test_serialize_nk_landscape_OBJECTS)
 test_serialize_nk_landscape_LDADD = $(LDADD)
 test_serialize_nk_landscape_DEPENDENCIES = ../lib/libhnco.la
+am_test_serialize_permutation_OBJECTS =  \
+	test-serialize-permutation.$(OBJEXT)
+test_serialize_permutation_OBJECTS =  \
+	$(am_test_serialize_permutation_OBJECTS)
+test_serialize_permutation_LDADD = $(LDADD)
+test_serialize_permutation_DEPENDENCIES = ../lib/libhnco.la
 am_test_serialize_quadratic_function_OBJECTS =  \
 	test-serialize-quadratic-function.$(OBJEXT)
 test_serialize_quadratic_function_OBJECTS =  \
@@ -323,8 +337,10 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
 	$(test_serialize_linear_function_SOURCES) \
+	$(test_serialize_linear_map_SOURCES) \
 	$(test_serialize_max_sat_SOURCES) \
 	$(test_serialize_nk_landscape_SOURCES) \
+	$(test_serialize_permutation_SOURCES) \
 	$(test_serialize_quadratic_function_SOURCES) \
 	$(test_serialize_translation_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES)
@@ -347,8 +363,10 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
 	$(test_serialize_linear_function_SOURCES) \
+	$(test_serialize_linear_map_SOURCES) \
 	$(test_serialize_max_sat_SOURCES) \
 	$(test_serialize_nk_landscape_SOURCES) \
+	$(test_serialize_permutation_SOURCES) \
 	$(test_serialize_quadratic_function_SOURCES) \
 	$(test_serialize_translation_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES)
@@ -731,7 +749,9 @@ test_serialize_max_sat_SOURCES = test-serialize-max-sat.cc
 test_serialize_nk_landscape_SOURCES = test-serialize-nk-landscape.cc
 test_serialize_quadratic_function_SOURCES = test-serialize-quadratic-function.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
+test_serialize_permutation_SOURCES = test-serialize-permutation.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
+test_serialize_linear_map_SOURCES = test-serialize-linear-map.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 TESTS = $(check_PROGRAMS)
 DISTCLEANFILES = test-serialize.txt
@@ -866,6 +886,10 @@ test-serialize-linear-function$(EXEEXT): $(test_serialize_linear_function_OBJECT
 	@rm -f test-serialize-linear-function$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_linear_function_OBJECTS) $(test_serialize_linear_function_LDADD) $(LIBS)
 
+test-serialize-linear-map$(EXEEXT): $(test_serialize_linear_map_OBJECTS) $(test_serialize_linear_map_DEPENDENCIES) $(EXTRA_test_serialize_linear_map_DEPENDENCIES) 
+	@rm -f test-serialize-linear-map$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_linear_map_OBJECTS) $(test_serialize_linear_map_LDADD) $(LIBS)
+
 test-serialize-max-sat$(EXEEXT): $(test_serialize_max_sat_OBJECTS) $(test_serialize_max_sat_DEPENDENCIES) $(EXTRA_test_serialize_max_sat_DEPENDENCIES) 
 	@rm -f test-serialize-max-sat$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_max_sat_OBJECTS) $(test_serialize_max_sat_LDADD) $(LIBS)
@@ -873,6 +897,10 @@ test-serialize-max-sat$(EXEEXT): $(test_serialize_max_sat_OBJECTS) $(test_serial
 test-serialize-nk-landscape$(EXEEXT): $(test_serialize_nk_landscape_OBJECTS) $(test_serialize_nk_landscape_DEPENDENCIES) $(EXTRA_test_serialize_nk_landscape_DEPENDENCIES) 
 	@rm -f test-serialize-nk-landscape$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_nk_landscape_OBJECTS) $(test_serialize_nk_landscape_LDADD) $(LIBS)
+
+test-serialize-permutation$(EXEEXT): $(test_serialize_permutation_OBJECTS) $(test_serialize_permutation_DEPENDENCIES) $(EXTRA_test_serialize_permutation_DEPENDENCIES) 
+	@rm -f test-serialize-permutation$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_permutation_OBJECTS) $(test_serialize_permutation_LDADD) $(LIBS)
 
 test-serialize-quadratic-function$(EXEEXT): $(test_serialize_quadratic_function_OBJECTS) $(test_serialize_quadratic_function_DEPENDENCIES) $(EXTRA_test_serialize_quadratic_function_DEPENDENCIES) 
 	@rm -f test-serialize-quadratic-function$(EXEEXT)
@@ -914,8 +942,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-affine-map.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-equal-products.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-linear-function.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-linear-map.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-max-sat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-nk-landscape.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-permutation.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-quadratic-function.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-translation.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po@am__quote@
@@ -1318,9 +1348,23 @@ test-serialize-translation.log: test-serialize-translation$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-serialize-permutation.log: test-serialize-permutation$(EXEEXT)
+	@p='test-serialize-permutation$(EXEEXT)'; \
+	b='test-serialize-permutation'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-serialize-affine-map.log: test-serialize-affine-map$(EXEEXT)
 	@p='test-serialize-affine-map$(EXEEXT)'; \
 	b='test-serialize-affine-map'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-serialize-linear-map.log: test-serialize-linear-map$(EXEEXT)
+	@p='test-serialize-linear-map$(EXEEXT)'; \
+	b='test-serialize-linear-map'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
