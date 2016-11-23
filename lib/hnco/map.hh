@@ -87,6 +87,7 @@ namespace hnco {
     void load(Archive& ar, const unsigned int version)
     {
       ar & _bv;
+
       assert(bv_is_valid(_bv));
     }
 
@@ -97,12 +98,10 @@ namespace hnco {
 
   public:
 
-    /// Default constructor
-    Translation() {}
-
     /// Random instance
     void random(int n) {
       assert(n > 0);
+
       _bv.resize(n);
       bv_random(_bv);
     }
@@ -150,6 +149,7 @@ namespace hnco {
     void load(Archive& ar, const unsigned int version)
     {
       ar & _permutation;
+
       assert(perm_is_valid(_permutation));
     }
 
@@ -160,12 +160,10 @@ namespace hnco {
 
   public:
 
-    /// Default constructor
-    Permutation() {}
-
     /// Random instance
     void random(int n) {
       assert(n > 0);
+
       _permutation.resize(n);
       perm_random(_permutation);
     }
@@ -216,6 +214,7 @@ namespace hnco {
     void load(Archive& ar, const unsigned int version)
     {
       ar & _bm;
+
       assert(bm_is_valid(_bm));
     }
 
@@ -225,9 +224,6 @@ namespace hnco {
     bit_matrix_t _bm;
 
   public:
-
-    /// Default constructor
-    LinearMap() {}
 
     /// Random instance
     void random(int n, int m) {
@@ -281,6 +277,7 @@ namespace hnco {
     {
       ar & _bm;
       ar & _bv;
+
       assert(bm_is_valid(_bm));
       assert(bv_is_valid(_bv));
       assert(bm_num_rows(_bm) == _bv.size());
@@ -296,9 +293,6 @@ namespace hnco {
 
   public:
 
-    /// Default constructor
-    AffineMap() {}
-
     /// Random instance
     void random(int n, int m) {
       assert(n > 0);
@@ -309,6 +303,8 @@ namespace hnco {
 
       _bv.resize(n);
       bv_random(_bv);
+
+      assert(bm_num_rows(_bm) == _bv.size());
     }
 
     /// Map
@@ -319,6 +315,76 @@ namespace hnco {
 
     /// Get output size
     size_t get_output_size() { return bm_num_rows(_bm); }
+
+  };
+
+
+  /** Map composition.
+
+      The resulting composition f is defined for all bit vector x by
+      f(x) = outer(inner(x)).
+   */
+  class MapComposition:
+    public Map {
+
+    friend class boost::serialization::access;
+
+    /// Save
+    template<class Archive>
+    void save(Archive& ar, const unsigned int version) const
+    {
+      ar & (*_outer);
+      ar & (*_inner);
+    }
+
+    /// Load
+    template<class Archive>
+    void load(Archive& ar, const unsigned int version)
+    {
+      ar & (*_outer);
+      ar & (*_inner);
+      _bv.resize(_inner->get_output_size());
+    }
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+
+    /// Outer map
+    Map *_outer;
+
+    /// Inner map
+    Map *_inner;
+
+    /// Temporary bit vector
+    bit_vector_t _bv;
+
+  public:
+
+    /** Constructor.
+
+        \param outer outer map
+        \param inner inner map
+
+        \pre outer->get_input_size() == inner->get_output_size()
+    */
+    MapComposition(Map *outer, Map *inner):
+      _outer(outer),
+      _inner(inner)
+    {
+      assert(outer->get_input_size() == inner->get_output_size());
+      _bv.resize(_inner->get_output_size());
+    }
+
+    /// Map
+    void map(const bit_vector_t& input, bit_vector_t& output) {
+      _inner->map(input, _bv);
+      _outer->map(_bv, output);
+    }
+
+    /// Get input size
+    size_t get_input_size() { return _inner->get_input_size(); }
+
+    /// Get output size
+    size_t get_output_size() { return _outer->get_output_size(); }
 
   };
 
