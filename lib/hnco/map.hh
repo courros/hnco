@@ -24,8 +24,8 @@
 #include <fstream>
 #include <vector>
 
-#include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
 #include <boost/serialization/vector.hpp>
 
 #include "bit-matrix.hh"
@@ -34,7 +34,6 @@
 
 
 namespace hnco {
-
 
   /// Map
   class Map {
@@ -327,27 +326,6 @@ namespace hnco {
   class MapComposition:
     public Map {
 
-    friend class boost::serialization::access;
-
-    /// Save
-    template<class Archive>
-    void save(Archive& ar, const unsigned int version) const
-    {
-      ar & (*_outer);
-      ar & (*_inner);
-    }
-
-    /// Load
-    template<class Archive>
-    void load(Archive& ar, const unsigned int version)
-    {
-      ar & (*_outer);
-      ar & (*_inner);
-      _bv.resize(_inner->get_output_size());
-    }
-
-    BOOST_SERIALIZATION_SPLIT_MEMBER()
-
     /// Outer map
     Map *_outer;
 
@@ -358,6 +336,9 @@ namespace hnco {
     bit_vector_t _bv;
 
   public:
+
+    /// Default constructor
+    MapComposition() {}
 
     /** Constructor.
 
@@ -390,6 +371,5 @@ namespace hnco {
 
 
 } // end of namespace hnco
-
 
 #endif

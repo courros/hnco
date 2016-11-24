@@ -18,15 +18,15 @@ check_PROGRAMS = \
 	test-hypercube-iterator \
 	test-max-sat \
 	test-sbm-multiply \
+	test-serialize-affine-map \
 	test-serialize-equal-products \
 	test-serialize-linear-function \
+	test-serialize-linear-map \
 	test-serialize-max-sat \
 	test-serialize-nk-landscape \
+	test-serialize-permutation \
 	test-serialize-quadratic-function \
 	test-serialize-translation \
-	test-serialize-permutation \
-	test-serialize-affine-map \
-	test-serialize-linear-map \
 	test-steepest-ascent-hill-climbing
 
 AM_CPPFLAGS = -I $(top_srcdir)/lib
@@ -52,15 +52,16 @@ test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
 test_max_sat_SOURCES = test-max-sat.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
+test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
 test_serialize_equal_products_SOURCES = test-serialize-equal-products.cc
 test_serialize_linear_function_SOURCES = test-serialize-linear-function.cc
+test_serialize_linear_map_SOURCES = test-serialize-linear-map.cc
+test_serialize_map_composition_SOURCES = test-serialize-map-composition.cc
 test_serialize_max_sat_SOURCES = test-serialize-max-sat.cc
 test_serialize_nk_landscape_SOURCES = test-serialize-nk-landscape.cc
+test_serialize_permutation_SOURCES = test-serialize-permutation.cc
 test_serialize_quadratic_function_SOURCES = test-serialize-quadratic-function.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
-test_serialize_permutation_SOURCES = test-serialize-permutation.cc
-test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
-test_serialize_linear_map_SOURCES = test-serialize-linear-map.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 
 TESTS = $(check_PROGRAMS)
