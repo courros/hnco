@@ -22,6 +22,7 @@ check_PROGRAMS = \
 	test-serialize-equal-products \
 	test-serialize-linear-function \
 	test-serialize-linear-map \
+	test-serialize-map-composition \
 	test-serialize-max-sat \
 	test-serialize-nk-landscape \
 	test-serialize-permutation \
@@ -66,4 +67,14 @@ test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.
 
 TESTS = $(check_PROGRAMS)
 
-DISTCLEANFILES = test-serialize.txt
+DISTCLEANFILES = \
+	test-serialize-translation \
+	test-serialize-quadratic-function \
+	test-serialize-permutation \
+	test-serialize-nk-landscape \
+	test-serialize-max-sat \
+	test-serialize-map-composition \
+	test-serialize-equal-products \
+	test-serialize-linear-map \
+	test-serialize-linear-function \
+	test-serialize-affine-map

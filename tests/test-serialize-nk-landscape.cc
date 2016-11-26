@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 {
   Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  const string path("test-serialize.txt");
+  const string path("test-serialize-nk-landscape.txt");
 
   for (int i = 0; i < 10; i++) {
 

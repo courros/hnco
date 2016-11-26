@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 {
   Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  const string path("test-serialize.txt");
+  const string path("test-serialize-map-composition.txt");
 
   for (int i = 0; i < 10; i++) {
 
@@ -40,27 +40,28 @@ int main(int argc, char *argv[])
     int n = dist_n(Random::engine);
     int m = dist_n(Random::engine);
 
-    LinearMap src_lm;
-    src_lm.random(n, m);
-
     Translation src_t;
+    LinearMap src_lm;
     src_t.random(n);
-
-    MapComposition src(&src_t, &src_lm);
+    src_lm.random(n, m);
     {
       std::ofstream ofs(path);
       boost::archive::text_oarchive oa(ofs);
-      oa << src;
+      oa << src_t << src_lm;
     }
 
-    MapComposition dest;
+    Translation dest_t;
+    LinearMap dest_lm;
     {
       ifstream ifs(path);
       if (!ifs.good())
         return 1;
       boost::archive::text_iarchive ia(ifs);
-      ia >> dest;
+      ia >> dest_t >> dest_lm;
     }
+
+    MapComposition src(&src_t, &src_lm);
+    MapComposition dest(&dest_t, &dest_lm);
 
     bit_vector_t x(m);
     bit_vector_t y1(n);
