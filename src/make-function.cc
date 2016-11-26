@@ -200,7 +200,7 @@ make_map(Options& options)
       ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
         ostringstream stream;
-        stream << "make_concrete_function (Translation): Cannot open " << options.get_map_path();
+        stream << "make_concrete_function (Permutation): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
       boost::archive::text_iarchive ia(ifs);
@@ -210,6 +210,25 @@ make_map(Options& options)
   }
 
   case 3: {
+    Permutation *permutation = new Permutation;
+    Translation *translation = new Translation;
+    if (options.with_map_random()) {
+      permutation->random(options.get_bv_size());
+      translation->random(options.get_bv_size());
+    } else {
+      ifstream ifs(options.get_map_path());
+      if (!ifs.good()) {
+        ostringstream stream;
+        stream << "make_concrete_function (Composition of permutation and translation): Cannot open " << options.get_map_path();
+        throw Error(stream.str());
+      }
+      boost::archive::text_iarchive ia(ifs);
+      ia >> (*permutation) >> (*translation);
+    }
+    return new MapComposition(permutation, translation);
+  }
+
+  case 4: {
     LinearMap *map = new LinearMap;
     if (options.with_map_random()) {
       map->random(options.get_bv_size(), options.get_map_input_size());
@@ -226,7 +245,7 @@ make_map(Options& options)
     return map;
   }
 
-  case 4: {
+  case 5: {
     AffineMap *map = new AffineMap;
     if (options.with_map_random()) {
       map->random(options.get_bv_size(), options.get_map_input_size());

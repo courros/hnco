@@ -361,11 +361,16 @@
 
                 {
                     "value": 3,
-                    "description": "Linear"
+                    "description": "Composition of permutation and translation"
                 },
 
                 {
                     "value": 4,
+                    "description": "Linear"
+                },
+
+                {
+                    "value": 5,
                     "description": "Affine"
                 }
 

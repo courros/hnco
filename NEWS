@@ -4,6 +4,9 @@
 - hnco-runtime-stat.pl uses the same parameter specification as hnco-parameter-stat.pl
 - Updated experiments/runtime/plan.json
 
+- Added MapComposition
+- Added Map serialization tests
+
 * Version 0.1 (2016-10-29)
 
   First public release.
