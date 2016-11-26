@@ -5,17 +5,14 @@ default-parameters:
 
 run:
 	echo `date` >> log.err
-	time -o log.err -a hnco-benchmark-run.pl
+	time -o log.err -a hnco-ecdf-run.py
 
 doc:
-	hnco-benchmark-stat.pl
-	./candlesticks.gp
-	./clouds.gp
 	sed '/^$$/d' plan.json > plan-compact.json
-	make -C report
+#	make -C report
 
 clean:
-	rm -f candlesticks.gp clouds.gp plan-compact.json log.default log.err
+	rm -f plan-compact.json log.default log.err
 	rm -rf results
 	rm -rf graphics
 

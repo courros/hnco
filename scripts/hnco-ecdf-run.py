@@ -14,10 +14,7 @@ class Application(object):
 
     def __init__(self):
         parser = argparse.ArgumentParser()
-        parser.add_argument("--plan",
-                            type=str,
-                            help="Plan",
-                            default='plan.json')
+        parser.add_argument("--plan", type=str, help="JSON file which describes the experiment", default='plan.json')
         self.args = parser.parse_args()
 
     def main(self):
@@ -73,8 +70,10 @@ class Application(object):
         file_err = open('log.err', 'a')
         args = '{} {} {} {}'.format(a.get('exec', self.plan['exec']), self.plan['opt'], f['opt'], a['opt']).split()
         status = subprocess.call(args, stdout=file_out, stderr=file_err)
-        print(status)
-#        sys.stdout.write('.')
+        if status == 0:
+            sys.stdout.write('.')
+        else:
+            sys.stdout.write('X')
 
 if __name__ == '__main__':
     application = Application()
