@@ -100,8 +100,9 @@ void Options::print_help(ostream& stream) const
   stream << "          Type of map" << endl;
   stream << "            1: Translation" << endl;
   stream << "            2: Permutation" << endl;
-  stream << "            3: Linear map" << endl;
-  stream << "            4: Affine map" << endl;
+  stream << "            3: Composition of permutation and translation" << endl;
+  stream << "            4: Linear" << endl;
+  stream << "            5: Affine" << endl;
   stream << "      --map-input-size (type int, default to 100)" << endl;
   stream << "          Input size of linear and affine maps" << endl;
   stream << endl;

@@ -58,12 +58,17 @@
 
                 {
                     "value": 3,
-                    "description": "Linear map"
+                    "description": "Composition of permutation and translation"
                 },
 
                 {
                     "value": 4,
-                    "description": "Affine map"
+                    "description": "Linear"
+                },
+
+                {
+                    "value": 5,
+                    "description": "Affine"
                 }
 
             ]

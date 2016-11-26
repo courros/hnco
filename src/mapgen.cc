@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     map.random(options.get_bv_size());
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
-    cout << "Writing Translation to " << options.get_path() << " ... ";
+    cout << "Writing translation to " << options.get_path() << " ... ";
     oa << map;
     cout << "done" << endl;
     break;
@@ -65,29 +65,42 @@ int main(int argc, char *argv[])
     map.random(options.get_bv_size());
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
-    cout << "Writing Permutation to " << options.get_path() << " ... ";
+    cout << "Writing permutation to " << options.get_path() << " ... ";
     oa << map;
     cout << "done" << endl;
     break;
   }
 
   case 3: {
-    LinearMap map;
-    map.random(options.get_bv_size(), options.get_map_input_size());
+    Permutation permutation;
+    Translation translation;
+    permutation.random(options.get_bv_size());
+    translation.random(options.get_bv_size());
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
-    cout << "Writing LinearMap to " << options.get_path() << " ... ";
-    oa << map;
+    cout << "Writing permutation and translation to " << options.get_path() << " ... ";
+    oa << permutation << translation;
     cout << "done" << endl;
     break;
   }
 
   case 4: {
+    LinearMap map;
+    map.random(options.get_bv_size(), options.get_map_input_size());
+    std::ofstream ofs(options.get_path());
+    boost::archive::text_oarchive oa(ofs);
+    cout << "Writing linear map to " << options.get_path() << " ... ";
+    oa << map;
+    cout << "done" << endl;
+    break;
+  }
+
+  case 5: {
     AffineMap map;
     map.random(options.get_bv_size(), options.get_map_input_size());
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
-    cout << "Writing AffineMap to " << options.get_path() << " ... ";
+    cout << "Writing affine map to " << options.get_path() << " ... ";
     oa << map;
     cout << "done" << endl;
     break;
