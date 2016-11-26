@@ -1,8 +1,8 @@
 {
     "exec": "hnco",
-    "opt": "--no-header --print-performances --map 1 --map-random -s 100 -i 0 -b 300000",
+    "opt": "--no-header --log-improvement --map 3 --map-random -s 100 -i 0 -b 100",
 
-    "num_runs": 20,
+    "num_runs": 2,
 
     "results": "results",
     "graphics": "graphics",
