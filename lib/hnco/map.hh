@@ -367,6 +367,12 @@ namespace hnco {
     /// Get output size
     size_t get_output_size() { return _outer->get_output_size(); }
 
+    /** Check for surjective map.
+
+        \return true if both maps are surjective
+    */
+    bool is_surjective() { return _outer->is_surjective() && _inner->is_surjective(); }
+
   };
 
 
