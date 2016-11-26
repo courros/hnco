@@ -6,6 +6,7 @@
 
 - Added MapComposition
 - Added Map serialization tests
+- mapgen, hnco: Added composition of permutation and translation
 
 * Version 0.1 (2016-10-29)
 
