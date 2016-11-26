@@ -44,8 +44,8 @@ int main(int argc, char *argv[])
     Translation map;
     map.random(bv_size);
 
-    Hiff                function0(bv_size);
-    RightComposition    function(&function0, &map);
+    Hiff function0(bv_size);
+    FunctionMapComposition function(&function0, &map);
 
     CompleteSearch algorithm(bv_size);
     algorithm.set_function(&function);

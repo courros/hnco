@@ -1,12 +1,15 @@
 * Version 0.2 (unreleased)
 
-- Added report/Makefile and report/report.tex to the distribution for all experiments
-- hnco-runtime-stat.pl uses the same parameter specification as hnco-parameter-stat.pl
-- Updated experiments/runtime/plan.json
-
+Library:
 - Added MapComposition
 - Added Map serialization tests
 - mapgen, hnco: Added composition of permutation and translation
+- Renamed RightComposition -> FunctionMapComposition
+
+Scripts and experiments:
+- Added report/Makefile and report/report.tex to the distribution for all experiments
+- hnco-runtime-stat.pl uses the same parameter specification as hnco-parameter-stat.pl
+- Updated experiments/runtime/plan.json
 
 * Version 0.1 (2016-10-29)
 

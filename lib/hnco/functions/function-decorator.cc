@@ -47,7 +47,7 @@ Negation::eval(const bit_vector_t& x)
 
 
 double
-RightComposition::eval(const bit_vector_t& x)
+FunctionMapComposition::eval(const bit_vector_t& x)
 {
   _map->map(x, _bv);
   return _function->eval(_bv);

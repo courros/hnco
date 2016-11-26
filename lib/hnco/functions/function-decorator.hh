@@ -135,7 +135,7 @@ namespace function {
 
 
   /// Composition of a function and a map
-  class RightComposition:
+  class FunctionMapComposition:
     public FunctionDecorator {
 
     /// Map
@@ -150,14 +150,14 @@ namespace function {
         \pre map->get_output_size() == function->get_bv_size()
         \throw Error
     */
-    RightComposition(Function *function, Map *map):
+    FunctionMapComposition(Function *function, Map *map):
       FunctionDecorator(function),
       _map(map)
     {
       assert(map);
 
       if (map->get_output_size() != function->get_bv_size())
-        throw exception::Error("RightComposition::RightComposition: _function and _map must be compatible");
+        throw exception::Error("FunctionMapComposition::FunctionMapComposition: _function and _map must be compatible");
       _bv.resize(function->get_bv_size());
     }
 

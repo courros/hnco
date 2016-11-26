@@ -45,8 +45,8 @@ int main(int argc, char *argv[])
     Translation map;
     map.random(bv_size);
 
-    FourPeaks           function0(bv_size, gap);
-    RightComposition    function(&function0, &map);
+    FourPeaks function0(bv_size, gap);
+    FunctionMapComposition function(&function0, &map);
 
     CompleteSearch algorithm(bv_size);
     algorithm.set_function(&function);

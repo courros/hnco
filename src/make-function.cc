@@ -283,7 +283,7 @@ make_managed_function(Function *function, Options& options)
   if (options.get_map() > 0) {
     map = make_map(options);
     assert(map);
-    function = new RightComposition(function, map);
+    function = new FunctionMapComposition(function, map);
     assert(function);
   }
 

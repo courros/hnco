@@ -45,8 +45,8 @@ int main(int argc, char *argv[])
     Translation map;
     map.random(bv_size);
 
-    Trap                function0(bv_size, num_traps);
-    RightComposition    function(&function0, &map);
+    Trap function0(bv_size, num_traps);
+    FunctionMapComposition function(&function0, &map);
 
     CompleteSearch algorithm(bv_size);
     algorithm.set_function(&function);
