@@ -33,7 +33,7 @@ class Application(object):
         self.path_results = self.plan['results']
         if not os.path.isdir(self.path_results):
             os.mkdir(self.path_results)
-            print('Created directory {}'.format((self.path_results)))
+            print('Created directory {}'.format(self.path_results))
         for f in self.plan['functions']:
             self.run_function(f)
 
@@ -43,7 +43,7 @@ class Application(object):
         path = '{}/{}'.format(self.path_results, id)
         if not os.path.isdir(path):
             os.mkdir(path)
-            print('Created directory {}'.format((path)))
+            print('Created directory {}'.format(path))
         for a in self.plan['algorithms']:
             self.run_algorithm(a, f)
 
@@ -53,7 +53,7 @@ class Application(object):
         path = '{}/{}/{}'.format(self.path_results, f_id, a_id)
         if not os.path.isdir(path):
             os.mkdir(path)
-            print('Created directory {}'.format((path)))
+            print('Created directory {}'.format(path))
         sys.stdout.write('    Algorithm {}:'.format(a_id))
         if a.get('deterministic', False):
             self.run_algorithm_once(a, f, 0)
