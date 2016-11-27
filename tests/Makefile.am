@@ -68,13 +68,13 @@ test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.
 TESTS = $(check_PROGRAMS)
 
 DISTCLEANFILES = \
-	test-serialize-translation \
-	test-serialize-quadratic-function \
-	test-serialize-permutation \
-	test-serialize-nk-landscape \
-	test-serialize-max-sat \
-	test-serialize-map-composition \
-	test-serialize-equal-products \
-	test-serialize-linear-map \
-	test-serialize-linear-function \
-	test-serialize-affine-map
+	test-serialize-translation.txt \
+	test-serialize-quadratic-function.txt \
+	test-serialize-permutation.txt \
+	test-serialize-nk-landscape.txt \
+	test-serialize-max-sat.txt \
+	test-serialize-map-composition.txt \
+	test-serialize-equal-products.txt \
+	test-serialize-linear-map.txt \
+	test-serialize-linear-function.txt \
+	test-serialize-affine-map.txt
