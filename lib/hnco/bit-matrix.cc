@@ -57,6 +57,18 @@ bool hnco::bm_is_identity(const bit_matrix_t& M)
   return true;
 }
 
+bool hnco::bm_is_upper_triangular(const bit_matrix_t& M)
+{
+  size_t rows = bm_num_rows(M);
+  size_t cols = bm_num_columns(M);
+  for (size_t i = 0; i < rows; i++)
+    for (size_t j = 0; j < std::min(i, cols); j++) {
+      if (M[i][j] != 0)
+        return false;
+    }
+  return true;
+}
+
 void hnco::bm_resize(bit_matrix_t& M, std::size_t num_rows, std::size_t num_columns)
 {
   M.resize(num_rows);
@@ -116,7 +128,8 @@ bool hnco::bm_invert(bit_matrix_t& M, bit_matrix_t& N)
         bm_add_rows(N, i, j);
       }
   }
-  // assert: M is upper triangular
+  assert(bm_is_upper_triangular(M));
+
   for (size_t k = 0; k < M.size(); k++) {
     size_t i = M.size() - 1 - k;
     for (size_t j = 0; j < i; j++)

@@ -68,6 +68,9 @@ namespace hnco {
   /// Check whether the matrix is the identity matrix
   bool bm_is_identity(const bit_matrix_t& M);
 
+  /// Check whether the matrix is upper triangular
+  bool bm_is_upper_triangular(const bit_matrix_t& M);
+
   /// Resize a bit matrix
   void bm_resize(bit_matrix_t& M, std::size_t num_rows, std::size_t num_columns);
 
