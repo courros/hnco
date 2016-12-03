@@ -128,6 +128,15 @@ bool hnco::bm_solve(bit_matrix_t& A, bit_vector_t& b)
   }
   assert(bm_is_upper_triangular(A));
 
+  return bm_solve_upper_triangular(A, b);
+}
+
+bool hnco::bm_solve_upper_triangular(bit_matrix_t& A, bit_vector_t& b)
+{
+  assert(bm_is_square(A));
+  assert(bm_num_rows(A) == b.size());
+  assert(bm_is_upper_triangular(A));
+
   for (size_t k = 0; k < A.size(); k++) {
     size_t i = A.size() - 1 - k;
     for (size_t j = 0; j < i; j++)
@@ -137,6 +146,7 @@ bool hnco::bm_solve(bit_matrix_t& A, bit_vector_t& b)
       }
   }
   assert(bm_is_identity(A));
+
   return true;
 }
 

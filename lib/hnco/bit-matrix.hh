@@ -117,6 +117,26 @@ namespace hnco {
   */
   bool bm_solve(bit_matrix_t& A, bit_vector_t& b);
 
+  /** Solve a linear system in upper triangular form.
+
+      Solve the linear equation Ax = b.
+
+      \param A Upper triangular matrix
+      \param b Right hand side
+
+      \pre bm_is_square(A)
+      \pre bm_num_rows(A) == b.size()
+      \pre bm_is_upper_triangular(A)
+
+      \return true if the system has a unique solution
+
+      \warning Both A and b are modified by the function. Provided
+      that A is invertible, after returning from the function, A is
+      the identity matrix and b is the unique solution to the linear
+      equation.
+  */
+  bool bm_solve_upper_triangular(bit_matrix_t& A, bit_vector_t& b);
+
   /** Invert a bit matrix.
 
       \param M input matrix
