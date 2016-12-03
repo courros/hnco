@@ -100,6 +100,46 @@ void hnco::bm_add_rows(bit_matrix_t& M, std::size_t i, std::size_t j)
   bv_add(M[i], M[j]);
 }
 
+bool hnco::bm_solve(bit_matrix_t& A, bit_vector_t& b)
+{
+  assert(bm_is_square(A));
+  assert(bm_num_rows(A) == b.size());
+
+  for (size_t i = 0; i < A.size(); i++) {
+    bool found = false;
+    size_t pivot;
+    for (size_t j = i; j < A.size(); j++)
+      if (A[j][i]) {
+        pivot = j;
+        found = true;
+        break;
+      }
+    if (!found)
+      return false;
+    if (pivot != i) {
+      bm_swap_rows(A, i, pivot);
+      std::swap(b[i], b[pivot]);
+    }
+    for (size_t j = i + 1; j < A.size(); j++)
+      if (A[j][i]) {
+        bm_add_rows(A, i, j);
+        b[j] = (b[i] + b[j]) % 2;
+      }
+  }
+  assert(bm_is_upper_triangular(A));
+
+  for (size_t k = 0; k < A.size(); k++) {
+    size_t i = A.size() - 1 - k;
+    for (size_t j = 0; j < i; j++)
+      if (A[j][i]) {
+        bm_add_rows(A, i, j);
+        b[j] = (b[i] + b[j]) % 2;
+      }
+  }
+  assert(bm_is_identity(A));
+  return true;
+}
+
 bool hnco::bm_invert(bit_matrix_t& M, bit_matrix_t& N)
 {
   assert(bm_is_square(M));

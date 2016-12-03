@@ -74,6 +74,9 @@ namespace hnco {
   /// Resize a bit matrix
   void bm_resize(bit_matrix_t& M, std::size_t num_rows, std::size_t num_columns);
 
+  /// Resize a bit matrix and make it a square matrix
+  inline void bm_resize(bit_matrix_t& M, std::size_t num_rows) { bm_resize(M, num_rows, num_rows); }
+
   /// Clear bit matrix
   inline void bm_clear(bit_matrix_t& M) { std::for_each(M.begin(), M.end(), [](bit_vector_t& row){ bv_clear(row); }); }
 
@@ -95,6 +98,25 @@ namespace hnco {
   */
   void bm_add_rows(bit_matrix_t& M, std::size_t i, std::size_t j);
 
+  /** Solve a linear system.
+
+      Solve the linear equation Ax = b.
+
+      \param A Matrix
+      \param b Right hand side
+
+      \pre bm_is_square(A)
+      \pre bm_num_rows(A) == b.size()
+
+      \return true if the system has a unique solution
+
+      \warning Both A and b are modified by the function. Provided
+      that A is invertible, after returning from the function, A is
+      the identity matrix and b is the unique solution to the linear
+      equation.
+  */
+  bool bm_solve(bit_matrix_t& A, bit_vector_t& b);
+
   /** Invert a bit matrix.
 
       \param M input matrix
@@ -105,8 +127,9 @@ namespace hnco {
 
       \return true if M is invertible
 
-      \warning M is modified by the function. At the end, if M is
-      invertible, it is changed into the identity matrix.
+      \warning M is modified by the function. Provided that M is
+      invertible, after returning from the function, M is the identity
+      matrix and N is the computed inverse matrix.
   */
   bool bm_invert(bit_matrix_t& M, bit_matrix_t& N);
 
