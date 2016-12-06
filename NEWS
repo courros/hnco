@@ -1,3 +1,11 @@
+* Version 0.3 (unreleased)
+
+Library:
+- Added bm_resize
+- Added bm_is_upper_triangular
+- Added bm_solve_upper_triangular
+- Added bm_solve
+
 * Version 0.2 (2016-11-27)
 
 Library:
