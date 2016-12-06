@@ -134,25 +134,6 @@ SpinHerding::sample_greedy(const SpinMoment& target, bit_vector_t& x)
 
 
 double
-SpinHerding::q_full(const bit_vector_t& x)
-{
-  double result = 0;
-  for (size_t i = 0; i < x.size(); i++) {
-    int yi = x[i] ? 1 : -1;
-    result += _delta._first[i] * yi;
-  }
-  for (size_t i = 0; i < x.size(); i++) {
-    int yi = x[i] ? 1 : -1;
-    for (size_t j = 0; j < i; j++) {
-      int yj = x[j] ? 1 : -1;
-      result += _delta._second[i][j] * yi * yj;
-    }
-  }
-  return result;
-}
-
-
-double
 SpinHerding::q_derivative(const bit_vector_t& x, size_t i)
 {
   assert(i < _delta._first.size());

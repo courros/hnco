@@ -63,11 +63,6 @@ namespace hea {
     /// Sample by means of a greedy algorithm
     void sample_greedy(const SpinMoment& target, bit_vector_t& x);
 
-    /** Function q which maximization is necessary to herding.
-
-        Implemented for debugging purposes. */
-    double q_full(const bit_vector_t& x);
-
     /// Derivative of q
     double q_derivative(const bit_vector_t& x, size_t i);
 
