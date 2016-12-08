@@ -57,11 +57,12 @@ namespace hea {
     /// Time
     int _time;
 
+
     /// Compute delta
     void compute_delta(const SpinMoment& target);
 
     /// Sample by means of a greedy algorithm
-    void sample_greedy(const SpinMoment& target, bit_vector_t& x);
+    void sample_greedy(bit_vector_t& x);
 
     /// Derivative of q
     double q_derivative(const bit_vector_t& x, size_t i);
@@ -73,13 +74,13 @@ namespace hea {
     double q_variation(const bit_vector_t& x, size_t i);
 
     /// Sample by means of random local search
-    void sample_rls(const SpinMoment& target, bit_vector_t& x);
+    void sample_rls(bit_vector_t& x);
 
     /// Sample by means of deterministic local search
-    void sample_dls(const SpinMoment& target, bit_vector_t& x);
+    void sample_dls(bit_vector_t& x);
 
     /// Sample by means of a neural network
-    void sample_nn(const SpinMoment& target, bit_vector_t& x);
+    void sample_nn(bit_vector_t& x);
 
     /// Update counters
     void update_counters(const bit_vector_t& x);
@@ -97,8 +98,9 @@ namespace hea {
       SAMPLE_DLS,
 
       /// Neural network
-      SAMPLE_NN
+      SAMPLE_NN,
 
+      LAST_SAMPLE
     };
 
     /// Constructor
@@ -108,8 +110,7 @@ namespace hea {
       _state(n),
       _permutation(n, 0),
       _choose_bit(0, n - 1),
-      _num_seq_updates(n),
-      _num_par_updates(1) {}
+      _num_seq_updates(n) {}
 
     /** @name Parameters
      */
@@ -125,7 +126,7 @@ namespace hea {
     int _num_seq_updates;
 
     /// Number of parallel updates per sample
-    int _num_par_updates;
+    int _num_par_updates = 1;
 
     /// Weight of second order moments
     double _weight = 1;
@@ -141,7 +142,7 @@ namespace hea {
     /// Compute the norm of the moment increment
     double delta(const SpinMoment& target) { return _delta.norm_2(); }
 
-    /// Sample a bit_vector_t
+    /// Sample a bit vector
     void sample(const SpinMoment& target, bit_vector_t& x);
 
   };

@@ -27,10 +27,10 @@
 
 #include "herding-spin.hh"
 
+
 using namespace hnco::algorithm::hea;
 using namespace hnco::exception;
 using namespace hnco::random;
-using namespace std;
 
 
 void
@@ -65,19 +65,19 @@ SpinHerding::sample(const SpinMoment& target, bit_vector_t& x)
 
   switch (_sampling_method) {
   case SAMPLE_GREEDY:
-    sample_greedy(target, x);
+    sample_greedy(x);
     break;
   case SAMPLE_RLS:
-    sample_rls(target, x);
+    sample_rls(x);
     break;
   case SAMPLE_DLS:
-    sample_dls(target, x);
+    sample_dls(x);
     break;
   case SAMPLE_NN:
-    sample_nn(target, x);
+    sample_nn(x);
     break;
   default:
-    ostringstream stream;
+    std::ostringstream stream;
     stream << _sampling_method;
     throw Error("SpinHerding::sample: Unknown _sampling_method: " + stream.str());
   }
@@ -108,7 +108,7 @@ SpinHerding::compute_delta(const SpinMoment& target)
 
 
 void
-SpinHerding::sample_greedy(const SpinMoment& target, bit_vector_t& x)
+SpinHerding::sample_greedy(bit_vector_t& x)
 {
   if (_randomize_bit_order)
     perm_random(_permutation);
@@ -164,7 +164,7 @@ SpinHerding::q_variation(const bit_vector_t& x, size_t i)
 
 
 void
-SpinHerding::sample_rls(const SpinMoment& target, bit_vector_t& x)
+SpinHerding::sample_rls(bit_vector_t& x)
 {
   bv_random(x);
 
@@ -181,7 +181,7 @@ SpinHerding::sample_rls(const SpinMoment& target, bit_vector_t& x)
 
 
 void
-SpinHerding::sample_dls(const SpinMoment& target, bit_vector_t& x)
+SpinHerding::sample_dls(bit_vector_t& x)
 {
   bv_random(x);
 
@@ -204,7 +204,7 @@ SpinHerding::sample_dls(const SpinMoment& target, bit_vector_t& x)
 
 
 void
-SpinHerding::sample_nn(const SpinMoment& target, bit_vector_t& x)
+SpinHerding::sample_nn(bit_vector_t& x)
 {
   assert(x.size() == _state.size());
 
