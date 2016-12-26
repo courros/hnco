@@ -45,9 +45,6 @@ namespace algorithm {
     /// Mean of worst individuals
     pv_t _mean_worst;
 
-    /// Last index
-    int _last_index;
-
     /// Single iteration
     void iterate();
 
@@ -58,8 +55,7 @@ namespace algorithm {
       PvAlgorithm(n),
       _population(population_size, n),
       _mean_best(n),
-      _mean_worst(n),
-      _last_index(population_size - 1) {}
+      _mean_worst(n) {}
 
     /** @name Parameters
      */

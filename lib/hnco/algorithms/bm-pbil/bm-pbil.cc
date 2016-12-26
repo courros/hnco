@@ -118,7 +118,7 @@ BmPbil::iterate()
     // Average worst individuals
     _parameters_worst.init();
     for (int i = 0; i < _selection_size; i++)
-      _parameters_worst.add(_population.get_best_bv(_population.size() - 1 - i));
+      _parameters_worst.add(_population.get_worst_bv(i));
     _parameters_worst.average(_selection_size);
     _model.update(_parameters_best, _parameters_worst, _rate);
   } else {

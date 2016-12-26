@@ -53,7 +53,7 @@ NpsPbil::iterate()
 
   pv_init(_mean_worst);
   for (int i = 0; i < _selection_size; i++)
-    pv_add(_mean_worst, _population.get_best_bv(_last_index - i));
+    pv_add(_mean_worst, _population.get_best_bv(i));
   pv_average(_mean_worst, _selection_size);
 
   pv_update(_pv, _rate, _mean_best, _mean_worst);
