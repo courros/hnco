@@ -60,9 +60,15 @@ namespace algorithm {
 
         \param i Index in the sorted population
 
-        \pre Population must be sorted.
+        \pre The population must be sorted.
     */
     const bit_vector_t& get_best_bv(int i) const { return _bvs[_lookup[i].first]; }
+
+    /** Get best bit vector.
+
+        \pre The population must be sorted.
+    */
+    const bit_vector_t& get_best_bv() const { return _bvs[_lookup[0].first]; }
 
     /** Get best bit vector.
 
@@ -73,27 +79,13 @@ namespace algorithm {
     */
     const bit_vector_t& get_best_bv(int i, const Population& p) const { return _bvs[p._lookup[i].first]; }
 
-    /** Get best bit vector.
-
-        \pre Population must be sorted.
-    */
-    const bit_vector_t& get_best_bv() const { return _bvs[_lookup[0].first]; }
-
-    /** Get best bit vector.
-
-        \param p Population
-
-        \pre p must be sorted.
-    */
-    const bit_vector_t& get_best_bv(const Population& p) const { return _bvs[p._lookup[0].first]; }
-
     /** Get best index.
 
         \param i Index in the sorted population
 
         \return Index in the unsorted population
 
-        \pre Population must be sorted.
+        \pre The population must be sorted.
     */
     double get_best_index(int i) const { return _lookup[i].first; }
 
@@ -101,7 +93,7 @@ namespace algorithm {
 
         \return Index in the unsorted population
 
-        \pre Population must be sorted.
+        \pre The population must be sorted.
     */
     double get_best_index() const { return _lookup[0].first; }
 
@@ -109,13 +101,13 @@ namespace algorithm {
 
         \param i Index in the sorted population
 
-        \pre Population must be sorted.
+        \pre The population must be sorted.
     */
     double get_best_value(int i) const { return _lookup[i].second; }
 
     /** Get best value.
 
-        \pre Population must be sorted.
+        \pre The population must be sorted.
     */
     double get_best_value() const { return _lookup[0].second; }
 
@@ -123,7 +115,7 @@ namespace algorithm {
 
         \param i Index in the sorted population
 
-        \pre Population must be sorted.
+        \pre The population must be sorted.
     */
     const bit_vector_t& get_worst_bv(int i) const { return get_best_bv(_bvs.size() - 1 - i); }
 
