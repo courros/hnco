@@ -43,12 +43,12 @@ Umda::iterate()
   _population.eval(_function);
   _population.sort();
 
-  update_solution(_population.get_nth_bv(0),
-                  _population.get_evaluation(0).value);
+  update_solution(_population.get_best_bv(),
+                  _population.get_best_value());
 
   pv_init(_pv);
   for (int i = 0; i < _selection_size; i++)
-    pv_add(_pv, _population.get_nth_bv(i));
+    pv_add(_pv, _population.get_best_bv(i));
   pv_average(_pv, _selection_size);
   pv_bound(_pv, _lower_bound, _upper_bound);
 

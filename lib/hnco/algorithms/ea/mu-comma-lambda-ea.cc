@@ -42,8 +42,8 @@ MuCommaLambdaEa::init()
   _parents.eval(_function);
   _parents.sort();
 
-  set_solution(_parents.get_nth_bv(0),
-               _parents.get_evaluation(0).value);
+  set_solution(_parents.get_best_bv(),
+               _parents.get_best_value());
 }
 
 
@@ -61,6 +61,6 @@ MuCommaLambdaEa::iterate()
   _offsprings.sort();
 
   _parents.comma_selection(_offsprings);
-  update_solution(_parents.get_nth_bv(0),
-                  _parents.get_evaluation(0).value);
+  update_solution(_parents.get_best_bv(),
+                  _parents.get_best_value());
 }

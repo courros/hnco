@@ -119,8 +119,8 @@ namespace hea {
       _population.eval(_function);
       _population.sort();
 
-      update_solution(_population.get_nth_bv(0),
-                      _population.get_evaluation(0).value);
+      update_solution(_population.get_best_bv(),
+                      _population.get_best_value());
 
       double rate = _initial_rate;
 
@@ -142,7 +142,7 @@ namespace hea {
 
       _selection.init();
       for (int i = 0; i < _selection_size; i++)
-        _selection.add(_population.get_nth_bv(i));
+        _selection.add(_population.get_best_bv(i));
       _selection.average(_selection_size);
 
       if (_log_flags[LOG_SELECTION])

@@ -64,6 +64,77 @@ namespace algorithm {
     /// Size
     std::size_t size() const { return _population.size(); }
 
+    /** Get best bit vector.
+
+        \param i Index in the sorted population
+
+        \pre Population must be sorted.
+    */
+    const bit_vector_t& get_best_bv(int i) const { return _population[_lookup[i].index]; }
+
+    /** Get best bit vector.
+
+        \param i Index in the sorted population
+        \param p Population
+
+        \pre p must be sorted.
+    */
+    const bit_vector_t& get_best_bv(int i, const Population& p) const { return _population[p._lookup[i].index]; }
+
+    /** Get best bit vector.
+
+        \pre Population must be sorted.
+    */
+    const bit_vector_t& get_best_bv() const { return _population[_lookup[0].index]; }
+
+    /** Get best bit vector.
+
+        \param p Population
+
+        \pre p must be sorted.
+    */
+    const bit_vector_t& get_best_bv(const Population& p) const { return _population[p._lookup[0].index]; }
+
+    /** Get best index.
+
+        \param i Index in the sorted population
+
+        \return Index in the unsorted population
+
+        \pre Population must be sorted.
+    */
+    double get_best_index(int i) const { return _lookup[i].index; }
+
+    /** Get best index.
+
+        \return Index in the unsorted population
+
+        \pre Population must be sorted.
+    */
+    double get_best_index() const { return _lookup[0].index; }
+
+    /** Get best value.
+
+        \param i Index in the sorted population
+
+        \pre Population must be sorted.
+    */
+    double get_best_value(int i) const { return _lookup[i].value; }
+
+    /** Get best value.
+
+        \pre Population must be sorted.
+    */
+    double get_best_value() const { return _lookup[0].value; }
+
+    /** Get worst bit vector.
+
+        \param i Index in the sorted population
+
+        \pre Population must be sorted.
+    */
+    const bit_vector_t& get_worst_bv(int i) const { return get_best_bv(_population.size() - 1 - i); }
+
     /// Initialize the population with random bit vectors
     void random();
 
@@ -78,15 +149,6 @@ namespace algorithm {
 
     /// Partially sort the lookup table
     void partial_sort(int selection_size);
-
-    /// Get the nth bit vector
-    const bit_vector_t& get_nth_bv(int i) const { return _population[_lookup[i].index]; }
-
-    /// Get the nth bit vector
-    const bit_vector_t& get_nth_bv(int i, const Population& p) const { return _population[p._lookup[i].index]; }
-
-    /// Get an evaluation
-    const Evaluation& get_evaluation(int i) const { return _lookup[i]; }
 
     /** Plus selection.
 

@@ -83,8 +83,8 @@ Population::plus_selection(const Population& offsprings)
       continue;
     else {
       // _lookup[i].index is left unchanged
-      _lookup[i].value = offsprings.get_evaluation(j).value;
-      _population[_lookup[i].index] = offsprings.get_nth_bv(j);
+      _lookup[i].value = offsprings.get_best_value(j);
+      _population[_lookup[i].index] = offsprings.get_best_bv(j);
       j++;
     }
   }
@@ -98,8 +98,8 @@ Population::comma_selection(const Population& offsprings)
 
   for (size_t i = 0; i < _population.size(); i++) {
     _lookup[i].index = i;
-    _lookup[i].value = offsprings.get_evaluation(i).value;
-    _population[i] = offsprings.get_nth_bv(i);
+    _lookup[i].value = offsprings.get_best_value(i);
+    _population[i] = offsprings.get_best_bv(i);
   }
 
 }
@@ -117,5 +117,5 @@ TournamentSelection::select()
     if (evaluation_gt(_lookup[challenger], _lookup[winner]))
       winner = challenger;
   }
-  return get_nth_bv(winner);
+  return get_best_bv(winner);
 }
