@@ -33,26 +33,18 @@ namespace algorithm {
   class Population
   {
 
-  public:
-
-  /// Evaluation of a bit vector
-  struct Evaluation {
-
-    /// Index of the bit vector in the population
-    size_t index;
-
-    /// Value
-    double value;
-
-  };
-
   protected:
 
     /// Bit vectors
     std::vector<bit_vector_t> _bvs;
 
-    /// Lookup table
-    std::vector<Evaluation> _lookup;
+    /** Lookup table.
+
+        Let p be of type std::pair<size_t, double>. Then p.first is
+        the bv index in the unsorted population whereas p.second is
+        the bv value.
+    */
+    std::vector<std::pair<size_t, double> > _lookup;
 
   public:
 
@@ -70,7 +62,7 @@ namespace algorithm {
 
         \pre Population must be sorted.
     */
-    const bit_vector_t& get_best_bv(int i) const { return _bvs[_lookup[i].index]; }
+    const bit_vector_t& get_best_bv(int i) const { return _bvs[_lookup[i].first]; }
 
     /** Get best bit vector.
 
@@ -79,13 +71,13 @@ namespace algorithm {
 
         \pre p must be sorted.
     */
-    const bit_vector_t& get_best_bv(int i, const Population& p) const { return _bvs[p._lookup[i].index]; }
+    const bit_vector_t& get_best_bv(int i, const Population& p) const { return _bvs[p._lookup[i].first]; }
 
     /** Get best bit vector.
 
         \pre Population must be sorted.
     */
-    const bit_vector_t& get_best_bv() const { return _bvs[_lookup[0].index]; }
+    const bit_vector_t& get_best_bv() const { return _bvs[_lookup[0].first]; }
 
     /** Get best bit vector.
 
@@ -93,7 +85,7 @@ namespace algorithm {
 
         \pre p must be sorted.
     */
-    const bit_vector_t& get_best_bv(const Population& p) const { return _bvs[p._lookup[0].index]; }
+    const bit_vector_t& get_best_bv(const Population& p) const { return _bvs[p._lookup[0].first]; }
 
     /** Get best index.
 
@@ -103,7 +95,7 @@ namespace algorithm {
 
         \pre Population must be sorted.
     */
-    double get_best_index(int i) const { return _lookup[i].index; }
+    double get_best_index(int i) const { return _lookup[i].first; }
 
     /** Get best index.
 
@@ -111,7 +103,7 @@ namespace algorithm {
 
         \pre Population must be sorted.
     */
-    double get_best_index() const { return _lookup[0].index; }
+    double get_best_index() const { return _lookup[0].first; }
 
     /** Get best value.
 
@@ -119,13 +111,13 @@ namespace algorithm {
 
         \pre Population must be sorted.
     */
-    double get_best_value(int i) const { return _lookup[i].value; }
+    double get_best_value(int i) const { return _lookup[i].second; }
 
     /** Get best value.
 
         \pre Population must be sorted.
     */
-    double get_best_value() const { return _lookup[0].value; }
+    double get_best_value() const { return _lookup[0].second; }
 
     /** Get worst bit vector.
 

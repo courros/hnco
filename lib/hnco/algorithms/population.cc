@@ -27,7 +27,6 @@ using namespace hnco::algorithm;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 void
@@ -45,22 +44,25 @@ Population::eval(Function *function)
   assert(_bvs.size() == _lookup.size());
 
   for (size_t i = 0; i < _bvs.size(); i++) {
-    _lookup[i].index = i;
-    _lookup[i].value = function->eval(_bvs[i]);
+    _lookup[i].first = i;
+    _lookup[i].second = function->eval(_bvs[i]);
   }
 
 }
 
 
 inline
-bool
-evaluation_gt(const Population::Evaluation& a, const Population::Evaluation& b) { return a.value > b.value; }
+bool comp(const std::pair<size_t, double>& a,
+          const std::pair<size_t, double>& b)
+{
+  return a.second > b.second;
+}
 
 
 void
 Population::sort()
 {
-  std::sort(_lookup.begin(), _lookup.end(), evaluation_gt);
+  std::sort(_lookup.begin(), _lookup.end(), comp);
 }
 
 
@@ -68,7 +70,7 @@ void
 Population::partial_sort(int selection_size)
 {
   assert(selection_size > 0);
-  std::partial_sort(_lookup.begin(), _lookup.begin() + selection_size, _lookup.end(), evaluation_gt);
+  std::partial_sort(_lookup.begin(), _lookup.begin() + selection_size, _lookup.end(), comp);
 }
 
 
@@ -79,12 +81,12 @@ Population::plus_selection(const Population& offsprings)
          i = 0,
          j = 0;
        i < _bvs.size() && j < offsprings.size(); i++) {
-    if (evaluation_gt(_lookup[i], offsprings._lookup[j]))
+    if (comp(_lookup[i], offsprings._lookup[j]))
       continue;
     else {
-      // _lookup[i].index is left unchanged
-      _lookup[i].value = offsprings.get_best_value(j);
-      _bvs[_lookup[i].index] = offsprings.get_best_bv(j);
+      // _lookup[i].first is left unchanged
+      _lookup[i].second = offsprings.get_best_value(j);
+      _bvs[_lookup[i].first] = offsprings.get_best_bv(j);
       j++;
     }
   }
@@ -97,8 +99,8 @@ Population::comma_selection(const Population& offsprings)
   assert(_bvs.size() <= offsprings.size());
 
   for (size_t i = 0; i < _bvs.size(); i++) {
-    _lookup[i].index = i;
-    _lookup[i].value = offsprings.get_best_value(i);
+    _lookup[i].first = i;
+    _lookup[i].second = offsprings.get_best_value(i);
     _bvs[i] = offsprings.get_best_bv(i);
   }
 
@@ -114,7 +116,7 @@ TournamentSelection::select()
     do {
       challenger = _choose_individual(Random::engine);
     } while (challenger == winner);
-    if (evaluation_gt(_lookup[challenger], _lookup[winner]))
+    if (comp(_lookup[challenger], _lookup[winner]))
       winner = challenger;
   }
   return get_best_bv(winner);
