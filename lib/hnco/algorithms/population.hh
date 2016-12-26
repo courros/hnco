@@ -49,7 +49,7 @@ namespace algorithm {
   protected:
 
     /// Bit vectors
-    std::vector<bit_vector_t> _population;
+    std::vector<bit_vector_t> _bvs;
 
     /// Lookup table
     std::vector<Evaluation> _lookup;
@@ -58,11 +58,11 @@ namespace algorithm {
 
     /// Constructor
     Population(int population_size, int n):
-      _population(population_size, bit_vector_t(n)),
+      _bvs(population_size, bit_vector_t(n)),
       _lookup(population_size) {}
 
     /// Size
-    std::size_t size() const { return _population.size(); }
+    std::size_t size() const { return _bvs.size(); }
 
     /** Get best bit vector.
 
@@ -70,7 +70,7 @@ namespace algorithm {
 
         \pre Population must be sorted.
     */
-    const bit_vector_t& get_best_bv(int i) const { return _population[_lookup[i].index]; }
+    const bit_vector_t& get_best_bv(int i) const { return _bvs[_lookup[i].index]; }
 
     /** Get best bit vector.
 
@@ -79,13 +79,13 @@ namespace algorithm {
 
         \pre p must be sorted.
     */
-    const bit_vector_t& get_best_bv(int i, const Population& p) const { return _population[p._lookup[i].index]; }
+    const bit_vector_t& get_best_bv(int i, const Population& p) const { return _bvs[p._lookup[i].index]; }
 
     /** Get best bit vector.
 
         \pre Population must be sorted.
     */
-    const bit_vector_t& get_best_bv() const { return _population[_lookup[0].index]; }
+    const bit_vector_t& get_best_bv() const { return _bvs[_lookup[0].index]; }
 
     /** Get best bit vector.
 
@@ -93,7 +93,7 @@ namespace algorithm {
 
         \pre p must be sorted.
     */
-    const bit_vector_t& get_best_bv(const Population& p) const { return _population[p._lookup[0].index]; }
+    const bit_vector_t& get_best_bv(const Population& p) const { return _bvs[p._lookup[0].index]; }
 
     /** Get best index.
 
@@ -133,13 +133,13 @@ namespace algorithm {
 
         \pre Population must be sorted.
     */
-    const bit_vector_t& get_worst_bv(int i) const { return get_best_bv(_population.size() - 1 - i); }
+    const bit_vector_t& get_worst_bv(int i) const { return get_best_bv(_bvs.size() - 1 - i); }
 
     /// Initialize the population with random bit vectors
     void random();
 
     /// Get a bit vector
-    bit_vector_t& get_bv(int i) { return _population[i]; }
+    bit_vector_t& get_bv(int i) { return _bvs[i]; }
 
     /// Evaluate the population
     void eval(function::Function *function);

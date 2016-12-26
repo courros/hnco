@@ -33,8 +33,8 @@ using namespace std;
 void
 Population::random()
 {
-  for (size_t i = 0; i < _population.size(); i++)
-    bv_random(_population[i]);
+  for (size_t i = 0; i < _bvs.size(); i++)
+    bv_random(_bvs[i]);
 }
 
 
@@ -42,11 +42,11 @@ void
 Population::eval(Function *function)
 {
   assert(function);
-  assert(_population.size() == _lookup.size());
+  assert(_bvs.size() == _lookup.size());
 
-  for (size_t i = 0; i < _population.size(); i++) {
+  for (size_t i = 0; i < _bvs.size(); i++) {
     _lookup[i].index = i;
-    _lookup[i].value = function->eval(_population[i]);
+    _lookup[i].value = function->eval(_bvs[i]);
   }
 
 }
@@ -78,13 +78,13 @@ Population::plus_selection(const Population& offsprings)
   for (size_t
          i = 0,
          j = 0;
-       i < _population.size() && j < offsprings.size(); i++) {
+       i < _bvs.size() && j < offsprings.size(); i++) {
     if (evaluation_gt(_lookup[i], offsprings._lookup[j]))
       continue;
     else {
       // _lookup[i].index is left unchanged
       _lookup[i].value = offsprings.get_best_value(j);
-      _population[_lookup[i].index] = offsprings.get_best_bv(j);
+      _bvs[_lookup[i].index] = offsprings.get_best_bv(j);
       j++;
     }
   }
@@ -94,12 +94,12 @@ Population::plus_selection(const Population& offsprings)
 void
 Population::comma_selection(const Population& offsprings)
 {
-  assert(_population.size() <= offsprings.size());
+  assert(_bvs.size() <= offsprings.size());
 
-  for (size_t i = 0; i < _population.size(); i++) {
+  for (size_t i = 0; i < _bvs.size(); i++) {
     _lookup[i].index = i;
     _lookup[i].value = offsprings.get_best_value(i);
-    _population[i] = offsprings.get_best_bv(i);
+    _bvs[i] = offsprings.get_best_bv(i);
   }
 
 }
