@@ -587,7 +587,7 @@ void Options::print_help(ostream& stream) const
   stream << "      --fun-num-traps (type int, default to 10)" << endl;
   stream << "          Number of traps" << endl;
   stream << "  -t, --fun-threshold (type int, default to 10)" << endl;
-  stream << "          Threshold (in bits) for Jump and Four peaks" << endl;
+  stream << "          Threshold (in bits) for Jump, Four Peaks, and Six Peaks" << endl;
   stream << "  -F, --function (type int, default to 0)" << endl;
   stream << "          Type of function" << endl;
   stream << "            0: OneMax" << endl;
@@ -598,6 +598,7 @@ void Options::print_help(ostream& stream) const
   stream << "            30: Jump" << endl;
   stream << "            31: Deceptive jump (aka Jump_k)" << endl;
   stream << "            40: Four peaks" << endl;
+  stream << "            41: Six peaks" << endl;
   stream << "            50: Quadratic function" << endl;
   stream << "            60: NK landscape" << endl;
   stream << "            70: Max-SAT" << endl;

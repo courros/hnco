@@ -53,7 +53,7 @@ class Options {
   int _fun_num_traps;
   bool _opt_fun_num_traps;
 
-  /// Threshold (in bits) for Jump and Four peaks
+  /// Threshold (in bits) for Jump, Four Peaks, and Six Peaks
   int _fun_threshold;
   bool _opt_fun_threshold;
 

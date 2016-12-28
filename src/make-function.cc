@@ -77,6 +77,11 @@ make_concrete_function(Options& options)
       (options.get_bv_size(),
        options.get_fun_threshold());
 
+  case 41:
+    return new SixPeaks
+      (options.get_bv_size(),
+       options.get_fun_threshold());
+
   case 50: {
     QuadraticFunction* function = new QuadraticFunction;
     ifstream ifs(options.get_path());

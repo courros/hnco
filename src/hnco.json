@@ -215,6 +215,11 @@
                 },
 
                 {
+                    "value": 41,
+                    "description": "Six peaks"
+                },
+
+                {
                     "value": 50,
                     "description": "Quadratic function"
                 },
@@ -306,7 +311,7 @@
             "optchar": "t",
             "type": "int",
             "value": 10,
-            "description": "Threshold (in bits) for Jump and Four peaks",
+            "description": "Threshold (in bits) for Jump, Four Peaks, and Six Peaks",
             "category": "Function"
         },
 
