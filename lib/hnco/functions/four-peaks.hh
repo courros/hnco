@@ -42,10 +42,10 @@ namespace function {
       - R(x) = 0 otherwise;
       - the threshold t is a parameter of the function.
 
-      This function has four maxima, of which only two are global
+      This function has four maxima, of which exactly two are global
       ones.
 
-      For example, if n = 6 and t = s:
+      For example, if n = 6 and t = 1:
       - f(111111) = 6 (local maximum)
       - f(111110) = 5
       - f(111100) = 10 (global maximum)
@@ -107,6 +107,11 @@ namespace function {
 
       This function has six maxima, of which exactly four are global
       ones.
+
+      For example, if n = 6 and t = 1:
+      - f(111111) = 6 (local maximum)
+      - f(111110) = 5
+      - f(111100) = 10 (global maximum)
 
       De Bonet, J. S., Isbell, C. L., & Viola, P. (1997). MIMIC:
       Finding optima by estimating probability densities. Advances in
