@@ -2,9 +2,13 @@
 
 Library:
 - Added bm_resize
-- Added bm_is_upper_triangular
-- Added bm_solve_upper_triangular
 - Added bm_solve
+- Added bm_solve_upper_triangular
+- Added bm_is_upper_triangular
+- Population: renamed get_nth_bv -> get_best_bv
+- Population: replaced struct Evaluation by std::pair<size_t, double>
+- Population: split get_evaluation into get_best_index and get_best_value
+- Population: added get_worst_bv
 
 * Version 0.2 (2016-11-27)
 
