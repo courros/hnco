@@ -230,6 +230,7 @@ instances are generated are indicated by `ffgen`):
 - Jump
 - Deceptive jump
 - Four peaks
+- Six peaks
 - Quadratic function (`ffgen`)
 - NK landscape (`ffgen`)
 - Max-SAT (`ffgen`)
