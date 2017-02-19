@@ -3,7 +3,7 @@
 
     "description": "Map generator for HNCO",
 
-    "version": "0.2",
+    "version": "0.3",
 
     "tab_order": [ "General", "Map" ],
 

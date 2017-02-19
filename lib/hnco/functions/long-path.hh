@@ -28,7 +28,29 @@ namespace hnco {
 namespace function {
 
 
-  /// Long path
+  /** Long path.
+
+      Long paths have been introduced in:
+
+      Jeffrey Horn, David E. Goldberg, and Kalyanmoy Deb, "Long Path
+      Problems", PPSN III, 1994.
+
+      Here we follow the definition given in "Analyzing evolutionary
+      algorithms" by Thomas Jansen.
+
+      Here is the example of the 2-long path of dimension 4:
+      - 0000
+      - 0001
+      - 0011
+      - 0111
+      - 1111
+      - 1101
+      - 1100
+
+      The fitness is increasing along the path. The fitness on the
+      complementary of the path is defined as a linear function
+      pointing to the beginning of the path.
+  */
   class LongPath:
     public Function {
 
@@ -48,13 +70,6 @@ namespace function {
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
-
-    /** Check for a known maximum.
-        \return true */
-    bool has_known_maximum() { return true; }
-
-    /// Get the global maximum
-    double get_maximum() { return _bv_size; }
 
   };
 

@@ -1,4 +1,4 @@
-# HNCO -- in Hypercubo Nigrae Capsulae Optimum
+# In Hypercubo Nigrae Capsulae Optimum (HNCO)
 
 ## Introduction
 
@@ -241,6 +241,7 @@ instances are generated are indicated by `ffgen`):
 - Trap
 - Hierarchical if and only if
 - Plateau
+- Long path
 - Plugin
 
 The plugin function can load any C function declared as

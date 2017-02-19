@@ -53,6 +53,10 @@ class Options {
   int _fun_num_traps;
   bool _opt_fun_num_traps;
 
+  /// Prefix length for long path
+  int _fun_prefix_length;
+  bool _opt_fun_prefix_length;
+
   /// Threshold (in bits) for Jump, Four Peaks, and Six Peaks
   int _fun_threshold;
   bool _opt_fun_threshold;
@@ -385,6 +389,18 @@ public:
 
   /// Get set-flag for fun_num_traps
   bool set_fun_num_traps() const { return _opt_fun_num_traps; }
+
+  /// Get fun_prefix_length
+  int get_fun_prefix_length() const { return _fun_prefix_length; }
+
+  /// Set fun_prefix_length
+  void set_fun_prefix_length(int x) {
+    _fun_prefix_length = x;
+    _opt_fun_prefix_length = true;
+  }
+
+  /// Get set-flag for fun_prefix_length
+  bool set_fun_prefix_length() const { return _opt_fun_prefix_length; }
 
   /// Get fun_threshold
   int get_fun_threshold() const { return _fun_threshold; }

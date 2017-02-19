@@ -158,6 +158,11 @@ make_concrete_function(Options& options)
     return new Plateau
       (options.get_bv_size());
 
+  case 140:
+    return new LongPath
+      (options.get_bv_size(),
+       options.get_fun_prefix_length());
+
   case 1000:
     return new FunctionPlugin
       (options.get_bv_size(),
