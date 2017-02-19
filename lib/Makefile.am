@@ -80,6 +80,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/labs.hh \
 	hnco/functions/linear-function.cc \
 	hnco/functions/linear-function.hh \
+	hnco/functions/long-path.cc \
+	hnco/functions/long-path.hh \
 	hnco/functions/max-sat.cc \
 	hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.cc \
@@ -149,6 +151,7 @@ nobase_include_HEADERS = \
 	hnco/functions/jump.hh \
 	hnco/functions/labs.hh \
 	hnco/functions/linear-function.hh \
+	hnco/functions/long-path.hh \
 	hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.hh \
 	hnco/functions/plugin.hh \

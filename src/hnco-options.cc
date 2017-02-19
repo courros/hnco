@@ -609,6 +609,7 @@ void Options::print_help(ostream& stream) const
   stream << "            110: Trap" << endl;
   stream << "            120: Hierarchical if and only if (Hiff)" << endl;
   stream << "            130: Plateau" << endl;
+  stream << "            140: Long path" << endl;
   stream << "            1000: Plugin" << endl;
   stream << "      --log-improvement" << endl;
   stream << "          Log improvement" << endl;

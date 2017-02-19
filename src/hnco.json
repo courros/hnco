@@ -270,6 +270,11 @@
                 },
 
                 {
+                    "value": 140,
+                    "description": "Long path"
+                },
+
+                {
                     "value": 1000,
                     "description": "Plugin"
                 }

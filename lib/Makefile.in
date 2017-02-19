@@ -159,11 +159,11 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/functions/equal-products.lo hnco/functions/four-peaks.lo \
 	hnco/functions/function-decorator.lo hnco/functions/jump.lo \
 	hnco/functions/labs.lo hnco/functions/linear-function.lo \
-	hnco/functions/max-sat.lo hnco/functions/nk-landscape.lo \
-	hnco/functions/plugin.lo hnco/functions/quadratic-function.lo \
-	hnco/functions/theory.lo hnco/functions/trap.lo \
-	hnco/iterator.lo hnco/map.lo hnco/permutation.lo \
-	hnco/random.lo
+	hnco/functions/long-path.lo hnco/functions/max-sat.lo \
+	hnco/functions/nk-landscape.lo hnco/functions/plugin.lo \
+	hnco/functions/quadratic-function.lo hnco/functions/theory.lo \
+	hnco/functions/trap.lo hnco/iterator.lo hnco/map.lo \
+	hnco/permutation.lo hnco/random.lo
 libhnco_la_OBJECTS = $(am_libhnco_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -452,6 +452,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/labs.hh \
 	hnco/functions/linear-function.cc \
 	hnco/functions/linear-function.hh \
+	hnco/functions/long-path.cc \
+	hnco/functions/long-path.hh \
 	hnco/functions/max-sat.cc \
 	hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.cc \
@@ -521,6 +523,7 @@ nobase_include_HEADERS = \
 	hnco/functions/jump.hh \
 	hnco/functions/labs.hh \
 	hnco/functions/linear-function.hh \
+	hnco/functions/long-path.hh \
 	hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.hh \
 	hnco/functions/plugin.hh \
@@ -733,6 +736,8 @@ hnco/functions/labs.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/linear-function.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/long-path.lo: hnco/functions/$(am__dirstamp) \
+	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/max-sat.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/nk-landscape.lo: hnco/functions/$(am__dirstamp) \
@@ -814,6 +819,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/jump.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/labs.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/linear-function.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/long-path.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/max-sat.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/nk-landscape.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/plugin.Plo@am__quote@
