@@ -63,7 +63,7 @@ double compute_index(bit_vector_t::const_iterator first, bit_vector_t::const_ite
   if (*first == 0 && std::find(first, prefix_last, 1) != prefix_last) {
     // Length of the long path of dimension n - k
     double path_length = k * std::pow(2, (last - prefix_last) / k) - (k - 1);
-    if (compute_index(prefix_last, last, k) == path_length) {
+    if (compute_index(prefix_last, last, k) == path_length - 1) {
       // Number of heading zeros
       int i = std::find(first, prefix_last, 1) - first;
       // Hence (k - i) is equal to the index of the suffix in the bridge
