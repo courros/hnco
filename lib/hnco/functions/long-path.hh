@@ -38,7 +38,7 @@ namespace function {
       Here we follow the definition given in "Analyzing evolutionary
       algorithms" by Thomas Jansen.
 
-      Here is the example of the 2-long path of dimension 4:
+      As an example, here is the 2-long path of dimension 4:
       - 0000
       - 0001
       - 0011
