@@ -1,0 +1,133 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYGdefault{p}{\PYGdefaultZob{}}
+    \PYGdefault{n+nt}{\PYGdefaultZdq{}command\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}bbo \PYGdefaultZhy{}\PYGdefaultZhy{}no\PYGdefaultZhy{}header \PYGdefaultZhy{}\PYGdefaultZhy{}show\PYGdefaultZhy{}results \PYGdefaultZhy{}s 100 \PYGdefaultZhy{}i 0 \PYGdefaultZhy{}\PYGdefaultZhy{}bounded\PYGdefaultZhy{}evaluations \PYGdefaultZhy{}\PYGdefaultZhy{}num\PYGdefaultZhy{}evaluations 200000\PYGdefaultZdq{}}\PYGdefault{p}{,}
+    \PYGdefault{n+nt}{\PYGdefaultZdq{}multiplier\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+m+mi}{2}\PYGdefault{p}{,}
+    \PYGdefault{n+nt}{\PYGdefaultZdq{}results\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}results\PYGdefaultZdq{}}\PYGdefault{p}{,}
+    \PYGdefault{n+nt}{\PYGdefaultZdq{}report\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}report\PYGdefaultZdq{}}\PYGdefault{p}{,}
+    \PYGdefault{n+nt}{\PYGdefaultZdq{}graphics\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}graphics\PYGdefaultZdq{}}\PYGdefault{p}{,}
+    \PYGdefault{n+nt}{\PYGdefaultZdq{}gnuplot\PYGdefaultZus{}term\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}pdf\PYGdefaultZdq{}}\PYGdefault{p}{,}
+    \PYGdefault{n+nt}{\PYGdefaultZdq{}functions\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{p}{[}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}one\PYGdefaultZhy{}max\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 0 \PYGdefaultZhy{}\PYGdefaultZhy{}stop\PYGdefaultZhy{}on\PYGdefaultZhy{}maximum\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}leading\PYGdefaultZhy{}ones\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 2 \PYGdefaultZhy{}\PYGdefaultZhy{}stop\PYGdefaultZhy{}on\PYGdefaultZhy{}maximum\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}jmp\PYGdefaultZhy{}5\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 10 \PYGdefaultZhy{}t 5 \PYGdefaultZhy{}\PYGdefaultZhy{}stop\PYGdefaultZhy{}on\PYGdefaultZhy{}maximum\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}jmp\PYGdefaultZhy{}10\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 10 \PYGdefaultZhy{}t 10 \PYGdefaultZhy{}\PYGdefaultZhy{}stop\PYGdefaultZhy{}on\PYGdefaultZhy{}maximum\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}jmp\PYGdefaultZhy{}15\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 10 \PYGdefaultZhy{}t 15 \PYGdefaultZhy{}\PYGdefaultZhy{}stop\PYGdefaultZhy{}on\PYGdefaultZhy{}maximum\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}fp\PYGdefaultZhy{}5\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 20 \PYGdefaultZhy{}t 5\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}fp\PYGdefaultZhy{}10\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 20 \PYGdefaultZhy{}t 10\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}fp\PYGdefaultZhy{}15\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 20 \PYGdefaultZhy{}t 15\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}bqp\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 30 \PYGdefaultZhy{}p /home/arnaud/projets/bbo/share/spin/spin.100.0\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}nk\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 40 \PYGdefaultZhy{}p /home/arnaud/projets/bbo/share/nk/nk.100.3.0\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}max\PYGdefaultZhy{}sat\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 50 \PYGdefaultZhy{}p /home/arnaud/projets/bbo/share/maxsat/2013/ms\PYGdefaultZus{}random/max3sat/80v/s3v80c1000\PYGdefaultZhy{}1.cnf\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}labs\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 60\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}ep\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 70 \PYGdefaultZhy{}p /home/arnaud/projets/bbo/share/ep/ep.100.1.0\PYGdefaultZdq{}}\PYGdefault{p}{,}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}revert\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{k+kc}{true}\PYGdefault{p}{,}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}logscale\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{k+kc}{true}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}cancel\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 80\PYGdefaultZdq{}}\PYGdefault{p}{,}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}revert\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{k+kc}{true}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}cancel\PYGdefaultZhy{}sin\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}F 81\PYGdefaultZdq{}}\PYGdefault{p}{,}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}revert\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{k+kc}{true}
+        \PYGdefault{p}{\PYGdefaultZcb{}}
+    \PYGdefault{p}{],}
+    \PYGdefault{n+nt}{\PYGdefaultZdq{}algorithms\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{p}{[}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}rls\PYGdefaultZhy{}ns\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}A 100 \PYGdefaultZhy{}\PYGdefaultZhy{}restart\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}rls\PYGdefaultZhy{}s\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}A 101 \PYGdefaultZhy{}\PYGdefaultZhy{}restart\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}sa\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}A 200 \PYGdefaultZhy{}\PYGdefaultZhy{}sa\PYGdefaultZhy{}rate 1.05 \PYGdefaultZhy{}\PYGdefaultZhy{}sa\PYGdefaultZhy{}num\PYGdefaultZhy{}trials 10\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}ea\PYGdefaultZhy{}1p1\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}A 300\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}pbil\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}A 500 \PYGdefaultZhy{}r 5e\PYGdefaultZhy{}3\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}pbil\PYGdefaultZhy{}nps\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}A 501 \PYGdefaultZhy{}r 5e\PYGdefaultZhy{}3\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}hmax\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}A 900 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}herding\PYGdefaultZhy{}type 1 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}rate\PYGdefaultZhy{}strategy 1 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}time\PYGdefaultZhy{}constant 10000 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}automatic\PYGdefaultZhy{}initial\PYGdefaultZhy{}rate\PYGdefaultZdq{}}\PYGdefault{p}{,}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}deterministic\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{k+kc}{true}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}hmax\PYGdefaultZhy{}p\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}A 900 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}herding\PYGdefaultZhy{}type 1 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}randomize\PYGdefaultZhy{}bit\PYGdefaultZhy{}order \PYGdefaultZhy{}r 5e\PYGdefaultZhy{}5\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}hmin\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}A 900 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}herding\PYGdefaultZhy{}type 0 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}rate\PYGdefaultZhy{}strategy 1 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}time\PYGdefaultZhy{}constant 10000 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}automatic\PYGdefaultZhy{}initial\PYGdefaultZhy{}rate\PYGdefaultZdq{}}\PYGdefault{p}{,}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}deterministic\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{k+kc}{true}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}hmin\PYGdefaultZhy{}p\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}A 900 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}herding\PYGdefaultZhy{}type 0 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}randomize\PYGdefaultZhy{}bit\PYGdefaultZhy{}order \PYGdefaultZhy{}r 5e\PYGdefaultZhy{}5\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}hspin\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}A 900 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}herding\PYGdefaultZhy{}type 2 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}rate\PYGdefaultZhy{}strategy 1 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}time\PYGdefaultZhy{}constant 10000 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}automatic\PYGdefaultZhy{}initial\PYGdefaultZhy{}rate\PYGdefaultZdq{}}\PYGdefault{p}{,}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}deterministic\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{k+kc}{true}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}hspin\PYGdefaultZhy{}p\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}A 900 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}herding\PYGdefaultZhy{}type 2 \PYGdefaultZhy{}\PYGdefaultZhy{}hea\PYGdefaultZhy{}randomize\PYGdefaultZhy{}bit\PYGdefaultZhy{}order \PYGdefaultZhy{}r 5e\PYGdefaultZhy{}5\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{},}
+        \PYGdefault{p}{\PYGdefaultZob{}}
+            \PYGdefault{n+nt}{\PYGdefaultZdq{}id\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}bm\PYGdefaultZhy{}pbil\PYGdefaultZdq{}}\PYGdefault{p}{,}
+	    \PYGdefault{n+nt}{\PYGdefaultZdq{}opt\PYGdefaultZdq{}}\PYGdefault{p}{:} \PYGdefault{l+s+s2}{\PYGdefaultZdq{}\PYGdefaultZhy{}A 1000 \PYGdefaultZhy{}x 50 \PYGdefaultZhy{}y 1 \PYGdefaultZhy{}r 1e\PYGdefaultZhy{}3\PYGdefaultZdq{}}
+        \PYGdefault{p}{\PYGdefaultZcb{}}
+    \PYGdefault{p}{]}
+\PYGdefault{p}{\PYGdefaultZcb{}}
+\end{Verbatim}

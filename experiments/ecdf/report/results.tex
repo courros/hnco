@@ -1,0 +1,784 @@
+\graphicspath{{../graphics/}}
+
+\section{Rankings}
+\begin{center}
+\begin{tabular}{@{}l*{10}{r}@{}}
+\toprule
+algorithm & \multicolumn{10}{l}{{rank distribution}}\\
+\midrule
+& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
+\midrule
+pbil & 10 & 0 & 1 & 2 & 2 & 0 & 1 & 1 & 0 & 2\\
+sa & 8 & 2 & 3 & 2 & 0 & 1 & 0 & 0 & 2 & 1\\
+umda & 7 & 2 & 1 & 0 & 2 & 0 & 2 & 1 & 3 & 1\\
+rls & 6 & 4 & 2 & 2 & 1 & 1 & 0 & 1 & 0 & 2\\
+ga & 6 & 2 & 1 & 0 & 1 & 3 & 5 & 0 & 0 & 1\\
+ea-1c10 & 5 & 5 & 3 & 5 & 0 & 0 & 0 & 0 & 1 & 0\\
+hc & 5 & 5 & 1 & 2 & 1 & 0 & 1 & 2 & 0 & 2\\
+ea-1p1 & 5 & 3 & 1 & 2 & 1 & 0 & 3 & 3 & 0 & 1\\
+ea-10p1 & 4 & 2 & 5 & 5 & 0 & 2 & 1 & 0 & 0 & 0\\
+ea-1p10 & 4 & 2 & 2 & 2 & 0 & 1 & 4 & 0 & 3 & 1\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\newpage
+
+\section{Function one-max}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{0}}}N{3}{0}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.005653 & 0.001825 \\
+ \verb|hc| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.004432 & 0.000479 \\
+ \verb|sa| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.006942 & 0.001007 \\
+ \verb|ea-1p1| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.004159 & 0.000404 \\
+ \verb|ea-1p10| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.004629 & 0.000538 \\
+ \verb|ea-10p1| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.018200 & 0.003608 \\
+ \verb|ea-1c10| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.006423 & 0.000903 \\
+ \verb|ga| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.011430 & 0.002271 \\
+ \verb|pbil| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.041145 & 0.006041 \\
+ \verb|umda| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.005885 & 0.001526 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{one-max}
+\caption{one-max}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{one-max+all}
+\caption{one-max}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function lin}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{2}}}N{2}{2}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & 1 & 0.116635 & 0.019423 \\
+ \verb|hc| & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & 1 & 0.092253 & 0.007876 \\
+ \verb|sa| & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & 1 & 0.157899 & 0.040355 \\
+ \verb|ea-1p1| & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & 1 & 0.775377 & 0.055700 \\
+ \verb|ea-1p10| & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & 1 & 0.533908 & 0.058543 \\
+ \verb|ea-10p1| & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & 1 & 0.528323 & 0.042167 \\
+ \verb|ea-1c10| & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & 1 & 0.544979 & 0.045967 \\
+ \verb|ga| & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & 1 & 1.046920 & 0.041908 \\
+ \verb|pbil| & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & 1 & 0.604199 & 0.054557 \\
+ \verb|umda| & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & {\color{blue}} 50.652000 & 1 & 0.578324 & 0.042505 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{lin}
+\caption{lin}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{lin+all}
+\caption{lin}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function leading-ones}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{0}}}N{3}{0}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.013722 & 0.008470 \\
+ \verb|hc| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.004906 & 0.000874 \\
+ \verb|sa| & 3.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 10 & 0.026638 & 0.039778 \\
+ \verb|ea-1p1| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.024880 & 0.008430 \\
+ \verb|ea-1p10| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.018881 & 0.004299 \\
+ \verb|ea-10p1| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.161822 & 0.042945 \\
+ \verb|ea-1c10| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.021540 & 0.004699 \\
+ \verb|ga| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.072195 & 0.030925 \\
+ \verb|pbil| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.221928 & 0.048988 \\
+ \verb|umda| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.026778 & 0.007202 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{leading-ones}
+\caption{leading-ones}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{leading-ones+all}
+\caption{leading-ones}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function ridge}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{0}}}N{3}{0}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & 104.000000 & 104.750000 & 105.000000 & 106.250000 & 107.000000 & 10 & 0.115487 & 0.034709 \\
+ \verb|hc| & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & 1 & 0.008221 & 0.001234 \\
+ \verb|sa| & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & 1 & 0.011340 & 0.000875 \\
+ \verb|ea-1p1| & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & 1 & 0.065234 & 0.026960 \\
+ \verb|ea-1p10| & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & 1 & 0.062892 & 0.020526 \\
+ \verb|ea-10p1| & 187.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & 7 & 0.513894 & 0.065087 \\
+ \verb|ea-1c10| & 118.000000 & 123.000000 & 125.500000 & 129.000000 & 131.000000 & 9 & 0.573580 & 0.088118 \\
+ \verb|ga| & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & 1 & 0.195288 & 0.028826 \\
+ \verb|pbil| & 153.000000 & 154.000000 & 155.000000 & 156.000000 & 157.000000 & 8 & 0.587608 & 0.054480 \\
+ \verb|umda| & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & {\color{blue}} 200.000000 & 1 & 0.101507 & 0.017258 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{ridge}
+\caption{ridge}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{ridge+all}
+\caption{ridge}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function jmp-5}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{0}}}N{3}{0}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 4 & 0.094670 & 0.020109 \\
+ \verb|hc| & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 4 & 0.075505 & 0.019423 \\
+ \verb|sa| & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 4 & 0.111147 & 0.017086 \\
+ \verb|ea-1p1| & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 4 & 0.736238 & 0.034659 \\
+ \verb|ea-1p10| & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 4 & 0.490153 & 0.025183 \\
+ \verb|ea-10p1| & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 4 & 0.503259 & 0.023588 \\
+ \verb|ea-1c10| & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 95.000000 & 4 & 0.498033 & 0.027244 \\
+ \verb|ga| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.272730 & 0.202735 \\
+ \verb|pbil| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.043090 & 0.008375 \\
+ \verb|umda| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.081253 & 0.093132 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{jmp-5}
+\caption{jmp-5}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{jmp-5+all}
+\caption{jmp-5}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function jmp-10}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{0}}}N{3}{0}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & {\color{blue}} 90.000000 & {\color{blue}} 90.000000 & 90.000000 & 90.000000 & 90.000000 & 2 & 0.088386 & 0.017686 \\
+ \verb|hc| & {\color{blue}} 90.000000 & {\color{blue}} 90.000000 & 90.000000 & 90.000000 & 90.000000 & 2 & 0.068157 & 0.014411 \\
+ \verb|sa| & {\color{blue}} 90.000000 & {\color{blue}} 90.000000 & 90.000000 & 90.000000 & 90.000000 & 2 & 0.106750 & 0.014109 \\
+ \verb|ea-1p1| & {\color{blue}} 90.000000 & {\color{blue}} 90.000000 & 90.000000 & 90.000000 & 90.000000 & 2 & 0.743432 & 0.022887 \\
+ \verb|ea-1p10| & {\color{blue}} 90.000000 & {\color{blue}} 90.000000 & 90.000000 & 90.000000 & 90.000000 & 2 & 0.492851 & 0.021044 \\
+ \verb|ea-10p1| & {\color{blue}} 90.000000 & {\color{blue}} 90.000000 & 90.000000 & 90.000000 & 90.000000 & 2 & 0.539006 & 0.044148 \\
+ \verb|ea-1c10| & {\color{blue}} 90.000000 & {\color{blue}} 90.000000 & 90.000000 & 90.000000 & 90.000000 & 2 & 0.538108 & 0.045163 \\
+ \verb|ga| & {\color{blue}} 90.000000 & {\color{blue}} 90.000000 & 90.000000 & 90.000000 & 90.000000 & 2 & 1.043137 & 0.041316 \\
+ \verb|pbil| & {\color{blue}} 90.000000 & {\color{blue}} 90.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 1 & 0.309578 & 0.260410 \\
+ \verb|umda| & {\color{blue}} 90.000000 & {\color{blue}} 90.000000 & 90.000000 & 90.000000 & 90.000000 & 2 & 0.604403 & 0.051174 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{jmp-10}
+\caption{jmp-10}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{jmp-10+all}
+\caption{jmp-10}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function djmp-5}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{0}}}N{3}{0}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 4 & 0.134653 & 0.034788 \\
+ \verb|hc| & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 4 & 0.103131 & 0.030835 \\
+ \verb|sa| & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 4 & 0.156449 & 0.041295 \\
+ \verb|ea-1p1| & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 4 & 0.745403 & 0.051619 \\
+ \verb|ea-1p10| & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 4 & 0.520243 & 0.044880 \\
+ \verb|ea-10p1| & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 4 & 0.525854 & 0.046909 \\
+ \verb|ea-1c10| & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 4 & 0.535798 & 0.042297 \\
+ \verb|ga| & {\color{blue}} 105.000000 & {\color{blue}} 105.000000 & {\color{blue}} 105.000000 & {\color{blue}} 105.000000 & {\color{blue}} 105.000000 & 1 & 0.203143 & 0.131054 \\
+ \verb|pbil| & {\color{blue}} 105.000000 & {\color{blue}} 105.000000 & {\color{blue}} 105.000000 & {\color{blue}} 105.000000 & {\color{blue}} 105.000000 & 1 & 0.060265 & 0.024743 \\
+ \verb|umda| & {\color{blue}} 105.000000 & {\color{blue}} 105.000000 & {\color{blue}} 105.000000 & {\color{blue}} 105.000000 & {\color{blue}} 105.000000 & 1 & 0.077783 & 0.066338 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{djmp-5}
+\caption{djmp-5}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{djmp-5+all}
+\caption{djmp-5}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function djmp-10}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{0}}}N{3}{0}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 100.000000 & 100.000000 & 100.000000 & 2 & 0.134199 & 0.031230 \\
+ \verb|hc| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 100.000000 & 100.000000 & 100.000000 & 2 & 0.123843 & 0.023245 \\
+ \verb|sa| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 100.000000 & 100.000000 & 100.000000 & 2 & 0.164150 & 0.039477 \\
+ \verb|ea-1p1| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 100.000000 & 100.000000 & 100.000000 & 2 & 0.784453 & 0.049533 \\
+ \verb|ea-1p10| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 100.000000 & 100.000000 & 100.000000 & 2 & 0.520286 & 0.050499 \\
+ \verb|ea-10p1| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 100.000000 & 100.000000 & 100.000000 & 2 & 0.522132 & 0.054799 \\
+ \verb|ea-1c10| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 100.000000 & 100.000000 & 100.000000 & 2 & 0.529311 & 0.042942 \\
+ \verb|ga| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 100.000000 & 100.000000 & 100.000000 & 2 & 1.055931 & 0.035297 \\
+ \verb|pbil| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & {\color{blue}} 105.000000 & {\color{blue}} 110.000000 & {\color{blue}} 110.000000 & 1 & 0.407388 & 0.259917 \\
+ \verb|umda| & {\color{blue}} 100.000000 & {\color{blue}} 100.000000 & 100.000000 & 100.000000 & 100.000000 & 2 & 0.601759 & 0.050415 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{djmp-10}
+\caption{djmp-10}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{djmp-10+all}
+\caption{djmp-10}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function fp-5}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{0}}}N{3}{0}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & 1 & 0.017644 & 0.015104 \\
+ \verb|hc| & 100.000000 & 100.000000 & 100.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & 10 & 0.108989 & 0.042246 \\
+ \verb|sa| & 3.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & 9 & 0.026863 & 0.047321 \\
+ \verb|ea-1p1| & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & 1 & 0.023903 & 0.007550 \\
+ \verb|ea-1p10| & 100.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & 7 & 0.080274 & 0.144564 \\
+ \verb|ea-10p1| & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & 1 & 0.167372 & 0.048191 \\
+ \verb|ea-1c10| & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & 1 & 0.032232 & 0.017902 \\
+ \verb|ga| & 100.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & 7 & 0.149634 & 0.295638 \\
+ \verb|pbil| & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & 1 & 0.257423 & 0.039473 \\
+ \verb|umda| & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & {\color{blue}} 194.000000 & 1 & 0.046548 & 0.016380 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{fp-5}
+\caption{fp-5}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{fp-5+all}
+\caption{fp-5}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function fp-10}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{0}}}N{3}{0}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & 1 & 0.049558 & 0.036196 \\
+ \verb|hc| & 100.000000 & 100.000000 & 100.000000 & 100.000000 & {\color{blue}} 189.000000 & 7 & 0.119051 & 0.030033 \\
+ \verb|sa| & 100.000000 & 100.000000 & 100.000000 & 122.250000 & {\color{blue}} 189.000000 & 6 & 0.135531 & 0.071396 \\
+ \verb|ea-1p1| & 100.000000 & 100.000000 & 100.000000 & 100.000000 & {\color{blue}} 189.000000 & 7 & 0.669045 & 0.271385 \\
+ \verb|ea-1p10| & 100.000000 & 100.000000 & 100.000000 & 100.000000 & {\color{blue}} 189.000000 & 7 & 0.451255 & 0.209563 \\
+ \verb|ea-10p1| & 100.000000 & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & 3 & 0.217150 & 0.138228 \\
+ \verb|ea-1c10| & 100.000000 & 166.750000 & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & 4 & 0.319488 & 0.189787 \\
+ \verb|ga| & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 100.000000 & 10 & 1.050824 & 0.041752 \\
+ \verb|pbil| & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & 1 & 0.215387 & 0.048359 \\
+ \verb|umda| & 100.000000 & 100.000000 & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & {\color{blue}} 189.000000 & 5 & 0.256629 & 0.262196 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{fp-10}
+\caption{fp-10}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{fp-10+all}
+\caption{fp-10}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function quad}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{2}}}N{3}{2}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & 689.029000 & 700.117500 & 701.825000 & 707.218500 & 714.266000 & 3 & 4.500035 & 0.074701 \\
+ \verb|hc| & 700.606000 & 704.749250 & 708.349000 & 711.187250 & 716.373000 & 2 & 4.802298 & 0.073865 \\
+ \verb|sa| & {\color{blue}} 701.736000 & {\color{blue}} 710.591000 & {\color{blue}} 711.677000 & {\color{blue}} 718.755000 & {\color{blue}} 718.755000 & 1 & 0.877387 & 0.077531 \\
+ \verb|ea-1p1| & 555.675000 & 644.594750 & 661.789500 & 687.148250 & 709.292000 & 8 & 1.643134 & 0.082128 \\
+ \verb|ea-1p10| & 552.463000 & 635.699000 & 659.745000 & 673.933500 & 716.373000 & 9 & 1.173926 & 0.072904 \\
+ \verb|ea-10p1| & 615.437000 & 667.235500 & 677.924500 & 693.792500 & 703.391000 & 6 & 1.763209 & 0.067453 \\
+ \verb|ea-1c10| & 652.393000 & 686.449500 & 698.102000 & 709.725000 & {\color{blue}} 718.755000 & 4 & 1.796319 & 0.173173 \\
+ \verb|ga| & 583.835000 & 629.322500 & 662.465500 & 677.364750 & 709.292000 & 7 & 1.732744 & 0.066290 \\
+ \verb|pbil| & 639.430000 & 666.703250 & 694.939000 & 701.784250 & 716.373000 & 5 & 1.943293 & 0.087553 \\
+ \verb|umda| & 570.609000 & 621.139750 & 637.483000 & 658.064000 & 700.742000 & 10 & 1.246321 & 0.069562 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{quad}
+\caption{quad}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{quad+all}
+\caption{quad}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function nk}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{2}}}N{1}{2}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & 0.852828 & 0.862049 & 0.866413 & 0.874831 & 0.912496 & 6 & 0.345456 & 0.041475 \\
+ \verb|hc| & 0.846195 & 0.881446 & 0.886957 & 0.897355 & 0.952518 & 5 & 0.317636 & 0.047999 \\
+ \verb|sa| & {\color{blue}} 0.866656 & {\color{blue}} 0.919508 & {\color{blue}} 0.953503 & {\color{blue}} 0.971361 & {\color{blue}} 0.985890 & 1 & 0.371634 & 0.045077 \\
+ \verb|ea-1p1| & 0.720011 & 0.771687 & 0.816999 & 0.871040 & 0.908478 & 10 & 0.936051 & 0.050524 \\
+ \verb|ea-1p10| & 0.708931 & 0.788595 & 0.823075 & 0.862858 & 0.897770 & 9 & 0.714189 & 0.045781 \\
+ \verb|ea-10p1| & 0.777030 & 0.853650 & 0.890456 & 0.932312 & 0.970551 & 3 & 0.710753 & 0.049430 \\
+ \verb|ea-1c10| & 0.789334 & 0.898501 & 0.928263 & 0.945326 & {\color{blue}} 0.985890 & 2 & 0.722551 & 0.046556 \\
+ \verb|ga| & 0.741752 & 0.778123 & 0.838996 & 0.865569 & 0.898201 & 7 & 1.256394 & 0.046165 \\
+ \verb|pbil| & 0.864543 & 0.875665 & 0.887957 & 0.910794 & 0.955931 & 4 & 0.789061 & 0.051283 \\
+ \verb|umda| & 0.788120 & 0.822638 & 0.837485 & 0.883643 & 0.935962 & 8 & 0.775781 & 0.044138 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{nk}
+\caption{nk}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{nk+all}
+\caption{nk}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function max-sat}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{0}}}N{3}{0}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & {\color{blue}} 964.000000 & 964.000000 & 964.000000 & {\color{blue}} 965.000000 & {\color{blue}} 965.000000 & 2 & 2.074702 & 0.059637 \\
+ \verb|hc| & 951.000000 & 957.000000 & 961.000000 & 962.250000 & 964.000000 & 8 & 0.319026 & 0.044881 \\
+ \verb|sa| & {\color{blue}} 964.000000 & {\color{blue}} 965.000000 & {\color{blue}} 965.000000 & {\color{blue}} 965.000000 & {\color{blue}} 965.000000 & 1 & 0.865718 & 0.127069 \\
+ \verb|ea-1p1| & 955.000000 & 961.000000 & 962.000000 & 962.500000 & {\color{blue}} 965.000000 & 5 & 1.397669 & 0.144414 \\
+ \verb|ea-1p10| & 954.000000 & 960.000000 & 961.500000 & 964.000000 & {\color{blue}} 965.000000 & 7 & 1.079557 & 0.116315 \\
+ \verb|ea-10p1| & 957.000000 & 961.000000 & 962.000000 & 964.250000 & {\color{blue}} 965.000000 & 4 & 2.021107 & 0.088104 \\
+ \verb|ea-1c10| & 959.000000 & 962.000000 & 964.000000 & {\color{blue}} 965.000000 & {\color{blue}} 965.000000 & 3 & 1.285007 & 0.109589 \\
+ \verb|ga| & 955.000000 & 960.000000 & 962.000000 & 963.250000 & {\color{blue}} 965.000000 & 6 & 1.677540 & 0.125659 \\
+ \verb|pbil| & 957.000000 & 959.000000 & 959.000000 & 960.000000 & 962.000000 & 10 & 1.521872 & 0.081161 \\
+ \verb|umda| & 955.000000 & 959.000000 & 960.000000 & 961.000000 & {\color{blue}} 965.000000 & 9 & 1.162000 & 0.081413 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{max-sat}
+\caption{max-sat}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{max-sat+all}
+\caption{max-sat}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function labs}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{2}}}N{1}{2}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & 4.173620 & 4.386003 & 4.440500 & 4.524903 & 4.911590 & 5 & 1.652318 & 0.050644 \\
+ \verb|hc| & 4.456330 & 4.587160 & 4.807710 & 4.878060 & 5.307860 & 2 & 1.661557 & 0.051582 \\
+ \verb|sa| & 4.472270 & 4.633933 & 4.762180 & {\color{blue}} 5.076155 & {\color{blue}} 5.747130 & 3 & 1.678373 & 0.046447 \\
+ \verb|ea-1p1| & 3.536070 & 3.811000 & 4.032350 & 4.277165 & 4.873290 & 8 & 2.269831 & 0.063932 \\
+ \verb|ea-1p10| & 3.714710 & 3.888020 & 4.125960 & 4.348467 & 4.725900 & 7 & 2.023640 & 0.050387 \\
+ \verb|ea-10p1| & 4.159730 & 4.492458 & 4.595725 & 4.690430 & 4.798460 & 4 & 2.041489 & 0.050443 \\
+ \verb|ea-1c10| & {\color{blue}} 4.570380 & {\color{blue}} 4.793872 & {\color{blue}} 4.854370 & 4.902020 & 5.050510 & 1 & 2.025657 & 0.054127 \\
+ \verb|ga| & 3.639010 & 4.052365 & 4.325275 & 4.480327 & 5.112470 & 6 & 2.553777 & 0.043859 \\
+ \verb|pbil| & 3.496500 & 3.679185 & 3.888020 & 4.065563 & 4.604050 & 10 & 2.156683 & 0.039751 \\
+ \verb|umda| & 3.506310 & 3.864098 & 3.912360 & 4.101795 & 4.409170 & 9 & 2.047301 & 0.053947 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{labs}
+\caption{labs}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{labs+all}
+\caption{labs}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function ep}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{2}}}N{1}{2}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & 2.138140e-29 & {\color{blue}} 8.842178e-29 & {\color{blue}} 2.005290e-28 & {\color{blue}} 4.538783e-28 & {\color{blue}} 7.411120e-28 & 1 & 0.165845 & 0.042796 \\
+ \verb|hc| & {\color{blue}} 9.584020e-31 & 2.221423e-28 & 3.503910e-28 & 7.361065e-28 & 2.554010e-27 & 2 & 0.155917 & 0.036463 \\
+ \verb|sa| & 8.237950e-29 & 3.297202e-28 & 4.690310e-28 & 1.939185e-27 & 2.607040e-23 & 3 & 0.190191 & 0.044707 \\
+ \verb|ea-1p1| & 9.115070e-29 & 1.240570e-27 & 4.939080e-27 & 8.939050e-27 & 3.283060e-26 & 8 & 0.779762 & 0.050684 \\
+ \verb|ea-1p10| & 4.144870e-28 & 3.557560e-27 & 6.242795e-27 & 1.208235e-26 & 4.155950e-26 & 10 & 0.545564 & 0.050725 \\
+ \verb|ea-10p1| & 4.827190e-29 & 8.572277e-28 & 2.024655e-27 & 6.482058e-27 & 2.764180e-26 & 6 & 0.551562 & 0.048842 \\
+ \verb|ea-1c10| & 3.160870e-29 & 3.359453e-28 & 7.991895e-28 & 1.546435e-27 & 2.884330e-27 & 4 & 0.564559 & 0.041864 \\
+ \verb|ga| & 1.817400e-28 & 1.679844e-27 & 3.877915e-27 & 1.780337e-26 & 5.055810e-26 & 7 & 1.050633 & 0.047226 \\
+ \verb|pbil| & 3.239680e-29 & 3.648090e-28 & 8.469505e-28 & 1.392720e-27 & 3.476230e-27 & 5 & 0.779479 & 0.047986 \\
+ \verb|umda| & 7.562510e-29 & 2.680290e-27 & 4.962575e-27 & 1.073657e-26 & 3.716990e-26 & 9 & 0.582048 & 0.050768 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{ep}
+\caption{ep}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{ep+all}
+\caption{ep}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function cancel}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{2}}}N{1}{2}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & 1.050000 & 1.267500 & 1.650000 & 1.947500 & 2.400000 & 8 & 0.153368 & 0.041327 \\
+ \verb|hc| & 2.490000 & 3.427500 & 3.935000 & 4.865000 & 8.050000 & 10 & 0.149927 & 0.034543 \\
+ \verb|sa| & 0.200000 & 1.417500 & 2.075000 & 3.090000 & 16.650000 & 9 & 0.210814 & 0.033045 \\
+ \verb|ea-1p1| & 0.060000 & 0.245000 & 0.500000 & 1.320000 & 1.480000 & 3 & 0.786690 & 0.041589 \\
+ \verb|ea-1p10| & 0.110000 & 0.207500 & 0.935000 & 1.330000 & 2.080000 & 6 & 0.538104 & 0.052470 \\
+ \verb|ea-10p1| & {\color{blue}} 0.050000 & 0.120000 & 0.660000 & 1.402500 & 2.750000 & 4 & 0.584487 & 0.028101 \\
+ \verb|ea-1c10| & 0.060000 & 0.087500 & 0.230000 & 0.702500 & 1.460000 & 2 & 0.546477 & 0.051382 \\
+ \verb|ga| & {\color{blue}} 0.050000 & 0.187500 & 0.870000 & 1.452500 & 2.600000 & 5 & 1.070827 & 0.049579 \\
+ \verb|pbil| & {\color{blue}} 0.050000 & {\color{blue}} 0.060000 & {\color{blue}} 0.075000 & {\color{blue}} 0.122500 & {\color{blue}} 0.700000 & 1 & 0.614413 & 0.044816 \\
+ \verb|umda| & 0.200000 & 0.627500 & 1.255000 & 1.507500 & 1.960000 & 7 & 0.592948 & 0.041687 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{cancel}
+\caption{cancel}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{cancel+all}
+\caption{cancel}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function trap}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{0}}}N{3}{0}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & {\color{blue}} 91.000000 & {\color{blue}} 91.000000 & {\color{blue}} 91.000000 & 91.000000 & 91.000000 & 2 & 0.171046 & 0.041484 \\
+ \verb|hc| & {\color{blue}} 91.000000 & {\color{blue}} 91.000000 & {\color{blue}} 91.000000 & {\color{blue}} 92.000000 & {\color{blue}} 92.000000 & 1 & 0.167673 & 0.032156 \\
+ \verb|sa| & 90.000000 & 90.000000 & 90.000000 & 90.000000 & 91.000000 & 3 & 0.223793 & 0.023878 \\
+ \verb|ea-1p1| & 90.000000 & 90.000000 & 90.000000 & 90.000000 & 90.000000 & 7 & 0.816775 & 0.040765 \\
+ \verb|ea-1p10| & 90.000000 & 90.000000 & 90.000000 & 90.000000 & 91.000000 & 3 & 0.571334 & 0.041522 \\
+ \verb|ea-10p1| & 90.000000 & 90.000000 & 90.000000 & 90.000000 & 91.000000 & 3 & 0.556955 & 0.057392 \\
+ \verb|ea-1c10| & 90.000000 & 90.000000 & 90.000000 & 90.000000 & 91.000000 & 3 & 0.530762 & 0.054207 \\
+ \verb|ga| & 90.000000 & 90.000000 & 90.000000 & 90.000000 & 90.000000 & 7 & 1.088131 & 0.030361 \\
+ \verb|pbil| & 90.000000 & 90.000000 & 90.000000 & 90.000000 & 90.000000 & 7 & 0.606897 & 0.046109 \\
+ \verb|umda| & 90.000000 & 90.000000 & 90.000000 & 90.000000 & 90.000000 & 7 & 0.575868 & 0.046356 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{trap}
+\caption{trap}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{trap+all}
+\caption{trap}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function hiff}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{0}}}N{3}{0}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & 404.000000 & 411.000000 & 416.000000 & 424.000000 & 442.000000 & 10 & 0.355567 & 0.051607 \\
+ \verb|hc| & 472.000000 & 487.000000 & 494.000000 & 508.000000 & 552.000000 & 8 & 0.339817 & 0.050326 \\
+ \verb|sa| & {\color{blue}} 672.000000 & {\color{blue}} 696.000000 & {\color{blue}} 736.000000 & {\color{blue}} 800.000000 & {\color{blue}} 1024.000000 & 1 & 0.411156 & 0.087349 \\
+ \verb|ea-1p1| & 448.000000 & 470.000000 & 496.000000 & 522.000000 & 544.000000 & 7 & 1.148078 & 0.054481 \\
+ \verb|ea-1p10| & 448.000000 & 470.000000 & 492.000000 & 512.000000 & 576.000000 & 9 & 0.875678 & 0.053177 \\
+ \verb|ea-10p1| & 560.000000 & 644.000000 & 672.000000 & 704.000000 & 800.000000 & 3 & 0.910877 & 0.055281 \\
+ \verb|ea-1c10| & 600.000000 & 672.000000 & 696.000000 & 741.000000 & 784.000000 & 2 & 0.876626 & 0.044917 \\
+ \verb|ga| & 448.000000 & 480.000000 & 500.000000 & 520.000000 & 552.000000 & 6 & 1.464253 & 0.064633 \\
+ \verb|pbil| & 464.000000 & 506.500000 & 533.000000 & 576.000000 & 592.000000 & 4 & 0.957916 & 0.063255 \\
+ \verb|umda| & 444.000000 & 495.000000 & 512.000000 & 536.000000 & 576.000000 & 5 & 0.924929 & 0.040105 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{hiff}
+\caption{hiff}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{hiff+all}
+\caption{hiff}
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Function plateau}
+\begin{center}
+\begin{tabular}{@{}l*{5}{>{{\nprounddigits{0}}}N{3}{0}}>{{\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}@{}}
+\toprule
+{algorithm} & \multicolumn{6}{l}{{number of function evaluations}} & \multicolumn{2}{l}{{wall clock time}} \\
+\midrule
+& {min} & {$Q_1$} & {med.} & {$Q_3$} & {max} & {rk} & {mean} & {SD} \\
+\midrule
+\verb|rls| & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & 101.000000 & 101.000000 & 3 & 0.149166 & 0.025028 \\
+ \verb|hc| & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & 101.000000 & 101.000000 & 3 & 0.116812 & 0.032654 \\
+ \verb|sa| & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & {\color{blue}} 102.000000 & {\color{blue}} 102.000000 & 1 & 0.160942 & 0.046736 \\
+ \verb|ea-1p1| & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & 101.000000 & {\color{blue}} 102.000000 & 2 & 0.715701 & 0.168820 \\
+ \verb|ea-1p10| & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & 101.000000 & 101.000000 & 3 & 0.554365 & 0.043712 \\
+ \verb|ea-10p1| & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & 101.000000 & 101.000000 & 3 & 0.520502 & 0.060594 \\
+ \verb|ea-1c10| & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & 101.000000 & 101.000000 & 3 & 0.513726 & 0.054808 \\
+ \verb|ga| & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & 101.000000 & 101.000000 & 3 & 1.034695 & 0.051083 \\
+ \verb|pbil| & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & 101.000000 & 101.000000 & 3 & 0.583883 & 0.060112 \\
+ \verb|umda| & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & {\color{blue}} 101.000000 & 101.000000 & 101.000000 & 3 & 0.578976 & 0.046737 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{plateau}
+\caption{plateau}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\linewidth]{plateau+all}
+\caption{plateau}
+\end{figure}
+\end{center}
+

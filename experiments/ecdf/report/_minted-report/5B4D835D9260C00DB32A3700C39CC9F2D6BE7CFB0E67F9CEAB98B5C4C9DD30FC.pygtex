@@ -1,0 +1,152 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{\PYGZob{}}
+    \PYG{n+nt}{\PYGZdq{}exec\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}hnco\PYGZdq{}}\PYG{p}{,}
+    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}\PYGZhy{}no\PYGZhy{}header \PYGZhy{}\PYGZhy{}log\PYGZhy{}improvement \PYGZhy{}\PYGZhy{}map 3 \PYGZhy{}\PYGZhy{}map\PYGZhy{}random \PYGZhy{}s 100 \PYGZhy{}i 0 \PYGZhy{}b 1000\PYGZdq{}}\PYG{p}{,}
+    \PYG{n+nt}{\PYGZdq{}num\PYGZus{}runs\PYGZdq{}}\PYG{p}{:} \PYG{l+m+mi}{20}\PYG{p}{,}
+    \PYG{n+nt}{\PYGZdq{}results\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}results\PYGZdq{}}\PYG{p}{,}
+    \PYG{n+nt}{\PYGZdq{}graphics\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}graphics\PYGZdq{}}\PYG{p}{,}
+    \PYG{n+nt}{\PYGZdq{}report\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}report\PYGZdq{}}\PYG{p}{,}
+    \PYG{n+nt}{\PYGZdq{}functions\PYGZdq{}}\PYG{p}{:} \PYG{p}{[}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}one\PYGZhy{}max\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 0 \PYGZhy{}\PYGZhy{}stop\PYGZhy{}on\PYGZhy{}maximum\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}0\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}0\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}lin\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 1 \PYGZhy{}p instances/lin.100\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}2\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}2\PYGZcb{}\PYGZob{}2\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}leading\PYGZhy{}ones\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 10 \PYGZhy{}\PYGZhy{}stop\PYGZhy{}on\PYGZhy{}maximum\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}0\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}0\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}ridge\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 11 \PYGZhy{}\PYGZhy{}stop\PYGZhy{}on\PYGZhy{}maximum\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}0\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}0\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}jmp\PYGZhy{}5\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 30 \PYGZhy{}\PYGZhy{}stop\PYGZhy{}on\PYGZhy{}maximum \PYGZhy{}t 5\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}0\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}0\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}jmp\PYGZhy{}10\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 30 \PYGZhy{}\PYGZhy{}stop\PYGZhy{}on\PYGZhy{}maximum \PYGZhy{}t 10\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}0\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}0\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}djmp\PYGZhy{}5\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 31 \PYGZhy{}\PYGZhy{}stop\PYGZhy{}on\PYGZhy{}maximum \PYGZhy{}t 5\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}0\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}0\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}djmp\PYGZhy{}10\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 31 \PYGZhy{}\PYGZhy{}stop\PYGZhy{}on\PYGZhy{}maximum \PYGZhy{}t 10\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}0\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}0\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}fp\PYGZhy{}5\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 40 \PYGZhy{}\PYGZhy{}stop\PYGZhy{}on\PYGZhy{}maximum \PYGZhy{}t 5\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}0\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}0\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}fp\PYGZhy{}10\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 40 \PYGZhy{}\PYGZhy{}stop\PYGZhy{}on\PYGZhy{}maximum \PYGZhy{}t 10\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}0\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}0\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}quad\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 50 \PYGZhy{}p instances/quad.100 \PYGZhy{}\PYGZhy{}cache\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}2\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}2\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}nk\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 60 \PYGZhy{}p instances/nk.100.4\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}2\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}1\PYGZcb{}\PYGZob{}2\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}max\PYGZhy{}sat\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 70 \PYGZhy{}p instances/ms.100.3.1000 \PYGZhy{}\PYGZhy{}cache\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}0\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}0\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}labs\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 80\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}2\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}1\PYGZcb{}\PYGZob{}2\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}ep\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 90 \PYGZhy{}p instances/ep.100\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}reverse\PYGZdq{}}\PYG{p}{:} \PYG{k+kc}{true}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}logscale\PYGZdq{}}\PYG{p}{:} \PYG{k+kc}{true}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}2\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}1\PYGZcb{}\PYGZob{}2\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}cancel\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 100 \PYGZhy{}s 99\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}reverse\PYGZdq{}}\PYG{p}{:} \PYG{k+kc}{true}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}2\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}1\PYGZcb{}\PYGZob{}2\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}trap\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 110 \PYGZhy{}\PYGZhy{}stop\PYGZhy{}on\PYGZhy{}maximum \PYGZhy{}\PYGZhy{}fun\PYGZhy{}num\PYGZhy{}traps 10\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}0\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}0\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}hiff\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 120 \PYGZhy{}\PYGZhy{}stop\PYGZhy{}on\PYGZhy{}maximum \PYGZhy{}s 128\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}0\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}0\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}plateau\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}F 130 \PYGZhy{}\PYGZhy{}stop\PYGZhy{}on\PYGZhy{}maximum\PYGZdq{}}\PYG{p}{,}
+            \PYG{n+nt}{\PYGZdq{}col\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZgt{}\PYGZob{}\PYGZob{}\PYGZbs{}\PYGZbs{}nprounddigits\PYGZob{}0\PYGZcb{}\PYGZcb{}\PYGZcb{}N\PYGZob{}3\PYGZcb{}\PYGZob{}0\PYGZcb{}\PYGZdq{}}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{],}
+    \PYG{n+nt}{\PYGZdq{}algorithms\PYGZdq{}}\PYG{p}{:} \PYG{p}{[}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}rls\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}A 100 \PYGZhy{}\PYGZhy{}restart\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}hc\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}A 150 \PYGZhy{}\PYGZhy{}restart\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}sa\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}A 200 \PYGZhy{}\PYGZhy{}sa\PYGZhy{}rate 1.05 \PYGZhy{}\PYGZhy{}sa\PYGZhy{}num\PYGZhy{}trials 10\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}ea\PYGZhy{}1p1\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}A 300\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}ea\PYGZhy{}1p10\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}A 310 \PYGZhy{}\PYGZhy{}ea\PYGZhy{}mu 1 \PYGZhy{}\PYGZhy{}ea\PYGZhy{}lambda 10\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}ea\PYGZhy{}10p1\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}A 310 \PYGZhy{}\PYGZhy{}ea\PYGZhy{}mu 10 \PYGZhy{}\PYGZhy{}ea\PYGZhy{}lambda 1\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}ea\PYGZhy{}1c10\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}A 320 \PYGZhy{}\PYGZhy{}ea\PYGZhy{}mu 1 \PYGZhy{}\PYGZhy{}ea\PYGZhy{}lambda 10\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}ga\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}A 400 \PYGZhy{}\PYGZhy{}ea\PYGZhy{}mu 100\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}pbil\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}A 500 \PYGZhy{}r 5e\PYGZhy{}3\PYGZdq{}}
+        \PYG{p}{\PYGZcb{},}
+        \PYG{p}{\PYGZob{}}
+            \PYG{n+nt}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}umda\PYGZdq{}}\PYG{p}{,}
+	    \PYG{n+nt}{\PYGZdq{}opt\PYGZdq{}}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}A 600 \PYGZhy{}x 100 \PYGZhy{}y 10\PYGZdq{}}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{]}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
