@@ -48,6 +48,21 @@ LongPath::LongPath(int bv_size, int prefix_length):
 }
 
 
+// Match 0+1+
+bool is_bridge(bit_vector_t::const_iterator first, bit_vector_t::const_iterator last)
+{
+  if (*first != 0)
+    return false;
+
+  bit_vector_t::const_iterator iter = std::find(first, last, 1);
+
+  if (iter == last)
+    return false;
+
+  return std::all_of(iter, last, [](bit_t b){ return b == 1; });
+}
+
+
 double compute_index(bit_vector_t::const_iterator first, bit_vector_t::const_iterator last, int k)
 {
   if (first == last)
@@ -60,7 +75,7 @@ double compute_index(bit_vector_t::const_iterator first, bit_vector_t::const_ite
     return compute_index(prefix_last, last, k);
 
   // Bridge
-  if (*first == 0 && std::find(first, prefix_last, 1) != prefix_last) {
+  if (is_bridge(first, prefix_last)) {
     // Length of the long path of dimension n - k
     double path_length = k * std::pow(2, (last - prefix_last) / k) - (k - 1);
     if (compute_index(prefix_last, last, k) == path_length - 1) {
