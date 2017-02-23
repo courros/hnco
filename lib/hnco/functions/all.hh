@@ -34,6 +34,7 @@
 #include "hnco/functions/nk-landscape.hh"
 #include "hnco/functions/plugin.hh"
 #include "hnco/functions/quadratic-function.hh"
+#include "hnco/functions/qubo.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/functions/trap.hh"
 

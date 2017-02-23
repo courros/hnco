@@ -225,6 +225,11 @@
                 },
 
                 {
+                    "value": 51,
+                    "description": "Qubo"
+                },
+
+                {
                     "value": 60,
                     "description": "NK landscape"
                 },

@@ -118,7 +118,7 @@ Qubo::load(istream& stream)
       if (iss.fail() || (value == 0))
         throw Error("Qubo::load: Bad element value");
 
-      _q[i][j] = value;
+      _q[i][j] = -value;
 
       if (i == j)
         count_diagonal++;

@@ -610,6 +610,7 @@ void Options::print_help(ostream& stream) const
   stream << "            40: Four peaks" << endl;
   stream << "            41: Six peaks" << endl;
   stream << "            50: Quadratic function" << endl;
+  stream << "            51: Qubo" << endl;
   stream << "            60: NK landscape" << endl;
   stream << "            70: Max-SAT" << endl;
   stream << "            80: Low autocorrelation binary sequence" << endl;

@@ -95,6 +95,18 @@ make_concrete_function(Options& options)
     return function;
   }
 
+  case 51: {
+    ifstream ifs(options.get_path());
+    if (!ifs.good()) {
+      ostringstream stream;
+      stream << "make_concrete_function (Qubo): Cannot open " << options.get_path();
+      throw Error(stream.str());
+    }
+    Qubo* function = new Qubo;
+    function->load(ifs);
+    return function;
+  }
+
   case 60: {
     NkLandscape* function = new NkLandscape;
     ifstream ifs(options.get_path());
