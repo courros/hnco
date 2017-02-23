@@ -36,11 +36,11 @@ void
 Qubo::load(istream& stream)
 {
   bool spec = false;
-  int maxDiagonals = 0;
-  int nDiagonals = 0;
-  int nElements = 0;
-  int count_diagonal = 0;
-  int count_elements = 0;
+  int dimension = 0;
+  int num_diagonal_elements = 0;
+  int num_other_elements = 0;
+  int count_diagonal_elements = 0;
+  int count_other_elements = 0;
 
   while (!stream.eof()) {
     string line;
@@ -65,29 +65,29 @@ Qubo::load(istream& stream)
 
       iss >> token;
       if (iss.fail() || token != "p")
-        throw Error("Qubo::load: Bad p line");
+        throw Error("Qubo::load: Missing p line");
 
       iss >> token;
       if (iss.fail() || token != "qubo")
-        throw Error("Qubo::load: Bad p line");
+        throw Error("Qubo::load: p line: Missing token qubo");
 
       iss >> n;
       if (iss.fail() || n != 0)
-        throw Error("Qubo::load: Bad p line");
+        throw Error("Qubo::load: p line: Missing constant 0");
 
-      iss >> maxDiagonals;
-      if (iss.fail() || maxDiagonals <= 0)
-        throw Error("Qubo::load: Bad maxDiagonals");
+      iss >> dimension;
+      if (iss.fail() || dimension <= 0)
+        throw Error("Qubo::load: p line: Bad dimension");
 
-      iss >> nDiagonals;
-      if (iss.fail() || nDiagonals < 0)
-        throw Error("Qubo::load: Bad nDiagonals");
+      iss >> num_diagonal_elements;
+      if (iss.fail() || num_diagonal_elements < 0)
+        throw Error("Qubo::load: p line: Bad num_diagonal_elements");
 
-      iss >> nElements;
-      if (iss.fail() || nElements < 0)
-        throw Error("Qubo::load: Bad nElements");
+      iss >> num_other_elements;
+      if (iss.fail() || num_other_elements < 0)
+        throw Error("Qubo::load: p line: Bad num_other_elements");
 
-      _q = std::vector<std::vector<double> >(maxDiagonals, std::vector<double>(maxDiagonals, 0.0));
+      _q = std::vector<std::vector<double> >(dimension, std::vector<double>(dimension, 0.0));
 
       spec = true;
     }
@@ -97,18 +97,18 @@ Qubo::load(istream& stream)
       if (!spec)
         throw Error("Qubo::load: No p line yet");
 
-      assert(maxDiagonals > 0);
+      assert(dimension > 0);
 
       istringstream iss(line);
       int i, j;
       float value;
 
       iss >> i;
-      if (iss.fail() || i < 0 || !(i < maxDiagonals))
+      if (iss.fail() || i < 0 || !(i < dimension))
         throw Error("Qubo::load: Bad line index");
 
       iss >> j;
-      if (iss.fail() || j < 0 || !(j < maxDiagonals))
+      if (iss.fail() || j < 0 || !(j < dimension))
         throw Error("Qubo::load: Bad column index");
 
       if (i > j)
@@ -121,15 +121,15 @@ Qubo::load(istream& stream)
       _q[i][j] = -value;
 
       if (i == j)
-        count_diagonal++;
+        count_diagonal_elements++;
       else
-        count_elements++;
+        count_other_elements++;
     }
   }
 
-  if (count_elements != nElements)
+  if (count_other_elements != num_other_elements)
     throw Error("Qubo::load: Not enough off diagonal elements");
-  if (count_diagonal != nDiagonals)
+  if (count_diagonal_elements != num_diagonal_elements)
     throw Error("Qubo::load: Not enough diagonal elements");
 
 }
