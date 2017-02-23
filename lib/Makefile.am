@@ -90,6 +90,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/plugin.hh \
 	hnco/functions/quadratic-function.cc \
 	hnco/functions/quadratic-function.hh \
+	hnco/functions/qubo.cc \
+	hnco/functions/qubo.hh \
 	hnco/functions/theory.cc \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.cc \
@@ -156,6 +158,7 @@ nobase_include_HEADERS = \
 	hnco/functions/nk-landscape.hh \
 	hnco/functions/plugin.hh \
 	hnco/functions/quadratic-function.hh \
+	hnco/functions/qubo.hh \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.hh \
 	hnco/iterator.hh \
