@@ -2,6 +2,7 @@
 
 Library:
 - Added Qubo
+- Cancellation and SinusCancellation both have a known maximum (0)
 
 * Version 0.3 (2017-02-20)
 
