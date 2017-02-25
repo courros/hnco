@@ -226,7 +226,7 @@
 
                 {
                     "value": 51,
-                    "description": "Qubo"
+                    "description": "Quadratic unconstrained binary optimization (Qubo)"
                 },
 
                 {

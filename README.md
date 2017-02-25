@@ -232,8 +232,9 @@ instances are generated are indicated by `ffgen`):
 - Four peaks
 - Six peaks
 - Quadratic function (`ffgen`)
+- Quadratic unconstrained binary optimization (qubo input file format)
 - NK landscape (`ffgen`)
-- Max-SAT (`ffgen`)
+- Max-SAT (`ffgen`, dimacs cnf input file format)
 - Low autocorrelation binary sequence
 - Equal products (`ffgen`)
 - Cancellation
