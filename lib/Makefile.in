@@ -89,6 +89,11 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+@ENABLE_FACTORIZATION_TRUE@am__append_1 = \
+@ENABLE_FACTORIZATION_TRUE@	hnco/functions/factorization.cc \
+@ENABLE_FACTORIZATION_TRUE@	hnco/functions/factorization.hh
+
+@ENABLE_FACTORIZATION_TRUE@am__append_2 = hnco/functions/factorization.hh
 subdir = lib
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -97,7 +102,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-DIST_COMMON = $(srcdir)/Makefile.am $(nobase_include_HEADERS) \
+DIST_COMMON = $(srcdir)/Makefile.am $(am__nobase_include_HEADERS_DIST) \
 	$(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_CLEAN_FILES =
@@ -132,7 +137,79 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libhnco_la_LIBADD =
+am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
+	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
+	hnco/algorithms/bm-pbil/bm-pbil.cc \
+	hnco/algorithms/bm-pbil/bm-pbil.hh \
+	hnco/algorithms/bm-pbil/model.cc \
+	hnco/algorithms/bm-pbil/model.hh \
+	hnco/algorithms/complete-search.cc \
+	hnco/algorithms/complete-search.hh hnco/algorithms/ea/all.hh \
+	hnco/algorithms/ea/genetic-algorithm.cc \
+	hnco/algorithms/ea/genetic-algorithm.hh \
+	hnco/algorithms/ea/mu-comma-lambda-ea.cc \
+	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
+	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
+	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
+	hnco/algorithms/ea/one-plus-one-ea.cc \
+	hnco/algorithms/ea/one-plus-one-ea.hh \
+	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
+	hnco/algorithms/hea/herding-binary.cc \
+	hnco/algorithms/hea/herding-binary.hh \
+	hnco/algorithms/hea/herding-spin.cc \
+	hnco/algorithms/hea/herding-spin.hh \
+	hnco/algorithms/hea/moment-binary.cc \
+	hnco/algorithms/hea/moment-binary.hh \
+	hnco/algorithms/hea/moment-spin.cc \
+	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/ls/local-search.cc \
+	hnco/algorithms/ls/local-search.hh \
+	hnco/algorithms/ls/neighborhood.cc \
+	hnco/algorithms/ls/neighborhood.hh \
+	hnco/algorithms/ls/simulated-annealing.cc \
+	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/matrix.hh hnco/algorithms/population.cc \
+	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
+	hnco/algorithms/pv/compact-ga.cc \
+	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.cc \
+	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.cc \
+	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.cc \
+	hnco/algorithms/pv/pbil.hh \
+	hnco/algorithms/pv/probability-vector.cc \
+	hnco/algorithms/pv/probability-vector.hh \
+	hnco/algorithms/pv/pv-algorithm.cc \
+	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.cc \
+	hnco/algorithms/pv/umda.hh hnco/algorithms/random-search.cc \
+	hnco/algorithms/random-search.hh hnco/algorithms/restart.cc \
+	hnco/algorithms/restart.hh hnco/algorithms/util.hh \
+	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
+	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
+	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
+	hnco/functions/equal-products.cc \
+	hnco/functions/equal-products.hh hnco/functions/four-peaks.cc \
+	hnco/functions/four-peaks.hh \
+	hnco/functions/function-decorator.cc \
+	hnco/functions/function-decorator.hh \
+	hnco/functions/function.hh hnco/functions/jump.cc \
+	hnco/functions/jump.hh hnco/functions/labs.cc \
+	hnco/functions/labs.hh hnco/functions/linear-function.cc \
+	hnco/functions/linear-function.hh hnco/functions/long-path.cc \
+	hnco/functions/long-path.hh hnco/functions/max-sat.cc \
+	hnco/functions/max-sat.hh hnco/functions/nk-landscape.cc \
+	hnco/functions/nk-landscape.hh hnco/functions/plugin.cc \
+	hnco/functions/plugin.hh hnco/functions/quadratic-function.cc \
+	hnco/functions/quadratic-function.hh hnco/functions/qubo.cc \
+	hnco/functions/qubo.hh hnco/functions/theory.cc \
+	hnco/functions/theory.hh hnco/functions/trap.cc \
+	hnco/functions/trap.hh hnco/iterator.cc hnco/iterator.hh \
+	hnco/map.cc hnco/map.hh hnco/permutation.cc \
+	hnco/permutation.hh hnco/random.cc hnco/random.hh \
+	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
+	hnco/functions/factorization.cc \
+	hnco/functions/factorization.hh
 am__dirstamp = $(am__leading_dot)dirstamp
+@ENABLE_FACTORIZATION_TRUE@am__objects_1 =  \
+@ENABLE_FACTORIZATION_TRUE@	hnco/functions/factorization.lo
 am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/bm-pbil/bm-pbil.lo \
 	hnco/algorithms/bm-pbil/model.lo \
@@ -164,7 +241,7 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/functions/quadratic-function.lo hnco/functions/qubo.lo \
 	hnco/functions/theory.lo hnco/functions/trap.lo \
 	hnco/iterator.lo hnco/map.lo hnco/permutation.lo \
-	hnco/random.lo
+	hnco/random.lo $(am__objects_1)
 libhnco_la_OBJECTS = $(am_libhnco_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -223,12 +300,49 @@ am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(libhnco_la_SOURCES)
-DIST_SOURCES = $(libhnco_la_SOURCES)
+DIST_SOURCES = $(am__libhnco_la_SOURCES_DIST)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
+am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
+	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.hh \
+	hnco/algorithms/bm-pbil/model.hh \
+	hnco/algorithms/complete-search.hh hnco/algorithms/ea/all.hh \
+	hnco/algorithms/ea/genetic-algorithm.hh \
+	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
+	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
+	hnco/algorithms/ea/one-plus-one-ea.hh \
+	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
+	hnco/algorithms/hea/herding-binary.hh \
+	hnco/algorithms/hea/herding-spin.hh \
+	hnco/algorithms/hea/moment-binary.hh \
+	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/ls/local-search.hh \
+	hnco/algorithms/ls/neighborhood.hh \
+	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/matrix.hh hnco/algorithms/population.hh \
+	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
+	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
+	hnco/algorithms/pv/pbil.hh \
+	hnco/algorithms/pv/probability-vector.hh \
+	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/restart.hh \
+	hnco/algorithms/util.hh hnco/bit-matrix.hh hnco/bit-vector.hh \
+	hnco/exception.hh hnco/functions/all.hh \
+	hnco/functions/cancellation.hh \
+	hnco/functions/equal-products.hh hnco/functions/four-peaks.hh \
+	hnco/functions/function-decorator.hh \
+	hnco/functions/function.hh hnco/functions/jump.hh \
+	hnco/functions/labs.hh hnco/functions/linear-function.hh \
+	hnco/functions/long-path.hh hnco/functions/max-sat.hh \
+	hnco/functions/nk-landscape.hh hnco/functions/plugin.hh \
+	hnco/functions/quadratic-function.hh hnco/functions/qubo.hh \
+	hnco/functions/theory.hh hnco/functions/trap.hh \
+	hnco/iterator.hh hnco/map.hh hnco/permutation.hh \
+	hnco/random.hh hnco/sparse-bit-matrix.hh \
+	hnco/sparse-bit-vector.hh hnco/functions/factorization.hh
 HEADERS = $(nobase_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
@@ -373,17 +487,14 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 lib_LTLIBRARIES = libhnco.la
-libhnco_la_SOURCES = \
-	hnco/algorithms/algorithm.cc \
-	hnco/algorithms/algorithm.hh \
-	hnco/algorithms/all.hh \
+libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
+	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
 	hnco/algorithms/bm-pbil/bm-pbil.cc \
 	hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.cc \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.cc \
-	hnco/algorithms/complete-search.hh \
-	hnco/algorithms/ea/all.hh \
+	hnco/algorithms/complete-search.hh hnco/algorithms/ea/all.hh \
 	hnco/algorithms/ea/genetic-algorithm.cc \
 	hnco/algorithms/ea/genetic-algorithm.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.cc \
@@ -392,8 +503,7 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
 	hnco/algorithms/ea/one-plus-one-ea.cc \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
-	hnco/algorithms/hea/all.hh \
-	hnco/algorithms/hea/hea.hh \
+	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.cc \
 	hnco/algorithms/hea/herding-binary.hh \
 	hnco/algorithms/hea/herding-spin.cc \
@@ -401,146 +511,88 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/hea/moment-binary.cc \
 	hnco/algorithms/hea/moment-binary.hh \
 	hnco/algorithms/hea/moment-spin.cc \
-	hnco/algorithms/hea/moment-spin.hh \
-	hnco/algorithms/ls/all.hh \
+	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/local-search.cc \
 	hnco/algorithms/ls/local-search.hh \
 	hnco/algorithms/ls/neighborhood.cc \
 	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/simulated-annealing.cc \
 	hnco/algorithms/ls/simulated-annealing.hh \
-	hnco/algorithms/matrix.hh \
-	hnco/algorithms/population.cc \
-	hnco/algorithms/population.hh \
-	hnco/algorithms/pv/all.hh \
+	hnco/algorithms/matrix.hh hnco/algorithms/population.cc \
+	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
 	hnco/algorithms/pv/compact-ga.cc \
-	hnco/algorithms/pv/compact-ga.hh \
-	hnco/algorithms/pv/mmas.cc \
-	hnco/algorithms/pv/mmas.hh \
-	hnco/algorithms/pv/nps-pbil.cc \
-	hnco/algorithms/pv/nps-pbil.hh \
-	hnco/algorithms/pv/pbil.cc \
+	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.cc \
+	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.cc \
+	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.cc \
 	hnco/algorithms/pv/pbil.hh \
 	hnco/algorithms/pv/probability-vector.cc \
 	hnco/algorithms/pv/probability-vector.hh \
 	hnco/algorithms/pv/pv-algorithm.cc \
-	hnco/algorithms/pv/pv-algorithm.hh \
-	hnco/algorithms/pv/umda.cc \
-	hnco/algorithms/pv/umda.hh \
-	hnco/algorithms/random-search.cc \
-	hnco/algorithms/random-search.hh \
-	hnco/algorithms/restart.cc \
-	hnco/algorithms/restart.hh \
-	hnco/algorithms/util.hh \
-	hnco/bit-matrix.cc \
-	hnco/bit-matrix.hh \
-	hnco/bit-vector.cc \
-	hnco/bit-vector.hh \
-	hnco/exception.hh \
-	hnco/functions/all.hh \
-	hnco/functions/cancellation.cc \
-	hnco/functions/cancellation.hh \
+	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.cc \
+	hnco/algorithms/pv/umda.hh hnco/algorithms/random-search.cc \
+	hnco/algorithms/random-search.hh hnco/algorithms/restart.cc \
+	hnco/algorithms/restart.hh hnco/algorithms/util.hh \
+	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
+	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
+	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
 	hnco/functions/equal-products.cc \
-	hnco/functions/equal-products.hh \
-	hnco/functions/four-peaks.cc \
+	hnco/functions/equal-products.hh hnco/functions/four-peaks.cc \
 	hnco/functions/four-peaks.hh \
 	hnco/functions/function-decorator.cc \
 	hnco/functions/function-decorator.hh \
-	hnco/functions/function.hh \
-	hnco/functions/jump.cc \
-	hnco/functions/jump.hh \
-	hnco/functions/labs.cc \
-	hnco/functions/labs.hh \
-	hnco/functions/linear-function.cc \
-	hnco/functions/linear-function.hh \
-	hnco/functions/long-path.cc \
-	hnco/functions/long-path.hh \
-	hnco/functions/max-sat.cc \
-	hnco/functions/max-sat.hh \
-	hnco/functions/nk-landscape.cc \
-	hnco/functions/nk-landscape.hh \
-	hnco/functions/plugin.cc \
-	hnco/functions/plugin.hh \
-	hnco/functions/quadratic-function.cc \
-	hnco/functions/quadratic-function.hh \
-	hnco/functions/qubo.cc \
-	hnco/functions/qubo.hh \
-	hnco/functions/theory.cc \
-	hnco/functions/theory.hh \
-	hnco/functions/trap.cc \
-	hnco/functions/trap.hh \
-	hnco/iterator.cc \
-	hnco/iterator.hh \
-	hnco/map.cc \
-	hnco/map.hh \
-	hnco/permutation.cc \
-	hnco/permutation.hh \
-	hnco/random.cc \
-	hnco/random.hh \
-	hnco/sparse-bit-matrix.hh \
-	hnco/sparse-bit-vector.hh
-
-nobase_include_HEADERS = \
-	hnco/algorithms/algorithm.hh \
-	hnco/algorithms/all.hh \
-	hnco/algorithms/bm-pbil/bm-pbil.hh \
+	hnco/functions/function.hh hnco/functions/jump.cc \
+	hnco/functions/jump.hh hnco/functions/labs.cc \
+	hnco/functions/labs.hh hnco/functions/linear-function.cc \
+	hnco/functions/linear-function.hh hnco/functions/long-path.cc \
+	hnco/functions/long-path.hh hnco/functions/max-sat.cc \
+	hnco/functions/max-sat.hh hnco/functions/nk-landscape.cc \
+	hnco/functions/nk-landscape.hh hnco/functions/plugin.cc \
+	hnco/functions/plugin.hh hnco/functions/quadratic-function.cc \
+	hnco/functions/quadratic-function.hh hnco/functions/qubo.cc \
+	hnco/functions/qubo.hh hnco/functions/theory.cc \
+	hnco/functions/theory.hh hnco/functions/trap.cc \
+	hnco/functions/trap.hh hnco/iterator.cc hnco/iterator.hh \
+	hnco/map.cc hnco/map.hh hnco/permutation.cc \
+	hnco/permutation.hh hnco/random.cc hnco/random.hh \
+	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
+	$(am__append_1)
+nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
+	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.hh \
-	hnco/algorithms/complete-search.hh \
-	hnco/algorithms/ea/all.hh \
+	hnco/algorithms/complete-search.hh hnco/algorithms/ea/all.hh \
 	hnco/algorithms/ea/genetic-algorithm.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
-	hnco/algorithms/hea/all.hh \
-	hnco/algorithms/hea/hea.hh \
+	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.hh \
 	hnco/algorithms/hea/herding-spin.hh \
 	hnco/algorithms/hea/moment-binary.hh \
-	hnco/algorithms/hea/moment-spin.hh \
-	hnco/algorithms/ls/all.hh \
+	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/local-search.hh \
 	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
-	hnco/algorithms/matrix.hh \
-	hnco/algorithms/population.hh \
-	hnco/algorithms/pv/all.hh \
-	hnco/algorithms/pv/compact-ga.hh \
-	hnco/algorithms/pv/mmas.hh \
-	hnco/algorithms/pv/nps-pbil.hh \
+	hnco/algorithms/matrix.hh hnco/algorithms/population.hh \
+	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
+	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
 	hnco/algorithms/pv/pbil.hh \
 	hnco/algorithms/pv/probability-vector.hh \
-	hnco/algorithms/pv/pv-algorithm.hh \
-	hnco/algorithms/pv/umda.hh \
-	hnco/algorithms/random-search.hh \
-	hnco/algorithms/restart.hh \
-	hnco/algorithms/util.hh \
-	hnco/bit-matrix.hh \
-	hnco/bit-vector.hh \
-	hnco/exception.hh \
-	hnco/functions/all.hh \
+	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/restart.hh \
+	hnco/algorithms/util.hh hnco/bit-matrix.hh hnco/bit-vector.hh \
+	hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.hh \
-	hnco/functions/equal-products.hh \
-	hnco/functions/four-peaks.hh \
+	hnco/functions/equal-products.hh hnco/functions/four-peaks.hh \
 	hnco/functions/function-decorator.hh \
-	hnco/functions/function.hh \
-	hnco/functions/jump.hh \
-	hnco/functions/labs.hh \
-	hnco/functions/linear-function.hh \
-	hnco/functions/long-path.hh \
-	hnco/functions/max-sat.hh \
-	hnco/functions/nk-landscape.hh \
-	hnco/functions/plugin.hh \
-	hnco/functions/quadratic-function.hh \
-	hnco/functions/qubo.hh \
-	hnco/functions/theory.hh \
-	hnco/functions/trap.hh \
-	hnco/iterator.hh \
-	hnco/map.hh \
-	hnco/permutation.hh \
-	hnco/random.hh \
-	hnco/sparse-bit-matrix.hh \
-	hnco/sparse-bit-vector.hh
-
+	hnco/functions/function.hh hnco/functions/jump.hh \
+	hnco/functions/labs.hh hnco/functions/linear-function.hh \
+	hnco/functions/long-path.hh hnco/functions/max-sat.hh \
+	hnco/functions/nk-landscape.hh hnco/functions/plugin.hh \
+	hnco/functions/quadratic-function.hh hnco/functions/qubo.hh \
+	hnco/functions/theory.hh hnco/functions/trap.hh \
+	hnco/iterator.hh hnco/map.hh hnco/permutation.hh \
+	hnco/random.hh hnco/sparse-bit-matrix.hh \
+	hnco/sparse-bit-vector.hh $(am__append_2)
 all: all-am
 
 .SUFFIXES:
@@ -761,6 +813,8 @@ hnco/map.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/permutation.lo: hnco/$(am__dirstamp) \
 	hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/random.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/factorization.lo: hnco/functions/$(am__dirstamp) \
+	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 
 libhnco.la: $(libhnco_la_OBJECTS) $(libhnco_la_DEPENDENCIES) $(EXTRA_libhnco_la_DEPENDENCIES) 
 	$(AM_V_CXXLD)$(CXXLINK) -rpath $(libdir) $(libhnco_la_OBJECTS) $(libhnco_la_LIBADD) $(LIBS)
@@ -820,6 +874,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/umda.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/cancellation.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/equal-products.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/factorization.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/four-peaks.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/function-decorator.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/jump.Plo@am__quote@

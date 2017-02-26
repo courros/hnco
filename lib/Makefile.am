@@ -107,6 +107,12 @@ libhnco_la_SOURCES = \
 	hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.hh
 
+if ENABLE_FACTORIZATION
+libhnco_la_SOURCES += \
+	hnco/functions/factorization.cc \
+	hnco/functions/factorization.hh
+endif
+
 nobase_include_HEADERS = \
 	hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh \
@@ -167,6 +173,10 @@ nobase_include_HEADERS = \
 	hnco/random.hh \
 	hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.hh
+
+if ENABLE_FACTORIZATION
+nobase_include_HEADERS += hnco/functions/factorization.hh
+endif
 
 #
 # Code management
