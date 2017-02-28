@@ -97,23 +97,16 @@ Factorization::eval(const bit_vector_t& x)
 void
 Factorization::display(std::ostream& stream)
 {
+  stream << "Factorize " << _number << std::endl;
 }
 
 
 void
-Factorization::display(const bit_vector_t& x, std::ostream& stream)
+Factorization::describe(const bit_vector_t& x, std::ostream& stream)
 {
   convert(x);
   mpz_mul(_product, _first_factor, _second_factor);
-
-  std::cout << "Bit vector:" << std::endl;
-  bv_display(x, std::cout);
-  std::cout << std::endl << std::endl;
-
-  std::cout << "Interpreted as:" << std::endl
-            << _first_factor_string << " x " << _second_factor_string << std::endl << std::endl;
-
-  std::cout << "In decimal form:" << std::endl;
-  gmp_printf("%Zd x %Zd = %Zd (%Zd)\n", _first_factor, _second_factor, _product, _number);
+  stream << "Found " << _first_factor << " x " << _second_factor << " = " << _product
+         << ", expected " << _number << std::endl;
 
 }

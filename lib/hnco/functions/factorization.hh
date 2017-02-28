@@ -2,6 +2,7 @@
 #define HNCO_FUNCTIONS_FACTORIZATION_H
 
 #include <gmp.h>
+#include <gmpxx.h>
 
 #include <vector>
 #include <string>
@@ -70,17 +71,11 @@ namespace function {
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
 
-    /// Check for a known maximum.
-    bool has_known_maximum() { return true; }
-
-    /// Get the global maximum
-    double get_maximum() { return 0; }
-
     /// Display
     void display(std::ostream& stream);
 
-    /// Display
-    void display(const bit_vector_t& x, std::ostream& stream);
+    /// Describe
+    void describe(const bit_vector_t& x, std::ostream& stream);
 
   };
 
