@@ -23,6 +23,7 @@
 
 #include "hnco/functions/cancellation.hh"
 #include "hnco/functions/equal-products.hh"
+#include "hnco/functions/factorization.hh"
 #include "hnco/functions/four-peaks.hh"
 #include "hnco/functions/function-decorator.hh"
 #include "hnco/functions/function.hh"

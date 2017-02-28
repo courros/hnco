@@ -181,6 +181,10 @@ make_concrete_function(Options& options)
        options.get_path(),
        options.get_plugin_function_name());
 
+  case 10001:
+    return new Factorization
+      (options.get_path());
+
   default:
     ostringstream stream;
     stream << "make_concrete_function: Unknown function type: " << options.get_function();
