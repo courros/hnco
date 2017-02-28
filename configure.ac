@@ -7,6 +7,7 @@ AC_PROG_CXX
 
 dnl Check for gmp for factorization
 AC_CHECK_LIB([gmp], [__gmpz_init])
+AC_CHECK_LIB([gmpxx], [abs])
 AC_CHECK_HEADERS([gmp.h])
 AC_ARG_ENABLE([factorization],
   [AS_HELP_STRING([--enable-factorization], [enable factorization @<:@default=no@:>@])],
