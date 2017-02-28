@@ -1,6 +1,8 @@
 #include <assert.h>
 
 #include <iostream>
+#include <iomanip>
+#include <algorithm>
 
 #include "hnco/exception.hh"
 
@@ -85,12 +87,31 @@ double
 Factorization::eval(const bit_vector_t& x)
 {
   convert(x);
-  mpz_mul(_product, _first_factor, _second_factor);
 
   assert(mpz_sgn(_first_factor) >= 0);
   assert(mpz_sgn(_second_factor) >= 0);
 
-  return -double(mpz_hamdist(_product, _number));
+  mpz_mul(_product, _first_factor, _second_factor);
+
+  size_t product_size = mpz_sizeinbase(_product, 2);
+  auto bounds = std::minmax(_number_size, product_size);
+  double result = 0;
+  for (size_t i = 0; i < bounds.first; i++) {
+    if (mpz_tstbit(_product, i) != mpz_tstbit(_number, i))
+      result += i + 1;
+  }
+  if (bounds.second == product_size) {
+    for (size_t i = bounds.first; i < bounds.second; i++) {
+      if (mpz_tstbit(_product, i))
+        result += i + 1;
+    }
+  } else {
+    for (size_t i = bounds.first; i < bounds.second; i++) {
+      if (mpz_tstbit(_number, i))
+        result += i + 1;
+    }
+  }
+  return -result;
 }
 
 
@@ -106,7 +127,24 @@ Factorization::describe(const bit_vector_t& x, std::ostream& stream)
 {
   convert(x);
   mpz_mul(_product, _first_factor, _second_factor);
-  stream << "Found " << _first_factor << " x " << _second_factor << " = " << _product
-         << ", expected " << _number << std::endl;
+  stream << "Found " << _first_factor << " (a) x " << _second_factor << " (b) = " << _product
+         << " (p), expected " << _number << " (n)" << std::endl;
 
+  mpz_class first_factor(_first_factor);
+  std::string first_factor_str = first_factor.get_str(2);
+  stream << "a = " << std::setw(_bv_size) << first_factor_str << std::endl;
+
+  mpz_class second_factor(_second_factor);
+  std::string second_factor_str = second_factor.get_str(2);
+  stream << "b = " << std::setw(_bv_size) << second_factor_str << std::endl;
+
+  mpz_class product(_product);
+  std::string product_str = product.get_str(2);
+  stream << "p = " << std::setw(_bv_size) << product_str << std::endl;
+
+  mpz_class number(_number);
+  std::string number_str = number.get_str(2);
+  stream << "n = " << std::setw(_bv_size) << number_str << std::endl;
+
+  stream << "Hamming distance = " << mpz_hamdist(_product, _number) << std::endl;
 }
