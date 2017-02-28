@@ -26,6 +26,12 @@
             "category": "General"
         },
 
+        "describe_problem":
+        {
+            "description": "Describe the problem and exit",
+            "category": "General"
+        },
+
         "no_header":
         {
             "description": "Do not print the header",
@@ -41,6 +47,12 @@
         "print_solution":
         {
             "description": "At the end, print the solution",
+            "category": "General"
+        },
+
+        "describe_solution":
+        {
+            "description": "At the end, describe the solution",
             "category": "General"
         },
 
@@ -282,6 +294,11 @@
                 {
                     "value": 1000,
                     "description": "Plugin"
+                },
+
+                {
+                    "value": 10001,
+                    "description": "Factorization"
                 }
 
             ]

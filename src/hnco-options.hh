@@ -208,6 +208,12 @@ class Options {
   /// Cache function evaluations
   bool _cache;
 
+  /// Describe the problem and exit
+  bool _describe_problem;
+
+  /// At the end, describe the solution
+  bool _describe_solution;
+
   /// Bound moment after update
   bool _hea_bound_moment;
 
@@ -839,6 +845,18 @@ public:
 
   /// Set cache
   void set_cache() { _cache = true; }
+ 
+  /// Get describe_problem
+  bool with_describe_problem() const { return _describe_problem; }
+
+  /// Set describe_problem
+  void set_describe_problem() { _describe_problem = true; }
+ 
+  /// Get describe_solution
+  bool with_describe_solution() const { return _describe_solution; }
+
+  /// Set describe_solution
+  void set_describe_solution() { _describe_solution = true; }
  
   /// Get hea_bound_moment
   bool with_hea_bound_moment() const { return _hea_bound_moment; }

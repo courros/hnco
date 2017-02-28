@@ -35,7 +35,6 @@ using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])
@@ -58,7 +57,7 @@ int main(int argc, char *argv[])
   
   try { function = make_function(options); }
   catch (Error& e) {
-    cerr << "Error: " << e.what() << endl;
+    std::cerr << "Error: " << e.what() << std::endl;
     exit(1);
   }
 
@@ -67,7 +66,7 @@ int main(int argc, char *argv[])
 
   try { algorithm = make_algorithm(options); }
   catch (Error& e) {
-    cerr << "Error: " << e.what() << endl;
+    std::cerr << "Error: " << e.what() << std::endl;
     exit(1);
   }
 
@@ -81,17 +80,17 @@ int main(int argc, char *argv[])
   // Initialization
   try { algorithm->init(); }
   catch (LastEvaluation) {
-    cerr << "Error: Not enough evaluations for initialization" << endl;
-    cout << function->get_last_improvement() << endl;
+    std::cerr << "Error: Not enough evaluations for initialization" << std::endl;
+    std::cout << function->get_last_improvement() << std::endl;
     exit(1);
   }
   catch (MaximumReached) {
-    cerr << "Warning: Maximum reached during initialization" << endl;
-    cout << function->get_last_improvement() << endl;
+    std::cerr << "Warning: Maximum reached during initialization" << std::endl;
+    std::cout << function->get_last_improvement() << std::endl;
     exit(1);
   }
   catch (Error& e) {
-    cerr << "Error: " << e.what() << endl;
+    std::cerr << "Error: " << e.what() << std::endl;
     exit(1);
   }
 
@@ -101,18 +100,25 @@ int main(int argc, char *argv[])
   catch (LastEvaluation) {}
   catch (MaximumReached) {}
   catch (Error& e) {
-    cerr << "Error: " << e.what() << endl;
+    std::cerr << "Error: " << e.what() << std::endl;
     exit(1);
   }
 
+  // Maybe not up to date in case of MaximumReached
+
   // Print performances
   if (options.with_print_performances())
-    cout << function->get_last_improvement() << endl;
+    std::cout << function->get_last_improvement() << std::endl;
 
-  // Maybe not up to date in case of MaximumReached
+  // Print solution
   if (options.with_print_solution()) {
-    bv_display(algorithm->get_solution(), cout);
-    cout << endl;
+    bv_display(algorithm->get_solution(), std::cout);
+    std::cout << std::endl;
+  }
+
+  // Describe solution
+  if (options.with_describe_solution()) {
+    function->describe(algorithm->get_solution(), std::cout);
   }
 
   return 0;

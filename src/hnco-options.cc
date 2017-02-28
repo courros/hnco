@@ -104,6 +104,8 @@ Options::Options(int argc, char *argv[]):
   _bm_log_norm_l1(false),
   _bm_negative_positive_selection(false),
   _cache(false),
+  _describe_problem(false),
+  _describe_solution(false),
   _hea_bound_moment(false),
   _hea_log_delta(false),
   _hea_log_dtu(false),
@@ -175,6 +177,8 @@ Options::Options(int argc, char *argv[]):
     OPTION_BM_LOG_NORM_L1,
     OPTION_BM_NEGATIVE_POSITIVE_SELECTION,
     OPTION_CACHE,
+    OPTION_DESCRIBE_PROBLEM,
+    OPTION_DESCRIBE_SOLUTION,
     OPTION_HEA_BOUND_MOMENT,
     OPTION_HEA_LOG_DELTA,
     OPTION_HEA_LOG_DTU,
@@ -244,6 +248,8 @@ Options::Options(int argc, char *argv[]):
     {"bm-log-norm-l1", no_argument, 0, OPTION_BM_LOG_NORM_L1},
     {"bm-negative-positive-selection", no_argument, 0, OPTION_BM_NEGATIVE_POSITIVE_SELECTION},
     {"cache", no_argument, 0, OPTION_CACHE},
+    {"describe-problem", no_argument, 0, OPTION_DESCRIBE_PROBLEM},
+    {"describe-solution", no_argument, 0, OPTION_DESCRIBE_SOLUTION},
     {"hea-bound-moment", no_argument, 0, OPTION_HEA_BOUND_MOMENT},
     {"hea-log-delta", no_argument, 0, OPTION_HEA_LOG_DELTA},
     {"hea-log-dtu", no_argument, 0, OPTION_HEA_LOG_DTU},
@@ -484,6 +490,14 @@ Options::Options(int argc, char *argv[]):
       _cache = true;
       break;
 
+    case OPTION_DESCRIBE_PROBLEM:
+      _describe_problem = true;
+      break;
+
+    case OPTION_DESCRIBE_SOLUTION:
+      _describe_solution = true;
+      break;
+
     case OPTION_HEA_BOUND_MOMENT:
       _hea_bound_moment = true;
       break;
@@ -572,6 +586,10 @@ void Options::print_help(ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
   stream << "General:" << endl;
+  stream << "      --describe-problem" << endl;
+  stream << "          Describe the problem and exit" << endl;
+  stream << "      --describe-solution" << endl;
+  stream << "          At the end, describe the solution" << endl;
   stream << "      --no-header" << endl;
   stream << "          Do not print the header" << endl;
   stream << "      --print-default-parameters" << endl;
@@ -622,6 +640,7 @@ void Options::print_help(ostream& stream) const
   stream << "            130: Plateau" << endl;
   stream << "            140: Long path" << endl;
   stream << "            1000: Plugin" << endl;
+  stream << "            10001: Factorization" << endl;
   stream << "      --log-improvement" << endl;
   stream << "          Log improvement" << endl;
   stream << "      --negation" << endl;
@@ -857,6 +876,10 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# bm_negative_positive_selection" << endl;
   if (options._cache)
     stream << "# cache" << endl;
+  if (options._describe_problem)
+    stream << "# describe_problem" << endl;
+  if (options._describe_solution)
+    stream << "# describe_solution" << endl;
   if (options._hea_bound_moment)
     stream << "# hea_bound_moment" << endl;
   if (options._hea_log_delta)
