@@ -58,6 +58,12 @@ namespace function {
     /// Display
     virtual void display(std::ostream& stream) {}
 
+    /// Describe a bit vector
+    virtual void describe(const bit_vector_t& x, std::ostream& stream) {
+      bv_display(x, stream);
+      stream << std::endl;
+    }
+
   };
 
 
