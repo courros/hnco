@@ -328,8 +328,8 @@ Under Ubuntu 16.04, execute the following commands to install the
 necessary packages:
 ```
 apt-get install build-essential libboost-serialization1.58-dev
-apt-get libjson-perl libstatistics-descriptive-perl gnuplot
-apt-get texlive-base texlive-latex-extra python-pygments
+apt-get install libjson-perl libstatistics-descriptive-perl gnuplot
+apt-get install texlive-base texlive-latex-extra python-pygments
 ```
 
 ## Building and installing
