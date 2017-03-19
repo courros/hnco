@@ -181,9 +181,11 @@ make_concrete_function(Options& options)
        options.get_path(),
        options.get_plugin_function_name());
 
+#ifdef HAVE_LIBGMP
   case 10001:
     return new Factorization
       (options.get_path());
+#endif
 
   default:
     ostringstream stream;
