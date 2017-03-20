@@ -632,7 +632,7 @@ sub latex_function_table_begin
     print LATEX
         "\\begin{tabular}{\@{}l*{5}{$col}>{{\\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}\@{}}\n",
         "\\toprule\n",
-        "{algorithm} & \\multicolumn{6}{l}{{performance}} & \\multicolumn{2}{l}{{time}} \\\\\n",
+        "{algorithm} & \\multicolumn{6}{l}{{performance}} & \\multicolumn{2}{l}{{time (s)}} \\\\\n",
         "\\midrule\n",
         "& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} & {mean} & {SD} \\\\\n",
         "\\midrule\n";
