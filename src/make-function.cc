@@ -1,4 +1,4 @@
-/* Copyright (C) 2016 Arnaud Berny
+/* Copyright (C) 2016, 2017 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -77,6 +77,11 @@ make_concrete_function(Options& options)
       (options.get_bv_size(),
        options.get_fun_threshold());
 
+  case 41:
+    return new SixPeaks
+      (options.get_bv_size(),
+       options.get_fun_threshold());
+
   case 50: {
     QuadraticFunction* function = new QuadraticFunction;
     ifstream ifs(options.get_path());
@@ -87,6 +92,18 @@ make_concrete_function(Options& options)
     }
     boost::archive::text_iarchive ia(ifs);
     ia >> (*function);
+    return function;
+  }
+
+  case 51: {
+    ifstream ifs(options.get_path());
+    if (!ifs.good()) {
+      ostringstream stream;
+      stream << "make_concrete_function (Qubo): Cannot open " << options.get_path();
+      throw Error(stream.str());
+    }
+    Qubo* function = new Qubo;
+    function->load(ifs);
     return function;
   }
 
@@ -152,6 +169,11 @@ make_concrete_function(Options& options)
   case 130:
     return new Plateau
       (options.get_bv_size());
+
+  case 140:
+    return new LongPath
+      (options.get_bv_size(),
+       options.get_fun_prefix_length());
 
   case 1000:
     return new FunctionPlugin

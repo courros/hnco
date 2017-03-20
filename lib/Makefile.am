@@ -80,6 +80,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/labs.hh \
 	hnco/functions/linear-function.cc \
 	hnco/functions/linear-function.hh \
+	hnco/functions/long-path.cc \
+	hnco/functions/long-path.hh \
 	hnco/functions/max-sat.cc \
 	hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.cc \
@@ -88,6 +90,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/plugin.hh \
 	hnco/functions/quadratic-function.cc \
 	hnco/functions/quadratic-function.hh \
+	hnco/functions/qubo.cc \
+	hnco/functions/qubo.hh \
 	hnco/functions/theory.cc \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.cc \
@@ -149,10 +153,12 @@ nobase_include_HEADERS = \
 	hnco/functions/jump.hh \
 	hnco/functions/labs.hh \
 	hnco/functions/linear-function.hh \
+	hnco/functions/long-path.hh \
 	hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.hh \
 	hnco/functions/plugin.hh \
 	hnco/functions/quadratic-function.hh \
+	hnco/functions/qubo.hh \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.hh \
 	hnco/iterator.hh \

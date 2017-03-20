@@ -1,4 +1,4 @@
-# HNCO -- in Hypercubo Nigrae Capsulae Optimum
+# In Hypercubo Nigrae Capsulae Optimum (HNCO)
 
 ## Introduction
 
@@ -230,9 +230,11 @@ instances are generated are indicated by `ffgen`):
 - Jump
 - Deceptive jump
 - Four peaks
+- Six peaks
 - Quadratic function (`ffgen`)
+- Quadratic unconstrained binary optimization (qubo input file format)
 - NK landscape (`ffgen`)
-- Max-SAT (`ffgen`)
+- Max-SAT (`ffgen`, dimacs cnf input file format)
 - Low autocorrelation binary sequence
 - Equal products (`ffgen`)
 - Cancellation
@@ -240,6 +242,7 @@ instances are generated are indicated by `ffgen`):
 - Trap
 - Hierarchical if and only if
 - Plateau
+- Long path
 - Plugin
 
 The plugin function can load any C function declared as
@@ -325,8 +328,8 @@ Under Ubuntu 16.04, execute the following commands to install the
 necessary packages:
 ```
 apt-get install build-essential libboost-serialization1.58-dev
-apt-get libjson-perl libstatistics-descriptive-perl gnuplot
-apt-get texlive-base texlive-latex-extra python-pygments
+apt-get install libjson-perl libstatistics-descriptive-perl gnuplot
+apt-get install texlive-base texlive-latex-extra python-pygments
 ```
 
 ## Building and installing

@@ -1,4 +1,4 @@
-/* Copyright (C) 2016 Arnaud Berny
+/* Copyright (C) 2016, 2017 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -392,13 +392,13 @@ make_concrete_algorithm(Options& options)
 
     Hea<SpinMoment, SpinHerding>::log_flags_t lf = {};
     if (options.with_hea_log_error())
-      lf.set(Hea<BinaryMoment, BinaryHerding>::LOG_ERROR);
+      lf.set(Hea<SpinMoment, SpinHerding>::LOG_ERROR);
     if (options.with_hea_log_dtu())
-      lf.set(Hea<BinaryMoment, BinaryHerding>::LOG_DTU);
+      lf.set(Hea<SpinMoment, SpinHerding>::LOG_DTU);
     if (options.with_hea_log_delta())
-      lf.set(Hea<BinaryMoment, BinaryHerding>::LOG_DELTA);
+      lf.set(Hea<SpinMoment, SpinHerding>::LOG_DELTA);
     if (options.with_hea_log_selection())
-      lf.set(Hea<BinaryMoment, BinaryHerding>::LOG_SELECTION);
+      lf.set(Hea<SpinMoment, SpinHerding>::LOG_SELECTION);
     algo->set_log_flags(lf);
 
     return algo;

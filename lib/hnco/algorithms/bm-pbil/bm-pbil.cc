@@ -1,4 +1,4 @@
-/* Copyright (C) 2016 Arnaud Berny
+/* Copyright (C) 2016, 2017 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -105,20 +105,20 @@ BmPbil::iterate()
   _population.eval(_function);
   _population.sort();
 
-  update_solution(_population.get_nth_bv(0),
-                  _population.get_evaluation(0).value);
+  update_solution(_population.get_best_bv(),
+                  _population.get_best_value());
 
   // Average best individuals
   _parameters_best.init();
   for (int i = 0; i < _selection_size; i++)
-    _parameters_best.add(_population.get_nth_bv(i));
+    _parameters_best.add(_population.get_best_bv(i));
   _parameters_best.average(_selection_size);
 
   if (_negative_positive_selection) {
     // Average worst individuals
     _parameters_worst.init();
     for (int i = 0; i < _selection_size; i++)
-      _parameters_worst.add(_population.get_nth_bv(_population.size() - 1 - i));
+      _parameters_worst.add(_population.get_worst_bv(i));
     _parameters_worst.average(_selection_size);
     _model.update(_parameters_best, _parameters_worst, _rate);
   } else {

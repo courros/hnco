@@ -3,7 +3,7 @@
 
     "description": "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors",
 
-    "version": "0.2",
+    "version": "0.4",
 
     "tab_order": [
         "General",
@@ -215,8 +215,18 @@
                 },
 
                 {
+                    "value": 41,
+                    "description": "Six peaks"
+                },
+
+                {
                     "value": 50,
                     "description": "Quadratic function"
+                },
+
+                {
+                    "value": 51,
+                    "description": "Quadratic unconstrained binary optimization (Qubo)"
                 },
 
                 {
@@ -265,6 +275,11 @@
                 },
 
                 {
+                    "value": 140,
+                    "description": "Long path"
+                },
+
+                {
                     "value": 1000,
                     "description": "Plugin"
                 }
@@ -306,7 +321,7 @@
             "optchar": "t",
             "type": "int",
             "value": 10,
-            "description": "Threshold (in bits) for Jump and Four peaks",
+            "description": "Threshold (in bits) for Jump, Four Peaks, and Six Peaks",
             "category": "Function"
         },
 
@@ -315,6 +330,14 @@
             "type": "int",
             "value": 10,
             "description": "Number of traps",
+            "category": "Function"
+        },
+
+        "fun_prefix_length":
+        {
+            "type": "int",
+            "value": 2,
+            "description": "Prefix length for long path",
             "category": "Function"
         },
 

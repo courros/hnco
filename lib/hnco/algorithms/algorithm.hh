@@ -1,4 +1,4 @@
-/* Copyright (C) 2016 Arnaud Berny
+/* Copyright (C) 2016, 2017 Arnaud Berny
 
    This file is part of HNCO.
 

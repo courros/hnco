@@ -3,6 +3,7 @@ check_PROGRAMS = \
 	test-bm-identity \
 	test-bm-invert \
 	test-bm-multiply \
+	test-bm-solve \
 	test-bm-swap-rows \
 	test-complete-search-deceptive-jump \
 	test-complete-search-four-peaks \
@@ -38,6 +39,7 @@ test_bm_add_rows_SOURCES = test-bm-add-rows.cc
 test_bm_identity_SOURCES = test-bm-identity.cc
 test_bm_invert_SOURCES = test-bm-invert.cc
 test_bm_multiply_SOURCES = test-bm-multiply.cc
+test_bm_solve_SOURCES = test-bm-solve.cc
 test_bm_swap_rows_SOURCES = test-bm-swap-rows.cc
 test_complete_search_deceptive_jump_SOURCES = test-complete-search-deceptive-jump.cc
 test_complete_search_four_peaks_SOURCES = test-complete-search-four-peaks.cc

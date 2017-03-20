@@ -1,4 +1,4 @@
-/* Copyright (C) 2016 Arnaud Berny
+/* Copyright (C) 2016, 2017 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -33,42 +33,97 @@ namespace algorithm {
   class Population
   {
 
-  public:
-
-  /// Evaluation of a bit vector
-  struct Evaluation {
-
-    /// Index of the bit vector in the population
-    size_t index;
-
-    /// Value
-    double value;
-
-  };
-
   protected:
 
     /// Bit vectors
-    std::vector<bit_vector_t> _population;
+    std::vector<bit_vector_t> _bvs;
 
-    /// Lookup table
-    std::vector<Evaluation> _lookup;
+    /** Lookup table.
+
+        Let p be of type std::pair<size_t, double>. Then p.first is
+        the bv index in the unsorted population whereas p.second is
+        the bv value.
+    */
+    std::vector<std::pair<size_t, double> > _lookup;
 
   public:
 
     /// Constructor
     Population(int population_size, int n):
-      _population(population_size, bit_vector_t(n)),
+      _bvs(population_size, bit_vector_t(n)),
       _lookup(population_size) {}
 
     /// Size
-    std::size_t size() const { return _population.size(); }
+    std::size_t size() const { return _bvs.size(); }
+
+    /** Get best bit vector.
+
+        \param i Index in the sorted population
+
+        \pre The population must be sorted.
+    */
+    const bit_vector_t& get_best_bv(int i) const { return _bvs[_lookup[i].first]; }
+
+    /** Get best bit vector.
+
+        \pre The population must be sorted.
+    */
+    const bit_vector_t& get_best_bv() const { return _bvs[_lookup[0].first]; }
+
+    /** Get best bit vector.
+
+        \param i Index in the sorted population
+        \param p Population
+
+        \pre p must be sorted.
+    */
+    const bit_vector_t& get_best_bv(int i, const Population& p) const { return _bvs[p._lookup[i].first]; }
+
+    /** Get best index.
+
+        \param i Index in the sorted population
+
+        \return Index in the unsorted population
+
+        \pre The population must be sorted.
+    */
+    double get_best_index(int i) const { return _lookup[i].first; }
+
+    /** Get best index.
+
+        \return Index in the unsorted population
+
+        \pre The population must be sorted.
+    */
+    double get_best_index() const { return _lookup[0].first; }
+
+    /** Get best value.
+
+        \param i Index in the sorted population
+
+        \pre The population must be sorted.
+    */
+    double get_best_value(int i) const { return _lookup[i].second; }
+
+    /** Get best value.
+
+        \pre The population must be sorted.
+    */
+    double get_best_value() const { return _lookup[0].second; }
+
+    /** Get worst bit vector.
+
+        \param i Index in the sorted population
+
+        \pre The population must be sorted.
+    */
+    const bit_vector_t& get_worst_bv(int i) const { return get_best_bv(_bvs.size() - 1 - i); }
 
     /// Initialize the population with random bit vectors
     void random();
 
     /// Get a bit vector
-    bit_vector_t& get_bv(int i) { return _population[i]; }
+    bit_vector_t& get_bv(int i) { return _bvs[i]; }
 
     /// Evaluate the population
     void eval(function::Function *function);
@@ -78,15 +133,6 @@ namespace algorithm {
 
     /// Partially sort the lookup table
     void partial_sort(int selection_size);
-
-    /// Get the nth bit vector
-    const bit_vector_t& get_nth_bv(int i) const { return _population[_lookup[i].index]; }
-
-    /// Get the nth bit vector
-    const bit_vector_t& get_nth_bv(int i, const Population& p) const { return _population[p._lookup[i].index]; }
-
-    /// Get an evaluation
-    const Evaluation& get_evaluation(int i) const { return _lookup[i]; }
 
     /** Plus selection.
 

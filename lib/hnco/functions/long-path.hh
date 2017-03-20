@@ -18,10 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_TRAP_H
-#define HNCO_FUNCTIONS_TRAP_H
-
-#include "hnco/exception.hh"
+#ifndef HNCO_FUNCTIONS_LONG_PATH_H
+#define HNCO_FUNCTIONS_LONG_PATH_H
 
 #include "function.hh"
 
@@ -30,52 +28,48 @@ namespace hnco {
 namespace function {
 
 
-  /// Trap
-  class Trap:
+  /** Long path.
+
+      Long paths have been introduced in:
+
+      Jeffrey Horn, David E. Goldberg, and Kalyanmoy Deb, "Long Path
+      Problems", PPSN III, 1994.
+
+      Here we follow the definition given in "Analyzing evolutionary
+      algorithms" by Thomas Jansen.
+
+      As an example, here is the 2-long path of dimension 4:
+      - 0000
+      - 0001
+      - 0011
+      - 0111
+      - 1111
+      - 1101
+      - 1100
+
+      The fitness is increasing along the path. The fitness on the
+      complementary of the path is defined as a linear function
+      pointing to the beginning of the path.
+  */
+  class LongPath:
     public Function {
 
     /// Bit vector size
     size_t _bv_size;
 
-    /// Number of traps
-    int _num_traps;
-
-    /// Trap size
-    int _trap_size;
+    /// Prefix length
+    int _prefix_length;
 
   public:
 
-    /** Constructor.
-
-        \param bv_size Bit vector size
-        \param num_traps Number of traps
-
-        \warning bv_size must be a multiple of num_traps
-    */
-    Trap(int bv_size, int num_traps):
-      _bv_size(bv_size),
-      _num_traps(num_traps)
-    {
-      assert(num_traps > 0);
-      if (bv_size % num_traps != 0)
-        throw exception::Error("Trap::Trap: _bv_size must be a multiple of _num_traps");
-      _trap_size = bv_size / num_traps;
-    }
+    /// Constructor
+    LongPath(int bv_size, int prefix_length);
 
     /// Get bit vector size
     size_t get_bv_size() { return _bv_size; }
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
-
-    /** Check for a known maximum.
-     *
-     * \return true
-     */
-    bool has_known_maximum() { return true; }
-
-    /// Get the global maximum
-    double get_maximum() { return _bv_size; }
 
   };
 

@@ -19,56 +19,57 @@
 */
 
 #include <chrono>
+#include <iostream>
+#include <iterator>
 
-#include "hnco/map.hh"
-#include "hnco/random.hh"
+#include "hnco/bit-matrix.hh"
+
 
 using namespace hnco::random;
 using namespace hnco;
 using namespace std;
 
+bool check_bm_solve()
+{
+  std::uniform_int_distribution<int> dimension_dist(1, 100);
+  for (size_t t = 0; t < 100; t++) {
+    int dimension = dimension_dist(Random::engine);
+
+    bit_matrix_t A, B, C;
+    bm_resize(A, dimension);
+    bm_resize(B, dimension);
+
+    do {
+      bm_random(A);
+      C = A;
+    } while (!bm_invert(C, B));
+    // B = inv(A)
+
+    if (!bm_is_identity(C))
+      return false;
+
+    bit_vector_t b, c, d;
+    b.resize(dimension);
+    d.resize(dimension);
+    bv_random(b);
+
+    // Solve Ax = b for x
+    C = A;
+    c = b;
+    bm_solve(C, c);
+
+    // d = inv(A) b
+    bm_multiply(B, b, d);
+
+    if (c != d)
+      return false;
+  }
+  return true;
+}
 
 int main(int argc, char *argv[])
 {
   Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  const string path("test-serialize-permutation.txt");
-
-  for (int i = 0; i < 10; i++) {
-
-    uniform_int_distribution<int> dist_n(2, 100);
-    int n = dist_n(Random::engine);
-
-    Permutation src;
-    src.random(n);
-    {
-      std::ofstream ofs(path);
-      boost::archive::text_oarchive oa(ofs);
-      oa << src;
-    }
-
-    Permutation dest;
-    {
-      ifstream ifs(path);
-      if (!ifs.good())
-        exit(1);
-      boost::archive::text_iarchive ia(ifs);
-      ia >> dest;
-    }
-
-    bit_vector_t x(n);
-    bit_vector_t y1(n);
-    bit_vector_t y2(n);
-
-    for (int j = 0; j < 1000; j++) {
-      bv_random(x);
-      src.map(x, y1);
-      dest.map(x, y2);
-      if (y1 != y2)
-        return 1;
-    }
-
-  }
-
-  return 0;
+  return check_bm_solve() ? 0 : 1;
 }

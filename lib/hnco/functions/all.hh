@@ -1,4 +1,4 @@
-/* Copyright (C) 2016 Arnaud Berny
+/* Copyright (C) 2016, 2017 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -24,15 +24,17 @@
 #include "hnco/functions/cancellation.hh"
 #include "hnco/functions/equal-products.hh"
 #include "hnco/functions/four-peaks.hh"
+#include "hnco/functions/function-decorator.hh"
 #include "hnco/functions/function.hh"
 #include "hnco/functions/jump.hh"
 #include "hnco/functions/labs.hh"
 #include "hnco/functions/linear-function.hh"
-#include "hnco/functions/function-decorator.hh"
+#include "hnco/functions/long-path.hh"
 #include "hnco/functions/max-sat.hh"
 #include "hnco/functions/nk-landscape.hh"
 #include "hnco/functions/plugin.hh"
 #include "hnco/functions/quadratic-function.hh"
+#include "hnco/functions/qubo.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/functions/trap.hh"
 

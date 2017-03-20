@@ -1,4 +1,4 @@
-/* Copyright (C) 2016 Arnaud Berny
+/* Copyright (C) 2016, 2017 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -57,6 +57,18 @@ bool hnco::bm_is_identity(const bit_matrix_t& M)
   return true;
 }
 
+bool hnco::bm_is_upper_triangular(const bit_matrix_t& M)
+{
+  size_t rows = bm_num_rows(M);
+  size_t cols = bm_num_columns(M);
+  for (size_t i = 0; i < rows; i++)
+    for (size_t j = 0; j < std::min(i, cols); j++) {
+      if (M[i][j] != 0)
+        return false;
+    }
+  return true;
+}
+
 void hnco::bm_resize(bit_matrix_t& M, std::size_t num_rows, std::size_t num_columns)
 {
   M.resize(num_rows);
@@ -88,6 +100,56 @@ void hnco::bm_add_rows(bit_matrix_t& M, std::size_t i, std::size_t j)
   bv_add(M[i], M[j]);
 }
 
+bool hnco::bm_solve(bit_matrix_t& A, bit_vector_t& b)
+{
+  assert(bm_is_square(A));
+  assert(bm_num_rows(A) == b.size());
+
+  for (size_t i = 0; i < A.size(); i++) {
+    bool found = false;
+    size_t pivot;
+    for (size_t j = i; j < A.size(); j++)
+      if (A[j][i]) {
+        pivot = j;
+        found = true;
+        break;
+      }
+    if (!found)
+      return false;
+    if (pivot != i) {
+      bm_swap_rows(A, i, pivot);
+      std::swap(b[i], b[pivot]);
+    }
+    for (size_t j = i + 1; j < A.size(); j++)
+      if (A[j][i]) {
+        bm_add_rows(A, i, j);
+        b[j] = (b[i] + b[j]) % 2;
+      }
+  }
+  assert(bm_is_upper_triangular(A));
+
+  return bm_solve_upper_triangular(A, b);
+}
+
+bool hnco::bm_solve_upper_triangular(bit_matrix_t& A, bit_vector_t& b)
+{
+  assert(bm_is_square(A));
+  assert(bm_num_rows(A) == b.size());
+  assert(bm_is_upper_triangular(A));
+
+  for (size_t k = 0; k < A.size(); k++) {
+    size_t i = A.size() - 1 - k;
+    for (size_t j = 0; j < i; j++)
+      if (A[j][i]) {
+        bm_add_rows(A, i, j);
+        b[j] = (b[i] + b[j]) % 2;
+      }
+  }
+  assert(bm_is_identity(A));
+
+  return true;
+}
+
 bool hnco::bm_invert(bit_matrix_t& M, bit_matrix_t& N)
 {
   assert(bm_is_square(M));
@@ -116,7 +178,8 @@ bool hnco::bm_invert(bit_matrix_t& M, bit_matrix_t& N)
         bm_add_rows(N, i, j);
       }
   }
-  // assert: M is upper triangular
+  assert(bm_is_upper_triangular(M));
+
   for (size_t k = 0; k < M.size(); k++) {
     size_t i = M.size() - 1 - k;
     for (size_t j = 0; j < i; j++)

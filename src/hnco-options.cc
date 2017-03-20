@@ -8,7 +8,7 @@ using namespace std;
 
 Options::Options(int argc, char *argv[]):
   _exec_name(argv[0]),
-  _version("0.2"),
+  _version("0.4"),
   _algorithm(100),
   _opt_algorithm(false),
   _bm_mc_reset_strategy(1),
@@ -29,6 +29,8 @@ Options::Options(int argc, char *argv[]):
   _opt_ea_mu(false),
   _fun_num_traps(10),
   _opt_fun_num_traps(false),
+  _fun_prefix_length(2),
+  _opt_fun_prefix_length(false),
   _fun_threshold(10),
   _opt_fun_threshold(false),
   _function(0),
@@ -133,6 +135,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_EA_LAMBDA,
     OPTION_EA_MU,
     OPTION_FUN_NUM_TRAPS,
+    OPTION_FUN_PREFIX_LENGTH,
     OPTION_FUN_THRESHOLD,
     OPTION_FUNCTION,
     OPTION_GA_CROSSOVER_PROBABILITY,
@@ -201,6 +204,7 @@ Options::Options(int argc, char *argv[]):
     {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
     {"fun-num-traps", required_argument, 0, OPTION_FUN_NUM_TRAPS},
+    {"fun-prefix-length", required_argument, 0, OPTION_FUN_PREFIX_LENGTH},
     {"fun-threshold", required_argument, 0, OPTION_FUN_THRESHOLD},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"ga-crossover-probability", required_argument, 0, OPTION_GA_CROSSOVER_PROBABILITY},
@@ -308,6 +312,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_FUN_NUM_TRAPS:
       set_fun_num_traps(atoi(optarg));
+      break;
+
+    case OPTION_FUN_PREFIX_LENGTH:
+      set_fun_prefix_length(atoi(optarg));
       break;
 
     case 't':
@@ -586,8 +594,10 @@ void Options::print_help(ostream& stream) const
   stream << "          Cache function evaluations" << endl;
   stream << "      --fun-num-traps (type int, default to 10)" << endl;
   stream << "          Number of traps" << endl;
+  stream << "      --fun-prefix-length (type int, default to 2)" << endl;
+  stream << "          Prefix length for long path" << endl;
   stream << "  -t, --fun-threshold (type int, default to 10)" << endl;
-  stream << "          Threshold (in bits) for Jump and Four peaks" << endl;
+  stream << "          Threshold (in bits) for Jump, Four Peaks, and Six Peaks" << endl;
   stream << "  -F, --function (type int, default to 0)" << endl;
   stream << "          Type of function" << endl;
   stream << "            0: OneMax" << endl;
@@ -598,7 +608,9 @@ void Options::print_help(ostream& stream) const
   stream << "            30: Jump" << endl;
   stream << "            31: Deceptive jump (aka Jump_k)" << endl;
   stream << "            40: Four peaks" << endl;
+  stream << "            41: Six peaks" << endl;
   stream << "            50: Quadratic function" << endl;
+  stream << "            51: Quadratic unconstrained binary optimization (Qubo)" << endl;
   stream << "            60: NK landscape" << endl;
   stream << "            70: Max-SAT" << endl;
   stream << "            80: Low autocorrelation binary sequence" << endl;
@@ -608,6 +620,7 @@ void Options::print_help(ostream& stream) const
   stream << "            110: Trap" << endl;
   stream << "            120: Hierarchical if and only if (Hiff)" << endl;
   stream << "            130: Plateau" << endl;
+  stream << "            140: Long path" << endl;
   stream << "            1000: Plugin" << endl;
   stream << "      --log-improvement" << endl;
   stream << "          Log improvement" << endl;
@@ -799,6 +812,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# ea_lambda = " << options._ea_lambda << endl;
   stream << "# ea_mu = " << options._ea_mu << endl;
   stream << "# fun_num_traps = " << options._fun_num_traps << endl;
+  stream << "# fun_prefix_length = " << options._fun_prefix_length << endl;
   stream << "# fun_threshold = " << options._fun_threshold << endl;
   stream << "# function = " << options._function << endl;
   stream << "# ga_crossover_probability = " << options._ga_crossover_probability << endl;
