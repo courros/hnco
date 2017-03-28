@@ -1,4 +1,10 @@
-* Version 0.3 (unreleased)
+* Version 0.4 (unreleased)
+
+Library:
+- Added Qubo
+- Cancellation and SinusCancellation both have a known maximum (0)
+
+* Version 0.3 (2017-02-20)
 
 Library:
 - Added bm_resize

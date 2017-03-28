@@ -8,7 +8,7 @@ using namespace std;
 
 Options::Options(int argc, char *argv[]):
   _exec_name(argv[0]),
-  _version("0.3"),
+  _version("0.4"),
   _algorithm(100),
   _opt_algorithm(false),
   _bm_mc_reset_strategy(1),
@@ -610,6 +610,7 @@ void Options::print_help(ostream& stream) const
   stream << "            40: Four peaks" << endl;
   stream << "            41: Six peaks" << endl;
   stream << "            50: Quadratic function" << endl;
+  stream << "            51: Quadratic unconstrained binary optimization (Qubo)" << endl;
   stream << "            60: NK landscape" << endl;
   stream << "            70: Max-SAT" << endl;
   stream << "            80: Low autocorrelation binary sequence" << endl;

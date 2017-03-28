@@ -161,9 +161,10 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/functions/labs.lo hnco/functions/linear-function.lo \
 	hnco/functions/long-path.lo hnco/functions/max-sat.lo \
 	hnco/functions/nk-landscape.lo hnco/functions/plugin.lo \
-	hnco/functions/quadratic-function.lo hnco/functions/theory.lo \
-	hnco/functions/trap.lo hnco/iterator.lo hnco/map.lo \
-	hnco/permutation.lo hnco/random.lo
+	hnco/functions/quadratic-function.lo hnco/functions/qubo.lo \
+	hnco/functions/theory.lo hnco/functions/trap.lo \
+	hnco/iterator.lo hnco/map.lo hnco/permutation.lo \
+	hnco/random.lo
 libhnco_la_OBJECTS = $(am_libhnco_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -462,6 +463,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/plugin.hh \
 	hnco/functions/quadratic-function.cc \
 	hnco/functions/quadratic-function.hh \
+	hnco/functions/qubo.cc \
+	hnco/functions/qubo.hh \
 	hnco/functions/theory.cc \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.cc \
@@ -528,6 +531,7 @@ nobase_include_HEADERS = \
 	hnco/functions/nk-landscape.hh \
 	hnco/functions/plugin.hh \
 	hnco/functions/quadratic-function.hh \
+	hnco/functions/qubo.hh \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.hh \
 	hnco/iterator.hh \
@@ -746,6 +750,8 @@ hnco/functions/plugin.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/quadratic-function.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/qubo.lo: hnco/functions/$(am__dirstamp) \
+	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/theory.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/trap.lo: hnco/functions/$(am__dirstamp) \
@@ -824,6 +830,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/nk-landscape.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/quadratic-function.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/qubo.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/theory.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/trap.Plo@am__quote@
 

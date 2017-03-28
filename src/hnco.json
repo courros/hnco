@@ -3,7 +3,7 @@
 
     "description": "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors",
 
-    "version": "0.3",
+    "version": "0.4",
 
     "tab_order": [
         "General",
@@ -222,6 +222,11 @@
                 {
                     "value": 50,
                     "description": "Quadratic function"
+                },
+
+                {
+                    "value": 51,
+                    "description": "Quadratic unconstrained binary optimization (Qubo)"
                 },
 
                 {
