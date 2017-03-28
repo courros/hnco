@@ -3,4 +3,10 @@ plan-compact.json
 log.default
 log.err
 
+<<<<<<< HEAD
+=======
+graphics.gp
+
+graphics
+>>>>>>> next
 results
