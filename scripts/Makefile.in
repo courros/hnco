@@ -274,7 +274,6 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 dist_bin_SCRIPTS = \
-	optgen.pl \
 	hnco-benchmark-run.pl \
 	hnco-benchmark-stat.pl \
 	hnco-dynamics-run.pl \
@@ -282,7 +281,8 @@ dist_bin_SCRIPTS = \
 	hnco-dynamics-stat.pl \
 	hnco-parameter-run.pl \
 	hnco-parameter-stat.pl \
-	hnco-runtime-stat.pl
+	hnco-runtime-stat.pl \
+	optgen.pl
 
 all: all-am
 

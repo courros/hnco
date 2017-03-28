@@ -36,9 +36,7 @@ namespace function {
 
       Encoding of a signed integer:
       - bit 0: sign
-      - bits 1 to 8: entier codé en complément à 2
-
-      Source: Sebag and Schoenauer, 1997
+      - bits 1 to 8: two's complement representation
   */
   class Cancellation:
     public Function {

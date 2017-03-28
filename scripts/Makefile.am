@@ -1,5 +1,4 @@
 dist_bin_SCRIPTS = \
-	optgen.pl \
 	hnco-benchmark-run.pl \
 	hnco-benchmark-stat.pl \
 	hnco-dynamics-run.pl \
@@ -7,4 +6,5 @@ dist_bin_SCRIPTS = \
 	hnco-dynamics-stat.pl \
 	hnco-parameter-run.pl \
 	hnco-parameter-stat.pl \
-	hnco-runtime-stat.pl
+	hnco-runtime-stat.pl \
+	optgen.pl
