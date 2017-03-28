@@ -4,6 +4,9 @@ Library:
 - Added Qubo
 - Cancellation and SinusCancellation both have a known maximum (0)
 
+Build:
+- Conditional compilation of factorization
+
 * Version 0.3 (2017-02-20)
 
 Library:

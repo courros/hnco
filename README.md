@@ -243,6 +243,7 @@ instances are generated are indicated by `ffgen`):
 - Hierarchical if and only if
 - Plateau
 - Long path
+- Factorization (enable at config time with --enable-factorization)
 - Plugin
 
 The plugin function can load any C function declared as
@@ -312,8 +313,10 @@ strategy can clearly be applied. However, it is possible to split a
 
 ## Requirements
 
-`hnco`, `ffgen`, and `mapgen` depend on the boost serialization
-library.
+`hnco`, `ffgen`, and `mapgen` depend on the following libraries:
+- libdl for plugin
+- GNU GMP (libgmp) for factorization
+- Boost serialization library
 
 The Perl scripts depend on the following modules:
 
@@ -328,9 +331,13 @@ Under Ubuntu 16.04, execute the following commands to install the
 necessary packages:
 ```
 apt-get install build-essential libboost-serialization1.58-dev
+apt-get install libgmp-dev
 apt-get install libjson-perl libstatistics-descriptive-perl gnuplot
 apt-get install texlive-base texlive-latex-extra python-pygments
 ```
+
+Under Ubuntu 16.10, replace `libboost-serialization1.58-dev` with
+`libboost-serialization1.61-dev`.
 
 ## Building and installing
 
