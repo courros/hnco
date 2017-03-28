@@ -23,7 +23,11 @@
 
 #include "hnco/functions/cancellation.hh"
 #include "hnco/functions/equal-products.hh"
+
+#ifdef ENABLE_FACTORIZATION
 #include "hnco/functions/factorization.hh"
+#endif
+
 #include "hnco/functions/four-peaks.hh"
 #include "hnco/functions/function-decorator.hh"
 #include "hnco/functions/function.hh"

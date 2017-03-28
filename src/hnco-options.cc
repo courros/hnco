@@ -639,8 +639,8 @@ void Options::print_help(ostream& stream) const
   stream << "            120: Hierarchical if and only if (Hiff)" << endl;
   stream << "            130: Plateau" << endl;
   stream << "            140: Long path" << endl;
+  stream << "            150: Factorization" << endl;
   stream << "            1000: Plugin" << endl;
-  stream << "            10001: Factorization" << endl;
   stream << "      --log-improvement" << endl;
   stream << "          Log improvement" << endl;
   stream << "      --negation" << endl;

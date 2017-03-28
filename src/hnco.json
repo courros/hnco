@@ -292,13 +292,13 @@
                 },
 
                 {
-                    "value": 1000,
-                    "description": "Plugin"
+                    "value": 150,
+                    "description": "Factorization"
                 },
 
                 {
-                    "value": 10001,
-                    "description": "Factorization"
+                    "value": 1000,
+                    "description": "Plugin"
                 }
 
             ]

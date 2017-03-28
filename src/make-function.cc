@@ -18,6 +18,8 @@
 
 */
 
+#include "config.h"
+
 #include "hnco/functions/all.hh"
 
 #include "make-function.hh"
@@ -175,17 +177,17 @@ make_concrete_function(Options& options)
       (options.get_bv_size(),
        options.get_fun_prefix_length());
 
+#ifdef ENABLE_FACTORIZATION
+  case 150:
+    return new Factorization
+      (options.get_path());
+#endif
+
   case 1000:
     return new FunctionPlugin
       (options.get_bv_size(),
        options.get_path(),
        options.get_plugin_function_name());
-
-#ifdef HAVE_LIBGMP
-  case 10001:
-    return new Factorization
-      (options.get_path());
-#endif
 
   default:
     ostringstream stream;
