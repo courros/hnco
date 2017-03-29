@@ -330,10 +330,10 @@ reports require the `minted` latex package which in turn require
 Under Ubuntu 16.04, execute the following commands to install the
 necessary packages:
 ```
-apt-get install build-essential libboost-serialization1.58-dev
-apt-get install libgmp-dev
-apt-get install libjson-perl libstatistics-descriptive-perl gnuplot
-apt-get install texlive-base texlive-latex-extra python-pygments
+sudo apt-get install build-essential libboost-serialization1.58-dev
+sudo apt-get install libgmp-dev
+sudo apt-get install libjson-perl libstatistics-descriptive-perl gnuplot
+sudo apt-get install texlive-base texlive-latex-extra python-pygments
 ```
 
 Under Ubuntu 16.10, replace `libboost-serialization1.58-dev` with
