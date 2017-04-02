@@ -20,6 +20,9 @@
 
 #include <assert.h>
 
+#include <thread>
+#include <mutex>
+
 #include "population.hh"
 
 
@@ -50,6 +53,35 @@ Population::eval(Function *function)
 
 }
 
+void
+Population::eval(const std::vector<function::Function *>& functions)
+{
+  assert(_bvs.size() == _lookup.size());
+  assert(functions.size() > 0);
+
+  std::mutex mtx;
+  std::thread threads[functions.size()];
+  size_t next = 0;
+
+  for (size_t i = 0; i < functions.size(); ++i)
+    threads[i] = std::thread([&](Function *fn){
+        while (true) {
+          mtx.lock();
+          size_t index = next;
+          if (next < functions.size())
+            next++;
+          mtx.unlock();
+          if (index < functions.size()) {
+            _lookup[index].first = index;
+            _lookup[index].second = fn->eval(_bvs[index]);
+          } else
+            break;
+        }
+      }, functions[i]);
+
+  for (auto& th : threads)
+    th.join();
+}
 
 inline
 bool comp(const std::pair<size_t, double>& a,

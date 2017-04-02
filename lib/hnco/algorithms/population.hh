@@ -128,6 +128,9 @@ namespace algorithm {
     /// Evaluate the population
     void eval(function::Function *function);
 
+    /// Evaluate the population (multithreading)
+    void eval(const std::vector<function::Function *>& functions);
+
     /// Sort the lookup table
     void sort();
 
