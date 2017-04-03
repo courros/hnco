@@ -48,6 +48,16 @@ namespace function {
     /// Evaluate a bit vector
     virtual double eval(const bit_vector_t&) = 0;
 
+    /** Safely evaluate a bit vector.
+
+        Must be thread-safe, that is must avoid throwing exceptions
+        and updating states in function decorators.
+    */
+    virtual double safe_eval(const bit_vector_t& x) { return eval(x); }
+
+    /// Update after a safe evaluation
+    virtual void update(const bit_vector_t& x, double value) {}
+
     /// Check for a known maximum.
     virtual bool has_known_maximum() { return false; }
 

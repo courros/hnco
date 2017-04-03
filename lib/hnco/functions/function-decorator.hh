@@ -53,6 +53,9 @@ namespace function {
     FunctionDecorator():
       _function(0) {}
 
+    /// Safely evaluate a bit vector
+    double safe_eval(const bit_vector_t& x) { return _function->safe_eval(x); }
+
     /// Get bit vector size
     size_t get_bv_size() { return _function->get_bv_size(); }
 
@@ -98,6 +101,9 @@ namespace function {
     /** Evaluate a bit vector.
         \throw MaximumReached */
     double eval(const bit_vector_t&);
+
+    /// Update after a safe evaluation
+    void update(const bit_vector_t& x, double value);
 
   };
 
@@ -238,6 +244,9 @@ namespace function {
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
 
+    /// Update after a safe evaluation
+    void update(const bit_vector_t& x, double value);
+
     /// Get the number of calls
     int get_num_calls() { return _num_calls; }
   };
@@ -271,8 +280,8 @@ namespace function {
     /// Log improvement
     bool _log_improvement;
 
-    /// Update history
-    void update(double value);
+    /// Update last improvement
+    void update_last_improvement(double value);
 
   public:
 
@@ -284,6 +293,9 @@ namespace function {
     /** Evaluate a bit vector.
         \throw MaximumReached */
     double eval(const bit_vector_t&);
+
+    /// Update after a safe evaluation
+    void update(const bit_vector_t& x, double value);
 
     /// Get the last improvement
     const Event& get_last_improvement() { return _last_improvement; }
@@ -312,6 +324,9 @@ namespace function {
     /** Evaluate a bit vector.
         \throw LastEvaluation */
     double eval(const bit_vector_t&);
+
+    /// Update after a safe evaluation
+    void update(const bit_vector_t& x, double value);
 
   };
 

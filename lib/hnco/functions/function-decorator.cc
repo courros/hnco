@@ -39,6 +39,17 @@ StopOnMaximum::eval(const bit_vector_t& x)
 }
 
 
+void
+StopOnMaximum::update(const bit_vector_t& x, double value)
+{
+  assert(_function->has_known_maximum());
+
+  _function->update(x, value);
+  if (value == _function->get_maximum())
+    throw MaximumReached();
+}
+
+
 double
 Negation::eval(const bit_vector_t& x)
 {
@@ -69,6 +80,14 @@ CallCounter::eval(const bit_vector_t& x)
 }
 
 
+void
+CallCounter::update(const bit_vector_t& x, double value)
+{
+  _num_calls++;
+  _function->update(x, value);
+}
+
+
 double
 OnBudgetFunction::eval(const bit_vector_t& x)
 {
@@ -79,6 +98,16 @@ OnBudgetFunction::eval(const bit_vector_t& x)
 }
 
 
+void
+OnBudgetFunction::update(const bit_vector_t& x, double value)
+{
+  _num_calls++;
+  if (_num_calls == _budget)
+    throw LastEvaluation();
+  _function->update(x, value);
+}
+
+
 double
 ProgressTracker::eval(const bit_vector_t& x)
 {
@@ -86,23 +115,29 @@ ProgressTracker::eval(const bit_vector_t& x)
   try { result = _function->eval(x); }
   catch (MaximumReached) {
     assert(_function->has_known_maximum());
-    update(_function->get_maximum());
+    update_last_improvement(_function->get_maximum());
     throw;
   }
-  update(result);
+  update_last_improvement(result);
   return result;
 }
 
 
-std::ostream& hnco::function::operator<<(std::ostream& stream, const ProgressTracker::Event& event)
+void
+ProgressTracker::update(const bit_vector_t& x, double value)
 {
-  stream << event.time << " " << event.value;
-  return stream;
+  try { _function->update(x, value); }
+  catch (MaximumReached) {
+    assert(_function->has_known_maximum());
+    update_last_improvement(_function->get_maximum());
+    throw;
+  }
+  update_last_improvement(value);
 }
 
 
 void
-ProgressTracker::update(double value)
+ProgressTracker::update_last_improvement(double value)
 {
   _num_calls++;
 
@@ -129,6 +164,13 @@ ProgressTracker::update(double value)
     if (_log_improvement)
       std::cout << _last_improvement << std::endl;
   }
+}
+
+
+std::ostream& hnco::function::operator<<(std::ostream& stream, const ProgressTracker::Event& event)
+{
+  stream << event.time << " " << event.value;
+  return stream;
 }
 
 
