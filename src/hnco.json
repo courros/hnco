@@ -176,6 +176,14 @@
             "category": "General"
         },
 
+        "num_threads":
+        {
+            "type": "int",
+            "value": 1,
+            "description": "Number of threads",
+            "category": "General"
+        },
+
         "function":
         {
             "optchar": "F",

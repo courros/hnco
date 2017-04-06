@@ -73,6 +73,8 @@ Options::Options(int argc, char *argv[]):
   _opt_noise_stddev(false),
   _num_iterations(0),
   _opt_num_iterations(false),
+  _num_threads(1),
+  _opt_num_threads(false),
   _path("nopath"),
   _opt_path(false),
   _patience(50),
@@ -159,6 +161,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_NEIGHBORHOOD_ITERATOR,
     OPTION_NOISE_STDDEV,
     OPTION_NUM_ITERATIONS,
+    OPTION_NUM_THREADS,
     OPTION_PATH,
     OPTION_PATIENCE,
     OPTION_PLUGIN_FUNCTION_NAME,
@@ -230,6 +233,7 @@ Options::Options(int argc, char *argv[]):
     {"neighborhood-iterator", required_argument, 0, OPTION_NEIGHBORHOOD_ITERATOR},
     {"noise-stddev", required_argument, 0, OPTION_NOISE_STDDEV},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
+    {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
     {"path", required_argument, 0, OPTION_PATH},
     {"patience", required_argument, 0, OPTION_PATIENCE},
     {"plugin-function-name", required_argument, 0, OPTION_PLUGIN_FUNCTION_NAME},
@@ -414,6 +418,10 @@ Options::Options(int argc, char *argv[]):
       set_num_iterations(atoi(optarg));
       break;
 
+    case OPTION_NUM_THREADS:
+      set_num_threads(atoi(optarg));
+      break;
+
     case 'p':
     case OPTION_PATH:
       set_path(string(optarg));
@@ -592,6 +600,8 @@ void Options::print_help(ostream& stream) const
   stream << "          At the end, describe the solution" << endl;
   stream << "      --no-header" << endl;
   stream << "          Do not print the header" << endl;
+  stream << "      --num-threads (type int, default to 1)" << endl;
+  stream << "          Number of threads" << endl;
   stream << "      --print-default-parameters" << endl;
   stream << "          Print the default parameters and exit" << endl;
   stream << "      --print-performances" << endl;
@@ -853,6 +863,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# neighborhood_iterator = " << options._neighborhood_iterator << endl;
   stream << "# noise_stddev = " << options._noise_stddev << endl;
   stream << "# num_iterations = " << options._num_iterations << endl;
+  stream << "# num_threads = " << options._num_threads << endl;
   stream << "# path = " << options._path << endl;
   stream << "# patience = " << options._patience << endl;
   stream << "# plugin_function_name = " << options._plugin_function_name << endl;

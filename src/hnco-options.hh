@@ -141,6 +141,10 @@ class Options {
   int _num_iterations;
   bool _opt_num_iterations;
 
+  /// Number of threads
+  int _num_threads;
+  bool _opt_num_threads;
+
   /// Path of a function file
   std::string _path;
   bool _opt_path;
@@ -659,6 +663,18 @@ public:
 
   /// Get set-flag for num_iterations
   bool set_num_iterations() const { return _opt_num_iterations; }
+
+  /// Get num_threads
+  int get_num_threads() const { return _num_threads; }
+
+  /// Set num_threads
+  void set_num_threads(int x) {
+    _num_threads = x;
+    _opt_num_threads = true;
+  }
+
+  /// Get set-flag for num_threads
+  bool set_num_threads() const { return _opt_num_threads; }
 
   /// Get path
   std::string get_path() const { return _path; }

@@ -54,7 +54,16 @@ int main(int argc, char *argv[])
 
   // ProgressTracker
   ProgressTracker *function;
-  
+
+  int num_threads = options.get_num_threads();
+  if (num_threads < 1) {
+    std::cerr << "Error: at least one thread is required" << std::endl;
+    return 1;
+  }
+  assert(num_threads >= 1);
+
+  std::vector<function::Function *> functions(num_threads);
+
   try { function = make_function(options); }
   catch (Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
