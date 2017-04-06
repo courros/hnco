@@ -57,7 +57,7 @@ void
 Population::eval(const std::vector<function::Function *>& functions)
 {
   assert(_bvs.size() == _lookup.size());
-  assert(functions.size() > 0);
+  assert(functions.size() > 1);
 
   std::mutex mtx;
   std::thread threads[functions.size()];
@@ -73,7 +73,7 @@ Population::eval(const std::vector<function::Function *>& functions)
           mtx.unlock();
           if (index < functions.size()) {
             _lookup[index].first = index;
-            _lookup[index].second = fn->eval(_bvs[index]);
+            _lookup[index].second = fn->safe_eval(_bvs[index]);
           } else
             break;
         }
@@ -81,6 +81,10 @@ Population::eval(const std::vector<function::Function *>& functions)
 
   for (auto& th : threads)
     th.join();
+
+  for (size_t i = 0; i < _bvs.size(); i++)
+    functions[0]->update(_bvs[i], _lookup[i].second);
+
 }
 
 inline
