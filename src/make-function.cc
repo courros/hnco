@@ -303,7 +303,7 @@ make_map(Options& options)
 
 
 Function *
-make_managed_function(Function *function, Options& options)
+make_function_decorator(Function *function, Options& options)
 {
   assert(function);
   assert(options.get_bv_size() > 0);
@@ -346,7 +346,7 @@ make_managed_function(Function *function, Options& options)
     if (options.get_map() > 0) {
       assert(map);
       if (!map->is_surjective())
-        throw Error("make_managed_function: StopOnMaximum requires a bijective map");
+        throw Error("make_function_decorator: StopOnMaximum requires a bijective map");
     }
 
     // Known maximum
@@ -355,7 +355,7 @@ make_managed_function(Function *function, Options& options)
       assert(function);
     } else {
       ostringstream stream;
-      stream << "make_managed_function: Function " << options.get_function() << ": Unknown maximum";
+      stream << "make_function_decorator: Function " << options.get_function() << ": Unknown maximum";
       throw Error(stream.str());
     }
 
@@ -379,7 +379,7 @@ make_managed_function(Function *function, Options& options)
 }
 
 
-ProgressTracker *
+Function *
 make_function(Options& options)
 {
   assert(options.get_bv_size() > 0);
@@ -397,8 +397,8 @@ make_function(Options& options)
 
   assert(bv_size == options.get_bv_size());
 
-  function = make_managed_function(function, options);
+  function = make_function_decorator(function, options);
   assert(function);
 
-  return new ProgressTracker(function, options.with_log_improvement());
+  return function;
 }

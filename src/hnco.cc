@@ -52,8 +52,17 @@ int main(int argc, char *argv[])
   }
   Random::engine.seed(options.get_seed());
 
-  // ProgressTracker
-  ProgressTracker *function;
+  // Main function
+  Function *function;
+
+  try { function = make_function(options); }
+  catch (Error& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+    return 1;
+  }
+
+  // Progress tracker
+  ProgressTracker *tracker = new ProgressTracker(function, options.with_log_improvement());
 
   int num_threads = options.get_num_threads();
   if (num_threads < 1) {
@@ -62,12 +71,15 @@ int main(int argc, char *argv[])
   }
   assert(num_threads >= 1);
 
+  // Functions
   std::vector<function::Function *> functions(num_threads);
-
-  try { function = make_function(options); }
-  catch (Error& e) {
-    std::cerr << "Error: " << e.what() << std::endl;
-    exit(1);
+  functions[0] = tracker;
+  for (int i = 1; i < num_threads; i++) {
+    try { functions[i] = make_function(options); }
+    catch (Error& e) {
+      std::cerr << "Error: " << e.what() << std::endl;
+      return 1;
+    }
   }
 
   // Algorithm
@@ -76,11 +88,12 @@ int main(int argc, char *argv[])
   try { algorithm = make_algorithm(options); }
   catch (Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
-    exit(1);
+    return 1;
   }
 
   // Connect algorithm and function
-  algorithm->set_function(function);
+  algorithm->set_function(tracker);
+  algorithm->set_functions(functions);
 
   // Header
   if (!options.with_no_header())
@@ -90,17 +103,17 @@ int main(int argc, char *argv[])
   try { algorithm->init(); }
   catch (LastEvaluation) {
     std::cerr << "Error: Not enough evaluations for initialization" << std::endl;
-    std::cout << function->get_last_improvement() << std::endl;
-    exit(1);
+    std::cout << tracker->get_last_improvement() << std::endl;
+    return 1;
   }
   catch (MaximumReached) {
     std::cerr << "Warning: Maximum reached during initialization" << std::endl;
-    std::cout << function->get_last_improvement() << std::endl;
-    exit(1);
+    std::cout << tracker->get_last_improvement() << std::endl;
+    return 1;
   }
   catch (Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
-    exit(1);
+    return 1;
   }
 
   // Maximization
@@ -110,14 +123,14 @@ int main(int argc, char *argv[])
   catch (MaximumReached) {}
   catch (Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
-    exit(1);
+    return 1;
   }
 
   // Maybe not up to date in case of MaximumReached
 
   // Print performances
   if (options.with_print_performances())
-    std::cout << function->get_last_improvement() << std::endl;
+    std::cout << tracker->get_last_improvement() << std::endl;
 
   // Print solution
   if (options.with_print_solution()) {
@@ -127,7 +140,7 @@ int main(int argc, char *argv[])
 
   // Describe solution
   if (options.with_describe_solution()) {
-    function->describe(algorithm->get_solution(), std::cout);
+    tracker->describe(algorithm->get_solution(), std::cout);
   }
 
   return 0;
