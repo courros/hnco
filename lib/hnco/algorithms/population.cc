@@ -54,36 +54,36 @@ Population::eval(Function *function)
 }
 
 void
-Population::eval(const std::vector<function::Function *>& functions)
+Population::eval(const std::vector<function::Function *>& fns)
 {
   assert(_bvs.size() == _lookup.size());
-  assert(functions.size() > 1);
+  assert(fns.size() > 1);
 
   std::mutex mtx;
-  std::thread threads[functions.size()];
+  std::thread threads[fns.size()];
   size_t next = 0;
 
-  for (size_t i = 0; i < functions.size(); ++i)
+  for (size_t i = 0; i < fns.size(); ++i)
     threads[i] = std::thread([&](Function *fn){
         while (true) {
           mtx.lock();
           size_t index = next;
-          if (next < functions.size())
+          if (next < fns.size())
             next++;
           mtx.unlock();
-          if (index < functions.size()) {
+          if (index < fns.size()) {
             _lookup[index].first = index;
             _lookup[index].second = fn->safe_eval(_bvs[index]);
           } else
             break;
         }
-      }, functions[i]);
+      }, fns[i]);
 
   for (auto& th : threads)
     th.join();
 
   for (size_t i = 0; i < _bvs.size(); i++)
-    functions[0]->update(_bvs[i], _lookup[i].second);
+    fns[0]->update(_bvs[i], _lookup[i].second);
 
 }
 
