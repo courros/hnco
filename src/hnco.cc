@@ -53,16 +53,15 @@ int main(int argc, char *argv[])
   Random::engine.seed(options.get_seed());
 
   // Main function
-  Function *function;
-
-  try { function = make_function(options); }
+  Function *fn;
+  try { fn = make_function(options); }
   catch (Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     return 1;
   }
 
   // Progress tracker
-  ProgressTracker *tracker = new ProgressTracker(function, options.with_log_improvement());
+  ProgressTracker *tracker = new ProgressTracker(fn, options.with_log_improvement());
 
   int num_threads = options.get_num_threads();
   if (num_threads < 1) {
@@ -72,10 +71,10 @@ int main(int argc, char *argv[])
   assert(num_threads >= 1);
 
   // Functions
-  std::vector<function::Function *> functions(num_threads);
-  functions[0] = tracker;
+  std::vector<function::Function *> fns(num_threads);
+  fns[0] = tracker;
   for (int i = 1; i < num_threads; i++) {
-    try { functions[i] = make_function(options); }
+    try { fns[i] = make_function(options); }
     catch (Error& e) {
       std::cerr << "Error: " << e.what() << std::endl;
       return 1;
@@ -93,7 +92,7 @@ int main(int argc, char *argv[])
 
   // Connect algorithm and function
   algorithm->set_function(tracker);
-  algorithm->set_functions(functions);
+  algorithm->set_functions(fns);
 
   // Header
   if (!options.with_no_header())

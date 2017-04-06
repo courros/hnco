@@ -83,7 +83,7 @@ namespace algorithm {
 
     /// Set functions
     virtual void set_functions(const std::vector<function::Function *> functions) {
-      assert(functions.size() > 1);
+      assert(functions.size() > 0);
       _functions = functions;
     }
 
