@@ -40,6 +40,12 @@ namespace algorithm {
     /// Function
     function::Function *_function;
 
+    /** Functions.
+
+        Each thread has its own function.
+    */
+    std::vector<function::Function *> _functions;
+
     /// Solution
     bit_vector_t _solution;
 
@@ -73,6 +79,12 @@ namespace algorithm {
     virtual void set_function(function::Function *function) {
       assert(function);
       _function = function;
+    }
+
+    /// Set functions
+    virtual void set_functions(const std::vector<function::Function *> functions) {
+      assert(functions.size() > 1);
+      _functions = functions;
     }
 
     /// Initialization
