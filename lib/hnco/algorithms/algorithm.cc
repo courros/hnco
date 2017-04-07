@@ -55,7 +55,6 @@ void
 Algorithm::set_solution(const bit_vector_t& x, double value)
 {
   assert(_function);
-  assert(_function->eval(x) == value);
 
   _solution = x;
   _maximum = value;
@@ -73,7 +72,6 @@ void
 Algorithm::update_solution(const bit_vector_t& x, double value)
 {
   assert(_function);
-  assert(_function->eval(x) == value);
 
   if (value > _maximum) {
     _solution = x;
