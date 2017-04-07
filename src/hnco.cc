@@ -74,6 +74,7 @@ int main(int argc, char *argv[])
   std::vector<function::Function *> fns(num_threads);
   fns[0] = tracker;
   for (int i = 1; i < num_threads; i++) {
+    Random::engine.seed(options.get_seed());
     try { fns[i] = make_function(options); }
     catch (Error& e) {
       std::cerr << "Error: " << e.what() << std::endl;
