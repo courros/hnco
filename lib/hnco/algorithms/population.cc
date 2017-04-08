@@ -68,10 +68,10 @@ Population::eval(const std::vector<function::Function *>& fns)
         while (true) {
           mtx.lock();
           size_t index = next;
-          if (next < fns.size())
+          if (next < _bvs.size())
             next++;
           mtx.unlock();
-          if (index < fns.size()) {
+          if (index < _bvs.size()) {
             _lookup[index].first = index;
             _lookup[index].second = fn->safe_eval(_bvs[index]);
           } else
@@ -79,7 +79,7 @@ Population::eval(const std::vector<function::Function *>& fns)
         }
       }, fns[i]);
 
-  for (auto& th : threads)
+  for (auto& th: threads)
     th.join();
 
   for (size_t i = 0; i < _bvs.size(); i++)
