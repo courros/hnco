@@ -19,6 +19,7 @@
 */
 
 #include <assert.h>
+#include <omp.h>                // omp_get_thread_num
 
 #include "population.hh"
 
@@ -56,27 +57,11 @@ Population::eval(const std::vector<function::Function *>& fns)
   assert(_bvs.size() == _lookup.size());
   assert(fns.size() > 1);
 
-  for (size_t i = 0; i < _bvs.size(); i++)
-    _lookup[i].first = i;
-
-  size_t q = _bvs.size() / fns.size();
-  size_t r = _bvs.size() % fns.size();
-  assert(r < fns.size());
-
 #pragma omp parallel for
-  for (size_t i = 0; i < fns.size(); ++i) {
-    // r threads call function (q + 1) times
-    if (i < r)
-      for (size_t j = 0; j < q + 1; j++) {
-        size_t index = i * (q + 1) + j;
-        _lookup[index].second = fns[i]->safe_eval(_bvs[index]);
-      }
-    // (fns.size() - r) threads call function q times
-    else
-      for (size_t j = 0; j < q; j++) {
-        size_t index = r * (q + 1) + (i - r) * q + j;
-        _lookup[index].second = fns[i]->safe_eval(_bvs[index]);
-      }
+  for (size_t i = 0; i < _bvs.size(); i++) {
+    int k = omp_get_thread_num();
+    _lookup[i].first = i;
+    _lookup[i].second = fns[k]->safe_eval(_bvs[i]);
   }
 
   for (size_t i = 0; i < _bvs.size(); i++)

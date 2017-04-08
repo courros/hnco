@@ -21,6 +21,8 @@
 #include <iostream>
 #include <chrono>
 
+#include <omp.h>                // omp_set_num_threads
+
 #include "hnco/exception.hh"
 #include "hnco/random.hh"
 
@@ -69,6 +71,7 @@ int main(int argc, char *argv[])
     return 1;
   }
   assert(num_threads >= 1);
+  omp_set_num_threads(num_threads);
 
   // Functions
   std::vector<function::Function *> fns(num_threads);
