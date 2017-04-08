@@ -1,3 +1,5 @@
+AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
+
 lib_LTLIBRARIES = libhnco.la
 
 libhnco_la_SOURCES = \

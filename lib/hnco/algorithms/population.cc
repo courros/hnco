@@ -20,9 +20,6 @@
 
 #include <assert.h>
 
-#include <thread>
-#include <mutex>
-
 #include "population.hh"
 
 
@@ -66,28 +63,21 @@ Population::eval(const std::vector<function::Function *>& fns)
   size_t r = _bvs.size() % fns.size();
   assert(r < fns.size());
 
-  std::thread threads[fns.size()];
-
-  // r threads call function (q + 1) times
-  for (size_t i = 0; i < r; ++i)
-    threads[i] = std::thread([&](size_t k){
-        for (size_t j = 0; j < q + 1; j++) {
-          size_t index = k * (q + 1) + j;
-          _lookup[index].second = fns[k]->safe_eval(_bvs[index]);
-        }
-      }, i);
-
-  // (fns.size() - r) threads call function q times
-  for (size_t i = r; i < fns.size(); ++i)
-    threads[i] = std::thread([&](size_t k){
-        for (size_t j = 0; j < q; j++) {
-          size_t index = r * (q + 1) + (k - r) * q + j;
-          _lookup[index].second = fns[k]->safe_eval(_bvs[index]);
-        }
-      }, i);
-
-  for (auto& th: threads)
-    th.join();
+#pragma omp parallel for
+  for (size_t i = 0; i < fns.size(); ++i) {
+    // r threads call function (q + 1) times
+    if (i < r)
+      for (size_t j = 0; j < q + 1; j++) {
+        size_t index = i * (q + 1) + j;
+        _lookup[index].second = fns[i]->safe_eval(_bvs[index]);
+      }
+    // (fns.size() - r) threads call function q times
+    else
+      for (size_t j = 0; j < q; j++) {
+        size_t index = r * (q + 1) + (i - r) * q + j;
+        _lookup[index].second = fns[i]->safe_eval(_bvs[index]);
+      }
+  }
 
   for (size_t i = 0; i < _bvs.size(); i++)
     fns[0]->update(_bvs[i], _lookup[i].second);

@@ -31,6 +31,8 @@ check_PROGRAMS = \
 	test-serialize-translation \
 	test-steepest-ascent-hill-climbing
 
+AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
+
 AM_CPPFLAGS = -I $(top_srcdir)/lib
 
 LDADD = ../lib/libhnco.la -ldl -lboost_serialization
