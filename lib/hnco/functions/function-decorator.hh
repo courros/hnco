@@ -53,9 +53,6 @@ namespace function {
     FunctionDecorator():
       _function(0) {}
 
-    /// Safely evaluate a bit vector
-    double safe_eval(const bit_vector_t& x) { return _function->safe_eval(x); }
-
     /// Get bit vector size
     size_t get_bv_size() { return _function->get_bv_size(); }
 
@@ -101,6 +98,9 @@ namespace function {
     /** Evaluate a bit vector.
         \throw MaximumReached */
     double eval(const bit_vector_t&);
+
+    /// Safely evaluate a bit vector
+    double safe_eval(const bit_vector_t& x) { return _function->safe_eval(x); }
 
     /// Update after a safe evaluation
     void update(const bit_vector_t& x, double value);
@@ -243,6 +243,9 @@ namespace function {
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
+
+    /// Safely evaluate a bit vector
+    double safe_eval(const bit_vector_t& x) { return _function->safe_eval(x); }
 
     /// Update after a safe evaluation
     void update(const bit_vector_t& x, double value);
