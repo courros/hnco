@@ -59,25 +59,32 @@ Population::eval(const std::vector<function::Function *>& fns)
   assert(_bvs.size() == _lookup.size());
   assert(fns.size() > 1);
 
-  std::mutex mtx;
-  std::thread threads[fns.size()];
-  size_t next = 0;
+  for (size_t i = 0; i < _bvs.size(); i++)
+    _lookup[i].first = i;
 
-  for (size_t i = 0; i < fns.size(); ++i)
-    threads[i] = std::thread([&](Function *fn){
-        while (true) {
-          mtx.lock();
-          size_t index = next;
-          if (next < _bvs.size())
-            next++;
-          mtx.unlock();
-          if (index < _bvs.size()) {
-            _lookup[index].first = index;
-            _lookup[index].second = fn->safe_eval(_bvs[index]);
-          } else
-            break;
+  size_t q = _bvs.size() / fns.size();
+  size_t r = _bvs.size() % fns.size();
+  assert(r < fns.size());
+
+  std::thread threads[fns.size()];
+
+  // r threads call function (q + 1) times
+  for (size_t i = 0; i < r; ++i)
+    threads[i] = std::thread([&](size_t k){
+        for (size_t j = 0; j < q + 1; j++) {
+          size_t index = k * (q + 1) + j;
+          _lookup[index].second = fns[k]->safe_eval(_bvs[index]);
         }
-      }, fns[i]);
+      }, i);
+
+  // (fns.size() - r) threads call function q times
+  for (size_t i = r; i < fns.size(); ++i)
+    threads[i] = std::thread([&](size_t k){
+        for (size_t j = 0; j < q; j++) {
+          size_t index = r * (q + 1) + (k - r) * q + j;
+          _lookup[index].second = fns[k]->safe_eval(_bvs[index]);
+        }
+      }, i);
 
   for (auto& th: threads)
     th.join();
