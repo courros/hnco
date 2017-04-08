@@ -51,7 +51,8 @@ namespace function {
     /** Safely evaluate a bit vector.
 
         Must be thread-safe, that is must avoid throwing exceptions
-        and updating states in function decorators.
+        and updating global states (e.g. maximum) in function
+        decorators.
     */
     virtual double safe_eval(const bit_vector_t& x) { return eval(x); }
 
