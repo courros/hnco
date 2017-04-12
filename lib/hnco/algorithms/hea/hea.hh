@@ -116,7 +116,11 @@ namespace hea {
       if (_log_flags[LOG_DELTA])
         _delta_cache = _herding.delta(_target);
 
-      _population.eval(_function);
+      if (_functions.size() > 1)
+        _population.eval(_functions);
+      else
+        _population.eval(_function);
+
       _population.sort();
 
       update_solution(_population.get_best_bv(),
