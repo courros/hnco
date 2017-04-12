@@ -40,7 +40,11 @@ Umda::iterate()
   for (size_t i = 0; i < _population.size(); i++)
     pv_sample(_pv, _population.get_bv(i));
 
-  _population.eval(_function);
+  if (_functions.size() > 1)
+    _population.eval(_functions);
+  else
+    _population.eval(_function);
+
   _population.sort();
 
   update_solution(_population.get_best_bv(),
