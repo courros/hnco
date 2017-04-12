@@ -4,7 +4,8 @@ Library:
 - ProgressTracker: renamed method update -> update_last_improvement
 - Function: added methods safe_eval and update
 - Population: added method eval for parallel evaluation with OpenMP
-- Algorithms with parallel evaluation: Pbil, NpsPbil, Umda, Hea
+- Algorithms with parallel evaluation: Pbil, NpsPbil, Umda, Hea,
+  MuCommaLambdaEa, MuPlusLambdaEa, GeneticAlgorithm, BmPbil
 
 * Version 0.4 (2017-03-29)
 
