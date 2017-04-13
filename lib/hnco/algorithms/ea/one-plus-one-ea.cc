@@ -28,15 +28,14 @@
 using namespace hnco::algorithm;
 using namespace hnco::function;
 using namespace hnco::neighborhood;
-using namespace std;
+using namespace hnco;
 
 
 void
 OnePlusOneEa::init()
 {
   random_solution();
-
-  _neighborhood.set_origin(_solution);
+  _neighborhood.set_origin(_solution.first);
 }
 
 
@@ -46,9 +45,17 @@ OnePlusOneEa::iterate()
   _neighborhood.propose();
   double value = _function->eval(_neighborhood.get_candidate());
 
-  if (value >= _maximum) {     // success
+  if (value >= _solution.second) { // success
     _neighborhood.keep();
-    _maximum = value;
+    _solution.second = value;
   } else                        // failure
     _neighborhood.forget();
+}
+
+
+const point_value_t&
+OnePlusOneEa::get_solution()
+{
+  _solution.first =  _neighborhood.get_origin();
+  return _solution;
 }

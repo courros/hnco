@@ -53,7 +53,7 @@ namespace algorithm {
     void init();
 
     /// Solution
-    const bit_vector_t& get_solution() { return _neighborhood.get_origin(); }
+    const point_value_t& get_solution();
 
   };
 
