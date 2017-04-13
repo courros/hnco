@@ -30,17 +30,13 @@ using namespace hnco::function;
 using namespace hnco::random;
 
 
-Algorithm::Algorithm(int n):
-  _solution(n) {}
-
-
 void
 Algorithm::random_solution()
 {
   assert(_function);
 
-  bv_random(_solution);
-  _maximum = _function->eval(_solution);
+  bv_random(_solution.first);
+  _solution.second = _function->eval(_solution.first);
 }
 
 void
@@ -54,10 +50,8 @@ Algorithm::set_solution(const bit_vector_t& x)
 void
 Algorithm::set_solution(const bit_vector_t& x, double value)
 {
-  assert(_function);
-
-  _solution = x;
-  _maximum = value;
+  _solution.first = x;
+  _solution.second = value;
 }
 
 void
@@ -73,9 +67,9 @@ Algorithm::update_solution(const bit_vector_t& x, double value)
 {
   assert(_function);
 
-  if (value > _maximum) {
-    _solution = x;
-    _maximum = value;
+  if (value > _solution.second) {
+    _solution.first = x;
+    _solution.second = value;
   }
 }
 

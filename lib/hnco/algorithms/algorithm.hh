@@ -47,10 +47,7 @@ namespace algorithm {
     std::vector<function::Function *> _functions;
 
     /// Solution
-    bit_vector_t _solution;
-
-    /// Maximum
-    double _maximum;
+    point_value_t _solution;
 
     /// Random initialization of solution
     virtual void random_solution();
@@ -70,10 +67,14 @@ namespace algorithm {
   public:
 
     /// Constructor
-    Algorithm(int n);
+    Algorithm(int n):
+      _solution(bit_vector_t(n), 0.0) {}
 
     /// Destructor
     virtual ~Algorithm() {}
+
+    /// Solution
+    virtual const point_value_t& get_solution() { return _solution; }
 
     /// Set function
     virtual void set_function(function::Function *function) {
@@ -95,12 +96,6 @@ namespace algorithm {
 
     /// Maximize
     virtual void maximize() = 0;
-
-    /// Solution
-    virtual const bit_vector_t& get_solution() { return _solution; }
-
-    /// Maximum
-    virtual double get_maximum() { return _maximum; }
 
   };
 
