@@ -43,7 +43,7 @@ namespace exception {
     point_value_t _pv;
   public:
     PointValueException(const point_value_t& pv): _pv(pv) {}
-    const point_value_t& get_pv() { return _pv; }
+    const point_value_t& get_pv() const { return _pv; }
   };
 
   class MaximumReached:

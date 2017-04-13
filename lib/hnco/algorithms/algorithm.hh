@@ -49,23 +49,23 @@ namespace algorithm {
     /// Solution
     point_value_t _solution;
 
-    /// Random initialization of solution
+    /// Random solution
     virtual void random_solution();
 
-    /// Set solution and maximum
-    virtual void set_solution(const bit_vector_t& x);
-
-    /// Set solution and maximum
+    /// Set solution
     virtual void set_solution(const bit_vector_t& x, double value);
 
-    /// Update solution and maximum
-    virtual void update_solution(const bit_vector_t& x);
+    /// Set solution
+    virtual void set_solution(const bit_vector_t& x);
 
-    /// Update solution and maximum
+    /// Update solution (strict)
     virtual void update_solution(const bit_vector_t& x, double value);
 
-    /// Update solution and maximum
+    /// Update solution (strict)
     virtual void update_solution(const point_value_t& pv);
+
+    /// Update solution (strict)
+    virtual void update_solution(const bit_vector_t& x);
 
   public:
 

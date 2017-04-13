@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
   // Main function
   Function *fn;
   try { fn = make_function(options); }
-  catch (Error& e) {
+  catch (const Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     return 1;
   }
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
   for (int i = 1; i < num_threads; i++) {
     Random::engine.seed(options.get_seed());
     try { fns[i] = make_function(options); }
-    catch (Error& e) {
+    catch (const Error& e) {
       std::cerr << "Error: " << e.what() << std::endl;
       return 1;
     }
@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
   Algorithm *algorithm;
 
   try { algorithm = make_algorithm(options); }
-  catch (Error& e) {
+  catch (const Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     return 1;
   }
@@ -114,22 +114,35 @@ int main(int argc, char *argv[])
     std::cout << tracker->get_last_improvement() << std::endl;
     return 1;
   }
-  catch (Error& e) {
+  catch (const Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     return 1;
   }
 
-  // Maximization
-  try { algorithm->maximize(); }
-  catch (LocalMaximum) {}
+  // Solution
+  point_value_t solution;
+
+  // Maximize
+  try {
+    algorithm->maximize();
+    solution = algorithm->get_solution();
+  }
+  catch (const LocalMaximum& e) {
+    solution = e.get_pv();
+  }
+  catch (const MaximumReached& e) {
+    solution = e.get_pv();
+  }
+  catch (const TargetReached& e) {
+    solution = e.get_pv();
+  }
   catch (LastEvaluation) {}
-  catch (MaximumReached) {}
   catch (Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     return 1;
   }
 
-  // Maybe not up to date in case of MaximumReached
+  assert(tracker->get_last_improvement().value == solution.second);
 
   // Print performances
   if (options.with_print_performances())
@@ -137,13 +150,13 @@ int main(int argc, char *argv[])
 
   // Print solution
   if (options.with_print_solution()) {
-    bv_display(algorithm->get_solution(), std::cout);
+    bv_display(algorithm->get_solution().first, std::cout);
     std::cout << std::endl;
   }
 
   // Describe solution
   if (options.with_describe_solution()) {
-    tracker->describe(algorithm->get_solution(), std::cout);
+    tracker->describe(algorithm->get_solution().first, std::cout);
   }
 
   return 0;

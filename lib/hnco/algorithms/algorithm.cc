@@ -40,14 +40,6 @@ Algorithm::random_solution()
 }
 
 void
-Algorithm::set_solution(const bit_vector_t& x)
-{
-  assert(_function);
-
-  set_solution(x, _function->eval(x));
-}
-
-void
 Algorithm::set_solution(const bit_vector_t& x, double value)
 {
   _solution.first = x;
@@ -55,11 +47,11 @@ Algorithm::set_solution(const bit_vector_t& x, double value)
 }
 
 void
-Algorithm::update_solution(const bit_vector_t& x)
+Algorithm::set_solution(const bit_vector_t& x)
 {
   assert(_function);
 
-  update_solution(x, _function->eval(x));
+  set_solution(x, _function->eval(x));
 }
 
 void
@@ -76,6 +68,14 @@ Algorithm::update_solution(const point_value_t& pv)
 {
   if (pv.second > _solution.second)
     _solution = pv;
+}
+
+void
+Algorithm::update_solution(const bit_vector_t& x)
+{
+  assert(_function);
+
+  update_solution(x, _function->eval(x));
 }
 
 void
