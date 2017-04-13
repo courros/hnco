@@ -25,6 +25,8 @@
 #include <sstream>
 #include <string>
 
+#include "bit-vector.hh"
+
 
 namespace hnco {
 /// All about exceptions
@@ -34,16 +36,45 @@ namespace exception {
   /// Basic exception
   class Exception {};
 
+  class PointValueException:
+    public Exception
+  {
+  protected:
+    point_value_t _pv;
+  public:
+    PointValueException(const point_value_t& pv): _pv(pv) {}
+    const point_value_t& get_pv() { return _pv; }
+  };
+
+  class MaximumReached:
+    public PointValueException
+  {
+    point_value_t _pv;
+  public:
+    MaximumReached(const point_value_t& pv):
+      PointValueException(pv) {}
+  };
+
+  class TargetReached:
+    public PointValueException
+  {
+    point_value_t _pv;
+  public:
+    TargetReached(const point_value_t& pv):
+      PointValueException(pv) {}
+  };
+
+  class LocalMaximum:
+    public PointValueException
+  {
+    point_value_t _pv;
+  public:
+    LocalMaximum(const point_value_t& pv):
+      PointValueException(pv) {}
+  };
 
   /// Last evaluation
   class LastEvaluation: public Exception {};
-
-  /// Local maximum
-  class LocalMaximum: public Exception {};
-
-  /// Maximum reached
-  class MaximumReached: public Exception {};
-
 
   /// Error
   class Error:
