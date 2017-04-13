@@ -75,10 +75,7 @@ namespace algorithm {
     void init(const bit_vector_t& x, double value);
 
     /// Solution
-    const bit_vector_t& get_solution() {
-      assert(_neighborhood);
-      return _neighborhood->get_origin();
-    }
+    const point_value_t& get_solution();
 
   };
 
