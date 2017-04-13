@@ -49,7 +49,6 @@ namespace exception {
   class MaximumReached:
     public PointValueException
   {
-    point_value_t _pv;
   public:
     MaximumReached(const point_value_t& pv):
       PointValueException(pv) {}
@@ -58,7 +57,6 @@ namespace exception {
   class TargetReached:
     public PointValueException
   {
-    point_value_t _pv;
   public:
     TargetReached(const point_value_t& pv):
       PointValueException(pv) {}
@@ -67,7 +65,6 @@ namespace exception {
   class LocalMaximum:
     public PointValueException
   {
-    point_value_t _pv;
   public:
     LocalMaximum(const point_value_t& pv):
       PointValueException(pv) {}
