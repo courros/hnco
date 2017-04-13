@@ -32,10 +32,10 @@ StopOnMaximum::eval(const bit_vector_t& x)
 {
   assert(_function->has_known_maximum());
 
-  double result = _function->eval(x);
-  if (result == _function->get_maximum())
-    throw MaximumReached();
-  return result;
+  double value = _function->eval(x);
+  if (value == _function->get_maximum())
+    throw MaximumReached(std::make_pair(x, value));
+  return value;
 }
 
 
@@ -46,7 +46,7 @@ StopOnMaximum::update(const bit_vector_t& x, double value)
 
   _function->update(x, value);
   if (value == _function->get_maximum())
-    throw MaximumReached();
+    throw MaximumReached(std::make_pair(x, value));
 }
 
 
