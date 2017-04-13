@@ -150,13 +150,13 @@ int main(int argc, char *argv[])
 
   // Print solution
   if (options.with_print_solution()) {
-    bv_display(algorithm->get_solution().first, std::cout);
+    bv_display(solution.first, std::cout);
     std::cout << std::endl;
   }
 
   // Describe solution
   if (options.with_describe_solution()) {
-    tracker->describe(algorithm->get_solution().first, std::cout);
+    tracker->describe(solution.first, std::cout);
   }
 
   return 0;
