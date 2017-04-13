@@ -64,6 +64,9 @@ namespace algorithm {
     /// Update solution and maximum
     virtual void update_solution(const bit_vector_t& x, double value);
 
+    /// Update solution and maximum
+    virtual void update_solution(const point_value_t& pv);
+
   public:
 
     /// Constructor

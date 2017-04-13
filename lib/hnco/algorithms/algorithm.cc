@@ -65,12 +65,17 @@ Algorithm::update_solution(const bit_vector_t& x)
 void
 Algorithm::update_solution(const bit_vector_t& x, double value)
 {
-  assert(_function);
-
   if (value > _solution.second) {
     _solution.first = x;
     _solution.second = value;
   }
+}
+
+void
+Algorithm::update_solution(const point_value_t& pv)
+{
+  if (pv.second > _solution.second)
+    _solution = pv;
 }
 
 void
