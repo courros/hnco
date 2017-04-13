@@ -43,9 +43,9 @@ SimulatedAnnealing::set_beta()
   double delta = 0;
   int count = 0;
   for (int i = 0; i < _num_trials; i++) {
-    bv_random(_solution);
-    double a = _function->eval(_solution);
-    _neighborhood->set_origin(_solution);
+    bv_random(_solution.first);
+    double a = _function->eval(_solution.first);
+    _neighborhood->set_origin(_solution.first);
     _neighborhood->propose();
     double b = _function->eval(_neighborhood->get_candidate());
     if (b < a) {
@@ -64,11 +64,10 @@ void
 SimulatedAnnealing::init()
 {
   random_solution();
-  _neighborhood->set_origin(_solution);
-  _current = _maximum;
+  _neighborhood->set_origin(_solution.first);
+  _current = _solution.second;
   _transitions = 0;
   set_beta();
-
 }
 
 
