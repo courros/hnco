@@ -30,7 +30,7 @@ using namespace hnco;
 void
 CompleteSearch::maximize()
 {
-  HypercubeIterator enumerator(_solution.size());
+  HypercubeIterator enumerator(_solution.first.size());
 
   enumerator.init();
   set_solution(enumerator.get_current());
