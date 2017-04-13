@@ -8,7 +8,7 @@ using namespace std;
 
 Options::Options(int argc, char *argv[]):
   _exec_name(argv[0]),
-  _version("0.4"),
+  _version("0.5"),
   _algorithm(100),
   _opt_algorithm(false),
   _bm_mc_reset_strategy(1),
