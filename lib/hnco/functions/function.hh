@@ -31,7 +31,6 @@ namespace hnco {
 /// All about fitness functions to be maximized
 namespace function {
 
-
   /// Function
   class Function {
 

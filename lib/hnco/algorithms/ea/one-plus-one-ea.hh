@@ -52,9 +52,6 @@ namespace algorithm {
     /// Random initialization
     void init();
 
-    /// Solution
-    const point_value_t& get_solution();
-
   };
 
 

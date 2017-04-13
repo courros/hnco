@@ -47,15 +47,7 @@ OnePlusOneEa::iterate()
 
   if (value >= _solution.second) { // success
     _neighborhood.keep();
-    _solution.second = value;
+    update_solution(_neighborhood.get_origin(), value);
   } else                        // failure
     _neighborhood.forget();
-}
-
-
-const point_value_t&
-OnePlusOneEa::get_solution()
-{
-  _solution.first =  _neighborhood.get_origin();
-  return _solution;
 }
