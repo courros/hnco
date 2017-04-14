@@ -114,6 +114,11 @@ int main(int argc, char *argv[])
     std::cout << tracker->get_last_improvement() << std::endl;
     return 1;
   }
+  catch (TargetReached) {
+    std::cerr << "Warning: Target reached during initialization" << std::endl;
+    std::cout << tracker->get_last_improvement() << std::endl;
+    return 1;
+  }
   catch (const Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     return 1;

@@ -197,6 +197,10 @@ class Options {
   int _selection_size;
   bool _opt_selection_size;
 
+  /// Target
+  double _target;
+  bool _opt_target;
+
   /// Additive Gaussian noise
   bool _additive_gaussian_noise;
 
@@ -268,6 +272,9 @@ class Options {
 
   /// Stop on maximum
   bool _stop_on_maximum;
+
+  /// Stop on target
+  bool _stop_on_target;
 
   /// Print help message
   void print_help(std::ostream& stream) const;
@@ -832,6 +839,18 @@ public:
   /// Get set-flag for selection_size
   bool set_selection_size() const { return _opt_selection_size; }
 
+  /// Get target
+  double get_target() const { return _target; }
+
+  /// Set target
+  void set_target(double x) {
+    _target = x;
+    _opt_target = true;
+  }
+
+  /// Get set-flag for target
+  bool set_target() const { return _opt_target; }
+
   /// Get additive_gaussian_noise
   bool with_additive_gaussian_noise() const { return _additive_gaussian_noise; }
 
@@ -975,6 +994,12 @@ public:
 
   /// Set stop_on_maximum
   void set_stop_on_maximum() { _stop_on_maximum = true; }
+ 
+  /// Get stop_on_target
+  bool with_stop_on_target() const { return _stop_on_target; }
+
+  /// Set stop_on_target
+  void set_stop_on_target() { _stop_on_target = true; }
  
   /// Print a header containing the parameter values
   friend std::ostream& operator<<(std::ostream&, const Options&);

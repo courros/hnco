@@ -361,6 +361,12 @@ make_function_decorator(Function *function, Options& options)
 
   }
 
+  // Stop on target
+  if (options.with_stop_on_target()) {
+    function = new StopOnTarget(function, options.get_target());
+    assert(function);
+  }
+
   // Cache
   if (options.with_cache()) {
     function = new Cache(function);

@@ -137,6 +137,10 @@ ProgressTracker::eval(const bit_vector_t& x)
     update_last_improvement(_function->get_maximum());
     throw;
   }
+  catch (const TargetReached& e) {
+    update_last_improvement(e.get_pv().second);
+    throw;
+  }
   update_last_improvement(result);
   return result;
 }
@@ -149,6 +153,10 @@ ProgressTracker::update(const bit_vector_t& x, double value)
   catch (MaximumReached) {
     assert(_function->has_known_maximum());
     update_last_improvement(_function->get_maximum());
+    throw;
+  }
+  catch (const TargetReached& e) {
+    update_last_improvement(e.get_pv().second);
     throw;
   }
   update_last_improvement(value);

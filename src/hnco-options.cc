@@ -101,6 +101,8 @@ Options::Options(int argc, char *argv[]):
   _opt_seed(false),
   _selection_size(1),
   _opt_selection_size(false),
+  _target(100),
+  _opt_target(false),
   _additive_gaussian_noise(false),
   _bm_log_norm_infinite(false),
   _bm_log_norm_l1(false),
@@ -124,7 +126,8 @@ Options::Options(int argc, char *argv[]):
   _pv_log_entropy(false),
   _pv_log_pv(false),
   _restart(false),
-  _stop_on_maximum(false)
+  _stop_on_maximum(false),
+  _stop_on_target(false)
 {
   enum {
     OPTION_HELP=256,
@@ -175,6 +178,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_SCALED_MUTATION_PROBABILITY,
     OPTION_SEED,
     OPTION_SELECTION_SIZE,
+    OPTION_TARGET,
     OPTION_ADDITIVE_GAUSSIAN_NOISE,
     OPTION_BM_LOG_NORM_INFINITE,
     OPTION_BM_LOG_NORM_L1,
@@ -198,7 +202,8 @@ Options::Options(int argc, char *argv[]):
     OPTION_PV_LOG_ENTROPY,
     OPTION_PV_LOG_PV,
     OPTION_RESTART,
-    OPTION_STOP_ON_MAXIMUM
+    OPTION_STOP_ON_MAXIMUM,
+    OPTION_STOP_ON_TARGET
   };
   const struct option long_options[] = {
     {"algorithm", required_argument, 0, OPTION_ALGORITHM},
@@ -247,6 +252,7 @@ Options::Options(int argc, char *argv[]):
     {"scaled-mutation-probability", required_argument, 0, OPTION_SCALED_MUTATION_PROBABILITY},
     {"seed", required_argument, 0, OPTION_SEED},
     {"selection-size", required_argument, 0, OPTION_SELECTION_SIZE},
+    {"target", required_argument, 0, OPTION_TARGET},
     {"additive-gaussian-noise", no_argument, 0, OPTION_ADDITIVE_GAUSSIAN_NOISE},
     {"bm-log-norm-infinite", no_argument, 0, OPTION_BM_LOG_NORM_INFINITE},
     {"bm-log-norm-l1", no_argument, 0, OPTION_BM_LOG_NORM_L1},
@@ -271,6 +277,7 @@ Options::Options(int argc, char *argv[]):
     {"pv-log-pv", no_argument, 0, OPTION_PV_LOG_PV},
     {"restart", no_argument, 0, OPTION_RESTART},
     {"stop-on-maximum", no_argument, 0, OPTION_STOP_ON_MAXIMUM},
+    {"stop-on-target", no_argument, 0, OPTION_STOP_ON_TARGET},
     {"help", no_argument, 0, OPTION_HELP},
     {"version", no_argument, 0, OPTION_VERSION},
     {0, no_argument, 0, 0}
@@ -478,6 +485,10 @@ Options::Options(int argc, char *argv[]):
       set_selection_size(atoi(optarg));
       break;
 
+    case OPTION_TARGET:
+      set_target(atof(optarg));
+      break;
+
     case OPTION_ADDITIVE_GAUSSIAN_NOISE:
       _additive_gaussian_noise = true;
       break;
@@ -574,6 +585,10 @@ Options::Options(int argc, char *argv[]):
       _stop_on_maximum = true;
       break;
 
+    case OPTION_STOP_ON_TARGET:
+      _stop_on_target = true;
+      break;
+
     case OPTION_HELP:
       print_help(cerr);
       exit(0);
@@ -663,6 +678,10 @@ void Options::print_help(ostream& stream) const
   stream << "          Name of the function in the dynamic library" << endl;
   stream << "      --stop-on-maximum" << endl;
   stream << "          Stop on maximum" << endl;
+  stream << "      --stop-on-target" << endl;
+  stream << "          Stop on target" << endl;
+  stream << "      --target (type double, default to 100)" << endl;
+  stream << "          Target" << endl;
   stream << endl;
   stream << "Map:" << endl;
   stream << "  -M, --map (type int, default to 0)" << endl;
@@ -877,6 +896,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# scaled_mutation_probability = " << options._scaled_mutation_probability << endl;
   stream << "# seed = " << options._seed << endl;
   stream << "# selection_size = " << options._selection_size << endl;
+  stream << "# target = " << options._target << endl;
   if (options._additive_gaussian_noise)
     stream << "# additive_gaussian_noise" << endl;
   if (options._bm_log_norm_infinite)
@@ -925,6 +945,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# restart" << endl;
   if (options._stop_on_maximum)
     stream << "# stop_on_maximum" << endl;
+  if (options._stop_on_target)
+    stream << "# stop_on_target" << endl;
   stream << "# last_parameter" << endl;
   stream << "# exec_name = " << options._exec_name << endl;
   stream << "# version = " << options._version << endl;

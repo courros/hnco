@@ -2,10 +2,19 @@
 
 Library:
 - ProgressTracker: renamed method update -> update_last_improvement
+- ProgressTracker: catch TargetReached
 - Function: added methods safe_eval and update
 - Population: added method eval for parallel evaluation with OpenMP
 - Algorithms with parallel evaluation: Pbil, NpsPbil, Umda, Hea,
   MuCommaLambdaEa, MuPlusLambdaEa, GeneticAlgorithm, BmPbil
+- New type point_value_t
+- New exceptions: PointValueException, TargetReached
+- Algorithm: changed type of _solution: bit_vector_t -> point_value_t
+- Added function decorator StopOnTarget
+
+hnco:
+- Added options: --stop-on-target, --target, --num-threads
+
 
 * Version 0.4 (2017-03-29)
 
@@ -19,6 +28,7 @@ Scripts and experiments:
 
 Build:
 - Conditional compilation of factorization
+
 
 * Version 0.3 (2017-02-20)
 
@@ -34,6 +44,7 @@ Library:
 - Added SixPeaks
 - Added LongPath
 
+
 * Version 0.2 (2016-11-27)
 
 Library:
@@ -46,6 +57,7 @@ Scripts and experiments:
 - Added report/Makefile and report/report.tex to the distribution for all experiments
 - hnco-runtime-stat.pl uses the same parameter specification as hnco-parameter-stat.pl
 - Updated experiments/runtime/plan.json
+
 
 * Version 0.1 (2016-10-29)
 

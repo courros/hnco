@@ -68,6 +68,12 @@
             "category": "Function"
         },
 
+        "stop_on_target":
+        {
+            "description": "Stop on target",
+            "category": "Function"
+        },
+
         "negation":
         {
             "description": "Negation (hence minimization) of the function",
@@ -379,6 +385,14 @@
             "type": "string",
             "value": "nofunction",
             "description": "Name of the function in the dynamic library",
+            "category": "Function"
+        },
+
+        "target":
+        {
+            "type": "double",
+            "value": 100.0,
+            "description": "Target",
             "category": "Function"
         },
 
