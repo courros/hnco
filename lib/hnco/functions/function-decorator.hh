@@ -23,6 +23,7 @@
 
 #include <assert.h>
 
+#include <iostream>
 #include <unordered_map>
 
 #include "hnco/map.hh"
@@ -308,18 +309,20 @@ namespace function {
     /// Last improvement
     Event _last_improvement;
 
-    /// Log improvement
-    bool _log_improvement;
-
     /// Update last improvement
     void update_last_improvement(double value);
 
   public:
 
     /// Constructor
-    ProgressTracker(Function *function, bool log_improvement = false):
-      CallCounter(function),
-      _log_improvement(log_improvement) {}
+    ProgressTracker(Function *function):
+      CallCounter(function) {}
+
+    /// Log improvement
+    bool _log_improvement = false;
+
+    /// Output stream
+    std::ostream& _stream = std::cout;
 
     /** Evaluate a bit vector.
         \throw MaximumReached */

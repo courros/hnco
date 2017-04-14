@@ -63,7 +63,8 @@ int main(int argc, char *argv[])
   }
 
   // Progress tracker
-  ProgressTracker *tracker = new ProgressTracker(fn, options.with_log_improvement());
+  ProgressTracker *tracker = new ProgressTracker(fn);
+  tracker->_log_improvement = options.with_log_improvement();
 
   int num_threads = options.get_num_threads();
   if (num_threads < 1) {
