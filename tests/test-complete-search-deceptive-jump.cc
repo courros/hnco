@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
       return 1;
     }
 
-    if (algorithm.get_maximum() != function.get_maximum())
+    if (algorithm.get_solution().second != function.get_maximum())
       return 1;
   }
 

@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
       exit(1);
     }
 
-    if (bv_hamming_weight(algo.get_solution()) != bv_size) {
+    if (bv_hamming_weight(algo.get_solution().first) != bv_size) {
       exit(1);
     }
   }
