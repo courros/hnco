@@ -18,16 +18,15 @@
 
 */
 
+#include <omp.h>                // omp_set_num_threads
+
 #include <iostream>
 #include <chrono>
-
-#include <omp.h>                // omp_set_num_threads
 
 #include "hnco/exception.hh"
 #include "hnco/random.hh"
 
 #include "hnco-options.hh"
-
 #include "make-algorithm.hh"
 #include "make-function.hh"
 
