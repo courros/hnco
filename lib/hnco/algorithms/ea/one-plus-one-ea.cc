@@ -18,17 +18,10 @@
 
 */
 
-#include <iostream>
-
-#include "hnco/functions/function.hh"
-
 #include "one-plus-one-ea.hh"
 
 
 using namespace hnco::algorithm;
-using namespace hnco::function;
-using namespace hnco::neighborhood;
-using namespace hnco;
 
 
 void
