@@ -34,13 +34,13 @@ namespace hnco {
 namespace function {
 
 
-  /// Managed function
+  /// Function decorator
   class FunctionDecorator:
     public Function {
 
   protected:
 
-    /// Managed function
+    /// Decorated function
     Function *_function;
 
   public:
@@ -74,7 +74,7 @@ namespace function {
   /** Stop on maximum.
 
       The eval member function throws a MaximumReached exception when
-      its argument is the known maximum of the managed function.
+      its argument is the known maximum of the decorated function.
 
       \warning When a MaximumReached exception is thrown, a
       StopOnMaximum object gives up the control flow to the receiver
@@ -87,7 +87,7 @@ namespace function {
   public:
 
     /** Constructor.
-        \param function Managed function
+        \param function Decorated function
         \pre function->has_known_maximum() */
     StopOnMaximum(Function *function):
       FunctionDecorator(function)
@@ -391,7 +391,7 @@ namespace function {
   public:
 
     /** Constructor.
-        \param function Managed function */
+        \param function Decorated function */
     Cache(Function *function):
       FunctionDecorator(function),
       _x(function->get_bv_size()),
