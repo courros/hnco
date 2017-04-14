@@ -19,7 +19,6 @@
 */
 
 #include "hnco/exception.hh"
-#include "hnco/functions/function.hh"
 
 #include "restart.hh"
 

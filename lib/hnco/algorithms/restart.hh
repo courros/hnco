@@ -32,8 +32,8 @@ namespace algorithm {
 
   /** Restart.
 
-      Restart any algorithm an indefinite number of times. Should be
-      used in conjonction with bounded evaluation.
+      Restart an Algorithm an indefinite number of times. Should be
+      used in conjonction with OnBudgetFunction or StopOnMaximum.
   */
   class Restart:
     public IterativeAlgorithm {
@@ -59,6 +59,13 @@ namespace algorithm {
       assert(function);
       _function = function;
       _algorithm->set_function(function);
+    }
+
+    /// Set functions
+    void set_functions(const std::vector<function::Function *> functions) {
+      assert(functions.size() > 0);
+      _functions = functions;
+      _algorithm->set_functions(functions);
     }
 
   };
