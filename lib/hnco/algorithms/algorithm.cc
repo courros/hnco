@@ -20,13 +20,10 @@
 
 #include <assert.h>
 
-#include "hnco/functions/function.hh"
-
 #include "algorithm.hh"
 
 
 using namespace hnco::algorithm;
-using namespace hnco::function;
 using namespace hnco::random;
 
 
@@ -50,7 +47,6 @@ void
 Algorithm::set_solution(const bit_vector_t& x)
 {
   assert(_function);
-
   set_solution(x, _function->eval(x));
 }
 
@@ -74,14 +70,12 @@ void
 Algorithm::update_solution(const bit_vector_t& x)
 {
   assert(_function);
-
   update_solution(x, _function->eval(x));
 }
 
 void
 IterativeAlgorithm::maximize()
 {
-
   if (_num_iterations > 0) {
     for (_iteration = 0; _iteration < _num_iterations; _iteration++) {
       iterate();
@@ -94,7 +88,5 @@ IterativeAlgorithm::maximize()
       if (_something_to_log)
         log();
     }
-
   }
-
 }
