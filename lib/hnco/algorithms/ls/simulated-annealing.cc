@@ -21,20 +21,13 @@
 #include <assert.h>
 #include <math.h>		// exp, log
 
-#include <iostream>
-
-#include "hnco/bit-vector.hh"
-#include "hnco/functions/function.hh"
 #include "hnco/random.hh"
 
 #include "simulated-annealing.hh"
 
 
 using namespace hnco::algorithm;
-using namespace hnco::function;
-using namespace hnco::neighborhood;
 using namespace hnco::random;
-using namespace std;
 
 
 void
@@ -65,7 +58,7 @@ SimulatedAnnealing::init()
 {
   random_solution();
   _neighborhood->set_origin(_solution.first);
-  _current = _solution.second;
+  _current_value = _solution.second;
   _transitions = 0;
   set_beta();
 }
@@ -77,19 +70,19 @@ SimulatedAnnealing::iterate()
   _neighborhood->propose();
   double value = _function->eval(_neighborhood->get_candidate());
 
-  if (value >= _current) {
+  if (value >= _current_value) {
     _neighborhood->keep();
-    _current = value;
+    _current_value = value;
 
-    update_solution(_neighborhood->get_origin(), _current);
+    update_solution(_neighborhood->get_origin(), _current_value);
 
     // Not sure of that:
     // _transitions++;
 
   } else {
-    if (Random::uniform() < exp((value - _current) * _beta)) {
+    if (Random::uniform() < exp((value - _current_value) * _beta)) {
       _neighborhood->keep();
-      _current = value;
+      _current_value = value;
 
       _transitions++;
     }

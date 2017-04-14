@@ -44,8 +44,8 @@ namespace algorithm {
     /// Inverse temperature
     double _beta;
 
-    /// Current evaluation
-    double _current;
+    /// Current value
+    double _current_value;
 
     /// Number of accepted transitions
     int _transitions;
