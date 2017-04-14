@@ -136,8 +136,10 @@ int main(int argc, char *argv[])
   catch (const TargetReached& e) {
     solution = e.get_pv();
   }
-  catch (LastEvaluation) {}
-  catch (Error& e) {
+  catch (LastEvaluation) {
+    solution = algorithm->get_solution();
+  }
+  catch (const Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     return 1;
   }
