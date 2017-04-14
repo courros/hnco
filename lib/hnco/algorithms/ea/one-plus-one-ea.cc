@@ -47,7 +47,7 @@ OnePlusOneEa::iterate()
 
   if (value >= _solution.second) { // success
     _neighborhood.keep();
-    update_solution(_neighborhood.get_origin(), value);
+    set_solution(_neighborhood.get_origin(), value);
   } else                        // failure
     _neighborhood.forget();
 }
