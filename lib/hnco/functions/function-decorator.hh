@@ -143,6 +143,34 @@ namespace function {
   };
 
 
+  /// Stop on target
+  class StopOnTarget:
+    public FunctionDecorator {
+
+    /// Target
+    double _target;
+
+  public:
+
+    /** Constructor.
+        \param function Decorated function */
+    StopOnTarget(Function *function, double target):
+      FunctionDecorator(function),
+      _target(target) {}
+
+    /** Evaluate a bit vector.
+        \throw TargetReached */
+    double eval(const bit_vector_t&);
+
+    /// Safely evaluate a bit vector
+    double safe_eval(const bit_vector_t& x) { return _function->safe_eval(x); }
+
+    /// Update after a safe evaluation
+    void update(const bit_vector_t& x, double value);
+
+  };
+
+
   /// Composition of a function and a map
   class FunctionMapComposition:
     public FunctionDecorator {

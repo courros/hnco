@@ -51,6 +51,25 @@ StopOnMaximum::update(const bit_vector_t& x, double value)
 
 
 double
+StopOnTarget::eval(const bit_vector_t& x)
+{
+  double value = _function->eval(x);
+  if (value >= _target)
+    throw TargetReached(std::make_pair(x, value));
+  return value;
+}
+
+
+void
+StopOnTarget::update(const bit_vector_t& x, double value)
+{
+  _function->update(x, value);
+  if (value >= _target)
+    throw TargetReached(std::make_pair(x, value));
+}
+
+
+double
 Negation::eval(const bit_vector_t& x)
 {
   return -_function->eval(x);
