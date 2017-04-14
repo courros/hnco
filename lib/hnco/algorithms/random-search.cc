@@ -18,19 +18,15 @@
 
 */
 
-#include <iostream>
-
 #include "random-search.hh"
 
 
 using namespace hnco::algorithm;
-using namespace hnco::function;
 
 
 void
 RandomSearch::iterate()
 {
   bv_random(_candidate);
-  double value = _function->eval(_candidate);
-  update_solution(_candidate, value);
+  update_solution(_candidate);
 }
