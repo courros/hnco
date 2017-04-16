@@ -133,13 +133,13 @@ int main(int argc, char *argv[])
     solution = algorithm->get_solution();
   }
   catch (const LocalMaximum& e) {
-    solution = e.get_pv();
+    solution = e.get_point_value();
   }
   catch (const MaximumReached& e) {
-    solution = e.get_pv();
+    solution = e.get_point_value();
   }
   catch (const TargetReached& e) {
-    solution = e.get_pv();
+    solution = e.get_point_value();
   }
   catch (LastEvaluation) {
     solution = algorithm->get_solution();

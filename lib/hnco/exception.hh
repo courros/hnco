@@ -45,7 +45,7 @@ namespace hnco::exception {
     PointValueException(const point_value_t& pv):
       _pv(pv) {}
     /// Get point-value
-    const point_value_t& get_pv() const { return _pv; }
+    const point_value_t& get_point_value() const { return _pv; }
   };
 
   /// Maximum reached

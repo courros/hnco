@@ -140,7 +140,7 @@ ProgressTracker::eval(const bit_vector_t& x)
     throw;
   }
   catch (const TargetReached& e) {
-    update_last_improvement(e.get_pv().second);
+    update_last_improvement(e.get_point_value().second);
     throw;
   }
   update_last_improvement(result);
@@ -158,7 +158,7 @@ ProgressTracker::update(const bit_vector_t& x, double value)
     throw;
   }
   catch (const TargetReached& e) {
-    update_last_improvement(e.get_pv().second);
+    update_last_improvement(e.get_point_value().second);
     throw;
   }
   update_last_improvement(value);
