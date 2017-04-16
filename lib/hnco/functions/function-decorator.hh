@@ -74,11 +74,6 @@ namespace hnco::function {
 
       The eval member function throws a MaximumReached exception when
       its argument is the known maximum of the decorated function.
-
-      \warning When a MaximumReached exception is thrown, a
-      StopOnMaximum object gives up the control flow to the receiver
-      of the exception. In consequence, a search algorithm which does
-      not catch the exception cannot keep track of the solution.
   */
   class StopOnMaximum:
     public FunctionDecorator {

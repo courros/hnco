@@ -94,36 +94,38 @@ AdditiveGaussianNoise::eval(const bit_vector_t& x)
 double
 CallCounter::eval(const bit_vector_t& x)
 {
+  double result = _function->eval(x);
   _num_calls++;
-  return _function->eval(x);
+  return result;
 }
 
 
 void
 CallCounter::update(const bit_vector_t& x, double value)
 {
-  _num_calls++;
   _function->update(x, value);
+  _num_calls++;
 }
 
 
 double
 OnBudgetFunction::eval(const bit_vector_t& x)
 {
-  _num_calls++;
   if (_num_calls == _budget)
     throw LastEvaluation();
-  return _function->eval(x);
+  double result = _function->eval(x);
+  _num_calls++;
+  return result;
 }
 
 
 void
 OnBudgetFunction::update(const bit_vector_t& x, double value)
 {
-  _num_calls++;
   if (_num_calls == _budget)
     throw LastEvaluation();
   _function->update(x, value);
+  _num_calls++;
 }
 
 
