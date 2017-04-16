@@ -334,7 +334,12 @@ namespace hnco::function {
     /// Update after a safe evaluation
     void update(const bit_vector_t& x, double value);
 
-    /// Get the last improvement
+    /** Get the last improvement.
+
+        \warning If _last_improvement.time is zero then _function has
+        never been called. The Event returned by get_last_improvement
+        has therefore no meaning.
+    */
     const Event& get_last_improvement() { return _last_improvement; }
 
   };
