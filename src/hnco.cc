@@ -127,6 +127,9 @@ int main(int argc, char *argv[])
   // Solution
   point_value_t solution;
 
+  bool maximum_reached = false;
+  bool target_reached = false;
+
   // Maximize
   try {
     algorithm->maximize();
@@ -137,9 +140,11 @@ int main(int argc, char *argv[])
   }
   catch (const MaximumReached& e) {
     solution = e.get_point_value();
+    maximum_reached = true;
   }
   catch (const TargetReached& e) {
     solution = e.get_point_value();
+    target_reached = true;
   }
   catch (LastEvaluation) {
     solution = algorithm->get_solution();
@@ -165,6 +170,12 @@ int main(int argc, char *argv[])
   if (options.with_describe_solution()) {
     tracker->describe(solution.first, std::cout);
   }
+
+  if (options.with_stop_on_maximum() && !maximum_reached)
+    return 2;
+
+  if (options.with_stop_on_target() && !target_reached)
+    return 3;
 
   return 0;
 }
