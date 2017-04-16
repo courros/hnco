@@ -72,8 +72,8 @@ namespace hnco::function {
 
   /** Stop on maximum.
 
-      The eval member function throws a MaximumReached exception when
-      its argument is the known maximum of the decorated function.
+      The eval() member function throws a MaximumReached exception
+      when its argument maximizes the decorated function.
   */
   class StopOnMaximum:
     public FunctionDecorator {
@@ -344,7 +344,7 @@ namespace hnco::function {
   std::ostream& operator<<(std::ostream& stream, const ProgressTracker::Event& event);
 
 
-  /// ProgressTracker with a limited number of evaluations
+  /// CallCounter with a limited number of evaluations
   class OnBudgetFunction:
     public CallCounter {
 
