@@ -31,13 +31,10 @@
 #include "hnco/exception.hh"
 
 
-namespace hnco {
-namespace algorithm {
-/// Herding Evolutionary Algorithm
-namespace hea {
+/// Herding evolutionary algorithm
+namespace hnco::algorithm::hea {
 
-
-  /// Herding Evolutionary Algorithm
+  /// Herding evolutionary algorithm
   template<class Moment, class Herding>
   class Hea:
     public algorithm::IterativeAlgorithm {
@@ -255,10 +252,7 @@ namespace hea {
 
   };
 
-
-} // end of namespace hea
-} // end of namespace algorithm
-} // end of namespace hnco
+} // end of namespace hnco::algorithm::hea
 
 
 #endif

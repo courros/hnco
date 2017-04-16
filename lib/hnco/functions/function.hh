@@ -27,9 +27,8 @@
 #include "hnco/exception.hh"
 
 
-namespace hnco {
-/// All about fitness functions to be maximized
-namespace function {
+/// Functions to be maximized
+namespace hnco::function {
 
   /// Function
   class Function {
@@ -76,9 +75,7 @@ namespace function {
 
   };
 
-
-} // end of namespace function
-} // end of namespace hnco
+} // end of namespace hnco::function
 
 
 #endif

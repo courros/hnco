@@ -26,11 +26,9 @@
 #include "function.hh"
 
 
-namespace hnco {
-namespace function {
+namespace hnco::function {
 
-
-  /// Low Autocorrelation Binary Sequences
+  /// Low autocorrelation binary sequences
   class Labs:
     public Function {
 
@@ -51,9 +49,7 @@ namespace function {
 
   };
 
-
-} // end of namespace function
-} // end of namespace hnco
+} // end of namespace hnco::function
 
 
 #endif

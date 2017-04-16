@@ -28,11 +28,9 @@
 #include "function.hh"
 
 
-namespace hnco {
-namespace function {
+namespace hnco::function {
 
-
-  /** Cancellation function.
+  /** Summation cancellation.
 
       Encoding of a signed integer:
       - bit 0: sign
@@ -85,7 +83,7 @@ namespace function {
   };
 
 
-  /// Cancellation function with sinus
+  /// Summation cancellation with sinus
   class SinusCancellation:
     public Cancellation {
 
@@ -100,9 +98,7 @@ namespace function {
 
   };
 
-
-} // end of namespace function
-} // end of namespace hnco
+} // end of namespace hnco::function
 
 
 #endif

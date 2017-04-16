@@ -24,9 +24,7 @@
 #include "function.hh"
 
 
-namespace hnco {
-namespace function {
-
+namespace hnco::function {
 
   /// OneMax
   class OneMax:
@@ -85,7 +83,7 @@ namespace function {
 
   };
 
-  /// Needle
+  /// Needle in a haystack
   class Needle:
     public Function {
 
@@ -113,7 +111,7 @@ namespace function {
 
   };
 
-  /// Hiff
+  /// Hierarchical if and only if
   class Hiff:
     public Function {
 
@@ -201,9 +199,7 @@ namespace function {
 
   };
 
-
-} // end of namespace function
-} // end of namespace hnco
+} // end of namespace hnco::function
 
 
 #endif

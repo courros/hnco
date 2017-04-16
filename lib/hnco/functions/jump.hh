@@ -24,11 +24,9 @@
 #include "function.hh"
 
 
-namespace hnco {
-namespace function {
+namespace hnco::function {
 
-
-  /// Jump function
+  /// Jump
   class Jump:
     public Function {
 
@@ -59,7 +57,7 @@ namespace function {
   };
 
 
-  /** Deceptive jump function.
+  /** Deceptive jump.
 
       This is a jump function with a deceptive gap as defined in
       "Analyzing evolutionary algorithms" by Thomas Jansen, where it
@@ -96,9 +94,7 @@ namespace function {
 
   };
 
-
-} // end of namespace function
-} // end of namespace hnco
+} // end of namespace hnco::function
 
 
 #endif
