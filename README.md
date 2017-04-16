@@ -87,7 +87,7 @@ Other notable command-line options include:
   it.
 - `--additive-gaussian-noise`: Add Gaussian noise to function
   evaluations.
-- `--num-theads`: number of threads.
+- `--num-threads`: number of threads.
 
 With the following command:
 
