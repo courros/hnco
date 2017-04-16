@@ -21,16 +21,12 @@
 #ifndef HNCO_ALGORITHMS_PV_MMAS_H
 #define HNCO_ALGORITHMS_PV_MMAS_H
 
-#include "hnco/algorithms/algorithm.hh"
-
 #include "pv-algorithm.hh"
 
 
-namespace hnco {
-namespace algorithm {
+namespace hnco::algorithm {
 
-
-  /// Max Min Ant System
+  /// Max-min ant system
   class Mmas:
     public PvAlgorithm {
   protected:
@@ -64,7 +60,7 @@ namespace algorithm {
       Mmas(n) {}
   };
 
-  /// Non Strict MMAS
+  /// Non strict MMAS
   class NonStrictMmas:
     public Mmas {
     /// Single iteration
@@ -75,9 +71,7 @@ namespace algorithm {
       Mmas(n) {}
   };
 
-
-} // end of namespace algorithm
-} // end of namespace hnco
+} // end of namespace hnco::algorithm
 
 
 #endif

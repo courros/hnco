@@ -26,11 +26,9 @@
 #include "pv-algorithm.hh"
 
 
-namespace hnco {
-namespace algorithm {
+namespace hnco::algorithm {
 
-
-  /// Population-Based Incremental Learning
+  /// Population-based incremental learning
   class Pbil:
     public PvAlgorithm {
 
@@ -70,9 +68,7 @@ namespace algorithm {
 
   };
 
-
-} // end of namespace algorithm
-} // end of namespace hnco
+} // end of namespace hncoalgorithm
 
 
 #endif
