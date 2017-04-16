@@ -31,9 +31,7 @@
 #include "function.hh"
 
 
-namespace hnco {
-namespace function {
-
+namespace hnco::function {
 
   /// Function decorator
   class FunctionDecorator:
@@ -302,6 +300,7 @@ namespace function {
 
       /// Value
       double value;
+
     };
 
   protected:
@@ -316,7 +315,10 @@ namespace function {
 
     /// Constructor
     ProgressTracker(Function *function):
-      CallCounter(function) {}
+      CallCounter(function)
+    {
+      _last_improvement.time = 0;
+    }
 
     /// Log improvement
     bool _log_improvement = false;
@@ -325,7 +327,8 @@ namespace function {
     std::ostream& _stream = std::cout;
 
     /** Evaluate a bit vector.
-        \throw MaximumReached */
+        \throw MaximumReached
+        \throw TargetReached */
     double eval(const bit_vector_t&);
 
     /// Update after a safe evaluation
@@ -409,9 +412,7 @@ namespace function {
 
   };
 
-
-} // end of namespace function
-} // end of namespace hnco
+} // end of namespace hnco::function
 
 
 #endif
