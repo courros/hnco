@@ -48,7 +48,7 @@ namespace hnco::algorithm {
 
   };
 
-  /// Strict MMAS
+  /// Strict max-min ant system
   class StrictMmas:
     public Mmas {
     /// Single iteration
@@ -60,7 +60,7 @@ namespace hnco::algorithm {
       Mmas(n) {}
   };
 
-  /// Non strict MMAS
+  /// Non strict max-min ant system
   class NonStrictMmas:
     public Mmas {
     /// Single iteration

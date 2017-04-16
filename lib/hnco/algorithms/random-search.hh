@@ -21,38 +21,33 @@
 #ifndef HNCO_ALGORITHMS_RANDOM_SEARCH_H
 #define HNCO_ALGORITHMS_RANDOM_SEARCH_H
 
-#include "hnco/functions/function.hh"
 #include "hnco/algorithms/algorithm.hh"
 
 
-namespace hnco {
+namespace hnco::algorithm {
 
-  namespace algorithm {
+  /// Random search
+  class RandomSearch:
+    public IterativeAlgorithm {
 
-    /// Basic local search
-    class RandomSearch:
-      public IterativeAlgorithm {
+    /// Candidate
+    bit_vector_t _candidate;
 
-      /// Candidate
-      bit_vector_t _candidate;
+  protected:
 
-    protected:
+    /// Single iteration
+    void iterate();
 
-      /// Single iteration
-      void iterate();
+  public:
 
-    public:
+    /// Constructor
+    RandomSearch(int n):
+      IterativeAlgorithm(n),
+      _candidate(n) {}
 
-      /// Constructor
-      RandomSearch(int n):
-        IterativeAlgorithm(n),
-        _candidate(n) {}
+  };
 
-    };
-
-  } // end of namespace algorithm
-
-} // end of namespace hnco
+} // end of namespace hnco::algorithm
 
 
 #endif
