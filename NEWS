@@ -1,16 +1,17 @@
 * Version 0.5 (unreleased)
 
 Library:
-- ProgressTracker: renamed method update -> update_last_improvement
-- ProgressTracker: catch TargetReached
 - Function: added methods safe_eval and update
+- ProgressTracker: renamed method update -> update_last_improvement
 - Population: added method eval for parallel evaluation with OpenMP
 - Algorithms with parallel evaluation: Pbil, NpsPbil, Umda, Hea,
   MuCommaLambdaEa, MuPlusLambdaEa, GeneticAlgorithm, BmPbil
 - New type point_value_t
-- New exceptions: PointValueException, TargetReached
 - Algorithm: changed type of _solution: bit_vector_t -> point_value_t
+- New exceptions: PointValueException, TargetReached
 - Added function decorator StopOnTarget
+- ProgressTracker: catch TargetReached
+- CallCounter, OnBudgetFunction: _num_calls is incremented AFTER evaluation of _function
 
 hnco:
 - Added options: --stop-on-target, --target, --num-threads

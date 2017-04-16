@@ -87,6 +87,7 @@ Other notable command-line options include:
   it.
 - `--additive-gaussian-noise`: Add Gaussian noise to function
   evaluations.
+- `--num-theads`: number of threads.
 
 With the following command:
 
@@ -217,6 +218,11 @@ Here is the list of currently available algorithms:
 - Herding evolutionary algorithm, herding with spin variables
 - Boltzmann machine PBIL
 
+For population-based algorithms, bit vectors in the population can be
+evaluated in parallel as the library uses OpenMP. It should be noted
+that only sufficiently complex functions should lead to significant
+speed-up.
+
 ### Functions
 
 Here is the list of currently available functions (those whoose
@@ -300,13 +306,6 @@ and `sparse_bit_matrix_t`.
 The library only handles fixed-sized bit vectors. Size is set at
 runtime.
 
-The library code is not thread-safe. However, there is no dynamic
-memory allocation with `new` in the library.
-
-The code does not take advantage of multicore architectures or
-GPUs. Evaluating a population of bit vectors could benefit from such
-architectures.
-
 The scripts do not run `hnco` in parallel although a map/reduce
 strategy can clearly be applied. However, it is possible to split a
 `plan.json` in two or four and run the simulation in parallel.
@@ -314,9 +313,9 @@ strategy can clearly be applied. However, it is possible to split a
 ## Requirements
 
 `hnco`, `ffgen`, and `mapgen` depend on the following libraries:
+- Boost serialization library
 - libdl for plugin
 - GNU GMP (libgmp) for factorization
-- Boost serialization library
 
 The Perl scripts depend on the following modules:
 
