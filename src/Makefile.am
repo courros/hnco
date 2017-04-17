@@ -16,11 +16,11 @@ EXTRA_DIST = \
 	ffgen.sh \
 	mapgen.sh
 
-AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
+AM_CXXFLAGS = $(OPENMP_CXXFLAGS) $(BOOST_SERIALIZATION_LIB)
 
 AM_CPPFLAGS = -I $(top_srcdir)/lib
 
-LDADD = ../lib/libhnco.la -ldl -lboost_serialization
+LDADD = ../lib/libhnco.la
 
 #
 # hnco program

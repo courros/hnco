@@ -249,7 +249,7 @@ instances are generated are indicated by `ffgen`):
 - Hierarchical if and only if
 - Plateau
 - Long path
-- Factorization (enable at config time with --enable-factorization)
+- Factorization
 - Plugin
 
 The plugin function can load any C function declared as
@@ -315,7 +315,7 @@ strategy can clearly be applied. However, it is possible to split a
 `hnco`, `ffgen`, and `mapgen` depend on the following libraries:
 - Boost serialization library
 - libdl for plugin
-- GNU GMP (libgmp) for factorization
+- GNU GMP (libgmp and libgmpxx) for factorization
 
 The Perl scripts depend on the following modules:
 
@@ -340,18 +340,15 @@ Under Ubuntu 16.10, replace `libboost-serialization1.58-dev` with
 
 ## Building and installing
 
-For a debug version, execute the following commands in the source
-directory:
+Execute the following commands in the source directory:
 
-    CXXFLAGS="-Wall -ggdb -std=c++11" ./configure
+    ./configure
     make
     make install
 
-For a production version:
-
-    CXXFLAGS="-Wall -O3 -DNDEBUG -std=c++11" ./configure
-    make
-    make instal
+The factorization function is disabled by default. To enable it, use
+`./configure --enable-factorization` instead of `./configure`. See
+`./configure --help` for other options.
 
 To run the tests:
 

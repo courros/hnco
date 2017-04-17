@@ -3,6 +3,15 @@
 /* Define to 1 if factorization has been enabled */
 #undef ENABLE_FACTORIZATION
 
+/* define if the Boost library is available */
+#undef HAVE_BOOST
+
+/* define if the Boost::Serialization library is available */
+#undef HAVE_BOOST_SERIALIZATION
+
+/* define if the compiler supports basic C++11 syntax */
+#undef HAVE_CXX11
+
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
@@ -12,6 +21,9 @@
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
+/* Define to 1 if you have the `dl' library (-ldl). */
+#undef HAVE_LIBDL
+
 /* Define to 1 if you have the `gmp' library (-lgmp). */
 #undef HAVE_LIBGMP
 
@@ -20,6 +32,9 @@
 
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the <omp.h> header file. */
+#undef HAVE_OMP_H
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
