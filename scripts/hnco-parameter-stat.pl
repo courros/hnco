@@ -252,7 +252,7 @@ sub generate_gnuplot_candlesticks
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"$parameter_id\"\n",
-        "set ylabel \"Fitness\"\n",
+        "set ylabel \"Performance\"\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
@@ -323,7 +323,7 @@ sub generate_gnuplot_mean
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"$parameter_id\"\n",
-        "set ylabel \"Mean fitness\"\n",
+        "set ylabel \"Mean performance\"\n",
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -356,7 +356,7 @@ sub generate_gnuplot_mean
             $terminal{pdf}, "\n",
             "set output $quoted_string\n";
 
-        $quoted_string = quote("$function_id: Mean fitness as a function of $parameter_id");
+        $quoted_string = quote("$function_id: Mean performance as a function of $parameter_id");
         print MEAN
             "set title $quoted_string\n";
 
@@ -397,7 +397,7 @@ sub generate_gnuplot_stddev
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"$parameter_id\"\n",
-        "set ylabel \"Standard deviation of fitness\"\n",
+        "set ylabel \"Standard deviation of performance\"\n",
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -430,7 +430,7 @@ sub generate_gnuplot_stddev
             $terminal{pdf}, "\n",
             "set output $quoted_string\n";
 
-        $quoted_string = quote("$function_id: Standard deviation of fitness as a function of $parameter_id");
+        $quoted_string = quote("$function_id: Standard deviation of performance as a function of $parameter_id");
         print STDDEV
             "set title $quoted_string\n";
 
