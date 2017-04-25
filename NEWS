@@ -1,4 +1,4 @@
-* Version 0.5 (unreleased)
+* Version 0.5 (2017-03-26)
 
 Library:
 - Function: added methods safe_eval and update
@@ -17,8 +17,11 @@ hnco:
 - Added options: --stop-on-target, --target, --num-threads
 - Added return status in case of missed maximum (2) or target (3)
 
-build:
-- Added Autoconf macros for C++11, Boost
+Build:
+- Added Autoconf macros for C++11, Boost, OpenMP
+
+Scripts and experiments:
+- Updated graphics (labels) in hnco-parameter-stat.pl and hnco-dynamics-stat-maximum.pl
 
 
 * Version 0.4 (2017-03-29)

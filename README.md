@@ -30,7 +30,7 @@ HNCO provides the command-line tools `ffgen`, `mapgen`, and `hnco`.
 
 `ffgen` generates random instances of fitness functions and saves them
 to files which can be later loaded by `hnco` and used by different
-algorithms. HNCO uses the boost serialization library with text
+algorithms. HNCO uses the Boost serialization library with text
 format. The files are portable across different platforms.
 
 To get the list of available options, execute the following command:
@@ -49,14 +49,10 @@ following command:
 
 ### mapgen
 
-`mapgen` generates random instances of maps and saves them to files. A
-map is a translation, a permutation, a linear map, or an affine map in
-the space of bit vectors. It can be composed with any fitness
-function. Random maps can be used to check that an algorithm is
-invariant under the action of those maps. `hnco` can generate random
-maps but subsequent executions will get different maps. When comparing
-different algorithms, it is necessary that all algorithms share the
-same random map instance. Hence the need for `mapgen`.
+`mapgen` generates random instances of maps and saves them to
+files. The map can be a translation, a permutation, a linear map, or
+an affine map in the space of bit vectors. The same map instance can
+be loaded by `hnco` and used by different algorithms.
 
 ### hnco
 
@@ -88,15 +84,13 @@ Other notable command-line options include:
 
 - `--seed`: seed for rangom number generator.
 - `--log-improvement`: track progress.
+- `--map`: type of map.
+- `--map-random`: sample a random map.
 - `--restart`: restart an algorithm until the budget is consumed.
 - `--target`: set the target.
 - `--stop-on-target`: stop if the target has been reached.
 - `--num-threads`: number of threads.
-- `--additive-gaussian-noise`: add Gaussian noise to function
-  evaluations.
 - `--cache`: cache function evaluations (beware memory consumption!).
-- `--negation`: maximize the negation of the function hence minimize
-  it.
 
 ## Experiments
 
