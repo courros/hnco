@@ -54,7 +54,7 @@ sub generate_graphics
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"Number of evaluations\"\n",
-        "set ylabel \"Fitness\"\n",
+        "set ylabel \"Performance\"\n",
         "set key outside top center box opaque horizontal\n",
         "set format x ", quote("10^{%L}"), "\n",
         "set logscale x\n",
