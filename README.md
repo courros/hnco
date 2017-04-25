@@ -41,8 +41,8 @@ On a unix-like operating system, you can get bash auto-completion by
 copying the file `ffgen.sh` under `.bash_completion.d`. Similarly with
 `mapgen.sh` and `hnco.sh`.
 
-For example, to generate a random instance of NK landscape with n =
-100 and k = 4 and write it to the archive `nk.100.4`, execute the
+For example, to generate a random instance of Nk landscape with n =
+100 and k = 4 and write it to the file `nk.100.4`, execute the
 following command:
 
     ffgen -F 60 -s 100 --nk-k 4 --path nk.100.4
@@ -68,26 +68,13 @@ text format. It is able to embed all parameters in the output so as to
 exactly reproduce the simulation later, including the same seed for
 random numbers.
 
-For example, to apply (1+1) EA to the previous NK landscape instance,
+For example, to apply (1+1) EA to the previous Nk landscape instance,
 execute the following command:
 
     hnco -A 300 -F 60 --path nk.100.4 -b 200000 --print-performances
 
 where we have set the budget to 200000 evaluations of the fitness
 function.
-
-Other notable command-line options include:
-
-- `--stop-on-maximum`: Stop as soon as the function maximum has been
-  reached. This options requires the function to have a known maximum.
-- `--log-improvement`: Track progress.
-- `--cache`: Cache function evaluations (beware memory consumption!)
-- `--restart`: Restart an algorithm until the budget is consumed.
-- `--negation`: Maximize the negation of the function hence minimize
-  it.
-- `--additive-gaussian-noise`: Add Gaussian noise to function
-  evaluations.
-- `--num-threads`: number of threads.
 
 With the following command:
 
@@ -97,25 +84,29 @@ With the following command:
 80 minutes on a laptop equipped with a i5-2520M processor running
 at 2.50 GHz. It required 2236703 function evaluations.
 
-## Scripts for experimental studies
+Other notable command-line options include:
 
-HNCO contains scripts which cover simple use cases. The scripts are
-written in Perl. They are independent from each other and contain some
-duplicated code. You can write more elaborate scripts to meet your
-particular needs.
+- `--seed`: seed for rangom number generator.
+- `--log-improvement`: track progress.
+- `--restart`: restart an algorithm until the budget is consumed.
+- `--target`: set the target.
+- `--stop-on-target`: stop if the target has been reached.
+- `--num-threads`: number of threads.
+- `--additive-gaussian-noise`: add Gaussian noise to function
+  evaluations.
+- `--cache`: cache function evaluations (beware memory consumption!).
+- `--negation`: maximize the negation of the function hence minimize
+  it.
 
-For each use case, there is a script for running the simulation and
-another one for computing the statistics. The latter also generates
-gnuplot scripts and a latex file. The gnuplot scripts generate images
-in eps, pdf, and png formats.
+## Experiments
 
 HNCO is distributed with four experiments under `experiments`:
 `benchmark`, `dynamics`, `parameter`, and `runtimes`. In each
-directory, a Makefile runs the simulation and generates the
-report. The simulation itself is described in a json file called
-`plan.json` which is loaded by the Perl scripts.
+directory, a Makefile runs the simulations and generates the
+report. The experiment itself is described in a json file called
+`plan.json`.
 
-To run the simulation, compute the statistics, and generate the
+To run the simulations, compute the statistics, and generate the
 report, execute the following command:
 
     make
@@ -134,12 +125,12 @@ the following commands:
 ### Benchmark
 
 The purpose is to study the relative performances of a set of
-algorithms applied to a set of functions. Each algorithm is run
-`num_runs = 20` times on each function. Algorithms are ranked
-according to their median performance (other quartiles are also
-considered). They are ranked first per function then globally.
+algorithms applied to a set of functions. Each algorithm is run 20
+times on each function. Algorithms are ranked according to their
+median performance (other quartiles are also considered). They are
+ranked first per function then globally.
 
-- `hnco-benchmark-run.pl`: run the simulation
+- `hnco-benchmark-run.pl`: run the simulations
 - `hnco-benchmark-stat.pl`: collect the results and generate the report
 
 You will find an example of such an experiment under
@@ -150,7 +141,7 @@ You will find an example of such an experiment under
 The purpose is to study the dynamics of some quantity such as the
 maximum found so far. Each algorithm is run only once.
 
-- `hnco-dynamics-run.pl`: run the simulation
+- `hnco-dynamics-run.pl`: run the simulations
 - `hnco-dynamics-stat-maximum.pl`: collect the results and generate
   the report, for studying the maximum only
 - `hnco-dynamics-stat.pl`: collect the results and generate the
@@ -164,7 +155,7 @@ You will find an example of such an experiment under
 The purpose is to study the influence of some parameter on the
 performances of a set of algorithms applied to a set of functions.
 
-- `hnco-parameter-run.pl`: run the simulation
+- `hnco-parameter-run.pl`: run the simulations
 - `hnco-parameter-stat.pl`: collect the results and generate the
   report
 
@@ -178,7 +169,7 @@ parameter of a set of algorithms applied to a set of functions. The
 functions must have a known maximum and the algorithms must be able to
 find them in finite time.
 
-- `hnco-parameter-run.pl`: run the simulation
+- `hnco-parameter-run.pl`: run the simulations
 - `hnco-runtime-stat.pl`: collect the results and generate the report
 
 You will find an example of such an experiment under
@@ -225,8 +216,8 @@ speed-up.
 
 ### Functions
 
-Here is the list of currently available functions (those whoose
-instances are generated are indicated by `ffgen`):
+Here is the list of currently available functions (`ffgen` means that
+instances can be generated by `ffgen`).
 
 - OneMax
 - Linear function (`ffgen`)
@@ -239,7 +230,7 @@ instances are generated are indicated by `ffgen`):
 - Six peaks
 - Quadratic function (`ffgen`)
 - Quadratic unconstrained binary optimization (qubo input file format)
-- NK landscape (`ffgen`)
+- Nk landscape (`ffgen`)
 - Max-SAT (`ffgen`, dimacs cnf input file format)
 - Low autocorrelation binary sequence
 - Equal products (`ffgen`)
@@ -280,35 +271,20 @@ Steepest ascent hill climbing can use any neighborhood iterator among:
 
 ### Implementation
 
-Bit vectors are implemented as `std::vector<char>`. Other options
-include `std::vector<bool>` and `boost::dynamic_bitset`. We have
-compared their runtime with sizes from 100 to 100k, various functions,
-and two algorithms, (1+1) EA (linear time and space per iteration) and
-BM PBIL (quadratic time and space per iteration). It appears that
-`std::vector<char>` is always the fastest implementation. The other
-two implementations are 5% to 70% slower, with the majority of
-overheads between 10% and 30%. It should be noted that
-`std::vector<bool>` is not always slower than `boost::dynamic_bitset`.
+Bit vectors are implemented as `std::vector<char>`.
 
-Apart from the fact that `std::vector<char>` uses more memory than the
-other two implementations, it is clear that some algorithms could
-benefit from `std::vector<bool>` or `boost::dynamic_bitset`, in
-particular those intensively using bit-wise operations. In the absence
-of such algorithms in the library at the moment, the decision is in
-favor of `std::vector<char>`.
-
-The library also offers basic support for linear algebra on bit
-vectors. It defines the types `bit_matrix_t`, `sparse_bit_vector_t`
-and `sparse_bit_matrix_t`.
+The library offers basic support for linear algebra on bit vectors. It
+defines the types `bit_matrix_t`, `sparse_bit_vector_t` and
+`sparse_bit_matrix_t`.
 
 ### Limitations
 
 The library only handles fixed-sized bit vectors. Size is set at
 runtime.
 
-The scripts do not run `hnco` in parallel although a map/reduce
-strategy can clearly be applied. However, it is possible to split a
-`plan.json` in two or four and run the simulation in parallel.
+The scripts currently do not run `hnco` in parallel. However, it is
+possible to split a `plan.json` in two or four and run the simulations
+in parallel.
 
 ## Requirements
 
