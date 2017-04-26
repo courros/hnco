@@ -15,7 +15,8 @@ Library:
 
 hnco:
 - Added options: --stop-on-target, --target, --num-threads
-- Added return status in case of missed maximum (2) or target (3)
+- Added exit status in case of missed maximum (2) or missed target (3)
+- Renamed option --print-performances -> --print-performance
 
 Build:
 - Added Autoconf macros for C++11, Boost, OpenMP

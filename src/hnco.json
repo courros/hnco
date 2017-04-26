@@ -38,9 +38,9 @@
             "category": "General"
         },
 
-        "print_performances":
+        "print_performance":
         {
-            "description": "At the end, print the maximum and the number of function evaluations needed to reach it",
+            "description": "At the end, print performance (maximum and number of evaluations needed to reach it)",
             "category": "General"
         },
 

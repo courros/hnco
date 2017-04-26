@@ -121,7 +121,7 @@ Options::Options(int argc, char *argv[]):
   _negation(false),
   _no_header(false),
   _print_default_parameters(false),
-  _print_performances(false),
+  _print_performance(false),
   _print_solution(false),
   _pv_log_entropy(false),
   _pv_log_pv(false),
@@ -197,7 +197,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_NEGATION,
     OPTION_NO_HEADER,
     OPTION_PRINT_DEFAULT_PARAMETERS,
-    OPTION_PRINT_PERFORMANCES,
+    OPTION_PRINT_PERFORMANCE,
     OPTION_PRINT_SOLUTION,
     OPTION_PV_LOG_ENTROPY,
     OPTION_PV_LOG_PV,
@@ -271,7 +271,7 @@ Options::Options(int argc, char *argv[]):
     {"negation", no_argument, 0, OPTION_NEGATION},
     {"no-header", no_argument, 0, OPTION_NO_HEADER},
     {"print-default-parameters", no_argument, 0, OPTION_PRINT_DEFAULT_PARAMETERS},
-    {"print-performances", no_argument, 0, OPTION_PRINT_PERFORMANCES},
+    {"print-performance", no_argument, 0, OPTION_PRINT_PERFORMANCE},
     {"print-solution", no_argument, 0, OPTION_PRINT_SOLUTION},
     {"pv-log-entropy", no_argument, 0, OPTION_PV_LOG_ENTROPY},
     {"pv-log-pv", no_argument, 0, OPTION_PV_LOG_PV},
@@ -561,8 +561,8 @@ Options::Options(int argc, char *argv[]):
       _print_default_parameters = true;
       break;
 
-    case OPTION_PRINT_PERFORMANCES:
-      _print_performances = true;
+    case OPTION_PRINT_PERFORMANCE:
+      _print_performance = true;
       break;
 
     case OPTION_PRINT_SOLUTION:
@@ -619,8 +619,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Number of threads" << endl;
   stream << "      --print-default-parameters" << endl;
   stream << "          Print the default parameters and exit" << endl;
-  stream << "      --print-performances" << endl;
-  stream << "          At the end, print the maximum and the number of function evaluations needed to reach it" << endl;
+  stream << "      --print-performance" << endl;
+  stream << "          At the end, print performance (maximum and number of evaluations needed to reach it)" << endl;
   stream << "      --print-solution" << endl;
   stream << "          At the end, print the solution" << endl;
   stream << "      --seed (type unsigned, default to 0)" << endl;
@@ -933,8 +933,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# no_header" << endl;
   if (options._print_default_parameters)
     stream << "# print_default_parameters" << endl;
-  if (options._print_performances)
-    stream << "# print_performances" << endl;
+  if (options._print_performance)
+    stream << "# print_performance" << endl;
   if (options._print_solution)
     stream << "# print_solution" << endl;
   if (options._pv_log_entropy)

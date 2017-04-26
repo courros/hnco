@@ -255,8 +255,8 @@ class Options {
   /// Print the default parameters and exit
   bool _print_default_parameters;
 
-  /// At the end, print the maximum and the number of function evaluations needed to reach it
-  bool _print_performances;
+  /// At the end, print performance (maximum and number of evaluations needed to reach it)
+  bool _print_performance;
 
   /// At the end, print the solution
   bool _print_solution;
@@ -959,11 +959,11 @@ public:
   /// Set print_default_parameters
   void set_print_default_parameters() { _print_default_parameters = true; }
  
-  /// Get print_performances
-  bool with_print_performances() const { return _print_performances; }
+  /// Get print_performance
+  bool with_print_performance() const { return _print_performance; }
 
-  /// Set print_performances
-  void set_print_performances() { _print_performances = true; }
+  /// Set print_performance
+  void set_print_performance() { _print_performance = true; }
  
   /// Get print_solution
   bool with_print_solution() const { return _print_solution; }

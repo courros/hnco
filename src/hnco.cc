@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
   assert(tracker->get_last_improvement().value == solution.second);
 
   // Print performances
-  if (options.with_print_performances())
+  if (options.with_print_performance())
     std::cout << tracker->get_last_improvement() << std::endl;
 
   // Print solution

@@ -67,14 +67,14 @@ random numbers.
 For example, to apply (1+1) EA to the previous Nk landscape instance,
 execute the following command:
 
-    hnco -A 300 -F 60 --path nk.100.4 -b 200000 --print-performances
+    hnco -A 300 -F 60 --path nk.100.4 -b 200000 --print-performance
 
 where we have set the budget to 200000 evaluations of the fitness
 function.
 
 With the following command:
 
-    hnco -A 300 -s 100000 --stop-on-maximum --print-performances -b 0
+    hnco -A 300 -s 100000 --stop-on-maximum --print-performance -b 0
 
 (1+1) EA found the solution to OneMax with n = 100000 after less than
 80 minutes on a laptop equipped with a i5-2520M processor running
