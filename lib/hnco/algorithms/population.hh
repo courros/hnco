@@ -56,6 +56,12 @@ namespace algorithm {
     /// Size
     std::size_t size() const { return _bvs.size(); }
 
+    /// Get a bit vector
+    bit_vector_t& get_bv(int i) { return _bvs[i]; }
+
+    /// Get a bit vector
+    const bit_vector_t& get_bv(int i) const { return _bvs[i]; }
+
     /** Get best bit vector.
 
         \param i Index in the sorted population
@@ -121,9 +127,6 @@ namespace algorithm {
 
     /// Initialize the population with random bit vectors
     void random();
-
-    /// Get a bit vector
-    bit_vector_t& get_bv(int i) { return _bvs[i]; }
 
     /// Evaluate the population
     void eval(function::Function *function);
