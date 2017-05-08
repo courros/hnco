@@ -3,7 +3,7 @@
 Library:
 - Population: added get_bv for const instances
 
-* Version 0.5 (2017-03-26)
+* Version 0.5 (2017-04-26)
 
 Library:
 - Function: added methods safe_eval and update
