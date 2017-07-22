@@ -41,9 +41,19 @@ namespace hnco {
       indices of its non-zero components. The indices must be sorted
       in ascending order.
 
-      A sparse bit vector does not know its size (dimension).
+      A sparse bit vector does not know the dimension of the space it
+      belongs to.
   */
-  typedef std::vector<int> sparse_bit_vector_t;
+  typedef std::vector<std::size_t> sparse_bit_vector_t;
+
+  /// Flip many bits
+  inline void bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv)
+  {
+    for (auto index : sbv) {
+      assert(index < x.size());
+      x[index] = bit_flip(x[index]);
+    }
+  }
 
   /// Display sparse bit vector
   inline void sbv_display(const sparse_bit_vector_t& v, std::ostream& stream)
