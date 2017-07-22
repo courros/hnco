@@ -53,7 +53,7 @@ namespace hnco {
   }
 
   /// Convert a bit vector to a sparse bit vector
-  void bv_to_sbv(const bit_vector_t& bv, sparse_bit_vector_t& sbv)
+  inline void bv_to_sbv(const bit_vector_t& bv, sparse_bit_vector_t& sbv)
   {
     sbv = sparse_bit_vector_t(bv_hamming_weight(bv));
     size_t index = 0;
