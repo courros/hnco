@@ -52,6 +52,14 @@ namespace hnco::function {
     /// Get the global maximum
     double get_maximum() { return _bv_size; }
 
+    /// Incremental evaluation
+    double delta(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits);
+
+    /** Check whether the function provides incremental evaluation.
+        \return true
+    */
+    bool provides_incremental_evaluation() { return true; }
+
   };
 
 

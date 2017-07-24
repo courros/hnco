@@ -39,6 +39,18 @@ OneMax::eval(const bit_vector_t& x)
 }
 
 double
+OneMax::delta(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits)
+{
+  double result = 0;
+  for (auto index : flipped_bits)
+    if (x[index])
+      result--;
+    else
+      result++;
+  return result;
+}
+
+double
 LeadingOnes::eval(const bit_vector_t& x)
 {
   size_t i = 0;

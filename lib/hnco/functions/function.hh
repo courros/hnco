@@ -25,6 +25,7 @@
 
 #include "hnco/bit-vector.hh"
 #include "hnco/exception.hh"
+#include "hnco/sparse-bit-vector.hh"
 
 
 /// Functions to be maximized
@@ -72,6 +73,18 @@ namespace hnco::function {
       bv_display(x, stream);
       stream << std::endl;
     }
+
+    /** Incremental evaluation.
+        \throw Error
+    */
+    virtual double delta(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits) {
+      throw exception::Error("Incremental evaluation not implemented for this function");
+    }
+
+    /** Check whether the function provides incremental evaluation.
+        \return false
+    */
+    virtual bool provides_incremental_evaluation() { return false; }
 
   };
 

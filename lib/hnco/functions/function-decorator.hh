@@ -67,6 +67,14 @@ namespace hnco::function {
     /// Describe
     void describe(const bit_vector_t& x, std::ostream& stream) { _function->describe(x, stream); }
 
+    /// Incremental evaluation
+    double delta(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits) {
+      return _function->delta(x, v, flipped_bits);
+    }
+
+    /// Check whether the function provides incremental evaluation
+    bool provides_incremental_evaluation() { return _function->provides_incremental_evaluation(); }
+
   };
 
 
