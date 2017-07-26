@@ -112,12 +112,6 @@ namespace neighborhood {
     /// Choose an index
     std::uniform_int_distribution<int> _choose_index;
 
-    /// Index of the flipped bit
-    int _index;
-
-    /// Old value
-    bit_t _old_value;
-
     /// Sample bits
     void sample_bits() {
       assert(_flipped_bits.size() == 1);
