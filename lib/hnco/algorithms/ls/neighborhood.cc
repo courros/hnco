@@ -31,20 +31,19 @@ using namespace hnco;
 
 
 void
-HammingBall::propose()
+HammingBall::sample_bits()
 {
   int n = _candidate.size();
   int k = _choose_k(Random::engine);
   assert(k <= n);
 
+  _flipped_bits.clear();
   for (size_t i = 0; i < _candidate.size(); i++) {
     double p = double(k) / double(n);
     if (Random::uniform() < p) {
-      _candidate[i] = bit_flip(_origin[i]);
+      _flipped_bits.push_back(i);
       k--;
     }
-    else
-      _candidate[i] = _origin[i];
     n--;
   }
 

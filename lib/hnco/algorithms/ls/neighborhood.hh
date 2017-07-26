@@ -147,6 +147,9 @@ namespace neighborhood {
     /// Choose the distance to the center
     std::uniform_int_distribution<int> _choose_k;
 
+    /// Sample bits
+    void sample_bits();
+
   public:
 
     /** Constructor.
@@ -163,9 +166,6 @@ namespace neighborhood {
       assert(r > 0);
       assert(r <= n);
     }
-
-    /// Propose a candidate bit vector
-    void propose();
 
   };
 
