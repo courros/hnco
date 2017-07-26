@@ -77,16 +77,16 @@ HammingSphere::propose()
 
 
 void
-Binomial::propose()
+Binomial::sample_bits()
 {
+  _flipped_bits.clear();
   bool again = true;
   do {
     for (size_t i = 0; i < _candidate.size(); i++)
       if (_dist(Random::engine)) {
-        _candidate[i] = bit_flip(_origin[i]);
+        _flipped_bits.push_back(i);
         again = false;
-      } else
-        _candidate[i] = _origin[i];
+      }
   } while (again);
 }
 

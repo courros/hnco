@@ -223,6 +223,9 @@ namespace neighborhood {
     /// Biased coin
     std::bernoulli_distribution _dist;
 
+    /// Sample bits
+    void sample_bits();
+
   public:
 
     /** Constructor.
@@ -246,9 +249,6 @@ namespace neighborhood {
 
     /// Set the mutation probability
     void set_mutation_probabiity(double p) { _dist = std::bernoulli_distribution(p); }
-
-    /// Propose a candidate bit vector
-    void propose();
 
   };
 
