@@ -26,6 +26,7 @@
 #include "hnco/bit-vector.hh"
 #include "hnco/iterator.hh"
 #include "hnco/random.hh"
+#include "hnco/sparse-bit-vector.hh"
 
 
 namespace hnco {
@@ -48,6 +49,12 @@ namespace neighborhood {
     /// candidate bit vector
     bit_vector_t _candidate;
 
+    /// Flipped bits
+    sparse_bit_vector_t _flipped_bits;
+
+    /// Sample bits
+    virtual void sample_bits() {}
+
   public:
 
     /** Constructor.
@@ -62,7 +69,10 @@ namespace neighborhood {
     virtual ~Neighborhood() {}
 
     /// Set the origin
-    virtual void set_origin(const bit_vector_t& x) { _origin = x; }
+    virtual void set_origin(const bit_vector_t& x) {
+      _origin = x;
+      _candidate = x;
+    }
 
     /// Get the origin
     virtual const bit_vector_t& get_origin() { return _origin; }
@@ -70,14 +80,27 @@ namespace neighborhood {
     /// Get the candidate bit vector
     virtual const bit_vector_t& get_candidate() { return _candidate; }
 
+    /// Get flipped bits
+    virtual const sparse_bit_vector_t& get_flipped_bits() { return _flipped_bits; }
+
     /// Propose a candidate bit vector
-    virtual void propose() {}
+    virtual void propose() {
+      assert(_candidate == _origin);
+      sample_bits();
+      bv_flip(_candidate, _flipped_bits);
+    }
 
     /// Keep the candidate bit vector
-    virtual void keep() { _origin = _candidate; }
+    virtual void keep() {
+      bv_flip(_origin, _flipped_bits);
+      assert(_candidate == _origin);
+    }
 
     /// Forget the candidate bit vector
-    virtual void forget() {}
+    virtual void forget() {
+      bv_flip(_candidate, _flipped_bits);
+      assert(_candidate == _origin);
+    }
 
   };
 
@@ -95,28 +118,22 @@ namespace neighborhood {
     /// Old value
     bit_t _old_value;
 
+    /// Sample bits
+    void sample_bits() {
+      assert(_flipped_bits.size() == 1);
+      _flipped_bits[0] = _choose_index(random::Random::engine);;
+    }
+
   public:
 
     /// Constructor
     SingleBitFlip(int n):
       Neighborhood(n),
-      _choose_index(0, n - 1) {}
-
-    /// Get the candidate bit vector
-    const bit_vector_t& get_candidate() { return _origin; }
-
-    /// Propose a candidate bit vector
-    void propose() {
-      _index = _choose_index(random::Random::engine);
-      _old_value = _origin[_index];
-      _origin[_index] = bit_flip(_old_value);
+      _choose_index(0, n - 1)
+    {
+      assert(n > 0);
+      _flipped_bits.resize(1);
     }
-
-    /// Keep the candidate bit vector
-    void keep() {}
-
-    /// Forget the candidate bit vector
-    void forget() { _origin[_index] = _old_value; }
 
   };
 
