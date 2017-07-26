@@ -132,6 +132,50 @@ namespace neighborhood {
   };
 
 
+  /** Binomial neighborhood.
+
+      Each component of the origin bit vector is flipped with some
+      fixed probability. If no component has been flipped at the end,
+      the process is started all over again. Thus the number of
+      mutations follows a pseudo binomial law.
+
+  */
+  class Binomial:
+    public Neighborhood {
+
+    /// Biased coin
+    std::bernoulli_distribution _dist;
+
+    /// Sample bits
+    void sample_bits();
+
+  public:
+
+    /** Constructor.
+
+        \param n Size of bit vectors
+
+        The mutation probability is set to 1 / n.
+    */
+    Binomial(int n):
+      Neighborhood(n),
+      _dist(1 / double(n)) {}
+
+    /** Constructor.
+
+        \param n Size of bit vectors
+        \param p Mutation probability
+    */
+    Binomial(int n, double p):
+      Neighborhood(n),
+      _dist(p) {}
+
+    /// Set the mutation probability
+    void set_mutation_probabiity(double p) { _dist = std::bernoulli_distribution(p); }
+
+  };
+
+
   /** Hamming ball.
 
       Choose k uniformly on [1..r], where r is the radius of the ball,
@@ -181,6 +225,9 @@ namespace neighborhood {
     /// Radius of the sphere
     int _radius;
 
+    /// Sample bits
+    void sample_bits();
+
   public:
 
     /** Constructor.
@@ -196,53 +243,6 @@ namespace neighborhood {
       assert(r > 0);
       assert(r <= n);
     }
-
-    /// Propose a candidate bit vector
-    void propose();
-
-  };
-
-
-  /** Binomial neighborhood.
-
-      Each component of the origin bit vector is flipped with some
-      fixed probability. If no component has been flipped at the end,
-      the process is started all over again. Thus the number of
-      mutations follows a pseudo binomial law.
-
-  */
-  class Binomial:
-    public Neighborhood {
-
-    /// Biased coin
-    std::bernoulli_distribution _dist;
-
-    /// Sample bits
-    void sample_bits();
-
-  public:
-
-    /** Constructor.
-
-        \param n Size of bit vectors
-
-        The mutation probability is set to 1 / n.
-    */
-    Binomial(int n):
-      Neighborhood(n),
-      _dist(1 / double(n)) {}
-
-    /** Constructor.
-
-        \param n Size of bit vectors
-        \param p Mutation probability
-    */
-    Binomial(int n, double p):
-      Neighborhood(n),
-      _dist(p) {}
-
-    /// Set the mutation probability
-    void set_mutation_probabiity(double p) { _dist = std::bernoulli_distribution(p); }
 
   };
 

@@ -31,6 +31,21 @@ using namespace hnco;
 
 
 void
+Binomial::sample_bits()
+{
+  _flipped_bits.clear();
+  bool again = true;
+  do {
+    for (size_t i = 0; i < _candidate.size(); i++)
+      if (_dist(Random::engine)) {
+        _flipped_bits.push_back(i);
+        again = false;
+      }
+  } while (again);
+}
+
+
+void
 HammingBall::sample_bits()
 {
   int n = _candidate.size();
@@ -48,45 +63,27 @@ HammingBall::sample_bits()
   }
 
   assert(k == 0);
-  assert(bv_hamming_distance(_origin, _candidate) == _radius);
 }
 
 
 void
-HammingSphere::propose()
+HammingSphere::sample_bits()
 {
   int n = _candidate.size();
   int k = _radius;
   assert(k <= n);
 
+  _flipped_bits.clear();
   for (size_t i = 0; i < _candidate.size(); i++) {
     double p = double(k) / double(n);
     if (Random::uniform() < p) {
-      _candidate[i] = bit_flip(_origin[i]);
+      _flipped_bits.push_back(i);
       k--;
     }
-    else
-      _candidate[i] = _origin[i];
     n--;
   }
 
   assert(k == 0);
-  assert(bv_hamming_distance(_origin, _candidate) == _radius);
-}
-
-
-void
-Binomial::sample_bits()
-{
-  _flipped_bits.clear();
-  bool again = true;
-  do {
-    for (size_t i = 0; i < _candidate.size(); i++)
-      if (_dist(Random::engine)) {
-        _flipped_bits.push_back(i);
-        again = false;
-      }
-  } while (again);
 }
 
 
