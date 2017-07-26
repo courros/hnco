@@ -38,7 +38,22 @@ namespace hnco {
 */
 namespace neighborhood {
 
-  /// Neighborhood
+  /** Neighborhood.
+
+      A neighborhood maintains two points, _origin and
+      _candidate. They are initialized in the same state by
+      set_origin. The neighborhood must implement the method
+      sample_bits which samples the bits to flip in _origin to get a
+      _candidate. The following methods take care of the
+      modifications:
+
+      - propose: flip _candidate
+      - keep: flip _origin
+      - forget flip _candidate
+
+      After keep or forget, _origin and _candidate are in the same
+      state again.
+   */
   class Neighborhood {
 
   protected:
@@ -53,7 +68,7 @@ namespace neighborhood {
     sparse_bit_vector_t _flipped_bits;
 
     /// Sample bits
-    virtual void sample_bits() {}
+    virtual void sample_bits() = 0;
 
   public:
 
@@ -171,7 +186,7 @@ namespace neighborhood {
       _dist(p) {}
 
     /// Set the mutation probability
-    void set_mutation_probabiity(double p) { _dist = std::bernoulli_distribution(p); }
+    void set_mutation_probability(double p) { _dist = std::bernoulli_distribution(p); }
 
   };
 
