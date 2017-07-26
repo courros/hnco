@@ -47,7 +47,7 @@ namespace algorithm {
       _neighborhood(n) {}
 
     /// Set mutation probability
-    void set_mutation_probability(double p) { _neighborhood.set_mutation_probabiity(p); }
+    void set_mutation_probability(double p) { _neighborhood.set_mutation_probability(p); }
 
     /// Random initialization
     void init();
