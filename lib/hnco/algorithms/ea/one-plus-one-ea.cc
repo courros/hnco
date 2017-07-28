@@ -27,20 +27,13 @@ using namespace hnco::algorithm;
 void
 OnePlusOneEa::init()
 {
-  random_solution();
-  _neighborhood.set_origin(_solution.first);
+  _rls.init();
 }
 
 
 void
-OnePlusOneEa::iterate()
+OnePlusOneEa::maximize()
 {
-  _neighborhood.propose();
-  double value = _function->eval(_neighborhood.get_candidate());
-
-  if (value >= _solution.second) { // success
-    _neighborhood.keep();
-    set_solution(_neighborhood.get_origin(), value);
-  } else                        // failure
-    _neighborhood.forget();
+  _rls._patience = 0;
+  _rls.maximize();
 }

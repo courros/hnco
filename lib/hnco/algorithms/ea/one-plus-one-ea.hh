@@ -23,34 +23,42 @@
 
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/algorithms/ls/neighborhood.hh"
+#include "hnco/algorithms/ls/random-local-search.hh"
 
 
 namespace hnco {
 namespace algorithm {
 
 
-  /// (1+1)-EA
+  /// (1+1) EA
   class OnePlusOneEa:
-    public IterativeAlgorithm {
+    public Algorithm {
+
+  public:
 
     /// Neighborhood
     neighborhood::Binomial _neighborhood;
 
-    /// Single iteration
-    void iterate();
-
-  public:
+    /// Random local search
+    NonStrictRandomLocalSearch _rls;
 
     /// Constructor
     OnePlusOneEa(int n):
-      IterativeAlgorithm(n),
-      _neighborhood(n) {}
+      Algorithm(n),
+      _neighborhood(n),
+      _rls(n, &_neighborhood) {}
 
-    /// Set mutation probability
-    void set_mutation_probability(double p) { _neighborhood.set_mutation_probability(p); }
+    /// Set function
+    void set_function(function::Function *function) {
+      assert(function);
+      _rls.set_function(function);
+    }
 
-    /// Random initialization
+    /// Initialization
     void init();
+
+    /// Maximize
+    void maximize();
 
   };
 
