@@ -23,5 +23,6 @@
 
 #include "local-search.hh"
 #include "simulated-annealing.hh"
+#include "steepest-ascent-hill-climbing.hh"
 
 #endif

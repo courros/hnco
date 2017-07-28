@@ -121,40 +121,6 @@ namespace algorithm {
 
   };
 
-  /// Steepest ascent hill climbing
-  class SteepestAscentHillClimbing:
-    public IterativeAlgorithm {
-
-  protected:
-
-    /// Potential candidate
-    std::vector<bit_vector_t> _candidates;
-
-    /// Neighborhood
-    neighborhood::NeighborhoodIterator *_neighborhood;
-
-    /// Single iteration
-    void iterate();
-
-  public:
-
-    /// Constructor
-    SteepestAscentHillClimbing(int n, neighborhood::NeighborhoodIterator *neighborhood):
-      IterativeAlgorithm(n),
-      _candidates(n, bit_vector_t(n)),
-      _neighborhood(neighborhood) {}
-
-    /// Random initialization
-    void init();
-
-    /// Explicit initialization
-    void init(const bit_vector_t& x);
-
-    /// Explicit initialization
-    void init(const bit_vector_t& x, double value);
-
-  };
-
 
 } // end of namespace algorithm
 } // end of namespace hnco

@@ -169,6 +169,8 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/simulated-annealing.cc \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh hnco/algorithms/population.cc \
 	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
 	hnco/algorithms/pv/compact-ga.cc \
@@ -226,6 +228,7 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/ls/local-search.lo \
 	hnco/algorithms/ls/neighborhood.lo \
 	hnco/algorithms/ls/simulated-annealing.lo \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.lo \
 	hnco/algorithms/population.lo hnco/algorithms/pv/compact-ga.lo \
 	hnco/algorithms/pv/mmas.lo hnco/algorithms/pv/nps-pbil.lo \
 	hnco/algorithms/pv/pbil.lo \
@@ -323,6 +326,7 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/ls/local-search.hh \
 	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
 	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
@@ -525,6 +529,8 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/simulated-annealing.cc \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh hnco/algorithms/population.cc \
 	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
 	hnco/algorithms/pv/compact-ga.cc \
@@ -579,6 +585,7 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/ls/local-search.hh \
 	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
 	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
@@ -741,6 +748,9 @@ hnco/algorithms/ls/neighborhood.lo:  \
 hnco/algorithms/ls/simulated-annealing.lo:  \
 	hnco/algorithms/ls/$(am__dirstamp) \
 	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/ls/steepest-ascent-hill-climbing.lo:  \
+	hnco/algorithms/ls/$(am__dirstamp) \
+	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/population.lo: hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/pv/$(am__dirstamp):
@@ -872,6 +882,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/local-search.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/neighborhood.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/simulated-annealing.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/steepest-ascent-hill-climbing.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/compact-ga.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/mmas.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/nps-pbil.Plo@am__quote@

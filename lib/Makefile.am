@@ -38,6 +38,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/simulated-annealing.cc \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh \
 	hnco/algorithms/population.cc \
 	hnco/algorithms/population.hh \
@@ -136,6 +138,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ls/local-search.hh \
 	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh \
 	hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh \

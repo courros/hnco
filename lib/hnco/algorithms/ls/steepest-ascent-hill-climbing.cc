@@ -20,7 +20,7 @@
 
 #include <random>               // uniform_int_distribution
 
-#include "local-search.hh"
+#include "steepest-ascent-hill-climbing.hh"
 
 
 using namespace hnco::algorithm;
@@ -30,19 +30,18 @@ using namespace hnco;
 
 
 void
-RandomLocalSearch::init()
+SteepestAscentHillClimbing::init()
 {
   assert(_function);
   assert(_neighborhood);
 
   random_solution();
   _neighborhood->set_origin(_solution.first);
-  _failures = 0;
 }
 
 
 void
-RandomLocalSearch::init(const bit_vector_t& x)
+SteepestAscentHillClimbing::init(const bit_vector_t& x)
 {
   assert(_function);
   assert(_neighborhood);
@@ -52,74 +51,49 @@ RandomLocalSearch::init(const bit_vector_t& x)
 
 
 void
-RandomLocalSearch::init(const bit_vector_t& x, double value)
+SteepestAscentHillClimbing::init(const bit_vector_t& x, double value)
 {
   assert(_function);
-  assert(value == _function->eval(x));
   assert(_neighborhood);
+  assert(value == _function->eval(x));
 
   set_solution(x, value);
   _neighborhood->set_origin(_solution.first);
-  _failures = 0;
-}
-
-
-const point_value_t&
-RandomLocalSearch::get_solution()
-{
-  assert(_neighborhood);
-  _solution.first =  _neighborhood->get_origin();
-  return _solution;
 }
 
 
 void
-StrictRandomLocalSearch::iterate()
+SteepestAscentHillClimbing::iterate()
 {
   assert(_function);
   assert(_neighborhood);
 
-  _neighborhood->propose();
-  double value = _function->eval(_neighborhood->get_candidate());
+  _neighborhood->init();
+  double best_value = _function->eval(_neighborhood->get_current());
+  size_t index = 0;
+  _candidates[index++] = _neighborhood->get_current();
 
-  if (value > _solution.second) { // success
-    _neighborhood->keep();
-    _solution.second = value;
-    _failures = 0;
-  }
-  else {                        // failure
-    _neighborhood->forget();
-    _failures++;
+  while (_neighborhood->has_next()) {
+    _neighborhood->next();
+    double value = _function->eval(_neighborhood->get_current());
+    if (value >= best_value) {
+      if (value > best_value) {
+        index = 0;
+        best_value = value;
+      }
+      if (index < _candidates.size())
+        _candidates[index++] = _neighborhood->get_current();
+    }
   }
 
-  if (_patience > 0 &&
-      _failures == _patience)
+  assert(index >= 1);
+  assert(index <= _candidates.size());
+
+  if (best_value >= _solution.second) {
+    std::uniform_int_distribution<int> choose_candidate(0, index - 1);
+    _solution.first = _candidates[choose_candidate(random::Random::engine)];
+    _solution.second = best_value;
+    _neighborhood->set_origin(_solution.first);
+  } else
     throw LocalMaximum(_solution);
-
-}
-
-
-void
-NonStrictRandomLocalSearch::iterate()
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  _neighborhood->propose();
-  double value = _function->eval(_neighborhood->get_candidate());
-
-  if (value >= _solution.second) {     // success
-    _neighborhood->keep();
-    _solution.second = value;
-    _failures = 0;
-  }
-  else {                        // failure
-    _neighborhood->forget();
-    _failures++;
-  }
-
-  if (_patience > 0 &&
-      _failures == _patience)
-    throw LocalMaximum(_solution);
-
 }
