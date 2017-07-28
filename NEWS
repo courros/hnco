@@ -2,6 +2,9 @@
 
 Library:
 - Population: added get_bv for const instances
+- Added bv_flip with a mask given as a sparse_bit_vector_t
+- Neighborhood: added _flipped_bits
+- All Neighborhood classes manage _flipped_bits, _origin, and _candidate
 
 * Version 0.5 (2017-04-26)
 
