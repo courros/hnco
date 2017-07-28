@@ -19,7 +19,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
-	hnco/algorithms/ea/one-plus-one-ea.cc \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/hea.hh \

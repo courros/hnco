@@ -152,7 +152,6 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
-	hnco/algorithms/ea/one-plus-one-ea.cc \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.cc \
@@ -222,7 +221,6 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/ea/genetic-algorithm.lo \
 	hnco/algorithms/ea/mu-comma-lambda-ea.lo \
 	hnco/algorithms/ea/mu-plus-lambda-ea.lo \
-	hnco/algorithms/ea/one-plus-one-ea.lo \
 	hnco/algorithms/hea/herding-binary.lo \
 	hnco/algorithms/hea/herding-spin.lo \
 	hnco/algorithms/hea/moment-binary.lo \
@@ -516,7 +514,6 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
-	hnco/algorithms/ea/one-plus-one-ea.cc \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.cc \
@@ -719,9 +716,6 @@ hnco/algorithms/ea/mu-comma-lambda-ea.lo:  \
 hnco/algorithms/ea/mu-plus-lambda-ea.lo:  \
 	hnco/algorithms/ea/$(am__dirstamp) \
 	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/ea/one-plus-one-ea.lo:  \
-	hnco/algorithms/ea/$(am__dirstamp) \
-	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/hea/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/hea
 	@: > hnco/algorithms/hea/$(am__dirstamp)
@@ -884,7 +878,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/genetic-algorithm.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-comma-lambda-ea.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/one-plus-one-ea.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-binary.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-spin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/moment-binary.Plo@am__quote@
