@@ -100,6 +100,9 @@ namespace algorithm {
     /// Maximize
     virtual void maximize() = 0;
 
+    /// Finalize
+    virtual void finalize() {}
+
   };
 
 
