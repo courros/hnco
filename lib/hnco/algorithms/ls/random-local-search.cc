@@ -20,7 +20,7 @@
 
 #include <random>               // uniform_int_distribution
 
-#include "local-search.hh"
+#include "random-local-search.hh"
 
 
 using namespace hnco::algorithm;

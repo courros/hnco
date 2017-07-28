@@ -32,8 +32,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/hea/moment-spin.cc \
 	hnco/algorithms/hea/moment-spin.hh \
 	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/local-search.cc \
-	hnco/algorithms/ls/local-search.hh \
+	hnco/algorithms/ls/random-local-search.cc \
+	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/neighborhood.cc \
 	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/simulated-annealing.cc \
@@ -135,7 +135,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/hea/moment-binary.hh \
 	hnco/algorithms/hea/moment-spin.hh \
 	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/local-search.hh \
+	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
