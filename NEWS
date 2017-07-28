@@ -2,9 +2,11 @@
 
 Library:
 - Population: added get_bv for const instances
-- Added bv_flip with a mask given as a sparse_bit_vector_t
+- Added bv_flip with a sparse_bit_vector_t mask
 - Neighborhood: added _flipped_bits
-- All Neighborhood classes manage _flipped_bits, _origin, and _candidate
+- Neighborhood: added pure virtual method sample_bits
+- Neighborhood defines methods propose, keep, and forget
+- Local search: new files neighborhood-iterator.(hh|cc) and steepest-ascent-hill-climbing.(hh|cc)
 
 * Version 0.5 (2017-04-26)
 
