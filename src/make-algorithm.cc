@@ -158,16 +158,11 @@ make_concrete_algorithm(Options& options)
 
     // (1+1) EA
   case 300: {
-    auto neighborhood = new Binomial(options.get_bv_size(), options.get_scaled_mutation_probability() / options.get_bv_size());
-    assert(neighborhood);
-
-    auto algo = new NonStrictRandomLocalSearch
-      (options.get_bv_size(),
-       neighborhood);
+    auto algo = new OnePlusOneEa(options.get_bv_size());
     assert(algo);
 
+    algo->_mutation_probability = options.get_scaled_mutation_probability() / options.get_bv_size();
     algo->_num_iterations       = options.get_num_iterations();
-    algo->_patience             = 0;
 
     return algo;
   }

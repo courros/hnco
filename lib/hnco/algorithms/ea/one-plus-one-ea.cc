@@ -22,18 +22,3 @@
 
 
 using namespace hnco::algorithm;
-
-
-void
-OnePlusOneEa::init()
-{
-  _rls.init();
-}
-
-
-void
-OnePlusOneEa::maximize()
-{
-  _rls._patience = 0;
-  _rls.maximize();
-}

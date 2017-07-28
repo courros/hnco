@@ -30,17 +30,21 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// (1+1) EA
+  /** (1+1) EA.
+
+      (1+1) EA is implemented as a NonStrictRandomLocalSearch with a
+      Binomial neighborhood and infinite patience.
+  */
   class OnePlusOneEa:
     public Algorithm {
-
-  public:
 
     /// Neighborhood
     neighborhood::Binomial _neighborhood;
 
     /// Random local search
     NonStrictRandomLocalSearch _rls;
+
+  public:
 
     /// Constructor
     OnePlusOneEa(int n):
@@ -55,10 +59,25 @@ namespace algorithm {
     }
 
     /// Initialization
-    void init();
+    void init() {
+      _neighborhood.set_mutation_probability(_mutation_probability);
+      _rls._num_iterations = _num_iterations;
+      _rls._patience = 0;
+      _rls.init();
+    }
 
     /// Maximize
-    void maximize();
+    void maximize() { _rls.maximize(); }
+
+    /// Solution
+    const point_value_t& get_solution() { return _rls.get_solution(); }
+
+    /** Number of iterations.
+        _num_iterations <= 0 means indefinite */
+    int _num_iterations = 0;
+
+    /// Mutation probability
+    double _mutation_probability = 0.01;
 
   };
 
