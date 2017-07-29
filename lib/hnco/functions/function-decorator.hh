@@ -52,6 +52,10 @@ namespace hnco::function {
     FunctionDecorator():
       _function(0) {}
 
+
+    /// Check whether the function provides incremental evaluation
+    bool provides_incremental_evaluation() { return _function->provides_incremental_evaluation(); }
+
     /// Get bit vector size
     size_t get_bv_size() { return _function->get_bv_size(); }
 
@@ -61,19 +65,18 @@ namespace hnco::function {
     /// Get the global maximum
     double get_maximum() { return _function->get_maximum(); }
 
-    /// Display
-    void display(std::ostream& stream) { _function->display(stream); }
-
-    /// Describe
-    void describe(const bit_vector_t& x, std::ostream& stream) { _function->describe(x, stream); }
 
     /// Incremental evaluation
     double delta(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits) {
       return _function->delta(x, v, flipped_bits);
     }
 
-    /// Check whether the function provides incremental evaluation
-    bool provides_incremental_evaluation() { return _function->provides_incremental_evaluation(); }
+
+    /// Display
+    void display(std::ostream& stream) { _function->display(stream); }
+
+    /// Describe
+    void describe(const bit_vector_t& x, std::ostream& stream) { _function->describe(x, stream); }
 
   };
 
@@ -271,8 +274,18 @@ namespace hnco::function {
       FunctionDecorator(function),
       _num_calls(0) {}
 
+
+    /** Check whether the function provides incremental evaluation.
+        \return true
+    */
+    bool provides_incremental_evaluation() { return true; }
+
+
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
+
+    /// Incremental evaluation
+    double delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /// Safely evaluate a bit vector
     double safe_eval(const bit_vector_t& x) { return _function->safe_eval(x); }
@@ -280,8 +293,10 @@ namespace hnco::function {
     /// Update after a safe evaluation
     void update(const bit_vector_t& x, double value);
 
+
     /// Get the number of calls
     int get_num_calls() { return _num_calls; }
+
   };
 
 
@@ -323,19 +338,19 @@ namespace hnco::function {
       _last_improvement.time = 0;
     }
 
-    /// Log improvement
-    bool _log_improvement = false;
-
-    /// Output stream
-    std::ostream& _stream = std::cout;
 
     /** Evaluate a bit vector.
         \throw MaximumReached
-        \throw TargetReached */
+        \throw TargetReached
+    */
     double eval(const bit_vector_t&);
+
+    /// Incremental evaluation
+    double delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /// Update after a safe evaluation
     void update(const bit_vector_t& x, double value);
+
 
     /** Get the last improvement.
 
@@ -344,6 +359,12 @@ namespace hnco::function {
         has therefore no meaning.
     */
     const Event& get_last_improvement() { return _last_improvement; }
+
+    /// Log improvement
+    bool _log_improvement = false;
+
+    /// Output stream
+    std::ostream& _stream = std::cout;
 
   };
 
@@ -366,9 +387,13 @@ namespace hnco::function {
       CallCounter(function),
       _budget(budget) {}
 
+
     /** Evaluate a bit vector.
         \throw LastEvaluation */
     double eval(const bit_vector_t&);
+
+    /// Incremental evaluation
+    double delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /// Update after a safe evaluation
     void update(const bit_vector_t& x, double value);

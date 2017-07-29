@@ -41,11 +41,41 @@ namespace hnco::function {
     /// Destructor
     virtual ~Function() {}
 
+    /** @name Information about the function
+     */
+    ///@{
+
     /// Get bit vector size
     virtual size_t get_bv_size() = 0;
 
+    /// Check for a known maximum.
+    virtual bool has_known_maximum() { return false; }
+
+    /** Get the global maximum.
+        \throw Error */
+    virtual double get_maximum() { throw exception::Error("Unknown maximum"); }
+
+    /** Check whether the function provides incremental evaluation.
+        \return false
+    */
+    virtual bool provides_incremental_evaluation() { return false; }
+
+    ///@}
+
+
+    /** @name Evaluation
+     */
+    ///@{
+
     /// Evaluate a bit vector
     virtual double eval(const bit_vector_t&) = 0;
+
+    /** Incremental evaluation.
+        \throw Error
+    */
+    virtual double delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits) {
+      throw exception::Error("Incremental evaluation not implemented for this function");
+    }
 
     /** Safely evaluate a bit vector.
 
@@ -58,12 +88,12 @@ namespace hnco::function {
     /// Update after a safe evaluation
     virtual void update(const bit_vector_t& x, double value) {}
 
-    /// Check for a known maximum.
-    virtual bool has_known_maximum() { return false; }
+    ///@}
 
-    /** Get the global maximum.
-        \throw Error */
-    virtual double get_maximum() { throw exception::Error("Unknown maximum"); }
+
+    /** @name Display
+     */
+    ///@{
 
     /// Display
     virtual void display(std::ostream& stream) {}
@@ -74,17 +104,7 @@ namespace hnco::function {
       stream << std::endl;
     }
 
-    /** Incremental evaluation.
-        \throw Error
-    */
-    virtual double delta(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits) {
-      throw exception::Error("Incremental evaluation not implemented for this function");
-    }
-
-    /** Check whether the function provides incremental evaluation.
-        \return false
-    */
-    virtual bool provides_incremental_evaluation() { return false; }
+    ///@}
 
   };
 

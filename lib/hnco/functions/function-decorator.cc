@@ -100,6 +100,15 @@ CallCounter::eval(const bit_vector_t& x)
 }
 
 
+double
+CallCounter::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+{
+  double result = _function->delta(x, value, flipped_bits);
+  _num_calls++;
+  return result;
+}
+
+
 void
 CallCounter::update(const bit_vector_t& x, double value)
 {
@@ -114,6 +123,17 @@ OnBudgetFunction::eval(const bit_vector_t& x)
   if (_num_calls == _budget)
     throw LastEvaluation();
   double result = _function->eval(x);
+  _num_calls++;
+  return result;
+}
+
+
+double
+OnBudgetFunction::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+{
+  if (_num_calls == _budget)
+    throw LastEvaluation();
+  double result = _function->delta(x, value, flipped_bits);
   _num_calls++;
   return result;
 }
@@ -144,6 +164,25 @@ ProgressTracker::eval(const bit_vector_t& x)
     throw;
   }
   update_last_improvement(result);
+  return result;
+}
+
+
+double
+ProgressTracker::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+{
+  double result;
+  try { result = _function->delta(x, value, flipped_bits); }
+  catch (MaximumReached) {
+    assert(_function->has_known_maximum());
+    update_last_improvement(_function->get_maximum());
+    throw;
+  }
+  catch (const TargetReached& e) {
+    update_last_improvement(e.get_point_value().second);
+    throw;
+  }
+  update_last_improvement(value + result);
   return result;
 }
 
