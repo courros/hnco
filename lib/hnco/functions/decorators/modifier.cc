@@ -18,14 +18,39 @@
 
 */
 
-#ifndef HNCO_MAKE_FUNCTION
-#define HNCO_MAKE_FUNCTION
+#include "hnco/random.hh"
 
-#include "hnco/functions/decorators/all.hh"
+#include "modifier.hh"
 
-#include "hnco-options.hh"
 
-/// Make a function
-hnco::function::Function *make_function(Options& options);
+using namespace hnco::exception;
+using namespace hnco::function;
 
-#endif
+
+double
+Negation::eval(const bit_vector_t& x)
+{
+  return -_function->eval(x);
+}
+
+
+double
+Negation::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+{
+  return -_function->delta(x, value, flipped_bits);
+}
+
+
+double
+FunctionMapComposition::eval(const bit_vector_t& x)
+{
+  _map->map(x, _bv);
+  return _function->eval(_bv);
+}
+
+
+double
+AdditiveGaussianNoise::eval(const bit_vector_t& x)
+{
+  return _function->eval(x) + _dist(random::Random::engine);
+}

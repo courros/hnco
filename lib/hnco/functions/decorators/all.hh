@@ -22,5 +22,7 @@
 #define HNCO_FUNCTIONS_DECORATORS_ALL_H
 
 #include "function-decorator.hh"
+#include "control.hh"
+#include "modifier.hh"
 
 #endif

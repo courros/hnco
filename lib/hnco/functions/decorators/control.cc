@@ -20,7 +20,7 @@
 
 #include "hnco/random.hh"
 
-#include "function-decorator.hh"
+#include "control.hh"
 
 
 using namespace hnco::exception;
@@ -275,33 +275,4 @@ Cache::display(std::ostream& stream)
     << "Number of lookups = " << _num_lookups << std::endl
     << "Number of evaluations = " << _num_evaluations << std::endl
     << "Ratio = " << double(_num_lookups) / double(_num_evaluations) << std::endl;
-}
-
-
-double
-Negation::eval(const bit_vector_t& x)
-{
-  return -_function->eval(x);
-}
-
-
-double
-Negation::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
-{
-  return -_function->delta(x, value, flipped_bits);
-}
-
-
-double
-FunctionMapComposition::eval(const bit_vector_t& x)
-{
-  _map->map(x, _bv);
-  return _function->eval(_bv);
-}
-
-
-double
-AdditiveGaussianNoise::eval(const bit_vector_t& x)
-{
-  return _function->eval(x) + _dist(random::Random::engine);
 }

@@ -190,8 +190,11 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-decorator.cc \
+	hnco/functions/decorators/control.cc \
+	hnco/functions/decorators/control.hh \
 	hnco/functions/decorators/function-decorator.hh \
+	hnco/functions/decorators/modifier.cc \
+	hnco/functions/decorators/modifier.hh \
 	hnco/functions/equal-products.cc \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.cc \
 	hnco/functions/four-peaks.hh hnco/functions/function.hh \
@@ -239,7 +242,8 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/random-search.lo hnco/algorithms/restart.lo \
 	hnco/bit-matrix.lo hnco/bit-vector.lo \
 	hnco/functions/cancellation.lo \
-	hnco/functions/decorators/function-decorator.lo \
+	hnco/functions/decorators/control.lo \
+	hnco/functions/decorators/modifier.lo \
 	hnco/functions/equal-products.lo hnco/functions/four-peaks.lo \
 	hnco/functions/jump.lo hnco/functions/labs.lo \
 	hnco/functions/linear-function.lo hnco/functions/long-path.lo \
@@ -342,7 +346,9 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/functions/cancellation.hh \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.hh \
 	hnco/functions/decorators/all.hh \
+	hnco/functions/decorators/control.hh \
 	hnco/functions/decorators/function-decorator.hh \
+	hnco/functions/decorators/modifier.hh \
 	hnco/functions/function.hh hnco/functions/jump.hh \
 	hnco/functions/labs.hh hnco/functions/linear-function.hh \
 	hnco/functions/long-path.hh hnco/functions/max-sat.hh \
@@ -554,8 +560,11 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-decorator.cc \
+	hnco/functions/decorators/control.cc \
+	hnco/functions/decorators/control.hh \
 	hnco/functions/decorators/function-decorator.hh \
+	hnco/functions/decorators/modifier.cc \
+	hnco/functions/decorators/modifier.hh \
 	hnco/functions/equal-products.cc \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.cc \
 	hnco/functions/four-peaks.hh hnco/functions/function.hh \
@@ -605,7 +614,9 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/functions/cancellation.hh \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.hh \
 	hnco/functions/decorators/all.hh \
+	hnco/functions/decorators/control.hh \
 	hnco/functions/decorators/function-decorator.hh \
+	hnco/functions/decorators/modifier.hh \
 	hnco/functions/function.hh hnco/functions/jump.hh \
 	hnco/functions/labs.hh hnco/functions/linear-function.hh \
 	hnco/functions/long-path.hh hnco/functions/max-sat.hh \
@@ -811,7 +822,10 @@ hnco/functions/decorators/$(am__dirstamp):
 hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/functions/decorators/$(DEPDIR)
 	@: > hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/decorators/function-decorator.lo:  \
+hnco/functions/decorators/control.lo:  \
+	hnco/functions/decorators/$(am__dirstamp) \
+	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/decorators/modifier.lo:  \
 	hnco/functions/decorators/$(am__dirstamp) \
 	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/equal-products.lo: hnco/functions/$(am__dirstamp) \
@@ -922,7 +936,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/qubo.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/theory.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/trap.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-decorator.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/control.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/modifier.Plo@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
