@@ -39,6 +39,19 @@ StopOnMaximum::eval(const bit_vector_t& x)
 }
 
 
+double
+StopOnMaximum::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+{
+  assert(_function->has_known_maximum());
+
+  double delta = _function->delta(x, value, flipped_bits);
+  double result = value + delta;
+  if (result == _function->get_maximum())
+    throw MaximumReached(std::make_pair(x, result));
+  return delta;
+}
+
+
 void
 StopOnMaximum::update(const bit_vector_t& x, double value)
 {
