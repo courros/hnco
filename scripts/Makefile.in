@@ -97,7 +97,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(dist_bin_SCRIPTS) \
-	$(am__DIST_COMMON)
+	$(dist_noinst_SCRIPTS) $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
@@ -130,7 +130,7 @@ am__uninstall_files_from_dir = { \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
 am__installdirs = "$(DESTDIR)$(bindir)"
-SCRIPTS = $(dist_bin_SCRIPTS)
+SCRIPTS = $(dist_bin_SCRIPTS) $(dist_noinst_SCRIPTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -287,9 +287,9 @@ dist_bin_SCRIPTS = \
 	hnco-dynamics-stat.pl \
 	hnco-parameter-run.pl \
 	hnco-parameter-stat.pl \
-	hnco-runtime-stat.pl \
-	optgen.pl
+	hnco-runtime-stat.pl
 
+dist_noinst_SCRIPTS = optgen.pl
 all: all-am
 
 .SUFFIXES:

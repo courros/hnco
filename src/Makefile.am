@@ -37,7 +37,7 @@ hnco_SOURCES = \
 	make-function.hh
 
 hnco-options.hh hnco-options.cc: hnco.json
-	cd $(top_srcdir)/src && optgen.pl hnco.json
+	cd $(top_srcdir)/src && $(top_srcdir)/scripts/optgen.pl hnco.json
 
 #
 # ffgen program
@@ -50,7 +50,7 @@ ffgen_SOURCES = \
 	ffgen.cc
 
 ffgen-options.hh ffgen-options.cc: ffgen.json
-	cd $(top_srcdir)/src && optgen.pl ffgen.json
+	cd $(top_srcdir)/src && $(top_srcdir)/scripts/optgen.pl ffgen.json
 
 #
 # mapgen program
@@ -63,4 +63,4 @@ mapgen_SOURCES = \
 	mapgen.cc
 
 mapgen-options.hh mapgen-options.cc: mapgen.json
-	cd $(top_srcdir)/src && optgen.pl mapgen.json
+	cd $(top_srcdir)/src && $(top_srcdir)/scripts/optgen.pl mapgen.json
