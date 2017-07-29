@@ -19,7 +19,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
-	hnco/algorithms/ea/one-plus-one-ea.cc \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/hea.hh \
@@ -32,12 +31,16 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/hea/moment-spin.cc \
 	hnco/algorithms/hea/moment-spin.hh \
 	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/local-search.cc \
-	hnco/algorithms/ls/local-search.hh \
+	hnco/algorithms/ls/neighborhood-iterator.cc \
+	hnco/algorithms/ls/neighborhood-iterator.hh \
 	hnco/algorithms/ls/neighborhood.cc \
 	hnco/algorithms/ls/neighborhood.hh \
+	hnco/algorithms/ls/random-local-search.cc \
+	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.cc \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh \
 	hnco/algorithms/population.cc \
 	hnco/algorithms/population.hh \
@@ -133,9 +136,11 @@ nobase_include_HEADERS = \
 	hnco/algorithms/hea/moment-binary.hh \
 	hnco/algorithms/hea/moment-spin.hh \
 	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/local-search.hh \
+	hnco/algorithms/ls/neighborhood-iterator.hh \
 	hnco/algorithms/ls/neighborhood.hh \
+	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh \
 	hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh \

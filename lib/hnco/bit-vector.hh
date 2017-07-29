@@ -111,7 +111,7 @@ namespace hnco {
   inline void bv_flip(bit_vector_t& x, std::size_t i) { x[i] = bit_flip(x[i]); }
 
   /// Flip many bits
-  inline void bv_flip(bit_vector_t& x, bit_vector_t& mask)
+  inline void bv_flip(bit_vector_t& x, const bit_vector_t& mask)
   {
     assert(mask.size() == x.size());
 

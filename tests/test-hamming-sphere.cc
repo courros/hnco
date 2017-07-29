@@ -26,13 +26,14 @@
 using namespace hnco::neighborhood;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])
 {
   const int num_iterations = 1000;
-  const int bv_size = 10000;
+  const int bv_size_max = 10;
+
+  std::uniform_int_distribution<int> dist(1, bv_size_max);
 
   Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
@@ -41,8 +42,8 @@ int main(int argc, char *argv[])
     int n, radius;
 
     do {
-      n = 1 + rand() % bv_size;
-      radius = 1 + rand() % bv_size;
+      n = dist(Random::engine);
+      radius = dist(Random::engine);
     } while (radius > n);
 
     assert(radius <= n);
@@ -50,18 +51,14 @@ int main(int argc, char *argv[])
     bit_vector_t bv(n);
     bv_random(bv);
 
-    HammingSphere sphere(n, radius);
-    sphere.set_origin(bv);
+    HammingSphere neighborhood(n, radius);
+    neighborhood.set_origin(bv);
 
-    const bit_vector_t& current = sphere.get_origin();
-    sphere.propose();
-    const bit_vector_t& candidate = sphere.get_candidate();
-
-    if (bv_hamming_distance(current, candidate) != radius) {
-      exit(1);
-    }
-
+    neighborhood.propose();
+    if (bv_hamming_distance(neighborhood.get_origin(),
+                            neighborhood.get_candidate()) != radius)
+      return 1;
   }
 
-  exit(0);
+  return 0;
 }

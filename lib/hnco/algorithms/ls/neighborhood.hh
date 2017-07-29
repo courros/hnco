@@ -26,6 +26,7 @@
 #include "hnco/bit-vector.hh"
 #include "hnco/iterator.hh"
 #include "hnco/random.hh"
+#include "hnco/sparse-bit-vector.hh"
 
 
 namespace hnco {
@@ -37,7 +38,22 @@ namespace hnco {
 */
 namespace neighborhood {
 
-  /// Neighborhood
+  /** Neighborhood.
+
+      A neighborhood maintains two points, _origin and
+      _candidate. They are initialized in the same state by
+      set_origin. The neighborhood must implement the method
+      sample_bits which samples the bits to flip in _origin to get a
+      _candidate. The following methods take care of the
+      modifications:
+
+      - propose: flip _candidate
+      - keep: flip _origin
+      - forget flip _candidate
+
+      After keep or forget, _origin and _candidate are in the same
+      state again.
+   */
   class Neighborhood {
 
   protected:
@@ -47,6 +63,12 @@ namespace neighborhood {
 
     /// candidate bit vector
     bit_vector_t _candidate;
+
+    /// Flipped bits
+    sparse_bit_vector_t _flipped_bits;
+
+    /// Sample bits
+    virtual void sample_bits() = 0;
 
   public:
 
@@ -62,7 +84,10 @@ namespace neighborhood {
     virtual ~Neighborhood() {}
 
     /// Set the origin
-    virtual void set_origin(const bit_vector_t& x) { _origin = x; }
+    virtual void set_origin(const bit_vector_t& x) {
+      _origin = x;
+      _candidate = x;
+    }
 
     /// Get the origin
     virtual const bit_vector_t& get_origin() { return _origin; }
@@ -70,14 +95,27 @@ namespace neighborhood {
     /// Get the candidate bit vector
     virtual const bit_vector_t& get_candidate() { return _candidate; }
 
+    /// Get flipped bits
+    virtual const sparse_bit_vector_t& get_flipped_bits() { return _flipped_bits; }
+
     /// Propose a candidate bit vector
-    virtual void propose() {}
+    virtual void propose() {
+      assert(_candidate == _origin);
+      sample_bits();
+      bv_flip(_candidate, _flipped_bits);
+    }
 
     /// Keep the candidate bit vector
-    virtual void keep() { _origin = _candidate; }
+    virtual void keep() {
+      bv_flip(_origin, _flipped_bits);
+      assert(_candidate == _origin);
+    }
 
     /// Forget the candidate bit vector
-    virtual void forget() {}
+    virtual void forget() {
+      bv_flip(_candidate, _flipped_bits);
+      assert(_candidate == _origin);
+    }
 
   };
 
@@ -89,105 +127,22 @@ namespace neighborhood {
     /// Choose an index
     std::uniform_int_distribution<int> _choose_index;
 
-    /// Index of the flipped bit
-    int _index;
-
-    /// Old value
-    bit_t _old_value;
+    /// Sample bits
+    void sample_bits() {
+      assert(_flipped_bits.size() == 1);
+      _flipped_bits[0] = _choose_index(random::Random::engine);;
+    }
 
   public:
 
     /// Constructor
     SingleBitFlip(int n):
       Neighborhood(n),
-      _choose_index(0, n - 1) {}
-
-    /// Get the candidate bit vector
-    const bit_vector_t& get_candidate() { return _origin; }
-
-    /// Propose a candidate bit vector
-    void propose() {
-      _index = _choose_index(random::Random::engine);
-      _old_value = _origin[_index];
-      _origin[_index] = bit_flip(_old_value);
-    }
-
-    /// Keep the candidate bit vector
-    void keep() {}
-
-    /// Forget the candidate bit vector
-    void forget() { _origin[_index] = _old_value; }
-
-  };
-
-
-  /** Hamming ball.
-
-      Choose k uniformly on [1..r], where r is the radius of the ball,
-      choose k bits uniformly among n and flip them.
-
-  */
-  class HammingBall:
-    public Neighborhood {
-
-    /// Radius of the ball
-    int _radius;
-
-    /// Choose the distance to the center
-    std::uniform_int_distribution<int> _choose_k;
-
-  public:
-
-    /** Constructor.
-
-        \param n Size of bit vectors
-        \param r Radius of the ball
-    */
-    HammingBall(int n, int r):
-      Neighborhood(n),
-      _radius(r),
-      _choose_k(1, r)
+      _choose_index(0, n - 1)
     {
       assert(n > 0);
-      assert(r > 0);
-      assert(r <= n);
+      _flipped_bits.resize(1);
     }
-
-    /// Propose a candidate bit vector
-    void propose();
-
-  };
-
-
-  /** Hamming sphere.
-
-      Uniformly choose r bits among n and flip them, where r is the
-      radius of the sphere.
-  */
-  class HammingSphere:
-    public Neighborhood {
-
-    /// Radius of the sphere
-    int _radius;
-
-  public:
-
-    /** Constructor.
-
-        \param n Size of bit vectors
-        \param r Radius of the sphere
-    */
-    HammingSphere(int n, int r):
-      Neighborhood(n),
-      _radius(r)
-    {
-      assert(n > 0);
-      assert(r > 0);
-      assert(r <= n);
-    }
-
-    /// Propose a candidate bit vector
-    void propose();
 
   };
 
@@ -205,6 +160,9 @@ namespace neighborhood {
 
     /// Biased coin
     std::bernoulli_distribution _dist;
+
+    /// Sample bits
+    void sample_bits();
 
   public:
 
@@ -228,103 +186,78 @@ namespace neighborhood {
       _dist(p) {}
 
     /// Set the mutation probability
-    void set_mutation_probabiity(double p) { _dist = std::bernoulli_distribution(p); }
-
-    /// Propose a candidate bit vector
-    void propose();
+    void set_mutation_probability(double p) { _dist = std::bernoulli_distribution(p); }
 
   };
 
 
-  /// Neighborhood iterator
-  class NeighborhoodIterator:
-    public Iterator {
+  /** Hamming ball.
 
-  protected:
+      Choose k uniformly on [1..r], where r is the radius of the ball,
+      choose k bits uniformly among n and flip them.
 
-  public:
-
-    /** Constructor.
-
-        \param n Size of bit vectors
-    */
-    NeighborhoodIterator(int n):
-      Iterator(n) {}
-
-    /// Set origin
-    virtual void set_origin(const bit_vector_t& x);
-  };
-
-
-  /// Single bit flip neighborhood iterator
-  class SingleBitFlipIterator:
-    public NeighborhoodIterator {
-
-    /// Index of the last flipped bit
-    size_t _index;
-
-  public:
-
-    /** Constructor.
-
-        \param n Size of bit vectors
-    */
-    SingleBitFlipIterator(int n):
-      NeighborhoodIterator(n) {}
-
-    /// Initialization
-    void init();
-
-    /// Has next bit vector
-    bool has_next();
-
-    /// Next bit vector
-    void next();
-
-  };
-
-
-  /// Hamming ball neighborhood iterator
-  class HammingBallIterator:
-    public NeighborhoodIterator {
-
-    /// Mutation mask
-    bit_vector_t _mask;
+  */
+  class HammingBall:
+    public Neighborhood {
 
     /// Radius of the ball
     int _radius;
 
-    /// Index of the next bit to shift to the right
-    int _index;
+    /// Choose the distance to the center
+    std::uniform_int_distribution<int> _choose_k;
 
-    /// Partial Hamming weight
-    int _weight;
+    /// Sample bits
+    void sample_bits();
 
   public:
 
     /** Constructor.
 
         \param n Size of bit vectors
-        \param r Radius of Hamming Ball
+        \param r Radius of the ball
     */
-    HammingBallIterator(int n, int r):
-      NeighborhoodIterator(n),
-      _mask(n),
-      _radius(r)
+    HammingBall(int n, int r):
+      Neighborhood(n),
+      _radius(r),
+      _choose_k(1, r)
     {
       assert(n > 0);
       assert(r > 0);
       assert(r <= n);
     }
 
-    /// Initialization
-    void init();
+  };
 
-    /// Has next bit vector
-    bool has_next();
 
-    /// Next bit vector
-    void next();
+  /** Hamming sphere.
+
+      Uniformly choose r bits among n and flip them, where r is the
+      radius of the sphere.
+  */
+  class HammingSphere:
+    public Neighborhood {
+
+    /// Radius of the sphere
+    int _radius;
+
+    /// Sample bits
+    void sample_bits();
+
+  public:
+
+    /** Constructor.
+
+        \param n Size of bit vectors
+        \param r Radius of the sphere
+    */
+    HammingSphere(int n, int r):
+      Neighborhood(n),
+      _radius(r)
+    {
+      assert(n > 0);
+      assert(r > 0);
+      assert(r <= n);
+    }
 
   };
 

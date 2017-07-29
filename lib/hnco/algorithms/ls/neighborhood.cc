@@ -31,146 +31,57 @@ using namespace hnco;
 
 
 void
-HammingBall::propose()
+Binomial::sample_bits()
 {
-  int n = _candidate.size();
-  int k = _choose_k(Random::engine);
-  assert(k <= n);
-
-  for (size_t i = 0; i < _candidate.size(); i++) {
-    double p = double(k) / double(n);
-    if (Random::uniform() < p) {
-      _candidate[i] = bit_flip(_origin[i]);
-      k--;
-    }
-    else
-      _candidate[i] = _origin[i];
-    n--;
-  }
-
-  assert(k == 0);
-  assert(bv_hamming_distance(_origin, _candidate) == _radius);
-}
-
-
-void
-HammingSphere::propose()
-{
-  int n = _candidate.size();
-  int k = _radius;
-  assert(k <= n);
-
-  for (size_t i = 0; i < _candidate.size(); i++) {
-    double p = double(k) / double(n);
-    if (Random::uniform() < p) {
-      _candidate[i] = bit_flip(_origin[i]);
-      k--;
-    }
-    else
-      _candidate[i] = _origin[i];
-    n--;
-  }
-
-  assert(k == 0);
-  assert(bv_hamming_distance(_origin, _candidate) == _radius);
-}
-
-
-void
-Binomial::propose()
-{
+  _flipped_bits.clear();
   bool again = true;
   do {
     for (size_t i = 0; i < _candidate.size(); i++)
       if (_dist(Random::engine)) {
-        _candidate[i] = bit_flip(_origin[i]);
+        _flipped_bits.push_back(i);
         again = false;
-      } else
-        _candidate[i] = _origin[i];
+      }
   } while (again);
 }
 
 
 void
-NeighborhoodIterator::set_origin(const bit_vector_t& x)
+HammingBall::sample_bits()
 {
-  assert(x.size() == _current.size());
+  int n = _candidate.size();
+  int k = _choose_k(Random::engine);
+  assert(k <= n);
 
-  _current = x;
-}
-
-void
-SingleBitFlipIterator::init()
-{
-  _index = 0;
-  bv_flip(_current, 0);
-}
-
-bool
-SingleBitFlipIterator::has_next()
-{
-  return _index + 1 < _current.size();
-}
-
-void
-SingleBitFlipIterator::next()
-{
-  // restore the current bit to its original value
-  assert(_index < _current.size());
-  bv_flip(_current, _index++);
-
-  // Flip the next bit
-  assert(_index < _current.size());
-  bv_flip(_current, _index);
-}
-
-void
-HammingBallIterator::init()
-{
-  bv_clear(_mask);
-  fill(_mask.begin(), _mask.begin() + _radius, 1);
-  assert(bv_hamming_weight(_mask) == _radius);
-  bv_flip(_current, _mask);
-}
-
-bool
-HammingBallIterator::has_next()
-{
-  assert(bv_is_valid(_mask));
-
-  _weight = 0;
-  for (size_t i = 0; i < _mask.size() - 1; i++)
-    if (_mask[i] == 1) {
-      _weight++;
-      if (_mask[i + 1] == 0) {
-        _index = i;
-        return true;
-      }
+  _flipped_bits.clear();
+  for (size_t i = 0; i < _candidate.size(); i++) {
+    double p = double(k) / double(n);
+    if (Random::uniform() < p) {
+      _flipped_bits.push_back(i);
+      k--;
     }
-  return false;
+    n--;
+  }
+
+  assert(k == 0);
 }
 
+
 void
-HammingBallIterator::next()
+HammingSphere::sample_bits()
 {
-  assert(has_next());
-  assert(bv_is_valid(_mask));
-  assert(bv_hamming_weight(_mask) == _radius);
+  int n = _candidate.size();
+  int k = _radius;
+  assert(k <= n);
 
-  // restore the current bit vector to its original value
-  bv_flip(_current, _mask);
+  _flipped_bits.clear();
+  for (size_t i = 0; i < _candidate.size(); i++) {
+    double p = double(k) / double(n);
+    if (Random::uniform() < p) {
+      _flipped_bits.push_back(i);
+      k--;
+    }
+    n--;
+  }
 
-  // update mask
-  assert(_mask[_index] == 1);
-  assert(_mask[_index + 1] == 0);
-
-  _mask[_index + 1] = 1;
-  fill(_mask.begin(), _mask.begin() + _index + 1, 0);
-  fill(_mask.begin(), _mask.begin() + _weight - 1, 1);
-
-  assert(bv_is_valid(_mask));
-  assert(bv_hamming_weight(_mask) == _radius);
-
-  // Flip the current bit vector
-  bv_flip(_current, _mask);
+  assert(k == 0);
 }

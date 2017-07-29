@@ -20,7 +20,7 @@
 
 #include <random>               // uniform_int_distribution
 
-#include "local-search.hh"
+#include "random-local-search.hh"
 
 
 using namespace hnco::algorithm;
@@ -122,74 +122,4 @@ NonStrictRandomLocalSearch::iterate()
       _failures == _patience)
     throw LocalMaximum(_solution);
 
-}
-
-
-void
-SteepestAscentHillClimbing::init()
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  random_solution();
-  _neighborhood->set_origin(_solution.first);
-}
-
-
-void
-SteepestAscentHillClimbing::init(const bit_vector_t& x)
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  init(x, _function->eval(x));
-}
-
-
-void
-SteepestAscentHillClimbing::init(const bit_vector_t& x, double value)
-{
-  assert(_function);
-  assert(_neighborhood);
-  assert(value == _function->eval(x));
-
-  set_solution(x, value);
-  _neighborhood->set_origin(_solution.first);
-}
-
-
-void
-SteepestAscentHillClimbing::iterate()
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  _neighborhood->init();
-  double best_value = _function->eval(_neighborhood->get_current());
-  size_t index = 0;
-  _candidates[index++] = _neighborhood->get_current();
-
-  while (_neighborhood->has_next()) {
-    _neighborhood->next();
-    double value = _function->eval(_neighborhood->get_current());
-    if (value >= best_value) {
-      if (value > best_value) {
-        index = 0;
-        best_value = value;
-      }
-      if (index < _candidates.size())
-        _candidates[index++] = _neighborhood->get_current();
-    }
-  }
-
-  assert(index >= 1);
-  assert(index <= _candidates.size());
-
-  if (best_value >= _solution.second) {
-    std::uniform_int_distribution<int> choose_candidate(0, index - 1);
-    _solution.first = _candidates[choose_candidate(random::Random::engine)];
-    _solution.second = best_value;
-    _neighborhood->set_origin(_solution.first);
-  } else
-    throw LocalMaximum(_solution);
 }

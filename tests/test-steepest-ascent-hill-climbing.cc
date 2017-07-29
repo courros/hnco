@@ -20,7 +20,7 @@
 
 #include <random>
 
-#include "hnco/algorithms/ls/local-search.hh"
+#include "hnco/algorithms/ls/steepest-ascent-hill-climbing.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/random.hh"
 

@@ -54,7 +54,7 @@ namespace hnco {
   }
 
   /// Convert a bit matrix to a sparse bit matrix
-  void bm_to_sbm(const bit_matrix_t& bm, sparse_bit_matrix_t& sbm)
+  inline void bm_to_sbm(const bit_matrix_t& bm, sparse_bit_matrix_t& sbm)
   {
     sbm = sparse_bit_matrix_t(bm.size());
     for (size_t i = 0; i < sbm.size(); i++)
@@ -65,7 +65,7 @@ namespace hnco {
 
       The result is y = Mx.
   */
-  void sbm_multiply(const sparse_bit_matrix_t& M, const bit_vector_t& x, bit_vector_t& y)
+  inline void sbm_multiply(const sparse_bit_matrix_t& M, const bit_vector_t& x, bit_vector_t& y)
   {
     assert(y.size() == M.size());
 

@@ -152,7 +152,6 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
-	hnco/algorithms/ea/one-plus-one-ea.cc \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.cc \
@@ -163,12 +162,16 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/hea/moment-binary.hh \
 	hnco/algorithms/hea/moment-spin.cc \
 	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/local-search.cc \
-	hnco/algorithms/ls/local-search.hh \
+	hnco/algorithms/ls/neighborhood-iterator.cc \
+	hnco/algorithms/ls/neighborhood-iterator.hh \
 	hnco/algorithms/ls/neighborhood.cc \
 	hnco/algorithms/ls/neighborhood.hh \
+	hnco/algorithms/ls/random-local-search.cc \
+	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.cc \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh hnco/algorithms/population.cc \
 	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
 	hnco/algorithms/pv/compact-ga.cc \
@@ -218,14 +221,15 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/ea/genetic-algorithm.lo \
 	hnco/algorithms/ea/mu-comma-lambda-ea.lo \
 	hnco/algorithms/ea/mu-plus-lambda-ea.lo \
-	hnco/algorithms/ea/one-plus-one-ea.lo \
 	hnco/algorithms/hea/herding-binary.lo \
 	hnco/algorithms/hea/herding-spin.lo \
 	hnco/algorithms/hea/moment-binary.lo \
 	hnco/algorithms/hea/moment-spin.lo \
-	hnco/algorithms/ls/local-search.lo \
+	hnco/algorithms/ls/neighborhood-iterator.lo \
 	hnco/algorithms/ls/neighborhood.lo \
+	hnco/algorithms/ls/random-local-search.lo \
 	hnco/algorithms/ls/simulated-annealing.lo \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.lo \
 	hnco/algorithms/population.lo hnco/algorithms/pv/compact-ga.lo \
 	hnco/algorithms/pv/mmas.lo hnco/algorithms/pv/nps-pbil.lo \
 	hnco/algorithms/pv/pbil.lo \
@@ -320,9 +324,11 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/hea/herding-spin.hh \
 	hnco/algorithms/hea/moment-binary.hh \
 	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/local-search.hh \
+	hnco/algorithms/ls/neighborhood-iterator.hh \
 	hnco/algorithms/ls/neighborhood.hh \
+	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
 	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
@@ -508,7 +514,6 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
-	hnco/algorithms/ea/one-plus-one-ea.cc \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.cc \
@@ -519,12 +524,16 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/hea/moment-binary.hh \
 	hnco/algorithms/hea/moment-spin.cc \
 	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/local-search.cc \
-	hnco/algorithms/ls/local-search.hh \
+	hnco/algorithms/ls/neighborhood-iterator.cc \
+	hnco/algorithms/ls/neighborhood-iterator.hh \
 	hnco/algorithms/ls/neighborhood.cc \
 	hnco/algorithms/ls/neighborhood.hh \
+	hnco/algorithms/ls/random-local-search.cc \
+	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.cc \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh hnco/algorithms/population.cc \
 	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
 	hnco/algorithms/pv/compact-ga.cc \
@@ -576,9 +585,11 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/hea/herding-spin.hh \
 	hnco/algorithms/hea/moment-binary.hh \
 	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/local-search.hh \
+	hnco/algorithms/ls/neighborhood-iterator.hh \
 	hnco/algorithms/ls/neighborhood.hh \
+	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
 	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
@@ -705,9 +716,6 @@ hnco/algorithms/ea/mu-comma-lambda-ea.lo:  \
 hnco/algorithms/ea/mu-plus-lambda-ea.lo:  \
 	hnco/algorithms/ea/$(am__dirstamp) \
 	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/ea/one-plus-one-ea.lo:  \
-	hnco/algorithms/ea/$(am__dirstamp) \
-	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/hea/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/hea
 	@: > hnco/algorithms/hea/$(am__dirstamp)
@@ -732,13 +740,19 @@ hnco/algorithms/ls/$(am__dirstamp):
 hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/ls/$(DEPDIR)
 	@: > hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/ls/local-search.lo:  \
+hnco/algorithms/ls/neighborhood-iterator.lo:  \
 	hnco/algorithms/ls/$(am__dirstamp) \
 	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/ls/neighborhood.lo:  \
 	hnco/algorithms/ls/$(am__dirstamp) \
 	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/ls/random-local-search.lo:  \
+	hnco/algorithms/ls/$(am__dirstamp) \
+	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/ls/simulated-annealing.lo:  \
+	hnco/algorithms/ls/$(am__dirstamp) \
+	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/ls/steepest-ascent-hill-climbing.lo:  \
 	hnco/algorithms/ls/$(am__dirstamp) \
 	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/population.lo: hnco/algorithms/$(am__dirstamp) \
@@ -864,14 +878,15 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/genetic-algorithm.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-comma-lambda-ea.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/one-plus-one-ea.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-binary.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-spin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/moment-binary.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/moment-spin.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/local-search.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/neighborhood-iterator.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/neighborhood.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/simulated-annealing.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/steepest-ascent-hill-climbing.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/compact-ga.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/mmas.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/nps-pbil.Plo@am__quote@

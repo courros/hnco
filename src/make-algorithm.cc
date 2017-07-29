@@ -156,13 +156,13 @@ make_concrete_algorithm(Options& options)
     return algo;
   }
 
+    // (1+1) EA
   case 300: {
     auto algo = new OnePlusOneEa(options.get_bv_size());
     assert(algo);
 
-    algo->set_mutation_probability(options.get_scaled_mutation_probability() / options.get_bv_size());
-
-    algo->_num_iterations = options.get_num_iterations();
+    algo->_mutation_probability = options.get_scaled_mutation_probability() / options.get_bv_size();
+    algo->_num_iterations       = options.get_num_iterations();
 
     return algo;
   }

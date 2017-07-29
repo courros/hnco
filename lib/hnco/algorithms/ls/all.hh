@@ -21,7 +21,8 @@
 #ifndef HNCO_ALGORITHMS_LS_ALL_H
 #define HNCO_ALGORITHMS_LS_ALL_H
 
-#include "local-search.hh"
+#include "random-local-search.hh"
 #include "simulated-annealing.hh"
+#include "steepest-ascent-hill-climbing.hh"
 
 #endif

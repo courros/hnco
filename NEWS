@@ -2,6 +2,13 @@
 
 Library:
 - Population: added get_bv for const instances
+- Added bv_flip with a sparse_bit_vector_t mask
+- Neighborhood: added _flipped_bits
+- Neighborhood: added pure virtual method sample_bits
+- Neighborhood defines methods propose, keep, and forget
+- Local search: new files neighborhood-iterator.(hh|cc) and steepest-ascent-hill-climbing.(hh|cc)
+- Removed file one-plus-one-ea.cc
+- OnePlusOneEa implemented as a NonStrictRandomLocalSearch with a Binomial neighborhood
 
 * Version 0.5 (2017-04-26)
 
