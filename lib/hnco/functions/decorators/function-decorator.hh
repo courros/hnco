@@ -28,7 +28,7 @@
 
 #include "hnco/map.hh"
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco::function {

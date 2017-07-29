@@ -28,8 +28,8 @@
 #include "hnco/functions/factorization.hh"
 #endif
 
+#include "hnco/functions/decorators/all.hh"
 #include "hnco/functions/four-peaks.hh"
-#include "hnco/functions/function-decorator.hh"
 #include "hnco/functions/function.hh"
 #include "hnco/functions/jump.hh"
 #include "hnco/functions/labs.hh"

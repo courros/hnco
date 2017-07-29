@@ -23,7 +23,7 @@
 
 #include "hnco/algorithms/complete-search.hh"
 #include "hnco/functions/four-peaks.hh"
-#include "hnco/functions/function-decorator.hh"
+#include "hnco/functions/decorators/function-decorator.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::algorithm;

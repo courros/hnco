@@ -18,14 +18,9 @@
 
 */
 
-#ifndef HNCO_MAKE_FUNCTION
-#define HNCO_MAKE_FUNCTION
+#ifndef HNCO_FUNCTIONS_DECORATORS_ALL_H
+#define HNCO_FUNCTIONS_DECORATORS_ALL_H
 
-#include "hnco/functions/decorators/function-decorator.hh"
-
-#include "hnco-options.hh"
-
-/// Make a function
-hnco::function::Function *make_function(Options& options);
+#include "function-decorator.hh"
 
 #endif
