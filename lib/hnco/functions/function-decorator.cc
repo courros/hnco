@@ -73,6 +73,17 @@ StopOnTarget::eval(const bit_vector_t& x)
 }
 
 
+double
+StopOnTarget::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+{
+  double delta = _function->delta(x, value, flipped_bits);
+  double result = value + delta;
+  if (result >= _target)
+    throw TargetReached(std::make_pair(x, result));
+  return delta;
+}
+
+
 void
 StopOnTarget::update(const bit_vector_t& x, double value)
 {
