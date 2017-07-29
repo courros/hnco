@@ -240,6 +240,9 @@ class Options {
   /// Randomize bit order
   bool _hea_randomize_bit_order;
 
+  /// Incremental evaluation
+  bool _incremental_evaluation;
+
   /// Log improvement
   bool _log_improvement;
 
@@ -928,6 +931,12 @@ public:
 
   /// Set hea_randomize_bit_order
   void set_hea_randomize_bit_order() { _hea_randomize_bit_order = true; }
+ 
+  /// Get incremental_evaluation
+  bool with_incremental_evaluation() const { return _incremental_evaluation; }
+
+  /// Set incremental_evaluation
+  void set_incremental_evaluation() { _incremental_evaluation = true; }
  
   /// Get log_improvement
   bool with_log_improvement() const { return _log_improvement; }

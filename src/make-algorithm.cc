@@ -105,8 +105,9 @@ make_concrete_algorithm(Options& options)
        neighborhood);
     assert(algo);
 
-    algo->_num_iterations       = options.get_num_iterations();
-    algo->_patience             = options.get_patience();
+    algo->_num_iterations               = options.get_num_iterations();
+    algo->_patience                     = options.get_patience();
+    algo->_incremental_evaluation       = options.with_incremental_evaluation();
 
     return algo;
   }

@@ -104,6 +104,12 @@
             "category": "Algorithm"
         },
 
+        "incremental_evaluation":
+        {
+            "description": "Incremental evaluation",
+            "category": "Local Search"
+        },
+
         "pv_log_pv":
         {
             "description": "Log probability vector",

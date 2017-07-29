@@ -111,6 +111,8 @@ namespace algorithm {
         object and can be retrieved with get_solution.
     */
     void iterate();
+    void iterate_incremental();
+    void iterate_full();
 
   public:
 
@@ -118,6 +120,9 @@ namespace algorithm {
     NonStrictRandomLocalSearch(int n,
                                neighborhood::Neighborhood *neighborhood):
       RandomLocalSearch(n, neighborhood) {}
+
+    /// Incremental evaluation
+    bool _incremental_evaluation = false;
 
   };
 

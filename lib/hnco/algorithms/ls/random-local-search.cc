@@ -102,18 +102,58 @@ StrictRandomLocalSearch::iterate()
 void
 NonStrictRandomLocalSearch::iterate()
 {
+  if (_incremental_evaluation)
+    iterate_incremental();
+  else
+    iterate_full();
+}
+
+
+void
+NonStrictRandomLocalSearch::iterate_full()
+{
   assert(_function);
   assert(_neighborhood);
 
   _neighborhood->propose();
   double value = _function->eval(_neighborhood->get_candidate());
 
-  if (value >= _solution.second) {     // success
+  if (value >= _solution.second) {
+    // success
     _neighborhood->keep();
     _solution.second = value;
     _failures = 0;
   }
-  else {                        // failure
+  else {
+    // failure
+    _neighborhood->forget();
+    _failures++;
+  }
+
+  if (_patience > 0 &&
+      _failures == _patience)
+    throw LocalMaximum(_solution);
+
+}
+
+
+void
+NonStrictRandomLocalSearch::iterate_incremental()
+{
+  assert(_function);
+  assert(_neighborhood);
+
+  _neighborhood->propose();
+  double delta = _function->delta(_neighborhood->get_origin(), _solution.second, _neighborhood->get_flipped_bits());
+
+  if (delta >= 0) {
+    // success
+    _neighborhood->keep();
+    _solution.second += delta;
+    _failures = 0;
+  }
+  else {
+    // failure
     _neighborhood->forget();
     _failures++;
   }

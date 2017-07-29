@@ -116,6 +116,7 @@ Options::Options(int argc, char *argv[]):
   _hea_log_error(false),
   _hea_log_selection(false),
   _hea_randomize_bit_order(false),
+  _incremental_evaluation(false),
   _log_improvement(false),
   _map_random(false),
   _negation(false),
@@ -192,6 +193,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_HEA_LOG_ERROR,
     OPTION_HEA_LOG_SELECTION,
     OPTION_HEA_RANDOMIZE_BIT_ORDER,
+    OPTION_INCREMENTAL_EVALUATION,
     OPTION_LOG_IMPROVEMENT,
     OPTION_MAP_RANDOM,
     OPTION_NEGATION,
@@ -266,6 +268,7 @@ Options::Options(int argc, char *argv[]):
     {"hea-log-error", no_argument, 0, OPTION_HEA_LOG_ERROR},
     {"hea-log-selection", no_argument, 0, OPTION_HEA_LOG_SELECTION},
     {"hea-randomize-bit-order", no_argument, 0, OPTION_HEA_RANDOMIZE_BIT_ORDER},
+    {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
     {"log-improvement", no_argument, 0, OPTION_LOG_IMPROVEMENT},
     {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
     {"negation", no_argument, 0, OPTION_NEGATION},
@@ -541,6 +544,10 @@ Options::Options(int argc, char *argv[]):
       _hea_randomize_bit_order = true;
       break;
 
+    case OPTION_INCREMENTAL_EVALUATION:
+      _incremental_evaluation = true;
+      break;
+
     case OPTION_LOG_IMPROVEMENT:
       _log_improvement = true;
       break;
@@ -729,6 +736,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Scaled mutation probability m = n * p (p = m / n)" << endl;
   stream << endl;
   stream << "Local Search:" << endl;
+  stream << "      --incremental-evaluation" << endl;
+  stream << "          Incremental evaluation" << endl;
   stream << "  -N, --neighborhood (type int, default to 0)" << endl;
   stream << "          Type of neighborhood" << endl;
   stream << "            0: One bit flip" << endl;
@@ -923,6 +932,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# hea_log_selection" << endl;
   if (options._hea_randomize_bit_order)
     stream << "# hea_randomize_bit_order" << endl;
+  if (options._incremental_evaluation)
+    stream << "# incremental_evaluation" << endl;
   if (options._log_improvement)
     stream << "# log_improvement" << endl;
   if (options._map_random)
