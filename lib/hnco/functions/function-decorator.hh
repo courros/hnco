@@ -137,9 +137,6 @@ namespace hnco::function {
     /// Constructor
     Negation() {}
 
-    /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
-
     /** Check for a known maximum.
         \return false */
     bool has_known_maximum() { return false; }
@@ -147,6 +144,12 @@ namespace hnco::function {
     /** Get the global maximum.
         \throw Error */
     double get_maximum() { throw exception::Error("Unknown maximum"); }
+
+    /// Evaluate a bit vector
+    double eval(const bit_vector_t&);
+
+    /// Incremental evaluation
+    double delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
   };
 

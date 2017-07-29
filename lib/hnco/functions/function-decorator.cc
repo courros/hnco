@@ -101,6 +101,13 @@ Negation::eval(const bit_vector_t& x)
 
 
 double
+Negation::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+{
+  return -_function->delta(x, value, flipped_bits);
+}
+
+
+double
 FunctionMapComposition::eval(const bit_vector_t& x)
 {
   _map->map(x, _bv);
