@@ -9,6 +9,11 @@ Library:
 - Local search: new files neighborhood-iterator.(hh|cc) and steepest-ascent-hill-climbing.(hh|cc)
 - Removed file one-plus-one-ea.cc
 - OnePlusOneEa implemented as a NonStrictRandomLocalSearch with a Binomial neighborhood
+- Incremental evaluation: OneMax
+- Incremental evaluation: NonStrictRandomLocalSearch
+- Incremental evaluation: StopOnMaximum, StopOnTarget, CallCounter, ProgressTracker, OnBudgetFunction
+- Incremental evaluation: Negation
+- All function decorators moved under decorators/
 
 * Version 0.5 (2017-04-26)
 
