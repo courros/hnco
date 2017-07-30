@@ -53,6 +53,10 @@ uniform_crossover(const bit_vector_t& parent1,
 void
 GeneticAlgorithm::init()
 {
+  _do_crossover = std::bernoulli_distribution(_crossover_probability);
+  _do_mutation = std::bernoulli_distribution(_mutation_probability);
+
+  _parents._tournament_size = _tournament_size;
   _parents.random();
   _parents.eval(_function);
   _parents.sort();
