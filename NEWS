@@ -5,15 +5,23 @@ Library:
 - Added bv_flip with a sparse_bit_vector_t mask
 - Neighborhood: added _flipped_bits
 - Neighborhood: added pure virtual method sample_bits
-- Neighborhood defines methods propose, keep, and forget
+- Neighborhood implements methods propose, keep, and forget
 - Local search: new files neighborhood-iterator.(hh|cc) and steepest-ascent-hill-climbing.(hh|cc)
 - Removed file one-plus-one-ea.cc
-- OnePlusOneEa implemented as a NonStrictRandomLocalSearch with a Binomial neighborhood
+- OnePlusOneEa implemented as a RandomLocalSearch with a Binomial neighborhood
 - Incremental evaluation: OneMax
-- Incremental evaluation: NonStrictRandomLocalSearch
+- Incremental evaluation: RandomLocalSearch
 - Incremental evaluation: StopOnMaximum, StopOnTarget, CallCounter, ProgressTracker, OnBudgetFunction
 - Incremental evaluation: Negation
 - All function decorators moved under decorators/
+- RandomLocalSearch: added public member _compare
+- RandomLocalSearch: single class
+- Mmas: added public member _compare
+- Mmas: single class
+- Algorithm: added empty constructor
+
+Build:
+- optgen.pl distributed but not installed
 
 * Version 0.5 (2017-04-26)
 
