@@ -54,7 +54,6 @@ namespace algorithm {
         _mutation_probability is initialized to 1 / n.
     */
     OnePlusOneEa(int n):
-      Algorithm(n),
       _neighborhood(n),
       _rls(n, &_neighborhood),
       _mutation_probability(1 / double(n)) {}
