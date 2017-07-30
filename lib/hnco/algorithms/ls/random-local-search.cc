@@ -18,14 +18,11 @@
 
 */
 
-#include <random>               // uniform_int_distribution
-
 #include "random-local-search.hh"
 
 
 using namespace hnco::algorithm;
 using namespace hnco::exception;
-using namespace hnco::random;
 using namespace hnco;
 
 
@@ -55,7 +52,6 @@ void
 RandomLocalSearch::init(const bit_vector_t& x, double value)
 {
   assert(_function);
-  assert(value == _function->eval(x));
   assert(_neighborhood);
 
   set_solution(x, value);
@@ -74,35 +70,9 @@ RandomLocalSearch::get_solution()
 
 
 void
-StrictRandomLocalSearch::iterate()
+RandomLocalSearch::iterate()
 {
-  assert(_function);
-  assert(_neighborhood);
-
-  _neighborhood->propose();
-  double value = _function->eval(_neighborhood->get_candidate());
-
-  if (value > _solution.second) { // success
-    _neighborhood->keep();
-    _solution.second = value;
-    _failures = 0;
-  }
-  else {                        // failure
-    _neighborhood->forget();
-    _failures++;
-  }
-
-  if (_patience > 0 &&
-      _failures == _patience)
-    throw LocalMaximum(_solution);
-
-}
-
-
-void
-NonStrictRandomLocalSearch::iterate()
-{
-  if (_incremental_evaluation)
+  if (_incremental_evaluation && _function->provides_incremental_evaluation())
     iterate_incremental();
   else
     iterate_full();
@@ -110,7 +80,7 @@ NonStrictRandomLocalSearch::iterate()
 
 
 void
-NonStrictRandomLocalSearch::iterate_full()
+RandomLocalSearch::iterate_full()
 {
   assert(_function);
   assert(_neighborhood);
@@ -118,7 +88,7 @@ NonStrictRandomLocalSearch::iterate_full()
   _neighborhood->propose();
   double value = _function->eval(_neighborhood->get_candidate());
 
-  if (value >= _solution.second) {
+  if (_compare(value, _solution.second)) {
     // success
     _neighborhood->keep();
     _solution.second = value;
@@ -132,13 +102,16 @@ NonStrictRandomLocalSearch::iterate_full()
 
   if (_patience > 0 &&
       _failures == _patience)
-    throw LocalMaximum(_solution);
+    {
+      _solution.first =  _neighborhood->get_origin();
+      throw LocalMaximum(_solution);
+    }
 
 }
 
 
 void
-NonStrictRandomLocalSearch::iterate_incremental()
+RandomLocalSearch::iterate_incremental()
 {
   assert(_function);
   assert(_neighborhood);
@@ -146,7 +119,7 @@ NonStrictRandomLocalSearch::iterate_incremental()
   _neighborhood->propose();
   double delta = _function->delta(_neighborhood->get_origin(), _solution.second, _neighborhood->get_flipped_bits());
 
-  if (delta >= 0) {
+  if (_compare(delta, 0)) {
     // success
     _neighborhood->keep();
     _solution.second += delta;
@@ -160,6 +133,9 @@ NonStrictRandomLocalSearch::iterate_incremental()
 
   if (_patience > 0 &&
       _failures == _patience)
-    throw LocalMaximum(_solution);
+    {
+      _solution.first =  _neighborhood->get_origin();
+      throw LocalMaximum(_solution);
+    }
 
 }

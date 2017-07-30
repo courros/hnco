@@ -18,12 +18,12 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_LS_LOCAL_SEARCH_H
-#define HNCO_ALGORITHMS_LS_LOCAL_SEARCH_H
+#ifndef HNCO_ALGORITHMS_LS_RANDOM_LOCAL_SEARCH_H
+#define HNCO_ALGORITHMS_LS_RANDOM_LOCAL_SEARCH_H
 
 #include <assert.h>
 
-#include <vector>
+#include <functional>           // std::function
 
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/exception.hh"
@@ -35,7 +35,7 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// Abstract random local search
+  /// Random local search
   class RandomLocalSearch:
     public IterativeAlgorithm {
 
@@ -47,23 +47,21 @@ namespace algorithm {
     /// Number of failure
     int _failures;
 
+    /// Single iteration
+    void iterate();
+
+    /// Single iteration with full evaluation
+    void iterate_full();
+
+    /// Single iteration with incremental evaluation
+    void iterate_incremental();
+
   public:
 
     /// Constructor
     RandomLocalSearch(int n, neighborhood::Neighborhood *neighborhood):
       IterativeAlgorithm(n),
       _neighborhood(neighborhood) {}
-
-    /** Patience.
-
-        Number of consecutive rejected moves before throwing a
-        LocalMaximum exception
-
-        If patience <= 0 then patience is considered infinite, meaning
-        that the algorithm will never throw any LocalMaximum
-        exception.
-    */
-    int _patience = 50;
 
     /// Random initialization
     void init();
@@ -77,52 +75,28 @@ namespace algorithm {
     /// Solution
     const point_value_t& get_solution();
 
-  };
+    /** @name Parameters
+     */
+    ///@{
 
-  /// Strict random local search
-  class StrictRandomLocalSearch:
-    public RandomLocalSearch {
-
-    /** Single iteration
-
-        \warning iterate does not update _solution; it only updates
-        _maximum. The actual solution is embedded in the Neighborhood
-        object and can be retrieved with get_solution.
-    */
-    void iterate();
-
-  public:
-
-    /// Constructor
-    StrictRandomLocalSearch(int n,
-                            neighborhood::Neighborhood *neighborhood):
-      RandomLocalSearch(n, neighborhood) {}
-
-  };
-
-  /// Non strict random local search
-  class NonStrictRandomLocalSearch:
-    public RandomLocalSearch {
-
-    /** Single iteration
-
-        \warning iterate does not update _solution; it only updates
-        _maximum. The actual solution is embedded in the Neighborhood
-        object and can be retrieved with get_solution.
-    */
-    void iterate();
-    void iterate_incremental();
-    void iterate_full();
-
-  public:
-
-    /// Constructor
-    NonStrictRandomLocalSearch(int n,
-                               neighborhood::Neighborhood *neighborhood):
-      RandomLocalSearch(n, neighborhood) {}
+    /// Binary operator for comparing evaluations
+    std::function<bool(double, double)> _compare = std::greater_equal<double>();
 
     /// Incremental evaluation
     bool _incremental_evaluation = false;
+
+    /** Patience.
+
+        Number of consecutive rejected moves before throwing a
+        LocalMaximum exception
+
+        If patience <= 0 then patience is considered infinite, meaning
+        that the algorithm will never throw any LocalMaximum
+        exception.
+    */
+    int _patience = 50;
+
+    ///@}
 
   };
 
