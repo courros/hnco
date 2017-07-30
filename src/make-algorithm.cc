@@ -163,9 +163,8 @@ make_concrete_algorithm(Options& options)
        options.get_ea_lambda());
     assert(algo);
 
-    algo->set_mutation_probability(options.get_scaled_mutation_probability() / options.get_bv_size());
-
-    algo->_num_iterations = options.get_num_iterations();
+    algo->_num_iterations               = options.get_num_iterations();
+    algo->_mutation_probability         = options.get_scaled_mutation_probability() / options.get_bv_size();
 
     return algo;
   }
@@ -177,9 +176,8 @@ make_concrete_algorithm(Options& options)
        options.get_ea_lambda());
     assert(algo);
 
-    algo->set_mutation_probability(options.get_scaled_mutation_probability() / options.get_bv_size());
-
-    algo->_num_iterations = options.get_num_iterations();
+    algo->_num_iterations               = options.get_num_iterations();
+    algo->_mutation_probability         = options.get_scaled_mutation_probability() / options.get_bv_size();
 
     return algo;
   }

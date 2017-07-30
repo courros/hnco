@@ -38,6 +38,8 @@ using namespace std;
 void
 MuCommaLambdaEa::init()
 {
+  _do_mutation = std::bernoulli_distribution(_mutation_probability);
+
   _parents.random();
   _parents.eval(_function);
   _parents.sort();
