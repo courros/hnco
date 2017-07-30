@@ -19,21 +19,11 @@
 */
 
 #include <assert.h>
-#include <math.h>		// exp, log
-
-#include <iostream>
-#include <algorithm>		// max_element, min_element
-#include <numeric>		// accumulate, inner_product
-
-#include "hnco/random.hh"
-#include "hnco/functions/function.hh"
 
 #include "mmas.hh"
 
 using namespace hnco::algorithm;
-using namespace hnco::function;
-using namespace hnco::random;
-using namespace hnco;
+
 
 void
 Mmas::init()
