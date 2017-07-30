@@ -77,8 +77,6 @@ Options::Options(int argc, char *argv[]):
   _opt_num_threads(false),
   _path("nopath"),
   _opt_path(false),
-  _patience(50),
-  _opt_patience(false),
   _plugin_function_name("nofunction"),
   _opt_plugin_function_name(false),
   _population_size(10),
@@ -87,6 +85,8 @@ Options::Options(int argc, char *argv[]):
   _opt_pv_log_num_components(false),
   _radius(2),
   _opt_radius(false),
+  _rls_patience(50),
+  _opt_rls_patience(false),
   _sa_initial_acceptance_probability(0.6),
   _opt_sa_initial_acceptance_probability(false),
   _sa_num_transitions(50),
@@ -127,6 +127,7 @@ Options::Options(int argc, char *argv[]):
   _pv_log_entropy(false),
   _pv_log_pv(false),
   _restart(false),
+  _rls_strict(false),
   _stop_on_maximum(false),
   _stop_on_target(false)
 {
@@ -167,11 +168,11 @@ Options::Options(int argc, char *argv[]):
     OPTION_NUM_ITERATIONS,
     OPTION_NUM_THREADS,
     OPTION_PATH,
-    OPTION_PATIENCE,
     OPTION_PLUGIN_FUNCTION_NAME,
     OPTION_POPULATION_SIZE,
     OPTION_PV_LOG_NUM_COMPONENTS,
     OPTION_RADIUS,
+    OPTION_RLS_PATIENCE,
     OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY,
     OPTION_SA_NUM_TRANSITIONS,
     OPTION_SA_NUM_TRIALS,
@@ -204,6 +205,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_PV_LOG_ENTROPY,
     OPTION_PV_LOG_PV,
     OPTION_RESTART,
+    OPTION_RLS_STRICT,
     OPTION_STOP_ON_MAXIMUM,
     OPTION_STOP_ON_TARGET
   };
@@ -242,11 +244,11 @@ Options::Options(int argc, char *argv[]):
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
     {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
     {"path", required_argument, 0, OPTION_PATH},
-    {"patience", required_argument, 0, OPTION_PATIENCE},
     {"plugin-function-name", required_argument, 0, OPTION_PLUGIN_FUNCTION_NAME},
     {"population-size", required_argument, 0, OPTION_POPULATION_SIZE},
     {"pv-log-num-components", required_argument, 0, OPTION_PV_LOG_NUM_COMPONENTS},
     {"radius", required_argument, 0, OPTION_RADIUS},
+    {"rls-patience", required_argument, 0, OPTION_RLS_PATIENCE},
     {"sa-initial-acceptance-probability", required_argument, 0, OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY},
     {"sa-num-transitions", required_argument, 0, OPTION_SA_NUM_TRANSITIONS},
     {"sa-num-trials", required_argument, 0, OPTION_SA_NUM_TRIALS},
@@ -279,6 +281,7 @@ Options::Options(int argc, char *argv[]):
     {"pv-log-entropy", no_argument, 0, OPTION_PV_LOG_ENTROPY},
     {"pv-log-pv", no_argument, 0, OPTION_PV_LOG_PV},
     {"restart", no_argument, 0, OPTION_RESTART},
+    {"rls-strict", no_argument, 0, OPTION_RLS_STRICT},
     {"stop-on-maximum", no_argument, 0, OPTION_STOP_ON_MAXIMUM},
     {"stop-on-target", no_argument, 0, OPTION_STOP_ON_TARGET},
     {"help", no_argument, 0, OPTION_HELP},
@@ -437,10 +440,6 @@ Options::Options(int argc, char *argv[]):
       set_path(string(optarg));
       break;
 
-    case OPTION_PATIENCE:
-      set_patience(atoi(optarg));
-      break;
-
     case OPTION_PLUGIN_FUNCTION_NAME:
       set_plugin_function_name(string(optarg));
       break;
@@ -456,6 +455,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_RADIUS:
       set_radius(atoi(optarg));
+      break;
+
+    case OPTION_RLS_PATIENCE:
+      set_rls_patience(atoi(optarg));
       break;
 
     case OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY:
@@ -588,6 +591,10 @@ Options::Options(int argc, char *argv[]):
       _restart = true;
       break;
 
+    case OPTION_RLS_STRICT:
+      _rls_strict = true;
+      break;
+
     case OPTION_STOP_ON_MAXIMUM:
       _stop_on_maximum = true;
       break;
@@ -711,8 +718,7 @@ void Options::print_help(ostream& stream) const
   stream << "          Type of algorithm" << endl;
   stream << "            0: Complete search" << endl;
   stream << "            10: Random search" << endl;
-  stream << "            100: Non strict (>=) random local search" << endl;
-  stream << "            101: Strict (>) random local search" << endl;
+  stream << "            100: Random local search" << endl;
   stream << "            150: Steepest ascent hill climbing" << endl;
   stream << "            200: Simulated annealing" << endl;
   stream << "            300: (1+1) evolutionary algorithm" << endl;
@@ -748,10 +754,12 @@ void Options::print_help(ostream& stream) const
   stream << "          Type of neighborhood iterator" << endl;
   stream << "            0: One bit flip iterator" << endl;
   stream << "            1: Hamming ball iterator" << endl;
-  stream << "      --patience (type int, default to 50)" << endl;
-  stream << "          Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)" << endl;
   stream << "      --radius (type int, default to 2)" << endl;
   stream << "          Radius of Hamming ball or sphere" << endl;
+  stream << "      --rls-patience (type int, default to 50)" << endl;
+  stream << "          Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)" << endl;
+  stream << "      --rls-strict" << endl;
+  stream << "          Strict (>) random local search" << endl;
   stream << endl;
   stream << "Simulated Annealing:" << endl;
   stream << "      --sa-initial-acceptance-probability (type double, default to 0.6)" << endl;
@@ -893,11 +901,11 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# num_iterations = " << options._num_iterations << endl;
   stream << "# num_threads = " << options._num_threads << endl;
   stream << "# path = " << options._path << endl;
-  stream << "# patience = " << options._patience << endl;
   stream << "# plugin_function_name = " << options._plugin_function_name << endl;
   stream << "# population_size = " << options._population_size << endl;
   stream << "# pv_log_num_components = " << options._pv_log_num_components << endl;
   stream << "# radius = " << options._radius << endl;
+  stream << "# rls_patience = " << options._rls_patience << endl;
   stream << "# sa_initial_acceptance_probability = " << options._sa_initial_acceptance_probability << endl;
   stream << "# sa_num_transitions = " << options._sa_num_transitions << endl;
   stream << "# sa_num_trials = " << options._sa_num_trials << endl;
@@ -954,6 +962,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# pv_log_pv" << endl;
   if (options._restart)
     stream << "# restart" << endl;
+  if (options._rls_strict)
+    stream << "# rls_strict" << endl;
   if (options._stop_on_maximum)
     stream << "# stop_on_maximum" << endl;
   if (options._stop_on_target)

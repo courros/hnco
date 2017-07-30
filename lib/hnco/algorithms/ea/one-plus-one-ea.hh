@@ -47,11 +47,17 @@ namespace algorithm {
 
   public:
 
-    /// Constructor
+    /** Constructor.
+
+        \param n Size of bit vectors
+
+        _mutation_probability is initialized to 1 / n.
+    */
     OnePlusOneEa(int n):
       Algorithm(n),
       _neighborhood(n),
-      _rls(n, &_neighborhood) {}
+      _rls(n, &_neighborhood),
+      _mutation_probability(1 / double(n)) {}
 
     /// Set function
     void set_function(function::Function *function) {
@@ -62,8 +68,9 @@ namespace algorithm {
     /// Initialization
     void init() {
       _neighborhood.set_mutation_probability(_mutation_probability);
-      _rls._num_iterations = _num_iterations;
-      _rls._patience = 0;
+      _rls._num_iterations              = _num_iterations;
+      _rls._incremental_evaluation      = _incremental_evaluation;
+      _rls._patience                    = 0;
       _rls.init();
     }
 
@@ -73,12 +80,21 @@ namespace algorithm {
     /// Solution
     const point_value_t& get_solution() { return _rls.get_solution(); }
 
+    /** @name Parameters
+     */
+    ///@{
+
     /** Number of iterations.
         _num_iterations <= 0 means indefinite */
     int _num_iterations = 0;
 
+    /// Incremental evaluation
+    bool _incremental_evaluation = false;
+
     /// Mutation probability
-    double _mutation_probability = 0.01;
+    double _mutation_probability;
+
+    ///@}
 
   };
 

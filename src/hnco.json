@@ -110,6 +110,12 @@
             "category": "Local Search"
         },
 
+        "rls_strict":
+        {
+            "description": "Strict (>) random local search",
+            "category": "Local Search"
+        },
+
         "pv_log_pv":
         {
             "description": "Log probability vector",
@@ -485,12 +491,7 @@
 
                 {
                     "value": 100,
-                    "description": "Non strict (>=) random local search"
-                },
-
-                {
-                    "value": 101,
-                    "description": "Strict (>) random local search"
+                    "description": "Random local search"
                 },
 
                 {
@@ -647,7 +648,7 @@
 
         },
 
-        "patience":
+        "rls_patience":
         {
             "type": "int",
             "value": 50,

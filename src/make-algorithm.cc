@@ -100,29 +100,17 @@ make_concrete_algorithm(Options& options)
     auto neighborhood = make_neighborhood(options);
     assert(neighborhood);
 
-    auto algo = new NonStrictRandomLocalSearch
+    auto algo = new RandomLocalSearch
       (options.get_bv_size(),
        neighborhood);
     assert(algo);
 
     algo->_num_iterations               = options.get_num_iterations();
-    algo->_patience                     = options.get_patience();
+    algo->_patience                     = options.get_rls_patience();
     algo->_incremental_evaluation       = options.with_incremental_evaluation();
 
-    return algo;
-  }
-
-  case 101: {
-    auto neighborhood = make_neighborhood(options);
-    assert(neighborhood);
-
-    auto algo = new StrictRandomLocalSearch
-      (options.get_bv_size(),
-       neighborhood);
-    assert(algo);
-
-    algo->_num_iterations       = options.get_num_iterations();
-    algo->_patience             = options.get_patience();
+    if (options.with_rls_strict())
+      algo->_compare = std::greater<double>();
 
     return algo;
   }
@@ -157,13 +145,13 @@ make_concrete_algorithm(Options& options)
     return algo;
   }
 
-    // (1+1) EA
   case 300: {
     auto algo = new OnePlusOneEa(options.get_bv_size());
     assert(algo);
 
-    algo->_mutation_probability = options.get_scaled_mutation_probability() / options.get_bv_size();
-    algo->_num_iterations       = options.get_num_iterations();
+    algo->_num_iterations               = options.get_num_iterations();
+    algo->_mutation_probability         = options.get_scaled_mutation_probability() / options.get_bv_size();
+    algo->_incremental_evaluation       = options.with_incremental_evaluation();
 
     return algo;
   }

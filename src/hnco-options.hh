@@ -149,10 +149,6 @@ class Options {
   std::string _path;
   bool _opt_path;
 
-  /// Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)
-  int _patience;
-  bool _opt_patience;
-
   /// Name of the function in the dynamic library
   std::string _plugin_function_name;
   bool _opt_plugin_function_name;
@@ -168,6 +164,10 @@ class Options {
   /// Radius of Hamming ball or sphere
   int _radius;
   bool _opt_radius;
+
+  /// Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)
+  int _rls_patience;
+  bool _opt_rls_patience;
 
   /// Initial acceptance probability
   double _sa_initial_acceptance_probability;
@@ -272,6 +272,9 @@ class Options {
 
   /// Restart any algorithm an indefinite number of times
   bool _restart;
+
+  /// Strict (>) random local search
+  bool _rls_strict;
 
   /// Stop on maximum
   bool _stop_on_maximum;
@@ -698,18 +701,6 @@ public:
   /// Get set-flag for path
   bool set_path() const { return _opt_path; }
 
-  /// Get patience
-  int get_patience() const { return _patience; }
-
-  /// Set patience
-  void set_patience(int x) {
-    _patience = x;
-    _opt_patience = true;
-  }
-
-  /// Get set-flag for patience
-  bool set_patience() const { return _opt_patience; }
-
   /// Get plugin_function_name
   std::string get_plugin_function_name() const { return _plugin_function_name; }
 
@@ -757,6 +748,18 @@ public:
 
   /// Get set-flag for radius
   bool set_radius() const { return _opt_radius; }
+
+  /// Get rls_patience
+  int get_rls_patience() const { return _rls_patience; }
+
+  /// Set rls_patience
+  void set_rls_patience(int x) {
+    _rls_patience = x;
+    _opt_rls_patience = true;
+  }
+
+  /// Get set-flag for rls_patience
+  bool set_rls_patience() const { return _opt_rls_patience; }
 
   /// Get sa_initial_acceptance_probability
   double get_sa_initial_acceptance_probability() const { return _sa_initial_acceptance_probability; }
@@ -997,6 +1000,12 @@ public:
 
   /// Set restart
   void set_restart() { _restart = true; }
+ 
+  /// Get rls_strict
+  bool with_rls_strict() const { return _rls_strict; }
+
+  /// Set rls_strict
+  void set_rls_strict() { _rls_strict = true; }
  
   /// Get stop_on_maximum
   bool with_stop_on_maximum() const { return _stop_on_maximum; }
