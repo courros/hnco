@@ -19,6 +19,8 @@ Library:
 - Mmas: added public member _compare
 - Mmas: single class
 - Algorithm: added empty constructor
+- Renamed class Binomial -> BernoulliProcess
+- BernoulliProcess: renamed method set_mutation_probability -> set_probability
 
 Build:
 - optgen.pl distributed but not installed
