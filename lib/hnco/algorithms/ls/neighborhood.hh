@@ -147,7 +147,7 @@ namespace neighborhood {
   };
 
 
-  /** BernoulliProcess neighborhood.
+  /** Bernoulli process.
 
       Each component of the origin bit vector is flipped with some
       fixed probability. If no component has been flipped at the end,
