@@ -116,12 +116,12 @@ Options::Options(int argc, char *argv[]):
   _hea_log_error(false),
   _hea_log_selection(false),
   _hea_randomize_bit_order(false),
+  _header(false),
   _incremental_evaluation(false),
   _log_improvement(false),
   _map_random(false),
   _mmas_strict(false),
   _negation(false),
-  _no_header(false),
   _print_default_parameters(false),
   _print_performance(false),
   _print_solution(false),
@@ -195,12 +195,12 @@ Options::Options(int argc, char *argv[]):
     OPTION_HEA_LOG_ERROR,
     OPTION_HEA_LOG_SELECTION,
     OPTION_HEA_RANDOMIZE_BIT_ORDER,
+    OPTION_HEADER,
     OPTION_INCREMENTAL_EVALUATION,
     OPTION_LOG_IMPROVEMENT,
     OPTION_MAP_RANDOM,
     OPTION_MMAS_STRICT,
     OPTION_NEGATION,
-    OPTION_NO_HEADER,
     OPTION_PRINT_DEFAULT_PARAMETERS,
     OPTION_PRINT_PERFORMANCE,
     OPTION_PRINT_SOLUTION,
@@ -272,12 +272,12 @@ Options::Options(int argc, char *argv[]):
     {"hea-log-error", no_argument, 0, OPTION_HEA_LOG_ERROR},
     {"hea-log-selection", no_argument, 0, OPTION_HEA_LOG_SELECTION},
     {"hea-randomize-bit-order", no_argument, 0, OPTION_HEA_RANDOMIZE_BIT_ORDER},
+    {"header", no_argument, 0, OPTION_HEADER},
     {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
     {"log-improvement", no_argument, 0, OPTION_LOG_IMPROVEMENT},
     {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
     {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
     {"negation", no_argument, 0, OPTION_NEGATION},
-    {"no-header", no_argument, 0, OPTION_NO_HEADER},
     {"print-default-parameters", no_argument, 0, OPTION_PRINT_DEFAULT_PARAMETERS},
     {"print-performance", no_argument, 0, OPTION_PRINT_PERFORMANCE},
     {"print-solution", no_argument, 0, OPTION_PRINT_SOLUTION},
@@ -550,6 +550,10 @@ Options::Options(int argc, char *argv[]):
       _hea_randomize_bit_order = true;
       break;
 
+    case OPTION_HEADER:
+      _header = true;
+      break;
+
     case OPTION_INCREMENTAL_EVALUATION:
       _incremental_evaluation = true;
       break;
@@ -568,10 +572,6 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_NEGATION:
       _negation = true;
-      break;
-
-    case OPTION_NO_HEADER:
-      _no_header = true;
       break;
 
     case OPTION_PRINT_DEFAULT_PARAMETERS:
@@ -634,8 +634,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Describe the problem and exit" << endl;
   stream << "      --describe-solution" << endl;
   stream << "          At the end, describe the solution" << endl;
-  stream << "      --no-header" << endl;
-  stream << "          Do not print the header" << endl;
+  stream << "      --header" << endl;
+  stream << "          Print the header" << endl;
   stream << "      --num-threads (type int, default to 1)" << endl;
   stream << "          Number of threads" << endl;
   stream << "      --print-default-parameters" << endl;
@@ -948,6 +948,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# hea_log_selection" << endl;
   if (options._hea_randomize_bit_order)
     stream << "# hea_randomize_bit_order" << endl;
+  if (options._header)
+    stream << "# header" << endl;
   if (options._incremental_evaluation)
     stream << "# incremental_evaluation" << endl;
   if (options._log_improvement)
@@ -958,8 +960,6 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# mmas_strict" << endl;
   if (options._negation)
     stream << "# negation" << endl;
-  if (options._no_header)
-    stream << "# no_header" << endl;
   if (options._print_default_parameters)
     stream << "# print_default_parameters" << endl;
   if (options._print_performance)

@@ -32,9 +32,9 @@
             "category": "General"
         },
 
-        "no_header":
+        "header":
         {
-            "description": "Do not print the header",
+            "description": "Print the header",
             "category": "General"
         },
 

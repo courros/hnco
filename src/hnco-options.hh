@@ -240,6 +240,9 @@ class Options {
   /// Randomize bit order
   bool _hea_randomize_bit_order;
 
+  /// Print the header
+  bool _header;
+
   /// Incremental evaluation
   bool _incremental_evaluation;
 
@@ -254,9 +257,6 @@ class Options {
 
   /// Negation (hence minimization) of the function
   bool _negation;
-
-  /// Do not print the header
-  bool _no_header;
 
   /// Print the default parameters and exit
   bool _print_default_parameters;
@@ -938,6 +938,12 @@ public:
   /// Set hea_randomize_bit_order
   void set_hea_randomize_bit_order() { _hea_randomize_bit_order = true; }
  
+  /// Get header
+  bool with_header() const { return _header; }
+
+  /// Set header
+  void set_header() { _header = true; }
+ 
   /// Get incremental_evaluation
   bool with_incremental_evaluation() const { return _incremental_evaluation; }
 
@@ -967,12 +973,6 @@ public:
 
   /// Set negation
   void set_negation() { _negation = true; }
- 
-  /// Get no_header
-  bool with_no_header() const { return _no_header; }
-
-  /// Set no_header
-  void set_no_header() { _no_header = true; }
  
   /// Get print_default_parameters
   bool with_print_default_parameters() const { return _print_default_parameters; }
