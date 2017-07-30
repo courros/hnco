@@ -147,15 +147,15 @@ namespace neighborhood {
   };
 
 
-  /** Binomial neighborhood.
+  /** BernoulliProcess neighborhood.
 
       Each component of the origin bit vector is flipped with some
       fixed probability. If no component has been flipped at the end,
       the process is started all over again. Thus the number of
-      mutations follows a pseudo binomial law.
+      flipped bits follows a pseudo binomial law.
 
   */
-  class Binomial:
+  class BernoulliProcess:
     public Neighborhood {
 
     /// Biased coin
@@ -170,18 +170,18 @@ namespace neighborhood {
 
         \param n Size of bit vectors
 
-        The mutation probability is set to 1 / n.
+        The Bernoulli probability is set to 1 / n.
     */
-    Binomial(int n):
+    BernoulliProcess(int n):
       Neighborhood(n),
       _dist(1 / double(n)) {}
 
     /** Constructor.
 
         \param n Size of bit vectors
-        \param p Mutation probability
+        \param p Bernoulli probability
     */
-    Binomial(int n, double p):
+    BernoulliProcess(int n, double p):
       Neighborhood(n),
       _dist(p) {}
 

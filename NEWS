@@ -8,7 +8,7 @@ Library:
 - Neighborhood implements methods propose, keep, and forget
 - Local search: new files neighborhood-iterator.(hh|cc) and steepest-ascent-hill-climbing.(hh|cc)
 - Removed file one-plus-one-ea.cc
-- OnePlusOneEa implemented as a RandomLocalSearch with a Binomial neighborhood
+- OnePlusOneEa implemented as a RandomLocalSearch with a BernoulliProcess neighborhood
 - Incremental evaluation: OneMax
 - Incremental evaluation: RandomLocalSearch
 - Incremental evaluation: StopOnMaximum, StopOnTarget, CallCounter, ProgressTracker, OnBudgetFunction

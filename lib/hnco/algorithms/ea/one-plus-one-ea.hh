@@ -32,7 +32,7 @@ namespace algorithm {
 
   /** (1+1) EA.
 
-      (1+1) EA is implemented as a RandomLocalSearch with a Binomial
+      (1+1) EA is implemented as a RandomLocalSearch with a BernoulliProcess
       neighborhood and infinite patience. Thus it does derive from
       IterativeAlgorithm.
   */
@@ -40,7 +40,7 @@ namespace algorithm {
     public Algorithm {
 
     /// Neighborhood
-    neighborhood::Binomial _neighborhood;
+    neighborhood::BernoulliProcess _neighborhood;
 
     /// Random local search
     RandomLocalSearch _rls;

@@ -31,7 +31,7 @@ using namespace hnco;
 
 
 void
-Binomial::sample_bits()
+BernoulliProcess::sample_bits()
 {
   _flipped_bits.clear();
   bool again = true;

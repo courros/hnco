@@ -254,7 +254,7 @@ Random local search algorithms, including simulated algorithm, can use
 any neighborhood among:
 
 - One bit flip
-- Binomial
+- BernoulliProcess
 - Hamming ball
 - Hamming sphere
 

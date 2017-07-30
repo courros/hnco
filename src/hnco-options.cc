@@ -753,7 +753,7 @@ void Options::print_help(ostream& stream) const
   stream << "  -N, --neighborhood (type int, default to 0)" << endl;
   stream << "          Type of neighborhood" << endl;
   stream << "            0: One bit flip" << endl;
-  stream << "            1: Binomial" << endl;
+  stream << "            1: Bernoulli process" << endl;
   stream << "            2: Hamming ball" << endl;
   stream << "            3: Hamming sphere" << endl;
   stream << "      --neighborhood-iterator (type int, default to 0)" << endl;

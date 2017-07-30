@@ -41,7 +41,7 @@ make_neighborhood(Options& options)
     return new SingleBitFlip(options.get_bv_size());
 
   case 1:
-    return new Binomial(options.get_bv_size(), options.get_scaled_mutation_probability() / options.get_bv_size());
+    return new BernoulliProcess(options.get_bv_size(), options.get_scaled_mutation_probability() / options.get_bv_size());
 
   case 2:
     return new HammingBall(options.get_bv_size(), options.get_radius());
