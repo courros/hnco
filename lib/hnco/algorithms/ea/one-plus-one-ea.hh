@@ -32,8 +32,9 @@ namespace algorithm {
 
   /** (1+1) EA.
 
-      (1+1) EA is implemented as a NonStrictRandomLocalSearch with a
-      Binomial neighborhood and infinite patience.
+      (1+1) EA is implemented as a RandomLocalSearch with a Binomial
+      neighborhood and infinite patience. Thus it does derive from
+      IterativeAlgorithm.
   */
   class OnePlusOneEa:
     public Algorithm {
@@ -42,7 +43,7 @@ namespace algorithm {
     neighborhood::Binomial _neighborhood;
 
     /// Random local search
-    NonStrictRandomLocalSearch _rls;
+    RandomLocalSearch _rls;
 
   public:
 
