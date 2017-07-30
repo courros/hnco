@@ -185,8 +185,8 @@ namespace neighborhood {
       Neighborhood(n),
       _dist(p) {}
 
-    /// Set the mutation probability
-    void set_mutation_probability(double p) { _dist = std::bernoulli_distribution(p); }
+    /// Set probability
+    void set_probability(double p) { _dist = std::bernoulli_distribution(p); }
 
   };
 
