@@ -280,30 +280,15 @@ make_concrete_algorithm(Options& options)
   }
 
   case 800: {
-    auto algo = new NonStrictMmas(options.get_bv_size());
+    auto algo = new Mmas(options.get_bv_size());
     assert(algo);
 
     algo->_num_iterations       = options.get_num_iterations();
     algo->_rate                 = options.get_learning_rate();
     algo->_log_num_components   = options.get_pv_log_num_components();
 
-    PvAlgorithm::log_flags_t lf = {};
-    if (options.with_pv_log_pv())
-      lf.set(PvAlgorithm::LOG_PV);
-    if (options.with_pv_log_entropy())
-      lf.set(PvAlgorithm::LOG_ENTROPY);
-    algo->set_log_flags(lf);
-
-    return algo;
-  }
-
-  case 801: {
-    auto algo = new StrictMmas(options.get_bv_size());
-    assert(algo);
-
-    algo->_num_iterations       = options.get_num_iterations();
-    algo->_rate                 = options.get_learning_rate();
-    algo->_log_num_components   = options.get_pv_log_num_components();
+    if (options.with_mmas_strict())
+      algo->_compare = std::greater<double>();
 
     PvAlgorithm::log_flags_t lf = {};
     if (options.with_pv_log_pv())

@@ -47,26 +47,11 @@ Mmas::init()
 }
 
 void
-StrictMmas::iterate()
+Mmas::iterate()
 {
   pv_sample(_pv, _x);
   double value = _function->eval(_x);
-  if (value >= _solution.second) {
-    _solution.first = _x;
-    _solution.second = value;
-  }
-
-  // Update probability vector
-  pv_update(_pv, _rate, _solution.first);
-  pv_bound(_pv, _lower_bound, _upper_bound);
-}
-
-void
-NonStrictMmas::iterate()
-{
-  pv_sample(_pv, _x);
-  double value = _function->eval(_x);
-  if (value > _solution.second) {
+  if (_compare(value, _solution.second)) {
     _solution.first = _x;
     _solution.second = value;
   }

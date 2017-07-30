@@ -119,6 +119,7 @@ Options::Options(int argc, char *argv[]):
   _incremental_evaluation(false),
   _log_improvement(false),
   _map_random(false),
+  _mmas_strict(false),
   _negation(false),
   _no_header(false),
   _print_default_parameters(false),
@@ -197,6 +198,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_INCREMENTAL_EVALUATION,
     OPTION_LOG_IMPROVEMENT,
     OPTION_MAP_RANDOM,
+    OPTION_MMAS_STRICT,
     OPTION_NEGATION,
     OPTION_NO_HEADER,
     OPTION_PRINT_DEFAULT_PARAMETERS,
@@ -273,6 +275,7 @@ Options::Options(int argc, char *argv[]):
     {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
     {"log-improvement", no_argument, 0, OPTION_LOG_IMPROVEMENT},
     {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
+    {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
     {"negation", no_argument, 0, OPTION_NEGATION},
     {"no-header", no_argument, 0, OPTION_NO_HEADER},
     {"print-default-parameters", no_argument, 0, OPTION_PRINT_DEFAULT_PARAMETERS},
@@ -559,6 +562,10 @@ Options::Options(int argc, char *argv[]):
       _map_random = true;
       break;
 
+    case OPTION_MMAS_STRICT:
+      _mmas_strict = true;
+      break;
+
     case OPTION_NEGATION:
       _negation = true;
       break;
@@ -729,8 +736,7 @@ void Options::print_help(ostream& stream) const
   stream << "            501: PBIL with negative and positive selection" << endl;
   stream << "            600: Univariate marginal distribution algorithm" << endl;
   stream << "            700: Compact genetic algorithm" << endl;
-  stream << "            800: Non strict (>=) max-min ant system" << endl;
-  stream << "            801: Strict (>) max-min ant system" << endl;
+  stream << "            800: Max-min ant system" << endl;
   stream << "            900: Herding evolutionary algorithm, herding with binary variables" << endl;
   stream << "            901: Herding evolutionary algorithm, herding with spin variables" << endl;
   stream << "            1000: Boltzmann machine PBIL" << endl;
@@ -784,6 +790,8 @@ void Options::print_help(ostream& stream) const
   stream << "EDA:" << endl;
   stream << "  -r, --learning-rate (type double, default to 0.001)" << endl;
   stream << "          Learning rate" << endl;
+  stream << "      --mmas-strict" << endl;
+  stream << "          Strict (>) max-min ant system" << endl;
   stream << "  -x, --population-size (type int, default to 10)" << endl;
   stream << "          Size of the population" << endl;
   stream << "      --pv-log-entropy" << endl;
@@ -946,6 +954,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# log_improvement" << endl;
   if (options._map_random)
     stream << "# map_random" << endl;
+  if (options._mmas_strict)
+    stream << "# mmas_strict" << endl;
   if (options._negation)
     stream << "# negation" << endl;
   if (options._no_header)

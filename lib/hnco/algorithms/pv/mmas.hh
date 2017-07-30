@@ -21,15 +21,23 @@
 #ifndef HNCO_ALGORITHMS_PV_MMAS_H
 #define HNCO_ALGORITHMS_PV_MMAS_H
 
+#include <functional>           // std::function
+
 #include "pv-algorithm.hh"
 
 
 namespace hnco::algorithm {
 
+
   /// Max-min ant system
   class Mmas:
     public PvAlgorithm {
+
   protected:
+
+    /// Single iteration
+    void iterate();
+
     /// Candidate solution
     bit_vector_t _x;
 
@@ -40,36 +48,23 @@ namespace hnco::algorithm {
       PvAlgorithm(n),
       _x(n) {}
 
-    /// Learning rate
-    double _rate;
-
     /// Initialization
     void init();
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Binary operator for comparing evaluations
+    std::function<bool(double, double)> _compare = std::greater_equal<double>();
+
+    /// Learning rate
+    double _rate;
+
+    ///@}
+
   };
 
-  /// Strict max-min ant system
-  class StrictMmas:
-    public Mmas {
-    /// Single iteration
-    void iterate();
-
-  public:
-    /// Constructor
-    StrictMmas(int n):
-      Mmas(n) {}
-  };
-
-  /// Non strict max-min ant system
-  class NonStrictMmas:
-    public Mmas {
-    /// Single iteration
-    void iterate();
-  public:
-    /// Constructor
-    NonStrictMmas(int n):
-      Mmas(n) {}
-  };
 
 } // end of namespace hnco::algorithm
 

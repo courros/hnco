@@ -128,6 +128,12 @@
             "category": "EDA"
         },
 
+        "mmas_strict":
+        {
+            "description": "Strict (>) max-min ant system",
+            "category": "EDA"
+        },
+
         "hea_randomize_bit_order":
         {
             "description": "Randomize bit order",
@@ -546,12 +552,7 @@
 
                 {
                     "value": 800,
-                    "description": "Non strict (>=) max-min ant system"
-                },
-
-                {
-                    "value": 801,
-                    "description": "Strict (>) max-min ant system"
+                    "description": "Max-min ant system"
                 },
 
                 {

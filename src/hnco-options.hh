@@ -249,6 +249,9 @@ class Options {
   /// Sample a random map
   bool _map_random;
 
+  /// Strict (>) max-min ant system
+  bool _mmas_strict;
+
   /// Negation (hence minimization) of the function
   bool _negation;
 
@@ -952,6 +955,12 @@ public:
 
   /// Set map_random
   void set_map_random() { _map_random = true; }
+ 
+  /// Get mmas_strict
+  bool with_mmas_strict() const { return _mmas_strict; }
+
+  /// Set mmas_strict
+  void set_mmas_strict() { _mmas_strict = true; }
  
   /// Get negation
   bool with_negation() const { return _negation; }
