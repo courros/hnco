@@ -7,7 +7,6 @@ Library:
 - Neighborhood: added pure virtual method sample_bits
 - Neighborhood implements methods propose, keep, and forget
 - Local search: new files neighborhood-iterator.(hh|cc) and steepest-ascent-hill-climbing.(hh|cc)
-- Removed file one-plus-one-ea.cc
 - OnePlusOneEa implemented as RandomLocalSearch with BernoulliProcess
 - Incremental evaluation: OneMax
 - Incremental evaluation: RandomLocalSearch
@@ -21,6 +20,7 @@ Library:
 - BernoulliProcess: renamed method set_mutation_probability -> set_probability
 - Added ReservoirSamplingNeighborhood
 - BernoulliProcess, HammingBall, and HammingSphere derive from ReservoirSamplingNeighborhood
+- Added classes FunctionController and FunctionModifier
 
 hnco:
 - Removed option --no-header
