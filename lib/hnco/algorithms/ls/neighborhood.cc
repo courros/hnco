@@ -20,7 +20,7 @@
 
 #include <assert.h>
 
-#include <algorithm>            // all_of, any_of, fill
+#include <algorithm>            // find
 
 #include "neighborhood.hh"
 
@@ -31,17 +31,38 @@ using namespace hnco;
 
 
 void
-BernoulliProcess::sample_bits()
+BernoulliProcess::do_bernoulli_process()
 {
   _flipped_bits.clear();
   bool again = true;
   do {
     for (size_t i = 0; i < _candidate.size(); i++)
-      if (_dist(Random::engine)) {
+      if (_bernoulli_dist(Random::engine)) {
         _flipped_bits.push_back(i);
         again = false;
       }
   } while (again);
+}
+
+
+void
+BernoulliProcess::do_reservoir_sampling()
+{
+  int k = 0;
+  while (k == 0)
+    k = _binomial_dist(Random::engine);
+  assert(k > 0);
+
+  _flipped_bits.clear();
+  for (int i = 0; i < k; i++) {
+    int index;
+    do {
+      index = _uniform_index_dist(Random::engine);
+    } while (find(begin(_flipped_bits),
+                  end(_flipped_bits),
+                  index) != _flipped_bits.end());
+    _flipped_bits.push_back(index);
+  }
 }
 
 

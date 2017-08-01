@@ -124,13 +124,13 @@ namespace neighborhood {
   class SingleBitFlip:
     public Neighborhood {
 
-    /// Choose an index
-    std::uniform_int_distribution<int> _choose_index;
+    /// Uniform index distribution
+    std::uniform_int_distribution<int> _uniform_index_dist;
 
     /// Sample bits
     void sample_bits() {
       assert(_flipped_bits.size() == 1);
-      _flipped_bits[0] = _choose_index(random::Random::engine);;
+      _flipped_bits[0] = _uniform_index_dist(random::Random::engine);;
     }
 
   public:
@@ -138,7 +138,7 @@ namespace neighborhood {
     /// Constructor
     SingleBitFlip(int n):
       Neighborhood(n),
-      _choose_index(0, n - 1)
+      _uniform_index_dist(0, n - 1)
     {
       assert(n > 0);
       _flipped_bits.resize(1);
@@ -158,11 +158,31 @@ namespace neighborhood {
   class BernoulliProcess:
     public Neighborhood {
 
-    /// Biased coin
-    std::bernoulli_distribution _dist;
+    /// Bernoulli distribution (biased coin)
+    std::bernoulli_distribution _bernoulli_dist;
+
+    /// Binomial distribution
+    std::binomial_distribution<int> _binomial_dist;
+
+    /// Uniform index distribution
+    std::uniform_int_distribution<int> _uniform_index_dist;
+
+    /// Reservoir sampling
+    bool _reservoir_sampling = false;
+
+    /// Bernoulli process
+    void do_bernoulli_process();
+
+    /// Reservoir sampling
+    void do_reservoir_sampling();
 
     /// Sample bits
-    void sample_bits();
+    void sample_bits() {
+      if (_reservoir_sampling)
+        do_reservoir_sampling();
+      else
+        do_bernoulli_process();
+    }
 
   public:
 
@@ -174,7 +194,9 @@ namespace neighborhood {
     */
     BernoulliProcess(int n):
       Neighborhood(n),
-      _dist(1 / double(n)) {}
+      _bernoulli_dist(1 / double(n)),
+      _binomial_dist(n, 1 / double(n)),
+      _uniform_index_dist(0, n - 1) {}
 
     /** Constructor.
 
@@ -183,10 +205,22 @@ namespace neighborhood {
     */
     BernoulliProcess(int n, double p):
       Neighborhood(n),
-      _dist(p) {}
+      _bernoulli_dist(p),
+      _binomial_dist(n, p),
+      _uniform_index_dist(0, n - 1) {}
 
-    /// Set probability
-    void set_probability(double p) { _dist = std::bernoulli_distribution(p); }
+    /** Set probability.
+
+        Sets _reservoir_sampling to true if E(X) < sqrt(n), where X is
+        a random variable with a binomial distribution B(n, p), that
+        is if np < sqrt(n) or p < 1 / sqrt(n).
+    */
+    void set_probability(double p) {
+      _bernoulli_dist = std::bernoulli_distribution(p);
+      _binomial_dist = std::binomial_distribution<int>(_origin.size(), p);
+      if (p < 1 / std::sqrt(_origin.size()))
+        _reservoir_sampling = true;
+    }
 
   };
 
