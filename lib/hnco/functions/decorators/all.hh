@@ -23,6 +23,6 @@
 
 #include "function-decorator.hh"
 #include "function-controller.hh"
-#include "modifier.hh"
+#include "function-modifier.hh"
 
 #endif

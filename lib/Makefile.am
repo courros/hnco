@@ -76,8 +76,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/decorators/function-controller.cc \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
-	hnco/functions/decorators/modifier.cc \
-	hnco/functions/decorators/modifier.hh \
+	hnco/functions/decorators/function-modifier.cc \
+	hnco/functions/decorators/function-modifier.hh \
 	hnco/functions/equal-products.cc \
 	hnco/functions/equal-products.hh \
 	hnco/functions/four-peaks.cc \
@@ -163,12 +163,12 @@ nobase_include_HEADERS = \
 	hnco/exception.hh \
 	hnco/functions/all.hh \
 	hnco/functions/cancellation.hh \
-	hnco/functions/equal-products.hh \
-	hnco/functions/four-peaks.hh \
 	hnco/functions/decorators/all.hh \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
-	hnco/functions/decorators/modifier.hh \
+	hnco/functions/decorators/function-modifier.hh \
+	hnco/functions/equal-products.hh \
+	hnco/functions/four-peaks.hh \
 	hnco/functions/function.hh \
 	hnco/functions/jump.hh \
 	hnco/functions/labs.hh \
