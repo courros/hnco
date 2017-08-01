@@ -14,10 +14,8 @@ Library:
 - Incremental evaluation: StopOnMaximum, StopOnTarget, CallCounter, ProgressTracker, OnBudgetFunction
 - Incremental evaluation: Negation
 - All function decorators moved under decorators/
-- RandomLocalSearch: added public member _compare
-- RandomLocalSearch: single class
-- Mmas: added public member _compare
-- Mmas: single class
+- RandomLocalSearch, Mmas: added public member _compare
+- RandomLocalSearch, Mmas: single class
 - Algorithm: added empty constructor
 - Renamed class Binomial -> BernoulliProcess
 - BernoulliProcess: renamed method set_mutation_probability -> set_probability
