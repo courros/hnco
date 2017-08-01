@@ -52,9 +52,6 @@ namespace hnco::function {
     Negation(Function *function):
       FunctionDecorator(function) {}
 
-    /// Constructor
-    Negation() {}
-
     /** Check for a known maximum.
         \return false */
     bool has_known_maximum() { return false; }
