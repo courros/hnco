@@ -19,6 +19,7 @@ Library:
 - Algorithm: added empty constructor
 - Renamed class Binomial -> BernoulliProcess
 - BernoulliProcess: renamed method set_mutation_probability -> set_probability
+- BernoulliProcess: added reservoir sampling
 
 hnco:
 - Removed option --no-header

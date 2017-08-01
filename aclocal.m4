@@ -55,7 +55,7 @@ To do so, use the procedure documented by the package, typically 'autoreconf'.])
 #   and this notice are preserved. This file is offered as-is, without any
 #   warranty.
 
-#serial 26
+#serial 27
 
 AC_DEFUN([AX_BOOST_BASE],
 [
@@ -118,7 +118,7 @@ if test "x$want_boost" = "xyes"; then
         libsubdirs="lib64 libx32 lib lib64"
         ;;
       ppc64|s390x|sparc64|aarch64|ppc64le)
-        libsubdirs="lib64 lib lib64 ppc64le"
+        libsubdirs="lib64 lib lib64"
         ;;
     esac
 
@@ -435,9 +435,9 @@ AC_DEFUN([AX_BOOST_SERIALIZATION],
 # DESCRIPTION
 #
 #   Check for baseline language coverage in the compiler for the specified
-#   version of the C++ standard.  If necessary, add switches to CXX to
-#   enable support.  VERSION may be '11' (for the C++11 standard) or '14'
-#   (for the C++14 standard).
+#   version of the C++ standard.  If necessary, add switches to CXX and
+#   CXXCPP to enable support.  VERSION may be '11' (for the C++11 standard)
+#   or '14' (for the C++14 standard).
 #
 #   The second argument, if specified, indicates whether you insist on an
 #   extended mode (e.g. -std=gnu++11) or a strict conformance mode (e.g.
@@ -465,7 +465,7 @@ AC_DEFUN([AX_BOOST_SERIALIZATION],
 #   and this notice are preserved.  This file is offered as-is, without any
 #   warranty.
 
-#serial 3
+#serial 4
 
 dnl  This macro is based on the code from the AX_CXX_COMPILE_STDCXX_11 macro
 dnl  (serial version number 13).
@@ -508,6 +508,9 @@ AC_DEFUN([AX_CXX_COMPILE_STDCXX], [dnl
          CXX="$ac_save_CXX"])
       if eval test x\$$cachevar = xyes; then
         CXX="$CXX $switch"
+        if test -n "$CXXCPP" ; then
+          CXXCPP="$CXXCPP $switch"
+        fi
         ac_success=yes
         break
       fi
@@ -531,6 +534,9 @@ AC_DEFUN([AX_CXX_COMPILE_STDCXX], [dnl
          CXX="$ac_save_CXX"])
       if eval test x\$$cachevar = xyes; then
         CXX="$CXX $switch"
+        if test -n "$CXXCPP" ; then
+          CXXCPP="$CXXCPP $switch"
+        fi
         ac_success=yes
         break
       fi
@@ -992,7 +998,8 @@ namespace cxx14
 # DESCRIPTION
 #
 #   Check for baseline language coverage in the compiler for the C++11
-#   standard; if necessary, add switches to CXX to enable support.
+#   standard; if necessary, add switches to CXX and CXXCPP to enable
+#   support.
 #
 #   This macro is a convenience alias for calling the AX_CXX_COMPILE_STDCXX
 #   macro with the version set to C++11.  The two optional arguments are
@@ -1015,10 +1022,9 @@ namespace cxx14
 #   and this notice are preserved. This file is offered as-is, without any
 #   warranty.
 
-#serial 15
+#serial 17
 
-include([ax_cxx_compile_stdcxx.m4])
-
+AX_REQUIRE_DEFINED([AX_CXX_COMPILE_STDCXX])
 AC_DEFUN([AX_CXX_COMPILE_STDCXX_11], [AX_CXX_COMPILE_STDCXX([11], [$1], [$2])])
 
 # Copyright (C) 2002-2014 Free Software Foundation, Inc.
