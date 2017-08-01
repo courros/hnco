@@ -59,8 +59,7 @@ BernoulliProcess::do_reservoir_sampling()
     do {
       index = _uniform_index_dist(Random::engine);
     } while (find(begin(_flipped_bits),
-                  end(_flipped_bits),
-                  index) != _flipped_bits.end());
+                  end(_flipped_bits), index) != _flipped_bits.end());
     _flipped_bits.push_back(index);
   }
 }
