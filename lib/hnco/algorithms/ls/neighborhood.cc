@@ -31,26 +31,26 @@ using namespace hnco;
 
 
 void
-BernoulliProcess::do_bernoulli_process()
+ReservoirSamplingNeighborhood::bernoulli_trials(int k)
 {
+  int n = _candidate.size();
+
   _flipped_bits.clear();
-  bool again = true;
-  do {
-    for (size_t i = 0; i < _candidate.size(); i++)
-      if (_bernoulli_dist(Random::engine)) {
-        _flipped_bits.push_back(i);
-        again = false;
-      }
-  } while (again);
+  for (size_t i = 0; i < _candidate.size(); i++) {
+    double p = double(k) / double(n);
+    if (Random::uniform() < p) {
+      _flipped_bits.push_back(i);
+      k--;
+    }
+    n--;
+  }
+  assert(k == 0);
 }
 
 
 void
-BernoulliProcess::do_reservoir_sampling()
+ReservoirSamplingNeighborhood::reservoir_sampling(int k)
 {
-  int k = 0;
-  while (k == 0)
-    k = _binomial_dist(Random::engine);
   assert(k > 0);
 
   _flipped_bits.clear();
@@ -66,42 +66,54 @@ BernoulliProcess::do_reservoir_sampling()
 
 
 void
+BernoulliProcess::sample_bits()
+{
+  if (_reservoir_sampling) {
+    int k = 0;
+    while (k == 0)
+      k = _binomial_dist(Random::engine);
+    assert(k > 0);
+    reservoir_sampling(k);
+  } else
+    bernoulli_process();
+}
+
+
+void
+BernoulliProcess::bernoulli_process()
+{
+  _flipped_bits.clear();
+  bool again = true;
+  do {
+    for (size_t i = 0; i < _candidate.size(); i++)
+      if (_bernoulli_dist(Random::engine)) {
+        _flipped_bits.push_back(i);
+        again = false;
+      }
+  } while (again);
+}
+
+
+void
 HammingBall::sample_bits()
 {
-  int n = _candidate.size();
-  int k = _choose_k(Random::engine);
+  const int n = _candidate.size();
+  const int k = _choose_k(Random::engine);
   assert(k <= n);
+  assert(k > 0);
 
-  _flipped_bits.clear();
-  for (size_t i = 0; i < _candidate.size(); i++) {
-    double p = double(k) / double(n);
-    if (Random::uniform() < p) {
-      _flipped_bits.push_back(i);
-      k--;
-    }
-    n--;
-  }
-
-  assert(k == 0);
+  if (k < std::sqrt(n))
+    reservoir_sampling(k);
+  else
+    bernoulli_trials(k);
 }
 
 
 void
 HammingSphere::sample_bits()
 {
-  int n = _candidate.size();
-  int k = _radius;
-  assert(k <= n);
-
-  _flipped_bits.clear();
-  for (size_t i = 0; i < _candidate.size(); i++) {
-    double p = double(k) / double(n);
-    if (Random::uniform() < p) {
-      _flipped_bits.push_back(i);
-      k--;
-    }
-    n--;
-  }
-
-  assert(k == 0);
+  if (_radius < std::sqrt(_candidate.size()))
+    reservoir_sampling(_radius);
+  else
+    bernoulli_trials(_radius);
 }

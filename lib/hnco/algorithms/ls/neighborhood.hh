@@ -64,6 +64,9 @@ namespace neighborhood {
     /// candidate bit vector
     bit_vector_t _candidate;
 
+    /// Uniform index distribution
+    std::uniform_int_distribution<int> _uniform_index_dist;
+
     /// Flipped bits
     sparse_bit_vector_t _flipped_bits;
 
@@ -78,7 +81,8 @@ namespace neighborhood {
     */
     Neighborhood(int n):
       _origin(n),
-      _candidate(n) {}
+      _candidate(n),
+      _uniform_index_dist(0, n - 1) {}
 
     /// Destructor
     virtual ~Neighborhood() {}
@@ -124,9 +128,6 @@ namespace neighborhood {
   class SingleBitFlip:
     public Neighborhood {
 
-    /// Uniform index distribution
-    std::uniform_int_distribution<int> _uniform_index_dist;
-
     /// Sample bits
     void sample_bits() {
       assert(_flipped_bits.size() == 1);
@@ -137,12 +138,41 @@ namespace neighborhood {
 
     /// Constructor
     SingleBitFlip(int n):
-      Neighborhood(n),
-      _uniform_index_dist(0, n - 1)
+      Neighborhood(n)
     {
       assert(n > 0);
       _flipped_bits.resize(1);
     }
+
+  };
+
+
+  /// Neighborhood with reservoir samping
+  class ReservoirSamplingNeighborhood:
+    public Neighborhood {
+
+  protected:
+
+    /** Sample a given number of bits using Bernoulli trials.
+
+        \param k Number of bits to sample
+    */
+    void bernoulli_trials(int k);
+
+    /** Sample a given number of bits using resevoir sampling.
+
+        \param k Number of bits to sample
+    */
+    void reservoir_sampling(int k);
+
+  public:
+
+    /** Constructor.
+
+        \param n Size of bit vectors
+    */
+    ReservoirSamplingNeighborhood(int n):
+      Neighborhood(n) {}
 
   };
 
@@ -156,7 +186,7 @@ namespace neighborhood {
 
   */
   class BernoulliProcess:
-    public Neighborhood {
+    public ReservoirSamplingNeighborhood {
 
     /// Bernoulli distribution (biased coin)
     std::bernoulli_distribution _bernoulli_dist;
@@ -164,25 +194,14 @@ namespace neighborhood {
     /// Binomial distribution
     std::binomial_distribution<int> _binomial_dist;
 
-    /// Uniform index distribution
-    std::uniform_int_distribution<int> _uniform_index_dist;
-
     /// Reservoir sampling
     bool _reservoir_sampling = false;
 
-    /// Bernoulli process
-    void do_bernoulli_process();
-
-    /// Reservoir sampling
-    void do_reservoir_sampling();
-
     /// Sample bits
-    void sample_bits() {
-      if (_reservoir_sampling)
-        do_reservoir_sampling();
-      else
-        do_bernoulli_process();
-    }
+    void sample_bits();
+
+    /// Bernoulli process
+    void bernoulli_process();
 
   public:
 
@@ -193,10 +212,9 @@ namespace neighborhood {
         The Bernoulli probability is set to 1 / n.
     */
     BernoulliProcess(int n):
-      Neighborhood(n),
+      ReservoirSamplingNeighborhood(n),
       _bernoulli_dist(1 / double(n)),
-      _binomial_dist(n, 1 / double(n)),
-      _uniform_index_dist(0, n - 1) {}
+      _binomial_dist(n, 1 / double(n)) {}
 
     /** Constructor.
 
@@ -204,10 +222,9 @@ namespace neighborhood {
         \param p Bernoulli probability
     */
     BernoulliProcess(int n, double p):
-      Neighborhood(n),
+      ReservoirSamplingNeighborhood(n),
       _bernoulli_dist(p),
-      _binomial_dist(n, p),
-      _uniform_index_dist(0, n - 1) {}
+      _binomial_dist(n, p) {}
 
     /** Set probability.
 
@@ -229,10 +246,9 @@ namespace neighborhood {
 
       Choose k uniformly on [1..r], where r is the radius of the ball,
       choose k bits uniformly among n and flip them.
-
   */
   class HammingBall:
-    public Neighborhood {
+    public ReservoirSamplingNeighborhood {
 
     /// Radius of the ball
     int _radius;
@@ -251,7 +267,7 @@ namespace neighborhood {
         \param r Radius of the ball
     */
     HammingBall(int n, int r):
-      Neighborhood(n),
+      ReservoirSamplingNeighborhood(n),
       _radius(r),
       _choose_k(1, r)
     {
@@ -269,7 +285,7 @@ namespace neighborhood {
       radius of the sphere.
   */
   class HammingSphere:
-    public Neighborhood {
+    public ReservoirSamplingNeighborhood {
 
     /// Radius of the sphere
     int _radius;
@@ -285,7 +301,7 @@ namespace neighborhood {
         \param r Radius of the sphere
     */
     HammingSphere(int n, int r):
-      Neighborhood(n),
+      ReservoirSamplingNeighborhood(n),
       _radius(r)
     {
       assert(n > 0);

@@ -19,7 +19,8 @@ Library:
 - Algorithm: added empty constructor
 - Renamed class Binomial -> BernoulliProcess
 - BernoulliProcess: renamed method set_mutation_probability -> set_probability
-- BernoulliProcess: added reservoir sampling
+- Added ReservoirSamplingNeighborhood
+- BernoulliProcess, HammingBall, and HammingSphere derive from ReservoirSamplingNeighborhood
 
 hnco:
 - Removed option --no-header
