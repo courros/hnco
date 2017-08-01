@@ -18,20 +18,32 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_DECORATORS_MODIFIER_H
-#define HNCO_FUNCTIONS_DECORATORS_MODIFIER_H
+#ifndef HNCO_FUNCTIONS_DECORATORS_FUNCTION_MODIFIER_H
+#define HNCO_FUNCTIONS_DECORATORS_FUNCTION_MODIFIER_H
 
 #include <assert.h>
 
 #include <iostream>
-#include <unordered_map>
 
 #include "hnco/map.hh"
 
-#include "hnco/functions/decorators/function-decorator.hh"
+#include "function-decorator.hh"
 
 
 namespace hnco::function {
+
+
+  /// Function modifier
+  class FunctionModifier:
+    public FunctionDecorator {
+
+  public:
+
+    /// Constructor
+    FunctionModifier(Function *function):
+      FunctionDecorator(function) {}
+
+  };
 
 
   /** Negation.
@@ -44,13 +56,13 @@ namespace hnco::function {
 
   */
   class Negation:
-    public FunctionDecorator {
+    public FunctionModifier {
 
   public:
 
     /// Constructor
     Negation(Function *function):
-      FunctionDecorator(function) {}
+      FunctionModifier(function) {}
 
     /** Check for a known maximum.
         \return false */
@@ -71,7 +83,7 @@ namespace hnco::function {
 
   /// Composition of a function and a map
   class FunctionMapComposition:
-    public FunctionDecorator {
+    public FunctionModifier {
 
     /// Map
     Map *_map;
@@ -86,7 +98,7 @@ namespace hnco::function {
         \throw Error
     */
     FunctionMapComposition(Function *function, Map *map):
-      FunctionDecorator(function),
+      FunctionModifier(function),
       _map(map)
     {
       assert(map);
@@ -125,7 +137,7 @@ namespace hnco::function {
 
   /// Additive Gaussian Noise
   class AdditiveGaussianNoise:
-    public FunctionDecorator {
+    public FunctionModifier {
 
     /// Normal distribution
     std::normal_distribution<double> _dist;
@@ -134,7 +146,7 @@ namespace hnco::function {
 
     /// Constructor
     AdditiveGaussianNoise(Function *function, double stddev):
-      FunctionDecorator(function),
+      FunctionModifier(function),
       _dist(0, stddev) {}
 
     /// Evaluate a bit vector
