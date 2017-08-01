@@ -20,7 +20,7 @@
 
 #include "hnco/random.hh"
 
-#include "control.hh"
+#include "function-controller.hh"
 
 
 using namespace hnco::exception;
