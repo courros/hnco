@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_DECORATORS_CONTROL_H
-#define HNCO_FUNCTIONS_DECORATORS_CONTROL_H
+#ifndef HNCO_FUNCTIONS_DECORATORS_FUNCTION_CONTROLLER_H
+#define HNCO_FUNCTIONS_DECORATORS_FUNCTION_CONTROLLER_H
 
 #include <assert.h>
 
@@ -28,10 +28,23 @@
 
 #include "hnco/map.hh"
 
-#include "hnco/functions/decorators/function-decorator.hh"
+#include "function-decorator.hh"
 
 
 namespace hnco::function {
+
+
+  /// Function controller
+  class FunctionController:
+    public FunctionDecorator {
+
+  public:
+
+    /// Constructor
+    FunctionController(Function *function):
+      FunctionDecorator(function) {}
+
+  };
 
 
   /** Stop on maximum.
@@ -40,7 +53,7 @@ namespace hnco::function {
       when its argument maximizes the decorated function.
   */
   class StopOnMaximum:
-    public FunctionDecorator {
+    public FunctionController {
 
   public:
 
@@ -48,7 +61,7 @@ namespace hnco::function {
         \param function Decorated function
         \pre function->has_known_maximum() */
     StopOnMaximum(Function *function):
-      FunctionDecorator(function)
+      FunctionController(function)
     {
       assert(function->has_known_maximum());
     }
@@ -71,7 +84,7 @@ namespace hnco::function {
 
   /// Stop on target
   class StopOnTarget:
-    public FunctionDecorator {
+    public FunctionController {
 
     /// Target
     double _target;
@@ -81,7 +94,7 @@ namespace hnco::function {
     /** Constructor.
         \param function Decorated function */
     StopOnTarget(Function *function, double target):
-      FunctionDecorator(function),
+      FunctionController(function),
       _target(target) {}
 
     /** Evaluate a bit vector.
@@ -102,7 +115,7 @@ namespace hnco::function {
 
   /// Call counter
   class CallCounter:
-    public FunctionDecorator {
+    public FunctionController {
 
   protected:
 
@@ -113,7 +126,7 @@ namespace hnco::function {
 
     /// Constructor
     CallCounter(Function *function):
-      FunctionDecorator(function),
+      FunctionController(function),
       _num_calls(0) {}
 
 
@@ -255,7 +268,7 @@ namespace hnco::function {
       checking its existence in the map.
   */
   class Cache:
-    public FunctionDecorator {
+    public FunctionController {
 
     /// Database of past evaluations
     std::unordered_map<std::vector<bool>, double> _cache;
@@ -274,7 +287,7 @@ namespace hnco::function {
     /** Constructor.
         \param function Decorated function */
     Cache(Function *function):
-      FunctionDecorator(function),
+      FunctionController(function),
       _x(function->get_bv_size()),
       _num_evaluations(0),
       _num_lookups(0) {}
