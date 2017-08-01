@@ -48,10 +48,6 @@ namespace hnco::function {
     FunctionDecorator(Function *function):
       _function(function) {}
 
-    /// Constructor
-    FunctionDecorator():
-      _function(0) {}
-
 
     /// Get bit vector size
     size_t get_bv_size() { return _function->get_bv_size(); }
