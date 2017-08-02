@@ -16,14 +16,19 @@ Library:
 - RandomLocalSearch, Mmas: single class
 - Renamed class Binomial -> BernoulliProcess
 - BernoulliProcess: renamed method set_mutation_probability -> set_probability
-- Added ReservoirSamplingNeighborhood
-- BernoulliProcess, HammingBall, and HammingSphere derive from ReservoirSamplingNeighborhood
+- Added MultiBitFlip
+- BernoulliProcess, HammingBall, and HammingSphere derive from MultiBitFlip
 - All function decorators moved under decorators/
 - Added classes FunctionController and FunctionModifier
 
 hnco:
 - Removed option --no-header
 - Added option --header
+- Added option --incremental-evaluation
+- Renamed option --patience -> --rls-patience
+- Added option --rls-strict
+- Added option --mmas-strict
+- Removed algorithms 101 (StrictRandomLocalSearch) and 801 (StrictMmas)
 
 Build:
 - optgen.pl distributed but not installed

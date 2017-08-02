@@ -31,7 +31,7 @@ using namespace hnco;
 
 
 void
-ReservoirSamplingNeighborhood::bernoulli_trials(int k)
+MultiBitFlip::bernoulli_trials(int k)
 {
   int n = _candidate.size();
 
@@ -49,7 +49,7 @@ ReservoirSamplingNeighborhood::bernoulli_trials(int k)
 
 
 void
-ReservoirSamplingNeighborhood::reservoir_sampling(int k)
+MultiBitFlip::reservoir_sampling(int k)
 {
   _flipped_bits.clear();
   for (int i = 0; i < k; i++) {

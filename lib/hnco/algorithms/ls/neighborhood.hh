@@ -147,8 +147,8 @@ namespace neighborhood {
   };
 
 
-  /// Neighborhood with reservoir samping
-  class ReservoirSamplingNeighborhood:
+  /// Multi bit flip
+  class MultiBitFlip:
     public Neighborhood {
 
   protected:
@@ -171,7 +171,7 @@ namespace neighborhood {
 
         \param n Size of bit vectors
     */
-    ReservoirSamplingNeighborhood(int n):
+    MultiBitFlip(int n):
       Neighborhood(n) {}
 
   };
@@ -186,7 +186,7 @@ namespace neighborhood {
 
   */
   class BernoulliProcess:
-    public ReservoirSamplingNeighborhood {
+    public MultiBitFlip {
 
     /// Bernoulli distribution (biased coin)
     std::bernoulli_distribution _bernoulli_dist;
@@ -212,7 +212,7 @@ namespace neighborhood {
         The Bernoulli probability is set to 1 / n.
     */
     BernoulliProcess(int n):
-      ReservoirSamplingNeighborhood(n),
+      MultiBitFlip(n),
       _bernoulli_dist(1 / double(n)),
       _binomial_dist(n, 1 / double(n)) {}
 
@@ -222,7 +222,7 @@ namespace neighborhood {
         \param p Bernoulli probability
     */
     BernoulliProcess(int n, double p):
-      ReservoirSamplingNeighborhood(n),
+      MultiBitFlip(n),
       _bernoulli_dist(p),
       _binomial_dist(n, p) {}
 
@@ -248,7 +248,7 @@ namespace neighborhood {
       choose k bits uniformly among n and flip them.
   */
   class HammingBall:
-    public ReservoirSamplingNeighborhood {
+    public MultiBitFlip {
 
     /// Radius of the ball
     int _radius;
@@ -267,7 +267,7 @@ namespace neighborhood {
         \param r Radius of the ball
     */
     HammingBall(int n, int r):
-      ReservoirSamplingNeighborhood(n),
+      MultiBitFlip(n),
       _radius(r),
       _choose_k(1, r)
     {
@@ -285,7 +285,7 @@ namespace neighborhood {
       radius of the sphere.
   */
   class HammingSphere:
-    public ReservoirSamplingNeighborhood {
+    public MultiBitFlip {
 
     /// Radius of the sphere
     int _radius;
@@ -301,7 +301,7 @@ namespace neighborhood {
         \param r Radius of the sphere
     */
     HammingSphere(int n, int r):
-      ReservoirSamplingNeighborhood(n),
+      MultiBitFlip(n),
       _radius(r)
     {
       assert(n > 0);
