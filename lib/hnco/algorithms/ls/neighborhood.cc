@@ -20,7 +20,7 @@
 
 #include <assert.h>
 
-#include <algorithm>            // find
+#include <algorithm>            // find, is_sorted
 
 #include "neighborhood.hh"
 
@@ -51,8 +51,6 @@ ReservoirSamplingNeighborhood::bernoulli_trials(int k)
 void
 ReservoirSamplingNeighborhood::reservoir_sampling(int k)
 {
-  assert(k > 0);
-
   _flipped_bits.clear();
   for (int i = 0; i < k; i++) {
     int index;
@@ -62,6 +60,7 @@ ReservoirSamplingNeighborhood::reservoir_sampling(int k)
                   end(_flipped_bits), index) != _flipped_bits.end());
     _flipped_bits.push_back(index);
   }
+  std::sort(begin(_flipped_bits), end(_flipped_bits));
 }
 
 
@@ -99,8 +98,8 @@ HammingBall::sample_bits()
 {
   const int n = _candidate.size();
   const int k = _choose_k(Random::engine);
-  assert(k <= n);
   assert(k > 0);
+  assert(k <= n);
 
   if (k < std::sqrt(n))
     reservoir_sampling(k);
