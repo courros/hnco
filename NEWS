@@ -10,16 +10,15 @@ Library:
 - OnePlusOneEa implemented as RandomLocalSearch with BernoulliProcess
 - Incremental evaluation: OneMax
 - Incremental evaluation: RandomLocalSearch
-- Incremental evaluation: StopOnMaximum, StopOnTarget, CallCounter, ProgressTracker, OnBudgetFunction
-- Incremental evaluation: Negation
-- All function decorators moved under decorators/
+- Incremental evaluation: StopOnMaximum, StopOnTarget, CallCounter,
+  ProgressTracker, OnBudgetFunction, Negation
 - RandomLocalSearch, Mmas: added public member _compare
 - RandomLocalSearch, Mmas: single class
-- Algorithm: added empty constructor
 - Renamed class Binomial -> BernoulliProcess
 - BernoulliProcess: renamed method set_mutation_probability -> set_probability
 - Added ReservoirSamplingNeighborhood
 - BernoulliProcess, HammingBall, and HammingSphere derive from ReservoirSamplingNeighborhood
+- All function decorators moved under decorators/
 - Added classes FunctionController and FunctionModifier
 
 hnco:
