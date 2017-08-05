@@ -101,6 +101,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-complete-search-ridge$(EXEEXT) \
 	test-complete-search-trap$(EXEEXT) \
 	test-hamming-sphere$(EXEEXT) test-hypercube-iterator$(EXEEXT) \
+	test-incremental-one-max-bernoulli-process$(EXEEXT) \
 	test-max-sat$(EXEEXT) test-sbm-multiply$(EXEEXT) \
 	test-serialize-affine-map$(EXEEXT) \
 	test-serialize-equal-products$(EXEEXT) \
@@ -224,6 +225,13 @@ test_hypercube_iterator_OBJECTS =  \
 	$(am_test_hypercube_iterator_OBJECTS)
 test_hypercube_iterator_LDADD = $(LDADD)
 test_hypercube_iterator_DEPENDENCIES = ../lib/libhnco.la
+am_test_incremental_one_max_bernoulli_process_OBJECTS =  \
+	test-incremental-one-max-bernoulli-process.$(OBJEXT)
+test_incremental_one_max_bernoulli_process_OBJECTS =  \
+	$(am_test_incremental_one_max_bernoulli_process_OBJECTS)
+test_incremental_one_max_bernoulli_process_LDADD = $(LDADD)
+test_incremental_one_max_bernoulli_process_DEPENDENCIES =  \
+	../lib/libhnco.la
 am_test_max_sat_OBJECTS = test-max-sat.$(OBJEXT)
 test_max_sat_OBJECTS = $(am_test_max_sat_OBJECTS)
 test_max_sat_LDADD = $(LDADD)
@@ -344,8 +352,9 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_ridge_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
-	$(test_hypercube_iterator_SOURCES) $(test_max_sat_SOURCES) \
-	$(test_sbm_multiply_SOURCES) \
+	$(test_hypercube_iterator_SOURCES) \
+	$(test_incremental_one_max_bernoulli_process_SOURCES) \
+	$(test_max_sat_SOURCES) $(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
 	$(test_serialize_linear_function_SOURCES) \
@@ -371,8 +380,9 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_ridge_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
-	$(test_hypercube_iterator_SOURCES) $(test_max_sat_SOURCES) \
-	$(test_sbm_multiply_SOURCES) \
+	$(test_hypercube_iterator_SOURCES) \
+	$(test_incremental_one_max_bernoulli_process_SOURCES) \
+	$(test_max_sat_SOURCES) $(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
 	$(test_serialize_linear_function_SOURCES) \
@@ -762,6 +772,7 @@ test_complete_search_ridge_SOURCES = test-complete-search-ridge.cc
 test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
+test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-bernoulli-process.cc
 test_max_sat_SOURCES = test-max-sat.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
@@ -903,6 +914,10 @@ test-hypercube-iterator$(EXEEXT): $(test_hypercube_iterator_OBJECTS) $(test_hype
 	@rm -f test-hypercube-iterator$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_hypercube_iterator_OBJECTS) $(test_hypercube_iterator_LDADD) $(LIBS)
 
+test-incremental-one-max-bernoulli-process$(EXEEXT): $(test_incremental_one_max_bernoulli_process_OBJECTS) $(test_incremental_one_max_bernoulli_process_DEPENDENCIES) $(EXTRA_test_incremental_one_max_bernoulli_process_DEPENDENCIES) 
+	@rm -f test-incremental-one-max-bernoulli-process$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_one_max_bernoulli_process_OBJECTS) $(test_incremental_one_max_bernoulli_process_LDADD) $(LIBS)
+
 test-max-sat$(EXEEXT): $(test_max_sat_OBJECTS) $(test_max_sat_DEPENDENCIES) $(EXTRA_test_max_sat_DEPENDENCIES) 
 	@rm -f test-max-sat$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_max_sat_OBJECTS) $(test_max_sat_LDADD) $(LIBS)
@@ -979,6 +994,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-trap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hypercube-iterator.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-bernoulli-process.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-max-sat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-sbm-multiply.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-affine-map.Po@am__quote@
@@ -1338,6 +1354,13 @@ test-hamming-sphere.log: test-hamming-sphere$(EXEEXT)
 test-hypercube-iterator.log: test-hypercube-iterator$(EXEEXT)
 	@p='test-hypercube-iterator$(EXEEXT)'; \
 	b='test-hypercube-iterator'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-incremental-one-max-bernoulli-process.log: test-incremental-one-max-bernoulli-process$(EXEEXT)
+	@p='test-incremental-one-max-bernoulli-process$(EXEEXT)'; \
+	b='test-incremental-one-max-bernoulli-process'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

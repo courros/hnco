@@ -17,6 +17,7 @@ check_PROGRAMS = \
 	test-complete-search-trap \
 	test-hamming-sphere \
 	test-hypercube-iterator \
+	test-incremental-one-max-bernoulli-process \
 	test-max-sat \
 	test-sbm-multiply \
 	test-serialize-affine-map \
@@ -55,6 +56,7 @@ test_complete_search_ridge_SOURCES = test-complete-search-ridge.cc
 test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
+test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-bernoulli-process.cc
 test_max_sat_SOURCES = test-max-sat.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
