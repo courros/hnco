@@ -24,7 +24,8 @@
 #include <random>
 
 #include "hnco/algorithms/algorithm.hh"
-#include "hnco/algorithms/population.hh"
+
+#include "tournament-selection.hh"
 
 
 namespace hnco {
