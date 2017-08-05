@@ -48,12 +48,12 @@ namespace hnco::function {
     /// Get bit vector size
     virtual size_t get_bv_size() = 0;
 
-    /// Check for a known maximum.
-    virtual bool has_known_maximum() { return false; }
-
     /** Get the global maximum.
         \throw Error */
     virtual double get_maximum() { throw exception::Error("Unknown maximum"); }
+
+    /// Check for a known maximum.
+    virtual bool has_known_maximum() { return false; }
 
     /** Check whether the function provides incremental evaluation.
         \return false
