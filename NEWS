@@ -1,25 +1,30 @@
 * Version 0.6 (unreleased)
 
 Library:
-- Population: added get_bv for const instances
-- Added bv_flip with a sparse_bit_vector_t mask
-- Neighborhood: added _flipped_bits
-- Neighborhood: added pure virtual method sample_bits
-- Neighborhood implements methods propose, keep, and forget
+- Added function bv_flip with a sparse_bit_vector_t mask
+- Neighborhood: added member _flipped_bits
+- Neighborhood: added pure virtual member function sample_bits
+- Neighborhood implements member functions propose, keep, and forget
 - Local search: new files neighborhood-iterator.(hh|cc) and steepest-ascent-hill-climbing.(hh|cc)
 - OnePlusOneEa implemented as RandomLocalSearch with BernoulliProcess
 - Incremental evaluation: OneMax
 - Incremental evaluation: RandomLocalSearch
 - Incremental evaluation: StopOnMaximum, StopOnTarget, CallCounter,
   ProgressTracker, OnBudgetFunction, Negation
-- RandomLocalSearch, Mmas: added public member _compare
+- RandomLocalSearch, Mmas: added member _compare
 - RandomLocalSearch, Mmas: single class
 - Renamed class Binomial -> BernoulliProcess
-- BernoulliProcess: renamed method set_mutation_probability -> set_probability
-- Added MultiBitFlip
+- BernoulliProcess: renamed member function set_mutation_probability -> set_probability
+- Added class MultiBitFlip
 - BernoulliProcess, HammingBall, and HammingSphere derive from MultiBitFlip
-- All function decorators moved under decorators/
+- All function decorators moved under functions/decorators/
 - Added classes FunctionController and FunctionModifier
+- Evolutionary algorithms: new files tournament-selection.(hh|cc)
+- Population: added member function get_bv for const instances
+- Population: added type for index-value pairs
+- Population: added member _compare
+- Population: removed inline function comp
+- Population: removed member functions get_best_index and get_best_bv(int, const Population&)
 
 tests:
 - Added test-incremental-one-max-bernoulli-process
@@ -42,9 +47,9 @@ Build:
 * Version 0.5 (2017-04-26)
 
 Library:
-- Function: added methods safe_eval and update
-- ProgressTracker: renamed method update -> update_last_improvement
-- Population: added method eval for parallel evaluation with OpenMP
+- Function: added member functions safe_eval and update
+- ProgressTracker: renamed member function update -> update_last_improvement
+- Population: added member function eval for parallel evaluation with OpenMP
 - Algorithms with parallel evaluation: Pbil, NpsPbil, Umda, Hea,
   MuCommaLambdaEa, MuPlusLambdaEa, GeneticAlgorithm, BmPbil
 - New type point_value_t
