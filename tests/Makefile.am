@@ -18,6 +18,9 @@ check_PROGRAMS = \
 	test-hamming-sphere \
 	test-hypercube-iterator \
 	test-incremental-one-max-bernoulli-process \
+	test-incremental-one-max-hamming-ball \
+	test-incremental-one-max-hamming-sphere \
+	test-incremental-one-max-single-bit-flip \
 	test-max-sat \
 	test-sbm-multiply \
 	test-serialize-affine-map \
@@ -57,6 +60,9 @@ test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
 test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-bernoulli-process.cc
+test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
+test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
+test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
 test_max_sat_SOURCES = test-max-sat.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
