@@ -1,6 +1,6 @@
 {
     "exec": "hnco",
-    "opt": "--no-header --print-performance --map 1 --map-random -i 0 -b 0 --stop-on-maximum",
+    "opt": "--print-performance --map 1 --map-random -i 0 -b 0 --stop-on-maximum",
 
     "num_runs": 10,
 
