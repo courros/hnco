@@ -32,23 +32,22 @@ StopOnMaximum::eval(const bit_vector_t& x)
 {
   assert(_function->has_known_maximum());
 
-  double value = _function->eval(x);
-  if (value == _function->get_maximum())
-    throw MaximumReached(std::make_pair(x, value));
-  return value;
+  double result = _function->eval(x);
+  if (result == _function->get_maximum())
+    throw MaximumReached(std::make_pair(x, result));
+  return result;
 }
 
 
 double
-StopOnMaximum::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+StopOnMaximum::eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
   assert(_function->has_known_maximum());
 
-  double delta = _function->delta(x, value, flipped_bits);
-  double result = value + delta;
+  double result = _function->eval(x, value, flipped_bits);
   if (result == _function->get_maximum())
     throw MaximumReached(std::make_pair(x, result));
-  return delta;
+  return result;
 }
 
 
@@ -66,21 +65,20 @@ StopOnMaximum::update(const bit_vector_t& x, double value)
 double
 StopOnTarget::eval(const bit_vector_t& x)
 {
-  double value = _function->eval(x);
-  if (value >= _target)
-    throw TargetReached(std::make_pair(x, value));
-  return value;
+  double result = _function->eval(x);
+  if (result >= _target)
+    throw TargetReached(std::make_pair(x, result));
+  return result;
 }
 
 
 double
-StopOnTarget::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+StopOnTarget::eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
-  double delta = _function->delta(x, value, flipped_bits);
-  double result = value + delta;
+  double result = _function->eval(x, value, flipped_bits);
   if (result >= _target)
     throw TargetReached(std::make_pair(x, result));
-  return delta;
+  return result;
 }
 
 
@@ -103,9 +101,9 @@ CallCounter::eval(const bit_vector_t& x)
 
 
 double
-CallCounter::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+CallCounter::eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
-  double result = _function->delta(x, value, flipped_bits);
+  double result = _function->eval(x, value, flipped_bits);
   _num_calls++;
   return result;
 }
@@ -131,11 +129,11 @@ OnBudgetFunction::eval(const bit_vector_t& x)
 
 
 double
-OnBudgetFunction::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+OnBudgetFunction::eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
   if (_num_calls == _budget)
     throw LastEvaluation();
-  double result = _function->delta(x, value, flipped_bits);
+  double result = _function->eval(x, value, flipped_bits);
   _num_calls++;
   return result;
 }
@@ -171,10 +169,10 @@ ProgressTracker::eval(const bit_vector_t& x)
 
 
 double
-ProgressTracker::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+ProgressTracker::eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
   double result;
-  try { result = _function->delta(x, value, flipped_bits); }
+  try { result = _function->eval(x, value, flipped_bits); }
   catch (MaximumReached) {
     assert(_function->has_known_maximum());
     update_last_improvement(_function->get_maximum());
@@ -184,7 +182,7 @@ ProgressTracker::delta(const bit_vector_t& x, double value, const hnco::sparse_b
     update_last_improvement(e.get_point_value().second);
     throw;
   }
-  update_last_improvement(value + result);
+  update_last_improvement(result);
   return result;
 }
 

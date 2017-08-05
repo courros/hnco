@@ -35,9 +35,9 @@ Negation::eval(const bit_vector_t& x)
 
 
 double
-Negation::delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+Negation::eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
-  return -_function->delta(x, value, flipped_bits);
+  return -_function->eval(x, value, flipped_bits);
 }
 
 

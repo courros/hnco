@@ -71,7 +71,7 @@ namespace hnco::function {
     double eval(const bit_vector_t&);
 
     /// Incremental evaluation
-    double delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /// Safely evaluate a bit vector
     double safe_eval(const bit_vector_t& x) { return _function->safe_eval(x); }
@@ -102,7 +102,7 @@ namespace hnco::function {
     double eval(const bit_vector_t&);
 
     /// Incremental evaluation
-    double delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /// Safely evaluate a bit vector
     double safe_eval(const bit_vector_t& x) { return _function->safe_eval(x); }
@@ -140,7 +140,7 @@ namespace hnco::function {
     double eval(const bit_vector_t&);
 
     /// Incremental evaluation
-    double delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /// Safely evaluate a bit vector
     double safe_eval(const bit_vector_t& x) { return _function->safe_eval(x); }
@@ -201,7 +201,7 @@ namespace hnco::function {
     double eval(const bit_vector_t&);
 
     /// Incremental evaluation
-    double delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /// Update after a safe evaluation
     void update(const bit_vector_t& x, double value);
@@ -248,7 +248,7 @@ namespace hnco::function {
     double eval(const bit_vector_t&);
 
     /// Incremental evaluation
-    double delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /// Update after a safe evaluation
     void update(const bit_vector_t& x, double value);

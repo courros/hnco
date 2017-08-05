@@ -76,7 +76,7 @@ namespace hnco::function {
     double eval(const bit_vector_t&);
 
     /// Incremental evaluation
-    double delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
   };
 
