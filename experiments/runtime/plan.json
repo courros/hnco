@@ -39,7 +39,7 @@
         {
             "id": "rls",
             "title": "RLS",
-	    "opt": "-A 100 --patience 0"
+	    "opt": "-A 100 --rls-patience 0"
         }
 
     ]
