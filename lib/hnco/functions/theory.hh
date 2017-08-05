@@ -39,26 +39,44 @@ namespace hnco::function {
     OneMax(int bv_size):
       _bv_size(bv_size) {}
 
+    /** @name Information about the function
+     */
+    ///@{
+
     /// Get bit vector size
     size_t get_bv_size() { return _bv_size; }
 
-    /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    /// Get the global maximum
+    double get_maximum() { return _bv_size; }
 
     /** Check for a known maximum.
         \return true */
     bool has_known_maximum() { return true; }
 
-    /// Get the global maximum
-    double get_maximum() { return _bv_size; }
-
-    /// Incremental evaluation
-    double delta(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits);
-
     /** Check whether the function provides incremental evaluation.
         \return true
     */
     bool provides_incremental_evaluation() { return true; }
+
+    ///@}
+
+
+    /** @name Evaluation
+     */
+    ///@{
+
+    /// Evaluate a bit vector
+    double eval(const bit_vector_t&);
+
+    /// Incremental evaluation
+    double eval(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits) {
+      return v + delta(x, v, flipped_bits);
+    }
+
+    /// Incremental evaluation
+    double delta(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits);
+
+    ///@}
 
   };
 
