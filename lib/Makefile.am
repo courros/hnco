@@ -20,6 +20,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
+	hnco/algorithms/ea/tournament-selection.cc \
+	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.cc \
@@ -133,6 +135,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
+	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.hh \
