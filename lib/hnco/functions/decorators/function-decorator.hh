@@ -63,8 +63,8 @@ namespace hnco::function {
 
 
     /// Incremental evaluation
-    double delta(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits) {
-      return _function->delta(x, v, flipped_bits);
+    double eval(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits) {
+      return _function->eval(x, v, flipped_bits);
     }
 
 
