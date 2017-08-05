@@ -71,6 +71,25 @@ namespace hnco::function {
     virtual double eval(const bit_vector_t&) = 0;
 
     /** Incremental evaluation.
+
+        If \f$x \rightarrow x' = x + \delta x\f$ then \f$f(x)
+        \rightarrow f(x') = f(x) + \delta f\f$.
+
+        This function computes \f$f(x')\f$.
+
+        \throw Error
+    */
+    virtual double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits) {
+      throw exception::Error("Incremental evaluation not implemented for this function");
+    }
+
+    /** Incremental evaluation.
+
+        If \f$x \rightarrow x' = x + \delta x\f$ then \f$f(x)
+        \rightarrow f(x') = f(x) + \delta f\f$.
+
+        This function computes \f$\delta f\f$.
+
         \throw Error
     */
     virtual double delta(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits) {
