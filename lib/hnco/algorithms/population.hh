@@ -21,6 +21,8 @@
 #ifndef HNCO_ALGORITHMS_POPULATION_H
 #define HNCO_ALGORITHMS_POPULATION_H
 
+#include <functional>           // std::function
+
 #include "hnco/functions/function.hh"
 #include "hnco/random.hh"
 
@@ -30,8 +32,16 @@ namespace algorithm {
 
 
   /// Population
-  class Population
-  {
+  class Population {
+
+  public:
+
+    /// Index-value type
+    typedef std::pair<size_t, double> index_value_t;
+
+    /// Binary operator for comparing index-value pairs
+    std::function<bool(const index_value_t&, const index_value_t&)> _compare =
+      [](const index_value_t& a, const index_value_t& b) { return a.second > b.second; };
 
   protected:
 
@@ -44,7 +54,7 @@ namespace algorithm {
         the bv index in the unsorted population whereas p.second is
         the bv value.
     */
-    std::vector<std::pair<size_t, double> > _lookup;
+    std::vector<index_value_t> _lookup;
 
   public:
 
@@ -56,11 +66,19 @@ namespace algorithm {
     /// Size
     std::size_t size() const { return _bvs.size(); }
 
+    /// Initialize the population with random bit vectors
+    void random();
+
     /// Get a bit vector
     bit_vector_t& get_bv(int i) { return _bvs[i]; }
 
     /// Get a bit vector
     const bit_vector_t& get_bv(int i) const { return _bvs[i]; }
+
+
+    /** @name Get sorted bit vectors
+     */
+    ///@{
 
     /** Get best bit vector.
 
@@ -76,32 +94,20 @@ namespace algorithm {
     */
     const bit_vector_t& get_best_bv() const { return _bvs[_lookup[0].first]; }
 
-    /** Get best bit vector.
-
-        \param i Index in the sorted population
-        \param p Population
-
-        \pre p must be sorted.
-    */
-    const bit_vector_t& get_best_bv(int i, const Population& p) const { return _bvs[p._lookup[i].first]; }
-
-    /** Get best index.
+    /** Get worst bit vector.
 
         \param i Index in the sorted population
 
-        \return Index in the unsorted population
-
         \pre The population must be sorted.
     */
-    double get_best_index(int i) const { return _lookup[i].first; }
+    const bit_vector_t& get_worst_bv(int i) const { return get_best_bv(_bvs.size() - 1 - i); }
 
-    /** Get best index.
+    ///@}
 
-        \return Index in the unsorted population
 
-        \pre The population must be sorted.
-    */
-    double get_best_index() const { return _lookup[0].first; }
+    /** @name Get sorted values
+     */
+    ///@{
 
     /** Get best value.
 
@@ -117,21 +123,17 @@ namespace algorithm {
     */
     double get_best_value() const { return _lookup[0].second; }
 
-    /** Get worst bit vector.
+    ///@}
 
-        \param i Index in the sorted population
 
-        \pre The population must be sorted.
-    */
-    const bit_vector_t& get_worst_bv(int i) const { return get_best_bv(_bvs.size() - 1 - i); }
-
-    /// Initialize the population with random bit vectors
-    void random();
+    /** @name Evaluation and sorting
+     */
+    ///@{
 
     /// Evaluate the population
     void eval(function::Function *function);
 
-    /// Evaluate the population (multithreading)
+    /// Parallel evaluation of the population
     void eval(const std::vector<function::Function *>& functions);
 
     /// Sort the lookup table
@@ -139,6 +141,13 @@ namespace algorithm {
 
     /// Partially sort the lookup table
     void partial_sort(int selection_size);
+
+    ///@}
+
+
+    /** @name Selection
+     */
+    ///@{
 
     /** Plus selection.
 
@@ -158,37 +167,10 @@ namespace algorithm {
     */
     void comma_selection(const Population& offsprings);
 
-  };
-
-
-  /// Population with tournament selection
-  class TournamentSelection:
-    public Population
-  {
-
-    /// Random index
-    std::uniform_int_distribution<int> _choose_individual;
-
-  public:
-
-    /// Constructor
-    TournamentSelection(int population_size, int n):
-      Population(population_size, n),
-      _choose_individual(0, population_size - 1) {}
-
-    /** Selection.
-
-        The selection only requires that the population be evaluated,
-        not necessarily sorted.
-
-        \pre The population must be evaluated.
-    */
-    const bit_vector_t& select();
-
-    /// Tournament size
-    int _tournament_size = 10;
+    ///@}
 
   };
+
 
 }
 }
