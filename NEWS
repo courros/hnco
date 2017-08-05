@@ -21,6 +21,12 @@ Library:
 - All function decorators moved under decorators/
 - Added classes FunctionController and FunctionModifier
 
+tests:
+- Added test-incremental-one-max-bernoulli-process
+- Added test-incremental-one-max-hamming-ball
+- Added test-incremental-one-max-hamming-sphere
+- Added test-incremental-one-max-single-bit-flip
+
 hnco:
 - Removed option --no-header
 - Added option --header
