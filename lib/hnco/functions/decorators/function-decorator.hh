@@ -48,32 +48,6 @@ namespace hnco::function {
     FunctionDecorator(Function *function):
       _function(function) {}
 
-
-    /// Get bit vector size
-    size_t get_bv_size() { return _function->get_bv_size(); }
-
-    /// Check for a known maximum.
-    bool has_known_maximum() { return _function->has_known_maximum(); }
-
-    /// Get the global maximum
-    double get_maximum() { return _function->get_maximum(); }
-
-    /// Check whether the function provides incremental evaluation
-    bool provides_incremental_evaluation() { return _function->provides_incremental_evaluation(); }
-
-
-    /// Incremental evaluation
-    double eval(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits) {
-      return _function->eval(x, v, flipped_bits);
-    }
-
-
-    /// Display
-    void display(std::ostream& stream) { _function->display(stream); }
-
-    /// Describe
-    void describe(const bit_vector_t& x, std::ostream& stream) { _function->describe(x, stream); }
-
   };
 
 } // end of namespace hnco::function
