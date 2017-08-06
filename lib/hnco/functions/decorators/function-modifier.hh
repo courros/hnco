@@ -64,19 +64,40 @@ namespace hnco::function {
     Negation(Function *function):
       FunctionModifier(function) {}
 
-    /** Check for a known maximum.
-        \return false */
-    bool has_known_maximum() { return false; }
+    /** @name Information about the function
+     */
+    ///@{
+
+    /// Get bit vector size
+    size_t get_bv_size() { return _function->get_bv_size(); }
 
     /** Get the global maximum.
         \throw Error */
     double get_maximum() { throw exception::Error("Unknown maximum"); }
+
+    /** Check for a known maximum.
+        \return false */
+    bool has_known_maximum() { return false; }
+
+    /** Check whether the function provides incremental evaluation.
+        \return true
+    */
+    bool provides_incremental_evaluation() { return true; }
+
+    ///@}
+
+
+    /** @name Evaluation
+     */
+    ///@{
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
 
     /// Incremental evaluation
     double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+
+    ///@}
 
   };
 
@@ -108,11 +129,21 @@ namespace hnco::function {
       _bv.resize(function->get_bv_size());
     }
 
+    /** @name Information about the function
+     */
+    ///@{
+
     /// Get bit vector size
     size_t get_bv_size() { return _map->get_input_size(); }
 
-    /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    /** Get the global maximum.
+        \throw Error */
+    double get_maximum() {
+      if (has_known_maximum())
+        return _function->get_maximum();
+      else
+        throw exception::Error("Unknown maximum");
+    }
 
     /** Check for a known maximum.
         \return true if the function has a known maximum and the map
@@ -123,14 +154,10 @@ namespace hnco::function {
         _map->is_surjective();
     }
 
-    /** Get the global maximum.
-        \throw Error */
-    double get_maximum() {
-      if (has_known_maximum())
-        return _function->get_maximum();
-      else
-        throw exception::Error("Unknown maximum");
-    }
+    ///@}
+
+    /// Evaluate a bit vector
+    double eval(const bit_vector_t&);
 
   };
 
@@ -149,16 +176,26 @@ namespace hnco::function {
       FunctionModifier(function),
       _dist(0, stddev) {}
 
-    /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    /** @name Information about the function
+     */
+    ///@{
+
+    /// Get bit vector size
+    size_t get_bv_size() { return _function->get_bv_size(); }
+
+    /** Get the global maximum.
+        \throw Error */
+    double get_maximum() { throw exception::Error("Unknown maximum"); }
 
     /** Check for a known maximum.
         \return false */
     bool has_known_maximum() { return false; }
 
-    /** Get the global maximum.
-        \throw Error */
-    double get_maximum() { throw exception::Error("Unknown maximum"); }
+    ///@}
+
+
+    /// Evaluate a bit vector
+    double eval(const bit_vector_t&);
 
   };
 
