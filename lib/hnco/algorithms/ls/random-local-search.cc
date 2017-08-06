@@ -64,7 +64,8 @@ const point_value_t&
 RandomLocalSearch::get_solution()
 {
   assert(_neighborhood);
-  _solution.first =  _neighborhood->get_origin();
+
+  _solution.first = _neighborhood->get_origin();
   return _solution;
 }
 
@@ -72,6 +73,8 @@ RandomLocalSearch::get_solution()
 void
 RandomLocalSearch::iterate()
 {
+  assert(_function);
+
   if (_incremental_evaluation && _function->provides_incremental_evaluation())
     iterate_incremental();
   else
