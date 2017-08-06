@@ -32,9 +32,9 @@
             "category": "General"
         },
 
-        "header":
+        "print_header":
         {
-            "description": "Print the header",
+            "description": "At the beginning, print the header",
             "category": "General"
         },
 

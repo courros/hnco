@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
   algorithm->set_functions(fns);
 
   // Header
-  if (options.with_header())
+  if (options.with_print_header())
     std::cout << options;
 
   // Initialization

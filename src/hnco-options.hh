@@ -240,9 +240,6 @@ class Options {
   /// Randomize bit order
   bool _hea_randomize_bit_order;
 
-  /// Print the header
-  bool _header;
-
   /// Incremental evaluation
   bool _incremental_evaluation;
 
@@ -260,6 +257,9 @@ class Options {
 
   /// Print the default parameters and exit
   bool _print_default_parameters;
+
+  /// At the beginning, print the header
+  bool _print_header;
 
   /// At the end, print performance (maximum and number of evaluations needed to reach it)
   bool _print_performance;
@@ -938,12 +938,6 @@ public:
   /// Set hea_randomize_bit_order
   void set_hea_randomize_bit_order() { _hea_randomize_bit_order = true; }
  
-  /// Get header
-  bool with_header() const { return _header; }
-
-  /// Set header
-  void set_header() { _header = true; }
- 
   /// Get incremental_evaluation
   bool with_incremental_evaluation() const { return _incremental_evaluation; }
 
@@ -979,6 +973,12 @@ public:
 
   /// Set print_default_parameters
   void set_print_default_parameters() { _print_default_parameters = true; }
+ 
+  /// Get print_header
+  bool with_print_header() const { return _print_header; }
+
+  /// Set print_header
+  void set_print_header() { _print_header = true; }
  
   /// Get print_performance
   bool with_print_performance() const { return _print_performance; }
