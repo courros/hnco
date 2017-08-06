@@ -34,8 +34,6 @@ namespace hnco::function {
   /// Function
   class Function {
 
-  protected:
-
   public:
 
     /// Destructor
