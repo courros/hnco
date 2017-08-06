@@ -34,7 +34,7 @@ tests:
 
 hnco:
 - Removed option --no-header
-- Added option --header
+- Added option --print-header
 - Added option --incremental-evaluation
 - Renamed option --patience -> --rls-patience
 - Added option --rls-strict
