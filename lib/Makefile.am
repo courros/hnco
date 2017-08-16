@@ -105,8 +105,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.cc \
 	hnco/functions/trap.hh \
-	hnco/functions/walsh/quadratic-function.cc \
-	hnco/functions/walsh/quadratic-function.hh \
+	hnco/functions/walsh/walsh-expansion-2.cc \
+	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/iterator.cc \
 	hnco/iterator.hh \
 	hnco/map.cc \
@@ -183,7 +183,7 @@ nobase_include_HEADERS = \
 	hnco/functions/qubo.hh \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.hh \
-	hnco/functions/walsh/quadratic-function.hh \
+	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/iterator.hh \
 	hnco/map.hh \
 	hnco/permutation.hh \

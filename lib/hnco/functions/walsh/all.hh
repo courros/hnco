@@ -21,6 +21,6 @@
 #ifndef HNCO_FUNCTIONS_WALSH_ALL_H
 #define HNCO_FUNCTIONS_WALSH_ALL_H
 
-#include "quadratic-function.hh"
+#include "walsh-expansion-2.hh"
 
 #endif

@@ -22,7 +22,7 @@
 
 #include "hnco/random.hh"
 
-#include "quadratic-function.hh"
+#include "walsh-expansion-2.hh"
 
 
 using namespace std;
