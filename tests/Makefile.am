@@ -31,8 +31,8 @@ check_PROGRAMS = \
 	test-serialize-max-sat \
 	test-serialize-nk-landscape \
 	test-serialize-permutation \
-	test-serialize-quadratic-function \
 	test-serialize-translation \
+	test-serialize-walsh-expansion-2 \
 	test-steepest-ascent-hill-climbing
 
 AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
@@ -73,20 +73,20 @@ test_serialize_map_composition_SOURCES = test-serialize-map-composition.cc
 test_serialize_max_sat_SOURCES = test-serialize-max-sat.cc
 test_serialize_nk_landscape_SOURCES = test-serialize-nk-landscape.cc
 test_serialize_permutation_SOURCES = test-serialize-permutation.cc
-test_serialize_quadratic_function_SOURCES = test-serialize-quadratic-function.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
+test_serialize_walsh_expansion_2_SOURCES = test-serialize-walsh-expansion-2.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 
 TESTS = $(check_PROGRAMS)
 
 DISTCLEANFILES = \
-	test-serialize-translation.txt \
-	test-serialize-quadratic-function.txt \
-	test-serialize-permutation.txt \
-	test-serialize-nk-landscape.txt \
-	test-serialize-max-sat.txt \
-	test-serialize-map-composition.txt \
+	test-serialize-affine-map.txt \
 	test-serialize-equal-products.txt \
-	test-serialize-linear-map.txt \
 	test-serialize-linear-function.txt \
-	test-serialize-affine-map.txt
+	test-serialize-linear-map.txt \
+	test-serialize-map-composition.txt \
+	test-serialize-max-sat.txt \
+	test-serialize-nk-landscape.txt \
+	test-serialize-permutation.txt \
+	test-serialize-translation.txt \
+	test-serialize-walsh-expansion-2.txt

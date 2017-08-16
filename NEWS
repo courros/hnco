@@ -25,6 +25,8 @@ Library:
 - Population: added member _compare
 - Population: removed inline function comp
 - Population: removed member functions get_best_index and get_best_bv(int, const Population&)
+- Renamed QuadraticFunction -> WalshExpansion2
+- Files walsh-expansion-2.(hh|cc) moved under functions/walsh/
 
 tests:
 - Added test-incremental-one-max-bernoulli-process
