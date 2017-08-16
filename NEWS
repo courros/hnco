@@ -42,6 +42,11 @@ hnco:
 - Added option --rls-strict
 - Added option --mmas-strict
 - Removed algorithms 101 (StrictRandomLocalSearch) and 801 (StrictMmas)
+- Renumbered WalshExpansion2 50 -> 162
+- Renumbered Qubo 51 -> 50
+
+ffgen:
+- Renumbered WalshExpansion2 50 -> 162
 
 Build:
 - optgen.pl distributed but not installed

@@ -265,11 +265,6 @@
 
                 {
                     "value": 50,
-                    "description": "Walsh expansion of degree 2"
-                },
-
-                {
-                    "value": 51,
                     "description": "Quadratic unconstrained binary optimization (Qubo)"
                 },
 
@@ -326,6 +321,11 @@
                 {
                     "value": 150,
                     "description": "Factorization"
+                },
+
+                {
+                    "value": 162,
+                    "description": "Walsh expansion of degree 2"
                 },
 
                 {

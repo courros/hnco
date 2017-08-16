@@ -673,8 +673,7 @@ void Options::print_help(ostream& stream) const
   stream << "            31: Deceptive jump (aka Jump_k)" << endl;
   stream << "            40: Four peaks" << endl;
   stream << "            41: Six peaks" << endl;
-  stream << "            50: Walsh expansion of degree 2" << endl;
-  stream << "            51: Quadratic unconstrained binary optimization (Qubo)" << endl;
+  stream << "            50: Quadratic unconstrained binary optimization (Qubo)" << endl;
   stream << "            60: NK landscape" << endl;
   stream << "            70: Max-SAT" << endl;
   stream << "            80: Low autocorrelation binary sequence" << endl;
@@ -686,6 +685,7 @@ void Options::print_help(ostream& stream) const
   stream << "            130: Plateau" << endl;
   stream << "            140: Long path" << endl;
   stream << "            150: Factorization" << endl;
+  stream << "            162: Walsh expansion of degree 2" << endl;
   stream << "            1000: Plugin" << endl;
   stream << "      --log-improvement" << endl;
   stream << "          Log improvement" << endl;

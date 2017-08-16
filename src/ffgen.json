@@ -62,11 +62,6 @@
                 },
 
                 {
-                    "value": 50,
-                    "description": "Walsh expansion of degree 2"
-                },
-
-                {
                     "value": 60,
                     "description": "NK landscape"
                 },
@@ -79,6 +74,11 @@
                 {
                     "value": 90,
                     "description": "Equal products"
+                },
+
+                {
+                    "value": 162,
+                    "description": "Walsh expansion of degree 2"
                 }
 
             ]

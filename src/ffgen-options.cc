@@ -148,10 +148,10 @@ void Options::print_help(ostream& stream) const
   stream << "  -F, --function (type int, default to 1)" << endl;
   stream << "          Type of function" << endl;
   stream << "            1: Linear function" << endl;
-  stream << "            50: Walsh expansion of degree 2" << endl;
   stream << "            60: NK landscape" << endl;
   stream << "            70: Max-SAT" << endl;
   stream << "            90: Equal products" << endl;
+  stream << "            162: Walsh expansion of degree 2" << endl;
   stream << "  -p, --path (type string, default to \"nopath\")" << endl;
   stream << "          Path (relative or absolute) of a function file" << endl;
   stream << "      --seed (type int, default to 0)" << endl;
