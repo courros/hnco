@@ -21,7 +21,7 @@ Library:
 - Added classes FunctionController and FunctionModifier
 - Evolutionary algorithms: new files tournament-selection.(hh|cc)
 - Population: added member function get_bv for const instances
-- Population: added type for index-value pairs
+- Population: added type index_value_t
 - Population: added member _compare
 - Population: removed inline function comp
 - Population: removed member functions get_best_index and get_best_bv(int, const Population&)
