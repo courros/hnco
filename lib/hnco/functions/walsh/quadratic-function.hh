@@ -29,7 +29,7 @@
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/vector.hpp>
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {

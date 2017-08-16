@@ -20,7 +20,7 @@
 
 #include <chrono>
 
-#include "hnco/functions/quadratic-function.hh"
+#include "hnco/functions/walsh/quadratic-function.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::function;

@@ -207,12 +207,13 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/functions/long-path.hh hnco/functions/max-sat.cc \
 	hnco/functions/max-sat.hh hnco/functions/nk-landscape.cc \
 	hnco/functions/nk-landscape.hh hnco/functions/plugin.cc \
-	hnco/functions/plugin.hh hnco/functions/quadratic-function.cc \
-	hnco/functions/quadratic-function.hh hnco/functions/qubo.cc \
+	hnco/functions/plugin.hh hnco/functions/qubo.cc \
 	hnco/functions/qubo.hh hnco/functions/theory.cc \
 	hnco/functions/theory.hh hnco/functions/trap.cc \
-	hnco/functions/trap.hh hnco/iterator.cc hnco/iterator.hh \
-	hnco/map.cc hnco/map.hh hnco/permutation.cc \
+	hnco/functions/trap.hh \
+	hnco/functions/walsh/quadratic-function.cc \
+	hnco/functions/walsh/quadratic-function.hh hnco/iterator.cc \
+	hnco/iterator.hh hnco/map.cc hnco/map.hh hnco/permutation.cc \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
 	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
 	hnco/functions/factorization.cc \
@@ -251,10 +252,11 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/functions/jump.lo hnco/functions/labs.lo \
 	hnco/functions/linear-function.lo hnco/functions/long-path.lo \
 	hnco/functions/max-sat.lo hnco/functions/nk-landscape.lo \
-	hnco/functions/plugin.lo hnco/functions/quadratic-function.lo \
-	hnco/functions/qubo.lo hnco/functions/theory.lo \
-	hnco/functions/trap.lo hnco/iterator.lo hnco/map.lo \
-	hnco/permutation.lo hnco/random.lo $(am__objects_1)
+	hnco/functions/plugin.lo hnco/functions/qubo.lo \
+	hnco/functions/theory.lo hnco/functions/trap.lo \
+	hnco/functions/walsh/quadratic-function.lo hnco/iterator.lo \
+	hnco/map.lo hnco/permutation.lo hnco/random.lo \
+	$(am__objects_1)
 libhnco_la_OBJECTS = $(am_libhnco_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -357,11 +359,12 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/functions/labs.hh hnco/functions/linear-function.hh \
 	hnco/functions/long-path.hh hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.hh hnco/functions/plugin.hh \
-	hnco/functions/quadratic-function.hh hnco/functions/qubo.hh \
-	hnco/functions/theory.hh hnco/functions/trap.hh \
-	hnco/iterator.hh hnco/map.hh hnco/permutation.hh \
-	hnco/random.hh hnco/sparse-bit-matrix.hh \
-	hnco/sparse-bit-vector.hh hnco/functions/factorization.hh
+	hnco/functions/qubo.hh hnco/functions/theory.hh \
+	hnco/functions/trap.hh \
+	hnco/functions/walsh/quadratic-function.hh hnco/iterator.hh \
+	hnco/map.hh hnco/permutation.hh hnco/random.hh \
+	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
+	hnco/functions/factorization.hh
 HEADERS = $(nobase_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
@@ -581,12 +584,13 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/functions/long-path.hh hnco/functions/max-sat.cc \
 	hnco/functions/max-sat.hh hnco/functions/nk-landscape.cc \
 	hnco/functions/nk-landscape.hh hnco/functions/plugin.cc \
-	hnco/functions/plugin.hh hnco/functions/quadratic-function.cc \
-	hnco/functions/quadratic-function.hh hnco/functions/qubo.cc \
+	hnco/functions/plugin.hh hnco/functions/qubo.cc \
 	hnco/functions/qubo.hh hnco/functions/theory.cc \
 	hnco/functions/theory.hh hnco/functions/trap.cc \
-	hnco/functions/trap.hh hnco/iterator.cc hnco/iterator.hh \
-	hnco/map.cc hnco/map.hh hnco/permutation.cc \
+	hnco/functions/trap.hh \
+	hnco/functions/walsh/quadratic-function.cc \
+	hnco/functions/walsh/quadratic-function.hh hnco/iterator.cc \
+	hnco/iterator.hh hnco/map.cc hnco/map.hh hnco/permutation.cc \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
 	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
 	$(am__append_1)
@@ -628,11 +632,12 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/functions/labs.hh hnco/functions/linear-function.hh \
 	hnco/functions/long-path.hh hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.hh hnco/functions/plugin.hh \
-	hnco/functions/quadratic-function.hh hnco/functions/qubo.hh \
-	hnco/functions/theory.hh hnco/functions/trap.hh \
-	hnco/iterator.hh hnco/map.hh hnco/permutation.hh \
-	hnco/random.hh hnco/sparse-bit-matrix.hh \
-	hnco/sparse-bit-vector.hh $(am__append_2)
+	hnco/functions/qubo.hh hnco/functions/theory.hh \
+	hnco/functions/trap.hh \
+	hnco/functions/walsh/quadratic-function.hh hnco/iterator.hh \
+	hnco/map.hh hnco/permutation.hh hnco/random.hh \
+	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
+	$(am__append_2)
 all: all-am
 
 .SUFFIXES:
@@ -856,14 +861,21 @@ hnco/functions/nk-landscape.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/plugin.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/quadratic-function.lo: hnco/functions/$(am__dirstamp) \
-	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/qubo.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/theory.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/trap.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/walsh/$(am__dirstamp):
+	@$(MKDIR_P) hnco/functions/walsh
+	@: > hnco/functions/walsh/$(am__dirstamp)
+hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/functions/walsh/$(DEPDIR)
+	@: > hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/walsh/quadratic-function.lo:  \
+	hnco/functions/walsh/$(am__dirstamp) \
+	hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp)
 hnco/iterator.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/map.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/permutation.lo: hnco/$(am__dirstamp) \
@@ -895,6 +907,8 @@ mostlyclean-compile:
 	-rm -f hnco/functions/*.lo
 	-rm -f hnco/functions/decorators/*.$(OBJEXT)
 	-rm -f hnco/functions/decorators/*.lo
+	-rm -f hnco/functions/walsh/*.$(OBJEXT)
+	-rm -f hnco/functions/walsh/*.lo
 
 distclean-compile:
 	-rm -f *.tab.c
@@ -943,12 +957,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/max-sat.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/nk-landscape.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/plugin.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/quadratic-function.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/qubo.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/theory.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/trap.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-controller.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/quadratic-function.Plo@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -988,6 +1002,7 @@ clean-libtool:
 	-rm -rf hnco/algorithms/pv/.libs hnco/algorithms/pv/_libs
 	-rm -rf hnco/functions/.libs hnco/functions/_libs
 	-rm -rf hnco/functions/decorators/.libs hnco/functions/decorators/_libs
+	-rm -rf hnco/functions/walsh/.libs hnco/functions/walsh/_libs
 install-nobase_includeHEADERS: $(nobase_include_HEADERS)
 	@$(NORMAL_INSTALL)
 	@list='$(nobase_include_HEADERS)'; test -n "$(includedir)" || list=; \
@@ -1146,6 +1161,8 @@ distclean-generic:
 	-rm -f hnco/functions/$(am__dirstamp)
 	-rm -f hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/decorators/$(am__dirstamp)
+	-rm -f hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/functions/walsh/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -1156,7 +1173,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR)
+	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -1202,7 +1219,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR)
+	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
