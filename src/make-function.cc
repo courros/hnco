@@ -85,11 +85,11 @@ make_concrete_function(Options& options)
        options.get_fun_threshold());
 
   case 50: {
-    QuadraticFunction* function = new QuadraticFunction;
+    WalshExpansion2* function = new WalshExpansion2;
     ifstream ifs(options.get_path());
     if (!ifs.good()) {
       ostringstream stream;
-      stream << "make_concrete_function (QuadraticFunction): Cannot open " << options.get_path();
+      stream << "make_concrete_function (WalshExpansion2): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
     boost::archive::text_iarchive ia(ifs);

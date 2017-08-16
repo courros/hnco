@@ -64,9 +64,9 @@ int main(int argc, char *argv[])
   }
 
   case 50: {
-    QuadraticFunction function;
+    WalshExpansion2 function;
     function.random(options.get_bv_size(), options.get_quad_stddev_lin(), options.get_quad_stddev_quad());
-    cout << "Writing QuadraticFunction to " << options.get_path() << " ... ";
+    cout << "Writing WalshExpansion2 to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     oa << function;

@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_QUADRATIC_FUNCTION_H
-#define HNCO_FUNCTIONS_QUADRATIC_FUNCTION_H
+#ifndef HNCO_FUNCTIONS_WALSH_WALSH_EXPANSION_2_H
+#define HNCO_FUNCTIONS_WALSH_WALSH_EXPANSION_2_H
 
 #include <iostream>
 #include <vector>
@@ -36,12 +36,12 @@ namespace hnco {
 namespace function {
 
 
-  /** Quadratic function.
+  /** Walsh expansion of degree 2.
 
       Its expression is of the form \f$ f(x) = \sum_{i < j} (2x_i -
       1) (2x_j - 1) q_{ij} + \sum_i (2x_i - 1) l_i \f$
   */
-  class QuadraticFunction:
+  class WalshExpansion2:
     public Function {
 
   private:
@@ -69,7 +69,7 @@ namespace function {
   public:
 
     /// Constructor
-    QuadraticFunction() {}
+    WalshExpansion2() {}
 
     /// Get bit vector size
     size_t get_bv_size() { return _quadratic.size(); }

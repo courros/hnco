@@ -148,7 +148,7 @@ void Options::print_help(ostream& stream) const
   stream << "  -F, --function (type int, default to 1)" << endl;
   stream << "          Type of function" << endl;
   stream << "            1: Linear function" << endl;
-  stream << "            50: Quadratic function" << endl;
+  stream << "            50: Walsh expansion of degree 2" << endl;
   stream << "            60: NK landscape" << endl;
   stream << "            70: Max-SAT" << endl;
   stream << "            90: Equal products" << endl;
@@ -157,7 +157,7 @@ void Options::print_help(ostream& stream) const
   stream << "      --seed (type int, default to 0)" << endl;
   stream << "          Seed for the random number generator" << endl;
   stream << endl;
-  stream << "QuadraticFunction:" << endl;
+  stream << "WalshExpansion:" << endl;
   stream << "      --quad-stddev-lin (type double, default to 1)" << endl;
   stream << "          Standard deviation of linear part" << endl;
   stream << "      --quad-stddev-quad (type double, default to 1)" << endl;

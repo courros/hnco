@@ -46,12 +46,12 @@ namespace function {
       splitting it into pieces solved either via a D-Wave system or a
       classical tabu solver.
 
-      There are some differences between QuadraticFunction and Qubo:
+      There are some differences between WalshExpansion2 and Qubo:
 
-      - QuadraticFunction maps 0/1 variables into -1/1 variables
+      - WalshExpansion2 maps 0/1 variables into -1/1 variables
         whereas Qubo directly deals with binary variables.
 
-      - Hence, there is a separate linear part in QuadraticFunction
+      - Hence, there is a separate linear part in WalshExpansion2
         whereas the linear part in Qubo stems from the diagonal
         elements of the given matrix.
 

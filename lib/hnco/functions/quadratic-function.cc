@@ -31,7 +31,7 @@ using namespace hnco::function;
 
 
 void
-QuadraticFunction::random(int n, double stddev_lin, double stddev_quad)
+WalshExpansion2::random(int n, double stddev_lin, double stddev_quad)
 {
   assert(n > 0);
   assert(stddev_lin > 0);
@@ -52,7 +52,7 @@ QuadraticFunction::random(int n, double stddev_lin, double stddev_quad)
 
 
 double
-QuadraticFunction::eval(const bit_vector_t& s)
+WalshExpansion2::eval(const bit_vector_t& s)
 {
   assert(s.size() == _linear.size());
   assert(s.size() == _quadratic.size());

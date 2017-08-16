@@ -5,7 +5,7 @@
 
     "version": "0.6",
 
-    "tab_order": [ "General", "QuadraticFunction", "NkLandscape", "MaxSat", "EqualProducts" ],
+    "tab_order": [ "General", "WalshExpansion", "NkLandscape", "MaxSat", "EqualProducts" ],
 
     "flags": {
 
@@ -63,7 +63,7 @@
 
                 {
                     "value": 50,
-                    "description": "Quadratic function"
+                    "description": "Walsh expansion of degree 2"
                 },
 
                 {
@@ -90,7 +90,7 @@
             "type": "double",
             "value": 1,
             "description": "Standard deviation of linear part",
-            "category": "QuadraticFunction"
+            "category": "WalshExpansion"
         },
 
         "quad_stddev_quad":
@@ -98,7 +98,7 @@
             "type": "double",
             "value": 1,
             "description": "Standard deviation of quadratic part",
-            "category": "QuadraticFunction"
+            "category": "WalshExpansion"
         },
 
         "nk_k":

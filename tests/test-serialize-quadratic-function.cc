@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     uniform_int_distribution<int> dist_n(2, 100);
     int n = dist_n(Random::engine);
 
-    QuadraticFunction src;
+    WalshExpansion2 src;
     src.random(n, 1, 1);
     {
       std::ofstream ofs(path);
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
       oa << src;
     }
 
-    QuadraticFunction dest;
+    WalshExpansion2 dest;
     {
       ifstream ifs(path);
       if (!ifs.good())
