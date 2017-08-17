@@ -27,6 +27,8 @@ Library:
 - Population: removed member functions get_best_index and get_best_bv(int, const Population&)
 - Renamed QuadraticFunction -> WalshExpansion2
 - Files walsh-expansion-2.(hh|cc) moved under functions/walsh/
+- WalshExpansion2: changed expression
+- WalshExpansion2: changed archive format
 
 tests:
 - Added test-incremental-one-max-bernoulli-process
@@ -47,6 +49,9 @@ hnco:
 
 ffgen:
 - Renumbered WalshExpansion2 50 -> 162
+
+experiments:
+- benchmark: generate new instances
 
 Build:
 - optgen.pl distributed but not installed
