@@ -5,7 +5,7 @@
 
     "version": "0.6",
 
-    "tab_order": [ "General", "WalshExpansion", "NkLandscape", "MaxSat", "EqualProducts" ],
+    "tab_order": [ "General", "NkLandscape", "MaxSat", "EqualProducts" ],
 
     "flags": {
 
@@ -46,6 +46,14 @@
             "file": "open"
         },
 
+        "stddev":
+        {
+            "type": "double",
+            "value": 1,
+            "description": "Standard deviation",
+            "category": "General"
+        },
+
         "function":
         {
             "optchar": "F",
@@ -77,6 +85,11 @@
                 },
 
                 {
+                    "value": 161,
+                    "description": "Walsh expansion of degree 1"
+                },
+
+                {
                     "value": 162,
                     "description": "Walsh expansion of degree 2"
                 }
@@ -85,35 +98,11 @@
 
         },
 
-        "quad_stddev_lin":
-        {
-            "type": "double",
-            "value": 1,
-            "description": "Standard deviation of linear part",
-            "category": "WalshExpansion"
-        },
-
-        "quad_stddev_quad":
-        {
-            "type": "double",
-            "value": 1,
-            "description": "Standard deviation of quadratic part",
-            "category": "WalshExpansion"
-        },
-
         "nk_k":
         {
             "type": "int",
             "value": 3,
             "description": "Each bit is connected to k other bits",
-            "category": "NkLandscape"
-        },
-
-        "nk_stddev":
-        {
-            "type": "double",
-            "value": 1,
-            "description": "Standard deviation of partial values",
             "category": "NkLandscape"
         },
 

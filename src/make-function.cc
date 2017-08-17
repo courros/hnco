@@ -170,6 +170,19 @@ make_concrete_function(Options& options)
       (options.get_path());
 #endif
 
+  case 161: {
+    WalshExpansion1* function = new WalshExpansion1;
+    ifstream ifs(options.get_path());
+    if (!ifs.good()) {
+      ostringstream stream;
+      stream << "make_concrete_function (WalshExpansion1): Cannot open " << options.get_path();
+      throw Error(stream.str());
+    }
+    boost::archive::text_iarchive ia(ifs);
+    ia >> (*function);
+    return function;
+  }
+
   case 162: {
     WalshExpansion2* function = new WalshExpansion2;
     ifstream ifs(options.get_path());

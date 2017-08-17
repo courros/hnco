@@ -21,16 +21,12 @@ Options::Options(int argc, char *argv[]):
   _opt_ms_num_literals_per_clause(false),
   _nk_k(3),
   _opt_nk_k(false),
-  _nk_stddev(1),
-  _opt_nk_stddev(false),
   _path("nopath"),
   _opt_path(false),
-  _quad_stddev_lin(1),
-  _opt_quad_stddev_lin(false),
-  _quad_stddev_quad(1),
-  _opt_quad_stddev_quad(false),
   _seed(0),
   _opt_seed(false),
+  _stddev(1),
+  _opt_stddev(false),
   _ms_known_maximum(false)
 {
   enum {
@@ -42,11 +38,9 @@ Options::Options(int argc, char *argv[]):
     OPTION_MS_NUM_CLAUSES,
     OPTION_MS_NUM_LITERALS_PER_CLAUSE,
     OPTION_NK_K,
-    OPTION_NK_STDDEV,
     OPTION_PATH,
-    OPTION_QUAD_STDDEV_LIN,
-    OPTION_QUAD_STDDEV_QUAD,
     OPTION_SEED,
+    OPTION_STDDEV,
     OPTION_MS_KNOWN_MAXIMUM
   };
   const struct option long_options[] = {
@@ -56,11 +50,9 @@ Options::Options(int argc, char *argv[]):
     {"ms-num-clauses", required_argument, 0, OPTION_MS_NUM_CLAUSES},
     {"ms-num-literals-per-clause", required_argument, 0, OPTION_MS_NUM_LITERALS_PER_CLAUSE},
     {"nk-k", required_argument, 0, OPTION_NK_K},
-    {"nk-stddev", required_argument, 0, OPTION_NK_STDDEV},
     {"path", required_argument, 0, OPTION_PATH},
-    {"quad-stddev-lin", required_argument, 0, OPTION_QUAD_STDDEV_LIN},
-    {"quad-stddev-quad", required_argument, 0, OPTION_QUAD_STDDEV_QUAD},
     {"seed", required_argument, 0, OPTION_SEED},
+    {"stddev", required_argument, 0, OPTION_STDDEV},
     {"ms-known-maximum", no_argument, 0, OPTION_MS_KNOWN_MAXIMUM},
     {"help", no_argument, 0, OPTION_HELP},
     {"version", no_argument, 0, OPTION_VERSION},
@@ -98,25 +90,17 @@ Options::Options(int argc, char *argv[]):
       set_nk_k(atoi(optarg));
       break;
 
-    case OPTION_NK_STDDEV:
-      set_nk_stddev(atof(optarg));
-      break;
-
     case 'p':
     case OPTION_PATH:
       set_path(string(optarg));
       break;
 
-    case OPTION_QUAD_STDDEV_LIN:
-      set_quad_stddev_lin(atof(optarg));
-      break;
-
-    case OPTION_QUAD_STDDEV_QUAD:
-      set_quad_stddev_quad(atof(optarg));
-      break;
-
     case OPTION_SEED:
       set_seed(atoi(optarg));
+      break;
+
+    case OPTION_STDDEV:
+      set_stddev(atof(optarg));
       break;
 
     case OPTION_MS_KNOWN_MAXIMUM:
@@ -151,23 +135,18 @@ void Options::print_help(ostream& stream) const
   stream << "            60: NK landscape" << endl;
   stream << "            70: Max-SAT" << endl;
   stream << "            90: Equal products" << endl;
+  stream << "            161: Walsh expansion of degree 1" << endl;
   stream << "            162: Walsh expansion of degree 2" << endl;
   stream << "  -p, --path (type string, default to \"nopath\")" << endl;
   stream << "          Path (relative or absolute) of a function file" << endl;
   stream << "      --seed (type int, default to 0)" << endl;
   stream << "          Seed for the random number generator" << endl;
-  stream << endl;
-  stream << "WalshExpansion:" << endl;
-  stream << "      --quad-stddev-lin (type double, default to 1)" << endl;
-  stream << "          Standard deviation of linear part" << endl;
-  stream << "      --quad-stddev-quad (type double, default to 1)" << endl;
-  stream << "          Standard deviation of quadratic part" << endl;
+  stream << "      --stddev (type double, default to 1)" << endl;
+  stream << "          Standard deviation" << endl;
   stream << endl;
   stream << "NkLandscape:" << endl;
   stream << "      --nk-k (type int, default to 3)" << endl;
   stream << "          Each bit is connected to k other bits" << endl;
-  stream << "      --nk-stddev (type double, default to 1)" << endl;
-  stream << "          Standard deviation of partial values" << endl;
   stream << endl;
   stream << "MaxSat:" << endl;
   stream << "      --ms-known-maximum" << endl;
@@ -196,11 +175,9 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# ms_num_clauses = " << options._ms_num_clauses << endl;
   stream << "# ms_num_literals_per_clause = " << options._ms_num_literals_per_clause << endl;
   stream << "# nk_k = " << options._nk_k << endl;
-  stream << "# nk_stddev = " << options._nk_stddev << endl;
   stream << "# path = " << options._path << endl;
-  stream << "# quad_stddev_lin = " << options._quad_stddev_lin << endl;
-  stream << "# quad_stddev_quad = " << options._quad_stddev_quad << endl;
   stream << "# seed = " << options._seed << endl;
+  stream << "# stddev = " << options._stddev << endl;
   if (options._ms_known_maximum)
     stream << "# ms_known_maximum" << endl;
   stream << "# last_parameter" << endl;

@@ -37,25 +37,17 @@ class Options {
   int _nk_k;
   bool _opt_nk_k;
 
-  /// Standard deviation of partial values
-  double _nk_stddev;
-  bool _opt_nk_stddev;
-
   /// Path (relative or absolute) of a function file
   std::string _path;
   bool _opt_path;
 
-  /// Standard deviation of linear part
-  double _quad_stddev_lin;
-  bool _opt_quad_stddev_lin;
-
-  /// Standard deviation of quadratic part
-  double _quad_stddev_quad;
-  bool _opt_quad_stddev_quad;
-
   /// Seed for the random number generator
   int _seed;
   bool _opt_seed;
+
+  /// Standard deviation
+  double _stddev;
+  bool _opt_stddev;
 
   /// Generate an instance with known maximum
   bool _ms_known_maximum;
@@ -143,18 +135,6 @@ public:
   /// Get set-flag for nk_k
   bool set_nk_k() const { return _opt_nk_k; }
 
-  /// Get nk_stddev
-  double get_nk_stddev() const { return _nk_stddev; }
-
-  /// Set nk_stddev
-  void set_nk_stddev(double x) {
-    _nk_stddev = x;
-    _opt_nk_stddev = true;
-  }
-
-  /// Get set-flag for nk_stddev
-  bool set_nk_stddev() const { return _opt_nk_stddev; }
-
   /// Get path
   std::string get_path() const { return _path; }
 
@@ -167,30 +147,6 @@ public:
   /// Get set-flag for path
   bool set_path() const { return _opt_path; }
 
-  /// Get quad_stddev_lin
-  double get_quad_stddev_lin() const { return _quad_stddev_lin; }
-
-  /// Set quad_stddev_lin
-  void set_quad_stddev_lin(double x) {
-    _quad_stddev_lin = x;
-    _opt_quad_stddev_lin = true;
-  }
-
-  /// Get set-flag for quad_stddev_lin
-  bool set_quad_stddev_lin() const { return _opt_quad_stddev_lin; }
-
-  /// Get quad_stddev_quad
-  double get_quad_stddev_quad() const { return _quad_stddev_quad; }
-
-  /// Set quad_stddev_quad
-  void set_quad_stddev_quad(double x) {
-    _quad_stddev_quad = x;
-    _opt_quad_stddev_quad = true;
-  }
-
-  /// Get set-flag for quad_stddev_quad
-  bool set_quad_stddev_quad() const { return _opt_quad_stddev_quad; }
-
   /// Get seed
   int get_seed() const { return _seed; }
 
@@ -202,6 +158,18 @@ public:
 
   /// Get set-flag for seed
   bool set_seed() const { return _opt_seed; }
+
+  /// Get stddev
+  double get_stddev() const { return _stddev; }
+
+  /// Set stddev
+  void set_stddev(double x) {
+    _stddev = x;
+    _opt_stddev = true;
+  }
+
+  /// Get set-flag for stddev
+  bool set_stddev() const { return _opt_stddev; }
 
   /// Get ms_known_maximum
   bool with_ms_known_maximum() const { return _ms_known_maximum; }

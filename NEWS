@@ -1,16 +1,14 @@
 * Version 0.6 (unreleased)
 
 Library:
-- Added function bv_flip with a sparse_bit_vector_t mask
+- Added function bv_flip with a sparse mask
 - Neighborhood: added member _flipped_bits
 - Neighborhood: added pure virtual member function sample_bits
 - Neighborhood implements member functions propose, keep, and forget
-- Local search: new files neighborhood-iterator.(hh|cc) and steepest-ascent-hill-climbing.(hh|cc)
+- New files neighborhood-iterator.(hh|cc) under algorithms/ls/
+- New files steepest-ascent-hill-climbing.(hh|cc) under algorithms/ls/
 - OnePlusOneEa implemented as RandomLocalSearch with BernoulliProcess
-- Incremental evaluation: OneMax
-- Incremental evaluation: RandomLocalSearch
-- Incremental evaluation: StopOnMaximum, StopOnTarget, CallCounter,
-  ProgressTracker, OnBudgetFunction, Negation
+- Incremental evaluation: OneMax, RandomLocalSearch, FunctionDecorator
 - RandomLocalSearch, Mmas: added member _compare
 - RandomLocalSearch, Mmas: single class
 - Renamed class Binomial -> BernoulliProcess
@@ -19,22 +17,24 @@ Library:
 - BernoulliProcess, HammingBall, and HammingSphere derive from MultiBitFlip
 - All function decorators moved under functions/decorators/
 - Added classes FunctionController and FunctionModifier
-- Evolutionary algorithms: new files tournament-selection.(hh|cc)
+- New files tournament-selection.(hh|cc) under algorithms/ea/
 - Population: added member function get_bv for const instances
 - Population: added type index_value_t
 - Population: added member _compare
 - Population: removed inline function comp
-- Population: removed member functions get_best_index and get_best_bv(int, const Population&)
+- Population: removed unused member functions
 - Renamed QuadraticFunction -> WalshExpansion2
 - Files walsh-expansion-2.(hh|cc) moved under functions/walsh/
 - WalshExpansion2: changed expression
 - WalshExpansion2: changed archive format
+- Added WalshExpansion1
 
 tests:
 - Added test-incremental-one-max-bernoulli-process
 - Added test-incremental-one-max-hamming-ball
 - Added test-incremental-one-max-hamming-sphere
 - Added test-incremental-one-max-single-bit-flip
+- Added test-serialize-walsh-expansion-1
 
 hnco:
 - Removed option --no-header
@@ -46,9 +46,15 @@ hnco:
 - Removed algorithms 101 (StrictRandomLocalSearch) and 801 (StrictMmas)
 - Renumbered WalshExpansion2 50 -> 162
 - Renumbered Qubo 51 -> 50
+- Added WalshExpansion1 with number 161
 
 ffgen:
 - Renumbered WalshExpansion2 50 -> 162
+- Added WalshExpansion1 with number 161
+- Removed option --quad-stddev-lin
+- Removed option --quad-stddev-quad
+- Removed option --nk-stddev
+- Added option --stddev
 
 experiments:
 - benchmark: generate new instances

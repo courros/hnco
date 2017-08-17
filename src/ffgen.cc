@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 
   case 60: {
     NkLandscape function;
-    function.random(options.get_bv_size(), options.get_nk_k(), options.get_nk_stddev());
+    function.random(options.get_bv_size(), options.get_nk_k(), options.get_stddev());
     cout << "Writing NkLandscape to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
@@ -105,9 +105,20 @@ int main(int argc, char *argv[])
     break;
   }
 
+  case 161: {
+    WalshExpansion1 function;
+    function.random(options.get_bv_size(), options.get_stddev());
+    cout << "Writing WalshExpansion1 to " << options.get_path() << " ... ";
+    std::ofstream ofs(options.get_path());
+    boost::archive::text_oarchive oa(ofs);
+    oa << function;
+    cout << "done" << endl;
+    break;
+  }
+
   case 162: {
     WalshExpansion2 function;
-    function.random(options.get_bv_size(), options.get_quad_stddev_lin(), options.get_quad_stddev_quad());
+    function.random(options.get_bv_size(), options.get_stddev(), options.get_stddev());
     cout << "Writing WalshExpansion2 to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);

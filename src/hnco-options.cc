@@ -685,6 +685,7 @@ void Options::print_help(ostream& stream) const
   stream << "            130: Plateau" << endl;
   stream << "            140: Long path" << endl;
   stream << "            150: Factorization" << endl;
+  stream << "            161: Walsh expansion of degree 1" << endl;
   stream << "            162: Walsh expansion of degree 2" << endl;
   stream << "            1000: Plugin" << endl;
   stream << "      --log-improvement" << endl;

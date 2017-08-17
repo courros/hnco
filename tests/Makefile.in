@@ -115,6 +115,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-serialize-nk-landscape$(EXEEXT) \
 	test-serialize-permutation$(EXEEXT) \
 	test-serialize-translation$(EXEEXT) \
+	test-serialize-walsh-expansion-1$(EXEEXT) \
 	test-serialize-walsh-expansion-2$(EXEEXT) \
 	test-steepest-ascent-hill-climbing$(EXEEXT)
 subdir = tests
@@ -316,6 +317,12 @@ test_serialize_translation_OBJECTS =  \
 	$(am_test_serialize_translation_OBJECTS)
 test_serialize_translation_LDADD = $(LDADD)
 test_serialize_translation_DEPENDENCIES = ../lib/libhnco.la
+am_test_serialize_walsh_expansion_1_OBJECTS =  \
+	test-serialize-walsh-expansion-1.$(OBJEXT)
+test_serialize_walsh_expansion_1_OBJECTS =  \
+	$(am_test_serialize_walsh_expansion_1_OBJECTS)
+test_serialize_walsh_expansion_1_LDADD = $(LDADD)
+test_serialize_walsh_expansion_1_DEPENDENCIES = ../lib/libhnco.la
 am_test_serialize_walsh_expansion_2_OBJECTS =  \
 	test-serialize-walsh-expansion-2.$(OBJEXT)
 test_serialize_walsh_expansion_2_OBJECTS =  \
@@ -391,6 +398,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_serialize_nk_landscape_SOURCES) \
 	$(test_serialize_permutation_SOURCES) \
 	$(test_serialize_translation_SOURCES) \
+	$(test_serialize_walsh_expansion_1_SOURCES) \
 	$(test_serialize_walsh_expansion_2_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES)
 DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
@@ -422,6 +430,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_serialize_nk_landscape_SOURCES) \
 	$(test_serialize_permutation_SOURCES) \
 	$(test_serialize_translation_SOURCES) \
+	$(test_serialize_walsh_expansion_1_SOURCES) \
 	$(test_serialize_walsh_expansion_2_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES)
 am__can_run_installinfo = \
@@ -817,6 +826,7 @@ test_serialize_max_sat_SOURCES = test-serialize-max-sat.cc
 test_serialize_nk_landscape_SOURCES = test-serialize-nk-landscape.cc
 test_serialize_permutation_SOURCES = test-serialize-permutation.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
+test_serialize_walsh_expansion_1_SOURCES = test-serialize-walsh-expansion-1.cc
 test_serialize_walsh_expansion_2_SOURCES = test-serialize-walsh-expansion-2.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 TESTS = $(check_PROGRAMS)
@@ -830,6 +840,7 @@ DISTCLEANFILES = \
 	test-serialize-nk-landscape.txt \
 	test-serialize-permutation.txt \
 	test-serialize-translation.txt \
+	test-serialize-walsh-expansion-1.txt \
 	test-serialize-walsh-expansion-2.txt
 
 all: all-am
@@ -1007,6 +1018,10 @@ test-serialize-translation$(EXEEXT): $(test_serialize_translation_OBJECTS) $(tes
 	@rm -f test-serialize-translation$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_translation_OBJECTS) $(test_serialize_translation_LDADD) $(LIBS)
 
+test-serialize-walsh-expansion-1$(EXEEXT): $(test_serialize_walsh_expansion_1_OBJECTS) $(test_serialize_walsh_expansion_1_DEPENDENCIES) $(EXTRA_test_serialize_walsh_expansion_1_DEPENDENCIES) 
+	@rm -f test-serialize-walsh-expansion-1$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_walsh_expansion_1_OBJECTS) $(test_serialize_walsh_expansion_1_LDADD) $(LIBS)
+
 test-serialize-walsh-expansion-2$(EXEEXT): $(test_serialize_walsh_expansion_2_OBJECTS) $(test_serialize_walsh_expansion_2_DEPENDENCIES) $(EXTRA_test_serialize_walsh_expansion_2_DEPENDENCIES) 
 	@rm -f test-serialize-walsh-expansion-2$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_walsh_expansion_2_OBJECTS) $(test_serialize_walsh_expansion_2_LDADD) $(LIBS)
@@ -1054,6 +1069,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-nk-landscape.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-permutation.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-translation.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-walsh-expansion-1.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-walsh-expansion-2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po@am__quote@
 
@@ -1507,6 +1523,13 @@ test-serialize-permutation.log: test-serialize-permutation$(EXEEXT)
 test-serialize-translation.log: test-serialize-translation$(EXEEXT)
 	@p='test-serialize-translation$(EXEEXT)'; \
 	b='test-serialize-translation'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-serialize-walsh-expansion-1.log: test-serialize-walsh-expansion-1$(EXEEXT)
+	@p='test-serialize-walsh-expansion-1$(EXEEXT)'; \
+	b='test-serialize-walsh-expansion-1'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

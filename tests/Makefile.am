@@ -32,6 +32,7 @@ check_PROGRAMS = \
 	test-serialize-nk-landscape \
 	test-serialize-permutation \
 	test-serialize-translation \
+	test-serialize-walsh-expansion-1 \
 	test-serialize-walsh-expansion-2 \
 	test-steepest-ascent-hill-climbing
 
@@ -74,6 +75,7 @@ test_serialize_max_sat_SOURCES = test-serialize-max-sat.cc
 test_serialize_nk_landscape_SOURCES = test-serialize-nk-landscape.cc
 test_serialize_permutation_SOURCES = test-serialize-permutation.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
+test_serialize_walsh_expansion_1_SOURCES = test-serialize-walsh-expansion-1.cc
 test_serialize_walsh_expansion_2_SOURCES = test-serialize-walsh-expansion-2.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 
@@ -89,4 +91,5 @@ DISTCLEANFILES = \
 	test-serialize-nk-landscape.txt \
 	test-serialize-permutation.txt \
 	test-serialize-translation.txt \
+	test-serialize-walsh-expansion-1.txt \
 	test-serialize-walsh-expansion-2.txt

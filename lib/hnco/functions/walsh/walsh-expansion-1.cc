@@ -18,10 +18,43 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_WALSH_ALL_H
-#define HNCO_FUNCTIONS_WALSH_ALL_H
+#include <assert.h>
+
+#include "hnco/random.hh"
 
 #include "walsh-expansion-1.hh"
-#include "walsh-expansion-2.hh"
 
-#endif
+
+using namespace hnco::random;
+using namespace hnco::function;
+
+
+void
+WalshExpansion1::random(int n, double stddev)
+{
+  assert(n > 0);
+  assert(stddev > 0);
+
+  // Linear part
+  _linear.resize(n);
+  for (size_t i = 0; i < _linear.size(); i++)
+    _linear[i] = stddev * Random::normal();
+}
+
+
+double
+WalshExpansion1::eval(const bit_vector_t& s)
+{
+  assert(s.size() == _linear.size());
+
+  double result = 0;
+
+  // Linear part
+  for (size_t i = 0; i < _linear.size(); i++)
+    if (s[i])
+      result -= _linear[i];
+    else
+      result += _linear[i];
+
+  return result;
+}

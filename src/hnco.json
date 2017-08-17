@@ -324,6 +324,11 @@
                 },
 
                 {
+                    "value": 161,
+                    "description": "Walsh expansion of degree 1"
+                },
+
+                {
                     "value": 162,
                     "description": "Walsh expansion of degree 2"
                 },
