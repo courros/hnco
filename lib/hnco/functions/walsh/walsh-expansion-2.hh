@@ -69,8 +69,8 @@ namespace function {
 
     /** Quadratic part.
 
-        Only the upper triangular matrix (without its diagonal) is
-        taken into account.
+        Represented as a lower triangular matrix (without its
+        diagonal).
     */
     std::vector<std::vector<double> > _quadratic;
 
