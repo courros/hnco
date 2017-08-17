@@ -75,7 +75,7 @@ namespace function {
     /** Random instance.
 
         \param n                Size of bit vector
-        \param stddev           Standard deviation of the coefficients of the linear part
+        \param stddev           Standard deviation of the coefficients
     */
     void random(int n, double stddev);
 
