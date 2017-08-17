@@ -63,17 +63,6 @@ int main(int argc, char *argv[])
     break;
   }
 
-  case 50: {
-    WalshExpansion2 function;
-    function.random(options.get_bv_size(), options.get_quad_stddev_lin(), options.get_quad_stddev_quad());
-    cout << "Writing WalshExpansion2 to " << options.get_path() << " ... ";
-    std::ofstream ofs(options.get_path());
-    boost::archive::text_oarchive oa(ofs);
-    oa << function;
-    cout << "done" << endl;
-    break;
-  }
-
   case 60: {
     NkLandscape function;
     function.random(options.get_bv_size(), options.get_nk_k(), options.get_nk_stddev());
@@ -109,6 +98,17 @@ int main(int argc, char *argv[])
     EqualProducts function;
     function.random(options.get_bv_size(), options.get_ep_upper_bound());
     cout << "Writing EqualProducts to " << options.get_path() << " ... ";
+    std::ofstream ofs(options.get_path());
+    boost::archive::text_oarchive oa(ofs);
+    oa << function;
+    cout << "done" << endl;
+    break;
+  }
+
+  case 162: {
+    WalshExpansion2 function;
+    function.random(options.get_bv_size(), options.get_quad_stddev_lin(), options.get_quad_stddev_quad());
+    cout << "Writing WalshExpansion2 to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     oa << function;
