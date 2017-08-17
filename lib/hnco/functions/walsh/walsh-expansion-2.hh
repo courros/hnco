@@ -38,8 +38,16 @@ namespace function {
 
   /** Walsh expansion of degree 2.
 
-      Its expression is of the form \f$ f(x) = \sum_{i < j} (2x_i -
-      1) (2x_j - 1) q_{ij} + \sum_i (2x_i - 1) l_i \f$
+      Its expression is of the form
+
+      \f$ f(x) = \sum_i a_i (1 - 2x_i) + \sum_{i < j} a_{ij} (1 - 2x_i) (1 - 2x_j) \f$
+
+      or equivalently
+
+      \f$ f(x) = \sum_i a_i (-1)^{x_i} + \sum_{i < j} a_{ij} (-1)^{x_i + x_j} \f$
+
+      where the sum \f$ x_i + x_j \f$ is mod 2 (xor).
+
   */
   class WalshExpansion2:
     public Function {
