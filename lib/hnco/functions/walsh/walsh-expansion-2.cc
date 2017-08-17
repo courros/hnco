@@ -64,9 +64,9 @@ WalshExpansion2::eval(const bit_vector_t& s)
   // Linear part
   for (size_t i = 0; i < dimension; i++)
     if (s[i])
-      r += _linear[i];
-    else
       r -= _linear[i];
+    else
+      r += _linear[i];
 
   // Quadratic part
   for (size_t i = 0; i < dimension; i++) {
