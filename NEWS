@@ -28,6 +28,7 @@ Library:
 - WalshExpansion2: changed expression
 - WalshExpansion2: changed archive format
 - Added WalshExpansion1
+- Added WalshExpansion
 
 tests:
 - Added test-incremental-one-max-bernoulli-process
@@ -35,6 +36,7 @@ tests:
 - Added test-incremental-one-max-hamming-sphere
 - Added test-incremental-one-max-single-bit-flip
 - Added test-serialize-walsh-expansion-1
+- Added test-serialize-walsh-expansion
 
 hnco:
 - Removed option --no-header
@@ -47,6 +49,7 @@ hnco:
 - Renumbered WalshExpansion2 50 -> 162
 - Renumbered Qubo 51 -> 50
 - Added WalshExpansion1 with number 161
+- Added WalshExpansion with number 160
 
 ffgen:
 - Renumbered WalshExpansion2 50 -> 162
@@ -55,6 +58,7 @@ ffgen:
 - Removed option --quad-stddev-quad
 - Removed option --nk-stddev
 - Added option --stddev
+- Added WalshExpansion with number 160
 
 experiments:
 - benchmark: generate new instances
