@@ -105,6 +105,17 @@ int main(int argc, char *argv[])
     break;
   }
 
+  case 160: {
+    WalshExpansion function;
+    function.random(options.get_bv_size(), options.get_walsh_num_features(), options.get_stddev());
+    cout << "Writing WalshExpansion to " << options.get_path() << " ... ";
+    std::ofstream ofs(options.get_path());
+    boost::archive::text_oarchive oa(ofs);
+    oa << function;
+    cout << "done" << endl;
+    break;
+  }
+
   case 161: {
     WalshExpansion1 function;
     function.random(options.get_bv_size(), options.get_stddev());

@@ -27,6 +27,8 @@ Options::Options(int argc, char *argv[]):
   _opt_seed(false),
   _stddev(1),
   _opt_stddev(false),
+  _walsh_num_features(100),
+  _opt_walsh_num_features(false),
   _ms_known_maximum(false)
 {
   enum {
@@ -41,6 +43,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_PATH,
     OPTION_SEED,
     OPTION_STDDEV,
+    OPTION_WALSH_NUM_FEATURES,
     OPTION_MS_KNOWN_MAXIMUM
   };
   const struct option long_options[] = {
@@ -53,6 +56,7 @@ Options::Options(int argc, char *argv[]):
     {"path", required_argument, 0, OPTION_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
     {"stddev", required_argument, 0, OPTION_STDDEV},
+    {"walsh-num-features", required_argument, 0, OPTION_WALSH_NUM_FEATURES},
     {"ms-known-maximum", no_argument, 0, OPTION_MS_KNOWN_MAXIMUM},
     {"help", no_argument, 0, OPTION_HELP},
     {"version", no_argument, 0, OPTION_VERSION},
@@ -103,6 +107,10 @@ Options::Options(int argc, char *argv[]):
       set_stddev(atof(optarg));
       break;
 
+    case OPTION_WALSH_NUM_FEATURES:
+      set_walsh_num_features(atoi(optarg));
+      break;
+
     case OPTION_MS_KNOWN_MAXIMUM:
       _ms_known_maximum = true;
       break;
@@ -135,6 +143,7 @@ void Options::print_help(ostream& stream) const
   stream << "            60: NK landscape" << endl;
   stream << "            70: Max-SAT" << endl;
   stream << "            90: Equal products" << endl;
+  stream << "            160: Walsh expansion" << endl;
   stream << "            161: Walsh expansion of degree 1" << endl;
   stream << "            162: Walsh expansion of degree 2" << endl;
   stream << "  -p, --path (type string, default to \"nopath\")" << endl;
@@ -160,6 +169,10 @@ void Options::print_help(ostream& stream) const
   stream << "      --ep-upper-bound (type double, default to 1)" << endl;
   stream << "          Parameter upper bound" << endl;
   stream << endl;
+  stream << "WalshExpansion:" << endl;
+  stream << "      --walsh-num-features (type int, default to 100)" << endl;
+  stream << "          Number of features" << endl;
+  stream << endl;
 }
 
 void Options::print_version(ostream& stream) const
@@ -178,6 +191,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# path = " << options._path << endl;
   stream << "# seed = " << options._seed << endl;
   stream << "# stddev = " << options._stddev << endl;
+  stream << "# walsh_num_features = " << options._walsh_num_features << endl;
   if (options._ms_known_maximum)
     stream << "# ms_known_maximum" << endl;
   stream << "# last_parameter" << endl;

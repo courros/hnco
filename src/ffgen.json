@@ -5,7 +5,7 @@
 
     "version": "0.6",
 
-    "tab_order": [ "General", "NkLandscape", "MaxSat", "EqualProducts" ],
+    "tab_order": [ "General", "NkLandscape", "MaxSat", "EqualProducts", "WalshExpansion"],
 
     "flags": {
 
@@ -85,6 +85,11 @@
                 },
 
                 {
+                    "value": 160,
+                    "description": "Walsh expansion"
+                },
+
+                {
                     "value": 161,
                     "description": "Walsh expansion of degree 1"
                 },
@@ -128,8 +133,15 @@
             "value": 1,
             "description": "Parameter upper bound",
             "category": "EqualProducts"
-        }
+        },
 
+        "walsh_num_features":
+        {
+            "type": "int",
+            "value": 100,
+            "description": "Number of features",
+            "category": "WalshExpansion"
+        }
     }
 
 }

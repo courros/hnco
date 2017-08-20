@@ -49,6 +49,10 @@ class Options {
   double _stddev;
   bool _opt_stddev;
 
+  /// Number of features
+  int _walsh_num_features;
+  bool _opt_walsh_num_features;
+
   /// Generate an instance with known maximum
   bool _ms_known_maximum;
 
@@ -170,6 +174,18 @@ public:
 
   /// Get set-flag for stddev
   bool set_stddev() const { return _opt_stddev; }
+
+  /// Get walsh_num_features
+  int get_walsh_num_features() const { return _walsh_num_features; }
+
+  /// Set walsh_num_features
+  void set_walsh_num_features(int x) {
+    _walsh_num_features = x;
+    _opt_walsh_num_features = true;
+  }
+
+  /// Get set-flag for walsh_num_features
+  bool set_walsh_num_features() const { return _opt_walsh_num_features; }
 
   /// Get ms_known_maximum
   bool with_ms_known_maximum() const { return _ms_known_maximum; }

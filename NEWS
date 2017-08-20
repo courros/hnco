@@ -30,7 +30,7 @@ Library:
 - Added WalshExpansion1
 - Added WalshExpansion
 
-tests:
+Tests:
 - Added test-incremental-one-max-bernoulli-process
 - Added test-incremental-one-max-hamming-ball
 - Added test-incremental-one-max-hamming-sphere
