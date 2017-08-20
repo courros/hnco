@@ -214,7 +214,9 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/functions/walsh/walsh-expansion-1.cc \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.cc \
-	hnco/functions/walsh/walsh-expansion-2.hh hnco/iterator.cc \
+	hnco/functions/walsh/walsh-expansion-2.hh \
+	hnco/functions/walsh/walsh-expansion.cc \
+	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.cc \
 	hnco/iterator.hh hnco/map.cc hnco/map.hh hnco/permutation.cc \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
 	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
@@ -257,7 +259,8 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/functions/plugin.lo hnco/functions/qubo.lo \
 	hnco/functions/theory.lo hnco/functions/trap.lo \
 	hnco/functions/walsh/walsh-expansion-1.lo \
-	hnco/functions/walsh/walsh-expansion-2.lo hnco/iterator.lo \
+	hnco/functions/walsh/walsh-expansion-2.lo \
+	hnco/functions/walsh/walsh-expansion.lo hnco/iterator.lo \
 	hnco/map.lo hnco/permutation.lo hnco/random.lo \
 	$(am__objects_1)
 libhnco_la_OBJECTS = $(am_libhnco_la_OBJECTS)
@@ -365,7 +368,8 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/functions/qubo.hh hnco/functions/theory.hh \
 	hnco/functions/trap.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
-	hnco/functions/walsh/walsh-expansion-2.hh hnco/iterator.hh \
+	hnco/functions/walsh/walsh-expansion-2.hh \
+	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
 	hnco/map.hh hnco/permutation.hh hnco/random.hh \
 	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
 	hnco/functions/factorization.hh
@@ -595,7 +599,9 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/functions/walsh/walsh-expansion-1.cc \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.cc \
-	hnco/functions/walsh/walsh-expansion-2.hh hnco/iterator.cc \
+	hnco/functions/walsh/walsh-expansion-2.hh \
+	hnco/functions/walsh/walsh-expansion.cc \
+	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.cc \
 	hnco/iterator.hh hnco/map.cc hnco/map.hh hnco/permutation.cc \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
 	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
@@ -641,7 +647,8 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/functions/qubo.hh hnco/functions/theory.hh \
 	hnco/functions/trap.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
-	hnco/functions/walsh/walsh-expansion-2.hh hnco/iterator.hh \
+	hnco/functions/walsh/walsh-expansion-2.hh \
+	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
 	hnco/map.hh hnco/permutation.hh hnco/random.hh \
 	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
 	$(am__append_2)
@@ -886,6 +893,9 @@ hnco/functions/walsh/walsh-expansion-1.lo:  \
 hnco/functions/walsh/walsh-expansion-2.lo:  \
 	hnco/functions/walsh/$(am__dirstamp) \
 	hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/walsh/walsh-expansion.lo:  \
+	hnco/functions/walsh/$(am__dirstamp) \
+	hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp)
 hnco/iterator.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/map.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/permutation.lo: hnco/$(am__dirstamp) \
@@ -974,6 +984,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\

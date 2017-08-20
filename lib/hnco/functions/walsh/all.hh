@@ -21,6 +21,7 @@
 #ifndef HNCO_FUNCTIONS_WALSH_ALL_H
 #define HNCO_FUNCTIONS_WALSH_ALL_H
 
+#include "walsh-expansion.hh"
 #include "walsh-expansion-1.hh"
 #include "walsh-expansion-2.hh"
 

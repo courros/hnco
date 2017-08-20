@@ -109,6 +109,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.cc \
 	hnco/functions/walsh/walsh-expansion-2.hh \
+	hnco/functions/walsh/walsh-expansion.cc \
+	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.cc \
 	hnco/iterator.hh \
 	hnco/map.cc \
@@ -187,6 +189,7 @@ nobase_include_HEADERS = \
 	hnco/functions/trap.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
+	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.hh \
 	hnco/map.hh \
 	hnco/permutation.hh \
