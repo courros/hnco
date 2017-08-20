@@ -1,5 +1,16 @@
 # In Hypercubo Nigrae Capsulae Optimum (HNCO)
 
+## Table of content
+
+1. [Introduction](#introduction)
+2. [Library](#library)
+3. [Command-line tools](#cli)
+4. [Experiments](#experiments)
+5. [Requirements](#requirements)
+6. [Building and installing](#building)
+7. [Contributing](#contributing)
+8. [About the name](#name)
+
 ## Introduction
 
 HNCO is a C++11 library, a set of command-line tools, and a set of
@@ -152,7 +163,7 @@ The scripts currently do not run `hnco` in parallel. However, it is
 possible to split a `plan.json` in two or four and run the simulations
 in parallel. We might use GNU Parallel in future releases.
 
-## Command-line tools
+## Command-line tools <a name="cli"></a>
 
 HNCO provides the command-line tools `ffgen`, `hnco`, and `mapgen`.
 
@@ -343,7 +354,7 @@ sudo apt-get install texlive-base texlive-latex-extra python-pygments
 Under Ubuntu 16.10, replace `libboost-serialization1.58-dev` with
 `libboost-serialization1.61-dev`.
 
-## Building and installing
+## Building and installing <a name="building"></a>
 
 Execute the following commands in the source directory:
 
@@ -371,7 +382,7 @@ Feedbacks and contributions are welcome. Contributions could take the
 form of an algorithm or a function. Algorithms from published work
 would be most appreciated.
 
-## About the name
+## About the name <a name="name"></a>
 
 ### Latin
 
