@@ -59,6 +59,7 @@ ffgen:
 - Removed option --nk-stddev
 - Added option --stddev
 - Added WalshExpansion with number 160
+- Added option --walsh-num-features
 
 experiments:
 - benchmark: generate new instances
