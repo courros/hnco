@@ -68,7 +68,7 @@ WalshExpansion2::eval(const bit_vector_t& s)
 
   // Quadratic part
   for (size_t i = 0; i < _quadratic.size(); i++) {
-    auto line = _quadratic[i];
+    auto& line = _quadratic[i];
     const bit_t b = s[i];
     for (size_t j = 0; j < i; j++)
       if (s[j] == b)
