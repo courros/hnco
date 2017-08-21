@@ -55,6 +55,7 @@ hnco:
 - Renumbered Qubo 51 -> 50
 - Added WalshExpansion1 with number 161
 - Added WalshExpansion with number 160
+- Renamed option --plugin-function-name -> --fun-name
 
 ffgen:
 - Renumbered WalshExpansion2 50 -> 162
@@ -67,7 +68,7 @@ ffgen:
 - Added option --walsh-num-features
 
 experiments:
-- benchmark: generate new instances
+- benchmark, dynamics, parameter: generate new instances
 
 Build:
 - optgen.pl distributed but not installed

@@ -49,6 +49,10 @@ class Options {
   int _ea_mu;
   bool _opt_ea_mu;
 
+  /// Name of the function in the dynamic library
+  std::string _fun_name;
+  bool _opt_fun_name;
+
   /// Number of traps
   int _fun_num_traps;
   bool _opt_fun_num_traps;
@@ -148,10 +152,6 @@ class Options {
   /// Path of a function file
   std::string _path;
   bool _opt_path;
-
-  /// Name of the function in the dynamic library
-  std::string _plugin_function_name;
-  bool _opt_plugin_function_name;
 
   /// Size of the population
   int _population_size;
@@ -403,6 +403,18 @@ public:
 
   /// Get set-flag for ea_mu
   bool set_ea_mu() const { return _opt_ea_mu; }
+
+  /// Get fun_name
+  std::string get_fun_name() const { return _fun_name; }
+
+  /// Set fun_name
+  void set_fun_name(std::string x) {
+    _fun_name = x;
+    _opt_fun_name = true;
+  }
+
+  /// Get set-flag for fun_name
+  bool set_fun_name() const { return _opt_fun_name; }
 
   /// Get fun_num_traps
   int get_fun_num_traps() const { return _fun_num_traps; }
@@ -703,18 +715,6 @@ public:
 
   /// Get set-flag for path
   bool set_path() const { return _opt_path; }
-
-  /// Get plugin_function_name
-  std::string get_plugin_function_name() const { return _plugin_function_name; }
-
-  /// Set plugin_function_name
-  void set_plugin_function_name(std::string x) {
-    _plugin_function_name = x;
-    _opt_plugin_function_name = true;
-  }
-
-  /// Get set-flag for plugin_function_name
-  bool set_plugin_function_name() const { return _opt_plugin_function_name; }
 
   /// Get population_size
   int get_population_size() const { return _population_size; }

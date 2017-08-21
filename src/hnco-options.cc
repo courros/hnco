@@ -27,6 +27,8 @@ Options::Options(int argc, char *argv[]):
   _opt_ea_lambda(false),
   _ea_mu(10),
   _opt_ea_mu(false),
+  _fun_name("noname"),
+  _opt_fun_name(false),
   _fun_num_traps(10),
   _opt_fun_num_traps(false),
   _fun_prefix_length(2),
@@ -77,8 +79,6 @@ Options::Options(int argc, char *argv[]):
   _opt_num_threads(false),
   _path("nopath"),
   _opt_path(false),
-  _plugin_function_name("nofunction"),
-  _opt_plugin_function_name(false),
   _population_size(10),
   _opt_population_size(false),
   _pv_log_num_components(5),
@@ -144,6 +144,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_BV_SIZE,
     OPTION_EA_LAMBDA,
     OPTION_EA_MU,
+    OPTION_FUN_NAME,
     OPTION_FUN_NUM_TRAPS,
     OPTION_FUN_PREFIX_LENGTH,
     OPTION_FUN_THRESHOLD,
@@ -169,7 +170,6 @@ Options::Options(int argc, char *argv[]):
     OPTION_NUM_ITERATIONS,
     OPTION_NUM_THREADS,
     OPTION_PATH,
-    OPTION_PLUGIN_FUNCTION_NAME,
     OPTION_POPULATION_SIZE,
     OPTION_PV_LOG_NUM_COMPONENTS,
     OPTION_RADIUS,
@@ -221,6 +221,7 @@ Options::Options(int argc, char *argv[]):
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
     {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
+    {"fun-name", required_argument, 0, OPTION_FUN_NAME},
     {"fun-num-traps", required_argument, 0, OPTION_FUN_NUM_TRAPS},
     {"fun-prefix-length", required_argument, 0, OPTION_FUN_PREFIX_LENGTH},
     {"fun-threshold", required_argument, 0, OPTION_FUN_THRESHOLD},
@@ -246,7 +247,6 @@ Options::Options(int argc, char *argv[]):
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
     {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
     {"path", required_argument, 0, OPTION_PATH},
-    {"plugin-function-name", required_argument, 0, OPTION_PLUGIN_FUNCTION_NAME},
     {"population-size", required_argument, 0, OPTION_POPULATION_SIZE},
     {"pv-log-num-components", required_argument, 0, OPTION_PV_LOG_NUM_COMPONENTS},
     {"radius", required_argument, 0, OPTION_RADIUS},
@@ -334,6 +334,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_EA_MU:
       set_ea_mu(atoi(optarg));
+      break;
+
+    case OPTION_FUN_NAME:
+      set_fun_name(string(optarg));
       break;
 
     case OPTION_FUN_NUM_TRAPS:
@@ -441,10 +445,6 @@ Options::Options(int argc, char *argv[]):
     case 'p':
     case OPTION_PATH:
       set_path(string(optarg));
-      break;
-
-    case OPTION_PLUGIN_FUNCTION_NAME:
-      set_plugin_function_name(string(optarg));
       break;
 
     case 'x':
@@ -648,14 +648,10 @@ void Options::print_help(ostream& stream) const
   stream << "          Seed for the random number generator" << endl;
   stream << endl;
   stream << "Function:" << endl;
-  stream << "      --additive-gaussian-noise" << endl;
-  stream << "          Additive Gaussian noise" << endl;
-  stream << "  -b, --budget (type int, default to 10000)" << endl;
-  stream << "          Number of allowed function evaluations (<= 0 means indefinite)" << endl;
   stream << "  -s, --bv-size (type int, default to 100)" << endl;
   stream << "          Size of bit vectors" << endl;
-  stream << "      --cache" << endl;
-  stream << "          Cache function evaluations" << endl;
+  stream << "      --fun-name (type string, default to \"noname\")" << endl;
+  stream << "          Name of the function in the dynamic library" << endl;
   stream << "      --fun-num-traps (type int, default to 10)" << endl;
   stream << "          Number of traps" << endl;
   stream << "      --fun-prefix-length (type int, default to 2)" << endl;
@@ -689,16 +685,22 @@ void Options::print_help(ostream& stream) const
   stream << "            161: Walsh expansion of degree 1" << endl;
   stream << "            162: Walsh expansion of degree 2" << endl;
   stream << "            1000: Plugin" << endl;
+  stream << "  -p, --path (type string, default to \"nopath\")" << endl;
+  stream << "          Path of a function file" << endl;
+  stream << endl;
+  stream << "Function decorators:" << endl;
+  stream << "      --additive-gaussian-noise" << endl;
+  stream << "          Additive Gaussian noise" << endl;
+  stream << "  -b, --budget (type int, default to 10000)" << endl;
+  stream << "          Number of allowed function evaluations (<= 0 means indefinite)" << endl;
+  stream << "      --cache" << endl;
+  stream << "          Cache function evaluations" << endl;
   stream << "      --log-improvement" << endl;
   stream << "          Log improvement" << endl;
   stream << "      --negation" << endl;
   stream << "          Negation (hence minimization) of the function" << endl;
   stream << "      --noise-stddev (type double, default to 1)" << endl;
   stream << "          Noise standard deviation" << endl;
-  stream << "  -p, --path (type string, default to \"nopath\")" << endl;
-  stream << "          Path of a function file" << endl;
-  stream << "      --plugin-function-name (type string, default to \"nofunction\")" << endl;
-  stream << "          Name of the function in the dynamic library" << endl;
   stream << "      --stop-on-maximum" << endl;
   stream << "          Stop on maximum" << endl;
   stream << "      --stop-on-target" << endl;
@@ -886,6 +888,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# bv_size = " << options._bv_size << endl;
   stream << "# ea_lambda = " << options._ea_lambda << endl;
   stream << "# ea_mu = " << options._ea_mu << endl;
+  stream << "# fun_name = " << options._fun_name << endl;
   stream << "# fun_num_traps = " << options._fun_num_traps << endl;
   stream << "# fun_prefix_length = " << options._fun_prefix_length << endl;
   stream << "# fun_threshold = " << options._fun_threshold << endl;
@@ -911,7 +914,6 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# num_iterations = " << options._num_iterations << endl;
   stream << "# num_threads = " << options._num_threads << endl;
   stream << "# path = " << options._path << endl;
-  stream << "# plugin_function_name = " << options._plugin_function_name << endl;
   stream << "# population_size = " << options._population_size << endl;
   stream << "# pv_log_num_components = " << options._pv_log_num_components << endl;
   stream << "# radius = " << options._radius << endl;

@@ -213,7 +213,7 @@ make_concrete_function(Options& options)
     return new FunctionPlugin
       (options.get_bv_size(),
        options.get_path(),
-       options.get_plugin_function_name());
+       options.get_fun_name());
 
   default:
     ostringstream stream;
