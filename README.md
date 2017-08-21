@@ -139,7 +139,7 @@ to use it with `hnco`, you would do:
 
     gcc -fPIC -c bar.c
     gcc -shared -Wl,-soname,libfoo.so -o libfoo.so bar.o
-    hnco -F 1000 --path ./libfoo.so --plugin-function-name bar
+    hnco -F 1000 --path ./libfoo.so --fun-name bar
 
 ### Neighborhoods
 
