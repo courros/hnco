@@ -8,6 +8,7 @@
     "tab_order": [
         "General",
         "Function",
+        "Function decorators",
         "Map",
         "Algorithm",
         "Local Search",
@@ -56,41 +57,43 @@
             "category": "General"
         },
 
+
         "log_improvement":
         {
             "description": "Log improvement",
-            "category": "Function"
+            "category": "Function decorators"
         },
 
         "stop_on_maximum":
         {
             "description": "Stop on maximum",
-            "category": "Function"
+            "category": "Function decorators"
         },
 
         "stop_on_target":
         {
             "description": "Stop on target",
-            "category": "Function"
-        },
-
-        "negation":
-        {
-            "description": "Negation (hence minimization) of the function",
-            "category": "Function"
-        },
-
-        "additive_gaussian_noise":
-        {
-            "description": "Additive Gaussian noise",
-            "category": "Function"
+            "category": "Function decorators"
         },
 
         "cache":
         {
             "description": "Cache function evaluations",
-            "category": "Function"
+            "category": "Function decorators"
         },
+
+        "negation":
+        {
+            "description": "Negation (hence minimization) of the function",
+            "category": "Function decorators"
+        },
+
+        "additive_gaussian_noise":
+        {
+            "description": "Additive Gaussian noise",
+            "category": "Function decorators"
+        },
+
 
         "map_random":
         {
@@ -207,6 +210,7 @@
             "description": "Number of threads",
             "category": "General"
         },
+
 
         "function":
         {
@@ -356,15 +360,6 @@
             "category": "Function"
         },
 
-        "budget":
-        {
-            "optchar": "b",
-            "type": "int",
-            "value": 10000,
-            "description": "Number of allowed function evaluations (<= 0 means indefinite)",
-            "category": "Function"
-        },
-
         "path":
         {
             "optchar": "p",
@@ -400,20 +395,30 @@
             "category": "Function"
         },
 
+        "fun_name":
+        {
+            "type": "string",
+            "value": "noname",
+            "description": "Name of the function in the dynamic library",
+            "category": "Function"
+        },
+
+
+        "budget":
+        {
+            "optchar": "b",
+            "type": "int",
+            "value": 10000,
+            "description": "Number of allowed function evaluations (<= 0 means indefinite)",
+            "category": "Function decorators"
+        },
+
         "noise_stddev":
         {
             "type": "double",
             "value": 1.0,
             "description": "Noise standard deviation",
-            "category": "Function"
-        },
-
-        "plugin_function_name":
-        {
-            "type": "string",
-            "value": "nofunction",
-            "description": "Name of the function in the dynamic library",
-            "category": "Function"
+            "category": "Function decorators"
         },
 
         "target":
@@ -421,8 +426,9 @@
             "type": "double",
             "value": 100.0,
             "description": "Target",
-            "category": "Function"
+            "category": "Function decorators"
         },
+
 
         "map":
         {
