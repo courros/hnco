@@ -10,6 +10,8 @@
 6. [Building and installing](#building)
 7. [Contributing](#contributing)
 8. [About the name](#name)
+9. [Acknowledgment](#ackowledgement)
+10. [References](#references)
 
 ## Introduction
 
@@ -23,12 +25,12 @@ Library features:
 - 17 concrete algorithms
 - Maps from bit vectors to bit vectors (affine maps)
 - Function decorators to control evaluation (budget)
-- Function decorators to modify functions (additive noise)
+- Function decorators to modify functions (noise)
 - Maps and functions can be serialized to text files
 - Neighborhoods and neighborhood iterators for local search
 - Population with parallel evaluation (OpenMP)
-- Uses a unique instance of random number generator `std::mt19937`
 - Support for incremental evaluation (OneMax and RLS)
+- Uses a unique instance of random number generator `std::mt19937`
 - 37 unit tests
 
 Purposes:
@@ -157,8 +159,7 @@ iterators:
 
 ### Limitations
 
-The library only handles fixed-sized bit vectors. Size is set at
-runtime.
+The library only handles fixed-sized bit vectors.
 
 The scripts currently do not run `hnco` in parallel. However, it is
 possible to split a `plan.json` in two or four and run the simulations
@@ -180,8 +181,8 @@ To get the list of available options, execute the following command:
     ffgen --help
 
 On a unix-like operating system, you can get bash auto-completion by
-copying the file `ffgen.sh` under `.bash_completion.d`. Similarly with
-`mapgen.sh` and `hnco.sh`.
+copying the file `ffgen.sh` under `.bash_completion.d/`. Similarly
+with `mapgen.sh` and `hnco.sh`.
 
 For example, let us generate a random instance of Nk landscape and
 write it to a file:
@@ -251,7 +252,7 @@ be loaded by `hnco` and used by different algorithms.
 
 ## Experiments
 
-HNCO is distributed with four experiments under `experiments`:
+HNCO is distributed with four experiments under `experiments/`:
 `benchmark`, `dynamics`, `parameter`, and `runtimes`. In each
 directory, a Makefile runs the simulations and generates the
 report. The experiment itself is described in a json file called
@@ -285,7 +286,7 @@ first per function then globally.
 - `hnco-benchmark-stat.pl`: collect the results and generate the report
 
 You will find an example of such an experiment under
-`experiments/benchmark`.
+`experiments/benchmark/`.
 
 ### Dynamics
 
@@ -299,7 +300,7 @@ maximum found so far. Each algorithm is run only once.
   report, for studying other quantities
 
 You will find an example of such an experiment under
-`experiments/dynamics`.
+`experiments/dynamics/`.
 
 ### Parameter
 
@@ -311,20 +312,20 @@ performances of a set of algorithms applied to a set of functions.
   report
 
 You will find an example of such an experiment under
-`experiments/parameter`.
+`experiments/parameter/`.
 
 ### Runtime
 
 The purpose is to study the runtime as a function of some given
 parameter of a set of algorithms applied to a set of functions. The
 functions must have a known maximum and the algorithms must be able to
-find them in finite time.
+find it in finite time.
 
 - `hnco-parameter-run.pl`: run the simulations
 - `hnco-runtime-stat.pl`: collect the results and generate the report
 
 You will find an example of such an experiment under
-`experiments/runtime`.
+`experiments/runtime/`.
 
 ## Requirements
 
@@ -375,7 +376,7 @@ To generate the API documentation:
 
     make doc
 
-Once generated, you will find it under `doc/api`.
+Once generated, you will find it under `doc/api/`.
 
 ## Contributing
 
@@ -394,9 +395,22 @@ the english phrase "black box optimization in the hypercube".
 
 Quoting Wikipedia:
 
-Isocyanic acid is an organic compound with the formula HNCO,
+>Isocyanic acid is an organic compound with the formula HNCO,
 discovered in 1830 by Liebig and Wöhler. This colourless substance is
 volatile and poisonous, with a boiling point of 23.5 °C. Isocyanic
 acid is the simplest stable chemical compound that contains carbon,
 hydrogen, nitrogen, and oxygen, the four most commonly found elements
 in organic chemistry and biology.
+
+## Ackowledgement
+
+I would like to thank Maxim Buzdalov for having drawn my attention to
+the interest of incremental evaluation.
+
+## References
+
+- Berny A. (2017). "In Hypercubo Nigrae Capsulae Optimum". In:
+  Proceedings of the Genetic and Evolutionary Computation Conference
+  Companion, GECCO
+  '17,
+  [doi:10.1145/3067695.3082472](http://dx.doi.org/10.1145/3067695.3082472)
