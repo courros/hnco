@@ -1,5 +1,9 @@
 * Version 0.6 (unreleased)
 
+Highlight:
+- Support for incremental evaluation
+- Walsh expansions
+
 Library:
 - Added function bv_flip with a sparse mask
 - Neighborhood: added member _flipped_bits
@@ -7,12 +11,13 @@ Library:
 - Neighborhood implements member functions propose, keep, and forget
 - New files neighborhood-iterator.(hh|cc) under algorithms/ls/
 - New files steepest-ascent-hill-climbing.(hh|cc) under algorithms/ls/
+- Removed setters from MuCommaLambdaEa, MuPlusLambdaEa, and GeneticAlgorithm
+- Renamed class Binomial -> BernoulliProcess
+- BernoulliProcess: renamed member function set_mutation_probability -> set_probability
 - OnePlusOneEa implemented as RandomLocalSearch with BernoulliProcess
 - Incremental evaluation: OneMax, RandomLocalSearch, FunctionDecorator
 - RandomLocalSearch, Mmas: added member _compare
 - RandomLocalSearch, Mmas: single class
-- Renamed class Binomial -> BernoulliProcess
-- BernoulliProcess: renamed member function set_mutation_probability -> set_probability
 - Added class MultiBitFlip
 - BernoulliProcess, HammingBall, and HammingSphere derive from MultiBitFlip
 - All function decorators moved under functions/decorators/
