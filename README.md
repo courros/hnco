@@ -146,7 +146,7 @@ to use it with `hnco`, you would do:
 Random local search algorithms, including simulated algorithm, can use
 the following neighborhoods:
 
-- One bit flip
+- Single bit flip
 - Bernoulli process
 - Hamming ball
 - Hamming sphere
@@ -154,7 +154,7 @@ the following neighborhoods:
 Steepest ascent hill climbing can use the following neighborhood
 iterators:
 
-- One bit flip iterator
+- Single bit flip iterator
 - Hamming ball iterator
 
 ### Limitations
