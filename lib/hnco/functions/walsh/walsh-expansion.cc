@@ -18,6 +18,9 @@
 
 */
 
+#include <iostream>             // std::endl
+#include <algorithm>            // std::max_element
+
 #include "hnco/random.hh"
 
 #include "walsh-expansion.hh"
@@ -61,4 +64,17 @@ WalshExpansion::eval(const bit_vector_t& x)
     else
       result += _coefficients[i];
   return result;
+}
+
+
+void
+WalshExpansion::display(std::ostream& stream)
+{
+  std::vector<int> hw(_features.size());
+  for (size_t i = 0; i < hw.size(); i++)
+    hw[i] = bv_hamming_weight(_features[i]);
+
+  stream
+    << "Number of terms = " << _features.size() << std::endl
+    << "Degree = " << *std::max_element(begin(hw), end(hw)) << std::endl;
 }

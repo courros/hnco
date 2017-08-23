@@ -108,6 +108,9 @@ namespace function {
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
 
+    /// Display
+    void display(std::ostream& stream);
+
   };
 
 
