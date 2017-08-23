@@ -61,6 +61,11 @@ int main(int argc, char *argv[])
     return 1;
   }
 
+  if (options.with_describe_function()) {
+    fn->display(std::cout);
+    return 0;
+  }
+
   // Progress tracker
   ProgressTracker *tracker = new ProgressTracker(fn);
   tracker->_log_improvement = options.with_log_improvement();
