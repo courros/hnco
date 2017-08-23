@@ -604,7 +604,7 @@
             "optchar": "m",
             "type": "double",
             "value": 1.0,
-            "description": "Scaled mutation probability m = n * p (p = m / n)",
+            "description": "Scaled mutation probability or expected number of flipped bits (bv_size times probability)",
             "category": "Algorithm"
         },
 
@@ -620,7 +620,7 @@
 
                 {
                     "value": 0,
-                    "description": "One bit flip"
+                    "description": "Single bit flip"
                 },
 
                 {
@@ -653,7 +653,7 @@
 
                 {
                     "value": 0,
-                    "description": "One bit flip iterator"
+                    "description": "Single bit flip iterator"
                 },
 
                 {

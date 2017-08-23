@@ -185,7 +185,7 @@ class Options {
   double _sa_rate;
   bool _opt_sa_rate;
 
-  /// Scaled mutation probability m = n * p (p = m / n)
+  /// Scaled mutation probability or expected number of flipped bits (bv_size times probability)
   double _scaled_mutation_probability;
   bool _opt_scaled_mutation_probability;
 
