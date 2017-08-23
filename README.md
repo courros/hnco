@@ -282,50 +282,23 @@ times on each function. Algorithms are ranked according to their
 median performance (quartiles are also considered). They are ranked
 first per function then globally.
 
-- `hnco-benchmark-run.pl`: run the simulations
-- `hnco-benchmark-stat.pl`: collect the results and generate the report
-
-You will find an example of such an experiment under
-`experiments/benchmark/`.
-
 ### Dynamics
 
 The purpose is to study the dynamics of some quantity such as the
-maximum found so far. Each algorithm is run only once.
-
-- `hnco-dynamics-run.pl`: run the simulations
-- `hnco-dynamics-stat-maximum.pl`: collect the results and generate
-  the report, for studying the maximum only
-- `hnco-dynamics-stat.pl`: collect the results and generate the
-  report, for studying other quantities
-
-You will find an example of such an experiment under
-`experiments/dynamics/`.
+maximum found so far. Each algorithm is run only once on each
+function.
 
 ### Parameter
 
 The purpose is to study the influence of some parameter on the
-performances of a set of algorithms applied to a set of functions.
-
-- `hnco-parameter-run.pl`: run the simulations
-- `hnco-parameter-stat.pl`: collect the results and generate the
-  report
-
-You will find an example of such an experiment under
-`experiments/parameter/`.
+performances of a given algorithm applied to a set of functions.
 
 ### Runtime
 
-The purpose is to study the runtime as a function of some given
-parameter of a set of algorithms applied to a set of functions. The
-functions must have a known maximum and the algorithms must be able to
-find it in finite time.
-
-- `hnco-parameter-run.pl`: run the simulations
-- `hnco-runtime-stat.pl`: collect the results and generate the report
-
-You will find an example of such an experiment under
-`experiments/runtime/`.
+The purpose is to study the influence of some given parameter
+(e.g. bit vector size) on the runtime of a set of algorithms applied
+to a set of functions. The functions must have a known maximum and the
+algorithms must be able to find it in finite time.
 
 ## Requirements
 
