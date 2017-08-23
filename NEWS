@@ -30,8 +30,7 @@ Library:
 - Population: removed unused member functions
 - Renamed QuadraticFunction -> WalshExpansion2
 - Files walsh-expansion-2.(hh|cc) moved under functions/walsh/
-- WalshExpansion2: changed expression
-- WalshExpansion2: changed archive format
+- WalshExpansion2: changed data structures, expression, and archive format (size halved)
 - Added WalshExpansion1
 - Added WalshExpansion
 
@@ -56,6 +55,7 @@ hnco:
 - Added WalshExpansion1 with number 161
 - Added WalshExpansion with number 160
 - Renamed option --plugin-function-name -> --fun-name
+- Renamed and implemented option describe_problem -> describe_function
 
 ffgen:
 - Renumbered WalshExpansion2 50 -> 162
