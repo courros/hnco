@@ -27,9 +27,9 @@
             "category": "General"
         },
 
-        "describe_problem":
+        "describe_function":
         {
-            "description": "Describe the problem and exit",
+            "description": "Describe the function and exit",
             "category": "General"
         },
 
