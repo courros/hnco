@@ -74,7 +74,7 @@ namespace function {
     /// Display
     void display(std::ostream& stream);
 
-    /// Describe
+    /// Describe a bit vector
     void describe(const bit_vector_t& x, std::ostream& stream);
 
   };
