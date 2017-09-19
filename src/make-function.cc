@@ -27,7 +27,6 @@
 using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco;
-using namespace std;
 
 
 Function *
@@ -41,9 +40,9 @@ make_concrete_function(Options& options)
 
   case 1: {
     LinearFunction* function = new LinearFunction;
-    ifstream ifs(options.get_path());
+    std::ifstream ifs(options.get_path());
     if (!ifs.good()) {
-      ostringstream stream;
+      std::ostringstream stream;
       stream << "make_concrete_function (LinearFunction): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
@@ -85,9 +84,9 @@ make_concrete_function(Options& options)
        options.get_fun_threshold());
 
   case 50: {
-    ifstream ifs(options.get_path());
+    std::ifstream ifs(options.get_path());
     if (!ifs.good()) {
-      ostringstream stream;
+      std::ostringstream stream;
       stream << "make_concrete_function (Qubo): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
@@ -98,9 +97,9 @@ make_concrete_function(Options& options)
 
   case 60: {
     NkLandscape* function = new NkLandscape;
-    ifstream ifs(options.get_path());
+    std::ifstream ifs(options.get_path());
     if (!ifs.good()) {
-      ostringstream stream;
+      std::ostringstream stream;
       stream << "make_concrete_function (NkLandscape): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
@@ -110,9 +109,9 @@ make_concrete_function(Options& options)
   }
 
   case 70: {
-    ifstream ifs(options.get_path());
+    std::ifstream ifs(options.get_path());
     if (!ifs.good()) {
-      ostringstream stream;
+      std::ostringstream stream;
       stream << "make_concrete_function (MaxSat): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
@@ -127,9 +126,9 @@ make_concrete_function(Options& options)
 
   case 90: {
     EqualProducts* function = new EqualProducts;
-    ifstream ifs(options.get_path());
+    std::ifstream ifs(options.get_path());
     if (!ifs.good()) {
-      ostringstream stream;
+      std::ostringstream stream;
       stream << "make_concrete_function (EqualProducts): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
@@ -172,9 +171,9 @@ make_concrete_function(Options& options)
 
   case 160: {
     WalshExpansion* function = new WalshExpansion;
-    ifstream ifs(options.get_path());
+    std::ifstream ifs(options.get_path());
     if (!ifs.good()) {
-      ostringstream stream;
+      std::ostringstream stream;
       stream << "make_concrete_function (WalshExpansion): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
@@ -185,9 +184,9 @@ make_concrete_function(Options& options)
 
   case 161: {
     WalshExpansion1* function = new WalshExpansion1;
-    ifstream ifs(options.get_path());
+    std::ifstream ifs(options.get_path());
     if (!ifs.good()) {
-      ostringstream stream;
+      std::ostringstream stream;
       stream << "make_concrete_function (WalshExpansion1): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
@@ -198,9 +197,9 @@ make_concrete_function(Options& options)
 
   case 162: {
     WalshExpansion2* function = new WalshExpansion2;
-    ifstream ifs(options.get_path());
+    std::ifstream ifs(options.get_path());
     if (!ifs.good()) {
-      ostringstream stream;
+      std::ostringstream stream;
       stream << "make_concrete_function (WalshExpansion2): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
@@ -216,7 +215,7 @@ make_concrete_function(Options& options)
        options.get_fun_name());
 
   default:
-    ostringstream stream;
+    std::ostringstream stream;
     stream << "make_concrete_function: Unknown function type: " << options.get_function();
     throw Error(stream.str());
   }
@@ -236,9 +235,9 @@ make_map(Options& options)
     if (options.with_map_random()) {
       map->random(options.get_bv_size());
     } else {
-      ifstream ifs(options.get_map_path());
+      std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
-        ostringstream stream;
+        std::ostringstream stream;
         stream << "make_concrete_function (Translation): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
@@ -253,9 +252,9 @@ make_map(Options& options)
     if (options.with_map_random()) {
       map->random(options.get_bv_size());
     } else {
-      ifstream ifs(options.get_map_path());
+      std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
-        ostringstream stream;
+        std::ostringstream stream;
         stream << "make_concrete_function (Permutation): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
@@ -272,9 +271,9 @@ make_map(Options& options)
       permutation->random(options.get_bv_size());
       translation->random(options.get_bv_size());
     } else {
-      ifstream ifs(options.get_map_path());
+      std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
-        ostringstream stream;
+        std::ostringstream stream;
         stream << "make_concrete_function (Composition of permutation and translation): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
@@ -289,9 +288,9 @@ make_map(Options& options)
     if (options.with_map_random()) {
       map->random(options.get_bv_size(), options.get_map_input_size());
     } else {
-      ifstream ifs(options.get_map_path());
+      std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
-        ostringstream stream;
+        std::ostringstream stream;
         stream << "make_concrete_function (LinearMap): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
@@ -306,9 +305,9 @@ make_map(Options& options)
     if (options.with_map_random()) {
       map->random(options.get_bv_size(), options.get_map_input_size());
     } else {
-      ifstream ifs(options.get_map_path());
+      std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
-        ostringstream stream;
+        std::ostringstream stream;
         stream << "make_concrete_function (AffineMap): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
@@ -319,7 +318,7 @@ make_map(Options& options)
   }
 
   default: {
-    ostringstream stream;
+    std::ostringstream stream;
     stream << "make_map: Unknown map type: " << options.get_map();
     throw Error(stream.str());
   }
@@ -346,7 +345,7 @@ make_function_decorator(Function *function, Options& options)
   int bv_size = options.get_bv_size();
 
   if (bv_size != int(function->get_bv_size())) {
-    cerr << "Warning: After make_map, bv_size changed from " << bv_size << " to " << function->get_bv_size() << endl;
+    std::cerr << "Warning: After make_map, bv_size changed from " << bv_size << " to " << function->get_bv_size() << std::endl;
     bv_size = function->get_bv_size();
     options.set_bv_size(function->get_bv_size());
   }
@@ -380,7 +379,7 @@ make_function_decorator(Function *function, Options& options)
       function = new StopOnMaximum(function);
       assert(function);
     } else {
-      ostringstream stream;
+      std::ostringstream stream;
       stream << "make_function_decorator: Function " << options.get_function() << ": Unknown maximum";
       throw Error(stream.str());
     }
@@ -422,7 +421,7 @@ make_function(Options& options)
   int bv_size = options.get_bv_size();
 
   if (bv_size != int(function->get_bv_size())) {
-    cerr << "Warning: After make_concrete_function, bv_size changed from " << bv_size << " to " << function->get_bv_size() << endl;
+    std::cerr << "Warning: After make_concrete_function, bv_size changed from " << bv_size << " to " << function->get_bv_size() << std::endl;
     bv_size = function->get_bv_size();
     options.set_bv_size(function->get_bv_size());
   }
