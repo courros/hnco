@@ -29,7 +29,6 @@ using namespace hnco::exception;
 using namespace hnco::neighborhood;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 Neighborhood *
@@ -55,7 +54,7 @@ make_neighborhood(Options& options)
     return new HammingSphere(options.get_bv_size(), options.get_radius());
 
   default:
-    ostringstream stream;
+    std::ostringstream stream;
     stream << options.get_neighborhood();
     throw Error("make_neighborhood: Unknown neighborhood type: " + stream.str());
   }
@@ -74,7 +73,7 @@ make_neighborhood_iterator(Options& options)
     return new HammingBallIterator(options.get_bv_size(), options.get_radius());
 
   default:
-    ostringstream stream;
+    std::ostringstream stream;
     stream << options.get_neighborhood_iterator();
     throw Error("make_neighborhood_iterator: Unknown neighborhood iterator type: " + stream.str());
   }
@@ -408,7 +407,7 @@ make_concrete_algorithm(Options& options)
   }
 
   default:
-    ostringstream stream;
+    std::ostringstream stream;
     stream << options.get_algorithm();
     throw Error("make_algorithm: Unknown algorithm type: " + stream.str());
   }
