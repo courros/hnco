@@ -67,6 +67,7 @@ namespace algorithm {
     /// Initialization
     void init() {
       _neighborhood.set_probability(_mutation_probability);
+      _neighborhood._allow_stay         = _allow_stay;
       _rls._num_iterations              = _num_iterations;
       _rls._incremental_evaluation      = _incremental_evaluation;
       _rls._patience                    = 0;
@@ -92,6 +93,9 @@ namespace algorithm {
 
     /// Mutation probability
     double _mutation_probability;
+
+    /// Allow stay
+    bool _allow_stay = false;
 
     ///@}
 

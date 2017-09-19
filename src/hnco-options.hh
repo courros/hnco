@@ -204,6 +204,9 @@ class Options {
   /// Additive Gaussian noise
   bool _additive_gaussian_noise;
 
+  /// Allow stay
+  bool _allow_stay;
+
   /// Log infinite norm of the parameters
   bool _bm_log_norm_infinite;
 
@@ -865,6 +868,12 @@ public:
 
   /// Set additive_gaussian_noise
   void set_additive_gaussian_noise() { _additive_gaussian_noise = true; }
+ 
+  /// Get allow_stay
+  bool with_allow_stay() const { return _allow_stay; }
+
+  /// Set allow_stay
+  void set_allow_stay() { _allow_stay = true; }
  
   /// Get bm_log_norm_infinite
   bool with_bm_log_norm_infinite() const { return _bm_log_norm_infinite; }

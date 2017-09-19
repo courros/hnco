@@ -40,8 +40,13 @@ make_neighborhood(Options& options)
   case 0:
     return new SingleBitFlip(options.get_bv_size());
 
-  case 1:
-    return new BernoulliProcess(options.get_bv_size(), options.get_scaled_mutation_probability() / options.get_bv_size());
+  case 1: {
+    auto neighborhood = new BernoulliProcess
+      (options.get_bv_size(),
+       options.get_scaled_mutation_probability() / options.get_bv_size());
+    neighborhood->_allow_stay = options.with_allow_stay();
+    return neighborhood;
+  }
 
   case 2:
     return new HammingBall(options.get_bv_size(), options.get_radius());
@@ -152,6 +157,7 @@ make_concrete_algorithm(Options& options)
     algo->_num_iterations               = options.get_num_iterations();
     algo->_mutation_probability         = options.get_scaled_mutation_probability() / options.get_bv_size();
     algo->_incremental_evaluation       = options.with_incremental_evaluation();
+    algo->_allow_stay                   = options.with_allow_stay();
 
     return algo;
   }

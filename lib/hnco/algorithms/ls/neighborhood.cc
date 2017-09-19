@@ -68,10 +68,16 @@ void
 BernoulliProcess::sample_bits()
 {
   if (_reservoir_sampling) {
-    int k = 0;
-    while (k == 0)
+    int k;
+    if (_allow_stay) {
       k = _binomial_dist(Random::engine);
-    assert(k > 0);
+    }
+    else {
+      k = 0;
+      while (k == 0)
+        k = _binomial_dist(Random::engine);
+      assert(k > 0);
+    }
     reservoir_sampling(k);
   } else
     bernoulli_process();

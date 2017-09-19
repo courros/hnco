@@ -239,6 +239,15 @@ namespace neighborhood {
         _reservoir_sampling = true;
     }
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Allow stay
+    bool _allow_stay = false;
+
+    ///@}
+
   };
 
 

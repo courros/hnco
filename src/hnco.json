@@ -119,6 +119,12 @@
             "category": "Local Search"
         },
 
+        "allow_stay":
+        {
+            "description": "Allow stay",
+            "category": "Local Search"
+        },
+
         "pv_log_pv":
         {
             "description": "Log probability vector",

@@ -104,6 +104,7 @@ Options::Options(int argc, char *argv[]):
   _target(100),
   _opt_target(false),
   _additive_gaussian_noise(false),
+  _allow_stay(false),
   _bm_log_norm_infinite(false),
   _bm_log_norm_l1(false),
   _bm_negative_positive_selection(false),
@@ -183,6 +184,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_SELECTION_SIZE,
     OPTION_TARGET,
     OPTION_ADDITIVE_GAUSSIAN_NOISE,
+    OPTION_ALLOW_STAY,
     OPTION_BM_LOG_NORM_INFINITE,
     OPTION_BM_LOG_NORM_L1,
     OPTION_BM_NEGATIVE_POSITIVE_SELECTION,
@@ -260,6 +262,7 @@ Options::Options(int argc, char *argv[]):
     {"selection-size", required_argument, 0, OPTION_SELECTION_SIZE},
     {"target", required_argument, 0, OPTION_TARGET},
     {"additive-gaussian-noise", no_argument, 0, OPTION_ADDITIVE_GAUSSIAN_NOISE},
+    {"allow-stay", no_argument, 0, OPTION_ALLOW_STAY},
     {"bm-log-norm-infinite", no_argument, 0, OPTION_BM_LOG_NORM_INFINITE},
     {"bm-log-norm-l1", no_argument, 0, OPTION_BM_LOG_NORM_L1},
     {"bm-negative-positive-selection", no_argument, 0, OPTION_BM_NEGATIVE_POSITIVE_SELECTION},
@@ -500,6 +503,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_ADDITIVE_GAUSSIAN_NOISE:
       _additive_gaussian_noise = true;
+      break;
+
+    case OPTION_ALLOW_STAY:
+      _allow_stay = true;
       break;
 
     case OPTION_BM_LOG_NORM_INFINITE:
@@ -752,6 +759,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Scaled mutation probability or expected number of flipped bits (bv_size times probability)" << endl;
   stream << endl;
   stream << "Local Search:" << endl;
+  stream << "      --allow-stay" << endl;
+  stream << "          Allow stay" << endl;
   stream << "      --incremental-evaluation" << endl;
   stream << "          Incremental evaluation" << endl;
   stream << "  -N, --neighborhood (type int, default to 0)" << endl;
@@ -928,6 +937,8 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# target = " << options._target << endl;
   if (options._additive_gaussian_noise)
     stream << "# additive_gaussian_noise" << endl;
+  if (options._allow_stay)
+    stream << "# allow_stay" << endl;
   if (options._bm_log_norm_infinite)
     stream << "# bm_log_norm_infinite" << endl;
   if (options._bm_log_norm_l1)
