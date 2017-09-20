@@ -204,7 +204,7 @@ class Options {
   /// Additive Gaussian noise
   bool _additive_gaussian_noise;
 
-  /// Allow stay
+  /// In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)
   bool _allow_stay;
 
   /// Log infinite norm of the parameters

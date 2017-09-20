@@ -760,7 +760,7 @@ void Options::print_help(ostream& stream) const
   stream << endl;
   stream << "Local Search:" << endl;
   stream << "      --allow-stay" << endl;
-  stream << "          Allow stay" << endl;
+  stream << "          In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)" << endl;
   stream << "      --incremental-evaluation" << endl;
   stream << "          Incremental evaluation" << endl;
   stream << "  -N, --neighborhood (type int, default to 0)" << endl;

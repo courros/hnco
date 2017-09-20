@@ -94,7 +94,11 @@ namespace algorithm {
     /// Mutation probability
     double _mutation_probability;
 
-    /// Allow stay
+    /** Allow stay.
+
+        In case no mutation occurs allow the current bit vector to
+        stay unchanged.
+    */
     bool _allow_stay = false;
 
     ///@}
