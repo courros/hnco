@@ -377,8 +377,13 @@ in organic chemistry and biology.
 
 ## Ackowledgement
 
-I would like to thank Maxim Buzdalov for having drawn my attention to
-the interest of incremental evaluation.
+Maxim Buzdalov has drawn my attention to the interest of incremental
+evaluation.
+
+Dirk Sudholt has pointed the discrepancy between theoretical and
+experimental optimization times of (1+1) EA on OneMax, which has led
+to the addition of the option `--allow-stay` to allow to stay on the
+same bit vector when no mutation occurs.
 
 ## References
 
