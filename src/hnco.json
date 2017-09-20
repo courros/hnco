@@ -121,7 +121,7 @@
 
         "allow_stay":
         {
-            "description": "Allow stay",
+            "description": "In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)",
             "category": "Local Search"
         },
 
