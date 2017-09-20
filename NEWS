@@ -3,6 +3,8 @@
 Library:
 - BernoulliProcess: added _allow_stay
 - OnePlusOneEa: added _allow_stay
+- Renamed Cancellation -> SummationCancellation
+- Renamed SinusCancellation -> SinusSummationCancellation
 
 hnco:
 - Added option --allow-stay
