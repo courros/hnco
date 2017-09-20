@@ -1,5 +1,12 @@
 * Version 0.7 (unreleased)
 
+Library:
+- BernoulliProcess: added _allow_stay
+- OnePlusOneEa: added _allow_stay
+
+hnco:
+- Added option --allow-stay
+
 
 * Version 0.6 (2017-08-23)
 
