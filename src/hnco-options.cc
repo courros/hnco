@@ -681,8 +681,8 @@ void Options::print_help(ostream& stream) const
   stream << "            70: Max-SAT" << endl;
   stream << "            80: Low autocorrelation binary sequence" << endl;
   stream << "            90: Equal products" << endl;
-  stream << "            100: Cancellation" << endl;
-  stream << "            101: Cancellation with sinus" << endl;
+  stream << "            100: Summation cancellation" << endl;
+  stream << "            101: Summation cancellation with sinus" << endl;
   stream << "            110: Trap" << endl;
   stream << "            120: Hierarchical if and only if (Hiff)" << endl;
   stream << "            130: Plateau" << endl;

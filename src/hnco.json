@@ -300,12 +300,12 @@
 
                 {
                     "value": 100,
-                    "description": "Cancellation"
+                    "description": "Summation cancellation"
                 },
 
                 {
                     "value": 101,
-                    "description": "Cancellation with sinus"
+                    "description": "Summation cancellation with sinus"
                 },
 
                 {

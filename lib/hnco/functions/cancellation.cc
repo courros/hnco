@@ -32,7 +32,7 @@ using namespace hnco::function;
 
 
 void
-Cancellation::convert(const bit_vector_t& x)
+SummationCancellation::convert(const bit_vector_t& x)
 {
   assert(x.size() >= 9 * _buffer.size());
 
@@ -70,7 +70,7 @@ Cancellation::convert(const bit_vector_t& x)
 
 
 double
-Cancellation::eval(const bit_vector_t& x)
+SummationCancellation::eval(const bit_vector_t& x)
 {
   convert(x);
   partial_sum(_buffer.begin(), _buffer.end(), _buffer.begin());
@@ -81,7 +81,7 @@ Cancellation::eval(const bit_vector_t& x)
 
 
 double
-SinusCancellation::eval(const bit_vector_t& x)
+SinusSummationCancellation::eval(const bit_vector_t& x)
 {
   convert(x);
   for (size_t i = 1; i < _buffer.size(); i++)

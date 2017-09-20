@@ -138,11 +138,11 @@ make_concrete_function(Options& options)
   }
 
   case 100:
-    return new Cancellation
+    return new SummationCancellation
       (options.get_bv_size());
 
   case 101:
-    return new SinusCancellation
+    return new SinusSummationCancellation
       (options.get_bv_size());
 
   case 110:

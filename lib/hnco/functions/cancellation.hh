@@ -36,7 +36,7 @@ namespace hnco::function {
       - bit 0: sign
       - bits 1 to 8: two's complement representation
   */
-  class Cancellation:
+  class SummationCancellation:
     public Function {
 
   protected:
@@ -59,12 +59,12 @@ namespace hnco::function {
 
         \param n Size of the bit vector
     */
-    Cancellation(int n):
+    SummationCancellation(int n):
       _bv_size(n),
       _buffer(n / 9)
     {
       if (n % 9 != 0)
-        throw exception::Error("Cancellation::Cancellation: _bv_size must be a multiple of 9");
+        throw exception::Error("SummationCancellation::SummationCancellation: _bv_size must be a multiple of 9");
     }
 
     /// Get bit vector size
@@ -84,14 +84,14 @@ namespace hnco::function {
 
 
   /// Summation cancellation with sinus
-  class SinusCancellation:
-    public Cancellation {
+  class SinusSummationCancellation:
+    public SummationCancellation {
 
   public:
 
     ///Constructor
-    SinusCancellation(int n):
-      Cancellation(n) {}
+    SinusSummationCancellation(int n):
+      SummationCancellation(n) {}
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t& x);
