@@ -49,24 +49,41 @@ my $num_runs            = $obj->{num_runs};
 my $path_graphics       = $obj->{graphics};
 my $path_results        = $obj->{results};
 my $path_report         = $obj->{report};
-
 my $parameter           = $obj->{parameter};
+
 my $parameter_id        = $parameter->{id};
-my $values              = $parameter->{values};
 my $boxwidth            = $parameter->{boxwidth};
 
+my $values;
+if ($parameter->{values_perl}) {
+    my @tmp = eval $parameter->{values_perl};
+    $values = \@tmp;
+} else {
+    $values = $parameter->{values};
+}
+
 my $all_stat = {};
-my $all_best = {};
 
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
+add_missing_names($functions);
+add_missing_names($algorithms);
 compute_statistics();
-
 generate_data();
 generate_gnuplot_candlesticks();
 generate_gnuplot_mean();
 generate_gnuplot_stddev();
 generate_latex();
+
+sub add_missing_names
+{
+    my $list = shift;
+    foreach my $item (@$list) {
+        if (!exists($item->{name})) {
+            $item->{name} = $item->{id};
+        }
+    }
+}
 
 sub compute_statistics
 {
@@ -180,16 +197,14 @@ sub generate_gnuplot_candlesticks
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-
-        unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
+        unless (-d "$path_graphics/$function_id") {
+            mkdir "$path_graphics/$function_id";
+        }
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-
-            my $quoted_string = quote("$a->{title} on $function_id");
-
-            print CANDLESTICKS
-                "set title $quoted_string\n";
+            my $quoted_string = quote("$a->{name} on $f->{name}");
+            print CANDLESTICKS "set title $quoted_string\n";
 
             $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.pdf");
             print CANDLESTICKS
@@ -197,8 +212,8 @@ sub generate_gnuplot_candlesticks
                 "set output $quoted_string\n";
             $quoted_string = quote("$path_results/$function_id/$algorithm_id/quartiles.dat");
             print CANDLESTICKS
-                "plot $quoted_string using 1:3:2:6:5:$boxwidth with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
-                "     $quoted_string using 1:4:4:4:4:$boxwidth with candlesticks lw 2 lt 1 notitle\n";
+                "plot $quoted_string using 1:3:2:6:5:($boxwidth) with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
+                "     $quoted_string using 1:4:4:4:4:($boxwidth) with candlesticks lw 2 lt 1 notitle\n";
 
             $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.eps");
             print CANDLESTICKS
@@ -234,29 +249,40 @@ sub generate_gnuplot_mean
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
+    my $xmin = min(@$values);
+    my $xmax = max(@$values);
+
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
+        $quoted_string = quote("$f->{name}: Mean runtime as a function of $parameter_id");
+        print MEAN "set title $quoted_string\n";
+        foreach my $gnuplot (@{$f->{mean_gnuplot}}) {
+            print MEAN $gnuplot->{expression}, "\n";
+        }
 
         my $quoted_string = quote("$path_graphics/$function_id/mean.pdf");
         print MEAN
             $terminal{pdf}, "\n",
             "set output $quoted_string\n";
 
-        $quoted_string = quote("$function_id: Mean runtime as a function of $parameter_id");
-        print MEAN
-            "set title $quoted_string\n";
-
         print MEAN "plot \\\n";
         print MEAN
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $title = quote($_->{title});
+                my $name = quote($_->{name});
                 my $quoted_path = quote("$path_results/$function_id/$algorithm_id/mean.dat");
-                "  $quoted_path using 1:2 with l lw 2 title $title";
+                "  $quoted_path using 1:2 with l lw 2 title $name";
              } @$algorithms);
+
+        foreach my $gnuplot (@{ $f->{mean_gnuplot}}) {
+            my ($before, $after) = split /\s*=\s*/, $gnuplot->{expression};
+            my $title = quote($gnuplot->{title});
+            print MEAN
+                ", \\\n",
+                "  [$xmin:$xmax] $before w l lw 2 title $title";
+        }
         print MEAN "\n";
 
         $quoted_path = quote("$path_graphics/$function_id/mean.eps");
@@ -272,6 +298,8 @@ sub generate_gnuplot_mean
             "replot\n\n";
 
     }
+
+    close(MEAN);
 
     system("chmod a+x mean.gp");
 
@@ -292,29 +320,40 @@ sub generate_gnuplot_stddev
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
+    my $xmin = min(@$values);
+    my $xmax = max(@$values);
+
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
+        $quoted_string = quote("$f->{name}: Standard deviation of runtime as a function of $parameter_id");
+        print STDDEV "set title $quoted_string\n";
+        foreach my $gnuplot (@{$f->{stddev_gnuplot}}) {
+            print STDDEV $gnuplot->{expression}, "\n";
+        }
 
         my $quoted_string = quote("$path_graphics/$function_id/stddev.pdf");
         print STDDEV
             $terminal{pdf}, "\n",
             "set output $quoted_string\n";
 
-        $quoted_string = quote("$function_id: Standard deviation of runtime as a function of $parameter_id");
-        print STDDEV
-            "set title $quoted_string\n";
-
         print STDDEV "plot \\\n";
         print STDDEV
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $title = quote($_->{title});
+                my $name = quote($_->{name});
                 my $quoted_path = quote("$path_results/$function_id/$algorithm_id/mean.dat");
-                "  $quoted_path using 1:3 with l lw 2 title $title";
+                "  $quoted_path using 1:3 with l lw 2 title $name";
              } @$algorithms);
+
+        foreach my $gnuplot (@{ $f->{stddev_gnuplot}}) {
+            my ($before, $after) = split /\s*=\s*/, $gnuplot->{expression};
+            my $title = quote($gnuplot->{title});
+            print STDDEV
+                ", \\\n",
+                "  [$xmin:$xmax] $before w l lw 2 title $title";
+        }
         print STDDEV "\n";
 
         $quoted_path = quote("$path_graphics/$function_id/stddev.eps");
@@ -331,6 +370,7 @@ sub generate_gnuplot_stddev
 
     }
 
+    close(STDDEV);
     system("chmod a+x stddev.gp");
 
 }
@@ -344,9 +384,8 @@ sub generate_latex
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $best = $all_best->{$function_id};
 
-        latex_section("Function $function_id");
+        latex_section("Function $f->{name}");
 
         latex_begin_center();
         latex_includegraphics("$function_id/mean");
