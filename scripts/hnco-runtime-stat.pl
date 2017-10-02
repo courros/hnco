@@ -37,7 +37,8 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
-open(FILE, $plan) or die "hnco-runtime-stat.pl: Cannot open $plan\n";
+open(FILE, $plan)
+    or die "hnco-runtime-stat.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) { $json .= $_; }
 
@@ -93,42 +94,48 @@ sub compute_statistics
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
+            my $algorithm_stat = {};
+            my $algorithm_num_runs = $num_runs;
+            if ($a->{deterministic}) {
+                $algorithm_num_runs = 1;
+            }
 
             foreach my $value (@$values) {
-                my $id = "$algorithm_id-$value";
-
-                my $path = "$path_results/$function_id/$algorithm_id/$parameter_id-$value.dat";
-                my $input = IO::File->new($path, '<') or die "hnco-runtime-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+                my $prefix = "$path_results/$function_id/$algorithm_id/$parameter_id-$value";
                 my $SD = Statistics::Descriptive::Full->new();
 
-                while (my $line = $input->getline) {
+                foreach (1 .. $algorithm_num_runs) {
+                    my $path = "$prefix/$_.out";
+                    my $file = IO::File->new($path, '<')
+                        or die "hnco-runtime-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+                    my $line = $file->getline;
                     chomp $line;
                     my @results = split ' ', $line;
                     $SD->add_data($results[0]);
+                    $file->close;
                 }
 
-                $input->close();
-
                 if ($f->{reverse}) {
-                    $function_stat->{$id} = { min         => -$SD->max(),
-                                              q1          => -$SD->quantile(3),
-                                              median      => -$SD->median(),
-                                              q3          => -$SD->quantile(1),
-                                              max         => -$SD->min(),
-                                              mean        => -$SD->mean(),
-                                              stddev      => $SD->standard_deviation() };
+                    $algorithm_stat->{$value} = { min         => -$SD->max(),
+                                                  q1          => -$SD->quantile(3),
+                                                  median      => -$SD->median(),
+                                                  q3          => -$SD->quantile(1),
+                                                  max         => -$SD->min(),
+                                                  mean        => -$SD->mean(),
+                                                  stddev      => $SD->standard_deviation() };
                 } else {
-                    $function_stat->{$id} = { min         => $SD->min(),
-                                              q1          => $SD->quantile(1),
-                                              median      => $SD->median(),
-                                              q3          => $SD->quantile(3),
-                                              max         => $SD->max(),
-                                              mean        => $SD->mean(),
-                                              stddev      => $SD->standard_deviation() };
+                    $algorithm_stat->{$value} = { min         => $SD->min(),
+                                                  q1          => $SD->quantile(1),
+                                                  median      => $SD->median(),
+                                                  q3          => $SD->quantile(3),
+                                                  max         => $SD->max(),
+                                                  mean        => $SD->mean(),
+                                                  stddev      => $SD->standard_deviation() };
                 }
 
             }
 
+            $function_stat->{$algorithm_id} = $algorithm_stat;
         }
 
         $all_stat->{$function_id} = $function_stat;
@@ -144,16 +151,18 @@ sub generate_data
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
+            my $prefix = "$path_results/$function_id/$algorithm_id";
 
-            $path = "$path_results/$function_id/$algorithm_id/mean.dat";
-            my $mean = IO::File->new($path, '>') or die "hnco-runtime-stat.pl: generate_data: Cannot open '$path': $!\n";
+            my $path = "$prefix/mean.dat";
+            my $mean = IO::File->new($path, '>')
+                or die "hnco-runtime-stat.pl: generate_data: Cannot open '$path': $!\n";
 
-            my $path = "$path_results/$function_id/$algorithm_id/quartiles.dat";
-            my $quartiles = IO::File->new($path, '>') or die "hnco-runtime-stat.pl: generate_data: Cannot open '$path': $!\n";
+            $path = "$prefix/quartiles.dat";
+            my $quartiles = IO::File->new($path, '>')
+                or die "hnco-runtime-stat.pl: generate_data: Cannot open '$path': $!\n";
 
             foreach my $value (@$values) {
-                my $id = "$algorithm_id-$value";
-                my $stat = $all_stat->{$function_id}->{$id};
+                my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
                 $quartiles->printf("%e %e %e %e %e %e\n",
                                    $value,
                                    $stat->{min},
@@ -178,7 +187,8 @@ sub generate_data
 
 sub generate_gnuplot_candlesticks
 {
-    open(CANDLESTICKS, ">candlesticks.gp") or die "hnco-runtime-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
+    open(CANDLESTICKS, ">candlesticks.gp")
+        or die "hnco-runtime-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
 
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
@@ -236,7 +246,8 @@ sub generate_gnuplot_candlesticks
 
 sub generate_gnuplot_mean
 {
-    open(MEAN, ">mean.gp") or die "hnco-runtime-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
+    open(MEAN, ">mean.gp")
+        or die "hnco-runtime-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
 
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
@@ -307,7 +318,8 @@ sub generate_gnuplot_mean
 
 sub generate_gnuplot_stddev
 {
-    open(STDDEV, ">stddev.gp") or die "hnco-runtime-stat.pl: generate_gnuplot_stddev: Cannot open stddev.gp\n";
+    open(STDDEV, ">stddev.gp")
+        or die "hnco-runtime-stat.pl: generate_gnuplot_stddev: Cannot open stddev.gp\n";
 
     print STDDEV
         "#!/usr/bin/gnuplot -persist\n",
@@ -377,7 +389,8 @@ sub generate_gnuplot_stddev
 
 sub generate_latex
 {
-    open(LATEX, ">$path_report/results.tex") or die "hnco-runtime-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
+    open(LATEX, ">$path_report/results.tex")
+        or die "hnco-runtime-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
     latex_empty_line();
