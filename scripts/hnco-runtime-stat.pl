@@ -115,23 +115,13 @@ sub compute_statistics
                     $file->close;
                 }
 
-                if ($f->{reverse}) {
-                    $algorithm_stat->{$value} = { min         => -$SD->max(),
-                                                  q1          => -$SD->quantile(3),
-                                                  median      => -$SD->median(),
-                                                  q3          => -$SD->quantile(1),
-                                                  max         => -$SD->min(),
-                                                  mean        => -$SD->mean(),
-                                                  stddev      => $SD->standard_deviation() };
-                } else {
-                    $algorithm_stat->{$value} = { min         => $SD->min(),
-                                                  q1          => $SD->quantile(1),
-                                                  median      => $SD->median(),
-                                                  q3          => $SD->quantile(3),
-                                                  max         => $SD->max(),
-                                                  mean        => $SD->mean(),
-                                                  stddev      => $SD->standard_deviation() };
-                }
+                $algorithm_stat->{$value} = { min       => $SD->min(),
+                                              q1        => $SD->quantile(1),
+                                              median    => $SD->median(),
+                                              q3        => $SD->quantile(3),
+                                              max       => $SD->max(),
+                                              mean      => $SD->mean(),
+                                              stddev    => $SD->standard_deviation() };
 
             }
 
