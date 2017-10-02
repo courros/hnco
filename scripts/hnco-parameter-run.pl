@@ -32,9 +32,6 @@ while (<FILE>) {
 }
 my $obj = from_json($json);
 
-my $exec                = $obj->{exec};
-my $path_results        = $obj->{results};
-my $num_runs            = $obj->{num_runs};
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
 my $parameter           = $obj->{parameter};
@@ -48,59 +45,67 @@ if ($parameter->{values_perl}) {
     $values = $parameter->{values};
 }
 
-unless (-d $path_results) {
-    mkdir $path_results;
-    print "Created $path_results\n";
+my $path = $obj->{results};
+unless (-d $path) {
+    mkdir $path;
+    print "Created $path\n";
 }
-
-iterate_functions();
+iterate_functions($path, "$obj->{exec} $obj->{opt}");
 
 sub iterate_functions
 {
+    my ($prefix, $cmd) = @_;
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        print "$function_id\n";
-        my $path = "$path_results/$function_id";
+        my $path = "$prefix/$function_id";
         unless (-d $path) {
             mkdir $path;
             print "Created $path\n";
         }
-        iterate_algorithms($path, "$obj->{opt} $f->{opt}");
+        print "$function_id\n";
+        iterate_algorithms($path, "$cmd $f->{opt}");
     }
 }
 
 sub iterate_algorithms
 {
-    my ($prefix, $opt) = @_;
+    my ($prefix, $cmd) = @_;
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
-        print "$algorithm_id\n";
         my $path = "$prefix/$algorithm_id";
         unless (-d $path) {
             mkdir "$path";
             print "Created $path\n";
         }
-        iterate_values($path, "$opt $a->{opt}", $a);
+        print "$algorithm_id\n";
+        if ($a->{deterministic}) {
+            iterate_values($path, "$cmd $a->{opt}", 1);
+        } else {
+            iterate_values($path, "$cmd $a->{opt}", $obj->{num_runs});
+        }
     }
 }
 
 sub iterate_values
 {
-    my ($prefix, $opt, $a) = @_;
+    my ($prefix, $cmd, $num_runs) = @_;
     foreach my $value (@$values) {
-        print "$parameter_id = $value: ";
-        my $output = "$prefix/$parameter_id-$value.dat";
-        system("rm -rf $output");
-        my $command = "$exec $opt --$parameter_id $value >> $output 2>> log.err";
-        if ($a->{deterministic}) {
-            system("$command");
-            print ".";
-        } else {
-            foreach (1..$num_runs) {
-                system("$command");
-                print ".";
-            }
+        my $path = "$prefix/$parameter_id-$value";
+        unless (-d $path) {
+            mkdir "$path";
+            print "Created $path\n";
         }
+        print "$parameter_id = $value: ";
+        iterate_runs($path, "$cmd --$parameter_id $value", $num_runs);
         print "\n";
+    }
+}
+
+sub iterate_runs
+{
+    my ($prefix, $cmd, $num_runs) = @_;
+    foreach (1 .. $num_runs) {
+        system("/usr/bin/time -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> log.err");
+        print ".";
     }
 }
