@@ -86,6 +86,7 @@ add_missing_names($algorithms);
 compute_statistics();
 compute_rankings();
 compute_best_statistics();
+reverse_values();
 generate_data();
 generate_gnuplot_candlesticks();
 generate_gnuplot_mean();
@@ -159,6 +160,25 @@ sub compute_statistics
         $all_stat_flat->{$function_id} = \@items;
     }
 
+}
+
+sub reverse_values
+{
+    foreach my $f (@$functions) {
+        if ($f->{reverse}) {
+            foreach my $a (@$algorithms) {
+                foreach my $value (@$values) {
+                    my $stat = $all_stat->{$f->{id}}->{$a->{id}}->{$value};
+                    ($stat->{min}, $stat->{max}) = ($stat->{max}, $stat->{min});
+                    ($stat->{q1}, $stat->{q3}) = ($stat->{q3}, $stat->{q1});
+                    foreach (@summary_statistics) {
+                        $stat->{$_} = - $stat->{$_};
+                    }
+                    $stat->{mean} = -$stat->{mean};
+                }
+            }
+        }
+    }
 }
 
 sub generate_data
@@ -631,7 +651,7 @@ sub latex_rankings_table_begin
         "\\toprule\n",
         "algorithm & value & \\multicolumn{$num_lines}{l}{{rank distribution}}\\\\\n",
         "\\midrule\n",
-        "& ", join(" & ", 1 .. $num_lines), "\\\\\n",
+        "&& ", join(" & ", 1 .. $num_lines), "\\\\\n",
         "\\midrule\n";
 }
 
