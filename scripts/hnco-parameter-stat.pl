@@ -19,12 +19,9 @@
 
 use JSON;
 use Statistics::Descriptive;
-use List::Util qw(min max);
 use List::MoreUtils qw(all);
 
-my @summary_statistics = qw(min q1 median q3 max);
-my @pref_max = qw(median q1 q3 min max);
-my @pref_min = qw(median q3 q1 max min);
+my @summary_statistics = qw(median q1 q3 min max);
 
 my %terminal = (
     eps => "set term epscairo color enhanced",
@@ -85,6 +82,7 @@ add_missing_names($functions);
 add_missing_names($algorithms);
 compute_statistics();
 compute_rankings();
+compute_rankings_flat();
 compute_best_statistics();
 reverse_values();
 generate_data();
@@ -162,25 +160,6 @@ sub compute_statistics
 
 }
 
-sub reverse_values
-{
-    foreach my $f (@$functions) {
-        if ($f->{reverse}) {
-            foreach my $a (@$algorithms) {
-                foreach my $value (@$values) {
-                    my $stat = $all_stat->{$f->{id}}->{$a->{id}}->{$value};
-                    ($stat->{min}, $stat->{max}) = ($stat->{max}, $stat->{min});
-                    ($stat->{q1}, $stat->{q3}) = ($stat->{q3}, $stat->{q1});
-                    foreach (@summary_statistics) {
-                        $stat->{$_} = - $stat->{$_};
-                    }
-                    $stat->{mean} = -$stat->{mean};
-                }
-            }
-        }
-    }
-}
-
 sub generate_data
 {
     foreach my $f (@$functions) {
@@ -229,7 +208,7 @@ sub compute_rankings
 
         # Sort results
         my @sorted = sort {
-            foreach (@pref_max) {
+            foreach (@summary_statistics) {
                 # Decreasing sorted
                 if ($b->{$_} != $a->{$_}) {
                     return $b->{$_} <=> $a->{$_};
@@ -244,20 +223,25 @@ sub compute_rankings
             $sorted[$i]->{rank} = $i;
         }
 
-        # Handle exaequo
+        # Handle ex-aequo
         for (my $i = 1; $i < @sorted; $i++) {
             if (all { $sorted[$i]->{$_} == $sorted[$i - 1]->{$_} } @summary_statistics) {
                 $sorted[$i]->{rank} = $sorted[$i - 1]->{rank};
             }
         }
 
-        # Update rankings
-        for (my $i = 0; $i < @sorted; $i++) {
-            ${ $rankings->{$sorted[$i]->{algorithm}}->{$sorted[$i]->{value}} }[$sorted[$i]->{rank}]++;
+        # Update rank_counts and store rank
+        foreach (@sorted) {
+            ${ $rankings->{$_->{algorithm}}->{$_->{value}} }[$_->{rank}]++;
+            $all_stat->{$function_id}->{$_->{algorithm}}->{$_->{value}}->{rank} = $_->{rank};
         }
 
     }
 
+}
+
+sub compute_rankings_flat
+{
     @rankings_flat = ();
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
@@ -271,7 +255,16 @@ sub compute_rankings
         }
     }
 
-    # todo : ajouter le rank dans $algorithm_stat->{$value}
+    my @sorted = sort {
+        foreach (0 .. $num_lines - 1) {
+            if (${ $b->{rank_counts} }[$_] != ${ $a->{rank_counts} }[$_]) {
+                return ${ $b->{rank_counts} }[$_] <=> ${ $a->{rank_counts} }[$_];
+            }
+        }
+        return 0;
+    } @rankings_flat;
+
+    @rankings_flat = @sorted;
 }
 
 sub compute_best_statistics
@@ -288,6 +281,25 @@ sub compute_best_statistics
 
     }
 
+}
+
+sub reverse_values
+{
+    foreach my $f (@$functions) {
+        if ($f->{reverse}) {
+            foreach my $a (@$algorithms) {
+                foreach my $value (@$values) {
+                    my $stat = $all_stat->{$f->{id}}->{$a->{id}}->{$value};
+                    ($stat->{min}, $stat->{max}) = ($stat->{max}, $stat->{min});
+                    ($stat->{q1}, $stat->{q3}) = ($stat->{q3}, $stat->{q1});
+                    foreach (@summary_statistics) {
+                        $stat->{$_} = - $stat->{$_};
+                    }
+                    $stat->{mean} = -$stat->{mean};
+                }
+            }
+        }
+    }
 }
 
 sub generate_gnuplot_candlesticks
@@ -520,9 +532,7 @@ sub generate_latex
 
     latex_section("Rankings");
     latex_begin_center();
-    latex_rankings_table_begin();
-    latex_rankings_table_body();
-    latex_rankings_table_end();
+    latex_rankings_table();
     latex_end_center();
     latex_empty_line();
 
@@ -644,7 +654,7 @@ sub quote
     return "\"$s\"";
 }
 
-sub latex_rankings_table_begin
+sub latex_rankings_table
 {
     print LATEX
         "\\begin{tabular}{\@{}ll*{$num_lines}{r}\@{}}\n",
@@ -653,27 +663,11 @@ sub latex_rankings_table_begin
         "\\midrule\n",
         "&& ", join(" & ", 1 .. $num_lines), "\\\\\n",
         "\\midrule\n";
-}
 
-sub latex_rankings_table_body
-{
-    my @sorted = sort {
-        foreach (0 .. $num_lines - 1) {
-            if (${ $b->{rank_counts} }[$_] != ${ $a->{rank_counts} }[$_]) {
-                return ${ $b->{rank_counts} }[$_] <=> ${ $a->{rank_counts} }[$_];
-            }
-        }
-        return 0;
-    } @rankings_flat;
-
-    foreach (@sorted) {
+    foreach (@rankings_flat) {
         print LATEX "$_->{algorithm} & $_->{value} & ", join(" & ", @{ $_->{rank_counts} }), "\\\\\n";
     }
 
-}
-
-sub latex_rankings_table_end
-{
     print LATEX
         "\\bottomrule\n",
         "\\end{tabular}\n";
@@ -700,7 +694,7 @@ sub latex_function_table_add_line
 
     printf LATEX ("\\verb\|%s\| & \\verb\|%s\| &", $algo, $value);
     printf LATEX ($format, $stat->{min}, $stat->{q1}, $stat->{median}, $stat->{q3}, $stat->{max});
-    printf LATEX (" & %d \\\\\n", 0 + 1);
+    printf LATEX (" & %d \\\\\n", $stat->{rank} + 1);
 
 }
 
