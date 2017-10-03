@@ -251,18 +251,18 @@ sub compute_rankings
         }
     }
 
+    # todo : ajouter le rank dans $algorithm_stat->{$value}
 }
 
 sub compute_best_statistics
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $function_stat = $all_stat->{$function_id};
         my $function_best = {};
 
         foreach (@summary_statistics) {
             my @sorted = sort { $b->{$_} <=> $a->{$_} } @{ $all_stat_flat->{$function_id} };
-            $function_best->{$_} = $function_stat->{$sorted[0]}->{$_};
+            $function_best->{$_} = $sorted[0]->{$_};
         }
         $all_best->{$function_id} = $function_best;
 
@@ -490,7 +490,7 @@ sub generate_latex
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $best = $all_best->{$function_id};
+        my $function_best = $all_best->{$function_id};
 
         latex_section("Function $function_id");
 
@@ -505,8 +505,8 @@ sub generate_latex
             foreach my $value (@$values) {
                 latex_function_table_add_line($algorithm_id,
                                               $value,
-                                              $all_stat->{$function_id}->{$algorithm}->{$value},
-                                              $best,
+                                              $all_stat->{$function_id}->{$algorithm_id}->{$value},
+                                              $function_best,
                                               $f->{logscale});
             }
         }
@@ -652,16 +652,17 @@ sub latex_function_table_begin
         "\\midrule\n";
 }
 
+# todo : manque rank
 sub latex_function_table_add_line
 {
-    my ($algo, $value, $perf, $best, $logscale) = @_;
+    my ($algo, $value, $stat, $best, $logscale) = @_;
 
     my $conversion = $logscale ? "%e" : "%f";
-    my $format = join " & ", map { $perf->{$_} == $best->{$_} ? "{\\color{blue}} $conversion" : "$conversion" } @summary_statistics;
+    my $format = join " & ", map { $stat->{$_} == $best->{$_} ? "{\\color{blue}} $conversion" : "$conversion" } @summary_statistics;
 
     printf LATEX ("\\verb\|%s\| & \\verb\|%s\| &", $algo, $value);
-    printf LATEX ($format, $perf->{min}, $perf->{q1}, $perf->{median}, $perf->{q3}, $perf->{max});
-    printf LATEX (" & %d \\\\\n", $perf->{rank} + 1);
+    printf LATEX ($format, $stat->{min}, $stat->{q1}, $stat->{median}, $stat->{q3}, $stat->{max});
+    printf LATEX (" & %d \\\\\n", 0 + 1);
 
 }
 
