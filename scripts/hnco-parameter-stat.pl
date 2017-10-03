@@ -338,26 +338,37 @@ sub generate_gnuplot_mean
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"$parameter_id\"\n",
-        "set ylabel \"Mean runtime\"\n",
-        "set logscale y\n",
-        "set format y", quote("10^{\%T}"), "\n",
+        "set ylabel \"Mean performance\"\n",
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
-    my $xmin = min(@$values);
-    my $xmax = max(@$values);
+    if ($parameter->{logscale}) {
+        my $fmt = quote("10^{\%T}");
+        print MEAN
+            "set logscale x\n",
+            "set format x $fmt\n";
+    }
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
+
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
-        $quoted_string = quote("$f->{name}: Mean runtime as a function of $parameter_id");
+
+        my $quoted_string = quote("$function_id: Mean performance as a function of $parameter_id");
         print MEAN "set title $quoted_string\n";
-        foreach my $gnuplot (@{$f->{mean_gnuplot}}) {
-            print MEAN $gnuplot->{expression}, "\n";
+        if ($f->{logscale}) {
+            my $fmt = quote("10^{\%T}");
+            print MEAN
+                "set logscale y 10\n",
+                "set format y $fmt\n";
+        } else {
+            print MEAN
+                "unset logscale y\n",
+                "set format y\n";
         }
 
-        my $quoted_string = quote("$path_graphics/$function_id/mean.pdf");
+        $quoted_string = quote("$path_graphics/$function_id/mean.pdf");
         print MEAN
             $terminal{pdf}, "\n",
             "set output $quoted_string\n";
@@ -367,18 +378,10 @@ sub generate_gnuplot_mean
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $name = quote($_->{name});
+                my $quoted_title = quote("$algorithm_id");
                 my $quoted_path = quote("$path_results/$function_id/$algorithm_id/mean.dat");
-                "  $quoted_path using 1:2 with l lw 2 title $name";
+                "  $quoted_path using 1:2 with l lw 2 title $quoted_title";
              } @$algorithms);
-
-        foreach my $gnuplot (@{ $f->{mean_gnuplot}}) {
-            my ($before, $after) = split /\s*=\s*/, $gnuplot->{expression};
-            my $title = quote($gnuplot->{title});
-            print MEAN
-                ", \\\n",
-                "  [$xmin:$xmax] $before w l lw 2 title $title";
-        }
         print MEAN "\n";
 
         $quoted_path = quote("$path_graphics/$function_id/mean.eps");
@@ -394,8 +397,6 @@ sub generate_gnuplot_mean
             "replot\n\n";
 
     }
-
-    close(MEAN);
 
     system("chmod a+x mean.gp");
 
