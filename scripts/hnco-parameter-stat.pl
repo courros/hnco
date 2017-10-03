@@ -37,7 +37,8 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
-open(FILE, $plan) or die "hnco-parameter-stat.pl: Cannot open $plan\n";
+open(FILE, $plan)
+    or die "hnco-parameter-stat.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) { $json .= $_; }
 
@@ -49,13 +50,21 @@ my $num_runs            = $obj->{num_runs};
 my $path_graphics       = $obj->{graphics};
 my $path_results        = $obj->{results};
 my $path_report         = $obj->{report};
-
 my $parameter           = $obj->{parameter};
+
 my $parameter_id        = $parameter->{id};
-my $values              = $parameter->{values};
 my $boxwidth            = $parameter->{boxwidth};
 
+my $values;
+if ($parameter->{values_perl}) {
+    my @tmp = eval $parameter->{values_perl};
+    $values = \@tmp;
+} else {
+    $values = $parameter->{values};
+}
+
 my $all_stat = {};
+my $all_stat_flat = {};
 my $all_best = {};
 
 my $num_lines = @$algorithms * @$values;
@@ -64,72 +73,90 @@ my $rankings = {};
 foreach my $a (@$algorithms) {
     my $algorithm_id = $a->{id};
     foreach my $value (@$values) {
-        my $id = "$algorithm_id-$value";
         my @counts = (0) x ($num_lines); # Array of size $num_lines initialized to 0
-        $rankings->{$id} = \@counts;
+        $rankings->{$algorithm_id}->{$value} = \@counts;
     }
 }
+my @rankings_flat = ();
 
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
+add_missing_names($functions);
+add_missing_names($algorithms);
 compute_statistics();
 compute_rankings();
 compute_best_statistics();
-
 generate_data();
 generate_gnuplot_candlesticks();
 generate_gnuplot_mean();
 generate_gnuplot_stddev();
 generate_latex();
 
+sub add_missing_names
+{
+    my $list = shift;
+    foreach my $item (@$list) {
+        if (!exists($item->{name})) {
+            $item->{name} = $item->{id};
+        }
+    }
+}
+
 sub compute_statistics
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         my $function_stat = {};
+        my @items = ();
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
+            my $algorithm_stat = {};
+            my $algorithm_num_runs = $num_runs;
+            if ($a->{deterministic}) {
+                $algorithm_num_runs = 1;
+            }
 
             foreach my $value (@$values) {
-                my $id = "$algorithm_id-$value";
-
-                my $path = "$path_results/$function_id/$algorithm_id/$parameter_id-$value.dat";
-                my $input = IO::File->new($path, '<') or die "hnco-parameter-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+                my $prefix = "$path_results/$function_id/$algorithm_id/$parameter_id-$value";
                 my $SD = Statistics::Descriptive::Full->new();
 
-                while (my $line = $input->getline) {
+                foreach (1 .. $algorithm_num_runs) {
+                    my $path = "$prefix/$_.out";
+                    my $file = IO::File->new($path, '<')
+                        or die "hnco-parameter-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+                    my $line = $file->getline;
                     chomp $line;
                     my @results = split ' ', $line;
                     $SD->add_data($results[1]);
+                    $file->close;
                 }
 
-                $input->close();
-
-                if ($f->{reverse}) {
-                    $function_stat->{$id} = { min         => -$SD->max(),
-                                              q1          => -$SD->quantile(3),
-                                              median      => -$SD->median(),
-                                              q3          => -$SD->quantile(1),
-                                              max         => -$SD->min(),
-                                              mean        => -$SD->mean(),
-                                              stddev      => $SD->standard_deviation() };
-                } else {
-                    $function_stat->{$id} = { min         => $SD->min(),
+                $algorithm_stat->{$value} = { min         => $SD->min(),
                                               q1          => $SD->quantile(1),
                                               median      => $SD->median(),
                                               q3          => $SD->quantile(3),
                                               max         => $SD->max(),
                                               mean        => $SD->mean(),
                                               stddev      => $SD->standard_deviation() };
-                }
+
+                my $item = { algorithm  => $algorithm_id,
+                             value      => $value,
+                             min        => $SD->min(),
+                             q1         => $SD->quantile(1),
+                             median     => $SD->median(),
+                             q3         => $SD->quantile(3),
+                             max        => $SD->max() };
+                push @items, $item;
 
             }
+
+            $function_stat->{$algorithm_id} = $algorithm_stat;
 
         }
 
         $all_stat->{$function_id} = $function_stat;
-
+        $all_stat_flat->{$function_id} = \@items;
     }
 
 }
@@ -141,16 +168,18 @@ sub generate_data
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
+            my $prefix = "$path_results/$function_id/$algorithm_id";
 
-            $path = "$path_results/$function_id/$algorithm_id/mean.dat";
-            my $mean = IO::File->new($path, '>') or die "hnco-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
+            my $path = "$prefix/mean.dat";
+            my $mean = IO::File->new($path, '>')
+                or die "hnco-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
 
-            my $path = "$path_results/$function_id/$algorithm_id/quartiles.dat";
-            my $quartiles = IO::File->new($path, '>') or die "hnco-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
+            $path = "$prefix/quartiles.dat";
+            my $quartiles = IO::File->new($path, '>')
+                or die "hnco-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
 
             foreach my $value (@$values) {
-                my $id = "$algorithm_id-$value";
-                my $stat = $all_stat->{$function_id}->{$id};
+                my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
                 $quartiles->printf("%e %e %e %e %e %e\n",
                                    $value,
                                    $stat->{min},
@@ -177,46 +206,49 @@ sub compute_rankings
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $function_stat = $all_stat->{$function_id};
 
-        if ($f->{reverse}) {
-            @order = sort {
-                foreach (@pref_min) {
-                    if ($function_stat->{$a}->{$_} != $function_stat->{$b}->{$_}) {
-                        return $function_stat->{$a}->{$_} <=> $function_stat->{$b}->{$_};
-                    }
-                }
-                return 0;
-            } keys %$function_stat;
-        } else {
-            @order = sort {
-                foreach (@pref_max) {
-                    if ($function_stat->{$b}->{$_} != $function_stat->{$a}->{$_}) {
-                        return $function_stat->{$b}->{$_} <=> $function_stat->{$a}->{$_};
-                    }
-                }
-                return 0;
-            } keys %$function_stat;
-        }
-
-        for (my $i = 0; $i < @order; $i++) {
-            my $cur = $order[$i];
-            my $rank;
-            if ($i == 0) {
-                $rank = 0;
-            } else {            # Handle Ex aequo
-                my $prev = $order[$i - 1];
-                if (all { $function_stat->{$cur}->{$_} == $function_stat->{$prev}->{$_} } @summary_statistics) {
-                    $rank = $function_stat->{$prev}->{rank};
-                } else {
-                    $rank = $i;
+        # Sort results
+        my @sorted = sort {
+            foreach (@pref_max) {
+                # Decreasing sorted
+                if ($b->{$_} != $a->{$_}) {
+                    return $b->{$_} <=> $a->{$_};
                 }
             }
+            return 0;
+        } @{ $all_stat_flat->{$function_id} };
+        $all_stat_flat->{$function_id} = \@sorted;
 
-            $function_stat->{$cur}->{rank} = $rank;  # Save rank
-            ${ $rankings->{$cur} }[$rank]++; # Update rankings
+        # Set ranks
+        for (my $i = 0; $i < @sorted; $i++) {
+            $sorted[$i]->{rank} = $i;
         }
 
+        # Handle exaequo
+        for (my $i = 1; $i < @sorted; $i++) {
+            if (all { $sorted[$i]->{$_} == $sorted[$i - 1]->{$_} } @summary_statistics) {
+                $sorted[$i]->{rank} = $sorted[$i - 1]->{rank};
+            }
+        }
+
+        # Update rankings
+        for (my $i = 0; $i < @sorted; $i++) {
+            ${ $rankings->{$sorted[$i]->{algorithm}}->{$sorted[$i]->{value}} }[$sorted[$i]->{rank}]++;
+        }
+
+    }
+
+    @rankings_flat = ();
+    foreach my $a (@$algorithms) {
+        my $algorithm_id = $a->{id};
+        foreach my $value (@$values) {
+            my $item = {
+                algorithm       => $algorithm_id,
+                value           => $value,
+                rank_counts     => $rankings->{$algorithm_id}->{$value}
+            };
+            push @rankings_flat, $item;
+        }
     }
 
 }
@@ -225,20 +257,14 @@ sub compute_best_statistics
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $stat = $all_stat->{$function_id};
-        my $best = {};
+        my $function_stat = $all_stat->{$function_id};
+        my $function_best = {};
 
-        my @order;
         foreach (@summary_statistics) {
-            if ($f->{reverse}) {
-                @order = sort { $stat->{$a}->{$_} <=> $stat->{$b}->{$_} } keys %$stat;
-            } else {
-                @order = sort { $stat->{$b}->{$_} <=> $stat->{$a}->{$_} } keys %$stat;
-            }
-            $best->{$_} = $stat->{$order[0]}->{$_};
+            my @sorted = sort { $b->{$_} <=> $a->{$_} } @{ $all_stat_flat->{$function_id} };
+            $function_best->{$_} = $function_stat->{$sorted[0]}->{$_};
         }
-
-        $all_best->{$function_id} = $best;
+        $all_best->{$function_id} = $function_best;
 
     }
 
@@ -246,13 +272,14 @@ sub compute_best_statistics
 
 sub generate_gnuplot_candlesticks
 {
-    open(CANDLESTICKS, ">candlesticks.gp") or die "hnco-parameter-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
+    open(CANDLESTICKS, ">candlesticks.gp")
+        or die "hnco-parameter-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
 
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"$parameter_id\"\n",
-        "set ylabel \"Performance\"\n",
+        "set ylabel \"Runtime\"\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
@@ -265,27 +292,14 @@ sub generate_gnuplot_candlesticks
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-
-        if ($f->{logscale}) {
-            my $fmt = quote("10^{\%T}");
-            print CANDLESTICKS
-                "set logscale y 10\n",
-                "set format y $fmt\n";
-        } else {
-            print CANDLESTICKS
-                "unset logscale y\n",
-                "set format y\n";
+        unless (-d "$path_graphics/$function_id") {
+            mkdir "$path_graphics/$function_id";
         }
-
-        unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-
-            my $quoted_string = quote("$algorithm_id on $function_id");
-
-            print CANDLESTICKS
-                "set title $quoted_string\n";
+            my $quoted_string = quote("$a->{name} on $f->{name}");
+            print CANDLESTICKS "set title $quoted_string\n";
 
             $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.pdf");
             print CANDLESTICKS
@@ -293,8 +307,8 @@ sub generate_gnuplot_candlesticks
                 "set output $quoted_string\n";
             $quoted_string = quote("$path_results/$function_id/$algorithm_id/quartiles.dat");
             print CANDLESTICKS
-                "plot $quoted_string using 1:3:2:6:5:$boxwidth with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
-                "     $quoted_string using 1:4:4:4:4:$boxwidth with candlesticks lw 2 lt 1 notitle\n";
+                "plot $quoted_string using 1:3:2:6:5:($boxwidth) with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
+                "     $quoted_string using 1:4:4:4:4:($boxwidth) with candlesticks lw 2 lt 1 notitle\n";
 
             $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.eps");
             print CANDLESTICKS
@@ -317,58 +331,54 @@ sub generate_gnuplot_candlesticks
 
 sub generate_gnuplot_mean
 {
-    open(MEAN, ">mean.gp") or die "hnco-parameter-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
+    open(MEAN, ">mean.gp")
+        or die "hnco-parameter-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
 
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"$parameter_id\"\n",
-        "set ylabel \"Mean performance\"\n",
+        "set ylabel \"Mean runtime\"\n",
+        "set logscale y\n",
+        "set format y", quote("10^{\%T}"), "\n",
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
-    if ($parameter->{logscale}) {
-        my $fmt = quote("10^{\%T}");
-        print MEAN
-            "set logscale x\n",
-            "set format x $fmt\n";
-    }
+    my $xmin = min(@$values);
+    my $xmax = max(@$values);
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-
-        if ($f->{logscale}) {
-            my $fmt = quote("10^{\%T}");
-            print MEAN
-                "set logscale y 10\n",
-                "set format y $fmt\n";
-        } else {
-            print MEAN
-                "unset logscale y\n",
-                "set format y\n";
-        }
-
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
+        $quoted_string = quote("$f->{name}: Mean runtime as a function of $parameter_id");
+        print MEAN "set title $quoted_string\n";
+        foreach my $gnuplot (@{$f->{mean_gnuplot}}) {
+            print MEAN $gnuplot->{expression}, "\n";
+        }
 
         my $quoted_string = quote("$path_graphics/$function_id/mean.pdf");
         print MEAN
             $terminal{pdf}, "\n",
             "set output $quoted_string\n";
 
-        $quoted_string = quote("$function_id: Mean performance as a function of $parameter_id");
-        print MEAN
-            "set title $quoted_string\n";
-
         print MEAN "plot \\\n";
         print MEAN
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $quoted_title = quote("$algorithm_id");
+                my $name = quote($_->{name});
                 my $quoted_path = quote("$path_results/$function_id/$algorithm_id/mean.dat");
-                "  $quoted_path using 1:2 with l lw 2 title $quoted_title";
+                "  $quoted_path using 1:2 with l lw 2 title $name";
              } @$algorithms);
+
+        foreach my $gnuplot (@{ $f->{mean_gnuplot}}) {
+            my ($before, $after) = split /\s*=\s*/, $gnuplot->{expression};
+            my $title = quote($gnuplot->{title});
+            print MEAN
+                ", \\\n",
+                "  [$xmin:$xmax] $before w l lw 2 title $title";
+        }
         print MEAN "\n";
 
         $quoted_path = quote("$path_graphics/$function_id/mean.eps");
@@ -385,64 +395,62 @@ sub generate_gnuplot_mean
 
     }
 
+    close(MEAN);
+
     system("chmod a+x mean.gp");
 
 }
 
 sub generate_gnuplot_stddev
 {
-    open(STDDEV, ">stddev.gp") or die "hnco-parameter-stat.pl: generate_gnuplot_stddev: Cannot open stddev.gp\n";
+    open(STDDEV, ">stddev.gp")
+        or die "hnco-parameter-stat.pl: generate_gnuplot_stddev: Cannot open stddev.gp\n";
 
     print STDDEV
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"$parameter_id\"\n",
-        "set ylabel \"Standard deviation of performance\"\n",
+        "set ylabel \"Standard deviation of runtime\"\n",
+        "set logscale y\n",
+        "set format y", quote("10^{\%T}"), "\n",
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
-    if ($parameter->{logscale}) {
-        my $fmt = quote("10^{\%T}");
-        print STDDEV
-            "set logscale x\n",
-            "set format x $fmt\n";
-    }
+    my $xmin = min(@$values);
+    my $xmax = max(@$values);
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-
-        if ($f->{logscale}) {
-            my $fmt = quote("10^{\%T}");
-            print STDDEV
-                "set logscale y 10\n",
-                "set format y $fmt\n";
-        } else {
-            print STDDEV
-                "unset logscale y\n",
-                "set format y\n";
-        }
-
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
+        $quoted_string = quote("$f->{name}: Standard deviation of runtime as a function of $parameter_id");
+        print STDDEV "set title $quoted_string\n";
+        foreach my $gnuplot (@{$f->{stddev_gnuplot}}) {
+            print STDDEV $gnuplot->{expression}, "\n";
+        }
 
         my $quoted_string = quote("$path_graphics/$function_id/stddev.pdf");
         print STDDEV
             $terminal{pdf}, "\n",
             "set output $quoted_string\n";
 
-        $quoted_string = quote("$function_id: Standard deviation of performance as a function of $parameter_id");
-        print STDDEV
-            "set title $quoted_string\n";
-
         print STDDEV "plot \\\n";
         print STDDEV
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $quoted_title = quote("$algorithm_id");
+                my $name = quote($_->{name});
                 my $quoted_path = quote("$path_results/$function_id/$algorithm_id/mean.dat");
-                "  $quoted_path using 1:3 with l lw 2 title $quoted_title";
+                "  $quoted_path using 1:3 with l lw 2 title $name";
              } @$algorithms);
+
+        foreach my $gnuplot (@{ $f->{stddev_gnuplot}}) {
+            my ($before, $after) = split /\s*=\s*/, $gnuplot->{expression};
+            my $title = quote($gnuplot->{title});
+            print STDDEV
+                ", \\\n",
+                "  [$xmin:$xmax] $before w l lw 2 title $title";
+        }
         print STDDEV "\n";
 
         $quoted_path = quote("$path_graphics/$function_id/stddev.eps");
@@ -459,13 +467,15 @@ sub generate_gnuplot_stddev
 
     }
 
+    close(STDDEV);
     system("chmod a+x stddev.gp");
 
 }
 
 sub generate_latex
 {
-    open(LATEX, ">$path_report/results.tex") or die "hnco-parameter-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
+    open(LATEX, ">$path_report/results.tex")
+        or die "hnco-parameter-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
     latex_empty_line();
@@ -493,10 +503,9 @@ sub generate_latex
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
             foreach my $value (@$values) {
-                my $id = "$algorithm_id-$value";
-                my $stat = $all_stat->{$function_id}->{$id};
-                latex_function_table_add_line($id,
-                                              $stat,
+                latex_function_table_add_line($algorithm_id,
+                                              $value,
+                                              $all_stat->{$function_id}->{$algorithm}->{$value},
                                               $best,
                                               $f->{logscale});
             }
@@ -600,9 +609,9 @@ sub quote
 sub latex_rankings_table_begin
 {
     print LATEX
-        "\\begin{tabular}{\@{}l*{$num_lines}{r}\@{}}\n",
+        "\\begin{tabular}{\@{}ll*{$num_lines}{r}\@{}}\n",
         "\\toprule\n",
-        "algorithm & \\multicolumn{$num_lines}{l}{{rank distribution}}\\\\\n",
+        "algorithm & value & \\multicolumn{$num_lines}{l}{{rank distribution}}\\\\\n",
         "\\midrule\n",
         "& ", join(" & ", 1 .. $num_lines), "\\\\\n",
         "\\midrule\n";
@@ -610,17 +619,17 @@ sub latex_rankings_table_begin
 
 sub latex_rankings_table_body
 {
-    my @order = sort {
+    my @sorted = sort {
         foreach (0 .. $num_lines - 1) {
-            if (${ $rankings->{$b} }[$_] != ${ $rankings->{$a} }[$_]) {
-                return ${ $rankings->{$b} }[$_] <=> ${ $rankings->{$a} }[$_];
+            if (${ $b->{rank_counts} }[$_] != ${ $a->{rank_counts} }[$_]) {
+                return ${ $b->{rank_counts} }[$_] <=> ${ $a->{rank_counts} }[$_];
             }
         }
         return 0;
-    } keys %$rankings;
+    } @rankings_flat;
 
-    foreach (@order) {
-        print LATEX "$_ & ", join(" & ", @{ $rankings->{$_} }), "\\\\\n";
+    foreach (@sorted) {
+        print LATEX "$_->{algorithm} & $_->{value} & ", join(" & ", @{ $_->{rank_counts} }), "\\\\\n";
     }
 
 }
@@ -637,20 +646,20 @@ sub latex_function_table_begin
     my $col = shift;
 
     print LATEX
-        "\\begin{tabular}{\@{}l*{5}{$col}>{{\\nprounddigits{0}}}N{2}{0}\@{}}\n",
+        "\\begin{tabular}{\@{}ll*{5}{$col}>{{\\nprounddigits{0}}}N{2}{0}\@{}}\n",
         "\\toprule\n",
-        "{algorithm} & {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} \\\\\n",
+        "{algorithm} & {value} & {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} \\\\\n",
         "\\midrule\n";
 }
 
 sub latex_function_table_add_line
 {
-    my ($algo, $perf, $best, $logscale) = @_;
+    my ($algo, $value, $perf, $best, $logscale) = @_;
 
     my $conversion = $logscale ? "%e" : "%f";
     my $format = join " & ", map { $perf->{$_} == $best->{$_} ? "{\\color{blue}} $conversion" : "$conversion" } @summary_statistics;
 
-    printf LATEX ("\\verb\|%s\| & ", $algo);
+    printf LATEX ("\\verb\|%s\| & \\verb\|%s\| &", $algo, $value);
     printf LATEX ($format, $perf->{min}, $perf->{q1}, $perf->{median}, $perf->{q3}, $perf->{max});
     printf LATEX (" & %d \\\\\n", $perf->{rank} + 1);
 
