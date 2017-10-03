@@ -279,7 +279,7 @@ sub generate_gnuplot_candlesticks
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"$parameter_id\"\n",
-        "set ylabel \"Runtime\"\n",
+        "set ylabel \"Performance\"\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
@@ -292,14 +292,27 @@ sub generate_gnuplot_candlesticks
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        unless (-d "$path_graphics/$function_id") {
-            mkdir "$path_graphics/$function_id";
+
+        if ($f->{logscale}) {
+            my $fmt = quote("10^{\%T}");
+            print CANDLESTICKS
+                "set logscale y 10\n",
+                "set format y $fmt\n";
+        } else {
+            print CANDLESTICKS
+                "unset logscale y\n",
+                "set format y\n";
         }
+
+        unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-            my $quoted_string = quote("$a->{name} on $f->{name}");
-            print CANDLESTICKS "set title $quoted_string\n";
+
+            my $quoted_string = quote("$algorithm_id on $function_id");
+
+            print CANDLESTICKS
+                "set title $quoted_string\n";
 
             $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.pdf");
             print CANDLESTICKS
