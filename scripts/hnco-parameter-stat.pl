@@ -86,6 +86,7 @@ compute_rankings();
 compute_rankings_flat();
 compute_best_statistics();
 reverse_values();
+reverse_best_statistics();
 generate_data();
 generate_gnuplot_candlesticks();
 generate_gnuplot_mean();
@@ -294,10 +295,25 @@ sub reverse_values
                     ($stat->{min}, $stat->{max}) = ($stat->{max}, $stat->{min});
                     ($stat->{q1}, $stat->{q3}) = ($stat->{q3}, $stat->{q1});
                     foreach (@summary_statistics) {
-                        $stat->{$_} = - $stat->{$_};
+                        $stat->{$_} = -$stat->{$_};
                     }
                     $stat->{mean} = -$stat->{mean};
                 }
+            }
+        }
+    }
+}
+
+sub reverse_best_statistics
+{
+    foreach my $f (@$functions) {
+        if ($f->{reverse}) {
+            my $function_id = $f->{id};
+            my $function_best = $all_best->{$function_id};
+            ($function_best->{min}, $function_best->{max}) = ($function_best->{max}, $function_best->{min});
+            ($function_best->{q1}, $function_best->{q3}) = ($function_best->{q3}, $function_best->{q1});
+            foreach (@summary_statistics) {
+                $function_best->{$_} = -$function_best->{$_};
             }
         }
     }
