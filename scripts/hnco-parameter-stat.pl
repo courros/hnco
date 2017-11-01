@@ -659,7 +659,7 @@ sub latex_rankings_table
     print LATEX
         "\\begin{tabular}{\@{}ll*{$num_lines}{r}\@{}}\n",
         "\\toprule\n",
-        "algorithm & value & \\multicolumn{$num_lines}{l}{{rank distribution}}\\\\\n",
+        "algorithm & $parameter_id & \\multicolumn{$num_lines}{l}{{rank distribution}}\\\\\n",
         "\\midrule\n",
         "&& ", join(" & ", 1 .. $num_lines), "\\\\\n",
         "\\midrule\n";
@@ -680,11 +680,10 @@ sub latex_function_table_begin
     print LATEX
         "\\begin{tabular}{\@{}ll*{5}{$col}>{{\\nprounddigits{0}}}N{2}{0}\@{}}\n",
         "\\toprule\n",
-        "{algorithm} & {value} & {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} \\\\\n",
+        "{algorithm} & {$parameter_id} & {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} \\\\\n",
         "\\midrule\n";
 }
 
-# todo : manque rank
 sub latex_function_table_add_line
 {
     my ($algo, $value, $stat, $best, $logscale) = @_;
@@ -692,7 +691,7 @@ sub latex_function_table_add_line
     my $conversion = $logscale ? "%e" : "%f";
     my $format = join " & ", map { $stat->{$_} == $best->{$_} ? "{\\color{blue}} $conversion" : "$conversion" } @summary_statistics;
 
-    printf LATEX ("\\verb\|%s\| & \\verb\|%s\| &", $algo, $value);
+    printf LATEX "$algo & $value & ";
     printf LATEX ($format, $stat->{min}, $stat->{q1}, $stat->{median}, $stat->{q3}, $stat->{max});
     printf LATEX (" & %d \\\\\n", $stat->{rank} + 1);
 
