@@ -22,6 +22,7 @@ use Statistics::Descriptive;
 use List::MoreUtils qw(all);
 
 my @summary_statistics = qw(median q1 q3 min max);
+my @summary_statistics_display = qw(min q1 median q3 max);
 
 my %terminal = (
     eps => "set term epscairo color enhanced",
@@ -209,7 +210,7 @@ sub compute_rankings
         # Sort results
         my @sorted = sort {
             foreach (@summary_statistics) {
-                # Decreasing sorted
+                # Decreasing order
                 if ($b->{$_} != $a->{$_}) {
                     return $b->{$_} <=> $a->{$_};
                 }
@@ -689,7 +690,8 @@ sub latex_function_table_add_line
     my ($algo, $value, $stat, $best, $logscale) = @_;
 
     my $conversion = $logscale ? "%e" : "%f";
-    my $format = join " & ", map { $stat->{$_} == $best->{$_} ? "{\\color{blue}} $conversion" : "$conversion" } @summary_statistics;
+    my $format = join " & ",
+        map { $stat->{$_} == $best->{$_} ? "{\\color{blue}} $conversion" : "$conversion" } @summary_statistics_display;
 
     printf LATEX "$algo & $value & ";
     printf LATEX ($format, $stat->{min}, $stat->{q1}, $stat->{median}, $stat->{q3}, $stat->{max});
