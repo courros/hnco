@@ -18,22 +18,18 @@
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
 use JSON;
-use Time::HiRes qw(gettimeofday tv_interval);
 
 my $plan = "plan.json";
 if (@ARGV) {
     $plan = shift @ARGV;
 }
-
 print "Using $plan\n";
 
 open(FILE, $plan) || die "hnco-benchmark-run.pl: Cannot open $plan\n";
-
 my $json = "";
 while (<FILE>) {
     $json .= $_;
 }
-
 my $obj = from_json($json);
 
 my $path_results        = $obj->{results};
@@ -41,86 +37,52 @@ my $num_runs            = $obj->{num_runs};
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
 
-unless (-d $path_results) {
-    mkdir $path_results;
-    print "Created $path_results\n";
+my $path = $obj->{results};
+unless (-d $path) {
+    mkdir $path;
+    print "Created $path\n";
+}
+iterate_functions($path, "$obj->{exec} $obj->{opt}");
+
+sub iterate_functions
+{
+    my ($prefix, $cmd) = @_;
+    foreach my $f (@$functions) {
+        my $function_id = $f->{id};
+        my $path = "$prefix/$function_id";
+        unless (-d $path) {
+            mkdir $path;
+            print "Created $path\n";
+        }
+        print "$function_id\n";
+        iterate_algorithms($path, "$cmd $f->{opt}");
+    }
 }
 
-foreach my $f (@$functions) {
-
-    my $function_id = $f->{id};
-
-    print "$function_id\n";
-
-    unless (-d "$path_results/$function_id") {
-        mkdir "$path_results/$function_id";
-        print "Created $path_results/$function_id\n";
-    }
-
-    # Function timer
-    my $function_start = [gettimeofday()];
-
+sub iterate_algorithms
+{
+    my ($prefix, $cmd) = @_;
     foreach my $a (@$algorithms) {
-
         my $algorithm_id = $a->{id};
-
-        print "$algorithm_id: ";
-
-        system("rm -rf $path_results/$function_id/$algorithm_id.dat");
-
-        my $exec = $obj->{exec};
-        if (exists($a->{exec})) {
-            $exec = $a->{exec};
+        my $path = "$prefix/$algorithm_id";
+        unless (-d $path) {
+            mkdir "$path";
+            print "Created $path\n";
         }
-
-        my $command = $exec . " " . $obj->{opt} . " " . $f->{opt} . " " . $a->{opt};
-
-        open(TIME, ">$path_results/$function_id/$algorithm_id.time")
-            or die "hnco-benchmark-run.pl: Cannot open $path_results/$function_id/$algorithm_id.time\n";
-
+        print "$algorithm_id\n";
         if ($a->{deterministic}) {
-
-            # Algorithm timer
-            my $algorithm_start = [gettimeofday()];
-
-            system("$command >> $path_results/$function_id/$algorithm_id.dat 2>> log.err");
-            print ".";
-
-            # Algorithm timer
-            my $algorithm_elapsed = tv_interval($algorithm_start);
-            print TIME $algorithm_elapsed, "\n";
-
+            iterate_runs($path, "$cmd $a->{opt}", 1);
         } else {
-
-            foreach (1..$num_runs) {
-
-                # Algorithm timer
-                my $algorithm_start = [gettimeofday()];
-
-                system("$command >> $path_results/$function_id/$algorithm_id.dat 2>> log.err");
-                print ".";
-
-                # Algorithm timer
-                my $algorithm_elapsed = tv_interval($algorithm_start);
-                print TIME $algorithm_elapsed, "\n";
-
-            }
-
+            iterate_runs($path, "$cmd $a->{opt}", $obj->{num_runs});
         }
-
-        close(TIME);
-
-        print "\n";
-
     }
+}
 
-    # Function timer
-    my $function_elapsed = tv_interval($function_start);
-    open(TIME, ">$path_results/$function_id/$function_id.time")
-        or die "hnco-benchmark-run.pl: Cannot open $path_results/$function_id/$function_id.time\n";
-    print TIME $function_elapsed, "\n";
-    close(TIME);
-
-    print "\n";
-
+sub iterate_runs
+{
+    my ($prefix, $cmd, $num_runs) = @_;
+    foreach (1 .. $num_runs) {
+        system("/usr/bin/time -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> log.err");
+        print ".";
+    }
 }
