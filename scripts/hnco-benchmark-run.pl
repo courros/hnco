@@ -69,12 +69,13 @@ sub iterate_algorithms
             mkdir "$path";
             print "Created $path\n";
         }
-        print "$algorithm_id\n";
+        print "$algorithm_id: ";
         if ($a->{deterministic}) {
             iterate_runs($path, "$cmd $a->{opt}", 1);
         } else {
             iterate_runs($path, "$cmd $a->{opt}", $obj->{num_runs});
         }
+        print "\n";
     }
 }
 
@@ -82,7 +83,7 @@ sub iterate_runs
 {
     my ($prefix, $cmd, $num_runs) = @_;
     foreach (1 .. $num_runs) {
-        system("/usr/bin/time -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> log.err");
+        system("/usr/bin/time --quiet -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> log.err");
         print ".";
     }
 }
