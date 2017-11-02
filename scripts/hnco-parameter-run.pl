@@ -105,7 +105,7 @@ sub iterate_runs
 {
     my ($prefix, $cmd, $num_runs) = @_;
     foreach (1 .. $num_runs) {
-        system("/usr/bin/time -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> log.err");
+        system("/usr/bin/time --quiet -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> log.err");
         print ".";
     }
 }
