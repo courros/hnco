@@ -53,7 +53,7 @@ generate_latex();
 sub generate_graphics
 {
     open(GRAPHICS, ">graphics.gp")
-        or die "Error: cannot open graphics.gp\n";
+        or die "hnco-dynamics-stat-maximum.pl: generate_graphics: cannot open graphics.gp\n";
 
     print GRAPHICS
         "#!/usr/bin/gnuplot -persist\n",
