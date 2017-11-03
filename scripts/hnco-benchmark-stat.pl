@@ -670,7 +670,7 @@ sub latex_function_table_begin
         "\\toprule\n",
         "{algorithm} & \\multicolumn{6}{l}{{performance}} & \\multicolumn{2}{l}{{time (s)}} \\\\\n",
         "\\midrule\n",
-        "& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} & {mean} & {SD} \\\\\n",
+        "& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} & {mean} & {dev.} \\\\\n",
         "\\midrule\n";
 }
 
@@ -678,7 +678,7 @@ sub latex_function_table_add_line
 {
     my ($algo, $perf, $best, $logscale, $time) = @_;
 
-    printf LATEX ("\\verb\|%s\| & ", $algo);
+    print LATEX "$algo & ";
 
     my $conversion = "%f";
     if ($logscale) {
