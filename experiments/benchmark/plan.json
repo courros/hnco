@@ -3,6 +3,7 @@
     "opt": "--print-performance --map 1 --map-random -s 100 -i 0 -b 300000",
 
     "num_runs": 20,
+    "parallel": false,
 
     "results": "results",
     "graphics": "graphics",
