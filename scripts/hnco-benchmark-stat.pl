@@ -68,7 +68,7 @@ reverse_values();
 reverse_best_statistics();
 compute_ranges();
 
-generate_gnuplot_data();
+generate_function_data();
 generate_gnuplot_candlesticks();
 generate_gnuplot_clouds();
 generate_latex();
@@ -269,14 +269,14 @@ sub compute_ranges
 
 }
 
-sub generate_gnuplot_data
+sub generate_function_data
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         my $path = "$path_results/$function_id/$function_id.dat";
 
         $file = IO::File->new($path, '>')
-            or die "hnco-benchmark-stat.pl: generate_gnuplot_data: Cannot open '$path': $!\n";
+            or die "hnco-benchmark-stat.pl: generate_function_data: Cannot open '$path': $!\n";
 
         my $position = 1;
         foreach my $a (@$algorithms) {
