@@ -93,7 +93,7 @@
 	    "opt": "-F 90 -p instances/ep.100",
             "reverse": true,
             "logscale": true,
-            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+            "col": ">{{\\nprounddigits{1}}}N{1}{1}"
         },
 
         {
