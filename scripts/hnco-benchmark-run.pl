@@ -36,13 +36,25 @@ my $path_results        = $obj->{results};
 my $num_runs            = $obj->{num_runs};
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
+my $parallel            = $obj->{parallel};
 
 my $path = $obj->{results};
 unless (-d $path) {
     mkdir $path;
     print "Created $path\n";
 }
+
+my $commands = ();
 iterate_functions($path, "$obj->{exec} $obj->{opt}");
+
+if ($parallel) {
+    my $path = 'commands.txt';
+    my $file = IO::File->new($path, '>')
+        or die "hnco-benchmark-run.pl: Cannot open '$path': $!\n";
+    $file->print(join("\n", @commands));
+    $file->close;
+    system("parallel --eta --progress :::: commands.txt");
+}
 
 sub iterate_functions
 {
@@ -82,8 +94,16 @@ sub iterate_algorithms
 sub iterate_runs
 {
     my ($prefix, $cmd, $num_runs) = @_;
-    foreach (1 .. $num_runs) {
-        system("/usr/bin/time --quiet -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> log.err");
-        print ".";
+    if ($parallel) {
+        foreach (1 .. $num_runs) {
+            push @commands,
+                "/usr/bin/time --quiet -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> $prefix/$_.err";
+        }
+        print "added to the list";
+    } else {
+        foreach (1 .. $num_runs) {
+            system("/usr/bin/time --quiet -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> log.err");
+            print ".";
+        }
     }
 }
