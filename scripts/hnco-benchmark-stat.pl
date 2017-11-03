@@ -275,20 +275,21 @@ sub generate_gnuplot_data
         my $function_id = $f->{id};
         my $path = "$path_results/$function_id/$function_id.dat";
 
-        $file = IO::File->new($path, '>') or die "hnco-benchmark-stat.pl: generate_gnuplot_data: Cannot open '$path': $!\n";
+        $file = IO::File->new($path, '>')
+            or die "hnco-benchmark-stat.pl: generate_gnuplot_data: Cannot open '$path': $!\n";
 
         my $position = 1;
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-            my $value = $stat_value->{$function_id}->{$algorithm_id};
+            my $stat = $stat_value->{$function_id}->{$algorithm_id};
 
             $file->printf("%d %e %e %e %e %e %s\n",
                           $position,
-                          $value->{min},
-                          $value->{q1},
-                          $value->{median},
-                          $value->{q3},
-                          $value->{max},
+                          $stat->{min},
+                          $stat->{q1},
+                          $stat->{median},
+                          $stat->{q3},
+                          $stat->{max},
                           $algorithm_id);
 
             $position++;
@@ -362,7 +363,8 @@ sub generate_gnuplot_candlesticks
 
 sub generate_gnuplot_clouds
 {
-    open(CLOUDS, ">clouds.gp") or die "hnco-benchmark-stat.pl: generate_gnuplot_clouds: Cannot open clouds.gp\n";
+    open(CLOUDS, ">clouds.gp")
+        or die "hnco-benchmark-stat.pl: generate_gnuplot_clouds: Cannot open clouds.gp\n";
 
     print CLOUDS
         "#!/usr/bin/gnuplot -persist\n",
