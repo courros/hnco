@@ -411,7 +411,7 @@ sub generate_gnuplot_clouds
             (map {
                 my $algorithm_id = $_->{id};
                 my $value = $stat_value->{$function_id}->{$algorithm_id};
-                $quoted_path = quote("$path_results/$function_id/$algorithm_id.dat");
+                $quoted_path = quote("$path_results/$function_id/$algorithm_id/$algorithm_id.dat");
                 $quoted_title = quote("$algorithm_id");
                 $position++;
                 $f->{reverse} ?
@@ -474,7 +474,7 @@ sub generate_gnuplot_clouds
                 $terminal{eps}, "\n",
                 "set output $quoted_path\n";
 
-            $quoted_path = quote("$path_results/$function_id/$algorithm_id.dat");
+            $quoted_path = quote("$path_results/$function_id/$algorithm_id/$algorithm_id.dat");
             if ($f->{reverse}) {
                 print CLOUDS "plot $quoted_path using 1:(-\$2) with points notitle\n";
             } else {
