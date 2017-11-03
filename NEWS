@@ -10,9 +10,9 @@ hnco:
 - Added option --allow-stay
 
 Experiments:
-- Simplified hnco-parameter-run.pl
-- parameter: updated report
-- runtime: updated report
+- benchmark, parameter, runtime: new result file layout (one file per run)
+- benchmark, parameter, runtime: updated reports
+- hnco-parameter-run.pl, hnco-benchmark-run.pl: use /usr/bin/time
 
 
 * Version 0.6 (2017-08-23)
