@@ -91,17 +91,22 @@ sub compute_statistics
             my $SD_eval = Statistics::Descriptive::Full->new();
             my $SD_value = Statistics::Descriptive::Full->new();
 
+            my $path = "$prefix/$algorithm_id.dat";
+            my $file_data = IO::File->new($path, '>')
+                or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
             foreach (1 .. $algorithm_num_runs) {
-                my $path = "$prefix/$_.out";
-                my $file = IO::File->new($path, '<')
+                $path = "$prefix/$_.out";
+                my $file_run = IO::File->new($path, '<')
                     or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
-                my $line = $file->getline;
+                my $line = $file_run->getline;
+                $file_data->print($line);
                 chomp $line;
                 my @results = split ' ', $line;
                 $SD_eval->add_data($results[0]);
                 $SD_value->add_data($results[1]);
-                $file->close;
+                $file_run->close;
             }
+            $file_data->close;
 
             $eval->{$algorithm_id} = { min     => $SD_eval->min(),
                                        q1      => $SD_eval->quantile(1),
