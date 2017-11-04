@@ -2,6 +2,8 @@
     "exec": "hnco",
     "opt": "--log-improvement --map 1 --map-random -s 100 -i 0 -b 1000000",
 
+    "parallel": false,
+
     "results": "results",
     "graphics": "graphics",
     "report": "report",
