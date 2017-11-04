@@ -123,7 +123,7 @@ sub iterate_runs
             push @commands,
                 "/usr/bin/time --quiet -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> $prefix/$_.err";
         }
-        print "added to the list";
+        print "added to the job queue";
     } else {
         foreach (1 .. $num_runs) {
             system("/usr/bin/time --quiet -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> log.err");

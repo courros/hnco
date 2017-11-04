@@ -93,7 +93,7 @@ sub iterate_runs
     my ($prefix, $cmd) = @_;
     if ($parallel) {
         push @commands, "$cmd > $prefix/1.out 2>> log.err";
-        print "added to the list";
+        print "added to the job queue";
     } else {
         system("$cmd > $prefix/1.out 2>> log.err");
         print "done";
