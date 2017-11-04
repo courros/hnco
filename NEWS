@@ -14,7 +14,7 @@ Experiments:
 - Updated reports
 - hnco-parameter-run.pl, hnco-benchmark-run.pl: use /usr/bin/time
 - Removed hnco-dynamics-stat.pl
-- hnco-parameter-run.pl: support for GNU parallel
+- Support for GNU parallel
 
 
 * Version 0.6 (2017-08-23)
