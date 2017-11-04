@@ -25,7 +25,8 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
-open(FILE, $plan) || die "hnco-benchmark-run.pl: Cannot open $plan\n";
+open(FILE, $plan)
+    or die "hnco-benchmark-run.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
@@ -45,6 +46,7 @@ unless (-d $path) {
 }
 
 my $commands = ();
+
 iterate_functions($path, "$obj->{exec} $obj->{opt}");
 
 if ($parallel) {
