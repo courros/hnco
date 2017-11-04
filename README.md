@@ -161,9 +161,9 @@ iterators:
 
 The library only handles fixed-sized bit vectors.
 
-The scripts currently do not run `hnco` in parallel. However, it is
-possible to split a `plan.json` in two or four and run the simulations
-in parallel. We might use GNU Parallel in future releases.
+The library should include more algorithms, in particular Tabu search
+algorithms and recent EDAs (Estimation of Distribution
+Algorithms). These are considered for future releases.
 
 ## Command-line tools <a name="cli"></a>
 
@@ -257,6 +257,12 @@ HNCO is distributed with four experiments under `experiments/`:
 directory, a Makefile runs the simulations and generates the
 report. The experiment itself is described in a json file called
 `plan.json`.
+
+All experiments can use GNU parallel to run the simulations in
+parallel hence take advantage of multicore architectures. To use GNU
+parallel, simply set the field `parallel` to `true`. At the moment
+only local computations are available but distributed computations are
+considered for future releases.
 
 To run the simulations, compute the statistics, and generate the
 report, execute the following command:
