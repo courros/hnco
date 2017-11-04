@@ -330,6 +330,7 @@ sudo apt-get install build-essential libboost-serialization1.58-dev
 sudo apt-get install libgmp-dev
 sudo apt-get install libjson-perl libstatistics-descriptive-perl gnuplot
 sudo apt-get install texlive-base texlive-latex-extra python-pygments
+sudo apt-get install parallel
 ```
 
 Under Ubuntu 16.10, replace `libboost-serialization1.58-dev` with
