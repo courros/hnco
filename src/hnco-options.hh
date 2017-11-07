@@ -225,6 +225,18 @@ class Options {
   /// At the end, describe the solution
   bool _describe_solution;
 
+  /// Print the size of bit vectors
+  bool _fun_get_bv_size;
+
+  /// Print the maximum and exit with status 0 if the function has a known maximum, 1 otherwise
+  bool _fun_get_maximum;
+
+  /// Exit with status 0 if the function has a known maximum, 1 otherwise
+  bool _fun_has_known_maximum;
+
+  /// Exit with status 0 if the function provides incremental evaluation, 1 otherwise
+  bool _fun_provides_incremental_evaluation;
+
   /// Bound moment after update
   bool _hea_bound_moment;
 
@@ -910,6 +922,30 @@ public:
 
   /// Set describe_solution
   void set_describe_solution() { _describe_solution = true; }
+ 
+  /// Get fun_get_bv_size
+  bool with_fun_get_bv_size() const { return _fun_get_bv_size; }
+
+  /// Set fun_get_bv_size
+  void set_fun_get_bv_size() { _fun_get_bv_size = true; }
+ 
+  /// Get fun_get_maximum
+  bool with_fun_get_maximum() const { return _fun_get_maximum; }
+
+  /// Set fun_get_maximum
+  void set_fun_get_maximum() { _fun_get_maximum = true; }
+ 
+  /// Get fun_has_known_maximum
+  bool with_fun_has_known_maximum() const { return _fun_has_known_maximum; }
+
+  /// Set fun_has_known_maximum
+  void set_fun_has_known_maximum() { _fun_has_known_maximum = true; }
+ 
+  /// Get fun_provides_incremental_evaluation
+  bool with_fun_provides_incremental_evaluation() const { return _fun_provides_incremental_evaluation; }
+
+  /// Set fun_provides_incremental_evaluation
+  void set_fun_provides_incremental_evaluation() { _fun_provides_incremental_evaluation = true; }
  
   /// Get hea_bound_moment
   bool with_hea_bound_moment() const { return _hea_bound_moment; }

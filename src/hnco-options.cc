@@ -111,6 +111,10 @@ Options::Options(int argc, char *argv[]):
   _cache(false),
   _describe_function(false),
   _describe_solution(false),
+  _fun_get_bv_size(false),
+  _fun_get_maximum(false),
+  _fun_has_known_maximum(false),
+  _fun_provides_incremental_evaluation(false),
   _hea_bound_moment(false),
   _hea_log_delta(false),
   _hea_log_dtu(false),
@@ -191,6 +195,10 @@ Options::Options(int argc, char *argv[]):
     OPTION_CACHE,
     OPTION_DESCRIBE_FUNCTION,
     OPTION_DESCRIBE_SOLUTION,
+    OPTION_FUN_GET_BV_SIZE,
+    OPTION_FUN_GET_MAXIMUM,
+    OPTION_FUN_HAS_KNOWN_MAXIMUM,
+    OPTION_FUN_PROVIDES_INCREMENTAL_EVALUATION,
     OPTION_HEA_BOUND_MOMENT,
     OPTION_HEA_LOG_DELTA,
     OPTION_HEA_LOG_DTU,
@@ -269,6 +277,10 @@ Options::Options(int argc, char *argv[]):
     {"cache", no_argument, 0, OPTION_CACHE},
     {"describe-function", no_argument, 0, OPTION_DESCRIBE_FUNCTION},
     {"describe-solution", no_argument, 0, OPTION_DESCRIBE_SOLUTION},
+    {"fun-get-bv-size", no_argument, 0, OPTION_FUN_GET_BV_SIZE},
+    {"fun-get-maximum", no_argument, 0, OPTION_FUN_GET_MAXIMUM},
+    {"fun-has-known-maximum", no_argument, 0, OPTION_FUN_HAS_KNOWN_MAXIMUM},
+    {"fun-provides-incremental-evaluation", no_argument, 0, OPTION_FUN_PROVIDES_INCREMENTAL_EVALUATION},
     {"hea-bound-moment", no_argument, 0, OPTION_HEA_BOUND_MOMENT},
     {"hea-log-delta", no_argument, 0, OPTION_HEA_LOG_DELTA},
     {"hea-log-dtu", no_argument, 0, OPTION_HEA_LOG_DTU},
@@ -533,6 +545,22 @@ Options::Options(int argc, char *argv[]):
       _describe_solution = true;
       break;
 
+    case OPTION_FUN_GET_BV_SIZE:
+      _fun_get_bv_size = true;
+      break;
+
+    case OPTION_FUN_GET_MAXIMUM:
+      _fun_get_maximum = true;
+      break;
+
+    case OPTION_FUN_HAS_KNOWN_MAXIMUM:
+      _fun_has_known_maximum = true;
+      break;
+
+    case OPTION_FUN_PROVIDES_INCREMENTAL_EVALUATION:
+      _fun_provides_incremental_evaluation = true;
+      break;
+
     case OPTION_HEA_BOUND_MOMENT:
       _hea_bound_moment = true;
       break;
@@ -657,12 +685,20 @@ void Options::print_help(ostream& stream) const
   stream << "Function:" << endl;
   stream << "  -s, --bv-size (type int, default to 100)" << endl;
   stream << "          Size of bit vectors" << endl;
+  stream << "      --fun-get-bv-size" << endl;
+  stream << "          Print the size of bit vectors" << endl;
+  stream << "      --fun-get-maximum" << endl;
+  stream << "          Print the maximum and exit with status 0 if the function has a known maximum, 1 otherwise" << endl;
+  stream << "      --fun-has-known-maximum" << endl;
+  stream << "          Exit with status 0 if the function has a known maximum, 1 otherwise" << endl;
   stream << "      --fun-name (type string, default to \"noname\")" << endl;
   stream << "          Name of the function in the dynamic library" << endl;
   stream << "      --fun-num-traps (type int, default to 10)" << endl;
   stream << "          Number of traps" << endl;
   stream << "      --fun-prefix-length (type int, default to 2)" << endl;
   stream << "          Prefix length for long path" << endl;
+  stream << "      --fun-provides-incremental-evaluation" << endl;
+  stream << "          Exit with status 0 if the function provides incremental evaluation, 1 otherwise" << endl;
   stream << "  -t, --fun-threshold (type int, default to 10)" << endl;
   stream << "          Threshold (in bits) for Jump, Four Peaks, and Six Peaks" << endl;
   stream << "  -F, --function (type int, default to 0)" << endl;
@@ -951,6 +987,14 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# describe_function" << endl;
   if (options._describe_solution)
     stream << "# describe_solution" << endl;
+  if (options._fun_get_bv_size)
+    stream << "# fun_get_bv_size" << endl;
+  if (options._fun_get_maximum)
+    stream << "# fun_get_maximum" << endl;
+  if (options._fun_has_known_maximum)
+    stream << "# fun_has_known_maximum" << endl;
+  if (options._fun_provides_incremental_evaluation)
+    stream << "# fun_provides_incremental_evaluation" << endl;
   if (options._hea_bound_moment)
     stream << "# hea_bound_moment" << endl;
   if (options._hea_log_delta)

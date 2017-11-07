@@ -8,6 +8,11 @@ Library:
 
 hnco:
 - Added option --allow-stay
+- Added option --fun-has-known-maximum
+- Added option --fun-get-maximum
+- Added option --fun-get-bv-size
+- Added option --fun-provides-incremental-evaluation
+
 
 Experiments:
 - New result file layout (one run per file)

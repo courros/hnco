@@ -58,6 +58,31 @@
         },
 
 
+        "fun_has_known_maximum":
+        {
+            "description": "Exit with status 0 if the function has a known maximum, 1 otherwise",
+            "category": "Function"
+        },
+
+        "fun_get_maximum":
+        {
+            "description": "Print the maximum and exit with status 0 if the function has a known maximum, 1 otherwise",
+            "category": "Function"
+        },
+
+        "fun_get_bv_size":
+        {
+            "description": "Print the size of bit vectors",
+            "category": "Function"
+        },
+
+        "fun_provides_incremental_evaluation":
+        {
+            "description": "Exit with status 0 if the function provides incremental evaluation, 1 otherwise",
+            "category": "Function"
+        },
+
+
         "log_improvement":
         {
             "description": "Log improvement",
