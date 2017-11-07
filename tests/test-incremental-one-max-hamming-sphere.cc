@@ -21,7 +21,7 @@
 #include <chrono>
 #include <random>
 
-#include "hnco/algorithms/ls/neighborhood.hh"
+#include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/random.hh"
 

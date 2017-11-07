@@ -19,7 +19,7 @@
 */
 
 #include "hnco/algorithms/all.hh"
-#include "hnco/algorithms/ls/neighborhood.hh"
+#include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/exception.hh"
 
 #include "make-algorithm.hh"

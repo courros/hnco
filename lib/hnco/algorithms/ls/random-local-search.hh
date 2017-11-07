@@ -28,7 +28,7 @@
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/exception.hh"
 
-#include "neighborhood.hh"
+#include "hnco/neighborhoods/neighborhood.hh"
 
 
 namespace hnco {

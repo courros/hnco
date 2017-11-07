@@ -21,8 +21,8 @@
 #ifndef HNCO_ALGORITHMS_EA_ONE_PLUS_ONE
 #define HNCO_ALGORITHMS_EA_ONE_PLUS_ONE
 
+#include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/algorithms/algorithm.hh"
-#include "hnco/algorithms/ls/neighborhood.hh"
 #include "hnco/algorithms/ls/random-local-search.hh"
 
 

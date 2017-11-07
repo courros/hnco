@@ -33,10 +33,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/hea/moment-spin.cc \
 	hnco/algorithms/hea/moment-spin.hh \
 	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/neighborhood-iterator.cc \
-	hnco/algorithms/ls/neighborhood-iterator.hh \
-	hnco/algorithms/ls/neighborhood.cc \
-	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/random-local-search.cc \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.cc \
@@ -115,6 +111,10 @@ libhnco_la_SOURCES = \
 	hnco/iterator.hh \
 	hnco/map.cc \
 	hnco/map.hh \
+	hnco/neighborhoods/neighborhood-iterator.cc \
+	hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/neighborhoods/neighborhood.cc \
+	hnco/neighborhoods/neighborhood.hh \
 	hnco/permutation.cc \
 	hnco/permutation.hh \
 	hnco/random.cc \
@@ -147,8 +147,6 @@ nobase_include_HEADERS = \
 	hnco/algorithms/hea/moment-binary.hh \
 	hnco/algorithms/hea/moment-spin.hh \
 	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/neighborhood-iterator.hh \
-	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
@@ -192,6 +190,8 @@ nobase_include_HEADERS = \
 	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.hh \
 	hnco/map.hh \
+	hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/neighborhoods/neighborhood.hh \
 	hnco/permutation.hh \
 	hnco/random.hh \
 	hnco/sparse-bit-matrix.hh \

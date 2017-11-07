@@ -164,10 +164,6 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/hea/moment-binary.hh \
 	hnco/algorithms/hea/moment-spin.cc \
 	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/neighborhood-iterator.cc \
-	hnco/algorithms/ls/neighborhood-iterator.hh \
-	hnco/algorithms/ls/neighborhood.cc \
-	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/random-local-search.cc \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.cc \
@@ -217,7 +213,11 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.cc \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.cc \
-	hnco/iterator.hh hnco/map.cc hnco/map.hh hnco/permutation.cc \
+	hnco/iterator.hh hnco/map.cc hnco/map.hh \
+	hnco/neighborhoods/neighborhood-iterator.cc \
+	hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/neighborhoods/neighborhood.cc \
+	hnco/neighborhoods/neighborhood.hh hnco/permutation.cc \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
 	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
 	hnco/functions/factorization.cc \
@@ -237,8 +237,6 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/hea/herding-spin.lo \
 	hnco/algorithms/hea/moment-binary.lo \
 	hnco/algorithms/hea/moment-spin.lo \
-	hnco/algorithms/ls/neighborhood-iterator.lo \
-	hnco/algorithms/ls/neighborhood.lo \
 	hnco/algorithms/ls/random-local-search.lo \
 	hnco/algorithms/ls/simulated-annealing.lo \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.lo \
@@ -261,8 +259,9 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/functions/walsh/walsh-expansion-1.lo \
 	hnco/functions/walsh/walsh-expansion-2.lo \
 	hnco/functions/walsh/walsh-expansion.lo hnco/iterator.lo \
-	hnco/map.lo hnco/permutation.lo hnco/random.lo \
-	$(am__objects_1)
+	hnco/map.lo hnco/neighborhoods/neighborhood-iterator.lo \
+	hnco/neighborhoods/neighborhood.lo hnco/permutation.lo \
+	hnco/random.lo $(am__objects_1)
 libhnco_la_OBJECTS = $(am_libhnco_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -341,8 +340,6 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/hea/herding-spin.hh \
 	hnco/algorithms/hea/moment-binary.hh \
 	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/neighborhood-iterator.hh \
-	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
@@ -370,9 +367,10 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
-	hnco/map.hh hnco/permutation.hh hnco/random.hh \
-	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
-	hnco/functions/factorization.hh
+	hnco/map.hh hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
+	hnco/random.hh hnco/sparse-bit-matrix.hh \
+	hnco/sparse-bit-vector.hh hnco/functions/factorization.hh
 HEADERS = $(nobase_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
@@ -549,10 +547,6 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/hea/moment-binary.hh \
 	hnco/algorithms/hea/moment-spin.cc \
 	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/neighborhood-iterator.cc \
-	hnco/algorithms/ls/neighborhood-iterator.hh \
-	hnco/algorithms/ls/neighborhood.cc \
-	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/random-local-search.cc \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.cc \
@@ -602,7 +596,11 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.cc \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.cc \
-	hnco/iterator.hh hnco/map.cc hnco/map.hh hnco/permutation.cc \
+	hnco/iterator.hh hnco/map.cc hnco/map.hh \
+	hnco/neighborhoods/neighborhood-iterator.cc \
+	hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/neighborhoods/neighborhood.cc \
+	hnco/neighborhoods/neighborhood.hh hnco/permutation.cc \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
 	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
 	$(am__append_1)
@@ -620,8 +618,6 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/hea/herding-spin.hh \
 	hnco/algorithms/hea/moment-binary.hh \
 	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/neighborhood-iterator.hh \
-	hnco/algorithms/ls/neighborhood.hh \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
@@ -649,9 +645,10 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
-	hnco/map.hh hnco/permutation.hh hnco/random.hh \
-	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
-	$(am__append_2)
+	hnco/map.hh hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
+	hnco/random.hh hnco/sparse-bit-matrix.hh \
+	hnco/sparse-bit-vector.hh $(am__append_2)
 all: all-am
 
 .SUFFIXES:
@@ -784,12 +781,6 @@ hnco/algorithms/ls/$(am__dirstamp):
 hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/ls/$(DEPDIR)
 	@: > hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/ls/neighborhood-iterator.lo:  \
-	hnco/algorithms/ls/$(am__dirstamp) \
-	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/ls/neighborhood.lo:  \
-	hnco/algorithms/ls/$(am__dirstamp) \
-	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/ls/random-local-search.lo:  \
 	hnco/algorithms/ls/$(am__dirstamp) \
 	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
@@ -898,6 +889,18 @@ hnco/functions/walsh/walsh-expansion.lo:  \
 	hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp)
 hnco/iterator.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/map.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
+hnco/neighborhoods/$(am__dirstamp):
+	@$(MKDIR_P) hnco/neighborhoods
+	@: > hnco/neighborhoods/$(am__dirstamp)
+hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/neighborhoods/$(DEPDIR)
+	@: > hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp)
+hnco/neighborhoods/neighborhood-iterator.lo:  \
+	hnco/neighborhoods/$(am__dirstamp) \
+	hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp)
+hnco/neighborhoods/neighborhood.lo:  \
+	hnco/neighborhoods/$(am__dirstamp) \
+	hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp)
 hnco/permutation.lo: hnco/$(am__dirstamp) \
 	hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/random.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
@@ -929,6 +932,8 @@ mostlyclean-compile:
 	-rm -f hnco/functions/decorators/*.lo
 	-rm -f hnco/functions/walsh/*.$(OBJEXT)
 	-rm -f hnco/functions/walsh/*.lo
+	-rm -f hnco/neighborhoods/*.$(OBJEXT)
+	-rm -f hnco/neighborhoods/*.lo
 
 distclean-compile:
 	-rm -f *.tab.c
@@ -954,8 +959,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-spin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/moment-binary.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/moment-spin.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/neighborhood-iterator.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/neighborhood.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/simulated-annealing.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/steepest-ascent-hill-climbing.Plo@am__quote@
@@ -985,6 +988,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -1025,6 +1030,7 @@ clean-libtool:
 	-rm -rf hnco/functions/.libs hnco/functions/_libs
 	-rm -rf hnco/functions/decorators/.libs hnco/functions/decorators/_libs
 	-rm -rf hnco/functions/walsh/.libs hnco/functions/walsh/_libs
+	-rm -rf hnco/neighborhoods/.libs hnco/neighborhoods/_libs
 install-nobase_includeHEADERS: $(nobase_include_HEADERS)
 	@$(NORMAL_INSTALL)
 	@list='$(nobase_include_HEADERS)'; test -n "$(includedir)" || list=; \
@@ -1185,6 +1191,8 @@ distclean-generic:
 	-rm -f hnco/functions/decorators/$(am__dirstamp)
 	-rm -f hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/walsh/$(am__dirstamp)
+	-rm -f hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/neighborhoods/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -1195,7 +1203,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR)
+	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR) hnco/neighborhoods/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -1241,7 +1249,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR)
+	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR) hnco/neighborhoods/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
