@@ -7,6 +7,7 @@ Library:
 - Renamed SinusCancellation -> SinusSummationCancellation
 - Neighborhood files moved under lib/hnco/neighborhoods/
 - Neighborhood: added member functions mutate and map
+- Function: renamed eval -> incremental_eval (avoid overloading)
 
 hnco:
 - Added option --allow-stay
