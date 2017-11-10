@@ -23,8 +23,8 @@
 #include "bit-matrix.hh"
 
 
-using namespace std;
 using namespace hnco;
+
 
 void hnco::bm_identity(bit_matrix_t& M)
 {

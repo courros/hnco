@@ -22,8 +22,8 @@
 
 #include "map.hh"
 
+
 using namespace hnco;
-using namespace std;
 
 
 void
