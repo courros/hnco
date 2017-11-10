@@ -137,7 +137,7 @@ namespace neighborhood {
       bv_flip(bv, _flipped_bits);
     }
 
-    /** Map.
+    /** %Map.
 
         The output bit vector is a mutated version of the input bit
         vector.
