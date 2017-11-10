@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
       double value = function.eval(neighborhood.get_origin());
       neighborhood.propose();
       if (function.eval(neighborhood.get_candidate()) !=
-          function.eval(neighborhood.get_origin(), value, neighborhood.get_flipped_bits()))
+          function.incremental_eval(neighborhood.get_origin(), value, neighborhood.get_flipped_bits()))
         return 1;
       neighborhood.keep();
     }
