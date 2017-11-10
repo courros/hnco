@@ -119,7 +119,7 @@ namespace hnco::function {
 
     /** Incremental evaluation.
         \throw MaximumReached */
-    double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /** Update after a safe evaluation.
         \throw MaximumReached */
@@ -155,7 +155,7 @@ namespace hnco::function {
 
     /** Incremental evaluation.
         \throw TargetReached */
-    double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /** Update after a safe evaluation.
         \throw TargetReached */
@@ -190,7 +190,7 @@ namespace hnco::function {
     double eval(const bit_vector_t&);
 
     /// Incremental evaluation
-    double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /// Update after a safe evaluation
     void update(const bit_vector_t& x, double value);
@@ -256,7 +256,7 @@ namespace hnco::function {
         \throw MaximumReached
         \throw TargetReached
     */
-    double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /** Update after a safe evaluation.
         \throw MaximumReached
@@ -319,7 +319,7 @@ namespace hnco::function {
 
     /** Incremental evaluation.
         \throw LastEvaluation */
-    double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /** Update after a safe evaluation
         \throw LastEvaluation */

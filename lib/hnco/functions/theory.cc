@@ -29,7 +29,6 @@
 
 
 using namespace hnco::function;
-using namespace std;
 
 
 double
@@ -39,7 +38,7 @@ OneMax::eval(const bit_vector_t& x)
 }
 
 double
-OneMax::eval(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits)
+OneMax::incremental_eval(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits)
 {
   double delta = 0;
   for (auto index : flipped_bits)
@@ -73,7 +72,7 @@ Hiff::Hiff(int bv_size):
   _bv_size(bv_size)
 {
   assert(bv_size > 0);
-  bitset<8 * sizeof(int)> bs(bv_size);
+  std::bitset<8 * sizeof(int)> bs(bv_size);
   if (bs.count() != 1)
     throw exception::Error("Hiff::Hiff: bv_size must be a power of 2");
   for (size_t i = 0; i < bs.size(); i++)

@@ -72,7 +72,7 @@ namespace hnco::function {
 
         \throw Error
     */
-    virtual double eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits) {
+    virtual double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits) {
       throw exception::Error("Incremental evaluation not implemented for this function");
     }
 
