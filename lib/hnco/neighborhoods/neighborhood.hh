@@ -38,14 +38,15 @@ namespace hnco {
 */
 namespace neighborhood {
 
+
   /** Neighborhood.
 
       A neighborhood maintains two points, _origin and
       _candidate. They are initialized in the same state by
-      set_origin. The neighborhood must implement the method
-      sample_bits which samples the bits to flip in _origin to get a
-      _candidate. The following methods take care of the
-      modifications:
+      set_origin. A Neighborhood class must implement the member
+      function sample_bits which samples the bits to flip in _origin
+      to get a _candidate. The following member functions take care of
+      the modifications:
 
       - propose: flip _candidate
       - keep: flip _origin
@@ -53,7 +54,10 @@ namespace neighborhood {
 
       After keep or forget, _origin and _candidate are in the same
       state again.
-   */
+
+      A Neighborhood class can also behave as a mutation operator
+      through the member functions mutate and map.
+  */
   class Neighborhood {
 
   protected:
@@ -121,6 +125,34 @@ namespace neighborhood {
       assert(_candidate == _origin);
     }
 
+    /** Mutate.
+
+        In-place mutation of the bit vector.
+
+        \param bv Bit vector to mutate
+    */
+    virtual void mutate(bit_vector_t& bv) {
+      assert(bv.size() == _origin.size());
+      sample_bits();
+      bv_flip(bv, _flipped_bits);
+    }
+
+    /** Map.
+
+        The output bit vector is a mutated version of the input bit
+        vector.
+
+        \param input Input bit vector
+        \param output Output bit vector
+    */
+    virtual void map(const bit_vector_t& input, bit_vector_t& output) {
+      assert(input.size() == _origin.size());
+      assert(output.size() == _origin.size());
+      copy(input.begin(), input.end(), output.begin());
+      sample_bits();
+      bv_flip(output, _flipped_bits);
+    }
+
   };
 
 
@@ -131,7 +163,7 @@ namespace neighborhood {
     /// Sample bits
     void sample_bits() {
       assert(_flipped_bits.size() == 1);
-      _flipped_bits[0] = _uniform_index_dist(random::Random::engine);;
+      _flipped_bits[0] = _uniform_index_dist(random::Random::engine);
     }
 
   public:
