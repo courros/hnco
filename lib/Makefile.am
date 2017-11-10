@@ -111,6 +111,8 @@ libhnco_la_SOURCES = \
 	hnco/iterator.hh \
 	hnco/map.cc \
 	hnco/map.hh \
+	hnco/neighborhoods/mutation.cc \
+	hnco/neighborhoods/mutation.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -190,6 +192,7 @@ nobase_include_HEADERS = \
 	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.hh \
 	hnco/map.hh \
+	hnco/neighborhoods/mutation.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh \
 	hnco/permutation.hh \

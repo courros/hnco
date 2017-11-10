@@ -214,6 +214,7 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/functions/walsh/walsh-expansion.cc \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.cc \
 	hnco/iterator.hh hnco/map.cc hnco/map.hh \
+	hnco/neighborhoods/mutation.cc hnco/neighborhoods/mutation.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -259,7 +260,8 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/functions/walsh/walsh-expansion-1.lo \
 	hnco/functions/walsh/walsh-expansion-2.lo \
 	hnco/functions/walsh/walsh-expansion.lo hnco/iterator.lo \
-	hnco/map.lo hnco/neighborhoods/neighborhood-iterator.lo \
+	hnco/map.lo hnco/neighborhoods/mutation.lo \
+	hnco/neighborhoods/neighborhood-iterator.lo \
 	hnco/neighborhoods/neighborhood.lo hnco/permutation.lo \
 	hnco/random.lo $(am__objects_1)
 libhnco_la_OBJECTS = $(am_libhnco_la_OBJECTS)
@@ -367,7 +369,8 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
-	hnco/map.hh hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/map.hh hnco/neighborhoods/mutation.hh \
+	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.hh hnco/functions/factorization.hh
@@ -597,6 +600,7 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/functions/walsh/walsh-expansion.cc \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.cc \
 	hnco/iterator.hh hnco/map.cc hnco/map.hh \
+	hnco/neighborhoods/mutation.cc hnco/neighborhoods/mutation.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -645,7 +649,8 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
-	hnco/map.hh hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/map.hh hnco/neighborhoods/mutation.hh \
+	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.hh $(am__append_2)
@@ -895,6 +900,8 @@ hnco/neighborhoods/$(am__dirstamp):
 hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/neighborhoods/$(DEPDIR)
 	@: > hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp)
+hnco/neighborhoods/mutation.lo: hnco/neighborhoods/$(am__dirstamp) \
+	hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp)
 hnco/neighborhoods/neighborhood-iterator.lo:  \
 	hnco/neighborhoods/$(am__dirstamp) \
 	hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp)
@@ -988,6 +995,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/mutation.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo@am__quote@
 
