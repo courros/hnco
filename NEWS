@@ -5,6 +5,8 @@ Library:
 - OnePlusOneEa: added _allow_stay
 - Renamed Cancellation -> SummationCancellation
 - Renamed SinusCancellation -> SinusSummationCancellation
+- Neighborhood files moved under lib/hnco/neighborhoods/
+- Neighborhood: added member functions mutate and map
 
 hnco:
 - Added option --allow-stay
