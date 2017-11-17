@@ -2,11 +2,12 @@ plan-compact.json
 
 log.default
 log.err
+commands.txt
 
-<<<<<<< HEAD
-=======
-graphics.gp
+candlesticks.gp
+clouds.gp
+mean.gp
+stddev.gp
 
 graphics
->>>>>>> next
 results
