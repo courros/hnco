@@ -8,7 +8,7 @@ run:
 	time -o log.err -a hnco-benchmark-run.pl
 
 doc:
-	hnco-benchmark-stat.pl
+	hnco-ecdf-stat.pl
 	./candlesticks.gp
 	./clouds.gp
 	sed '/^$$/d' plan.json > plan-compact.json
