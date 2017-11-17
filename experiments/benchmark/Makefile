@@ -18,5 +18,6 @@ clean:
 	rm -f candlesticks.gp clouds.gp plan-compact.json log.default log.err
 	rm -rf results
 	rm -rf graphics
+	rm -rf commands.txt
 
 .PHONY: all default-parameters run doc clean

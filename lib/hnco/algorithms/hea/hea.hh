@@ -31,13 +31,10 @@
 #include "hnco/exception.hh"
 
 
-namespace hnco {
-namespace algorithm {
-/// Herding Evolutionary Algorithm
-namespace hea {
+/// Herding evolutionary algorithm
+namespace hnco::algorithm::hea {
 
-
-  /// Herding Evolutionary Algorithm
+  /// Herding evolutionary algorithm
   template<class Moment, class Herding>
   class Hea:
     public algorithm::IterativeAlgorithm {
@@ -116,7 +113,11 @@ namespace hea {
       if (_log_flags[LOG_DELTA])
         _delta_cache = _herding.delta(_target);
 
-      _population.eval(_function);
+      if (_functions.size() > 1)
+        _population.eval(_functions);
+      else
+        _population.eval(_function);
+
       _population.sort();
 
       update_solution(_population.get_best_bv(),
@@ -251,10 +252,7 @@ namespace hea {
 
   };
 
-
-} // end of namespace hea
-} // end of namespace algorithm
-} // end of namespace hnco
+} // end of namespace hnco::algorithm::hea
 
 
 #endif

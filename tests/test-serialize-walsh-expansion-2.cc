@@ -20,7 +20,7 @@
 
 #include <chrono>
 
-#include "hnco/functions/quadratic-function.hh"
+#include "hnco/functions/walsh/walsh-expansion-2.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::function;
@@ -33,14 +33,14 @@ int main(int argc, char *argv[])
 {
   Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  const string path("test-serialize-quadratic-function.txt");
+  const string path("test-serialize-walsh-expansion-2.txt");
 
   for (int i = 0; i < 10; i++) {
 
     uniform_int_distribution<int> dist_n(2, 100);
     int n = dist_n(Random::engine);
 
-    QuadraticFunction src;
+    WalshExpansion2 src;
     src.random(n, 1, 1);
     {
       std::ofstream ofs(path);
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
       oa << src;
     }
 
-    QuadraticFunction dest;
+    WalshExpansion2 dest;
     {
       ifstream ifs(path);
       if (!ifs.good())

@@ -21,11 +21,11 @@
 #ifndef HNCO_MAKE_FUNCTION
 #define HNCO_MAKE_FUNCTION
 
-#include "hnco/functions/function-decorator.hh"
+#include "hnco/functions/decorators/all.hh"
 
 #include "hnco-options.hh"
 
-/// Make a ProgressTracker
-hnco::function::ProgressTracker *make_function(Options& options);
+/// Make a function
+hnco::function::Function *make_function(Options& options);
 
 #endif

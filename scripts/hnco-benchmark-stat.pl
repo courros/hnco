@@ -32,11 +32,13 @@ my $json = "";
 while (<FILE>) { $json .= $_; }
 
 my $obj = from_json($json);
-my $path_results = $obj->{results};
-my $path_report = $obj->{report};
-my $path_graphics = $obj->{graphics};
-my $functions = $obj->{functions};
-my $algorithms = $obj->{algorithms};
+
+my $algorithms          = $obj->{algorithms};
+my $functions           = $obj->{functions};
+my $num_runs            = $obj->{num_runs};
+my $path_graphics       = $obj->{graphics};
+my $path_results        = $obj->{results};
+my $path_report         = $obj->{report};
 
 my $ranges = {};
 my $stat_eval = {};
@@ -56,15 +58,17 @@ my %terminal = (
     pdf => "set term pdfcairo color enhanced",
     png => "set term png enhanced" );
 
+unless (-d "$path_graphics") { mkdir "$path_graphics"; }
+
 compute_statistics();
 compute_statistics_time();
 compute_best_statistics();
 compute_rankings();
+reverse_values();
+reverse_best_statistics();
 compute_ranges();
 
-unless (-d "$path_graphics") { mkdir "$path_graphics"; }
-
-generate_gnuplot_data();
+generate_function_data();
 generate_gnuplot_candlesticks();
 generate_gnuplot_clouds();
 generate_latex();
@@ -78,19 +82,31 @@ sub compute_statistics
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-            my $path = "$path_results/$function_id/$algorithm_id.dat";
-            my $file = IO::File->new($path, '<') or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+            my $algorithm_num_runs = $num_runs;
+            if ($a->{deterministic}) {
+                $algorithm_num_runs = 1;
+            }
+
+            my $prefix = "$path_results/$function_id/$algorithm_id";
             my $SD_eval = Statistics::Descriptive::Full->new();
             my $SD_value = Statistics::Descriptive::Full->new();
 
-            while (my $line = $file->getline) {
+            my $path = "$prefix/$algorithm_id.dat";
+            my $file_data = IO::File->new($path, '>')
+                or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+            foreach (1 .. $algorithm_num_runs) {
+                $path = "$prefix/$_.out";
+                my $file_run = IO::File->new($path, '<')
+                    or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+                my $line = $file_run->getline;
+                $file_data->print($line);
                 chomp $line;
                 my @results = split ' ', $line;
                 $SD_eval->add_data($results[0]);
                 $SD_value->add_data($results[1]);
+                $file_run->close;
             }
-
-            $file->close();
+            $file_data->close;
 
             $eval->{$algorithm_id} = { min     => $SD_eval->min(),
                                        q1      => $SD_eval->quantile(1),
@@ -98,19 +114,11 @@ sub compute_statistics
                                        q3      => $SD_eval->quantile(3),
                                        max     => $SD_eval->max() };
 
-            if ($f->{reverse}) {
-                $value->{$algorithm_id} = { min     => -$SD_value->max(),
-                                            q1      => -$SD_value->quantile(3),
-                                            median  => -$SD_value->median(),
-                                            q3      => -$SD_value->quantile(1),
-                                            max     => -$SD_value->min() };
-            } else {
-                $value->{$algorithm_id} = { min     => $SD_value->min(),
-                                            q1      => $SD_value->quantile(1),
-                                            median  => $SD_value->median(),
-                                            q3      => $SD_value->quantile(3),
-                                            max     => $SD_value->max() };
-            }
+            $value->{$algorithm_id} = { min     => $SD_value->min(),
+                                        q1      => $SD_value->quantile(1),
+                                        median  => $SD_value->median(),
+                                        q3      => $SD_value->quantile(3),
+                                        max     => $SD_value->max() };
 
         }
 
@@ -129,16 +137,22 @@ sub compute_statistics_time
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
+            my $algorithm_num_runs = $num_runs;
+            if ($a->{deterministic}) {
+                $algorithm_num_runs = 1;
+            }
 
+            my $prefix = "$path_results/$function_id/$algorithm_id";
             my $SD_time = Statistics::Descriptive::Full->new();
 
-            my $path = "$path_results/$function_id/$algorithm_id.time";
-            my $file = IO::File->new($path, '<') or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
-            while (my $line = $file->getline) {
-                chomp $line;
+            foreach (1 .. $algorithm_num_runs) {
+                my $path = "$prefix/$_.time";
+                my $file = IO::File->new($path, '<')
+                    or die "hnco-benchmark-stat.pl: compute_statistics_time: Cannot open '$path': $!\n";
+                my $line = $file->getline;
                 $SD_time->add_data($line);
+                $file->close;
             }
-            $file->close();
 
             $time->{$algorithm_id} = { mean     => $SD_time->mean(),
                                        stddev   => $SD_time->standard_deviation() };
@@ -155,17 +169,16 @@ sub compute_best_statistics
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $value = $stat_value->{$function_id};
+        my $stat = $stat_value->{$function_id};
         my $best = {};
 
-        my @order;
         foreach (@summary_statistics) {
-            if ($f->{reverse}) {
-                @order = sort { $value->{$a}->{$_} <=> $value->{$b}->{$_} } keys %$value;
-            } else {
-                @order = sort { $value->{$b}->{$_} <=> $value->{$a}->{$_} } keys %$value;
+            my @values = ();
+            foreach my $a (@$algorithms) {
+                my $algorithm_id = $a->{id};
+                push @values, $stat->{$algorithm_id}->{$_};
             }
-            $best->{$_} = $value->{$order[0]}->{$_};
+            $best->{$_} = max @values;
         }
 
         $stat_value_best->{$function_id} = $best;
@@ -178,48 +191,69 @@ sub compute_rankings
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $value = $stat_value->{$function_id};
+        my $stat = $stat_value->{$function_id};
 
-        if ($f->{reverse}) {
-            @order = sort {
-                foreach (@pref_min) {
-                    if ($value->{$a}->{$_} != $value->{$b}->{$_}) {
-                        return $value->{$a}->{$_} <=> $value->{$b}->{$_};
-                    }
-                }
-                return 0;
-            } keys %$value;
-        } else {
-            @order = sort {
-                foreach (@pref_max) {
-                    if ($value->{$b}->{$_} != $value->{$a}->{$_}) {
-                        return $value->{$b}->{$_} <=> $value->{$a}->{$_};
-                    }
-                }
-                return 0;
-            } keys %$value;
-        }
-
-        for (my $i = 0; $i < @order; $i++) {
-            my $cur = $order[$i];
-            my $rank;
-            if ($i == 0) {
-                $rank = 0;
-            } else {
-                my $prev = $order[$i - 1];
-                if (all { $value->{$cur}->{$_} == $value->{$prev}->{$_} } @summary_statistics) {
-                    $rank = $value->{$prev}->{rank};
-                } else {
-                    $rank = $i;
+        # Sort algorithm by decreasing order of performance
+        @sorted = sort {
+            foreach (@pref_max) {
+                if ($stat->{$b}->{$_} != $stat->{$a}->{$_}) {
+                    return $stat->{$b}->{$_} <=> $stat->{$a}->{$_};
                 }
             }
+            return 0;
+        } keys %$stat;
 
-            $value->{$cur}->{rank} = $rank;  # Save rank
-            ${ $rankings->{$cur} }[$rank]++; # Update rankings
+        # Set ranks
+        for (my $i = 0; $i < @sorted; $i++) {
+            $stat->{$sorted[$i]}->{rank} = $i;
+        }
+
+        # Handle ex-aequo
+        for (my $i = 1; $i < @sorted; $i++) {
+            if (all { $stat->{$sorted[$i]}->{$_} == $stat->{$sorted[$i - 1]}->{$_} } @summary_statistics) {
+                $stat->{$sorted[$i]}->{rank} = $stat->{$sorted[$i - 1]}->{rank};
+            }
+        }
+
+        # Update rankings
+        foreach my $a (@$algorithms) {
+            my $algorithm_id = $a->{id};
+            ${ $rankings->{$algorithm_id} }[$stat->{$algorithm_id}->{rank}]++; # Update rankings
         }
 
     }
 
+}
+
+sub reverse_values
+{
+    foreach my $f (@$functions) {
+        if ($f->{reverse}) {
+            foreach my $a (@$algorithms) {
+                my $stat = $stat_value->{$f->{id}}->{$a->{id}};
+                ($stat->{min}, $stat->{max}) = ($stat->{max}, $stat->{min});
+                ($stat->{q1}, $stat->{q3}) = ($stat->{q3}, $stat->{q1});
+                foreach (@summary_statistics) {
+                    $stat->{$_} = -$stat->{$_};
+                }
+            }
+        }
+    }
+}
+
+sub reverse_best_statistics
+{
+    foreach my $f (@$functions) {
+        if ($f->{reverse}) {
+            my $function_id = $f->{id};
+            my $function_best = $stat_value_best->{$function_id};
+            ($function_best->{min}, $function_best->{max}) = ($function_best->{max}, $function_best->{min});
+            ($function_best->{q1}, $function_best->{q3}) = ($function_best->{q3}, $function_best->{q1});
+            foreach (@summary_statistics) {
+                $function_best->{$_} = -$function_best->{$_};
+            }
+        }
+    }
 }
 
 sub compute_ranges
@@ -240,26 +274,27 @@ sub compute_ranges
 
 }
 
-sub generate_gnuplot_data
+sub generate_function_data
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         my $path = "$path_results/$function_id/$function_id.dat";
 
-        $file = IO::File->new($path, '>') or die "hnco-benchmark-stat.pl: generate_gnuplot_data: Cannot open '$path': $!\n";
+        $file = IO::File->new($path, '>')
+            or die "hnco-benchmark-stat.pl: generate_function_data: Cannot open '$path': $!\n";
 
         my $position = 1;
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-            my $value = $stat_value->{$function_id}->{$algorithm_id};
+            my $stat = $stat_value->{$function_id}->{$algorithm_id};
 
             $file->printf("%d %e %e %e %e %e %s\n",
                           $position,
-                          $value->{min},
-                          $value->{q1},
-                          $value->{median},
-                          $value->{q3},
-                          $value->{max},
+                          $stat->{min},
+                          $stat->{q1},
+                          $stat->{median},
+                          $stat->{q3},
+                          $stat->{max},
                           $algorithm_id);
 
             $position++;
@@ -333,7 +368,8 @@ sub generate_gnuplot_candlesticks
 
 sub generate_gnuplot_clouds
 {
-    open(CLOUDS, ">clouds.gp") or die "hnco-benchmark-stat.pl: generate_gnuplot_clouds: Cannot open clouds.gp\n";
+    open(CLOUDS, ">clouds.gp")
+        or die "hnco-benchmark-stat.pl: generate_gnuplot_clouds: Cannot open clouds.gp\n";
 
     print CLOUDS
         "#!/usr/bin/gnuplot -persist\n",
@@ -375,7 +411,7 @@ sub generate_gnuplot_clouds
             (map {
                 my $algorithm_id = $_->{id};
                 my $value = $stat_value->{$function_id}->{$algorithm_id};
-                $quoted_path = quote("$path_results/$function_id/$algorithm_id.dat");
+                $quoted_path = quote("$path_results/$function_id/$algorithm_id/$algorithm_id.dat");
                 $quoted_title = quote("$algorithm_id");
                 $position++;
                 $f->{reverse} ?
@@ -438,7 +474,7 @@ sub generate_gnuplot_clouds
                 $terminal{eps}, "\n",
                 "set output $quoted_path\n";
 
-            $quoted_path = quote("$path_results/$function_id/$algorithm_id.dat");
+            $quoted_path = quote("$path_results/$function_id/$algorithm_id/$algorithm_id.dat");
             if ($f->{reverse}) {
                 print CLOUDS "plot $quoted_path using 1:(-\$2) with points notitle\n";
             } else {
@@ -634,7 +670,7 @@ sub latex_function_table_begin
         "\\toprule\n",
         "{algorithm} & \\multicolumn{6}{l}{{performance}} & \\multicolumn{2}{l}{{time (s)}} \\\\\n",
         "\\midrule\n",
-        "& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} & {mean} & {SD} \\\\\n",
+        "& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} & {mean} & {dev.} \\\\\n",
         "\\midrule\n";
 }
 
@@ -642,7 +678,7 @@ sub latex_function_table_add_line
 {
     my ($algo, $perf, $best, $logscale, $time) = @_;
 
-    printf LATEX ("\\verb\|%s\| & ", $algo);
+    print LATEX "$algo & ";
 
     my $conversion = "%f";
     if ($logscale) {

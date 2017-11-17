@@ -22,62 +22,60 @@
 
 #include "hnco/random.hh"
 
-#include "quadratic-function.hh"
+#include "walsh-expansion-2.hh"
 
 
-using namespace std;
 using namespace hnco::random;
 using namespace hnco::function;
 
 
 void
-QuadraticFunction::random(int n, double stddev_lin, double stddev_quad)
+WalshExpansion2::random(int n, double stddev_lin, double stddev_quad)
 {
   assert(n > 0);
   assert(stddev_lin > 0);
   assert(stddev_quad > 0);
 
-  _linear.resize(n);
-  _quadratic.resize(n, _linear);
-
   // Linear part
+  _linear.resize(n);
   for (size_t i = 0; i < _linear.size(); i++)
     _linear[i] = stddev_lin * Random::normal();
 
   // Quadratic part
-  for (size_t i = 0; i < _quadratic.size(); i++)
-    for (size_t j = i + 1; j < _quadratic.size(); j++)
+  _quadratic.resize(n);
+  for (size_t i = 1; i < _quadratic.size(); i++) {
+    _quadratic[i].resize(i);
+    for (size_t j = 0; j < i; j++)
       _quadratic[i][j] = stddev_quad * Random::normal();
+  }
 }
 
 
 double
-QuadraticFunction::eval(const bit_vector_t& s)
+WalshExpansion2::eval(const bit_vector_t& s)
 {
   assert(s.size() == _linear.size());
   assert(s.size() == _quadratic.size());
 
-  double r = 0;
-
-  const size_t dimension = _linear.size();
+  double result = 0;
 
   // Linear part
-  for (size_t i = 0; i < dimension; i++)
+  for (size_t i = 0; i < _linear.size(); i++)
     if (s[i])
-      r += _linear[i];
+      result -= _linear[i];
     else
-      r -= _linear[i];
+      result += _linear[i];
 
   // Quadratic part
-  for (size_t i = 0; i < dimension; i++) {
-    auto line = _quadratic[i];
-    bit_t b = s[i];
-    for (size_t j = i + 1; j < dimension; j++)
-      if (b == s[j])
-	r += line[j];
+  for (size_t i = 0; i < _quadratic.size(); i++) {
+    auto& line = _quadratic[i];
+    const bit_t b = s[i];
+    for (size_t j = 0; j < i; j++)
+      if (s[j] == b)
+	result += line[j];
       else
-	r -= line[j];
+	result -= line[j];
   }
 
-  return r;
+  return result;
 }

@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_QUADRATIC_FUNCTION_H
-#define HNCO_FUNCTIONS_QUADRATIC_FUNCTION_H
+#ifndef HNCO_FUNCTIONS_WALSH_WALSH_EXPANSION_1_H
+#define HNCO_FUNCTIONS_WALSH_WALSH_EXPANSION_1_H
 
 #include <iostream>
 #include <vector>
@@ -29,19 +29,25 @@
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/vector.hpp>
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {
 namespace function {
 
 
-  /** Quadratic function.
+  /** Walsh expansion of degree 1.
 
-      Its expression is of the form \f$ f(x) = \sum_{i < j} (2x_i -
-      1) (2x_j - 1) q_{ij} + \sum_i (2x_i - 1) l_i \f$
+      Its expression is of the form
+
+      \f$ f(x) = \sum_i a_i (1 - 2x_i) \f$
+
+      or equivalently
+
+      \f$ f(x) = \sum_i a_i (-1)^{x_i} \f$
+
   */
-  class QuadraticFunction:
+  class WalshExpansion1:
     public Function {
 
   private:
@@ -53,34 +59,25 @@ namespace function {
     void serialize(Archive& ar, const unsigned int version)
     {
       ar & _linear;
-      ar & _quadratic;
     }
 
     /// Linear part
     std::vector<double> _linear;
 
-    /** Quadratic part.
-
-        Only the upper triangular matrix (without its diagonal) is
-        taken into account.
-    */
-    std::vector<std::vector<double> > _quadratic;
-
   public:
 
     /// Constructor
-    QuadraticFunction() {}
+    WalshExpansion1() {}
 
     /// Get bit vector size
-    size_t get_bv_size() { return _quadratic.size(); }
+    size_t get_bv_size() { return _linear.size(); }
 
     /** Random instance.
 
         \param n                Size of bit vector
-        \param stddev_lin       Standard deviation of the coefficients of the linear part
-        \param stddev_quad      Standard deviation of the coefficients of the quadratic part
+        \param stddev           Standard deviation of the coefficients
     */
-    void random(int n, double stddev_lin, double stddev_quad);
+    void random(int n, double stddev);
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);

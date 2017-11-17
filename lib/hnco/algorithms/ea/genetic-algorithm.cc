@@ -53,6 +53,10 @@ uniform_crossover(const bit_vector_t& parent1,
 void
 GeneticAlgorithm::init()
 {
+  _do_crossover = std::bernoulli_distribution(_crossover_probability);
+  _do_mutation = std::bernoulli_distribution(_mutation_probability);
+
+  _parents._tournament_size = _tournament_size;
   _parents.random();
   _parents.eval(_function);
   _parents.sort();
@@ -79,10 +83,16 @@ GeneticAlgorithm::iterate()
       if (_do_mutation(Random::engine))
         bv_flip(offspring, j);
   }
-  _offsprings.eval(_function);
+
+  if (_functions.size() > 1)
+    _offsprings.eval(_functions);
+  else
+    _offsprings.eval(_function);
+
   _offsprings.sort();
 
   _parents.comma_selection(_offsprings);
+
   update_solution(_parents.get_best_bv(),
                   _parents.get_best_value());
 }

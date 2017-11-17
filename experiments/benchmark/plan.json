@@ -1,8 +1,9 @@
 {
     "exec": "hnco",
-    "opt": "--no-header --print-performances --map 1 --map-random -s 100 -i 0 -b 300000",
+    "opt": "--print-performance --map 1 --map-random -s 100 -i 0 -b 300000",
 
     "num_runs": 20,
+    "parallel": false,
 
     "results": "results",
     "graphics": "graphics",
@@ -71,12 +72,6 @@
         },
 
         {
-            "id": "quad",
-	    "opt": "-F 50 -p instances/quad.100 --cache",
-            "col": ">{{\\nprounddigits{2}}}N{3}{2}"
-        },
-
-        {
             "id": "nk",
 	    "opt": "-F 60 -p instances/nk.100.4",
             "col": ">{{\\nprounddigits{2}}}N{1}{2}"
@@ -99,7 +94,7 @@
 	    "opt": "-F 90 -p instances/ep.100",
             "reverse": true,
             "logscale": true,
-            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+            "col": ">{{\\nprounddigits{1}}}N{1}{1}"
         },
 
         {
@@ -125,6 +120,12 @@
             "id": "plateau",
 	    "opt": "-F 130 --stop-on-maximum",
             "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "walsh2",
+	    "opt": "-F 162 -p instances/walsh2.100 --cache",
+            "col": ">{{\\nprounddigits{2}}}N{3}{2}"
         }
 
     ],

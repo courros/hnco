@@ -22,73 +22,12 @@
 
 #include <algorithm>            // all_of, any_of, fill
 
-#include "neighborhood.hh"
+#include "neighborhood-iterator.hh"
 
 
 using namespace hnco::neighborhood;
 using namespace hnco::random;
 using namespace hnco;
-
-
-void
-HammingBall::propose()
-{
-  int n = _candidate.size();
-  int k = _choose_k(Random::engine);
-  assert(k <= n);
-
-  for (size_t i = 0; i < _candidate.size(); i++) {
-    double p = double(k) / double(n);
-    if (Random::uniform() < p) {
-      _candidate[i] = bit_flip(_origin[i]);
-      k--;
-    }
-    else
-      _candidate[i] = _origin[i];
-    n--;
-  }
-
-  assert(k == 0);
-  assert(bv_hamming_distance(_origin, _candidate) == _radius);
-}
-
-
-void
-HammingSphere::propose()
-{
-  int n = _candidate.size();
-  int k = _radius;
-  assert(k <= n);
-
-  for (size_t i = 0; i < _candidate.size(); i++) {
-    double p = double(k) / double(n);
-    if (Random::uniform() < p) {
-      _candidate[i] = bit_flip(_origin[i]);
-      k--;
-    }
-    else
-      _candidate[i] = _origin[i];
-    n--;
-  }
-
-  assert(k == 0);
-  assert(bv_hamming_distance(_origin, _candidate) == _radius);
-}
-
-
-void
-Binomial::propose()
-{
-  bool again = true;
-  do {
-    for (size_t i = 0; i < _candidate.size(); i++)
-      if (_dist(Random::engine)) {
-        _candidate[i] = bit_flip(_origin[i]);
-        again = false;
-      } else
-        _candidate[i] = _origin[i];
-  } while (again);
-}
 
 
 void

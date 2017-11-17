@@ -25,44 +25,89 @@
 
 #include "hnco/bit-vector.hh"
 #include "hnco/exception.hh"
+#include "hnco/sparse-bit-vector.hh"
 
 
-namespace hnco {
-/// All about fitness functions to be maximized
-namespace function {
-
+/// Functions to be maximized
+namespace hnco::function {
 
   /// Function
   class Function {
-
-  protected:
 
   public:
 
     /// Destructor
     virtual ~Function() {}
 
+    /** @name Information about the function
+     */
+    ///@{
+
     /// Get bit vector size
     virtual size_t get_bv_size() = 0;
-
-    /// Evaluate a bit vector
-    virtual double eval(const bit_vector_t&) = 0;
-
-    /// Check for a known maximum.
-    virtual bool has_known_maximum() { return false; }
 
     /** Get the global maximum.
         \throw Error */
     virtual double get_maximum() { throw exception::Error("Unknown maximum"); }
 
+    /// Check for a known maximum.
+    virtual bool has_known_maximum() { return false; }
+
+    /** Check whether the function provides incremental evaluation.
+        \return false
+    */
+    virtual bool provides_incremental_evaluation() { return false; }
+
+    ///@}
+
+
+    /** @name Evaluation
+     */
+    ///@{
+
+    /// Evaluate a bit vector
+    virtual double eval(const bit_vector_t&) = 0;
+
+    /** Incremental evaluation.
+
+        \throw Error
+    */
+    virtual double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits) {
+      throw exception::Error("Incremental evaluation not implemented for this function");
+    }
+
+    /** Safely evaluate a bit vector.
+
+        Must be thread-safe, that is must avoid throwing exceptions
+        and updating global states (e.g. maximum) in function
+        decorators.
+    */
+    virtual double safe_eval(const bit_vector_t& x) { return eval(x); }
+
+    /// Update after a safe evaluation
+    virtual void update(const bit_vector_t& x, double value) {}
+
+    ///@}
+
+
+    /** @name Display
+     */
+    ///@{
+
     /// Display
     virtual void display(std::ostream& stream) {}
 
+    /// Describe a bit vector
+    virtual void describe(const bit_vector_t& x, std::ostream& stream) {
+      bv_display(x, stream);
+      stream << std::endl;
+    }
+
+    ///@}
+
   };
 
-
-} // end of namespace function
-} // end of namespace hnco
+} // end of namespace hnco::function
 
 
 #endif

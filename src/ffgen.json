@@ -3,9 +3,9 @@
 
     "description": "Fitness function generator for HNCO",
 
-    "version": "0.4",
+    "version": "0.7",
 
-    "tab_order": [ "General", "QuadraticFunction", "NkLandscape", "MaxSat", "EqualProducts" ],
+    "tab_order": [ "General", "NkLandscape", "MaxSat", "EqualProducts", "WalshExpansion"],
 
     "flags": {
 
@@ -46,6 +46,14 @@
             "file": "open"
         },
 
+        "stddev":
+        {
+            "type": "double",
+            "value": 1,
+            "description": "Standard deviation",
+            "category": "General"
+        },
+
         "function":
         {
             "optchar": "F",
@@ -62,11 +70,6 @@
                 },
 
                 {
-                    "value": 50,
-                    "description": "Quadratic function"
-                },
-
-                {
                     "value": 60,
                     "description": "NK landscape"
                 },
@@ -79,26 +82,25 @@
                 {
                     "value": 90,
                     "description": "Equal products"
+                },
+
+                {
+                    "value": 160,
+                    "description": "Walsh expansion"
+                },
+
+                {
+                    "value": 161,
+                    "description": "Walsh expansion of degree 1"
+                },
+
+                {
+                    "value": 162,
+                    "description": "Walsh expansion of degree 2"
                 }
 
             ]
 
-        },
-
-        "quad_stddev_lin":
-        {
-            "type": "double",
-            "value": 1,
-            "description": "Standard deviation of linear part",
-            "category": "QuadraticFunction"
-        },
-
-        "quad_stddev_quad":
-        {
-            "type": "double",
-            "value": 1,
-            "description": "Standard deviation of quadratic part",
-            "category": "QuadraticFunction"
         },
 
         "nk_k":
@@ -106,14 +108,6 @@
             "type": "int",
             "value": 3,
             "description": "Each bit is connected to k other bits",
-            "category": "NkLandscape"
-        },
-
-        "nk_stddev":
-        {
-            "type": "double",
-            "value": 1,
-            "description": "Standard deviation of partial values",
             "category": "NkLandscape"
         },
 
@@ -139,8 +133,15 @@
             "value": 1,
             "description": "Parameter upper bound",
             "category": "EqualProducts"
-        }
+        },
 
+        "walsh_num_features":
+        {
+            "type": "int",
+            "value": 100,
+            "description": "Number of features",
+            "category": "WalshExpansion"
+        }
     }
 
 }

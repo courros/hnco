@@ -1,8 +1,9 @@
 {
     "exec": "hnco",
-    "opt": "--no-header --print-performances --map 1 --map-random -i 0 -b 0 --stop-on-maximum",
+    "opt": "--print-performance -i 0 -b 0 --stop-on-maximum",
 
-    "num_runs": 10,
+    "num_runs": 20,
+    "parallel": false,
 
     "results": "results",
     "report": "report",
@@ -10,20 +11,60 @@
 
     "parameter": {
         "id": "bv-size",
-        "values": [ 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000 ],
-        "boxwidth": "(40)"
+        "values_perl": "map { 100 + 100 * $_ } (0 .. 19)",
+        "boxwidth": "40"
     },
 
     "functions": [
 
         {
             "id": "one-max",
-	    "opt": "-F 0"
+            "name": "OneMax",
+	    "opt": "-F 0",
+
+            "mean_gnuplot": [
+
+                {
+                    "expression": "f(x) = exp(1) * (x + 1/2) * log(x) - 1.8925417883 * x",
+                    "title": "Theory (1+1) EA"
+                }
+
+            ],
+
+            "stddev_gnuplot": [
+
+                {
+                    "expression": "f(x) = sqrt(pi**2 / 6 * (exp(1) * x)**2 - (2 * exp(1) + 1) * exp(1) * x * log(x))",
+                    "title": "Theory (1+1) EA"
+                }
+
+            ]
+
         },
 
         {
             "id": "leading-ones",
-	    "opt": "-F 10"
+            "name": "LeadingOnes",
+	    "opt": "-F 10",
+
+            "mean_gnuplot": [
+
+                {
+                    "expression": "f(x) = (exp(1) - 1) / 2 * x**2",
+                    "title": "Theory (1+1) EA"
+                }
+
+            ],
+
+            "stddev_gnuplot": [
+
+                {
+                    "expression": "f(x) = sqrt((exp(2) - 1) / 8 * x**3)",
+                    "title": "Theory (1+1) EA"
+                }
+
+            ]
+
         }
 
     ],
@@ -32,14 +73,14 @@
 
         {
             "id": "ea-1p1",
-            "title": "(1+1) EA",
-	    "opt": "-A 300"
+            "name": "(1+1) EA",
+	    "opt": "-A 300 --allow-stay"
         },
 
         {
             "id": "rls",
-            "title": "RLS",
-	    "opt": "-A 100 --patience 0"
+            "name": "RLS",
+	    "opt": "-A 100 --rls-patience 0"
         }
 
     ]

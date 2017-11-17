@@ -26,11 +26,9 @@
 #include "pv-algorithm.hh"
 
 
-namespace hnco {
-namespace algorithm {
+namespace hnco::algorithm {
 
-
-  /// Population-Based Incremental Learning with negative and positive selection
+  /// Population-based incremental learning with negative and positive selection
   class NpsPbil:
     public PvAlgorithm {
 
@@ -74,9 +72,7 @@ namespace algorithm {
 
   };
 
-
-} // end of namespace algorithm
-} // end of namespace hnco
+} // end of namespace hnco::algorithm
 
 
 #endif

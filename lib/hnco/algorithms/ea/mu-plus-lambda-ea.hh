@@ -56,14 +56,20 @@ namespace algorithm {
       IterativeAlgorithm(n),
       _parents(mu, n),
       _offsprings(lambda, n),
-      _do_mutation(1 / double(n)),
-      _select_parent(0, mu - 1) {};
-
-    /// Set the mutation probability
-    void set_mutation_probability(double p) { _do_mutation = std::bernoulli_distribution(p); }
+      _select_parent(0, mu - 1),
+      _mutation_probability(1 / double(n)) {};
 
     /// Initialization
     void init();
+
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Mutation probability
+    double _mutation_probability;
+
+    ///@}
 
   };
 

@@ -24,7 +24,8 @@
 #include <random>
 
 #include "hnco/algorithms/algorithm.hh"
-#include "hnco/algorithms/population.hh"
+
+#include "tournament-selection.hh"
 
 
 namespace hnco {
@@ -63,20 +64,25 @@ namespace algorithm {
       IterativeAlgorithm(n),
       _parents(mu, n),
       _offsprings(mu, n),
-      _do_crossover(0.5),
-      _do_mutation(1 / double(n)) {}
-
-    /// Set the crossover probability
-    void set_crossover_probability(double p) { _do_crossover = std::bernoulli_distribution(p); }
-
-    /// Set the mutation probability
-    void set_mutation_probability(double p) { _do_mutation = std::bernoulli_distribution(p); }
-
-    /// Set the tournament size
-    void set_tournament_size(int tournament_size) { _parents._tournament_size = tournament_size; }
+      _mutation_probability(1 / double(n)) {}
 
     /// Initialization
     void init();
+
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Mutation probability
+    double _mutation_probability;
+
+    /// Crossover probability
+    double _crossover_probability = 0.5;
+
+    /// Tournament size
+    int _tournament_size = 10;
+
+    ///@}
 
   };
 

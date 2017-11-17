@@ -20,7 +20,7 @@
 
 #include <random>
 
-#include "hnco/algorithms/ls/local-search.hh"
+#include "hnco/algorithms/ls/steepest-ascent-hill-climbing.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/random.hh"
 
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
       exit(1);
     }
 
-    if (bv_hamming_weight(algo.get_solution()) != bv_size) {
+    if (bv_hamming_weight(algo.get_solution().first) != bv_size) {
       exit(1);
     }
   }

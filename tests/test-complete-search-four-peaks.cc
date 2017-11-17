@@ -23,7 +23,7 @@
 
 #include "hnco/algorithms/complete-search.hh"
 #include "hnco/functions/four-peaks.hh"
-#include "hnco/functions/function-decorator.hh"
+#include "hnco/functions/decorators/function-modifier.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::algorithm;
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
       return 1;
     }
 
-    if (algorithm.get_maximum() != function.get_maximum())
+    if (algorithm.get_solution().second != function.get_maximum())
       return 1;
   }
 

@@ -1,8 +1,9 @@
 {
     "exec": "hnco",
-    "opt": "--no-header -s 100 --map 1 --map-random -i 0 -b 200000 --print-performances",
+    "opt": "-s 100 --map 1 --map-random -i 0 -b 200000 --print-performance",
 
     "num_runs": 20,
+    "parallel": false,
 
     "results": "results",
     "graphics": "graphics",
@@ -10,9 +11,9 @@
 
     "parameter": {
         "id": "learning-rate",
-        "values": [ 1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3, 1e-2, 2e-2, 5e-2, 1e-1, 2e-1, 5e-1, 1 ],
+        "values": [ 1e-2, 2e-2, 5e-2, 1e-1, 2e-1, 5e-1, 1 ],
         "logscale": true,
-        "boxwidth": "($1*0.3)"
+        "boxwidth": "$1 * 0.3"
     },
 
     "functions": [
@@ -24,20 +25,8 @@
         },
 
         {
-            "id": "lin",
-	    "opt": "-F 1 -p instances/lin.100",
-            "col": ">{{\\nprounddigits{2}}}N{2}{2}"
-        },
-
-        {
             "id": "leading-ones",
 	    "opt": "-F 10 --stop-on-maximum",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
-        },
-
-        {
-            "id": "ridge",
-	    "opt": "-F 11 --stop-on-maximum",
             "col": ">{{\\nprounddigits{0}}}N{3}{0}"
         },
 
@@ -45,42 +34,6 @@
             "id": "jmp-5",
 	    "opt": "-F 30 --stop-on-maximum -t 5",
             "col": ">{{\\nprounddigits{0}}}N{3}{0}"
-        },
-
-        {
-            "id": "jmp-10",
-	    "opt": "-F 30 --stop-on-maximum -t 10",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
-        },
-
-        {
-            "id": "djmp-5",
-	    "opt": "-F 31 --stop-on-maximum -t 5",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
-        },
-
-        {
-            "id": "djmp-10",
-	    "opt": "-F 31 --stop-on-maximum -t 10",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
-        },
-
-        {
-            "id": "fp-5",
-	    "opt": "-F 40 --stop-on-maximum -t 5",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
-        },
-
-        {
-            "id": "fp-10",
-	    "opt": "-F 40 --stop-on-maximum -t 10",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
-        },
-
-        {
-            "id": "quad",
-	    "opt": "-F 50 -p instances/quad.100 --cache",
-            "col": ">{{\\nprounddigits{2}}}N{3}{2}"
         },
 
         {
@@ -106,7 +59,7 @@
 	    "opt": "-F 90 -p instances/ep.100",
             "reverse": true,
             "logscale": true,
-            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+            "col": ">{{\\nprounddigits{1}}}N{1}{1}"
         },
 
         {
@@ -117,21 +70,9 @@
         },
 
         {
-            "id": "trap",
-	    "opt": "-F 110 --stop-on-maximum --fun-num-traps 10",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
-        },
-
-        {
-            "id": "hiff",
-	    "opt": "-F 120 --stop-on-maximum -s 128",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
-        },
-
-        {
-            "id": "plateau",
-	    "opt": "-F 130 --stop-on-maximum",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+            "id": "walsh2",
+	    "opt": "-F 162 -p instances/walsh2.100 --cache",
+            "col": ">{{\\nprounddigits{2}}}N{3}{2}"
         }
 
     ],

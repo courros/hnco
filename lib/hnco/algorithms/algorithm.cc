@@ -20,18 +20,11 @@
 
 #include <assert.h>
 
-#include "hnco/functions/function.hh"
-
 #include "algorithm.hh"
 
 
 using namespace hnco::algorithm;
-using namespace hnco::function;
 using namespace hnco::random;
-
-
-Algorithm::Algorithm(int n):
-  _solution(n) {}
 
 
 void
@@ -39,52 +32,50 @@ Algorithm::random_solution()
 {
   assert(_function);
 
-  bv_random(_solution);
-  _maximum = _function->eval(_solution);
+  bv_random(_solution.first);
+  _solution.second = _function->eval(_solution.first);
+}
+
+void
+Algorithm::set_solution(const bit_vector_t& x, double value)
+{
+  _solution.first = x;
+  _solution.second = value;
 }
 
 void
 Algorithm::set_solution(const bit_vector_t& x)
 {
   assert(_function);
-
   set_solution(x, _function->eval(x));
 }
 
 void
-Algorithm::set_solution(const bit_vector_t& x, double value)
+Algorithm::update_solution(const bit_vector_t& x, double value)
 {
-  assert(_function);
-  assert(_function->eval(x) == value);
+  if (value > _solution.second) {
+    _solution.first = x;
+    _solution.second = value;
+  }
+}
 
-  _solution = x;
-  _maximum = value;
+void
+Algorithm::update_solution(const point_value_t& pv)
+{
+  if (pv.second > _solution.second)
+    _solution = pv;
 }
 
 void
 Algorithm::update_solution(const bit_vector_t& x)
 {
   assert(_function);
-
   update_solution(x, _function->eval(x));
-}
-
-void
-Algorithm::update_solution(const bit_vector_t& x, double value)
-{
-  assert(_function);
-  assert(_function->eval(x) == value);
-
-  if (value > _maximum) {
-    _solution = x;
-    _maximum = value;
-  }
 }
 
 void
 IterativeAlgorithm::maximize()
 {
-
   if (_num_iterations > 0) {
     for (_iteration = 0; _iteration < _num_iterations; _iteration++) {
       iterate();
@@ -97,7 +88,5 @@ IterativeAlgorithm::maximize()
       if (_something_to_log)
         log();
     }
-
   }
-
 }

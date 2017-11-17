@@ -28,7 +28,7 @@ namespace hnco {
 namespace function {
 
 
-  /** Four Peaks function.
+  /** Four Peaks.
 
       It is defined by
 

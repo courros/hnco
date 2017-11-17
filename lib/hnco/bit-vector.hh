@@ -23,10 +23,11 @@
 
 #include <assert.h>
 
-#include <algorithm>            // all_of, any_of, fill
+#include <algorithm>            // std::all_of, std::any_of, std::fill
 #include <iostream>
-#include <numeric>              // accumulate
+#include <numeric>              // std::accumulate
 #include <vector>
+#include <utility>              // std::pair
 
 #include "random.hh"
 
@@ -56,6 +57,9 @@ namespace hnco {
 
   /// Bit vector
   typedef std::vector<bit_t> bit_vector_t;
+
+  /// Type to represent point value pairs
+  typedef std::pair<bit_vector_t, double> point_value_t;
 
   /// Display bit vector
   inline void bv_display(const bit_vector_t& v, std::ostream& stream)
@@ -107,7 +111,7 @@ namespace hnco {
   inline void bv_flip(bit_vector_t& x, std::size_t i) { x[i] = bit_flip(x[i]); }
 
   /// Flip many bits
-  inline void bv_flip(bit_vector_t& x, bit_vector_t& mask)
+  inline void bv_flip(bit_vector_t& x, const bit_vector_t& mask)
   {
     assert(mask.size() == x.size());
 

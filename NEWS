@@ -1,8 +1,145 @@
-* Version 0.4 (unreleased)
+* Version 0.7 (unreleased)
+
+Library:
+- BernoulliProcess: added _allow_stay
+- OnePlusOneEa: added _allow_stay
+- Renamed Cancellation -> SummationCancellation
+- Renamed SinusCancellation -> SinusSummationCancellation
+- Neighborhood files moved under lib/hnco/neighborhoods/
+- Neighborhood: added member functions mutate and map
+- Function: renamed eval -> incremental_eval (avoid overloading)
+
+hnco:
+- Added option --allow-stay
+- Added option --fun-has-known-maximum
+- Added option --fun-get-maximum
+- Added option --fun-get-bv-size
+- Added option --fun-provides-incremental-evaluation
+
+Experiments:
+- New result file layout (one file per run)
+- Updated reports
+- hnco-parameter-run.pl, hnco-benchmark-run.pl: use /usr/bin/time
+- Removed hnco-dynamics-stat.pl
+- Support for GNU parallel
+
+
+* Version 0.6 (2017-08-23)
+
+Highlight:
+- Support for incremental evaluation
+- Walsh expansions
+
+Library:
+- Added function bv_flip with a sparse mask
+- Neighborhood: added member _flipped_bits
+- Neighborhood: added pure virtual member function sample_bits
+- Neighborhood implements member functions propose, keep, and forget
+- New files neighborhood-iterator.(hh|cc) under algorithms/ls/
+- New files steepest-ascent-hill-climbing.(hh|cc) under algorithms/ls/
+- Removed setters from MuCommaLambdaEa, MuPlusLambdaEa, and GeneticAlgorithm
+- Renamed class Binomial -> BernoulliProcess
+- BernoulliProcess: renamed member function set_mutation_probability -> set_probability
+- OnePlusOneEa implemented as RandomLocalSearch with BernoulliProcess
+- Incremental evaluation: OneMax, RandomLocalSearch, FunctionDecorator
+- RandomLocalSearch, Mmas: added member _compare
+- RandomLocalSearch, Mmas: single class
+- Added class MultiBitFlip
+- BernoulliProcess, HammingBall, and HammingSphere derive from MultiBitFlip
+- All function decorators moved under functions/decorators/
+- Added classes FunctionController and FunctionModifier
+- New files tournament-selection.(hh|cc) under algorithms/ea/
+- Population: added member function get_bv for const instances
+- Population: added type index_value_t
+- Population: added member _compare
+- Population: removed inline function comp
+- Population: removed unused member functions
+- Renamed QuadraticFunction -> WalshExpansion2
+- Files walsh-expansion-2.(hh|cc) moved under functions/walsh/
+- WalshExpansion2: changed data structures, expression, and archive format (size halved)
+- Added WalshExpansion1
+- Added WalshExpansion
+
+Tests:
+- Added test-incremental-one-max-bernoulli-process
+- Added test-incremental-one-max-hamming-ball
+- Added test-incremental-one-max-hamming-sphere
+- Added test-incremental-one-max-single-bit-flip
+- Added test-serialize-walsh-expansion-1
+- Added test-serialize-walsh-expansion
+
+hnco:
+- Removed option --no-header
+- Added option --print-header
+- Added option --incremental-evaluation
+- Renamed option --patience -> --rls-patience
+- Added option --rls-strict
+- Added option --mmas-strict
+- Removed algorithms 101 (StrictRandomLocalSearch) and 801 (StrictMmas)
+- Renumbered WalshExpansion2 50 -> 162
+- Renumbered Qubo 51 -> 50
+- Added WalshExpansion1 with number 161
+- Added WalshExpansion with number 160
+- Renamed option --plugin-function-name -> --fun-name
+- Renamed and implemented option describe_problem -> describe_function
+
+ffgen:
+- Renumbered WalshExpansion2 50 -> 162
+- Added WalshExpansion1 with number 161
+- Removed option --quad-stddev-lin
+- Removed option --quad-stddev-quad
+- Removed option --nk-stddev
+- Added option --stddev
+- Added WalshExpansion with number 160
+- Added option --walsh-num-features
+
+experiments:
+- benchmark, dynamics, parameter: generate new instances
+
+Build:
+- optgen.pl distributed but not installed
+
+
+* Version 0.5 (2017-04-26)
+
+Library:
+- Function: added member functions safe_eval and update
+- ProgressTracker: renamed member function update -> update_last_improvement
+- Population: added member function eval for parallel evaluation with OpenMP
+- Algorithms with parallel evaluation: Pbil, NpsPbil, Umda, Hea,
+  MuCommaLambdaEa, MuPlusLambdaEa, GeneticAlgorithm, BmPbil
+- New type point_value_t
+- Algorithm: changed type of _solution: bit_vector_t -> point_value_t
+- New exceptions: PointValueException, TargetReached
+- Added function decorator StopOnTarget
+- ProgressTracker: catch TargetReached
+- CallCounter, OnBudgetFunction: _num_calls is incremented AFTER evaluation of _function
+
+hnco:
+- Added options: --stop-on-target, --target, --num-threads
+- Added exit status in case of missed maximum (2) or missed target (3)
+- Renamed option --print-performances -> --print-performance
+
+Build:
+- Added Autoconf macros for C++11, Boost, OpenMP
+
+Scripts and experiments:
+- Updated graphics (labels) in hnco-parameter-stat.pl and hnco-dynamics-stat-maximum.pl
+
+
+* Version 0.4 (2017-03-29)
 
 Library:
 - Added Qubo
 - Cancellation and SinusCancellation both have a known maximum (0)
+
+Scripts and experiments:
+- Updated graphics (labels) and tables (headers) in hnco-benchmark-stat.pl
+- Added pdf reports to the repository
+
+Build:
+- Conditional compilation of factorization
+
 
 * Version 0.3 (2017-02-20)
 
@@ -18,6 +155,7 @@ Library:
 - Added SixPeaks
 - Added LongPath
 
+
 * Version 0.2 (2016-11-27)
 
 Library:
@@ -30,6 +168,7 @@ Scripts and experiments:
 - Added report/Makefile and report/report.tex to the distribution for all experiments
 - hnco-runtime-stat.pl uses the same parameter specification as hnco-parameter-stat.pl
 - Updated experiments/runtime/plan.json
+
 
 * Version 0.1 (2016-10-29)
 

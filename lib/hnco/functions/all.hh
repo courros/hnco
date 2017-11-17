@@ -23,8 +23,13 @@
 
 #include "hnco/functions/cancellation.hh"
 #include "hnco/functions/equal-products.hh"
+
+#ifdef ENABLE_FACTORIZATION
+#include "hnco/functions/factorization.hh"
+#endif
+
+#include "hnco/functions/decorators/all.hh"
 #include "hnco/functions/four-peaks.hh"
-#include "hnco/functions/function-decorator.hh"
 #include "hnco/functions/function.hh"
 #include "hnco/functions/jump.hh"
 #include "hnco/functions/labs.hh"
@@ -33,9 +38,9 @@
 #include "hnco/functions/max-sat.hh"
 #include "hnco/functions/nk-landscape.hh"
 #include "hnco/functions/plugin.hh"
-#include "hnco/functions/quadratic-function.hh"
 #include "hnco/functions/qubo.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/functions/trap.hh"
+#include "hnco/functions/walsh/all.hh"
 
 #endif

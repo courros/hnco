@@ -20,9 +20,13 @@
 use JSON;
 
 my $plan = "plan.json";
+if (@ARGV) {
+    $plan = shift @ARGV;
+}
+print "Using $plan\n";
 
-open(FILE, $plan) or die "Error: cannot open $plan\n";
-
+open(FILE, $plan)
+    or die "hnco-dynamics-run.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
@@ -30,11 +34,11 @@ while (<FILE>) {
 
 my $obj = from_json($json);
 
-my $path_results = $obj->{results};
-my $path_report = $obj->{report};
-my $path_graphics = $obj->{graphics};
-my $functions = $obj->{functions};
-my $algorithms = $obj->{algorithms};
+my $path_results        = $obj->{results};
+my $path_report         = $obj->{report};
+my $path_graphics       = $obj->{graphics};
+my $functions           = $obj->{functions};
+my $algorithms          = $obj->{algorithms};
 
 my %terminal = (
     eps => "set term epscairo color enhanced",
@@ -48,13 +52,14 @@ generate_latex();
 
 sub generate_graphics
 {
-    open(GRAPHICS, ">graphics.gp") or die "Error: cannot open graphics.gp\n";
+    open(GRAPHICS, ">graphics.gp")
+        or die "hnco-dynamics-stat-maximum.pl: generate_graphics: cannot open graphics.gp\n";
 
     print GRAPHICS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"Number of evaluations\"\n",
-        "set ylabel \"Fitness\"\n",
+        "set ylabel \"Performance\"\n",
         "set key outside top center box opaque horizontal\n",
         "set format x ", quote("10^{%L}"), "\n",
         "set logscale x\n",
@@ -89,7 +94,7 @@ sub generate_graphics
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                $quoted_path = quote("$path_results/$function_id/$algorithm_id.log");
+                $quoted_path = quote("$path_results/$function_id/$algorithm_id/1.out");
                 $quoted_title = quote("$algorithm_id");
                 $position++;
                 $f->{reverse} ?
@@ -117,7 +122,8 @@ sub generate_graphics
 
 sub generate_latex
 {
-    open(LATEX, ">$path_report/results.tex") or die "hnco-dynamics-stat-maximum.pl: generate_latex: Cannot open $path_report/results.tex\n";
+    open(LATEX, ">$path_report/results.tex")
+        or die "hnco-dynamics-stat-maximum.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
 

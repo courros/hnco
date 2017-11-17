@@ -23,11 +23,10 @@ my $plan = "plan.json";
 if (@ARGV) {
     $plan = shift @ARGV;
 }
-
 print "Using $plan\n";
 
-open(FILE, $plan) || die "hnco-dynamics-run.pl: Cannot open $plan\n";
-
+open(FILE, $plan)
+    or die "hnco-dynamics-run.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
@@ -35,39 +34,68 @@ while (<FILE>) {
 
 my $obj = from_json($json);
 
-my $path_results        = $obj->{results};
-my $functions           = $obj->{functions};
-my $algorithms          = $obj->{algorithms};
+my $functions   = $obj->{functions};
+my $algorithms  = $obj->{algorithms};
+my $parallel    = $obj->{parallel};
 
-unless (-d $path_results) {
-    mkdir $path_results;
-    print "Created $path_results\n";
+my $path = $obj->{results};
+unless (-d $path) {
+    mkdir $path;
+    print "Created $path\n";
 }
 
-foreach my $f (@$functions) {
-    my $function_id = $f->{id};
+my $commands = ();
 
-    print "$function_id:\n";
+iterate_functions($path, "$obj->{exec} $obj->{opt}");
 
-    unless (-d "$path_results/$function_id") {
-        mkdir "$path_results/$function_id";
-        print "Created $path_results/$function_id\n";
+if ($parallel) {
+    my $path = 'commands.txt';
+    my $file = IO::File->new($path, '>')
+        or die "hnco-dynamics-run.pl: Cannot open '$path': $!\n";
+    $file->print(join("\n", @commands));
+    $file->close;
+    system("parallel --eta --progress :::: commands.txt");
+}
+
+sub iterate_functions
+{
+    my ($prefix, $cmd) = @_;
+    foreach my $f (@$functions) {
+        my $function_id = $f->{id};
+        my $path = "$prefix/$function_id";
+        unless (-d $path) {
+            mkdir $path;
+            print "Created $path\n";
+        }
+        print "$function_id\n";
+        iterate_algorithms($path, "$cmd $f->{opt}");
     }
+}
 
+sub iterate_algorithms
+{
+    my ($prefix, $cmd) = @_;
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
-
-        print "$algorithm_id... ";
-
-        my $exec = $obj->{exec};
-        if (exists($a->{exec})) {
-            $exec = $a->{exec};
+        my $path = "$prefix/$algorithm_id";
+        unless (-d $path) {
+            mkdir "$path";
+            print "Created $path\n";
         }
-        my $command = $exec . " " . $obj->{opt} . " " . $f->{opt} . " " . $a->{opt};
-        system("$command > $path_results/$function_id/$algorithm_id.log");
-
-        print "done\n";
+        print "$algorithm_id: ";
+        iterate_runs($path, "$cmd $a->{opt}");
+        print "\n";
     }
+}
 
-    print "\n";
+sub iterate_runs
+{
+    my ($prefix, $cmd) = @_;
+    if ($parallel) {
+        push @commands, "$cmd > $prefix/1.out 2>> $prefix/1.err";
+        print "added to the job queue";
+    } else {
+        system("$cmd > $prefix/1.out 2>> log.err");
+        print "done";
+    }
 }

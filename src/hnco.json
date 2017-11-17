@@ -3,11 +3,12 @@
 
     "description": "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors",
 
-    "version": "0.4",
+    "version": "0.7",
 
     "tab_order": [
         "General",
         "Function",
+        "Function decorators",
         "Map",
         "Algorithm",
         "Local Search",
@@ -26,15 +27,21 @@
             "category": "General"
         },
 
-        "no_header":
+        "describe_function":
         {
-            "description": "Do not print the header",
+            "description": "Describe the function and exit",
             "category": "General"
         },
 
-        "print_performances":
+        "print_header":
         {
-            "description": "At the end, print the maximum and the number of function evaluations needed to reach it",
+            "description": "At the beginning, print the header",
+            "category": "General"
+        },
+
+        "print_performance":
+        {
+            "description": "At the end, print performance (maximum and number of evaluations needed to reach it)",
             "category": "General"
         },
 
@@ -44,35 +51,74 @@
             "category": "General"
         },
 
+        "describe_solution":
+        {
+            "description": "At the end, describe the solution",
+            "category": "General"
+        },
+
+
+        "fun_has_known_maximum":
+        {
+            "description": "Exit with status 0 if the function has a known maximum, 1 otherwise",
+            "category": "Function"
+        },
+
+        "fun_get_maximum":
+        {
+            "description": "Print the maximum and exit with status 0 if the function has a known maximum, 1 otherwise",
+            "category": "Function"
+        },
+
+        "fun_get_bv_size":
+        {
+            "description": "Print the size of bit vectors",
+            "category": "Function"
+        },
+
+        "fun_provides_incremental_evaluation":
+        {
+            "description": "Exit with status 0 if the function provides incremental evaluation, 1 otherwise",
+            "category": "Function"
+        },
+
+
         "log_improvement":
         {
             "description": "Log improvement",
-            "category": "Function"
+            "category": "Function decorators"
         },
 
         "stop_on_maximum":
         {
             "description": "Stop on maximum",
-            "category": "Function"
+            "category": "Function decorators"
         },
 
-        "negation":
+        "stop_on_target":
         {
-            "description": "Negation (hence minimization) of the function",
-            "category": "Function"
-        },
-
-        "additive_gaussian_noise":
-        {
-            "description": "Additive Gaussian noise",
-            "category": "Function"
+            "description": "Stop on target",
+            "category": "Function decorators"
         },
 
         "cache":
         {
             "description": "Cache function evaluations",
-            "category": "Function"
+            "category": "Function decorators"
         },
+
+        "negation":
+        {
+            "description": "Negation (hence minimization) of the function",
+            "category": "Function decorators"
+        },
+
+        "additive_gaussian_noise":
+        {
+            "description": "Additive Gaussian noise",
+            "category": "Function decorators"
+        },
+
 
         "map_random":
         {
@@ -86,6 +132,24 @@
             "category": "Algorithm"
         },
 
+        "incremental_evaluation":
+        {
+            "description": "Incremental evaluation",
+            "category": "Local Search"
+        },
+
+        "rls_strict":
+        {
+            "description": "Strict (>) random local search",
+            "category": "Local Search"
+        },
+
+        "allow_stay":
+        {
+            "description": "In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)",
+            "category": "Local Search"
+        },
+
         "pv_log_pv":
         {
             "description": "Log probability vector",
@@ -95,6 +159,12 @@
         "pv_log_entropy":
         {
             "description": "Log entropy of probability vector",
+            "category": "EDA"
+        },
+
+        "mmas_strict":
+        {
+            "description": "Strict (>) max-min ant system",
             "category": "EDA"
         },
 
@@ -164,6 +234,15 @@
             "category": "General"
         },
 
+        "num_threads":
+        {
+            "type": "int",
+            "value": 1,
+            "description": "Number of threads",
+            "category": "General"
+        },
+
+
         "function":
         {
             "optchar": "F",
@@ -221,11 +300,6 @@
 
                 {
                     "value": 50,
-                    "description": "Quadratic function"
-                },
-
-                {
-                    "value": 51,
                     "description": "Quadratic unconstrained binary optimization (Qubo)"
                 },
 
@@ -251,12 +325,12 @@
 
                 {
                     "value": 100,
-                    "description": "Cancellation"
+                    "description": "Summation cancellation"
                 },
 
                 {
                     "value": 101,
-                    "description": "Cancellation with sinus"
+                    "description": "Summation cancellation with sinus"
                 },
 
                 {
@@ -280,6 +354,26 @@
                 },
 
                 {
+                    "value": 150,
+                    "description": "Factorization"
+                },
+
+                {
+                    "value": 160,
+                    "description": "Walsh expansion"
+                },
+
+                {
+                    "value": 161,
+                    "description": "Walsh expansion of degree 1"
+                },
+
+                {
+                    "value": 162,
+                    "description": "Walsh expansion of degree 2"
+                },
+
+                {
                     "value": 1000,
                     "description": "Plugin"
                 }
@@ -294,15 +388,6 @@
             "type": "int",
             "value": 100,
             "description": "Size of bit vectors",
-            "category": "Function"
-        },
-
-        "budget":
-        {
-            "optchar": "b",
-            "type": "int",
-            "value": 10000,
-            "description": "Number of allowed function evaluations (<= 0 means indefinite)",
             "category": "Function"
         },
 
@@ -341,21 +426,40 @@
             "category": "Function"
         },
 
+        "fun_name":
+        {
+            "type": "string",
+            "value": "noname",
+            "description": "Name of the function in the dynamic library",
+            "category": "Function"
+        },
+
+
+        "budget":
+        {
+            "optchar": "b",
+            "type": "int",
+            "value": 10000,
+            "description": "Number of allowed function evaluations (<= 0 means indefinite)",
+            "category": "Function decorators"
+        },
+
         "noise_stddev":
         {
             "type": "double",
             "value": 1.0,
             "description": "Noise standard deviation",
-            "category": "Function"
+            "category": "Function decorators"
         },
 
-        "plugin_function_name":
+        "target":
         {
-            "type": "string",
-            "value": "nofunction",
-            "description": "Name of the function in the dynamic library",
-            "category": "Function"
+            "type": "double",
+            "value": 100.0,
+            "description": "Target",
+            "category": "Function decorators"
         },
+
 
         "map":
         {
@@ -440,12 +544,7 @@
 
                 {
                     "value": 100,
-                    "description": "Non strict (>=) random local search"
-                },
-
-                {
-                    "value": 101,
-                    "description": "Strict (>) random local search"
+                    "description": "Random local search"
                 },
 
                 {
@@ -500,12 +599,7 @@
 
                 {
                     "value": 800,
-                    "description": "Non strict (>=) max-min ant system"
-                },
-
-                {
-                    "value": 801,
-                    "description": "Strict (>) max-min ant system"
+                    "description": "Max-min ant system"
                 },
 
                 {
@@ -541,7 +635,7 @@
             "optchar": "m",
             "type": "double",
             "value": 1.0,
-            "description": "Scaled mutation probability m = n * p (p = m / n)",
+            "description": "Scaled mutation probability or expected number of flipped bits (bv_size times probability)",
             "category": "Algorithm"
         },
 
@@ -557,12 +651,12 @@
 
                 {
                     "value": 0,
-                    "description": "One bit flip"
+                    "description": "Single bit flip"
                 },
 
                 {
                     "value": 1,
-                    "description": "Binomial"
+                    "description": "Bernoulli process"
                 },
 
                 {
@@ -590,7 +684,7 @@
 
                 {
                     "value": 0,
-                    "description": "One bit flip iterator"
+                    "description": "Single bit flip iterator"
                 },
 
                 {
@@ -602,7 +696,7 @@
 
         },
 
-        "patience":
+        "rls_patience":
         {
             "type": "int",
             "value": 50,

@@ -25,25 +25,59 @@
 #include <sstream>
 #include <string>
 
+#include "bit-vector.hh"
 
-namespace hnco {
-/// All about exceptions
-namespace exception {
 
+/// Exceptions
+namespace hnco::exception {
 
   /// Basic exception
   class Exception {};
 
-
-  /// Last evaluation
-  class LastEvaluation: public Exception {};
-
-  /// Local maximum
-  class LocalMaximum: public Exception {};
+  /// Point-value exception
+  class PointValueException:
+    public Exception {
+  protected:
+    /// Point-value
+    point_value_t _pv;
+  public:
+    /// Constructor
+    PointValueException(const point_value_t& pv):
+      _pv(pv) {}
+    /// Get point-value
+    const point_value_t& get_point_value() const { return _pv; }
+  };
 
   /// Maximum reached
-  class MaximumReached: public Exception {};
+  class MaximumReached:
+    public PointValueException {
+  public:
+    /// Constructor
+    MaximumReached(const point_value_t& pv):
+      PointValueException(pv) {}
+  };
 
+  /// target reached
+  class TargetReached:
+    public PointValueException {
+  public:
+    /// Constructor
+    TargetReached(const point_value_t& pv):
+      PointValueException(pv) {}
+  };
+
+  /// Local maximum
+  class LocalMaximum:
+    public PointValueException {
+  public:
+    /// Const
+    LocalMaximum(const point_value_t& pv):
+      PointValueException(pv) {}
+  };
+
+  /// Last evaluation
+  class LastEvaluation:
+    public Exception {};
 
   /// Error
   class Error:
@@ -70,9 +104,7 @@ namespace exception {
 
   };
 
-
-} // end of namespace exception
-} // end of namespace hnco
+} // end of namespace hnco::exception
 
 
 #endif

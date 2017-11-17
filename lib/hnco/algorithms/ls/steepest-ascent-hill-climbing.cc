@@ -20,99 +20,13 @@
 
 #include <random>               // uniform_int_distribution
 
-#include "local-search.hh"
+#include "steepest-ascent-hill-climbing.hh"
 
 
 using namespace hnco::algorithm;
 using namespace hnco::exception;
 using namespace hnco::random;
-
-
-void
-RandomLocalSearch::init()
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  random_solution();
-  _neighborhood->set_origin(_solution);
-  _failures = 0;
-}
-
-
-void
-RandomLocalSearch::init(const bit_vector_t& x)
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  init(x, _function->eval(x));
-}
-
-
-void
-RandomLocalSearch::init(const bit_vector_t& x, double value)
-{
-  assert(_function);
-  assert(value == _function->eval(x));
-  assert(_neighborhood);
-
-  set_solution(x, value);
-  _neighborhood->set_origin(_solution);
-  _failures = 0;
-}
-
-
-void
-StrictRandomLocalSearch::iterate()
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  _neighborhood->propose();
-  double value = _function->eval(_neighborhood->get_candidate());
-
-  if (value > _maximum) {      // success
-    _neighborhood->keep();
-    _maximum = value;
-    _failures = 0;
-  }
-  else {                        // failure
-    _neighborhood->forget();
-    _failures++;
-  }
-
-  if (_patience > 0 &&
-      _failures == _patience)
-    throw LocalMaximum();
-
-}
-
-
-void
-NonStrictRandomLocalSearch::iterate()
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  _neighborhood->propose();
-  double value = _function->eval(_neighborhood->get_candidate());
-
-  if (value >= _maximum) {     // success
-    _neighborhood->keep();
-    _maximum = value;
-    _failures = 0;
-  }
-  else {                        // failure
-    _neighborhood->forget();
-    _failures++;
-  }
-
-  if (_patience > 0 &&
-      _failures == _patience)
-    throw LocalMaximum();
-
-}
+using namespace hnco;
 
 
 void
@@ -122,7 +36,7 @@ SteepestAscentHillClimbing::init()
   assert(_neighborhood);
 
   random_solution();
-  _neighborhood->set_origin(_solution);
+  _neighborhood->set_origin(_solution.first);
 }
 
 
@@ -144,7 +58,7 @@ SteepestAscentHillClimbing::init(const bit_vector_t& x, double value)
   assert(value == _function->eval(x));
 
   set_solution(x, value);
-  _neighborhood->set_origin(_solution);
+  _neighborhood->set_origin(_solution.first);
 }
 
 
@@ -175,11 +89,11 @@ SteepestAscentHillClimbing::iterate()
   assert(index >= 1);
   assert(index <= _candidates.size());
 
-  if (best_value >= _maximum) {
+  if (best_value >= _solution.second) {
     std::uniform_int_distribution<int> choose_candidate(0, index - 1);
-    _solution = _candidates[choose_candidate(random::Random::engine)];
-    _maximum = best_value;
-    _neighborhood->set_origin(_solution);
+    _solution.first = _candidates[choose_candidate(random::Random::engine)];
+    _solution.second = best_value;
+    _neighborhood->set_origin(_solution.first);
   } else
-    throw LocalMaximum();
+    throw LocalMaximum(_solution);
 }

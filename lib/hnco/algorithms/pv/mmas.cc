@@ -19,21 +19,11 @@
 */
 
 #include <assert.h>
-#include <math.h>		// exp, log
-
-#include <iostream>
-#include <algorithm>		// max_element, min_element
-#include <numeric>		// accumulate, inner_product
-
-#include "hnco/random.hh"
-#include "hnco/functions/function.hh"
 
 #include "mmas.hh"
 
 using namespace hnco::algorithm;
-using namespace hnco::function;
-using namespace hnco::random;
-using namespace hnco;
+
 
 void
 Mmas::init()
@@ -42,38 +32,21 @@ Mmas::init()
   pv_uniform(_pv);
 
   // Update probability vector
-  pv_update(_pv, _rate, _solution);
+  pv_update(_pv, _rate, _solution.first);
   pv_bound(_pv, _lower_bound, _upper_bound);
 }
 
 void
-StrictMmas::iterate()
+Mmas::iterate()
 {
   pv_sample(_pv, _x);
   double value = _function->eval(_x);
-  if (value >= _maximum) {
-    _solution = _x;
-    _maximum = value;
+  if (_compare(value, _solution.second)) {
+    _solution.first = _x;
+    _solution.second = value;
   }
 
   // Update probability vector
-  pv_update(_pv, _rate, _solution);
+  pv_update(_pv, _rate, _solution.first);
   pv_bound(_pv, _lower_bound, _upper_bound);
-
-}
-
-void
-NonStrictMmas::iterate()
-{
-  pv_sample(_pv, _x);
-  double value = _function->eval(_x);
-  if (value > _maximum) {
-    _solution = _x;
-    _maximum = value;
-  }
-
-  // Update probability vector
-  pv_update(_pv, _rate, _solution);
-  pv_bound(_pv, _lower_bound, _upper_bound);
-
 }

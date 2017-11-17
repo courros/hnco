@@ -23,90 +23,111 @@ my $plan = "plan.json";
 if (@ARGV) {
     $plan = shift @ARGV;
 }
-
 print "Using $plan\n";
 
 open(FILE, $plan) || die "hnco-parameter-run: Cannot open $plan\n";
-
 my $json = "";
 while (<FILE>) {
     $json .= $_;
 }
-
 my $obj = from_json($json);
 
-my $path_results        = $obj->{results};
-my $num_runs            = $obj->{num_runs};
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
-
 my $parameter           = $obj->{parameter};
-my $parameter_id        = $parameter->{id};
-my $values              = $parameter->{values};
+my $parallel            = $obj->{parallel};
 
-unless (-d $path_results) {
-    mkdir $path_results;
-    print "Created $path_results\n";
+my $parameter_id        = $parameter->{id};
+
+my $values;
+if ($parameter->{values_perl}) {
+    my @tmp = eval $parameter->{values_perl};
+    $values = \@tmp;
+} else {
+    $values = $parameter->{values};
 }
 
-foreach my $f (@$functions) {
-    my $function_id = $f->{id};
-    print "$function_id\n";
-    unless (-d "$path_results/$function_id") {
-        mkdir "$path_results/$function_id";
-        print "Created $path_results/$function_id\n";
-    }
+my $path = $obj->{results};
+unless (-d $path) {
+    mkdir $path;
+    print "Created $path\n";
+}
 
+my $commands = ();
+
+iterate_functions($path, "$obj->{exec} $obj->{opt}");
+
+if ($parallel) {
+    my $path = 'commands.txt';
+    my $file = IO::File->new($path, '>')
+        or die "hnco-parameter-run.pl: Cannot open '$path': $!\n";
+    $file->print(join("\n", @commands));
+    $file->close;
+    system("parallel --eta --progress :::: commands.txt");
+}
+
+sub iterate_functions
+{
+    my ($prefix, $cmd) = @_;
+    foreach my $f (@$functions) {
+        my $function_id = $f->{id};
+        my $path = "$prefix/$function_id";
+        unless (-d $path) {
+            mkdir $path;
+            print "Created $path\n";
+        }
+        print "$function_id\n";
+        iterate_algorithms($path, "$cmd $f->{opt}");
+    }
+}
+
+sub iterate_algorithms
+{
+    my ($prefix, $cmd) = @_;
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
+        my $path = "$prefix/$algorithm_id";
+        unless (-d $path) {
+            mkdir "$path";
+            print "Created $path\n";
+        }
         print "$algorithm_id\n";
-        unless (-d "$path_results/$function_id/$algorithm_id") {
-            mkdir "$path_results/$function_id/$algorithm_id";
-            print "Created $path_results/$function_id/$algorithm_id\n";
+        if ($a->{deterministic}) {
+            iterate_values($path, "$cmd $a->{opt}", 1);
+        } else {
+            iterate_values($path, "$cmd $a->{opt}", $obj->{num_runs});
         }
-        my $exec = $obj->{exec};
-        if (exists($a->{exec})) {
-            $exec = $a->{exec};
-        }
-
-        foreach my $value (@$values) {
-            print "With --$parameter_id $value: ";
-
-            my $output = "$path_results/$function_id/$algorithm_id/$parameter_id-$value.dat";
-
-            my $opt = "$a->{opt}";
-            if (exists($a->{dependant})) {
-                my $dependant = eval $a->{dependant};
-                print "With $dependant: ";
-                $opt .= " $dependant";
-            }
-
-            my $full_command = join ' ', ("$exec",
-                                          "$obj->{opt}",
-                                          "$f->{opt}",
-                                          "$opt",
-                                          "--$parameter_id $value",
-                                          ">> $output 2>> log.err");
-
-            system("rm -rf $output");
-            if ($a->{deterministic}) {
-                system("$full_command");
-                print ".";
-            } else {
-                foreach (1..$num_runs) {
-                    system("$full_command");
-                    print ".";
-                }
-            }
-
-            print "\n";
-
-        }
-
-        print "\n";
-
     }
+}
 
-    print "\n";
+sub iterate_values
+{
+    my ($prefix, $cmd, $num_runs) = @_;
+    foreach my $value (@$values) {
+        my $path = "$prefix/$parameter_id-$value";
+        unless (-d $path) {
+            mkdir "$path";
+            print "Created $path\n";
+        }
+        print "$parameter_id = $value: ";
+        iterate_runs($path, "$cmd --$parameter_id $value", $num_runs);
+        print "\n";
+    }
+}
 
+sub iterate_runs
+{
+    my ($prefix, $cmd, $num_runs) = @_;
+    if ($parallel) {
+        foreach (1 .. $num_runs) {
+            push @commands,
+                "/usr/bin/time --quiet -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> $prefix/$_.err";
+        }
+        print "added to the job queue";
+    } else {
+        foreach (1 .. $num_runs) {
+            system("/usr/bin/time --quiet -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> log.err");
+            print ".";
+        }
+    }
 }

@@ -38,6 +38,8 @@ using namespace std;
 void
 MuPlusLambdaEa::init()
 {
+  _do_mutation = std::bernoulli_distribution(_mutation_probability);
+
   _parents.random();
   _parents.eval(_function);
   _parents.sort();
@@ -57,8 +59,14 @@ MuPlusLambdaEa::iterate()
       if (_do_mutation(Random::engine))
         bv_flip(offspring, i);
   }
-  _offsprings.eval(_function);
+
+  if (_functions.size() > 1)
+    _offsprings.eval(_functions);
+  else
+    _offsprings.eval(_function);
+
   _offsprings.sort();
+
   _parents.plus_selection(_offsprings);
 
   update_solution(_parents.get_best_bv(),

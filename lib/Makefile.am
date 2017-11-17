@@ -1,3 +1,5 @@
+AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
+
 lib_LTLIBRARIES = libhnco.la
 
 libhnco_la_SOURCES = \
@@ -17,8 +19,9 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
-	hnco/algorithms/ea/one-plus-one-ea.cc \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
+	hnco/algorithms/ea/tournament-selection.cc \
+	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.cc \
@@ -30,12 +33,12 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/hea/moment-spin.cc \
 	hnco/algorithms/hea/moment-spin.hh \
 	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/local-search.cc \
-	hnco/algorithms/ls/local-search.hh \
-	hnco/algorithms/ls/neighborhood.cc \
-	hnco/algorithms/ls/neighborhood.hh \
+	hnco/algorithms/ls/random-local-search.cc \
+	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.cc \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh \
 	hnco/algorithms/population.cc \
 	hnco/algorithms/population.hh \
@@ -67,12 +70,16 @@ libhnco_la_SOURCES = \
 	hnco/functions/all.hh \
 	hnco/functions/cancellation.cc \
 	hnco/functions/cancellation.hh \
+	hnco/functions/decorators/all.hh \
+	hnco/functions/decorators/function-controller.cc \
+	hnco/functions/decorators/function-controller.hh \
+	hnco/functions/decorators/function-decorator.hh \
+	hnco/functions/decorators/function-modifier.cc \
+	hnco/functions/decorators/function-modifier.hh \
 	hnco/functions/equal-products.cc \
 	hnco/functions/equal-products.hh \
 	hnco/functions/four-peaks.cc \
 	hnco/functions/four-peaks.hh \
-	hnco/functions/function-decorator.cc \
-	hnco/functions/function-decorator.hh \
 	hnco/functions/function.hh \
 	hnco/functions/jump.cc \
 	hnco/functions/jump.hh \
@@ -88,24 +95,38 @@ libhnco_la_SOURCES = \
 	hnco/functions/nk-landscape.hh \
 	hnco/functions/plugin.cc \
 	hnco/functions/plugin.hh \
-	hnco/functions/quadratic-function.cc \
-	hnco/functions/quadratic-function.hh \
 	hnco/functions/qubo.cc \
 	hnco/functions/qubo.hh \
 	hnco/functions/theory.cc \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.cc \
 	hnco/functions/trap.hh \
+	hnco/functions/walsh/walsh-expansion-1.cc \
+	hnco/functions/walsh/walsh-expansion-1.hh \
+	hnco/functions/walsh/walsh-expansion-2.cc \
+	hnco/functions/walsh/walsh-expansion-2.hh \
+	hnco/functions/walsh/walsh-expansion.cc \
+	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.cc \
 	hnco/iterator.hh \
 	hnco/map.cc \
 	hnco/map.hh \
+	hnco/neighborhoods/neighborhood-iterator.cc \
+	hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/neighborhoods/neighborhood.cc \
+	hnco/neighborhoods/neighborhood.hh \
 	hnco/permutation.cc \
 	hnco/permutation.hh \
 	hnco/random.cc \
 	hnco/random.hh \
 	hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.hh
+
+if ENABLE_FACTORIZATION
+libhnco_la_SOURCES += \
+	hnco/functions/factorization.cc \
+	hnco/functions/factorization.hh
+endif
 
 nobase_include_HEADERS = \
 	hnco/algorithms/algorithm.hh \
@@ -118,6 +139,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
+	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.hh \
@@ -125,9 +147,9 @@ nobase_include_HEADERS = \
 	hnco/algorithms/hea/moment-binary.hh \
 	hnco/algorithms/hea/moment-spin.hh \
 	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/local-search.hh \
-	hnco/algorithms/ls/neighborhood.hh \
+	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
+	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh \
 	hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh \
@@ -146,9 +168,12 @@ nobase_include_HEADERS = \
 	hnco/exception.hh \
 	hnco/functions/all.hh \
 	hnco/functions/cancellation.hh \
+	hnco/functions/decorators/all.hh \
+	hnco/functions/decorators/function-controller.hh \
+	hnco/functions/decorators/function-decorator.hh \
+	hnco/functions/decorators/function-modifier.hh \
 	hnco/functions/equal-products.hh \
 	hnco/functions/four-peaks.hh \
-	hnco/functions/function-decorator.hh \
 	hnco/functions/function.hh \
 	hnco/functions/jump.hh \
 	hnco/functions/labs.hh \
@@ -157,16 +182,24 @@ nobase_include_HEADERS = \
 	hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.hh \
 	hnco/functions/plugin.hh \
-	hnco/functions/quadratic-function.hh \
 	hnco/functions/qubo.hh \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.hh \
+	hnco/functions/walsh/walsh-expansion-1.hh \
+	hnco/functions/walsh/walsh-expansion-2.hh \
+	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.hh \
 	hnco/map.hh \
+	hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/neighborhoods/neighborhood.hh \
 	hnco/permutation.hh \
 	hnco/random.hh \
 	hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.hh
+
+if ENABLE_FACTORIZATION
+nobase_include_HEADERS += hnco/functions/factorization.hh
+endif
 
 #
 # Code management

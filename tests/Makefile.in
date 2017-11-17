@@ -101,6 +101,10 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-complete-search-ridge$(EXEEXT) \
 	test-complete-search-trap$(EXEEXT) \
 	test-hamming-sphere$(EXEEXT) test-hypercube-iterator$(EXEEXT) \
+	test-incremental-one-max-bernoulli-process$(EXEEXT) \
+	test-incremental-one-max-hamming-ball$(EXEEXT) \
+	test-incremental-one-max-hamming-sphere$(EXEEXT) \
+	test-incremental-one-max-single-bit-flip$(EXEEXT) \
 	test-max-sat$(EXEEXT) test-sbm-multiply$(EXEEXT) \
 	test-serialize-affine-map$(EXEEXT) \
 	test-serialize-equal-products$(EXEEXT) \
@@ -110,8 +114,10 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-serialize-max-sat$(EXEEXT) \
 	test-serialize-nk-landscape$(EXEEXT) \
 	test-serialize-permutation$(EXEEXT) \
-	test-serialize-quadratic-function$(EXEEXT) \
 	test-serialize-translation$(EXEEXT) \
+	test-serialize-walsh-expansion$(EXEEXT) \
+	test-serialize-walsh-expansion-1$(EXEEXT) \
+	test-serialize-walsh-expansion-2$(EXEEXT) \
 	test-steepest-ascent-hill-climbing$(EXEEXT)
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -123,6 +129,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
+CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am_test_bm_add_rows_OBJECTS = test-bm-add-rows.$(OBJEXT)
@@ -223,6 +230,34 @@ test_hypercube_iterator_OBJECTS =  \
 	$(am_test_hypercube_iterator_OBJECTS)
 test_hypercube_iterator_LDADD = $(LDADD)
 test_hypercube_iterator_DEPENDENCIES = ../lib/libhnco.la
+am_test_incremental_one_max_bernoulli_process_OBJECTS =  \
+	test-incremental-one-max-bernoulli-process.$(OBJEXT)
+test_incremental_one_max_bernoulli_process_OBJECTS =  \
+	$(am_test_incremental_one_max_bernoulli_process_OBJECTS)
+test_incremental_one_max_bernoulli_process_LDADD = $(LDADD)
+test_incremental_one_max_bernoulli_process_DEPENDENCIES =  \
+	../lib/libhnco.la
+am_test_incremental_one_max_hamming_ball_OBJECTS =  \
+	test-incremental-one-max-hamming-ball.$(OBJEXT)
+test_incremental_one_max_hamming_ball_OBJECTS =  \
+	$(am_test_incremental_one_max_hamming_ball_OBJECTS)
+test_incremental_one_max_hamming_ball_LDADD = $(LDADD)
+test_incremental_one_max_hamming_ball_DEPENDENCIES =  \
+	../lib/libhnco.la
+am_test_incremental_one_max_hamming_sphere_OBJECTS =  \
+	test-incremental-one-max-hamming-sphere.$(OBJEXT)
+test_incremental_one_max_hamming_sphere_OBJECTS =  \
+	$(am_test_incremental_one_max_hamming_sphere_OBJECTS)
+test_incremental_one_max_hamming_sphere_LDADD = $(LDADD)
+test_incremental_one_max_hamming_sphere_DEPENDENCIES =  \
+	../lib/libhnco.la
+am_test_incremental_one_max_single_bit_flip_OBJECTS =  \
+	test-incremental-one-max-single-bit-flip.$(OBJEXT)
+test_incremental_one_max_single_bit_flip_OBJECTS =  \
+	$(am_test_incremental_one_max_single_bit_flip_OBJECTS)
+test_incremental_one_max_single_bit_flip_LDADD = $(LDADD)
+test_incremental_one_max_single_bit_flip_DEPENDENCIES =  \
+	../lib/libhnco.la
 am_test_max_sat_OBJECTS = test-max-sat.$(OBJEXT)
 test_max_sat_OBJECTS = $(am_test_max_sat_OBJECTS)
 test_max_sat_LDADD = $(LDADD)
@@ -277,18 +312,30 @@ test_serialize_permutation_OBJECTS =  \
 	$(am_test_serialize_permutation_OBJECTS)
 test_serialize_permutation_LDADD = $(LDADD)
 test_serialize_permutation_DEPENDENCIES = ../lib/libhnco.la
-am_test_serialize_quadratic_function_OBJECTS =  \
-	test-serialize-quadratic-function.$(OBJEXT)
-test_serialize_quadratic_function_OBJECTS =  \
-	$(am_test_serialize_quadratic_function_OBJECTS)
-test_serialize_quadratic_function_LDADD = $(LDADD)
-test_serialize_quadratic_function_DEPENDENCIES = ../lib/libhnco.la
 am_test_serialize_translation_OBJECTS =  \
 	test-serialize-translation.$(OBJEXT)
 test_serialize_translation_OBJECTS =  \
 	$(am_test_serialize_translation_OBJECTS)
 test_serialize_translation_LDADD = $(LDADD)
 test_serialize_translation_DEPENDENCIES = ../lib/libhnco.la
+am_test_serialize_walsh_expansion_OBJECTS =  \
+	test-serialize-walsh-expansion.$(OBJEXT)
+test_serialize_walsh_expansion_OBJECTS =  \
+	$(am_test_serialize_walsh_expansion_OBJECTS)
+test_serialize_walsh_expansion_LDADD = $(LDADD)
+test_serialize_walsh_expansion_DEPENDENCIES = ../lib/libhnco.la
+am_test_serialize_walsh_expansion_1_OBJECTS =  \
+	test-serialize-walsh-expansion-1.$(OBJEXT)
+test_serialize_walsh_expansion_1_OBJECTS =  \
+	$(am_test_serialize_walsh_expansion_1_OBJECTS)
+test_serialize_walsh_expansion_1_LDADD = $(LDADD)
+test_serialize_walsh_expansion_1_DEPENDENCIES = ../lib/libhnco.la
+am_test_serialize_walsh_expansion_2_OBJECTS =  \
+	test-serialize-walsh-expansion-2.$(OBJEXT)
+test_serialize_walsh_expansion_2_OBJECTS =  \
+	$(am_test_serialize_walsh_expansion_2_OBJECTS)
+test_serialize_walsh_expansion_2_LDADD = $(LDADD)
+test_serialize_walsh_expansion_2_DEPENDENCIES = ../lib/libhnco.la
 am_test_steepest_ascent_hill_climbing_OBJECTS =  \
 	test-steepest-ascent-hill-climbing.$(OBJEXT)
 test_steepest_ascent_hill_climbing_OBJECTS =  \
@@ -307,7 +354,7 @@ AM_V_at = $(am__v_at_@AM_V@)
 am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
 am__v_at_0 = @
 am__v_at_1 = 
-DEFAULT_INCLUDES = -I.@am__isrc@
+DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
@@ -343,8 +390,12 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_ridge_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
-	$(test_hypercube_iterator_SOURCES) $(test_max_sat_SOURCES) \
-	$(test_sbm_multiply_SOURCES) \
+	$(test_hypercube_iterator_SOURCES) \
+	$(test_incremental_one_max_bernoulli_process_SOURCES) \
+	$(test_incremental_one_max_hamming_ball_SOURCES) \
+	$(test_incremental_one_max_hamming_sphere_SOURCES) \
+	$(test_incremental_one_max_single_bit_flip_SOURCES) \
+	$(test_max_sat_SOURCES) $(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
 	$(test_serialize_linear_function_SOURCES) \
@@ -353,8 +404,10 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_serialize_max_sat_SOURCES) \
 	$(test_serialize_nk_landscape_SOURCES) \
 	$(test_serialize_permutation_SOURCES) \
-	$(test_serialize_quadratic_function_SOURCES) \
 	$(test_serialize_translation_SOURCES) \
+	$(test_serialize_walsh_expansion_SOURCES) \
+	$(test_serialize_walsh_expansion_1_SOURCES) \
+	$(test_serialize_walsh_expansion_2_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES)
 DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_bm_invert_SOURCES) $(test_bm_multiply_SOURCES) \
@@ -370,8 +423,12 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_ridge_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
-	$(test_hypercube_iterator_SOURCES) $(test_max_sat_SOURCES) \
-	$(test_sbm_multiply_SOURCES) \
+	$(test_hypercube_iterator_SOURCES) \
+	$(test_incremental_one_max_bernoulli_process_SOURCES) \
+	$(test_incremental_one_max_hamming_ball_SOURCES) \
+	$(test_incremental_one_max_hamming_sphere_SOURCES) \
+	$(test_incremental_one_max_single_bit_flip_SOURCES) \
+	$(test_max_sat_SOURCES) $(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
 	$(test_serialize_linear_function_SOURCES) \
@@ -380,8 +437,10 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_serialize_max_sat_SOURCES) \
 	$(test_serialize_nk_landscape_SOURCES) \
 	$(test_serialize_permutation_SOURCES) \
-	$(test_serialize_quadratic_function_SOURCES) \
 	$(test_serialize_translation_SOURCES) \
+	$(test_serialize_walsh_expansion_SOURCES) \
+	$(test_serialize_walsh_expansion_1_SOURCES) \
+	$(test_serialize_walsh_expansion_2_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -622,6 +681,9 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BOOST_CPPFLAGS = @BOOST_CPPFLAGS@
+BOOST_LDFLAGS = @BOOST_LDFLAGS@
+BOOST_SERIALIZATION_LIB = @BOOST_SERIALIZATION_LIB@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
@@ -644,6 +706,7 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GREP = @GREP@
+HAVE_CXX11 = @HAVE_CXX11@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -665,6 +728,7 @@ NM = @NM@
 NMEDIT = @NMEDIT@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
+OPENMP_CXXFLAGS = @OPENMP_CXXFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
 PACKAGE = @PACKAGE@
@@ -735,6 +799,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
 AM_CPPFLAGS = -I $(top_srcdir)/lib
 LDADD = ../lib/libhnco.la -ldl -lboost_serialization
 test_bm_add_rows_SOURCES = test-bm-add-rows.cc
@@ -755,6 +820,10 @@ test_complete_search_ridge_SOURCES = test-complete-search-ridge.cc
 test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
+test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-bernoulli-process.cc
+test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
+test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
+test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
 test_max_sat_SOURCES = test-max-sat.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
@@ -765,21 +834,25 @@ test_serialize_map_composition_SOURCES = test-serialize-map-composition.cc
 test_serialize_max_sat_SOURCES = test-serialize-max-sat.cc
 test_serialize_nk_landscape_SOURCES = test-serialize-nk-landscape.cc
 test_serialize_permutation_SOURCES = test-serialize-permutation.cc
-test_serialize_quadratic_function_SOURCES = test-serialize-quadratic-function.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
+test_serialize_walsh_expansion_SOURCES = test-serialize-walsh-expansion.cc
+test_serialize_walsh_expansion_1_SOURCES = test-serialize-walsh-expansion-1.cc
+test_serialize_walsh_expansion_2_SOURCES = test-serialize-walsh-expansion-2.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 TESTS = $(check_PROGRAMS)
 DISTCLEANFILES = \
-	test-serialize-translation.txt \
-	test-serialize-quadratic-function.txt \
-	test-serialize-permutation.txt \
-	test-serialize-nk-landscape.txt \
-	test-serialize-max-sat.txt \
-	test-serialize-map-composition.txt \
+	test-serialize-affine-map.txt \
 	test-serialize-equal-products.txt \
-	test-serialize-linear-map.txt \
 	test-serialize-linear-function.txt \
-	test-serialize-affine-map.txt
+	test-serialize-linear-map.txt \
+	test-serialize-map-composition.txt \
+	test-serialize-max-sat.txt \
+	test-serialize-nk-landscape.txt \
+	test-serialize-permutation.txt \
+	test-serialize-translation.txt \
+	test-serialize-walsh-expansion-1.txt \
+	test-serialize-walsh-expansion-2.txt \
+	test-serialize-walsh-expansion.txt
 
 all: all-am
 
@@ -896,6 +969,22 @@ test-hypercube-iterator$(EXEEXT): $(test_hypercube_iterator_OBJECTS) $(test_hype
 	@rm -f test-hypercube-iterator$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_hypercube_iterator_OBJECTS) $(test_hypercube_iterator_LDADD) $(LIBS)
 
+test-incremental-one-max-bernoulli-process$(EXEEXT): $(test_incremental_one_max_bernoulli_process_OBJECTS) $(test_incremental_one_max_bernoulli_process_DEPENDENCIES) $(EXTRA_test_incremental_one_max_bernoulli_process_DEPENDENCIES) 
+	@rm -f test-incremental-one-max-bernoulli-process$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_one_max_bernoulli_process_OBJECTS) $(test_incremental_one_max_bernoulli_process_LDADD) $(LIBS)
+
+test-incremental-one-max-hamming-ball$(EXEEXT): $(test_incremental_one_max_hamming_ball_OBJECTS) $(test_incremental_one_max_hamming_ball_DEPENDENCIES) $(EXTRA_test_incremental_one_max_hamming_ball_DEPENDENCIES) 
+	@rm -f test-incremental-one-max-hamming-ball$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_one_max_hamming_ball_OBJECTS) $(test_incremental_one_max_hamming_ball_LDADD) $(LIBS)
+
+test-incremental-one-max-hamming-sphere$(EXEEXT): $(test_incremental_one_max_hamming_sphere_OBJECTS) $(test_incremental_one_max_hamming_sphere_DEPENDENCIES) $(EXTRA_test_incremental_one_max_hamming_sphere_DEPENDENCIES) 
+	@rm -f test-incremental-one-max-hamming-sphere$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_one_max_hamming_sphere_OBJECTS) $(test_incremental_one_max_hamming_sphere_LDADD) $(LIBS)
+
+test-incremental-one-max-single-bit-flip$(EXEEXT): $(test_incremental_one_max_single_bit_flip_OBJECTS) $(test_incremental_one_max_single_bit_flip_DEPENDENCIES) $(EXTRA_test_incremental_one_max_single_bit_flip_DEPENDENCIES) 
+	@rm -f test-incremental-one-max-single-bit-flip$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_one_max_single_bit_flip_OBJECTS) $(test_incremental_one_max_single_bit_flip_LDADD) $(LIBS)
+
 test-max-sat$(EXEEXT): $(test_max_sat_OBJECTS) $(test_max_sat_DEPENDENCIES) $(EXTRA_test_max_sat_DEPENDENCIES) 
 	@rm -f test-max-sat$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_max_sat_OBJECTS) $(test_max_sat_LDADD) $(LIBS)
@@ -936,13 +1025,21 @@ test-serialize-permutation$(EXEEXT): $(test_serialize_permutation_OBJECTS) $(tes
 	@rm -f test-serialize-permutation$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_permutation_OBJECTS) $(test_serialize_permutation_LDADD) $(LIBS)
 
-test-serialize-quadratic-function$(EXEEXT): $(test_serialize_quadratic_function_OBJECTS) $(test_serialize_quadratic_function_DEPENDENCIES) $(EXTRA_test_serialize_quadratic_function_DEPENDENCIES) 
-	@rm -f test-serialize-quadratic-function$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_quadratic_function_OBJECTS) $(test_serialize_quadratic_function_LDADD) $(LIBS)
-
 test-serialize-translation$(EXEEXT): $(test_serialize_translation_OBJECTS) $(test_serialize_translation_DEPENDENCIES) $(EXTRA_test_serialize_translation_DEPENDENCIES) 
 	@rm -f test-serialize-translation$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_translation_OBJECTS) $(test_serialize_translation_LDADD) $(LIBS)
+
+test-serialize-walsh-expansion$(EXEEXT): $(test_serialize_walsh_expansion_OBJECTS) $(test_serialize_walsh_expansion_DEPENDENCIES) $(EXTRA_test_serialize_walsh_expansion_DEPENDENCIES) 
+	@rm -f test-serialize-walsh-expansion$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_walsh_expansion_OBJECTS) $(test_serialize_walsh_expansion_LDADD) $(LIBS)
+
+test-serialize-walsh-expansion-1$(EXEEXT): $(test_serialize_walsh_expansion_1_OBJECTS) $(test_serialize_walsh_expansion_1_DEPENDENCIES) $(EXTRA_test_serialize_walsh_expansion_1_DEPENDENCIES) 
+	@rm -f test-serialize-walsh-expansion-1$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_walsh_expansion_1_OBJECTS) $(test_serialize_walsh_expansion_1_LDADD) $(LIBS)
+
+test-serialize-walsh-expansion-2$(EXEEXT): $(test_serialize_walsh_expansion_2_OBJECTS) $(test_serialize_walsh_expansion_2_DEPENDENCIES) $(EXTRA_test_serialize_walsh_expansion_2_DEPENDENCIES) 
+	@rm -f test-serialize-walsh-expansion-2$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_walsh_expansion_2_OBJECTS) $(test_serialize_walsh_expansion_2_LDADD) $(LIBS)
 
 test-steepest-ascent-hill-climbing$(EXEEXT): $(test_steepest_ascent_hill_climbing_OBJECTS) $(test_steepest_ascent_hill_climbing_DEPENDENCIES) $(EXTRA_test_steepest_ascent_hill_climbing_DEPENDENCIES) 
 	@rm -f test-steepest-ascent-hill-climbing$(EXEEXT)
@@ -972,6 +1069,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-trap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hypercube-iterator.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-bernoulli-process.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-max-sat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-sbm-multiply.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-affine-map.Po@am__quote@
@@ -982,8 +1083,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-max-sat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-nk-landscape.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-permutation.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-quadratic-function.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-translation.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-walsh-expansion-1.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-walsh-expansion-2.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-walsh-expansion.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po@am__quote@
 
 .cc.o:
@@ -1335,6 +1438,34 @@ test-hypercube-iterator.log: test-hypercube-iterator$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-incremental-one-max-bernoulli-process.log: test-incremental-one-max-bernoulli-process$(EXEEXT)
+	@p='test-incremental-one-max-bernoulli-process$(EXEEXT)'; \
+	b='test-incremental-one-max-bernoulli-process'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-incremental-one-max-hamming-ball.log: test-incremental-one-max-hamming-ball$(EXEEXT)
+	@p='test-incremental-one-max-hamming-ball$(EXEEXT)'; \
+	b='test-incremental-one-max-hamming-ball'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-incremental-one-max-hamming-sphere.log: test-incremental-one-max-hamming-sphere$(EXEEXT)
+	@p='test-incremental-one-max-hamming-sphere$(EXEEXT)'; \
+	b='test-incremental-one-max-hamming-sphere'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-incremental-one-max-single-bit-flip.log: test-incremental-one-max-single-bit-flip$(EXEEXT)
+	@p='test-incremental-one-max-single-bit-flip$(EXEEXT)'; \
+	b='test-incremental-one-max-single-bit-flip'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-max-sat.log: test-max-sat$(EXEEXT)
 	@p='test-max-sat$(EXEEXT)'; \
 	b='test-max-sat'; \
@@ -1405,16 +1536,30 @@ test-serialize-permutation.log: test-serialize-permutation$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-test-serialize-quadratic-function.log: test-serialize-quadratic-function$(EXEEXT)
-	@p='test-serialize-quadratic-function$(EXEEXT)'; \
-	b='test-serialize-quadratic-function'; \
+test-serialize-translation.log: test-serialize-translation$(EXEEXT)
+	@p='test-serialize-translation$(EXEEXT)'; \
+	b='test-serialize-translation'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-test-serialize-translation.log: test-serialize-translation$(EXEEXT)
-	@p='test-serialize-translation$(EXEEXT)'; \
-	b='test-serialize-translation'; \
+test-serialize-walsh-expansion.log: test-serialize-walsh-expansion$(EXEEXT)
+	@p='test-serialize-walsh-expansion$(EXEEXT)'; \
+	b='test-serialize-walsh-expansion'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-serialize-walsh-expansion-1.log: test-serialize-walsh-expansion-1$(EXEEXT)
+	@p='test-serialize-walsh-expansion-1$(EXEEXT)'; \
+	b='test-serialize-walsh-expansion-1'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-serialize-walsh-expansion-2.log: test-serialize-walsh-expansion-2$(EXEEXT)
+	@p='test-serialize-walsh-expansion-2$(EXEEXT)'; \
+	b='test-serialize-walsh-expansion-2'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

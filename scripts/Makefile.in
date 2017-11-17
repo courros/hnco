@@ -97,8 +97,9 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(dist_bin_SCRIPTS) \
-	$(am__DIST_COMMON)
+	$(dist_noinst_SCRIPTS) $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
+CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
@@ -129,7 +130,7 @@ am__uninstall_files_from_dir = { \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
 am__installdirs = "$(DESTDIR)$(bindir)"
-SCRIPTS = $(dist_bin_SCRIPTS)
+SCRIPTS = $(dist_bin_SCRIPTS) $(dist_noinst_SCRIPTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -160,6 +161,9 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BOOST_CPPFLAGS = @BOOST_CPPFLAGS@
+BOOST_LDFLAGS = @BOOST_LDFLAGS@
+BOOST_SERIALIZATION_LIB = @BOOST_SERIALIZATION_LIB@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
@@ -182,6 +186,7 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GREP = @GREP@
+HAVE_CXX11 = @HAVE_CXX11@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -203,6 +208,7 @@ NM = @NM@
 NMEDIT = @NMEDIT@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
+OPENMP_CXXFLAGS = @OPENMP_CXXFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
 PACKAGE = @PACKAGE@
@@ -278,14 +284,11 @@ dist_bin_SCRIPTS = \
 	hnco-benchmark-stat.pl \
 	hnco-dynamics-run.pl \
 	hnco-dynamics-stat-maximum.pl \
-	hnco-dynamics-stat.pl \
-	hnco-ecdf-run.py \
-	hnco-ecdf-stat.py \
 	hnco-parameter-run.pl \
 	hnco-parameter-stat.pl \
-	hnco-runtime-stat.pl \
-	optgen.pl
+	hnco-runtime-stat.pl
 
+dist_noinst_SCRIPTS = optgen.pl
 all: all-am
 
 .SUFFIXES:

@@ -8,7 +8,7 @@ using namespace std;
 
 Options::Options(int argc, char *argv[]):
   _exec_name(argv[0]),
-  _version("0.4"),
+  _version("0.7"),
   _algorithm(100),
   _opt_algorithm(false),
   _bm_mc_reset_strategy(1),
@@ -27,6 +27,8 @@ Options::Options(int argc, char *argv[]):
   _opt_ea_lambda(false),
   _ea_mu(10),
   _opt_ea_mu(false),
+  _fun_name("noname"),
+  _opt_fun_name(false),
   _fun_num_traps(10),
   _opt_fun_num_traps(false),
   _fun_prefix_length(2),
@@ -73,18 +75,18 @@ Options::Options(int argc, char *argv[]):
   _opt_noise_stddev(false),
   _num_iterations(0),
   _opt_num_iterations(false),
+  _num_threads(1),
+  _opt_num_threads(false),
   _path("nopath"),
   _opt_path(false),
-  _patience(50),
-  _opt_patience(false),
-  _plugin_function_name("nofunction"),
-  _opt_plugin_function_name(false),
   _population_size(10),
   _opt_population_size(false),
   _pv_log_num_components(5),
   _opt_pv_log_num_components(false),
   _radius(2),
   _opt_radius(false),
+  _rls_patience(50),
+  _opt_rls_patience(false),
   _sa_initial_acceptance_probability(0.6),
   _opt_sa_initial_acceptance_probability(false),
   _sa_num_transitions(50),
@@ -99,28 +101,41 @@ Options::Options(int argc, char *argv[]):
   _opt_seed(false),
   _selection_size(1),
   _opt_selection_size(false),
+  _target(100),
+  _opt_target(false),
   _additive_gaussian_noise(false),
+  _allow_stay(false),
   _bm_log_norm_infinite(false),
   _bm_log_norm_l1(false),
   _bm_negative_positive_selection(false),
   _cache(false),
+  _describe_function(false),
+  _describe_solution(false),
+  _fun_get_bv_size(false),
+  _fun_get_maximum(false),
+  _fun_has_known_maximum(false),
+  _fun_provides_incremental_evaluation(false),
   _hea_bound_moment(false),
   _hea_log_delta(false),
   _hea_log_dtu(false),
   _hea_log_error(false),
   _hea_log_selection(false),
   _hea_randomize_bit_order(false),
+  _incremental_evaluation(false),
   _log_improvement(false),
   _map_random(false),
+  _mmas_strict(false),
   _negation(false),
-  _no_header(false),
   _print_default_parameters(false),
-  _print_performances(false),
+  _print_header(false),
+  _print_performance(false),
   _print_solution(false),
   _pv_log_entropy(false),
   _pv_log_pv(false),
   _restart(false),
-  _stop_on_maximum(false)
+  _rls_strict(false),
+  _stop_on_maximum(false),
+  _stop_on_target(false)
 {
   enum {
     OPTION_HELP=256,
@@ -134,6 +149,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_BV_SIZE,
     OPTION_EA_LAMBDA,
     OPTION_EA_MU,
+    OPTION_FUN_NAME,
     OPTION_FUN_NUM_TRAPS,
     OPTION_FUN_PREFIX_LENGTH,
     OPTION_FUN_THRESHOLD,
@@ -157,12 +173,12 @@ Options::Options(int argc, char *argv[]):
     OPTION_NEIGHBORHOOD_ITERATOR,
     OPTION_NOISE_STDDEV,
     OPTION_NUM_ITERATIONS,
+    OPTION_NUM_THREADS,
     OPTION_PATH,
-    OPTION_PATIENCE,
-    OPTION_PLUGIN_FUNCTION_NAME,
     OPTION_POPULATION_SIZE,
     OPTION_PV_LOG_NUM_COMPONENTS,
     OPTION_RADIUS,
+    OPTION_RLS_PATIENCE,
     OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY,
     OPTION_SA_NUM_TRANSITIONS,
     OPTION_SA_NUM_TRIALS,
@@ -170,28 +186,40 @@ Options::Options(int argc, char *argv[]):
     OPTION_SCALED_MUTATION_PROBABILITY,
     OPTION_SEED,
     OPTION_SELECTION_SIZE,
+    OPTION_TARGET,
     OPTION_ADDITIVE_GAUSSIAN_NOISE,
+    OPTION_ALLOW_STAY,
     OPTION_BM_LOG_NORM_INFINITE,
     OPTION_BM_LOG_NORM_L1,
     OPTION_BM_NEGATIVE_POSITIVE_SELECTION,
     OPTION_CACHE,
+    OPTION_DESCRIBE_FUNCTION,
+    OPTION_DESCRIBE_SOLUTION,
+    OPTION_FUN_GET_BV_SIZE,
+    OPTION_FUN_GET_MAXIMUM,
+    OPTION_FUN_HAS_KNOWN_MAXIMUM,
+    OPTION_FUN_PROVIDES_INCREMENTAL_EVALUATION,
     OPTION_HEA_BOUND_MOMENT,
     OPTION_HEA_LOG_DELTA,
     OPTION_HEA_LOG_DTU,
     OPTION_HEA_LOG_ERROR,
     OPTION_HEA_LOG_SELECTION,
     OPTION_HEA_RANDOMIZE_BIT_ORDER,
+    OPTION_INCREMENTAL_EVALUATION,
     OPTION_LOG_IMPROVEMENT,
     OPTION_MAP_RANDOM,
+    OPTION_MMAS_STRICT,
     OPTION_NEGATION,
-    OPTION_NO_HEADER,
     OPTION_PRINT_DEFAULT_PARAMETERS,
-    OPTION_PRINT_PERFORMANCES,
+    OPTION_PRINT_HEADER,
+    OPTION_PRINT_PERFORMANCE,
     OPTION_PRINT_SOLUTION,
     OPTION_PV_LOG_ENTROPY,
     OPTION_PV_LOG_PV,
     OPTION_RESTART,
-    OPTION_STOP_ON_MAXIMUM
+    OPTION_RLS_STRICT,
+    OPTION_STOP_ON_MAXIMUM,
+    OPTION_STOP_ON_TARGET
   };
   const struct option long_options[] = {
     {"algorithm", required_argument, 0, OPTION_ALGORITHM},
@@ -203,6 +231,7 @@ Options::Options(int argc, char *argv[]):
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
     {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
+    {"fun-name", required_argument, 0, OPTION_FUN_NAME},
     {"fun-num-traps", required_argument, 0, OPTION_FUN_NUM_TRAPS},
     {"fun-prefix-length", required_argument, 0, OPTION_FUN_PREFIX_LENGTH},
     {"fun-threshold", required_argument, 0, OPTION_FUN_THRESHOLD},
@@ -226,12 +255,12 @@ Options::Options(int argc, char *argv[]):
     {"neighborhood-iterator", required_argument, 0, OPTION_NEIGHBORHOOD_ITERATOR},
     {"noise-stddev", required_argument, 0, OPTION_NOISE_STDDEV},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
+    {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
     {"path", required_argument, 0, OPTION_PATH},
-    {"patience", required_argument, 0, OPTION_PATIENCE},
-    {"plugin-function-name", required_argument, 0, OPTION_PLUGIN_FUNCTION_NAME},
     {"population-size", required_argument, 0, OPTION_POPULATION_SIZE},
     {"pv-log-num-components", required_argument, 0, OPTION_PV_LOG_NUM_COMPONENTS},
     {"radius", required_argument, 0, OPTION_RADIUS},
+    {"rls-patience", required_argument, 0, OPTION_RLS_PATIENCE},
     {"sa-initial-acceptance-probability", required_argument, 0, OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY},
     {"sa-num-transitions", required_argument, 0, OPTION_SA_NUM_TRANSITIONS},
     {"sa-num-trials", required_argument, 0, OPTION_SA_NUM_TRIALS},
@@ -239,28 +268,40 @@ Options::Options(int argc, char *argv[]):
     {"scaled-mutation-probability", required_argument, 0, OPTION_SCALED_MUTATION_PROBABILITY},
     {"seed", required_argument, 0, OPTION_SEED},
     {"selection-size", required_argument, 0, OPTION_SELECTION_SIZE},
+    {"target", required_argument, 0, OPTION_TARGET},
     {"additive-gaussian-noise", no_argument, 0, OPTION_ADDITIVE_GAUSSIAN_NOISE},
+    {"allow-stay", no_argument, 0, OPTION_ALLOW_STAY},
     {"bm-log-norm-infinite", no_argument, 0, OPTION_BM_LOG_NORM_INFINITE},
     {"bm-log-norm-l1", no_argument, 0, OPTION_BM_LOG_NORM_L1},
     {"bm-negative-positive-selection", no_argument, 0, OPTION_BM_NEGATIVE_POSITIVE_SELECTION},
     {"cache", no_argument, 0, OPTION_CACHE},
+    {"describe-function", no_argument, 0, OPTION_DESCRIBE_FUNCTION},
+    {"describe-solution", no_argument, 0, OPTION_DESCRIBE_SOLUTION},
+    {"fun-get-bv-size", no_argument, 0, OPTION_FUN_GET_BV_SIZE},
+    {"fun-get-maximum", no_argument, 0, OPTION_FUN_GET_MAXIMUM},
+    {"fun-has-known-maximum", no_argument, 0, OPTION_FUN_HAS_KNOWN_MAXIMUM},
+    {"fun-provides-incremental-evaluation", no_argument, 0, OPTION_FUN_PROVIDES_INCREMENTAL_EVALUATION},
     {"hea-bound-moment", no_argument, 0, OPTION_HEA_BOUND_MOMENT},
     {"hea-log-delta", no_argument, 0, OPTION_HEA_LOG_DELTA},
     {"hea-log-dtu", no_argument, 0, OPTION_HEA_LOG_DTU},
     {"hea-log-error", no_argument, 0, OPTION_HEA_LOG_ERROR},
     {"hea-log-selection", no_argument, 0, OPTION_HEA_LOG_SELECTION},
     {"hea-randomize-bit-order", no_argument, 0, OPTION_HEA_RANDOMIZE_BIT_ORDER},
+    {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
     {"log-improvement", no_argument, 0, OPTION_LOG_IMPROVEMENT},
     {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
+    {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
     {"negation", no_argument, 0, OPTION_NEGATION},
-    {"no-header", no_argument, 0, OPTION_NO_HEADER},
     {"print-default-parameters", no_argument, 0, OPTION_PRINT_DEFAULT_PARAMETERS},
-    {"print-performances", no_argument, 0, OPTION_PRINT_PERFORMANCES},
+    {"print-header", no_argument, 0, OPTION_PRINT_HEADER},
+    {"print-performance", no_argument, 0, OPTION_PRINT_PERFORMANCE},
     {"print-solution", no_argument, 0, OPTION_PRINT_SOLUTION},
     {"pv-log-entropy", no_argument, 0, OPTION_PV_LOG_ENTROPY},
     {"pv-log-pv", no_argument, 0, OPTION_PV_LOG_PV},
     {"restart", no_argument, 0, OPTION_RESTART},
+    {"rls-strict", no_argument, 0, OPTION_RLS_STRICT},
     {"stop-on-maximum", no_argument, 0, OPTION_STOP_ON_MAXIMUM},
+    {"stop-on-target", no_argument, 0, OPTION_STOP_ON_TARGET},
     {"help", no_argument, 0, OPTION_HELP},
     {"version", no_argument, 0, OPTION_VERSION},
     {0, no_argument, 0, 0}
@@ -308,6 +349,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_EA_MU:
       set_ea_mu(atoi(optarg));
+      break;
+
+    case OPTION_FUN_NAME:
+      set_fun_name(string(optarg));
       break;
 
     case OPTION_FUN_NUM_TRAPS:
@@ -408,17 +453,13 @@ Options::Options(int argc, char *argv[]):
       set_num_iterations(atoi(optarg));
       break;
 
+    case OPTION_NUM_THREADS:
+      set_num_threads(atoi(optarg));
+      break;
+
     case 'p':
     case OPTION_PATH:
       set_path(string(optarg));
-      break;
-
-    case OPTION_PATIENCE:
-      set_patience(atoi(optarg));
-      break;
-
-    case OPTION_PLUGIN_FUNCTION_NAME:
-      set_plugin_function_name(string(optarg));
       break;
 
     case 'x':
@@ -432,6 +473,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_RADIUS:
       set_radius(atoi(optarg));
+      break;
+
+    case OPTION_RLS_PATIENCE:
+      set_rls_patience(atoi(optarg));
       break;
 
     case OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY:
@@ -464,8 +509,16 @@ Options::Options(int argc, char *argv[]):
       set_selection_size(atoi(optarg));
       break;
 
+    case OPTION_TARGET:
+      set_target(atof(optarg));
+      break;
+
     case OPTION_ADDITIVE_GAUSSIAN_NOISE:
       _additive_gaussian_noise = true;
+      break;
+
+    case OPTION_ALLOW_STAY:
+      _allow_stay = true;
       break;
 
     case OPTION_BM_LOG_NORM_INFINITE:
@@ -482,6 +535,30 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_CACHE:
       _cache = true;
+      break;
+
+    case OPTION_DESCRIBE_FUNCTION:
+      _describe_function = true;
+      break;
+
+    case OPTION_DESCRIBE_SOLUTION:
+      _describe_solution = true;
+      break;
+
+    case OPTION_FUN_GET_BV_SIZE:
+      _fun_get_bv_size = true;
+      break;
+
+    case OPTION_FUN_GET_MAXIMUM:
+      _fun_get_maximum = true;
+      break;
+
+    case OPTION_FUN_HAS_KNOWN_MAXIMUM:
+      _fun_has_known_maximum = true;
+      break;
+
+    case OPTION_FUN_PROVIDES_INCREMENTAL_EVALUATION:
+      _fun_provides_incremental_evaluation = true;
       break;
 
     case OPTION_HEA_BOUND_MOMENT:
@@ -508,6 +585,10 @@ Options::Options(int argc, char *argv[]):
       _hea_randomize_bit_order = true;
       break;
 
+    case OPTION_INCREMENTAL_EVALUATION:
+      _incremental_evaluation = true;
+      break;
+
     case OPTION_LOG_IMPROVEMENT:
       _log_improvement = true;
       break;
@@ -516,20 +597,24 @@ Options::Options(int argc, char *argv[]):
       _map_random = true;
       break;
 
-    case OPTION_NEGATION:
-      _negation = true;
+    case OPTION_MMAS_STRICT:
+      _mmas_strict = true;
       break;
 
-    case OPTION_NO_HEADER:
-      _no_header = true;
+    case OPTION_NEGATION:
+      _negation = true;
       break;
 
     case OPTION_PRINT_DEFAULT_PARAMETERS:
       _print_default_parameters = true;
       break;
 
-    case OPTION_PRINT_PERFORMANCES:
-      _print_performances = true;
+    case OPTION_PRINT_HEADER:
+      _print_header = true;
+      break;
+
+    case OPTION_PRINT_PERFORMANCE:
+      _print_performance = true;
       break;
 
     case OPTION_PRINT_SOLUTION:
@@ -548,8 +633,16 @@ Options::Options(int argc, char *argv[]):
       _restart = true;
       break;
 
+    case OPTION_RLS_STRICT:
+      _rls_strict = true;
+      break;
+
     case OPTION_STOP_ON_MAXIMUM:
       _stop_on_maximum = true;
+      break;
+
+    case OPTION_STOP_ON_TARGET:
+      _stop_on_target = true;
       break;
 
     case OPTION_HELP:
@@ -572,30 +665,40 @@ void Options::print_help(ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
   stream << "General:" << endl;
-  stream << "      --no-header" << endl;
-  stream << "          Do not print the header" << endl;
+  stream << "      --describe-function" << endl;
+  stream << "          Describe the function and exit" << endl;
+  stream << "      --describe-solution" << endl;
+  stream << "          At the end, describe the solution" << endl;
+  stream << "      --num-threads (type int, default to 1)" << endl;
+  stream << "          Number of threads" << endl;
   stream << "      --print-default-parameters" << endl;
   stream << "          Print the default parameters and exit" << endl;
-  stream << "      --print-performances" << endl;
-  stream << "          At the end, print the maximum and the number of function evaluations needed to reach it" << endl;
+  stream << "      --print-header" << endl;
+  stream << "          At the beginning, print the header" << endl;
+  stream << "      --print-performance" << endl;
+  stream << "          At the end, print performance (maximum and number of evaluations needed to reach it)" << endl;
   stream << "      --print-solution" << endl;
   stream << "          At the end, print the solution" << endl;
   stream << "      --seed (type unsigned, default to 0)" << endl;
   stream << "          Seed for the random number generator" << endl;
   stream << endl;
   stream << "Function:" << endl;
-  stream << "      --additive-gaussian-noise" << endl;
-  stream << "          Additive Gaussian noise" << endl;
-  stream << "  -b, --budget (type int, default to 10000)" << endl;
-  stream << "          Number of allowed function evaluations (<= 0 means indefinite)" << endl;
   stream << "  -s, --bv-size (type int, default to 100)" << endl;
   stream << "          Size of bit vectors" << endl;
-  stream << "      --cache" << endl;
-  stream << "          Cache function evaluations" << endl;
+  stream << "      --fun-get-bv-size" << endl;
+  stream << "          Print the size of bit vectors" << endl;
+  stream << "      --fun-get-maximum" << endl;
+  stream << "          Print the maximum and exit with status 0 if the function has a known maximum, 1 otherwise" << endl;
+  stream << "      --fun-has-known-maximum" << endl;
+  stream << "          Exit with status 0 if the function has a known maximum, 1 otherwise" << endl;
+  stream << "      --fun-name (type string, default to \"noname\")" << endl;
+  stream << "          Name of the function in the dynamic library" << endl;
   stream << "      --fun-num-traps (type int, default to 10)" << endl;
   stream << "          Number of traps" << endl;
   stream << "      --fun-prefix-length (type int, default to 2)" << endl;
   stream << "          Prefix length for long path" << endl;
+  stream << "      --fun-provides-incremental-evaluation" << endl;
+  stream << "          Exit with status 0 if the function provides incremental evaluation, 1 otherwise" << endl;
   stream << "  -t, --fun-threshold (type int, default to 10)" << endl;
   stream << "          Threshold (in bits) for Jump, Four Peaks, and Six Peaks" << endl;
   stream << "  -F, --function (type int, default to 0)" << endl;
@@ -609,31 +712,44 @@ void Options::print_help(ostream& stream) const
   stream << "            31: Deceptive jump (aka Jump_k)" << endl;
   stream << "            40: Four peaks" << endl;
   stream << "            41: Six peaks" << endl;
-  stream << "            50: Quadratic function" << endl;
-  stream << "            51: Quadratic unconstrained binary optimization (Qubo)" << endl;
+  stream << "            50: Quadratic unconstrained binary optimization (Qubo)" << endl;
   stream << "            60: NK landscape" << endl;
   stream << "            70: Max-SAT" << endl;
   stream << "            80: Low autocorrelation binary sequence" << endl;
   stream << "            90: Equal products" << endl;
-  stream << "            100: Cancellation" << endl;
-  stream << "            101: Cancellation with sinus" << endl;
+  stream << "            100: Summation cancellation" << endl;
+  stream << "            101: Summation cancellation with sinus" << endl;
   stream << "            110: Trap" << endl;
   stream << "            120: Hierarchical if and only if (Hiff)" << endl;
   stream << "            130: Plateau" << endl;
   stream << "            140: Long path" << endl;
+  stream << "            150: Factorization" << endl;
+  stream << "            160: Walsh expansion" << endl;
+  stream << "            161: Walsh expansion of degree 1" << endl;
+  stream << "            162: Walsh expansion of degree 2" << endl;
   stream << "            1000: Plugin" << endl;
+  stream << "  -p, --path (type string, default to \"nopath\")" << endl;
+  stream << "          Path of a function file" << endl;
+  stream << endl;
+  stream << "Function decorators:" << endl;
+  stream << "      --additive-gaussian-noise" << endl;
+  stream << "          Additive Gaussian noise" << endl;
+  stream << "  -b, --budget (type int, default to 10000)" << endl;
+  stream << "          Number of allowed function evaluations (<= 0 means indefinite)" << endl;
+  stream << "      --cache" << endl;
+  stream << "          Cache function evaluations" << endl;
   stream << "      --log-improvement" << endl;
   stream << "          Log improvement" << endl;
   stream << "      --negation" << endl;
   stream << "          Negation (hence minimization) of the function" << endl;
   stream << "      --noise-stddev (type double, default to 1)" << endl;
   stream << "          Noise standard deviation" << endl;
-  stream << "  -p, --path (type string, default to \"nopath\")" << endl;
-  stream << "          Path of a function file" << endl;
-  stream << "      --plugin-function-name (type string, default to \"nofunction\")" << endl;
-  stream << "          Name of the function in the dynamic library" << endl;
   stream << "      --stop-on-maximum" << endl;
   stream << "          Stop on maximum" << endl;
+  stream << "      --stop-on-target" << endl;
+  stream << "          Stop on target" << endl;
+  stream << "      --target (type double, default to 100)" << endl;
+  stream << "          Target" << endl;
   stream << endl;
   stream << "Map:" << endl;
   stream << "  -M, --map (type int, default to 0)" << endl;
@@ -656,8 +772,7 @@ void Options::print_help(ostream& stream) const
   stream << "          Type of algorithm" << endl;
   stream << "            0: Complete search" << endl;
   stream << "            10: Random search" << endl;
-  stream << "            100: Non strict (>=) random local search" << endl;
-  stream << "            101: Strict (>) random local search" << endl;
+  stream << "            100: Random local search" << endl;
   stream << "            150: Steepest ascent hill climbing" << endl;
   stream << "            200: Simulated annealing" << endl;
   stream << "            300: (1+1) evolutionary algorithm" << endl;
@@ -668,8 +783,7 @@ void Options::print_help(ostream& stream) const
   stream << "            501: PBIL with negative and positive selection" << endl;
   stream << "            600: Univariate marginal distribution algorithm" << endl;
   stream << "            700: Compact genetic algorithm" << endl;
-  stream << "            800: Non strict (>=) max-min ant system" << endl;
-  stream << "            801: Strict (>) max-min ant system" << endl;
+  stream << "            800: Max-min ant system" << endl;
   stream << "            900: Herding evolutionary algorithm, herding with binary variables" << endl;
   stream << "            901: Herding evolutionary algorithm, herding with spin variables" << endl;
   stream << "            1000: Boltzmann machine PBIL" << endl;
@@ -678,23 +792,29 @@ void Options::print_help(ostream& stream) const
   stream << "      --restart" << endl;
   stream << "          Restart any algorithm an indefinite number of times" << endl;
   stream << "  -m, --scaled-mutation-probability (type double, default to 1)" << endl;
-  stream << "          Scaled mutation probability m = n * p (p = m / n)" << endl;
+  stream << "          Scaled mutation probability or expected number of flipped bits (bv_size times probability)" << endl;
   stream << endl;
   stream << "Local Search:" << endl;
+  stream << "      --allow-stay" << endl;
+  stream << "          In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)" << endl;
+  stream << "      --incremental-evaluation" << endl;
+  stream << "          Incremental evaluation" << endl;
   stream << "  -N, --neighborhood (type int, default to 0)" << endl;
   stream << "          Type of neighborhood" << endl;
-  stream << "            0: One bit flip" << endl;
-  stream << "            1: Binomial" << endl;
+  stream << "            0: Single bit flip" << endl;
+  stream << "            1: Bernoulli process" << endl;
   stream << "            2: Hamming ball" << endl;
   stream << "            3: Hamming sphere" << endl;
   stream << "      --neighborhood-iterator (type int, default to 0)" << endl;
   stream << "          Type of neighborhood iterator" << endl;
-  stream << "            0: One bit flip iterator" << endl;
+  stream << "            0: Single bit flip iterator" << endl;
   stream << "            1: Hamming ball iterator" << endl;
-  stream << "      --patience (type int, default to 50)" << endl;
-  stream << "          Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)" << endl;
   stream << "      --radius (type int, default to 2)" << endl;
   stream << "          Radius of Hamming ball or sphere" << endl;
+  stream << "      --rls-patience (type int, default to 50)" << endl;
+  stream << "          Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)" << endl;
+  stream << "      --rls-strict" << endl;
+  stream << "          Strict (>) random local search" << endl;
   stream << endl;
   stream << "Simulated Annealing:" << endl;
   stream << "      --sa-initial-acceptance-probability (type double, default to 0.6)" << endl;
@@ -719,6 +839,8 @@ void Options::print_help(ostream& stream) const
   stream << "EDA:" << endl;
   stream << "  -r, --learning-rate (type double, default to 0.001)" << endl;
   stream << "          Learning rate" << endl;
+  stream << "      --mmas-strict" << endl;
+  stream << "          Strict (>) max-min ant system" << endl;
   stream << "  -x, --population-size (type int, default to 10)" << endl;
   stream << "          Size of the population" << endl;
   stream << "      --pv-log-entropy" << endl;
@@ -811,6 +933,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# bv_size = " << options._bv_size << endl;
   stream << "# ea_lambda = " << options._ea_lambda << endl;
   stream << "# ea_mu = " << options._ea_mu << endl;
+  stream << "# fun_name = " << options._fun_name << endl;
   stream << "# fun_num_traps = " << options._fun_num_traps << endl;
   stream << "# fun_prefix_length = " << options._fun_prefix_length << endl;
   stream << "# fun_threshold = " << options._fun_threshold << endl;
@@ -834,12 +957,12 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# neighborhood_iterator = " << options._neighborhood_iterator << endl;
   stream << "# noise_stddev = " << options._noise_stddev << endl;
   stream << "# num_iterations = " << options._num_iterations << endl;
+  stream << "# num_threads = " << options._num_threads << endl;
   stream << "# path = " << options._path << endl;
-  stream << "# patience = " << options._patience << endl;
-  stream << "# plugin_function_name = " << options._plugin_function_name << endl;
   stream << "# population_size = " << options._population_size << endl;
   stream << "# pv_log_num_components = " << options._pv_log_num_components << endl;
   stream << "# radius = " << options._radius << endl;
+  stream << "# rls_patience = " << options._rls_patience << endl;
   stream << "# sa_initial_acceptance_probability = " << options._sa_initial_acceptance_probability << endl;
   stream << "# sa_num_transitions = " << options._sa_num_transitions << endl;
   stream << "# sa_num_trials = " << options._sa_num_trials << endl;
@@ -847,8 +970,11 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# scaled_mutation_probability = " << options._scaled_mutation_probability << endl;
   stream << "# seed = " << options._seed << endl;
   stream << "# selection_size = " << options._selection_size << endl;
+  stream << "# target = " << options._target << endl;
   if (options._additive_gaussian_noise)
     stream << "# additive_gaussian_noise" << endl;
+  if (options._allow_stay)
+    stream << "# allow_stay" << endl;
   if (options._bm_log_norm_infinite)
     stream << "# bm_log_norm_infinite" << endl;
   if (options._bm_log_norm_l1)
@@ -857,6 +983,18 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# bm_negative_positive_selection" << endl;
   if (options._cache)
     stream << "# cache" << endl;
+  if (options._describe_function)
+    stream << "# describe_function" << endl;
+  if (options._describe_solution)
+    stream << "# describe_solution" << endl;
+  if (options._fun_get_bv_size)
+    stream << "# fun_get_bv_size" << endl;
+  if (options._fun_get_maximum)
+    stream << "# fun_get_maximum" << endl;
+  if (options._fun_has_known_maximum)
+    stream << "# fun_has_known_maximum" << endl;
+  if (options._fun_provides_incremental_evaluation)
+    stream << "# fun_provides_incremental_evaluation" << endl;
   if (options._hea_bound_moment)
     stream << "# hea_bound_moment" << endl;
   if (options._hea_log_delta)
@@ -869,18 +1007,22 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# hea_log_selection" << endl;
   if (options._hea_randomize_bit_order)
     stream << "# hea_randomize_bit_order" << endl;
+  if (options._incremental_evaluation)
+    stream << "# incremental_evaluation" << endl;
   if (options._log_improvement)
     stream << "# log_improvement" << endl;
   if (options._map_random)
     stream << "# map_random" << endl;
+  if (options._mmas_strict)
+    stream << "# mmas_strict" << endl;
   if (options._negation)
     stream << "# negation" << endl;
-  if (options._no_header)
-    stream << "# no_header" << endl;
   if (options._print_default_parameters)
     stream << "# print_default_parameters" << endl;
-  if (options._print_performances)
-    stream << "# print_performances" << endl;
+  if (options._print_header)
+    stream << "# print_header" << endl;
+  if (options._print_performance)
+    stream << "# print_performance" << endl;
   if (options._print_solution)
     stream << "# print_solution" << endl;
   if (options._pv_log_entropy)
@@ -889,8 +1031,12 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# pv_log_pv" << endl;
   if (options._restart)
     stream << "# restart" << endl;
+  if (options._rls_strict)
+    stream << "# rls_strict" << endl;
   if (options._stop_on_maximum)
     stream << "# stop_on_maximum" << endl;
+  if (options._stop_on_target)
+    stream << "# stop_on_target" << endl;
   stream << "# last_parameter" << endl;
   stream << "# exec_name = " << options._exec_name << endl;
   stream << "# version = " << options._version << endl;

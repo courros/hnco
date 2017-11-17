@@ -19,7 +19,7 @@
 */
 
 #include "hnco/algorithms/all.hh"
-#include "hnco/algorithms/ls/neighborhood.hh"
+#include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/exception.hh"
 
 #include "make-algorithm.hh"
@@ -29,7 +29,6 @@ using namespace hnco::exception;
 using namespace hnco::neighborhood;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 Neighborhood *
@@ -40,8 +39,13 @@ make_neighborhood(Options& options)
   case 0:
     return new SingleBitFlip(options.get_bv_size());
 
-  case 1:
-    return new Binomial(options.get_bv_size(), options.get_scaled_mutation_probability() / options.get_bv_size());
+  case 1: {
+    auto neighborhood = new BernoulliProcess
+      (options.get_bv_size(),
+       options.get_scaled_mutation_probability() / options.get_bv_size());
+    neighborhood->_allow_stay = options.with_allow_stay();
+    return neighborhood;
+  }
 
   case 2:
     return new HammingBall(options.get_bv_size(), options.get_radius());
@@ -50,7 +54,7 @@ make_neighborhood(Options& options)
     return new HammingSphere(options.get_bv_size(), options.get_radius());
 
   default:
-    ostringstream stream;
+    std::ostringstream stream;
     stream << options.get_neighborhood();
     throw Error("make_neighborhood: Unknown neighborhood type: " + stream.str());
   }
@@ -69,7 +73,7 @@ make_neighborhood_iterator(Options& options)
     return new HammingBallIterator(options.get_bv_size(), options.get_radius());
 
   default:
-    ostringstream stream;
+    std::ostringstream stream;
     stream << options.get_neighborhood_iterator();
     throw Error("make_neighborhood_iterator: Unknown neighborhood iterator type: " + stream.str());
   }
@@ -100,28 +104,17 @@ make_concrete_algorithm(Options& options)
     auto neighborhood = make_neighborhood(options);
     assert(neighborhood);
 
-    auto algo = new NonStrictRandomLocalSearch
+    auto algo = new RandomLocalSearch
       (options.get_bv_size(),
        neighborhood);
     assert(algo);
 
-    algo->_num_iterations       = options.get_num_iterations();
-    algo->_patience             = options.get_patience();
+    algo->_num_iterations               = options.get_num_iterations();
+    algo->_patience                     = options.get_rls_patience();
+    algo->_incremental_evaluation       = options.with_incremental_evaluation();
 
-    return algo;
-  }
-
-  case 101: {
-    auto neighborhood = make_neighborhood(options);
-    assert(neighborhood);
-
-    auto algo = new StrictRandomLocalSearch
-      (options.get_bv_size(),
-       neighborhood);
-    assert(algo);
-
-    algo->_num_iterations       = options.get_num_iterations();
-    algo->_patience             = options.get_patience();
+    if (options.with_rls_strict())
+      algo->_compare = std::greater<double>();
 
     return algo;
   }
@@ -160,9 +153,10 @@ make_concrete_algorithm(Options& options)
     auto algo = new OnePlusOneEa(options.get_bv_size());
     assert(algo);
 
-    algo->set_mutation_probability(options.get_scaled_mutation_probability() / options.get_bv_size());
-
-    algo->_num_iterations = options.get_num_iterations();
+    algo->_num_iterations               = options.get_num_iterations();
+    algo->_mutation_probability         = options.get_scaled_mutation_probability() / options.get_bv_size();
+    algo->_incremental_evaluation       = options.with_incremental_evaluation();
+    algo->_allow_stay                   = options.with_allow_stay();
 
     return algo;
   }
@@ -174,9 +168,8 @@ make_concrete_algorithm(Options& options)
        options.get_ea_lambda());
     assert(algo);
 
-    algo->set_mutation_probability(options.get_scaled_mutation_probability() / options.get_bv_size());
-
-    algo->_num_iterations = options.get_num_iterations();
+    algo->_num_iterations               = options.get_num_iterations();
+    algo->_mutation_probability         = options.get_scaled_mutation_probability() / options.get_bv_size();
 
     return algo;
   }
@@ -188,9 +181,8 @@ make_concrete_algorithm(Options& options)
        options.get_ea_lambda());
     assert(algo);
 
-    algo->set_mutation_probability(options.get_scaled_mutation_probability() / options.get_bv_size());
-
-    algo->_num_iterations = options.get_num_iterations();
+    algo->_num_iterations               = options.get_num_iterations();
+    algo->_mutation_probability         = options.get_scaled_mutation_probability() / options.get_bv_size();
 
     return algo;
   }
@@ -201,11 +193,10 @@ make_concrete_algorithm(Options& options)
        options.get_ea_mu());
     assert(algo);
 
-    algo->set_mutation_probability(options.get_scaled_mutation_probability() / options.get_bv_size());
-    algo->set_crossover_probability(options.get_ga_crossover_probability());
-    algo->set_tournament_size(options.get_ga_tournament_size());
-
-    algo->_num_iterations = options.get_num_iterations();
+    algo->_num_iterations               = options.get_num_iterations();
+    algo->_mutation_probability         = options.get_scaled_mutation_probability() / options.get_bv_size();
+    algo->_crossover_probability        = options.get_ga_crossover_probability();
+    algo->_tournament_size              = options.get_ga_tournament_size();
 
     return algo;
   }
@@ -291,30 +282,15 @@ make_concrete_algorithm(Options& options)
   }
 
   case 800: {
-    auto algo = new NonStrictMmas(options.get_bv_size());
+    auto algo = new Mmas(options.get_bv_size());
     assert(algo);
 
     algo->_num_iterations       = options.get_num_iterations();
     algo->_rate                 = options.get_learning_rate();
     algo->_log_num_components   = options.get_pv_log_num_components();
 
-    PvAlgorithm::log_flags_t lf = {};
-    if (options.with_pv_log_pv())
-      lf.set(PvAlgorithm::LOG_PV);
-    if (options.with_pv_log_entropy())
-      lf.set(PvAlgorithm::LOG_ENTROPY);
-    algo->set_log_flags(lf);
-
-    return algo;
-  }
-
-  case 801: {
-    auto algo = new StrictMmas(options.get_bv_size());
-    assert(algo);
-
-    algo->_num_iterations       = options.get_num_iterations();
-    algo->_rate                 = options.get_learning_rate();
-    algo->_log_num_components   = options.get_pv_log_num_components();
+    if (options.with_mmas_strict())
+      algo->_compare = std::greater<double>();
 
     PvAlgorithm::log_flags_t lf = {};
     if (options.with_pv_log_pv())
@@ -431,7 +407,7 @@ make_concrete_algorithm(Options& options)
   }
 
   default:
-    ostringstream stream;
+    std::ostringstream stream;
     stream << options.get_algorithm();
     throw Error("make_algorithm: Unknown algorithm type: " + stream.str());
   }

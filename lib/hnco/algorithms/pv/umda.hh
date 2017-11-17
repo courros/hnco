@@ -26,11 +26,9 @@
 #include "pv-algorithm.hh"
 
 
-namespace hnco {
-namespace algorithm {
+namespace hnco::algorithm {
 
-
-  /// Univariate Marginal Distribution Algorithm
+  /// Univariate marginal distribution algorithm
   class Umda:
     public PvAlgorithm {
 
@@ -67,9 +65,7 @@ namespace algorithm {
 
   };
 
-
-} // end of namespace algorithm
-} // end of namespace hnco
+} // end of namespace hnco::algorithm
 
 
 #endif

@@ -25,7 +25,7 @@
 
 #include "hnco/algorithms/algorithm.hh"
 
-#include "neighborhood.hh"
+#include "hnco/neighborhoods/neighborhood.hh"
 
 
 namespace hnco {
@@ -44,8 +44,8 @@ namespace algorithm {
     /// Inverse temperature
     double _beta;
 
-    /// Current evaluation
-    double _current;
+    /// Current value
+    double _current_value;
 
     /// Number of accepted transitions
     int _transitions;

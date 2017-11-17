@@ -23,13 +23,12 @@
 #include "permutation.hh"
 
 
-using namespace std;
 using namespace hnco;
 
 
 bool hnco::perm_is_valid(const permutation_t& permutation)
 {
-  vector<bool> checked(permutation.size(), false);
+  std::vector<bool> checked(permutation.size(), false);
   for (size_t i = 0; i < permutation.size(); i++) {
     assert(permutation[i] >= 0);
     assert(permutation[i] < permutation.size());

@@ -99,6 +99,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
+CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
@@ -132,7 +133,7 @@ AM_V_at = $(am__v_at_@AM_V@)
 am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
 am__v_at_0 = @
 am__v_at_1 = 
-DEFAULT_INCLUDES = -I.@am__isrc@
+DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
@@ -208,6 +209,9 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BOOST_CPPFLAGS = @BOOST_CPPFLAGS@
+BOOST_LDFLAGS = @BOOST_LDFLAGS@
+BOOST_SERIALIZATION_LIB = @BOOST_SERIALIZATION_LIB@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
@@ -230,6 +234,7 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GREP = @GREP@
+HAVE_CXX11 = @HAVE_CXX11@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -251,6 +256,7 @@ NM = @NM@
 NMEDIT = @NMEDIT@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
+OPENMP_CXXFLAGS = @OPENMP_CXXFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
 PACKAGE = @PACKAGE@
@@ -334,8 +340,9 @@ EXTRA_DIST = \
 	ffgen.sh \
 	mapgen.sh
 
+AM_CXXFLAGS = $(OPENMP_CXXFLAGS) $(BOOST_SERIALIZATION_LIB)
 AM_CPPFLAGS = -I $(top_srcdir)/lib
-LDADD = ../lib/libhnco.la -ldl -lboost_serialization
+LDADD = ../lib/libhnco.la
 
 #
 # hnco program
@@ -723,13 +730,13 @@ uninstall-am: uninstall-binPROGRAMS
 
 
 hnco-options.hh hnco-options.cc: hnco.json
-	cd $(top_srcdir)/src && optgen.pl hnco.json
+	cd $(top_srcdir)/src && $(top_srcdir)/scripts/optgen.pl hnco.json
 
 ffgen-options.hh ffgen-options.cc: ffgen.json
-	cd $(top_srcdir)/src && optgen.pl ffgen.json
+	cd $(top_srcdir)/src && $(top_srcdir)/scripts/optgen.pl ffgen.json
 
 mapgen-options.hh mapgen-options.cc: mapgen.json
-	cd $(top_srcdir)/src && optgen.pl mapgen.json
+	cd $(top_srcdir)/src && $(top_srcdir)/scripts/optgen.pl mapgen.json
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

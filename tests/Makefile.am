@@ -17,6 +17,10 @@ check_PROGRAMS = \
 	test-complete-search-trap \
 	test-hamming-sphere \
 	test-hypercube-iterator \
+	test-incremental-one-max-bernoulli-process \
+	test-incremental-one-max-hamming-ball \
+	test-incremental-one-max-hamming-sphere \
+	test-incremental-one-max-single-bit-flip \
 	test-max-sat \
 	test-sbm-multiply \
 	test-serialize-affine-map \
@@ -27,9 +31,13 @@ check_PROGRAMS = \
 	test-serialize-max-sat \
 	test-serialize-nk-landscape \
 	test-serialize-permutation \
-	test-serialize-quadratic-function \
 	test-serialize-translation \
+	test-serialize-walsh-expansion \
+	test-serialize-walsh-expansion-1 \
+	test-serialize-walsh-expansion-2 \
 	test-steepest-ascent-hill-climbing
+
+AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
 
 AM_CPPFLAGS = -I $(top_srcdir)/lib
 
@@ -53,6 +61,10 @@ test_complete_search_ridge_SOURCES = test-complete-search-ridge.cc
 test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
+test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-bernoulli-process.cc
+test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
+test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
+test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
 test_max_sat_SOURCES = test-max-sat.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
@@ -63,20 +75,24 @@ test_serialize_map_composition_SOURCES = test-serialize-map-composition.cc
 test_serialize_max_sat_SOURCES = test-serialize-max-sat.cc
 test_serialize_nk_landscape_SOURCES = test-serialize-nk-landscape.cc
 test_serialize_permutation_SOURCES = test-serialize-permutation.cc
-test_serialize_quadratic_function_SOURCES = test-serialize-quadratic-function.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
+test_serialize_walsh_expansion_SOURCES = test-serialize-walsh-expansion.cc
+test_serialize_walsh_expansion_1_SOURCES = test-serialize-walsh-expansion-1.cc
+test_serialize_walsh_expansion_2_SOURCES = test-serialize-walsh-expansion-2.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 
 TESTS = $(check_PROGRAMS)
 
 DISTCLEANFILES = \
-	test-serialize-translation.txt \
-	test-serialize-quadratic-function.txt \
-	test-serialize-permutation.txt \
-	test-serialize-nk-landscape.txt \
-	test-serialize-max-sat.txt \
-	test-serialize-map-composition.txt \
+	test-serialize-affine-map.txt \
 	test-serialize-equal-products.txt \
-	test-serialize-linear-map.txt \
 	test-serialize-linear-function.txt \
-	test-serialize-affine-map.txt
+	test-serialize-linear-map.txt \
+	test-serialize-map-composition.txt \
+	test-serialize-max-sat.txt \
+	test-serialize-nk-landscape.txt \
+	test-serialize-permutation.txt \
+	test-serialize-translation.txt \
+	test-serialize-walsh-expansion-1.txt \
+	test-serialize-walsh-expansion-2.txt \
+	test-serialize-walsh-expansion.txt

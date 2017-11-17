@@ -49,6 +49,10 @@ class Options {
   int _ea_mu;
   bool _opt_ea_mu;
 
+  /// Name of the function in the dynamic library
+  std::string _fun_name;
+  bool _opt_fun_name;
+
   /// Number of traps
   int _fun_num_traps;
   bool _opt_fun_num_traps;
@@ -141,17 +145,13 @@ class Options {
   int _num_iterations;
   bool _opt_num_iterations;
 
+  /// Number of threads
+  int _num_threads;
+  bool _opt_num_threads;
+
   /// Path of a function file
   std::string _path;
   bool _opt_path;
-
-  /// Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)
-  int _patience;
-  bool _opt_patience;
-
-  /// Name of the function in the dynamic library
-  std::string _plugin_function_name;
-  bool _opt_plugin_function_name;
 
   /// Size of the population
   int _population_size;
@@ -164,6 +164,10 @@ class Options {
   /// Radius of Hamming ball or sphere
   int _radius;
   bool _opt_radius;
+
+  /// Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)
+  int _rls_patience;
+  bool _opt_rls_patience;
 
   /// Initial acceptance probability
   double _sa_initial_acceptance_probability;
@@ -181,7 +185,7 @@ class Options {
   double _sa_rate;
   bool _opt_sa_rate;
 
-  /// Scaled mutation probability m = n * p (p = m / n)
+  /// Scaled mutation probability or expected number of flipped bits (bv_size times probability)
   double _scaled_mutation_probability;
   bool _opt_scaled_mutation_probability;
 
@@ -193,8 +197,15 @@ class Options {
   int _selection_size;
   bool _opt_selection_size;
 
+  /// Target
+  double _target;
+  bool _opt_target;
+
   /// Additive Gaussian noise
   bool _additive_gaussian_noise;
+
+  /// In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)
+  bool _allow_stay;
 
   /// Log infinite norm of the parameters
   bool _bm_log_norm_infinite;
@@ -207,6 +218,24 @@ class Options {
 
   /// Cache function evaluations
   bool _cache;
+
+  /// Describe the function and exit
+  bool _describe_function;
+
+  /// At the end, describe the solution
+  bool _describe_solution;
+
+  /// Print the size of bit vectors
+  bool _fun_get_bv_size;
+
+  /// Print the maximum and exit with status 0 if the function has a known maximum, 1 otherwise
+  bool _fun_get_maximum;
+
+  /// Exit with status 0 if the function has a known maximum, 1 otherwise
+  bool _fun_has_known_maximum;
+
+  /// Exit with status 0 if the function provides incremental evaluation, 1 otherwise
+  bool _fun_provides_incremental_evaluation;
 
   /// Bound moment after update
   bool _hea_bound_moment;
@@ -226,23 +255,29 @@ class Options {
   /// Randomize bit order
   bool _hea_randomize_bit_order;
 
+  /// Incremental evaluation
+  bool _incremental_evaluation;
+
   /// Log improvement
   bool _log_improvement;
 
   /// Sample a random map
   bool _map_random;
 
+  /// Strict (>) max-min ant system
+  bool _mmas_strict;
+
   /// Negation (hence minimization) of the function
   bool _negation;
-
-  /// Do not print the header
-  bool _no_header;
 
   /// Print the default parameters and exit
   bool _print_default_parameters;
 
-  /// At the end, print the maximum and the number of function evaluations needed to reach it
-  bool _print_performances;
+  /// At the beginning, print the header
+  bool _print_header;
+
+  /// At the end, print performance (maximum and number of evaluations needed to reach it)
+  bool _print_performance;
 
   /// At the end, print the solution
   bool _print_solution;
@@ -256,8 +291,14 @@ class Options {
   /// Restart any algorithm an indefinite number of times
   bool _restart;
 
+  /// Strict (>) random local search
+  bool _rls_strict;
+
   /// Stop on maximum
   bool _stop_on_maximum;
+
+  /// Stop on target
+  bool _stop_on_target;
 
   /// Print help message
   void print_help(std::ostream& stream) const;
@@ -377,6 +418,18 @@ public:
 
   /// Get set-flag for ea_mu
   bool set_ea_mu() const { return _opt_ea_mu; }
+
+  /// Get fun_name
+  std::string get_fun_name() const { return _fun_name; }
+
+  /// Set fun_name
+  void set_fun_name(std::string x) {
+    _fun_name = x;
+    _opt_fun_name = true;
+  }
+
+  /// Get set-flag for fun_name
+  bool set_fun_name() const { return _opt_fun_name; }
 
   /// Get fun_num_traps
   int get_fun_num_traps() const { return _fun_num_traps; }
@@ -654,6 +707,18 @@ public:
   /// Get set-flag for num_iterations
   bool set_num_iterations() const { return _opt_num_iterations; }
 
+  /// Get num_threads
+  int get_num_threads() const { return _num_threads; }
+
+  /// Set num_threads
+  void set_num_threads(int x) {
+    _num_threads = x;
+    _opt_num_threads = true;
+  }
+
+  /// Get set-flag for num_threads
+  bool set_num_threads() const { return _opt_num_threads; }
+
   /// Get path
   std::string get_path() const { return _path; }
 
@@ -665,30 +730,6 @@ public:
 
   /// Get set-flag for path
   bool set_path() const { return _opt_path; }
-
-  /// Get patience
-  int get_patience() const { return _patience; }
-
-  /// Set patience
-  void set_patience(int x) {
-    _patience = x;
-    _opt_patience = true;
-  }
-
-  /// Get set-flag for patience
-  bool set_patience() const { return _opt_patience; }
-
-  /// Get plugin_function_name
-  std::string get_plugin_function_name() const { return _plugin_function_name; }
-
-  /// Set plugin_function_name
-  void set_plugin_function_name(std::string x) {
-    _plugin_function_name = x;
-    _opt_plugin_function_name = true;
-  }
-
-  /// Get set-flag for plugin_function_name
-  bool set_plugin_function_name() const { return _opt_plugin_function_name; }
 
   /// Get population_size
   int get_population_size() const { return _population_size; }
@@ -725,6 +766,18 @@ public:
 
   /// Get set-flag for radius
   bool set_radius() const { return _opt_radius; }
+
+  /// Get rls_patience
+  int get_rls_patience() const { return _rls_patience; }
+
+  /// Set rls_patience
+  void set_rls_patience(int x) {
+    _rls_patience = x;
+    _opt_rls_patience = true;
+  }
+
+  /// Get set-flag for rls_patience
+  bool set_rls_patience() const { return _opt_rls_patience; }
 
   /// Get sa_initial_acceptance_probability
   double get_sa_initial_acceptance_probability() const { return _sa_initial_acceptance_probability; }
@@ -810,11 +863,29 @@ public:
   /// Get set-flag for selection_size
   bool set_selection_size() const { return _opt_selection_size; }
 
+  /// Get target
+  double get_target() const { return _target; }
+
+  /// Set target
+  void set_target(double x) {
+    _target = x;
+    _opt_target = true;
+  }
+
+  /// Get set-flag for target
+  bool set_target() const { return _opt_target; }
+
   /// Get additive_gaussian_noise
   bool with_additive_gaussian_noise() const { return _additive_gaussian_noise; }
 
   /// Set additive_gaussian_noise
   void set_additive_gaussian_noise() { _additive_gaussian_noise = true; }
+ 
+  /// Get allow_stay
+  bool with_allow_stay() const { return _allow_stay; }
+
+  /// Set allow_stay
+  void set_allow_stay() { _allow_stay = true; }
  
   /// Get bm_log_norm_infinite
   bool with_bm_log_norm_infinite() const { return _bm_log_norm_infinite; }
@@ -839,6 +910,42 @@ public:
 
   /// Set cache
   void set_cache() { _cache = true; }
+ 
+  /// Get describe_function
+  bool with_describe_function() const { return _describe_function; }
+
+  /// Set describe_function
+  void set_describe_function() { _describe_function = true; }
+ 
+  /// Get describe_solution
+  bool with_describe_solution() const { return _describe_solution; }
+
+  /// Set describe_solution
+  void set_describe_solution() { _describe_solution = true; }
+ 
+  /// Get fun_get_bv_size
+  bool with_fun_get_bv_size() const { return _fun_get_bv_size; }
+
+  /// Set fun_get_bv_size
+  void set_fun_get_bv_size() { _fun_get_bv_size = true; }
+ 
+  /// Get fun_get_maximum
+  bool with_fun_get_maximum() const { return _fun_get_maximum; }
+
+  /// Set fun_get_maximum
+  void set_fun_get_maximum() { _fun_get_maximum = true; }
+ 
+  /// Get fun_has_known_maximum
+  bool with_fun_has_known_maximum() const { return _fun_has_known_maximum; }
+
+  /// Set fun_has_known_maximum
+  void set_fun_has_known_maximum() { _fun_has_known_maximum = true; }
+ 
+  /// Get fun_provides_incremental_evaluation
+  bool with_fun_provides_incremental_evaluation() const { return _fun_provides_incremental_evaluation; }
+
+  /// Set fun_provides_incremental_evaluation
+  void set_fun_provides_incremental_evaluation() { _fun_provides_incremental_evaluation = true; }
  
   /// Get hea_bound_moment
   bool with_hea_bound_moment() const { return _hea_bound_moment; }
@@ -876,6 +983,12 @@ public:
   /// Set hea_randomize_bit_order
   void set_hea_randomize_bit_order() { _hea_randomize_bit_order = true; }
  
+  /// Get incremental_evaluation
+  bool with_incremental_evaluation() const { return _incremental_evaluation; }
+
+  /// Set incremental_evaluation
+  void set_incremental_evaluation() { _incremental_evaluation = true; }
+ 
   /// Get log_improvement
   bool with_log_improvement() const { return _log_improvement; }
 
@@ -888,17 +1001,17 @@ public:
   /// Set map_random
   void set_map_random() { _map_random = true; }
  
+  /// Get mmas_strict
+  bool with_mmas_strict() const { return _mmas_strict; }
+
+  /// Set mmas_strict
+  void set_mmas_strict() { _mmas_strict = true; }
+ 
   /// Get negation
   bool with_negation() const { return _negation; }
 
   /// Set negation
   void set_negation() { _negation = true; }
- 
-  /// Get no_header
-  bool with_no_header() const { return _no_header; }
-
-  /// Set no_header
-  void set_no_header() { _no_header = true; }
  
   /// Get print_default_parameters
   bool with_print_default_parameters() const { return _print_default_parameters; }
@@ -906,11 +1019,17 @@ public:
   /// Set print_default_parameters
   void set_print_default_parameters() { _print_default_parameters = true; }
  
-  /// Get print_performances
-  bool with_print_performances() const { return _print_performances; }
+  /// Get print_header
+  bool with_print_header() const { return _print_header; }
 
-  /// Set print_performances
-  void set_print_performances() { _print_performances = true; }
+  /// Set print_header
+  void set_print_header() { _print_header = true; }
+ 
+  /// Get print_performance
+  bool with_print_performance() const { return _print_performance; }
+
+  /// Set print_performance
+  void set_print_performance() { _print_performance = true; }
  
   /// Get print_solution
   bool with_print_solution() const { return _print_solution; }
@@ -936,11 +1055,23 @@ public:
   /// Set restart
   void set_restart() { _restart = true; }
  
+  /// Get rls_strict
+  bool with_rls_strict() const { return _rls_strict; }
+
+  /// Set rls_strict
+  void set_rls_strict() { _rls_strict = true; }
+ 
   /// Get stop_on_maximum
   bool with_stop_on_maximum() const { return _stop_on_maximum; }
 
   /// Set stop_on_maximum
   void set_stop_on_maximum() { _stop_on_maximum = true; }
+ 
+  /// Get stop_on_target
+  bool with_stop_on_target() const { return _stop_on_target; }
+
+  /// Set stop_on_target
+  void set_stop_on_target() { _stop_on_target = true; }
  
   /// Print a header containing the parameter values
   friend std::ostream& operator<<(std::ostream&, const Options&);

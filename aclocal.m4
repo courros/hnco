@@ -20,6 +20,1013 @@ You have another version of autoconf.  It may work, but is not guaranteed to.
 If you have problems, you may need to regenerate the build system entirely.
 To do so, use the procedure documented by the package, typically 'autoreconf'.])])
 
+# ===========================================================================
+#       http://www.gnu.org/software/autoconf-archive/ax_boost_base.html
+# ===========================================================================
+#
+# SYNOPSIS
+#
+#   AX_BOOST_BASE([MINIMUM-VERSION], [ACTION-IF-FOUND], [ACTION-IF-NOT-FOUND])
+#
+# DESCRIPTION
+#
+#   Test for the Boost C++ libraries of a particular version (or newer)
+#
+#   If no path to the installed boost library is given the macro searchs
+#   under /usr, /usr/local, /opt and /opt/local and evaluates the
+#   $BOOST_ROOT environment variable. Further documentation is available at
+#   <http://randspringer.de/boost/index.html>.
+#
+#   This macro calls:
+#
+#     AC_SUBST(BOOST_CPPFLAGS) / AC_SUBST(BOOST_LDFLAGS)
+#
+#   And sets:
+#
+#     HAVE_BOOST
+#
+# LICENSE
+#
+#   Copyright (c) 2008 Thomas Porschberg <thomas@randspringer.de>
+#   Copyright (c) 2009 Peter Adolphs
+#
+#   Copying and distribution of this file, with or without modification, are
+#   permitted in any medium without royalty provided the copyright notice
+#   and this notice are preserved. This file is offered as-is, without any
+#   warranty.
+
+#serial 27
+
+AC_DEFUN([AX_BOOST_BASE],
+[
+AC_ARG_WITH([boost],
+  [AS_HELP_STRING([--with-boost@<:@=ARG@:>@],
+    [use Boost library from a standard location (ARG=yes),
+     from the specified location (ARG=<path>),
+     or disable it (ARG=no)
+     @<:@ARG=yes@:>@ ])],
+    [
+    if test "$withval" = "no"; then
+        want_boost="no"
+    elif test "$withval" = "yes"; then
+        want_boost="yes"
+        ac_boost_path=""
+    else
+        want_boost="yes"
+        ac_boost_path="$withval"
+    fi
+    ],
+    [want_boost="yes"])
+
+
+AC_ARG_WITH([boost-libdir],
+        AS_HELP_STRING([--with-boost-libdir=LIB_DIR],
+        [Force given directory for boost libraries. Note that this will override library path detection, so use this parameter only if default library detection fails and you know exactly where your boost libraries are located.]),
+        [
+        if test -d "$withval"
+        then
+                ac_boost_lib_path="$withval"
+        else
+                AC_MSG_ERROR(--with-boost-libdir expected directory name)
+        fi
+        ],
+        [ac_boost_lib_path=""]
+)
+
+if test "x$want_boost" = "xyes"; then
+    boost_lib_version_req=ifelse([$1], ,1.20.0,$1)
+    boost_lib_version_req_shorten=`expr $boost_lib_version_req : '\([[0-9]]*\.[[0-9]]*\)'`
+    boost_lib_version_req_major=`expr $boost_lib_version_req : '\([[0-9]]*\)'`
+    boost_lib_version_req_minor=`expr $boost_lib_version_req : '[[0-9]]*\.\([[0-9]]*\)'`
+    boost_lib_version_req_sub_minor=`expr $boost_lib_version_req : '[[0-9]]*\.[[0-9]]*\.\([[0-9]]*\)'`
+    if test "x$boost_lib_version_req_sub_minor" = "x" ; then
+        boost_lib_version_req_sub_minor="0"
+        fi
+    WANT_BOOST_VERSION=`expr $boost_lib_version_req_major \* 100000 \+  $boost_lib_version_req_minor \* 100 \+ $boost_lib_version_req_sub_minor`
+    AC_MSG_CHECKING(for boostlib >= $boost_lib_version_req)
+    succeeded=no
+
+    dnl On 64-bit systems check for system libraries in both lib64 and lib.
+    dnl The former is specified by FHS, but e.g. Debian does not adhere to
+    dnl this (as it rises problems for generic multi-arch support).
+    dnl The last entry in the list is chosen by default when no libraries
+    dnl are found, e.g. when only header-only libraries are installed!
+    libsubdirs="lib"
+    ax_arch=`uname -m`
+    case $ax_arch in
+      x86_64)
+        libsubdirs="lib64 libx32 lib lib64"
+        ;;
+      ppc64|s390x|sparc64|aarch64|ppc64le)
+        libsubdirs="lib64 lib lib64"
+        ;;
+    esac
+
+    dnl allow for real multi-arch paths e.g. /usr/lib/x86_64-linux-gnu. Give
+    dnl them priority over the other paths since, if libs are found there, they
+    dnl are almost assuredly the ones desired.
+    AC_REQUIRE([AC_CANONICAL_HOST])
+    libsubdirs="lib/${host_cpu}-${host_os} $libsubdirs"
+
+    case ${host_cpu} in
+      i?86)
+        libsubdirs="lib/i386-${host_os} $libsubdirs"
+        ;;
+    esac
+
+    dnl first we check the system location for boost libraries
+    dnl this location ist chosen if boost libraries are installed with the --layout=system option
+    dnl or if you install boost with RPM
+    if test "$ac_boost_path" != ""; then
+        BOOST_CPPFLAGS="-I$ac_boost_path/include"
+        for ac_boost_path_tmp in $libsubdirs; do
+                if test -d "$ac_boost_path"/"$ac_boost_path_tmp" ; then
+                        BOOST_LDFLAGS="-L$ac_boost_path/$ac_boost_path_tmp"
+                        break
+                fi
+        done
+    elif test "$cross_compiling" != yes; then
+        for ac_boost_path_tmp in /usr /usr/local /opt /opt/local ; do
+            if test -d "$ac_boost_path_tmp/include/boost" && test -r "$ac_boost_path_tmp/include/boost"; then
+                for libsubdir in $libsubdirs ; do
+                    if ls "$ac_boost_path_tmp/$libsubdir/libboost_"* >/dev/null 2>&1 ; then break; fi
+                done
+                BOOST_LDFLAGS="-L$ac_boost_path_tmp/$libsubdir"
+                BOOST_CPPFLAGS="-I$ac_boost_path_tmp/include"
+                break;
+            fi
+        done
+    fi
+
+    dnl overwrite ld flags if we have required special directory with
+    dnl --with-boost-libdir parameter
+    if test "$ac_boost_lib_path" != ""; then
+       BOOST_LDFLAGS="-L$ac_boost_lib_path"
+    fi
+
+    CPPFLAGS_SAVED="$CPPFLAGS"
+    CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
+    export CPPFLAGS
+
+    LDFLAGS_SAVED="$LDFLAGS"
+    LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
+    export LDFLAGS
+
+    AC_REQUIRE([AC_PROG_CXX])
+    AC_LANG_PUSH(C++)
+        AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+    @%:@include <boost/version.hpp>
+    ]], [[
+    #if BOOST_VERSION >= $WANT_BOOST_VERSION
+    // Everything is okay
+    #else
+    #  error Boost version is too old
+    #endif
+    ]])],[
+        AC_MSG_RESULT(yes)
+    succeeded=yes
+    found_system=yes
+        ],[
+        ])
+    AC_LANG_POP([C++])
+
+
+
+    dnl if we found no boost with system layout we search for boost libraries
+    dnl built and installed without the --layout=system option or for a staged(not installed) version
+    if test "x$succeeded" != "xyes"; then
+        CPPFLAGS="$CPPFLAGS_SAVED"
+        LDFLAGS="$LDFLAGS_SAVED"
+        BOOST_CPPFLAGS=
+        BOOST_LDFLAGS=
+        _version=0
+        if test "$ac_boost_path" != ""; then
+            if test -d "$ac_boost_path" && test -r "$ac_boost_path"; then
+                for i in `ls -d $ac_boost_path/include/boost-* 2>/dev/null`; do
+                    _version_tmp=`echo $i | sed "s#$ac_boost_path##" | sed 's/\/include\/boost-//' | sed 's/_/./'`
+                    V_CHECK=`expr $_version_tmp \> $_version`
+                    if test "$V_CHECK" = "1" ; then
+                        _version=$_version_tmp
+                    fi
+                    VERSION_UNDERSCORE=`echo $_version | sed 's/\./_/'`
+                    BOOST_CPPFLAGS="-I$ac_boost_path/include/boost-$VERSION_UNDERSCORE"
+                done
+                dnl if nothing found search for layout used in Windows distributions
+                if test -z "$BOOST_CPPFLAGS"; then
+                    if test -d "$ac_boost_path/boost" && test -r "$ac_boost_path/boost"; then
+                        BOOST_CPPFLAGS="-I$ac_boost_path"
+                    fi
+                fi
+            fi
+        else
+            if test "$cross_compiling" != yes; then
+                for ac_boost_path in /usr /usr/local /opt /opt/local ; do
+                    if test -d "$ac_boost_path" && test -r "$ac_boost_path"; then
+                        for i in `ls -d $ac_boost_path/include/boost-* 2>/dev/null`; do
+                            _version_tmp=`echo $i | sed "s#$ac_boost_path##" | sed 's/\/include\/boost-//' | sed 's/_/./'`
+                            V_CHECK=`expr $_version_tmp \> $_version`
+                            if test "$V_CHECK" = "1" ; then
+                                _version=$_version_tmp
+                                best_path=$ac_boost_path
+                            fi
+                        done
+                    fi
+                done
+
+                VERSION_UNDERSCORE=`echo $_version | sed 's/\./_/'`
+                BOOST_CPPFLAGS="-I$best_path/include/boost-$VERSION_UNDERSCORE"
+                if test "$ac_boost_lib_path" = ""; then
+                    for libsubdir in $libsubdirs ; do
+                        if ls "$best_path/$libsubdir/libboost_"* >/dev/null 2>&1 ; then break; fi
+                    done
+                    BOOST_LDFLAGS="-L$best_path/$libsubdir"
+                fi
+            fi
+
+            if test "x$BOOST_ROOT" != "x"; then
+                for libsubdir in $libsubdirs ; do
+                    if ls "$BOOST_ROOT/stage/$libsubdir/libboost_"* >/dev/null 2>&1 ; then break; fi
+                done
+                if test -d "$BOOST_ROOT" && test -r "$BOOST_ROOT" && test -d "$BOOST_ROOT/stage/$libsubdir" && test -r "$BOOST_ROOT/stage/$libsubdir"; then
+                    version_dir=`expr //$BOOST_ROOT : '.*/\(.*\)'`
+                    stage_version=`echo $version_dir | sed 's/boost_//' | sed 's/_/./g'`
+                        stage_version_shorten=`expr $stage_version : '\([[0-9]]*\.[[0-9]]*\)'`
+                    V_CHECK=`expr $stage_version_shorten \>\= $_version`
+                    if test "$V_CHECK" = "1" -a "$ac_boost_lib_path" = "" ; then
+                        AC_MSG_NOTICE(We will use a staged boost library from $BOOST_ROOT)
+                        BOOST_CPPFLAGS="-I$BOOST_ROOT"
+                        BOOST_LDFLAGS="-L$BOOST_ROOT/stage/$libsubdir"
+                    fi
+                fi
+            fi
+        fi
+
+        CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
+        export CPPFLAGS
+        LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
+        export LDFLAGS
+
+        AC_LANG_PUSH(C++)
+            AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+        @%:@include <boost/version.hpp>
+        ]], [[
+        #if BOOST_VERSION >= $WANT_BOOST_VERSION
+        // Everything is okay
+        #else
+        #  error Boost version is too old
+        #endif
+        ]])],[
+            AC_MSG_RESULT(yes)
+        succeeded=yes
+        found_system=yes
+            ],[
+            ])
+        AC_LANG_POP([C++])
+    fi
+
+    if test "$succeeded" != "yes" ; then
+        if test "$_version" = "0" ; then
+            AC_MSG_NOTICE([[We could not detect the boost libraries (version $boost_lib_version_req_shorten or higher). If you have a staged boost library (still not installed) please specify \$BOOST_ROOT in your environment and do not give a PATH to --with-boost option.  If you are sure you have boost installed, then check your version number looking in <boost/version.hpp>. See http://randspringer.de/boost for more documentation.]])
+        else
+            AC_MSG_NOTICE([Your boost libraries seems to old (version $_version).])
+        fi
+        # execute ACTION-IF-NOT-FOUND (if present):
+        ifelse([$3], , :, [$3])
+    else
+        AC_SUBST(BOOST_CPPFLAGS)
+        AC_SUBST(BOOST_LDFLAGS)
+        AC_DEFINE(HAVE_BOOST,,[define if the Boost library is available])
+        # execute ACTION-IF-FOUND (if present):
+        ifelse([$2], , :, [$2])
+    fi
+
+    CPPFLAGS="$CPPFLAGS_SAVED"
+    LDFLAGS="$LDFLAGS_SAVED"
+fi
+
+])
+
+# ===========================================================================
+#  http://www.gnu.org/software/autoconf-archive/ax_boost_serialization.html
+# ===========================================================================
+#
+# SYNOPSIS
+#
+#   AX_BOOST_SERIALIZATION
+#
+# DESCRIPTION
+#
+#   Test for Serialization library from the Boost C++ libraries. The macro
+#   requires a preceding call to AX_BOOST_BASE. Further documentation is
+#   available at <http://randspringer.de/boost/index.html>.
+#
+#   This macro calls:
+#
+#     AC_SUBST(BOOST_SERIALIZATION_LIB)
+#
+#   And sets:
+#
+#     HAVE_BOOST_SERIALIZATION
+#
+# LICENSE
+#
+#   Copyright (c) 2008 Thomas Porschberg <thomas@randspringer.de>
+#
+#   Copying and distribution of this file, with or without modification, are
+#   permitted in any medium without royalty provided the copyright notice
+#   and this notice are preserved. This file is offered as-is, without any
+#   warranty.
+
+#serial 21
+
+AC_DEFUN([AX_BOOST_SERIALIZATION],
+[
+	AC_ARG_WITH([boost-serialization],
+	AS_HELP_STRING([--with-boost-serialization@<:@=special-lib@:>@],
+                   [use the Serialization library from boost - it is possible to specify a certain library for the linker
+                        e.g. --with-boost-serialization=boost_serialization-gcc-mt-d-1_33_1 ]),
+        [
+        if test "$withval" = "no"; then
+			want_boost="no"
+        elif test "$withval" = "yes"; then
+            want_boost="yes"
+            ax_boost_user_serialization_lib=""
+        else
+		    want_boost="yes"
+		ax_boost_user_serialization_lib="$withval"
+		fi
+        ],
+        [want_boost="yes"]
+	)
+
+	if test "x$want_boost" = "xyes"; then
+        AC_REQUIRE([AC_PROG_CC])
+		CPPFLAGS_SAVED="$CPPFLAGS"
+		CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
+	    AC_MSG_WARN(BOOST_CPPFLAGS $BOOST_CPPFLAGS)
+		export CPPFLAGS
+
+		LDFLAGS_SAVED="$LDFLAGS"
+		LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
+		export LDFLAGS
+
+        AC_CACHE_CHECK(whether the Boost::Serialization library is available,
+					   ax_cv_boost_serialization,
+        [AC_LANG_PUSH([C++])
+			 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[@%:@include <fstream>
+												 @%:@include <boost/archive/text_oarchive.hpp>
+                                                 @%:@include <boost/archive/text_iarchive.hpp>
+												]],
+                                   [[std::ofstream ofs("filename");
+									boost::archive::text_oarchive oa(ofs);
+									 return 0;
+                                   ]])],
+                   ax_cv_boost_serialization=yes, ax_cv_boost_serialization=no)
+         AC_LANG_POP([C++])
+		])
+		if test "x$ax_cv_boost_serialization" = "xyes"; then
+			AC_DEFINE(HAVE_BOOST_SERIALIZATION,,[define if the Boost::Serialization library is available])
+            BOOSTLIBDIR=`echo $BOOST_LDFLAGS | sed -e 's/@<:@^\/@:>@*//'`
+            if test "x$ax_boost_user_serialization_lib" = "x"; then
+                for libextension in `ls $BOOSTLIBDIR/libboost_serialization*.so* $BOOSTLIBDIR/libboost_serialization*.dylib* $BOOSTLIBDIR/libboost_serialization*.a* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(boost_serialization.*\)\.so.*$;\1;' -e 's;^lib\(boost_serialization.*\)\.dylib.*$;\1;' -e 's;^lib\(boost_serialization.*\)\.a*$;\1;'` ; do
+                     ax_lib=${libextension}
+				    AC_CHECK_LIB($ax_lib, exit,
+                                 [BOOST_SERIALIZATION_LIB="-l$ax_lib"; AC_SUBST(BOOST_SERIALIZATION_LIB) link_serialization="yes"; break],
+                                 [link_serialization="no"])
+				done
+                if test "x$link_serialization" != "xyes"; then
+                for libextension in `ls $BOOSTLIBDIR/boost_serialization*.dll* $BOOSTLIBDIR/boost_serialization*.a* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^\(boost_serialization.*\)\.dll.*$;\1;' -e 's;^\(boost_serialization.*\)\.a.*$;\1;'` ; do
+                     ax_lib=${libextension}
+				    AC_CHECK_LIB($ax_lib, exit,
+                                 [BOOST_SERIALIZATION_LIB="-l$ax_lib"; AC_SUBST(BOOST_SERIALIZATION_LIB) link_serialization="yes"; break],
+                                 [link_serialization="no"])
+				done
+                fi
+
+            else
+               for ax_lib in $ax_boost_user_serialization_lib boost_serialization-$ax_boost_user_serialization_lib; do
+				      AC_CHECK_LIB($ax_lib, main,
+                                   [BOOST_SERIALIZATION_LIB="-l$ax_lib"; AC_SUBST(BOOST_SERIALIZATION_LIB) link_serialization="yes"; break],
+                                   [link_serialization="no"])
+                  done
+
+            fi
+            if test "x$ax_lib" = "x"; then
+                AC_MSG_ERROR(Could not find a version of the library!)
+            fi
+			if test "x$link_serialization" != "xyes"; then
+				AC_MSG_ERROR(Could not link against $ax_lib !)
+			fi
+		fi
+
+		CPPFLAGS="$CPPFLAGS_SAVED"
+	LDFLAGS="$LDFLAGS_SAVED"
+	fi
+])
+
+# ===========================================================================
+#   http://www.gnu.org/software/autoconf-archive/ax_cxx_compile_stdcxx.html
+# ===========================================================================
+#
+# SYNOPSIS
+#
+#   AX_CXX_COMPILE_STDCXX(VERSION, [ext|noext], [mandatory|optional])
+#
+# DESCRIPTION
+#
+#   Check for baseline language coverage in the compiler for the specified
+#   version of the C++ standard.  If necessary, add switches to CXX and
+#   CXXCPP to enable support.  VERSION may be '11' (for the C++11 standard)
+#   or '14' (for the C++14 standard).
+#
+#   The second argument, if specified, indicates whether you insist on an
+#   extended mode (e.g. -std=gnu++11) or a strict conformance mode (e.g.
+#   -std=c++11).  If neither is specified, you get whatever works, with
+#   preference for an extended mode.
+#
+#   The third argument, if specified 'mandatory' or if left unspecified,
+#   indicates that baseline support for the specified C++ standard is
+#   required and that the macro should error out if no mode with that
+#   support is found.  If specified 'optional', then configuration proceeds
+#   regardless, after defining HAVE_CXX${VERSION} if and only if a
+#   supporting mode is found.
+#
+# LICENSE
+#
+#   Copyright (c) 2008 Benjamin Kosnik <bkoz@redhat.com>
+#   Copyright (c) 2012 Zack Weinberg <zackw@panix.com>
+#   Copyright (c) 2013 Roy Stogner <roystgnr@ices.utexas.edu>
+#   Copyright (c) 2014, 2015 Google Inc.; contributed by Alexey Sokolov <sokolov@google.com>
+#   Copyright (c) 2015 Paul Norman <penorman@mac.com>
+#   Copyright (c) 2015 Moritz Klammler <moritz@klammler.eu>
+#
+#   Copying and distribution of this file, with or without modification, are
+#   permitted in any medium without royalty provided the copyright notice
+#   and this notice are preserved.  This file is offered as-is, without any
+#   warranty.
+
+#serial 4
+
+dnl  This macro is based on the code from the AX_CXX_COMPILE_STDCXX_11 macro
+dnl  (serial version number 13).
+
+AC_DEFUN([AX_CXX_COMPILE_STDCXX], [dnl
+  m4_if([$1], [11], [],
+        [$1], [14], [],
+        [$1], [17], [m4_fatal([support for C++17 not yet implemented in AX_CXX_COMPILE_STDCXX])],
+        [m4_fatal([invalid first argument `$1' to AX_CXX_COMPILE_STDCXX])])dnl
+  m4_if([$2], [], [],
+        [$2], [ext], [],
+        [$2], [noext], [],
+        [m4_fatal([invalid second argument `$2' to AX_CXX_COMPILE_STDCXX])])dnl
+  m4_if([$3], [], [ax_cxx_compile_cxx$1_required=true],
+        [$3], [mandatory], [ax_cxx_compile_cxx$1_required=true],
+        [$3], [optional], [ax_cxx_compile_cxx$1_required=false],
+        [m4_fatal([invalid third argument `$3' to AX_CXX_COMPILE_STDCXX])])
+  AC_LANG_PUSH([C++])dnl
+  ac_success=no
+  AC_CACHE_CHECK(whether $CXX supports C++$1 features by default,
+  ax_cv_cxx_compile_cxx$1,
+  [AC_COMPILE_IFELSE([AC_LANG_SOURCE([_AX_CXX_COMPILE_STDCXX_testbody_$1])],
+    [ax_cv_cxx_compile_cxx$1=yes],
+    [ax_cv_cxx_compile_cxx$1=no])])
+  if test x$ax_cv_cxx_compile_cxx$1 = xyes; then
+    ac_success=yes
+  fi
+
+  m4_if([$2], [noext], [], [dnl
+  if test x$ac_success = xno; then
+    for switch in -std=gnu++$1 -std=gnu++0x; do
+      cachevar=AS_TR_SH([ax_cv_cxx_compile_cxx$1_$switch])
+      AC_CACHE_CHECK(whether $CXX supports C++$1 features with $switch,
+                     $cachevar,
+        [ac_save_CXX="$CXX"
+         CXX="$CXX $switch"
+         AC_COMPILE_IFELSE([AC_LANG_SOURCE([_AX_CXX_COMPILE_STDCXX_testbody_$1])],
+          [eval $cachevar=yes],
+          [eval $cachevar=no])
+         CXX="$ac_save_CXX"])
+      if eval test x\$$cachevar = xyes; then
+        CXX="$CXX $switch"
+        if test -n "$CXXCPP" ; then
+          CXXCPP="$CXXCPP $switch"
+        fi
+        ac_success=yes
+        break
+      fi
+    done
+  fi])
+
+  m4_if([$2], [ext], [], [dnl
+  if test x$ac_success = xno; then
+    dnl HP's aCC needs +std=c++11 according to:
+    dnl http://h21007.www2.hp.com/portal/download/files/unprot/aCxx/PDF_Release_Notes/769149-001.pdf
+    dnl Cray's crayCC needs "-h std=c++11"
+    for switch in -std=c++$1 -std=c++0x +std=c++$1 "-h std=c++$1"; do
+      cachevar=AS_TR_SH([ax_cv_cxx_compile_cxx$1_$switch])
+      AC_CACHE_CHECK(whether $CXX supports C++$1 features with $switch,
+                     $cachevar,
+        [ac_save_CXX="$CXX"
+         CXX="$CXX $switch"
+         AC_COMPILE_IFELSE([AC_LANG_SOURCE([_AX_CXX_COMPILE_STDCXX_testbody_$1])],
+          [eval $cachevar=yes],
+          [eval $cachevar=no])
+         CXX="$ac_save_CXX"])
+      if eval test x\$$cachevar = xyes; then
+        CXX="$CXX $switch"
+        if test -n "$CXXCPP" ; then
+          CXXCPP="$CXXCPP $switch"
+        fi
+        ac_success=yes
+        break
+      fi
+    done
+  fi])
+  AC_LANG_POP([C++])
+  if test x$ax_cxx_compile_cxx$1_required = xtrue; then
+    if test x$ac_success = xno; then
+      AC_MSG_ERROR([*** A compiler with support for C++$1 language features is required.])
+    fi
+  fi
+  if test x$ac_success = xno; then
+    HAVE_CXX$1=0
+    AC_MSG_NOTICE([No compiler with C++$1 support was found])
+  else
+    HAVE_CXX$1=1
+    AC_DEFINE(HAVE_CXX$1,1,
+              [define if the compiler supports basic C++$1 syntax])
+  fi
+  AC_SUBST(HAVE_CXX$1)
+])
+
+
+dnl  Test body for checking C++11 support
+
+m4_define([_AX_CXX_COMPILE_STDCXX_testbody_11],
+  _AX_CXX_COMPILE_STDCXX_testbody_new_in_11
+)
+
+
+dnl  Test body for checking C++14 support
+
+m4_define([_AX_CXX_COMPILE_STDCXX_testbody_14],
+  _AX_CXX_COMPILE_STDCXX_testbody_new_in_11
+  _AX_CXX_COMPILE_STDCXX_testbody_new_in_14
+)
+
+
+dnl  Tests for new features in C++11
+
+m4_define([_AX_CXX_COMPILE_STDCXX_testbody_new_in_11], [[
+
+// If the compiler admits that it is not ready for C++11, why torture it?
+// Hopefully, this will speed up the test.
+
+#ifndef __cplusplus
+
+#error "This is not a C++ compiler"
+
+#elif __cplusplus < 201103L
+
+#error "This is not a C++11 compiler"
+
+#else
+
+namespace cxx11
+{
+
+  namespace test_static_assert
+  {
+
+    template <typename T>
+    struct check
+    {
+      static_assert(sizeof(int) <= sizeof(T), "not big enough");
+    };
+
+  }
+
+  namespace test_final_override
+  {
+
+    struct Base
+    {
+      virtual void f() {}
+    };
+
+    struct Derived : public Base
+    {
+      virtual void f() override {}
+    };
+
+  }
+
+  namespace test_double_right_angle_brackets
+  {
+
+    template < typename T >
+    struct check {};
+
+    typedef check<void> single_type;
+    typedef check<check<void>> double_type;
+    typedef check<check<check<void>>> triple_type;
+    typedef check<check<check<check<void>>>> quadruple_type;
+
+  }
+
+  namespace test_decltype
+  {
+
+    int
+    f()
+    {
+      int a = 1;
+      decltype(a) b = 2;
+      return a + b;
+    }
+
+  }
+
+  namespace test_type_deduction
+  {
+
+    template < typename T1, typename T2 >
+    struct is_same
+    {
+      static const bool value = false;
+    };
+
+    template < typename T >
+    struct is_same<T, T>
+    {
+      static const bool value = true;
+    };
+
+    template < typename T1, typename T2 >
+    auto
+    add(T1 a1, T2 a2) -> decltype(a1 + a2)
+    {
+      return a1 + a2;
+    }
+
+    int
+    test(const int c, volatile int v)
+    {
+      static_assert(is_same<int, decltype(0)>::value == true, "");
+      static_assert(is_same<int, decltype(c)>::value == false, "");
+      static_assert(is_same<int, decltype(v)>::value == false, "");
+      auto ac = c;
+      auto av = v;
+      auto sumi = ac + av + 'x';
+      auto sumf = ac + av + 1.0;
+      static_assert(is_same<int, decltype(ac)>::value == true, "");
+      static_assert(is_same<int, decltype(av)>::value == true, "");
+      static_assert(is_same<int, decltype(sumi)>::value == true, "");
+      static_assert(is_same<int, decltype(sumf)>::value == false, "");
+      static_assert(is_same<int, decltype(add(c, v))>::value == true, "");
+      return (sumf > 0.0) ? sumi : add(c, v);
+    }
+
+  }
+
+  namespace test_noexcept
+  {
+
+    int f() { return 0; }
+    int g() noexcept { return 0; }
+
+    static_assert(noexcept(f()) == false, "");
+    static_assert(noexcept(g()) == true, "");
+
+  }
+
+  namespace test_constexpr
+  {
+
+    template < typename CharT >
+    unsigned long constexpr
+    strlen_c_r(const CharT *const s, const unsigned long acc) noexcept
+    {
+      return *s ? strlen_c_r(s + 1, acc + 1) : acc;
+    }
+
+    template < typename CharT >
+    unsigned long constexpr
+    strlen_c(const CharT *const s) noexcept
+    {
+      return strlen_c_r(s, 0UL);
+    }
+
+    static_assert(strlen_c("") == 0UL, "");
+    static_assert(strlen_c("1") == 1UL, "");
+    static_assert(strlen_c("example") == 7UL, "");
+    static_assert(strlen_c("another\0example") == 7UL, "");
+
+  }
+
+  namespace test_rvalue_references
+  {
+
+    template < int N >
+    struct answer
+    {
+      static constexpr int value = N;
+    };
+
+    answer<1> f(int&)       { return answer<1>(); }
+    answer<2> f(const int&) { return answer<2>(); }
+    answer<3> f(int&&)      { return answer<3>(); }
+
+    void
+    test()
+    {
+      int i = 0;
+      const int c = 0;
+      static_assert(decltype(f(i))::value == 1, "");
+      static_assert(decltype(f(c))::value == 2, "");
+      static_assert(decltype(f(0))::value == 3, "");
+    }
+
+  }
+
+  namespace test_uniform_initialization
+  {
+
+    struct test
+    {
+      static const int zero {};
+      static const int one {1};
+    };
+
+    static_assert(test::zero == 0, "");
+    static_assert(test::one == 1, "");
+
+  }
+
+  namespace test_lambdas
+  {
+
+    void
+    test1()
+    {
+      auto lambda1 = [](){};
+      auto lambda2 = lambda1;
+      lambda1();
+      lambda2();
+    }
+
+    int
+    test2()
+    {
+      auto a = [](int i, int j){ return i + j; }(1, 2);
+      auto b = []() -> int { return '0'; }();
+      auto c = [=](){ return a + b; }();
+      auto d = [&](){ return c; }();
+      auto e = [a, &b](int x) mutable {
+        const auto identity = [](int y){ return y; };
+        for (auto i = 0; i < a; ++i)
+          a += b--;
+        return x + identity(a + b);
+      }(0);
+      return a + b + c + d + e;
+    }
+
+    int
+    test3()
+    {
+      const auto nullary = [](){ return 0; };
+      const auto unary = [](int x){ return x; };
+      using nullary_t = decltype(nullary);
+      using unary_t = decltype(unary);
+      const auto higher1st = [](nullary_t f){ return f(); };
+      const auto higher2nd = [unary](nullary_t f1){
+        return [unary, f1](unary_t f2){ return f2(unary(f1())); };
+      };
+      return higher1st(nullary) + higher2nd(nullary)(unary);
+    }
+
+  }
+
+  namespace test_variadic_templates
+  {
+
+    template <int...>
+    struct sum;
+
+    template <int N0, int... N1toN>
+    struct sum<N0, N1toN...>
+    {
+      static constexpr auto value = N0 + sum<N1toN...>::value;
+    };
+
+    template <>
+    struct sum<>
+    {
+      static constexpr auto value = 0;
+    };
+
+    static_assert(sum<>::value == 0, "");
+    static_assert(sum<1>::value == 1, "");
+    static_assert(sum<23>::value == 23, "");
+    static_assert(sum<1, 2>::value == 3, "");
+    static_assert(sum<5, 5, 11>::value == 21, "");
+    static_assert(sum<2, 3, 5, 7, 11, 13>::value == 41, "");
+
+  }
+
+  // http://stackoverflow.com/questions/13728184/template-aliases-and-sfinae
+  // Clang 3.1 fails with headers of libstd++ 4.8.3 when using std::function
+  // because of this.
+  namespace test_template_alias_sfinae
+  {
+
+    struct foo {};
+
+    template<typename T>
+    using member = typename T::member_type;
+
+    template<typename T>
+    void func(...) {}
+
+    template<typename T>
+    void func(member<T>*) {}
+
+    void test();
+
+    void test() { func<foo>(0); }
+
+  }
+
+}  // namespace cxx11
+
+#endif  // __cplusplus >= 201103L
+
+]])
+
+
+dnl  Tests for new features in C++14
+
+m4_define([_AX_CXX_COMPILE_STDCXX_testbody_new_in_14], [[
+
+// If the compiler admits that it is not ready for C++14, why torture it?
+// Hopefully, this will speed up the test.
+
+#ifndef __cplusplus
+
+#error "This is not a C++ compiler"
+
+#elif __cplusplus < 201402L
+
+#error "This is not a C++14 compiler"
+
+#else
+
+namespace cxx14
+{
+
+  namespace test_polymorphic_lambdas
+  {
+
+    int
+    test()
+    {
+      const auto lambda = [](auto&&... args){
+        const auto istiny = [](auto x){
+          return (sizeof(x) == 1UL) ? 1 : 0;
+        };
+        const int aretiny[] = { istiny(args)... };
+        return aretiny[0];
+      };
+      return lambda(1, 1L, 1.0f, '1');
+    }
+
+  }
+
+  namespace test_binary_literals
+  {
+
+    constexpr auto ivii = 0b0000000000101010;
+    static_assert(ivii == 42, "wrong value");
+
+  }
+
+  namespace test_generalized_constexpr
+  {
+
+    template < typename CharT >
+    constexpr unsigned long
+    strlen_c(const CharT *const s) noexcept
+    {
+      auto length = 0UL;
+      for (auto p = s; *p; ++p)
+        ++length;
+      return length;
+    }
+
+    static_assert(strlen_c("") == 0UL, "");
+    static_assert(strlen_c("x") == 1UL, "");
+    static_assert(strlen_c("test") == 4UL, "");
+    static_assert(strlen_c("another\0test") == 7UL, "");
+
+  }
+
+  namespace test_lambda_init_capture
+  {
+
+    int
+    test()
+    {
+      auto x = 0;
+      const auto lambda1 = [a = x](int b){ return a + b; };
+      const auto lambda2 = [a = lambda1(x)](){ return a; };
+      return lambda2();
+    }
+
+  }
+
+  namespace test_digit_seperators
+  {
+
+    constexpr auto ten_million = 100'000'000;
+    static_assert(ten_million == 100000000, "");
+
+  }
+
+  namespace test_return_type_deduction
+  {
+
+    auto f(int& x) { return x; }
+    decltype(auto) g(int& x) { return x; }
+
+    template < typename T1, typename T2 >
+    struct is_same
+    {
+      static constexpr auto value = false;
+    };
+
+    template < typename T >
+    struct is_same<T, T>
+    {
+      static constexpr auto value = true;
+    };
+
+    int
+    test()
+    {
+      auto x = 0;
+      static_assert(is_same<int, decltype(f(x))>::value, "");
+      static_assert(is_same<int&, decltype(g(x))>::value, "");
+      return x;
+    }
+
+  }
+
+}  // namespace cxx14
+
+#endif  // __cplusplus >= 201402L
+
+]])
+
+# ============================================================================
+#  http://www.gnu.org/software/autoconf-archive/ax_cxx_compile_stdcxx_11.html
+# ============================================================================
+#
+# SYNOPSIS
+#
+#   AX_CXX_COMPILE_STDCXX_11([ext|noext], [mandatory|optional])
+#
+# DESCRIPTION
+#
+#   Check for baseline language coverage in the compiler for the C++11
+#   standard; if necessary, add switches to CXX and CXXCPP to enable
+#   support.
+#
+#   This macro is a convenience alias for calling the AX_CXX_COMPILE_STDCXX
+#   macro with the version set to C++11.  The two optional arguments are
+#   forwarded literally as the second and third argument respectively.
+#   Please see the documentation for the AX_CXX_COMPILE_STDCXX macro for
+#   more information.  If you want to use this macro, you also need to
+#   download the ax_cxx_compile_stdcxx.m4 file.
+#
+# LICENSE
+#
+#   Copyright (c) 2008 Benjamin Kosnik <bkoz@redhat.com>
+#   Copyright (c) 2012 Zack Weinberg <zackw@panix.com>
+#   Copyright (c) 2013 Roy Stogner <roystgnr@ices.utexas.edu>
+#   Copyright (c) 2014, 2015 Google Inc.; contributed by Alexey Sokolov <sokolov@google.com>
+#   Copyright (c) 2015 Paul Norman <penorman@mac.com>
+#   Copyright (c) 2015 Moritz Klammler <moritz@klammler.eu>
+#
+#   Copying and distribution of this file, with or without modification, are
+#   permitted in any medium without royalty provided the copyright notice
+#   and this notice are preserved. This file is offered as-is, without any
+#   warranty.
+
+#serial 17
+
+AX_REQUIRE_DEFINED([AX_CXX_COMPILE_STDCXX])
+AC_DEFUN([AX_CXX_COMPILE_STDCXX_11], [AX_CXX_COMPILE_STDCXX([11], [$1], [$2])])
+
 # Copyright (C) 2002-2014 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation

@@ -18,6 +18,8 @@
 
 */
 
+#include <omp.h>                // omp_set_num_threads
+
 #include <iostream>
 #include <chrono>
 
@@ -25,7 +27,6 @@
 #include "hnco/random.hh"
 
 #include "hnco-options.hh"
-
 #include "make-algorithm.hh"
 #include "make-function.hh"
 
@@ -35,7 +36,6 @@ using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])
@@ -53,67 +53,171 @@ int main(int argc, char *argv[])
   }
   Random::engine.seed(options.get_seed());
 
-  // ProgressTracker
-  ProgressTracker *function;
-  
-  try { function = make_function(options); }
-  catch (Error& e) {
-    cerr << "Error: " << e.what() << endl;
-    exit(1);
+  // Main function
+  Function *fn;
+  try { fn = make_function(options); }
+  catch (const Error& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+    return 1;
+  }
+
+  if (options.with_describe_function()) {
+    fn->display(std::cout);
+    return 0;
+  }
+
+  // Progress tracker
+  ProgressTracker *tracker = new ProgressTracker(fn);
+  tracker->_log_improvement = options.with_log_improvement();
+
+  //
+  // Print information about the function
+  //
+
+  if (options.with_fun_has_known_maximum()) {
+    if (tracker->has_known_maximum())
+      return 0;
+    else
+      return 1;
+  }
+
+  if (options.with_fun_get_maximum()) {
+    if (tracker->has_known_maximum()) {
+      std::cout << tracker->get_maximum() << std::endl;
+      return 0;
+    } else {
+      std::cerr << "Error: function with unknown maximum" << std::endl;
+      return 1;
+    }
+  }
+
+  if (options.with_fun_get_bv_size()) {
+    std::cout << tracker->get_bv_size() << std::endl;
+    return 0;
+  }
+
+  if (options.with_fun_provides_incremental_evaluation()) {
+    if (tracker->provides_incremental_evaluation())
+      return 0;
+    else
+      return 1;
+  }
+
+  //
+  // OpenMP
+  //
+
+  int num_threads = options.get_num_threads();
+  if (num_threads < 1) {
+    std::cerr << "Error: at least one thread is required" << std::endl;
+    return 1;
+  }
+  assert(num_threads >= 1);
+  omp_set_num_threads(num_threads);
+
+  // Functions
+  std::vector<function::Function *> fns(num_threads);
+  fns[0] = tracker;
+  for (int i = 1; i < num_threads; i++) {
+    Random::engine.seed(options.get_seed());
+    try { fns[i] = make_function(options); }
+    catch (const Error& e) {
+      std::cerr << "Error: " << e.what() << std::endl;
+      return 1;
+    }
   }
 
   // Algorithm
   Algorithm *algorithm;
 
   try { algorithm = make_algorithm(options); }
-  catch (Error& e) {
-    cerr << "Error: " << e.what() << endl;
-    exit(1);
+  catch (const Error& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+    return 1;
   }
 
   // Connect algorithm and function
-  algorithm->set_function(function);
+  algorithm->set_function(tracker);
+  algorithm->set_functions(fns);
 
   // Header
-  if (!options.with_no_header())
+  if (options.with_print_header())
     std::cout << options;
 
   // Initialization
   try { algorithm->init(); }
   catch (LastEvaluation) {
-    cerr << "Error: Not enough evaluations for initialization" << endl;
-    cout << function->get_last_improvement() << endl;
-    exit(1);
+    std::cerr << "Error: Not enough evaluations for initialization" << std::endl;
+    std::cout << tracker->get_last_improvement() << std::endl;
+    return 1;
   }
   catch (MaximumReached) {
-    cerr << "Warning: Maximum reached during initialization" << endl;
-    cout << function->get_last_improvement() << endl;
-    exit(1);
+    std::cerr << "Warning: Maximum reached during initialization" << std::endl;
+    std::cout << tracker->get_last_improvement() << std::endl;
+    return 1;
   }
-  catch (Error& e) {
-    cerr << "Error: " << e.what() << endl;
-    exit(1);
+  catch (TargetReached) {
+    std::cerr << "Warning: Target reached during initialization" << std::endl;
+    std::cout << tracker->get_last_improvement() << std::endl;
+    return 1;
+  }
+  catch (const Error& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+    return 1;
   }
 
-  // Maximization
-  try { algorithm->maximize(); }
-  catch (LocalMaximum) {}
-  catch (LastEvaluation) {}
-  catch (MaximumReached) {}
-  catch (Error& e) {
-    cerr << "Error: " << e.what() << endl;
-    exit(1);
+  // Solution
+  point_value_t solution;
+
+  bool maximum_reached = false;
+  bool target_reached = false;
+
+  // Maximize
+  try {
+    algorithm->maximize();
+    solution = algorithm->get_solution();
   }
+  catch (const LocalMaximum& e) {
+    solution = e.get_point_value();
+  }
+  catch (const MaximumReached& e) {
+    solution = e.get_point_value();
+    maximum_reached = true;
+  }
+  catch (const TargetReached& e) {
+    solution = e.get_point_value();
+    target_reached = true;
+  }
+  catch (LastEvaluation) {
+    solution = algorithm->get_solution();
+  }
+  catch (const Error& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+    return 1;
+  }
+
+  assert(tracker->get_last_improvement().value == solution.second);
 
   // Print performances
-  if (options.with_print_performances())
-    cout << function->get_last_improvement() << endl;
+  if (options.with_print_performance())
+    std::cout << tracker->get_last_improvement() << std::endl;
 
-  // Maybe not up to date in case of MaximumReached
+  // Print solution
   if (options.with_print_solution()) {
-    bv_display(algorithm->get_solution(), cout);
-    cout << endl;
+    bv_display(solution.first, std::cout);
+    std::cout << std::endl;
   }
+
+  // Describe solution
+  if (options.with_describe_solution()) {
+    tracker->describe(solution.first, std::cout);
+  }
+
+  if (options.with_stop_on_maximum() && !maximum_reached)
+    return 2;
+
+  if (options.with_stop_on_target() && !target_reached)
+    return 3;
 
   return 0;
 }

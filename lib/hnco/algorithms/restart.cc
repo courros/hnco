@@ -19,7 +19,6 @@
 */
 
 #include "hnco/exception.hh"
-#include "hnco/functions/function.hh"
 
 #include "restart.hh"
 
@@ -38,8 +37,7 @@ Restart::iterate()
   catch (LocalMaximum) {}
 
   if (_iteration == 0)
-    set_solution(_algorithm->get_solution(), _algorithm->get_maximum());
+    _solution = _algorithm->get_solution();
   else
-    update_solution(_algorithm->get_solution(), _algorithm->get_maximum());
-
+    update_solution(_algorithm->get_solution());
 }

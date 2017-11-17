@@ -21,39 +21,87 @@
 #ifndef HNCO_ALGORITHMS_EA_ONE_PLUS_ONE
 #define HNCO_ALGORITHMS_EA_ONE_PLUS_ONE
 
+#include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/algorithms/algorithm.hh"
-#include "hnco/algorithms/ls/neighborhood.hh"
+#include "hnco/algorithms/ls/random-local-search.hh"
 
 
 namespace hnco {
 namespace algorithm {
 
 
-  /// (1+1)-EA
+  /** (1+1) EA.
+
+      (1+1) EA is implemented as a RandomLocalSearch with a BernoulliProcess
+      neighborhood and infinite patience. Thus it does derive from
+      IterativeAlgorithm.
+  */
   class OnePlusOneEa:
-    public IterativeAlgorithm {
+    public Algorithm {
 
     /// Neighborhood
-    neighborhood::Binomial _neighborhood;
+    neighborhood::BernoulliProcess _neighborhood;
 
-    /// Single iteration
-    void iterate();
+    /// Random local search
+    RandomLocalSearch _rls;
 
   public:
 
-    /// Constructor
+    /** Constructor.
+
+        \param n Size of bit vectors
+
+        _mutation_probability is initialized to 1 / n.
+    */
     OnePlusOneEa(int n):
-      IterativeAlgorithm(n),
-      _neighborhood(n) {}
+      _neighborhood(n),
+      _rls(n, &_neighborhood),
+      _mutation_probability(1 / double(n)) {}
 
-    /// Set mutation probability
-    void set_mutation_probability(double p) { _neighborhood.set_mutation_probabiity(p); }
+    /// Set function
+    void set_function(function::Function *function) {
+      assert(function);
+      _rls.set_function(function);
+    }
 
-    /// Random initialization
-    void init();
+    /// Initialization
+    void init() {
+      _neighborhood.set_probability(_mutation_probability);
+      _neighborhood._allow_stay         = _allow_stay;
+      _rls._num_iterations              = _num_iterations;
+      _rls._incremental_evaluation      = _incremental_evaluation;
+      _rls._patience                    = 0;
+      _rls.init();
+    }
+
+    /// Maximize
+    void maximize() { _rls.maximize(); }
 
     /// Solution
-    const bit_vector_t& get_solution() { return _neighborhood.get_origin(); }
+    const point_value_t& get_solution() { return _rls.get_solution(); }
+
+    /** @name Parameters
+     */
+    ///@{
+
+    /** Number of iterations.
+        _num_iterations <= 0 means indefinite */
+    int _num_iterations = 0;
+
+    /// Incremental evaluation
+    bool _incremental_evaluation = false;
+
+    /// Mutation probability
+    double _mutation_probability;
+
+    /** Allow stay.
+
+        In case no mutation occurs allow the current bit vector to
+        stay unchanged.
+    */
+    bool _allow_stay = false;
+
+    ///@}
 
   };
 

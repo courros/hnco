@@ -18,27 +18,15 @@
 
 */
 
-#include <iostream>
-
 #include "random-search.hh"
 
 
 using namespace hnco::algorithm;
-using namespace hnco::function;
-using namespace hnco::random;
-using namespace std;
 
 
 void
 RandomSearch::iterate()
 {
   bv_random(_candidate);
-
-  double value = _function->eval(_candidate);
-
-  if (value > _maximum) {   // success
-    _solution = _candidate;
-    _maximum = value;
-  }
-
+  update_solution(_candidate);
 }

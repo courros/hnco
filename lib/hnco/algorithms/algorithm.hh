@@ -40,39 +40,58 @@ namespace algorithm {
     /// Function
     function::Function *_function;
 
+    /** Functions.
+
+        Each thread has its own function.
+    */
+    std::vector<function::Function *> _functions;
+
     /// Solution
-    bit_vector_t _solution;
+    point_value_t _solution;
 
-    /// Maximum
-    double _maximum;
-
-    /// Random initialization of solution
+    /// Random solution
     virtual void random_solution();
 
-    /// Set solution and maximum
-    virtual void set_solution(const bit_vector_t& x);
-
-    /// Set solution and maximum
+    /// Set solution
     virtual void set_solution(const bit_vector_t& x, double value);
 
-    /// Update solution and maximum
-    virtual void update_solution(const bit_vector_t& x);
+    /// Set solution
+    virtual void set_solution(const bit_vector_t& x);
 
-    /// Update solution and maximum
+    /// Update solution (strict)
     virtual void update_solution(const bit_vector_t& x, double value);
+
+    /// Update solution (strict)
+    virtual void update_solution(const point_value_t& pv);
+
+    /// Update solution (strict)
+    virtual void update_solution(const bit_vector_t& x);
 
   public:
 
     /// Constructor
-    Algorithm(int n);
+    Algorithm() {}
+
+    /// Constructor
+    Algorithm(int n):
+      _solution(bit_vector_t(n), 0.0) {}
 
     /// Destructor
     virtual ~Algorithm() {}
+
+    /// Solution
+    virtual const point_value_t& get_solution() { return _solution; }
 
     /// Set function
     virtual void set_function(function::Function *function) {
       assert(function);
       _function = function;
+    }
+
+    /// Set functions
+    virtual void set_functions(const std::vector<function::Function *> functions) {
+      assert(functions.size() > 0);
+      _functions = functions;
     }
 
     /// Initialization
@@ -83,12 +102,6 @@ namespace algorithm {
 
     /// Maximize
     virtual void maximize() = 0;
-
-    /// Solution
-    virtual const bit_vector_t& get_solution() { return _solution; }
-
-    /// Maximum
-    virtual double get_maximum() { return _maximum; }
 
   };
 

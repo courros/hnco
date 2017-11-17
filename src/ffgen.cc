@@ -63,20 +63,9 @@ int main(int argc, char *argv[])
     break;
   }
 
-  case 50: {
-    QuadraticFunction function;
-    function.random(options.get_bv_size(), options.get_quad_stddev_lin(), options.get_quad_stddev_quad());
-    cout << "Writing QuadraticFunction to " << options.get_path() << " ... ";
-    std::ofstream ofs(options.get_path());
-    boost::archive::text_oarchive oa(ofs);
-    oa << function;
-    cout << "done" << endl;
-    break;
-  }
-
   case 60: {
     NkLandscape function;
-    function.random(options.get_bv_size(), options.get_nk_k(), options.get_nk_stddev());
+    function.random(options.get_bv_size(), options.get_nk_k(), options.get_stddev());
     cout << "Writing NkLandscape to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
@@ -109,6 +98,39 @@ int main(int argc, char *argv[])
     EqualProducts function;
     function.random(options.get_bv_size(), options.get_ep_upper_bound());
     cout << "Writing EqualProducts to " << options.get_path() << " ... ";
+    std::ofstream ofs(options.get_path());
+    boost::archive::text_oarchive oa(ofs);
+    oa << function;
+    cout << "done" << endl;
+    break;
+  }
+
+  case 160: {
+    WalshExpansion function;
+    function.random(options.get_bv_size(), options.get_walsh_num_features(), options.get_stddev());
+    cout << "Writing WalshExpansion to " << options.get_path() << " ... ";
+    std::ofstream ofs(options.get_path());
+    boost::archive::text_oarchive oa(ofs);
+    oa << function;
+    cout << "done" << endl;
+    break;
+  }
+
+  case 161: {
+    WalshExpansion1 function;
+    function.random(options.get_bv_size(), options.get_stddev());
+    cout << "Writing WalshExpansion1 to " << options.get_path() << " ... ";
+    std::ofstream ofs(options.get_path());
+    boost::archive::text_oarchive oa(ofs);
+    oa << function;
+    cout << "done" << endl;
+    break;
+  }
+
+  case 162: {
+    WalshExpansion2 function;
+    function.random(options.get_bv_size(), options.get_stddev(), options.get_stddev());
+    cout << "Writing WalshExpansion2 to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     oa << function;

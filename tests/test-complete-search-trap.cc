@@ -22,7 +22,7 @@
 #include <random>
 
 #include "hnco/algorithms/complete-search.hh"
-#include "hnco/functions/function-decorator.hh"
+#include "hnco/functions/decorators/function-modifier.hh"
 #include "hnco/functions/trap.hh"
 #include "hnco/random.hh"
 
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
       return 1;
     }
 
-    if (algorithm.get_maximum() != function.get_maximum())
+    if (algorithm.get_solution().second != function.get_maximum())
       return 1;
   }
 

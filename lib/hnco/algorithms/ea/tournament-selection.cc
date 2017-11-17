@@ -18,37 +18,28 @@
 
 */
 
-#include <iostream>
+#include <assert.h>
 
-#include "hnco/functions/function.hh"
-
-#include "one-plus-one-ea.hh"
+#include "tournament-selection.hh"
 
 
 using namespace hnco::algorithm;
 using namespace hnco::function;
-using namespace hnco::neighborhood;
-using namespace std;
+using namespace hnco::random;
+using namespace hnco;
 
 
-void
-OnePlusOneEa::init()
+const bit_vector_t&
+TournamentSelection::select()
 {
-  random_solution();
-
-  _neighborhood.set_origin(_solution);
-}
-
-
-void
-OnePlusOneEa::iterate()
-{
-  _neighborhood.propose();
-  double value = _function->eval(_neighborhood.get_candidate());
-
-  if (value >= _maximum) {     // success
-    _neighborhood.keep();
-    _maximum = value;
-  } else                        // failure
-    _neighborhood.forget();
+  int winner = _choose_individual(Random::engine);
+  for (int i = 0; i < _tournament_size; i++) {
+    int challenger;
+    do {
+      challenger = _choose_individual(Random::engine);
+    } while (challenger == winner);
+    if (_compare(_lookup[challenger], _lookup[winner]))
+      winner = challenger;
+  }
+  return get_best_bv(winner);
 }
