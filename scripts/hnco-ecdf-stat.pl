@@ -22,6 +22,11 @@ use Statistics::Descriptive;
 use List::Util qw(min max);
 use List::MoreUtils qw(all);
 
+my %terminal = (
+    eps => "set term epscairo color enhanced",
+    pdf => "set term pdfcairo color enhanced",
+    png => "set term png enhanced" );
+
 my $plan = "plan.json";
 open(FILE, $plan)
     or die "hnco-ecdf-stat.pl: Cannot open $plan\n";
@@ -33,155 +38,55 @@ my $obj = from_json($json);
 my $algorithms          = $obj->{algorithms};
 my $functions           = $obj->{functions};
 my $num_runs            = $obj->{num_runs};
+my $num_targets         = $obj->{num_targets};
 my $path_graphics       = $obj->{graphics};
 my $path_results        = $obj->{results};
 my $path_report         = $obj->{report};
 
-my $ranges = {};
-my $stat_eval = {};
-my $stat_value = {};
-my $stat_value_best = {};
-
-my %terminal = (
-    eps => "set term epscairo color enhanced",
-    pdf => "set term pdfcairo color enhanced",
-    png => "set term png enhanced" );
-
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
-compute_statistics();
-compute_best_statistics();
 compute_ranges();
-
-generate_function_data();
-generate_latex();
-
-sub compute_statistics
-{
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        my $eval = {};
-        my $value = {};
-
-        foreach my $a (@$algorithms) {
-            my $algorithm_id = $a->{id};
-            my $algorithm_num_runs = $num_runs;
-            if ($a->{deterministic}) {
-                $algorithm_num_runs = 1;
-            }
-
-            my $prefix = "$path_results/$function_id/$algorithm_id";
-            my $SD_eval = Statistics::Descriptive::Full->new();
-            my $SD_value = Statistics::Descriptive::Full->new();
-
-            my $path = "$prefix/$algorithm_id.dat";
-            my $file_data = IO::File->new($path, '>')
-                or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
-            foreach (1 .. $algorithm_num_runs) {
-                $path = "$prefix/$_.out";
-                my $file_run = IO::File->new($path, '<')
-                    or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
-                my $line = $file_run->getline;
-                $file_data->print($line);
-                chomp $line;
-                my @results = split ' ', $line;
-                $SD_eval->add_data($results[0]);
-                $SD_value->add_data($results[1]);
-                $file_run->close;
-            }
-            $file_data->close;
-
-            $eval->{$algorithm_id} = { min     => $SD_eval->min(),
-                                       q1      => $SD_eval->quantile(1),
-                                       median  => $SD_eval->median(),
-                                       q3      => $SD_eval->quantile(3),
-                                       max     => $SD_eval->max() };
-
-            $value->{$algorithm_id} = { min     => $SD_value->min(),
-                                        q1      => $SD_value->quantile(1),
-                                        median  => $SD_value->median(),
-                                        q3      => $SD_value->quantile(3),
-                                        max     => $SD_value->max() };
-
-        }
-
-        $stat_eval->{$function_id} = $eval;
-        $stat_value->{$function_id} = $value;
-
-    }
-
-}
-
-sub compute_best_statistics
-{
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        my $stat = $stat_value->{$function_id};
-        my $best = {};
-
-        foreach (@summary_statistics) {
-            my @values = ();
-            foreach my $a (@$algorithms) {
-                my $algorithm_id = $a->{id};
-                push @values, $stat->{$algorithm_id}->{$_};
-            }
-            $best->{$_} = max @values;
-        }
-
-        $stat_value_best->{$function_id} = $best;
-
-    }
-
-}
 
 sub compute_ranges
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $eval = $stat_eval->{$function_id};
-        my $value = $stat_value->{$function_id};
-        my $range = {};
 
-        $range->{xmin} = min (map { $eval->{$_}->{min} } keys %$eval);
-        $range->{xmax} = max (map { $eval->{$_}->{max} } keys %$eval);
-        $range->{ymin} = min (map { $value->{$_}->{min} } keys %$value);
-        $range->{ymax} = max (map { $value->{$_}->{max} } keys %$value);
-
-        $ranges->{$function_id} = $range;
-    }
-
-}
-
-sub generate_function_data
-{
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        my $path = "$path_results/$function_id/$function_id.dat";
-
-        $file = IO::File->new($path, '>')
-            or die "hnco-benchmark-stat.pl: generate_function_data: Cannot open '$path': $!\n";
-
-        my $position = 1;
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-            my $stat = $stat_value->{$function_id}->{$algorithm_id};
+            my $prefix = "$path_results/$function_id/$algorithm_id";
 
-            $file->printf("%d %e %e %e %e %e %s\n",
-                          $position,
-                          $stat->{min},
-                          $stat->{q1},
-                          $stat->{median},
-                          $stat->{q3},
-                          $stat->{max},
-                          $algorithm_id);
+            my $algorithm_num_runs = $num_runs;
+            if ($a->{deterministic}) {
+                $algorithm_num_runs = 1;
+            }
 
-            $position++;
+            my @algorithm_min = ();
+            my @algorithm_max = ();
+
+            foreach (1 .. $algorithm_num_runs) {
+                $path = "$prefix/$_.out";
+                my $fh = IO::File->new($path, '<')
+                    or die "hnco-ecdf-stat.pl: compute_ranges: Cannot open '$path': $!\n";
+                my @lines = $fh->getlines;
+                push @algorithm_min, get_value($lines[0]);
+                push @algorithm_max, get_value($lines[-1]);
+                $fh->close;
+            }
+
+            if (exists($f->{min})) {
+                $f->{min} = min($f->{min}, min(@algorithm_min));
+            } else {
+                $f->{min} = min(@algorithm_min);
+            }
+
+            if (exists($f->{max})) {
+                $f->{max} = max($f->{max}, max(@algorithm_max));
+            } else {
+                $f->{max} = max(@algorithm_max);
+            }
         }
-
-        $file->close();
-
     }
-
 }
 
 sub generate_latex
@@ -191,22 +96,8 @@ sub generate_latex
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
     latex_empty_line();
 
-    latex_section("Rankings");
-    latex_begin_center();
-    latex_rankings_table_begin();
-    latex_rankings_table_body();
-    latex_rankings_table_end();
-    latex_end_center();
-    latex_empty_line();
-
-    # latex_section("Algorithm index table");
-    # latex_index_table();
-    # latex_empty_line();
-
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $value = $stat_value->{$function_id};
-        my $best = $stat_value_best->{$function_id};
 
         latex_newpage();
 
@@ -225,13 +116,6 @@ sub generate_latex
 
     }
 
-}
-
-sub latex_tableofcontents
-{
-    print LATEX <<EOF;
-\\tableofcontents
-EOF
 }
 
 sub latex_section
@@ -304,4 +188,12 @@ sub quote
 {
     my $s = shift;
     return "\"$s\"";
+}
+
+sub get_value
+{
+    my $line = shift;
+    chomp $line;
+    my @results = split ' ', $line;
+    return $results[1];
 }
