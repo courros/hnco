@@ -4,10 +4,7 @@ log.default
 log.err
 commands.txt
 
-candlesticks.gp
-clouds.gp
-mean.gp
-stddev.gp
+graphics.gp
 
 graphics
 results
