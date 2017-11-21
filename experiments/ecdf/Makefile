@@ -9,13 +9,12 @@ run:
 
 doc:
 	hnco-ecdf-stat.pl
-	./candlesticks.gp
-	./clouds.gp
+	./graphics.gp
 	sed '/^$$/d' plan.json > plan-compact.json
 	make -C report
 
 clean:
-	rm -f candlesticks.gp clouds.gp plan-compact.json log.default log.err
+	rm -f graphics.gp plan-compact.json log.default log.err
 	rm -rf results
 	rm -rf graphics
 	rm -rf commands.txt
