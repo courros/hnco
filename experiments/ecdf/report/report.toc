@@ -1,24 +1,23 @@
 \select@language {english}
 \select@language {english}
 \contentsline {section}{\numberline {1}Plan}{2}{section.1}
-\contentsline {section}{\numberline {2}Rankings}{4}{section.2}
-\contentsline {section}{\numberline {3}Function one-max}{5}{section.3}
-\contentsline {section}{\numberline {4}Function lin}{6}{section.4}
-\contentsline {section}{\numberline {5}Function leading-ones}{7}{section.5}
-\contentsline {section}{\numberline {6}Function ridge}{8}{section.6}
-\contentsline {section}{\numberline {7}Function jmp-5}{9}{section.7}
-\contentsline {section}{\numberline {8}Function jmp-10}{10}{section.8}
-\contentsline {section}{\numberline {9}Function djmp-5}{11}{section.9}
-\contentsline {section}{\numberline {10}Function djmp-10}{12}{section.10}
-\contentsline {section}{\numberline {11}Function fp-5}{13}{section.11}
-\contentsline {section}{\numberline {12}Function fp-10}{14}{section.12}
-\contentsline {section}{\numberline {13}Function nk}{15}{section.13}
-\contentsline {section}{\numberline {14}Function max-sat}{16}{section.14}
-\contentsline {section}{\numberline {15}Function labs}{17}{section.15}
-\contentsline {section}{\numberline {16}Function ep}{18}{section.16}
-\contentsline {section}{\numberline {17}Function cancel}{19}{section.17}
-\contentsline {section}{\numberline {18}Function trap}{20}{section.18}
-\contentsline {section}{\numberline {19}Function hiff}{21}{section.19}
-\contentsline {section}{\numberline {20}Function plateau}{22}{section.20}
-\contentsline {section}{\numberline {21}Function walsh2}{23}{section.21}
-\contentsline {section}{\numberline {22}Default parameters}{24}{section.22}
+\contentsline {section}{\numberline {2}Function one-max}{5}{section.2}
+\contentsline {section}{\numberline {3}Function lin}{5}{section.3}
+\contentsline {section}{\numberline {4}Function leading-ones}{6}{section.4}
+\contentsline {section}{\numberline {5}Function ridge}{6}{section.5}
+\contentsline {section}{\numberline {6}Function jmp-5}{7}{section.6}
+\contentsline {section}{\numberline {7}Function jmp-10}{7}{section.7}
+\contentsline {section}{\numberline {8}Function djmp-5}{8}{section.8}
+\contentsline {section}{\numberline {9}Function djmp-10}{8}{section.9}
+\contentsline {section}{\numberline {10}Function fp-5}{9}{section.10}
+\contentsline {section}{\numberline {11}Function fp-10}{9}{section.11}
+\contentsline {section}{\numberline {12}Function nk}{10}{section.12}
+\contentsline {section}{\numberline {13}Function max-sat}{10}{section.13}
+\contentsline {section}{\numberline {14}Function labs}{11}{section.14}
+\contentsline {section}{\numberline {15}Function ep}{11}{section.15}
+\contentsline {section}{\numberline {16}Function cancel}{12}{section.16}
+\contentsline {section}{\numberline {17}Function trap}{12}{section.17}
+\contentsline {section}{\numberline {18}Function hiff}{13}{section.18}
+\contentsline {section}{\numberline {19}Function plateau}{13}{section.19}
+\contentsline {section}{\numberline {20}Function walsh2}{14}{section.20}
+\contentsline {section}{\numberline {21}Default parameters}{15}{section.21}
