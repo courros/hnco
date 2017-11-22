@@ -10,6 +10,7 @@ run:
 doc:
 	hnco-ecdf-stat.pl
 	./graphics.gp
+	./graphics-all.gp
 	sed '/^$$/d' plan.json > plan-compact.json
 	make -C report
 
