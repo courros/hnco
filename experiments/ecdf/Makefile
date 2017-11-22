@@ -15,7 +15,7 @@ doc:
 	make -C report
 
 clean:
-	rm -f graphics.gp plan-compact.json log.default log.err
+	rm -f graphics.gp graphics-all.gp plan-compact.json log.default log.err
 	rm -rf results
 	rm -rf graphics
 	rm -rf commands.txt
