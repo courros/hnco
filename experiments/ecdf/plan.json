@@ -134,16 +134,6 @@
     "algorithms": [
 
         {
-            "id": "rls",
-	    "opt": "-A 100 --restart"
-        },
-
-        {
-            "id": "hc",
-	    "opt": "-A 150 --restart"
-        },
-
-        {
             "id": "sa",
 	    "opt": "-A 200 --sa-rate 1.05 --sa-num-trials 10"
         },
