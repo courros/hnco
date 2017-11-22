@@ -5,4 +5,5 @@ auto/
 *.log
 *.out
 *.toc
+*.blg
 results.tex
