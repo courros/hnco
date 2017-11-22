@@ -200,7 +200,7 @@ sub generate_graphics
                 $quoted_path = quote("$path_results/$function_id/$algorithm_id/ecdf.txt");
                 $quoted_title = quote("$algorithm_id");
                 $position++;
-                "  $quoted_path using 1:2 with steps title $quoted_title";
+                "  $quoted_path using 1:2 with steps lw 2 title $quoted_title";
              } @$algorithms);
         print GRAPHICS "\n";
 
