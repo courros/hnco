@@ -1,0 +1,15 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Hansen et~al.(2016)Hansen, Auger, Brockhoff, Tusar, and
+  Tusar]{DBLP:journals/corr/HansenABTT16}
+Nikolaus Hansen, Anne Auger, Dimo Brockhoff, Dejan Tusar, and Tea Tusar.
+\newblock {COCO:} performance assessment.
+\newblock \emph{CoRR}, abs/1605.03560, 2016.
+\newblock URL \url{http://arxiv.org/abs/1605.03560}.
+
+\end{thebibliography}
