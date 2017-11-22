@@ -177,8 +177,7 @@ sub generate_graphics
         "set key outside top center box opaque horizontal\n",
         "set format x ", quote("10^{%L}"), "\n",
         "set logscale x\n",
-        "set yrange [0:1]\n",
-        "set autoscale xfix\n\n",
+        "set autoscale fix\n\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
 
     foreach my $f (@$functions) {
@@ -201,7 +200,7 @@ sub generate_graphics
                 $quoted_path = quote("$path_results/$function_id/$algorithm_id/ecdf.txt");
                 $quoted_title = quote("$algorithm_id");
                 $position++;
-                "  $quoted_path using 1:2 with lines lw 2 title $quoted_title";
+                "  $quoted_path using 1:2 with steps title $quoted_title";
              } @$algorithms);
         print GRAPHICS "\n";
 
