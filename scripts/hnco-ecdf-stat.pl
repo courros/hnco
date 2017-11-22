@@ -135,8 +135,7 @@ sub generate_ecdf
               foreach (@lines) {
                   my ($evaluation, $value) = get_evaluation_value($_);
                   while ($value >= @{ $fn->{targets} }[$index]) {
-                      push @events, { evaluation        => $evaluation,
-                                      value             => $value };
+                      push @events, $evaluation;
                       $index++;
                       if ($index == $num_targets) {
                           last TARGETS;
@@ -148,7 +147,7 @@ sub generate_ecdf
         }
 
         # Sort @events by increasing order of number of evaluations
-        my @sorted_events = sort { $a->{evaluation} <=> $b->{evaluation} } @events;
+        my @sorted_events = sort { $a <=> $b } @events;
 
         my $path_ecdf = "$prefix/ecdf.txt";
         my $fh_ecdf = IO::File->new($path_ecdf, '>')
@@ -156,9 +155,9 @@ sub generate_ecdf
 
         my $i = 0;
         while ($i < @sorted_events) {
-            my $head = $sorted_events[$i]->{evaluation};
+            my $head = $sorted_events[$i];
             my $j = $i;
-            while ($j < @sorted_events && $sorted_events[$j]->{evaluation} == $head) {
+            while ($j < @sorted_events && $sorted_events[$j] == $head) {
                 $j++;
             }
             $fh_ecdf->printf("%d %e\n", $head, $j / $algorithm_num_targets);
