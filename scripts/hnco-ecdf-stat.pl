@@ -43,14 +43,19 @@ my $path_graphics       = $obj->{graphics};
 my $path_results        = $obj->{results};
 my $path_report         = $obj->{report};
 
-unless (-d "$path_graphics") { mkdir "$path_graphics"; }
+unless (-d "$path_graphics") {
+    mkdir "$path_graphics";
+    print "Created $path_graphics\n";
+}
 
 foreach (@$functions) {
     compute_ranges($_);
     compute_targets($_);
     generate_ecdf($_);
 }
+generate_ecdf_all();
 generate_graphics();
+generate_graphics_all();
 generate_latex();
 
 sub compute_ranges
@@ -164,6 +169,79 @@ sub generate_ecdf
     }
 }
 
+sub generate_ecdf_all
+{
+    unless (-d "$path_results") {
+        mkdir "$path_results";
+        print "Created $path_results\n";
+    }
+
+    unless (-d "$path_results/ecdf") {
+        mkdir "$path_results/ecdf";
+        print "Created $path_results/ecdf\n";
+    }
+
+    foreach my $algorithm (@$algorithms) {
+        my $algorithm_id = $algorithm->{id};
+
+        my $algorithm_num_runs = $num_runs;
+        if ($algorithm->{deterministic}) {
+            $algorithm_num_runs = 1;
+        }
+        my $algorithm_num_targets = @$functions * $num_targets * $algorithm_num_runs;
+
+        my @events = ();
+
+        foreach my $fn (@$functions) {
+            my $function_id = $fn->{id};
+            my $prefix = "$path_results/$function_id/$algorithm_id";
+
+            foreach (1 .. $algorithm_num_runs) {
+                my $path = "$prefix/$_.out";
+                my $fh = IO::File->new($path, '<')
+                    or die "hnco-ecdf-stat.pl: generate_ecdf_all: Cannot open '$path': $!\n";
+                my @lines = $fh->getlines;
+                $fh->close;
+
+              TARGETS: {
+                  my $index = 0;
+                  foreach (@lines) {
+                      my ($evaluation, $value) = get_evaluation_value($_);
+                      while ($value >= @{ $fn->{targets} }[$index]) {
+                          push @events, $evaluation;
+                          $index++;
+                          if ($index == $num_targets) {
+                              last TARGETS;
+                          }
+                      }
+                  }
+                }
+
+            }
+        }
+
+        # Sort @events by increasing order of number of evaluations
+        my @sorted_events = sort { $a <=> $b } @events;
+
+        my $path_ecdf = "$path_results/ecdf/$algorithm_id.txt";
+        my $fh_ecdf = IO::File->new($path_ecdf, '>')
+            or die "hnco-ecdf-stat.pl: generate_ecdf_all: Cannot open '$path_ecdf': $!\n";
+
+        my $i = 0;
+        while ($i < @sorted_events) {
+            my $head = $sorted_events[$i];
+            my $j = $i;
+            while ($j < @sorted_events && $sorted_events[$j] == $head) {
+                $j++;
+            }
+            $fh_ecdf->printf("%d %e\n", $head, $j / $algorithm_num_targets);
+            $i = $j;
+        }
+
+        $fh_ecdf->close;
+    }
+}
+
 sub generate_graphics
 {
     open(GRAPHICS, ">graphics.gp")
@@ -200,7 +278,7 @@ sub generate_graphics
                 $quoted_path = quote("$path_results/$function_id/$algorithm_id/ecdf.txt");
                 $quoted_title = quote("$algorithm_id");
                 $position++;
-                "  $quoted_path using 1:2 with steps lw 2 title $quoted_title";
+                "  $quoted_path using 1:2 with steps title $quoted_title";
              } @$algorithms);
         print GRAPHICS "\n";
 
@@ -220,12 +298,71 @@ sub generate_graphics
     system("chmod a+x graphics.gp");
 }
 
+sub generate_graphics_all
+{
+    open(GRAPHICS, ">graphics-all.gp")
+        or die "hnco-ecdf-stat.pl: generate_graphics_all: cannot open graphics.gp\n";
+
+    print GRAPHICS
+        "#!/usr/bin/gnuplot -persist\n",
+        "set grid\n",
+        "set xlabel \"Number of evaluations\"\n",
+        "set ylabel \"Proportion of targets\"\n",
+        "set key outside top center box opaque horizontal\n",
+        "set format x ", quote("10^{%L}"), "\n",
+        "set logscale x\n",
+        "set autoscale fix\n\n",
+        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
+
+    my $quoted_title = quote("All functions");
+    my $quoted_path = quote("$path_graphics/all.eps");
+
+    print GRAPHICS
+        $terminal{eps}, "\n",
+        "set output $quoted_path\n",
+        "set key title $quoted_title\n";
+
+    print GRAPHICS "plot \\\n";
+    my $position = 1;
+    print GRAPHICS
+        join ", \\\n",
+        (map {
+            my $algorithm_id = $_->{id};
+            $quoted_path = quote("$path_results/ecdf/$algorithm_id.txt");
+            $quoted_title = quote("$algorithm_id");
+            $position++;
+            "  $quoted_path using 1:2 with steps title $quoted_title";
+         } @$algorithms);
+    print GRAPHICS "\n";
+
+    $quoted_path = quote("$path_graphics/all.pdf");
+    print GRAPHICS
+        $terminal{pdf}, "\n",
+        "set output $quoted_path\n",
+        "replot\n";
+
+    $quoted_path = quote("$path_graphics/all.png");
+    print GRAPHICS
+        $terminal{png}, "\n",
+        "set output $quoted_path\n",
+        "replot\n\n";
+
+    system("chmod a+x graphics-all.gp");
+}
+
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
         or die "hnco-ecdf-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
+    latex_empty_line();
+
+    latex_section("All Functions");
+    latex_empty_line();
+    latex_begin_center();
+    latex_includegraphics("all");
+    latex_end_center();
     latex_empty_line();
 
     foreach my $f (@$functions) {
