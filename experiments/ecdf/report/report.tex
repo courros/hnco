@@ -12,6 +12,7 @@
 \usepackage{hyperref}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{natbib}
 
 \geometry{top=1cm,bottom=2cm,left=1cm,right=1cm}
 
@@ -27,26 +28,41 @@
 
 \begin{document}
 
+%\bibliographystyle{plain}
+\bibliographystyle{plainnat}
+
 %\thispagestyle{empty}
 
 \title{HNCO\\
-  Empirical cumulative distribution functions \\
+  Empirical cumulative distribution functions of the runtimes \\
   of various black box optimization algorithms}
 \maketitle
 
+\begin{abstract}
+  We partly follow the experimental procedure of the COCO framework
+  for the performance assessment of black box optimization algorithms
+  \cite{DBLP:journals/corr/HansenABTT16}. For each objective (or
+  fitness) function considered in the study, 50 equally spaced targets
+  have been computed. Then for each algorithm we plot the proportion
+  of targets reached as a function of the number of evaluations over
+  20 independent runs. The dimension is fixed at $n=100$. It should be
+  noted that the linear scale of targets does not fit the function
+  EqualProducts. A logarithmic scale will be made available. For
+  clarity reasons only 8 algorithms (hence 8 colors) are included in
+  the study.
+\end{abstract}
+
 \tableofcontents
 
-\newpage
+\input{results.tex}
+
+\bibliography{bibliography} 
+
+\appendix
 
 \section{Plan}
 
 \inputminted[breaklines=true]{json}{../plan-compact.json}
-
-\newpage
-
-\input{results.tex}
-
-\newpage
 
 \section{Default parameters}
 
