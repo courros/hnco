@@ -34,22 +34,25 @@
 %\thispagestyle{empty}
 
 \title{HNCO\\
-  Empirical cumulative distribution functions of the runtimes \\
+  Empirical cumulative distribution functions of the runtime \\
   of various black box optimization algorithms}
 \maketitle
 
 \begin{abstract}
   We partly follow the experimental procedure of the COCO framework
   for the performance assessment of black box optimization algorithms
-  \cite{DBLP:journals/corr/HansenABTT16}. For each objective (or
-  fitness) function considered in the study, 50 equally spaced targets
-  have been computed. Then for each algorithm we plot the proportion
-  of targets reached as a function of the number of evaluations over
-  20 independent runs. The dimension is fixed at $n=100$. It should be
-  noted that the linear scale of targets does not fit the function
-  EqualProducts. A logarithmic scale will be made available. For
-  clarity reasons only 8 algorithms (hence 8 colors) are included in
-  the study.
+  \cite{DBLP:journals/corr/HansenABTT16}. Each algorithm is run
+  independently 20 times on each objective (or fitness) function. The
+  dimension is fixed at $n=100$. Then 50 equally spaced targets are
+  computed for each objective function. For each algorithm and each
+  function we compute the empirical cumulative distribution function
+  (ECDF) of the runtime, that is the proportion of targets reached as
+  a function of the number of evaluations over all 20 runs. We also
+  compute the global ECDF which takes into account the targets of all
+  functions. The results are listed by function. For clarity reasons
+  only 8 algorithms (hence 8 colors) are included in the study. It
+  should be noted that the linear scale of targets does not fit the
+  function EqualProducts.
 \end{abstract}
 
 \tableofcontents
