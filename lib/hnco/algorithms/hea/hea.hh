@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_HEA_H
-#define HNCO_ALGORITHMS_HEA_H
+#ifndef HNCO_ALGORITHMS_HEA_HEA_H
+#define HNCO_ALGORITHMS_HEA_HEA_H
 
 #include <math.h>               // exp, sqrt
 
