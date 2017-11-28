@@ -83,7 +83,8 @@ namespace function {
      */
     bool has_known_maximum() { return true; }
 
-    /// Get the global maximum
+    /** Get the global maximum.
+        \return 2 * bv_size - threshold - 1 */
     double get_maximum() { return _maximum; }
 
   };
@@ -146,7 +147,8 @@ namespace function {
      */
     bool has_known_maximum() { return true; }
 
-    /// Get the global maximum
+    /** Get the global maximum.
+        \return 2 * bv_size - threshold - 1 */
     double get_maximum() { return _maximum; }
 
   };
