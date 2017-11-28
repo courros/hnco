@@ -46,7 +46,8 @@ namespace hnco::function {
     /// Get bit vector size
     size_t get_bv_size() { return _bv_size; }
 
-    /// Get the global maximum
+    /** Get the global maximum.
+        \return _bv_size */
     double get_maximum() { return _bv_size; }
 
     /** Check for a known maximum.
@@ -99,7 +100,8 @@ namespace hnco::function {
         \return true */
     bool has_known_maximum() { return true; }
 
-    /// Get the global maximum
+    /** Get the global maximum.
+        \return _bv_size */
     double get_maximum() { return _bv_size; }
 
   };
@@ -127,7 +129,8 @@ namespace hnco::function {
         \return true */
     bool has_known_maximum() { return true; }
 
-    /// Get the global maximum
+    /** Get the global maximum.
+        \return 1 */
     double get_maximum() { return 1; }
 
   };
@@ -157,7 +160,8 @@ namespace hnco::function {
         \return true */
     bool has_known_maximum() { return true; }
 
-    /// Get the global maximum
+    /** Get the global maximum.
+        \return (i + 1) * 2^i where _bv_size = 2^i */
     double get_maximum() { return (_depth + 1) * _bv_size; }
 
   };
@@ -186,7 +190,8 @@ namespace hnco::function {
         \return true */
     bool has_known_maximum() { return true; }
 
-    /// Get the global maximum
+    /** Get the global maximum.
+        \return 2 * _bv_size */
     double get_maximum() { return 2 * _bv_size; }
 
   };
@@ -215,7 +220,8 @@ namespace hnco::function {
         \return true */
     bool has_known_maximum() { return true; }
 
-    /// Get the global maximum
+    /** Get the global maximum.
+        \return _bv_size + 2 */
     double get_maximum() { return _bv_size + 2; }
 
   };

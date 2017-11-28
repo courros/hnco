@@ -74,7 +74,8 @@ namespace function {
      */
     bool has_known_maximum() { return true; }
 
-    /// Get the global maximum
+    /** Get the global maximum.
+        \return _bv_size */
     double get_maximum() { return _bv_size; }
 
   };
