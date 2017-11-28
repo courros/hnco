@@ -286,7 +286,7 @@ algorithms must be able to find it in finite time.
 
 ## Requirements
 
-`libhnco` depend on the following libraries:
+`libhnco` depends on the following libraries:
 
 - Boost serialization library
 - `libdl` for plugin
