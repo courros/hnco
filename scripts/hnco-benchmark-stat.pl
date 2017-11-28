@@ -316,7 +316,7 @@ sub generate_gnuplot_candlesticks
         "set grid y\n",
         "set xlabel \"Algorithm\"\n",
         "set xtics rotate by -45\n",
-        "set ylabel \"Performance\"\n",
+        "set ylabel \"Function value\"\n",
         "set autoscale y\n",
         "set boxwidth 0.4\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
@@ -375,7 +375,7 @@ sub generate_gnuplot_clouds
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"Number of evaluations (x10^3)\"\n",
-        "set ylabel \"Performance\"\n",
+        "set ylabel \"Function value\"\n",
         "set format x ", quote("%.0s"), "\n",
         "set key outside top center box opaque horizontal\n",
         "set autoscale fix\n",
@@ -668,7 +668,7 @@ sub latex_function_table_begin
     print LATEX
         "\\begin{tabular}{\@{}l*{5}{$col}>{{\\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}\@{}}\n",
         "\\toprule\n",
-        "{algorithm} & \\multicolumn{6}{l}{{performance}} & \\multicolumn{2}{l}{{time (s)}} \\\\\n",
+        "{algorithm} & \\multicolumn{6}{l}{{function value}} & \\multicolumn{2}{l}{{time (s)}} \\\\\n",
         "\\midrule\n",
         "& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} & {mean} & {dev.} \\\\\n",
         "\\midrule\n";
