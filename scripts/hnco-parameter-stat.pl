@@ -697,7 +697,9 @@ sub latex_function_table_begin
     print LATEX
         "\\begin{tabular}{\@{}ll*{5}{$col}>{{\\nprounddigits{0}}}N{2}{0}\@{}}\n",
         "\\toprule\n",
-        "{algorithm} & {$parameter_id} & {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} \\\\\n",
+        "{algorithm} & {$parameter_id} & \\multicolumn{6}{l}{{function value}} \\\\\n",
+        "\\midrule\n",
+        "& & {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} \\\\\n",
         "\\midrule\n";
 }
 
