@@ -32,14 +32,14 @@ PvAlgorithm::log()
   assert(_log_flags.any());
 
   if (_log_flags[LOG_ENTROPY])
-    _ostream << pv_entropy(_pv) << " ";
+    _stream << pv_entropy(_pv) << " ";
 
   if (_log_flags[LOG_PV]) {
     int upper_bound = std::min(_log_num_components, int(_pv.size()));
     for (int i = 0; i < upper_bound; i++)
-      _ostream << _pv[i] << " ";
+      _stream << _pv[i] << " ";
   }
 
-  _ostream << std::endl;
+  _stream << std::endl;
 
 }

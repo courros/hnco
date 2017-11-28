@@ -106,7 +106,7 @@ namespace algorithm {
     virtual void maximize() = 0;
 
     /// Output stream
-    std::ostream& _ostream = std::cout;
+    std::ostream& _stream = std::cout;
     
   };
 
