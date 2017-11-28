@@ -50,22 +50,22 @@ namespace algorithm {
     point_value_t _solution;
 
     /// Random solution
-    virtual void random_solution();
+    void random_solution();
 
     /// Set solution
-    virtual void set_solution(const bit_vector_t& x, double value);
+    void set_solution(const bit_vector_t& x, double value);
 
     /// Set solution
-    virtual void set_solution(const bit_vector_t& x);
+    void set_solution(const bit_vector_t& x);
 
     /// Update solution (strict)
-    virtual void update_solution(const bit_vector_t& x, double value);
+    void update_solution(const bit_vector_t& x, double value);
 
     /// Update solution (strict)
-    virtual void update_solution(const point_value_t& pv);
+    void update_solution(const point_value_t& pv);
 
     /// Update solution (strict)
-    virtual void update_solution(const bit_vector_t& x);
+    void update_solution(const bit_vector_t& x);
 
   public:
 
