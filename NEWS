@@ -8,6 +8,9 @@ Library:
 - Neighborhood files moved under lib/hnco/neighborhoods/
 - Neighborhood: added member functions mutate and map
 - Function: renamed eval -> incremental_eval (avoid overloading)
+- Algorithm: member function random_solution declared non virtual
+- Algorithm: member functions set_solution declared non virtual
+- Algorithm: member functions update_solution declared non virtual
 
 hnco:
 - Added option --allow-stay
