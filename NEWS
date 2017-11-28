@@ -11,6 +11,8 @@ Library:
 - Algorithm: member function random_solution declared non virtual
 - Algorithm: member functions set_solution declared non virtual
 - Algorithm: member functions update_solution declared non virtual
+- Algorithm: added member _stream
+- BmPbil, Hea, IterativeAlgorithm, PvAlgorithm::log use _stream
 
 hnco:
 - Added option --allow-stay
