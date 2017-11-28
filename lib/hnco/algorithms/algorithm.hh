@@ -21,6 +21,8 @@
 #ifndef HNCO_ALGORITHMS_ALGORITHM_H
 #define HNCO_ALGORITHMS_ALGORITHM_H
 
+#include <iostream>
+
 #include "hnco/functions/function.hh"
 
 
@@ -103,6 +105,9 @@ namespace algorithm {
     /// Maximize
     virtual void maximize() = 0;
 
+    /// Output stream
+    std::ostream& _ostream = std::cout;
+    
   };
 
 
