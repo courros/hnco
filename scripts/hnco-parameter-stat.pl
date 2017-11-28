@@ -328,7 +328,7 @@ sub generate_gnuplot_candlesticks
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"$parameter_id\"\n",
-        "set ylabel \"Performance\"\n",
+        "set ylabel \"Function value\"\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
@@ -400,7 +400,7 @@ sub generate_gnuplot_mean
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"$parameter_id\"\n",
-        "set ylabel \"Mean performance\"\n",
+        "set ylabel \"Mean value\"\n",
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -417,7 +417,7 @@ sub generate_gnuplot_mean
 
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
-        my $quoted_string = quote("$function_id: Mean performance as a function of $parameter_id");
+        my $quoted_string = quote("$function_id: Mean value as a function of $parameter_id");
         print MEAN "set title $quoted_string\n";
         if ($f->{logscale}) {
             my $fmt = quote("10^{\%T}");
@@ -473,7 +473,7 @@ sub generate_gnuplot_stddev
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"$parameter_id\"\n",
-        "set ylabel \"Standard deviation of performance\"\n",
+        "set ylabel \"Standard deviation of value\"\n",
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -506,7 +506,7 @@ sub generate_gnuplot_stddev
             $terminal{pdf}, "\n",
             "set output $quoted_string\n";
 
-        $quoted_string = quote("$function_id: Standard deviation of performance as a function of $parameter_id");
+        $quoted_string = quote("$function_id: Standard deviation of value as a function of $parameter_id");
         print STDDEV
             "set title $quoted_string\n";
 
