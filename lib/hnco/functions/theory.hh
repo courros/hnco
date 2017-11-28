@@ -161,7 +161,7 @@ namespace hnco::function {
     bool has_known_maximum() { return true; }
 
     /** Get the global maximum.
-        \return (i + 1) * 2^i where _bv_size = 2^i */
+        \return (i + 1) * 2^i where 2^i = _bv_size */
     double get_maximum() { return (_depth + 1) * _bv_size; }
 
   };
