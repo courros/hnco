@@ -24,7 +24,6 @@
 using namespace hnco::function;
 using namespace hnco::algorithm;
 using namespace hnco;
-using namespace std;
 
 
 void
@@ -33,14 +32,14 @@ PvAlgorithm::log()
   assert(_log_flags.any());
 
   if (_log_flags[LOG_ENTROPY])
-    cout << pv_entropy(_pv) << " ";
+    _ostream << pv_entropy(_pv) << " ";
 
   if (_log_flags[LOG_PV]) {
-    int upper_bound = min(_log_num_components, int(_pv.size()));
+    int upper_bound = std::min(_log_num_components, int(_pv.size()));
     for (int i = 0; i < upper_bound; i++)
-      cout << _pv[i] << " ";
+      _ostream << _pv[i] << " ";
   }
 
-  cout << endl;
+  _ostream << std::endl;
 
 }
