@@ -28,7 +28,6 @@ using namespace hnco::algorithm::bm_pbil;
 using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco;
-using namespace std;
 
 
 void
@@ -53,7 +52,7 @@ BmPbil::sample(bit_vector_t& x)
     sample_synchronous();
     break;
   default:
-    ostringstream stream;
+    std::ostringstream stream;
     stream << _sampling;
     throw Error("BmPbil::sample: Unknown _sampling: " + stream.str());
   }
@@ -148,6 +147,6 @@ BmPbil::log()
   if (_log_flags[LOG_NORM_L1])
     _ostream << _model.norm_l1() << " ";
 
-  _ostream << endl;
+  _ostream << std::endl;
 
 }
