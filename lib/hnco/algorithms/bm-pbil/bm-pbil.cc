@@ -143,11 +143,11 @@ BmPbil::log()
   assert(_log_flags.any());
 
   if (_log_flags[LOG_NORM_INFINITE])
-    cout << _model.norm_infinite() << " ";
+    _ostream << _model.norm_infinite() << " ";
 
   if (_log_flags[LOG_NORM_L1])
-    cout << _model.norm_l1() << " ";
+    _ostream << _model.norm_l1() << " ";
 
-  cout << endl;
+  _ostream << endl;
 
 }
