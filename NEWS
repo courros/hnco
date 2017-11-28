@@ -1,5 +1,11 @@
 * Version 0.7 (unreleased)
 
+Highlight:
+- Support for GNU parallel
+- New experiment ecdf
+
+Details follow.
+
 Library:
 - BernoulliProcess: added _allow_stay
 - OnePlusOneEa: added _allow_stay
