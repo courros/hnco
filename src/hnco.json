@@ -8,7 +8,8 @@
     "tab_order": [
         "General",
         "Function",
-        "Function decorators",
+        "Function Decorators",
+        "Prior Noise",
         "Map",
         "Algorithm",
         "Local Search",
@@ -86,37 +87,50 @@
         "log_improvement":
         {
             "description": "Log improvement",
-            "category": "Function decorators"
+            "category": "Function Decorators"
         },
 
         "stop_on_maximum":
         {
             "description": "Stop on maximum",
-            "category": "Function decorators"
+            "category": "Function Decorators"
         },
 
         "stop_on_target":
         {
             "description": "Stop on target",
-            "category": "Function decorators"
+            "category": "Function Decorators"
         },
 
         "cache":
         {
             "description": "Cache function evaluations",
-            "category": "Function decorators"
+            "category": "Function Decorators"
         },
 
         "negation":
         {
             "description": "Negation (hence minimization) of the function",
-            "category": "Function decorators"
+            "category": "Function Decorators"
         },
 
         "additive_gaussian_noise":
         {
             "description": "Additive Gaussian noise",
-            "category": "Function decorators"
+            "category": "Function Decorators"
+        },
+
+
+        "prior_noise":
+        {
+            "description": "Prior noise",
+            "category": "Prior Noise"
+        },
+
+        "pn_allow_stay":
+        {
+            "description": "In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)",
+            "category": "Prior Noise"
         },
 
 
@@ -441,7 +455,7 @@
             "type": "int",
             "value": 10000,
             "description": "Number of allowed function evaluations (<= 0 means indefinite)",
-            "category": "Function decorators"
+            "category": "Function Decorators"
         },
 
         "noise_stddev":
@@ -449,7 +463,7 @@
             "type": "double",
             "value": 1.0,
             "description": "Noise standard deviation",
-            "category": "Function decorators"
+            "category": "Function Decorators"
         },
 
         "target":
@@ -457,7 +471,57 @@
             "type": "double",
             "value": 100.0,
             "description": "Target",
-            "category": "Function decorators"
+            "category": "Function Decorators"
+        },
+
+
+        "pn_mutation":
+        {
+            "type": "double",
+            "value": 1.0,
+            "description": "Expected number of flipped bits (bv_size times mutation probability)",
+            "category": "Prior Noise"
+        },
+
+        "pn_radius":
+        {
+            "type": "int",
+            "value": 2,
+            "description": "Radius of Hamming ball or sphere",
+            "category": "Prior Noise"
+        },
+
+        "pn_neighborhood":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Type of neighborhood",
+            "category": "Prior Noise",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Single bit flip"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Bernoulli process"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Hamming ball"
+                },
+
+                {
+                    "value": 3,
+                    "description": "Hamming sphere"
+                }
+
+            ]
+
         },
 
 
@@ -630,12 +694,12 @@
             "category": "Algorithm"
         },
 
-        "scaled_mutation_probability":
+        "mutation":
         {
             "optchar": "m",
             "type": "double",
             "value": 1.0,
-            "description": "Scaled mutation probability or expected number of flipped bits (bv_size times probability)",
+            "description": "Expected number of flipped bits (bv_size times mutation probability)",
             "category": "Algorithm"
         },
 
