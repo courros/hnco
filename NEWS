@@ -19,6 +19,7 @@ Library:
 - Algorithm: member functions update_solution declared non virtual
 - Algorithm: added member _stream
 - BmPbil, Hea, IterativeAlgorithm, PvAlgorithm::log use _stream
+- FunctionModifier: added class PriorNoise
 
 hnco:
 - Added option --allow-stay
@@ -26,6 +27,7 @@ hnco:
 - Added option --fun-get-maximum
 - Added option --fun-get-bv-size
 - Added option --fun-provides-incremental-evaluation
+- Added options relative to prior noise
 
 Experiments:
 - New result file layout (one file per run)
