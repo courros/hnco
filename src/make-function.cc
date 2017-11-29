@@ -21,11 +21,13 @@
 #include "config.h"
 
 #include "hnco/functions/all.hh"
+#include "hnco/neighborhoods/neighborhood.hh"
 
 #include "make-function.hh"
 
 using namespace hnco::exception;
 using namespace hnco::function;
+using namespace hnco::neighborhood;
 using namespace hnco;
 
 
@@ -323,6 +325,41 @@ make_map(Options& options)
     throw Error(stream.str());
   }
 
+  }
+}
+
+
+Neighborhood *
+make_prior_noise_neighborhood(Options& options)
+{
+  switch(options.get_pn_neighborhood()) {
+
+  case 0:
+    return new SingleBitFlip
+      (options.get_bv_size());
+
+  case 1: {
+    auto nh = new BernoulliProcess
+      (options.get_bv_size(),
+       options.get_pn_mutation() / options.get_bv_size());
+    nh->_allow_stay = options.with_pn_allow_stay();
+    return nh;
+  }
+
+  case 2:
+    return new HammingBall
+      (options.get_bv_size(),
+       options.get_pn_radius());
+
+  case 3:
+    return new HammingSphere
+      (options.get_bv_size(),
+       options.get_pn_radius());
+
+  default:
+    std::ostringstream stream;
+    stream << options.get_neighborhood();
+    throw Error("make_prior_noise_neighborhood: Unknown neighborhood type: " + stream.str());
   }
 }
 
