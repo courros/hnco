@@ -129,6 +129,10 @@ class Options {
   std::string _map_path;
   bool _opt_map_path;
 
+  /// Expected number of flipped bits (bv_size times mutation probability)
+  double _mutation;
+  bool _opt_mutation;
+
   /// Type of neighborhood
   int _neighborhood;
   bool _opt_neighborhood;
@@ -152,6 +156,18 @@ class Options {
   /// Path of a function file
   std::string _path;
   bool _opt_path;
+
+  /// Expected number of flipped bits (bv_size times mutation probability)
+  double _pn_mutation;
+  bool _opt_pn_mutation;
+
+  /// Type of neighborhood
+  int _pn_neighborhood;
+  bool _opt_pn_neighborhood;
+
+  /// Radius of Hamming ball or sphere
+  int _pn_radius;
+  bool _opt_pn_radius;
 
   /// Size of the population
   int _population_size;
@@ -184,10 +200,6 @@ class Options {
   /// Increase rate for inverse temperature
   double _sa_rate;
   bool _opt_sa_rate;
-
-  /// Scaled mutation probability or expected number of flipped bits (bv_size times probability)
-  double _scaled_mutation_probability;
-  bool _opt_scaled_mutation_probability;
 
   /// Seed for the random number generator
   unsigned _seed;
@@ -270,6 +282,9 @@ class Options {
   /// Negation (hence minimization) of the function
   bool _negation;
 
+  /// In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)
+  bool _pn_allow_stay;
+
   /// Print the default parameters and exit
   bool _print_default_parameters;
 
@@ -281,6 +296,9 @@ class Options {
 
   /// At the end, print the solution
   bool _print_solution;
+
+  /// Prior noise
+  bool _prior_noise;
 
   /// Log entropy of probability vector
   bool _pv_log_entropy;
@@ -659,6 +677,18 @@ public:
   /// Get set-flag for map_path
   bool set_map_path() const { return _opt_map_path; }
 
+  /// Get mutation
+  double get_mutation() const { return _mutation; }
+
+  /// Set mutation
+  void set_mutation(double x) {
+    _mutation = x;
+    _opt_mutation = true;
+  }
+
+  /// Get set-flag for mutation
+  bool set_mutation() const { return _opt_mutation; }
+
   /// Get neighborhood
   int get_neighborhood() const { return _neighborhood; }
 
@@ -730,6 +760,42 @@ public:
 
   /// Get set-flag for path
   bool set_path() const { return _opt_path; }
+
+  /// Get pn_mutation
+  double get_pn_mutation() const { return _pn_mutation; }
+
+  /// Set pn_mutation
+  void set_pn_mutation(double x) {
+    _pn_mutation = x;
+    _opt_pn_mutation = true;
+  }
+
+  /// Get set-flag for pn_mutation
+  bool set_pn_mutation() const { return _opt_pn_mutation; }
+
+  /// Get pn_neighborhood
+  int get_pn_neighborhood() const { return _pn_neighborhood; }
+
+  /// Set pn_neighborhood
+  void set_pn_neighborhood(int x) {
+    _pn_neighborhood = x;
+    _opt_pn_neighborhood = true;
+  }
+
+  /// Get set-flag for pn_neighborhood
+  bool set_pn_neighborhood() const { return _opt_pn_neighborhood; }
+
+  /// Get pn_radius
+  int get_pn_radius() const { return _pn_radius; }
+
+  /// Set pn_radius
+  void set_pn_radius(int x) {
+    _pn_radius = x;
+    _opt_pn_radius = true;
+  }
+
+  /// Get set-flag for pn_radius
+  bool set_pn_radius() const { return _opt_pn_radius; }
 
   /// Get population_size
   int get_population_size() const { return _population_size; }
@@ -826,18 +892,6 @@ public:
 
   /// Get set-flag for sa_rate
   bool set_sa_rate() const { return _opt_sa_rate; }
-
-  /// Get scaled_mutation_probability
-  double get_scaled_mutation_probability() const { return _scaled_mutation_probability; }
-
-  /// Set scaled_mutation_probability
-  void set_scaled_mutation_probability(double x) {
-    _scaled_mutation_probability = x;
-    _opt_scaled_mutation_probability = true;
-  }
-
-  /// Get set-flag for scaled_mutation_probability
-  bool set_scaled_mutation_probability() const { return _opt_scaled_mutation_probability; }
 
   /// Get seed
   unsigned get_seed() const { return _seed; }
@@ -1013,6 +1067,12 @@ public:
   /// Set negation
   void set_negation() { _negation = true; }
  
+  /// Get pn_allow_stay
+  bool with_pn_allow_stay() const { return _pn_allow_stay; }
+
+  /// Set pn_allow_stay
+  void set_pn_allow_stay() { _pn_allow_stay = true; }
+ 
   /// Get print_default_parameters
   bool with_print_default_parameters() const { return _print_default_parameters; }
 
@@ -1036,6 +1096,12 @@ public:
 
   /// Set print_solution
   void set_print_solution() { _print_solution = true; }
+ 
+  /// Get prior_noise
+  bool with_prior_noise() const { return _prior_noise; }
+
+  /// Set prior_noise
+  void set_prior_noise() { _prior_noise = true; }
  
   /// Get pv_log_entropy
   bool with_pv_log_entropy() const { return _pv_log_entropy; }

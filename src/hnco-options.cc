@@ -67,6 +67,8 @@ Options::Options(int argc, char *argv[]):
   _opt_map_input_size(false),
   _map_path("nopath"),
   _opt_map_path(false),
+  _mutation(1),
+  _opt_mutation(false),
   _neighborhood(0),
   _opt_neighborhood(false),
   _neighborhood_iterator(0),
@@ -79,6 +81,12 @@ Options::Options(int argc, char *argv[]):
   _opt_num_threads(false),
   _path("nopath"),
   _opt_path(false),
+  _pn_mutation(1),
+  _opt_pn_mutation(false),
+  _pn_neighborhood(0),
+  _opt_pn_neighborhood(false),
+  _pn_radius(2),
+  _opt_pn_radius(false),
   _population_size(10),
   _opt_population_size(false),
   _pv_log_num_components(5),
@@ -95,8 +103,6 @@ Options::Options(int argc, char *argv[]):
   _opt_sa_num_trials(false),
   _sa_rate(1.2),
   _opt_sa_rate(false),
-  _scaled_mutation_probability(1),
-  _opt_scaled_mutation_probability(false),
   _seed(0),
   _opt_seed(false),
   _selection_size(1),
@@ -126,10 +132,12 @@ Options::Options(int argc, char *argv[]):
   _map_random(false),
   _mmas_strict(false),
   _negation(false),
+  _pn_allow_stay(false),
   _print_default_parameters(false),
   _print_header(false),
   _print_performance(false),
   _print_solution(false),
+  _prior_noise(false),
   _pv_log_entropy(false),
   _pv_log_pv(false),
   _restart(false),
@@ -169,12 +177,16 @@ Options::Options(int argc, char *argv[]):
     OPTION_MAP,
     OPTION_MAP_INPUT_SIZE,
     OPTION_MAP_PATH,
+    OPTION_MUTATION,
     OPTION_NEIGHBORHOOD,
     OPTION_NEIGHBORHOOD_ITERATOR,
     OPTION_NOISE_STDDEV,
     OPTION_NUM_ITERATIONS,
     OPTION_NUM_THREADS,
     OPTION_PATH,
+    OPTION_PN_MUTATION,
+    OPTION_PN_NEIGHBORHOOD,
+    OPTION_PN_RADIUS,
     OPTION_POPULATION_SIZE,
     OPTION_PV_LOG_NUM_COMPONENTS,
     OPTION_RADIUS,
@@ -183,7 +195,6 @@ Options::Options(int argc, char *argv[]):
     OPTION_SA_NUM_TRANSITIONS,
     OPTION_SA_NUM_TRIALS,
     OPTION_SA_RATE,
-    OPTION_SCALED_MUTATION_PROBABILITY,
     OPTION_SEED,
     OPTION_SELECTION_SIZE,
     OPTION_TARGET,
@@ -210,10 +221,12 @@ Options::Options(int argc, char *argv[]):
     OPTION_MAP_RANDOM,
     OPTION_MMAS_STRICT,
     OPTION_NEGATION,
+    OPTION_PN_ALLOW_STAY,
     OPTION_PRINT_DEFAULT_PARAMETERS,
     OPTION_PRINT_HEADER,
     OPTION_PRINT_PERFORMANCE,
     OPTION_PRINT_SOLUTION,
+    OPTION_PRIOR_NOISE,
     OPTION_PV_LOG_ENTROPY,
     OPTION_PV_LOG_PV,
     OPTION_RESTART,
@@ -251,12 +264,16 @@ Options::Options(int argc, char *argv[]):
     {"map", required_argument, 0, OPTION_MAP},
     {"map-input-size", required_argument, 0, OPTION_MAP_INPUT_SIZE},
     {"map-path", required_argument, 0, OPTION_MAP_PATH},
+    {"mutation", required_argument, 0, OPTION_MUTATION},
     {"neighborhood", required_argument, 0, OPTION_NEIGHBORHOOD},
     {"neighborhood-iterator", required_argument, 0, OPTION_NEIGHBORHOOD_ITERATOR},
     {"noise-stddev", required_argument, 0, OPTION_NOISE_STDDEV},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
     {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
     {"path", required_argument, 0, OPTION_PATH},
+    {"pn-mutation", required_argument, 0, OPTION_PN_MUTATION},
+    {"pn-neighborhood", required_argument, 0, OPTION_PN_NEIGHBORHOOD},
+    {"pn-radius", required_argument, 0, OPTION_PN_RADIUS},
     {"population-size", required_argument, 0, OPTION_POPULATION_SIZE},
     {"pv-log-num-components", required_argument, 0, OPTION_PV_LOG_NUM_COMPONENTS},
     {"radius", required_argument, 0, OPTION_RADIUS},
@@ -265,7 +282,6 @@ Options::Options(int argc, char *argv[]):
     {"sa-num-transitions", required_argument, 0, OPTION_SA_NUM_TRANSITIONS},
     {"sa-num-trials", required_argument, 0, OPTION_SA_NUM_TRIALS},
     {"sa-rate", required_argument, 0, OPTION_SA_RATE},
-    {"scaled-mutation-probability", required_argument, 0, OPTION_SCALED_MUTATION_PROBABILITY},
     {"seed", required_argument, 0, OPTION_SEED},
     {"selection-size", required_argument, 0, OPTION_SELECTION_SIZE},
     {"target", required_argument, 0, OPTION_TARGET},
@@ -292,10 +308,12 @@ Options::Options(int argc, char *argv[]):
     {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
     {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
     {"negation", no_argument, 0, OPTION_NEGATION},
+    {"pn-allow-stay", no_argument, 0, OPTION_PN_ALLOW_STAY},
     {"print-default-parameters", no_argument, 0, OPTION_PRINT_DEFAULT_PARAMETERS},
     {"print-header", no_argument, 0, OPTION_PRINT_HEADER},
     {"print-performance", no_argument, 0, OPTION_PRINT_PERFORMANCE},
     {"print-solution", no_argument, 0, OPTION_PRINT_SOLUTION},
+    {"prior-noise", no_argument, 0, OPTION_PRIOR_NOISE},
     {"pv-log-entropy", no_argument, 0, OPTION_PV_LOG_ENTROPY},
     {"pv-log-pv", no_argument, 0, OPTION_PV_LOG_PV},
     {"restart", no_argument, 0, OPTION_RESTART},
@@ -306,7 +324,7 @@ Options::Options(int argc, char *argv[]):
     {"version", no_argument, 0, OPTION_VERSION},
     {0, no_argument, 0, 0}
   };
-  const char *short_options = "A:b:s:t:F:r:M:N:i:p:x:m:y:";
+  const char *short_options = "A:b:s:t:F:r:M:m:N:i:p:x:y:";
   while (true) {
     int option = getopt_long(argc, argv, short_options, long_options, 0);
     if (option < 0)
@@ -435,6 +453,11 @@ Options::Options(int argc, char *argv[]):
       set_map_path(string(optarg));
       break;
 
+    case 'm':
+    case OPTION_MUTATION:
+      set_mutation(atof(optarg));
+      break;
+
     case 'N':
     case OPTION_NEIGHBORHOOD:
       set_neighborhood(atoi(optarg));
@@ -460,6 +483,18 @@ Options::Options(int argc, char *argv[]):
     case 'p':
     case OPTION_PATH:
       set_path(string(optarg));
+      break;
+
+    case OPTION_PN_MUTATION:
+      set_pn_mutation(atof(optarg));
+      break;
+
+    case OPTION_PN_NEIGHBORHOOD:
+      set_pn_neighborhood(atoi(optarg));
+      break;
+
+    case OPTION_PN_RADIUS:
+      set_pn_radius(atoi(optarg));
       break;
 
     case 'x':
@@ -493,11 +528,6 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_SA_RATE:
       set_sa_rate(atof(optarg));
-      break;
-
-    case 'm':
-    case OPTION_SCALED_MUTATION_PROBABILITY:
-      set_scaled_mutation_probability(atof(optarg));
       break;
 
     case OPTION_SEED:
@@ -605,6 +635,10 @@ Options::Options(int argc, char *argv[]):
       _negation = true;
       break;
 
+    case OPTION_PN_ALLOW_STAY:
+      _pn_allow_stay = true;
+      break;
+
     case OPTION_PRINT_DEFAULT_PARAMETERS:
       _print_default_parameters = true;
       break;
@@ -619,6 +653,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_PRINT_SOLUTION:
       _print_solution = true;
+      break;
+
+    case OPTION_PRIOR_NOISE:
+      _prior_noise = true;
       break;
 
     case OPTION_PV_LOG_ENTROPY:
@@ -731,7 +769,7 @@ void Options::print_help(ostream& stream) const
   stream << "  -p, --path (type string, default to \"nopath\")" << endl;
   stream << "          Path of a function file" << endl;
   stream << endl;
-  stream << "Function decorators:" << endl;
+  stream << "Function Decorators:" << endl;
   stream << "      --additive-gaussian-noise" << endl;
   stream << "          Additive Gaussian noise" << endl;
   stream << "  -b, --budget (type int, default to 10000)" << endl;
@@ -750,6 +788,22 @@ void Options::print_help(ostream& stream) const
   stream << "          Stop on target" << endl;
   stream << "      --target (type double, default to 100)" << endl;
   stream << "          Target" << endl;
+  stream << endl;
+  stream << "Prior Noise:" << endl;
+  stream << "      --pn-allow-stay" << endl;
+  stream << "          In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)" << endl;
+  stream << "      --pn-mutation (type double, default to 1)" << endl;
+  stream << "          Expected number of flipped bits (bv_size times mutation probability)" << endl;
+  stream << "      --pn-neighborhood (type int, default to 0)" << endl;
+  stream << "          Type of neighborhood" << endl;
+  stream << "            0: Single bit flip" << endl;
+  stream << "            1: Bernoulli process" << endl;
+  stream << "            2: Hamming ball" << endl;
+  stream << "            3: Hamming sphere" << endl;
+  stream << "      --pn-radius (type int, default to 2)" << endl;
+  stream << "          Radius of Hamming ball or sphere" << endl;
+  stream << "      --prior-noise" << endl;
+  stream << "          Prior noise" << endl;
   stream << endl;
   stream << "Map:" << endl;
   stream << "  -M, --map (type int, default to 0)" << endl;
@@ -787,12 +841,12 @@ void Options::print_help(ostream& stream) const
   stream << "            900: Herding evolutionary algorithm, herding with binary variables" << endl;
   stream << "            901: Herding evolutionary algorithm, herding with spin variables" << endl;
   stream << "            1000: Boltzmann machine PBIL" << endl;
+  stream << "  -m, --mutation (type double, default to 1)" << endl;
+  stream << "          Expected number of flipped bits (bv_size times mutation probability)" << endl;
   stream << "  -i, --num-iterations (type int, default to 0)" << endl;
   stream << "          Number of iterations (<= 0 means indefinite)" << endl;
   stream << "      --restart" << endl;
   stream << "          Restart any algorithm an indefinite number of times" << endl;
-  stream << "  -m, --scaled-mutation-probability (type double, default to 1)" << endl;
-  stream << "          Scaled mutation probability or expected number of flipped bits (bv_size times probability)" << endl;
   stream << endl;
   stream << "Local Search:" << endl;
   stream << "      --allow-stay" << endl;
@@ -953,12 +1007,16 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# map = " << options._map << endl;
   stream << "# map_input_size = " << options._map_input_size << endl;
   stream << "# map_path = " << options._map_path << endl;
+  stream << "# mutation = " << options._mutation << endl;
   stream << "# neighborhood = " << options._neighborhood << endl;
   stream << "# neighborhood_iterator = " << options._neighborhood_iterator << endl;
   stream << "# noise_stddev = " << options._noise_stddev << endl;
   stream << "# num_iterations = " << options._num_iterations << endl;
   stream << "# num_threads = " << options._num_threads << endl;
   stream << "# path = " << options._path << endl;
+  stream << "# pn_mutation = " << options._pn_mutation << endl;
+  stream << "# pn_neighborhood = " << options._pn_neighborhood << endl;
+  stream << "# pn_radius = " << options._pn_radius << endl;
   stream << "# population_size = " << options._population_size << endl;
   stream << "# pv_log_num_components = " << options._pv_log_num_components << endl;
   stream << "# radius = " << options._radius << endl;
@@ -967,7 +1025,6 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# sa_num_transitions = " << options._sa_num_transitions << endl;
   stream << "# sa_num_trials = " << options._sa_num_trials << endl;
   stream << "# sa_rate = " << options._sa_rate << endl;
-  stream << "# scaled_mutation_probability = " << options._scaled_mutation_probability << endl;
   stream << "# seed = " << options._seed << endl;
   stream << "# selection_size = " << options._selection_size << endl;
   stream << "# target = " << options._target << endl;
@@ -1017,6 +1074,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# mmas_strict" << endl;
   if (options._negation)
     stream << "# negation" << endl;
+  if (options._pn_allow_stay)
+    stream << "# pn_allow_stay" << endl;
   if (options._print_default_parameters)
     stream << "# print_default_parameters" << endl;
   if (options._print_header)
@@ -1025,6 +1084,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# print_performance" << endl;
   if (options._print_solution)
     stream << "# print_solution" << endl;
+  if (options._prior_noise)
+    stream << "# prior_noise" << endl;
   if (options._pv_log_entropy)
     stream << "# pv_log_entropy" << endl;
   if (options._pv_log_pv)
