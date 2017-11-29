@@ -42,7 +42,7 @@ make_neighborhood(Options& options)
   case 1: {
     auto neighborhood = new BernoulliProcess
       (options.get_bv_size(),
-       options.get_scaled_mutation_probability() / options.get_bv_size());
+       options.get_mutation() / options.get_bv_size());
     neighborhood->_allow_stay = options.with_allow_stay();
     return neighborhood;
   }
@@ -154,7 +154,7 @@ make_concrete_algorithm(Options& options)
     assert(algo);
 
     algo->_num_iterations               = options.get_num_iterations();
-    algo->_mutation_probability         = options.get_scaled_mutation_probability() / options.get_bv_size();
+    algo->_mutation_probability         = options.get_mutation() / options.get_bv_size();
     algo->_incremental_evaluation       = options.with_incremental_evaluation();
     algo->_allow_stay                   = options.with_allow_stay();
 
@@ -169,7 +169,7 @@ make_concrete_algorithm(Options& options)
     assert(algo);
 
     algo->_num_iterations               = options.get_num_iterations();
-    algo->_mutation_probability         = options.get_scaled_mutation_probability() / options.get_bv_size();
+    algo->_mutation_probability         = options.get_mutation() / options.get_bv_size();
 
     return algo;
   }
@@ -182,7 +182,7 @@ make_concrete_algorithm(Options& options)
     assert(algo);
 
     algo->_num_iterations               = options.get_num_iterations();
-    algo->_mutation_probability         = options.get_scaled_mutation_probability() / options.get_bv_size();
+    algo->_mutation_probability         = options.get_mutation() / options.get_bv_size();
 
     return algo;
   }
@@ -194,7 +194,7 @@ make_concrete_algorithm(Options& options)
     assert(algo);
 
     algo->_num_iterations               = options.get_num_iterations();
-    algo->_mutation_probability         = options.get_scaled_mutation_probability() / options.get_bv_size();
+    algo->_mutation_probability         = options.get_mutation() / options.get_bv_size();
     algo->_crossover_probability        = options.get_ga_crossover_probability();
     algo->_tournament_size              = options.get_ga_tournament_size();
 
