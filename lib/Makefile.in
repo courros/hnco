@@ -193,6 +193,8 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.cc \
 	hnco/functions/decorators/function-modifier.hh \
+	hnco/functions/decorators/prior-noise.cc \
+	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.cc \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.cc \
 	hnco/functions/four-peaks.hh hnco/functions/function.hh \
@@ -250,6 +252,7 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/functions/cancellation.lo \
 	hnco/functions/decorators/function-controller.lo \
 	hnco/functions/decorators/function-modifier.lo \
+	hnco/functions/decorators/prior-noise.lo \
 	hnco/functions/equal-products.lo hnco/functions/four-peaks.lo \
 	hnco/functions/jump.lo hnco/functions/labs.lo \
 	hnco/functions/linear-function.lo hnco/functions/long-path.lo \
@@ -357,6 +360,7 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.hh \
+	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.hh \
 	hnco/functions/function.hh hnco/functions/jump.hh \
 	hnco/functions/labs.hh hnco/functions/linear-function.hh \
@@ -576,6 +580,8 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.cc \
 	hnco/functions/decorators/function-modifier.hh \
+	hnco/functions/decorators/prior-noise.cc \
+	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.cc \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.cc \
 	hnco/functions/four-peaks.hh hnco/functions/function.hh \
@@ -635,6 +641,7 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.hh \
+	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.hh \
 	hnco/functions/function.hh hnco/functions/jump.hh \
 	hnco/functions/labs.hh hnco/functions/linear-function.hh \
@@ -848,6 +855,9 @@ hnco/functions/decorators/function-controller.lo:  \
 hnco/functions/decorators/function-modifier.lo:  \
 	hnco/functions/decorators/$(am__dirstamp) \
 	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/decorators/prior-noise.lo:  \
+	hnco/functions/decorators/$(am__dirstamp) \
+	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/equal-products.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/four-peaks.lo: hnco/functions/$(am__dirstamp) \
@@ -985,6 +995,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/trap.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-controller.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo@am__quote@

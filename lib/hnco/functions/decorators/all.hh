@@ -24,5 +24,6 @@
 #include "function-decorator.hh"
 #include "function-controller.hh"
 #include "function-modifier.hh"
+#include "prior-noise.hh"
 
 #endif

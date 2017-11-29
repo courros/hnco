@@ -18,51 +18,40 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_DECORATORS_FUNCTION_MODIFIER_H
-#define HNCO_FUNCTIONS_DECORATORS_FUNCTION_MODIFIER_H
+#ifndef HNCO_FUNCTIONS_DECORATORS_PRIOR_NOISE_H
+#define HNCO_FUNCTIONS_DECORATORS_PRIOR_NOISE_H
 
 #include <assert.h>
 
-#include <iostream>
+#include "hnco/neighborhoods/neighborhood.hh"
 
-#include "hnco/map.hh"
-
-#include "function-decorator.hh"
+#include "function-modifier.hh"
 
 
 namespace hnco::function {
 
 
-  /// Function modifier
-  class FunctionModifier:
-    public FunctionDecorator {
-
-  public:
-
-    /// Constructor
-    FunctionModifier(Function *function):
-      FunctionDecorator(function) {}
-
-  };
-
-
-  /** Negation.
-
-      Use cases:
-
-      - for algorithms which minimize rather than maximize a function
-      - for functions one wishes to minimize
-      - when minimization is needed inside an algorithm
-
-  */
-  class Negation:
+  /// Prior noise
+  class PriorNoise:
     public FunctionModifier {
 
+    /// Neighborhood
+    neighborhood::Neighborhood *_neighborhood;
+
+    /// Noisy bit vector
+    bit_vector_t _noisy_bv;
+
   public:
 
     /// Constructor
-    Negation(Function *function):
-      FunctionModifier(function) {}
+    PriorNoise(Function *fn, neighborhood::Neighborhood *nh):
+      FunctionModifier(fn),
+      _neighborhood(nh)
+    {
+      assert(fn);
+      assert(nh);
+      _noisy_bv.resize(fn->get_bv_size());
+    }
 
     /** @name Information about the function
      */
@@ -72,17 +61,20 @@ namespace hnco::function {
     size_t get_bv_size() { return _function->get_bv_size(); }
 
     /** Get the global maximum.
-        \throw Error */
-    double get_maximum() { throw exception::Error("Unknown maximum"); }
+
+        Delegation is questionable here.
+    */
+    double get_maximum() { return _function->get_maximum(); }
 
     /** Check for a known maximum.
-        \return false */
-    bool has_known_maximum() { return false; }
+
+        Delegation is questionable here.
+    */
+    bool has_known_maximum() { return _function->has_known_maximum(); }
 
     /** Check whether the function provides incremental evaluation.
-        \return true
-    */
-    bool provides_incremental_evaluation() { return true; }
+        \return false */
+    bool provides_incremental_evaluation() { return false; }
 
     ///@}
 
@@ -94,108 +86,7 @@ namespace hnco::function {
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
 
-    /// Incremental evaluation
-    double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
-
     ///@}
-
-  };
-
-
-  /// Composition of a function and a map
-  class FunctionMapComposition:
-    public FunctionModifier {
-
-    /// Map
-    Map *_map;
-
-    /// _bv
-    bit_vector_t _bv;
-
-  public:
-
-    /** Constructor.
-        \pre map->get_output_size() == function->get_bv_size()
-        \throw Error
-    */
-    FunctionMapComposition(Function *function, Map *map):
-      FunctionModifier(function),
-      _map(map)
-    {
-      assert(map);
-
-      if (map->get_output_size() != function->get_bv_size())
-        throw exception::Error("FunctionMapComposition::FunctionMapComposition: _function and _map must be compatible");
-      _bv.resize(function->get_bv_size());
-    }
-
-    /** @name Information about the function
-     */
-    ///@{
-
-    /// Get bit vector size
-    size_t get_bv_size() { return _map->get_input_size(); }
-
-    /** Get the global maximum.
-        \throw Error */
-    double get_maximum() {
-      if (has_known_maximum())
-        return _function->get_maximum();
-      else
-        throw exception::Error("Unknown maximum");
-    }
-
-    /** Check for a known maximum.
-        \return true if the function has a known maximum and the map
-        is bijective. */
-    bool has_known_maximum() {
-      return
-        _function->has_known_maximum() &&
-        _map->is_surjective();
-    }
-
-    ///@}
-
-    /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
-
-  };
-
-
-  /// Additive Gaussian Noise
-  class AdditiveGaussianNoise:
-    public FunctionModifier {
-
-    /// Normal distribution
-    std::normal_distribution<double> _dist;
-
-  public:
-
-    /// Constructor
-    AdditiveGaussianNoise(Function *function, double stddev):
-      FunctionModifier(function),
-      _dist(0, stddev) {}
-
-    /** @name Information about the function
-     */
-    ///@{
-
-    /// Get bit vector size
-    size_t get_bv_size() { return _function->get_bv_size(); }
-
-    /** Get the global maximum.
-        \throw Error */
-    double get_maximum() { throw exception::Error("Unknown maximum"); }
-
-    /** Check for a known maximum.
-        \return false */
-    bool has_known_maximum() { return false; }
-
-    ///@}
-
-
-    /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
 
   };
 

@@ -76,6 +76,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.cc \
 	hnco/functions/decorators/function-modifier.hh \
+	hnco/functions/decorators/prior-noise.cc \
+	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.cc \
 	hnco/functions/equal-products.hh \
 	hnco/functions/four-peaks.cc \
@@ -172,6 +174,7 @@ nobase_include_HEADERS = \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.hh \
+	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.hh \
 	hnco/functions/four-peaks.hh \
 	hnco/functions/function.hh \

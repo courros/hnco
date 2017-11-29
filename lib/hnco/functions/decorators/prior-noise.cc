@@ -18,39 +18,15 @@
 
 */
 
-#include "hnco/random.hh"
-
-#include "function-modifier.hh"
+#include "prior-noise.hh"
 
 
-using namespace hnco::exception;
 using namespace hnco::function;
 
 
 double
-Negation::eval(const bit_vector_t& x)
+PriorNoise::eval(const bit_vector_t& x)
 {
-  return -_function->eval(x);
-}
-
-
-double
-Negation::incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
-{
-  return -_function->incremental_eval(x, value, flipped_bits);
-}
-
-
-double
-FunctionMapComposition::eval(const bit_vector_t& x)
-{
-  _map->map(x, _bv);
-  return _function->eval(_bv);
-}
-
-
-double
-AdditiveGaussianNoise::eval(const bit_vector_t& x)
-{
-  return _function->eval(x) + _dist(random::Random::engine);
+  _neighborhood->map(x, _noisy_bv);
+  return _function->eval(_noisy_bv);
 }
