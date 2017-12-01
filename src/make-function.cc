@@ -34,6 +34,9 @@ using namespace hnco;
 Function *
 make_concrete_function(Options& options)
 {
+  if (options.get_bv_size() <= 0)
+    throw Error("make_concrete_function: bv_size must be positive");
+
   switch(options.get_function()) {
 
   case 0:
@@ -424,7 +427,7 @@ make_function_controller(Function *function, Options& options)
       assert(function);
     } else {
       std::ostringstream stream;
-      stream << "make_function_controller: Function " << options.get_function() << ": Unknown maximum";
+      stream << "make_function_controller (StopOnMaximum): Unknown maximum";
       throw Error(stream.str());
     }
 
