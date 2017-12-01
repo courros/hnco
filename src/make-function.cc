@@ -326,6 +326,7 @@ make_map(Options& options)
   }
 
   }
+
 }
 
 
@@ -361,14 +362,16 @@ make_prior_noise_neighborhood(Options& options)
     stream << options.get_neighborhood();
     throw Error("make_prior_noise_neighborhood: Unknown neighborhood type: " + stream.str());
   }
+
 }
 
 
 Function *
-make_function_decorator(Function *function, Options& options)
+make_function_modifier(Function *function, Options& options)
 {
   assert(function);
-  assert(options.get_bv_size() > 0);
+
+  size_t bv_size = function->get_bv_size();
 
   // Map
   Map *map = 0;
@@ -379,15 +382,11 @@ make_function_decorator(Function *function, Options& options)
     assert(function);
   }
 
-  int bv_size = options.get_bv_size();
-
-  if (bv_size != int(function->get_bv_size())) {
-    std::cerr << "Warning: After make_map, bv_size changed from " << bv_size << " to " << function->get_bv_size() << std::endl;
-    bv_size = function->get_bv_size();
-    options.set_bv_size(function->get_bv_size());
+  if (function->get_bv_size() != bv_size) {
+    std::cerr << "Warning: make_function_modifier: After composition by a map, bv_size changed from "
+              << bv_size << " to "
+              << function->get_bv_size() << std::endl;
   }
-
-  assert(bv_size == options.get_bv_size());
 
   // Additive gaussian noise
   if (options.with_additive_gaussian_noise()) {
@@ -401,15 +400,23 @@ make_function_decorator(Function *function, Options& options)
     assert(function);
   }
 
+  return function;
+}
+
+
+Function *
+make_function_controller(Function *function, Options& options)
+{
+  assert(function);
+
+  // Budget
+  if (options.get_budget() > 0) {
+    function = new OnBudgetFunction(function, options.get_budget());
+    assert(function);
+  }
+
   // Stop on maximum
   if (options.with_stop_on_maximum()) {
-
-    // Bijective map
-    if (options.get_map() > 0) {
-      assert(map);
-      if (!map->is_surjective())
-        throw Error("make_function_decorator: StopOnMaximum requires a bijective map");
-    }
 
     // Known maximum
     if (function->has_known_maximum()) {
@@ -417,7 +424,7 @@ make_function_decorator(Function *function, Options& options)
       assert(function);
     } else {
       std::ostringstream stream;
-      stream << "make_function_decorator: Function " << options.get_function() << ": Unknown maximum";
+      stream << "make_function_controller: Function " << options.get_function() << ": Unknown maximum";
       throw Error(stream.str());
     }
 
@@ -435,14 +442,6 @@ make_function_decorator(Function *function, Options& options)
     assert(function);
   }
 
-  // Budget
-  if (options.get_budget() > 0) {
-    function = new OnBudgetFunction(function, options.get_budget());
-    assert(function);
-  }
-
-  assert(options.get_bv_size() == bv_size);
-
   return function;
 }
 
@@ -450,22 +449,19 @@ make_function_decorator(Function *function, Options& options)
 Function *
 make_function(Options& options)
 {
-  assert(options.get_bv_size() > 0);
+  int bv_size = options.get_bv_size();
 
   Function *function = make_concrete_function(options);
   assert(function);
 
-  int bv_size = options.get_bv_size();
-
-  if (bv_size != int(function->get_bv_size())) {
-    std::cerr << "Warning: After make_concrete_function, bv_size changed from " << bv_size << " to " << function->get_bv_size() << std::endl;
-    bv_size = function->get_bv_size();
-    options.set_bv_size(function->get_bv_size());
+  if (int(function->get_bv_size()) != bv_size) {
+    std::cerr << "Warning: make_function: After make_concrete_function, bv_size changed from "
+              << bv_size << " to "
+              << function->get_bv_size() << std::endl;
   }
 
-  assert(bv_size == options.get_bv_size());
-
-  function = make_function_decorator(function, options);
+  function = make_function_modifier(function, options);
+  function = make_function_controller(function, options);
   assert(function);
 
   return function;
