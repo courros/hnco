@@ -38,5 +38,5 @@ fi
 
 # Output files.
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile lib/Makefile src/Makefile tests/Makefile scripts/Makefile])
+AC_CONFIG_FILES([Makefile lib/Makefile src/Makefile tests/Makefile scripts/Makefile examples/Makefile])
 AC_OUTPUT

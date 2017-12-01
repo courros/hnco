@@ -17608,7 +17608,7 @@ fi
 # Output files.
 ac_config_headers="$ac_config_headers config.h"
 
-ac_config_files="$ac_config_files Makefile lib/Makefile src/Makefile tests/Makefile scripts/Makefile"
+ac_config_files="$ac_config_files Makefile lib/Makefile src/Makefile tests/Makefile scripts/Makefile examples/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -18732,6 +18732,7 @@ do
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
     "tests/Makefile") CONFIG_FILES="$CONFIG_FILES tests/Makefile" ;;
     "scripts/Makefile") CONFIG_FILES="$CONFIG_FILES scripts/Makefile" ;;
+    "examples/Makefile") CONFIG_FILES="$CONFIG_FILES examples/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
