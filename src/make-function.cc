@@ -388,15 +388,15 @@ make_function_modifier(Function *function, Options& options)
               << function->get_bv_size() << std::endl;
   }
 
-  // Additive gaussian noise
-  if (options.with_additive_gaussian_noise()) {
-    function = new AdditiveGaussianNoise(function, options.get_noise_stddev());
-    assert(function);
-  }
-
   // Negation
   if (options.with_negation()) {
     function = new Negation(function);
+    assert(function);
+  }
+
+  // Additive gaussian noise
+  if (options.with_additive_gaussian_noise()) {
+    function = new AdditiveGaussianNoise(function, options.get_noise_stddev());
     assert(function);
   }
 
