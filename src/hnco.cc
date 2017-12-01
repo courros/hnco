@@ -60,6 +60,7 @@ int main(int argc, char *argv[])
     std::cerr << "Error: " << e.what() << std::endl;
     return 1;
   }
+  assert(options.get_bv_size() == int(fn->get_bv_size()));
 
   if (options.with_describe_function()) {
     fn->display(std::cout);
