@@ -240,7 +240,7 @@ make_map(Options& options)
       std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
         std::ostringstream stream;
-        stream << "make_concrete_function (Translation): Cannot open " << options.get_map_path();
+        stream << "make_map (Translation): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
       boost::archive::text_iarchive ia(ifs);
@@ -257,7 +257,7 @@ make_map(Options& options)
       std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
         std::ostringstream stream;
-        stream << "make_concrete_function (Permutation): Cannot open " << options.get_map_path();
+        stream << "make_map (Permutation): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
       boost::archive::text_iarchive ia(ifs);
@@ -276,7 +276,7 @@ make_map(Options& options)
       std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
         std::ostringstream stream;
-        stream << "make_concrete_function (Composition of permutation and translation): Cannot open " << options.get_map_path();
+        stream << "make_map (Composition of permutation and translation): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
       boost::archive::text_iarchive ia(ifs);
@@ -293,7 +293,7 @@ make_map(Options& options)
       std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
         std::ostringstream stream;
-        stream << "make_concrete_function (LinearMap): Cannot open " << options.get_map_path();
+        stream << "make_map (LinearMap): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
       boost::archive::text_iarchive ia(ifs);
@@ -310,7 +310,7 @@ make_map(Options& options)
       std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
         std::ostringstream stream;
-        stream << "make_concrete_function (AffineMap): Cannot open " << options.get_map_path();
+        stream << "make_map (AffineMap): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
       boost::archive::text_iarchive ia(ifs);
@@ -359,8 +359,8 @@ make_prior_noise_neighborhood(Options& options)
 
   default:
     std::ostringstream stream;
-    stream << options.get_neighborhood();
-    throw Error("make_prior_noise_neighborhood: Unknown neighborhood type: " + stream.str());
+    stream << "make_prior_noise_neighborhood: Unknown neighborhood type: " << options.get_neighborhood();
+    throw Error(stream.str());
   }
 
 }
@@ -371,7 +371,7 @@ make_function_modifier(Function *function, Options& options)
 {
   assert(function);
 
-  size_t bv_size = function->get_bv_size();
+  const size_t bv_size = function->get_bv_size();
 
   // Map
   Map *map = 0;
@@ -449,7 +449,7 @@ make_function_controller(Function *function, Options& options)
 Function *
 make_function(Options& options)
 {
-  int bv_size = options.get_bv_size();
+  const int bv_size = options.get_bv_size();
 
   Function *function = make_concrete_function(options);
   assert(function);
@@ -463,6 +463,10 @@ make_function(Options& options)
   function = make_function_modifier(function, options);
   function = make_function_controller(function, options);
   assert(function);
+
+  options.set_bv_size(function->get_bv_size());
+  if (options.get_bv_size() <= 0)
+    throw Error("make_function: bv_size must be positive");
 
   return function;
 }
