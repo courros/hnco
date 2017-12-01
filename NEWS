@@ -28,6 +28,8 @@ hnco:
 - Added option --fun-get-bv-size
 - Added option --fun-provides-incremental-evaluation
 - Added options relative to prior noise
+- Catch serialization exceptions
+- Split make_function_decorator into make_function_modifier and make_function_controller
 
 Experiments:
 - New result file layout (one file per run)
