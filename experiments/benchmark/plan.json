@@ -106,7 +106,7 @@
 
         {
             "id": "trap",
-	    "opt": "-F 110 --stop-on-maximum --fun-num-traps 10",
+	    "opt": "-F 110 --stop-on-maximum --fn-num-traps 10",
             "col": ">{{\\nprounddigits{0}}}N{3}{0}"
         },
 
