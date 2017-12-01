@@ -51,8 +51,13 @@ make_concrete_function(Options& options)
       stream << "make_concrete_function (LinearFunction): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
-    boost::archive::text_iarchive ia(ifs);
-    ia >> (*function);
+    try {
+      boost::archive::text_iarchive ia(ifs);
+      ia >> (*function);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw Error(e.what());
+    }
     return function;
   }
 
@@ -108,8 +113,13 @@ make_concrete_function(Options& options)
       stream << "make_concrete_function (NkLandscape): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
-    boost::archive::text_iarchive ia(ifs);
-    ia >> (*function);
+    try {
+      boost::archive::text_iarchive ia(ifs);
+      ia >> (*function);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw Error(e.what());
+    }
     return function;
   }
 
@@ -137,8 +147,13 @@ make_concrete_function(Options& options)
       stream << "make_concrete_function (EqualProducts): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
-    boost::archive::text_iarchive ia(ifs);
-    ia >> (*function);
+    try {
+      boost::archive::text_iarchive ia(ifs);
+      ia >> (*function);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw Error(e.what());
+    }
     return function;
   }
 
@@ -182,8 +197,13 @@ make_concrete_function(Options& options)
       stream << "make_concrete_function (WalshExpansion): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
-    boost::archive::text_iarchive ia(ifs);
-    ia >> (*function);
+    try {
+      boost::archive::text_iarchive ia(ifs);
+      ia >> (*function);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw Error(e.what());
+    }
     return function;
   }
 
@@ -195,8 +215,13 @@ make_concrete_function(Options& options)
       stream << "make_concrete_function (WalshExpansion1): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
-    boost::archive::text_iarchive ia(ifs);
-    ia >> (*function);
+    try {
+      boost::archive::text_iarchive ia(ifs);
+      ia >> (*function);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw Error(e.what());
+    }
     return function;
   }
 
@@ -208,8 +233,13 @@ make_concrete_function(Options& options)
       stream << "make_concrete_function (WalshExpansion2): Cannot open " << options.get_path();
       throw Error(stream.str());
     }
-    boost::archive::text_iarchive ia(ifs);
-    ia >> (*function);
+    try {
+      boost::archive::text_iarchive ia(ifs);
+      ia >> (*function);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw Error(e.what());
+    }
     return function;
   }
 
@@ -246,8 +276,13 @@ make_map(Options& options)
         stream << "make_map (Translation): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
-      boost::archive::text_iarchive ia(ifs);
-      ia >> (*map);
+      try {
+        boost::archive::text_iarchive ia(ifs);
+        ia >> (*map);
+      }
+      catch (boost::archive::archive_exception& e) {
+        throw Error(e.what());
+      }
     }
     return map;
   }
@@ -263,8 +298,13 @@ make_map(Options& options)
         stream << "make_map (Permutation): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
-      boost::archive::text_iarchive ia(ifs);
-      ia >> (*map);
+      try {
+        boost::archive::text_iarchive ia(ifs);
+        ia >> (*map);
+      }
+      catch (boost::archive::archive_exception& e) {
+        throw Error(e.what());
+      }
     }
     return map;
   }
@@ -282,8 +322,13 @@ make_map(Options& options)
         stream << "make_map (Composition of permutation and translation): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
-      boost::archive::text_iarchive ia(ifs);
-      ia >> (*permutation) >> (*translation);
+      try {
+        boost::archive::text_iarchive ia(ifs);
+        ia >> (*permutation) >> (*translation);
+      }
+      catch (boost::archive::archive_exception& e) {
+        throw Error(e.what());
+      }
     }
     return new MapComposition(permutation, translation);
   }
@@ -299,8 +344,13 @@ make_map(Options& options)
         stream << "make_map (LinearMap): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
-      boost::archive::text_iarchive ia(ifs);
-      ia >> (*map);
+      try {
+        boost::archive::text_iarchive ia(ifs);
+        ia >> (*map);
+      }
+      catch (boost::archive::archive_exception& e) {
+        throw Error(e.what());
+      }
     }
     return map;
   }
@@ -316,8 +366,13 @@ make_map(Options& options)
         stream << "make_map (AffineMap): Cannot open " << options.get_map_path();
         throw Error(stream.str());
       }
-      boost::archive::text_iarchive ia(ifs);
-      ia >> (*map);
+      try {
+        boost::archive::text_iarchive ia(ifs);
+        ia >> (*map);
+      }
+      catch (boost::archive::archive_exception& e) {
+        throw Error(e.what());
+      }
     }
     return map;
   }
