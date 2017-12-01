@@ -391,6 +391,14 @@ make_function_modifier(Function *function, Options& options)
               << function->get_bv_size() << std::endl;
   }
 
+  // Prior noise
+  if (options.with_prior_noise()) {
+    Neighborhood *nh = make_prior_noise_neighborhood(options);
+    assert(nh);
+    function = new PriorNoise(function, nh);
+    assert(function);
+  }
+
   // Negation
   if (options.with_negation()) {
     function = new Negation(function);
