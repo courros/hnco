@@ -59,25 +59,25 @@
         },
 
 
-        "fun_has_known_maximum":
+        "fn_has_known_maximum":
         {
             "description": "Exit with status 0 if the function has a known maximum, 1 otherwise",
             "category": "Function"
         },
 
-        "fun_get_maximum":
+        "fn_get_maximum":
         {
             "description": "Print the maximum and exit with status 0 if the function has a known maximum, 1 otherwise",
             "category": "Function"
         },
 
-        "fun_get_bv_size":
+        "fn_get_bv_size":
         {
             "description": "Print the size of bit vectors",
             "category": "Function"
         },
 
-        "fun_provides_incremental_evaluation":
+        "fn_provides_incremental_evaluation":
         {
             "description": "Exit with status 0 if the function provides incremental evaluation, 1 otherwise",
             "category": "Function"
@@ -415,7 +415,7 @@
             "file": "open"
         },
 
-        "fun_threshold":
+        "fn_threshold":
         {
             "optchar": "t",
             "type": "int",
@@ -424,7 +424,7 @@
             "category": "Function"
         },
 
-        "fun_num_traps":
+        "fn_num_traps":
         {
             "type": "int",
             "value": 10,
@@ -432,7 +432,7 @@
             "category": "Function"
         },
 
-        "fun_prefix_length":
+        "fn_prefix_length":
         {
             "type": "int",
             "value": 2,
@@ -440,7 +440,7 @@
             "category": "Function"
         },
 
-        "fun_name":
+        "fn_name":
         {
             "type": "string",
             "value": "noname",

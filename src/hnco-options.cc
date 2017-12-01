@@ -27,14 +27,14 @@ Options::Options(int argc, char *argv[]):
   _opt_ea_lambda(false),
   _ea_mu(10),
   _opt_ea_mu(false),
-  _fun_name("noname"),
-  _opt_fun_name(false),
-  _fun_num_traps(10),
-  _opt_fun_num_traps(false),
-  _fun_prefix_length(2),
-  _opt_fun_prefix_length(false),
-  _fun_threshold(10),
-  _opt_fun_threshold(false),
+  _fn_name("noname"),
+  _opt_fn_name(false),
+  _fn_num_traps(10),
+  _opt_fn_num_traps(false),
+  _fn_prefix_length(2),
+  _opt_fn_prefix_length(false),
+  _fn_threshold(10),
+  _opt_fn_threshold(false),
   _function(0),
   _opt_function(false),
   _ga_crossover_probability(0.5),
@@ -117,10 +117,10 @@ Options::Options(int argc, char *argv[]):
   _cache(false),
   _describe_function(false),
   _describe_solution(false),
-  _fun_get_bv_size(false),
-  _fun_get_maximum(false),
-  _fun_has_known_maximum(false),
-  _fun_provides_incremental_evaluation(false),
+  _fn_get_bv_size(false),
+  _fn_get_maximum(false),
+  _fn_has_known_maximum(false),
+  _fn_provides_incremental_evaluation(false),
   _hea_bound_moment(false),
   _hea_log_delta(false),
   _hea_log_dtu(false),
@@ -157,10 +157,10 @@ Options::Options(int argc, char *argv[]):
     OPTION_BV_SIZE,
     OPTION_EA_LAMBDA,
     OPTION_EA_MU,
-    OPTION_FUN_NAME,
-    OPTION_FUN_NUM_TRAPS,
-    OPTION_FUN_PREFIX_LENGTH,
-    OPTION_FUN_THRESHOLD,
+    OPTION_FN_NAME,
+    OPTION_FN_NUM_TRAPS,
+    OPTION_FN_PREFIX_LENGTH,
+    OPTION_FN_THRESHOLD,
     OPTION_FUNCTION,
     OPTION_GA_CROSSOVER_PROBABILITY,
     OPTION_GA_TOURNAMENT_SIZE,
@@ -206,10 +206,10 @@ Options::Options(int argc, char *argv[]):
     OPTION_CACHE,
     OPTION_DESCRIBE_FUNCTION,
     OPTION_DESCRIBE_SOLUTION,
-    OPTION_FUN_GET_BV_SIZE,
-    OPTION_FUN_GET_MAXIMUM,
-    OPTION_FUN_HAS_KNOWN_MAXIMUM,
-    OPTION_FUN_PROVIDES_INCREMENTAL_EVALUATION,
+    OPTION_FN_GET_BV_SIZE,
+    OPTION_FN_GET_MAXIMUM,
+    OPTION_FN_HAS_KNOWN_MAXIMUM,
+    OPTION_FN_PROVIDES_INCREMENTAL_EVALUATION,
     OPTION_HEA_BOUND_MOMENT,
     OPTION_HEA_LOG_DELTA,
     OPTION_HEA_LOG_DTU,
@@ -244,10 +244,10 @@ Options::Options(int argc, char *argv[]):
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
     {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
-    {"fun-name", required_argument, 0, OPTION_FUN_NAME},
-    {"fun-num-traps", required_argument, 0, OPTION_FUN_NUM_TRAPS},
-    {"fun-prefix-length", required_argument, 0, OPTION_FUN_PREFIX_LENGTH},
-    {"fun-threshold", required_argument, 0, OPTION_FUN_THRESHOLD},
+    {"fn-name", required_argument, 0, OPTION_FN_NAME},
+    {"fn-num-traps", required_argument, 0, OPTION_FN_NUM_TRAPS},
+    {"fn-prefix-length", required_argument, 0, OPTION_FN_PREFIX_LENGTH},
+    {"fn-threshold", required_argument, 0, OPTION_FN_THRESHOLD},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"ga-crossover-probability", required_argument, 0, OPTION_GA_CROSSOVER_PROBABILITY},
     {"ga-tournament-size", required_argument, 0, OPTION_GA_TOURNAMENT_SIZE},
@@ -293,10 +293,10 @@ Options::Options(int argc, char *argv[]):
     {"cache", no_argument, 0, OPTION_CACHE},
     {"describe-function", no_argument, 0, OPTION_DESCRIBE_FUNCTION},
     {"describe-solution", no_argument, 0, OPTION_DESCRIBE_SOLUTION},
-    {"fun-get-bv-size", no_argument, 0, OPTION_FUN_GET_BV_SIZE},
-    {"fun-get-maximum", no_argument, 0, OPTION_FUN_GET_MAXIMUM},
-    {"fun-has-known-maximum", no_argument, 0, OPTION_FUN_HAS_KNOWN_MAXIMUM},
-    {"fun-provides-incremental-evaluation", no_argument, 0, OPTION_FUN_PROVIDES_INCREMENTAL_EVALUATION},
+    {"fn-get-bv-size", no_argument, 0, OPTION_FN_GET_BV_SIZE},
+    {"fn-get-maximum", no_argument, 0, OPTION_FN_GET_MAXIMUM},
+    {"fn-has-known-maximum", no_argument, 0, OPTION_FN_HAS_KNOWN_MAXIMUM},
+    {"fn-provides-incremental-evaluation", no_argument, 0, OPTION_FN_PROVIDES_INCREMENTAL_EVALUATION},
     {"hea-bound-moment", no_argument, 0, OPTION_HEA_BOUND_MOMENT},
     {"hea-log-delta", no_argument, 0, OPTION_HEA_LOG_DELTA},
     {"hea-log-dtu", no_argument, 0, OPTION_HEA_LOG_DTU},
@@ -369,21 +369,21 @@ Options::Options(int argc, char *argv[]):
       set_ea_mu(atoi(optarg));
       break;
 
-    case OPTION_FUN_NAME:
-      set_fun_name(string(optarg));
+    case OPTION_FN_NAME:
+      set_fn_name(string(optarg));
       break;
 
-    case OPTION_FUN_NUM_TRAPS:
-      set_fun_num_traps(atoi(optarg));
+    case OPTION_FN_NUM_TRAPS:
+      set_fn_num_traps(atoi(optarg));
       break;
 
-    case OPTION_FUN_PREFIX_LENGTH:
-      set_fun_prefix_length(atoi(optarg));
+    case OPTION_FN_PREFIX_LENGTH:
+      set_fn_prefix_length(atoi(optarg));
       break;
 
     case 't':
-    case OPTION_FUN_THRESHOLD:
-      set_fun_threshold(atoi(optarg));
+    case OPTION_FN_THRESHOLD:
+      set_fn_threshold(atoi(optarg));
       break;
 
     case 'F':
@@ -575,20 +575,20 @@ Options::Options(int argc, char *argv[]):
       _describe_solution = true;
       break;
 
-    case OPTION_FUN_GET_BV_SIZE:
-      _fun_get_bv_size = true;
+    case OPTION_FN_GET_BV_SIZE:
+      _fn_get_bv_size = true;
       break;
 
-    case OPTION_FUN_GET_MAXIMUM:
-      _fun_get_maximum = true;
+    case OPTION_FN_GET_MAXIMUM:
+      _fn_get_maximum = true;
       break;
 
-    case OPTION_FUN_HAS_KNOWN_MAXIMUM:
-      _fun_has_known_maximum = true;
+    case OPTION_FN_HAS_KNOWN_MAXIMUM:
+      _fn_has_known_maximum = true;
       break;
 
-    case OPTION_FUN_PROVIDES_INCREMENTAL_EVALUATION:
-      _fun_provides_incremental_evaluation = true;
+    case OPTION_FN_PROVIDES_INCREMENTAL_EVALUATION:
+      _fn_provides_incremental_evaluation = true;
       break;
 
     case OPTION_HEA_BOUND_MOMENT:
@@ -723,21 +723,21 @@ void Options::print_help(ostream& stream) const
   stream << "Function:" << endl;
   stream << "  -s, --bv-size (type int, default to 100)" << endl;
   stream << "          Size of bit vectors" << endl;
-  stream << "      --fun-get-bv-size" << endl;
+  stream << "      --fn-get-bv-size" << endl;
   stream << "          Print the size of bit vectors" << endl;
-  stream << "      --fun-get-maximum" << endl;
+  stream << "      --fn-get-maximum" << endl;
   stream << "          Print the maximum and exit with status 0 if the function has a known maximum, 1 otherwise" << endl;
-  stream << "      --fun-has-known-maximum" << endl;
+  stream << "      --fn-has-known-maximum" << endl;
   stream << "          Exit with status 0 if the function has a known maximum, 1 otherwise" << endl;
-  stream << "      --fun-name (type string, default to \"noname\")" << endl;
+  stream << "      --fn-name (type string, default to \"noname\")" << endl;
   stream << "          Name of the function in the dynamic library" << endl;
-  stream << "      --fun-num-traps (type int, default to 10)" << endl;
+  stream << "      --fn-num-traps (type int, default to 10)" << endl;
   stream << "          Number of traps" << endl;
-  stream << "      --fun-prefix-length (type int, default to 2)" << endl;
+  stream << "      --fn-prefix-length (type int, default to 2)" << endl;
   stream << "          Prefix length for long path" << endl;
-  stream << "      --fun-provides-incremental-evaluation" << endl;
+  stream << "      --fn-provides-incremental-evaluation" << endl;
   stream << "          Exit with status 0 if the function provides incremental evaluation, 1 otherwise" << endl;
-  stream << "  -t, --fun-threshold (type int, default to 10)" << endl;
+  stream << "  -t, --fn-threshold (type int, default to 10)" << endl;
   stream << "          Threshold (in bits) for Jump, Four Peaks, and Six Peaks" << endl;
   stream << "  -F, --function (type int, default to 0)" << endl;
   stream << "          Type of function" << endl;
@@ -987,10 +987,10 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# bv_size = " << options._bv_size << endl;
   stream << "# ea_lambda = " << options._ea_lambda << endl;
   stream << "# ea_mu = " << options._ea_mu << endl;
-  stream << "# fun_name = " << options._fun_name << endl;
-  stream << "# fun_num_traps = " << options._fun_num_traps << endl;
-  stream << "# fun_prefix_length = " << options._fun_prefix_length << endl;
-  stream << "# fun_threshold = " << options._fun_threshold << endl;
+  stream << "# fn_name = " << options._fn_name << endl;
+  stream << "# fn_num_traps = " << options._fn_num_traps << endl;
+  stream << "# fn_prefix_length = " << options._fn_prefix_length << endl;
+  stream << "# fn_threshold = " << options._fn_threshold << endl;
   stream << "# function = " << options._function << endl;
   stream << "# ga_crossover_probability = " << options._ga_crossover_probability << endl;
   stream << "# ga_tournament_size = " << options._ga_tournament_size << endl;
@@ -1044,14 +1044,14 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# describe_function" << endl;
   if (options._describe_solution)
     stream << "# describe_solution" << endl;
-  if (options._fun_get_bv_size)
-    stream << "# fun_get_bv_size" << endl;
-  if (options._fun_get_maximum)
-    stream << "# fun_get_maximum" << endl;
-  if (options._fun_has_known_maximum)
-    stream << "# fun_has_known_maximum" << endl;
-  if (options._fun_provides_incremental_evaluation)
-    stream << "# fun_provides_incremental_evaluation" << endl;
+  if (options._fn_get_bv_size)
+    stream << "# fn_get_bv_size" << endl;
+  if (options._fn_get_maximum)
+    stream << "# fn_get_maximum" << endl;
+  if (options._fn_has_known_maximum)
+    stream << "# fn_has_known_maximum" << endl;
+  if (options._fn_provides_incremental_evaluation)
+    stream << "# fn_provides_incremental_evaluation" << endl;
   if (options._hea_bound_moment)
     stream << "# hea_bound_moment" << endl;
   if (options._hea_log_delta)

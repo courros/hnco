@@ -50,20 +50,20 @@ class Options {
   bool _opt_ea_mu;
 
   /// Name of the function in the dynamic library
-  std::string _fun_name;
-  bool _opt_fun_name;
+  std::string _fn_name;
+  bool _opt_fn_name;
 
   /// Number of traps
-  int _fun_num_traps;
-  bool _opt_fun_num_traps;
+  int _fn_num_traps;
+  bool _opt_fn_num_traps;
 
   /// Prefix length for long path
-  int _fun_prefix_length;
-  bool _opt_fun_prefix_length;
+  int _fn_prefix_length;
+  bool _opt_fn_prefix_length;
 
   /// Threshold (in bits) for Jump, Four Peaks, and Six Peaks
-  int _fun_threshold;
-  bool _opt_fun_threshold;
+  int _fn_threshold;
+  bool _opt_fn_threshold;
 
   /// Type of function
   int _function;
@@ -238,16 +238,16 @@ class Options {
   bool _describe_solution;
 
   /// Print the size of bit vectors
-  bool _fun_get_bv_size;
+  bool _fn_get_bv_size;
 
   /// Print the maximum and exit with status 0 if the function has a known maximum, 1 otherwise
-  bool _fun_get_maximum;
+  bool _fn_get_maximum;
 
   /// Exit with status 0 if the function has a known maximum, 1 otherwise
-  bool _fun_has_known_maximum;
+  bool _fn_has_known_maximum;
 
   /// Exit with status 0 if the function provides incremental evaluation, 1 otherwise
-  bool _fun_provides_incremental_evaluation;
+  bool _fn_provides_incremental_evaluation;
 
   /// Bound moment after update
   bool _hea_bound_moment;
@@ -437,53 +437,53 @@ public:
   /// Get set-flag for ea_mu
   bool set_ea_mu() const { return _opt_ea_mu; }
 
-  /// Get fun_name
-  std::string get_fun_name() const { return _fun_name; }
+  /// Get fn_name
+  std::string get_fn_name() const { return _fn_name; }
 
-  /// Set fun_name
-  void set_fun_name(std::string x) {
-    _fun_name = x;
-    _opt_fun_name = true;
+  /// Set fn_name
+  void set_fn_name(std::string x) {
+    _fn_name = x;
+    _opt_fn_name = true;
   }
 
-  /// Get set-flag for fun_name
-  bool set_fun_name() const { return _opt_fun_name; }
+  /// Get set-flag for fn_name
+  bool set_fn_name() const { return _opt_fn_name; }
 
-  /// Get fun_num_traps
-  int get_fun_num_traps() const { return _fun_num_traps; }
+  /// Get fn_num_traps
+  int get_fn_num_traps() const { return _fn_num_traps; }
 
-  /// Set fun_num_traps
-  void set_fun_num_traps(int x) {
-    _fun_num_traps = x;
-    _opt_fun_num_traps = true;
+  /// Set fn_num_traps
+  void set_fn_num_traps(int x) {
+    _fn_num_traps = x;
+    _opt_fn_num_traps = true;
   }
 
-  /// Get set-flag for fun_num_traps
-  bool set_fun_num_traps() const { return _opt_fun_num_traps; }
+  /// Get set-flag for fn_num_traps
+  bool set_fn_num_traps() const { return _opt_fn_num_traps; }
 
-  /// Get fun_prefix_length
-  int get_fun_prefix_length() const { return _fun_prefix_length; }
+  /// Get fn_prefix_length
+  int get_fn_prefix_length() const { return _fn_prefix_length; }
 
-  /// Set fun_prefix_length
-  void set_fun_prefix_length(int x) {
-    _fun_prefix_length = x;
-    _opt_fun_prefix_length = true;
+  /// Set fn_prefix_length
+  void set_fn_prefix_length(int x) {
+    _fn_prefix_length = x;
+    _opt_fn_prefix_length = true;
   }
 
-  /// Get set-flag for fun_prefix_length
-  bool set_fun_prefix_length() const { return _opt_fun_prefix_length; }
+  /// Get set-flag for fn_prefix_length
+  bool set_fn_prefix_length() const { return _opt_fn_prefix_length; }
 
-  /// Get fun_threshold
-  int get_fun_threshold() const { return _fun_threshold; }
+  /// Get fn_threshold
+  int get_fn_threshold() const { return _fn_threshold; }
 
-  /// Set fun_threshold
-  void set_fun_threshold(int x) {
-    _fun_threshold = x;
-    _opt_fun_threshold = true;
+  /// Set fn_threshold
+  void set_fn_threshold(int x) {
+    _fn_threshold = x;
+    _opt_fn_threshold = true;
   }
 
-  /// Get set-flag for fun_threshold
-  bool set_fun_threshold() const { return _opt_fun_threshold; }
+  /// Get set-flag for fn_threshold
+  bool set_fn_threshold() const { return _opt_fn_threshold; }
 
   /// Get function
   int get_function() const { return _function; }
@@ -977,29 +977,29 @@ public:
   /// Set describe_solution
   void set_describe_solution() { _describe_solution = true; }
  
-  /// Get fun_get_bv_size
-  bool with_fun_get_bv_size() const { return _fun_get_bv_size; }
+  /// Get fn_get_bv_size
+  bool with_fn_get_bv_size() const { return _fn_get_bv_size; }
 
-  /// Set fun_get_bv_size
-  void set_fun_get_bv_size() { _fun_get_bv_size = true; }
+  /// Set fn_get_bv_size
+  void set_fn_get_bv_size() { _fn_get_bv_size = true; }
  
-  /// Get fun_get_maximum
-  bool with_fun_get_maximum() const { return _fun_get_maximum; }
+  /// Get fn_get_maximum
+  bool with_fn_get_maximum() const { return _fn_get_maximum; }
 
-  /// Set fun_get_maximum
-  void set_fun_get_maximum() { _fun_get_maximum = true; }
+  /// Set fn_get_maximum
+  void set_fn_get_maximum() { _fn_get_maximum = true; }
  
-  /// Get fun_has_known_maximum
-  bool with_fun_has_known_maximum() const { return _fun_has_known_maximum; }
+  /// Get fn_has_known_maximum
+  bool with_fn_has_known_maximum() const { return _fn_has_known_maximum; }
 
-  /// Set fun_has_known_maximum
-  void set_fun_has_known_maximum() { _fun_has_known_maximum = true; }
+  /// Set fn_has_known_maximum
+  void set_fn_has_known_maximum() { _fn_has_known_maximum = true; }
  
-  /// Get fun_provides_incremental_evaluation
-  bool with_fun_provides_incremental_evaluation() const { return _fun_provides_incremental_evaluation; }
+  /// Get fn_provides_incremental_evaluation
+  bool with_fn_provides_incremental_evaluation() const { return _fn_provides_incremental_evaluation; }
 
-  /// Set fun_provides_incremental_evaluation
-  void set_fun_provides_incremental_evaluation() { _fun_provides_incremental_evaluation = true; }
+  /// Set fn_provides_incremental_evaluation
+  void set_fn_provides_incremental_evaluation() { _fn_provides_incremental_evaluation = true; }
  
   /// Get hea_bound_moment
   bool with_hea_bound_moment() const { return _hea_bound_moment; }

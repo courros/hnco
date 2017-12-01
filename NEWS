@@ -22,11 +22,12 @@ Library:
 - FunctionModifier: added class PriorNoise
 
 hnco:
+- Renamed options --fun-* -> --fn-*
 - Added option --allow-stay
-- Added option --fun-has-known-maximum
-- Added option --fun-get-maximum
-- Added option --fun-get-bv-size
-- Added option --fun-provides-incremental-evaluation
+- Added option --fn-has-known-maximum
+- Added option --fn-get-maximum
+- Added option --fn-get-bv-size
+- Added option --fn-provides-incremental-evaluation
 - Added options relative to prior noise
 - Catch serialization exceptions
 - Split make_function_decorator into make_function_modifier and make_function_controller
@@ -34,6 +35,7 @@ hnco:
 Experiments:
 - New result file layout (one file per run)
 - Updated reports
+- Cleaned scripts hnco-*-run.pl
 - hnco-parameter-run.pl, hnco-benchmark-run.pl: use /usr/bin/time
 - Removed hnco-dynamics-stat.pl
 - Support for GNU parallel

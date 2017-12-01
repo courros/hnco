@@ -76,22 +76,22 @@ make_concrete_function(Options& options)
   case 30:
     return new Jump
       (options.get_bv_size(),
-       options.get_fun_threshold());
+       options.get_fn_threshold());
 
   case 31:
     return new DeceptiveJump
       (options.get_bv_size(),
-       options.get_fun_threshold());
+       options.get_fn_threshold());
 
   case 40:
     return new FourPeaks
       (options.get_bv_size(),
-       options.get_fun_threshold());
+       options.get_fn_threshold());
 
   case 41:
     return new SixPeaks
       (options.get_bv_size(),
-       options.get_fun_threshold());
+       options.get_fn_threshold());
 
   case 50: {
     std::ifstream ifs(options.get_path());
@@ -168,7 +168,7 @@ make_concrete_function(Options& options)
   case 110:
     return new Trap
       (options.get_bv_size(),
-       options.get_fun_num_traps());
+       options.get_fn_num_traps());
 
   case 120:
     return new Hiff
@@ -181,7 +181,7 @@ make_concrete_function(Options& options)
   case 140:
     return new LongPath
       (options.get_bv_size(),
-       options.get_fun_prefix_length());
+       options.get_fn_prefix_length());
 
 #ifdef ENABLE_FACTORIZATION
   case 150:
@@ -247,7 +247,7 @@ make_concrete_function(Options& options)
     return new FunctionPlugin
       (options.get_bv_size(),
        options.get_path(),
-       options.get_fun_name());
+       options.get_fn_name());
 
   default:
     std::ostringstream stream;

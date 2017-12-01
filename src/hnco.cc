@@ -75,14 +75,14 @@ int main(int argc, char *argv[])
   // Print information about the function
   //
 
-  if (options.with_fun_has_known_maximum()) {
+  if (options.with_fn_has_known_maximum()) {
     if (tracker->has_known_maximum())
       return 0;
     else
       return 1;
   }
 
-  if (options.with_fun_get_maximum()) {
+  if (options.with_fn_get_maximum()) {
     if (tracker->has_known_maximum()) {
       std::cout << tracker->get_maximum() << std::endl;
       return 0;
@@ -92,12 +92,12 @@ int main(int argc, char *argv[])
     }
   }
 
-  if (options.with_fun_get_bv_size()) {
+  if (options.with_fn_get_bv_size()) {
     std::cout << tracker->get_bv_size() << std::endl;
     return 0;
   }
 
-  if (options.with_fun_provides_incremental_evaluation()) {
+  if (options.with_fn_provides_incremental_evaluation()) {
     if (tracker->provides_incremental_evaluation())
       return 0;
     else
