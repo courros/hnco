@@ -32,7 +32,7 @@ using namespace hnco;
 
 
 Function *
-make_concrete_function(Options& options)
+make_concrete_function(const Options& options)
 {
   if (options.get_bv_size() <= 0)
     throw Error("make_concrete_function: bv_size must be positive");
@@ -259,7 +259,7 @@ make_concrete_function(Options& options)
 
 
 Map *
-make_map(Options& options)
+make_map(const Options& options)
 {
   assert(options.get_map() > 0);
 
@@ -389,7 +389,7 @@ make_map(Options& options)
 
 
 Neighborhood *
-make_prior_noise_neighborhood(Options& options)
+make_prior_noise_neighborhood(const Options& options)
 {
   switch(options.get_pn_neighborhood()) {
 
@@ -425,7 +425,7 @@ make_prior_noise_neighborhood(Options& options)
 
 
 Function *
-make_function_modifier(Function *function, Options& options)
+make_function_modifier(Function *function, const Options& options)
 {
   assert(function);
 
@@ -471,7 +471,7 @@ make_function_modifier(Function *function, Options& options)
 
 
 Function *
-make_function_controller(Function *function, Options& options)
+make_function_controller(Function *function, const Options& options)
 {
   assert(function);
 

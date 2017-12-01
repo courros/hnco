@@ -32,7 +32,7 @@ using namespace hnco;
 
 
 Neighborhood *
-make_neighborhood(Options& options)
+make_neighborhood(const Options& options)
 {
   switch(options.get_neighborhood()) {
 
@@ -62,7 +62,7 @@ make_neighborhood(Options& options)
 
 
 NeighborhoodIterator *
-make_neighborhood_iterator(Options& options)
+make_neighborhood_iterator(const Options& options)
 {
   switch(options.get_neighborhood_iterator()) {
 
@@ -81,7 +81,7 @@ make_neighborhood_iterator(Options& options)
 
 
 Algorithm *
-make_concrete_algorithm(Options& options)
+make_concrete_algorithm(const Options& options)
 {
   switch(options.get_algorithm()) {
 
@@ -415,7 +415,7 @@ make_concrete_algorithm(Options& options)
 
 
 Algorithm *
-make_managed_algorithm(Options& options, Algorithm *algo)
+make_managed_algorithm(const Options& options, Algorithm *algo)
 {
   assert(algo);
 
@@ -429,7 +429,7 @@ make_managed_algorithm(Options& options, Algorithm *algo)
 
 
 Algorithm *
-make_algorithm(Options& options)
+make_algorithm(const Options& options)
 {
   auto algo = make_concrete_algorithm(options);
   assert(algo);

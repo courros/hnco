@@ -18,14 +18,14 @@
 
 */
 
-#ifndef HNCO_MAKE_ALGORITHM_H
-#define HNCO_MAKE_ALGORITHM_H
+#ifndef HNCO_SRC_MAKE_ALGORITHM_H
+#define HNCO_SRC_MAKE_ALGORITHM_H
 
 #include "hnco/algorithms/algorithm.hh"
 
 #include "hnco-options.hh"
 
 /// Make an algorithm
-hnco::algorithm::Algorithm *make_algorithm(Options& options);
+hnco::algorithm::Algorithm *make_algorithm(const Options& options);
 
 #endif
