@@ -133,7 +133,7 @@ Options::Options(int argc, char *argv[]):
   _mmas_strict(false),
   _negation(false),
   _pn_allow_stay(false),
-  _print_default_parameters(false),
+  _print_defaults(false),
   _print_header(false),
   _print_performance(false),
   _print_solution(false),
@@ -222,7 +222,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_MMAS_STRICT,
     OPTION_NEGATION,
     OPTION_PN_ALLOW_STAY,
-    OPTION_PRINT_DEFAULT_PARAMETERS,
+    OPTION_PRINT_DEFAULTS,
     OPTION_PRINT_HEADER,
     OPTION_PRINT_PERFORMANCE,
     OPTION_PRINT_SOLUTION,
@@ -309,7 +309,7 @@ Options::Options(int argc, char *argv[]):
     {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
     {"negation", no_argument, 0, OPTION_NEGATION},
     {"pn-allow-stay", no_argument, 0, OPTION_PN_ALLOW_STAY},
-    {"print-default-parameters", no_argument, 0, OPTION_PRINT_DEFAULT_PARAMETERS},
+    {"print-defaults", no_argument, 0, OPTION_PRINT_DEFAULTS},
     {"print-header", no_argument, 0, OPTION_PRINT_HEADER},
     {"print-performance", no_argument, 0, OPTION_PRINT_PERFORMANCE},
     {"print-solution", no_argument, 0, OPTION_PRINT_SOLUTION},
@@ -639,8 +639,8 @@ Options::Options(int argc, char *argv[]):
       _pn_allow_stay = true;
       break;
 
-    case OPTION_PRINT_DEFAULT_PARAMETERS:
-      _print_default_parameters = true;
+    case OPTION_PRINT_DEFAULTS:
+      _print_defaults = true;
       break;
 
     case OPTION_PRINT_HEADER:
@@ -709,7 +709,7 @@ void Options::print_help(ostream& stream) const
   stream << "          At the end, describe the solution" << endl;
   stream << "      --num-threads (type int, default to 1)" << endl;
   stream << "          Number of threads" << endl;
-  stream << "      --print-default-parameters" << endl;
+  stream << "      --print-defaults" << endl;
   stream << "          Print the default parameters and exit" << endl;
   stream << "      --print-header" << endl;
   stream << "          At the beginning, print the header" << endl;
@@ -1076,8 +1076,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# negation" << endl;
   if (options._pn_allow_stay)
     stream << "# pn_allow_stay" << endl;
-  if (options._print_default_parameters)
-    stream << "# print_default_parameters" << endl;
+  if (options._print_defaults)
+    stream << "# print_defaults" << endl;
   if (options._print_header)
     stream << "# print_header" << endl;
   if (options._print_performance)

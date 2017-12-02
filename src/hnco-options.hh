@@ -286,7 +286,7 @@ class Options {
   bool _pn_allow_stay;
 
   /// Print the default parameters and exit
-  bool _print_default_parameters;
+  bool _print_defaults;
 
   /// At the beginning, print the header
   bool _print_header;
@@ -1073,11 +1073,11 @@ public:
   /// Set pn_allow_stay
   void set_pn_allow_stay() { _pn_allow_stay = true; }
  
-  /// Get print_default_parameters
-  bool with_print_default_parameters() const { return _print_default_parameters; }
+  /// Get print_defaults
+  bool with_print_defaults() const { return _print_defaults; }
 
-  /// Set print_default_parameters
-  void set_print_default_parameters() { _print_default_parameters = true; }
+  /// Set print_defaults
+  void set_print_defaults() { _print_defaults = true; }
  
   /// Get print_header
   bool with_print_header() const { return _print_header; }

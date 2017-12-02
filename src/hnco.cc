@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 {
   Options options(argc, argv);
 
-  if (options.with_print_default_parameters()) {
+  if (options.with_print_defaults()) {
     std::cout << options;
     return 0;
   }

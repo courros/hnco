@@ -22,7 +22,7 @@
 
     "flags": {
 
-        "print_default_parameters":
+        "print_defaults":
         {
             "description": "Print the default parameters and exit",
             "category": "General"

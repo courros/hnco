@@ -23,6 +23,7 @@ Library:
 
 hnco:
 - Renamed options --fun-* -> --fn-*
+- Renamed option --print-default-parameters -> --print-defaults
 - Added option --allow-stay
 - Added option --fn-has-known-maximum
 - Added option --fn-get-maximum
@@ -40,6 +41,9 @@ Experiments:
 - Removed hnco-dynamics-stat.pl
 - Support for GNU parallel
 - Added ecdf
+
+Examples:
+- Added examples/
 
 
 * Version 0.6 (2017-08-23)

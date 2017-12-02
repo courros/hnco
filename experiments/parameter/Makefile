@@ -1,7 +1,7 @@
 all: default-parameters run doc
 
 default-parameters:
-	hnco --print-default-parameters > log.default
+	hnco --print-defaults > log.defaults
 
 run:
 	echo `date` >> log.err
@@ -16,7 +16,7 @@ doc:
 	make -C report
 
 clean:
-	rm -f candlesticks.gp plan-compact.json log.default log.err mean.gp stddev.gp
+	rm -f candlesticks.gp plan-compact.json log.defaults log.err mean.gp stddev.gp
 	rm -rf results
 	rm -rf graphics
 
