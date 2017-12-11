@@ -1,4 +1,4 @@
-bin_PROGRAMS = \
+noinst_PROGRAMS = \
 	basic \
 	stop-on-maximum \
 	on-budget-function
