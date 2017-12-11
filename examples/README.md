@@ -1,7 +1,7 @@
 ## Using a plugin
 
 A onemax function has been implemented in C in the file `onemax.c`. To
-compile it, from the build direcory, cd to `examples/` and
+compile it, from the build directory, cd to `examples/` and
 
     make plugin
     
