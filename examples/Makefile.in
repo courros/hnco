@@ -627,6 +627,12 @@ uninstall-am:
 .PRECIOUS: Makefile
 
 
+.PHONY: plugin
+
+plugin:
+	gcc -fPIC -c $(top_srcdir)/examples/onemax.c
+	gcc -shared -Wl,-soname,libfoo.so -o libfoo.so onemax.o
+
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

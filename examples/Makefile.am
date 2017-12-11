@@ -14,3 +14,9 @@ basic_SOURCES = basic.cc
 stop_on_maximum_SOURCES = stop-on-maximum.cc
 on_budget_function_SOURCES = on-budget-function.cc
 custom_SOURCES = custom.cc
+
+.PHONY: plugin
+
+plugin:
+	gcc -fPIC -c $(top_srcdir)/examples/onemax.c
+	gcc -shared -Wl,-soname,libfoo.so -o libfoo.so onemax.o
