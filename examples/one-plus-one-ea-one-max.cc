@@ -39,10 +39,10 @@ int main()
 
   const int bv_size = 10;
 
-  OneMax        one_max(bv_size);
+  OneMax one_max(bv_size);
   StopOnMaximum fn(&one_max);
-  OnePlusOneEa  ea(bv_size);
 
+  OnePlusOneEa ea(bv_size);
   ea.set_function(&fn);
   ea.init();
 
