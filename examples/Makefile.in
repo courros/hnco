@@ -88,7 +88,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = one-plus-one-ea-one-max$(EXEEXT)
+bin_PROGRAMS = basic$(EXEEXT) stop-on-maximum$(EXEEXT) \
+	on-budget-function$(EXEEXT)
 subdir = examples
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -104,16 +105,22 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_one_plus_one_ea_one_max_OBJECTS =  \
-	one-plus-one-ea-one-max.$(OBJEXT)
-one_plus_one_ea_one_max_OBJECTS =  \
-	$(am_one_plus_one_ea_one_max_OBJECTS)
-one_plus_one_ea_one_max_LDADD = $(LDADD)
-one_plus_one_ea_one_max_DEPENDENCIES = ../lib/libhnco.la
+am_basic_OBJECTS = basic.$(OBJEXT)
+basic_OBJECTS = $(am_basic_OBJECTS)
+basic_LDADD = $(LDADD)
+basic_DEPENDENCIES = ../lib/libhnco.la
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+am_on_budget_function_OBJECTS = on-budget-function.$(OBJEXT)
+on_budget_function_OBJECTS = $(am_on_budget_function_OBJECTS)
+on_budget_function_LDADD = $(LDADD)
+on_budget_function_DEPENDENCIES = ../lib/libhnco.la
+am_stop_on_maximum_OBJECTS = stop-on-maximum.$(OBJEXT)
+stop_on_maximum_OBJECTS = $(am_stop_on_maximum_OBJECTS)
+stop_on_maximum_LDADD = $(LDADD)
+stop_on_maximum_DEPENDENCIES = ../lib/libhnco.la
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -148,8 +155,10 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(one_plus_one_ea_one_max_SOURCES)
-DIST_SOURCES = $(one_plus_one_ea_one_max_SOURCES)
+SOURCES = $(basic_SOURCES) $(on_budget_function_SOURCES) \
+	$(stop_on_maximum_SOURCES)
+DIST_SOURCES = $(basic_SOURCES) $(on_budget_function_SOURCES) \
+	$(stop_on_maximum_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -305,7 +314,9 @@ top_srcdir = @top_srcdir@
 AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
 AM_CPPFLAGS = -I $(top_srcdir)/lib
 LDADD = ../lib/libhnco.la -ldl -lboost_serialization
-one_plus_one_ea_one_max_SOURCES = one-plus-one-ea-one-max.cc
+basic_SOURCES = basic.cc
+stop_on_maximum_SOURCES = stop-on-maximum.cc
+on_budget_function_SOURCES = on-budget-function.cc
 all: all-am
 
 .SUFFIXES:
@@ -389,9 +400,17 @@ clean-binPROGRAMS:
 	echo " rm -f" $$list; \
 	rm -f $$list
 
-one-plus-one-ea-one-max$(EXEEXT): $(one_plus_one_ea_one_max_OBJECTS) $(one_plus_one_ea_one_max_DEPENDENCIES) $(EXTRA_one_plus_one_ea_one_max_DEPENDENCIES) 
-	@rm -f one-plus-one-ea-one-max$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(one_plus_one_ea_one_max_OBJECTS) $(one_plus_one_ea_one_max_LDADD) $(LIBS)
+basic$(EXEEXT): $(basic_OBJECTS) $(basic_DEPENDENCIES) $(EXTRA_basic_DEPENDENCIES) 
+	@rm -f basic$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(basic_OBJECTS) $(basic_LDADD) $(LIBS)
+
+on-budget-function$(EXEEXT): $(on_budget_function_OBJECTS) $(on_budget_function_DEPENDENCIES) $(EXTRA_on_budget_function_DEPENDENCIES) 
+	@rm -f on-budget-function$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(on_budget_function_OBJECTS) $(on_budget_function_LDADD) $(LIBS)
+
+stop-on-maximum$(EXEEXT): $(stop_on_maximum_OBJECTS) $(stop_on_maximum_DEPENDENCIES) $(EXTRA_stop_on_maximum_DEPENDENCIES) 
+	@rm -f stop-on-maximum$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(stop_on_maximum_OBJECTS) $(stop_on_maximum_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -399,7 +418,9 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/one-plus-one-ea-one-max.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/basic.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/on-budget-function.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stop-on-maximum.Po@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\

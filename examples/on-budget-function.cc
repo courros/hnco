@@ -21,7 +21,7 @@
 #include <chrono>
 #include <iostream>
 
-#include "hnco/algorithms/ea/one-plus-one-ea.hh"
+#include <hnco/algorithms/ea/mu-plus-lambda-ea.hh>
 #include "hnco/functions/decorators/function-controller.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/random.hh"
@@ -37,20 +37,22 @@ int main()
 {
   Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  const int bv_size = 10;
+  const int bv_size = 50;
 
   OneMax one_max(bv_size);
-  StopOnMaximum fn(&one_max);
+  OnBudgetFunction fn(&one_max, 1000);
 
-  OnePlusOneEa ea(bv_size);
+  MuPlusLambdaEa ea(bv_size, 10, 1);
   ea.set_function(&fn);
   ea.init();
 
   try { ea.maximize(); }
-  catch (const MaximumReached& e) {
-    bv_display(e.get_point_value().first, std::cout);
-    std::cout << std::endl;
-  }
+  catch (LastEvaluation) {}
+
+  point_value_t solution = ea.get_solution();
+  bv_display(solution.first, std::cout);
+  std::cout << std::endl;
+  std::cout << solution.second << std::endl;
 
   return 0;
 }
