@@ -88,6 +88,13 @@ namespace algorithm {
     /// Tournament size
     int _tournament_size = 10;
 
+    /** Allow stay.
+
+        In case no mutation occurs allow the current bit vector to
+        stay unchanged.
+    */
+    bool _allow_stay = false;
+
     ///@}
 
   };

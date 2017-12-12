@@ -51,6 +51,7 @@ void
 GeneticAlgorithm::init()
 {
   _mutation.set_probability(_mutation_probability);
+  _mutation._allow_stay = _allow_stay;
 
   _do_crossover = std::bernoulli_distribution(_crossover_probability);
 

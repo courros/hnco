@@ -20,6 +20,9 @@ Library:
 - Algorithm: added member _stream
 - BmPbil, Hea, IterativeAlgorithm, PvAlgorithm::log use _stream
 - FunctionModifier: added class PriorNoise
+- MuPlusLambdaEa, MuCommaLambdaEa, GeneticAlgorithm use BernoulliProcess
+- MuPlusLambdaEa, MuCommaLambdaEa, GeneticAlgorithm: added member _allow_stay
+
 
 hnco:
 - Renamed options --fun-* -> --fn-*

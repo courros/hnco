@@ -170,6 +170,7 @@ make_concrete_algorithm(const Options& options)
 
     algo->_num_iterations               = options.get_num_iterations();
     algo->_mutation_probability         = options.get_mutation() / options.get_bv_size();
+    algo->_allow_stay                   = options.with_allow_stay();
 
     return algo;
   }
@@ -183,6 +184,7 @@ make_concrete_algorithm(const Options& options)
 
     algo->_num_iterations               = options.get_num_iterations();
     algo->_mutation_probability         = options.get_mutation() / options.get_bv_size();
+    algo->_allow_stay                   = options.with_allow_stay();
 
     return algo;
   }
@@ -197,6 +199,7 @@ make_concrete_algorithm(const Options& options)
     algo->_mutation_probability         = options.get_mutation() / options.get_bv_size();
     algo->_crossover_probability        = options.get_ga_crossover_probability();
     algo->_tournament_size              = options.get_ga_tournament_size();
+    algo->_allow_stay                   = options.with_allow_stay();
 
     return algo;
   }
