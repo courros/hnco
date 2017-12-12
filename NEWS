@@ -22,6 +22,8 @@ Library:
 - FunctionModifier: added class PriorNoise
 - MuPlusLambdaEa, MuCommaLambdaEa, GeneticAlgorithm use BernoulliProcess
 - MuPlusLambdaEa, MuCommaLambdaEa, GeneticAlgorithm: added member _allow_stay
+- Add Crossover, UniformCrossover
+- GeneticAlgorithm uses UniformCrossover
 
 
 hnco:
