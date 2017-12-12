@@ -18,27 +18,20 @@
 
 */
 
-#include <assert.h>
-
-#include <iostream>
-
-#include "hnco/bit-vector.hh"
-#include "hnco/functions/function.hh"
-
 #include "mu-comma-lambda-ea.hh"
 
 
 using namespace hnco::algorithm;
 using namespace hnco::function;
+using namespace hnco::neighborhood;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 void
 MuCommaLambdaEa::init()
 {
-  _do_mutation = std::bernoulli_distribution(_mutation_probability);
+  _mutation.set_probability(_mutation_probability);
 
   _parents.random();
   _parents.eval(_function);
@@ -55,9 +48,7 @@ MuCommaLambdaEa::iterate()
   for (size_t i = 0; i < _offsprings.size(); i++) {
     bit_vector_t& offspring = _offsprings.get_bv(i);
     offspring = _parents.get_bv(_select_parent(Random::engine));
-    for (size_t i = 0; i < offspring.size(); i++)
-      if (_do_mutation(Random::engine))
-        bv_flip(offspring, i);
+    _mutation.mutate(offspring);
   }
 
   if (_functions.size() > 1)
