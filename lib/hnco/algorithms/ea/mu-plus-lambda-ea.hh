@@ -51,7 +51,12 @@ namespace algorithm {
 
   public:
 
-    /// Constructor
+    /** Constructor.
+
+        \param n Size of bit vectors
+        \param mu Parent population size
+        \param lambda Offspring population size
+    */
     MuPlusLambdaEa(int n, int mu, int lambda):
       IterativeAlgorithm(n),
       _parents(mu, n),
