@@ -23,7 +23,7 @@
 
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/algorithms/population.hh"
-#include "hnco/exception.hh"
+#include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/random.hh"
 
 
@@ -40,8 +40,8 @@ namespace algorithm {
     /// Offsprings
     Population _offsprings;
 
-    /// Do mutation
-    std::bernoulli_distribution _do_mutation;
+    /// Mutation operator
+    neighborhood::BernoulliProcess _mutation;
 
     /// Select parent
     std::uniform_int_distribution<int> _select_parent;
@@ -56,6 +56,7 @@ namespace algorithm {
       IterativeAlgorithm(n),
       _parents(mu, n),
       _offsprings(lambda, n),
+      _mutation(n),
       _select_parent(0, mu - 1),
       _mutation_probability(1 / double(n)) {};
 
