@@ -31,7 +31,7 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// (mu,lambda) EA
+  /// (mu, lambda) EA
   class MuCommaLambdaEa:
     public IterativeAlgorithm {
 
@@ -52,7 +52,12 @@ namespace algorithm {
 
   public:
 
-    /// Constructor
+    /** Constructor.
+
+        \param n Size of bit vectors
+        \param mu Parent population size
+        \param lambda Offspring population size
+    */
     MuCommaLambdaEa(int n, int mu, int lambda):
       IterativeAlgorithm(n),
       _parents(mu, n),
