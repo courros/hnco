@@ -13,6 +13,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/complete-search.cc \
 	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/ea/all.hh \
+	hnco/algorithms/ea/crossover.cc \
+	hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.cc \
 	hnco/algorithms/ea/genetic-algorithm.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.cc \
@@ -137,6 +139,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/ea/all.hh \
+	hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \

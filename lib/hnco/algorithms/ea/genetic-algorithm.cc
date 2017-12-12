@@ -18,10 +18,6 @@
 
 */
 
-#include <assert.h>
-
-#include "hnco/random.hh"
-
 #include "genetic-algorithm.hh"
 
 
@@ -29,22 +25,6 @@ using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco::algorithm;
 using namespace hnco;
-
-
-void
-uniform_crossover(const bit_vector_t& parent1,
-                  const bit_vector_t& parent2, bit_vector_t& offspring)
-{
-  assert(offspring.size() == parent1.size());
-  assert(offspring.size() == parent2.size());
-
-  for (size_t i = 0; i < offspring.size(); i++)
-    if (Random::random_bit())
-      offspring[i] = parent1[i];
-    else
-      offspring[i] = parent2[i];
-
-}
 
 
 void
@@ -73,7 +53,7 @@ GeneticAlgorithm::iterate()
 
     // Crossover
     if (_do_crossover(Random::engine))
-      uniform_crossover(_parents.select(), _parents.select(), offspring);
+      _crossover.breed(_parents.select(), _parents.select(), offspring);
     else
       offspring = _parents.select();
 

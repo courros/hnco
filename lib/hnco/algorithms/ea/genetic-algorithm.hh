@@ -26,7 +26,9 @@
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/random.hh"
+
 #include "tournament-selection.hh"
+#include "crossover.hh"
 
 
 namespace hnco {
@@ -54,6 +56,9 @@ namespace algorithm {
 
     /// Do crossover
     std::bernoulli_distribution _do_crossover;
+
+    /// Uniform crossover
+    UniformCrossover _crossover;
 
     /// Single iteration
     void iterate();
