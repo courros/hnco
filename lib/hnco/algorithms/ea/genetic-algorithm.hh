@@ -24,7 +24,8 @@
 #include <random>
 
 #include "hnco/algorithms/algorithm.hh"
-
+#include "hnco/neighborhoods/neighborhood.hh"
+#include "hnco/random.hh"
 #include "tournament-selection.hh"
 
 
@@ -48,22 +49,27 @@ namespace algorithm {
     /// Offsprings
     TournamentSelection _offsprings;
 
+    /// Mutation operator
+    neighborhood::BernoulliProcess _mutation;
+
     /// Do crossover
     std::bernoulli_distribution _do_crossover;
-
-    /// Do mutation
-    std::bernoulli_distribution _do_mutation;
 
     /// Single iteration
     void iterate();
 
   public:
 
-    /// Constructor
+    /** Constructor.
+
+        \param n Size of bit vectors
+        \param mu %Population size
+    */
     GeneticAlgorithm(int n, int mu):
       IterativeAlgorithm(n),
       _parents(mu, n),
       _offsprings(mu, n),
+      _mutation(n),
       _mutation_probability(1 / double(n)) {}
 
     /// Initialization

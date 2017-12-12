@@ -20,8 +20,6 @@
 
 #include <assert.h>
 
-#include <iostream>
-
 #include "hnco/random.hh"
 
 #include "genetic-algorithm.hh"
@@ -31,7 +29,6 @@ using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco::algorithm;
 using namespace hnco;
-using namespace std;
 
 
 void
@@ -53,8 +50,9 @@ uniform_crossover(const bit_vector_t& parent1,
 void
 GeneticAlgorithm::init()
 {
+  _mutation.set_probability(_mutation_probability);
+
   _do_crossover = std::bernoulli_distribution(_crossover_probability);
-  _do_mutation = std::bernoulli_distribution(_mutation_probability);
 
   _parents._tournament_size = _tournament_size;
   _parents.random();
@@ -79,9 +77,7 @@ GeneticAlgorithm::iterate()
       offspring = _parents.select();
 
     // Mutation
-    for (size_t j = 0; j < offspring.size(); j++)
-      if (_do_mutation(Random::engine))
-        bv_flip(offspring, j);
+    _mutation.mutate(offspring);
   }
 
   if (_functions.size() > 1)
