@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_EA_CROSSOVER
-#define HNCO_ALGORITHMS_EA_CROSSOVER
+#ifndef HNCO_ALGORITHMS_EA_CROSSOVER_H
+#define HNCO_ALGORITHMS_EA_CROSSOVER_H
 
 #include "hnco/bit-vector.hh"
 #include "hnco/random.hh"
@@ -39,29 +39,30 @@ namespace algorithm {
 
     /** Breed.
 
-        The output bit vector is the crossover of parent bit vectors.
+        The offspring is the crossover of two parents.
 
-        \param p1 First parent bit vector
-        \param p2 Second parent bit vector
-        \param offspring Offspring bit vector
+        \param parent1 First parent
+        \param parent2 Second parent
+        \param offspring Offspring
     */
-    virtual void breed(const bit_vector_t& p1, const bit_vector_t& p2, bit_vector_t& offspring) = 0;
+    virtual void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring) = 0;
 
   };
 
 
   /// Uniform crossover
-  class UniformCrossover {
+  class UniformCrossover:
+    public Crossover {
 
   public:
 
     /** Breed.
 
-        The output bit vector is the crossover of parent bit vectors.
+        The offspring is the uniform crossover of two parents.
 
-        \param p1 First parent bit vector
-        \param p2 Second parent bit vector
-        \param offspring Offspring bit vector
+        \param p1 First parent
+        \param p2 Second parent
+        \param offspring Offspring
     */
     void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring);
 
