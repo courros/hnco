@@ -23,9 +23,14 @@
 #include "crossover.hh"
 
 
+using namespace hnco::algorithm;
+using namespace hnco::random;
+using namespace hnco;
+
+
 void
-Crossover::breed(const bit_vector_t& p1,
-                 const bit_vector_t& p2, bit_vector_t& offspring)
+UniformCrossover::breed(const bit_vector_t& parent1,
+                        const bit_vector_t& parent2, bit_vector_t& offspring)
 {
   assert(offspring.size() == parent1.size());
   assert(offspring.size() == parent2.size());
