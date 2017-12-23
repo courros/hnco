@@ -211,12 +211,8 @@ make_concrete_algorithm(const Options& options)
     assert(algo);
 
     algo->_num_iterations               = options.get_num_iterations();
-
-    if (options.set_mutation())
-      algo->_mutation_probability       = options.get_mutation() / options.get_bv_size();
-
-    if (options.set_ga_crossover_bias())
-      algo->_crossover_bias             = options.get_ga_crossover_bias();
+    algo->_mutation_probability         = options.get_mutation() / options.get_bv_size();
+    algo->_crossover_bias               = options.get_ga_crossover_bias();
 
     return algo;
   }
