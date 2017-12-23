@@ -21,6 +21,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
+	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.cc \
+	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.cc \
 	hnco/algorithms/ea/tournament-selection.hh \
@@ -143,6 +145,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ea/genetic-algorithm.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
+	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/hea/all.hh \

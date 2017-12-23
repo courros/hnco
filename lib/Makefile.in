@@ -154,6 +154,8 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
+	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.cc \
+	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.cc \
 	hnco/algorithms/ea/tournament-selection.hh \
@@ -237,6 +239,7 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/ea/genetic-algorithm.lo \
 	hnco/algorithms/ea/mu-comma-lambda-ea.lo \
 	hnco/algorithms/ea/mu-plus-lambda-ea.lo \
+	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.lo \
 	hnco/algorithms/ea/tournament-selection.lo \
 	hnco/algorithms/hea/herding-binary.lo \
 	hnco/algorithms/hea/herding-spin.lo \
@@ -340,6 +343,7 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/ea/genetic-algorithm.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
+	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
@@ -545,6 +549,8 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
+	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.cc \
+	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.cc \
 	hnco/algorithms/ea/tournament-selection.hh \
@@ -624,6 +630,7 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/ea/genetic-algorithm.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
+	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
@@ -768,6 +775,9 @@ hnco/algorithms/ea/mu-comma-lambda-ea.lo:  \
 	hnco/algorithms/ea/$(am__dirstamp) \
 	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/ea/mu-plus-lambda-ea.lo:  \
+	hnco/algorithms/ea/$(am__dirstamp) \
+	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.lo:  \
 	hnco/algorithms/ea/$(am__dirstamp) \
 	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/ea/tournament-selection.lo:  \
@@ -974,6 +984,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/genetic-algorithm.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-comma-lambda-ea.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/tournament-selection.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-binary.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-spin.Plo@am__quote@

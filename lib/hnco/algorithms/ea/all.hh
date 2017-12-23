@@ -24,6 +24,7 @@
 #include "genetic-algorithm.hh"
 #include "mu-comma-lambda-ea.hh"
 #include "mu-plus-lambda-ea.hh"
+#include "one-plus-lambda-comma-lambda-ga.hh"
 #include "one-plus-one-ea.hh"
 
 #endif
