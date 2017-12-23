@@ -354,6 +354,9 @@ namespace neighborhood {
       assert(r <= n);
     }
 
+    /// Set radius
+    void set_radius(int r) { _radius = r; }
+
   };
 
 
