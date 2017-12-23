@@ -22,7 +22,7 @@ Library:
 - FunctionModifier: added class PriorNoise
 - MuPlusLambdaEa, MuCommaLambdaEa, GeneticAlgorithm use BernoulliProcess
 - MuPlusLambdaEa, MuCommaLambdaEa, GeneticAlgorithm: added member _allow_stay
-- Add Crossover, UniformCrossover
+- Added Crossover, UniformCrossover, BiasedCrossover
 - GeneticAlgorithm uses UniformCrossover
 - Added OnePlusLambdaCommaLambdaGa
 
