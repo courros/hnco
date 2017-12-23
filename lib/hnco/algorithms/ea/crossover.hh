@@ -62,8 +62,8 @@ namespace algorithm {
 
         The offspring is the uniform crossover of two parents.
 
-        \param p1 First parent
-        \param p2 Second parent
+        \param parent1 First parent
+        \param parent2 Second parent
         \param offspring Offspring
     */
     void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring);
@@ -89,8 +89,8 @@ namespace algorithm {
         Each offspring's bit is copied from second parent with a fixed
         probability (the crossover bias), from first parent otherwise.
 
-        \param p1 First parent
-        \param p2 Second parent
+        \param parent1 First parent
+        \param parent2 Second parent
         \param offspring Offspring
     */
     void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring);
