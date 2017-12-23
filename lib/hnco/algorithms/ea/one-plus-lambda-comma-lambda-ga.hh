@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_EA_ONE_PLUS_LAMDDA_COMMA_LAMBDA_GA
-#define HNCO_ALGORITHMS_EA_ONE_PLUS_LAMDDA_COMMA_LAMBDA_GA
+#ifndef HNCO_ALGORITHMS_EA_ONE_PLUS_LAMBDA_COMMA_LAMBDA_GA
+#define HNCO_ALGORITHMS_EA_ONE_PLUS_LAMBDA_COMMA_LAMBDA_GA
 
 #include <assert.h>
 
@@ -39,7 +39,13 @@ namespace algorithm {
 
   /** (1+(lambda,lambda)) genetic algorithm.
 
-   */
+      Reference:
+
+      Benjamin Doerr, Carola Doerr, and Franziska Ebel. 2015. From
+      black-box complexity to designing new genetic
+      algorithms. Theoretical Computer Science 567 (2015), 87–104.
+
+  */
   class OnePlusLambdaCommaLambdaGa:
     public IterativeAlgorithm {
 
@@ -64,6 +70,9 @@ namespace algorithm {
   public:
 
     /** Constructor.
+
+        By default, _mutation_probability is set to lambda / n and
+        _crossover_bias to 1 / lambda.
 
         \param n Size of bit vectors
         \param lambda Offspring population size

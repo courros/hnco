@@ -642,6 +642,11 @@
                 },
 
                 {
+                    "value": 450,
+                    "description": "(1+(lambda,lambda)) genetic algorithm"
+                },
+
+                {
                     "value": 500,
                     "description": "Population-based incremental learning"
                 },
@@ -837,6 +842,14 @@
             "type": "double",
             "value": 0.5,
             "description": "Crossover probability",
+            "category": "Evolutionary Algorithms"
+        },
+
+        "ga_crossover_bias":
+        {
+            "type": "double",
+            "value": 0.5,
+            "description": "Crossover bias",
             "category": "Evolutionary Algorithms"
         },
 

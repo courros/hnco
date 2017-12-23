@@ -22,7 +22,7 @@ vectors. It aims at being flexible, fast, simple, and robust.
 Library features:
 
 - 25 concrete functions
-- 17 concrete algorithms
+- 18 concrete algorithms
 - Maps from bit vectors to bit vectors (affine maps)
 - Function decorators to control evaluation (budget)
 - Function decorators to modify functions (noise)
@@ -86,6 +86,7 @@ Here is the list of currently available algorithms:
 - (mu+lambda) evolutionary algorithm
 - (mu,lambda) evolutionary algorithm
 - Genetic algorithm
+- (1+(lambda,lambda)) genetic algorithm
 - Population-based incremental learning
 - PBIL with positive and negative selection
 - Univariate marginal distribution algorithm

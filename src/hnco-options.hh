@@ -69,6 +69,10 @@ class Options {
   int _function;
   bool _opt_function;
 
+  /// Crossover bias
+  double _ga_crossover_bias;
+  bool _opt_ga_crossover_bias;
+
   /// Crossover probability
   double _ga_crossover_probability;
   bool _opt_ga_crossover_probability;
@@ -496,6 +500,18 @@ public:
 
   /// Get set-flag for function
   bool set_function() const { return _opt_function; }
+
+  /// Get ga_crossover_bias
+  double get_ga_crossover_bias() const { return _ga_crossover_bias; }
+
+  /// Set ga_crossover_bias
+  void set_ga_crossover_bias(double x) {
+    _ga_crossover_bias = x;
+    _opt_ga_crossover_bias = true;
+  }
+
+  /// Get set-flag for ga_crossover_bias
+  bool set_ga_crossover_bias() const { return _opt_ga_crossover_bias; }
 
   /// Get ga_crossover_probability
   double get_ga_crossover_probability() const { return _ga_crossover_probability; }

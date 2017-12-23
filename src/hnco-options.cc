@@ -37,6 +37,8 @@ Options::Options(int argc, char *argv[]):
   _opt_fn_threshold(false),
   _function(0),
   _opt_function(false),
+  _ga_crossover_bias(0.5),
+  _opt_ga_crossover_bias(false),
   _ga_crossover_probability(0.5),
   _opt_ga_crossover_probability(false),
   _ga_tournament_size(10),
@@ -162,6 +164,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_FN_PREFIX_LENGTH,
     OPTION_FN_THRESHOLD,
     OPTION_FUNCTION,
+    OPTION_GA_CROSSOVER_BIAS,
     OPTION_GA_CROSSOVER_PROBABILITY,
     OPTION_GA_TOURNAMENT_SIZE,
     OPTION_HEA_BINARY_DYNAMICS,
@@ -249,6 +252,7 @@ Options::Options(int argc, char *argv[]):
     {"fn-prefix-length", required_argument, 0, OPTION_FN_PREFIX_LENGTH},
     {"fn-threshold", required_argument, 0, OPTION_FN_THRESHOLD},
     {"function", required_argument, 0, OPTION_FUNCTION},
+    {"ga-crossover-bias", required_argument, 0, OPTION_GA_CROSSOVER_BIAS},
     {"ga-crossover-probability", required_argument, 0, OPTION_GA_CROSSOVER_PROBABILITY},
     {"ga-tournament-size", required_argument, 0, OPTION_GA_TOURNAMENT_SIZE},
     {"hea-binary-dynamics", required_argument, 0, OPTION_HEA_BINARY_DYNAMICS},
@@ -389,6 +393,10 @@ Options::Options(int argc, char *argv[]):
     case 'F':
     case OPTION_FUNCTION:
       set_function(atoi(optarg));
+      break;
+
+    case OPTION_GA_CROSSOVER_BIAS:
+      set_ga_crossover_bias(atof(optarg));
       break;
 
     case OPTION_GA_CROSSOVER_PROBABILITY:
@@ -833,6 +841,7 @@ void Options::print_help(ostream& stream) const
   stream << "            310: (mu+lambda) evolutionary algorithm" << endl;
   stream << "            320: (mu,lambda) evolutionary algorithm" << endl;
   stream << "            400: Genetic algorithm" << endl;
+  stream << "            450: (1+(lambda,lambda)) genetic algorithm" << endl;
   stream << "            500: Population-based incremental learning" << endl;
   stream << "            501: PBIL with negative and positive selection" << endl;
   stream << "            600: Univariate marginal distribution algorithm" << endl;
@@ -885,6 +894,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Offspring population size" << endl;
   stream << "      --ea-mu (type int, default to 10)" << endl;
   stream << "          Parent population size" << endl;
+  stream << "      --ga-crossover-bias (type double, default to 0.5)" << endl;
+  stream << "          Crossover bias" << endl;
   stream << "      --ga-crossover-probability (type double, default to 0.5)" << endl;
   stream << "          Crossover probability" << endl;
   stream << "      --ga-tournament-size (type int, default to 10)" << endl;
@@ -992,6 +1003,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# fn_prefix_length = " << options._fn_prefix_length << endl;
   stream << "# fn_threshold = " << options._fn_threshold << endl;
   stream << "# function = " << options._function << endl;
+  stream << "# ga_crossover_bias = " << options._ga_crossover_bias << endl;
   stream << "# ga_crossover_probability = " << options._ga_crossover_probability << endl;
   stream << "# ga_tournament_size = " << options._ga_tournament_size << endl;
   stream << "# hea_binary_dynamics = " << options._hea_binary_dynamics << endl;

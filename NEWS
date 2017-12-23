@@ -24,6 +24,7 @@ Library:
 - MuPlusLambdaEa, MuCommaLambdaEa, GeneticAlgorithm: added member _allow_stay
 - Add Crossover, UniformCrossover
 - GeneticAlgorithm uses UniformCrossover
+- Added OnePlusLambdaCommaLambdaGa
 
 
 hnco:

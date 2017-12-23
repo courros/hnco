@@ -204,6 +204,23 @@ make_concrete_algorithm(const Options& options)
     return algo;
   }
 
+  case 450: {
+    auto algo = new OnePlusLambdaCommaLambdaGa
+      (options.get_bv_size(),
+       options.get_ea_mu());
+    assert(algo);
+
+    algo->_num_iterations               = options.get_num_iterations();
+
+    if (options.set_mutation())
+      algo->_mutation_probability       = options.get_mutation() / options.get_bv_size();
+
+    if (options.set_ga_crossover_bias())
+      algo->_crossover_bias             = options.get_ga_crossover_bias();
+
+    return algo;
+  }
+
   case 500: {
     auto algo = new Pbil
       (options.get_bv_size(),
