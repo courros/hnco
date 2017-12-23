@@ -21,6 +21,8 @@
 #ifndef HNCO_ALGORITHMS_EA_CROSSOVER_H
 #define HNCO_ALGORITHMS_EA_CROSSOVER_H
 
+#include <assert.h>
+
 #include "hnco/bit-vector.hh"
 #include "hnco/random.hh"
 
@@ -65,6 +67,41 @@ namespace algorithm {
         \param offspring Offspring
     */
     void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring);
+
+  };
+
+
+  /// Biased crossover
+  class BiasedCrossover:
+    public Crossover {
+
+    /// Bernoulli distribution
+    std::bernoulli_distribution _bernoulli_dist;
+
+  public:
+
+    /// Constructor
+    BiasedCrossover():
+      _bernoulli_dist(0.5) {}
+
+    /** Breed.
+
+        Each offspring's bit is copied from second parent with a fixed
+        probability (the crossover bias), from first parent otherwise.
+
+        \param p1 First parent
+        \param p2 Second parent
+        \param offspring Offspring
+    */
+    void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring);
+
+    /// Set bias
+    void set_bias(double b) {
+      assert(b > 0);
+      assert(b < 1);
+
+      _bernoulli_dist = std::bernoulli_distribution(b);
+    }
 
   };
 

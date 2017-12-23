@@ -18,8 +18,6 @@
 
 */
 
-#include <assert.h>
-
 #include "crossover.hh"
 
 
@@ -40,4 +38,19 @@ UniformCrossover::breed(const bit_vector_t& parent1,
       offspring[i] = parent1[i];
     else
       offspring[i] = parent2[i];
+}
+
+
+void
+BiasedCrossover::breed(const bit_vector_t& parent1,
+                       const bit_vector_t& parent2, bit_vector_t& offspring)
+{
+  assert(offspring.size() == parent1.size());
+  assert(offspring.size() == parent2.size());
+
+  for (size_t i = 0; i < offspring.size(); i++)
+    if (_bernoulli_dist(Random::engine))
+      offspring[i] = parent2[i];
+    else
+      offspring[i] = parent1[i];
 }
