@@ -30,6 +30,9 @@ using namespace hnco;
 void
 OnePlusLambdaCommaLambdaGa::init()
 {
+  _radius_dist = std::binomial_distribution<int>(_parent.size(), _mutation_probability);
+  _crossover.set_bias(_crossover_bias);
+
   random_solution();
 }
 

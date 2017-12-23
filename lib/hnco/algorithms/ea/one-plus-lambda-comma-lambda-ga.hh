@@ -21,6 +21,8 @@
 #ifndef HNCO_ALGORITHMS_EA_ONE_PLUS_LAMDDA_COMMA_LAMBDA_GA
 #define HNCO_ALGORITHMS_EA_ONE_PLUS_LAMDDA_COMMA_LAMBDA_GA
 
+#include <assert.h>
+
 #include <random>
 
 #include "hnco/algorithms/algorithm.hh"
@@ -53,8 +55,8 @@ namespace algorithm {
     /// Parent
     bit_vector_t _parent;
 
-    /// Uniform crossover
-    UniformCrossover _crossover;
+    /// Biased crossover
+    BiasedCrossover _crossover;
 
     /// Single iteration
     void iterate();
@@ -74,8 +76,10 @@ namespace algorithm {
     {
       assert(n > 0);
       assert(lambda > 0);
+      assert(lambda <= n);
 
-      _radius_dist = std::binomial_distribution<int>(n, double(lambda) / double(n));
+      _mutation_probability = double(lambda) / double(n);
+      _crossover_bias = 1 / double(lambda);
     }
 
     /// Initialization
@@ -84,6 +88,12 @@ namespace algorithm {
     /** @name Parameters
      */
     ///@{
+
+    /// Mutation probability
+    double _mutation_probability;
+
+    /// Crossover bias
+    double _crossover_bias;
 
     ///@}
 
