@@ -47,6 +47,7 @@ Experiments:
 - Removed hnco-dynamics-stat.pl
 - Support for GNU parallel
 - Added ecdf
+- parameter, runtime: option value can depend on parameter value
 
 Examples:
 - Added examples/
