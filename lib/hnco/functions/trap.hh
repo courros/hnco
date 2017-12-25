@@ -30,7 +30,16 @@ namespace hnco {
 namespace function {
 
 
-  /// Trap
+  /** Trap.
+
+      Reference:
+
+      Kalyanmoy Deb and David E. Goldberg. 1993. Analyzing Deception
+      in %Trap Functions. In Foundations of Genetic Algorithms 2,
+      L. Darrell Whitley (Ed.).  Morgan Kaufmann, San Mateo, CA,
+      93–108.
+
+  */
   class Trap:
     public Function {
 

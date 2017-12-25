@@ -38,7 +38,11 @@ namespace function {
 
   /** NK landscape.
 
-      Source: Kauffman
+      Reference:
+
+      S. A. Kauffman. 1993. The origins of order: self-organisation
+      and selection in evolution. Oxford University Press.
+
   */
   class NkLandscape:
     public Function {

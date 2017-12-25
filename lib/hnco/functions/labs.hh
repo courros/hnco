@@ -28,7 +28,18 @@
 
 namespace hnco::function {
 
-  /// Low autocorrelation binary sequences
+
+  /** Low autocorrelation binary sequences.
+
+      Reference:
+
+      S Mertens. 1996. Exhaustive search for low-autocorrelation
+      binary sequences.  Journal of Physics A: Mathematical and
+      General 29, 18 (1996), L473.
+
+      http://stacks.iop.org/0305-4470/29/i=18/a=005
+
+  */
   class Labs:
     public Function {
 

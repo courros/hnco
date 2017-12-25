@@ -26,7 +26,13 @@
 
 namespace hnco::function {
 
-  /// OneMax
+  /** OneMax.
+
+      Reference:
+
+      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+
+  */
   class OneMax:
     public Function {
 
@@ -77,7 +83,13 @@ namespace hnco::function {
   };
 
 
-  /// Leading ones
+  /** Leading ones.
+
+      Reference:
+
+      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+
+  */
   class LeadingOnes:
     public Function {
 
@@ -106,7 +118,14 @@ namespace hnco::function {
 
   };
 
-  /// Needle in a haystack
+
+  /** Needle in a haystack.
+
+      Reference:
+
+      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+
+  */
   class Needle:
     public Function {
 
@@ -135,7 +154,14 @@ namespace hnco::function {
 
   };
 
-  /// Hierarchical if and only if
+
+  /** Hierarchical if and only if.
+
+      Reference:
+
+      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+
+  */
   class Hiff:
     public Function {
 
@@ -167,7 +193,13 @@ namespace hnco::function {
   };
 
 
-  /// Ridge
+  /** Ridge.
+
+      Reference:
+
+      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+
+  */
   class Ridge:
     public Function {
 
@@ -197,7 +229,13 @@ namespace hnco::function {
   };
 
 
-  /// Plateau
+  /** Plateau.
+
+      Reference:
+
+      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+
+  */
   class Plateau:
     public Function {
 
@@ -225,6 +263,7 @@ namespace hnco::function {
     double get_maximum() { return _bv_size + 2; }
 
   };
+
 
 } // end of namespace hnco::function
 

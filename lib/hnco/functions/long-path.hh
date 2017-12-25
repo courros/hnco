@@ -30,13 +30,9 @@ namespace function {
 
   /** Long path.
 
-      Long paths have been introduced in:
-
-      Jeffrey Horn, David E. Goldberg, and Kalyanmoy Deb, "Long Path
-      Problems", PPSN III, 1994.
-
-      Here we follow the definition given in "Analyzing evolutionary
-      algorithms" by Thomas Jansen.
+      Long paths have been introduced by Jeffrey Horn, David
+      E. Goldberg, and Kalyanmoy Deb. Here we follow the definition
+      given by Thomas Jansen (see references below).
 
       As an example, here is the 2-long path of dimension 4:
       - 0000
@@ -50,6 +46,14 @@ namespace function {
       The fitness is increasing along the path. The fitness on the
       complementary of the path is defined as a linear function
       pointing to the beginning of the path.
+
+      References:
+
+      Jeffrey Horn, David E. Goldberg, and Kalyanmoy Deb, "Long Path
+      Problems", PPSN III, 1994.
+
+      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+
   */
   class LongPath:
     public Function {

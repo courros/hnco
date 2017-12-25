@@ -26,7 +26,17 @@
 
 namespace hnco::function {
 
-  /// Jump
+
+  /** Jump.
+
+      Reference:
+
+      H. Mühlenbein and T. Mahnig. 2001. Evolutionary Algorithms: From
+      Recombination to Search Distributions. In Theoretical Aspects of
+      Evolutionary Computing, Leila Kallel, Bart Naudts, and Alex
+      Rogers (Eds.). Springer Berlin Heidelberg, 135–174.
+
+  */
   class Jump:
     public Function {
 
@@ -65,6 +75,11 @@ namespace hnco::function {
       is called Jump_k. Algorithms in the neighborhood of the
       maximizer (which is the all one bit vector) are taken away from
       it.
+
+      Reference:
+
+      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+
   */
   class DeceptiveJump:
     public Function {

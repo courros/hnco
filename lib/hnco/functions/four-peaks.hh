@@ -50,9 +50,12 @@ namespace function {
       - f(111110) = 5
       - f(111100) = 10 (global maximum)
 
-      De Bonet, J. S., Isbell, C. L., & Viola, P. (1997). MIMIC:
-      Finding optima by estimating probability densities. Advances in
-      neural information processing systems, 424-430.
+      Reference:
+
+      S. Baluja and R. Caruana. 1995. Removing the genetics from the
+      standard genetic algorithm. In Proceedings of the 12th Annual
+      Conference on Machine Learning.  38–46.
+
   */
   class FourPeaks:
     public Function {
@@ -114,9 +117,13 @@ namespace function {
       - f(111110) = 5
       - f(111100) = 10 (global maximum)
 
-      De Bonet, J. S., Isbell, C. L., & Viola, P. (1997). MIMIC:
-      Finding optima by estimating probability densities. Advances in
-      neural information processing systems, 424-430.
+      Reference:
+
+      J. S. De Bonet, C. L. Isbell, and P. Viola. 1996. MIMIC: finding
+      optima by estimating probability densities. In Advances in
+      Neural Information Processing Systems. Vol. 9.  MIT Press,
+      Denver.
+
   */
   class SixPeaks:
     public Function {

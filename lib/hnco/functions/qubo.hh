@@ -61,8 +61,15 @@ namespace function {
       to minimizing the original Qubo.
 
       References:
-      - https://github.com/dwavesystems/qbsolv
-      - http://people.brunel.ac.uk/~mastjjb/jeb/orlib/bqpinfo.html
+
+      Michael Booth, Steven P. Reinhardt, and Aidan
+      Roy. 2017. Partitioning Optimization Problems for Hybrid
+      Classical/Quantum Execution. Technical Report.  D-Wave.
+
+      https://github.com/dwavesystems/qbsolv
+
+      http://people.brunel.ac.uk/~mastjjb/jeb/orlib/bqpinfo.html
+
   */
   class Qubo:
     public Function {

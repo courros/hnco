@@ -50,7 +50,13 @@ namespace function {
       consequence of the fact that algorithms in HNCO maximize rather
       than minimize a function.
 
-      Source: technical report by Larranaga et al.
+      Reference:
+
+      S. Baluja and S. Davies. 1997. Using optimal dependency-trees
+      for combinatorial optimization: learning the structure of the
+      search space. Technical Report CMU- CS-97-107. Carnegie-Mellon
+      University.
+
   */
   class EqualProducts:
     public Function {

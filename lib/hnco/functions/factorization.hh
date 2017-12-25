@@ -14,7 +14,17 @@ namespace hnco {
 namespace function {
 
 
-  /// Factorization
+  /** Factorization.
+
+      Reference:
+
+      Torbjörn Granlund and the GMP development team. 2012. GNU MP:
+      The GNU Multiple Precision Arithmetic Library (5.0.5
+      ed.).
+
+      http://gmplib.org/.
+
+  */
   class Factorization:
     public Function {
 

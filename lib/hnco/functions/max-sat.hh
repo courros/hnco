@@ -31,7 +31,14 @@ namespace hnco {
 namespace function {
 
 
-  /// MAX-SAT
+  /** MAX-SAT.
+
+      Reference:
+
+      Christos M. Papadimitriou. 1994. Computational
+      complexity. Addison-Wesley, Reading, Massachusetts.
+
+  */
   class MaxSat:
     public Function {
 

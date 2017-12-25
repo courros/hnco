@@ -35,6 +35,14 @@ namespace hnco::function {
       Encoding of a signed integer:
       - bit 0: sign
       - bits 1 to 8: two's complement representation
+
+      Reference:
+
+      S. Baluja and S. Davies. 1997. Using optimal dependency-trees
+      for combinatorial optimization: learning the structure of the
+      search space. Technical Report CMU- CS-97-107. Carnegie-Mellon
+      University.
+
   */
   class SummationCancellation:
     public Function {
@@ -83,7 +91,15 @@ namespace hnco::function {
   };
 
 
-  /// Summation cancellation with sinus
+  /** Summation cancellation with sinus.
+
+      Reference:
+
+      M. Sebag and M. Schoenauer. 1997. A society of hill-climbers. In
+      Proc. IEEE Int.  Conf. on Evolutionary
+      Computation. Indianapolis, 319–324.
+
+  */
   class SinusSummationCancellation:
     public SummationCancellation {
 
