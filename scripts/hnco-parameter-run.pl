@@ -92,17 +92,19 @@ sub iterate_algorithms
             print "Created $path\n";
         }
         print "$algorithm_id\n";
-        if ($a->{deterministic}) {
-            iterate_values($path, "$cmd $a->{opt}", 1);
-        } else {
-            iterate_values($path, "$cmd $a->{opt}", $obj->{num_runs});
-        }
+        iterate_values($path, "$cmd $a->{opt}", $a);
     }
 }
 
 sub iterate_values
 {
-    my ($prefix, $cmd, $num_runs) = @_;
+    my ($prefix, $cmd, $a) = @_;
+
+    my $num_runs = $obj->{num_runs};
+    if ($a->{deterministic}) {
+        $num_runs = 1;
+    }
+
     foreach my $value (@$values) {
         my $path = "$prefix/$parameter_id-$value";
         unless (-d $path) {
@@ -110,7 +112,14 @@ sub iterate_values
             print "Created $path\n";
         }
         print "$parameter_id = $value: ";
-        iterate_runs($path, "$cmd --$parameter_id $value", $num_runs);
+        my $dep = "";
+        if (exists($a->{opt_perl})) {
+            foreach (@{ $a->{opt_perl} }) {
+                my $value = eval $_->{value};
+                $dep = "$dep $_->{opt} $value";
+            }
+        }
+        iterate_runs($path, "$cmd --$parameter_id $value $dep", $num_runs);
         print "\n";
     }
 }
