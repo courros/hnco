@@ -37,7 +37,7 @@ namespace hnco {
 namespace algorithm {
 
 
-  /** (1+(lambda,lambda)) genetic algorithm.
+  /** (1+(lambda, lambda)) genetic algorithm.
 
       Reference:
 

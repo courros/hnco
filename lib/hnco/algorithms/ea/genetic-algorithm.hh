@@ -41,6 +41,12 @@ namespace algorithm {
       - Uniform crossover
       - Mutation
       - (mu, mu) selection (offspring population replaces parent population)
+
+      Reference:
+
+      J. H. Holland. 1975. Adaptation in natural and artificial
+      systems. University of Michigan Press, Ann Arbor.
+
   */
   class GeneticAlgorithm:
     public IterativeAlgorithm {

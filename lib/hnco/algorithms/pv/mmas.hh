@@ -29,7 +29,15 @@
 namespace hnco::algorithm {
 
 
-  /// Max-min ant system
+  /** Max-min ant system.
+
+      Reference:
+
+      Thomas Stützle and Holger H. Hoos. 2000. MAX–MIN Ant
+      System. Future Generation Computer Systems 16, 8 (2000),
+      889–914.
+
+  */
   class Mmas:
     public PvAlgorithm {
 

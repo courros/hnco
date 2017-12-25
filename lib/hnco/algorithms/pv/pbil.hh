@@ -28,7 +28,15 @@
 
 namespace hnco::algorithm {
 
-  /// Population-based incremental learning
+  /** Population-based incremental learning.
+
+      Reference:
+
+      S. Baluja and R. Caruana. 1995. Removing the genetics from the
+      standard genetic algorithm. In Proceedings of the 12th Annual
+      Conference on Machine Learning.  38–46.
+
+  */
   class Pbil:
     public PvAlgorithm {
 

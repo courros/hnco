@@ -35,6 +35,11 @@ namespace algorithm {
       (1+1) EA is implemented as a RandomLocalSearch with a BernoulliProcess
       neighborhood and infinite patience. Thus it does derive from
       IterativeAlgorithm.
+
+      Reference:
+
+      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+
   */
   class OnePlusOneEa:
     public Algorithm {

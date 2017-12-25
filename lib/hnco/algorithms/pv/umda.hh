@@ -28,7 +28,15 @@
 
 namespace hnco::algorithm {
 
-  /// Univariate marginal distribution algorithm
+  /** Univariate marginal distribution algorithm.
+
+      Reference:
+
+      H. Mühlenbein. 1997. The equation for response to selection and
+      its use for prediction. Evolutionary Computation 5, 3 (1997),
+      303–346.
+
+  */
   class Umda:
     public PvAlgorithm {
 

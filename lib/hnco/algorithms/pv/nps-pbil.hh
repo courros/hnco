@@ -28,7 +28,16 @@
 
 namespace hnco::algorithm {
 
-  /// Population-based incremental learning with negative and positive selection
+  /** Population-based incremental learning with negative and positive selection.
+
+      Reference:
+
+      Arnaud Berny. 2001. Extending selection learning toward
+      fixed-length d-ary strings. In Artificial Evolution (Lecture
+      Notes in Computer Science), P. Collet and others
+      (Eds.). Springer, Le Creusot.
+
+  */
   class NpsPbil:
     public PvAlgorithm {
 

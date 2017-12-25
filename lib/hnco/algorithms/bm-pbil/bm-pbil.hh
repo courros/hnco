@@ -36,7 +36,18 @@ namespace algorithm {
 /// Boltzmann machine PBIL
 namespace bm_pbil {
 
-  /// Boltzmann machine PBIL
+  /** Boltzmann machine PBIL.
+
+      The BM model is slightly different from the one given in the
+      reference below. More precisely, 0/1 variables are mapped to
+      -1/+1 variables as in Walsh analysis.
+
+      Reference:
+
+      Arnaud Berny. 2002. Boltzmann machine for population-based
+      incremental learning. In ECAI 2002. IOS Press, Lyon.
+
+  */
   class BmPbil:
     public IterativeAlgorithm {
 

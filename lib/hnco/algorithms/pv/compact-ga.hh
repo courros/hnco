@@ -30,7 +30,16 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// Compact genetic algorithm
+  /** Compact genetic algorithm.
+
+      Reference:
+
+      Georges R. Harik, Fernando G. Lobo, and David
+      E. Goldberg. 1999. The Compact Genetic %Algorithm. IEEE
+      Trans. on Evolutionary Computation 3, 4 (November 1999),
+      287–297.
+
+  */
   class CompactGa:
     public PvAlgorithm {
   protected:

@@ -25,6 +25,8 @@ Library:
 - Added Crossover, UniformCrossover, BiasedCrossover
 - GeneticAlgorithm uses UniformCrossover
 - Added OnePlusLambdaCommaLambdaGa
+- Added references to function documentation
+- Added references to algorithm documentation
 
 
 hnco:

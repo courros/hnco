@@ -30,7 +30,13 @@
 namespace hnco {
 namespace algorithm {
 
-  /// (mu+lambda) EA
+  /** (mu+lambda) EA.
+
+      Reference:
+
+      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+
+  */
   class MuPlusLambdaEa:
     public IterativeAlgorithm {
 

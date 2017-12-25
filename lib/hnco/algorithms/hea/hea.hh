@@ -34,7 +34,17 @@
 /// Herding evolutionary algorithm
 namespace hnco::algorithm::hea {
 
-  /// Herding evolutionary algorithm
+
+  /** Herding evolutionary algorithm.
+
+      Reference:
+
+      Arnaud Berny. 2015. Herding Evolutionary %Algorithm. In
+      Proceedings of the Companion Publication of the 2015 Annual
+      Conference on Genetic and Evolutionary Computation (GECCO
+      Companion ’15). ACM, New York, NY, USA, 1355–1356.
+
+  */
   template<class Moment, class Herding>
   class Hea:
     public algorithm::IterativeAlgorithm {

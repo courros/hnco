@@ -32,7 +32,15 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// Simulated annealing
+  /** Simulated annealing.
+
+      Reference:
+
+      S. Kirkpatrick, C. D. Gelatt, and
+      M. P. Vecchi. 1983. Optimization by simulated annealing. Science
+      220, 4598 (May 1983), 671–680.
+
+  */
   class SimulatedAnnealing:
     public IterativeAlgorithm {
 
