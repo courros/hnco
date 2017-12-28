@@ -10,7 +10,7 @@
 6. [Building and installing](#building)
 7. [Contributing](#contributing)
 8. [About the name](#name)
-9. [Acknowledgment](#ackowledgement)
+9. [Acknowledgments](#ackowledgements)
 10. [References](#references)
 
 ## Introduction
