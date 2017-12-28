@@ -325,8 +325,9 @@ sudo apt-get install texlive-base texlive-latex-extra python-pygments
 sudo apt-get install parallel
 ```
 
-Under Ubuntu 16.10, replace `libboost-serialization1.58-dev` with
-`libboost-serialization1.61-dev`.
+Under Ubuntu 16.10 and later, replace `libboost-serialization1.58-dev`
+with a more recent `libboost-serialization*-dev` library (there might
+be more than one available version).
 
 ## Building and installing <a name="building"></a>
 
