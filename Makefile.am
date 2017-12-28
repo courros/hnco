@@ -9,7 +9,7 @@ EXTRA_DIST = \
 	experiments/benchmark/instances/lin.100 \
 	experiments/benchmark/instances/ms.100.3.1000 \
 	experiments/benchmark/instances/nk.100.4 \
-	experiments/benchmark/instances/quad.100 \
+	experiments/benchmark/instances/walsh2.100 \
 	experiments/benchmark/plan.json \
 	experiments/benchmark/report/Makefile \
 	experiments/benchmark/report/report.tex \
@@ -19,7 +19,7 @@ EXTRA_DIST = \
 	experiments/dynamics/instances/lin.100 \
 	experiments/dynamics/instances/ms.100.3.1000 \
 	experiments/dynamics/instances/nk.100.4 \
-	experiments/dynamics/instances/quad.100 \
+	experiments/dynamics/instances/walsh2.100 \
 	experiments/dynamics/plan.json \
 	experiments/dynamics/report/Makefile \
 	experiments/dynamics/report/report.tex \
@@ -29,7 +29,7 @@ EXTRA_DIST = \
 	experiments/parameter/instances/lin.100 \
 	experiments/parameter/instances/ms.100.3.1000 \
 	experiments/parameter/instances/nk.100.4 \
-	experiments/parameter/instances/quad.100 \
+	experiments/parameter/instances/walsh2.100 \
 	experiments/parameter/plan.json \
 	experiments/parameter/report/Makefile \
 	experiments/parameter/report/report.tex \
