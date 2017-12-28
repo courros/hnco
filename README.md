@@ -375,7 +375,7 @@ acid is the simplest stable chemical compound that contains carbon,
 hydrogen, nitrogen, and oxygen, the four most commonly found elements
 in organic chemistry and biology.
 
-## Ackowledgement
+## Ackowledgements
 
 Maxim Buzdalov has drawn my attention to the interest of incremental
 evaluation.
