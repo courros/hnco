@@ -83,8 +83,8 @@ namespace algorithm {
       _neighborhood.set_probability(_mutation_probability);
       _neighborhood._allow_stay         = _allow_stay;
       _rls.set_num_iterations(_num_iterations);
-      _rls._incremental_evaluation      = _incremental_evaluation;
-      _rls._patience                    = 0;
+      _rls.set_incremental_evaluation(_incremental_evaluation);
+      _rls.set_patience(0);
       _rls.init();
     }
 

@@ -110,11 +110,11 @@ make_concrete_algorithm(const Options& options)
     assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->_patience                     = options.get_rls_patience();
-    algo->_incremental_evaluation       = options.with_incremental_evaluation();
+    algo->set_patience(options.get_rls_patience());
+    algo->set_incremental_evaluation(options.with_incremental_evaluation());
 
     if (options.with_rls_strict())
-      algo->_compare = std::greater<double>();
+      algo->set_compare(std::greater<double>());
 
     return algo;
   }
