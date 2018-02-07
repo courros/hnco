@@ -92,7 +92,7 @@ RandomLocalSearch::iterate_full()
   _neighborhood->propose();
   double value = _function->eval(_neighborhood->get_candidate());
 
-  if (_compare(value, _solution.second)) {
+  if (_operator(value, _solution.second)) {
     // success
     _neighborhood->keep();
     _solution.second = value;
@@ -125,7 +125,7 @@ RandomLocalSearch::iterate_incremental()
                                 _solution.second,
                                 _neighborhood->get_flipped_bits());
 
-  if (_compare(value, _solution.second)) {
+  if (_operator(value, _solution.second)) {
     // success
     _neighborhood->keep();
     _solution.second = value;
