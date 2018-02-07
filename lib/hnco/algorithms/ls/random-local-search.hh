@@ -45,7 +45,7 @@ namespace algorithm {
     neighborhood::Neighborhood *_neighborhood;
 
     /// Number of failure
-    int _failures;
+    int _num_failures;
 
     /** @name Parameters
      */

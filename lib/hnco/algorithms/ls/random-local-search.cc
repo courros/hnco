@@ -34,7 +34,7 @@ RandomLocalSearch::init()
 
   random_solution();
   _neighborhood->set_origin(_solution.first);
-  _failures = 0;
+  _num_failures = 0;
 }
 
 
@@ -56,7 +56,7 @@ RandomLocalSearch::init(const bit_vector_t& x, double value)
 
   set_solution(x, value);
   _neighborhood->set_origin(_solution.first);
-  _failures = 0;
+  _num_failures = 0;
 }
 
 
@@ -95,16 +95,16 @@ RandomLocalSearch::iterate_full()
     // success
     _neighborhood->keep();
     _solution.second = value;
-    _failures = 0;
+    _num_failures = 0;
   }
   else {
     // failure
     _neighborhood->forget();
-    _failures++;
+    _num_failures++;
   }
 
   if (_patience > 0 &&
-      _failures == _patience)
+      _num_failures == _patience)
     {
       _solution.first =  _neighborhood->get_origin();
       throw LocalMaximum(_solution);
@@ -126,16 +126,16 @@ RandomLocalSearch::iterate_incremental()
     // success
     _neighborhood->keep();
     _solution.second = value;
-    _failures = 0;
+    _num_failures = 0;
   }
   else {
     // failure
     _neighborhood->forget();
-    _failures++;
+    _num_failures++;
   }
 
   if (_patience > 0 &&
-      _failures == _patience)
+      _num_failures == _patience)
     {
       _solution.first =  _neighborhood->get_origin();
       throw LocalMaximum(_solution);
