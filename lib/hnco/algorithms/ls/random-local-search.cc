@@ -75,7 +75,8 @@ RandomLocalSearch::iterate()
 {
   assert(_function);
 
-  if (_incremental_evaluation && _function->provides_incremental_evaluation())
+  if (_incremental_evaluation &&
+      _function->provides_incremental_evaluation())
     iterate_incremental();
   else
     iterate_full();
@@ -96,8 +97,7 @@ RandomLocalSearch::iterate_full()
     _neighborhood->keep();
     _solution.second = value;
     _num_failures = 0;
-  }
-  else {
+  } else {
     // failure
     _neighborhood->forget();
     _num_failures++;
@@ -106,7 +106,7 @@ RandomLocalSearch::iterate_full()
   if (_patience > 0 &&
       _num_failures == _patience)
     {
-      _solution.first =  _neighborhood->get_origin();
+      _solution.first = _neighborhood->get_origin();
       throw LocalMaximum(_solution);
     }
 
@@ -120,15 +120,17 @@ RandomLocalSearch::iterate_incremental()
   assert(_neighborhood);
 
   _neighborhood->propose();
-  double value = _function->incremental_eval(_neighborhood->get_origin(), _solution.second, _neighborhood->get_flipped_bits());
+  double value =
+    _function->incremental_eval(_neighborhood->get_origin(),
+                                _solution.second,
+                                _neighborhood->get_flipped_bits());
 
   if (_compare(value, _solution.second)) {
     // success
     _neighborhood->keep();
     _solution.second = value;
     _num_failures = 0;
-  }
-  else {
+  } else {
     // failure
     _neighborhood->forget();
     _num_failures++;
@@ -137,7 +139,7 @@ RandomLocalSearch::iterate_incremental()
   if (_patience > 0 &&
       _num_failures == _patience)
     {
-      _solution.first =  _neighborhood->get_origin();
+      _solution.first = _neighborhood->get_origin();
       throw LocalMaximum(_solution);
     }
 
