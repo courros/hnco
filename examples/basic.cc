@@ -38,7 +38,7 @@ int main()
   OneMax fn(bv_size);
 
   OnePlusOneEa ea(bv_size);
-  ea._num_iterations = 100;
+  ea.set_num_iterations(100);
   ea.set_function(&fn);
   ea.init();
   ea.maximize();

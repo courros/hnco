@@ -50,6 +50,15 @@ namespace algorithm {
     /// Random local search
     RandomLocalSearch _rls;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Number of iterations
+    int _num_iterations = 0;
+
+    ///@}
+
   public:
 
     /** Constructor.
@@ -73,7 +82,7 @@ namespace algorithm {
     void init() {
       _neighborhood.set_probability(_mutation_probability);
       _neighborhood._allow_stay         = _allow_stay;
-      _rls._num_iterations              = _num_iterations;
+      _rls.set_num_iterations(_num_iterations);
       _rls._incremental_evaluation      = _incremental_evaluation;
       _rls._patience                    = 0;
       _rls.init();
@@ -89,9 +98,12 @@ namespace algorithm {
      */
     ///@{
 
-    /** Number of iterations.
-        _num_iterations <= 0 means indefinite */
-    int _num_iterations = 0;
+    /** Set the number of iterations.
+
+        \param x Number of iterations
+
+        x <= 0 means indefinite */
+    void set_num_iterations(int x) { _num_iterations = x; }
 
     /// Incremental evaluation
     bool _incremental_evaluation = false;

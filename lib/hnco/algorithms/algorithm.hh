@@ -117,12 +117,14 @@ namespace algorithm {
 
   protected:
 
+    /// Number of iterations
+    int _num_iterations = 0;
+
     /// Something to log
     bool _something_to_log;
 
     /// Current iteration
     int _iteration;
-
 
     /// Single iteration
     virtual void iterate() = 0;
@@ -149,9 +151,12 @@ namespace algorithm {
         maximum at the end of the search. */
     void maximize();
 
-    /** Number of iterations.
-        _num_iterations <= 0 means indefinite */
-    int _num_iterations = 0;
+    /** Set the number of iterations.
+
+        \param x Number of iterations
+
+        x <= 0 means indefinite */
+    void set_num_iterations(int x) { _num_iterations = x; }
 
   };
 

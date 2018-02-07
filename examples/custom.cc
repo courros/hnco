@@ -85,7 +85,7 @@ int main()
   MyFunction fn(bv_size);
 
   MyAlgorithm rs(bv_size);
-  rs._num_iterations = 100;
+  rs.set_num_iterations(100);
   rs.set_function(&fn);
   rs.init();
   rs.maximize();
