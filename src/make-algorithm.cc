@@ -141,10 +141,10 @@ make_concrete_algorithm(const Options& options)
     assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->_num_transitions                      = options.get_sa_num_transitions();
-    algo->_num_trials                           = options.get_sa_num_trials();
-    algo->_initial_acceptance_probability       = options.get_sa_initial_acceptance_probability();
-    algo->_rate                                 = options.get_sa_rate();
+    algo->set_num_transitions(options.get_sa_num_transitions());
+    algo->set_num_trials(options.get_sa_num_trials());
+    algo->set_initial_acceptance_probability(options.get_sa_initial_acceptance_probability());
+    algo->set_rate(options.get_sa_rate());
 
     return algo;
   }
