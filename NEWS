@@ -7,6 +7,9 @@ Library:
 - Setters: IterativeAlgorithm, RandomLocalSearch, OnePlusOneEa,
   SimulatedAnnealing
 
+hnco:
+- Renamed options --sa-rate -> --sa-beta-ratio
+
 
 * Version 0.7 (2017-12-28)
 

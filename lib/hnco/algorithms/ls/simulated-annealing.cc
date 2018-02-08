@@ -31,7 +31,7 @@ using namespace hnco::random;
 
 
 void
-SimulatedAnnealing::set_beta()
+SimulatedAnnealing::init_beta()
 {
   double delta = 0;
   int count = 0;
@@ -60,7 +60,7 @@ SimulatedAnnealing::init()
   _neighborhood->set_origin(_solution.first);
   _current_value = _solution.second;
   _transitions = 0;
-  set_beta();
+  init_beta();
 }
 
 
@@ -85,8 +85,7 @@ SimulatedAnnealing::iterate()
       _current_value = value;
 
       _transitions++;
-    }
-    else
+    } else
       _neighborhood->forget();
   }
 

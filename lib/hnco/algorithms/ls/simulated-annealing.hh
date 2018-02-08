@@ -76,13 +76,13 @@ namespace algorithm {
 
     ///@}
 
-    /** Set beta.
+    /** Initialize beta.
 
-        Requires (2 * num_trials) evaluations. This should be taken
+        Requires (2 * _num_trials) evaluations. This should be taken
         into account when using OnBudgetFunction.
 
     */
-    void set_beta();
+    void init_beta();
 
     /// Single iteration
     void iterate();
