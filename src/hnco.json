@@ -805,11 +805,11 @@
             "category": "Simulated Annealing"
         },
 
-        "sa_rate":
+        "sa_beta_ratio":
         {
             "type": "double",
             "value": 1.2,
-            "description": "Increase rate for inverse temperature",
+            "description": "Ratio for beta or inverse temperature",
             "category": "Simulated Annealing"
         },
 

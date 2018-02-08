@@ -97,14 +97,14 @@ Options::Options(int argc, char *argv[]):
   _opt_radius(false),
   _rls_patience(50),
   _opt_rls_patience(false),
+  _sa_beta_ratio(1.2),
+  _opt_sa_beta_ratio(false),
   _sa_initial_acceptance_probability(0.6),
   _opt_sa_initial_acceptance_probability(false),
   _sa_num_transitions(50),
   _opt_sa_num_transitions(false),
   _sa_num_trials(100),
   _opt_sa_num_trials(false),
-  _sa_rate(1.2),
-  _opt_sa_rate(false),
   _seed(0),
   _opt_seed(false),
   _selection_size(1),
@@ -194,10 +194,10 @@ Options::Options(int argc, char *argv[]):
     OPTION_PV_LOG_NUM_COMPONENTS,
     OPTION_RADIUS,
     OPTION_RLS_PATIENCE,
+    OPTION_SA_BETA_RATIO,
     OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY,
     OPTION_SA_NUM_TRANSITIONS,
     OPTION_SA_NUM_TRIALS,
-    OPTION_SA_RATE,
     OPTION_SEED,
     OPTION_SELECTION_SIZE,
     OPTION_TARGET,
@@ -282,10 +282,10 @@ Options::Options(int argc, char *argv[]):
     {"pv-log-num-components", required_argument, 0, OPTION_PV_LOG_NUM_COMPONENTS},
     {"radius", required_argument, 0, OPTION_RADIUS},
     {"rls-patience", required_argument, 0, OPTION_RLS_PATIENCE},
+    {"sa-beta-ratio", required_argument, 0, OPTION_SA_BETA_RATIO},
     {"sa-initial-acceptance-probability", required_argument, 0, OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY},
     {"sa-num-transitions", required_argument, 0, OPTION_SA_NUM_TRANSITIONS},
     {"sa-num-trials", required_argument, 0, OPTION_SA_NUM_TRIALS},
-    {"sa-rate", required_argument, 0, OPTION_SA_RATE},
     {"seed", required_argument, 0, OPTION_SEED},
     {"selection-size", required_argument, 0, OPTION_SELECTION_SIZE},
     {"target", required_argument, 0, OPTION_TARGET},
@@ -522,6 +522,10 @@ Options::Options(int argc, char *argv[]):
       set_rls_patience(atoi(optarg));
       break;
 
+    case OPTION_SA_BETA_RATIO:
+      set_sa_beta_ratio(atof(optarg));
+      break;
+
     case OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY:
       set_sa_initial_acceptance_probability(atof(optarg));
       break;
@@ -532,10 +536,6 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_SA_NUM_TRIALS:
       set_sa_num_trials(atoi(optarg));
-      break;
-
-    case OPTION_SA_RATE:
-      set_sa_rate(atof(optarg));
       break;
 
     case OPTION_SEED:
@@ -880,14 +880,14 @@ void Options::print_help(ostream& stream) const
   stream << "          Strict (>) random local search" << endl;
   stream << endl;
   stream << "Simulated Annealing:" << endl;
+  stream << "      --sa-beta-ratio (type double, default to 1.2)" << endl;
+  stream << "          Ratio for beta or inverse temperature" << endl;
   stream << "      --sa-initial-acceptance-probability (type double, default to 0.6)" << endl;
   stream << "          Initial acceptance probability" << endl;
   stream << "      --sa-num-transitions (type int, default to 50)" << endl;
   stream << "          Number of accepted transitions before annealing" << endl;
   stream << "      --sa-num-trials (type int, default to 100)" << endl;
   stream << "          Number of trials to estimate initial inverse temperature" << endl;
-  stream << "      --sa-rate (type double, default to 1.2)" << endl;
-  stream << "          Increase rate for inverse temperature" << endl;
   stream << endl;
   stream << "Evolutionary Algorithms:" << endl;
   stream << "      --ea-lambda (type int, default to 100)" << endl;
@@ -1033,10 +1033,10 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# pv_log_num_components = " << options._pv_log_num_components << endl;
   stream << "# radius = " << options._radius << endl;
   stream << "# rls_patience = " << options._rls_patience << endl;
+  stream << "# sa_beta_ratio = " << options._sa_beta_ratio << endl;
   stream << "# sa_initial_acceptance_probability = " << options._sa_initial_acceptance_probability << endl;
   stream << "# sa_num_transitions = " << options._sa_num_transitions << endl;
   stream << "# sa_num_trials = " << options._sa_num_trials << endl;
-  stream << "# sa_rate = " << options._sa_rate << endl;
   stream << "# seed = " << options._seed << endl;
   stream << "# selection_size = " << options._selection_size << endl;
   stream << "# target = " << options._target << endl;

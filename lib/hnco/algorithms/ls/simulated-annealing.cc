@@ -93,7 +93,7 @@ SimulatedAnnealing::iterate()
   // Cooling schedule
   if (_transitions == _num_transitions) {
     _transitions = 0;
-    _beta *= _rate;
+    _beta *= _beta_ratio;
   }
 
 }

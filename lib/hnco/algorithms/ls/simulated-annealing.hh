@@ -71,8 +71,8 @@ namespace algorithm {
     /// Initial acceptance probability
     double _initial_acceptance_probability = 0.6;
 
-    /// Rate for inverse temperature
-    double _rate = 1.2;
+    /// Ratio for beta
+    double _beta_ratio = 1.2;
 
     ///@}
 
@@ -113,8 +113,8 @@ namespace algorithm {
     /// Set the initial acceptance probability
     void set_initial_acceptance_probability(double x) { _initial_acceptance_probability = x; }
 
-    /// Set the rate for inverse temperature
-    void set_rate(double x) { _rate = x; }
+    /// Set ratio for beta
+    void set_beta_ratio(double x) { _beta_ratio = x; }
 
     ///@}
 

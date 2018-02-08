@@ -189,6 +189,10 @@ class Options {
   int _rls_patience;
   bool _opt_rls_patience;
 
+  /// Ratio for beta or inverse temperature
+  double _sa_beta_ratio;
+  bool _opt_sa_beta_ratio;
+
   /// Initial acceptance probability
   double _sa_initial_acceptance_probability;
   bool _opt_sa_initial_acceptance_probability;
@@ -200,10 +204,6 @@ class Options {
   /// Number of trials to estimate initial inverse temperature
   int _sa_num_trials;
   bool _opt_sa_num_trials;
-
-  /// Increase rate for inverse temperature
-  double _sa_rate;
-  bool _opt_sa_rate;
 
   /// Seed for the random number generator
   unsigned _seed;
@@ -861,6 +861,18 @@ public:
   /// Get set-flag for rls_patience
   bool set_rls_patience() const { return _opt_rls_patience; }
 
+  /// Get sa_beta_ratio
+  double get_sa_beta_ratio() const { return _sa_beta_ratio; }
+
+  /// Set sa_beta_ratio
+  void set_sa_beta_ratio(double x) {
+    _sa_beta_ratio = x;
+    _opt_sa_beta_ratio = true;
+  }
+
+  /// Get set-flag for sa_beta_ratio
+  bool set_sa_beta_ratio() const { return _opt_sa_beta_ratio; }
+
   /// Get sa_initial_acceptance_probability
   double get_sa_initial_acceptance_probability() const { return _sa_initial_acceptance_probability; }
 
@@ -896,18 +908,6 @@ public:
 
   /// Get set-flag for sa_num_trials
   bool set_sa_num_trials() const { return _opt_sa_num_trials; }
-
-  /// Get sa_rate
-  double get_sa_rate() const { return _sa_rate; }
-
-  /// Set sa_rate
-  void set_sa_rate(double x) {
-    _sa_rate = x;
-    _opt_sa_rate = true;
-  }
-
-  /// Get set-flag for sa_rate
-  bool set_sa_rate() const { return _opt_sa_rate; }
 
   /// Get seed
   unsigned get_seed() const { return _seed; }
