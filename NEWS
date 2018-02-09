@@ -7,7 +7,7 @@ Library:
 - Added setters, declared members protected or private:
   IterativeAlgorithm, RandomLocalSearch, OnePlusOneEa,
   SimulatedAnnealing, OnePlusOneEa, MuPlusLambdaEa, MuCommaLambdaEa,
-  GeneticAlgorithm
+  GeneticAlgorithm, OnePlusLambdaCommaLambdaGa
 
 hnco:
 - Renamed options --sa-rate -> --sa-beta-ratio

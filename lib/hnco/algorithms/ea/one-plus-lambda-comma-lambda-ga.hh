@@ -64,6 +64,18 @@ namespace algorithm {
     /// Biased crossover
     BiasedCrossover _crossover;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Mutation probability
+    double _mutation_probability;
+
+    /// Crossover bias
+    double _crossover_bias;
+
+    ///@}
+
     /// Single iteration
     void iterate();
 
@@ -94,15 +106,15 @@ namespace algorithm {
     /// Initialization
     void init();
 
-    /** @name Parameters
+    /** @name Setters
      */
     ///@{
 
-    /// Mutation probability
-    double _mutation_probability;
+    /// Set the mutation probability
+    void set_mutation_probability(double x) { _mutation_probability = x; }
 
-    /// Crossover bias
-    double _crossover_bias;
+    /// Set the crossover bias
+    void set_crossover_bias(double x) { _crossover_bias = x; }
 
     ///@}
 
