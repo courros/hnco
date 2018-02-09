@@ -111,10 +111,10 @@ namespace algorithm {
     /// Set the mutation probability
     void set_mutation_probability(double x) { _mutation_probability = x; }
 
-    /// Crossover probability
+    /// Set the crossover probability
     void set_crossover_probability(double x) { _crossover_probability = x; }
 
-    /// Tournament size
+    /// Set the tournament size
     void set_tournament_size(int x) { _tournament_size = x; }
 
     /** Set the flag _allow_stay.
