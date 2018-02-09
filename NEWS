@@ -4,8 +4,8 @@ Library:
 - RandomLocalSearch, Mmas, Population: renamed _compare -> _operator
 - RandomLocalSearch: renamed _failures -> _num_failures
 - SimulatedAnnealing: renamed _rate -> _beta_ratio
-- Setters: IterativeAlgorithm, RandomLocalSearch, OnePlusOneEa,
-  SimulatedAnnealing
+- Added setters: IterativeAlgorithm, RandomLocalSearch, OnePlusOneEa,
+  SimulatedAnnealing, OnePlusOneEa
 
 hnco:
 - Renamed options --sa-rate -> --sa-beta-ratio

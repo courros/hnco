@@ -57,6 +57,15 @@ namespace algorithm {
     /// Number of iterations
     int _num_iterations = 0;
 
+    /// Mutation probability
+    double _mutation_probability;
+
+    /// Allow stay
+    bool _allow_stay = false;
+
+    /// Incremental evaluation
+    bool _incremental_evaluation = false;
+
     ///@}
 
   public:
@@ -94,7 +103,7 @@ namespace algorithm {
     /// Solution
     const point_value_t& get_solution() { return _rls.get_solution(); }
 
-    /** @name Parameters
+    /** @name Setters
      */
     ///@{
 
@@ -105,18 +114,18 @@ namespace algorithm {
         x <= 0 means indefinite */
     void set_num_iterations(int x) { _num_iterations = x; }
 
-    /// Incremental evaluation
-    bool _incremental_evaluation = false;
+    /// Set the mutation probability
+    void set_mutation_probability(double x) { _mutation_probability = x; }
 
-    /// Mutation probability
-    double _mutation_probability;
-
-    /** Allow stay.
+    /** Set the flag _allow_stay.
 
         In case no mutation occurs allow the current bit vector to
         stay unchanged.
     */
-    bool _allow_stay = false;
+    void set_allow_stay(bool x) { _allow_stay = x; }
+
+    /// Set incremental evaluation
+    void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }
 
     ///@}
 
