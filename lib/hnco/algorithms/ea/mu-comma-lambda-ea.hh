@@ -53,6 +53,18 @@ namespace algorithm {
     /// Select parent
     std::uniform_int_distribution<int> _select_parent;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Mutation probability
+    double _mutation_probability;
+
+    /// Allow stay
+    bool _allow_stay = false;
+
+    ///@}
+
     /// Single iteration
     void iterate();
 
@@ -75,19 +87,19 @@ namespace algorithm {
     /// Initialization
     void init();
 
-    /** @name Parameters
+    /** @name Setters
      */
     ///@{
 
-    /// Mutation probability
-    double _mutation_probability;
+    /// Set the mutation probability
+    void set_mutation_probability(double x) { _mutation_probability = x; }
 
-    /** Allow stay.
+    /** Set the flag _allow_stay.
 
         In case no mutation occurs allow the current bit vector to
         stay unchanged.
     */
-    bool _allow_stay = false;
+    void set_allow_stay(bool x) { _allow_stay = x; }
 
     ///@}
 

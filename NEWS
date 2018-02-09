@@ -6,7 +6,7 @@ Library:
 - SimulatedAnnealing: renamed _rate -> _beta_ratio
 - Added setters, declared members protected or private:
   IterativeAlgorithm, RandomLocalSearch, OnePlusOneEa,
-  SimulatedAnnealing, OnePlusOneEa, MuPlusLambdaEa
+  SimulatedAnnealing, OnePlusOneEa, MuPlusLambdaEa, MuCommaLambdaEa
 
 hnco:
 - Renamed options --sa-rate -> --sa-beta-ratio
