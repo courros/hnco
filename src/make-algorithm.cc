@@ -336,9 +336,9 @@ make_concrete_algorithm(const Options& options)
     algo->set_bound_moment(options.with_hea_bound_moment());
 
     auto& herding = algo->_herding;
-    herding._randomize_bit_order        = options.with_hea_randomize_bit_order();
-    herding._dynamics                   = options.get_hea_binary_dynamics();
-    herding._weight                     = options.get_hea_weight();
+    herding.set_randomize_bit_order(options.with_hea_randomize_bit_order());
+    herding.set_dynamics(options.get_hea_binary_dynamics());
+    herding.set_weight(options.get_hea_weight());
 
     algo->set_weight(options.get_hea_weight());
 
@@ -374,11 +374,11 @@ make_concrete_algorithm(const Options& options)
     algo->set_bound_moment(options.with_hea_bound_moment());
 
     auto& herding = algo->_herding;
-    herding._randomize_bit_order        = options.with_hea_randomize_bit_order();
-    herding._weight                     = options.get_hea_weight();
-    herding._num_par_updates            = options.get_hea_num_par_updates();
-    herding._num_seq_updates            = options.get_hea_num_seq_updates();
-    herding._sampling_method            = options.get_hea_sampling_method();
+    herding.set_randomize_bit_order(options.with_hea_randomize_bit_order());
+    herding.set_weight(options.get_hea_weight());
+    herding.set_num_par_updates(options.get_hea_num_par_updates());
+    herding.set_num_seq_updates(options.get_hea_num_seq_updates());
+    herding.set_sampling_method(options.get_hea_sampling_method());
 
     algo->set_weight(options.get_hea_weight());
 
