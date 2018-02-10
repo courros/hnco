@@ -54,7 +54,7 @@ namespace hnco::algorithm {
     std::function<bool(double, double)> _operator = std::greater_equal<double>();
 
     /// Learning rate
-    double _rate;
+    double _rate = 1e-3;
 
     ///@}
 
