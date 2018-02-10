@@ -43,11 +43,23 @@ namespace hnco::algorithm {
 
   protected:
 
-    /// Single iteration
-    void iterate();
-
     /// Candidate solution
     bit_vector_t _x;
+
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Binary operator for comparing evaluations
+    std::function<bool(double, double)> _operator = std::greater_equal<double>();
+
+    /// Learning rate
+    double _rate;
+
+    ///@}
+
+    /// Single iteration
+    void iterate();
 
   public:
 
@@ -59,15 +71,15 @@ namespace hnco::algorithm {
     /// Initialization
     void init();
 
-    /** @name Parameters
+    /** @name Setters
      */
     ///@{
 
-    /// Binary operator for comparing evaluations
-    std::function<bool(double, double)> _operator = std::greater_equal<double>();
+    /// Set the binary operator for comparing evaluations
+    void set_operator(std::function<bool(double, double)> x) { _operator = x; }
 
     /// Learning rate
-    double _rate;
+    void set_rate(double x) { _rate = x; }
 
     ///@}
 

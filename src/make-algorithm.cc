@@ -302,11 +302,11 @@ make_concrete_algorithm(const Options& options)
     assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->_rate                 = options.get_learning_rate();
+    algo->set_rate(options.get_learning_rate());
     algo->set_log_num_components(options.get_pv_log_num_components());
 
     if (options.with_mmas_strict())
-      algo->_operator = std::greater<double>();
+      algo->set_operator(std::greater<double>());
 
     PvAlgorithm::log_flags_t lf = {};
     if (options.with_pv_log_pv())
