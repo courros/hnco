@@ -9,7 +9,8 @@ Library:
   IterativeAlgorithm, RandomLocalSearch, OnePlusOneEa,
   SimulatedAnnealing, OnePlusOneEa, MuPlusLambdaEa, MuCommaLambdaEa,
   GeneticAlgorithm, OnePlusLambdaCommaLambdaGa, PvAlgorithm, Pbil,
-  NpsPbil, Umda, CompactGa, Mmas, Hea, BinaryHerding, SpinHerding
+  NpsPbil, Umda, CompactGa, Mmas, Hea, BinaryHerding, SpinHerding,
+  BernoulliProcess
 
 hnco:
 - Renamed options --sa-rate -> --sa-beta-ratio
