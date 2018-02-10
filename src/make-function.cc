@@ -401,7 +401,7 @@ make_prior_noise_neighborhood(const Options& options)
     auto nh = new BernoulliProcess
       (options.get_bv_size(),
        options.get_pn_mutation() / options.get_bv_size());
-    nh->_allow_stay = options.with_pn_allow_stay();
+    nh->set_allow_stay(options.with_pn_allow_stay());
     return nh;
   }
 

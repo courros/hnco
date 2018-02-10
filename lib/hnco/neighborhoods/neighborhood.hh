@@ -229,6 +229,15 @@ namespace neighborhood {
     /// Reservoir sampling
     bool _reservoir_sampling = false;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Allow stay
+    bool _allow_stay = false;
+
+    ///@}
+
     /// Sample bits
     void sample_bits();
 
@@ -275,12 +284,12 @@ namespace neighborhood {
      */
     ///@{
 
-    /** Allow stay.
+    /** Set the flag _allow_stay.
 
         In case no mutation occurs allow the current bit vector to
         stay unchanged.
     */
-    bool _allow_stay = false;
+    void set_allow_stay(bool x) { _allow_stay = x; }
 
     ///@}
 

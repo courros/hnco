@@ -43,7 +43,7 @@ make_neighborhood(const Options& options)
     auto neighborhood = new BernoulliProcess
       (options.get_bv_size(),
        options.get_mutation() / options.get_bv_size());
-    neighborhood->_allow_stay = options.with_allow_stay();
+    neighborhood->set_allow_stay(options.with_allow_stay());
     return neighborhood;
   }
 
