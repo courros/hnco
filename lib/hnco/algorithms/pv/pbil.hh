@@ -81,7 +81,7 @@ namespace hnco::algorithm {
     /// Set the selection size
     void set_selection_size(int x) { _selection_size = x; }
 
-    /// Learning rate
+    /// Set the learning rate
     void set_rate(double x) { _rate = x; }
 
     ///@}

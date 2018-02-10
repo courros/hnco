@@ -59,11 +59,17 @@ namespace hnco::algorithm {
     /// Upper bound of probability
     double _upper_bound;
 
-    /// Log flags
-    log_flags_t _log_flags;
+    /** @name Parameters
+     */
+    ///@{
 
     /// Number of probability vector components to log
     int _log_num_components = 5;
+
+    ///@}
+
+    /// Log flags
+    log_flags_t _log_flags;
 
     /// Log
     void log();
@@ -83,8 +89,14 @@ namespace hnco::algorithm {
       _something_to_log = _log_flags.any();
     }
 
+    /** @name Setters
+     */
+    ///@{
+
     /// Set the number of probability vector components to log
     void set_log_num_components(int x) { _log_num_components = x; }
+
+    ///@}
 
   };
 

@@ -72,7 +72,7 @@ namespace algorithm {
      */
     ///@{
 
-    /// Learning rate
+    /// Set the learning rate
     void set_rate(double x) { _rate = x; }
 
     ///@}
