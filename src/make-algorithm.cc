@@ -224,9 +224,9 @@ make_concrete_algorithm(const Options& options)
     assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->_selection_size       = options.get_selection_size();
-    algo->_rate                 = options.get_learning_rate();
-    algo->_log_num_components   = options.get_pv_log_num_components();
+    algo->set_selection_size(options.get_selection_size());
+    algo->set_rate(options.get_learning_rate());
+    algo->set_log_num_components(options.get_pv_log_num_components());
 
     PvAlgorithm::log_flags_t lf = {};
     if (options.with_pv_log_pv())
@@ -247,7 +247,7 @@ make_concrete_algorithm(const Options& options)
     algo->set_num_iterations(options.get_num_iterations());
     algo->_selection_size       = options.get_selection_size();
     algo->_rate                 = options.get_learning_rate();
-    algo->_log_num_components   = options.get_pv_log_num_components();
+    algo->set_log_num_components(options.get_pv_log_num_components());
 
     PvAlgorithm::log_flags_t lf = {};
     if (options.with_pv_log_pv())
@@ -267,7 +267,7 @@ make_concrete_algorithm(const Options& options)
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->_selection_size       = options.get_selection_size();
-    algo->_log_num_components   = options.get_pv_log_num_components();
+    algo->set_log_num_components(options.get_pv_log_num_components());
 
     PvAlgorithm::log_flags_t lf = {};
     if (options.with_pv_log_pv())
@@ -285,7 +285,7 @@ make_concrete_algorithm(const Options& options)
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->_rate                 = options.get_learning_rate();
-    algo->_log_num_components   = options.get_pv_log_num_components();
+    algo->set_log_num_components(options.get_pv_log_num_components());
 
     PvAlgorithm::log_flags_t lf = {};
     if (options.with_pv_log_pv())
@@ -303,7 +303,7 @@ make_concrete_algorithm(const Options& options)
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->_rate                 = options.get_learning_rate();
-    algo->_log_num_components   = options.get_pv_log_num_components();
+    algo->set_log_num_components(options.get_pv_log_num_components());
 
     if (options.with_mmas_strict())
       algo->_operator = std::greater<double>();

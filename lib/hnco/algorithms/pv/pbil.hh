@@ -48,17 +48,6 @@ namespace hnco::algorithm {
     /// Mean of selected bit vectors
     pv_t _mean;
 
-    /// Single iteration
-    void iterate();
-
-  public:
-
-    /// Constructor
-    Pbil(int n, int population_size):
-      PvAlgorithm(n),
-      _population(population_size, n),
-      _mean(n) {}
-
     /** @name Parameters
      */
     ///@{
@@ -71,8 +60,31 @@ namespace hnco::algorithm {
 
     ///@}
 
+    /// Single iteration
+    void iterate();
+
+  public:
+
+    /// Constructor
+    Pbil(int n, int population_size):
+      PvAlgorithm(n),
+      _population(population_size, n),
+      _mean(n) {}
+
     /// Initialization
     void init();
+
+    /** @name Setters
+     */
+    ///@{
+
+    /// Set the selection size
+    void set_selection_size (int x) { _selection_size = x; }
+
+    /// Learning rate
+    void set_rate (double x) { _rate = x; }
+
+    ///@}
 
   };
 
