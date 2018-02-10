@@ -81,9 +81,6 @@ namespace hnco::algorithm::hea {
     /// Type for log flags
     typedef std::bitset<LAST_LOG> log_flags_t;
 
-    /// Herding
-    Herding _herding;
-
   private:
 
     /// Moment
@@ -97,6 +94,9 @@ namespace hnco::algorithm::hea {
 
     /// Population
     algorithm::Population _population;
+
+    /// Herding
+    Herding *_herding;
 
     /// Error cache
     double _error_cache;
@@ -147,20 +147,20 @@ namespace hnco::algorithm::hea {
     void iterate() {
       if (_reset_period > 0) {
         if (_iteration % _reset_period == 0)
-          _herding.init();
+          _herding->init();
       }
 
       for (size_t i = 0; i < _population.size(); i++)
-        _herding.sample(_target, _population.get_bv(i));
+        _herding->sample(_target, _population.get_bv(i));
 
       if (_log_flags[LOG_ERROR])
-        _error_cache = _herding.error(_target);
+        _error_cache = _herding->error(_target);
 
       if (_log_flags[LOG_DTU])
         _dtu_cache = _target.distance(_uniform);
 
       if (_log_flags[LOG_DELTA])
-        _delta_cache = _herding.delta(_target);
+        _delta_cache = _herding->delta(_target);
 
       if (_functions.size() > 1)
         _population.eval(_functions);
@@ -225,10 +225,14 @@ namespace hnco::algorithm::hea {
 
   public:
 
-    /// Constructor
+    /** Constructor.
+
+        \param n Size of bit vectors
+
+        _margin is initialized to 1 / n.
+    */
     Hea(int n, int population_size):
       IterativeAlgorithm(n),
-      _herding(n),
       _target(n),
       _selection(n),
       _uniform(n),
@@ -242,12 +246,18 @@ namespace hnco::algorithm::hea {
     void init() {
         random_solution();
         _target.uniform();
-        _herding.init();
+        _herding->init();
     }
 
     /** @name Setters
      */
     ///@{
+
+    /// Set the herding algorithm
+    void set_herding(Herding *x) {
+      assert(x);
+      _herding = x;
+    }
 
     /// Set the moment margin
     void set_margin(double x) { _margin = x; }
@@ -282,7 +292,12 @@ namespace hnco::algorithm::hea {
     /// Set the bound moment after update
     void set_bound_moment(bool x) { _bound_moment = x; }
 
-    ///@}
+    /// Set weight
+    void set_weight(double weight) {
+      _target._weight = weight;
+      _selection._weight = weight;
+      _uniform._weight = weight;
+    }
 
     /// Set log flags
     void set_log_flags(const log_flags_t& lf) {
@@ -290,12 +305,7 @@ namespace hnco::algorithm::hea {
       _something_to_log = _log_flags.any();
     }
 
-    /// Set weight
-    void set_weight(double weight) {
-      _target._weight = weight;
-      _selection._weight = weight;
-      _uniform._weight = weight;
-    }
+    ///@}
 
   };
 

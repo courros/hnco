@@ -321,11 +321,19 @@ make_concrete_algorithm(const Options& options)
   case 900: {
     using namespace hea;
 
+    auto herding = new BinaryHerding(options.get_bv_size());
+    assert(herding);
+
+    herding->set_randomize_bit_order(options.with_hea_randomize_bit_order());
+    herding->set_dynamics(options.get_hea_binary_dynamics());
+    herding->set_weight(options.get_hea_weight());
+
     auto algo = new
       Hea<BinaryMoment, BinaryHerding>(options.get_bv_size(),
                                        options.get_population_size());
     assert(algo);
 
+    algo->set_herding(herding);
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
     algo->set_rate_strategy(options.get_hea_rate_strategy());
@@ -334,12 +342,6 @@ make_concrete_algorithm(const Options& options)
     algo->set_reset_period(options.get_hea_reset_period());
     algo->set_delay(options.get_hea_delay());
     algo->set_bound_moment(options.with_hea_bound_moment());
-
-    auto& herding = algo->_herding;
-    herding.set_randomize_bit_order(options.with_hea_randomize_bit_order());
-    herding.set_dynamics(options.get_hea_binary_dynamics());
-    herding.set_weight(options.get_hea_weight());
-
     algo->set_weight(options.get_hea_weight());
 
     Hea<BinaryMoment, BinaryHerding>::log_flags_t lf = {};
@@ -359,11 +361,21 @@ make_concrete_algorithm(const Options& options)
   case 901: {
     using namespace hea;
 
+    auto herding = new SpinHerding(options.get_bv_size());
+    assert(herding);
+
+    herding->set_randomize_bit_order(options.with_hea_randomize_bit_order());
+    herding->set_weight(options.get_hea_weight());
+    herding->set_num_par_updates(options.get_hea_num_par_updates());
+    herding->set_num_seq_updates(options.get_hea_num_seq_updates());
+    herding->set_sampling_method(options.get_hea_sampling_method());
+
     auto algo = new
       Hea<SpinMoment, SpinHerding>(options.get_bv_size(),
                                    options.get_population_size());
     assert(algo);
 
+    algo->set_herding(herding);
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
     algo->set_rate_strategy(options.get_hea_rate_strategy());
@@ -372,14 +384,6 @@ make_concrete_algorithm(const Options& options)
     algo->set_reset_period(options.get_hea_reset_period());
     algo->set_delay(options.get_hea_delay());
     algo->set_bound_moment(options.with_hea_bound_moment());
-
-    auto& herding = algo->_herding;
-    herding.set_randomize_bit_order(options.with_hea_randomize_bit_order());
-    herding.set_weight(options.get_hea_weight());
-    herding.set_num_par_updates(options.get_hea_num_par_updates());
-    herding.set_num_seq_updates(options.get_hea_num_seq_updates());
-    herding.set_sampling_method(options.get_hea_sampling_method());
-
     algo->set_weight(options.get_hea_weight());
 
     Hea<SpinMoment, SpinHerding>::log_flags_t lf = {};
