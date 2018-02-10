@@ -408,13 +408,13 @@ make_concrete_algorithm(const Options& options)
     assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->_selection_size               = options.get_selection_size();
-    algo->_rate                         = options.get_learning_rate();
-    algo->_num_gs_steps                 = options.get_bm_num_gs_steps();
-    algo->_num_gs_cycles                = options.get_bm_num_gs_cycles();
-    algo->_negative_positive_selection  = options.with_bm_negative_positive_selection();
-    algo->_sampling                     = options.get_bm_sampling();
-    algo->_mc_reset_strategy            = options.get_bm_mc_reset_strategy();
+    algo->set_selection_size(options.get_selection_size());
+    algo->set_rate(options.get_learning_rate());
+    algo->set_num_gs_steps(options.get_bm_num_gs_steps());
+    algo->set_num_gs_cycles(options.get_bm_num_gs_cycles());
+    algo->set_negative_positive_selection(options.with_bm_negative_positive_selection());
+    algo->set_sampling(options.get_bm_sampling());
+    algo->set_mc_reset_strategy(options.get_bm_mc_reset_strategy());
 
     BmPbil::log_flags_t lf = {};
     if (options.with_bm_log_norm_infinite())

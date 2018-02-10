@@ -136,6 +136,33 @@ namespace bm_pbil {
     /// Permutation
     permutation_t _permutation;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Selection size (number of selected individuals in the population)
+    int _selection_size = 1;
+
+    /// Learning rate
+    double _rate = 1e-3;
+
+    /// Number of gibbs sampler steps
+    int _num_gs_steps = 100;
+
+    /// Number of gibbs sampler cycles
+    int _num_gs_cycles = 1;
+
+    /// Negative and positive selection
+    bool _negative_positive_selection = false;
+
+    /// Sampling mode
+    int _sampling = SAMPLING_ASYNCHRONOUS;
+
+    /// MC reset strategy
+    int _mc_reset_strategy = RESET_NO_RESET;
+
+    ///@}
+
     /// Single iteration
     void iterate();
 
@@ -168,41 +195,45 @@ namespace bm_pbil {
       _choose_bit(0, n - 1),
       _permutation(n) {}
 
+    /// Initialization
+    void init();
+
     /** @name Parameters
      */
     ///@{
 
-    /// Selection size (number of selected individuals in the population)
-    int _selection_size = 1;
+    /** Set the selection size.
 
-    /// Learning rate
-    double _rate = 1e-3;
+        The selection size is the number of selected individuals in
+        the population.
+    */
+    void set_selection_size(int x) { _selection_size = x; }
 
-    /// Number of gibbs sampler steps
-    int _num_gs_steps = 100;
+    /// Set the learning rate
+    void set_rate(double x) { _rate = x; }
 
-    /// Number of gibbs sampler cycles
-    int _num_gs_cycles = 1;
+    /// Set the number of gibbs sampler steps
+    void set_num_gs_steps(int x) { _num_gs_steps = x; }
 
-    /// Negative and positive selection
-    bool _negative_positive_selection = false;
+    /// Set the number of gibbs sampler cycles
+    void set_num_gs_cycles(int x) { _num_gs_cycles = x; }
 
-    /// Sampling mode
-    int _sampling = SAMPLING_ASYNCHRONOUS;
+    /// Set negative and positive selection
+    void set_negative_positive_selection(bool x) { _negative_positive_selection = x; }
 
-    /// MC reset strategy
-    int _mc_reset_strategy = RESET_NO_RESET;
+    /// Set the sampling mode
+    void set_sampling(int x) { _sampling = x; }
 
-    ///@}
-
-    /// Initialization
-    void init();
+    /// Set the MC reset strategy
+    void set_mc_reset_strategy(int x) { _mc_reset_strategy = x; }
 
     /// Set log flags
     void set_log_flags(const log_flags_t& lf) {
       _log_flags = lf;
       _something_to_log = _log_flags.any();
     }
+
+    ///@}
 
   };
 
