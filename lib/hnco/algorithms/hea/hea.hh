@@ -52,7 +52,17 @@ namespace hnco::algorithm::hea {
   public:
 
     enum {
+      /// Constant rate
+      RATE_CONSTANT,
 
+      /// Exponentiel decay
+      RATE_EXPONENTIAL,
+
+      /// Inverse decay
+      RATE_INVERSE
+    };
+
+    enum {
       /// Log error
       LOG_ERROR,
 
@@ -103,6 +113,35 @@ namespace hnco::algorithm::hea {
     /// Log flags
     log_flags_t _log_flags;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Moment margin
+    double _margin;
+
+    /// Selection size
+    int _selection_size = 1;
+
+    /// Rate strategy
+    int _rate_strategy = RATE_CONSTANT;
+
+    /// Reset period
+    int _reset_period = 0;
+
+    /// Delay
+    int _delay = 10000;
+
+    /// Initial value of the learning rate
+    double _initial_rate = 1e-4;
+
+    /// Time constant
+    double _time_constant = 1000;
+
+    /// Bound moment after update
+    bool _bound_moment = false;
+
+    ///@}
 
     /// Single iteration
     void iterate() {
@@ -199,53 +238,51 @@ namespace hnco::algorithm::hea {
       _uniform.uniform();
     }
 
-    enum {
-      /// Constant rate
-      RATE_CONSTANT,
-
-      /// Exponentiel decay
-      RATE_EXPONENTIAL,
-
-      /// Inverse decay
-      RATE_INVERSE
-    };
-
-    /** @name Parameters
-     */
-    ///@{
-
-    /// Moment margin
-    double _margin;
-
-    /// Selection size (number of selected individuals in the population)
-    int _selection_size = 1;
-
-    /// Rate strategy
-    int _rate_strategy = RATE_CONSTANT;
-
-    /// Reset period (<= 0 means no reset)
-    int _reset_period = 0;
-
-    /// Delay
-    int _delay = 10000;
-
-    /// Initial value of the learning rate
-    double _initial_rate = 1e-4;
-
-    /// Time constant
-    double _time_constant = 1000;
-
-    /// Bound moment after update
-    bool _bound_moment = false;
-
-    ///@}
-
     /// Initialization
     void init() {
         random_solution();
         _target.uniform();
         _herding.init();
     }
+
+    /** @name Setters
+     */
+    ///@{
+
+    /// Set the moment margin
+    void set_margin(double x) { _margin = x; }
+
+    /** Set the selection size.
+
+        The selection size is the number of selected individuals in
+        the population.
+    */
+    void set_selection_size(int x) { _selection_size = x; }
+
+    /// Set the rate strategy
+    void set_rate_strategy(int x) { _rate_strategy = x; }
+
+    /** Set the reset period
+
+        \param x Reset period
+
+        x <= 0 means no reset.
+    */
+    void set_reset_period(int x) { _reset_period = x; }
+
+    /// Set the delay
+    void set_delay(int x) { _delay = x; }
+
+    /// Set the initial value of the learning rate
+    void set_initial_rate(double x) { _initial_rate = x; }
+
+    /// Set the time constant
+    void set_time_constant(double x) { _time_constant = x; }
+
+    /// Set the bound moment after update
+    void set_bound_moment(bool x) { _bound_moment = x; }
+
+    ///@}
 
     /// Set log flags
     void set_log_flags(const log_flags_t& lf) {

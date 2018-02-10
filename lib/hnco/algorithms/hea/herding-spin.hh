@@ -34,8 +34,7 @@ namespace hea {
       By spin variables, we mean variables taking values 1 or -1,
       instead of 0 or 1 in the case of binary variables.
   */
-  class SpinHerding
-  {
+  class SpinHerding {
 
   protected:
 
@@ -136,14 +135,14 @@ namespace hea {
     /// Initialization
     void init();
 
+    /// Sample a bit vector
+    void sample(const SpinMoment& target, bit_vector_t& x);
+
     /// Compute the error
     double error(const SpinMoment& target);
 
     /// Compute the norm of the moment increment
     double delta(const SpinMoment& target) { return _delta.norm_2(); }
-
-    /// Sample a bit vector
-    void sample(const SpinMoment& target, bit_vector_t& x);
 
   };
 

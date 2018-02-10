@@ -327,13 +327,13 @@ make_concrete_algorithm(const Options& options)
     assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->_selection_size               = options.get_selection_size();
-    algo->_rate_strategy                = options.get_hea_rate_strategy();
-    algo->_initial_rate                 = options.get_learning_rate();
-    algo->_time_constant                = options.get_hea_time_constant();
-    algo->_reset_period                 = options.get_hea_reset_period();
-    algo->_delay                        = options.get_hea_delay();
-    algo->_bound_moment                 = options.with_hea_bound_moment();
+    algo->set_selection_size(options.get_selection_size());
+    algo->set_rate_strategy(options.get_hea_rate_strategy());
+    algo->set_initial_rate(options.get_learning_rate());
+    algo->set_time_constant(options.get_hea_time_constant());
+    algo->set_reset_period(options.get_hea_reset_period());
+    algo->set_delay(options.get_hea_delay());
+    algo->set_bound_moment(options.with_hea_bound_moment());
 
     auto& herding = algo->_herding;
     herding._randomize_bit_order        = options.with_hea_randomize_bit_order();
@@ -365,13 +365,13 @@ make_concrete_algorithm(const Options& options)
     assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->_selection_size               = options.get_selection_size();
-    algo->_rate_strategy                = options.get_hea_rate_strategy();
-    algo->_initial_rate                 = options.get_learning_rate();
-    algo->_time_constant                = options.get_hea_time_constant();
-    algo->_reset_period                 = options.get_hea_reset_period();
-    algo->_delay                        = options.get_hea_delay();
-    algo->_bound_moment                 = options.with_hea_bound_moment();
+    algo->set_selection_size(options.get_selection_size());
+    algo->set_rate_strategy(options.get_hea_rate_strategy());
+    algo->set_initial_rate(options.get_learning_rate());
+    algo->set_time_constant(options.get_hea_time_constant());
+    algo->set_reset_period(options.get_hea_reset_period());
+    algo->set_delay(options.get_hea_delay());
+    algo->set_bound_moment(options.with_hea_bound_moment());
 
     auto& herding = algo->_herding;
     herding._randomize_bit_order        = options.with_hea_randomize_bit_order();
