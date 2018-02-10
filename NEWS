@@ -4,7 +4,7 @@ Library:
 - RandomLocalSearch, Mmas, Population: renamed _compare -> _operator
 - RandomLocalSearch: renamed _failures -> _num_failures
 - SimulatedAnnealing: renamed _rate -> _beta_ratio
-- Added setters, declared members protected or private:
+- Added setters for members now declared protected or private:
   IterativeAlgorithm, RandomLocalSearch, OnePlusOneEa,
   SimulatedAnnealing, OnePlusOneEa, MuPlusLambdaEa, MuCommaLambdaEa,
   GeneticAlgorithm, OnePlusLambdaCommaLambdaGa, PvAlgorithm, Pbil,
