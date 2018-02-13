@@ -133,7 +133,7 @@
 
         {
             "id": "sa",
-	    "opt": "-A 200 --sa-rate 1.05 --sa-num-trials 10"
+	    "opt": "-A 200 --sa-beta-ratio 1.05 --sa-num-trials 10"
         },
 
         {

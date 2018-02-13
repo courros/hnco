@@ -13,7 +13,7 @@ Library:
   BernoulliProcess
 
 hnco:
-- Renamed options --sa-rate -> --sa-beta-ratio
+- Renamed option --sa-rate -> --sa-beta-ratio
 
 
 * Version 0.7 (2017-12-28)
