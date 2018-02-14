@@ -38,6 +38,15 @@ namespace algorithm {
     /// Random index
     std::uniform_int_distribution<int> _choose_individual;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Tournament size
+    int _tournament_size = 10;
+
+    ///@}
+
   public:
 
     /// Constructor
@@ -54,8 +63,14 @@ namespace algorithm {
     */
     const bit_vector_t& select();
 
-    /// Tournament size
-    int _tournament_size = 10;
+    /** @name Setters
+     */
+    ///@{
+
+    /// Set the tournament size
+    void set_tournament_size(int x) { _tournament_size = x; }
+
+    ///@}
 
   };
 

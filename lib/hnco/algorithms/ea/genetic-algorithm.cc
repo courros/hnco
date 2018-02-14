@@ -35,7 +35,8 @@ GeneticAlgorithm::init()
 
   _do_crossover = std::bernoulli_distribution(_crossover_probability);
 
-  _parents._tournament_size = _tournament_size;
+  _parents.set_tournament_size(_tournament_size);
+
   _parents.random();
   _parents.eval(_function);
   _parents.sort();
