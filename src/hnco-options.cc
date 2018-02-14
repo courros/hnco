@@ -793,7 +793,7 @@ void Options::print_help(ostream& stream) const
   stream << "      --cache" << endl;
   stream << "          Cache function evaluations" << endl;
   stream << "      --cache-budget (type int, default to 0)" << endl;
-  stream << "          Number of allowed cached function evaluations (<= 0 means indefinite)" << endl;
+  stream << "          Cache budget (<= 0 means indefinite)" << endl;
   stream << "      --log-improvement" << endl;
   stream << "          Log improvement" << endl;
   stream << "      --negation" << endl;

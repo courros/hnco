@@ -41,7 +41,7 @@ class Options {
   int _bv_size;
   bool _opt_bv_size;
 
-  /// Number of allowed cached function evaluations (<= 0 means indefinite)
+  /// Cache budget (<= 0 means indefinite)
   int _cache_budget;
   bool _opt_cache_budget;
 

@@ -462,7 +462,7 @@
         {
             "type": "int",
             "value": 0,
-            "description": "Number of allowed cached function evaluations (<= 0 means indefinite)",
+            "description": "Cache budget (<= 0 means indefinite)",
             "category": "Function Decorators"
         },
 
