@@ -18,6 +18,9 @@ hnco:
 - Renamed option --sa-rate -> --sa-beta-ratio
 - Added option --cache-budget
 
+Experiments:
+- Add option --allow-stay for ea-1c10
+
 
 * Version 0.7 (2017-12-28)
 
