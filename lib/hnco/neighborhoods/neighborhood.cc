@@ -69,9 +69,8 @@ BernoulliProcess::sample_bits()
 {
   if (_reservoir_sampling) {
     int k;
-    if (_allow_stay) {
+    if (_allow_stay)
       k = _binomial_dist(Random::engine);
-    }
     else {
       k = 0;
       while (k == 0)
