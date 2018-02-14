@@ -4,16 +4,19 @@ Library:
 - RandomLocalSearch, Mmas, Population: renamed _compare -> _operator
 - RandomLocalSearch: renamed _failures -> _num_failures
 - SimulatedAnnealing: renamed _rate -> _beta_ratio
+- SimulatedAnnealing: renamed member function set_beta -> init_beta
 - Hea: _herding is now a private pointer
+- Cache: renamed _x -> _key
 - Added setters for members now declared protected or private:
   IterativeAlgorithm, RandomLocalSearch, OnePlusOneEa,
-  SimulatedAnnealing, OnePlusOneEa, MuPlusLambdaEa, MuCommaLambdaEa,
+  SimulatedAnnealing, MuPlusLambdaEa, MuCommaLambdaEa,
   GeneticAlgorithm, OnePlusLambdaCommaLambdaGa, PvAlgorithm, Pbil,
   NpsPbil, Umda, CompactGa, Mmas, Hea, BinaryHerding, SpinHerding,
-  BernoulliProcess
+  BernoulliProcess, TournamentSelection, BmPbil
 
 hnco:
 - Renamed option --sa-rate -> --sa-beta-ratio
+- Added option --cache-budget
 
 
 * Version 0.7 (2017-12-28)

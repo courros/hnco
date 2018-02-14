@@ -44,7 +44,7 @@
 
         {
             "id": "max-sat",
-	    "opt": "-F 70 -p instances/ms.100.3.1000 --cache",
+	    "opt": "-F 70 -p instances/ms.100.3.1000",
             "col": ">{{\\nprounddigits{0}}}N{3}{0}"
         },
 
@@ -71,7 +71,7 @@
 
         {
             "id": "walsh2",
-	    "opt": "-F 162 -p instances/walsh2.100 --cache",
+	    "opt": "-F 162 -p instances/walsh2.100",
             "col": ">{{\\nprounddigits{2}}}N{3}{2}"
         }
 
