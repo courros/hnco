@@ -23,6 +23,8 @@ Options::Options(int argc, char *argv[]):
   _opt_budget(false),
   _bv_size(100),
   _opt_bv_size(false),
+  _cache_budget(0),
+  _opt_cache_budget(false),
   _ea_lambda(100),
   _opt_ea_lambda(false),
   _ea_mu(10),
@@ -157,6 +159,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_BM_SAMPLING,
     OPTION_BUDGET,
     OPTION_BV_SIZE,
+    OPTION_CACHE_BUDGET,
     OPTION_EA_LAMBDA,
     OPTION_EA_MU,
     OPTION_FN_NAME,
@@ -245,6 +248,7 @@ Options::Options(int argc, char *argv[]):
     {"bm-sampling", required_argument, 0, OPTION_BM_SAMPLING},
     {"budget", required_argument, 0, OPTION_BUDGET},
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
+    {"cache-budget", required_argument, 0, OPTION_CACHE_BUDGET},
     {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
     {"fn-name", required_argument, 0, OPTION_FN_NAME},
@@ -363,6 +367,10 @@ Options::Options(int argc, char *argv[]):
     case 's':
     case OPTION_BV_SIZE:
       set_bv_size(atoi(optarg));
+      break;
+
+    case OPTION_CACHE_BUDGET:
+      set_cache_budget(atoi(optarg));
       break;
 
     case OPTION_EA_LAMBDA:
@@ -784,6 +792,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Number of allowed function evaluations (<= 0 means indefinite)" << endl;
   stream << "      --cache" << endl;
   stream << "          Cache function evaluations" << endl;
+  stream << "      --cache-budget (type int, default to 0)" << endl;
+  stream << "          Number of allowed cached function evaluations (<= 0 means indefinite)" << endl;
   stream << "      --log-improvement" << endl;
   stream << "          Log improvement" << endl;
   stream << "      --negation" << endl;
@@ -996,6 +1006,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# bm_sampling = " << options._bm_sampling << endl;
   stream << "# budget = " << options._budget << endl;
   stream << "# bv_size = " << options._bv_size << endl;
+  stream << "# cache_budget = " << options._cache_budget << endl;
   stream << "# ea_lambda = " << options._ea_lambda << endl;
   stream << "# ea_mu = " << options._ea_mu << endl;
   stream << "# fn_name = " << options._fn_name << endl;

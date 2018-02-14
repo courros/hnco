@@ -344,7 +344,7 @@ namespace hnco::function {
   class Cache:
     public FunctionController {
 
-    /// Cacche
+    /// Cache
     std::unordered_map<std::vector<bool>, double> _cache;
 
     /// Key

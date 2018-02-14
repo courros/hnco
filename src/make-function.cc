@@ -475,12 +475,6 @@ make_function_controller(Function *function, const Options& options)
 {
   assert(function);
 
-  // Budget
-  if (options.get_budget() > 0) {
-    function = new OnBudgetFunction(function, options.get_budget());
-    assert(function);
-  }
-
   // Stop on maximum
   if (options.with_stop_on_maximum()) {
 
@@ -502,9 +496,21 @@ make_function_controller(Function *function, const Options& options)
     assert(function);
   }
 
+  // Budget
+  if (options.get_budget() > 0) {
+    function = new OnBudgetFunction(function, options.get_budget());
+    assert(function);
+  }
+
   // Cache
   if (options.with_cache()) {
     function = new Cache(function);
+    assert(function);
+  }
+
+  // Cache budget
+  if (options.get_cache_budget() > 0) {
+    function = new OnBudgetFunction(function, options.get_budget());
     assert(function);
   }
 

@@ -261,6 +261,7 @@ Cache::eval(const bit_vector_t& x)
     return v;
   } else {
     _num_lookups++;
+    assert(iter->first == _key);
     return iter->second;
   }
 }
