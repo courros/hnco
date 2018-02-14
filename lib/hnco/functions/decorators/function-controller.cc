@@ -245,32 +245,22 @@ std::ostream& hnco::function::operator<<(std::ostream& stream, const ProgressTra
 double
 Cache::eval(const bit_vector_t& x)
 {
+  assert(x.size() == _key.size());
+
   _num_evaluations++;
 
-  assert(x.size() == _x.size());
-  for (size_t i = 0; i < _x.size(); i++)
-    _x[i] = x[i];
+  for (size_t i = 0; i < _key.size(); i++)
+    _key[i] = x[i];
 
-  std::unordered_map<std::vector<bool>, double>::iterator iter = _cache.find(_x);
+  std::unordered_map<std::vector<bool>, double>::iterator iter = _cache.find(_key);
 
   if (iter == _cache.end()) {
     double v = _function->eval(x);
-    auto pair = std::pair<std::vector<bool>, double>(_x, v);
+    auto pair = std::pair<std::vector<bool>, double>(_key, v);
     _cache.insert(pair);
     return v;
   } else {
     _num_lookups++;
     return iter->second;
   }
-}
-
-
-void
-Cache::display(std::ostream& stream)
-{
-  stream
-    << "Cache size = " << _cache.size() << std::endl
-    << "Number of lookups = " << _num_lookups << std::endl
-    << "Number of evaluations = " << _num_evaluations << std::endl
-    << "Ratio = " << double(_num_lookups) / double(_num_evaluations) << std::endl;
 }

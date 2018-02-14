@@ -344,11 +344,11 @@ namespace hnco::function {
   class Cache:
     public FunctionController {
 
-    /// Database of past evaluations
+    /// Cacche
     std::unordered_map<std::vector<bool>, double> _cache;
 
-    /// STL bit vector
-    std::vector<bool> _x;
+    /// Key
+    std::vector<bool> _key;
 
     /// Evaluation counter
     int _num_evaluations;
@@ -362,7 +362,7 @@ namespace hnco::function {
         \param function Decorated function */
     Cache(Function *function):
       FunctionController(function),
-      _x(function->get_bv_size()),
+      _key(function->get_bv_size()),
       _num_evaluations(0),
       _num_lookups(0) {}
 
@@ -379,9 +379,6 @@ namespace hnco::function {
     double eval(const bit_vector_t&);
 
     ///@}
-
-    /// Display
-    void display(std::ostream& stream);
 
   };
 
