@@ -25,7 +25,6 @@
 
 #include "moment-binary.hh"
 
-using namespace std;
 using namespace hnco::algorithm::hea;
 using namespace hnco::algorithm;
 
