@@ -25,7 +25,6 @@
 
 #include "moment-spin.hh"
 
-using namespace std;
 using namespace hnco::algorithm::hea;
 
 
