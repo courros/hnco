@@ -29,7 +29,6 @@
 
 using namespace hnco::algorithm::hea;
 using namespace hnco::exception;
-using namespace std;
 
 
 void
@@ -72,7 +71,7 @@ BinaryHerding::sample(const BinaryMoment& target, bit_vector_t& x)
     sample_maximize_inner_product(target, x);
     break;
   default:
-    ostringstream stream;
+    std::ostringstream stream;
     stream << _dynamics;
     throw Error("BinaryHerding::sample: Unknown _dynamics: " + stream.str());
   }
