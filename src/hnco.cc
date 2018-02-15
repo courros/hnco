@@ -79,9 +79,10 @@ int main(int argc, char *argv[])
 
   if (options.with_fn_has_known_maximum()) {
     if (tracker->has_known_maximum())
-      return 0;
+      std::cout << "yes" << std::endl;
     else
-      return 1;
+      std::cout << "no" << std::endl;
+    return 0;
   }
 
   if (options.with_fn_get_maximum()) {
@@ -101,9 +102,10 @@ int main(int argc, char *argv[])
 
   if (options.with_fn_provides_incremental_evaluation()) {
     if (tracker->provides_incremental_evaluation())
-      return 0;
+      std::cout << "yes" << std::endl;
     else
-      return 1;
+      std::cout << "no" << std::endl;
+    return 0;
   }
 
   //
