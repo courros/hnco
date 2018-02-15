@@ -26,14 +26,13 @@
 #include "qubo.hh"
 
 
-using namespace std;
 using namespace hnco::random;
 using namespace hnco::function;
 using namespace hnco::exception;
 
 
 void
-Qubo::load(istream& stream)
+Qubo::load(std::istream& stream)
 {
   bool spec = false;
   int dimension = 0;
@@ -43,7 +42,7 @@ Qubo::load(istream& stream)
   int count_other_elements = 0;
 
   while (!stream.eof()) {
-    string line;
+    std::string line;
     getline(stream, line);
 
     if (line.empty())
@@ -59,8 +58,8 @@ Qubo::load(istream& stream)
       if (spec)
         throw Error("Qubo::load: More than one p line");
 
-      istringstream iss(line);
-      string token;
+      std::istringstream iss(line);
+      std::string token;
       int n;
 
       iss >> token;
@@ -99,7 +98,7 @@ Qubo::load(istream& stream)
 
       assert(dimension > 0);
 
-      istringstream iss(line);
+      std::istringstream iss(line);
       int i, j;
       float value;
 
