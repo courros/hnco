@@ -29,7 +29,6 @@
 
 #include "max-sat.hh"
 
-using namespace std;
 using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::random;
@@ -97,7 +96,7 @@ MaxSat::random(const bit_vector_t& solution, int k, int c)
       }
     }
     if (!ok) {
-      uniform_int_distribution<int> dist(0, _expression[i].size() - 1);
+      std::uniform_int_distribution<int> dist(0, _expression[i].size() - 1);
       int index = dist(Random::engine);
       _expression[i][index] = -_expression[i][index];
     }
@@ -108,7 +107,7 @@ MaxSat::random(const bit_vector_t& solution, int k, int c)
 
 
 void
-eat_white(istringstream& stream)
+eat_white(std::istringstream& stream)
 {
   if (stream.eof())
     return;
@@ -123,7 +122,7 @@ eat_white(istringstream& stream)
 
 
 bool
-has_next_variable(istringstream& stream)
+has_next_variable(std::istringstream& stream)
 {
   eat_white(stream);
   return stream.good();
@@ -131,7 +130,7 @@ has_next_variable(istringstream& stream)
 
 
 void
-MaxSat::load(istream& stream)
+MaxSat::load(std::istream& stream)
 {
   _expression.clear();
   _num_variables = 0;
@@ -140,7 +139,7 @@ MaxSat::load(istream& stream)
   size_t num_clauses = 0;
 
   while (!stream.eof()) {
-    string line;
+    std::string line;
     getline(stream, line);
 
     if (line.empty())
@@ -156,8 +155,8 @@ MaxSat::load(istream& stream)
       if (spec)
         throw Error("MaxSat::load: More than one p line");
 
-      istringstream iss(line);
-      string token;
+      std::istringstream iss(line);
+      std::string token;
 
       iss >> token;
       if (iss.fail() || token != "p")
@@ -187,7 +186,7 @@ MaxSat::load(istream& stream)
       if (!spec)
         throw Error("MaxSat::load: No p line");
 
-      istringstream iss(line);
+      std::istringstream iss(line);
       int n;
       std::vector<int> clause;
 
@@ -223,22 +222,22 @@ MaxSat::load(istream& stream)
 
 
 void
-MaxSat::save(ostream& stream)
+MaxSat::save(std::ostream& stream)
 {
   stream
-    << "c HNCO MaxSat::save" << endl
-    << "p cnf " << _num_variables << " " << _expression.size() << endl;
+    << "c HNCO MaxSat::save" << std::endl
+    << "p cnf " << _num_variables << " " << _expression.size() << std::endl;
   for (size_t i = 0; i < _expression.size(); i++) {
     for (size_t j = 0; j < _expression[i].size(); j++) {
       stream << _expression[i][j] << " ";
     }
-    stream << 0 << endl;
+    stream << 0 << std::endl;
   }
 }
 
 
 void
-MaxSat::display(ostream& stream)
+MaxSat::display(std::ostream& stream)
 {
   for (size_t i = 0; i < _expression.size(); i++) {
     if (i > 0)
