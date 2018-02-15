@@ -26,7 +26,6 @@
 
 using namespace hnco::function;
 using namespace hnco::random;
-using namespace std;
 
 
 void
@@ -36,8 +35,8 @@ NkLandscape::random(int n, int k, double stddev)
   assert(k > 0);
   assert(stddev > 0);
 
-  _neighbors.resize(n, vector<int>(k + 1));
-  _partial_functions.resize(n, vector<double>(1 << (k + 1)));
+  _neighbors.resize(n, std::vector<int>(k + 1));
+  _partial_functions.resize(n, std::vector<double>(1 << (k + 1)));
 
   size_t length = _partial_functions.size();
 
@@ -80,7 +79,7 @@ NkLandscape::eval(const bit_vector_t& s)
   for (size_t i = 0; i < _partial_functions.size(); i++) {
     size_t index = 0;
     size_t base = 1;
-    vector<int>& nh = _neighbors[i];
+    std::vector<int>& nh = _neighbors[i];
     for (size_t j = 0; j < nh.size(); j++) {
       if (s[ nh[j] ])
 	index += base;
