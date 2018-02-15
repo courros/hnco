@@ -7,19 +7,21 @@ Library:
 - SimulatedAnnealing: renamed member function set_beta -> init_beta
 - Hea: _herding is now a private pointer
 - Cache: renamed _x -> _key
+- ProgressTracker: _stream is now a pointer
 - Added setters for members now declared protected or private:
   IterativeAlgorithm, RandomLocalSearch, OnePlusOneEa,
   SimulatedAnnealing, MuPlusLambdaEa, MuCommaLambdaEa,
   GeneticAlgorithm, OnePlusLambdaCommaLambdaGa, PvAlgorithm, Pbil,
   NpsPbil, Umda, CompactGa, Mmas, Hea, BinaryHerding, SpinHerding,
-  BernoulliProcess, TournamentSelection, BmPbil
+  BernoulliProcess, TournamentSelection, BmPbil, ProgressTracker
 
 hnco:
 - Renamed option --sa-rate -> --sa-beta-ratio
 - Added option --cache-budget
 
 Experiments:
-- Add option --allow-stay for ea-1c10
+- Added option --allow-stay for ea-1c10
+- Removed option --cache
 
 
 * Version 0.7 (2017-12-28)

@@ -69,7 +69,9 @@ int main(int argc, char *argv[])
 
   // Progress tracker
   ProgressTracker *tracker = new ProgressTracker(fn);
-  tracker->_log_improvement = options.with_log_improvement();
+  assert(tracker);
+
+  tracker->set_log_improvement(options.with_log_improvement());
 
   //
   // Print information about the function

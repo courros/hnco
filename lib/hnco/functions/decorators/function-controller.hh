@@ -230,6 +230,18 @@ namespace hnco::function {
     /// Last improvement
     Event _last_improvement;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Log improvement
+    bool _log_improvement = false;
+
+    /// Output stream
+    std::ostream *_stream = &std::cout;
+
+    ///@}
+
     /// Update last improvement
     void update_last_improvement(double value);
 
@@ -275,16 +287,15 @@ namespace hnco::function {
     */
     const Event& get_last_improvement() { return _last_improvement; }
 
-    
-    /** @name Parameters
+    /** @name Setters
      */
     ///@{
 
     /// Log improvement
-    bool _log_improvement = false;
+    void set_log_improvement(bool x) { _log_improvement = x; }
 
     /// Output stream
-    std::ostream& _stream = std::cout;
+    void set_stream(std::ostream *x) { _stream = x; }
 
     ///@}
 
