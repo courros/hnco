@@ -27,7 +27,6 @@
 
 using namespace hnco::function;
 using namespace hnco::random;
-using namespace std;
 
 
 void
