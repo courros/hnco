@@ -29,7 +29,6 @@
 #include "model.hh"
 
 
-using namespace std;
 using namespace hnco;
 using namespace hnco::random;
 using namespace hnco::algorithm::bm_pbil;
@@ -49,7 +48,7 @@ ModelParameters::add(const bit_vector_t& x)
 {
   const size_t dimension = x.size();
   for (size_t i = 0; i < dimension; i++) {
-    vector<double>& ws = _weight[i];
+    std::vector<double>& ws = _weight[i];
     if (x[i]) {
       _bias[i] -= 1;
       for (size_t j = i + 1; j < dimension; j++)
@@ -102,11 +101,11 @@ ModelParameters::norm_infinite()
 
   const size_t dimension = _bias.size();
   for (size_t i = 0; i < dimension; i++)
-    norm = max(norm, fabs(_bias[i]));
+    norm = std::max(norm, fabs(_bias[i]));
 
   for (size_t i = 0; i < dimension; i++)
     for (size_t j = i + 1; j < dimension; j++)
-      norm = max(norm, fabs(_weight[i][j]));
+      norm = std::max(norm, fabs(_weight[i][j]));
 
   return norm;
 }
@@ -151,7 +150,7 @@ Model::gibbs_sampler(size_t i)
   assert(matrix_is_symmetric(_model_parameters._weight));
 
   double delta = _model_parameters._bias[i];
-  const vector<double>& ws = _model_parameters._weight[i];
+  const std::vector<double>& ws = _model_parameters._weight[i];
   for (size_t j = 0; j < _state.size(); j++) {
     if (j == i)
       continue;
@@ -176,7 +175,7 @@ Model::gibbs_sampler_synchronous()
 
   for (size_t i = 0; i < _pv.size(); i++) {
     double delta = _model_parameters._bias[i];
-    const vector<double>& ws = _model_parameters._weight[i];
+    const std::vector<double>& ws = _model_parameters._weight[i];
     for (size_t j = 0; j < _state.size(); j++) {
       if (j == i)
         continue;
