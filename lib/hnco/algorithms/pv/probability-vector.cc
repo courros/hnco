@@ -25,7 +25,6 @@
 
 #include "probability-vector.hh"
 
-using namespace std;
 using namespace hnco::random;
 
 
@@ -106,7 +105,7 @@ void hnco::algorithm::pv_update(pv_t& pv, double rate, const std::vector<double>
 void hnco::algorithm::pv_bound(pv_t& pv, double lower_bound, double upper_bound)
 {
   for (size_t i = 0; i < pv.size(); i++) {
-    pv[i] = min(upper_bound, pv[i]);
-    pv[i] = max(lower_bound, pv[i]);
+    pv[i] = std::min(upper_bound, pv[i]);
+    pv[i] = std::max(lower_bound, pv[i]);
   }
 }
