@@ -138,8 +138,8 @@ class Options {
   bool _opt_map_path;
 
   /// Expected number of flipped bits (bv_size times mutation probability)
-  double _mutation;
-  bool _opt_mutation;
+  double _mutation_probability;
+  bool _opt_mutation_probability;
 
   /// Type of neighborhood
   int _neighborhood;
@@ -166,8 +166,8 @@ class Options {
   bool _opt_path;
 
   /// Expected number of flipped bits (bv_size times mutation probability)
-  double _pn_mutation;
-  bool _opt_pn_mutation;
+  double _pn_mutation_probability;
+  bool _opt_pn_mutation_probability;
 
   /// Type of neighborhood
   int _pn_neighborhood;
@@ -709,17 +709,17 @@ public:
   /// Get set-flag for map_path
   bool set_map_path() const { return _opt_map_path; }
 
-  /// Get mutation
-  double get_mutation() const { return _mutation; }
+  /// Get mutation_probability
+  double get_mutation_probability() const { return _mutation_probability; }
 
-  /// Set mutation
-  void set_mutation(double x) {
-    _mutation = x;
-    _opt_mutation = true;
+  /// Set mutation_probability
+  void set_mutation_probability(double x) {
+    _mutation_probability = x;
+    _opt_mutation_probability = true;
   }
 
-  /// Get set-flag for mutation
-  bool set_mutation() const { return _opt_mutation; }
+  /// Get set-flag for mutation_probability
+  bool set_mutation_probability() const { return _opt_mutation_probability; }
 
   /// Get neighborhood
   int get_neighborhood() const { return _neighborhood; }
@@ -793,17 +793,17 @@ public:
   /// Get set-flag for path
   bool set_path() const { return _opt_path; }
 
-  /// Get pn_mutation
-  double get_pn_mutation() const { return _pn_mutation; }
+  /// Get pn_mutation_probability
+  double get_pn_mutation_probability() const { return _pn_mutation_probability; }
 
-  /// Set pn_mutation
-  void set_pn_mutation(double x) {
-    _pn_mutation = x;
-    _opt_pn_mutation = true;
+  /// Set pn_mutation_probability
+  void set_pn_mutation_probability(double x) {
+    _pn_mutation_probability = x;
+    _opt_pn_mutation_probability = true;
   }
 
-  /// Get set-flag for pn_mutation
-  bool set_pn_mutation() const { return _opt_pn_mutation; }
+  /// Get set-flag for pn_mutation_probability
+  bool set_pn_mutation_probability() const { return _opt_pn_mutation_probability; }
 
   /// Get pn_neighborhood
   int get_pn_neighborhood() const { return _pn_neighborhood; }

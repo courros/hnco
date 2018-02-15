@@ -42,7 +42,7 @@ make_neighborhood(const Options& options)
   case 1: {
     auto neighborhood = new BernoulliProcess
       (options.get_bv_size(),
-       options.get_mutation() / options.get_bv_size());
+       options.get_mutation_probability() / options.get_bv_size());
     neighborhood->set_allow_stay(options.with_allow_stay());
     return neighborhood;
   }
@@ -154,7 +154,7 @@ make_concrete_algorithm(const Options& options)
     assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->set_mutation_probability(options.get_mutation() / options.get_bv_size());
+    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
     algo->set_incremental_evaluation(options.with_incremental_evaluation());
     algo->set_allow_stay(options.with_allow_stay());
 
@@ -169,7 +169,7 @@ make_concrete_algorithm(const Options& options)
     assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->set_mutation_probability(options.get_mutation() / options.get_bv_size());
+    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
     algo->set_allow_stay(options.with_allow_stay());
 
     return algo;
@@ -183,7 +183,7 @@ make_concrete_algorithm(const Options& options)
     assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->set_mutation_probability(options.get_mutation() / options.get_bv_size());
+    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
     algo->set_allow_stay(options.with_allow_stay());
 
     return algo;
@@ -196,7 +196,7 @@ make_concrete_algorithm(const Options& options)
     assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->set_mutation_probability(options.get_mutation() / options.get_bv_size());
+    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
     algo->set_crossover_probability(options.get_ga_crossover_probability());
     algo->set_tournament_size(options.get_ga_tournament_size());
     algo->set_allow_stay(options.with_allow_stay());
@@ -211,7 +211,7 @@ make_concrete_algorithm(const Options& options)
     assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->set_mutation_probability(options.get_mutation() / options.get_bv_size());
+    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
     algo->set_crossover_bias(options.get_ga_crossover_bias());
 
     return algo;

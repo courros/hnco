@@ -8,6 +8,7 @@ Library:
 - Hea: _herding is now a private pointer
 - Cache: renamed _x -> _key
 - ProgressTracker: _stream is now a pointer
+- Algorithm: _stream is now a pointer
 - Added setters for members now declared protected or private:
   Algorithm, IterativeAlgorithm, RandomLocalSearch, OnePlusOneEa,
   SimulatedAnnealing, MuPlusLambdaEa, MuCommaLambdaEa,
@@ -17,7 +18,10 @@ Library:
 
 hnco:
 - Renamed option --sa-rate -> --sa-beta-ratio
+- Renamed option --mutation -> --mutation-probability
+- Renamed option --pn-mutation -> --pn-mutation-probability
 - Added option --cache-budget
+- Give yes/no answer to request about function
 
 Experiments:
 - Added option --allow-stay for ea-1c10

@@ -71,8 +71,8 @@ Options::Options(int argc, char *argv[]):
   _opt_map_input_size(false),
   _map_path("nopath"),
   _opt_map_path(false),
-  _mutation(1),
-  _opt_mutation(false),
+  _mutation_probability(1),
+  _opt_mutation_probability(false),
   _neighborhood(0),
   _opt_neighborhood(false),
   _neighborhood_iterator(0),
@@ -85,8 +85,8 @@ Options::Options(int argc, char *argv[]):
   _opt_num_threads(false),
   _path("nopath"),
   _opt_path(false),
-  _pn_mutation(1),
-  _opt_pn_mutation(false),
+  _pn_mutation_probability(1),
+  _opt_pn_mutation_probability(false),
   _pn_neighborhood(0),
   _opt_pn_neighborhood(false),
   _pn_radius(2),
@@ -183,14 +183,14 @@ Options::Options(int argc, char *argv[]):
     OPTION_MAP,
     OPTION_MAP_INPUT_SIZE,
     OPTION_MAP_PATH,
-    OPTION_MUTATION,
+    OPTION_MUTATION_PROBABILITY,
     OPTION_NEIGHBORHOOD,
     OPTION_NEIGHBORHOOD_ITERATOR,
     OPTION_NOISE_STDDEV,
     OPTION_NUM_ITERATIONS,
     OPTION_NUM_THREADS,
     OPTION_PATH,
-    OPTION_PN_MUTATION,
+    OPTION_PN_MUTATION_PROBABILITY,
     OPTION_PN_NEIGHBORHOOD,
     OPTION_PN_RADIUS,
     OPTION_POPULATION_SIZE,
@@ -272,14 +272,14 @@ Options::Options(int argc, char *argv[]):
     {"map", required_argument, 0, OPTION_MAP},
     {"map-input-size", required_argument, 0, OPTION_MAP_INPUT_SIZE},
     {"map-path", required_argument, 0, OPTION_MAP_PATH},
-    {"mutation", required_argument, 0, OPTION_MUTATION},
+    {"mutation-probability", required_argument, 0, OPTION_MUTATION_PROBABILITY},
     {"neighborhood", required_argument, 0, OPTION_NEIGHBORHOOD},
     {"neighborhood-iterator", required_argument, 0, OPTION_NEIGHBORHOOD_ITERATOR},
     {"noise-stddev", required_argument, 0, OPTION_NOISE_STDDEV},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
     {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
     {"path", required_argument, 0, OPTION_PATH},
-    {"pn-mutation", required_argument, 0, OPTION_PN_MUTATION},
+    {"pn-mutation-probability", required_argument, 0, OPTION_PN_MUTATION_PROBABILITY},
     {"pn-neighborhood", required_argument, 0, OPTION_PN_NEIGHBORHOOD},
     {"pn-radius", required_argument, 0, OPTION_PN_RADIUS},
     {"population-size", required_argument, 0, OPTION_POPULATION_SIZE},
@@ -470,8 +470,8 @@ Options::Options(int argc, char *argv[]):
       break;
 
     case 'm':
-    case OPTION_MUTATION:
-      set_mutation(atof(optarg));
+    case OPTION_MUTATION_PROBABILITY:
+      set_mutation_probability(atof(optarg));
       break;
 
     case 'N':
@@ -501,8 +501,8 @@ Options::Options(int argc, char *argv[]):
       set_path(string(optarg));
       break;
 
-    case OPTION_PN_MUTATION:
-      set_pn_mutation(atof(optarg));
+    case OPTION_PN_MUTATION_PROBABILITY:
+      set_pn_mutation_probability(atof(optarg));
       break;
 
     case OPTION_PN_NEIGHBORHOOD:
@@ -810,7 +810,7 @@ void Options::print_help(ostream& stream) const
   stream << "Prior Noise:" << endl;
   stream << "      --pn-allow-stay" << endl;
   stream << "          In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)" << endl;
-  stream << "      --pn-mutation (type double, default to 1)" << endl;
+  stream << "      --pn-mutation-probability (type double, default to 1)" << endl;
   stream << "          Expected number of flipped bits (bv_size times mutation probability)" << endl;
   stream << "      --pn-neighborhood (type int, default to 0)" << endl;
   stream << "          Type of neighborhood" << endl;
@@ -860,7 +860,7 @@ void Options::print_help(ostream& stream) const
   stream << "            900: Herding evolutionary algorithm, herding with binary variables" << endl;
   stream << "            901: Herding evolutionary algorithm, herding with spin variables" << endl;
   stream << "            1000: Boltzmann machine PBIL" << endl;
-  stream << "  -m, --mutation (type double, default to 1)" << endl;
+  stream << "  -m, --mutation-probability (type double, default to 1)" << endl;
   stream << "          Expected number of flipped bits (bv_size times mutation probability)" << endl;
   stream << "  -i, --num-iterations (type int, default to 0)" << endl;
   stream << "          Number of iterations (<= 0 means indefinite)" << endl;
@@ -1030,14 +1030,14 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# map = " << options._map << endl;
   stream << "# map_input_size = " << options._map_input_size << endl;
   stream << "# map_path = " << options._map_path << endl;
-  stream << "# mutation = " << options._mutation << endl;
+  stream << "# mutation_probability = " << options._mutation_probability << endl;
   stream << "# neighborhood = " << options._neighborhood << endl;
   stream << "# neighborhood_iterator = " << options._neighborhood_iterator << endl;
   stream << "# noise_stddev = " << options._noise_stddev << endl;
   stream << "# num_iterations = " << options._num_iterations << endl;
   stream << "# num_threads = " << options._num_threads << endl;
   stream << "# path = " << options._path << endl;
-  stream << "# pn_mutation = " << options._pn_mutation << endl;
+  stream << "# pn_mutation_probability = " << options._pn_mutation_probability << endl;
   stream << "# pn_neighborhood = " << options._pn_neighborhood << endl;
   stream << "# pn_radius = " << options._pn_radius << endl;
   stream << "# population_size = " << options._population_size << endl;
