@@ -9,7 +9,7 @@ Library:
 - Cache: renamed _x -> _key
 - ProgressTracker: _stream is now a pointer
 - Added setters for members now declared protected or private:
-  IterativeAlgorithm, RandomLocalSearch, OnePlusOneEa,
+  Algorithm, IterativeAlgorithm, RandomLocalSearch, OnePlusOneEa,
   SimulatedAnnealing, MuPlusLambdaEa, MuCommaLambdaEa,
   GeneticAlgorithm, OnePlusLambdaCommaLambdaGa, PvAlgorithm, Pbil,
   NpsPbil, Umda, CompactGa, Mmas, Hea, BinaryHerding, SpinHerding,

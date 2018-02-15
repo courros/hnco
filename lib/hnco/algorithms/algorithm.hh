@@ -51,6 +51,15 @@ namespace algorithm {
     /// Solution
     point_value_t _solution;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Output stream
+    std::ostream *_stream = &std::cout;
+
+    ///@}
+
     /// Random solution
     void random_solution();
 
@@ -81,8 +90,21 @@ namespace algorithm {
     /// Destructor
     virtual ~Algorithm() {}
 
+    /// Initialization
+    virtual void init() {
+      assert(_function);
+      random_solution();
+    }
+
+    /// Maximize
+    virtual void maximize() = 0;
+
     /// Solution
     virtual const point_value_t& get_solution() { return _solution; }
+
+    /** @name Setters
+     */
+    ///@{
 
     /// Set function
     virtual void set_function(function::Function *function) {
@@ -96,17 +118,10 @@ namespace algorithm {
       _functions = functions;
     }
 
-    /// Initialization
-    virtual void init() {
-      assert(_function);
-      random_solution();
-    }
-
-    /// Maximize
-    virtual void maximize() = 0;
-
     /// Output stream
-    std::ostream& _stream = std::cout;
+    void set_stream(std::ostream *x) { _stream = x; }
+
+    ///@}
     
   };
 
@@ -117,14 +132,20 @@ namespace algorithm {
 
   protected:
 
-    /// Number of iterations
-    int _num_iterations = 0;
+    /// Current iteration
+    int _iteration;
 
     /// Something to log
     bool _something_to_log;
 
-    /// Current iteration
-    int _iteration;
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Number of iterations
+    int _num_iterations = 0;
+
+    ///@}
 
     /// Single iteration
     virtual void iterate() = 0;
@@ -151,12 +172,18 @@ namespace algorithm {
         maximum at the end of the search. */
     void maximize();
 
+    /** @name Setters
+     */
+    ///@{
+
     /** Set the number of iterations.
 
         \param x Number of iterations
 
         x <= 0 means indefinite */
     void set_num_iterations(int x) { _num_iterations = x; }
+
+    ///@}
 
   };
 

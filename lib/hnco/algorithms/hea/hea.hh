@@ -209,18 +209,18 @@ namespace hnco::algorithm::hea {
       assert(_log_flags.any());
 
       if (_log_flags[LOG_ERROR])
-        _stream << _error_cache << " ";
+        (*_stream) << _error_cache << " ";
 
       if (_log_flags[LOG_DTU])
-        _stream << _dtu_cache << " ";
+        (*_stream) << _dtu_cache << " ";
 
       if (_log_flags[LOG_DELTA])
-        _stream << _delta_cache << " ";
+        (*_stream) << _delta_cache << " ";
 
       if (_log_flags[LOG_SELECTION])
-        _stream << _selection_cache << " ";
+        (*_stream) << _selection_cache << " ";
 
-      _stream << std::endl;
+      (*_stream) << std::endl;
     }
 
   public:
