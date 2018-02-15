@@ -18,5 +18,5 @@ GENERATE_LATEX         = YES
 COMPACT_LATEX          = NO
 CLASS_GRAPH            = YES
 COLLABORATION_GRAPH    = NO
-UML_LOOK               = YES
+UML_LOOK               = NO
 TEMPLATE_RELATIONS     = YES
