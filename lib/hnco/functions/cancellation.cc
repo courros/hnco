@@ -27,7 +27,6 @@
 #include "hnco/functions/cancellation.hh"
 
 
-using namespace std;
 using namespace hnco::function;
 
 
