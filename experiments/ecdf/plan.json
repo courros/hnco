@@ -4,7 +4,7 @@
 
     "num_runs": 20,
     "num_targets": 50,
-    "parallel": false,
+    "parallel": true,
 
     "results": "results",
     "graphics": "graphics",

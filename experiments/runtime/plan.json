@@ -3,7 +3,7 @@
     "opt": "--print-performance -i 0 -b 0 --stop-on-maximum",
 
     "num_runs": 20,
-    "parallel": false,
+    "parallel": true,
 
     "results": "results",
     "report": "report",
