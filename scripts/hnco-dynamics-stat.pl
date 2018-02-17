@@ -59,26 +59,26 @@ sub generate_graphics
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"Iteration\"\n",
-        "set ylabel \"Function value\"\n",
+        "set ylabel \"$obj->{ylabel}\"\n",
         "set key outside top center box opaque horizontal\n",
         "set format x ", quote("10^{%L}"), "\n",
         "set logscale x\n",
         "set autoscale fix\n\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
 
+    if ($obj->{ylogscale}) {
+        my $fmt = quote("10^{\%T}");
+        print GRAPHICS
+            "set logscale y 10\n",
+            "set format y $fmt\n";
+    } else {
+        print GRAPHICS
+            "unset logscale y\n",
+            "set format y\n";
+    }
+
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-
-        if ($f->{logscale}) {
-            my $fmt = quote("10^{\%T}");
-            print GRAPHICS
-                "set logscale y 10\n",
-                "set format y $fmt\n";
-        } else {
-            print GRAPHICS
-                "unset logscale y\n",
-                "set format y\n";
-        }
 
         my $quoted_title = quote("$function_id");
         my $quoted_path = quote("$path_graphics/$function_id.eps");
