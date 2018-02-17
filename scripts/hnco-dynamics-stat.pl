@@ -26,7 +26,7 @@ if (@ARGV) {
 print "Using $plan\n";
 
 open(FILE, $plan)
-    or die "hnco-dynamics-run.pl: Cannot open $plan\n";
+    or die "hnco-dynamics-stat.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
@@ -53,12 +53,12 @@ generate_latex();
 sub generate_graphics
 {
     open(GRAPHICS, ">graphics.gp")
-        or die "hnco-dynamics-stat-maximum.pl: generate_graphics: cannot open graphics.gp\n";
+        or die "hnco-dynamics-stat.pl: generate_graphics: cannot open graphics.gp\n";
 
     print GRAPHICS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"Number of evaluations\"\n",
+        "set xlabel \"Iteration\"\n",
         "set ylabel \"Function value\"\n",
         "set key outside top center box opaque horizontal\n",
         "set format x ", quote("10^{%L}"), "\n",
@@ -97,9 +97,7 @@ sub generate_graphics
                 $quoted_path = quote("$path_results/$function_id/$algorithm_id/1.out");
                 $quoted_title = quote("$algorithm_id");
                 $position++;
-                $f->{reverse} ?
-                    "  $quoted_path using 1:(-\$2) with lines lw 2 title $quoted_title" :
-                    "  $quoted_path using 1:2 with lines lw 2 title $quoted_title";
+                "  $quoted_path using 1:2 with lines lw 2 title $quoted_title";
              } @$algorithms);
 
         print GRAPHICS "\n";
@@ -123,7 +121,7 @@ sub generate_graphics
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
-        or die "hnco-dynamics-stat-maximum.pl: generate_latex: Cannot open $path_report/results.tex\n";
+        or die "hnco-dynamics-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
 
