@@ -1,0 +1,89 @@
+{
+    "exec": "hnco",
+    "opt": "-s 100 --map 1 --map-random -i 0 -b 200000 --print-performance",
+
+    "num_runs": 20,
+    "parallel": true,
+
+    "results": "results",
+    "graphics": "graphics",
+    "report": "report",
+
+    "parameter": {
+        "id": "learning-rate",
+        "values": [ 1e-2, 2e-2, 5e-2, 1e-1, 2e-1, 5e-1, 1 ],
+        "logscale": true,
+        "boxwidth": "$1 * 0.3"
+    },
+
+    "functions": [
+
+        {
+            "id": "one-max",
+	    "opt": "-F 0 --stop-on-maximum",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "leading-ones",
+	    "opt": "-F 10 --stop-on-maximum",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "jmp-5",
+	    "opt": "-F 30 --stop-on-maximum -t 5",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "nk",
+	    "opt": "-F 60 -p instances/nk.100.4",
+            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+        },
+
+        {
+            "id": "max-sat",
+	    "opt": "-F 70 -p instances/ms.100.3.1000",
+            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+        },
+
+        {
+            "id": "labs",
+	    "opt": "-F 80",
+            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+        },
+
+        {
+            "id": "ep",
+	    "opt": "-F 90 -p instances/ep.100",
+            "reverse": true,
+            "logscale": true,
+            "col": ">{{\\nprounddigits{1}}}N{1}{1}"
+        },
+
+        {
+            "id": "cancel",
+	    "opt": "-F 100 -s 99",
+            "reverse": true,
+            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+        },
+
+        {
+            "id": "walsh2",
+	    "opt": "-F 162 -p instances/walsh2.100",
+            "col": ">{{\\nprounddigits{2}}}N{3}{2}"
+        }
+
+    ],
+
+    "algorithms": [
+
+        {
+            "id": "pbil",
+	    "opt": "-A 500 -x 10 -y 1"
+        }
+
+    ]
+
+}
