@@ -26,7 +26,7 @@ if (@ARGV) {
 print "Using $plan\n";
 
 open(FILE, $plan)
-    or die "hnco-dynamics-stat.pl: Cannot open $plan\n";
+    or die "hnco-dynamics-stat-maximum.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
