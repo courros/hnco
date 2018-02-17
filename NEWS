@@ -23,9 +23,13 @@ hnco:
 - Added option --cache-budget
 - Give yes/no answer to request about function
 
+Scripts:
+- Added hnco-dynamics-stat.pl
+
 Experiments:
 - Added option --allow-stay for ea-1c10
 - Removed option --cache
+- Added experiment entropy
 
 
 * Version 0.7 (2017-12-28)
