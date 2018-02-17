@@ -97,7 +97,7 @@ sub generate_graphics
                 $quoted_path = quote("$path_results/$function_id/$algorithm_id/1.out");
                 $quoted_title = quote("$algorithm_id");
                 $position++;
-                "  $quoted_path using 1:2 with lines lw 2 title $quoted_title";
+                "  $quoted_path with lines lw 2 title $quoted_title";
              } @$algorithms);
 
         print GRAPHICS "\n";
