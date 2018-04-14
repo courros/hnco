@@ -270,21 +270,31 @@ ranked first per function then globally.
 
 ### Dynamics
 
-The purpose is to study the dynamics of the maximum found so far. Each
-algorithm is run only once on each function.
+The purpose is to study the evolution of the maximum found so
+far. Each algorithm is run only once on each function.
 
 ### ECDF
 
 The purpose is to compute and plot the empirical cumulative
-distribution function of the runtime for each couple
-algorithm-function in a given set. Results are given for each function
-then globally. This experiment partly follows the experimental
-procedure of the COCO framework (see references).
+distribution function of the runtime for each algorithm-function
+couple in a given set. Results are computed per function then
+globally. This experiment partly follows the experimental procedure of
+the COCO framework (see references).
+
+### Entropy
+
+The purpose is to study the evolution of the entropy of UMDA and
+PBIL. Each algorithm is run only once on each function. This
+experiment shares the script for running simulations with the dynamics
+experiment. However time is expressed in terms of number of iterations
+instead of number of function evaluations.
 
 ### Parameter
 
-The purpose is to study the influence of some parameter on the
-performances of a given algorithm applied to a set of functions.
+This experiment is similar to the benchmark experiment but the same
+algorithm is applied with some parameter taking values in a given
+set. In particular, this experiment explores the influence of the
+learning rate on the performance of PBIL.
 
 ### Runtime
 
