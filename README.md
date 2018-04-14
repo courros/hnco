@@ -247,6 +247,7 @@ HNCO is distributed with the following experiments:
 - `experiments/benchmark/`
 - `experiments/dynamics/`
 - `experiments/ecdf/`
+- `experiments/entropy/`
 - `experiments/parameter/`
 - `experiments/runtime/`
 
@@ -262,46 +263,49 @@ considered for future releases.
 
 ### Benchmark
 
-The purpose is to compare the performance of a set of algorithms
-applied to a set of functions with a fixed budget. Each algorithm is
-run 20 times on each function. Algorithms are ranked according to
-their median performance (quartiles are also considered). They are
-ranked first per function then globally.
+The purpose of this experiment is to compare the performance of a set
+of algorithms applied to a set of functions with a fixed budget. Each
+algorithm is run 20 times on each function. Algorithms are ranked
+according to their median performance (quartiles are also
+considered). They are ranked first per function then globally.
 
 ### Dynamics
 
-The purpose is to study the evolution of the maximum found so
-far. Each algorithm is run only once on each function.
+The purpose of this experiment is to study the evolution of the
+maximum found so far. Each algorithm is run only once on each
+function.
 
 ### ECDF
 
-The purpose is to compute and plot the empirical cumulative
-distribution function of the runtime for each algorithm-function
-couple in a given set. Results are computed per function then
-globally. This experiment partly follows the experimental procedure of
-the COCO framework (see references).
+The purpose of this experiment is to compute and plot the empirical
+cumulative distribution function of the runtime for each
+algorithm-function couple in a given set. Results are computed per
+function then globally. This experiment partly follows the
+experimental procedure of the COCO framework (see references).
 
 ### Entropy
 
-The purpose is to study the evolution of the entropy of UMDA and
-PBIL. Each algorithm is run only once on each function. This
-experiment shares the script for running simulations with the dynamics
+The purpose of this experiment is to study the evolution of the
+entropy in UMDA and PBIL. Any quantity observable through the log
+function of an algorithm can be considered for this experiment. Each
+algorithm is run only once on each function. This experiment shares
+the script for running simulations with the dynamics
 experiment. However time is expressed in terms of number of iterations
 instead of number of function evaluations.
 
 ### Parameter
 
 This experiment is similar to the benchmark experiment but the same
-algorithm is applied with some parameter taking values in a given
-set. In particular, this experiment explores the influence of the
-learning rate on the performance of PBIL.
+algorithm is run with some parameter taking values in a given set. In
+particular, this experiment explores the influence of the learning
+rate on the performance of PBIL.
 
 ### Runtime
 
-The purpose is to study the influence of some given parameter
-(e.g. bit vector size) on the runtime of a set of algorithms applied
-to a set of functions. The functions must have a known maximum and the
-algorithms must be able to find it in finite time.
+The purpose of this experiment is to study the influence of some given
+parameter (e.g. bit vector size) on the runtime of a set of algorithms
+applied to a set of functions. The functions must have a known maximum
+and the algorithms must be able to find it in finite time.
 
 ## Requirements
 
