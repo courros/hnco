@@ -61,15 +61,24 @@ sub generate_graphics
         "set xlabel \"Iteration\"\n",
         "set ylabel \"$obj->{ylabel}\"\n",
         "set key outside top center box opaque horizontal\n",
-        "set format x ", quote("10^{%L}"), "\n",
-        "set logscale x\n",
         "set autoscale fix\n\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
 
-    if ($obj->{ylogscale}) {
-        my $fmt = quote("10^{\%T}");
+    if ($obj->{xlogscale}) {
+        my $fmt = quote("10^{\%L}");
         print GRAPHICS
-            "set logscale y 10\n",
+            "set logscale x\n",
+            "set format x $fmt\n";
+    } else {
+        print GRAPHICS
+            "unset logscale y\n",
+            "set format y\n";
+    }
+
+    if ($obj->{ylogscale}) {
+        my $fmt = quote("10^{\%L}");
+        print GRAPHICS
+            "set logscale y\n",
             "set format y $fmt\n";
     } else {
         print GRAPHICS
