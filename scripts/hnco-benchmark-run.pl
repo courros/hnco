@@ -18,6 +18,9 @@
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
 use JSON;
+use File::Spec;
+use File::HomeDir;
+use Cwd;
 
 my $plan = "plan.json";
 if (@ARGV) {
@@ -38,15 +41,15 @@ my $num_runs            = $obj->{num_runs};
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
 my $parallel            = $obj->{parallel};
+my $servers             = $obj->{servers};
 
-my $path = $obj->{results};
+my $commands = ();
+
+my $path = $path_results;
 unless (-d $path) {
     mkdir $path;
     print "Created $path\n";
 }
-
-my $commands = ();
-
 iterate_functions($path, "$obj->{exec} $obj->{opt}");
 
 if ($parallel) {
@@ -55,7 +58,17 @@ if ($parallel) {
         or die "hnco-benchmark-run.pl: Cannot open '$path': $!\n";
     $file->print(join("\n", @commands));
     $file->close;
-    system("parallel --eta --progress :::: commands.txt");
+    if ($servers) {
+        my $hostnames = join(',', map { $_->{hostname} } @$servers);
+        system("parallel --eta --progress --workdir . -S :,$hostnames :::: commands.txt");
+        print "Bringing back the files:\n";
+        foreach (@$servers) {
+            my $src = "$_->{hostname}:" . File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
+            system("rsync -avvz $src/$path_results/ $path_results");
+        }
+    } else {
+        system("parallel --eta --progress :::: commands.txt");
+    }
 }
 
 sub iterate_functions
