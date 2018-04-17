@@ -10,6 +10,7 @@
 
     "ylabel": "Entropy",
     "ylogscale": false,
+    "xlogscale": true,
 
     "functions": [
 
