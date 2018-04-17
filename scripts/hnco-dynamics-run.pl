@@ -34,18 +34,28 @@ while (<FILE>) {
 
 my $obj = from_json($json);
 
-my $functions   = $obj->{functions};
-my $algorithms  = $obj->{algorithms};
-my $parallel    = $obj->{parallel};
+my $path_results        = $obj->{results};
+my $functions           = $obj->{functions};
+my $algorithms          = $obj->{algorithms};
+my $parallel            = $obj->{parallel};
+my $servers             = $obj->{servers};
+
+if ($parallel) {
+    if ($servers) {
+        my $dir = File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
+        foreach (@$servers) {
+            system("ssh $_->{hostname} \"cd $dir ; hnco-dynamics-skeleton.pl\"\n");
+        }
+    }
+}
+
+my $commands = ();
 
 my $path = $obj->{results};
 unless (-d $path) {
     mkdir $path;
     print "Created $path\n";
 }
-
-my $commands = ();
-
 iterate_functions($path, "$obj->{exec} $obj->{opt}");
 
 if ($parallel) {
@@ -54,7 +64,17 @@ if ($parallel) {
         or die "hnco-dynamics-run.pl: Cannot open '$path': $!\n";
     $file->print(join("\n", @commands));
     $file->close;
-    system("parallel --eta --progress :::: commands.txt");
+    if ($servers) {
+        my $hostnames = join(',', map { $_->{hostname} } @$servers);
+        system("parallel --eta --progress --workdir . -S :,$hostnames :::: commands.txt");
+        print "Bringing back the files:\n";
+        foreach (@$servers) {
+            my $src = "$_->{hostname}:" . File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
+            system("rsync -avvz $src/$path_results/ $path_results");
+        }
+    } else {
+        system("parallel --eta --progress :::: commands.txt");
+    }
 }
 
 sub iterate_functions
