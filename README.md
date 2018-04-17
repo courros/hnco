@@ -259,8 +259,8 @@ All experiments can use GNU parallel to run the simulations in
 parallel hence take advantage of multicore architectures. To use GNU
 parallel, simply set the field `parallel` to `true`. There is also
 experimental support for remote execution at the moment limited to the
-benchmark and parameter experiments. Improved support is considered
-for future releases.
+benchmark experiment. Improved support is considered for future
+releases.
 
 ### Benchmark
 
