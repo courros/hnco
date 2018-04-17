@@ -43,6 +43,15 @@ my $algorithms          = $obj->{algorithms};
 my $parallel            = $obj->{parallel};
 my $servers             = $obj->{servers};
 
+if ($parallel) {
+    if ($servers) {
+        my $dir = File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
+        foreach (@$servers) {
+            system("ssh $_->{hostname} \"cd $dir ; hnco-benchmark-skeleton.pl\"\n");
+        }
+    }
+}
+
 my $commands = ();
 
 my $path = $path_results;
