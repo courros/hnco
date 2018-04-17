@@ -257,9 +257,10 @@ report. The experiment itself is described in a json file called
 
 All experiments can use GNU parallel to run the simulations in
 parallel hence take advantage of multicore architectures. To use GNU
-parallel, simply set the field `parallel` to `true`. At the moment
-only local computations are available but distributed computations are
-considered for future releases.
+parallel, simply set the field `parallel` to `true`. There is also
+experimental support for remote execution at the moment limited to the
+benchmark and parameter experiments. Improved support is considered
+for future releases.
 
 ### Benchmark
 
@@ -268,6 +269,12 @@ of algorithms applied to a set of functions with a fixed budget. Each
 algorithm is run 20 times on each function. Algorithms are ranked
 according to their median performance (quartiles are also
 considered). They are ranked first per function then globally.
+
+A list of remote hosts can be specified in `plan.json` under the name
+`servers`. For each server, a hostname (or ip address) and a username
+must be given. The path to the respective working directories must be
+the same. GNU parallel connects to servers with ssh and ssh login must
+not require a password.
 
 ### Dynamics
 

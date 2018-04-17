@@ -30,6 +30,8 @@ Experiments:
 - Added option --allow-stay for ea-1c10
 - Removed option --cache
 - Added experiment entropy
+- Added support for remote execution with GNU parallel
+- Added script hnco-benchmark-skeleton.pl
 
 
 * Version 0.7 (2017-12-28)
