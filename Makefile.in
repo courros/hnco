@@ -354,6 +354,26 @@ EXTRA_DIST = \
 	experiments/dynamics/plan.json \
 	experiments/dynamics/report/Makefile \
 	experiments/dynamics/report/report.tex \
+	experiments/ecdf/Makefile \
+	experiments/ecdf/instances/Makefile \
+	experiments/ecdf/instances/ep.100 \
+	experiments/ecdf/instances/lin.100 \
+	experiments/ecdf/instances/ms.100.3.1000 \
+	experiments/ecdf/instances/nk.100.4 \
+	experiments/ecdf/instances/walsh2.100 \
+	experiments/ecdf/plan.json \
+	experiments/ecdf/report/Makefile \
+	experiments/ecdf/report/report.tex \
+	experiments/maximum/Makefile \
+	experiments/maximum/instances/Makefile \
+	experiments/maximum/instances/ep.100 \
+	experiments/maximum/instances/lin.100 \
+	experiments/maximum/instances/ms.100.3.1000 \
+	experiments/maximum/instances/nk.100.4 \
+	experiments/maximum/instances/walsh2.100 \
+	experiments/maximum/plan.json \
+	experiments/maximum/report/Makefile \
+	experiments/maximum/report/report.tex \
 	experiments/parameter/Makefile \
 	experiments/parameter/instances/Makefile \
 	experiments/parameter/instances/ep.100 \
