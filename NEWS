@@ -29,9 +29,12 @@ Scripts:
 Experiments:
 - Added option --allow-stay for ea-1c10
 - Removed option --cache
-- Added experiment entropy
+- Renamed experiment dynamics -> maximum
+- Added experiment dynamics
 - Added support for remote execution with GNU parallel
 - Added script hnco-benchmark-skeleton.pl
+- Added script hnco-dynamics-skeleton.pl
+- Renamed script hnco-dynamics-stat-maximum.pl -> hnco-maximum-stat.pl
 
 
 * Version 0.7 (2017-12-28)
