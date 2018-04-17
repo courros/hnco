@@ -26,7 +26,7 @@ if (@ARGV) {
 print "Using $plan\n";
 
 open(FILE, $plan)
-    or die "hnco-dynamics-stat-maximum.pl: Cannot open $plan\n";
+    or die "hnco-maximum-stat.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
@@ -53,7 +53,7 @@ generate_latex();
 sub generate_graphics
 {
     open(GRAPHICS, ">graphics.gp")
-        or die "hnco-dynamics-stat-maximum.pl: generate_graphics: cannot open graphics.gp\n";
+        or die "hnco-maximum-stat.pl: generate_graphics: cannot open graphics.gp\n";
 
     print GRAPHICS
         "#!/usr/bin/gnuplot -persist\n",
@@ -123,7 +123,7 @@ sub generate_graphics
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
-        or die "hnco-dynamics-stat-maximum.pl: generate_latex: Cannot open $path_report/results.tex\n";
+        or die "hnco-maximum-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
 

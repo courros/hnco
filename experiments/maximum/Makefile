@@ -8,7 +8,7 @@ run:
 	time -o log.err -a hnco-dynamics-run.pl
 
 doc:
-	hnco-dynamics-stat.pl
+	hnco-maximum-stat.pl
 	./graphics.gp
 	sed '/^$$/d' plan.json > plan-compact.json
 	make -C report
