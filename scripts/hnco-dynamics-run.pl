@@ -18,6 +18,9 @@
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
 use JSON;
+use File::Spec;
+use File::HomeDir;
+use Cwd;
 
 my $plan = "plan.json";
 if (@ARGV) {
