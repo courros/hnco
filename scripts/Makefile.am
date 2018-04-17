@@ -1,4 +1,5 @@
 dist_bin_SCRIPTS = \
+	hnco-benchmark-skeleton.pl \
 	hnco-benchmark-run.pl \
 	hnco-benchmark-stat.pl \
 	hnco-dynamics-run.pl \
