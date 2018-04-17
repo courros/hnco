@@ -257,10 +257,15 @@ report. The experiment itself is described in a json file called
 
 All experiments can use GNU parallel to run the simulations in
 parallel hence take advantage of multicore architectures. To use GNU
-parallel, simply set the field `parallel` to `true`. There is also
-experimental support for remote execution at the moment limited to the
-benchmark experiment. Improved support is considered for future
-releases.
+parallel, simply set the field `parallel` to `true`.
+
+There is also experimental support for remote execution at the moment
+limited to the following experiments: benchmark, maximum, dynamics. A
+list of remote hosts can be specified in `plan.json` under the name
+`servers`. For each server, a hostname (or ip address) and a username
+must be given. The path to the respective working directories must be
+the same. GNU parallel connects to servers with ssh and ssh login must
+not require a password.
 
 ### Benchmark
 
@@ -270,17 +275,15 @@ algorithm is run 20 times on each function. Algorithms are ranked
 according to their median performance (quartiles are also
 considered). They are ranked first per function then globally.
 
-A list of remote hosts can be specified in `plan.json` under the name
-`servers`. For each server, a hostname (or ip address) and a username
-must be given. The path to the respective working directories must be
-the same. GNU parallel connects to servers with ssh and ssh login must
-not require a password.
-
 ### Dynamics
 
 The purpose of this experiment is to study the evolution of the
-maximum found so far. Each algorithm is run only once on each
-function.
+entropy in UMDA and PBIL. Any quantity observable through the log
+function of an algorithm can be considered for this experiment. Each
+algorithm is run only once on each function. This experiment shares
+the script for running simulations with the dynamics
+experiment. However time is expressed in terms of number of iterations
+instead of number of function evaluations.
 
 ### ECDF
 
@@ -290,15 +293,11 @@ algorithm-function couple in a given set. Results are computed per
 function then globally. This experiment partly follows the
 experimental procedure of the COCO framework (see references).
 
-### Entropy
+### Maximum
 
 The purpose of this experiment is to study the evolution of the
-entropy in UMDA and PBIL. Any quantity observable through the log
-function of an algorithm can be considered for this experiment. Each
-algorithm is run only once on each function. This experiment shares
-the script for running simulations with the dynamics
-experiment. However time is expressed in terms of number of iterations
-instead of number of function evaluations.
+maximum found so far. Each algorithm is run only once on each
+function.
 
 ### Parameter
 
