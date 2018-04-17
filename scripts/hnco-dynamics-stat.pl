@@ -71,8 +71,8 @@ sub generate_graphics
             "set format x $fmt\n";
     } else {
         print GRAPHICS
-            "unset logscale y\n",
-            "set format y\n";
+            "unset logscale x\n",
+            "set format x\n";
     }
 
     if ($obj->{ylogscale}) {
