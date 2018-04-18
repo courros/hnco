@@ -4,10 +4,11 @@ dist_bin_SCRIPTS = \
 	hnco-benchmark-stat.pl \
 	hnco-dynamics-run.pl \
 	hnco-dynamics-skeleton.pl \
-	hnco-maximum-stat.pl \
 	hnco-dynamics-stat.pl \
 	hnco-ecdf-stat.pl \
+	hnco-maximum-stat.pl \
 	hnco-parameter-run.pl \
+	hnco-parameter-skeleton.pl \
 	hnco-parameter-stat.pl \
 	hnco-runtime-stat.pl
 
