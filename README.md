@@ -247,7 +247,7 @@ HNCO is distributed with the following experiments:
 - `experiments/benchmark/`
 - `experiments/dynamics/`
 - `experiments/ecdf/`
-- `experiments/entropy/`
+- `experiments/maximum/`
 - `experiments/parameter/`
 - `experiments/runtime/`
 
@@ -277,13 +277,11 @@ considered). They are ranked first per function then globally.
 
 ### Dynamics
 
-The purpose of this experiment is to study the evolution of the
-entropy in UMDA and PBIL. Any quantity observable through the log
-function of an algorithm can be considered for this experiment. Each
-algorithm is run only once on each function. This experiment shares
-the script for running simulations with the dynamics
-experiment. However time is expressed in terms of number of iterations
-instead of number of function evaluations.
+The purpose of this experiment is to study the evolution of some
+quantity available through the log function of a given set of
+algorithms. In the example, the evolution of entropy in UMDA and PBIL
+is studied. Each algorithm is run only once on each function. Time is
+expressed in terms of number of iterations.
 
 ### ECDF
 
@@ -297,14 +295,14 @@ experimental procedure of the COCO framework (see references).
 
 The purpose of this experiment is to study the evolution of the
 maximum found so far. Each algorithm is run only once on each
-function.
+function. Time is expressed in terms of number of evaluations.
 
 ### Parameter
 
 This experiment is similar to the benchmark experiment but the same
 algorithm is run with some parameter taking values in a given set. In
-particular, this experiment explores the influence of the learning
-rate on the performance of PBIL.
+the example, the influence of the learning rate on the performance of
+PBIL is studied.
 
 ### Runtime
 
