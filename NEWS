@@ -15,6 +15,8 @@ Library:
   GeneticAlgorithm, OnePlusLambdaCommaLambdaGa, PvAlgorithm, Pbil,
   NpsPbil, Umda, CompactGa, Mmas, Hea, BinaryHerding, SpinHerding,
   BernoulliProcess, TournamentSelection, BmPbil, ProgressTracker
+- Added bm_row_echelon_form
+- Added bm_rank
 
 hnco:
 - Renamed option --sa-rate -> --sa-beta-ratio
