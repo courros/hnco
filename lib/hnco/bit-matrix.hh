@@ -98,6 +98,12 @@ namespace hnco {
   */
   void bm_add_rows(bit_matrix_t& M, std::size_t i, std::size_t j);
 
+  /** Compute the rank of a matrix.
+
+      \warning A is modified by the function.
+  */
+  std::size_t bm_rank(bit_matrix_t& A);
+
   /** Solve a linear system.
 
       Solve the linear equation Ax = b.
