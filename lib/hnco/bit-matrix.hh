@@ -98,6 +98,12 @@ namespace hnco {
   */
   void bm_add_rows(bit_matrix_t& M, std::size_t i, std::size_t j);
 
+  /** Compute a row echelon form of a matrix.
+
+      \warning A is modified by the function.
+  */
+  void bm_row_echelon_form(bit_matrix_t& A);
+
   /** Compute the rank of a matrix.
 
       \warning A is modified by the function.

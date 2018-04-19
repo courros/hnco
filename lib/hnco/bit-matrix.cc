@@ -100,6 +100,41 @@ void hnco::bm_add_rows(bit_matrix_t& M, std::size_t i, std::size_t j)
   bv_add(M[i], M[j]);
 }
 
+void bm_row_echelon_form(bit_matrix_t& A)
+{
+  size_t rows = bm_num_rows(A);
+  size_t cols = bm_num_columns(A);
+  size_t r = 0;
+
+  for (size_t j = 0; j < cols; j++) {
+    bool found = false;
+    size_t pivot;
+    for (size_t i = r; i < rows; i++)
+      if (A[i][j]) {
+        pivot = i;
+        found = true;
+        break;
+      }
+    if (found) {
+      if (pivot != r) {
+        bm_swap_rows(A, pivot, r);
+      }
+      for (size_t i = r + 1; i < rows; i++)
+        if (A[i][j]) {
+          bm_add_rows(A, r, i);
+        }
+      r++;
+      if (r == rows)
+        break;
+    }
+  }
+}
+
+std::size_t hnco::bm_rank(bit_matrix_t& A)
+{
+  return 0;
+}
+
 bool hnco::bm_solve(bit_matrix_t& A, bit_vector_t& b)
 {
   assert(bm_is_square(A));
