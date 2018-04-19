@@ -100,7 +100,7 @@ void hnco::bm_add_rows(bit_matrix_t& M, std::size_t i, std::size_t j)
   bv_add(M[i], M[j]);
 }
 
-void bm_row_echelon_form(bit_matrix_t& A)
+void hnco::bm_row_echelon_form(bit_matrix_t& A)
 {
   size_t rows = bm_num_rows(A);
   size_t cols = bm_num_columns(A);
