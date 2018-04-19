@@ -107,10 +107,8 @@ namespace hnco {
   /** Compute the rank of a matrix.
 
       \pre A must be in row echelon form.
-
-      \warning A is modified by the function.
   */
-  std::size_t bm_rank(bit_matrix_t& A);
+  std::size_t bm_rank(const bit_matrix_t& A);
 
   /** Solve a linear system.
 

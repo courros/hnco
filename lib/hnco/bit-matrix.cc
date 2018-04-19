@@ -130,15 +130,20 @@ void hnco::bm_row_echelon_form(bit_matrix_t& A)
   }
 }
 
-std::size_t hnco::bm_rank(bit_matrix_t& A)
+std::size_t hnco::bm_rank(const bit_matrix_t& A)
 {
   size_t rank = 0;
   size_t rows = bm_num_rows(A);
+
   for (size_t i = 0; i < rows; i++)
     if (bv_is_zero(A[i]))
-      return rank;
+      break;
     else
       rank++;
+
+  assert(rank <= rows);
+  assert(rank <= bm_num_columns(A));
+
   return rank;
 }
 
