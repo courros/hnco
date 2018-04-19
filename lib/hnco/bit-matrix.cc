@@ -132,7 +132,14 @@ void hnco::bm_row_echelon_form(bit_matrix_t& A)
 
 std::size_t hnco::bm_rank(bit_matrix_t& A)
 {
-  return 0;
+  size_t rank = 0;
+  size_t rows = bm_num_rows(A);
+  for (size_t i = 0; i < rows; i++)
+    if (bv_is_zero(A[i]))
+      return rank;
+    else
+      rank++;
+  return rank;
 }
 
 bool hnco::bm_solve(bit_matrix_t& A, bit_vector_t& b)
