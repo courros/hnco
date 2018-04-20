@@ -336,7 +336,7 @@ make_map(const Options& options)
   case 4: {
     LinearMap *map = new LinearMap;
     if (options.with_map_random()) {
-      map->random(options.get_bv_size(), options.get_map_input_size());
+      map->random(options.get_bv_size(), options.get_map_input_size(), options.with_map_surjective());
     } else {
       std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
@@ -358,7 +358,7 @@ make_map(const Options& options)
   case 5: {
     AffineMap *map = new AffineMap;
     if (options.with_map_random()) {
-      map->random(options.get_bv_size(), options.get_map_input_size());
+      map->random(options.get_bv_size(), options.get_map_input_size(), options.with_map_surjective());
     } else {
       std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
