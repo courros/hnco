@@ -89,7 +89,8 @@ build_triplet = @build@
 host_triplet = @host@
 check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-bm-invert$(EXEEXT) test-bm-multiply$(EXEEXT) \
-	test-bm-solve$(EXEEXT) test-bm-swap-rows$(EXEEXT) \
+	test-bm-rank$(EXEEXT) test-bm-solve$(EXEEXT) \
+	test-bm-swap-rows$(EXEEXT) \
 	test-complete-search-deceptive-jump$(EXEEXT) \
 	test-complete-search-four-peaks$(EXEEXT) \
 	test-complete-search-hiff$(EXEEXT) \
@@ -152,6 +153,10 @@ am_test_bm_multiply_OBJECTS = test-bm-multiply.$(OBJEXT)
 test_bm_multiply_OBJECTS = $(am_test_bm_multiply_OBJECTS)
 test_bm_multiply_LDADD = $(LDADD)
 test_bm_multiply_DEPENDENCIES = ../lib/libhnco.la
+am_test_bm_rank_OBJECTS = test-bm-rank.$(OBJEXT)
+test_bm_rank_OBJECTS = $(am_test_bm_rank_OBJECTS)
+test_bm_rank_LDADD = $(LDADD)
+test_bm_rank_DEPENDENCIES = ../lib/libhnco.la
 am_test_bm_solve_OBJECTS = test-bm-solve.$(OBJEXT)
 test_bm_solve_OBJECTS = $(am_test_bm_solve_OBJECTS)
 test_bm_solve_LDADD = $(LDADD)
@@ -378,7 +383,8 @@ am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
 SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_bm_invert_SOURCES) $(test_bm_multiply_SOURCES) \
-	$(test_bm_solve_SOURCES) $(test_bm_swap_rows_SOURCES) \
+	$(test_bm_rank_SOURCES) $(test_bm_solve_SOURCES) \
+	$(test_bm_swap_rows_SOURCES) \
 	$(test_complete_search_deceptive_jump_SOURCES) \
 	$(test_complete_search_four_peaks_SOURCES) \
 	$(test_complete_search_hiff_SOURCES) \
@@ -411,7 +417,8 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES)
 DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_bm_invert_SOURCES) $(test_bm_multiply_SOURCES) \
-	$(test_bm_solve_SOURCES) $(test_bm_swap_rows_SOURCES) \
+	$(test_bm_rank_SOURCES) $(test_bm_solve_SOURCES) \
+	$(test_bm_swap_rows_SOURCES) \
 	$(test_complete_search_deceptive_jump_SOURCES) \
 	$(test_complete_search_four_peaks_SOURCES) \
 	$(test_complete_search_hiff_SOURCES) \
@@ -806,6 +813,7 @@ test_bm_add_rows_SOURCES = test-bm-add-rows.cc
 test_bm_identity_SOURCES = test-bm-identity.cc
 test_bm_invert_SOURCES = test-bm-invert.cc
 test_bm_multiply_SOURCES = test-bm-multiply.cc
+test_bm_rank_SOURCES = test-bm-rank.cc
 test_bm_solve_SOURCES = test-bm-solve.cc
 test_bm_swap_rows_SOURCES = test-bm-swap-rows.cc
 test_complete_search_deceptive_jump_SOURCES = test-complete-search-deceptive-jump.cc
@@ -835,9 +843,9 @@ test_serialize_max_sat_SOURCES = test-serialize-max-sat.cc
 test_serialize_nk_landscape_SOURCES = test-serialize-nk-landscape.cc
 test_serialize_permutation_SOURCES = test-serialize-permutation.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
-test_serialize_walsh_expansion_SOURCES = test-serialize-walsh-expansion.cc
 test_serialize_walsh_expansion_1_SOURCES = test-serialize-walsh-expansion-1.cc
 test_serialize_walsh_expansion_2_SOURCES = test-serialize-walsh-expansion-2.cc
+test_serialize_walsh_expansion_SOURCES = test-serialize-walsh-expansion.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 TESTS = $(check_PROGRAMS)
 DISTCLEANFILES = \
@@ -912,6 +920,10 @@ test-bm-invert$(EXEEXT): $(test_bm_invert_OBJECTS) $(test_bm_invert_DEPENDENCIES
 test-bm-multiply$(EXEEXT): $(test_bm_multiply_OBJECTS) $(test_bm_multiply_DEPENDENCIES) $(EXTRA_test_bm_multiply_DEPENDENCIES) 
 	@rm -f test-bm-multiply$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_bm_multiply_OBJECTS) $(test_bm_multiply_LDADD) $(LIBS)
+
+test-bm-rank$(EXEEXT): $(test_bm_rank_OBJECTS) $(test_bm_rank_DEPENDENCIES) $(EXTRA_test_bm_rank_DEPENDENCIES) 
+	@rm -f test-bm-rank$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_bm_rank_OBJECTS) $(test_bm_rank_LDADD) $(LIBS)
 
 test-bm-solve$(EXEEXT): $(test_bm_solve_OBJECTS) $(test_bm_solve_DEPENDENCIES) $(EXTRA_test_bm_solve_DEPENDENCIES) 
 	@rm -f test-bm-solve$(EXEEXT)
@@ -1055,6 +1067,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bm-identity.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bm-invert.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bm-multiply.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bm-rank.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bm-solve.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bm-swap-rows.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-deceptive-jump.Po@am__quote@
@@ -1336,6 +1349,13 @@ test-bm-invert.log: test-bm-invert$(EXEEXT)
 test-bm-multiply.log: test-bm-multiply$(EXEEXT)
 	@p='test-bm-multiply$(EXEEXT)'; \
 	b='test-bm-multiply'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-bm-rank.log: test-bm-rank$(EXEEXT)
+	@p='test-bm-rank$(EXEEXT)'; \
+	b='test-bm-rank'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
