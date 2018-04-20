@@ -20,10 +20,13 @@
 
 #include <assert.h>
 
+#include "hnco/exception.hh"
+
 #include "map.hh"
 
 
 using namespace hnco;
+using namespace hnco::exception;
 
 
 void
@@ -55,6 +58,26 @@ Permutation::map(const bit_vector_t& input, bit_vector_t& output)
 
 
 void
+LinearMap::random(int rows, int cols, bool surjective)
+{
+  assert(rows > 0);
+  assert(cols > 0);
+
+  bm_resize(_bm, rows, cols);
+
+  if (surjective) {
+    if (rows > cols)
+      throw Error("LinearMap::random: cols must be greater or equal to rows");
+    do {
+      bm_random(_bm);
+    } while (!is_surjective());
+  } else {
+    bm_random(_bm);
+  }
+}
+
+
+void
 LinearMap::map(const bit_vector_t& input, bit_vector_t& output)
 {
   assert(output.size() == _bm.size());
@@ -69,6 +92,31 @@ LinearMap::is_surjective()
   bit_matrix_t M = _bm;
   bm_row_echelon_form(M);
   return bm_rank(M) == bm_num_rows(_bm);
+}
+
+
+void
+AffineMap::random(int rows, int cols, bool surjective)
+{
+  assert(rows > 0);
+  assert(cols > 0);
+
+  bm_resize(_bm, rows, cols);
+
+  if (surjective) {
+    if (rows > cols)
+      throw Error("AffineMap::random: cols must be greater or equal to rows");
+    do {
+      bm_random(_bm);
+    } while (!is_surjective());
+  } else {
+    bm_random(_bm);
+  }
+
+  _bv.resize(rows);
+  bv_random(_bv);
+
+  assert(bm_num_rows(_bm) == _bv.size());
 }
 
 
