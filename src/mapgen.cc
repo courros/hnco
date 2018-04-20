@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 
   case 4: {
     LinearMap map;
-    map.random(options.get_bv_size(), options.get_map_input_size());
+    map.random(options.get_bv_size(), options.get_map_input_size(), options.with_map_surjective());
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     cout << "Writing linear map to " << options.get_path() << " ... ";
@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
 
   case 5: {
     AffineMap map;
-    map.random(options.get_bv_size(), options.get_map_input_size());
+    map.random(options.get_bv_size(), options.get_map_input_size(), options.with_map_surjective());
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     cout << "Writing affine map to " << options.get_path() << " ... ";
