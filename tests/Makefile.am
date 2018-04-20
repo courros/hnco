@@ -4,6 +4,7 @@ check_PROGRAMS = \
 	test-bm-invert \
 	test-bm-multiply \
 	test-bm-rank \
+	test-bm-row-column-rank \
 	test-bm-solve \
 	test-bm-swap-rows \
 	test-complete-search-deceptive-jump \
@@ -49,6 +50,7 @@ test_bm_identity_SOURCES = test-bm-identity.cc
 test_bm_invert_SOURCES = test-bm-invert.cc
 test_bm_multiply_SOURCES = test-bm-multiply.cc
 test_bm_rank_SOURCES = test-bm-rank.cc
+test_bm_row_column_rank_SOURCES = test-bm-row-column-rank.cc
 test_bm_solve_SOURCES = test-bm-solve.cc
 test_bm_swap_rows_SOURCES = test-bm-swap-rows.cc
 test_complete_search_deceptive_jump_SOURCES = test-complete-search-deceptive-jump.cc
