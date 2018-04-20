@@ -18,6 +18,7 @@ Library:
 - Added bm_row_echelon_form
 - Added bm_rank
 - LinearMap, AffineMap: added member function is_surjective
+- LinearMap, AffineMap can sample surjective maps
 
 Tests:
 - Added test-bm-rank
@@ -29,6 +30,10 @@ hnco:
 - Renamed option --pn-mutation -> --pn-mutation-probability
 - Added option --cache-budget
 - Give yes/no answer to request about function
+- Added option --map-surjective
+
+mapgen:
+- Added option --map-surjective
 
 Scripts:
 - Added hnco-dynamics-stat.pl
