@@ -284,6 +284,9 @@ class Options {
   /// Sample a random map
   bool _map_random;
 
+  /// Ensure that the sampled linear or affine map is surjective
+  bool _map_surjective;
+
   /// Strict (>) max-min ant system
   bool _mmas_strict;
 
@@ -1086,6 +1089,12 @@ public:
 
   /// Set map_random
   void set_map_random() { _map_random = true; }
+ 
+  /// Get map_surjective
+  bool with_map_surjective() const { return _map_surjective; }
+
+  /// Set map_surjective
+  void set_map_surjective() { _map_surjective = true; }
  
   /// Get mmas_strict
   bool with_mmas_strict() const { return _mmas_strict; }

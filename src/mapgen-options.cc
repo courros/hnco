@@ -18,7 +18,8 @@ Options::Options(int argc, char *argv[]):
   _path("nopath"),
   _opt_path(false),
   _seed(0),
-  _opt_seed(false)
+  _opt_seed(false),
+  _map_surjective(false)
 {
   enum {
     OPTION_HELP=256,
@@ -27,7 +28,8 @@ Options::Options(int argc, char *argv[]):
     OPTION_MAP,
     OPTION_MAP_INPUT_SIZE,
     OPTION_PATH,
-    OPTION_SEED
+    OPTION_SEED,
+    OPTION_MAP_SURJECTIVE
   };
   const struct option long_options[] = {
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
@@ -35,6 +37,7 @@ Options::Options(int argc, char *argv[]):
     {"map-input-size", required_argument, 0, OPTION_MAP_INPUT_SIZE},
     {"path", required_argument, 0, OPTION_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
+    {"map-surjective", no_argument, 0, OPTION_MAP_SURJECTIVE},
     {"help", no_argument, 0, OPTION_HELP},
     {"version", no_argument, 0, OPTION_VERSION},
     {0, no_argument, 0, 0}
@@ -66,6 +69,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_SEED:
       set_seed(atoi(optarg));
+      break;
+
+    case OPTION_MAP_SURJECTIVE:
+      _map_surjective = true;
       break;
 
     case OPTION_HELP:
@@ -105,6 +112,8 @@ void Options::print_help(ostream& stream) const
   stream << "            5: Affine" << endl;
   stream << "      --map-input-size (type int, default to 100)" << endl;
   stream << "          Input size of linear and affine maps" << endl;
+  stream << "      --map-surjective" << endl;
+  stream << "          Ensure that the sampled linear or affine map is surjective" << endl;
   stream << endl;
 }
 
@@ -120,6 +129,8 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# map_input_size = " << options._map_input_size << endl;
   stream << "# path = " << options._path << endl;
   stream << "# seed = " << options._seed << endl;
+  if (options._map_surjective)
+    stream << "# map_surjective" << endl;
   stream << "# last_parameter" << endl;
   stream << "# exec_name = " << options._exec_name << endl;
   stream << "# version = " << options._version << endl;

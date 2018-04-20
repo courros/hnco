@@ -33,6 +33,9 @@ class Options {
   int _seed;
   bool _opt_seed;
 
+  /// Ensure that the sampled linear or affine map is surjective
+  bool _map_surjective;
+
   /// Print help message
   void print_help(std::ostream& stream) const;
 
@@ -104,6 +107,12 @@ public:
   /// Get set-flag for seed
   bool set_seed() const { return _opt_seed; }
 
+  /// Get map_surjective
+  bool with_map_surjective() const { return _map_surjective; }
+
+  /// Set map_surjective
+  void set_map_surjective() { _map_surjective = true; }
+ 
   /// Print a header containing the parameter values
   friend std::ostream& operator<<(std::ostream&, const Options&);
 };

@@ -134,6 +134,7 @@ Options::Options(int argc, char *argv[]):
   _incremental_evaluation(false),
   _log_improvement(false),
   _map_random(false),
+  _map_surjective(false),
   _mmas_strict(false),
   _negation(false),
   _pn_allow_stay(false),
@@ -225,6 +226,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_INCREMENTAL_EVALUATION,
     OPTION_LOG_IMPROVEMENT,
     OPTION_MAP_RANDOM,
+    OPTION_MAP_SURJECTIVE,
     OPTION_MMAS_STRICT,
     OPTION_NEGATION,
     OPTION_PN_ALLOW_STAY,
@@ -314,6 +316,7 @@ Options::Options(int argc, char *argv[]):
     {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
     {"log-improvement", no_argument, 0, OPTION_LOG_IMPROVEMENT},
     {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
+    {"map-surjective", no_argument, 0, OPTION_MAP_SURJECTIVE},
     {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
     {"negation", no_argument, 0, OPTION_NEGATION},
     {"pn-allow-stay", no_argument, 0, OPTION_PN_ALLOW_STAY},
@@ -643,6 +646,10 @@ Options::Options(int argc, char *argv[]):
       _map_random = true;
       break;
 
+    case OPTION_MAP_SURJECTIVE:
+      _map_surjective = true;
+      break;
+
     case OPTION_MMAS_STRICT:
       _mmas_strict = true;
       break;
@@ -838,6 +845,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Path of a map file" << endl;
   stream << "      --map-random" << endl;
   stream << "          Sample a random map" << endl;
+  stream << "      --map-surjective" << endl;
+  stream << "          Ensure that the sampled linear or affine map is surjective" << endl;
   stream << endl;
   stream << "Algorithm:" << endl;
   stream << "  -A, --algorithm (type int, default to 100)" << endl;
@@ -1093,6 +1102,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# log_improvement" << endl;
   if (options._map_random)
     stream << "# map_random" << endl;
+  if (options._map_surjective)
+    stream << "# map_surjective" << endl;
   if (options._mmas_strict)
     stream << "# mmas_strict" << endl;
   if (options._negation)
