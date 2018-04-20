@@ -34,12 +34,15 @@ bool check_bm_rank()
   std::uniform_int_distribution<size_t> dimension_dist(1, 100);
   for (size_t t = 0; t < 100; t++) {
     size_t dimension = dimension_dist(Random::engine);
+
     bit_matrix_t M;
     bm_resize(M, dimension);
     bm_random(M);
+
     bit_matrix_t N = M;
     bm_row_echelon_form(N);
     size_t rank = bm_rank(N);
+
     if (bm_invert(M, N) != (rank == dimension))
       return false;
   }
