@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     int m = dist_n(Random::engine);
 
     LinearMap src;
-    src.random(n, m);
+    src.random(n, m, false);
     {
       std::ofstream ofs(path);
       boost::archive::text_oarchive oa(ofs);

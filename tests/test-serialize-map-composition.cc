@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     Translation src_t;
     LinearMap src_lm;
     src_t.random(n);
-    src_lm.random(n, m);
+    src_lm.random(n, m, false);
     {
       std::ofstream ofs(path);
       boost::archive::text_oarchive oa(ofs);
