@@ -63,6 +63,15 @@ LinearMap::map(const bit_vector_t& input, bit_vector_t& output)
 }
 
 
+bool
+LinearMap::is_surjective()
+{
+  bit_matrix_t M = _bm;
+  bm_row_echelon_form(M);
+  return bm_rank(M) == bm_num_rows(_bm);
+}
+
+
 void
 AffineMap::map(const bit_vector_t& input, bit_vector_t& output)
 {
@@ -72,4 +81,13 @@ AffineMap::map(const bit_vector_t& input, bit_vector_t& output)
   for (size_t i = 0; i < output.size(); i++)
     if (_bv[i])
       bv_flip(output, i);
+}
+
+
+bool
+AffineMap::is_surjective()
+{
+  bit_matrix_t M = _bm;
+  bm_row_echelon_form(M);
+  return bm_rank(M) == bm_num_rows(_bm);
 }

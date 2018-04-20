@@ -242,6 +242,12 @@ namespace hnco {
     /// Get output size
     size_t get_output_size() { return bm_num_rows(_bm); }
 
+    /** Check for surjective map.
+
+        \return true if rank(_bm) == bm_num_rows(_bm)
+    */
+    bool is_surjective();
+
   };
 
 
@@ -314,6 +320,12 @@ namespace hnco {
 
     /// Get output size
     size_t get_output_size() { return bm_num_rows(_bm); }
+
+    /** Check for surjective map.
+
+        \return true if rank(_bm) == bm_num_rows(_bm)
+    */
+    bool is_surjective();
 
   };
 
