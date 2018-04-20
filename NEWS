@@ -17,6 +17,11 @@ Library:
   BernoulliProcess, TournamentSelection, BmPbil, ProgressTracker
 - Added bm_row_echelon_form
 - Added bm_rank
+- LinearMap, AffineMap: added member function is_surjective
+
+Tests:
+- Added test-bm-rank
+- Added test-bm-row-column-rank
 
 hnco:
 - Renamed option --sa-rate -> --sa-beta-ratio
@@ -27,17 +32,17 @@ hnco:
 
 Scripts:
 - Added hnco-dynamics-stat.pl
+- Renamed script hnco-dynamics-stat-maximum.pl -> hnco-maximum-stat.pl
+- Added support for remote execution with GNU parallel
+- Added script hnco-benchmark-skeleton.pl
+- Added script hnco-dynamics-skeleton.pl
+- Added script hnco-parameter-skeleton.pl
 
 Experiments:
 - Added option --allow-stay for ea-1c10
 - Removed option --cache
 - Renamed experiment dynamics -> maximum
-- Renamed script hnco-dynamics-stat-maximum.pl -> hnco-maximum-stat.pl
 - Added experiment dynamics
-- Added support for remote execution with GNU parallel
-- Added script hnco-benchmark-skeleton.pl
-- Added script hnco-dynamics-skeleton.pl
-- Added script hnco-parameter-skeleton.pl
 
 
 * Version 0.7 (2017-12-28)
