@@ -3,6 +3,7 @@ check_PROGRAMS = \
 	test-bm-identity \
 	test-bm-invert \
 	test-bm-multiply \
+	test-bm-rank \
 	test-bm-solve \
 	test-bm-swap-rows \
 	test-complete-search-deceptive-jump \
