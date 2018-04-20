@@ -7,6 +7,16 @@
 
     "tab_order": [ "General", "Map" ],
 
+    "flags": {
+
+        "map_surjective":
+        {
+            "description": "Ensure that the sampled linear or affine map is surjective",
+            "category": "Map"
+        }
+
+    },
+
     "parameters": {
 
         "seed":
