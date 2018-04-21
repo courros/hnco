@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 
-# Copyright (C) 2016, 2017 Arnaud Berny
+# Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
 # This file is part of HNCO.
 
@@ -18,6 +18,9 @@
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
 use JSON;
+use File::Spec;
+use File::HomeDir;
+use Cwd;
 
 my $plan = "plan.json";
 if (@ARGV) {
@@ -38,15 +41,24 @@ my $num_runs            = $obj->{num_runs};
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
 my $parallel            = $obj->{parallel};
+my $servers             = $obj->{servers};
 
-my $path = $obj->{results};
-unless (-d $path) {
-    mkdir $path;
-    print "Created $path\n";
+if ($parallel) {
+    if ($servers) {
+        my $dir = File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
+        foreach (@$servers) {
+            system("ssh $_->{hostname} \"cd $dir ; hnco-benchmark-skeleton.pl\"\n");
+        }
+    }
 }
 
 my $commands = ();
 
+my $path = $path_results;
+unless (-d $path) {
+    mkdir $path;
+    print "Created $path\n";
+}
 iterate_functions($path, "$obj->{exec} $obj->{opt}");
 
 if ($parallel) {
@@ -55,7 +67,17 @@ if ($parallel) {
         or die "hnco-benchmark-run.pl: Cannot open '$path': $!\n";
     $file->print(join("\n", @commands));
     $file->close;
-    system("parallel --eta --progress :::: commands.txt");
+    if ($servers) {
+        my $hostnames = join(',', map { $_->{hostname} } @$servers);
+        system("parallel --eta --progress --workdir . -S :,$hostnames :::: commands.txt");
+        print "Bringing back the files:\n";
+        foreach (@$servers) {
+            my $src = "$_->{hostname}:" . File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
+            system("rsync -avvz $src/$path_results/ $path_results");
+        }
+    } else {
+        system("parallel --eta --progress :::: commands.txt");
+    }
 }
 
 sub iterate_functions

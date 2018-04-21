@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -66,6 +66,24 @@ namespace algorithm {
     /// Uniform crossover
     UniformCrossover _crossover;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Mutation probability
+    double _mutation_probability;
+
+    /// Crossover probability
+    double _crossover_probability = 0.5;
+
+    /// Tournament size
+    int _tournament_size = 10;
+
+    /// Allow stay
+    bool _allow_stay = false;
+
+    ///@}
+
     /// Single iteration
     void iterate();
 
@@ -86,25 +104,25 @@ namespace algorithm {
     /// Initialization
     void init();
 
-    /** @name Parameters
+    /** @name Setters
      */
     ///@{
 
-    /// Mutation probability
-    double _mutation_probability;
+    /// Set the mutation probability
+    void set_mutation_probability(double x) { _mutation_probability = x; }
 
-    /// Crossover probability
-    double _crossover_probability = 0.5;
+    /// Set the crossover probability
+    void set_crossover_probability(double x) { _crossover_probability = x; }
 
-    /// Tournament size
-    int _tournament_size = 10;
+    /// Set the tournament size
+    void set_tournament_size(int x) { _tournament_size = x; }
 
-    /** Allow stay.
+    /** Set the flag _allow_stay.
 
         In case no mutation occurs allow the current bit vector to
         stay unchanged.
     */
-    bool _allow_stay = false;
+    void set_allow_stay(bool x) { _allow_stay = x; }
 
     ///@}
 

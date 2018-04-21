@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -47,6 +47,15 @@ namespace algorithm {
     /// Candidates
     std::vector<bit_vector_t> _candidates;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Learning rate
+    double _rate = 1e-3;
+
+    ///@}
+
     /// Single iteration
     void iterate();
 
@@ -56,11 +65,18 @@ namespace algorithm {
       PvAlgorithm(n),
       _candidates(2, bit_vector_t(n)) {}
 
-    /// Learning rate
-    double _rate = 1e-3;
-
     /// Initialization
     void init();
+
+    /** @name Setters
+     */
+    ///@{
+
+    /// Set the learning rate
+    void set_rate(double x) { _rate = x; }
+
+    ///@}
+
   };
 
 

@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -31,11 +31,12 @@ void
 GeneticAlgorithm::init()
 {
   _mutation.set_probability(_mutation_probability);
-  _mutation._allow_stay = _allow_stay;
+  _mutation.set_allow_stay(_allow_stay);
 
   _do_crossover = std::bernoulli_distribution(_crossover_probability);
 
-  _parents._tournament_size = _tournament_size;
+  _parents.set_tournament_size(_tournament_size);
+
   _parents.random();
   _parents.eval(_function);
   _parents.sort();

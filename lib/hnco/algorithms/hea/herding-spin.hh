@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -34,8 +34,7 @@ namespace hea {
       By spin variables, we mean variables taking values 1 or -1,
       instead of 0 or 1 in the case of binary variables.
   */
-  class SpinHerding
-  {
+  class SpinHerding {
 
   protected:
 
@@ -57,6 +56,26 @@ namespace hea {
     /// Time
     int _time;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Randomize bit order
+    bool _randomize_bit_order = false;
+
+    /// Sampling method
+    int _sampling_method = SAMPLE_GREEDY;
+
+    /// Number of sequential updates per sample
+    int _num_seq_updates;
+
+    /// Number of parallel updates per sample
+    int _num_par_updates = 1;
+
+    /// Weight of second order moments
+    double _weight = 1;
+
+    ///@}
 
     /// Compute delta
     void compute_delta(const SpinMoment& target);
@@ -103,7 +122,12 @@ namespace hea {
       LAST_SAMPLE
     };
 
-    /// Constructor
+    /** Constructor.
+
+        \param n Size of bit vectors
+
+        _num_seq_updates is initialized to n.
+    */
     SpinHerding(int n):
       _delta(n),
       _count(n),
@@ -112,29 +136,11 @@ namespace hea {
       _choose_bit(0, n - 1),
       _num_seq_updates(n) {}
 
-    /** @name Parameters
-     */
-    ///@{
-
-    /// Randomize bit order
-    bool _randomize_bit_order = false;
-
-    /// Sampling method
-    int _sampling_method = SAMPLE_GREEDY;
-
-    /// Number of sequential updates per sample
-    int _num_seq_updates;
-
-    /// Number of parallel updates per sample
-    int _num_par_updates = 1;
-
-    /// Weight of second order moments
-    double _weight = 1;
-
-    ///@}
-
     /// Initialization
     void init();
+
+    /// Sample a bit vector
+    void sample(const SpinMoment& target, bit_vector_t& x);
 
     /// Compute the error
     double error(const SpinMoment& target);
@@ -142,8 +148,26 @@ namespace hea {
     /// Compute the norm of the moment increment
     double delta(const SpinMoment& target) { return _delta.norm_2(); }
 
-    /// Sample a bit vector
-    void sample(const SpinMoment& target, bit_vector_t& x);
+    /** @name Setters
+     */
+    ///@{
+
+    /// Randomize bit order
+    void set_randomize_bit_order(bool x) { _randomize_bit_order = x; }
+
+    /// Set the sampling method
+    void set_sampling_method(int x) { _sampling_method = x; }
+
+    /// Set the number of sequential updates per sample
+    void set_num_seq_updates(int x) { _num_seq_updates = x; }
+
+    /// Set the number of parallel updates per sample
+    void set_num_par_updates(int x) { _num_par_updates = x; }
+
+    /// Set the weight of second order moments
+    void set_weight(double x) { _weight = x; }
+
+    ///@}
 
   };
 

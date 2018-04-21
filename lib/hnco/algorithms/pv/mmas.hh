@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -43,11 +43,23 @@ namespace hnco::algorithm {
 
   protected:
 
-    /// Single iteration
-    void iterate();
-
     /// Candidate solution
     bit_vector_t _x;
+
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Binary operator for comparing evaluations
+    std::function<bool(double, double)> _operator = std::greater_equal<double>();
+
+    /// Learning rate
+    double _rate = 1e-3;
+
+    ///@}
+
+    /// Single iteration
+    void iterate();
 
   public:
 
@@ -59,15 +71,15 @@ namespace hnco::algorithm {
     /// Initialization
     void init();
 
-    /** @name Parameters
+    /** @name Setters
      */
     ///@{
 
-    /// Binary operator for comparing evaluations
-    std::function<bool(double, double)> _compare = std::greater_equal<double>();
+    /// Set the binary operator for comparing evaluations
+    void set_operator(std::function<bool(double, double)> x) { _operator = x; }
 
-    /// Learning rate
-    double _rate;
+    /// Set the learning rate
+    void set_rate(double x) { _rate = x; }
 
     ///@}
 

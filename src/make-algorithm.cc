@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -42,8 +42,8 @@ make_neighborhood(const Options& options)
   case 1: {
     auto neighborhood = new BernoulliProcess
       (options.get_bv_size(),
-       options.get_mutation() / options.get_bv_size());
-    neighborhood->_allow_stay = options.with_allow_stay();
+       options.get_mutation_probability() / options.get_bv_size());
+    neighborhood->set_allow_stay(options.with_allow_stay());
     return neighborhood;
   }
 
@@ -95,7 +95,7 @@ make_concrete_algorithm(const Options& options)
     auto algo = new RandomSearch(options.get_bv_size());
     assert(algo);
 
-    algo->_num_iterations = options.get_num_iterations();
+    algo->set_num_iterations(options.get_num_iterations());
 
     return algo;
   }
@@ -109,12 +109,12 @@ make_concrete_algorithm(const Options& options)
        neighborhood);
     assert(algo);
 
-    algo->_num_iterations               = options.get_num_iterations();
-    algo->_patience                     = options.get_rls_patience();
-    algo->_incremental_evaluation       = options.with_incremental_evaluation();
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_patience(options.get_rls_patience());
+    algo->set_incremental_evaluation(options.with_incremental_evaluation());
 
     if (options.with_rls_strict())
-      algo->_compare = std::greater<double>();
+      algo->set_operator(std::greater<double>());
 
     return algo;
   }
@@ -128,7 +128,7 @@ make_concrete_algorithm(const Options& options)
        neighborhood);
     assert(algo);
 
-    algo->_num_iterations = options.get_num_iterations();
+    algo->set_num_iterations(options.get_num_iterations());
 
     return algo;
   }
@@ -140,11 +140,11 @@ make_concrete_algorithm(const Options& options)
     auto algo = new SimulatedAnnealing(options.get_bv_size(), neighborhood);
     assert(algo);
 
-    algo->_num_iterations                       = options.get_num_iterations();
-    algo->_num_transitions                      = options.get_sa_num_transitions();
-    algo->_num_trials                           = options.get_sa_num_trials();
-    algo->_initial_acceptance_probability       = options.get_sa_initial_acceptance_probability();
-    algo->_rate                                 = options.get_sa_rate();
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_num_transitions(options.get_sa_num_transitions());
+    algo->set_num_trials(options.get_sa_num_trials());
+    algo->set_initial_acceptance_probability(options.get_sa_initial_acceptance_probability());
+    algo->set_beta_ratio(options.get_sa_beta_ratio());
 
     return algo;
   }
@@ -153,10 +153,10 @@ make_concrete_algorithm(const Options& options)
     auto algo = new OnePlusOneEa(options.get_bv_size());
     assert(algo);
 
-    algo->_num_iterations               = options.get_num_iterations();
-    algo->_mutation_probability         = options.get_mutation() / options.get_bv_size();
-    algo->_incremental_evaluation       = options.with_incremental_evaluation();
-    algo->_allow_stay                   = options.with_allow_stay();
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
+    algo->set_incremental_evaluation(options.with_incremental_evaluation());
+    algo->set_allow_stay(options.with_allow_stay());
 
     return algo;
   }
@@ -168,9 +168,9 @@ make_concrete_algorithm(const Options& options)
        options.get_ea_lambda());
     assert(algo);
 
-    algo->_num_iterations               = options.get_num_iterations();
-    algo->_mutation_probability         = options.get_mutation() / options.get_bv_size();
-    algo->_allow_stay                   = options.with_allow_stay();
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
+    algo->set_allow_stay(options.with_allow_stay());
 
     return algo;
   }
@@ -182,9 +182,9 @@ make_concrete_algorithm(const Options& options)
        options.get_ea_lambda());
     assert(algo);
 
-    algo->_num_iterations               = options.get_num_iterations();
-    algo->_mutation_probability         = options.get_mutation() / options.get_bv_size();
-    algo->_allow_stay                   = options.with_allow_stay();
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
+    algo->set_allow_stay(options.with_allow_stay());
 
     return algo;
   }
@@ -195,11 +195,11 @@ make_concrete_algorithm(const Options& options)
        options.get_ea_mu());
     assert(algo);
 
-    algo->_num_iterations               = options.get_num_iterations();
-    algo->_mutation_probability         = options.get_mutation() / options.get_bv_size();
-    algo->_crossover_probability        = options.get_ga_crossover_probability();
-    algo->_tournament_size              = options.get_ga_tournament_size();
-    algo->_allow_stay                   = options.with_allow_stay();
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
+    algo->set_crossover_probability(options.get_ga_crossover_probability());
+    algo->set_tournament_size(options.get_ga_tournament_size());
+    algo->set_allow_stay(options.with_allow_stay());
 
     return algo;
   }
@@ -210,9 +210,9 @@ make_concrete_algorithm(const Options& options)
        options.get_ea_mu());
     assert(algo);
 
-    algo->_num_iterations               = options.get_num_iterations();
-    algo->_mutation_probability         = options.get_mutation() / options.get_bv_size();
-    algo->_crossover_bias               = options.get_ga_crossover_bias();
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
+    algo->set_crossover_bias(options.get_ga_crossover_bias());
 
     return algo;
   }
@@ -223,10 +223,10 @@ make_concrete_algorithm(const Options& options)
        options.get_population_size());
     assert(algo);
 
-    algo->_num_iterations       = options.get_num_iterations();
-    algo->_selection_size       = options.get_selection_size();
-    algo->_rate                 = options.get_learning_rate();
-    algo->_log_num_components   = options.get_pv_log_num_components();
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_selection_size(options.get_selection_size());
+    algo->set_rate(options.get_learning_rate());
+    algo->set_log_num_components(options.get_pv_log_num_components());
 
     PvAlgorithm::log_flags_t lf = {};
     if (options.with_pv_log_pv())
@@ -244,10 +244,10 @@ make_concrete_algorithm(const Options& options)
        options.get_population_size());
     assert(algo);
 
-    algo->_num_iterations       = options.get_num_iterations();
-    algo->_selection_size       = options.get_selection_size();
-    algo->_rate                 = options.get_learning_rate();
-    algo->_log_num_components   = options.get_pv_log_num_components();
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_selection_size(options.get_selection_size());
+    algo->set_rate(options.get_learning_rate());
+    algo->set_log_num_components(options.get_pv_log_num_components());
 
     PvAlgorithm::log_flags_t lf = {};
     if (options.with_pv_log_pv())
@@ -265,9 +265,9 @@ make_concrete_algorithm(const Options& options)
        options.get_population_size());
     assert(algo);
 
-    algo->_num_iterations       = options.get_num_iterations();
-    algo->_selection_size       = options.get_selection_size();
-    algo->_log_num_components   = options.get_pv_log_num_components();
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_selection_size(options.get_selection_size());
+    algo->set_log_num_components(options.get_pv_log_num_components());
 
     PvAlgorithm::log_flags_t lf = {};
     if (options.with_pv_log_pv())
@@ -283,9 +283,9 @@ make_concrete_algorithm(const Options& options)
     auto algo = new CompactGa(options.get_bv_size());
     assert(algo);
 
-    algo->_num_iterations       = options.get_num_iterations();
-    algo->_rate                 = options.get_learning_rate();
-    algo->_log_num_components   = options.get_pv_log_num_components();
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_rate(options.get_learning_rate());
+    algo->set_log_num_components(options.get_pv_log_num_components());
 
     PvAlgorithm::log_flags_t lf = {};
     if (options.with_pv_log_pv())
@@ -301,12 +301,12 @@ make_concrete_algorithm(const Options& options)
     auto algo = new Mmas(options.get_bv_size());
     assert(algo);
 
-    algo->_num_iterations       = options.get_num_iterations();
-    algo->_rate                 = options.get_learning_rate();
-    algo->_log_num_components   = options.get_pv_log_num_components();
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_rate(options.get_learning_rate());
+    algo->set_log_num_components(options.get_pv_log_num_components());
 
     if (options.with_mmas_strict())
-      algo->_compare = std::greater<double>();
+      algo->set_operator(std::greater<double>());
 
     PvAlgorithm::log_flags_t lf = {};
     if (options.with_pv_log_pv())
@@ -321,25 +321,27 @@ make_concrete_algorithm(const Options& options)
   case 900: {
     using namespace hea;
 
+    auto herding = new BinaryHerding(options.get_bv_size());
+    assert(herding);
+
+    herding->set_randomize_bit_order(options.with_hea_randomize_bit_order());
+    herding->set_dynamics(options.get_hea_binary_dynamics());
+    herding->set_weight(options.get_hea_weight());
+
     auto algo = new
       Hea<BinaryMoment, BinaryHerding>(options.get_bv_size(),
                                        options.get_population_size());
     assert(algo);
 
-    algo->_num_iterations               = options.get_num_iterations();
-    algo->_selection_size               = options.get_selection_size();
-    algo->_rate_strategy                = options.get_hea_rate_strategy();
-    algo->_initial_rate                 = options.get_learning_rate();
-    algo->_time_constant                = options.get_hea_time_constant();
-    algo->_reset_period                 = options.get_hea_reset_period();
-    algo->_delay                        = options.get_hea_delay();
-    algo->_bound_moment                 = options.with_hea_bound_moment();
-
-    auto& herding = algo->_herding;
-    herding._randomize_bit_order        = options.with_hea_randomize_bit_order();
-    herding._dynamics                   = options.get_hea_binary_dynamics();
-    herding._weight                     = options.get_hea_weight();
-
+    algo->set_herding(herding);
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_selection_size(options.get_selection_size());
+    algo->set_rate_strategy(options.get_hea_rate_strategy());
+    algo->set_initial_rate(options.get_learning_rate());
+    algo->set_time_constant(options.get_hea_time_constant());
+    algo->set_reset_period(options.get_hea_reset_period());
+    algo->set_delay(options.get_hea_delay());
+    algo->set_bound_moment(options.with_hea_bound_moment());
     algo->set_weight(options.get_hea_weight());
 
     Hea<BinaryMoment, BinaryHerding>::log_flags_t lf = {};
@@ -359,27 +361,29 @@ make_concrete_algorithm(const Options& options)
   case 901: {
     using namespace hea;
 
+    auto herding = new SpinHerding(options.get_bv_size());
+    assert(herding);
+
+    herding->set_randomize_bit_order(options.with_hea_randomize_bit_order());
+    herding->set_weight(options.get_hea_weight());
+    herding->set_num_par_updates(options.get_hea_num_par_updates());
+    herding->set_num_seq_updates(options.get_hea_num_seq_updates());
+    herding->set_sampling_method(options.get_hea_sampling_method());
+
     auto algo = new
       Hea<SpinMoment, SpinHerding>(options.get_bv_size(),
                                    options.get_population_size());
     assert(algo);
 
-    algo->_num_iterations               = options.get_num_iterations();
-    algo->_selection_size               = options.get_selection_size();
-    algo->_rate_strategy                = options.get_hea_rate_strategy();
-    algo->_initial_rate                 = options.get_learning_rate();
-    algo->_time_constant                = options.get_hea_time_constant();
-    algo->_reset_period                 = options.get_hea_reset_period();
-    algo->_delay                        = options.get_hea_delay();
-    algo->_bound_moment                 = options.with_hea_bound_moment();
-
-    auto& herding = algo->_herding;
-    herding._randomize_bit_order        = options.with_hea_randomize_bit_order();
-    herding._weight                     = options.get_hea_weight();
-    herding._num_par_updates            = options.get_hea_num_par_updates();
-    herding._num_seq_updates            = options.get_hea_num_seq_updates();
-    herding._sampling_method            = options.get_hea_sampling_method();
-
+    algo->set_herding(herding);
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_selection_size(options.get_selection_size());
+    algo->set_rate_strategy(options.get_hea_rate_strategy());
+    algo->set_initial_rate(options.get_learning_rate());
+    algo->set_time_constant(options.get_hea_time_constant());
+    algo->set_reset_period(options.get_hea_reset_period());
+    algo->set_delay(options.get_hea_delay());
+    algo->set_bound_moment(options.with_hea_bound_moment());
     algo->set_weight(options.get_hea_weight());
 
     Hea<SpinMoment, SpinHerding>::log_flags_t lf = {};
@@ -403,14 +407,14 @@ make_concrete_algorithm(const Options& options)
        options.get_population_size());
     assert(algo);
 
-    algo->_num_iterations               = options.get_num_iterations();
-    algo->_selection_size               = options.get_selection_size();
-    algo->_rate                         = options.get_learning_rate();
-    algo->_num_gs_steps                 = options.get_bm_num_gs_steps();
-    algo->_num_gs_cycles                = options.get_bm_num_gs_cycles();
-    algo->_negative_positive_selection  = options.with_bm_negative_positive_selection();
-    algo->_sampling                     = options.get_bm_sampling();
-    algo->_mc_reset_strategy            = options.get_bm_mc_reset_strategy();
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_selection_size(options.get_selection_size());
+    algo->set_rate(options.get_learning_rate());
+    algo->set_num_gs_steps(options.get_bm_num_gs_steps());
+    algo->set_num_gs_cycles(options.get_bm_num_gs_cycles());
+    algo->set_negative_positive_selection(options.with_bm_negative_positive_selection());
+    algo->set_sampling(options.get_bm_sampling());
+    algo->set_mc_reset_strategy(options.get_bm_mc_reset_strategy());
 
     BmPbil::log_flags_t lf = {};
     if (options.with_bm_log_norm_infinite())

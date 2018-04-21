@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -142,11 +142,11 @@ BmPbil::log()
   assert(_log_flags.any());
 
   if (_log_flags[LOG_NORM_INFINITE])
-    _stream << _model.norm_infinite() << " ";
+    (*_stream) << _model.norm_infinite() << " ";
 
   if (_log_flags[LOG_NORM_L1])
-    _stream << _model.norm_l1() << " ";
+    (*_stream) << _model.norm_l1() << " ";
 
-  _stream << std::endl;
+  (*_stream) << std::endl;
 
 }

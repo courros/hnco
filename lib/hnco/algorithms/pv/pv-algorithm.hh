@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -59,6 +59,15 @@ namespace hnco::algorithm {
     /// Upper bound of probability
     double _upper_bound;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Number of probability vector components to log
+    int _log_num_components = 5;
+
+    ///@}
+
     /// Log flags
     log_flags_t _log_flags;
 
@@ -80,8 +89,14 @@ namespace hnco::algorithm {
       _something_to_log = _log_flags.any();
     }
 
-    /// Number of probability vector components to log
-    int _log_num_components = 5;
+    /** @name Setters
+     */
+    ///@{
+
+    /// Set the number of probability vector components to log
+    void set_log_num_components(int x) { _log_num_components = x; }
+
+    ///@}
 
   };
 

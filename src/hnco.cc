@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -69,7 +69,9 @@ int main(int argc, char *argv[])
 
   // Progress tracker
   ProgressTracker *tracker = new ProgressTracker(fn);
-  tracker->_log_improvement = options.with_log_improvement();
+  assert(tracker);
+
+  tracker->set_log_improvement(options.with_log_improvement());
 
   //
   // Print information about the function
@@ -77,9 +79,10 @@ int main(int argc, char *argv[])
 
   if (options.with_fn_has_known_maximum()) {
     if (tracker->has_known_maximum())
-      return 0;
+      std::cout << "yes" << std::endl;
     else
-      return 1;
+      std::cout << "no" << std::endl;
+    return 0;
   }
 
   if (options.with_fn_get_maximum()) {
@@ -99,9 +102,10 @@ int main(int argc, char *argv[])
 
   if (options.with_fn_provides_incremental_evaluation()) {
     if (tracker->provides_incremental_evaluation())
-      return 0;
+      std::cout << "yes" << std::endl;
     else
-      return 1;
+      std::cout << "no" << std::endl;
+    return 0;
   }
 
   //

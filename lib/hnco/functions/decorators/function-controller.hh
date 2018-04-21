@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -230,6 +230,18 @@ namespace hnco::function {
     /// Last improvement
     Event _last_improvement;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Log improvement
+    bool _log_improvement = false;
+
+    /// Output stream
+    std::ostream *_stream = &std::cout;
+
+    ///@}
+
     /// Update last improvement
     void update_last_improvement(double value);
 
@@ -275,16 +287,15 @@ namespace hnco::function {
     */
     const Event& get_last_improvement() { return _last_improvement; }
 
-    
-    /** @name Parameters
+    /** @name Setters
      */
     ///@{
 
     /// Log improvement
-    bool _log_improvement = false;
+    void set_log_improvement(bool x) { _log_improvement = x; }
 
     /// Output stream
-    std::ostream& _stream = std::cout;
+    void set_stream(std::ostream *x) { _stream = x; }
 
     ///@}
 
@@ -344,11 +355,11 @@ namespace hnco::function {
   class Cache:
     public FunctionController {
 
-    /// Database of past evaluations
+    /// Cache
     std::unordered_map<std::vector<bool>, double> _cache;
 
-    /// STL bit vector
-    std::vector<bool> _x;
+    /// Key
+    std::vector<bool> _key;
 
     /// Evaluation counter
     int _num_evaluations;
@@ -362,7 +373,7 @@ namespace hnco::function {
         \param function Decorated function */
     Cache(Function *function):
       FunctionController(function),
-      _x(function->get_bv_size()),
+      _key(function->get_bv_size()),
       _num_evaluations(0),
       _num_lookups(0) {}
 
@@ -379,9 +390,6 @@ namespace hnco::function {
     double eval(const bit_vector_t&);
 
     ///@}
-
-    /// Display
-    void display(std::ostream& stream);
 
   };
 

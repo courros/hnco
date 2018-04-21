@@ -3,7 +3,7 @@
     "opt": "--print-performance --map 1 --map-random -s 100 -i 0 -b 300000",
 
     "num_runs": 20,
-    "parallel": false,
+    "parallel": true,
 
     "results": "results",
     "graphics": "graphics",
@@ -79,7 +79,7 @@
 
         {
             "id": "max-sat",
-	    "opt": "-F 70 -p instances/ms.100.3.1000 --cache",
+	    "opt": "-F 70 -p instances/ms.100.3.1000",
             "col": ">{{\\nprounddigits{0}}}N{3}{0}"
         },
 
@@ -124,7 +124,7 @@
 
         {
             "id": "walsh2",
-	    "opt": "-F 162 -p instances/walsh2.100 --cache",
+	    "opt": "-F 162 -p instances/walsh2.100",
             "col": ">{{\\nprounddigits{2}}}N{3}{2}"
         }
 
@@ -144,7 +144,7 @@
 
         {
             "id": "sa",
-	    "opt": "-A 200 --sa-rate 1.05 --sa-num-trials 10"
+	    "opt": "-A 200 --sa-beta-ratio 1.05 --sa-num-trials 10"
         },
 
         {
@@ -164,7 +164,7 @@
 
         {
             "id": "ea-1c10",
-	    "opt": "-A 320 --ea-mu 1 --ea-lambda 10"
+	    "opt": "-A 320 --ea-mu 1 --ea-lambda 10 --allow-stay"
         },
 
         {

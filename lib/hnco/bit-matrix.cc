@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -98,6 +98,53 @@ void hnco::bm_add_rows(bit_matrix_t& M, std::size_t i, std::size_t j)
   assert(i != j);
 
   bv_add(M[i], M[j]);
+}
+
+void hnco::bm_row_echelon_form(bit_matrix_t& A)
+{
+  size_t rows = bm_num_rows(A);
+  size_t cols = bm_num_columns(A);
+  size_t r = 0;
+
+  for (size_t j = 0; j < cols; j++) {
+    bool found = false;
+    size_t pivot;
+    for (size_t i = r; i < rows; i++)
+      if (A[i][j]) {
+        pivot = i;
+        found = true;
+        break;
+      }
+    if (found) {
+      if (pivot != r) {
+        bm_swap_rows(A, pivot, r);
+      }
+      for (size_t i = r + 1; i < rows; i++)
+        if (A[i][j]) {
+          bm_add_rows(A, r, i);
+        }
+      r++;
+      if (r == rows)
+        break;
+    }
+  }
+}
+
+std::size_t hnco::bm_rank(const bit_matrix_t& A)
+{
+  size_t rank = 0;
+  size_t rows = bm_num_rows(A);
+
+  for (size_t i = 0; i < rows; i++)
+    if (bv_is_zero(A[i]))
+      break;
+    else
+      rank++;
+
+  assert(rank <= rows);
+  assert(rank <= bm_num_columns(A));
+
+  return rank;
 }
 
 bool hnco::bm_solve(bit_matrix_t& A, bit_vector_t& b)

@@ -247,6 +247,7 @@ HNCO is distributed with the following experiments:
 - `experiments/benchmark/`
 - `experiments/dynamics/`
 - `experiments/ecdf/`
+- `experiments/maximum/`
 - `experiments/parameter/`
 - `experiments/runtime/`
 
@@ -256,42 +257,59 @@ report. The experiment itself is described in a json file called
 
 All experiments can use GNU parallel to run the simulations in
 parallel hence take advantage of multicore architectures. To use GNU
-parallel, simply set the field `parallel` to `true`. At the moment
-only local computations are available but distributed computations are
-considered for future releases.
+parallel, simply set the field `parallel` to `true`.
+
+There is also experimental support for remote execution at the moment
+limited to the following experiments: benchmark, maximum, dynamics. A
+list of remote hosts can be specified in `plan.json` under the name
+`servers`. For each server, a hostname (or ip address) and a username
+must be given. The path to the respective working directories must be
+the same. GNU parallel connects to servers with ssh and ssh login must
+not require a password.
 
 ### Benchmark
 
-The purpose is to compare the performance of a set of algorithms
-applied to a set of functions with a fixed budget. Each algorithm is
-run 20 times on each function. Algorithms are ranked according to
-their median performance (quartiles are also considered). They are
-ranked first per function then globally.
+The purpose of this experiment is to compare the performance of a set
+of algorithms applied to a set of functions with a fixed budget. Each
+algorithm is run 20 times on each function. Algorithms are ranked
+according to their median performance (quartiles are also
+considered). They are ranked first per function then globally.
 
 ### Dynamics
 
-The purpose is to study the dynamics of the maximum found so far. Each
-algorithm is run only once on each function.
+The purpose of this experiment is to study the evolution of some
+quantity available through the log function of a given set of
+algorithms. In the example, the evolution of entropy in UMDA and PBIL
+is studied. Each algorithm is run only once on each function. Time is
+expressed in terms of number of iterations.
 
 ### ECDF
 
-The purpose is to compute and plot the empirical cumulative
-distribution function of the runtime for each couple
-algorithm-function in a given set. Results are given for each function
-then globally. This experiment partly follows the experimental
-procedure of the COCO framework (see references).
+The purpose of this experiment is to compute and plot the empirical
+cumulative distribution function of the runtime for each
+algorithm-function couple in a given set. Results are computed per
+function then globally. This experiment partly follows the
+experimental procedure of the COCO framework (see references).
+
+### Maximum
+
+The purpose of this experiment is to study the evolution of the
+maximum found so far. Each algorithm is run only once on each
+function. Time is expressed in terms of number of evaluations.
 
 ### Parameter
 
-The purpose is to study the influence of some parameter on the
-performances of a given algorithm applied to a set of functions.
+This experiment is similar to the benchmark experiment but the same
+algorithm is run with some parameter taking values in a given set. In
+the example, the influence of the learning rate on the performance of
+PBIL is studied.
 
 ### Runtime
 
-The purpose is to study the influence of some given parameter
-(e.g. bit vector size) on the runtime of a set of algorithms applied
-to a set of functions. The functions must have a known maximum and the
-algorithms must be able to find it in finite time.
+The purpose of this experiment is to study the influence of some given
+parameter (e.g. bit vector size) on the runtime of a set of algorithms
+applied to a set of functions. The functions must have a known maximum
+and the algorithms must be able to find it in finite time.
 
 ## Requirements
 

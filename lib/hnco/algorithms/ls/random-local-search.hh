@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -45,7 +45,22 @@ namespace algorithm {
     neighborhood::Neighborhood *_neighborhood;
 
     /// Number of failure
-    int _failures;
+    int _num_failures;
+
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Binary operator for comparing evaluations
+    std::function<bool(double, double)> _operator = std::greater_equal<double>();
+
+    /// Patience
+    int _patience = 50;
+
+    /// Incremental evaluation
+    bool _incremental_evaluation = false;
+
+    ///@}
 
     /// Single iteration
     void iterate();
@@ -75,26 +90,27 @@ namespace algorithm {
     /// Solution
     const point_value_t& get_solution();
 
-    /** @name Parameters
+    /** @name Setters
      */
     ///@{
 
-    /// Binary operator for comparing evaluations
-    std::function<bool(double, double)> _compare = std::greater_equal<double>();
+    /// Set the binary operator for comparing evaluations
+    void set_operator(std::function<bool(double, double)> x) { _operator = x; }
 
-    /// Incremental evaluation
-    bool _incremental_evaluation = false;
-
-    /** Patience.
+    /** Set patience.
 
         Number of consecutive rejected moves before throwing a
         LocalMaximum exception
 
-        If patience <= 0 then patience is considered infinite, meaning
-        that the algorithm will never throw any LocalMaximum
-        exception.
+        \param x Patience
+
+        If x <= 0 then patience is considered infinite, meaning that
+        the algorithm will never throw any LocalMaximum exception.
     */
-    int _patience = 50;
+    void set_patience(int x) { _patience = x; }
+
+    /// Set incremental evaluation
+    void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }
 
     ///@}
 

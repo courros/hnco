@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -336,7 +336,7 @@ make_map(const Options& options)
   case 4: {
     LinearMap *map = new LinearMap;
     if (options.with_map_random()) {
-      map->random(options.get_bv_size(), options.get_map_input_size());
+      map->random(options.get_bv_size(), options.get_map_input_size(), options.with_map_surjective());
     } else {
       std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
@@ -358,7 +358,7 @@ make_map(const Options& options)
   case 5: {
     AffineMap *map = new AffineMap;
     if (options.with_map_random()) {
-      map->random(options.get_bv_size(), options.get_map_input_size());
+      map->random(options.get_bv_size(), options.get_map_input_size(), options.with_map_surjective());
     } else {
       std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
@@ -400,8 +400,8 @@ make_prior_noise_neighborhood(const Options& options)
   case 1: {
     auto nh = new BernoulliProcess
       (options.get_bv_size(),
-       options.get_pn_mutation() / options.get_bv_size());
-    nh->_allow_stay = options.with_pn_allow_stay();
+       options.get_pn_mutation_probability() / options.get_bv_size());
+    nh->set_allow_stay(options.with_pn_allow_stay());
     return nh;
   }
 
@@ -475,12 +475,6 @@ make_function_controller(Function *function, const Options& options)
 {
   assert(function);
 
-  // Budget
-  if (options.get_budget() > 0) {
-    function = new OnBudgetFunction(function, options.get_budget());
-    assert(function);
-  }
-
   // Stop on maximum
   if (options.with_stop_on_maximum()) {
 
@@ -502,9 +496,21 @@ make_function_controller(Function *function, const Options& options)
     assert(function);
   }
 
+  // Budget
+  if (options.get_budget() > 0) {
+    function = new OnBudgetFunction(function, options.get_budget());
+    assert(function);
+  }
+
   // Cache
   if (options.with_cache()) {
     function = new Cache(function);
+    assert(function);
+  }
+
+  // Cache budget
+  if (options.get_cache_budget() > 0) {
+    function = new OnBudgetFunction(function, options.get_budget());
     assert(function);
   }
 

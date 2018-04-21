@@ -3,6 +3,8 @@ check_PROGRAMS = \
 	test-bm-identity \
 	test-bm-invert \
 	test-bm-multiply \
+	test-bm-rank \
+	test-bm-row-column-rank \
 	test-bm-solve \
 	test-bm-swap-rows \
 	test-complete-search-deceptive-jump \
@@ -47,6 +49,8 @@ test_bm_add_rows_SOURCES = test-bm-add-rows.cc
 test_bm_identity_SOURCES = test-bm-identity.cc
 test_bm_invert_SOURCES = test-bm-invert.cc
 test_bm_multiply_SOURCES = test-bm-multiply.cc
+test_bm_rank_SOURCES = test-bm-rank.cc
+test_bm_row_column_rank_SOURCES = test-bm-row-column-rank.cc
 test_bm_solve_SOURCES = test-bm-solve.cc
 test_bm_swap_rows_SOURCES = test-bm-swap-rows.cc
 test_complete_search_deceptive_jump_SOURCES = test-complete-search-deceptive-jump.cc
@@ -76,9 +80,9 @@ test_serialize_max_sat_SOURCES = test-serialize-max-sat.cc
 test_serialize_nk_landscape_SOURCES = test-serialize-nk-landscape.cc
 test_serialize_permutation_SOURCES = test-serialize-permutation.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
-test_serialize_walsh_expansion_SOURCES = test-serialize-walsh-expansion.cc
 test_serialize_walsh_expansion_1_SOURCES = test-serialize-walsh-expansion-1.cc
 test_serialize_walsh_expansion_2_SOURCES = test-serialize-walsh-expansion-2.cc
+test_serialize_walsh_expansion_SOURCES = test-serialize-walsh-expansion.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 
 TESTS = $(check_PROGRAMS)

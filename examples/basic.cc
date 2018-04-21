@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -38,7 +38,7 @@ int main()
   OneMax fn(bv_size);
 
   OnePlusOneEa ea(bv_size);
-  ea._num_iterations = 100;
+  ea.set_num_iterations(100);
   ea.set_function(&fn);
   ea.init();
   ea.maximize();

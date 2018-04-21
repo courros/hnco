@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -27,7 +27,6 @@
 
 using namespace hnco::function;
 using namespace hnco::random;
-using namespace std;
 
 
 void

@@ -8,7 +8,7 @@ using namespace std;
 
 Options::Options(int argc, char *argv[]):
   _exec_name(argv[0]),
-  _version("0.7"),
+  _version("0.8"),
   _algorithm(100),
   _opt_algorithm(false),
   _bm_mc_reset_strategy(1),
@@ -23,6 +23,8 @@ Options::Options(int argc, char *argv[]):
   _opt_budget(false),
   _bv_size(100),
   _opt_bv_size(false),
+  _cache_budget(0),
+  _opt_cache_budget(false),
   _ea_lambda(100),
   _opt_ea_lambda(false),
   _ea_mu(10),
@@ -69,8 +71,8 @@ Options::Options(int argc, char *argv[]):
   _opt_map_input_size(false),
   _map_path("nopath"),
   _opt_map_path(false),
-  _mutation(1),
-  _opt_mutation(false),
+  _mutation_probability(1),
+  _opt_mutation_probability(false),
   _neighborhood(0),
   _opt_neighborhood(false),
   _neighborhood_iterator(0),
@@ -83,8 +85,8 @@ Options::Options(int argc, char *argv[]):
   _opt_num_threads(false),
   _path("nopath"),
   _opt_path(false),
-  _pn_mutation(1),
-  _opt_pn_mutation(false),
+  _pn_mutation_probability(1),
+  _opt_pn_mutation_probability(false),
   _pn_neighborhood(0),
   _opt_pn_neighborhood(false),
   _pn_radius(2),
@@ -97,14 +99,14 @@ Options::Options(int argc, char *argv[]):
   _opt_radius(false),
   _rls_patience(50),
   _opt_rls_patience(false),
+  _sa_beta_ratio(1.2),
+  _opt_sa_beta_ratio(false),
   _sa_initial_acceptance_probability(0.6),
   _opt_sa_initial_acceptance_probability(false),
   _sa_num_transitions(50),
   _opt_sa_num_transitions(false),
   _sa_num_trials(100),
   _opt_sa_num_trials(false),
-  _sa_rate(1.2),
-  _opt_sa_rate(false),
   _seed(0),
   _opt_seed(false),
   _selection_size(1),
@@ -132,6 +134,7 @@ Options::Options(int argc, char *argv[]):
   _incremental_evaluation(false),
   _log_improvement(false),
   _map_random(false),
+  _map_surjective(false),
   _mmas_strict(false),
   _negation(false),
   _pn_allow_stay(false),
@@ -157,6 +160,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_BM_SAMPLING,
     OPTION_BUDGET,
     OPTION_BV_SIZE,
+    OPTION_CACHE_BUDGET,
     OPTION_EA_LAMBDA,
     OPTION_EA_MU,
     OPTION_FN_NAME,
@@ -180,24 +184,24 @@ Options::Options(int argc, char *argv[]):
     OPTION_MAP,
     OPTION_MAP_INPUT_SIZE,
     OPTION_MAP_PATH,
-    OPTION_MUTATION,
+    OPTION_MUTATION_PROBABILITY,
     OPTION_NEIGHBORHOOD,
     OPTION_NEIGHBORHOOD_ITERATOR,
     OPTION_NOISE_STDDEV,
     OPTION_NUM_ITERATIONS,
     OPTION_NUM_THREADS,
     OPTION_PATH,
-    OPTION_PN_MUTATION,
+    OPTION_PN_MUTATION_PROBABILITY,
     OPTION_PN_NEIGHBORHOOD,
     OPTION_PN_RADIUS,
     OPTION_POPULATION_SIZE,
     OPTION_PV_LOG_NUM_COMPONENTS,
     OPTION_RADIUS,
     OPTION_RLS_PATIENCE,
+    OPTION_SA_BETA_RATIO,
     OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY,
     OPTION_SA_NUM_TRANSITIONS,
     OPTION_SA_NUM_TRIALS,
-    OPTION_SA_RATE,
     OPTION_SEED,
     OPTION_SELECTION_SIZE,
     OPTION_TARGET,
@@ -222,6 +226,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_INCREMENTAL_EVALUATION,
     OPTION_LOG_IMPROVEMENT,
     OPTION_MAP_RANDOM,
+    OPTION_MAP_SURJECTIVE,
     OPTION_MMAS_STRICT,
     OPTION_NEGATION,
     OPTION_PN_ALLOW_STAY,
@@ -245,6 +250,7 @@ Options::Options(int argc, char *argv[]):
     {"bm-sampling", required_argument, 0, OPTION_BM_SAMPLING},
     {"budget", required_argument, 0, OPTION_BUDGET},
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
+    {"cache-budget", required_argument, 0, OPTION_CACHE_BUDGET},
     {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
     {"fn-name", required_argument, 0, OPTION_FN_NAME},
@@ -268,24 +274,24 @@ Options::Options(int argc, char *argv[]):
     {"map", required_argument, 0, OPTION_MAP},
     {"map-input-size", required_argument, 0, OPTION_MAP_INPUT_SIZE},
     {"map-path", required_argument, 0, OPTION_MAP_PATH},
-    {"mutation", required_argument, 0, OPTION_MUTATION},
+    {"mutation-probability", required_argument, 0, OPTION_MUTATION_PROBABILITY},
     {"neighborhood", required_argument, 0, OPTION_NEIGHBORHOOD},
     {"neighborhood-iterator", required_argument, 0, OPTION_NEIGHBORHOOD_ITERATOR},
     {"noise-stddev", required_argument, 0, OPTION_NOISE_STDDEV},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
     {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
     {"path", required_argument, 0, OPTION_PATH},
-    {"pn-mutation", required_argument, 0, OPTION_PN_MUTATION},
+    {"pn-mutation-probability", required_argument, 0, OPTION_PN_MUTATION_PROBABILITY},
     {"pn-neighborhood", required_argument, 0, OPTION_PN_NEIGHBORHOOD},
     {"pn-radius", required_argument, 0, OPTION_PN_RADIUS},
     {"population-size", required_argument, 0, OPTION_POPULATION_SIZE},
     {"pv-log-num-components", required_argument, 0, OPTION_PV_LOG_NUM_COMPONENTS},
     {"radius", required_argument, 0, OPTION_RADIUS},
     {"rls-patience", required_argument, 0, OPTION_RLS_PATIENCE},
+    {"sa-beta-ratio", required_argument, 0, OPTION_SA_BETA_RATIO},
     {"sa-initial-acceptance-probability", required_argument, 0, OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY},
     {"sa-num-transitions", required_argument, 0, OPTION_SA_NUM_TRANSITIONS},
     {"sa-num-trials", required_argument, 0, OPTION_SA_NUM_TRIALS},
-    {"sa-rate", required_argument, 0, OPTION_SA_RATE},
     {"seed", required_argument, 0, OPTION_SEED},
     {"selection-size", required_argument, 0, OPTION_SELECTION_SIZE},
     {"target", required_argument, 0, OPTION_TARGET},
@@ -310,6 +316,7 @@ Options::Options(int argc, char *argv[]):
     {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
     {"log-improvement", no_argument, 0, OPTION_LOG_IMPROVEMENT},
     {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
+    {"map-surjective", no_argument, 0, OPTION_MAP_SURJECTIVE},
     {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
     {"negation", no_argument, 0, OPTION_NEGATION},
     {"pn-allow-stay", no_argument, 0, OPTION_PN_ALLOW_STAY},
@@ -363,6 +370,10 @@ Options::Options(int argc, char *argv[]):
     case 's':
     case OPTION_BV_SIZE:
       set_bv_size(atoi(optarg));
+      break;
+
+    case OPTION_CACHE_BUDGET:
+      set_cache_budget(atoi(optarg));
       break;
 
     case OPTION_EA_LAMBDA:
@@ -462,8 +473,8 @@ Options::Options(int argc, char *argv[]):
       break;
 
     case 'm':
-    case OPTION_MUTATION:
-      set_mutation(atof(optarg));
+    case OPTION_MUTATION_PROBABILITY:
+      set_mutation_probability(atof(optarg));
       break;
 
     case 'N':
@@ -493,8 +504,8 @@ Options::Options(int argc, char *argv[]):
       set_path(string(optarg));
       break;
 
-    case OPTION_PN_MUTATION:
-      set_pn_mutation(atof(optarg));
+    case OPTION_PN_MUTATION_PROBABILITY:
+      set_pn_mutation_probability(atof(optarg));
       break;
 
     case OPTION_PN_NEIGHBORHOOD:
@@ -522,6 +533,10 @@ Options::Options(int argc, char *argv[]):
       set_rls_patience(atoi(optarg));
       break;
 
+    case OPTION_SA_BETA_RATIO:
+      set_sa_beta_ratio(atof(optarg));
+      break;
+
     case OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY:
       set_sa_initial_acceptance_probability(atof(optarg));
       break;
@@ -532,10 +547,6 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_SA_NUM_TRIALS:
       set_sa_num_trials(atoi(optarg));
-      break;
-
-    case OPTION_SA_RATE:
-      set_sa_rate(atof(optarg));
       break;
 
     case OPTION_SEED:
@@ -633,6 +644,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_MAP_RANDOM:
       _map_random = true;
+      break;
+
+    case OPTION_MAP_SURJECTIVE:
+      _map_surjective = true;
       break;
 
     case OPTION_MMAS_STRICT:
@@ -784,6 +799,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Number of allowed function evaluations (<= 0 means indefinite)" << endl;
   stream << "      --cache" << endl;
   stream << "          Cache function evaluations" << endl;
+  stream << "      --cache-budget (type int, default to 0)" << endl;
+  stream << "          Cache budget (<= 0 means indefinite)" << endl;
   stream << "      --log-improvement" << endl;
   stream << "          Log improvement" << endl;
   stream << "      --negation" << endl;
@@ -800,7 +817,7 @@ void Options::print_help(ostream& stream) const
   stream << "Prior Noise:" << endl;
   stream << "      --pn-allow-stay" << endl;
   stream << "          In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)" << endl;
-  stream << "      --pn-mutation (type double, default to 1)" << endl;
+  stream << "      --pn-mutation-probability (type double, default to 1)" << endl;
   stream << "          Expected number of flipped bits (bv_size times mutation probability)" << endl;
   stream << "      --pn-neighborhood (type int, default to 0)" << endl;
   stream << "          Type of neighborhood" << endl;
@@ -828,6 +845,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Path of a map file" << endl;
   stream << "      --map-random" << endl;
   stream << "          Sample a random map" << endl;
+  stream << "      --map-surjective" << endl;
+  stream << "          Ensure that the sampled linear or affine map is surjective" << endl;
   stream << endl;
   stream << "Algorithm:" << endl;
   stream << "  -A, --algorithm (type int, default to 100)" << endl;
@@ -850,7 +869,7 @@ void Options::print_help(ostream& stream) const
   stream << "            900: Herding evolutionary algorithm, herding with binary variables" << endl;
   stream << "            901: Herding evolutionary algorithm, herding with spin variables" << endl;
   stream << "            1000: Boltzmann machine PBIL" << endl;
-  stream << "  -m, --mutation (type double, default to 1)" << endl;
+  stream << "  -m, --mutation-probability (type double, default to 1)" << endl;
   stream << "          Expected number of flipped bits (bv_size times mutation probability)" << endl;
   stream << "  -i, --num-iterations (type int, default to 0)" << endl;
   stream << "          Number of iterations (<= 0 means indefinite)" << endl;
@@ -880,14 +899,14 @@ void Options::print_help(ostream& stream) const
   stream << "          Strict (>) random local search" << endl;
   stream << endl;
   stream << "Simulated Annealing:" << endl;
+  stream << "      --sa-beta-ratio (type double, default to 1.2)" << endl;
+  stream << "          Ratio for beta or inverse temperature" << endl;
   stream << "      --sa-initial-acceptance-probability (type double, default to 0.6)" << endl;
   stream << "          Initial acceptance probability" << endl;
   stream << "      --sa-num-transitions (type int, default to 50)" << endl;
   stream << "          Number of accepted transitions before annealing" << endl;
   stream << "      --sa-num-trials (type int, default to 100)" << endl;
   stream << "          Number of trials to estimate initial inverse temperature" << endl;
-  stream << "      --sa-rate (type double, default to 1.2)" << endl;
-  stream << "          Increase rate for inverse temperature" << endl;
   stream << endl;
   stream << "Evolutionary Algorithms:" << endl;
   stream << "      --ea-lambda (type int, default to 100)" << endl;
@@ -996,6 +1015,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# bm_sampling = " << options._bm_sampling << endl;
   stream << "# budget = " << options._budget << endl;
   stream << "# bv_size = " << options._bv_size << endl;
+  stream << "# cache_budget = " << options._cache_budget << endl;
   stream << "# ea_lambda = " << options._ea_lambda << endl;
   stream << "# ea_mu = " << options._ea_mu << endl;
   stream << "# fn_name = " << options._fn_name << endl;
@@ -1019,24 +1039,24 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# map = " << options._map << endl;
   stream << "# map_input_size = " << options._map_input_size << endl;
   stream << "# map_path = " << options._map_path << endl;
-  stream << "# mutation = " << options._mutation << endl;
+  stream << "# mutation_probability = " << options._mutation_probability << endl;
   stream << "# neighborhood = " << options._neighborhood << endl;
   stream << "# neighborhood_iterator = " << options._neighborhood_iterator << endl;
   stream << "# noise_stddev = " << options._noise_stddev << endl;
   stream << "# num_iterations = " << options._num_iterations << endl;
   stream << "# num_threads = " << options._num_threads << endl;
   stream << "# path = " << options._path << endl;
-  stream << "# pn_mutation = " << options._pn_mutation << endl;
+  stream << "# pn_mutation_probability = " << options._pn_mutation_probability << endl;
   stream << "# pn_neighborhood = " << options._pn_neighborhood << endl;
   stream << "# pn_radius = " << options._pn_radius << endl;
   stream << "# population_size = " << options._population_size << endl;
   stream << "# pv_log_num_components = " << options._pv_log_num_components << endl;
   stream << "# radius = " << options._radius << endl;
   stream << "# rls_patience = " << options._rls_patience << endl;
+  stream << "# sa_beta_ratio = " << options._sa_beta_ratio << endl;
   stream << "# sa_initial_acceptance_probability = " << options._sa_initial_acceptance_probability << endl;
   stream << "# sa_num_transitions = " << options._sa_num_transitions << endl;
   stream << "# sa_num_trials = " << options._sa_num_trials << endl;
-  stream << "# sa_rate = " << options._sa_rate << endl;
   stream << "# seed = " << options._seed << endl;
   stream << "# selection_size = " << options._selection_size << endl;
   stream << "# target = " << options._target << endl;
@@ -1082,6 +1102,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# log_improvement" << endl;
   if (options._map_random)
     stream << "# map_random" << endl;
+  if (options._map_surjective)
+    stream << "# map_surjective" << endl;
   if (options._mmas_strict)
     stream << "# mmas_strict" << endl;
   if (options._negation)

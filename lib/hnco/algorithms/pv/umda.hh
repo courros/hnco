@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -48,6 +48,15 @@ namespace hnco::algorithm {
     /// Mean of selected bit vectors
     pv_t _mean;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Selection size
+    int _selection_size = 1;
+
+    ///@}
+
     /// Single iteration
     void iterate();
 
@@ -59,17 +68,17 @@ namespace hnco::algorithm {
       _population(population_size, n),
       _mean(n) {}
 
-    /** @name Parameters
+    /// Initialization
+    void init();
+
+    /** @name Setters
      */
     ///@{
 
-    /// Selection size
-    int _selection_size = 1;
+    /// Set the selection size
+    void set_selection_size(int x) { _selection_size = x; }
 
     ///@}
-
-    /// Initialization
-    void init();
 
   };
 

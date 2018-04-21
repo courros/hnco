@@ -1,3 +1,57 @@
+* Version 0.8 (2018-04-21)
+
+Library:
+- RandomLocalSearch, Mmas, Population: renamed _compare -> _operator
+- RandomLocalSearch: renamed _failures -> _num_failures
+- SimulatedAnnealing: renamed _rate -> _beta_ratio
+- SimulatedAnnealing: renamed member function set_beta -> init_beta
+- Hea: _herding is now a private pointer
+- Cache: renamed _x -> _key
+- ProgressTracker: _stream is now a pointer
+- Algorithm: _stream is now a pointer
+- Added setters for members now declared protected or private:
+  Algorithm, IterativeAlgorithm, RandomLocalSearch, OnePlusOneEa,
+  SimulatedAnnealing, MuPlusLambdaEa, MuCommaLambdaEa,
+  GeneticAlgorithm, OnePlusLambdaCommaLambdaGa, PvAlgorithm, Pbil,
+  NpsPbil, Umda, CompactGa, Mmas, Hea, BinaryHerding, SpinHerding,
+  BernoulliProcess, TournamentSelection, BmPbil, ProgressTracker
+- Added bm_row_echelon_form
+- Added bm_rank
+- LinearMap, AffineMap: added member function is_surjective
+- LinearMap, AffineMap can sample surjective maps
+
+Tests:
+- Added test-bm-rank
+- Added test-bm-row-column-rank
+
+hnco:
+- Renamed option --sa-rate -> --sa-beta-ratio
+- Renamed option --mutation -> --mutation-probability
+- Renamed option --pn-mutation -> --pn-mutation-probability
+- Added option --cache-budget
+- Give yes/no answer to request about function
+- Added option --map-surjective
+
+mapgen:
+- Added option --surjective
+- Renamed option bv_size -> output_size
+- Renamed option map_input_size -> input_size
+
+Scripts:
+- Added hnco-dynamics-stat.pl
+- Renamed script hnco-dynamics-stat-maximum.pl -> hnco-maximum-stat.pl
+- Added support for remote execution with GNU parallel
+- Added script hnco-benchmark-skeleton.pl
+- Added script hnco-dynamics-skeleton.pl
+- Added script hnco-parameter-skeleton.pl
+
+Experiments:
+- Added option --allow-stay for ea-1c10
+- Removed option --cache
+- Renamed experiment dynamics -> maximum
+- Added experiment dynamics
+
+
 * Version 0.7 (2017-12-28)
 
 Highlight:

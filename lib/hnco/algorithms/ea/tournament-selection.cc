@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -38,7 +38,7 @@ TournamentSelection::select()
     do {
       challenger = _choose_individual(Random::engine);
     } while (challenger == winner);
-    if (_compare(_lookup[challenger], _lookup[winner]))
+    if (_operator(_lookup[challenger], _lookup[winner]))
       winner = challenger;
   }
   return get_best_bv(winner);

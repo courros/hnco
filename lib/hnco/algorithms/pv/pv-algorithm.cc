@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -32,14 +32,14 @@ PvAlgorithm::log()
   assert(_log_flags.any());
 
   if (_log_flags[LOG_ENTROPY])
-    _stream << pv_entropy(_pv) << " ";
+    (*_stream) << pv_entropy(_pv) << " ";
 
   if (_log_flags[LOG_PV]) {
     int upper_bound = std::min(_log_num_components, int(_pv.size()));
     for (int i = 0; i < upper_bound; i++)
-      _stream << _pv[i] << " ";
+      (*_stream) << _pv[i] << " ";
   }
 
-  _stream << std::endl;
+  (*_stream) << std::endl;
 
 }

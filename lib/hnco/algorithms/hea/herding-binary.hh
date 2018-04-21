@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -35,8 +35,7 @@ namespace hea {
 
 
   /// Herding with binary variables
-  class BinaryHerding
-  {
+  class BinaryHerding {
 
   protected:
 
@@ -54,6 +53,21 @@ namespace hea {
 
     /// Time
     int _time;
+
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Randomize bit order
+    bool _randomize_bit_order = false;
+
+    /// Dynamics
+    int _dynamics = DYNAMICS_MINIMIZE_NORM;
+
+    /// Weight of second order moments
+    double _weight = 1;
+
+    ///@}
 
     /// Compute delta
     void compute_delta(const BinaryMoment& target);
@@ -81,23 +95,11 @@ namespace hea {
       _permutation(n, 0),
       _choose_bit(0, n - 1) {}
 
-    /** @name Parameters
-     */
-    ///@{
-
-    /// Randomize bit order
-    bool _randomize_bit_order = false;
-
-    /// Dynamics
-    int _dynamics = DYNAMICS_MINIMIZE_NORM;
-
-    /// Weight of second order moments
-    double _weight = 1;
-
-    ///@}
-
     /// Initialization
     void init();
+
+    /// Sample a bit vector
+    void sample(const BinaryMoment& target, bit_vector_t& x);
 
     /// Compute the error
     double error(const BinaryMoment& target);
@@ -105,8 +107,20 @@ namespace hea {
     /// Compute the norm of delta
     double delta(const BinaryMoment& target) { return _delta.norm_2(); }
 
-    /// Sample a bit vector
-    void sample(const BinaryMoment& target, bit_vector_t& x);
+    /** @name Setters
+     */
+    ///@{
+
+    /// Randomize bit order
+    void set_randomize_bit_order(bool x) { _randomize_bit_order = x; }
+
+    /// Set the dynamics
+    void set_dynamics(int x) { _dynamics = x; }
+
+    /// Set the weight of second order moments
+    void set_weight(double x) { _weight = x; }
+
+    ///@}
 
   };
 

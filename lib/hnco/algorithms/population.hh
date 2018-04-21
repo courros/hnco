@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -40,7 +40,7 @@ namespace algorithm {
     typedef std::pair<size_t, double> index_value_t;
 
     /// Binary operator for comparing index-value pairs
-    std::function<bool(const index_value_t&, const index_value_t&)> _compare =
+    std::function<bool(const index_value_t&, const index_value_t&)> _operator =
       [](const index_value_t& a, const index_value_t& b) { return a.second > b.second; };
 
   protected:

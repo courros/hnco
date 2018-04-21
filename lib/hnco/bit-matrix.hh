@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -97,6 +97,18 @@ namespace hnco {
       Row i is added to row j.
   */
   void bm_add_rows(bit_matrix_t& M, std::size_t i, std::size_t j);
+
+  /** Compute a row echelon form of a matrix.
+
+      \warning A is modified by the function.
+  */
+  void bm_row_echelon_form(bit_matrix_t& A);
+
+  /** Compute the rank of a matrix.
+
+      \pre A must be in row echelon form.
+  */
+  std::size_t bm_rank(const bit_matrix_t& A);
 
   /** Solve a linear system.
 

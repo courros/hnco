@@ -41,6 +41,10 @@ class Options {
   int _bv_size;
   bool _opt_bv_size;
 
+  /// Cache budget (<= 0 means indefinite)
+  int _cache_budget;
+  bool _opt_cache_budget;
+
   /// Offspring population size
   int _ea_lambda;
   bool _opt_ea_lambda;
@@ -134,8 +138,8 @@ class Options {
   bool _opt_map_path;
 
   /// Expected number of flipped bits (bv_size times mutation probability)
-  double _mutation;
-  bool _opt_mutation;
+  double _mutation_probability;
+  bool _opt_mutation_probability;
 
   /// Type of neighborhood
   int _neighborhood;
@@ -162,8 +166,8 @@ class Options {
   bool _opt_path;
 
   /// Expected number of flipped bits (bv_size times mutation probability)
-  double _pn_mutation;
-  bool _opt_pn_mutation;
+  double _pn_mutation_probability;
+  bool _opt_pn_mutation_probability;
 
   /// Type of neighborhood
   int _pn_neighborhood;
@@ -189,6 +193,10 @@ class Options {
   int _rls_patience;
   bool _opt_rls_patience;
 
+  /// Ratio for beta or inverse temperature
+  double _sa_beta_ratio;
+  bool _opt_sa_beta_ratio;
+
   /// Initial acceptance probability
   double _sa_initial_acceptance_probability;
   bool _opt_sa_initial_acceptance_probability;
@@ -200,10 +208,6 @@ class Options {
   /// Number of trials to estimate initial inverse temperature
   int _sa_num_trials;
   bool _opt_sa_num_trials;
-
-  /// Increase rate for inverse temperature
-  double _sa_rate;
-  bool _opt_sa_rate;
 
   /// Seed for the random number generator
   unsigned _seed;
@@ -279,6 +283,9 @@ class Options {
 
   /// Sample a random map
   bool _map_random;
+
+  /// Ensure that the sampled linear or affine map is surjective
+  bool _map_surjective;
 
   /// Strict (>) max-min ant system
   bool _mmas_strict;
@@ -416,6 +423,18 @@ public:
 
   /// Get set-flag for bv_size
   bool set_bv_size() const { return _opt_bv_size; }
+
+  /// Get cache_budget
+  int get_cache_budget() const { return _cache_budget; }
+
+  /// Set cache_budget
+  void set_cache_budget(int x) {
+    _cache_budget = x;
+    _opt_cache_budget = true;
+  }
+
+  /// Get set-flag for cache_budget
+  bool set_cache_budget() const { return _opt_cache_budget; }
 
   /// Get ea_lambda
   int get_ea_lambda() const { return _ea_lambda; }
@@ -693,17 +712,17 @@ public:
   /// Get set-flag for map_path
   bool set_map_path() const { return _opt_map_path; }
 
-  /// Get mutation
-  double get_mutation() const { return _mutation; }
+  /// Get mutation_probability
+  double get_mutation_probability() const { return _mutation_probability; }
 
-  /// Set mutation
-  void set_mutation(double x) {
-    _mutation = x;
-    _opt_mutation = true;
+  /// Set mutation_probability
+  void set_mutation_probability(double x) {
+    _mutation_probability = x;
+    _opt_mutation_probability = true;
   }
 
-  /// Get set-flag for mutation
-  bool set_mutation() const { return _opt_mutation; }
+  /// Get set-flag for mutation_probability
+  bool set_mutation_probability() const { return _opt_mutation_probability; }
 
   /// Get neighborhood
   int get_neighborhood() const { return _neighborhood; }
@@ -777,17 +796,17 @@ public:
   /// Get set-flag for path
   bool set_path() const { return _opt_path; }
 
-  /// Get pn_mutation
-  double get_pn_mutation() const { return _pn_mutation; }
+  /// Get pn_mutation_probability
+  double get_pn_mutation_probability() const { return _pn_mutation_probability; }
 
-  /// Set pn_mutation
-  void set_pn_mutation(double x) {
-    _pn_mutation = x;
-    _opt_pn_mutation = true;
+  /// Set pn_mutation_probability
+  void set_pn_mutation_probability(double x) {
+    _pn_mutation_probability = x;
+    _opt_pn_mutation_probability = true;
   }
 
-  /// Get set-flag for pn_mutation
-  bool set_pn_mutation() const { return _opt_pn_mutation; }
+  /// Get set-flag for pn_mutation_probability
+  bool set_pn_mutation_probability() const { return _opt_pn_mutation_probability; }
 
   /// Get pn_neighborhood
   int get_pn_neighborhood() const { return _pn_neighborhood; }
@@ -861,6 +880,18 @@ public:
   /// Get set-flag for rls_patience
   bool set_rls_patience() const { return _opt_rls_patience; }
 
+  /// Get sa_beta_ratio
+  double get_sa_beta_ratio() const { return _sa_beta_ratio; }
+
+  /// Set sa_beta_ratio
+  void set_sa_beta_ratio(double x) {
+    _sa_beta_ratio = x;
+    _opt_sa_beta_ratio = true;
+  }
+
+  /// Get set-flag for sa_beta_ratio
+  bool set_sa_beta_ratio() const { return _opt_sa_beta_ratio; }
+
   /// Get sa_initial_acceptance_probability
   double get_sa_initial_acceptance_probability() const { return _sa_initial_acceptance_probability; }
 
@@ -896,18 +927,6 @@ public:
 
   /// Get set-flag for sa_num_trials
   bool set_sa_num_trials() const { return _opt_sa_num_trials; }
-
-  /// Get sa_rate
-  double get_sa_rate() const { return _sa_rate; }
-
-  /// Set sa_rate
-  void set_sa_rate(double x) {
-    _sa_rate = x;
-    _opt_sa_rate = true;
-  }
-
-  /// Get set-flag for sa_rate
-  bool set_sa_rate() const { return _opt_sa_rate; }
 
   /// Get seed
   unsigned get_seed() const { return _seed; }
@@ -1070,6 +1089,12 @@ public:
 
   /// Set map_random
   void set_map_random() { _map_random = true; }
+ 
+  /// Get map_surjective
+  bool with_map_surjective() const { return _map_surjective; }
+
+  /// Set map_surjective
+  void set_map_surjective() { _map_surjective = true; }
  
   /// Get mmas_strict
   bool with_mmas_strict() const { return _mmas_strict; }

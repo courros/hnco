@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -52,7 +52,17 @@ namespace hnco::algorithm::hea {
   public:
 
     enum {
+      /// Constant rate
+      RATE_CONSTANT,
 
+      /// Exponentiel decay
+      RATE_EXPONENTIAL,
+
+      /// Inverse decay
+      RATE_INVERSE
+    };
+
+    enum {
       /// Log error
       LOG_ERROR,
 
@@ -71,9 +81,6 @@ namespace hnco::algorithm::hea {
     /// Type for log flags
     typedef std::bitset<LAST_LOG> log_flags_t;
 
-    /// Herding
-    Herding _herding;
-
   private:
 
     /// Moment
@@ -87,6 +94,9 @@ namespace hnco::algorithm::hea {
 
     /// Population
     algorithm::Population _population;
+
+    /// Herding
+    Herding *_herding;
 
     /// Error cache
     double _error_cache;
@@ -103,25 +113,54 @@ namespace hnco::algorithm::hea {
     /// Log flags
     log_flags_t _log_flags;
 
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Moment margin
+    double _margin;
+
+    /// Selection size
+    int _selection_size = 1;
+
+    /// Rate strategy
+    int _rate_strategy = RATE_CONSTANT;
+
+    /// Reset period
+    int _reset_period = 0;
+
+    /// Delay
+    int _delay = 10000;
+
+    /// Initial value of the learning rate
+    double _initial_rate = 1e-4;
+
+    /// Time constant
+    double _time_constant = 1000;
+
+    /// Bound moment after update
+    bool _bound_moment = false;
+
+    ///@}
 
     /// Single iteration
     void iterate() {
       if (_reset_period > 0) {
         if (_iteration % _reset_period == 0)
-          _herding.init();
+          _herding->init();
       }
 
       for (size_t i = 0; i < _population.size(); i++)
-        _herding.sample(_target, _population.get_bv(i));
+        _herding->sample(_target, _population.get_bv(i));
 
       if (_log_flags[LOG_ERROR])
-        _error_cache = _herding.error(_target);
+        _error_cache = _herding->error(_target);
 
       if (_log_flags[LOG_DTU])
         _dtu_cache = _target.distance(_uniform);
 
       if (_log_flags[LOG_DELTA])
-        _delta_cache = _herding.delta(_target);
+        _delta_cache = _herding->delta(_target);
 
       if (_functions.size() > 1)
         _population.eval(_functions);
@@ -170,26 +209,30 @@ namespace hnco::algorithm::hea {
       assert(_log_flags.any());
 
       if (_log_flags[LOG_ERROR])
-        _stream << _error_cache << " ";
+        (*_stream) << _error_cache << " ";
 
       if (_log_flags[LOG_DTU])
-        _stream << _dtu_cache << " ";
+        (*_stream) << _dtu_cache << " ";
 
       if (_log_flags[LOG_DELTA])
-        _stream << _delta_cache << " ";
+        (*_stream) << _delta_cache << " ";
 
       if (_log_flags[LOG_SELECTION])
-        _stream << _selection_cache << " ";
+        (*_stream) << _selection_cache << " ";
 
-      _stream << std::endl;
+      (*_stream) << std::endl;
     }
 
   public:
 
-    /// Constructor
+    /** Constructor.
+
+        \param n Size of bit vectors
+
+        _margin is initialized to 1 / n.
+    */
     Hea(int n, int population_size):
       IterativeAlgorithm(n),
-      _herding(n),
       _target(n),
       _selection(n),
       _uniform(n),
@@ -199,52 +242,61 @@ namespace hnco::algorithm::hea {
       _uniform.uniform();
     }
 
-    enum {
-      /// Constant rate
-      RATE_CONSTANT,
-
-      /// Exponentiel decay
-      RATE_EXPONENTIAL,
-
-      /// Inverse decay
-      RATE_INVERSE
-    };
-
-    /** @name Parameters
-     */
-    ///@{
-
-    /// Moment margin
-    double _margin;
-
-    /// Selection size (number of selected individuals in the population)
-    int _selection_size = 1;
-
-    /// Rate strategy
-    int _rate_strategy = RATE_CONSTANT;
-
-    /// Reset period (<= 0 means no reset)
-    int _reset_period = 0;
-
-    /// Delay
-    int _delay = 10000;
-
-    /// Initial value of the learning rate
-    double _initial_rate = 1e-4;
-
-    /// Time constant
-    double _time_constant = 1000;
-
-    /// Bound moment after update
-    bool _bound_moment = false;
-
-    ///@}
-
     /// Initialization
     void init() {
         random_solution();
         _target.uniform();
-        _herding.init();
+        _herding->init();
+    }
+
+    /** @name Setters
+     */
+    ///@{
+
+    /// Set the herding algorithm
+    void set_herding(Herding *x) {
+      assert(x);
+      _herding = x;
+    }
+
+    /// Set the moment margin
+    void set_margin(double x) { _margin = x; }
+
+    /** Set the selection size.
+
+        The selection size is the number of selected individuals in
+        the population.
+    */
+    void set_selection_size(int x) { _selection_size = x; }
+
+    /// Set the rate strategy
+    void set_rate_strategy(int x) { _rate_strategy = x; }
+
+    /** Set the reset period
+
+        \param x Reset period
+
+        x <= 0 means no reset.
+    */
+    void set_reset_period(int x) { _reset_period = x; }
+
+    /// Set the delay
+    void set_delay(int x) { _delay = x; }
+
+    /// Set the initial value of the learning rate
+    void set_initial_rate(double x) { _initial_rate = x; }
+
+    /// Set the time constant
+    void set_time_constant(double x) { _time_constant = x; }
+
+    /// Set the bound moment after update
+    void set_bound_moment(bool x) { _bound_moment = x; }
+
+    /// Set weight
+    void set_weight(double weight) {
+      _target._weight = weight;
+      _selection._weight = weight;
+      _uniform._weight = weight;
     }
 
     /// Set log flags
@@ -253,12 +305,7 @@ namespace hnco::algorithm::hea {
       _something_to_log = _log_flags.any();
     }
 
-    /// Set weight
-    void set_weight(double weight) {
-      _target._weight = weight;
-      _selection._weight = weight;
-      _uniform._weight = weight;
-    }
+    ///@}
 
   };
 

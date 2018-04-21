@@ -13,17 +13,17 @@ class Options {
   /// Version
   std::string _version;
 
-  /// Size of bit vectors
-  int _bv_size;
-  bool _opt_bv_size;
+  /// Input bit vector size
+  int _input_size;
+  bool _opt_input_size;
 
   /// Type of map
   int _map;
   bool _opt_map;
 
-  /// Input size of linear and affine maps
-  int _map_input_size;
-  bool _opt_map_input_size;
+  /// Output bit vector size
+  int _output_size;
+  bool _opt_output_size;
 
   /// Path (relative or absolute) of a map file
   std::string _path;
@@ -32,6 +32,9 @@ class Options {
   /// Seed for the random number generator
   int _seed;
   bool _opt_seed;
+
+  /// Ensure that the sampled linear or affine map is surjective
+  bool _surjective;
 
   /// Print help message
   void print_help(std::ostream& stream) const;
@@ -44,17 +47,17 @@ public:
   /// Constructor
   Options(int argc, char *argv[]);
 
-  /// Get bv_size
-  int get_bv_size() const { return _bv_size; }
+  /// Get input_size
+  int get_input_size() const { return _input_size; }
 
-  /// Set bv_size
-  void set_bv_size(int x) {
-    _bv_size = x;
-    _opt_bv_size = true;
+  /// Set input_size
+  void set_input_size(int x) {
+    _input_size = x;
+    _opt_input_size = true;
   }
 
-  /// Get set-flag for bv_size
-  bool set_bv_size() const { return _opt_bv_size; }
+  /// Get set-flag for input_size
+  bool set_input_size() const { return _opt_input_size; }
 
   /// Get map
   int get_map() const { return _map; }
@@ -68,17 +71,17 @@ public:
   /// Get set-flag for map
   bool set_map() const { return _opt_map; }
 
-  /// Get map_input_size
-  int get_map_input_size() const { return _map_input_size; }
+  /// Get output_size
+  int get_output_size() const { return _output_size; }
 
-  /// Set map_input_size
-  void set_map_input_size(int x) {
-    _map_input_size = x;
-    _opt_map_input_size = true;
+  /// Set output_size
+  void set_output_size(int x) {
+    _output_size = x;
+    _opt_output_size = true;
   }
 
-  /// Get set-flag for map_input_size
-  bool set_map_input_size() const { return _opt_map_input_size; }
+  /// Get set-flag for output_size
+  bool set_output_size() const { return _opt_output_size; }
 
   /// Get path
   std::string get_path() const { return _path; }
@@ -104,6 +107,12 @@ public:
   /// Get set-flag for seed
   bool set_seed() const { return _opt_seed; }
 
+  /// Get surjective
+  bool with_surjective() const { return _surjective; }
+
+  /// Set surjective
+  void set_surjective() { _surjective = true; }
+ 
   /// Print a header containing the parameter values
   friend std::ostream& operator<<(std::ostream&, const Options&);
 };

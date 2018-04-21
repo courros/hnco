@@ -3,7 +3,7 @@
 
     "description": "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors",
 
-    "version": "0.7",
+    "version": "0.8",
 
     "tab_order": [
         "General",
@@ -137,6 +137,12 @@
         "map_random":
         {
             "description": "Sample a random map",
+            "category": "Map"
+        },
+
+        "map_surjective":
+        {
+            "description": "Ensure that the sampled linear or affine map is surjective",
             "category": "Map"
         },
 
@@ -458,6 +464,14 @@
             "category": "Function Decorators"
         },
 
+        "cache_budget":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Cache budget (<= 0 means indefinite)",
+            "category": "Function Decorators"
+        },
+
         "noise_stddev":
         {
             "type": "double",
@@ -475,7 +489,7 @@
         },
 
 
-        "pn_mutation":
+        "pn_mutation_probability":
         {
             "type": "double",
             "value": 1.0,
@@ -699,7 +713,7 @@
             "category": "Algorithm"
         },
 
-        "mutation":
+        "mutation_probability":
         {
             "optchar": "m",
             "type": "double",
@@ -805,11 +819,11 @@
             "category": "Simulated Annealing"
         },
 
-        "sa_rate":
+        "sa_beta_ratio":
         {
             "type": "double",
             "value": 1.2,
-            "description": "Increase rate for inverse temperature",
+            "description": "Ratio for beta or inverse temperature",
             "category": "Simulated Annealing"
         },
 

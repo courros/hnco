@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -31,7 +31,7 @@ using namespace hnco::random;
 
 
 void
-SimulatedAnnealing::set_beta()
+SimulatedAnnealing::init_beta()
 {
   double delta = 0;
   int count = 0;
@@ -60,7 +60,7 @@ SimulatedAnnealing::init()
   _neighborhood->set_origin(_solution.first);
   _current_value = _solution.second;
   _transitions = 0;
-  set_beta();
+  init_beta();
 }
 
 
@@ -85,15 +85,14 @@ SimulatedAnnealing::iterate()
       _current_value = value;
 
       _transitions++;
-    }
-    else
+    } else
       _neighborhood->forget();
   }
 
   // Cooling schedule
   if (_transitions == _num_transitions) {
     _transitions = 0;
-    _beta *= _rate;
+    _beta *= _beta_ratio;
   }
 
 }

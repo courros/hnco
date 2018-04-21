@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -34,7 +34,7 @@ RandomLocalSearch::init()
 
   random_solution();
   _neighborhood->set_origin(_solution.first);
-  _failures = 0;
+  _num_failures = 0;
 }
 
 
@@ -56,7 +56,7 @@ RandomLocalSearch::init(const bit_vector_t& x, double value)
 
   set_solution(x, value);
   _neighborhood->set_origin(_solution.first);
-  _failures = 0;
+  _num_failures = 0;
 }
 
 
@@ -75,7 +75,8 @@ RandomLocalSearch::iterate()
 {
   assert(_function);
 
-  if (_incremental_evaluation && _function->provides_incremental_evaluation())
+  if (_incremental_evaluation &&
+      _function->provides_incremental_evaluation())
     iterate_incremental();
   else
     iterate_full();
@@ -91,22 +92,21 @@ RandomLocalSearch::iterate_full()
   _neighborhood->propose();
   double value = _function->eval(_neighborhood->get_candidate());
 
-  if (_compare(value, _solution.second)) {
+  if (_operator(value, _solution.second)) {
     // success
     _neighborhood->keep();
     _solution.second = value;
-    _failures = 0;
-  }
-  else {
+    _num_failures = 0;
+  } else {
     // failure
     _neighborhood->forget();
-    _failures++;
+    _num_failures++;
   }
 
   if (_patience > 0 &&
-      _failures == _patience)
+      _num_failures == _patience)
     {
-      _solution.first =  _neighborhood->get_origin();
+      _solution.first = _neighborhood->get_origin();
       throw LocalMaximum(_solution);
     }
 
@@ -120,24 +120,26 @@ RandomLocalSearch::iterate_incremental()
   assert(_neighborhood);
 
   _neighborhood->propose();
-  double value = _function->incremental_eval(_neighborhood->get_origin(), _solution.second, _neighborhood->get_flipped_bits());
+  double value =
+    _function->incremental_eval(_neighborhood->get_origin(),
+                                _solution.second,
+                                _neighborhood->get_flipped_bits());
 
-  if (_compare(value, _solution.second)) {
+  if (_operator(value, _solution.second)) {
     // success
     _neighborhood->keep();
     _solution.second = value;
-    _failures = 0;
-  }
-  else {
+    _num_failures = 0;
+  } else {
     // failure
     _neighborhood->forget();
-    _failures++;
+    _num_failures++;
   }
 
   if (_patience > 0 &&
-      _failures == _patience)
+      _num_failures == _patience)
     {
-      _solution.first =  _neighborhood->get_origin();
+      _solution.first = _neighborhood->get_origin();
       throw LocalMaximum(_solution);
     }
 

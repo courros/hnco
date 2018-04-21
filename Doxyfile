@@ -1,5 +1,5 @@
 PROJECT_NAME           = "HNCO"
-PROJECT_NUMBER         = 0.7
+PROJECT_NUMBER         = 0.8
 OUTPUT_DIRECTORY       = doc/api
 FULL_PATH_NAMES        = YES
 STRIP_FROM_INC_PATH    = lib
@@ -18,5 +18,5 @@ GENERATE_LATEX         = YES
 COMPACT_LATEX          = NO
 CLASS_GRAPH            = YES
 COLLABORATION_GRAPH    = NO
-UML_LOOK               = YES
+UML_LOOK               = NO
 TEMPLATE_RELATIONS     = YES

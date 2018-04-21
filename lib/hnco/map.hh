@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -188,11 +188,7 @@ namespace hnco {
   /** Linear map.
 
       A linear map f from \f$Z_2^m\f$ to \f$Z_2^n\f$ is defined by
-      \f$f(x) = Ax\f$, where A is an m x n bit matrix.
-
-      \warning The class does not reimplement the member function
-      is_surjective hence a linear map is always considered not
-      surjective.
+      \f$f(x) = Ax\f$, where A is an n x m bit matrix.
   */
   class LinearMap:
     public Map {
@@ -224,14 +220,15 @@ namespace hnco {
 
   public:
 
-    /// Random instance
-    void random(int n, int m) {
-      assert(n > 0);
-      assert(m > 0);
+    /** Random instance.
 
-      bm_resize(_bm, n, m);
-      bm_random(_bm);
-    }
+        \param rows Number of rows
+        \param cols Number of columns
+        \param surjective Flag to ensure a surjective map
+
+        \throw Error
+    */
+    void random(int rows, int cols, bool surjective);
 
     /// Map
     void map(const bit_vector_t& input, bit_vector_t& output);
@@ -242,6 +239,12 @@ namespace hnco {
     /// Get output size
     size_t get_output_size() { return bm_num_rows(_bm); }
 
+    /** Check for surjective map.
+
+        \return true if rank(_bm) == bm_num_rows(_bm)
+    */
+    bool is_surjective();
+
   };
 
 
@@ -250,10 +253,6 @@ namespace hnco {
       An affine map f from \f$Z_2^m\f$ to \f$Z_2^n\f$ is defined by
       \f$f(x) = Ax + b\f$, where A is an n x m bit matrix and b is an
       n-dimensional bit vector.
-
-      \warning The class does not reimplement the member function
-      is_surjective hence a linear map is always considered not
-      surjective.
   */
   class AffineMap:
     public Map {
@@ -292,19 +291,15 @@ namespace hnco {
 
   public:
 
-    /// Random instance
-    void random(int n, int m) {
-      assert(n > 0);
-      assert(m > 0);
+    /** Random instance.
 
-      bm_resize(_bm, n, m);
-      bm_random(_bm);
+        \param rows Number of rows
+        \param cols Number of columns
+        \param surjective Flag to ensure a surjective map
 
-      _bv.resize(n);
-      bv_random(_bv);
-
-      assert(bm_num_rows(_bm) == _bv.size());
-    }
+        \throw Error
+    */
+    void random(int rows, int cols, bool surjective);
 
     /// Map
     void map(const bit_vector_t& input, bit_vector_t& output);
@@ -314,6 +309,12 @@ namespace hnco {
 
     /// Get output size
     size_t get_output_size() { return bm_num_rows(_bm); }
+
+    /** Check for surjective map.
+
+        \return true if rank(_bm) == bm_num_rows(_bm)
+    */
+    bool is_surjective();
 
   };
 

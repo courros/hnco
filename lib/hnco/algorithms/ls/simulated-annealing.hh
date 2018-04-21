@@ -1,4 +1,4 @@
-/* Copyright (C) 2016, 2017 Arnaud Berny
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
 
    This file is part of HNCO.
 
@@ -58,13 +58,31 @@ namespace algorithm {
     /// Number of accepted transitions
     int _transitions;
 
-    /** Set beta.
+    /** @name Parameters
+     */
+    ///@{
 
-        Requires (2 * num_trials) evaluations. This should be taken
+    /// Number of accepted transitions before annealing
+    int _num_transitions = 50;
+
+    /// Number of trials
+    int _num_trials = 100;
+
+    /// Initial acceptance probability
+    double _initial_acceptance_probability = 0.6;
+
+    /// Ratio for beta
+    double _beta_ratio = 1.2;
+
+    ///@}
+
+    /** Initialize beta.
+
+        Requires (2 * _num_trials) evaluations. This should be taken
         into account when using OnBudgetFunction.
 
     */
-    void set_beta();
+    void init_beta();
 
     /// Single iteration
     void iterate();
@@ -79,26 +97,26 @@ namespace algorithm {
       assert(neighborhood);
     }
 
-    /** @name Parameters
+    /// Initialization
+    void init();
+
+    /** @name Setters
      */
     ///@{
 
-    /// Number of accepted transitions before annealing
-    int _num_transitions = 50;
+    /// Set the number of accepted transitions before annealing
+    void set_num_transitions(int x) { _num_transitions = x; }
 
-    /// Number of trials.
-    int _num_trials = 100;
+    /// Set the Number of trials
+    void set_num_trials(int x) { _num_trials = x; }
 
-    /// Initial acceptance probability
-    double _initial_acceptance_probability = 0.6;
+    /// Set the initial acceptance probability
+    void set_initial_acceptance_probability(double x) { _initial_acceptance_probability = x; }
 
-    /// Increase rate for inverse temperature
-    double _rate = 1.2;
+    /// Set ratio for beta
+    void set_beta_ratio(double x) { _beta_ratio = x; }
 
     ///@}
-
-    /// Initialization
-    void init();
 
   };
 

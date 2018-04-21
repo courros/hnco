@@ -4,7 +4,7 @@ _mapgen()
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts="--bv-size --map --map-input-size --path --seed --help --version"
+    opts="--input-size --map --output-size --path --seed --surjective --help --version"
 
     if [[ ${cur} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
