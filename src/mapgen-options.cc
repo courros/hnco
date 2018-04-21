@@ -9,48 +9,48 @@ using namespace std;
 Options::Options(int argc, char *argv[]):
   _exec_name(argv[0]),
   _version("0.8"),
-  _bv_size(100),
-  _opt_bv_size(false),
+  _input_size(100),
+  _opt_input_size(false),
   _map(1),
   _opt_map(false),
-  _map_input_size(100),
-  _opt_map_input_size(false),
+  _output_size(100),
+  _opt_output_size(false),
   _path("nopath"),
   _opt_path(false),
   _seed(0),
   _opt_seed(false),
-  _map_surjective(false)
+  _surjective(false)
 {
   enum {
     OPTION_HELP=256,
     OPTION_VERSION,
-    OPTION_BV_SIZE,
+    OPTION_INPUT_SIZE,
     OPTION_MAP,
-    OPTION_MAP_INPUT_SIZE,
+    OPTION_OUTPUT_SIZE,
     OPTION_PATH,
     OPTION_SEED,
-    OPTION_MAP_SURJECTIVE
+    OPTION_SURJECTIVE
   };
   const struct option long_options[] = {
-    {"bv-size", required_argument, 0, OPTION_BV_SIZE},
+    {"input-size", required_argument, 0, OPTION_INPUT_SIZE},
     {"map", required_argument, 0, OPTION_MAP},
-    {"map-input-size", required_argument, 0, OPTION_MAP_INPUT_SIZE},
+    {"output-size", required_argument, 0, OPTION_OUTPUT_SIZE},
     {"path", required_argument, 0, OPTION_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
-    {"map-surjective", no_argument, 0, OPTION_MAP_SURJECTIVE},
+    {"surjective", no_argument, 0, OPTION_SURJECTIVE},
     {"help", no_argument, 0, OPTION_HELP},
     {"version", no_argument, 0, OPTION_VERSION},
     {0, no_argument, 0, 0}
   };
-  const char *short_options = "s:M:p:";
+  const char *short_options = "x:M:y:p:";
   while (true) {
     int option = getopt_long(argc, argv, short_options, long_options, 0);
     if (option < 0)
       break;
     switch (option) {
-    case 's':
-    case OPTION_BV_SIZE:
-      set_bv_size(atoi(optarg));
+    case 'x':
+    case OPTION_INPUT_SIZE:
+      set_input_size(atoi(optarg));
       break;
 
     case 'M':
@@ -58,8 +58,9 @@ Options::Options(int argc, char *argv[]):
       set_map(atoi(optarg));
       break;
 
-    case OPTION_MAP_INPUT_SIZE:
-      set_map_input_size(atoi(optarg));
+    case 'y':
+    case OPTION_OUTPUT_SIZE:
+      set_output_size(atoi(optarg));
       break;
 
     case 'p':
@@ -71,8 +72,8 @@ Options::Options(int argc, char *argv[]):
       set_seed(atoi(optarg));
       break;
 
-    case OPTION_MAP_SURJECTIVE:
-      _map_surjective = true;
+    case OPTION_SURJECTIVE:
+      _surjective = true;
       break;
 
     case OPTION_HELP:
@@ -94,15 +95,8 @@ void Options::print_help(ostream& stream) const
 {
   stream << "Map generator for HNCO" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
-  stream << "General:" << endl;
-  stream << "  -s, --bv-size (type int, default to 100)" << endl;
-  stream << "          Size of bit vectors" << endl;
-  stream << "  -p, --path (type string, default to \"nopath\")" << endl;
-  stream << "          Path (relative or absolute) of a map file" << endl;
-  stream << "      --seed (type int, default to 0)" << endl;
-  stream << "          Seed for the random number generator" << endl;
-  stream << endl;
-  stream << "Map:" << endl;
+  stream << "  -x, --input-size (type int, default to 100)" << endl;
+  stream << "          Input bit vector size" << endl;
   stream << "  -M, --map (type int, default to 1)" << endl;
   stream << "          Type of map" << endl;
   stream << "            1: Translation" << endl;
@@ -110,11 +104,14 @@ void Options::print_help(ostream& stream) const
   stream << "            3: Composition of permutation and translation" << endl;
   stream << "            4: Linear" << endl;
   stream << "            5: Affine" << endl;
-  stream << "      --map-input-size (type int, default to 100)" << endl;
-  stream << "          Input size of linear and affine maps" << endl;
-  stream << "      --map-surjective" << endl;
+  stream << "  -y, --output-size (type int, default to 100)" << endl;
+  stream << "          Output bit vector size" << endl;
+  stream << "  -p, --path (type string, default to \"nopath\")" << endl;
+  stream << "          Path (relative or absolute) of a map file" << endl;
+  stream << "      --seed (type int, default to 0)" << endl;
+  stream << "          Seed for the random number generator" << endl;
+  stream << "      --surjective" << endl;
   stream << "          Ensure that the sampled linear or affine map is surjective" << endl;
-  stream << endl;
 }
 
 void Options::print_version(ostream& stream) const
@@ -124,13 +121,13 @@ void Options::print_version(ostream& stream) const
 
 ostream& operator<<(ostream& stream, const Options& options)
 {
-  stream << "# bv_size = " << options._bv_size << endl;
+  stream << "# input_size = " << options._input_size << endl;
   stream << "# map = " << options._map << endl;
-  stream << "# map_input_size = " << options._map_input_size << endl;
+  stream << "# output_size = " << options._output_size << endl;
   stream << "# path = " << options._path << endl;
   stream << "# seed = " << options._seed << endl;
-  if (options._map_surjective)
-    stream << "# map_surjective" << endl;
+  if (options._surjective)
+    stream << "# surjective" << endl;
   stream << "# last_parameter" << endl;
   stream << "# exec_name = " << options._exec_name << endl;
   stream << "# version = " << options._version << endl;
