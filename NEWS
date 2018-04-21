@@ -33,7 +33,9 @@ hnco:
 - Added option --map-surjective
 
 mapgen:
-- Added option --map-surjective
+- Added option --surjective
+- Renamed option bv_size -> output_size
+- Renamed option map_input_size -> input_size
 
 Scripts:
 - Added hnco-dynamics-stat.pl
