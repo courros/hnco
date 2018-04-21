@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
   case 1: {
     Translation map;
-    map.random(options.get_bv_size());
+    map.random(options.get_output_size());
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     cout << "Writing translation to " << options.get_path() << " ... ";
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 
   case 2: {
     Permutation map;
-    map.random(options.get_bv_size());
+    map.random(options.get_output_size());
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     cout << "Writing permutation to " << options.get_path() << " ... ";
@@ -74,8 +74,8 @@ int main(int argc, char *argv[])
   case 3: {
     Permutation permutation;
     Translation translation;
-    permutation.random(options.get_bv_size());
-    translation.random(options.get_bv_size());
+    permutation.random(options.get_output_size());
+    translation.random(options.get_output_size());
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     cout << "Writing permutation and translation to " << options.get_path() << " ... ";
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 
   case 4: {
     LinearMap map;
-    map.random(options.get_bv_size(), options.get_map_input_size(), options.with_map_surjective());
+    map.random(options.get_output_size(), options.get_input_size(), options.with_surjective());
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     cout << "Writing linear map to " << options.get_path() << " ... ";
@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
 
   case 5: {
     AffineMap map;
-    map.random(options.get_bv_size(), options.get_map_input_size(), options.with_map_surjective());
+    map.random(options.get_output_size(), options.get_input_size(), options.with_surjective());
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     cout << "Writing affine map to " << options.get_path() << " ... ";
