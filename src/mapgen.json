@@ -5,14 +5,14 @@
 
     "version": "0.8",
 
-    "tab_order": [ "General", "Map" ],
+    "nocategory": true,
 
     "flags": {
 
-        "map_surjective":
+        "surjective":
         {
             "description": "Ensure that the sampled linear or affine map is surjective",
-            "category": "Map"
+            "category": "nocategory"
         }
 
     },
@@ -24,26 +24,7 @@
             "type": "int",
             "value": 0,
             "description": "Seed for the random number generator",
-            "category": "General"
-        },
-
-        "bv_size":
-        {
-            "optchar": "s",
-            "type": "int",
-            "value": 100,
-            "description": "Size of bit vectors",
-            "category": "General"
-        },
-
-        "path":
-        {
-            "optchar": "p",
-            "type": "string",
-            "value": "nopath",
-            "description": "Path (relative or absolute) of a map file",
-            "category": "General",
-            "file": "open"
+            "category": "nocategory"
         },
 
         "map":
@@ -52,7 +33,7 @@
             "type": "int",
             "value": 1,
             "description": "Type of map",
-            "category": "Map",
+            "category": "nocategory",
             "alternatives":
             [
 
@@ -85,12 +66,32 @@
 
         },
 
-        "map_input_size":
+        "input_size":
         {
+            "optchar": "x",
             "type": "int",
             "value": 100,
-            "description": "Input size of linear and affine maps",
-            "category": "Map"
+            "description": "Input bit vector size",
+            "category": "nocategory"
+        },
+
+        "output_size":
+        {
+            "optchar": "y",
+            "type": "int",
+            "value": 100,
+            "description": "Output bit vector size",
+            "category": "nocategory"
+        },
+
+        "path":
+        {
+            "optchar": "p",
+            "type": "string",
+            "value": "nopath",
+            "description": "Path (relative or absolute) of a map file",
+            "category": "nocategory",
+            "file": "open"
         }
 
     }
