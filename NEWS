@@ -1,5 +1,9 @@
 * Version 0.8 (2018-04-21)
 
+Highlight: support for remote execution with GNU parallel
+
+Details follow.
+
 Library:
 - RandomLocalSearch, Mmas, Population: renamed _compare -> _operator
 - RandomLocalSearch: renamed _failures -> _num_failures
