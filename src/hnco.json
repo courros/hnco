@@ -631,6 +631,11 @@
                 },
 
                 {
+                    "value": 160,
+                    "description": "First ascent hill climbing"
+                },
+
+                {
                     "value": 200,
                     "description": "Simulated annealing"
                 },

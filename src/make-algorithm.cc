@@ -133,6 +133,20 @@ make_concrete_algorithm(const Options& options)
     return algo;
   }
 
+  case 160: {
+    auto neighborhood = make_neighborhood_iterator(options);
+    assert(neighborhood);
+
+    auto algo = new FirstAscentHillClimbing
+      (options.get_bv_size(),
+       neighborhood);
+    assert(algo);
+
+    algo->set_num_iterations(options.get_num_iterations());
+
+    return algo;
+  }
+
   case 200: {
     auto neighborhood = make_neighborhood(options);
     assert(neighborhood);

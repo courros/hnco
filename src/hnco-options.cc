@@ -855,6 +855,7 @@ void Options::print_help(ostream& stream) const
   stream << "            10: Random search" << endl;
   stream << "            100: Random local search" << endl;
   stream << "            150: Steepest ascent hill climbing" << endl;
+  stream << "            160: First ascent hill climbing" << endl;
   stream << "            200: Simulated annealing" << endl;
   stream << "            300: (1+1) evolutionary algorithm" << endl;
   stream << "            310: (mu+lambda) evolutionary algorithm" << endl;
