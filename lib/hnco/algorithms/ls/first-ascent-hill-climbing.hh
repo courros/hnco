@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_LS_STEEPEST_ASCENT_LOCAL_SEARCH_H
-#define HNCO_ALGORITHMS_LS_STEEPEST_ASCENT_LOCAL_SEARCH_H
+#ifndef HNCO_ALGORITHMS_LS_FIRST_ASCENT_HILL_CLIMBING_H
+#define HNCO_ALGORITHMS_LS_FIRST_ASCENT_HILL_CLIMBING_H
 
 #include <assert.h>
 
@@ -35,8 +35,8 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// Steepest ascent hill climbing
-  class SteepestAscentHillClimbing:
+  /// First ascent hill climbing
+  class FirstAscentHillClimbing:
     public IterativeAlgorithm {
 
   protected:
@@ -53,7 +53,7 @@ namespace algorithm {
   public:
 
     /// Constructor
-    SteepestAscentHillClimbing(int n, neighborhood::NeighborhoodIterator *neighborhood):
+    FirstAscentHillClimbing(int n, neighborhood::NeighborhoodIterator *neighborhood):
       IterativeAlgorithm(n),
       _candidates(n, bit_vector_t(n)),
       _neighborhood(neighborhood) {}

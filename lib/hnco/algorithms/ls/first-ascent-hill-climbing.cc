@@ -20,7 +20,7 @@
 
 #include <random>               // uniform_int_distribution
 
-#include "steepest-ascent-hill-climbing.hh"
+#include "first-ascent-hill-climbing.hh"
 
 
 using namespace hnco::algorithm;
@@ -30,7 +30,7 @@ using namespace hnco;
 
 
 void
-SteepestAscentHillClimbing::init()
+FirstAscentHillClimbing::init()
 {
   assert(_function);
   assert(_neighborhood);
@@ -41,7 +41,7 @@ SteepestAscentHillClimbing::init()
 
 
 void
-SteepestAscentHillClimbing::init(const bit_vector_t& x)
+FirstAscentHillClimbing::init(const bit_vector_t& x)
 {
   assert(_function);
   assert(_neighborhood);
@@ -51,7 +51,7 @@ SteepestAscentHillClimbing::init(const bit_vector_t& x)
 
 
 void
-SteepestAscentHillClimbing::init(const bit_vector_t& x, double value)
+FirstAscentHillClimbing::init(const bit_vector_t& x, double value)
 {
   assert(_function);
   assert(_neighborhood);
@@ -63,7 +63,7 @@ SteepestAscentHillClimbing::init(const bit_vector_t& x, double value)
 
 
 void
-SteepestAscentHillClimbing::iterate()
+FirstAscentHillClimbing::iterate()
 {
   assert(_function);
   assert(_neighborhood);
