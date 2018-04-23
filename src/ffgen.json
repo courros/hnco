@@ -3,7 +3,7 @@
 
     "description": "Fitness function generator for HNCO",
 
-    "version": "0.8",
+    "version": "0.9",
 
     "tab_order": [ "General", "NkLandscape", "MaxSat", "EqualProducts", "WalshExpansion"],
 
