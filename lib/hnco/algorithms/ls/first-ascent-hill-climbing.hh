@@ -21,13 +21,9 @@
 #ifndef HNCO_ALGORITHMS_LS_FIRST_ASCENT_HILL_CLIMBING_H
 #define HNCO_ALGORITHMS_LS_FIRST_ASCENT_HILL_CLIMBING_H
 
-#include <assert.h>
-
-#include <vector>
+#include <functional>           // std::function
 
 #include "hnco/algorithms/algorithm.hh"
-#include "hnco/exception.hh"
-
 #include "hnco/neighborhoods/neighborhood-iterator.hh"
 
 
@@ -41,11 +37,17 @@ namespace algorithm {
 
   protected:
 
-    /// Potential candidate
-    std::vector<bit_vector_t> _candidates;
-
     /// Neighborhood
     neighborhood::NeighborhoodIterator *_neighborhood;
+
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Binary operator for comparing evaluations
+    std::function<bool(double, double)> _operator = std::greater_equal<double>();
+
+    ///@}
 
     /// Single iteration
     void iterate();
@@ -55,7 +57,6 @@ namespace algorithm {
     /// Constructor
     FirstAscentHillClimbing(int n, neighborhood::NeighborhoodIterator *neighborhood):
       IterativeAlgorithm(n),
-      _candidates(n, bit_vector_t(n)),
       _neighborhood(neighborhood) {}
 
     /// Random initialization
@@ -66,6 +67,15 @@ namespace algorithm {
 
     /// Explicit initialization
     void init(const bit_vector_t& x, double value);
+
+    /** @name Setters
+     */
+    ///@{
+
+    /// Set the binary operator for comparing evaluations
+    void set_operator(std::function<bool(double, double)> x) { _operator = x; }
+
+    ///@}
 
   };
 

@@ -18,14 +18,15 @@
 
 */
 
-#include <random>               // uniform_int_distribution
+#include <assert.h>
+
+#include "hnco/exception.hh"
 
 #include "first-ascent-hill-climbing.hh"
 
 
 using namespace hnco::algorithm;
 using namespace hnco::exception;
-using namespace hnco::random;
 using namespace hnco;
 
 
@@ -68,32 +69,18 @@ FirstAscentHillClimbing::iterate()
   assert(_function);
   assert(_neighborhood);
 
-  _neighborhood->init();
-  double best_value = _function->eval(_neighborhood->get_current());
-  size_t index = 0;
-  _candidates[index++] = _neighborhood->get_current();
-
-  while (_neighborhood->has_next()) {
-    _neighborhood->next();
-    double value = _function->eval(_neighborhood->get_current());
-    if (value >= best_value) {
-      if (value > best_value) {
-        index = 0;
-        best_value = value;
+  for (_neighborhood->init();
+       _neighborhood->has_next();
+       _neighborhood->next())
+    {
+      double value = _function->eval(_neighborhood->get_current());
+      if (_operator(value, _solution.second)) {
+        _solution.first = _neighborhood->get_current();
+        _solution.second = value;
+        _neighborhood->set_origin(_solution.first);
+        return;
       }
-      if (index < _candidates.size())
-        _candidates[index++] = _neighborhood->get_current();
     }
-  }
 
-  assert(index >= 1);
-  assert(index <= _candidates.size());
-
-  if (best_value >= _solution.second) {
-    std::uniform_int_distribution<int> choose_candidate(0, index - 1);
-    _solution.first = _candidates[choose_candidate(random::Random::engine)];
-    _solution.second = best_value;
-    _neighborhood->set_origin(_solution.first);
-  } else
-    throw LocalMaximum(_solution);
+  throw LocalMaximum(_solution);
 }
