@@ -77,7 +77,6 @@ FirstAscentHillClimbing::iterate()
       if (_operator(value, _solution.second)) {
         _solution.first = _neighborhood->get_current();
         _solution.second = value;
-        _neighborhood->set_origin(_solution.first);
         return;
       }
     }
