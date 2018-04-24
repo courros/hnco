@@ -1,5 +1,9 @@
 * Version 0.9 (unreleased)
 
+Library:
+- Added first ascent hill climbing
+
+
 * Version 0.8 (2018-04-21)
 
 Highlight: support for remote execution with GNU parallel
