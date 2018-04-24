@@ -40,15 +40,6 @@ namespace algorithm {
     /// Neighborhood
     neighborhood::NeighborhoodIterator *_neighborhood;
 
-    /** @name Parameters
-     */
-    ///@{
-
-    /// Binary operator for comparing evaluations
-    std::function<bool(double, double)> _operator = std::greater_equal<double>();
-
-    ///@}
-
     /// Single iteration
     void iterate();
 
@@ -67,15 +58,6 @@ namespace algorithm {
 
     /// Explicit initialization
     void init(const bit_vector_t& x, double value);
-
-    /** @name Setters
-     */
-    ///@{
-
-    /// Set the binary operator for comparing evaluations
-    void set_operator(std::function<bool(double, double)> x) { _operator = x; }
-
-    ///@}
 
   };
 
