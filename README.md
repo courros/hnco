@@ -81,6 +81,7 @@ Here is the list of currently available algorithms:
 - Random search
 - Random local search (strict and non strict)
 - Steepest ascent hill climbing
+- First ascent hill climbing
 - Simulated annealing
 - (1+1) evolutionary algorithm
 - (mu+lambda) evolutionary algorithm
