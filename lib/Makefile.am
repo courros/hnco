@@ -101,8 +101,6 @@ libhnco_la_SOURCES = \
 	hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.cc \
 	hnco/functions/nk-landscape.hh \
-	hnco/functions/plugin.cc \
-	hnco/functions/plugin.hh \
 	hnco/functions/qubo.cc \
 	hnco/functions/qubo.hh \
 	hnco/functions/theory.cc \
@@ -135,6 +133,12 @@ if ENABLE_FACTORIZATION
 libhnco_la_SOURCES += \
 	hnco/functions/factorization.cc \
 	hnco/functions/factorization.hh
+endif
+
+if ENABLE_PLUGIN
+libhnco_la_SOURCES += \
+	hnco/functions/plugin.cc \
+	hnco/functions/plugin.hh
 endif
 
 nobase_include_HEADERS = \
@@ -194,7 +198,6 @@ nobase_include_HEADERS = \
 	hnco/functions/long-path.hh \
 	hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.hh \
-	hnco/functions/plugin.hh \
 	hnco/functions/qubo.hh \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.hh \
@@ -213,6 +216,10 @@ nobase_include_HEADERS = \
 
 if ENABLE_FACTORIZATION
 nobase_include_HEADERS += hnco/functions/factorization.hh
+endif
+
+if ENABLE_PLUGIN
+nobase_include_HEADERS += hnco/functions/plugin.hh
 endif
 
 #

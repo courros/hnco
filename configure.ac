@@ -30,11 +30,18 @@ AC_OPENMP
 
 # Checks for optional features.
 AC_ARG_ENABLE([factorization], AS_HELP_STRING([--enable-factorization], [Enable factorization]))
-AM_CONDITIONAL([ENABLE_FACTORIZATION], [test "x$enable_factorization" = "xyes"])
 if test "x$enable_factorization" = "xyes"
 then
   AC_DEFINE([ENABLE_FACTORIZATION], [1], [Define to 1 if factorization has been enabled])
 fi
+AM_CONDITIONAL([ENABLE_FACTORIZATION], [test "x$enable_factorization" = "xyes"])
+
+AC_ARG_ENABLE([plugin], AS_HELP_STRING([--enable-plugin], [Enable plugin]))
+if test "x$enable_plugin" = "xyes"
+then
+  AC_DEFINE([ENABLE_PLUGIN], [1], [Define to 1 if plugin has been enabled])
+fi
+AM_CONDITIONAL([ENABLE_PLUGIN], [test "x$enable_plugin" = "xyes"])
 
 # Output files.
 AC_CONFIG_HEADERS([config.h])

@@ -243,11 +243,13 @@ make_concrete_function(const Options& options)
     return function;
   }
 
+#ifdef ENABLE_PLUGIN
   case 1000:
     return new FunctionPlugin
       (options.get_bv_size(),
        options.get_path(),
        options.get_fn_name());
+#endif
 
   default:
     std::ostringstream stream;

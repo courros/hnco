@@ -3,6 +3,9 @@
 /* Define to 1 if factorization has been enabled */
 #undef ENABLE_FACTORIZATION
 
+/* Define to 1 if plugin has been enabled */
+#undef ENABLE_PLUGIN
+
 /* define if the Boost library is available */
 #undef HAVE_BOOST
 
