@@ -3,6 +3,10 @@
 Library:
 - Added first ascent hill climbing
 
+Build:
+- Conditional compilation of plugin
+- Factorization and plugin features are default-disabled
+
 
 * Version 0.8 (2018-04-21)
 

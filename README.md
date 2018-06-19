@@ -314,9 +314,9 @@ and the algorithms must be able to find it in finite time.
 
 ## Requirements
 
-`libhnco` depends on the following libraries:
+`libhnco` itself only depends on the Boost serialization
+library. Optionally it can be built with the following libraries:
 
-- Boost serialization library
 - `libdl` for plugin
 - GNU GMP (libgmp and libgmpxx) for factorization
 
@@ -327,26 +327,22 @@ The Perl scripts depend on the following modules:
 
 They also depend on the following executables:
 
-- GNU parallel
 - `/usr/bin/time`
+- GNU parallel
 
 You will need gnuplot and latex to generate reports. Moreover reports
 require the `minted` latex package which in turn requires
 `pygmentize`.
 
-Under Ubuntu 16.04, execute the following commands to install the
+Under Ubuntu 18.04, execute the following commands to install the
 necessary packages:
 ```
-sudo apt-get install build-essential libboost-serialization1.58-dev
+sudo apt-get install build-essential libboost-serialization-dev
 sudo apt-get install libgmp-dev
 sudo apt-get install libjson-perl libstatistics-descriptive-perl gnuplot
 sudo apt-get install texlive-base texlive-latex-extra python-pygments
 sudo apt-get install parallel
 ```
-
-Under Ubuntu 16.10 and later, replace `libboost-serialization1.58-dev`
-with a more recent `libboost-serialization*-dev` library (there might
-be more than one available version).
 
 ## Building and installing <a name="building"></a>
 
@@ -356,8 +352,9 @@ Execute the following commands in the source directory:
     make
     make install
 
-The factorization function is disabled by default. To enable it, use
-`./configure --enable-factorization` instead of `./configure`. See
+The factorization function is disabled by default. To enable it, add
+the option `--enable-factorization` to `./configure`. Similarly add
+the option `--enable-plugin` to enable the plugin function. See
 `./configure --help` for other options.
 
 To run the tests:
