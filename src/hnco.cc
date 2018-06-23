@@ -24,6 +24,7 @@
 #include <chrono>
 
 #include "hnco/exception.hh"
+#include "hnco/functions/all.hh"
 #include "hnco/random.hh"
 
 #include "hnco-options.hh"
@@ -105,6 +106,15 @@ int main(int argc, char *argv[])
       std::cout << "yes" << std::endl;
     else
       std::cout << "no" << std::endl;
+    return 0;
+  }
+
+  if (options.with_fn_walsh_transform()) {
+    WalshTransform wt(fn);
+    wt.compute();
+    const std::vector<double>& cs = wt.get_coefficients();
+    for (auto c : cs)
+      std::cout << c << std::endl;
     return 0;
   }
 
