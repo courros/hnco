@@ -18,20 +18,57 @@
 
 */
 
-#include <iostream>             // std::endl
-#include <algorithm>            // std::max_element
+#include <math.h>
 
-#include "hnco/random.hh"
+#include "hnco/iterator.hh"
 
 #include "walsh-transform.hh"
 
 
-using namespace hnco::random;
 using namespace hnco::function;
+using namespace hnco;
 
 
 void
-WalshTransform::display(std::ostream& stream)
+WalshTransform::compute()
 {
+  HypercubeIterator bv_it(_function->get_bv_size());
+  HypercubeIterator features_it(_function->get_bv_size());
 
+  features_it.init();
+  while (true) {
+    const bit_vector_t& u = features_it.get_current();
+    std::size_t index = 0;
+    std::size_t base = 1;
+    for (size_t i = 0; i < u.size(); i++) {
+      if (u[i])
+	index += base;
+      base <<= 1;               // means base *= 2;
+    }
+    assert(index < _coefficients.size());
+
+    double sum = 0.0;
+    bv_it.init();
+    while (true) {
+      double value = _function->eval(bv_it.get_current());
+      if (bv_dot_product(bv_it.get_current(), features_it.get_current()))
+        sum -= value;
+      else
+        sum += value;
+      if (bv_it.has_next()) {
+        bv_it.next();
+      } else {
+        break;                  // Exit the innermost loop
+      }
+    }
+    _coefficients[index] = sum / std::pow(2, u.size() / 2.0);
+
+    if (features_it.has_next()) {
+      features_it.next();
+    } else {
+      break;
+    }
+  }
+
+  _coefficients[0] = 0;
 }

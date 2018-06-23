@@ -23,7 +23,6 @@
 
 #include <assert.h>
 
-#include <iostream>
 #include <vector>
 
 #include "hnco/functions/function.hh"
@@ -46,13 +45,34 @@ namespace function {
   */
   class WalshTransform {
 
+    /// Function
+    Function *_function;
+
+    /// Coefficients
+    std::vector<double> _coefficients;
+
   public:
 
     /// Constructor
-    WalshTransform() {}
+    WalshTransform(Function *function):
+      _function(function)
+    {
+      assert(function);
 
-    /// Display
-    void display(std::ostream& stream);
+      std::size_t N = 1 << _function->get_bv_size();
+      _coefficients = std::vector<double>(N, 0.0);
+    }
+
+    /// Get coefficients
+    const std::vector<double>& get_coefficients() { return _coefficients; }
+
+    /** Compute the Walsh transform.
+
+        The first coefficient is set to zero independently of the
+        function, which corresponds to removing its average
+        value. This is done for the purpose of normalization.
+    */
+    void compute();
 
   };
 
