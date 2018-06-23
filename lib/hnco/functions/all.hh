@@ -22,8 +22,8 @@
 #define HNCO_FUNCTIONS_ALL_H
 
 #include "hnco/functions/cancellation.hh"
-#include "hnco/functions/equal-products.hh"
 #include "hnco/functions/decorators/all.hh"
+#include "hnco/functions/equal-products.hh"
 #include "hnco/functions/four-peaks.hh"
 #include "hnco/functions/function.hh"
 #include "hnco/functions/jump.hh"
@@ -35,6 +35,7 @@
 #include "hnco/functions/qubo.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/functions/trap.hh"
+#include "hnco/functions/walsh-transform.hh"
 #include "hnco/functions/walsh/all.hh"
 
 #ifdef ENABLE_FACTORIZATION

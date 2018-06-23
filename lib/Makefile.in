@@ -218,7 +218,8 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/functions/nk-landscape.hh hnco/functions/qubo.cc \
 	hnco/functions/qubo.hh hnco/functions/theory.cc \
 	hnco/functions/theory.hh hnco/functions/trap.cc \
-	hnco/functions/trap.hh hnco/functions/walsh/all.hh \
+	hnco/functions/trap.hh hnco/functions/walsh-transform.cc \
+	hnco/functions/walsh-transform.hh hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.cc \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.cc \
@@ -273,7 +274,7 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/functions/linear-function.lo hnco/functions/long-path.lo \
 	hnco/functions/max-sat.lo hnco/functions/nk-landscape.lo \
 	hnco/functions/qubo.lo hnco/functions/theory.lo \
-	hnco/functions/trap.lo \
+	hnco/functions/trap.lo hnco/functions/walsh-transform.lo \
 	hnco/functions/walsh/walsh-expansion-1.lo \
 	hnco/functions/walsh/walsh-expansion-2.lo \
 	hnco/functions/walsh/walsh-expansion.lo hnco/iterator.lo \
@@ -385,7 +386,7 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/functions/long-path.hh hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.hh hnco/functions/qubo.hh \
 	hnco/functions/theory.hh hnco/functions/trap.hh \
-	hnco/functions/walsh/all.hh \
+	hnco/functions/walsh-transform.hh hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
@@ -619,7 +620,8 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/functions/nk-landscape.hh hnco/functions/qubo.cc \
 	hnco/functions/qubo.hh hnco/functions/theory.cc \
 	hnco/functions/theory.hh hnco/functions/trap.cc \
-	hnco/functions/trap.hh hnco/functions/walsh/all.hh \
+	hnco/functions/trap.hh hnco/functions/walsh-transform.cc \
+	hnco/functions/walsh-transform.hh hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.cc \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.cc \
@@ -675,7 +677,7 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/functions/long-path.hh hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.hh hnco/functions/qubo.hh \
 	hnco/functions/theory.hh hnco/functions/trap.hh \
-	hnco/functions/walsh/all.hh \
+	hnco/functions/walsh-transform.hh hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
@@ -915,6 +917,8 @@ hnco/functions/theory.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/trap.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/walsh-transform.lo: hnco/functions/$(am__dirstamp) \
+	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/walsh/$(am__dirstamp):
 	@$(MKDIR_P) hnco/functions/walsh
 	@: > hnco/functions/walsh/$(am__dirstamp)
@@ -1031,6 +1035,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/qubo.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/theory.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/trap.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/walsh-transform.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-controller.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo@am__quote@

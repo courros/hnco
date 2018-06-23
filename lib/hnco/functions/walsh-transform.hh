@@ -44,8 +44,7 @@ namespace function {
       the coefficients of the expansion and the bit vectors \f$ u \f$
       are its feature vectors.
   */
-  class WalshTransform:
-    public Function {
+  class WalshTransform {
 
   public:
 
