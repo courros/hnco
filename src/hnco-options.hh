@@ -257,6 +257,9 @@ class Options {
   /// Exit with status 0 if the function provides incremental evaluation, 1 otherwise
   bool _fn_provides_incremental_evaluation;
 
+  /// Compute the Walsh transform of the function
+  bool _fn_walsh_transform;
+
   /// Bound moment after update
   bool _hea_bound_moment;
 
@@ -1035,6 +1038,12 @@ public:
 
   /// Set fn_provides_incremental_evaluation
   void set_fn_provides_incremental_evaluation() { _fn_provides_incremental_evaluation = true; }
+ 
+  /// Get fn_walsh_transform
+  bool with_fn_walsh_transform() const { return _fn_walsh_transform; }
+
+  /// Set fn_walsh_transform
+  void set_fn_walsh_transform() { _fn_walsh_transform = true; }
  
   /// Get hea_bound_moment
   bool with_hea_bound_moment() const { return _hea_bound_moment; }

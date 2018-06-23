@@ -125,6 +125,7 @@ Options::Options(int argc, char *argv[]):
   _fn_get_maximum(false),
   _fn_has_known_maximum(false),
   _fn_provides_incremental_evaluation(false),
+  _fn_walsh_transform(false),
   _hea_bound_moment(false),
   _hea_log_delta(false),
   _hea_log_dtu(false),
@@ -217,6 +218,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_FN_GET_MAXIMUM,
     OPTION_FN_HAS_KNOWN_MAXIMUM,
     OPTION_FN_PROVIDES_INCREMENTAL_EVALUATION,
+    OPTION_FN_WALSH_TRANSFORM,
     OPTION_HEA_BOUND_MOMENT,
     OPTION_HEA_LOG_DELTA,
     OPTION_HEA_LOG_DTU,
@@ -307,6 +309,7 @@ Options::Options(int argc, char *argv[]):
     {"fn-get-maximum", no_argument, 0, OPTION_FN_GET_MAXIMUM},
     {"fn-has-known-maximum", no_argument, 0, OPTION_FN_HAS_KNOWN_MAXIMUM},
     {"fn-provides-incremental-evaluation", no_argument, 0, OPTION_FN_PROVIDES_INCREMENTAL_EVALUATION},
+    {"fn-walsh-transform", no_argument, 0, OPTION_FN_WALSH_TRANSFORM},
     {"hea-bound-moment", no_argument, 0, OPTION_HEA_BOUND_MOMENT},
     {"hea-log-delta", no_argument, 0, OPTION_HEA_LOG_DELTA},
     {"hea-log-dtu", no_argument, 0, OPTION_HEA_LOG_DTU},
@@ -610,6 +613,10 @@ Options::Options(int argc, char *argv[]):
       _fn_provides_incremental_evaluation = true;
       break;
 
+    case OPTION_FN_WALSH_TRANSFORM:
+      _fn_walsh_transform = true;
+      break;
+
     case OPTION_HEA_BOUND_MOMENT:
       _hea_bound_moment = true;
       break;
@@ -762,6 +769,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Exit with status 0 if the function provides incremental evaluation, 1 otherwise" << endl;
   stream << "  -t, --fn-threshold (type int, default to 10)" << endl;
   stream << "          Threshold (in bits) for Jump, Four Peaks, and Six Peaks" << endl;
+  stream << "      --fn-walsh-transform" << endl;
+  stream << "          Compute the Walsh transform of the function" << endl;
   stream << "  -F, --function (type int, default to 0)" << endl;
   stream << "          Type of function" << endl;
   stream << "            0: OneMax" << endl;
@@ -1085,6 +1094,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# fn_has_known_maximum" << endl;
   if (options._fn_provides_incremental_evaluation)
     stream << "# fn_provides_incremental_evaluation" << endl;
+  if (options._fn_walsh_transform)
+    stream << "# fn_walsh_transform" << endl;
   if (options._hea_bound_moment)
     stream << "# hea_bound_moment" << endl;
   if (options._hea_log_delta)
