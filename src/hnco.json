@@ -83,6 +83,12 @@
             "category": "Function"
         },
 
+        "fn_walsh_transform":
+        {
+            "description": "Compute the Walsh transform of the function",
+            "category": "Function"
+        },
+
 
         "log_improvement":
         {
