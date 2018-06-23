@@ -21,8 +21,6 @@
 #ifndef HNCO_SRC_MAKE_FUNCTION
 #define HNCO_SRC_MAKE_FUNCTION
 
-#include "hnco/functions/decorators/all.hh"
-
 #include "hnco-options.hh"
 
 /// Make a function
