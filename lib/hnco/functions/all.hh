@@ -35,7 +35,6 @@
 #include "hnco/functions/qubo.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/functions/trap.hh"
-#include "hnco/functions/walsh-transform.hh"
 #include "hnco/functions/walsh/all.hh"
 
 #ifdef ENABLE_FACTORIZATION
