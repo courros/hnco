@@ -88,6 +88,7 @@ libhnco_la_SOURCES = \
 	hnco/functions/equal-products.hh \
 	hnco/functions/four-peaks.cc \
 	hnco/functions/four-peaks.hh \
+	hnco/functions/function.cc \
 	hnco/functions/function.hh \
 	hnco/functions/jump.cc \
 	hnco/functions/jump.hh \
@@ -107,8 +108,6 @@ libhnco_la_SOURCES = \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.cc \
 	hnco/functions/trap.hh \
-	hnco/functions/walsh-transform.cc \
-	hnco/functions/walsh-transform.hh \
 	hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.cc \
 	hnco/functions/walsh/walsh-expansion-1.hh \
@@ -203,7 +202,6 @@ nobase_include_HEADERS = \
 	hnco/functions/qubo.hh \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.hh \
-	hnco/functions/walsh-transform.hh \
 	hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
