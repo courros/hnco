@@ -18,10 +18,12 @@
 
 */
 
+#include <math.h>               // pow, abs
 #include <omp.h>                // omp_set_num_threads
 
-#include <iostream>
+#include <algorithm>            // sort
 #include <chrono>
+#include <iostream>
 
 #include "hnco/exception.hh"
 #include "hnco/functions/all.hh"
@@ -48,13 +50,20 @@ int main(int argc, char *argv[])
     return 0;
   }
 
+  //
+  // Seed random number generator
+  //
+
   if (!options.set_seed()) {
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     options.set_seed(seed);
   }
   Random::engine.seed(options.get_seed());
 
-  // Main function
+  //
+  // Make fitness function
+  //
+
   Function *fn;
   try { fn = make_function(options); }
   catch (const Error& e) {
@@ -63,23 +72,12 @@ int main(int argc, char *argv[])
   }
   assert(options.get_bv_size() == int(fn->get_bv_size()));
 
-  if (options.with_describe_function()) {
-    fn->display(std::cout);
-    return 0;
-  }
-
-  // Progress tracker
-  ProgressTracker *tracker = new ProgressTracker(fn);
-  assert(tracker);
-
-  tracker->set_log_improvement(options.with_log_improvement());
-
   //
   // Print information about the function
   //
 
   if (options.with_fn_has_known_maximum()) {
-    if (tracker->has_known_maximum())
+    if (fn->has_known_maximum())
       std::cout << "yes" << std::endl;
     else
       std::cout << "no" << std::endl;
@@ -87,8 +85,8 @@ int main(int argc, char *argv[])
   }
 
   if (options.with_fn_get_maximum()) {
-    if (tracker->has_known_maximum()) {
-      std::cout << tracker->get_maximum() << std::endl;
+    if (fn->has_known_maximum()) {
+      std::cout << fn->get_maximum() << std::endl;
       return 0;
     } else {
       std::cerr << "Error: function with unknown maximum" << std::endl;
@@ -97,12 +95,12 @@ int main(int argc, char *argv[])
   }
 
   if (options.with_fn_get_bv_size()) {
-    std::cout << tracker->get_bv_size() << std::endl;
+    std::cout << fn->get_bv_size() << std::endl;
     return 0;
   }
 
   if (options.with_fn_provides_incremental_evaluation()) {
-    if (tracker->provides_incremental_evaluation())
+    if (fn->provides_incremental_evaluation())
       std::cout << "yes" << std::endl;
     else
       std::cout << "no" << std::endl;
@@ -110,13 +108,35 @@ int main(int argc, char *argv[])
   }
 
   if (options.with_fn_walsh_transform()) {
-    WalshTransform wt(fn);
-    wt.compute();
-    const std::vector<double>& cs = wt.get_coefficients();
-    for (auto c : cs)
-      std::cout << c << std::endl;
+    std::vector<Function::WalshTransformTerm> terms;
+    fn->compute_walsh_transform(terms);
+    for (auto& t : terms)
+      t.coefficient = std::abs(t.coefficient);
+    std::sort(terms.begin(),
+              terms.end(),
+              [](const Function::WalshTransformTerm& a,
+                 const Function::WalshTransformTerm& b){ return a.coefficient > b.coefficient;});
+    double norm = terms[0].coefficient;
+    for (auto t : terms)
+      std::cout << t.index << " "
+                << t.order << " "
+                << t.coefficient / norm << std::endl;
     return 0;
   }
+
+  if (options.with_describe_function()) {
+    fn->display(std::cout);
+    return 0;
+  }
+
+  //
+  // Progress tracker
+  //
+
+  ProgressTracker *tracker = new ProgressTracker(fn);
+  assert(tracker);
+
+  tracker->set_log_improvement(options.with_log_improvement());
 
   //
   // OpenMP
@@ -142,7 +162,10 @@ int main(int argc, char *argv[])
     }
   }
 
+  //
   // Algorithm
+  //
+
   Algorithm *algorithm;
 
   try { algorithm = make_algorithm(options); }
@@ -155,11 +178,17 @@ int main(int argc, char *argv[])
   algorithm->set_function(tracker);
   algorithm->set_functions(fns);
 
-  // Header
+  //
+  // Print header
+  //
+
   if (options.with_print_header())
     std::cout << options;
 
+  //
   // Initialization
+  //
+
   try { algorithm->init(); }
   catch (LastEvaluation) {
     std::cerr << "Error: Not enough evaluations for initialization" << std::endl;
@@ -187,7 +216,10 @@ int main(int argc, char *argv[])
   bool maximum_reached = false;
   bool target_reached = false;
 
+  //
   // Maximize
+  //
+
   try {
     algorithm->maximize();
     solution = algorithm->get_solution();
@@ -212,6 +244,10 @@ int main(int argc, char *argv[])
   }
 
   assert(tracker->get_last_improvement().value == solution.second);
+
+  //
+  // Results
+  //
 
   // Print performances
   if (options.with_print_performance())
