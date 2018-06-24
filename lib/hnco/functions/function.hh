@@ -36,6 +36,24 @@ namespace hnco::function {
 
   public:
 
+    /// Walsh transform term
+    struct WalshTransformTerm {
+
+      /// Index
+      std::size_t index;
+
+      /** Order.
+
+          The order of the term is the Hamming weight of the feature
+          bit vector.
+      */
+      int order;
+
+      /// Coefficient
+      double coefficient;
+
+    };
+
     /// Destructor
     virtual ~Function() {}
 
@@ -57,6 +75,11 @@ namespace hnco::function {
         \return false
     */
     virtual bool provides_incremental_evaluation() { return false; }
+
+    /** Compute the Walsh transform.
+
+     */
+    virtual void compute_walsh_transform(std::vector<WalshTransformTerm>& terms);
 
     ///@}
 
