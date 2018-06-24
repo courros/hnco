@@ -45,7 +45,6 @@ Function::compute_walsh_transform(std::vector<WalshTransformTerm>& terms)
 	index += base;
       base <<= 1;               // means base *= 2;
     }
-    assert(index < _coefficients.size());
 
     double sum = 0.0;
 
