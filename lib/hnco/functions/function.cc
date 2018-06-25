@@ -38,6 +38,7 @@ Function::compute_walsh_transform(std::vector<WalshTransformTerm>& terms)
   features_it.init();
   while (true) {
     const bit_vector_t& u = features_it.get_current();
+
     std::size_t index = 0;
     std::size_t base = 1;
     for (size_t i = 0; i < u.size(); i++) {
@@ -51,16 +52,19 @@ Function::compute_walsh_transform(std::vector<WalshTransformTerm>& terms)
     bv_it.init();
     while (true) {
       const bit_vector_t& x = bv_it.get_current();
+
       double value = eval(x);
       if (bv_dot_product(x, u))
         sum -= value;
       else
         sum += value;
+
       if (bv_it.has_next()) {
         bv_it.next();
       } else {
         break;                  // Exit the innermost loop
       }
+
     }
 
     // Only keep non zero terms
@@ -75,6 +79,7 @@ Function::compute_walsh_transform(std::vector<WalshTransformTerm>& terms)
     } else {
       break;
     }
+
   }
 
 }
