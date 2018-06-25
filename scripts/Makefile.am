@@ -10,6 +10,8 @@ dist_bin_SCRIPTS = \
 	hnco-parameter-run.pl \
 	hnco-parameter-skeleton.pl \
 	hnco-parameter-stat.pl \
-	hnco-runtime-stat.pl
+	hnco-runtime-stat.pl \
+	hnco-walsh-run.pl \
+	hnco-walsh-skeleton.pl
 
 dist_noinst_SCRIPTS = optgen.pl
