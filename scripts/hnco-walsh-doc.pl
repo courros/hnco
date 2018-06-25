@@ -26,7 +26,7 @@ if (@ARGV) {
 print "Using $plan\n";
 
 open(FILE, $plan)
-    or die "hnco-dynamics-stat.pl: Cannot open $plan\n";
+    or die "hnco-walsh-doc.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
@@ -38,7 +38,6 @@ my $path_results        = $obj->{results};
 my $path_report         = $obj->{report};
 my $path_graphics       = $obj->{graphics};
 my $functions           = $obj->{functions};
-my $algorithms          = $obj->{algorithms};
 
 my %terminal = (
     eps => "set term epscairo color enhanced",
@@ -53,13 +52,13 @@ generate_latex();
 sub generate_graphics
 {
     open(GRAPHICS, ">graphics.gp")
-        or die "hnco-dynamics-stat.pl: generate_graphics: cannot open graphics.gp\n";
+        or die "hnco-walsh-doc.pl: generate_graphics: cannot open graphics.gp\n";
 
     print GRAPHICS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"Iteration\"\n",
-        "set ylabel \"$obj->{ylabel}\"\n",
+        "set xlabel \"Coefficient rank\"\n",
+        "set ylabel \"Amplitude\"\n",
         "set key outside top center box opaque horizontal\n",
         "set autoscale fix\n\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
@@ -90,26 +89,16 @@ sub generate_graphics
         my $function_id = $f->{id};
 
         my $quoted_title = quote("$function_id");
-        my $quoted_path = quote("$path_graphics/$function_id.eps");
-
         print GRAPHICS
-            $terminal{eps}, "\n",
-            "set output $quoted_path\n",
             "set key title $quoted_title\n";
 
-        print GRAPHICS "plot \\\n";
-        my $position = 1;
+        my $quoted_path = quote("$path_graphics/$function_id.eps");
         print GRAPHICS
-            join ", \\\n",
-            (map {
-                my $algorithm_id = $_->{id};
-                $quoted_path = quote("$path_results/$function_id/$algorithm_id/1.out");
-                $quoted_title = quote("$algorithm_id");
-                $position++;
-                "  $quoted_path with lines lw 2 title $quoted_title";
-             } @$algorithms);
+            $terminal{eps}, "\n",
+            "set output $quoted_path\n";
 
-        print GRAPHICS "\n";
+        $quoted_path = quote("$path_results/$function_id/1.out");
+        print GRAPHICS "plot $quoted_path using 3 with lines lw 1 title $quoted_title\n";
 
         $quoted_path = quote("$path_graphics/$function_id.pdf");
         print GRAPHICS
@@ -130,7 +119,7 @@ sub generate_graphics
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
-        or die "hnco-dynamics-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
+        or die "hnco-walsh-doc.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
 
