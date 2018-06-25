@@ -1,6 +1,6 @@
 {
     "exec": "hnco",
-    "opt": "--fn-walsh-transform -b 0",
+    "opt": "--fn-walsh-transform -b 0 -s 10",
 
     "parallel": false,
 
