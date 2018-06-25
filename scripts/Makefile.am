@@ -11,6 +11,7 @@ dist_bin_SCRIPTS = \
 	hnco-parameter-skeleton.pl \
 	hnco-parameter-stat.pl \
 	hnco-runtime-stat.pl \
+	hnco-walsh-doc.pl \
 	hnco-walsh-run.pl \
 	hnco-walsh-skeleton.pl
 
