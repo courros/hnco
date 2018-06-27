@@ -59,9 +59,11 @@ sub generate_graphics
         "set grid\n",
         "set xlabel \"Coefficient rank\"\n",
         "set ylabel \"Amplitude\"\n",
-        "set key outside top center box opaque horizontal\n",
-        "set autoscale fix\n\n",
+        "set key top right box opaque\n",
+        "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
+
+    print GRAPHICS "\n";
 
     if ($obj->{xlogscale}) {
         my $fmt = quote("10^{\%L}");
@@ -89,8 +91,6 @@ sub generate_graphics
         my $function_id = $f->{id};
 
         my $quoted_title = quote("$function_id");
-        print GRAPHICS
-            "set key title $quoted_title\n";
 
         my $quoted_path = quote("$path_graphics/$function_id.eps");
         print GRAPHICS
@@ -98,7 +98,7 @@ sub generate_graphics
             "set output $quoted_path\n";
 
         $quoted_path = quote("$path_results/$function_id/1.out");
-        print GRAPHICS "plot $quoted_path using 3 with lines lw 1 title $quoted_title\n";
+        print GRAPHICS "plot $quoted_path using 3 with lines lw 2 title $quoted_title\n";
 
         $quoted_path = quote("$path_graphics/$function_id.pdf");
         print GRAPHICS
@@ -112,6 +112,42 @@ sub generate_graphics
             "set output $quoted_path\n",
             "replot\n\n";
     }
+
+    #
+    # All functions on the same graphics
+    #
+
+    print GRAPHICS
+        "unset key\n";
+
+    $quoted_path = quote("$path_graphics/all.eps");
+    print GRAPHICS
+        $terminal{eps}, "\n",
+        "set output $quoted_path\n";
+
+    print GRAPHICS "plot \\\n";
+    print GRAPHICS
+        join ", \\\n",
+        (map {
+            my $function_id = $_->{id};
+            $quoted_path = quote("$path_results/$function_id/1.out");
+            #$quoted_title = quote("$function_id");
+            "  $quoted_path using 3 with lines lw 1 notitle";
+         } @$functions);
+
+    print GRAPHICS "\n";
+
+    $quoted_path = quote("$path_graphics/all.pdf");
+    print GRAPHICS
+        $terminal{pdf}, "\n",
+        "set output $quoted_path\n",
+        "replot\n";
+
+    $quoted_path = quote("$path_graphics/all.png");
+    print GRAPHICS
+        $terminal{png}, "\n",
+        "set output $quoted_path\n",
+        "replot\n\n";
 
     system("chmod a+x graphics.gp");
 }
