@@ -159,6 +159,11 @@ sub generate_latex
 
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
 
+    latex_section("All functions");
+    latex_begin_center();
+    latex_includegraphics("all");
+    latex_end_center();
+
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
