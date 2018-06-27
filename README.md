@@ -251,6 +251,7 @@ HNCO is distributed with the following experiments:
 - `experiments/maximum/`
 - `experiments/parameter/`
 - `experiments/runtime/`
+- `experiments/walsh-transforms/`
 
 In each directory, a Makefile runs the simulations and generates the
 report. The experiment itself is described in a json file called
@@ -311,6 +312,11 @@ The purpose of this experiment is to study the influence of some given
 parameter (e.g. bit vector size) on the runtime of a set of algorithms
 applied to a set of functions. The functions must have a known maximum
 and the algorithms must be able to find it in finite time.
+
+### Walsh transforms
+
+The purpose of this experiment is to visualize the Walsh transforms of
+various functions in the library.
 
 ## Requirements
 

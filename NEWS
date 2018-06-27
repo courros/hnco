@@ -2,10 +2,14 @@
 
 Library:
 - Added first ascent hill climbing
+- Function: added member function compute_walsh_transform
 
 Build:
 - Conditional compilation of plugin
 - Factorization and plugin features are default-disabled
+
+Experiments:
+- Added experiments walsh-transforms
 
 
 * Version 0.8 (2018-04-21)
