@@ -130,6 +130,40 @@
             "col": ">{{\\nprounddigits{2}}}N{3}{2}"
         }
 
+    ],
+
+    "groups": [
+
+        {
+            "id": "group 1",
+            "functions": [ "one-max",
+                           "leading-ones",
+                           "ridge",
+                           "jmp-2",
+                           "jmp-4",
+                           "djmp-2",
+                           "djmp-4",
+                           "fp-2",
+                           "fp-4",
+                           "max-sat",
+                           "trap",
+                           "hiff",
+                           "plateau",
+                           "walsh2"
+                         ]
+        },
+
+        {
+            "id": "group 2",
+            "functions": [ "lin",
+                           "nk",
+                           "labs",
+                           "ep",
+                           "cancel",
+                           "walsh2"
+                         ]
+        }
+
     ]
 
 }
