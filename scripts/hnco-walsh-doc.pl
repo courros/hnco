@@ -117,10 +117,24 @@ sub generate_graphics
     # All functions on the same graphics
     #
 
-    print GRAPHICS
-        "unset key\n";
+    generate_group("all", $functions);
 
-    $quoted_path = quote("$path_graphics/all.eps");
+    if ($obj->{groups}) {
+        foreach(@{$obj->{groups}}) {
+            generate_group($_->{id}, $_->{functions});
+        }
+    }
+
+    system("chmod a+x graphics.gp");
+}
+
+sub generate_group
+{
+    my ($id, $ref) = @_;
+
+    print GRAPHICS "unset key\n";
+
+    $quoted_path = quote("$path_graphics/$id.eps");
     print GRAPHICS
         $terminal{eps}, "\n",
         "set output $quoted_path\n";
@@ -131,25 +145,22 @@ sub generate_graphics
         (map {
             my $function_id = $_->{id};
             $quoted_path = quote("$path_results/$function_id/1.out");
-            #$quoted_title = quote("$function_id");
             "  $quoted_path using 3 with lines lw 1 notitle";
-         } @$functions);
+         } @$ref);
 
     print GRAPHICS "\n";
 
-    $quoted_path = quote("$path_graphics/all.pdf");
+    $quoted_path = quote("$path_graphics/$id.pdf");
     print GRAPHICS
         $terminal{pdf}, "\n",
         "set output $quoted_path\n",
         "replot\n";
 
-    $quoted_path = quote("$path_graphics/all.png");
+    $quoted_path = quote("$path_graphics/$id.png");
     print GRAPHICS
         $terminal{png}, "\n",
         "set output $quoted_path\n",
         "replot\n\n";
-
-    system("chmod a+x graphics.gp");
 }
 
 sub generate_latex
@@ -163,6 +174,15 @@ sub generate_latex
     latex_begin_center();
     latex_includegraphics("all");
     latex_end_center();
+
+    if ($obj->{groups}) {
+        foreach(@{$obj->{groups}}) {
+            latex_section($_->{id});
+            latex_begin_center();
+            latex_includegraphics($_->{id});
+            latex_end_center();
+        }
+    }
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
