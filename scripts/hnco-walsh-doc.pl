@@ -92,11 +92,17 @@ sub generate_spectrum
 
 sub generate_graphics
 {
-    open(GRAPHICS, ">graphics.gp")
-        or die "hnco-walsh-doc.pl: generate_graphics: cannot open graphics.gp\n";
+    open(GRAPHICS, ">graphics.gp") or die "hnco-walsh-doc.pl: generate_graphics: cannot open graphics.gp\n";
+    print GRAPHICS "#!/usr/bin/gnuplot -persist\n";
+    generate_graphics_coefficients();
+    generate_graphics_spectrum();
+    close(GRAPHICS);
+    system("chmod a+x graphics.gp");
+}
 
+sub generate_graphics_coefficients
+{
     print GRAPHICS
-        "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"Coefficient rank\"\n",
         "set ylabel \"Amplitude\"\n",
@@ -104,36 +110,18 @@ sub generate_graphics
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
 
+    print GRAPHICS
+        "set logscale y\n",
+        "set format y $fmt\n";
+
     print GRAPHICS "\n";
-
-    if ($obj->{xlogscale}) {
-        my $fmt = quote("10^{\%L}");
-        print GRAPHICS
-            "set logscale x\n",
-            "set format x $fmt\n";
-    } else {
-        print GRAPHICS
-            "unset logscale x\n",
-            "set format x\n";
-    }
-
-    if ($obj->{ylogscale}) {
-        my $fmt = quote("10^{\%L}");
-        print GRAPHICS
-            "set logscale y\n",
-            "set format y $fmt\n";
-    } else {
-        print GRAPHICS
-            "unset logscale y\n",
-            "set format y\n";
-    }
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
         my $quoted_title = quote("$function_id");
 
-        my $quoted_path = quote("$path_graphics/$function_id.eps");
+        my $quoted_path = quote("$path_graphics/$function_id-coef.eps");
         print GRAPHICS
             $terminal{eps}, "\n",
             "set output $quoted_path\n";
@@ -141,13 +129,13 @@ sub generate_graphics
         $quoted_path = quote("$path_results/$function_id/1.out");
         print GRAPHICS "plot $quoted_path using 3 with lines lw 2 title $quoted_title\n";
 
-        $quoted_path = quote("$path_graphics/$function_id.pdf");
+        $quoted_path = quote("$path_graphics/$function_id-coef.pdf");
         print GRAPHICS
             $terminal{pdf}, "\n",
             "set output $quoted_path\n",
             "replot\n";
 
-        $quoted_path = quote("$path_graphics/$function_id.png");
+        $quoted_path = quote("$path_graphics/$function_id-coef.png");
         print GRAPHICS
             $terminal{png}, "\n",
             "set output $quoted_path\n",
@@ -166,7 +154,6 @@ sub generate_graphics
         }
     }
 
-    system("chmod a+x graphics.gp");
 }
 
 sub generate_group
@@ -204,6 +191,51 @@ sub generate_group
         "replot\n\n";
 }
 
+sub generate_graphics_spectrum
+{
+    print GRAPHICS
+        "set grid\n",
+        "set xlabel \"Feature Hamming weight\"\n",
+        "set ylabel \"Energy\"\n",
+        "set key top right box opaque\n",
+        "set autoscale fix\n",
+        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
+
+    print GRAPHICS
+        "set logscale y\n",
+        "set format y $fmt\n";
+
+    print GRAPHICS "\n";
+
+    foreach my $f (@$functions) {
+        my $function_id = $f->{id};
+
+        my $quoted_title = quote("$function_id");
+
+        my $quoted_path = quote("$path_graphics/$function_id-spectrum.eps");
+        print GRAPHICS
+            $terminal{eps}, "\n",
+            "set output $quoted_path\n";
+
+        $quoted_path = quote("$path_results/$function_id/spectrum.dat");
+        print GRAPHICS
+            "plot $quoted_path using 1:2 w impulses lw 2 title $quoted_title\n";
+
+        $quoted_path = quote("$path_graphics/$function_id-spectrum.pdf");
+        print GRAPHICS
+            $terminal{pdf}, "\n",
+            "set output $quoted_path\n",
+            "replot\n";
+
+        $quoted_path = quote("$path_graphics/$function_id-spectrum.png");
+        print GRAPHICS
+            $terminal{png}, "\n",
+            "set output $quoted_path\n",
+            "replot\n\n";
+    }
+
+}
+
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
@@ -230,7 +262,8 @@ sub generate_latex
 
         latex_section($function_id);
         latex_begin_center();
-        latex_includegraphics($function_id);
+        latex_includegraphics("$function_id-coef");
+        latex_includegraphics("$function_id-spectrum");
         latex_end_center();
     }
 }
