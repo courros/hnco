@@ -39,10 +39,6 @@ namespace algorithm {
     /// Index-value type
     typedef std::pair<size_t, double> index_value_t;
 
-    /// Binary operator for comparing index-value pairs
-    std::function<bool(const index_value_t&, const index_value_t&)> _compare_index_value =
-      [](const index_value_t& a, const index_value_t& b) { return a.second > b.second; };
-
   protected:
 
     /// Bit vectors
@@ -55,6 +51,19 @@ namespace algorithm {
         the bv value.
     */
     std::vector<index_value_t> _lookup;
+
+    /// Binary operator for comparing index-value pairs
+    std::function<bool(const index_value_t&, const index_value_t&)> _comparison_index_value =
+      [this](const index_value_t& a, const index_value_t& b) { return _comparison(a.second, b.second); };
+
+    /** @name Parameters
+     */
+    ///@{
+
+    /// Binary operator for comparing evaluations
+    std::function<bool(double, double)> _comparison = std::greater_equal<double>();
+
+    ///@}
 
   public:
 
@@ -166,6 +175,20 @@ namespace algorithm {
         should.
     */
     void comma_selection(const Population& offsprings);
+
+    ///@}
+
+
+    /** @name Setters
+     */
+    ///@{
+
+    /// Set the binary operator for comparing evaluations
+    void set_comparison(std::function<bool(double, double)> x) {
+      _comparison = x;
+      _comparison_index_value =
+        [this](const index_value_t& a, const index_value_t& b) { return _comparison(a.second, b.second); };
+    }
 
     ///@}
 
