@@ -4,8 +4,6 @@ Library:
 - Added first ascent hill climbing
 - Function: added member function compute_walsh_transform
 - Population: renamed private member _operator -> _comparison_index_value
-- Population: added private member _comparison
-- Population: added public member function set_comparison
 - RandomLocalSearch, Mmas: renamed member _operator -> _comparison
 - RandomLocalSearch, Mmas: renamed member function set_operator -> set_comparison
 
