@@ -46,8 +46,49 @@ my %terminal = (
 
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
+generate_spectrum();
 generate_graphics();
 generate_latex();
+
+sub generate_spectrum
+{
+    foreach my $f (@$functions) {
+        my $function_id = $f->{id};
+
+        my $path = "$path_results/$function_id/1.out";
+        my $file = IO::File->new($path, '<') or die "hnco-walsh-doc.pl: generate_spectrum: Cannot open '$path': $!\n";
+        my @walsh_transform = ();
+        while (defined(my $line = $file->getline)) {
+            chomp $line;
+            my ($index, $order, $coefficient) = split ' ', $line;
+            push @walsh_transform, { order => $order, coefficient => $coefficient };
+        }
+        $file->close;
+
+        my @sorted_walsh_transform = sort { $a->{order} <=> $b->{order} } @walsh_transform;
+        my %spectrum = ();
+        my $i = 0;
+        while ($i < @sorted_walsh_transform) {
+            my $energy = ($sorted_walsh_transform[$i]->{coefficient})**2;
+            my $order = $sorted_walsh_transform[$i]->{order};
+            my $j = $i + 1;
+            while ($j < @sorted_walsh_transform && $sorted_walsh_transform[$j]->{order} == $order) {
+                $energy += ($sorted_walsh_transform[$j]->{coefficient})**2;
+                $j++;
+            }
+            $i = $j;
+            $spectrum{$i} = $energy;
+        }
+
+        $path = "$path_results/$function_id/spectrum.dat";
+        $file = IO::File->new($path, '>') or die "hnco-walsh-doc.pl: generate_spectrum: Cannot open '$path': $!\n";
+        while (my ($order, $energy) = each %spectrum) {
+            $file->print("$order $energy\n");
+        }
+        $file->close;
+
+    }
+}
 
 sub generate_graphics
 {
