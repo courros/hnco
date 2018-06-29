@@ -51,7 +51,7 @@ namespace hnco::algorithm {
     ///@{
 
     /// Binary operator for comparing evaluations
-    std::function<bool(double, double)> _operator = std::greater_equal<double>();
+    std::function<bool(double, double)> _comparison = std::greater_equal<double>();
 
     /// Learning rate
     double _rate = 1e-3;
@@ -76,7 +76,7 @@ namespace hnco::algorithm {
     ///@{
 
     /// Set the binary operator for comparing evaluations
-    void set_operator(std::function<bool(double, double)> x) { _operator = x; }
+    void set_comparison(std::function<bool(double, double)> x) { _comparison = x; }
 
     /// Set the learning rate
     void set_rate(double x) { _rate = x; }
