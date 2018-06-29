@@ -40,7 +40,7 @@ namespace algorithm {
     typedef std::pair<size_t, double> index_value_t;
 
     /// Binary operator for comparing index-value pairs
-    std::function<bool(const index_value_t&, const index_value_t&)> _operator =
+    std::function<bool(const index_value_t&, const index_value_t&)> _compare_index_value =
       [](const index_value_t& a, const index_value_t& b) { return a.second > b.second; };
 
   protected:
