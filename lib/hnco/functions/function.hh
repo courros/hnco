@@ -23,6 +23,10 @@
 
 #include <iostream>
 
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/vector.hpp>
+
 #include "hnco/bit-vector.hh"
 #include "hnco/exception.hh"
 #include "hnco/sparse-bit-vector.hh"
@@ -48,6 +52,14 @@ namespace hnco::function {
 
       /// Coefficient
       double coefficient;
+
+      /// Serialize
+      template<class Archive>
+      void serialize(Archive& ar, const unsigned int version)
+      {
+        ar & feature;
+        ar & coefficient;
+      }
 
     };
 
