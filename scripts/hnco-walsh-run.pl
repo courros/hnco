@@ -89,7 +89,7 @@ sub iterate_functions
             mkdir $path;
             print "Created $path\n";
         }
-        print "$function_id\n";
+        print "$function_id: ";
         run($path, "$cmd $f->{opt}");
     }
 }
@@ -99,9 +99,9 @@ sub run
     my ($prefix, $cmd) = @_;
     if ($parallel) {
         push @commands, "$cmd > $prefix/1.out 2>> $prefix/1.err";
-        print "added to the job queue";
+        print "added to the job queue\n";
     } else {
         system("$cmd > $prefix/1.out 2>> log.err");
-        print "done";
+        print "done\n";
     }
 }
