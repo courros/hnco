@@ -39,15 +39,12 @@ namespace hnco::function {
     /// Walsh transform term
     struct WalshTransformTerm {
 
-      /// Index
-      std::size_t index;
+      /** Feature.
 
-      /** Order.
-
-          The order of the term is the Hamming weight of the feature
-          bit vector.
+          Implemented with a vector bool instead of a bit_vector_t to
+          reduce the memory consumption.
       */
-      int order;
+      std::vector<bool> feature;
 
       /// Coefficient
       double coefficient;
