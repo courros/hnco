@@ -54,6 +54,12 @@ namespace hnco {
   /// Flip bit
   inline bit_t bit_flip(bit_t b) { return b ? 0 : 1; }
 
+  ///@}
+
+
+  /** @name Types and functions related to bit vectors
+   */
+  ///@{
 
   /// Bit vector
   typedef std::vector<bit_t> bit_vector_t;
@@ -79,6 +85,15 @@ namespace hnco {
 
   /// Hamming weight
   inline int bv_hamming_weight(const bit_vector_t& x) { return std::accumulate(x.begin(), x.end(), 0); }
+
+  /// Hamming weight
+  inline int bv_hamming_weight(const std::vector<bool>& x) {
+    int result = 0;
+    for (std::size_t i = 0; i < x.size(); i++)
+      if (x[i])
+        result++;
+    return result;
+  }
 
   /// Hamming distance between two bit vectors
   inline int bv_hamming_distance(const bit_vector_t& x, const bit_vector_t& y)
@@ -155,6 +170,22 @@ namespace hnco {
 
     for (std::size_t i = 0; i < dest.size(); i++)
       dest[i] = (x[i] + y[i]) % 2;
+  }
+
+  /** Convert a bit vector to a vector bool.
+
+      \warning Vectors must be of the same size.
+  */
+  inline void bv_to_vector_bool(const bit_vector_t& x, std::vector<bool>& y)
+  {
+    assert(y.size() == x.size());
+
+    for (size_t i = 0; i < x.size(); i++) {
+      if (x[i])
+        y[i] = true;
+      else
+        y[i] = false;
+    }
   }
 
   ///@}
