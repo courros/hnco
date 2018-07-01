@@ -60,7 +60,7 @@ sub generate_spectrum
         my @walsh_transform = ();
         while (defined(my $line = $file->getline)) {
             chomp $line;
-            my ($index, $order, $coefficient) = split ' ', $line;
+            my ($order, $coefficient) = split ' ', $line;
             push @walsh_transform, { order => $order, coefficient => $coefficient };
         }
         $file->close;
