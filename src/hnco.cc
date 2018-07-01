@@ -118,8 +118,7 @@ int main(int argc, char *argv[])
                  const Function::WalshTransformTerm& b){ return a.coefficient > b.coefficient;});
     double norm = terms[0].coefficient;
     for (auto t : terms)
-      std::cout << t.index << " "
-                << t.order << " "
+      std::cout << bv_hamming_weight(t.feature) << " "
                 << t.coefficient / norm << std::endl;
     return 0;
   }
