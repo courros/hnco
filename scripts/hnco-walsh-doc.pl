@@ -127,7 +127,7 @@ sub generate_graphics_coefficients
             "set output $quoted_path\n";
 
         $quoted_path = quote("$path_results/$function_id/1.out");
-        print GRAPHICS "plot $quoted_path using 3 with lines lw 2 title $quoted_title\n";
+        print GRAPHICS "plot $quoted_path using 2 with lines lw 2 title $quoted_title\n";
 
         $quoted_path = quote("$path_graphics/$function_id-coef.pdf");
         print GRAPHICS
@@ -173,7 +173,7 @@ sub generate_group
         (map {
             my $function_id = $_->{id};
             $quoted_path = quote("$path_results/$function_id/1.out");
-            "  $quoted_path using 3 with lines lw 1 notitle";
+            "  $quoted_path using 2 with lines lw 1 notitle";
          } @$ref);
 
     print GRAPHICS "\n";
