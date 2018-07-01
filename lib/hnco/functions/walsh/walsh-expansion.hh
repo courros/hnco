@@ -61,21 +61,22 @@ namespace function {
     template<class Archive>
     void save(Archive& ar, const unsigned int version) const
     {
-      ar & _features;
-      ar & _coefficients;
+      ar & _terms;
     }
 
     /// Load
     template<class Archive>
     void load(Archive& ar, const unsigned int version)
     {
-      ar & _features;
-      ar & _coefficients;
+      ar & _terms;
 
       _image.resize(_features.size());
     }
 
     BOOST_SERIALIZATION_SPLIT_MEMBER()
+
+    /// Terms
+    std::vector<WalshTransformTerm> _terms;
 
     /// Features
     hnco::bit_matrix_t _features;
@@ -93,8 +94,8 @@ namespace function {
 
     /// Get bit vector size
     size_t get_bv_size() {
-      assert(_features.size() > 0);
-      return _features[0].size();
+      assert(_terms.size() > 0);
+      return _terms[0].feature.size();
     }
 
     /** Random instance.
