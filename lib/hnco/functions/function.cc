@@ -34,45 +34,39 @@ Function::compute_walsh_transform(std::vector<WalshTransformTerm>& terms)
 
   HypercubeIterator bv_it(get_bv_size());
   HypercubeIterator features_it(get_bv_size());
+  std::vector<bool> feature(get_bv_size());
 
   features_it.init();
   while (true) {
     const bit_vector_t& u = features_it.get_current();
 
-    std::size_t index = 0;
-    std::size_t base = 1;
-    for (size_t i = 0; i < u.size(); i++) {
-      if (u[i])
-	index += base;
-      base <<= 1;               // means base *= 2;
-    }
+    if (!bv_is_zero(u)) {
+      double sum = 0.0;
 
-    double sum = 0.0;
+      bv_it.init();
+      while (true) {
+        const bit_vector_t& x = bv_it.get_current();
 
-    bv_it.init();
-    while (true) {
-      const bit_vector_t& x = bv_it.get_current();
+        double value = eval(x);
+        if (bv_dot_product(x, u))
+          sum -= value;
+        else
+          sum += value;
 
-      double value = eval(x);
-      if (bv_dot_product(x, u))
-        sum -= value;
-      else
-        sum += value;
+        if (bv_it.has_next()) {
+          bv_it.next();
+        } else {
+          break;                  // Exit the innermost loop
+        }
 
-      if (bv_it.has_next()) {
-        bv_it.next();
-      } else {
-        break;                  // Exit the innermost loop
       }
 
+      // Only keep non zero terms
+      if (sum) {
+        bv_to_vector_bool(u, feature);
+        terms.push_back({.feature = feature, .coefficient = sum});
+      }
     }
-
-    // Only keep non zero terms
-    int order = bv_hamming_weight(u);
-    if (sum && order)
-      terms.push_back({.index = index,
-            .order = order,
-            .coefficient = sum});
 
     if (features_it.has_next()) {
       features_it.next();
