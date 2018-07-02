@@ -172,7 +172,7 @@ namespace hnco {
       dest[i] = (x[i] + y[i]) % 2;
   }
 
-  /** Convert a bit vector to a vector bool.
+  /** Convert a bit vector to a bool vector.
 
       \warning Vectors must be of the same size.
   */
@@ -185,6 +185,22 @@ namespace hnco {
         y[i] = true;
       else
         y[i] = false;
+    }
+  }
+
+  /** Convert a bool vector to a bit vector
+
+      \warning Vectors must be of the same size.
+  */
+  inline void bv_from_vector_bool(bit_vector_t& x, const std::vector<bool>& y)
+  {
+    assert(y.size() == x.size());
+
+    for (size_t i = 0; i < x.size(); i++) {
+      if (y[i])
+        x[i] = 1;
+      else
+        x[i] = 0;
     }
   }
 
