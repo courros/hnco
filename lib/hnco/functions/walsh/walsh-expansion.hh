@@ -59,33 +59,13 @@ namespace function {
 
     /// Save
     template<class Archive>
-    void save(Archive& ar, const unsigned int version) const
+    void serialize(Archive& ar, const unsigned int version) const
     {
       ar & _terms;
     }
-
-    /// Load
-    template<class Archive>
-    void load(Archive& ar, const unsigned int version)
-    {
-      ar & _terms;
-
-      _image.resize(_features.size());
-    }
-
-    BOOST_SERIALIZATION_SPLIT_MEMBER()
 
     /// Terms
     std::vector<WalshTransformTerm> _terms;
-
-    /// Features
-    hnco::bit_matrix_t _features;
-
-    /// Coefficients
-    std::vector<double> _coefficients;
-
-    /// Image of bit vectors under the feature matrix
-    bit_vector_t _image;
 
   public:
 
