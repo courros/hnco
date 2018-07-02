@@ -102,7 +102,7 @@ namespace hnco::function {
         10\f$ then the size of terms is at most 1024.
 
     */
-    virtual void compute_walsh_transform(std::vector<WalshTransformTerm>& terms);
+    virtual void compute_walsh_transform(std::vector<Function::WalshTransformTerm>& terms);
 
     ///@}
 
