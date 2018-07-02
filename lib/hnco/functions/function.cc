@@ -28,7 +28,7 @@ using namespace hnco;
 
 
 void
-Function::compute_walsh_transform(std::vector<WalshTransformTerm>& terms)
+Function::compute_walsh_transform(std::vector<Function::WalshTransformTerm>& terms)
 {
   terms.clear();
 
