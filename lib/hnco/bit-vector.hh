@@ -119,6 +119,18 @@ namespace hnco {
     return result % 2;
   }
 
+  /// Dot product
+  inline bit_t bv_dot_product(const bit_vector_t& x, const std::vector<bool>& y)
+  {
+    assert(x.size() == y.size());
+
+    int result = 0;
+    for (std::size_t i = 0; i < x.size(); i++)
+      if (x[i] && y[i])
+        result++;
+    return result % 2;
+  }
+
   /// Clear bit vector
   inline void bv_clear(bit_vector_t& x) { fill(x.begin(), x.end(), 0); }
 
