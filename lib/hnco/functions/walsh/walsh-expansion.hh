@@ -59,13 +59,13 @@ namespace function {
 
     /// Save
     template<class Archive>
-    void serialize(Archive& ar, const unsigned int version) const
+    void serialize(Archive& ar, const unsigned int version)
     {
       ar & _terms;
     }
 
     /// Terms
-    std::vector<WalshTransformTerm> _terms;
+    std::vector<Function::WalshTransformTerm> _terms;
 
   public:
 
