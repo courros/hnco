@@ -38,15 +38,16 @@ WalshExpansion::random(int n, int num_features, double stddev)
   assert(stddev > 0);
 
   bit_vector_t bv(n);
+  std::vector<bool> feature(n);
 
-  _features.resize(num_features);
-  _coefficients.resize(num_features);
-  _image.resize(num_features);
+  _terms.resize(num_features);
 
-  for (size_t i = 0; i < _features.size(); i++) {
+  for (size_t i = 0; i < _terms.size(); i++) {
+    WalshTransformTerm& t = _terms[i];
     bv_random(bv);
-    _features[i] = bv;
-    _coefficients[i] = stddev * Random::normal();
+    bv_to_vector_bool(bv, feature);
+    t.feature = feature;
+    t.coefficient = stddev * Random::normal();
   }
 
 }
@@ -55,14 +56,13 @@ WalshExpansion::random(int n, int num_features, double stddev)
 double
 WalshExpansion::eval(const bit_vector_t& x)
 {
-  bm_multiply(_features, x, _image);
-
   double result = 0;
-  for (size_t i = 0; i < _image.size(); i++)
-    if (_image[i])
-      result -= _coefficients[i];
+  for (size_t i = 0; i < _terms.size(); i++) {
+    if (bv_dot_product(x, _terms[i].feature))
+      result -= _terms[i].coefficient;
     else
-      result += _coefficients[i];
+      result += _terms[i].coefficient;
+  }
   return result;
 }
 
@@ -70,11 +70,13 @@ WalshExpansion::eval(const bit_vector_t& x)
 void
 WalshExpansion::display(std::ostream& stream)
 {
-  std::vector<int> hw(_features.size());
-  for (size_t i = 0; i < hw.size(); i++)
-    hw[i] = bv_hamming_weight(_features[i]);
+  std::vector<Function::WalshTransformTerm>::iterator it =
+    std::max_element(_terms.begin(),
+                     _terms.end(),
+                     [](const Function::WalshTransformTerm& a,
+                        const Function::WalshTransformTerm& b){ return bv_hamming_weight(a.feature) < bv_hamming_weight(b.feature); });
 
   stream
-    << "Number of terms = " << _features.size() << std::endl
-    << "Degree = " << *std::max_element(begin(hw), end(hw)) << std::endl;
+    << "Number of terms = " << _terms.size() << std::endl
+    << "Order = " << bv_hamming_weight(it->feature) << std::endl;
 }
