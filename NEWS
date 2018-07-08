@@ -3,6 +3,13 @@
 Library:
 - Added first ascent hill climbing
 - Function: added member function compute_walsh_transform
+- Function: added struct WalshTransformTerm
+- Added bv_dot_product between a bit vector and a bool vector
+- Added bv_hamming_weight for bool vector
+- Added bv_to_vector_bool, bv_from_vector_bool
+- Population: renamed _operator -> _compare_index_value
+- WalshExpansion: replaced load and save with serialize
+- WalshExpansion uses Function::WalshTransformTerm
 
 Build:
 - Conditional compilation of plugin
