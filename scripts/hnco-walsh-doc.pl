@@ -76,8 +76,8 @@ sub generate_spectrum
                 $energy += ($sorted_walsh_transform[$j]->{coefficient})**2;
                 $j++;
             }
+            $spectrum{$order} = $energy;
             $i = $j;
-            $spectrum{$i} = $energy;
         }
 
         $path = "$path_results/$function_id/spectrum.dat";
