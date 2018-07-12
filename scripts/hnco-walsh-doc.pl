@@ -110,6 +110,7 @@ sub generate_graphics_coefficients
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
 
+    my $fmt = quote("10^{\%T}");
     print GRAPHICS
         "set logscale y\n",
         "set format y $fmt\n";
@@ -201,6 +202,7 @@ sub generate_graphics_spectrum
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
 
+    my $fmt = quote("10^{\%T}");
     print GRAPHICS
         "set logscale y\n",
         "set format y $fmt\n";
