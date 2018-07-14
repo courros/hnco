@@ -77,7 +77,7 @@ Population::plus_selection(const Population& offsprings)
          i = 0,
          j = 0;
        i < _bvs.size() && j < offsprings.size(); i++) {
-    if (_comparison_index_value(_lookup[i], offsprings._lookup[j]))
+    if (_compare_index_value(_lookup[i], offsprings._lookup[j]))
       continue;
     else {
       // _lookup[i].first is left unchanged

@@ -52,7 +52,7 @@ namespace algorithm {
     ///@{
 
     /// Binary operator for comparing evaluations
-    std::function<bool(double, double)> _comparison = std::greater_equal<double>();
+    std::function<bool(double, double)> _compare = std::greater_equal<double>();
 
     /// Patience
     int _patience = 50;
@@ -95,7 +95,7 @@ namespace algorithm {
     ///@{
 
     /// Set the binary operator for comparing evaluations
-    void set_comparison(std::function<bool(double, double)> x) { _comparison = x; }
+    void set_compare(std::function<bool(double, double)> x) { _compare = x; }
 
     /** Set patience.
 

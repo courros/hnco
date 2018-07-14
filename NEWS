@@ -3,19 +3,15 @@
 Library:
 - Added first ascent hill climbing
 - Function: added member function compute_walsh_transform
-<<<<<<< HEAD
 - Function: added struct WalshTransformTerm
 - Added bv_dot_product between a bit vector and a bool vector
 - Added bv_hamming_weight for bool vector
 - Added bv_to_vector_bool, bv_from_vector_bool
-- Population: renamed _operator -> _compare_index_value
 - WalshExpansion: replaced load and save with serialize
 - WalshExpansion uses Function::WalshTransformTerm
-=======
-- Population: renamed private member _operator -> _comparison_index_value
-- RandomLocalSearch, Mmas: renamed member _operator -> _comparison
-- RandomLocalSearch, Mmas: renamed member function set_operator -> set_comparison
->>>>>>> compare
+- Population: renamed _operator -> _compare_index_value
+- RandomLocalSearch, Mmas: renamed _operator -> _compare
+- RandomLocalSearch, Mmas: renamed set_operator -> set_compare
 
 Build:
 - Conditional compilation of plugin

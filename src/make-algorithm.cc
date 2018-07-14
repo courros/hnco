@@ -114,7 +114,7 @@ make_concrete_algorithm(const Options& options)
     algo->set_incremental_evaluation(options.with_incremental_evaluation());
 
     if (options.with_rls_strict())
-      algo->set_comparison(std::greater<double>());
+      algo->set_compare(std::greater<double>());
 
     return algo;
   }
@@ -320,7 +320,7 @@ make_concrete_algorithm(const Options& options)
     algo->set_log_num_components(options.get_pv_log_num_components());
 
     if (options.with_mmas_strict())
-      algo->set_comparison(std::greater<double>());
+      algo->set_compare(std::greater<double>());
 
     PvAlgorithm::log_flags_t lf = {};
     if (options.with_pv_log_pv())

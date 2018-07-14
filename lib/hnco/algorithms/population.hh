@@ -54,7 +54,7 @@ namespace algorithm {
     std::vector<index_value_t> _lookup;
 
     /// Binary operator for comparing index-value pairs
-    std::function<bool(const index_value_t&, const index_value_t&)> _comparison_index_value =
+    std::function<bool(const index_value_t&, const index_value_t&)> _compare_index_value =
       [](const index_value_t& a, const index_value_t& b) { return a.second > b.second; };
 
   public:
@@ -138,7 +138,7 @@ namespace algorithm {
     void eval(const std::vector<function::Function *>& functions);
 
     /// Sort the lookup table
-    void sort() { std::sort(_lookup.begin(), _lookup.end(), _comparison_index_value); }
+    void sort() { std::sort(_lookup.begin(), _lookup.end(), _compare_index_value); }
 
     ///@}
 
