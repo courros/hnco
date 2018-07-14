@@ -22,6 +22,7 @@
 #define HNCO_ALGORITHMS_POPULATION_H
 
 #include <functional>           // std::function
+#include <algorithm>            // std::sort
 
 #include "hnco/functions/function.hh"
 #include "hnco/random.hh"
@@ -39,10 +40,6 @@ namespace algorithm {
     /// Index-value type
     typedef std::pair<size_t, double> index_value_t;
 
-    /// Binary operator for comparing index-value pairs
-    std::function<bool(const index_value_t&, const index_value_t&)> _compare_index_value =
-      [](const index_value_t& a, const index_value_t& b) { return a.second > b.second; };
-
   protected:
 
     /// Bit vectors
@@ -55,6 +52,10 @@ namespace algorithm {
         the bv value.
     */
     std::vector<index_value_t> _lookup;
+
+    /// Binary operator for comparing index-value pairs
+    std::function<bool(const index_value_t&, const index_value_t&)> _comparison_index_value =
+      [](const index_value_t& a, const index_value_t& b) { return a.second > b.second; };
 
   public:
 
@@ -137,10 +138,7 @@ namespace algorithm {
     void eval(const std::vector<function::Function *>& functions);
 
     /// Sort the lookup table
-    void sort();
-
-    /// Partially sort the lookup table
-    void partial_sort(int selection_size);
+    void sort() { std::sort(_lookup.begin(), _lookup.end(), _comparison_index_value); }
 
     ///@}
 

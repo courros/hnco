@@ -71,28 +71,13 @@ Population::eval(const std::vector<function::Function *>& fns)
 
 
 void
-Population::sort()
-{
-  std::sort(_lookup.begin(), _lookup.end(), _compare_index_value);
-}
-
-
-void
-Population::partial_sort(int selection_size)
-{
-  assert(selection_size > 0);
-  std::partial_sort(_lookup.begin(), _lookup.begin() + selection_size, _lookup.end(), _compare_index_value);
-}
-
-
-void
 Population::plus_selection(const Population& offsprings)
 {
   for (size_t
          i = 0,
          j = 0;
        i < _bvs.size() && j < offsprings.size(); i++) {
-    if (_compare_index_value(_lookup[i], offsprings._lookup[j]))
+    if (_comparison_index_value(_lookup[i], offsprings._lookup[j]))
       continue;
     else {
       // _lookup[i].first is left unchanged
