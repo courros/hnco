@@ -67,9 +67,6 @@ namespace neighborhood {
     SingleBitFlipIterator(int n):
       NeighborhoodIterator(n) {}
 
-    /// Initialization
-    void init();
-
     /// Has next bit vector
     bool has_next();
 

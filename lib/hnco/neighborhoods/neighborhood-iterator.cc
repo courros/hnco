@@ -39,22 +39,25 @@ NeighborhoodIterator::set_origin(const bit_vector_t& x)
   _current = x;
 }
 
-void
-SingleBitFlipIterator::init()
-{
-  _index = 0;
-  bv_flip(_current, 0);
-}
-
 bool
 SingleBitFlipIterator::has_next()
 {
-  return _index + 1 < _current.size();
+  if (_initial_state)
+    return _current.size() > 0;
+  else
+    return _index + 1 < _current.size();
 }
 
 void
 SingleBitFlipIterator::next()
 {
+  if (_initial_state) {
+    _index = 0;
+    bv_flip(_current, 0);
+    _initial_state = false;
+    return;
+  }
+
   // restore the current bit to its original value
   assert(_index < _current.size());
   bv_flip(_current, _index++);
