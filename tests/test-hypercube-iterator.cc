@@ -19,29 +19,38 @@
 */
 
 #include <algorithm>            // all_of
+#include <chrono>
 
+#include "hnco/random.hh"
 #include "hnco/bit-vector.hh"
 #include "hnco/iterator.hh"
 
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])
 {
-  const int bv_size = 20;
+  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  HypercubeIterator iterator(bv_size);
-  iterator.init();
-  while (iterator.has_next()) {
-    iterator.next();
-  };
+  std::uniform_int_distribution<int> bv_size_dist(0, 20); 
 
-  const bit_vector_t& bv = iterator.get_current();
+  for (int i = 0; i < 100; i++) {
+    int bv_size = bv_size_dist(Random::engine);
+    int count = 0;
+    HypercubeIterator iterator(bv_size);
+    while (iterator.has_next()) {
+      iterator.next();
+      count++;
+    };
+    if (bv_size == 0) {
+      if (count != 0)
+        return 1;
+    } else {
+      if (count != (1 << bv_size))
+        return 1;
+    }
+  }
 
-  if (all_of(bv.begin(), bv.end(), [](bit_t i){ return i == 1; }))
-    return 0;
-  else
-    return 1;
+  return 0;
 }
