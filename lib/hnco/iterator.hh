@@ -44,6 +44,9 @@ namespace hnco {
     /// Current bit vector
     bit_vector_t _current;
 
+    /// Flag for initial state
+    bool _initial_state = true;
+
   public:
 
     /// Constructor
@@ -57,7 +60,7 @@ namespace hnco {
     virtual const bit_vector_t& get_current() { return _current; }
 
     /// Initialization
-    virtual void init() = 0;
+    virtual void init() { _initial_state = true; }
 
     /// Has next bit vector
     virtual bool has_next() = 0;
