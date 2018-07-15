@@ -18,24 +18,29 @@
 
 */
 
+#include "hnco/exception.hh"
 #include "hnco/iterator.hh"
 
 #include "complete-search.hh"
 
 using namespace hnco::algorithm;
-using namespace hnco::function;
 using namespace hnco;
 
 
 void
 CompleteSearch::maximize()
 {
-  HypercubeIterator enumerator(_solution.first.size());
+  HypercubeIterator iterator(_solution.first.size());
 
-  enumerator.init();
-  set_solution(enumerator.get_current());
-  while (enumerator.has_next()) {
-    enumerator.next();
-    update_solution(enumerator.get_current());
+  if (!iterator.has_next())
+    throw exception::Error("CompleteSearch::maximize: empty hypercube");
+
+  iterator.next();
+  set_solution(iterator.get_current());
+
+  while (iterator.has_next()) {
+    iterator.next();
+    update_solution(iterator.get_current());
   };
+
 }
