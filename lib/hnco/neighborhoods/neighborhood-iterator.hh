@@ -82,8 +82,8 @@ namespace neighborhood {
   };
 
 
-  /// Hamming ball neighborhood iterator
-  class HammingBallIterator:
+  /// Hamming sphere neighborhood iterator
+  class HammingSphereIterator:
     public NeighborhoodIterator {
 
     /// Mutation mask
@@ -105,7 +105,7 @@ namespace neighborhood {
         \param n Size of bit vectors
         \param r Radius of Hamming Ball
     */
-    HammingBallIterator(int n, int r):
+    HammingSphereIterator(int n, int r):
       NeighborhoodIterator(n),
       _mask(n),
       _radius(r)

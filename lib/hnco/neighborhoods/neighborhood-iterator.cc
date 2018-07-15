@@ -64,7 +64,7 @@ SingleBitFlipIterator::next()
 }
 
 void
-HammingBallIterator::init()
+HammingSphereIterator::init()
 {
   bv_clear(_mask);
   fill(_mask.begin(), _mask.begin() + _radius, 1);
@@ -73,7 +73,7 @@ HammingBallIterator::init()
 }
 
 bool
-HammingBallIterator::has_next()
+HammingSphereIterator::has_next()
 {
   assert(bv_is_valid(_mask));
 
@@ -90,7 +90,7 @@ HammingBallIterator::has_next()
 }
 
 void
-HammingBallIterator::next()
+HammingSphereIterator::next()
 {
   assert(has_next());
   assert(bv_is_valid(_mask));

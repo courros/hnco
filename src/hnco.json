@@ -783,7 +783,7 @@
 
                 {
                     "value": 1,
-                    "description": "Hamming ball iterator"
+                    "description": "Hamming sphere iterator"
                 }
 
             ]

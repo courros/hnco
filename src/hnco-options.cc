@@ -900,7 +900,7 @@ void Options::print_help(ostream& stream) const
   stream << "      --neighborhood-iterator (type int, default to 0)" << endl;
   stream << "          Type of neighborhood iterator" << endl;
   stream << "            0: Single bit flip iterator" << endl;
-  stream << "            1: Hamming ball iterator" << endl;
+  stream << "            1: Hamming sphere iterator" << endl;
   stream << "      --radius (type int, default to 2)" << endl;
   stream << "          Radius of Hamming ball or sphere" << endl;
   stream << "      --rls-patience (type int, default to 50)" << endl;

@@ -70,7 +70,7 @@ make_neighborhood_iterator(const Options& options)
     return new SingleBitFlipIterator(options.get_bv_size());
 
   case 1:
-    return new HammingBallIterator(options.get_bv_size(), options.get_radius());
+    return new HammingSphereIterator(options.get_bv_size(), options.get_radius());
 
   default:
     std::ostringstream stream;
