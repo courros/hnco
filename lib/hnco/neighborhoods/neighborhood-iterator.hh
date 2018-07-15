@@ -82,7 +82,20 @@ namespace neighborhood {
   };
 
 
-  /// Hamming sphere neighborhood iterator
+  /** Hamming sphere neighborhood iterator.
+
+      This iterator enumerates mutation masks with hamming weight
+      equal to the given radius. Suppose that _mask has a first (from
+      left to right) sequence of ones of length _weight and ending at
+      _index:
+
+      0 ... 0 1 ... 1 0 ...
+
+      Then the next mask is obtained by moving to the left the first
+      _weight - 1 ones and moving to the right the last one.
+
+      1 ... 1 0 ... 0 1 ...
+  */
   class HammingSphereIterator:
     public NeighborhoodIterator {
 
