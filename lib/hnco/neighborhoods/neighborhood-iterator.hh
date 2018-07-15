@@ -23,10 +23,7 @@
 
 #include <assert.h>
 
-#include "hnco/bit-vector.hh"
 #include "hnco/iterator.hh"
-#include "hnco/random.hh"
-#include "hnco/sparse-bit-vector.hh"
 
 
 namespace hnco {
