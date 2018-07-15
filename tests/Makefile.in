@@ -101,6 +101,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-complete-search-plateau$(EXEEXT) \
 	test-complete-search-ridge$(EXEEXT) \
 	test-complete-search-trap$(EXEEXT) \
+	test-first-ascent-hill-climbing$(EXEEXT) \
 	test-hamming-sphere$(EXEEXT) test-hypercube-iterator$(EXEEXT) \
 	test-incremental-one-max-bernoulli-process$(EXEEXT) \
 	test-incremental-one-max-hamming-ball$(EXEEXT) \
@@ -231,6 +232,12 @@ test_complete_search_trap_OBJECTS =  \
 	$(am_test_complete_search_trap_OBJECTS)
 test_complete_search_trap_LDADD = $(LDADD)
 test_complete_search_trap_DEPENDENCIES = ../lib/libhnco.la
+am_test_first_ascent_hill_climbing_OBJECTS =  \
+	test-first-ascent-hill-climbing.$(OBJEXT)
+test_first_ascent_hill_climbing_OBJECTS =  \
+	$(am_test_first_ascent_hill_climbing_OBJECTS)
+test_first_ascent_hill_climbing_LDADD = $(LDADD)
+test_first_ascent_hill_climbing_DEPENDENCIES = ../lib/libhnco.la
 am_test_hamming_sphere_OBJECTS = test-hamming-sphere.$(OBJEXT)
 test_hamming_sphere_OBJECTS = $(am_test_hamming_sphere_OBJECTS)
 test_hamming_sphere_LDADD = $(LDADD)
@@ -401,6 +408,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_plateau_SOURCES) \
 	$(test_complete_search_ridge_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
+	$(test_first_ascent_hill_climbing_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
 	$(test_incremental_one_max_bernoulli_process_SOURCES) \
@@ -435,6 +443,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_plateau_SOURCES) \
 	$(test_complete_search_ridge_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
+	$(test_first_ascent_hill_climbing_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
 	$(test_incremental_one_max_bernoulli_process_SOURCES) \
@@ -833,6 +842,7 @@ test_complete_search_one_max_SOURCES = test-complete-search-one-max.cc
 test_complete_search_plateau_SOURCES = test-complete-search-plateau.cc
 test_complete_search_ridge_SOURCES = test-complete-search-ridge.cc
 test_complete_search_trap_SOURCES = test-complete-search-trap.cc
+test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
 test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-bernoulli-process.cc
@@ -984,6 +994,10 @@ test-complete-search-trap$(EXEEXT): $(test_complete_search_trap_OBJECTS) $(test_
 	@rm -f test-complete-search-trap$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_trap_OBJECTS) $(test_complete_search_trap_LDADD) $(LIBS)
 
+test-first-ascent-hill-climbing$(EXEEXT): $(test_first_ascent_hill_climbing_OBJECTS) $(test_first_ascent_hill_climbing_DEPENDENCIES) $(EXTRA_test_first_ascent_hill_climbing_DEPENDENCIES) 
+	@rm -f test-first-ascent-hill-climbing$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_first_ascent_hill_climbing_OBJECTS) $(test_first_ascent_hill_climbing_LDADD) $(LIBS)
+
 test-hamming-sphere$(EXEEXT): $(test_hamming_sphere_OBJECTS) $(test_hamming_sphere_DEPENDENCIES) $(EXTRA_test_hamming_sphere_DEPENDENCIES) 
 	@rm -f test-hamming-sphere$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_hamming_sphere_OBJECTS) $(test_hamming_sphere_LDADD) $(LIBS)
@@ -1092,6 +1106,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-plateau.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-ridge.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-trap.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-first-ascent-hill-climbing.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hypercube-iterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-bernoulli-process.Po@am__quote@
@@ -1459,6 +1474,13 @@ test-complete-search-ridge.log: test-complete-search-ridge$(EXEEXT)
 test-complete-search-trap.log: test-complete-search-trap$(EXEEXT)
 	@p='test-complete-search-trap$(EXEEXT)'; \
 	b='test-complete-search-trap'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-first-ascent-hill-climbing.log: test-first-ascent-hill-climbing$(EXEEXT)
+	@p='test-first-ascent-hill-climbing$(EXEEXT)'; \
+	b='test-first-ascent-hill-climbing'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
