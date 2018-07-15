@@ -51,6 +51,8 @@ SingleBitFlipIterator::has_next()
 void
 SingleBitFlipIterator::next()
 {
+  assert(has_next());
+
   if (_initial_state) {
     _index = 0;
     bv_flip(_current, 0);
@@ -67,19 +69,14 @@ SingleBitFlipIterator::next()
   bv_flip(_current, _index);
 }
 
-void
-HammingSphereIterator::init()
-{
-  bv_clear(_mask);
-  fill(_mask.begin(), _mask.begin() + _radius, 1);
-  assert(bv_hamming_weight(_mask) == _radius);
-  bv_flip(_current, _mask);
-}
-
 bool
 HammingSphereIterator::has_next()
 {
+  if (_initial_state)
+    return _current.size() > 0 && _radius > 0;
+
   assert(bv_is_valid(_mask));
+  assert(bv_hamming_weight(_mask) == _radius);
 
   _weight = 0;
   for (size_t i = 0; i < _mask.size() - 1; i++)
@@ -96,8 +93,16 @@ HammingSphereIterator::has_next()
 void
 HammingSphereIterator::next()
 {
-  assert(bv_is_valid(_mask));
-  assert(bv_hamming_weight(_mask) == _radius);
+  assert(has_next());
+
+  if (_initial_state) {
+    bv_clear(_mask);
+    fill(_mask.begin(), _mask.begin() + _radius, 1);
+    assert(bv_hamming_weight(_mask) == _radius);
+    bv_flip(_current, _mask);
+    _initial_state = false;
+    return;
+  }
 
   if (!has_next())
     throw exception::Error("HammingSphereIterator::next: no next element");
