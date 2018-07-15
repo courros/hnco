@@ -37,14 +37,16 @@ Function::compute_walsh_transform(std::vector<Function::WalshTransformTerm>& ter
   std::vector<bool> feature(get_bv_size());
 
   features_it.init();
-  while (true) {
+  while (features_it.has_next()) {
+    features_it.next();
     const bit_vector_t& u = features_it.get_current();
 
     if (!bv_is_zero(u)) {
       double sum = 0.0;
 
       bv_it.init();
-      while (true) {
+      while (bv_it.has_next()) {
+        bv_it.next();
         const bit_vector_t& x = bv_it.get_current();
 
         double value = eval(x);
@@ -53,12 +55,6 @@ Function::compute_walsh_transform(std::vector<Function::WalshTransformTerm>& ter
         else
           sum += value;
 
-        if (bv_it.has_next()) {
-          bv_it.next();
-        } else {
-          break;                  // Exit the innermost loop
-        }
-
       }
 
       // Only keep non zero terms
@@ -66,12 +62,6 @@ Function::compute_walsh_transform(std::vector<Function::WalshTransformTerm>& ter
         bv_to_vector_bool(u, feature);
         terms.push_back({.feature = feature, .coefficient = sum});
       }
-    }
-
-    if (features_it.has_next()) {
-      features_it.next();
-    } else {
-      break;
     }
 
   }
