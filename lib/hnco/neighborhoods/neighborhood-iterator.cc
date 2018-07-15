@@ -20,7 +20,9 @@
 
 #include <assert.h>
 
-#include <algorithm>            // all_of, any_of, fill
+#include <algorithm>            // fill
+
+#include "hnco/exception.hh"
 
 #include "neighborhood-iterator.hh"
 
@@ -92,9 +94,11 @@ HammingSphereIterator::has_next()
 void
 HammingSphereIterator::next()
 {
-  assert(has_next());
   assert(bv_is_valid(_mask));
   assert(bv_hamming_weight(_mask) == _radius);
+
+  if (!has_next())
+    throw exception::Error("HammingSphereIterator::next: no next element");
 
   // restore the current bit vector to its original value
   bv_flip(_current, _mask);
