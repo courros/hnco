@@ -12,10 +12,18 @@ Library:
 - Population: renamed _operator -> _compare_index_value
 - RandomLocalSearch, Mmas: renamed _operator -> _compare
 - RandomLocalSearch, Mmas: renamed set_operator -> set_compare
+- Iterator: added _initial_state
+- Iterator: new semantic
+- Updated: HypercubeIterator, SingleBitFlipIterator,
+  HammingSphereIterator, CompleteSearch, SteepestAscentHillClimbing,
+  FirstAscentHillClimbing
 
 Build:
 - Conditional compilation of plugin
 - Factorization and plugin features are default-disabled
+
+Tests:
+- Added test-first-ascent-hill-climbing
 
 Experiments:
 - Added experiments walsh-transforms
