@@ -50,9 +50,6 @@ namespace hnco {
     /// Destructor
     virtual ~Iterator() {}
 
-    /// Current bit vector
-    virtual const bit_vector_t& get_current() { return _current; }
-
     /// Initialization
     virtual void init() { _initial_state = true; }
 
@@ -60,7 +57,7 @@ namespace hnco {
     virtual bool has_next() = 0;
 
     /// Next bit vector
-    virtual void next() = 0;
+    virtual const bit_vector_t& next() = 0;
 
   };
 
@@ -82,7 +79,7 @@ namespace hnco {
     bool has_next();
 
     /// Next bit vector
-    void next();
+    const bit_vector_t& next();
 
   };
 

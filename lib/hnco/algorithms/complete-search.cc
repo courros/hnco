@@ -35,12 +35,8 @@ CompleteSearch::maximize()
   if (!iterator.has_next())
     throw exception::Error("CompleteSearch::maximize: empty hypercube");
 
-  iterator.next();
-  set_solution(iterator.get_current());
+  set_solution(iterator.next());
 
-  while (iterator.has_next()) {
-    iterator.next();
-    update_solution(iterator.get_current());
-  };
-
+  while (iterator.has_next())
+    update_solution(iterator.next());
 }

@@ -38,16 +38,14 @@ Function::compute_walsh_transform(std::vector<Function::WalshTransformTerm>& ter
 
   features_it.init();
   while (features_it.has_next()) {
-    features_it.next();
-    const bit_vector_t& u = features_it.get_current();
+    const bit_vector_t& u = features_it.next();
 
     if (!bv_is_zero(u)) {
       double sum = 0.0;
 
       bv_it.init();
       while (bv_it.has_next()) {
-        bv_it.next();
-        const bit_vector_t& x = bv_it.get_current();
+        const bit_vector_t& x = bv_it.next();
 
         double value = eval(x);
         if (bv_dot_product(x, u))

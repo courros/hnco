@@ -36,7 +36,7 @@ HypercubeIterator::has_next()
 }
 
 
-void
+const bit_vector_t&
 HypercubeIterator::next()
 {
   assert(has_next());
@@ -44,16 +44,16 @@ HypercubeIterator::next()
   if (_initial_state) {
     fill(_current.begin(), _current.end(), 0);
     _initial_state = false;
-    return;
-  }
-
-  for (size_t i = 0; i < _current.size(); i++) {
-    if (_current[i])
-      _current[i] = 0;
-    else {
-      _current[i] = 1;
-      return;
+  } else {
+    for (size_t i = 0; i < _current.size(); i++) {
+      if (_current[i])
+        _current[i] = 0;
+      else {
+        _current[i] = 1;
+        break;
+      }
     }
   }
 
+  return _current;
 }

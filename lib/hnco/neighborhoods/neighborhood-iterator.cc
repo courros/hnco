@@ -48,7 +48,8 @@ SingleBitFlipIterator::has_next()
     return _index + 1 < _current.size();
 }
 
-void
+
+const bit_vector_t&
 SingleBitFlipIterator::next()
 {
   assert(has_next());
@@ -57,16 +58,17 @@ SingleBitFlipIterator::next()
     _index = 0;
     bv_flip(_current, 0);
     _initial_state = false;
-    return;
+  } else {
+    // restore the current bit to its original value
+    assert(_index < _current.size());
+    bv_flip(_current, _index++);
+
+    // Flip the next bit
+    assert(_index < _current.size());
+    bv_flip(_current, _index);
   }
 
-  // restore the current bit to its original value
-  assert(_index < _current.size());
-  bv_flip(_current, _index++);
-
-  // Flip the next bit
-  assert(_index < _current.size());
-  bv_flip(_current, _index);
+  return _current;
 }
 
 bool
@@ -90,7 +92,7 @@ HammingSphereIterator::has_next()
   return false;
 }
 
-void
+const bit_vector_t&
 HammingSphereIterator::next()
 {
   assert(has_next());
@@ -101,26 +103,24 @@ HammingSphereIterator::next()
     assert(bv_hamming_weight(_mask) == _radius);
     bv_flip(_current, _mask);
     _initial_state = false;
-    return;
+  } else {
+    // restore the current bit vector to its original value
+    bv_flip(_current, _mask);
+
+    // update mask
+    assert(_mask[_index] == 1);
+    assert(_mask[_index + 1] == 0);
+
+    _mask[_index + 1] = 1;
+    fill(_mask.begin(), _mask.begin() + _index + 1, 0);
+    fill(_mask.begin(), _mask.begin() + _weight - 1, 1);
+
+    assert(bv_is_valid(_mask));
+    assert(bv_hamming_weight(_mask) == _radius);
+
+    // Flip the current bit vector
+    bv_flip(_current, _mask);
   }
 
-  if (!has_next())
-    throw exception::Error("HammingSphereIterator::next: no next element");
-
-  // restore the current bit vector to its original value
-  bv_flip(_current, _mask);
-
-  // update mask
-  assert(_mask[_index] == 1);
-  assert(_mask[_index + 1] == 0);
-
-  _mask[_index + 1] = 1;
-  fill(_mask.begin(), _mask.begin() + _index + 1, 0);
-  fill(_mask.begin(), _mask.begin() + _weight - 1, 1);
-
-  assert(bv_is_valid(_mask));
-  assert(bv_hamming_weight(_mask) == _radius);
-
-  // Flip the current bit vector
-  bv_flip(_current, _mask);
+  return _current;
 }

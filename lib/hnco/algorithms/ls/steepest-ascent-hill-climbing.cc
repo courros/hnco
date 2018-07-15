@@ -75,22 +75,22 @@ SteepestAscentHillClimbing::iterate()
   // Or throw LocalMaximum
 
   // First element
-  _neighborhood->next();
-  double best_value = _function->eval(_neighborhood->get_current());
+  const bit_vector_t& bv = _neighborhood->next();
+  double best_value = _function->eval(bv);
   size_t index = 0;
-  _candidates[index++] = _neighborhood->get_current();
+  _candidates[index++] = bv;
 
   // Other elements
   while (_neighborhood->has_next()) {
-    _neighborhood->next();
-    double value = _function->eval(_neighborhood->get_current());
+    const bit_vector_t& bv = _neighborhood->next(); // Hides previous bv
+    double value = _function->eval(bv);
     if (value > best_value) {
       best_value = value;
       index = 0;
-      _candidates[index++] = _neighborhood->get_current();
+      _candidates[index++] = bv;
     } else if (value == best_value) {
       if (index < _candidates.size())
-        _candidates[index++] = _neighborhood->get_current();
+        _candidates[index++] = bv;
     }
   }
 

@@ -69,7 +69,7 @@ namespace neighborhood {
     bool has_next();
 
     /// Next bit vector
-    void next();
+    const bit_vector_t& next();
 
   };
 
@@ -124,7 +124,7 @@ namespace neighborhood {
     bool has_next();
 
     /// Next bit vector
-    void next();
+    const bit_vector_t& next();
 
   };
 

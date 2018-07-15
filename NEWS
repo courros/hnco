@@ -14,6 +14,8 @@ Library:
 - RandomLocalSearch, Mmas: renamed set_operator -> set_compare
 - Iterator: added _initial_state
 - Iterator: new semantic
+- Iterator: removed get_current
+- Iterator: member function next now returns a reference to a bit_vector_t
 - Updated: HypercubeIterator, SingleBitFlipIterator,
   HammingSphereIterator, CompleteSearch, SteepestAscentHillClimbing,
   FirstAscentHillClimbing

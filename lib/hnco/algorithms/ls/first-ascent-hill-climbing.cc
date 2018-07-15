@@ -71,10 +71,10 @@ FirstAscentHillClimbing::iterate()
 
   _neighborhood->init();
   while (_neighborhood->has_next()) {
-    _neighborhood->next();
-    double value = _function->eval(_neighborhood->get_current());
+    const bit_vector_t& bv = _neighborhood->next();
+    double value = _function->eval(bv);
     if (value > _solution.second) {
-      _solution.first = _neighborhood->get_current();
+      _solution.first = bv;
       _solution.second = value;
       return;
     }
