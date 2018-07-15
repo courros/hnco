@@ -18,7 +18,7 @@
 
 */
 
-#include "hnco/algorithms/ls/steepest-ascent-hill-climbing.hh"
+#include "hnco/algorithms/ls/first-ascent-hill-climbing.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/random.hh"
 
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 
     OneMax function(bv_size);
     SingleBitFlipIterator iterator(bv_size);
-    SteepestAscentHillClimbing algorithm(bv_size, &iterator);
+    FirstAscentHillClimbing algorithm(bv_size, &iterator);
 
     algorithm.set_function(&function);
     algorithm.init();
