@@ -35,8 +35,6 @@ namespace neighborhood {
   class NeighborhoodIterator:
     public Iterator {
 
-  protected:
-
   public:
 
     /** Constructor.
