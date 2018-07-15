@@ -70,16 +70,15 @@ FirstAscentHillClimbing::iterate()
   assert(_neighborhood);
 
   _neighborhood->init();
-  while (true) {
+  while (_neighborhood->has_next()) {
+    _neighborhood->next();
     double value = _function->eval(_neighborhood->get_current());
     if (value > _solution.second) {
       _solution.first = _neighborhood->get_current();
       _solution.second = value;
       return;
     }
-    if (_neighborhood->has_next())
-      _neighborhood->next();
-    else
-      throw LocalMaximum(_solution);      
   }
+
+  throw LocalMaximum(_solution);      
 }
