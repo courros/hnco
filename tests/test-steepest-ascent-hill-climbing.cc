@@ -18,8 +18,6 @@
 
 */
 
-#include <random>
-
 #include "hnco/algorithms/ls/steepest-ascent-hill-climbing.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/random.hh"
@@ -30,34 +28,33 @@ using namespace hnco::function;
 using namespace hnco::neighborhood;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])
 {
+  std::uniform_int_distribution<int> bv_size_dist(1, 100);
 
   for (int i = 0; i < 1000; i++) {
 
-    uniform_int_distribution<int> choose_size(1, 100);
-    int bv_size = choose_size(random::Random::engine);
+    int bv_size = bv_size_dist(random::Random::engine);
 
-    SingleBitFlipIterator neighborhood(bv_size);
     OneMax function(bv_size);
-    SteepestAscentHillClimbing algo(bv_size, &neighborhood);
+    SingleBitFlipIterator iterator(bv_size);
+    SteepestAscentHillClimbing algorithm(bv_size, &iterator);
 
-    algo.set_function(&function);
-    algo.init();
+    algorithm.set_function(&function);
+    algorithm.init();
 
-    try { algo.maximize(); }
+    try { algorithm.maximize(); }
     catch (LocalMaximum) {}
     catch (...) {
-      exit(1);
+      return 1;
     }
 
-    if (bv_hamming_weight(algo.get_solution().first) != bv_size) {
-      exit(1);
+    if (bv_hamming_weight(algorithm.get_solution().first) != bv_size) {
+      return 1;
     }
   }
 
-  exit(0);
+  return 0;
 }
