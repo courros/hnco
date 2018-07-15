@@ -69,18 +69,26 @@ SteepestAscentHillClimbing::iterate()
   assert(_neighborhood);
 
   _neighborhood->init();
+
+  if (!_neighborhood->has_next())
+    throw exception::Error("SteepestAscentHillClimbing::iterate: empty neighborhood");
+  // Or throw LocalMaximum
+
+  // First element
+  _neighborhood->next();
   double best_value = _function->eval(_neighborhood->get_current());
   size_t index = 0;
   _candidates[index++] = _neighborhood->get_current();
 
+  // Other elements
   while (_neighborhood->has_next()) {
     _neighborhood->next();
     double value = _function->eval(_neighborhood->get_current());
-    if (value >= best_value) {
-      if (value > best_value) {
-        index = 0;
-        best_value = value;
-      }
+    if (value > best_value) {
+      best_value = value;
+      index = 0;
+      _candidates[index++] = _neighborhood->get_current();
+    } else if (value == best_value) {
       if (index < _candidates.size())
         _candidates[index++] = _neighborhood->get_current();
     }
@@ -89,9 +97,9 @@ SteepestAscentHillClimbing::iterate()
   assert(index >= 1);
   assert(index <= _candidates.size());
 
-  if (best_value >= _solution.second) {
-    std::uniform_int_distribution<int> choose_candidate(0, index - 1);
-    _solution.first = _candidates[choose_candidate(random::Random::engine)];
+  if (best_value > _solution.second) {
+    std::uniform_int_distribution<int> candidate_dist(0, index - 1);
+    _solution.first = _candidates[candidate_dist(random::Random::engine)];
     _solution.second = best_value;
     _neighborhood->set_origin(_solution.first);
   } else
