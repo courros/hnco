@@ -18,16 +18,34 @@
 
 */
 
+#include <algorithm>            // any_of, fill
+
 #include "iterator.hh"
 
 
 using namespace hnco;
 
 
+bool
+HypercubeIterator::has_next()
+{
+  if (_initial_state)
+    return _current.size() > 0;
+  else
+    return any_of(_current.begin(), _current.end(), [](bit_t b){ return b == 0; });
+}
+
+
 void
 HypercubeIterator::next()
 {
   assert(has_next());
+
+  if (_initial_state) {
+    fill(_current.begin(), _current.end(), 0);
+    _initial_state = false;
+    return;
+  }
 
   for (size_t i = 0; i < _current.size(); i++) {
     if (_current[i])
@@ -37,4 +55,5 @@ HypercubeIterator::next()
       return;
     }
   }
+
 }

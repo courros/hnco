@@ -23,13 +23,7 @@
 
 #include <assert.h>
 
-#include <algorithm>            // any_of, fill
-#include <iostream>
-#include <numeric>              // accumulate
-#include <vector>
-
 #include "bit-vector.hh"
-#include "random.hh"
 
 
 /// top-level HNCO namespace
@@ -51,7 +45,7 @@ namespace hnco {
 
     /// Constructor
     Iterator(int n):
-      _current(n) { assert(n > 0); }
+      _current(n) { assert(n >= 0); }
 
     /// Destructor
     virtual ~Iterator() {}
@@ -67,10 +61,14 @@ namespace hnco {
 
     /// Next bit vector
     virtual void next() = 0;
+
   };
 
 
-  /// Hypercube iterator
+  /** Hypercube iterator.
+
+      Implemented as a simple binary adder.
+  */
   class HypercubeIterator:
     public Iterator {
 
@@ -80,15 +78,10 @@ namespace hnco {
     HypercubeIterator(int n):
       Iterator(n) {}
 
-    /// Initialization
-    void init() { fill(_current.begin(), _current.end(), 0); }
-
     /// Has next bit vector
-    bool has_next() { return any_of(_current.begin(), _current.end(), [](bit_t b){ return b == 0; }); }
+    bool has_next();
 
-    /** Next bit vector.
-
-        Implemented as a simple binary adder. */
+    /// Next bit vector
     void next();
 
   };
