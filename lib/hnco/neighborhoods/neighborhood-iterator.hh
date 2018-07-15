@@ -117,13 +117,10 @@ namespace neighborhood {
       _mask(n),
       _radius(r)
     {
-      assert(n > 0);
-      assert(r > 0);
+      assert(n >= 0);
+      assert(r >= 0);
       assert(r <= n);
     }
-
-    /// Initialization
-    void init();
 
     /// Has next bit vector
     bool has_next();
