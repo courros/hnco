@@ -249,10 +249,8 @@ Cache::eval(const bit_vector_t& x)
 
   _num_evaluations++;
 
-  for (size_t i = 0; i < _key.size(); i++)
-    _key[i] = x[i];
-
-  std::unordered_map<std::vector<bool>, double>::iterator iter = _cache.find(_key);
+  bv_to_vector_bool(x, _key);
+  auto iter = _cache.find(_key);
 
   if (iter == _cache.end()) {
     double v = _function->eval(x);
