@@ -756,9 +756,9 @@ void Options::print_help(ostream& stream) const
   stream << "      --fn-get-bv-size" << endl;
   stream << "          Print the size of bit vectors" << endl;
   stream << "      --fn-get-maximum" << endl;
-  stream << "          Print the maximum and exit with status 0 if the function has a known maximum, 1 otherwise" << endl;
+  stream << "          If the maximum is known then print it and exit with status 0 else exit with status 1" << endl;
   stream << "      --fn-has-known-maximum" << endl;
-  stream << "          Exit with status 0 if the function has a known maximum, 1 otherwise" << endl;
+  stream << "          Does the function have a known maximum?" << endl;
   stream << "      --fn-name (type string, default to \"noname\")" << endl;
   stream << "          Name of the function in the dynamic library" << endl;
   stream << "      --fn-num-traps (type int, default to 10)" << endl;
@@ -766,7 +766,7 @@ void Options::print_help(ostream& stream) const
   stream << "      --fn-prefix-length (type int, default to 2)" << endl;
   stream << "          Prefix length for long path" << endl;
   stream << "      --fn-provides-incremental-evaluation" << endl;
-  stream << "          Exit with status 0 if the function provides incremental evaluation, 1 otherwise" << endl;
+  stream << "          Does the function provide incremental evaluation?" << endl;
   stream << "  -t, --fn-threshold (type int, default to 10)" << endl;
   stream << "          Threshold (in bits) for Jump, Four Peaks, and Six Peaks" << endl;
   stream << "      --fn-walsh-transform" << endl;

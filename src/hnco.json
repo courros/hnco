@@ -61,13 +61,13 @@
 
         "fn_has_known_maximum":
         {
-            "description": "Exit with status 0 if the function has a known maximum, 1 otherwise",
+            "description": "Does the function have a known maximum?",
             "category": "Function"
         },
 
         "fn_get_maximum":
         {
-            "description": "Print the maximum and exit with status 0 if the function has a known maximum, 1 otherwise",
+            "description": "If the maximum is known then print it and exit with status 0 else exit with status 1",
             "category": "Function"
         },
 
@@ -79,7 +79,7 @@
 
         "fn_provides_incremental_evaluation":
         {
-            "description": "Exit with status 0 if the function provides incremental evaluation, 1 otherwise",
+            "description": "Does the function provide incremental evaluation?",
             "category": "Function"
         },
 

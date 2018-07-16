@@ -248,13 +248,13 @@ class Options {
   /// Print the size of bit vectors
   bool _fn_get_bv_size;
 
-  /// Print the maximum and exit with status 0 if the function has a known maximum, 1 otherwise
+  /// If the maximum is known then print it and exit with status 0 else exit with status 1
   bool _fn_get_maximum;
 
-  /// Exit with status 0 if the function has a known maximum, 1 otherwise
+  /// Does the function have a known maximum?
   bool _fn_has_known_maximum;
 
-  /// Exit with status 0 if the function provides incremental evaluation, 1 otherwise
+  /// Does the function provide incremental evaluation?
   bool _fn_provides_incremental_evaluation;
 
   /// Compute the Walsh transform of the function
