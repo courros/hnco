@@ -92,6 +92,9 @@ namespace function {
     /// Display
     void display(std::ostream& stream);
 
+    /// Set terms
+    void set_terms(const std::vector<Function::WalshTransformTerm> terms) { _terms = terms; }
+
   };
 
 
