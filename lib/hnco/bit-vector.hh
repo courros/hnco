@@ -87,7 +87,8 @@ namespace hnco {
   inline int bv_hamming_weight(const bit_vector_t& x) { return std::accumulate(x.begin(), x.end(), 0); }
 
   /// Hamming weight
-  inline int bv_hamming_weight(const std::vector<bool>& x) {
+  inline int bv_hamming_weight(const std::vector<bool>& x)
+  {
     int result = 0;
     for (std::size_t i = 0; i < x.size(); i++)
       if (x[i])
@@ -200,7 +201,7 @@ namespace hnco {
     }
   }
 
-  /** Convert a bool vector to a bit vector
+  /** Convert a bool vector to a bit vector.
 
       \warning Vectors must be of the same size.
   */
@@ -216,12 +217,10 @@ namespace hnco {
     }
   }
 
-  /** Convert a bit vector to a size_t.
-   */
+  /// Convert a bit vector to a size_t
   std::size_t bv_to_size_type(const bit_vector_t& x);
 
-  /** Convert a size_t to a bit vector.
-   */
+  /// Convert a size_t to a bit vector
   void bv_from_size_type(bit_vector_t& x, std::size_t index);
 
   ///@}
