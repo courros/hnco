@@ -18,6 +18,8 @@
 
 */
 
+#include <math.h>               // abs
+
 #include "hnco/iterator.hh"
 
 #include "function.hh"
@@ -34,34 +36,36 @@ Function::compute_walsh_transform(std::vector<Function::WalshTransformTerm>& ter
 
   HypercubeIterator bv_it(get_bv_size());
   HypercubeIterator features_it(get_bv_size());
+
+  std::vector<double> coefficients(1 << get_bv_size(), 0);
+
   std::vector<bool> feature(get_bv_size());
+  bit_vector_t bv(get_bv_size());
 
-  features_it.init();
-  while (features_it.has_next()) {
-    const bit_vector_t& u = features_it.next();
+  bv_it.init();
+  while (bv_it.has_next()) {
+    const bit_vector_t& x = bv_it.next();
+    double value = eval(x);
 
-    if (!bv_is_zero(u)) {
-      double sum = 0.0;
-
-      bv_it.init();
-      while (bv_it.has_next()) {
-        const bit_vector_t& x = bv_it.next();
-
-        double value = eval(x);
-        if (bv_dot_product(x, u))
-          sum -= value;
-        else
-          sum += value;
-
-      }
-
-      // Only keep non zero terms
-      if (sum) {
-        bv_to_vector_bool(u, feature);
-        terms.push_back({.feature = feature, .coefficient = sum});
-      }
+    features_it.init();
+    while (features_it.has_next()) {
+      const bit_vector_t& u = features_it.next();
+      std::size_t index = bv_to_size_type(u);
+      assert(index < coefficients.size());
+      if (bv_dot_product(x, u))
+        coefficients[index] -= value;
+      else
+        coefficients[index] += value;
     }
+  }
 
+  // Only keep non zero terms
+  for (std::size_t i = 1; i < coefficients.size(); i++) {
+    if (coefficients[i]) {
+      bv_from_size_type(bv, i);
+      bv_to_vector_bool(bv, feature);
+      terms.push_back({.feature = feature, .coefficient = coefficients[i]});
+    }
   }
 
 }
