@@ -120,6 +120,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-serialize-walsh-expansion$(EXEEXT) \
 	test-serialize-walsh-expansion-1$(EXEEXT) \
 	test-serialize-walsh-expansion-2$(EXEEXT) \
+	test-single-bit-flip-iterator$(EXEEXT) \
 	test-steepest-ascent-hill-climbing$(EXEEXT)
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -354,6 +355,12 @@ test_serialize_walsh_expansion_2_OBJECTS =  \
 	$(am_test_serialize_walsh_expansion_2_OBJECTS)
 test_serialize_walsh_expansion_2_LDADD = $(LDADD)
 test_serialize_walsh_expansion_2_DEPENDENCIES = ../lib/libhnco.la
+am_test_single_bit_flip_iterator_OBJECTS =  \
+	test-single-bit-flip-iterator.$(OBJEXT)
+test_single_bit_flip_iterator_OBJECTS =  \
+	$(am_test_single_bit_flip_iterator_OBJECTS)
+test_single_bit_flip_iterator_LDADD = $(LDADD)
+test_single_bit_flip_iterator_DEPENDENCIES = ../lib/libhnco.la
 am_test_steepest_ascent_hill_climbing_OBJECTS =  \
 	test-steepest-ascent-hill-climbing.$(OBJEXT)
 test_steepest_ascent_hill_climbing_OBJECTS =  \
@@ -428,6 +435,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_serialize_walsh_expansion_SOURCES) \
 	$(test_serialize_walsh_expansion_1_SOURCES) \
 	$(test_serialize_walsh_expansion_2_SOURCES) \
+	$(test_single_bit_flip_iterator_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES)
 DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_bm_invert_SOURCES) $(test_bm_multiply_SOURCES) \
@@ -463,6 +471,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_serialize_walsh_expansion_SOURCES) \
 	$(test_serialize_walsh_expansion_1_SOURCES) \
 	$(test_serialize_walsh_expansion_2_SOURCES) \
+	$(test_single_bit_flip_iterator_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -863,6 +872,7 @@ test_serialize_translation_SOURCES = test-serialize-translation.cc
 test_serialize_walsh_expansion_1_SOURCES = test-serialize-walsh-expansion-1.cc
 test_serialize_walsh_expansion_2_SOURCES = test-serialize-walsh-expansion-2.cc
 test_serialize_walsh_expansion_SOURCES = test-serialize-walsh-expansion.cc
+test_single_bit_flip_iterator_SOURCES = test-single-bit-flip-iterator.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 TESTS = $(check_PROGRAMS)
 DISTCLEANFILES = \
@@ -1078,6 +1088,10 @@ test-serialize-walsh-expansion-2$(EXEEXT): $(test_serialize_walsh_expansion_2_OB
 	@rm -f test-serialize-walsh-expansion-2$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_walsh_expansion_2_OBJECTS) $(test_serialize_walsh_expansion_2_LDADD) $(LIBS)
 
+test-single-bit-flip-iterator$(EXEEXT): $(test_single_bit_flip_iterator_OBJECTS) $(test_single_bit_flip_iterator_DEPENDENCIES) $(EXTRA_test_single_bit_flip_iterator_DEPENDENCIES) 
+	@rm -f test-single-bit-flip-iterator$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_single_bit_flip_iterator_OBJECTS) $(test_single_bit_flip_iterator_LDADD) $(LIBS)
+
 test-steepest-ascent-hill-climbing$(EXEEXT): $(test_steepest_ascent_hill_climbing_OBJECTS) $(test_steepest_ascent_hill_climbing_DEPENDENCIES) $(EXTRA_test_steepest_ascent_hill_climbing_DEPENDENCIES) 
 	@rm -f test-steepest-ascent-hill-climbing$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_steepest_ascent_hill_climbing_OBJECTS) $(test_steepest_ascent_hill_climbing_LDADD) $(LIBS)
@@ -1127,6 +1141,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-walsh-expansion-1.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-walsh-expansion-2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-walsh-expansion.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-single-bit-flip-iterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po@am__quote@
 
 .cc.o:
@@ -1621,6 +1636,13 @@ test-serialize-walsh-expansion-1.log: test-serialize-walsh-expansion-1$(EXEEXT)
 test-serialize-walsh-expansion-2.log: test-serialize-walsh-expansion-2$(EXEEXT)
 	@p='test-serialize-walsh-expansion-2$(EXEEXT)'; \
 	b='test-serialize-walsh-expansion-2'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-single-bit-flip-iterator.log: test-single-bit-flip-iterator$(EXEEXT)
+	@p='test-single-bit-flip-iterator$(EXEEXT)'; \
+	b='test-single-bit-flip-iterator'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
