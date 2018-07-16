@@ -38,6 +38,7 @@ check_PROGRAMS = \
 	test-serialize-walsh-expansion \
 	test-serialize-walsh-expansion-1 \
 	test-serialize-walsh-expansion-2 \
+	test-single-bit-flip-iterator \
 	test-steepest-ascent-hill-climbing
 
 AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
@@ -85,6 +86,7 @@ test_serialize_translation_SOURCES = test-serialize-translation.cc
 test_serialize_walsh_expansion_1_SOURCES = test-serialize-walsh-expansion-1.cc
 test_serialize_walsh_expansion_2_SOURCES = test-serialize-walsh-expansion-2.cc
 test_serialize_walsh_expansion_SOURCES = test-serialize-walsh-expansion.cc
+test_single_bit_flip_iterator_iterator_SOURCES = test-single-bit-flip-iterator.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 
 TESTS = $(check_PROGRAMS)
