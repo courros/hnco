@@ -102,7 +102,9 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-complete-search-ridge$(EXEEXT) \
 	test-complete-search-trap$(EXEEXT) \
 	test-first-ascent-hill-climbing$(EXEEXT) \
-	test-hamming-sphere$(EXEEXT) test-hypercube-iterator$(EXEEXT) \
+	test-hamming-sphere$(EXEEXT) \
+	test-hamming-sphere-iterator$(EXEEXT) \
+	test-hypercube-iterator$(EXEEXT) \
 	test-incremental-one-max-bernoulli-process$(EXEEXT) \
 	test-incremental-one-max-hamming-ball$(EXEEXT) \
 	test-incremental-one-max-hamming-sphere$(EXEEXT) \
@@ -243,6 +245,12 @@ am_test_hamming_sphere_OBJECTS = test-hamming-sphere.$(OBJEXT)
 test_hamming_sphere_OBJECTS = $(am_test_hamming_sphere_OBJECTS)
 test_hamming_sphere_LDADD = $(LDADD)
 test_hamming_sphere_DEPENDENCIES = ../lib/libhnco.la
+am_test_hamming_sphere_iterator_OBJECTS =  \
+	test-hamming-sphere-iterator.$(OBJEXT)
+test_hamming_sphere_iterator_OBJECTS =  \
+	$(am_test_hamming_sphere_iterator_OBJECTS)
+test_hamming_sphere_iterator_LDADD = $(LDADD)
+test_hamming_sphere_iterator_DEPENDENCIES = ../lib/libhnco.la
 am_test_hypercube_iterator_OBJECTS =  \
 	test-hypercube-iterator.$(OBJEXT)
 test_hypercube_iterator_OBJECTS =  \
@@ -417,6 +425,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
 	$(test_first_ascent_hill_climbing_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
+	$(test_hamming_sphere_iterator_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
 	$(test_incremental_one_max_bernoulli_process_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
@@ -453,6 +462,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
 	$(test_first_ascent_hill_climbing_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
+	$(test_hamming_sphere_iterator_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
 	$(test_incremental_one_max_bernoulli_process_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
@@ -853,6 +863,7 @@ test_complete_search_ridge_SOURCES = test-complete-search-ridge.cc
 test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
+test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
 test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-bernoulli-process.cc
 test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
@@ -1012,6 +1023,10 @@ test-hamming-sphere$(EXEEXT): $(test_hamming_sphere_OBJECTS) $(test_hamming_sphe
 	@rm -f test-hamming-sphere$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_hamming_sphere_OBJECTS) $(test_hamming_sphere_LDADD) $(LIBS)
 
+test-hamming-sphere-iterator$(EXEEXT): $(test_hamming_sphere_iterator_OBJECTS) $(test_hamming_sphere_iterator_DEPENDENCIES) $(EXTRA_test_hamming_sphere_iterator_DEPENDENCIES) 
+	@rm -f test-hamming-sphere-iterator$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_hamming_sphere_iterator_OBJECTS) $(test_hamming_sphere_iterator_LDADD) $(LIBS)
+
 test-hypercube-iterator$(EXEEXT): $(test_hypercube_iterator_OBJECTS) $(test_hypercube_iterator_DEPENDENCIES) $(EXTRA_test_hypercube_iterator_DEPENDENCIES) 
 	@rm -f test-hypercube-iterator$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_hypercube_iterator_OBJECTS) $(test_hypercube_iterator_LDADD) $(LIBS)
@@ -1121,6 +1136,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-ridge.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-trap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-first-ascent-hill-climbing.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere-iterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hypercube-iterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-bernoulli-process.Po@am__quote@
@@ -1503,6 +1519,13 @@ test-first-ascent-hill-climbing.log: test-first-ascent-hill-climbing$(EXEEXT)
 test-hamming-sphere.log: test-hamming-sphere$(EXEEXT)
 	@p='test-hamming-sphere$(EXEEXT)'; \
 	b='test-hamming-sphere'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-hamming-sphere-iterator.log: test-hamming-sphere-iterator$(EXEEXT)
+	@p='test-hamming-sphere-iterator$(EXEEXT)'; \
+	b='test-hamming-sphere-iterator'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
