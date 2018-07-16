@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
     double norm = terms[0].coefficient;
     for (auto t : terms) {
       double relative = t.coefficient / norm;
-      if (relative > 1e-5)
+      if (relative > 1e-10)
         std::cout << bv_hamming_weight(t.feature) << " " << relative << std::endl;
     }
     return 0;
