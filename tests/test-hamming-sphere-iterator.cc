@@ -32,9 +32,9 @@ int main(int argc, char *argv[])
 {
   Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  std::uniform_int_distribution<int> bv_size_dist(0, 100); 
+  std::uniform_int_distribution<int> bv_size_dist(2, 100); 
 
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < 1000; i++) {
     int bv_size = bv_size_dist(Random::engine);
     HammingSphereIterator iterator(bv_size, 2); // radius should also be random instead of 2
     bit_vector_t bv(bv_size);
