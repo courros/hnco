@@ -22,4 +22,36 @@
 
 using namespace hnco;
 
+
 void check_libhnco(void) {}
+
+
+std::size_t
+hnco::bv_to_size_type(const bit_vector_t& x)
+{
+  assert(x.size() <= 8 * sizeof(std::size_t));
+
+  std::size_t result = 0;
+  std::size_t power = 1;
+  for (size_t i = 0; i < x.size(); i++) {
+    if (x[i])
+      result |= power;
+    power <<= 1;
+  }
+  return result;
+}
+
+void
+hnco::bv_from_size_type(bit_vector_t& x, std::size_t index)
+{
+  assert(x.size() <= 8 * sizeof(std::size_t));
+
+  std::size_t mask = 1;
+  for (size_t i = 0; i < x.size(); i++) {
+    if (index & mask)
+      x[i] = 1;
+    else
+      x[i] = 0;
+    mask <<= 1;
+  }
+}
