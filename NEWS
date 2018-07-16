@@ -28,6 +28,7 @@ Tests:
 - Added test-first-ascent-hill-climbing
 - Added test-single-bit-flip-iterator
 - Added test-hamming-sphere-iterator
+- Added test-walsh-transform
 
 Experiments:
 - Added experiments walsh-transforms
