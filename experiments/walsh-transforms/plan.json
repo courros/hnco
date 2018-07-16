@@ -101,6 +101,16 @@
         },
 
         {
+            "id": "needle",
+	    "opt": "-F 20"
+        },
+
+        {
+            "id": "long-path",
+	    "opt": "-F 140"
+        },
+
+        {
             "id": "walsh2",
 	    "opt": "-F 162 -p instances/walsh2.10"
         }
