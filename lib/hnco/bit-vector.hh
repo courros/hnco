@@ -26,8 +26,8 @@
 #include <algorithm>            // std::all_of, std::any_of, std::fill
 #include <iostream>
 #include <numeric>              // std::accumulate
-#include <vector>
 #include <utility>              // std::pair
+#include <vector>
 
 #include "random.hh"
 
@@ -40,7 +40,7 @@ extern "C" {
 namespace hnco {
 
 
-  /** @name Types and functions related to bit vectors
+  /** @name Types and functions related to bit
    */
   ///@{
 
@@ -215,6 +215,14 @@ namespace hnco {
         x[i] = 0;
     }
   }
+
+  /** Convert a bit vector to a size_t.
+   */
+  std::size_t bv_to_size_type(const bit_vector_t& x);
+
+  /** Convert a size_t to a bit vector.
+   */
+  void bv_from_size_type(bit_vector_t& x, std::size_t index);
 
   ///@}
 
