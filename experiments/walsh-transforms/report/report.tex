@@ -40,10 +40,11 @@
   $n=10$. For each function, two graphics are displayed. In the first
   one, coefficients of the Walsh transform are sorted in decreasing
   order of amplitude and normalized relatively to the greatest
-  amplitude. In particular, we are interested in how fast coefficient
-  amplitudes decrease. The second graphics displays the energy (sum of
-  square of coefficients) as a function of the order (or Hamming
-  weight) of features. This can be thought of as a spectrum.
+  amplitude. The second graphics displays the energy (sum of square of
+  coefficients) as a function of the Hamming weight of features. This
+  can be thought of as a spectrum. Coefficients $c$ such that
+  $0 < |c/c_{\max}| < 10^{-15}$ have been filtered out as they mostly
+  result from accumulated errors in floating point arithmetic.
 \end{abstract}
 
 \tableofcontents
