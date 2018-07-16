@@ -18,13 +18,12 @@
 
 */
 
-#include <algorithm>            // all_of
 #include <chrono>
 
 #include "hnco/random.hh"
-#include "hnco/bit-vector.hh"
-#include "hnco/iterator.hh"
+#include "hnco/neighborhoods/neighborhood-iterator.hh"
 
+using namespace hnco::neighborhood;
 using namespace hnco::random;
 using namespace hnco;
 
@@ -33,23 +32,22 @@ int main(int argc, char *argv[])
 {
   Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  std::uniform_int_distribution<int> bv_size_dist(0, 20); 
+  std::uniform_int_distribution<int> bv_size_dist(0, 100); 
 
   for (int i = 0; i < 100; i++) {
     int bv_size = bv_size_dist(Random::engine);
+    SingleBitFlipIterator iterator(bv_size);
+    bit_vector_t bv(bv_size);
+    bv_random(bv);
+    iterator.set_origin(bv);
     int count = 0;
-    HypercubeIterator iterator(bv_size);
     while (iterator.has_next()) {
-      iterator.next();
+      if (bv_hamming_distance(iterator.next(), bv) != 1)
+        return 1;
       count++;
     };
-    if (bv_size == 0) {
-      if (count != 0)
-        return 1;
-    } else {
-      if (count != (1 << bv_size))
-        return 1;
-    }
+    if (count != bv_size)
+      return 1;
   }
 
   return 0;
