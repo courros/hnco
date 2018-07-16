@@ -92,7 +92,9 @@ namespace hnco::function {
         \chi_u\f$ where \f$c_u = \langle f, \chi_u\rangle\f$,
         \f$\langle f, g\rangle = \frac1{2^n} \sum_x f(x) g(x)\f$,
         \f$\chi_u(x) = (-1)^{x\cdot u}\f$, and \f$x\cdot u = \sum_i
-        x_i u_i\f$ (mod 2). All sums run over the hypercube.
+        x_i u_i\f$ (mod 2). In the respective sums, we have \f$x\f$
+        and \f$u\f$ in the hypercube and \f$i\f$ in \f$\{1, \ldots,
+        n\}\f$.
 
         We have dropped the normalizing constant \f$2^n\f$ since we
         are mostly interested in ratios \f$|c_u/c_{\max}|\f$, where
