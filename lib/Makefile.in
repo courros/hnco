@@ -164,6 +164,9 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.cc \
 	hnco/algorithms/ea/tournament-selection.hh \
+	hnco/algorithms/fast-efficient-p3/all.hh \
+	hnco/algorithms/fast-efficient-p3/hboa.cc \
+	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.cc \
 	hnco/algorithms/hea/herding-binary.hh \
@@ -249,6 +252,7 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/ea/mu-plus-lambda-ea.lo \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.lo \
 	hnco/algorithms/ea/tournament-selection.lo \
+	hnco/algorithms/fast-efficient-p3/hboa.lo \
 	hnco/algorithms/hea/herding-binary.lo \
 	hnco/algorithms/hea/herding-spin.lo \
 	hnco/algorithms/hea/moment-binary.lo \
@@ -355,6 +359,8 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.hh \
+	hnco/algorithms/fast-efficient-p3/all.hh \
+	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.hh \
 	hnco/algorithms/hea/herding-spin.hh \
@@ -565,6 +571,9 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.cc \
 	hnco/algorithms/ea/tournament-selection.hh \
+	hnco/algorithms/fast-efficient-p3/all.hh \
+	hnco/algorithms/fast-efficient-p3/hboa.cc \
+	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.cc \
 	hnco/algorithms/hea/herding-binary.hh \
@@ -645,6 +654,8 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.hh \
+	hnco/algorithms/fast-efficient-p3/all.hh \
+	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.hh \
 	hnco/algorithms/hea/herding-spin.hh \
@@ -796,6 +807,15 @@ hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.lo:  \
 hnco/algorithms/ea/tournament-selection.lo:  \
 	hnco/algorithms/ea/$(am__dirstamp) \
 	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/fast-efficient-p3
+	@: > hnco/algorithms/fast-efficient-p3/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/fast-efficient-p3/$(DEPDIR)
+	@: > hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/hboa.lo:  \
+	hnco/algorithms/fast-efficient-p3/$(am__dirstamp) \
+	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/hea/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/hea
 	@: > hnco/algorithms/hea/$(am__dirstamp)
@@ -967,6 +987,8 @@ mostlyclean-compile:
 	-rm -f hnco/algorithms/bm-pbil/*.lo
 	-rm -f hnco/algorithms/ea/*.$(OBJEXT)
 	-rm -f hnco/algorithms/ea/*.lo
+	-rm -f hnco/algorithms/fast-efficient-p3/*.$(OBJEXT)
+	-rm -f hnco/algorithms/fast-efficient-p3/*.lo
 	-rm -f hnco/algorithms/hea/*.$(OBJEXT)
 	-rm -f hnco/algorithms/hea/*.lo
 	-rm -f hnco/algorithms/ls/*.$(OBJEXT)
@@ -1004,6 +1026,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/tournament-selection.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-binary.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-spin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/moment-binary.Plo@am__quote@
@@ -1076,6 +1099,7 @@ clean-libtool:
 	-rm -rf hnco/algorithms/.libs hnco/algorithms/_libs
 	-rm -rf hnco/algorithms/bm-pbil/.libs hnco/algorithms/bm-pbil/_libs
 	-rm -rf hnco/algorithms/ea/.libs hnco/algorithms/ea/_libs
+	-rm -rf hnco/algorithms/fast-efficient-p3/.libs hnco/algorithms/fast-efficient-p3/_libs
 	-rm -rf hnco/algorithms/hea/.libs hnco/algorithms/hea/_libs
 	-rm -rf hnco/algorithms/ls/.libs hnco/algorithms/ls/_libs
 	-rm -rf hnco/algorithms/pv/.libs hnco/algorithms/pv/_libs
@@ -1231,6 +1255,8 @@ distclean-generic:
 	-rm -f hnco/algorithms/bm-pbil/$(am__dirstamp)
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/algorithms/ea/$(am__dirstamp)
+	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/algorithms/fast-efficient-p3/$(am__dirstamp)
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/algorithms/hea/$(am__dirstamp)
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
@@ -1255,7 +1281,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR) hnco/neighborhoods/$(DEPDIR)
+	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/fast-efficient-p3/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR) hnco/neighborhoods/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -1301,7 +1327,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR) hnco/neighborhoods/$(DEPDIR)
+	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/fast-efficient-p3/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR) hnco/neighborhoods/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
