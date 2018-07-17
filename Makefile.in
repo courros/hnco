@@ -882,7 +882,7 @@ doc:
 	cd lib/ && make doc
 
 count:
-	cd $(top_srcdir) && (find . -name "*.hh" -or -name "*.cc" | xargs wc -l)
+	cd $(top_srcdir) && (find . -name "*.hh" -or -name "*.cc" -or -name "*.h" -or -name "*.cpp" | xargs wc -l)
 	cloc --no3 --by-file-by-lang $(top_srcdir)/lib $(top_srcdir)/scripts $(top_srcdir)/src $(top_srcdir)/tests
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
