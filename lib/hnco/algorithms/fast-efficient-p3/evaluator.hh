@@ -1,0 +1,64 @@
+/* Copyright (C) 2016, 2017, 2018 Arnaud Berny
+
+   This file is part of HNCO.
+
+   HNCO is free software: you can redistribute it and/or modify it
+   under the terms of the GNU Lesser General Public License as
+   published by the Free Software Foundation, either version 3 of the
+   License, or (at your option) any later version.
+
+   HNCO is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+   or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General
+   Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public
+   License along with HNCO. If not, see
+   <http://www.gnu.org/licenses/>.
+
+*/
+
+#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_EVALUATOR_H
+#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_EVALUATOR_H
+
+#include <assert.h>
+
+#include "hnco/function.hh"
+
+
+/// Fast efficient P3
+namespace hnco::algorithm::fast_efficient_p3 {
+
+  class HncoEvaluator {
+
+    /// HNCO function
+    hnco::function::Function *_function;
+
+    /// Argument to HNCO function
+    hnco::bit_vector_t _bv;
+
+  public:
+
+    /// Constructor
+    HncoEvaluator(Function *function):
+      _function(function)
+    {
+      assert(function);
+
+      _bv = bit_vector_t(_function->get_bv_size());
+    }
+
+    /// Evaluate a bit vector
+    float evaluate(const vector<bool> & x) {
+      assert(x.size() == _bv.size());
+
+      bv_from_vector_bool(_bv, x);
+      return _function->eval(_bv);
+    }
+
+  };
+
+} // end of namespace hnco::algorithm::fast_efficient_p3
+
+
+#endif
