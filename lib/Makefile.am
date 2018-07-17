@@ -29,6 +29,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
+	hnco/algorithms/fast-efficient-p3/src/Configuration.cpp \
+	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.cc \
@@ -161,6 +163,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
+	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.hh \
