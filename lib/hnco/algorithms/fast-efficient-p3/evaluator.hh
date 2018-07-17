@@ -23,7 +23,7 @@
 
 #include <assert.h>
 
-#include "hnco/function.hh"
+#include "hnco/functions/function.hh"
 
 
 /// Fast efficient P3
@@ -40,7 +40,7 @@ namespace hnco::algorithm::fast_efficient_p3 {
   public:
 
     /// Constructor
-    HncoEvaluator(Function *function):
+    HncoEvaluator(hnco::function::Function *function):
       _function(function)
     {
       assert(function);
@@ -49,7 +49,7 @@ namespace hnco::algorithm::fast_efficient_p3 {
     }
 
     /// Evaluate a bit vector
-    float evaluate(const vector<bool> & x) {
+    float evaluate(const std::vector<bool> & x) {
       assert(x.size() == _bv.size());
 
       bv_from_vector_bool(_bv, x);
