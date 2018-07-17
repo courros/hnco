@@ -18,7 +18,14 @@
 
 */
 
+#include <memory>               // std::shared_ptr?
+
+#include "hnco/random.hh"
+
+#include "hnco-evaluator.hh"
 #include "hboa.hh"
+
+#include "src/Configuration.h"
 
 using namespace hnco::algorithm::fast_efficient_p3;
 using namespace hnco::algorithm;
@@ -28,5 +35,8 @@ using namespace hnco;
 void
 Hboa::maximize()
 {
+  Configuration configuration;
+  configuration.set<int>("pop_size", 100);
 
+  HncoEvaluator evaluator(_function);
 }
