@@ -888,7 +888,7 @@
             "optchar": "x",
             "type": "int",
             "value": 10,
-            "description": "Size of the population",
+            "description": "Population size",
             "category": "EDA"
         },
 
@@ -897,7 +897,7 @@
             "optchar": "y",
             "type": "int",
             "value": 1,
-            "description": "Size of the selection (number of selected individuals)",
+            "description": "Selection size (number of selected individuals)",
             "category": "EDA"
         },
 
