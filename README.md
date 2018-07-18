@@ -22,7 +22,7 @@ vectors. It aims at being flexible, fast, simple, and robust.
 Library features:
 
 - 25 concrete functions
-- 18 concrete algorithms
+- 22 concrete algorithms
 - Maps from bit vectors to bit vectors (affine maps)
 - Function decorators to control evaluation (budget)
 - Function decorators to modify functions (noise)
@@ -96,11 +96,14 @@ Here is the list of currently available algorithms:
 - Herding evolutionary algorithm, herding with binary variables
 - Herding evolutionary algorithm, herding with spin variables
 - Boltzmann machine PBIL
+- Hierarchical Bayesian Optimization Algorithm
+- Linkage Tree Genetic Algorithm
+- Parameter-less Population Pyramid
 
-For population-based algorithms, bit vectors in the population can be
-evaluated in parallel as the library uses OpenMP. It should be noted
-that only sufficiently complex functions should lead to significant
-speed-up.
+For population-based algorithms, bit vectors in a population (class
+`hnco::algorithm::Population`) can be evaluated in parallel as the
+library uses OpenMP. It should be noted that only sufficiently complex
+functions should lead to significant speed-up.
 
 ### Functions
 
@@ -406,6 +409,9 @@ Dirk Sudholt has pointed the discrepancy between theoretical and
 experimental optimization times of (1+1) EA on OneMax, which has led
 to the addition of the option `--allow-stay` to allow to stay on the
 same bit vector when no mutation occurs.
+
+The library embeds code from Brian Goldman's project FastEfficientP3
+to provide Hboa, Ltga, and P3 algorithms.
 
 ## References
 
