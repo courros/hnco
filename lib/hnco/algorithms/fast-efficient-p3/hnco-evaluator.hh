@@ -34,7 +34,7 @@ namespace hnco::algorithm::fast_efficient_p3 {
     /// HNCO function
     hnco::function::Function *_function;
 
-    /// Argument to HNCO function
+    /// Argument of HNCO function
     hnco::bit_vector_t _bv;
 
   public:
