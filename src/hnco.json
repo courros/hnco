@@ -714,6 +714,11 @@
                 {
                     "value": 1110,
                     "description": "Hierarchical Bayesian Optimization Algorithm"
+                },
+
+                {
+                    "value": 1200,
+                    "description": "Linkage Tree Genetic Algorithm"
                 }
 
             ]

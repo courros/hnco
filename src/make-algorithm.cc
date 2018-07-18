@@ -446,6 +446,12 @@ make_concrete_algorithm(const Options& options)
     return algo;
   }
 
+  case 1200: {
+    auto algo = new hnco::algorithm::fast_efficient_p3::Ltga(options.get_bv_size());
+    algo->set_population_size(options.get_population_size());
+    return algo;
+  }
+
   default:
     std::ostringstream stream;
     stream << options.get_algorithm();

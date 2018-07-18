@@ -22,5 +22,6 @@
 #define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_ALL_H
 
 #include "hboa.hh"
+#include "ltga.hh"
 
 #endif

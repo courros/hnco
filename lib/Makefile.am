@@ -29,6 +29,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
+	hnco/algorithms/fast-efficient-p3/ltga.cc \
+	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/src/Evaluation.cpp \
@@ -37,8 +39,13 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/fast-efficient-p3/src/HBOA.h \
 	hnco/algorithms/fast-efficient-p3/src/HillCimb.cpp \
 	hnco/algorithms/fast-efficient-p3/src/HillClimb.h \
+	hnco/algorithms/fast-efficient-p3/src/LTGA.cpp \
+	hnco/algorithms/fast-efficient-p3/src/LTGA.h \
 	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.cpp \
 	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.h \
+	hnco/algorithms/fast-efficient-p3/src/Optimizer.h \
+	hnco/algorithms/fast-efficient-p3/src/Population.cpp \
+	hnco/algorithms/fast-efficient-p3/src/Population.h \
 	hnco/algorithms/fast-efficient-p3/src/Record.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Record.h \
 	hnco/algorithms/fast-efficient-p3/src/Util.cpp \
@@ -175,11 +182,15 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
+	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/src/Evaluation.h \
 	hnco/algorithms/fast-efficient-p3/src/HBOA.h \
 	hnco/algorithms/fast-efficient-p3/src/HillClimb.h \
+	hnco/algorithms/fast-efficient-p3/src/LTGA.h \
 	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.h \
+	hnco/algorithms/fast-efficient-p3/src/Optimizer.h \
+	hnco/algorithms/fast-efficient-p3/src/Population.h \
 	hnco/algorithms/fast-efficient-p3/src/Record.h \
 	hnco/algorithms/fast-efficient-p3/src/Util.h \
 	hnco/algorithms/hea/all.hh \

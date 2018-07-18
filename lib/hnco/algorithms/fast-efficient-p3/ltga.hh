@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_BOA_H
-#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_BOA_H
+#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_LTGA_H
+#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_LTGA_H
 
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/exception.hh"
@@ -28,20 +28,18 @@
 /// Fast efficient P3
 namespace hnco::algorithm::fast_efficient_p3 {
 
-  /** Hboa.
+  /** Ltga.
 
-      Implementation of the Hierarchical Bayesian Optimization
-      Algorithm and helper classes based on the publication: Pelikan,
-      M. and Goldberg, D. (2006). Hierarchical bayesian optimization
-      algorithm. In Scalable Optimization via Probabilistic Modeling,
-      volume 33 of Studies in Computational Intelligence, pages
-      63–90. Springer Berlin Heidelberg.
+      Implementation of the Linkage Tree Genetic Algorithm Designed to
+      match the variant in the paper: "Hierarchical problem solving
+      with the linkage tree genetic algorithm" by D. Thierens and
+      P. A. N. Bosman
 
       Author: Brian Goldman
 
       Integrated into HNCO by Arnaud Berny
   */
-  class Hboa:
+  class Ltga:
     public Algorithm {
 
     /// Population size
@@ -50,7 +48,7 @@ namespace hnco::algorithm::fast_efficient_p3 {
   public:
 
     /// Constructor
-    Hboa(int n):
+    Ltga(int n):
       Algorithm(n) {}
 
     /// Maximize
