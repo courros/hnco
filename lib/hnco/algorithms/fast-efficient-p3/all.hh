@@ -23,5 +23,6 @@
 
 #include "hboa.hh"
 #include "ltga.hh"
+#include "p3.hh"
 
 #endif

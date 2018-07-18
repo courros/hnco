@@ -23,7 +23,7 @@
 #include "hnco/random.hh"
 
 #include "hnco-evaluator.hh"
-#include "parameterless-population-pyramid.hh"
+#include "p3.hh"
 
 #include "src/Configuration.h"
 #include "src/MiddleLayer.h"
@@ -39,7 +39,6 @@ ParameterlessPopulationPyramid::maximize()
 {
   Configuration configuration;
 
-  configuration.set("binary_insert", 1);
   configuration.set("cluster_ordering", std::string("least_linked_first"));
   configuration.set("disable_solution_outfile", 1);
   configuration.set("donate_until_different", 0);
@@ -50,9 +49,9 @@ ParameterlessPopulationPyramid::maximize()
   configuration.set("restrict_cluster_size", 0);
   configuration.set("solution_file", std::string("hboa-solution.txt"));
   configuration.set("verbosity", 0);
+  configuration.set("only_add_improvements", 1);
 
   configuration.set("length", _solution.first.size());
-  configuration.set("pop_size", _population_size);
 
   std::shared_ptr<HncoEvaluator> evaluator(new HncoEvaluator(_function));
   std::shared_ptr<Middle_Layer> middle_layer(new Middle_Layer(configuration, evaluator));

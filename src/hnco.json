@@ -719,6 +719,11 @@
                 {
                     "value": 1200,
                     "description": "Linkage Tree Genetic Algorithm"
+                },
+
+                {
+                    "value": 1300,
+                    "description": "Parameter-less Population Pyramid"
                 }
 
             ]

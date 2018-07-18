@@ -169,6 +169,8 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.cc \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
+	hnco/algorithms/fast-efficient-p3/p3.cc \
+	hnco/algorithms/fast-efficient-p3/p3.hh \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/src/Evaluation.cpp \
@@ -184,6 +186,8 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/fast-efficient-p3/src/Optimizer.h \
 	hnco/algorithms/fast-efficient-p3/src/Population.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Population.h \
+	hnco/algorithms/fast-efficient-p3/src/Pyramid.cpp \
+	hnco/algorithms/fast-efficient-p3/src/Pyramid.h \
 	hnco/algorithms/fast-efficient-p3/src/Record.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Record.h \
 	hnco/algorithms/fast-efficient-p3/src/Util.cpp \
@@ -275,6 +279,7 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/ea/tournament-selection.lo \
 	hnco/algorithms/fast-efficient-p3/hboa.lo \
 	hnco/algorithms/fast-efficient-p3/ltga.lo \
+	hnco/algorithms/fast-efficient-p3/p3.lo \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.lo \
 	hnco/algorithms/fast-efficient-p3/src/Evaluation.lo \
 	hnco/algorithms/fast-efficient-p3/src/HBOA.lo \
@@ -282,6 +287,7 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/fast-efficient-p3/src/LTGA.lo \
 	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.lo \
 	hnco/algorithms/fast-efficient-p3/src/Population.lo \
+	hnco/algorithms/fast-efficient-p3/src/Pyramid.lo \
 	hnco/algorithms/fast-efficient-p3/src/Record.lo \
 	hnco/algorithms/fast-efficient-p3/src/Util.lo \
 	hnco/algorithms/hea/herding-binary.lo \
@@ -401,6 +407,7 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.h \
 	hnco/algorithms/fast-efficient-p3/src/Optimizer.h \
 	hnco/algorithms/fast-efficient-p3/src/Population.h \
+	hnco/algorithms/fast-efficient-p3/src/Pyramid.h \
 	hnco/algorithms/fast-efficient-p3/src/Record.h \
 	hnco/algorithms/fast-efficient-p3/src/Util.h \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
@@ -618,6 +625,8 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.cc \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
+	hnco/algorithms/fast-efficient-p3/p3.cc \
+	hnco/algorithms/fast-efficient-p3/p3.hh \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/src/Evaluation.cpp \
@@ -633,6 +642,8 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/fast-efficient-p3/src/Optimizer.h \
 	hnco/algorithms/fast-efficient-p3/src/Population.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Population.h \
+	hnco/algorithms/fast-efficient-p3/src/Pyramid.cpp \
+	hnco/algorithms/fast-efficient-p3/src/Pyramid.h \
 	hnco/algorithms/fast-efficient-p3/src/Record.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Record.h \
 	hnco/algorithms/fast-efficient-p3/src/Util.cpp \
@@ -720,6 +731,7 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
+	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/src/Evaluation.h \
 	hnco/algorithms/fast-efficient-p3/src/HBOA.h \
@@ -728,6 +740,7 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.h \
 	hnco/algorithms/fast-efficient-p3/src/Optimizer.h \
 	hnco/algorithms/fast-efficient-p3/src/Population.h \
+	hnco/algorithms/fast-efficient-p3/src/Pyramid.h \
 	hnco/algorithms/fast-efficient-p3/src/Record.h \
 	hnco/algorithms/fast-efficient-p3/src/Util.h \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
@@ -893,6 +906,9 @@ hnco/algorithms/fast-efficient-p3/hboa.lo:  \
 hnco/algorithms/fast-efficient-p3/ltga.lo:  \
 	hnco/algorithms/fast-efficient-p3/$(am__dirstamp) \
 	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/p3.lo:  \
+	hnco/algorithms/fast-efficient-p3/$(am__dirstamp) \
+	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/fast-efficient-p3/src/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/fast-efficient-p3/src
 	@: > hnco/algorithms/fast-efficient-p3/src/$(am__dirstamp)
@@ -918,6 +934,9 @@ hnco/algorithms/fast-efficient-p3/src/MiddleLayer.lo:  \
 	hnco/algorithms/fast-efficient-p3/src/$(am__dirstamp) \
 	hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/fast-efficient-p3/src/Population.lo:  \
+	hnco/algorithms/fast-efficient-p3/src/$(am__dirstamp) \
+	hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/src/Pyramid.lo:  \
 	hnco/algorithms/fast-efficient-p3/src/$(am__dirstamp) \
 	hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/fast-efficient-p3/src/Record.lo:  \
@@ -1140,6 +1159,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/tournament-selection.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/Configuration.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/Evaluation.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/HBOA.Plo@am__quote@
@@ -1147,6 +1167,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/LTGA.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/MiddleLayer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/Population.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/Pyramid.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/Record.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/Util.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-binary.Plo@am__quote@
