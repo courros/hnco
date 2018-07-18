@@ -19,6 +19,9 @@ Library:
 - Iterator: updated HypercubeIterator, SingleBitFlipIterator,
   HammingSphereIterator, CompleteSearch, SteepestAscentHillClimbing,
   FirstAscentHillClimbing
+- Added Hboa
+- Added Ltga
+- Added ParameterlessPopulationPyramid
 
 Build:
 - Conditional compilation of plugin
