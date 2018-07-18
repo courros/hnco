@@ -25,7 +25,6 @@
 #include "hnco/exception.hh"
 
 
-/// Fast efficient P3
 namespace hnco::algorithm::fast_efficient_p3 {
 
   /** Hboa.

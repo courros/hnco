@@ -18,27 +18,26 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_LTGA_H
-#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_LTGA_H
+#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_PYRAMID_H
+#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_PYRAMID_H
 
 #include "hnco/algorithms/algorithm.hh"
-#include "hnco/exception.hh"
 
 
 namespace hnco::algorithm::fast_efficient_p3 {
 
-  /** Ltga.
+  /** ParameterlessPopulationPyramid.
 
-      Implementation of the Linkage Tree Genetic Algorithm Designed to
-      match the variant in the paper: "Hierarchical problem solving
-      with the linkage tree genetic algorithm" by D. Thierens and
-      P. A. N. Bosman
+      Implemention of the Parameter-less Population Pyramid. Full
+      description given in publication: "Fast and Efficient Black Box
+      Optimization using the Parameter-less Population Pyramid" by
+      B. W. Goldman and W. F. Punch
 
       Author: Brian Goldman
 
       Integrated into HNCO by Arnaud Berny
   */
-  class Ltga:
+  class ParameterlessPopulationPyramid:
     public Algorithm {
 
     /// Population size
@@ -47,7 +46,7 @@ namespace hnco::algorithm::fast_efficient_p3 {
   public:
 
     /// Constructor
-    Ltga(int n):
+    ParameterlessPopulationPyramid(int n):
       Algorithm(n) {}
 
     /// Maximize
