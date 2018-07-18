@@ -177,7 +177,7 @@ class Options {
   int _pn_radius;
   bool _opt_pn_radius;
 
-  /// Size of the population
+  /// Population size
   int _population_size;
   bool _opt_population_size;
 
@@ -213,7 +213,7 @@ class Options {
   unsigned _seed;
   bool _opt_seed;
 
-  /// Size of the selection (number of selected individuals)
+  /// Selection size (number of selected individuals)
   int _selection_size;
   bool _opt_selection_size;
 

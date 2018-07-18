@@ -440,8 +440,11 @@ make_concrete_algorithm(const Options& options)
     return algo;
   }
 
-  case 1110:
-    return new hnco::algorithm::fast_efficient_p3::Hboa(options.get_bv_size());
+  case 1110: {
+    auto algo = new hnco::algorithm::fast_efficient_p3::Hboa(options.get_bv_size());
+    algo->set_population_size(options.get_population_size());
+    return algo;
+  }
 
   default:
     std::ostringstream stream;

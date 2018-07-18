@@ -44,7 +44,7 @@ Hboa::maximize()
   configuration.set("disable_solution_outfile", 1);
 
   configuration.set("length", _solution.first.size());
-  configuration.set("pop_size", 500);
+  configuration.set("pop_size", _population_size);
   configuration.set("hill_climber", std::string("no_action"));
 
   std::shared_ptr<HncoEvaluator> evaluator(new HncoEvaluator(_function));

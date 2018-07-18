@@ -937,7 +937,7 @@ void Options::print_help(ostream& stream) const
   stream << "      --mmas-strict" << endl;
   stream << "          Strict (>) max-min ant system" << endl;
   stream << "  -x, --population-size (type int, default to 10)" << endl;
-  stream << "          Size of the population" << endl;
+  stream << "          Population size" << endl;
   stream << "      --pv-log-entropy" << endl;
   stream << "          Log entropy of probability vector" << endl;
   stream << "      --pv-log-num-components (type int, default to 5)" << endl;
@@ -945,7 +945,7 @@ void Options::print_help(ostream& stream) const
   stream << "      --pv-log-pv" << endl;
   stream << "          Log probability vector" << endl;
   stream << "  -y, --selection-size (type int, default to 1)" << endl;
-  stream << "          Size of the selection (number of selected individuals)" << endl;
+  stream << "          Selection size (number of selected individuals)" << endl;
   stream << endl;
   stream << "HEA:" << endl;
   stream << "      --hea-binary-dynamics (type int, default to 0)" << endl;

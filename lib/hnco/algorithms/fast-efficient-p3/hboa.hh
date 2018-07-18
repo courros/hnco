@@ -44,6 +44,9 @@ namespace hnco::algorithm::fast_efficient_p3 {
   class Hboa:
     public Algorithm {
 
+    /// Population size
+    int _population_size = 10;
+
   public:
 
     /// Constructor
@@ -52,6 +55,9 @@ namespace hnco::algorithm::fast_efficient_p3 {
 
     /// Maximize
     void maximize();
+
+    /// Set population size
+    void set_population_size(int n) { _population_size = n; }
 
   };
 
