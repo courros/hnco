@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_BOA_H
-#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_BOA_H
+#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_HBOA_H
+#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_HBOA_H
 
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/exception.hh"
