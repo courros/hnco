@@ -22,7 +22,6 @@
 #define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_HBOA_H
 
 #include "hnco/algorithms/algorithm.hh"
-#include "hnco/exception.hh"
 
 
 namespace hnco::algorithm::fast_efficient_p3 {
