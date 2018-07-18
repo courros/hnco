@@ -29,6 +29,7 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
+	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.cc \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.cc \
@@ -186,6 +187,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
+	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/src/Evaluation.h \
@@ -264,6 +266,8 @@ endif
 if ENABLE_PLUGIN
 nobase_include_HEADERS += hnco/functions/plugin.hh
 endif
+
+EXTRA_DIST = hnco/algorithms/fast-efficient-p3/src/LICENSE.txt
 
 #
 # Code management
