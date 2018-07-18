@@ -187,7 +187,6 @@ nobase_include_HEADERS = \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
-	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/src/Evaluation.h \
 	hnco/algorithms/fast-efficient-p3/src/HBOA.h \
