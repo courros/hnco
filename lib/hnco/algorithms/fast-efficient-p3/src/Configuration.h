@@ -43,6 +43,10 @@ class Configuration {
     data[key] = std::to_string(value);
   }
 
+  void set(const string key, const std::string value) {
+    data[key] = value;
+  }
+
  private:
   unordered_map<string, string> data;
 };
