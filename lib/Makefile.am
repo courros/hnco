@@ -31,6 +31,18 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
+	hnco/algorithms/fast-efficient-p3/src/Evaluation.cpp \
+	hnco/algorithms/fast-efficient-p3/src/Evaluation.h \
+	hnco/algorithms/fast-efficient-p3/src/HBOA.cpp \
+	hnco/algorithms/fast-efficient-p3/src/HBOA.h \
+	hnco/algorithms/fast-efficient-p3/src/HillCimb.cpp \
+	hnco/algorithms/fast-efficient-p3/src/HillClimb.h \
+	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.cpp \
+	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.h \
+	hnco/algorithms/fast-efficient-p3/src/Record.cpp \
+	hnco/algorithms/fast-efficient-p3/src/Record.h \
+	hnco/algorithms/fast-efficient-p3/src/Util.cpp \
+	hnco/algorithms/fast-efficient-p3/src/Util.h \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.cc \
@@ -164,6 +176,12 @@ nobase_include_HEADERS = \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
+	hnco/algorithms/fast-efficient-p3/src/Evaluation.h \
+	hnco/algorithms/fast-efficient-p3/src/HBOA.h \
+	hnco/algorithms/fast-efficient-p3/src/HillClimb.h \
+	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.h \
+	hnco/algorithms/fast-efficient-p3/src/Record.h \
+	hnco/algorithms/fast-efficient-p3/src/Util.h \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.hh \

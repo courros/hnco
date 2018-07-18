@@ -25,11 +25,15 @@
 
 #include "hnco/functions/function.hh"
 
+#include "src/Evaluation.h"
+
 
 /// Fast efficient P3
 namespace hnco::algorithm::fast_efficient_p3 {
 
-  class HncoEvaluator {
+  /// Evaluator for HNCO functions
+  class HncoEvaluator:
+    public Evaluator {
 
     /// HNCO function
     hnco::function::Function *_function;

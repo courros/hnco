@@ -169,6 +169,18 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
+	hnco/algorithms/fast-efficient-p3/src/Evaluation.cpp \
+	hnco/algorithms/fast-efficient-p3/src/Evaluation.h \
+	hnco/algorithms/fast-efficient-p3/src/HBOA.cpp \
+	hnco/algorithms/fast-efficient-p3/src/HBOA.h \
+	hnco/algorithms/fast-efficient-p3/src/HillCimb.cpp \
+	hnco/algorithms/fast-efficient-p3/src/HillClimb.h \
+	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.cpp \
+	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.h \
+	hnco/algorithms/fast-efficient-p3/src/Record.cpp \
+	hnco/algorithms/fast-efficient-p3/src/Record.h \
+	hnco/algorithms/fast-efficient-p3/src/Util.cpp \
+	hnco/algorithms/fast-efficient-p3/src/Util.h \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.cc \
 	hnco/algorithms/hea/herding-binary.hh \
@@ -256,6 +268,12 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/ea/tournament-selection.lo \
 	hnco/algorithms/fast-efficient-p3/hboa.lo \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.lo \
+	hnco/algorithms/fast-efficient-p3/src/Evaluation.lo \
+	hnco/algorithms/fast-efficient-p3/src/HBOA.lo \
+	hnco/algorithms/fast-efficient-p3/src/HillCimb.lo \
+	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.lo \
+	hnco/algorithms/fast-efficient-p3/src/Record.lo \
+	hnco/algorithms/fast-efficient-p3/src/Util.lo \
 	hnco/algorithms/hea/herding-binary.lo \
 	hnco/algorithms/hea/herding-spin.lo \
 	hnco/algorithms/hea/moment-binary.lo \
@@ -365,6 +383,12 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
+	hnco/algorithms/fast-efficient-p3/src/Evaluation.h \
+	hnco/algorithms/fast-efficient-p3/src/HBOA.h \
+	hnco/algorithms/fast-efficient-p3/src/HillClimb.h \
+	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.h \
+	hnco/algorithms/fast-efficient-p3/src/Record.h \
+	hnco/algorithms/fast-efficient-p3/src/Util.h \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.hh \
 	hnco/algorithms/hea/herding-spin.hh \
@@ -580,6 +604,18 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
+	hnco/algorithms/fast-efficient-p3/src/Evaluation.cpp \
+	hnco/algorithms/fast-efficient-p3/src/Evaluation.h \
+	hnco/algorithms/fast-efficient-p3/src/HBOA.cpp \
+	hnco/algorithms/fast-efficient-p3/src/HBOA.h \
+	hnco/algorithms/fast-efficient-p3/src/HillCimb.cpp \
+	hnco/algorithms/fast-efficient-p3/src/HillClimb.h \
+	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.cpp \
+	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.h \
+	hnco/algorithms/fast-efficient-p3/src/Record.cpp \
+	hnco/algorithms/fast-efficient-p3/src/Record.h \
+	hnco/algorithms/fast-efficient-p3/src/Util.cpp \
+	hnco/algorithms/fast-efficient-p3/src/Util.h \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.cc \
 	hnco/algorithms/hea/herding-binary.hh \
@@ -663,6 +699,12 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
+	hnco/algorithms/fast-efficient-p3/src/Evaluation.h \
+	hnco/algorithms/fast-efficient-p3/src/HBOA.h \
+	hnco/algorithms/fast-efficient-p3/src/HillClimb.h \
+	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.h \
+	hnco/algorithms/fast-efficient-p3/src/Record.h \
+	hnco/algorithms/fast-efficient-p3/src/Util.h \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/herding-binary.hh \
 	hnco/algorithms/hea/herding-spin.hh \
@@ -830,6 +872,24 @@ hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)
 	@: > hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/fast-efficient-p3/src/Configuration.lo:  \
+	hnco/algorithms/fast-efficient-p3/src/$(am__dirstamp) \
+	hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/src/Evaluation.lo:  \
+	hnco/algorithms/fast-efficient-p3/src/$(am__dirstamp) \
+	hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/src/HBOA.lo:  \
+	hnco/algorithms/fast-efficient-p3/src/$(am__dirstamp) \
+	hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/src/HillCimb.lo:  \
+	hnco/algorithms/fast-efficient-p3/src/$(am__dirstamp) \
+	hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/src/MiddleLayer.lo:  \
+	hnco/algorithms/fast-efficient-p3/src/$(am__dirstamp) \
+	hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/src/Record.lo:  \
+	hnco/algorithms/fast-efficient-p3/src/$(am__dirstamp) \
+	hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/src/Util.lo:  \
 	hnco/algorithms/fast-efficient-p3/src/$(am__dirstamp) \
 	hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/hea/$(am__dirstamp):
@@ -1046,6 +1106,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/tournament-selection.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/Configuration.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/Evaluation.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/HBOA.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/HillCimb.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/MiddleLayer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/Record.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/Util.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-binary.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-spin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/moment-binary.Plo@am__quote@

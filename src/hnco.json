@@ -709,6 +709,11 @@
                 {
                     "value": 1000,
                     "description": "Boltzmann machine PBIL"
+                },
+
+                {
+                    "value": 1110,
+                    "description": "Hierarchical Bayesian Optimization Algorithm"
                 }
 
             ]

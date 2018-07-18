@@ -879,6 +879,7 @@ void Options::print_help(ostream& stream) const
   stream << "            900: Herding evolutionary algorithm, herding with binary variables" << endl;
   stream << "            901: Herding evolutionary algorithm, herding with spin variables" << endl;
   stream << "            1000: Boltzmann machine PBIL" << endl;
+  stream << "            1110: Hierarchical Bayesian Optimization Algorithm" << endl;
   stream << "  -m, --mutation-probability (type double, default to 1)" << endl;
   stream << "          Expected number of flipped bits (bv_size times mutation probability)" << endl;
   stream << "  -i, --num-iterations (type int, default to 0)" << endl;

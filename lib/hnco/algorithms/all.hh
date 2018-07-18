@@ -25,6 +25,7 @@
 #include "hnco/algorithms/bm-pbil/bm-pbil.hh"
 #include "hnco/algorithms/complete-search.hh"
 #include "hnco/algorithms/ea/all.hh"
+#include "hnco/algorithms/fast-efficient-p3/all.hh"
 #include "hnco/algorithms/hea/all.hh"
 #include "hnco/algorithms/ls/all.hh"
 #include "hnco/algorithms/pv/all.hh"
