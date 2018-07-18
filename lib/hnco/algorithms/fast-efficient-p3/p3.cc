@@ -45,11 +45,13 @@ ParameterlessPopulationPyramid::maximize()
   configuration.set("hill_climber", std::string("no_action"));
   configuration.set("keep_zeros", 0);
   configuration.set("no_singles", 0);
+  configuration.set("only_add_improvements", 1);
   configuration.set("precision", 65536);
   configuration.set("restrict_cluster_size", 0);
   configuration.set("solution_file", std::string("hboa-solution.txt"));
   configuration.set("verbosity", 0);
-  configuration.set("only_add_improvements", 1);
+  configuration.set("wait_until_k_modeled", 0);
+  configuration.set("prevent_duplicates", 1);
 
   configuration.set("length", _solution.first.size());
 
