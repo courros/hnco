@@ -387,7 +387,17 @@ EXTRA_DIST = \
 	experiments/runtime/Makefile \
 	experiments/runtime/plan.json \
 	experiments/runtime/report/Makefile \
-	experiments/runtime/report/report.tex
+	experiments/runtime/report/report.tex \
+	experiments/walsh-transforms/Makefile \
+	experiments/walsh-transforms/instances/Makefile \
+	experiments/walsh-transforms/instances/ep.10 \
+	experiments/walsh-transforms/instances/lin.10 \
+	experiments/walsh-transforms/instances/ms.10.3.10 \
+	experiments/walsh-transforms/instances/nk.10.2 \
+	experiments/walsh-transforms/instances/walsh2.10 \
+	experiments/walsh-transforms/plan.json \
+	experiments/walsh-transforms/report/Makefile \
+	experiments/walsh-transforms/report/report.tex
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
