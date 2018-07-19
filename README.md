@@ -409,8 +409,8 @@ experimental optimization times of (1+1) EA on OneMax, which has led
 to the addition of the option `--allow-stay` to allow to stay on the
 same bit vector when no mutation occurs.
 
-The library embeds code from Brian Goldman's project FastEfficientP3
-to provide Hboa, Ltga, and P3 algorithms.
+The library embeds code from Brian W. Goldman's project
+FastEfficientP3 to provide Hboa, Ltga, and P3 algorithms.
 
 ## References
 
@@ -423,5 +423,5 @@ to provide Hboa, Ltga, and P3 algorithms.
 - Nikolaus Hansen, Anne Auger, Dimo Brockhoff, Dejan Tusar, Tea
   Tusar (2016). "COCO: Performance Assessment",
   [abs/1605.03560](http://arxiv.org/abs/1605.03560).
-- Brian Goldman,
+- Brian W. Goldman,
   [FastEfficientP3](https://github.com/brianwgoldman/FastEfficientP3)
