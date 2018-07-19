@@ -1,5 +1,10 @@
 * Version 0.9 (unreleased)
 
+Highlight:
+- New algorithms: FirstAscentHillClimbing, Hboa, Ltga,
+  ParameterLessPopulationPyramid
+- New experiment walsh-transforms
+
 Library:
 - Added first ascent hill climbing
 - Function: added member function compute_walsh_transform
