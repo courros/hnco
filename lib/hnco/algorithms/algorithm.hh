@@ -81,9 +81,6 @@ namespace algorithm {
   public:
 
     /// Constructor
-    Algorithm() {}
-
-    /// Constructor
     Algorithm(int n):
       _solution(bit_vector_t(n), 0.0) {}
 
