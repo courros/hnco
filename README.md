@@ -339,9 +339,8 @@ They also depend on the following executables:
 - `/usr/bin/time`
 - GNU parallel
 
-You will need gnuplot and latex to generate reports. Moreover reports
-require the `minted` latex package which in turn requires
-`pygmentize`.
+You will need gnuplot and latex to generate reports, which finally
+requires the `minted` latex package and the executable `pygmentize`.
 
 Under Ubuntu 18.04, execute the following commands to install the
 necessary packages:
@@ -424,3 +423,5 @@ to provide Hboa, Ltga, and P3 algorithms.
 - Nikolaus Hansen, Anne Auger, Dimo Brockhoff, Dejan Tusar, Tea
   Tusar (2016). "COCO: Performance Assessment",
   [abs/1605.03560](http://arxiv.org/abs/1605.03560).
+- Brian Goldman,
+  [FastEfficientP3](https://github.com/brianwgoldman/FastEfficientP3)
