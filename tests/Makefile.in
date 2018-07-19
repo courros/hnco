@@ -109,8 +109,8 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-incremental-one-max-hamming-ball$(EXEEXT) \
 	test-incremental-one-max-hamming-sphere$(EXEEXT) \
 	test-incremental-one-max-single-bit-flip$(EXEEXT) \
-	test-max-sat$(EXEEXT) test-sbm-multiply$(EXEEXT) \
-	test-serialize-affine-map$(EXEEXT) \
+	test-max-sat$(EXEEXT) test-one-plus-one-ea-one-max$(EXEEXT) \
+	test-sbm-multiply$(EXEEXT) test-serialize-affine-map$(EXEEXT) \
 	test-serialize-equal-products$(EXEEXT) \
 	test-serialize-linear-function$(EXEEXT) \
 	test-serialize-linear-map$(EXEEXT) \
@@ -290,6 +290,12 @@ am_test_max_sat_OBJECTS = test-max-sat.$(OBJEXT)
 test_max_sat_OBJECTS = $(am_test_max_sat_OBJECTS)
 test_max_sat_LDADD = $(LDADD)
 test_max_sat_DEPENDENCIES = ../lib/libhnco.la
+am_test_one_plus_one_ea_one_max_OBJECTS =  \
+	test-one-plus-one-ea-one-max.$(OBJEXT)
+test_one_plus_one_ea_one_max_OBJECTS =  \
+	$(am_test_one_plus_one_ea_one_max_OBJECTS)
+test_one_plus_one_ea_one_max_LDADD = $(LDADD)
+test_one_plus_one_ea_one_max_DEPENDENCIES = ../lib/libhnco.la
 am_test_sbm_multiply_OBJECTS = test-sbm-multiply.$(OBJEXT)
 test_sbm_multiply_OBJECTS = $(am_test_sbm_multiply_OBJECTS)
 test_sbm_multiply_LDADD = $(LDADD)
@@ -436,7 +442,9 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
 	$(test_incremental_one_max_hamming_sphere_SOURCES) \
 	$(test_incremental_one_max_single_bit_flip_SOURCES) \
-	$(test_max_sat_SOURCES) $(test_sbm_multiply_SOURCES) \
+	$(test_max_sat_SOURCES) \
+	$(test_one_plus_one_ea_one_max_SOURCES) \
+	$(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
 	$(test_serialize_linear_function_SOURCES) \
@@ -474,7 +482,9 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
 	$(test_incremental_one_max_hamming_sphere_SOURCES) \
 	$(test_incremental_one_max_single_bit_flip_SOURCES) \
-	$(test_max_sat_SOURCES) $(test_sbm_multiply_SOURCES) \
+	$(test_max_sat_SOURCES) \
+	$(test_one_plus_one_ea_one_max_SOURCES) \
+	$(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
 	$(test_serialize_linear_function_SOURCES) \
@@ -877,6 +887,7 @@ test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming
 test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
 test_max_sat_SOURCES = test-max-sat.cc
+test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
 test_serialize_equal_products_SOURCES = test-serialize-equal-products.cc
@@ -1059,6 +1070,10 @@ test-max-sat$(EXEEXT): $(test_max_sat_OBJECTS) $(test_max_sat_DEPENDENCIES) $(EX
 	@rm -f test-max-sat$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_max_sat_OBJECTS) $(test_max_sat_LDADD) $(LIBS)
 
+test-one-plus-one-ea-one-max$(EXEEXT): $(test_one_plus_one_ea_one_max_OBJECTS) $(test_one_plus_one_ea_one_max_DEPENDENCIES) $(EXTRA_test_one_plus_one_ea_one_max_DEPENDENCIES) 
+	@rm -f test-one-plus-one-ea-one-max$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_one_plus_one_ea_one_max_OBJECTS) $(test_one_plus_one_ea_one_max_LDADD) $(LIBS)
+
 test-sbm-multiply$(EXEEXT): $(test_sbm_multiply_OBJECTS) $(test_sbm_multiply_DEPENDENCIES) $(EXTRA_test_sbm_multiply_DEPENDENCIES) 
 	@rm -f test-sbm-multiply$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_sbm_multiply_OBJECTS) $(test_sbm_multiply_LDADD) $(LIBS)
@@ -1156,6 +1171,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-max-sat.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-one-plus-one-ea-one-max.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-sbm-multiply.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-affine-map.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-equal-products.Po@am__quote@
@@ -1581,6 +1597,13 @@ test-incremental-one-max-single-bit-flip.log: test-incremental-one-max-single-bi
 test-max-sat.log: test-max-sat$(EXEEXT)
 	@p='test-max-sat$(EXEEXT)'; \
 	b='test-max-sat'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-one-plus-one-ea-one-max.log: test-one-plus-one-ea-one-max$(EXEEXT)
+	@p='test-one-plus-one-ea-one-max$(EXEEXT)'; \
+	b='test-one-plus-one-ea-one-max'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

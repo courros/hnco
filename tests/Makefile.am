@@ -26,6 +26,7 @@ check_PROGRAMS = \
 	test-incremental-one-max-hamming-sphere \
 	test-incremental-one-max-single-bit-flip \
 	test-max-sat \
+	test-one-plus-one-ea-one-max \
 	test-sbm-multiply \
 	test-serialize-affine-map \
 	test-serialize-equal-products \
@@ -76,6 +77,7 @@ test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming
 test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
 test_max_sat_SOURCES = test-max-sat.cc
+test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
 test_serialize_equal_products_SOURCES = test-serialize-equal-products.cc
