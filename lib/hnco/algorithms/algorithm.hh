@@ -87,17 +87,29 @@ namespace algorithm {
     /// Destructor
     virtual ~Algorithm() {}
 
+    /** @name Optimization
+     */
+    ///@{
+
     /// Initialization
-    virtual void init() {
-      assert(_function);
-      random_solution();
-    }
+    virtual void init() { random_solution(); }
 
     /// Maximize
     virtual void maximize() = 0;
 
+    ///@}
+
+    /** @name Getters
+     */
+    ///@{
+
     /// Solution
     virtual const point_value_t& get_solution() { return _solution; }
+
+    /// Get bit vector size
+    virtual size_t get_bv_size() { return _solution.first.size(); }
+
+    ///@}
 
     /** @name Setters
      */
