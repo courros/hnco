@@ -85,15 +85,11 @@ make_concrete_algorithm(const Options& options)
 {
   switch(options.get_algorithm()) {
 
-  case 0: {
-    auto algo = new CompleteSearch(options.get_bv_size());
-    assert(algo);
-    return algo;
-  }
+  case 0:
+    return new CompleteSearch(options.get_bv_size());
 
   case 10: {
     auto algo = new RandomSearch(options.get_bv_size());
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
 
@@ -107,7 +103,6 @@ make_concrete_algorithm(const Options& options)
     auto algo = new RandomLocalSearch
       (options.get_bv_size(),
        neighborhood);
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_patience(options.get_rls_patience());
@@ -126,7 +121,6 @@ make_concrete_algorithm(const Options& options)
     auto algo = new SteepestAscentHillClimbing
       (options.get_bv_size(),
        neighborhood);
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
 
@@ -140,7 +134,6 @@ make_concrete_algorithm(const Options& options)
     auto algo = new FirstAscentHillClimbing
       (options.get_bv_size(),
        neighborhood);
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
 
@@ -152,7 +145,6 @@ make_concrete_algorithm(const Options& options)
     assert(neighborhood);
 
     auto algo = new SimulatedAnnealing(options.get_bv_size(), neighborhood);
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_num_transitions(options.get_sa_num_transitions());
@@ -165,7 +157,6 @@ make_concrete_algorithm(const Options& options)
 
   case 300: {
     auto algo = new OnePlusOneEa(options.get_bv_size());
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
@@ -180,7 +171,6 @@ make_concrete_algorithm(const Options& options)
       (options.get_bv_size(),
        options.get_ea_mu(),
        options.get_ea_lambda());
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
@@ -194,7 +184,6 @@ make_concrete_algorithm(const Options& options)
       (options.get_bv_size(),
        options.get_ea_mu(),
        options.get_ea_lambda());
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
@@ -207,7 +196,6 @@ make_concrete_algorithm(const Options& options)
     auto algo = new GeneticAlgorithm
       (options.get_bv_size(),
        options.get_ea_mu());
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
@@ -222,7 +210,6 @@ make_concrete_algorithm(const Options& options)
     auto algo = new OnePlusLambdaCommaLambdaGa
       (options.get_bv_size(),
        options.get_ea_mu());
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
@@ -235,7 +222,6 @@ make_concrete_algorithm(const Options& options)
     auto algo = new Pbil
       (options.get_bv_size(),
        options.get_population_size());
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
@@ -256,7 +242,6 @@ make_concrete_algorithm(const Options& options)
     auto algo = new NpsPbil
       (options.get_bv_size(),
        options.get_population_size());
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
@@ -277,7 +262,6 @@ make_concrete_algorithm(const Options& options)
     auto algo = new Umda
       (options.get_bv_size(),
        options.get_population_size());
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
@@ -295,7 +279,6 @@ make_concrete_algorithm(const Options& options)
 
   case 700: {
     auto algo = new CompactGa(options.get_bv_size());
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_rate(options.get_learning_rate());
@@ -313,7 +296,6 @@ make_concrete_algorithm(const Options& options)
 
   case 800: {
     auto algo = new Mmas(options.get_bv_size());
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_rate(options.get_learning_rate());
@@ -336,7 +318,6 @@ make_concrete_algorithm(const Options& options)
     using namespace hea;
 
     auto herding = new BinaryHerding(options.get_bv_size());
-    assert(herding);
 
     herding->set_randomize_bit_order(options.with_hea_randomize_bit_order());
     herding->set_dynamics(options.get_hea_binary_dynamics());
@@ -345,7 +326,6 @@ make_concrete_algorithm(const Options& options)
     auto algo = new
       Hea<BinaryMoment, BinaryHerding>(options.get_bv_size(),
                                        options.get_population_size());
-    assert(algo);
 
     algo->set_herding(herding);
     algo->set_num_iterations(options.get_num_iterations());
@@ -376,7 +356,6 @@ make_concrete_algorithm(const Options& options)
     using namespace hea;
 
     auto herding = new SpinHerding(options.get_bv_size());
-    assert(herding);
 
     herding->set_randomize_bit_order(options.with_hea_randomize_bit_order());
     herding->set_weight(options.get_hea_weight());
@@ -387,7 +366,6 @@ make_concrete_algorithm(const Options& options)
     auto algo = new
       Hea<SpinMoment, SpinHerding>(options.get_bv_size(),
                                    options.get_population_size());
-    assert(algo);
 
     algo->set_herding(herding);
     algo->set_num_iterations(options.get_num_iterations());
@@ -419,7 +397,6 @@ make_concrete_algorithm(const Options& options)
     auto algo = new BmPbil
       (options.get_bv_size(),
        options.get_population_size());
-    assert(algo);
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
@@ -470,7 +447,6 @@ make_managed_algorithm(const Options& options, Algorithm *algo)
 
   if (options.with_restart()) {
     algo = new Restart(options.get_bv_size(), algo);
-    assert(algo);
   }
 
   return algo;
