@@ -5,6 +5,8 @@ Highlight:
   ParameterLessPopulationPyramid
 - New experiment walsh-transforms
 
+Details follow.
+
 Library:
 - Added first ascent hill climbing
 - Function: added member function compute_walsh_transform
