@@ -28,12 +28,6 @@
             "category": "General"
         },
 
-        "describe_function":
-        {
-            "description": "Describe the function and exit",
-            "category": "General"
-        },
-
         "print_header":
         {
             "description": "At the beginning, print the header",
@@ -86,6 +80,12 @@
         "fn_walsh_transform":
         {
             "description": "Compute the Walsh transform of the function",
+            "category": "Function"
+        },
+
+        "fn_display":
+        {
+            "description": "Display the function and exit",
             "category": "Function"
         },
 
