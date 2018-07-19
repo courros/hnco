@@ -22,6 +22,8 @@ Library:
 - Added Hboa
 - Added Ltga
 - Added ParameterlessPopulationPyramid
+- OnePlusOneEa: removed member function get_solution
+- Algorithm: added member function get_bv_size
 
 Build:
 - Conditional compilation of plugin
@@ -32,6 +34,7 @@ Tests:
 - Added test-single-bit-flip-iterator
 - Added test-hamming-sphere-iterator
 - Added test-walsh-transform
+- Added test-one-plus-one-ea-one-max
 
 Experiments:
 - Added experiments walsh-transforms
