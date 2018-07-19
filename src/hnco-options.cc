@@ -119,8 +119,8 @@ Options::Options(int argc, char *argv[]):
   _bm_log_norm_l1(false),
   _bm_negative_positive_selection(false),
   _cache(false),
-  _describe_function(false),
   _describe_solution(false),
+  _fn_display(false),
   _fn_get_bv_size(false),
   _fn_get_maximum(false),
   _fn_has_known_maximum(false),
@@ -212,8 +212,8 @@ Options::Options(int argc, char *argv[]):
     OPTION_BM_LOG_NORM_L1,
     OPTION_BM_NEGATIVE_POSITIVE_SELECTION,
     OPTION_CACHE,
-    OPTION_DESCRIBE_FUNCTION,
     OPTION_DESCRIBE_SOLUTION,
+    OPTION_FN_DISPLAY,
     OPTION_FN_GET_BV_SIZE,
     OPTION_FN_GET_MAXIMUM,
     OPTION_FN_HAS_KNOWN_MAXIMUM,
@@ -303,8 +303,8 @@ Options::Options(int argc, char *argv[]):
     {"bm-log-norm-l1", no_argument, 0, OPTION_BM_LOG_NORM_L1},
     {"bm-negative-positive-selection", no_argument, 0, OPTION_BM_NEGATIVE_POSITIVE_SELECTION},
     {"cache", no_argument, 0, OPTION_CACHE},
-    {"describe-function", no_argument, 0, OPTION_DESCRIBE_FUNCTION},
     {"describe-solution", no_argument, 0, OPTION_DESCRIBE_SOLUTION},
+    {"fn-display", no_argument, 0, OPTION_FN_DISPLAY},
     {"fn-get-bv-size", no_argument, 0, OPTION_FN_GET_BV_SIZE},
     {"fn-get-maximum", no_argument, 0, OPTION_FN_GET_MAXIMUM},
     {"fn-has-known-maximum", no_argument, 0, OPTION_FN_HAS_KNOWN_MAXIMUM},
@@ -589,12 +589,12 @@ Options::Options(int argc, char *argv[]):
       _cache = true;
       break;
 
-    case OPTION_DESCRIBE_FUNCTION:
-      _describe_function = true;
-      break;
-
     case OPTION_DESCRIBE_SOLUTION:
       _describe_solution = true;
+      break;
+
+    case OPTION_FN_DISPLAY:
+      _fn_display = true;
       break;
 
     case OPTION_FN_GET_BV_SIZE:
@@ -733,8 +733,6 @@ void Options::print_help(ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
   stream << "General:" << endl;
-  stream << "      --describe-function" << endl;
-  stream << "          Describe the function and exit" << endl;
   stream << "      --describe-solution" << endl;
   stream << "          At the end, describe the solution" << endl;
   stream << "      --num-threads (type int, default to 1)" << endl;
@@ -753,6 +751,8 @@ void Options::print_help(ostream& stream) const
   stream << "Function:" << endl;
   stream << "  -s, --bv-size (type int, default to 100)" << endl;
   stream << "          Size of bit vectors" << endl;
+  stream << "      --fn-display" << endl;
+  stream << "          Display the function and exit" << endl;
   stream << "      --fn-get-bv-size" << endl;
   stream << "          Print the size of bit vectors" << endl;
   stream << "      --fn-get-maximum" << endl;
@@ -1085,10 +1085,10 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# bm_negative_positive_selection" << endl;
   if (options._cache)
     stream << "# cache" << endl;
-  if (options._describe_function)
-    stream << "# describe_function" << endl;
   if (options._describe_solution)
     stream << "# describe_solution" << endl;
+  if (options._fn_display)
+    stream << "# fn_display" << endl;
   if (options._fn_get_bv_size)
     stream << "# fn_get_bv_size" << endl;
   if (options._fn_get_maximum)

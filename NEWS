@@ -35,6 +35,9 @@ Library:
 - OnePlusOneEa: removed member function get_solution
 - ProgressTracker: removed last point of the plateau
 
+hnco:
+- Renamed option --describe-function -> --fn-display
+
 Build:
 - Conditional compilation of plugin
 - Factorization and plugin features are default-disabled

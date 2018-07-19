@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
     return 0;
   }
 
-  if (options.with_describe_function()) {
+  if (options.with_fn_display()) {
     fn->display(std::cout);
     return 0;
   }

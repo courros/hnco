@@ -239,11 +239,11 @@ class Options {
   /// Cache function evaluations
   bool _cache;
 
-  /// Describe the function and exit
-  bool _describe_function;
-
   /// At the end, describe the solution
   bool _describe_solution;
+
+  /// Display the function and exit
+  bool _fn_display;
 
   /// Print the size of bit vectors
   bool _fn_get_bv_size;
@@ -1003,17 +1003,17 @@ public:
   /// Set cache
   void set_cache() { _cache = true; }
  
-  /// Get describe_function
-  bool with_describe_function() const { return _describe_function; }
-
-  /// Set describe_function
-  void set_describe_function() { _describe_function = true; }
- 
   /// Get describe_solution
   bool with_describe_solution() const { return _describe_solution; }
 
   /// Set describe_solution
   void set_describe_solution() { _describe_solution = true; }
+ 
+  /// Get fn_display
+  bool with_fn_display() const { return _fn_display; }
+
+  /// Set fn_display
+  void set_fn_display() { _fn_display = true; }
  
   /// Get fn_get_bv_size
   bool with_fn_get_bv_size() const { return _fn_get_bv_size; }
