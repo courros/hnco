@@ -18,12 +18,12 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_EA_ONE_PLUS_ONE
-#define HNCO_ALGORITHMS_EA_ONE_PLUS_ONE
+#ifndef HNCO_ALGORITHMS_EA_ONE_PLUS_ONE_EA_H
+#define HNCO_ALGORITHMS_EA_ONE_PLUS_ONE_EA_H
 
-#include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/algorithms/ls/random-local-search.hh"
+#include "hnco/neighborhoods/neighborhood.hh"
 
 
 namespace hnco {
@@ -77,6 +77,7 @@ namespace algorithm {
         _mutation_probability is initialized to 1 / n.
     */
     OnePlusOneEa(int n):
+      Algorithm(n),
       _neighborhood(n),
       _rls(n, &_neighborhood),
       _mutation_probability(1 / double(n)) {}
@@ -98,10 +99,10 @@ namespace algorithm {
     }
 
     /// Maximize
-    void maximize() { _rls.maximize(); }
-
-    /// Solution
-    const point_value_t& get_solution() { return _rls.get_solution(); }
+    void maximize() {
+      _rls.maximize();
+      _solution = _rls.get_solution();
+    }
 
     /** @name Setters
      */
