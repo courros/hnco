@@ -31,6 +31,7 @@ Library:
 - Algorithm: added member function get_bv_size
 - OnePlusOneEa: member function maximize sets _solution
 - OnePlusOneEa: removed member function get_solution
+- ProgressTracker: removed last point of the plateau
 
 Build:
 - Conditional compilation of plugin
@@ -42,6 +43,9 @@ Tests:
 - Added test-hamming-sphere-iterator
 - Added test-walsh-transform
 - Added test-one-plus-one-ea-one-max
+
+Scripts:
+- hnco-maximum-stat.pl: changed style from lines to steps
 
 Experiments:
 - Added experiments walsh-transforms
