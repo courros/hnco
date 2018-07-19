@@ -21,7 +21,7 @@ Library:
   FirstAscentHillClimbing
 - Added Hboa
 - Added Ltga
-- Added ParameterlessPopulationPyramid
+- Added ParameterLessPopulationPyramid
 - Algorithm: removed empty constructor
 - Algorithm: added member function get_bv_size
 - OnePlusOneEa: member function maximize sets _solution

@@ -41,13 +41,13 @@ namespace hnco::algorithm::fast_efficient_p3 {
 
       Integrated into HNCO by Arnaud Berny
   */
-  class ParameterlessPopulationPyramid:
+  class ParameterLessPopulationPyramid:
     public Algorithm {
 
   public:
 
     /// Constructor
-    ParameterlessPopulationPyramid(int n):
+    ParameterLessPopulationPyramid(int n):
       Algorithm(n) {}
 
     /// Maximize

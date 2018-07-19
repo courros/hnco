@@ -453,7 +453,7 @@ make_concrete_algorithm(const Options& options)
   }
 
   case 1300:
-    return new hnco::algorithm::fast_efficient_p3::ParameterlessPopulationPyramid(options.get_bv_size());
+    return new hnco::algorithm::fast_efficient_p3::ParameterLessPopulationPyramid(options.get_bv_size());
 
   default:
     std::ostringstream stream;

@@ -35,7 +35,7 @@ using namespace hnco;
 
 
 void
-ParameterlessPopulationPyramid::maximize()
+ParameterLessPopulationPyramid::maximize()
 {
   Configuration configuration;
 
