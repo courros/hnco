@@ -26,16 +26,16 @@
 
 namespace hnco::algorithm::fast_efficient_p3 {
 
-  /** Hboa.
+  /** Hierarchical Bayesian Optimization %Algorithm.
 
       Implementation of the Hierarchical Bayesian Optimization
-      Algorithm and helper classes based on the publication: Pelikan,
+      %Algorithm and helper classes based on the publication: Pelikan,
       M. and Goldberg, D. (2006). Hierarchical bayesian optimization
       algorithm. In Scalable Optimization via Probabilistic Modeling,
       volume 33 of Studies in Computational Intelligence, pages
       63–90. Springer Berlin Heidelberg.
 
-      Author: Brian Goldman
+      Author: Brian W. Goldman
 
       Integrated into HNCO by Arnaud Berny
   */

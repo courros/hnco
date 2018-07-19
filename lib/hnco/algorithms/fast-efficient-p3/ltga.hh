@@ -26,14 +26,14 @@
 
 namespace hnco::algorithm::fast_efficient_p3 {
 
-  /** Ltga.
+  /** Linkage Tree Genetic %Algorithm.
 
-      Implementation of the Linkage Tree Genetic Algorithm Designed to
+      Implementation of the Linkage Tree Genetic %Algorithm Designed to
       match the variant in the paper: "Hierarchical problem solving
       with the linkage tree genetic algorithm" by D. Thierens and
       P. A. N. Bosman
 
-      Author: Brian Goldman
+      Author: Brian W. Goldman
 
       Integrated into HNCO by Arnaud Berny
   */
