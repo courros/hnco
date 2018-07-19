@@ -438,9 +438,7 @@ make_function_modifier(Function *function, const Options& options)
   Map *map = 0;
   if (options.get_map() > 0) {
     map = make_map(options);
-    assert(map);
     function = new FunctionMapComposition(function, map);
-    assert(function);
   }
 
   if (function->get_bv_size() != bv_size) {
@@ -452,21 +450,17 @@ make_function_modifier(Function *function, const Options& options)
   // Prior noise
   if (options.with_prior_noise()) {
     Neighborhood *nh = make_prior_noise_neighborhood(options);
-    assert(nh);
     function = new PriorNoise(function, nh);
-    assert(function);
   }
 
   // Negation
   if (options.with_negation()) {
     function = new Negation(function);
-    assert(function);
   }
 
   // Additive gaussian noise
   if (options.with_additive_gaussian_noise()) {
     function = new AdditiveGaussianNoise(function, options.get_noise_stddev());
-    assert(function);
   }
 
   return function;
@@ -484,7 +478,6 @@ make_function_controller(Function *function, const Options& options)
     // Known maximum
     if (function->has_known_maximum()) {
       function = new StopOnMaximum(function);
-      assert(function);
     } else {
       std::ostringstream stream;
       stream << "make_function_controller (StopOnMaximum): Unknown maximum";
@@ -496,25 +489,21 @@ make_function_controller(Function *function, const Options& options)
   // Stop on target
   if (options.with_stop_on_target()) {
     function = new StopOnTarget(function, options.get_target());
-    assert(function);
   }
 
   // Budget
   if (options.get_budget() > 0) {
     function = new OnBudgetFunction(function, options.get_budget());
-    assert(function);
   }
 
   // Cache
   if (options.with_cache()) {
     function = new Cache(function);
-    assert(function);
   }
 
   // Cache budget
   if (options.get_cache_budget() > 0) {
     function = new OnBudgetFunction(function, options.get_budget());
-    assert(function);
   }
 
   return function;
