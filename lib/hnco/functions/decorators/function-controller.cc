@@ -220,12 +220,6 @@ ProgressTracker::update_last_improvement(double value)
   } else if (value > _last_improvement.value) {
     assert(_num_calls > 1);
 
-    // Last point of the plateau
-    if (_log_improvement) {
-      if (_num_calls > _last_improvement.time + 1)
-        (*_stream) << (_num_calls - 1) << " " << _last_improvement.value << std::endl;
-    }
-
     _last_improvement.time = _num_calls;
     _last_improvement.value = value;
 
