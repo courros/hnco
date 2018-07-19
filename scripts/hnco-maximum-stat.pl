@@ -98,8 +98,8 @@ sub generate_graphics
                 $quoted_title = quote("$algorithm_id");
                 $position++;
                 $f->{reverse} ?
-                    "  $quoted_path using 1:(-\$2) with lines lw 2 title $quoted_title" :
-                    "  $quoted_path using 1:2 with lines lw 2 title $quoted_title";
+                    "  $quoted_path using 1:(-\$2) with steps lw 2 title $quoted_title" :
+                    "  $quoted_path using 1:2 with steps lw 2 title $quoted_title";
              } @$algorithms);
 
         print GRAPHICS "\n";
