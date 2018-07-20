@@ -66,7 +66,10 @@ namespace algorithm {
     /// Set solution
     void set_solution(const bit_vector_t& x, double value);
 
-    /// Set solution
+    /** Set solution.
+
+        \warning Evaluates the function once.
+    */
     void set_solution(const bit_vector_t& x);
 
     /// Update solution (strict)
@@ -75,7 +78,10 @@ namespace algorithm {
     /// Update solution (strict)
     void update_solution(const point_value_t& pv);
 
-    /// Update solution (strict)
+    /** Update solution (strict).
+
+        \warning Evaluates the function once.
+    */
     void update_solution(const bit_vector_t& x);
 
   public:
