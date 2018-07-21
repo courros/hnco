@@ -23,12 +23,13 @@
 
 #include <iostream>
 
-#include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
 #include <boost/serialization/vector.hpp>
 
 #include "hnco/bit-vector.hh"
 #include "hnco/exception.hh"
+#include "hnco/neighborhoods/neighborhood-iterator.hh"
 #include "hnco/sparse-bit-vector.hh"
 
 
@@ -162,6 +163,9 @@ namespace hnco::function {
     ///@}
 
   };
+
+  /// Check whether a bit vector is locally maximal
+  bool bv_is_locally_maximal(const bit_vector_t& bv, Function *fn, hnco::neighborhood::NeighborhoodIterator& it);
 
 } // end of namespace hnco::function
 
