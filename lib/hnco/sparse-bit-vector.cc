@@ -18,120 +18,37 @@
 
 */
 
-#ifndef HNCO_BIT_VECTOR_H
-#define HNCO_BIT_VECTOR_H
+#include <assert.h>
 
-#include <algorithm>            // std::all_of, std::any_of, std::fill
-#include <iostream>
-#include <numeric>              // std::accumulate
-#include <utility>              // std::pair
-#include <vector>
+#include "sparse-bit-vector.hh"
 
-#include "random.hh"
 
-extern "C" {
-  /// Dummy function to help autoconf
-  void check_libhnco(void);
+using namespace hnco;
+
+
+void
+hnco::bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv)
+{
+  for (auto index : sbv) {
+    assert(index < x.size());
+    x[index] = bit_flip(x[index]);
+  }
 }
 
-/// top-level HNCO namespace
-namespace hnco {
+void
+hnco::sbv_display(const sparse_bit_vector_t& v, std::ostream& stream)
+{
+  for (auto c : v)
+    stream << c << " ";
+}
 
-
-  /** @name Types and functions related to bit
-   */
-  ///@{
-
-  /** Bit.
-
-      A single bit is represented by a char and the values 0 for false
-      and 1 for true.
-  */
-  typedef char bit_t;
-
-  /// Flip bit
-  inline bit_t bit_flip(bit_t b) { return b ? 0 : 1; }
-
-  ///@}
-
-
-  /** @name Types and functions related to bit vectors
-   */
-  ///@{
-
-  /// Bit vector
-  typedef std::vector<bit_t> bit_vector_t;
-
-  /// Type to represent point value pairs
-  typedef std::pair<bit_vector_t, double> point_value_t;
-
-  /// Display bit vector
-  void bv_display(const bit_vector_t& v, std::ostream& stream);
-
-  /// Check whether the bit vector is valid
-  inline bool bv_is_valid(const bit_vector_t& x) { return all_of(x.begin(), x.end(), [](bit_t b){ return b == 0 || b == 1; }); }
-
-  /// Check whether the bit vector is zero
-  inline bool bv_is_zero(const bit_vector_t& x) { return all_of(x.begin(), x.end(), [](bit_t b){ return b == 0; }); }
-
-  /// Hamming weight
-  inline int bv_hamming_weight(const bit_vector_t& x) { return std::accumulate(x.begin(), x.end(), 0); }
-
-  /// Hamming weight
-  int bv_hamming_weight(const std::vector<bool>& x);
-
-  /// Hamming distance between two bit vectors
-  int bv_hamming_distance(const bit_vector_t& x, const bit_vector_t& y);
-
-  /// Dot product
-  bit_t bv_dot_product(const bit_vector_t& x, const bit_vector_t& y);
-
-  /// Dot product
-  bit_t bv_dot_product(const bit_vector_t& x, const std::vector<bool>& y);
-
-  /// Clear bit vector
-  inline void bv_clear(bit_vector_t& x) { fill(x.begin(), x.end(), 0); }
-
-  /// Flip a single bit
-  inline void bv_flip(bit_vector_t& x, std::size_t i) { x[i] = bit_flip(x[i]); }
-
-  /// Flip many bits
-  void bv_flip(bit_vector_t& x, const bit_vector_t& mask);
-
-  /// Sample a random bit vector
-  inline void bv_random(bit_vector_t& x) { generate(x.begin(), x.end(), []() { return random::Random::random_bit(); }); }
-
-  /// Sample a random bit vector with given Hamming weight
-  void bv_random(bit_vector_t& x, int k);
-
-  /// Add two bit vectors
-  void bv_add(const bit_vector_t& src, bit_vector_t& dest);
-
-  /// Add two bit vectors
-  void bv_add(const bit_vector_t& x, const bit_vector_t& y, bit_vector_t& dest);
-
-  /** Convert a bit vector to a bool vector.
-
-      \warning Vectors must be of the same size.
-  */
-  void bv_to_vector_bool(const bit_vector_t& x, std::vector<bool>& y);
-
-  /** Convert a bool vector to a bit vector.
-
-      \warning Vectors must be of the same size.
-  */
-  void bv_from_vector_bool(bit_vector_t& x, const std::vector<bool>& y);
-
-  /// Convert a bit vector to a size_t
-  std::size_t bv_to_size_type(const bit_vector_t& x);
-
-  /// Convert a size_t to a bit vector
-  void bv_from_size_type(bit_vector_t& x, std::size_t index);
-
-  ///@}
-
-
-} // end of namespace hnco
-
-
-#endif
+void
+hnco::bv_to_sbv(const bit_vector_t& bv, sparse_bit_vector_t& sbv)
+{
+  sbv = sparse_bit_vector_t(bv_hamming_weight(bv));
+  size_t index = 0;
+  for (size_t i = 0; i < bv.size(); i++)
+    if (bv[i])
+      sbv[index++] = i;
+  assert(index == sbv.size());
+}

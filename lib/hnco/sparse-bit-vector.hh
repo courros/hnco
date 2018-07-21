@@ -47,31 +47,13 @@ namespace hnco {
   typedef std::vector<std::size_t> sparse_bit_vector_t;
 
   /// Flip many bits
-  inline void bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv)
-  {
-    for (auto index : sbv) {
-      assert(index < x.size());
-      x[index] = bit_flip(x[index]);
-    }
-  }
+  void bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv);
 
   /// Display sparse bit vector
-  inline void sbv_display(const sparse_bit_vector_t& v, std::ostream& stream)
-  {
-    for (auto c : v)
-      stream << c << " ";
-  }
+  void sbv_display(const sparse_bit_vector_t& v, std::ostream& stream);
 
   /// Convert a bit vector to a sparse bit vector
-  inline void bv_to_sbv(const bit_vector_t& bv, sparse_bit_vector_t& sbv)
-  {
-    sbv = sparse_bit_vector_t(bv_hamming_weight(bv));
-    size_t index = 0;
-    for (size_t i = 0; i < bv.size(); i++)
-      if (bv[i])
-        sbv[index++] = i;
-    assert(index == sbv.size());
-  }
+  void bv_to_sbv(const bit_vector_t& bv, sparse_bit_vector_t& sbv);
 
   ///@}
 

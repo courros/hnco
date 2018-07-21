@@ -260,8 +260,8 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/neighborhoods/neighborhood.cc \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.cc \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
-	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
-	hnco/functions/factorization.cc \
+	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.cc \
+	hnco/sparse-bit-vector.hh hnco/functions/factorization.cc \
 	hnco/functions/factorization.hh hnco/functions/plugin.cc \
 	hnco/functions/plugin.hh
 am__dirstamp = $(am__leading_dot)dirstamp
@@ -321,7 +321,8 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/functions/walsh/walsh-expansion.lo hnco/iterator.lo \
 	hnco/map.lo hnco/neighborhoods/neighborhood-iterator.lo \
 	hnco/neighborhoods/neighborhood.lo hnco/permutation.lo \
-	hnco/random.lo $(am__objects_1) $(am__objects_2)
+	hnco/random.lo hnco/sparse-bit-vector.lo $(am__objects_1) \
+	$(am__objects_2)
 libhnco_la_OBJECTS = $(am_libhnco_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -718,8 +719,8 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/neighborhoods/neighborhood.cc \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.cc \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
-	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.hh \
-	$(am__append_1) $(am__append_2)
+	hnco/sparse-bit-matrix.hh hnco/sparse-bit-vector.cc \
+	hnco/sparse-bit-vector.hh $(am__append_1) $(am__append_2)
 nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.hh \
@@ -1102,6 +1103,8 @@ hnco/neighborhoods/neighborhood.lo:  \
 hnco/permutation.lo: hnco/$(am__dirstamp) \
 	hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/random.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
+hnco/sparse-bit-vector.lo: hnco/$(am__dirstamp) \
+	hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/factorization.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/plugin.lo: hnco/functions/$(am__dirstamp) \
@@ -1148,6 +1151,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/map.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/permutation.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/random.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/sparse-bit-vector.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/algorithm.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/complete-search.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/population.Plo@am__quote@
