@@ -34,6 +34,8 @@ Library:
 - OnePlusOneEa: member function maximize sets _solution
 - OnePlusOneEa: removed member function get_solution
 - ProgressTracker: removed last point of the plateau
+- bit-vector.hh: function definitions moved to bit-vector.cc
+- bit-matrix.hh: function definitions moved to bit-matrix.cc
 
 hnco:
 - Renamed option --describe-function -> --fn-display
@@ -48,6 +50,7 @@ Tests:
 - Added test-hamming-sphere-iterator
 - Added test-walsh-transform
 - Added test-one-plus-one-ea-one-max
+- Added test-bv-to-size-type
 
 Scripts:
 - hnco-maximum-stat.pl: changed style from lines to steps
