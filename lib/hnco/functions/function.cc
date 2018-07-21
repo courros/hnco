@@ -71,7 +71,13 @@ Function::compute_walsh_transform(std::vector<Function::WalshTransformTerm>& ter
 }
 
 bool
-hnco::function::bv_is_locally_maximal(const bit_vector_t& bv, Function *fn, hnco::neighborhood::NeighborhoodIterator& it)
+hnco::function::bv_is_locally_maximal(const bit_vector_t& bv, Function& fn, hnco::neighborhood::NeighborhoodIterator& it)
 {
+  double value = fn.eval(bv);
+  it.init();
+  while (it.has_next()) {
+    if (fn.eval(it.next()) > value)
+      return false;
+  }
   return true;
 }
