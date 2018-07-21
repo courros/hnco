@@ -26,6 +26,26 @@
 using namespace hnco;
 
 
+void
+hnco::bm_display(const bit_matrix_t& M, std::ostream& stream)
+{
+  for (auto& bv : M) {
+    bv_display(bv, stream);
+    stream << std::endl;
+  }
+}
+
+bool
+hnco::bm_is_valid(const bit_matrix_t& M)
+{
+  if (M.size() == 0)
+    return false;
+  std::size_t num_columns = M[0].size();
+  if (num_columns == 0)
+    return false;
+  return std::all_of(M.begin(), M.end(), [num_columns](const bit_vector_t& row){ return row.size() == num_columns; });
+}
+
 void hnco::bm_identity(bit_matrix_t& M)
 {
   assert(bm_is_square(M));

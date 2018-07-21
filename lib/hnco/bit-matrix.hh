@@ -37,24 +37,10 @@ namespace hnco {
   typedef std::vector<bit_vector_t> bit_matrix_t;
 
   /// Display bit matrix
-  inline void bm_display(const bit_matrix_t& M, std::ostream& stream)
-  {
-    for (auto& bv : M) {
-      bv_display(bv, stream);
-      stream << std::endl;
-    }
-  }
+  void bm_display(const bit_matrix_t& M, std::ostream& stream);
 
   /// Check whether a bit matrix is valid
-  inline bool bm_is_valid(const bit_matrix_t& M)
-  {
-    if (M.size() == 0)
-      return false;
-    std::size_t num_columns = M[0].size();
-    if (num_columns == 0)
-      return false;
-    return std::all_of(M.begin(), M.end(), [num_columns](const bit_vector_t& row){ return row.size() == num_columns; });
-  }
+  bool bm_is_valid(const bit_matrix_t& M);
 
   /// Number of rows
   inline size_t bm_num_rows(const bit_matrix_t& M) { return M.size(); }
