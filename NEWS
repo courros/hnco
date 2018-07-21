@@ -36,6 +36,8 @@ Library:
 - ProgressTracker: removed last point of the plateau
 - bit-vector.hh: function definitions moved to bit-vector.cc
 - bit-matrix.hh: function definitions moved to bit-matrix.cc
+- sparse-bit-vector.hh: function definitions moved to sparse-bit-vector.cc
+- sparse-bit-matrix.hh: function definitions moved to sparse-bit-matrix.cc
 
 hnco:
 - Renamed option --describe-function -> --fn-display
