@@ -81,3 +81,10 @@ hnco::function::bv_is_locally_maximal(const bit_vector_t& bv, Function& fn, hnco
   }
   return true;
 }
+
+bool
+hnco::function::bv_is_globally_maximal(const bit_vector_t& bv, Function& fn)
+{
+  assert(fn.has_known_maximum());
+  return fn.eval(bv) == fn.get_maximum();
+}
