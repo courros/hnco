@@ -19,6 +19,7 @@ check_PROGRAMS = \
 	test-complete-search-ridge \
 	test-complete-search-trap \
 	test-first-ascent-hill-climbing \
+	test-first-ascent-hill-climbing-local \
 	test-hamming-sphere \
 	test-hamming-sphere-iterator \
 	test-hypercube-iterator \
@@ -72,6 +73,7 @@ test_complete_search_plateau_SOURCES = test-complete-search-plateau.cc
 test_complete_search_ridge_SOURCES = test-complete-search-ridge.cc
 test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
+test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-local.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
