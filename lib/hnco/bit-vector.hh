@@ -21,8 +21,6 @@
 #ifndef HNCO_BIT_VECTOR_H
 #define HNCO_BIT_VECTOR_H
 
-#include <assert.h>
-
 #include <algorithm>            // std::all_of, std::any_of, std::fill
 #include <iostream>
 #include <numeric>              // std::accumulate
