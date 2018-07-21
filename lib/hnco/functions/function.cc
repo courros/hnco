@@ -18,8 +18,6 @@
 
 */
 
-#include <math.h>               // abs
-
 #include "hnco/iterator.hh"
 
 #include "function.hh"
