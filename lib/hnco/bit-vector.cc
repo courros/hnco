@@ -18,7 +18,10 @@
 
 */
 
+#include <assert.h>
+
 #include "bit-vector.hh"
+
 
 using namespace hnco;
 
