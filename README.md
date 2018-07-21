@@ -160,7 +160,7 @@ Steepest ascent hill climbing can use the following neighborhood
 iterators:
 
 - Single bit flip iterator
-- Hamming ball iterator
+- Hamming sphere iterator
 
 ### Limitations
 
