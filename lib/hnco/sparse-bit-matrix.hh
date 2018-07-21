@@ -21,8 +21,8 @@
 #ifndef HNCO_SPARSE_BIT_MATRIX_H
 #define HNCO_SPARSE_BIT_MATRIX_H
 
-#include <vector>
 #include <iostream>
+#include <vector>
 
 #include "bit-vector.hh"
 #include "bit-matrix.hh"
@@ -45,38 +45,16 @@ namespace hnco {
   typedef std::vector<sparse_bit_vector_t> sparse_bit_matrix_t;
 
   /// Display sparse bit matrix
-  inline void sbm_display(const sparse_bit_matrix_t& sbm, std::ostream& stream)
-  {
-    for (auto sbv : sbm) {
-      sbv_display(sbv, stream);
-      stream << std::endl;
-    }
-  }
+  void sbm_display(const sparse_bit_matrix_t& sbm, std::ostream& stream);
 
   /// Convert a bit matrix to a sparse bit matrix
-  inline void bm_to_sbm(const bit_matrix_t& bm, sparse_bit_matrix_t& sbm)
-  {
-    sbm = sparse_bit_matrix_t(bm.size());
-    for (size_t i = 0; i < sbm.size(); i++)
-      bv_to_sbv(bm[i], sbm[i]);
-  }
+  void bm_to_sbm(const bit_matrix_t& bm, sparse_bit_matrix_t& sbm);
 
   /** Multiply a sparse bit matrix and a bit vector.
 
       The result is y = Mx.
   */
-  inline void sbm_multiply(const sparse_bit_matrix_t& M, const bit_vector_t& x, bit_vector_t& y)
-  {
-    assert(y.size() == M.size());
-
-    for (size_t i = 0; i < y.size(); i++) {
-      const sparse_bit_vector_t& bits = M[i];
-      int sum = 0;
-      for (size_t j = 0; j < bits.size(); j++)
-        sum += x[bits[j]];
-      y[i] = sum % 2;
-    }
-  }
+  void sbm_multiply(const sparse_bit_matrix_t& M, const bit_vector_t& x, bit_vector_t& y);
 
   ///@}
 

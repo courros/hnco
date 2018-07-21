@@ -156,6 +156,7 @@ libhnco_la_SOURCES = \
 	hnco/permutation.hh \
 	hnco/random.cc \
 	hnco/random.hh \
+	hnco/sparse-bit-matrix.cc \
 	hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.cc \
 	hnco/sparse-bit-vector.hh

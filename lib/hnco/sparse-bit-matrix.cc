@@ -20,35 +20,39 @@
 
 #include <assert.h>
 
-#include "sparse-bit-vector.hh"
+#include "sparse-bit-matrix.hh"
 
 
 using namespace hnco;
 
 
 void
-hnco::bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv)
+hnco::sbm_display(const sparse_bit_matrix_t& sbm, std::ostream& stream)
 {
-  for (auto index : sbv) {
-    assert(index < x.size());
-    x[index] = bit_flip(x[index]);
+  for (auto sbv : sbm) {
+    sbv_display(sbv, stream);
+    stream << std::endl;
   }
 }
 
 void
-hnco::sbv_display(const sparse_bit_vector_t& v, std::ostream& stream)
+hnco::bm_to_sbm(const bit_matrix_t& bm, sparse_bit_matrix_t& sbm)
 {
-  for (auto c : v)
-    stream << c << " ";
+  sbm = sparse_bit_matrix_t(bm.size());
+  for (size_t i = 0; i < sbm.size(); i++)
+    bv_to_sbv(bm[i], sbm[i]);
 }
 
 void
-hnco::bv_to_sbv(const bit_vector_t& bv, sparse_bit_vector_t& sbv)
+hnco::sbm_multiply(const sparse_bit_matrix_t& M, const bit_vector_t& x, bit_vector_t& y)
 {
-  sbv = sparse_bit_vector_t(bv_hamming_weight(bv));
-  size_t index = 0;
-  for (size_t i = 0; i < bv.size(); i++)
-    if (bv[i])
-      sbv[index++] = i;
-  assert(index == sbv.size());
+  assert(y.size() == M.size());
+
+  for (size_t i = 0; i < y.size(); i++) {
+    const sparse_bit_vector_t& bits = M[i];
+    int sum = 0;
+    for (size_t j = 0; j < bits.size(); j++)
+      sum += x[bits[j]];
+    y[i] = sum % 2;
+  }
 }
