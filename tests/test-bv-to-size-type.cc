@@ -21,54 +21,27 @@
 #include <chrono>
 #include <random>
 
-#include "hnco/algorithms/ea/one-plus-one-ea.hh"
-#include "hnco/functions/decorators/function-controller.hh"
-#include "hnco/functions/decorators/function-modifier.hh"
-#include "hnco/functions/theory.hh"
+#include "hnco/bit-vector.hh"
 #include "hnco/random.hh"
 
-using namespace hnco::algorithm;
-using namespace hnco::exception;
-using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])
 {
   Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  std::uniform_int_distribution<int> bv_size_dist(1, 100);
+  std::uniform_int_distribution<int> bv_size_dist(0, 64);
 
-  // Solution
-  point_value_t solution;
-
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < 1000; i++) {
     int bv_size = bv_size_dist(Random::engine);
-
-    OneMax f0(bv_size);
-
-    Translation map;
-    map.random(bv_size);
-    FunctionMapComposition f1(&f0, &map);
-
-    StopOnMaximum f2(&f1);
-
-    OnePlusOneEa algorithm(bv_size);
-    algorithm.set_function(&f2);
-    try {
-      algorithm.init();
-      algorithm.maximize();
-    }
-    catch (const MaximumReached& e) {
-      solution = e.get_point_value();
-    }
-    catch (...) {
-      return 1;
-    }
-
-    if (solution.second != f2.get_maximum())
+    bit_vector_t src(bv_size);
+    bv_random(src);
+    std::size_t index = bv_to_size_type(src);
+    bit_vector_t dest(bv_size);
+    bv_from_size_type(dest, index);
+    if (dest != src)
       return 1;
   }
 
