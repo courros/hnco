@@ -6,6 +6,7 @@ Library:
 
 Tests:
 - Added test-steepest-ascent-hill-climbing-local
+- Added test-first-ascent-hill-climbing-local
 
 
 * Version 0.9 (2018-07-21)
