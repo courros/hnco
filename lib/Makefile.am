@@ -157,6 +157,7 @@ libhnco_la_SOURCES = \
 	hnco/random.cc \
 	hnco/random.hh \
 	hnco/sparse-bit-matrix.hh \
+	hnco/sparse-bit-vector.cc \
 	hnco/sparse-bit-vector.hh
 
 if ENABLE_FACTORIZATION
