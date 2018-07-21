@@ -19,7 +19,7 @@
 */
 
 #include "hnco/algorithms/ls/steepest-ascent-hill-climbing.hh"
-#include "hnco/functions/theory.hh"
+#include "hnco/functions/labs.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::algorithm;
@@ -38,11 +38,11 @@ int main(int argc, char *argv[])
 
     int bv_size = bv_size_dist(random::Random::engine);
 
-    OneMax function(bv_size);
-    SingleBitFlipIterator iterator(bv_size);
-    SteepestAscentHillClimbing algorithm(bv_size, &iterator);
+    Labs fn(bv_size);
+    SingleBitFlipIterator it(bv_size);
+    SteepestAscentHillClimbing algorithm(bv_size, &it);
 
-    algorithm.set_function(&function);
+    algorithm.set_function(&fn);
     algorithm.init();
 
     try { algorithm.maximize(); }
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
       return 1;
     }
 
-    if (bv_hamming_weight(algorithm.get_solution().first) != function.get_maximum()) {
+    if (!bv_is_locally_maximal(algorithm.get_solution().first, fn, it)) {
       return 1;
     }
   }
