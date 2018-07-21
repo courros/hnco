@@ -26,6 +26,132 @@ using namespace hnco;
 void check_libhnco(void) {}
 
 
+void
+hnco::bv_display(const bit_vector_t& v, std::ostream& stream)
+{
+  for (auto c : v)
+    if (c == 0)
+      stream << 0;
+    else
+      stream << 1;
+}
+
+int
+hnco::bv_hamming_weight(const std::vector<bool>& x)
+{
+  int result = 0;
+  for (std::size_t i = 0; i < x.size(); i++)
+    if (x[i])
+      result++;
+  return result;
+}
+
+int
+hnco::bv_hamming_distance(const bit_vector_t& x, const bit_vector_t& y)
+{
+  assert(x.size() == y.size());
+
+  int d = 0;
+  for (std::size_t i = 0; i < x.size(); i++)
+    if (x[i] != y[i])
+      d++;
+  return d;
+}
+
+bit_t
+hnco::bv_dot_product(const bit_vector_t& x, const bit_vector_t& y)
+{
+  assert(x.size() == y.size());
+
+  int result = 0;
+  for (std::size_t i = 0; i < x.size(); i++)
+    if (x[i] && y[i])
+      result++;
+  return result % 2;
+}
+
+bit_t
+hnco::bv_dot_product(const bit_vector_t& x, const std::vector<bool>& y)
+{
+  assert(x.size() == y.size());
+
+  int result = 0;
+  for (std::size_t i = 0; i < x.size(); i++)
+    if (x[i] && y[i])
+      result++;
+  return result % 2;
+}
+
+void
+hnco::bv_flip(bit_vector_t& x, const bit_vector_t& mask)
+{
+  assert(mask.size() == x.size());
+
+  for (std::size_t i = 0; i < x.size(); i++)
+    if (mask[i])
+      x[i] = bit_flip(x[i]);
+}
+
+void
+hnco::bv_random(bit_vector_t& x, int k)
+{
+  fill(x.begin(), x.end(), 0);
+  int n = x.size();
+  for (size_t i = 0; i < x.size(); i++) {
+    double p = double(k) / double(n);
+    if (random::Random::uniform() < p) {
+      x[i] = 1;
+      k--;
+    }
+    n--;
+  }
+}
+
+void
+hnco::bv_add(const bit_vector_t& src, bit_vector_t& dest)
+{
+  assert(dest.size() == src.size());
+
+  for (std::size_t i = 0; i < dest.size(); i++)
+    dest[i] = (src[i] + dest[i]) % 2;
+}
+
+void
+hnco::bv_add(const bit_vector_t& x, const bit_vector_t& y, bit_vector_t& dest)
+{
+  assert(dest.size() == x.size());
+  assert(dest.size() == y.size());
+
+  for (std::size_t i = 0; i < dest.size(); i++)
+    dest[i] = (x[i] + y[i]) % 2;
+}
+
+void
+hnco::bv_to_vector_bool(const bit_vector_t& x, std::vector<bool>& y)
+{
+  assert(y.size() == x.size());
+
+  for (size_t i = 0; i < x.size(); i++) {
+    if (x[i])
+      y[i] = true;
+    else
+      y[i] = false;
+  }
+}
+
+void
+hnco::bv_from_vector_bool(bit_vector_t& x, const std::vector<bool>& y)
+{
+  assert(y.size() == x.size());
+
+  for (size_t i = 0; i < x.size(); i++) {
+    if (y[i])
+      x[i] = 1;
+    else
+      x[i] = 0;
+  }
+}
+
 std::size_t
 hnco::bv_to_size_type(const bit_vector_t& x)
 {
