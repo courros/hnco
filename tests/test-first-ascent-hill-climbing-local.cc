@@ -18,7 +18,7 @@
 
 */
 
-#include "hnco/algorithms/ls/steepest-ascent-hill-climbing.hh"
+#include "hnco/algorithms/ls/first-ascent-hill-climbing.hh"
 #include "hnco/functions/labs.hh"
 #include "hnco/random.hh"
 
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 
     Labs fn(bv_size);
     SingleBitFlipIterator it(bv_size);
-    SteepestAscentHillClimbing algorithm(bv_size, &it);
+    FirstAscentHillClimbing algorithm(bv_size, &it);
 
     algorithm.set_function(&fn);
     algorithm.init();
