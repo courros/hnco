@@ -18,7 +18,7 @@
 
 */
 
-#include <assert.h>		// assert
+#include <assert.h>
 
 #include "bit-matrix.hh"
 
