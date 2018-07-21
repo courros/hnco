@@ -18,6 +18,8 @@
 
 */
 
+#include <assert.h>
+
 #include <chrono>
 #include <iostream>
 #include <iterator>
