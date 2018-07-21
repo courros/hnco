@@ -22,7 +22,6 @@
 #define HNCO_BIT_MATRIX_H
 
 #include <algorithm>            // std::for_each
-#include <vector>
 
 #include "bit-vector.hh"
 
