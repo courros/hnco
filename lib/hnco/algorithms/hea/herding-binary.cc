@@ -18,6 +18,8 @@
 
 */
 
+#include <assert.h>
+
 #include <math.h>		// sqrt
 
 #include "hnco/algorithms/util.hh"
