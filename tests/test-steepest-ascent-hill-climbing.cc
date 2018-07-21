@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
       return 1;
     }
 
-    if (bv_hamming_weight(algorithm.get_solution().first) != bv_size) {
+    if (bv_hamming_weight(algorithm.get_solution().first) != function.get_maximum()) {
       return 1;
     }
   }
