@@ -28,6 +28,7 @@
 #include "src/Evaluation.h"
 
 
+/// Algorithms from the FastEfficientP3 project
 namespace hnco::algorithm::fast_efficient_p3 {
 
   /// Evaluator for HNCO functions
