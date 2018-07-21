@@ -167,6 +167,9 @@ namespace hnco::function {
   /// Check whether a bit vector is locally maximal
   bool bv_is_locally_maximal(const bit_vector_t& bv, Function& fn, hnco::neighborhood::NeighborhoodIterator& it);
 
+  /// Check whether a bit vector is globally maximal
+  bool bv_is_globally_maximal(const bit_vector_t& bv, Function& fn);
+
 } // end of namespace hnco::function
 
 
