@@ -18,11 +18,16 @@
 
 */
 
+#include <algorithm>            // std::fill
+
+#include "hnco/random.hh"
+
 #include "mimic.hh"
 
 
 using namespace hnco::algorithm::eda;
 using namespace hnco::function;
+using namespace hnco::random;
 using namespace hnco;
 
 
@@ -30,13 +35,32 @@ void
 Mimic::init()
 {
   random_solution();
+  perm_random(_permutation);
+  std::fill(_parameters.begin(), _parameters.end(), std::make_pair(0.5, 0.5));
 }
 
+void
+Mimic::sample(bit_vector_t& bv)
+{
+  assert(bv.size() == _permutation.size());
+  assert(bv.size() == _parameters.size());
+  assert(perm_is_valid(_permutation));
+
+  // First component
+  bv[_permutation[0]] = (Random::uniform() < _parameters[0].first) ? 1 : 0;
+
+  for (std::size_t i = 1; i < bv.size(); i++)
+    if (bv[i - 1])
+      bv[_permutation[i]] = (Random::uniform() < _parameters[i].first) ? 1 : 0;
+    else
+      bv[_permutation[i]] = (Random::uniform() < _parameters[i].second) ? 1 : 0;
+}
 
 void
 Mimic::iterate()
 {
-  // sample
+  for (size_t i = 0; i < _population.size(); i++)
+    sample(_population.get_bv(i));
 
   if (_functions.size() > 1)
     _population.eval(_functions);

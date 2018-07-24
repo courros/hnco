@@ -21,8 +21,12 @@
 #ifndef HNCO_ALGORITHMS_EDA_MIMIC_H
 #define HNCO_ALGORITHMS_EDA_MIMIC_H
 
+#include <vector>
+#include <utility>              // std::pair
+
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/algorithms/population.hh"
+#include "hnco/permutation.hh"
 
 
 namespace hnco::algorithm::eda {
@@ -40,6 +44,12 @@ namespace hnco::algorithm::eda {
     /// Population
     Population _population;
 
+    /// Permutation
+    permutation_t _permutation;
+
+    /// Model parameters
+    std::vector<std::pair<double, double> > _parameters;
+
     /** @name Parameters
      */
     ///@{
@@ -52,12 +62,17 @@ namespace hnco::algorithm::eda {
     /// Single iteration
     void iterate();
 
+    /// Sample a bit vector
+    void sample(bit_vector_t& bv);
+
   public:
 
     /// Constructor
     Mimic(int n, int population_size):
       IterativeAlgorithm(n),
-      _population(population_size, n) {}
+      _population(population_size, n),
+      _permutation(n),
+      _parameters(n) {}
 
     /// Initialization
     void init();
