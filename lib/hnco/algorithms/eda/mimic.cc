@@ -49,6 +49,7 @@ Mimic::sample(bit_vector_t& bv)
   // First component
   bv[_permutation[0]] = (Random::uniform() < _parameters[0].first) ? 1 : 0;
 
+  // Other components
   for (std::size_t i = 1; i < bv.size(); i++)
     if (bv[i - 1])
       bv[_permutation[i]] = (Random::uniform() < _parameters[i].first) ? 1 : 0;
