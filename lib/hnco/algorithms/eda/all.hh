@@ -18,35 +18,9 @@
 
 */
 
+#ifndef HNCO_ALGORITHMS_EDA_ALL_H
+#define HNCO_ALGORITHMS_EDA_ALL_H
+
 #include "mimic.hh"
 
-
-using namespace hnco::algorithm::eda;
-using namespace hnco::function;
-using namespace hnco;
-
-
-void
-Mimic::init()
-{
-  random_solution();
-}
-
-
-void
-Mimic::iterate()
-{
-  // sample
-
-  if (_functions.size() > 1)
-    _population.eval(_functions);
-  else
-    _population.eval(_function);
-
-  _population.sort();
-
-  update_solution(_population.get_best_bv(),
-                  _population.get_best_value());
-
-  // update model
-}
+#endif

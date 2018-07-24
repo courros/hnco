@@ -417,6 +417,15 @@ make_concrete_algorithm(const Options& options)
     return algo;
   }
 
+  case 1100: {
+    auto algo = new hnco::algorithm::eda::Mimic
+      (options.get_bv_size(),
+       options.get_population_size());
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_selection_size(options.get_selection_size());
+    return algo;
+  }
+
   case 1110: {
     auto algo = new hnco::algorithm::fast_efficient_p3::Hboa(options.get_bv_size());
     algo->set_population_size(options.get_population_size());

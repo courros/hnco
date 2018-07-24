@@ -18,35 +18,27 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_PV_UMDA_H
-#define HNCO_ALGORITHMS_PV_UMDA_H
+#ifndef HNCO_ALGORITHMS_EDA_MIMIC_H
+#define HNCO_ALGORITHMS_EDA_MIMIC_H
 
+#include "hnco/algorithms/algorithm.hh"
 #include "hnco/algorithms/population.hh"
 
-#include "pv-algorithm.hh"
 
+namespace hnco::algorithm::eda {
 
-namespace hnco::algorithm {
-
-  /** Univariate marginal distribution algorithm.
+  /** Mutual information maximizing input clustering.
 
       Reference:
 
-      H. Mühlenbein. 1997. The equation for response to selection and
-      its use for prediction. Evolutionary Computation 5, 3 (1997),
-      303–346.
-
   */
-  class Umda:
-    public PvAlgorithm {
+  class Mimic:
+    public IterativeAlgorithm {
 
   protected:
 
     /// Population
     Population _population;
-
-    /// Mean of selected bit vectors
-    pv_t _mean;
 
     /** @name Parameters
      */
@@ -63,10 +55,9 @@ namespace hnco::algorithm {
   public:
 
     /// Constructor
-    Umda(int n, int population_size):
-      PvAlgorithm(n),
-      _population(population_size, n),
-      _mean(n) {}
+    Mimic(int n, int population_size):
+      IterativeAlgorithm(n),
+      _population(population_size, n) {}
 
     /// Initialization
     void init();

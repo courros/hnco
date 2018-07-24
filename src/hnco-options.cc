@@ -879,6 +879,7 @@ void Options::print_help(ostream& stream) const
   stream << "            900: Herding evolutionary algorithm, herding with binary variables" << endl;
   stream << "            901: Herding evolutionary algorithm, herding with spin variables" << endl;
   stream << "            1000: Boltzmann machine PBIL" << endl;
+  stream << "            1100: Mutual information maximizing input clustering (MIMIC)" << endl;
   stream << "            1110: Hierarchical Bayesian Optimization Algorithm" << endl;
   stream << "            1200: Linkage Tree Genetic Algorithm" << endl;
   stream << "            1300: Parameter-less Population Pyramid" << endl;

@@ -712,6 +712,11 @@
                 },
 
                 {
+                    "value": 1100,
+                    "description": "Mutual information maximizing input clustering (MIMIC)"
+                },
+
+                {
                     "value": 1110,
                     "description": "Hierarchical Bayesian Optimization Algorithm"
                 },
