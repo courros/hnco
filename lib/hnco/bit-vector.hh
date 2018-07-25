@@ -53,7 +53,7 @@ namespace hnco {
   inline bit_t bit_flip(bit_t b) { return b ? 0 : 1; }
 
   /// Sample a random bit
-  inline bit_t bit_random(double p) { return (Random::uniform() < p) ? 1 : 0; }
+  inline bit_t bit_random(double p) { return (random::Random::uniform() < p) ? 1 : 0; }
 
   ///@}
 
