@@ -39,6 +39,13 @@ namespace hnco {
   /// Check that a vector represents a permutation
   bool perm_is_valid(const permutation_t& permutation);
 
+  /// Identity permutation
+  inline void perm_identity(permutation_t& s)
+  {
+    for (std::size_t i = 0; i < s.size(); i++)
+      s[i] = i;
+  }
+
   /// Sample a random permutation
   inline void perm_random(permutation_t& s)
   {
