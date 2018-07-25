@@ -21,6 +21,7 @@
 #ifndef HNCO_ALGORITHMS_EDA_MIMIC_H
 #define HNCO_ALGORITHMS_EDA_MIMIC_H
 
+#include <array>
 #include <vector>
 #include <utility>              // std::pair
 
@@ -50,6 +51,16 @@ namespace hnco::algorithm::eda {
     /// Model parameters
     std::vector<std::pair<double, double> > _parameters;
 
+    /// Mean of selected bit vectors
+    pv_t _mean;
+
+    /// Entropies
+    std::vector<double> _entropies;
+
+    /// Contingency table
+    std::array<std::array<int, 2>, 2> _table;
+
+    ///
     /** @name Parameters
      */
     ///@{
@@ -72,7 +83,9 @@ namespace hnco::algorithm::eda {
       IterativeAlgorithm(n),
       _population(population_size, n),
       _permutation(n),
-      _parameters(n) {}
+      _parameters(n),
+      _mean(n),
+      _entropies(n) {}
 
     /// Initialization
     void init();
