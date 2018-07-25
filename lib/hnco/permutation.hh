@@ -49,8 +49,7 @@ namespace hnco {
   /// Sample a random permutation
   inline void perm_random(permutation_t& s)
   {
-    for (std::size_t i = 0; i < s.size(); i++)
-      s[i] = i;
+    perm_identity(s);
     shuffle(s.begin(), s.end(), random::Random::engine);
   }
 
