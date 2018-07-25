@@ -34,7 +34,7 @@ UniformCrossover::breed(const bit_vector_t& parent1,
   assert(offspring.size() == parent2.size());
 
   for (size_t i = 0; i < offspring.size(); i++)
-    if (Random::random_bit())
+    if (Random::bernoulli())
       offspring[i] = parent1[i];
     else
       offspring[i] = parent2[i];

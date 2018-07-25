@@ -51,7 +51,7 @@ MaxSat::random(int n, int k, int c)
     int count = 0;
     for (size_t j = 0; j < x.size(); j++) {
       if (x[j]) {
-        if (Random::random_bit())
+        if (Random::bernoulli())
           _expression[i][count++] = j + 1;
         else
           _expression[i][count++] = -(j + 1);
@@ -78,7 +78,7 @@ MaxSat::random(const bit_vector_t& solution, int k, int c)
     int count = 0;
     for (size_t j = 0; j < x.size(); j++) {
       if (x[j]) {
-        if (Random::random_bit())
+        if (Random::bernoulli())
           _expression[i][count++] = j + 1;
         else
           _expression[i][count++] = -(j + 1);

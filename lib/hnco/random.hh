@@ -48,7 +48,7 @@ namespace random {
     }
 
     /// Next random bit
-    static bool random_bit() {
+    static bool bernoulli() {
       std::bernoulli_distribution dist;
       return dist(engine);
     }
