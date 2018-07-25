@@ -22,8 +22,8 @@
 #define HNCO_ALGORITHMS_EDA_MIMIC_H
 
 #include <array>
-#include <vector>
 #include <utility>              // std::pair
+#include <vector>
 
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/algorithms/population.hh"
@@ -54,7 +54,7 @@ namespace hnco::algorithm::eda {
     /// Mean of selected bit vectors
     pv_t _mean;
 
-    /// Entropies
+    /// Conditional entropies
     std::vector<double> _entropies;
 
     /// Contingency table
@@ -75,6 +75,12 @@ namespace hnco::algorithm::eda {
 
     /// Sample a bit vector
     void sample(bit_vector_t& bv);
+
+    /// Compute conditional entropy
+    void compute_conditional_entropy(std::size_t j);
+
+    /// Update model
+    void update_model();
 
   public:
 
