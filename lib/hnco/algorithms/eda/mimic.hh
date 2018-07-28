@@ -27,6 +27,7 @@
 
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/algorithms/population.hh"
+#include "hnco/exception.hh"
 #include "hnco/permutation.hh"
 
 
@@ -72,7 +73,7 @@ namespace hnco::algorithm::eda {
     ///@{
 
     /// Selection size
-    int _selection_size = 1;
+    int _selection_size;
 
     ///@}
 
@@ -98,8 +99,12 @@ namespace hnco::algorithm::eda {
       _mean(n),
       _entropies(n),
       _lower_bound(1 / double(n)),
-      _upper_bound(1 - 1 / double(n))
+      _upper_bound(1 - 1 / double(n)),
+      _selection_size(population_size / 2)
     {
+      if (!(population_size > 1))
+        throw hnco::exception::Error("Mimic::Mimic: population size must be > 1");
+
       for (auto& p: _parameters)
         p = pv_t(n);
     }
@@ -112,7 +117,16 @@ namespace hnco::algorithm::eda {
     ///@{
 
     /// Set the selection size
-    void set_selection_size(int x) { _selection_size = x; }
+    void set_selection_size(int x) {
+
+      if (!(x > 0))
+        throw hnco::exception::Error("Mimic::set_selection_size: selection size must be positive");
+
+      if (!(size_t(x) < _population.size()))
+        throw hnco::exception::Error("Mimic::set_selection_size: selection size must be lower than population size");
+
+      _selection_size = x;
+    }
 
     ///@}
 
