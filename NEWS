@@ -6,6 +6,8 @@ Library:
 - Added perm_identity
 - Added namespace hnco::algorithm::eda
 - Added Mimic
+- Renamed Random::random_bit -> Random::bernoulli
+- Added bit_random
 
 Tests:
 - Added test-steepest-ascent-hill-climbing-local
