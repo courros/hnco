@@ -39,54 +39,48 @@ Mimic::init()
 {
   random_solution();
   perm_random(_permutation);
-  std::fill(_parameters.begin(), _parameters.end(), std::make_pair(0.5, 0.5));
+  for (auto& p: _parameters)
+    std::fill(p.begin(), p.end(), 0.5);
 }
 
 void
 Mimic::sample(bit_vector_t& bv)
 {
   assert(bv.size() == _permutation.size());
-  assert(bv.size() == _parameters.size());
+  assert(bv.size() == _parameters[0].size());
+  assert(bv.size() == _parameters[1].size());
   assert(perm_is_valid(_permutation));
 
   // First component
-  bv[_permutation[0]] = (Random::uniform() < _parameters[0].first) ? 1 : 0;
+  bv[_permutation[0]] = bit_random(_parameters[1][0]);
 
   // Other components
   for (std::size_t i = 1; i < bv.size(); i++)
-    if (bv[_permutation[i - 1]])
-      bv[_permutation[i]] = (Random::uniform() < _parameters[i].first) ? 1 : 0;
-    else
-      bv[_permutation[i]] = (Random::uniform() < _parameters[i].second) ? 1 : 0;
+    bv[_permutation[i]] = bit_random(_parameters[bv[_permutation[i - 1]]][i]);
 }
 
 void
-Mimic::compute_conditional_entropy(std::size_t j)
+Mimic::compute_conditional_entropy(std::size_t index)
 {
   double entropy = 0;
+  int total = 0;
 
-  int c0 = _table[0][0] + _table[0][1];
-  if (c0) {
-    if (_table[0][0])
-      entropy += _table[0][0] * std::log(double(c0) / _table[0][0]);
-    if (_table[0][1])
-      entropy += _table[0][1] * std::log(double(c0) / _table[0][1]);
+  for (size_t i = 0; i < _table.size(); i++)  {
+    int count = _table[i][0] + _table[i][1];
+    if (count) {
+      if (_table[i][0])
+        entropy += _table[i][0] * std::log(double(count) / _table[i][0]);
+      if (_table[i][1])
+        entropy += _table[i][1] * std::log(double(count) / _table[i][1]);
+    }
+    _parameters[i][index] = count ? _table[i][1] / double(count) : 0.5;
+    total += count;
   }
-  _parameters[j].second = c0 ? _table[0][1] / double(c0) : 0.5;
 
-  int c1 = _table[1][0] + _table[1][1];
-  if (c1) {
-    if (_table[1][0])
-      entropy += _table[1][0] * std::log(double(c1) / _table[1][0]);
-    if (_table[1][1])
-      entropy += _table[1][1] * std::log(double(c1) / _table[1][1]);
-  }
-  _parameters[j].first = c1 ? _table[1][1] / double(c1) : 0.5;
-
-  assert(c0 + c1 == _selection_size);
+  assert(total == _selection_size);
   assert(entropy >= 0);
 
-  _entropies[j] = entropy;
+  _entropies[index] = entropy;
 }
 
 void
@@ -107,8 +101,8 @@ Mimic::update_model()
 
   perm_identity(_permutation);
   std::swap(_permutation[0], _permutation[root]);
-  _parameters[0].first = _mean[root];
-  _parameters[0].second = _mean[root];
+  _parameters[0][0] = _mean[root];
+  _parameters[1][0] = _mean[root];
 
   for (std::size_t i = 1; i < _permutation.size(); i++) {
     std::size_t first = _permutation[i - 1];
@@ -131,10 +125,15 @@ Mimic::update_model()
 
     if (child != i) {
       std::swap(_permutation[i], _permutation[child]);
-      std::swap(_parameters[i], _parameters[child]);
+      for (auto& p: _parameters)
+        p[i] = p[child];
     }
     assert(perm_is_valid(_permutation));
   }
+
+  for (auto& p: _parameters)
+    pv_bound(p, _lower_bound, _upper_bound);
+
 }
 
 void

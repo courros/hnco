@@ -49,7 +49,7 @@ namespace hnco::algorithm::eda {
     permutation_t _permutation;
 
     /// Model parameters
-    std::vector<std::pair<double, double> > _parameters;
+    std::array<pv_t, 2> _parameters;
 
     /// Mean of selected bit vectors
     pv_t _mean;
@@ -59,6 +59,12 @@ namespace hnco::algorithm::eda {
 
     /// Contingency table
     std::array<std::array<int, 2>, 2> _table;
+
+    /// Lower bound of probability
+    double _lower_bound;
+
+    /// Upper bound of probability
+    double _upper_bound;
 
     ///
     /** @name Parameters
@@ -77,7 +83,7 @@ namespace hnco::algorithm::eda {
     void sample(bit_vector_t& bv);
 
     /// Compute conditional entropy
-    void compute_conditional_entropy(std::size_t j);
+    void compute_conditional_entropy(std::size_t index);
 
     /// Update model
     void update_model();
@@ -89,9 +95,14 @@ namespace hnco::algorithm::eda {
       IterativeAlgorithm(n),
       _population(population_size, n),
       _permutation(n),
-      _parameters(n),
       _mean(n),
-      _entropies(n) {}
+      _entropies(n),
+      _lower_bound(1 / double(n)),
+      _upper_bound(1 - 1 / double(n))
+    {
+      for (auto& p: _parameters)
+        p = pv_t(n);
+    }
 
     /// Initialization
     void init();
