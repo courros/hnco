@@ -66,10 +66,7 @@ namespace algorithm {
     /// Constructor
     RandomWalk(int n, neighborhood::Neighborhood *neighborhood):
       IterativeAlgorithm(n),
-      _neighborhood(neighborhood)
-    {
-      _something_to_log = true;
-    }
+      _neighborhood(neighborhood) {}
 
     /// Random initialization
     void init();
@@ -89,6 +86,9 @@ namespace algorithm {
 
     /// Set incremental evaluation
     void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }
+
+    /// Set log
+    void set_log() { _something_to_log = true; }
 
     ///@}
 
