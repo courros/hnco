@@ -6,10 +6,10 @@ default-parameters:
 run:
 	hnco-walsh-skeleton.pl
 	echo `date` >> log.err
-	time -o log.err -a hnco-walsh-run.pl
+	time -o log.err -a hnco-autocorrelation-run.pl
 
 doc:
-	hnco-autocorrelation-doc.pl
+	hnco-autocorrelation-stat.pl
 	./graphics.gp
 	sed '/^$$/d' plan.json > plan-compact.json
 	make -C report
