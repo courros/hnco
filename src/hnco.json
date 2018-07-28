@@ -627,6 +627,11 @@
                 },
 
                 {
+                    "value": 20,
+                    "description": "Random walk"
+                },
+
+                {
                     "value": 100,
                     "description": "Random local search"
                 },

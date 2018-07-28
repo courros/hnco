@@ -73,6 +73,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/random-local-search.cc \
 	hnco/algorithms/ls/random-local-search.hh \
+	hnco/algorithms/ls/random-walk.cc \
+	hnco/algorithms/ls/random-walk.hh \
 	hnco/algorithms/ls/simulated-annealing.cc \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
@@ -216,6 +218,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/random-local-search.hh \
+	hnco/algorithms/ls/random-walk.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh \

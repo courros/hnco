@@ -862,6 +862,7 @@ void Options::print_help(ostream& stream) const
   stream << "          Type of algorithm" << endl;
   stream << "            0: Complete search" << endl;
   stream << "            10: Random search" << endl;
+  stream << "            20: Random walk" << endl;
   stream << "            100: Random local search" << endl;
   stream << "            150: Steepest ascent hill climbing" << endl;
   stream << "            160: First ascent hill climbing" << endl;

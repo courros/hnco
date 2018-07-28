@@ -96,6 +96,20 @@ make_concrete_algorithm(const Options& options)
     return algo;
   }
 
+  case 20: {
+    auto neighborhood = make_neighborhood(options);
+    assert(neighborhood);
+
+    auto algo = new RandomWalk
+      (options.get_bv_size(),
+       neighborhood);
+
+    algo->set_num_iterations(options.get_num_iterations());
+    algo->set_incremental_evaluation(options.with_incremental_evaluation());
+
+    return algo;
+  }
+
   case 100: {
     auto neighborhood = make_neighborhood(options);
     assert(neighborhood);

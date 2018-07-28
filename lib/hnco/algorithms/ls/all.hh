@@ -23,6 +23,7 @@
 
 #include "first-ascent-hill-climbing.hh"
 #include "random-local-search.hh"
+#include "random-walk.hh"
 #include "simulated-annealing.hh"
 #include "steepest-ascent-hill-climbing.hh"
 

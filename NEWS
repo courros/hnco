@@ -8,6 +8,8 @@ Library:
 - Added Mimic
 - Renamed Random::random_bit -> Random::bernoulli
 - Added bit_random
+- Algorithm: bv_size must be positive
+- Added RandomWalk
 
 Tests:
 - Added test-steepest-ascent-hill-climbing-local
