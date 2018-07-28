@@ -31,7 +31,14 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// Random walk
+  /** Random walk.
+
+      The algorithm simply performs a random walk on the graph
+      implicitly given by the neighborhood. At each iteration, the
+      chosen neighbor does not depend on its evaluation. However
+      optimization takes place as in random search, that is the best
+      visited bit vector is remembered.
+  */
   class RandomWalk:
     public IterativeAlgorithm {
 
