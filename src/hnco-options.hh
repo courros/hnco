@@ -326,6 +326,9 @@ class Options {
   /// Strict (>) random local search
   bool _rls_strict;
 
+  /// Log bit vector value during random walk
+  bool _rw_log;
+
   /// Stop on maximum
   bool _stop_on_maximum;
 
@@ -1176,6 +1179,12 @@ public:
 
   /// Set rls_strict
   void set_rls_strict() { _rls_strict = true; }
+ 
+  /// Get rw_log
+  bool with_rw_log() const { return _rw_log; }
+
+  /// Set rw_log
+  void set_rw_log() { _rw_log = true; }
  
   /// Get stop_on_maximum
   bool with_stop_on_maximum() const { return _stop_on_maximum; }

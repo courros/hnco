@@ -148,6 +148,7 @@ Options::Options(int argc, char *argv[]):
   _pv_log_pv(false),
   _restart(false),
   _rls_strict(false),
+  _rw_log(false),
   _stop_on_maximum(false),
   _stop_on_target(false)
 {
@@ -241,6 +242,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_PV_LOG_PV,
     OPTION_RESTART,
     OPTION_RLS_STRICT,
+    OPTION_RW_LOG,
     OPTION_STOP_ON_MAXIMUM,
     OPTION_STOP_ON_TARGET
   };
@@ -332,6 +334,7 @@ Options::Options(int argc, char *argv[]):
     {"pv-log-pv", no_argument, 0, OPTION_PV_LOG_PV},
     {"restart", no_argument, 0, OPTION_RESTART},
     {"rls-strict", no_argument, 0, OPTION_RLS_STRICT},
+    {"rw-log", no_argument, 0, OPTION_RW_LOG},
     {"stop-on-maximum", no_argument, 0, OPTION_STOP_ON_MAXIMUM},
     {"stop-on-target", no_argument, 0, OPTION_STOP_ON_TARGET},
     {"help", no_argument, 0, OPTION_HELP},
@@ -705,6 +708,10 @@ Options::Options(int argc, char *argv[]):
       _rls_strict = true;
       break;
 
+    case OPTION_RW_LOG:
+      _rw_log = true;
+      break;
+
     case OPTION_STOP_ON_MAXIMUM:
       _stop_on_maximum = true;
       break;
@@ -912,6 +919,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)" << endl;
   stream << "      --rls-strict" << endl;
   stream << "          Strict (>) random local search" << endl;
+  stream << "      --rw-log" << endl;
+  stream << "          Log bit vector value during random walk" << endl;
   stream << endl;
   stream << "Simulated Annealing:" << endl;
   stream << "      --sa-beta-ratio (type double, default to 1.2)" << endl;
@@ -1145,6 +1154,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# restart" << endl;
   if (options._rls_strict)
     stream << "# rls_strict" << endl;
+  if (options._rw_log)
+    stream << "# rw_log" << endl;
   if (options._stop_on_maximum)
     stream << "# stop_on_maximum" << endl;
   if (options._stop_on_target)
