@@ -280,6 +280,8 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 dist_bin_SCRIPTS = \
+	hnco-autocorrelation-run.pl \
+	hnco-autocorrelation-stat.pl \
 	hnco-benchmark-run.pl \
 	hnco-benchmark-skeleton.pl \
 	hnco-benchmark-stat.pl \
