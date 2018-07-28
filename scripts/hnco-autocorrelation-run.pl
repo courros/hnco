@@ -54,12 +54,7 @@ if ($parallel) {
 
 my $commands = ();
 
-my $path = $path_results;
-unless (-d $path) {
-    mkdir $path;
-    print "Created $path\n";
-}
-iterate_functions($path, "$obj->{exec} $obj->{opt}");
+iterate_functions($path_results, "$obj->{exec} $obj->{opt}");
 
 if ($parallel) {
     my $path = 'commands.txt';
