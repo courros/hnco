@@ -80,8 +80,9 @@ sub iterate_functions
     my ($prefix, $cmd) = @_;
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        print "$function_id\n";
+        print "$function_id: ";
         iterate_runs("$prefix/$function_id", "$cmd $f->{opt}");
+        print "\n";
     }
 }
 
