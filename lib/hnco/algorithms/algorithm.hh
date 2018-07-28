@@ -23,6 +23,7 @@
 
 #include <iostream>
 
+#include "hnco/exception.hh"
 #include "hnco/functions/function.hh"
 
 
@@ -88,7 +89,11 @@ namespace algorithm {
 
     /// Constructor
     Algorithm(int n):
-      _solution(bit_vector_t(n), 0.0) {}
+      _solution(bit_vector_t(n), 0.0)
+    {
+      if (!(n > 0))
+        throw hnco::exception::Error("Algorithm::Algorithm: bit vector size must be positive");
+    }
 
     /// Destructor
     virtual ~Algorithm() {}
