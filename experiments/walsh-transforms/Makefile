@@ -4,6 +4,7 @@ default-parameters:
 	hnco --print-defaults > log.defaults
 
 run:
+	hnco-walsh-skeleton.pl
 	echo `date` >> log.err
 	time -o log.err -a hnco-walsh-run.pl
 
