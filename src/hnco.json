@@ -176,6 +176,12 @@
             "category": "Local Search"
         },
 
+        "rw_log":
+        {
+            "description": "Log bit vector value during random walk",
+            "category": "Local Search"
+        },
+
         "pv_log_pv":
         {
             "description": "Log probability vector",
