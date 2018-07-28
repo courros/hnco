@@ -1,4 +1,6 @@
 dist_bin_SCRIPTS = \
+	hnco-autocorrelation-run.pl \
+	hnco-autocorrelation-stat.pl \
 	hnco-benchmark-run.pl \
 	hnco-benchmark-skeleton.pl \
 	hnco-benchmark-stat.pl \
