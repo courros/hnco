@@ -18,7 +18,9 @@
 
 */
 
-#include "random-local-search.hh"
+#include <assert.h>
+
+#include "random-walk.hh"
 
 
 using namespace hnco::algorithm;
@@ -27,19 +29,18 @@ using namespace hnco;
 
 
 void
-RandomLocalSearch::init()
+RandomWalk::init()
 {
   assert(_function);
   assert(_neighborhood);
 
   random_solution();
   _neighborhood->set_origin(_solution.first);
-  _num_failures = 0;
 }
 
 
 void
-RandomLocalSearch::init(const bit_vector_t& x)
+RandomWalk::init(const bit_vector_t& x)
 {
   assert(_function);
   assert(_neighborhood);
@@ -49,29 +50,18 @@ RandomLocalSearch::init(const bit_vector_t& x)
 
 
 void
-RandomLocalSearch::init(const bit_vector_t& x, double value)
+RandomWalk::init(const bit_vector_t& x, double value)
 {
   assert(_function);
   assert(_neighborhood);
 
   set_solution(x, value);
   _neighborhood->set_origin(_solution.first);
-  _num_failures = 0;
-}
-
-
-const point_value_t&
-RandomLocalSearch::get_solution()
-{
-  assert(_neighborhood);
-
-  _solution.first = _neighborhood->get_origin();
-  return _solution;
 }
 
 
 void
-RandomLocalSearch::iterate()
+RandomWalk::iterate()
 {
   assert(_function);
 
@@ -84,63 +74,34 @@ RandomLocalSearch::iterate()
 
 
 void
-RandomLocalSearch::iterate_full()
+RandomWalk::iterate_full()
 {
   assert(_function);
   assert(_neighborhood);
 
   _neighborhood->propose();
-  double value = _function->eval(_neighborhood->get_candidate());
-
-  if (_compare(value, _solution.second)) {
-    // success
-    _neighborhood->keep();
-    _solution.second = value;
-    _num_failures = 0;
-  } else {
-    // failure
-    _neighborhood->forget();
-    _num_failures++;
-  }
-
-  if (_patience > 0 &&
-      _num_failures == _patience)
-    {
-      _solution.first = _neighborhood->get_origin();
-      throw LocalMaximum(_solution);
-    }
-
+  _value = _function->eval(_neighborhood->get_candidate());
+  _neighborhood->keep();
+  update_solution(_neighborhood->get_candidate(), _value);
 }
 
 
 void
-RandomLocalSearch::iterate_incremental()
+RandomWalk::iterate_incremental()
 {
   assert(_function);
   assert(_neighborhood);
 
   _neighborhood->propose();
-  double value =
-    _function->incremental_eval(_neighborhood->get_origin(),
-                                _solution.second,
-                                _neighborhood->get_flipped_bits());
+  _value = _function->incremental_eval(_neighborhood->get_origin(), _value,
+                                       _neighborhood->get_flipped_bits());
+  _neighborhood->keep();
+  update_solution(_neighborhood->get_candidate(), _value);
+}
 
-  if (_compare(value, _solution.second)) {
-    // success
-    _neighborhood->keep();
-    _solution.second = value;
-    _num_failures = 0;
-  } else {
-    // failure
-    _neighborhood->forget();
-    _num_failures++;
-  }
 
-  if (_patience > 0 &&
-      _num_failures == _patience)
-    {
-      _solution.first = _neighborhood->get_origin();
-      throw LocalMaximum(_solution);
-    }
-
+void
+RandomWalk::log()
+{
+  (*_stream) << _value << std::endl;
 }

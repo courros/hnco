@@ -18,12 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_LS_RANDOM_LOCAL_SEARCH_H
-#define HNCO_ALGORITHMS_LS_RANDOM_LOCAL_SEARCH_H
-
-#include <assert.h>
-
-#include <functional>           // std::function
+#ifndef HNCO_ALGORITHMS_LS_RANDOM_WALK_H
+#define HNCO_ALGORITHMS_LS_RANDOM_WALK_H
 
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/exception.hh"
@@ -35,8 +31,8 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// Random local search
-  class RandomLocalSearch:
+  /// Random walk
+  class RandomWalk:
     public IterativeAlgorithm {
 
   protected:
@@ -44,18 +40,12 @@ namespace algorithm {
     /// Neighborhood
     neighborhood::Neighborhood *_neighborhood;
 
-    /// Number of failure
-    int _num_failures;
+    /// Value of the last visited bit vector
+    double _value;
 
     /** @name Parameters
      */
     ///@{
-
-    /// Binary operator for comparing evaluations
-    std::function<bool(double, double)> _compare = std::greater_equal<double>();
-
-    /// Patience
-    int _patience = 50;
 
     /// Incremental evaluation
     bool _incremental_evaluation = false;
@@ -74,9 +64,12 @@ namespace algorithm {
   public:
 
     /// Constructor
-    RandomLocalSearch(int n, neighborhood::Neighborhood *neighborhood):
+    RandomWalk(int n, neighborhood::Neighborhood *neighborhood):
       IterativeAlgorithm(n),
-      _neighborhood(neighborhood) {}
+      _neighborhood(neighborhood)
+    {
+      _something_to_log = true;
+    }
 
     /// Random initialization
     void init();
@@ -87,27 +80,12 @@ namespace algorithm {
     /// Explicit initialization
     void init(const bit_vector_t& x, double value);
 
-    /// Solution
-    const point_value_t& get_solution();
+    /// Log
+    void log();
 
     /** @name Setters
      */
     ///@{
-
-    /// Set the binary operator for comparing evaluations
-    void set_compare(std::function<bool(double, double)> x) { _compare = x; }
-
-    /** Set patience.
-
-        Number of consecutive rejected moves before throwing a
-        LocalMaximum exception
-
-        \param x Patience
-
-        If x <= 0 then patience is considered infinite, meaning that
-        the algorithm will never throw any LocalMaximum exception.
-    */
-    void set_patience(int x) { _patience = x; }
 
     /// Set incremental evaluation
     void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }
