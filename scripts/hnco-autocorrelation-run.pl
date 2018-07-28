@@ -91,13 +91,13 @@ sub iterate_functions
             print "Created $path\n";
         }
         print "$function_id\n";
-        iterate_runs($path, "$cmd $f->{opt}", $obj->{num_runs});
+        iterate_runs($path, "$cmd $f->{opt}");
     }
 }
 
 sub iterate_runs
 {
-    my ($prefix, $cmd, $num_runs) = @_;
+    my ($prefix, $cmd) = @_;
     if ($parallel) {
         foreach (1 .. $num_runs) {
             push @commands,
