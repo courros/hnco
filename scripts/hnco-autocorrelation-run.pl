@@ -91,27 +91,7 @@ sub iterate_functions
             print "Created $path\n";
         }
         print "$function_id\n";
-        iterate_algorithms($path, "$cmd $f->{opt}");
-    }
-}
-
-sub iterate_algorithms
-{
-    my ($prefix, $cmd) = @_;
-    foreach my $a (@$algorithms) {
-        my $algorithm_id = $a->{id};
-        my $path = "$prefix/$algorithm_id";
-        unless (-d $path) {
-            mkdir "$path";
-            print "Created $path\n";
-        }
-        print "$algorithm_id: ";
-        if ($a->{deterministic}) {
-            iterate_runs($path, "$cmd $a->{opt}", 1);
-        } else {
-            iterate_runs($path, "$cmd $a->{opt}", $obj->{num_runs});
-        }
-        print "\n";
+        iterate_runs($path, "$cmd $f->{opt}", $obj->{num_runs});
     }
 }
 
