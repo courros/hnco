@@ -98,15 +98,11 @@ make_concrete_algorithm(const Options& options)
 
   case 20: {
     auto neighborhood = make_neighborhood(options);
-    assert(neighborhood);
-
-    auto algo = new RandomWalk
-      (options.get_bv_size(),
-       neighborhood);
-
-    algo->set_num_iterations(options.get_num_iterations());
+    auto algo = new RandomWalk(options.get_bv_size(), neighborhood);
     algo->set_incremental_evaluation(options.with_incremental_evaluation());
-
+    algo->set_num_iterations(options.get_num_iterations());
+    if (options.with_rw_log())
+      algo->set_log();
     return algo;
   }
 
