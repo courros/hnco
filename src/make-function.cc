@@ -140,6 +140,10 @@ make_concrete_function(const Options& options)
     return new Labs
       (options.get_bv_size());
 
+  case 81:
+    return new LabsMeritFactor
+      (options.get_bv_size());
+
   case 90: {
     EqualProducts* function = new EqualProducts;
     std::ifstream ifs(options.get_path());

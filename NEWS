@@ -10,6 +10,7 @@ Library:
 - Added bit_random
 - Algorithm: bv_size must be positive
 - Added RandomWalk
+- Added AbstractLabs, LabsMeritFactor
 
 Tests:
 - Added test-steepest-ascent-hill-climbing-local

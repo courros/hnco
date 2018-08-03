@@ -793,6 +793,7 @@ void Options::print_help(ostream& stream) const
   stream << "            60: NK landscape" << endl;
   stream << "            70: Max-SAT" << endl;
   stream << "            80: Low autocorrelation binary sequence" << endl;
+  stream << "            81: Low autocorrelation binary sequence merit factor" << endl;
   stream << "            90: Equal products" << endl;
   stream << "            100: Summation cancellation" << endl;
   stream << "            101: Summation cancellation with sinus" << endl;

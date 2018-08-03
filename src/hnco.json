@@ -351,6 +351,11 @@
                 },
 
                 {
+                    "value": 81,
+                    "description": "Low autocorrelation binary sequence merit factor"
+                },
+
+                {
                     "value": 90,
                     "description": "Equal products"
                 },
