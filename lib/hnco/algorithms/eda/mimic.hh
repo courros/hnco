@@ -35,6 +35,12 @@ namespace hnco::algorithm::eda {
 
   /** Mutual information maximizing input clustering.
 
+      This implementation differs from the algorithm described in the
+      reference below in that it constrains all probabilities
+      (marginal and conditional) to stay away from the values 0 and 1
+      by a fixed margin equal to 1 / n, as usually done in algorithms
+      such as Pbil or Umda.
+
       Reference:
 
       Jeremy S. De Bonet and Charles L. Isbell and Jr. and Paul Viola,
