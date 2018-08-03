@@ -37,6 +37,11 @@ namespace hnco::algorithm::eda {
 
       Reference:
 
+      Jeremy S. De Bonet and Charles L. Isbell and Jr. and Paul Viola,
+      MIMIC: Finding Optima by Estimating Probability Densities, in
+      Advances in Neural Information Processing Systems, 1996, MIT
+      Press.
+
   */
   class Mimic:
     public IterativeAlgorithm {
