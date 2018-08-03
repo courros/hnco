@@ -108,6 +108,8 @@ int main(int argc, char *argv[])
   }
 
   if (options.with_fn_walsh_transform()) {
+    if (fn->get_bv_size() > 15)
+      std::cerr << "Warning: Walsh transform computation might take a long time or fail due to large bv_size" << std::endl;
     std::vector<Function::WalshTransformTerm> terms;
     fn->compute_walsh_transform(terms);
     for (auto& t : terms)
