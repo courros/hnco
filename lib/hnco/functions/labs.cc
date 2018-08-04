@@ -21,6 +21,7 @@
 #include <assert.h>
 
 #include "hnco/functions/labs.hh"
+#include "hnco/util.hh"         // square
 
 
 using namespace hnco::function;
@@ -42,7 +43,7 @@ AbstractLabs::compute_autocorrelation(const bit_vector_t& x)
     double C = 0;
     for (size_t i = 0; i < x.size() - k; i++)
       C += _sequence[i] * _sequence[i + k];
-    E += C * C;
+    E += square(C);
   }
 
   return E;
@@ -62,5 +63,5 @@ LabsMeritFactor::eval(const bit_vector_t& x)
 {
   assert(x.size() == _sequence.size());
 
-  return x.size() * x.size() / (2 * compute_autocorrelation(x));
+  return square(x.size()) / (2 * compute_autocorrelation(x));
 }
