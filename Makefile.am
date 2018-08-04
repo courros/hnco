@@ -1,4 +1,4 @@
-SUBDIRS = lib src tests scripts examples
+SUBDIRS = lib app tests scripts examples
 
 ACLOCAL_AMFLAGS = -I m4
 

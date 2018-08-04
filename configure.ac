@@ -1,7 +1,7 @@
 # Prelude.
 AC_INIT([hnco], [0.10])
 AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_SRCDIR([src/hnco.cc])
+AC_CONFIG_SRCDIR([app/hnco.cc])
 
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 
@@ -45,5 +45,5 @@ AM_CONDITIONAL([ENABLE_PLUGIN], [test "x$enable_plugin" = "xyes"])
 
 # Output files.
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile lib/Makefile src/Makefile tests/Makefile scripts/Makefile examples/Makefile])
+AC_CONFIG_FILES([Makefile lib/Makefile app/Makefile tests/Makefile scripts/Makefile examples/Makefile])
 AC_OUTPUT

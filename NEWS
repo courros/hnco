@@ -19,6 +19,7 @@ Tests:
 
 Build:
 - Added directory hnco/algorithms/eda/
+- Renamed directory hnco/src/ -> hnco/app/
 
 
 * Version 0.9 (2018-07-21)
