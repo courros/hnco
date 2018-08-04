@@ -31,16 +31,11 @@ namespace hnco {
 namespace function {
 
 
-  /** MAX-SAT.
-
-      Reference:
-
-      Christos M. Papadimitriou. 1994. Computational
-      complexity. Addison-Wesley, Reading, Massachusetts.
-
-  */
-  class MaxSat:
+  /// Abstract class for MaxSat-like functions
+  class AbstractMaxSat:
     public Function {
+
+  protected:
 
     /** Expression.
 
@@ -57,8 +52,39 @@ namespace function {
   public:
 
     /// Default constructor
-    MaxSat():
+    AbstractMaxSat():
       _num_variables(0) {}
+
+    /// Get bit vector size
+    size_t get_bv_size() { return _num_variables; }
+
+    /// Display the expression
+    void display(std::ostream& stream);
+
+    /** Load an instance.
+        \throw Error */
+    virtual void load(std::istream& stream);
+
+    /// Save an instance
+    virtual void save(std::ostream& stream);
+
+  };
+
+  /** MAX-SAT.
+
+      Reference:
+
+      Christos M. Papadimitriou. 1994. Computational
+      complexity. Addison-Wesley, Reading, Massachusetts.
+
+  */
+  class MaxSat:
+    public AbstractMaxSat {
+
+  public:
+
+    /// Default constructor
+    MaxSat() {}
 
     /** Random instance.
 
@@ -82,21 +108,34 @@ namespace function {
     */
     void random(const bit_vector_t& solution, int k, int c);
 
+    /// Evaluate a bit vector
+    double eval(const bit_vector_t&);
+
+  };
+
+
+  /** Not-all-equal satisfiability.
+
+      Reference:
+
+      Christos M. Papadimitriou. 1994. Computational
+      complexity. Addison-Wesley, Reading, Massachusetts.
+
+   */
+  class NaeSat:
+    public AbstractMaxSat {
+
+  public:
+
+    /// Default constructor
+    NaeSat() {}
+
     /** Load an instance.
         \throw Error */
     void load(std::istream& stream);
 
-    /// Save an instance
-    void save(std::ostream& stream);
-
-    /// Get bit vector size
-    size_t get_bv_size() { return _num_variables; }
-
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
-
-    /// Display the expression
-    void display(std::ostream& stream);
 
   };
 
