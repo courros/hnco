@@ -792,7 +792,7 @@ void Options::print_help(ostream& stream) const
   stream << "            50: Quadratic unconstrained binary optimization (Qubo)" << endl;
   stream << "            60: NK landscape" << endl;
   stream << "            70: Max-SAT" << endl;
-  stream << "            71: Max Not-all-equal 3SAT" << endl;
+  stream << "            71: Max not-all-equal 3SAT" << endl;
   stream << "            80: Low autocorrelation binary sequence" << endl;
   stream << "            81: Low autocorrelation binary sequence merit factor" << endl;
   stream << "            90: Equal products" << endl;
