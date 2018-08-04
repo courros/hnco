@@ -150,8 +150,10 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/bm-pbil/model.cc \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.cc \
-	hnco/algorithms/complete-search.hh hnco/algorithms/ea/all.hh \
-	hnco/algorithms/ea/crossover.cc \
+	hnco/algorithms/complete-search.hh \
+	hnco/algorithms/decorators/restart.cc \
+	hnco/algorithms/decorators/restart.hh \
+	hnco/algorithms/ea/all.hh hnco/algorithms/ea/crossover.cc \
 	hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.cc \
 	hnco/algorithms/ea/genetic-algorithm.hh \
@@ -226,8 +228,7 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/pv/pv-algorithm.cc \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.cc \
 	hnco/algorithms/pv/umda.hh hnco/algorithms/random-search.cc \
-	hnco/algorithms/random-search.hh hnco/algorithms/restart.cc \
-	hnco/algorithms/restart.hh hnco/algorithms/util.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/util.hh \
 	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
 	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
@@ -277,6 +278,7 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/bm-pbil/bm-pbil.lo \
 	hnco/algorithms/bm-pbil/model.lo \
 	hnco/algorithms/complete-search.lo \
+	hnco/algorithms/decorators/restart.lo \
 	hnco/algorithms/ea/crossover.lo \
 	hnco/algorithms/ea/genetic-algorithm.lo \
 	hnco/algorithms/ea/mu-comma-lambda-ea.lo \
@@ -311,9 +313,8 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/pv/pbil.lo \
 	hnco/algorithms/pv/probability-vector.lo \
 	hnco/algorithms/pv/pv-algorithm.lo hnco/algorithms/pv/umda.lo \
-	hnco/algorithms/random-search.lo hnco/algorithms/restart.lo \
-	hnco/bit-matrix.lo hnco/bit-vector.lo \
-	hnco/functions/cancellation.lo \
+	hnco/algorithms/random-search.lo hnco/bit-matrix.lo \
+	hnco/bit-vector.lo hnco/functions/cancellation.lo \
 	hnco/functions/decorators/function-controller.lo \
 	hnco/functions/decorators/function-modifier.lo \
 	hnco/functions/decorators/prior-noise.lo \
@@ -397,8 +398,9 @@ am__can_run_installinfo = \
 am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.hh \
-	hnco/algorithms/complete-search.hh hnco/algorithms/ea/all.hh \
-	hnco/algorithms/ea/crossover.hh \
+	hnco/algorithms/complete-search.hh \
+	hnco/algorithms/decorators/restart.hh \
+	hnco/algorithms/ea/all.hh hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
@@ -437,10 +439,9 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/pv/pbil.hh \
 	hnco/algorithms/pv/probability-vector.hh \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
-	hnco/algorithms/random-search.hh hnco/algorithms/restart.hh \
-	hnco/algorithms/util.hh hnco/bit-matrix.hh hnco/bit-vector.hh \
-	hnco/exception.hh hnco/functions/all.hh \
-	hnco/functions/cancellation.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/util.hh \
+	hnco/bit-matrix.hh hnco/bit-vector.hh hnco/exception.hh \
+	hnco/functions/all.hh hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
@@ -618,8 +619,10 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/bm-pbil/model.cc \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.cc \
-	hnco/algorithms/complete-search.hh hnco/algorithms/ea/all.hh \
-	hnco/algorithms/ea/crossover.cc \
+	hnco/algorithms/complete-search.hh \
+	hnco/algorithms/decorators/restart.cc \
+	hnco/algorithms/decorators/restart.hh \
+	hnco/algorithms/ea/all.hh hnco/algorithms/ea/crossover.cc \
 	hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.cc \
 	hnco/algorithms/ea/genetic-algorithm.hh \
@@ -694,8 +697,7 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/pv/pv-algorithm.cc \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.cc \
 	hnco/algorithms/pv/umda.hh hnco/algorithms/random-search.cc \
-	hnco/algorithms/random-search.hh hnco/algorithms/restart.cc \
-	hnco/algorithms/restart.hh hnco/algorithms/util.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/util.hh \
 	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
 	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
@@ -738,8 +740,9 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.hh \
-	hnco/algorithms/complete-search.hh hnco/algorithms/ea/all.hh \
-	hnco/algorithms/ea/crossover.hh \
+	hnco/algorithms/complete-search.hh \
+	hnco/algorithms/decorators/restart.hh \
+	hnco/algorithms/ea/all.hh hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
@@ -778,10 +781,9 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/pv/pbil.hh \
 	hnco/algorithms/pv/probability-vector.hh \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
-	hnco/algorithms/random-search.hh hnco/algorithms/restart.hh \
-	hnco/algorithms/util.hh hnco/bit-matrix.hh hnco/bit-vector.hh \
-	hnco/exception.hh hnco/functions/all.hh \
-	hnco/functions/cancellation.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/util.hh \
+	hnco/bit-matrix.hh hnco/bit-vector.hh hnco/exception.hh \
+	hnco/functions/all.hh hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
@@ -892,6 +894,15 @@ hnco/algorithms/bm-pbil/model.lo:  \
 	hnco/algorithms/bm-pbil/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/complete-search.lo: hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/decorators/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/decorators
+	@: > hnco/algorithms/decorators/$(am__dirstamp)
+hnco/algorithms/decorators/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/decorators/$(DEPDIR)
+	@: > hnco/algorithms/decorators/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/decorators/restart.lo:  \
+	hnco/algorithms/decorators/$(am__dirstamp) \
+	hnco/algorithms/decorators/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/ea/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/ea
 	@: > hnco/algorithms/ea/$(am__dirstamp)
@@ -1038,8 +1049,6 @@ hnco/algorithms/pv/umda.lo: hnco/algorithms/pv/$(am__dirstamp) \
 	hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/random-search.lo: hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/restart.lo: hnco/algorithms/$(am__dirstamp) \
-	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
 hnco/$(am__dirstamp):
 	@$(MKDIR_P) hnco
 	@: > hnco/$(am__dirstamp)
@@ -1149,6 +1158,8 @@ mostlyclean-compile:
 	-rm -f hnco/algorithms/*.lo
 	-rm -f hnco/algorithms/bm-pbil/*.$(OBJEXT)
 	-rm -f hnco/algorithms/bm-pbil/*.lo
+	-rm -f hnco/algorithms/decorators/*.$(OBJEXT)
+	-rm -f hnco/algorithms/decorators/*.lo
 	-rm -f hnco/algorithms/ea/*.$(OBJEXT)
 	-rm -f hnco/algorithms/ea/*.lo
 	-rm -f hnco/algorithms/eda/*.$(OBJEXT)
@@ -1187,9 +1198,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/complete-search.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/population.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/random-search.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/restart.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/bm-pbil/$(DEPDIR)/bm-pbil.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/bm-pbil/$(DEPDIR)/model.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/decorators/$(DEPDIR)/restart.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/crossover.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/genetic-algorithm.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-comma-lambda-ea.Plo@am__quote@
@@ -1306,6 +1317,7 @@ clean-libtool:
 	-rm -rf hnco/.libs hnco/_libs
 	-rm -rf hnco/algorithms/.libs hnco/algorithms/_libs
 	-rm -rf hnco/algorithms/bm-pbil/.libs hnco/algorithms/bm-pbil/_libs
+	-rm -rf hnco/algorithms/decorators/.libs hnco/algorithms/decorators/_libs
 	-rm -rf hnco/algorithms/ea/.libs hnco/algorithms/ea/_libs
 	-rm -rf hnco/algorithms/eda/.libs hnco/algorithms/eda/_libs
 	-rm -rf hnco/algorithms/fast-efficient-p3/.libs hnco/algorithms/fast-efficient-p3/_libs
@@ -1463,6 +1475,8 @@ distclean-generic:
 	-rm -f hnco/algorithms/$(am__dirstamp)
 	-rm -f hnco/algorithms/bm-pbil/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/algorithms/bm-pbil/$(am__dirstamp)
+	-rm -f hnco/algorithms/decorators/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/algorithms/decorators/$(am__dirstamp)
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/algorithms/ea/$(am__dirstamp)
 	-rm -f hnco/algorithms/eda/$(DEPDIR)/$(am__dirstamp)
@@ -1495,7 +1509,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/eda/$(DEPDIR) hnco/algorithms/fast-efficient-p3/$(DEPDIR) hnco/algorithms/fast-efficient-p3/src/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR) hnco/neighborhoods/$(DEPDIR)
+	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/decorators/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/eda/$(DEPDIR) hnco/algorithms/fast-efficient-p3/$(DEPDIR) hnco/algorithms/fast-efficient-p3/src/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR) hnco/neighborhoods/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -1541,7 +1555,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/eda/$(DEPDIR) hnco/algorithms/fast-efficient-p3/$(DEPDIR) hnco/algorithms/fast-efficient-p3/src/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR) hnco/neighborhoods/$(DEPDIR)
+	-rm -rf hnco/$(DEPDIR) hnco/algorithms/$(DEPDIR) hnco/algorithms/bm-pbil/$(DEPDIR) hnco/algorithms/decorators/$(DEPDIR) hnco/algorithms/ea/$(DEPDIR) hnco/algorithms/eda/$(DEPDIR) hnco/algorithms/fast-efficient-p3/$(DEPDIR) hnco/algorithms/fast-efficient-p3/src/$(DEPDIR) hnco/algorithms/hea/$(DEPDIR) hnco/algorithms/ls/$(DEPDIR) hnco/algorithms/pv/$(DEPDIR) hnco/functions/$(DEPDIR) hnco/functions/decorators/$(DEPDIR) hnco/functions/walsh/$(DEPDIR) hnco/neighborhoods/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

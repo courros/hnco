@@ -18,12 +18,12 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_RESTART_H
-#define HNCO_ALGORITHMS_RESTART_H
+#ifndef HNCO_ALGORITHMS_DECORATORS_RESTART_H
+#define HNCO_ALGORITHMS_DECORATORS_RESTART_H
 
 #include <assert.h>
 
-#include "algorithm.hh"
+#include "hnco/algorithms/algorithm.hh"
 
 
 namespace hnco {
