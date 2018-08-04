@@ -11,6 +11,7 @@ Library:
 - Algorithm: bv_size must be positive
 - Added RandomWalk
 - Added AbstractLabs, LabsMeritFactor
+- Added MaxNae3Sat
 
 Tests:
 - Added test-steepest-ascent-hill-climbing-local

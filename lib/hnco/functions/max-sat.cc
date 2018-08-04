@@ -279,17 +279,17 @@ MaxSat::eval(const bit_vector_t& x)
 
 
 void
-NaeSat::load(std::istream& stream)
+MaxNae3Sat::load(std::istream& stream)
 {
   AbstractMaxSat::load(stream);
   for (auto& clause: _expression)
     if (clause.size() != 3)
-      throw Error("NaeSat::load: All clauses must have exactly 3 literals");
+      throw Error("MaxNae3Sat::load: All clauses must have exactly 3 literals");
 }
 
 
 double
-NaeSat::eval(const bit_vector_t& x)
+MaxNae3Sat::eval(const bit_vector_t& x)
 {
   double result = 0;
 

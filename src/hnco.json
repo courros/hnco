@@ -346,6 +346,11 @@
                 },
 
                 {
+                    "value": 71,
+                    "description": "Max not-all-equal 3SAT"
+                },
+
+                {
                     "value": 80,
                     "description": "Low autocorrelation binary sequence"
                 },

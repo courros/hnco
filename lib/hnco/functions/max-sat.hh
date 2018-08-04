@@ -114,7 +114,7 @@ namespace function {
   };
 
 
-  /** Not-all-equal satisfiability.
+  /** Max not-all-equal 3SAT.
 
       Reference:
 
@@ -122,13 +122,13 @@ namespace function {
       complexity. Addison-Wesley, Reading, Massachusetts.
 
    */
-  class NaeSat:
+  class MaxNae3Sat:
     public AbstractMaxSat {
 
   public:
 
     /// Default constructor
-    NaeSat() {}
+    MaxNae3Sat() {}
 
     /** Load an instance.
         \throw Error */
