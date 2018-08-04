@@ -18,14 +18,13 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_UTIL_H
-#define HNCO_ALGORITHMS_UTIL_H
+#ifndef HNCO_UTIL_H
+#define HNCO_UTIL_H
 
 #include <math.h>               // exp
 
 
 namespace hnco {
-namespace algorithm {
 
   /// Generic square function
   template<class T>
@@ -42,7 +41,6 @@ namespace algorithm {
     }
   }
 
-} // end of namespace algorithm
 } // end of namespace hnco
 
 

@@ -21,7 +21,7 @@
 #include <assert.h>		// assert
 
 #include "hnco/algorithms/matrix.hh"
-#include "hnco/algorithms/util.hh"
+#include "hnco/util.hh"
 
 #include "moment-spin.hh"
 

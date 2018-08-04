@@ -228,9 +228,9 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/pv/pv-algorithm.cc \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.cc \
 	hnco/algorithms/pv/umda.hh hnco/algorithms/random-search.cc \
-	hnco/algorithms/random-search.hh hnco/algorithms/util.hh \
-	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
-	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
+	hnco/algorithms/random-search.hh hnco/bit-matrix.cc \
+	hnco/bit-matrix.hh hnco/bit-vector.cc hnco/bit-vector.hh \
+	hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
 	hnco/functions/decorators/function-controller.cc \
@@ -267,7 +267,7 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
 	hnco/sparse-bit-matrix.cc hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.cc hnco/sparse-bit-vector.hh \
-	hnco/functions/factorization.cc \
+	hnco/util.hh hnco/functions/factorization.cc \
 	hnco/functions/factorization.hh hnco/functions/plugin.cc \
 	hnco/functions/plugin.hh
 am__dirstamp = $(am__leading_dot)dirstamp
@@ -439,9 +439,9 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/pv/pbil.hh \
 	hnco/algorithms/pv/probability-vector.hh \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
-	hnco/algorithms/random-search.hh hnco/algorithms/util.hh \
-	hnco/bit-matrix.hh hnco/bit-vector.hh hnco/exception.hh \
-	hnco/functions/all.hh hnco/functions/cancellation.hh \
+	hnco/algorithms/random-search.hh hnco/bit-matrix.hh \
+	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
+	hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
@@ -460,8 +460,8 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/map.hh hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
-	hnco/sparse-bit-vector.hh hnco/functions/factorization.hh \
-	hnco/functions/plugin.hh
+	hnco/sparse-bit-vector.hh hnco/util.hh \
+	hnco/functions/factorization.hh hnco/functions/plugin.hh
 HEADERS = $(nobase_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
@@ -697,9 +697,9 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/pv/pv-algorithm.cc \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.cc \
 	hnco/algorithms/pv/umda.hh hnco/algorithms/random-search.cc \
-	hnco/algorithms/random-search.hh hnco/algorithms/util.hh \
-	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
-	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
+	hnco/algorithms/random-search.hh hnco/bit-matrix.cc \
+	hnco/bit-matrix.hh hnco/bit-vector.cc hnco/bit-vector.hh \
+	hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
 	hnco/functions/decorators/function-controller.cc \
@@ -736,7 +736,7 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
 	hnco/sparse-bit-matrix.cc hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.cc hnco/sparse-bit-vector.hh \
-	$(am__append_1) $(am__append_2)
+	hnco/util.hh $(am__append_1) $(am__append_2)
 nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.hh \
@@ -781,9 +781,9 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/pv/pbil.hh \
 	hnco/algorithms/pv/probability-vector.hh \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
-	hnco/algorithms/random-search.hh hnco/algorithms/util.hh \
-	hnco/bit-matrix.hh hnco/bit-vector.hh hnco/exception.hh \
-	hnco/functions/all.hh hnco/functions/cancellation.hh \
+	hnco/algorithms/random-search.hh hnco/bit-matrix.hh \
+	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
+	hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
@@ -802,7 +802,8 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/map.hh hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
-	hnco/sparse-bit-vector.hh $(am__append_3) $(am__append_4)
+	hnco/sparse-bit-vector.hh hnco/util.hh $(am__append_3) \
+	$(am__append_4)
 EXTRA_DIST = hnco/algorithms/fast-efficient-p3/src/LICENSE.txt
 all: all-am
 
