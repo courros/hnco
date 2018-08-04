@@ -85,7 +85,7 @@
 
         {
             "id": "labs",
-	    "opt": "-F 80",
+	    "opt": "-F 81",
             "col": ">{{\\nprounddigits{2}}}N{1}{2}"
         },
 
