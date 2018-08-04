@@ -10,7 +10,10 @@ Library:
 - Added bit_random
 - Algorithm: bv_size must be positive
 - Added RandomWalk
-- Added AbstractLabs, LabsMeritFactor
+- Added AbstractLabs
+- Labs renamed LabsMeritFactor
+- Labs now only computes autocorrelation
+- Added AbstractMaxSat
 - Added MaxNae3Sat
 - Functions square and logistic moved from namespace hnco::algorithm to hnco
 
@@ -23,6 +26,13 @@ Build:
 - Renamed directory hnco/src/ -> hnco/app/
 - Moved files hnco/algorithms/restart.* under hnco/algorithms/decorators/
 - Moved file hnco/algorithms/util.hh under hnco/
+
+hnco:
+- LabsMeritFactor renumbered 80 -> 81
+
+Experiments:
+- Updated function number of LabsMeritFactor
+- walsh-transforms: apply to Labs instead of LabsMeritFactor
 
 
 * Version 0.9 (2018-07-21)
