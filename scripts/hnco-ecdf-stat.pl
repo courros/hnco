@@ -269,14 +269,12 @@ sub generate_graphics
             "set key title $quoted_title\n";
 
         print GRAPHICS "plot \\\n";
-        my $position = 1;
         print GRAPHICS
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
                 $quoted_path = quote("$path_results/$function_id/$algorithm_id/ecdf.txt");
                 $quoted_title = quote("$algorithm_id");
-                $position++;
                 "  $quoted_path using 1:2 with steps title $quoted_title";
              } @$algorithms);
         print GRAPHICS "\n";
@@ -322,14 +320,12 @@ sub generate_graphics_all
         "set key title $quoted_title\n";
 
     print GRAPHICS "plot \\\n";
-    my $position = 1;
     print GRAPHICS
         join ", \\\n",
         (map {
             my $algorithm_id = $_->{id};
             $quoted_path = quote("$path_results/ecdf/$algorithm_id.txt");
             $quoted_title = quote("$algorithm_id");
-            $position++;
             "  $quoted_path using 1:2 with steps title $quoted_title";
          } @$algorithms);
     print GRAPHICS "\n";
