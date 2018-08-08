@@ -1,12 +1,14 @@
 {
     "exec": "hnco",
-    "opt": "-s 100 -i  300000 -b 0 -A 20 --rw-log-value",
+    "opt": "-s 100 -i 500000 -b 0 -A 20 --rw-log-value",
 
     "parallel": true,
 
     "results": "results",
     "graphics": "graphics",
     "report": "report",
+
+    "lag_max": 200,
 
     "functions": [
 
@@ -77,15 +79,12 @@
 
         {
             "id": "ep",
-	    "opt": "-F 90 -p instances/ep.100",
-            "reverse": true,
-            "logscale": true
+	    "opt": "-F 90 -p instances/ep.100"
         },
 
         {
             "id": "cancel",
-	    "opt": "-F 100 -s 99",
-            "reverse": true
+	    "opt": "-F 100 -s 99"
         },
 
         {
