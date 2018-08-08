@@ -31,6 +31,10 @@ Build:
 hnco:
 - LabsMeritFactor renumbered 80 -> 81
 
+Scripts:
+- Added hnco-autocorrelation-run.pl
+- Added hnco-autocorrelation-stat.pl
+
 Experiments:
 - Updated function number of LabsMeritFactor
 - walsh-transforms: apply to Labs instead of LabsMeritFactor
