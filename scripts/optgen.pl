@@ -90,7 +90,7 @@ generate_completion();
 
 sub generate_header
 {
-    my $name = $obj->{"name"};
+    my $name = $obj->{name};
 
     my $header = join "-", @$name;
     $header .=  "-options.hh";
@@ -191,7 +191,7 @@ EOF
 
 sub generate_source
 {
-    my $name = $obj->{"name"};
+    my $name = $obj->{name};
     my $prefix = join "-", @$name;
     my $header = $prefix . "-options.hh";
     my $source = $prefix . "-options.cc";
@@ -541,23 +541,24 @@ EOF
 # Bash completion
 #
 
-sub generate_completion {
+sub generate_completion
+{
+    my $name = $obj->{name};
+    my $exec_name = join "-", @$name;
+    my $function_name = join "_", @$name;
 
-    my $name = $obj->{"name"};
-    my $binary = join "-", @$name;
-    my $function = join "_", @$name;
-
-    open(COMP, ">$binary.sh");
+    open(COMP, ">$exec_name.sh") || die "Cannot open $exec_name.sh\n";;
 
     my @list = map {
-	$_ =~ s/_/-/g;
-	"--$_"
-    } sort(keys(%$parameters)), sort(keys(%$flags));
+	my $hyphen = $_;
+	$hyphen =~ s/_/-/g;
+	"--$hyphen"
+    } sort(keys(%$parameters)), sort(keys(%$flags), "version", "help", map { "help_$_" } @folded_sections);
 
-    my $options = join " ", @list, "--help", "--version";
+    my $options = join " ", @list;
 
     print COMP <<EOF;
-_$function() 
+_$function_name() 
 {
     local cur prev opts
     COMPREPLY=()
@@ -570,7 +571,7 @@ _$function()
         return 0
     fi
 }
-complete -F _$function $binary
+complete -F _$function_name $exec_name
 EOF
 
     close(COMP);
