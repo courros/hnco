@@ -30,18 +30,39 @@
 %\thispagestyle{empty}
 
 \title{HNCO\\
-  Visualization of autocorrelation functions\\
+  Visualization of empirical autocorrelation functions\\
   of various functions defined on bit vectors}
 \maketitle
 
 \begin{abstract}
-  This document proposes to visualize autocorrelation functions of
-  various functions defined on bit vectors (hypercube) of size
-  $n=100$.
+  This document proposes to visualize empirical autocorrelation
+  functions of various functions defined on bit vectors (hypercube) of
+  size $n=100$. If $f$ is a fitness function, a random walk
+  $(X_t)_{t\ge 1}$ on the hypercube gives rise to a time series
+  $(f(X_t))$ which is analyzed through its empirical autocorrelation
+  function.
 \end{abstract}
 
 \tableofcontents
 
+\section{Introduction}
+
+The underlying process is a random walk $(X_t)_{t\ge 1}$ on the
+hypercube initialized uniformly. If $f$ is the fitness function then
+its autocorrelation function $\rho$ is defined by
+\begin{equation}
+  \rho(\tau) = \frac1{(n - \tau) \sigma^2} \sum_{t=1}^{T-\tau} (f(X_t) -
+  \mu)(f(X_{t+\tau}) - \mu)
+\end{equation}
+where $\mu$ and $\sigma$ are the mean and standard deviation
+respectively of the process $(f(X_t))$, $T$ is the length of the
+Markov chain and the lag $\tau$ is such that $0 \le \tau < T$. The
+empirical autocorrelation function is estimated and computed in a
+naive way. It should be noted that the estimated function does not
+necessarily have properties such as positivity, monotonicity, or
+convexity. Normalized autocorrelation functions $\rho(\tau) / \rho(0)$
+are represented in the following sections.
+  
 \input{results.tex}
 
 \appendix
