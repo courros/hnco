@@ -58,8 +58,8 @@ Options::Options(int argc, char *argv[]):
     {"stddev", required_argument, 0, OPTION_STDDEV},
     {"walsh-num-features", required_argument, 0, OPTION_WALSH_NUM_FEATURES},
     {"ms-known-maximum", no_argument, 0, OPTION_MS_KNOWN_MAXIMUM},
-    {"help", no_argument, 0, OPTION_HELP},
     {"version", no_argument, 0, OPTION_VERSION},
+    {"help", no_argument, 0, OPTION_HELP},
     {0, no_argument, 0, 0}
   };
   const char *short_options = "s:F:p:";
@@ -134,7 +134,7 @@ void Options::print_help(ostream& stream) const
 {
   stream << "Fitness function generator for HNCO" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
-  stream << "General:" << endl;
+  stream << "General" << endl;
   stream << "  -s, --bv-size (type int, default to 100)" << endl;
   stream << "          Size of bit vectors" << endl;
   stream << "  -F, --function (type int, default to 1)" << endl;
@@ -153,11 +153,11 @@ void Options::print_help(ostream& stream) const
   stream << "      --stddev (type double, default to 1)" << endl;
   stream << "          Standard deviation" << endl;
   stream << endl;
-  stream << "NkLandscape:" << endl;
+  stream << "NK Landscape" << endl;
   stream << "      --nk-k (type int, default to 3)" << endl;
   stream << "          Each bit is connected to k other bits" << endl;
   stream << endl;
-  stream << "MaxSat:" << endl;
+  stream << "Max-SAT" << endl;
   stream << "      --ms-known-maximum" << endl;
   stream << "          Generate an instance with known maximum" << endl;
   stream << "      --ms-num-clauses (type int, default to 100)" << endl;
@@ -165,11 +165,11 @@ void Options::print_help(ostream& stream) const
   stream << "      --ms-num-literals-per-clause (type int, default to 3)" << endl;
   stream << "          Number of literals per clause" << endl;
   stream << endl;
-  stream << "EqualProducts:" << endl;
+  stream << "Equal Products" << endl;
   stream << "      --ep-upper-bound (type double, default to 1)" << endl;
   stream << "          Parameter upper bound" << endl;
   stream << endl;
-  stream << "WalshExpansion:" << endl;
+  stream << "Walsh Expansion" << endl;
   stream << "      --walsh-num-features (type int, default to 100)" << endl;
   stream << "          Number of features" << endl;
   stream << endl;

@@ -38,8 +38,8 @@ Options::Options(int argc, char *argv[]):
     {"path", required_argument, 0, OPTION_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
     {"surjective", no_argument, 0, OPTION_SURJECTIVE},
-    {"help", no_argument, 0, OPTION_HELP},
     {"version", no_argument, 0, OPTION_VERSION},
+    {"help", no_argument, 0, OPTION_HELP},
     {0, no_argument, 0, 0}
   };
   const char *short_options = "x:M:y:p:";

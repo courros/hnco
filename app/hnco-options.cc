@@ -154,6 +154,10 @@ Options::Options(int argc, char *argv[]):
 {
   enum {
     OPTION_HELP=256,
+    OPTION_HELP_BM,
+    OPTION_HELP_HEA,
+    OPTION_HELP_MAP,
+    OPTION_HELP_PN,
     OPTION_VERSION,
     OPTION_ALGORITHM,
     OPTION_BM_MC_RESET_STRATEGY,
@@ -337,8 +341,12 @@ Options::Options(int argc, char *argv[]):
     {"rw-log", no_argument, 0, OPTION_RW_LOG},
     {"stop-on-maximum", no_argument, 0, OPTION_STOP_ON_MAXIMUM},
     {"stop-on-target", no_argument, 0, OPTION_STOP_ON_TARGET},
-    {"help", no_argument, 0, OPTION_HELP},
     {"version", no_argument, 0, OPTION_VERSION},
+    {"help", no_argument, 0, OPTION_HELP},
+    {"help-pn", no_argument, 0, OPTION_HELP_PN},
+    {"help-map", no_argument, 0, OPTION_HELP_MAP},
+    {"help-hea", no_argument, 0, OPTION_HELP_HEA},
+    {"help-bm", no_argument, 0, OPTION_HELP_BM},
     {0, no_argument, 0, 0}
   };
   const char *short_options = "A:b:s:t:F:r:M:m:N:i:p:x:y:";
@@ -724,6 +732,22 @@ Options::Options(int argc, char *argv[]):
       print_help(cerr);
       exit(0);
 
+    case OPTION_HELP_PN:
+      print_help_pn(cerr);
+      exit(0);
+
+    case OPTION_HELP_MAP:
+      print_help_map(cerr);
+      exit(0);
+
+    case OPTION_HELP_HEA:
+      print_help_hea(cerr);
+      exit(0);
+
+    case OPTION_HELP_BM:
+      print_help_bm(cerr);
+      exit(0);
+
     case OPTION_VERSION:
       print_version(cerr);
       exit(0);
@@ -739,7 +763,7 @@ void Options::print_help(ostream& stream) const
 {
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
-  stream << "General:" << endl;
+  stream << "General" << endl;
   stream << "      --describe-solution" << endl;
   stream << "          At the end, describe the solution" << endl;
   stream << "      --num-threads (type int, default to 1)" << endl;
@@ -755,7 +779,7 @@ void Options::print_help(ostream& stream) const
   stream << "      --seed (type unsigned, default to 0)" << endl;
   stream << "          Seed for the random number generator" << endl;
   stream << endl;
-  stream << "Function:" << endl;
+  stream << "Functions" << endl;
   stream << "  -s, --bv-size (type int, default to 100)" << endl;
   stream << "          Size of bit vectors" << endl;
   stream << "      --fn-display" << endl;
@@ -810,7 +834,7 @@ void Options::print_help(ostream& stream) const
   stream << "  -p, --path (type string, default to \"nopath\")" << endl;
   stream << "          Path of a function file" << endl;
   stream << endl;
-  stream << "Function Decorators:" << endl;
+  stream << "Function Decorators" << endl;
   stream << "      --additive-gaussian-noise" << endl;
   stream << "          Additive Gaussian noise" << endl;
   stream << "  -b, --budget (type int, default to 10000)" << endl;
@@ -832,41 +856,7 @@ void Options::print_help(ostream& stream) const
   stream << "      --target (type double, default to 100)" << endl;
   stream << "          Target" << endl;
   stream << endl;
-  stream << "Prior Noise:" << endl;
-  stream << "      --pn-allow-stay" << endl;
-  stream << "          In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)" << endl;
-  stream << "      --pn-mutation-probability (type double, default to 1)" << endl;
-  stream << "          Expected number of flipped bits (bv_size times mutation probability)" << endl;
-  stream << "      --pn-neighborhood (type int, default to 0)" << endl;
-  stream << "          Type of neighborhood" << endl;
-  stream << "            0: Single bit flip" << endl;
-  stream << "            1: Bernoulli process" << endl;
-  stream << "            2: Hamming ball" << endl;
-  stream << "            3: Hamming sphere" << endl;
-  stream << "      --pn-radius (type int, default to 2)" << endl;
-  stream << "          Radius of Hamming ball or sphere" << endl;
-  stream << "      --prior-noise" << endl;
-  stream << "          Prior noise" << endl;
-  stream << endl;
-  stream << "Map:" << endl;
-  stream << "  -M, --map (type int, default to 0)" << endl;
-  stream << "          Type of map" << endl;
-  stream << "            0: None" << endl;
-  stream << "            1: Translation" << endl;
-  stream << "            2: Permutation" << endl;
-  stream << "            3: Composition of permutation and translation" << endl;
-  stream << "            4: Linear" << endl;
-  stream << "            5: Affine" << endl;
-  stream << "      --map-input-size (type int, default to 100)" << endl;
-  stream << "          Input size of linear and affine maps" << endl;
-  stream << "      --map-path (type string, default to \"nopath\")" << endl;
-  stream << "          Path of a map file" << endl;
-  stream << "      --map-random" << endl;
-  stream << "          Sample a random map" << endl;
-  stream << "      --map-surjective" << endl;
-  stream << "          Ensure that the sampled linear or affine map is surjective" << endl;
-  stream << endl;
-  stream << "Algorithm:" << endl;
+  stream << "Algorithms" << endl;
   stream << "  -A, --algorithm (type int, default to 100)" << endl;
   stream << "          Type of algorithm" << endl;
   stream << "            0: Complete search" << endl;
@@ -900,7 +890,7 @@ void Options::print_help(ostream& stream) const
   stream << "      --restart" << endl;
   stream << "          Restart any algorithm an indefinite number of times" << endl;
   stream << endl;
-  stream << "Local Search:" << endl;
+  stream << "Local Search" << endl;
   stream << "      --allow-stay" << endl;
   stream << "          In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)" << endl;
   stream << "      --incremental-evaluation" << endl;
@@ -924,7 +914,7 @@ void Options::print_help(ostream& stream) const
   stream << "      --rw-log" << endl;
   stream << "          Log bit vector value during random walk" << endl;
   stream << endl;
-  stream << "Simulated Annealing:" << endl;
+  stream << "Simulated Annealing" << endl;
   stream << "      --sa-beta-ratio (type double, default to 1.2)" << endl;
   stream << "          Ratio for beta or inverse temperature" << endl;
   stream << "      --sa-initial-acceptance-probability (type double, default to 0.6)" << endl;
@@ -934,7 +924,7 @@ void Options::print_help(ostream& stream) const
   stream << "      --sa-num-trials (type int, default to 100)" << endl;
   stream << "          Number of trials to estimate initial inverse temperature" << endl;
   stream << endl;
-  stream << "Evolutionary Algorithms:" << endl;
+  stream << "Evolutionary Algorithms" << endl;
   stream << "      --ea-lambda (type int, default to 100)" << endl;
   stream << "          Offspring population size" << endl;
   stream << "      --ea-mu (type int, default to 10)" << endl;
@@ -946,7 +936,7 @@ void Options::print_help(ostream& stream) const
   stream << "      --ga-tournament-size (type int, default to 10)" << endl;
   stream << "          Tournament size" << endl;
   stream << endl;
-  stream << "EDA:" << endl;
+  stream << "Estimation of Distribution Algorithms" << endl;
   stream << "  -r, --learning-rate (type double, default to 0.001)" << endl;
   stream << "          Learning rate" << endl;
   stream << "      --mmas-strict" << endl;
@@ -962,7 +952,68 @@ void Options::print_help(ostream& stream) const
   stream << "  -y, --selection-size (type int, default to 1)" << endl;
   stream << "          Selection size (number of selected individuals)" << endl;
   stream << endl;
-  stream << "HEA:" << endl;
+  stream  << "Additional Sections" << endl;
+  stream << "      --help-pn" << endl;
+  stream << "          Prior Noise" << endl;
+  stream << "      --help-map" << endl;
+  stream << "          Maps" << endl;
+  stream << "      --help-hea" << endl;
+  stream << "          Herding Evolutionary Algorithms" << endl;
+  stream << "      --help-bm" << endl;
+  stream << "          Boltzmann Machine PBIL" << endl;
+}
+
+void Options::print_help_pn(ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
+  stream << "Prior Noise" << endl;
+  stream << "      --pn-allow-stay" << endl;
+  stream << "          In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)" << endl;
+  stream << "      --pn-mutation-probability (type double, default to 1)" << endl;
+  stream << "          Expected number of flipped bits (bv_size times mutation probability)" << endl;
+  stream << "      --pn-neighborhood (type int, default to 0)" << endl;
+  stream << "          Type of neighborhood" << endl;
+  stream << "            0: Single bit flip" << endl;
+  stream << "            1: Bernoulli process" << endl;
+  stream << "            2: Hamming ball" << endl;
+  stream << "            3: Hamming sphere" << endl;
+  stream << "      --pn-radius (type int, default to 2)" << endl;
+  stream << "          Radius of Hamming ball or sphere" << endl;
+  stream << "      --prior-noise" << endl;
+  stream << "          Prior noise" << endl;
+  stream << endl;
+}
+
+void Options::print_help_map(ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
+  stream << "Maps" << endl;
+  stream << "  -M, --map (type int, default to 0)" << endl;
+  stream << "          Type of map" << endl;
+  stream << "            0: None" << endl;
+  stream << "            1: Translation" << endl;
+  stream << "            2: Permutation" << endl;
+  stream << "            3: Composition of permutation and translation" << endl;
+  stream << "            4: Linear" << endl;
+  stream << "            5: Affine" << endl;
+  stream << "      --map-input-size (type int, default to 100)" << endl;
+  stream << "          Input size of linear and affine maps" << endl;
+  stream << "      --map-path (type string, default to \"nopath\")" << endl;
+  stream << "          Path of a map file" << endl;
+  stream << "      --map-random" << endl;
+  stream << "          Sample a random map" << endl;
+  stream << "      --map-surjective" << endl;
+  stream << "          Ensure that the sampled linear or affine map is surjective" << endl;
+  stream << endl;
+}
+
+void Options::print_help_hea(ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
+  stream << "Herding Evolutionary Algorithms" << endl;
   stream << "      --hea-binary-dynamics (type int, default to 0)" << endl;
   stream << "          Herding dynamics for binary variables" << endl;
   stream << "            0: Minimize distance" << endl;
@@ -1003,7 +1054,13 @@ void Options::print_help(ostream& stream) const
   stream << "      --hea-weight (type double, default to 1)" << endl;
   stream << "          Weight of second moments" << endl;
   stream << endl;
-  stream << "Boltzmann Machine PBIL:" << endl;
+}
+
+void Options::print_help_bm(ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
+  stream << "Boltzmann Machine PBIL" << endl;
   stream << "      --bm-log-norm-infinite" << endl;
   stream << "          Log infinite norm of the parameters" << endl;
   stream << "      --bm-log-norm-l1" << endl;

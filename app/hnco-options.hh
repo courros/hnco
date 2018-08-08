@@ -10,7 +10,7 @@ class Options {
   /// Name of the executable
   std::string _exec_name;
 
-  /// Version
+  /// Name Version
   std::string _version;
 
   /// Type of algorithm
@@ -337,6 +337,18 @@ class Options {
 
   /// Print help message
   void print_help(std::ostream& stream) const;
+
+  /// Print help message for section pn
+  void print_help_pn(std::ostream& stream) const;
+
+  /// Print help message for section map
+  void print_help_map(std::ostream& stream) const;
+
+  /// Print help message for section hea
+  void print_help_hea(std::ostream& stream) const;
+
+  /// Print help message for section bm
+  void print_help_bm(std::ostream& stream) const;
 
   /// Print version
   void print_version(std::ostream& stream) const;
