@@ -502,8 +502,7 @@
             "type": "string",
             "value": "nopath",
             "description": "Path of a function file",
-            "section": "fn",
-            "file": "open"
+            "section": "fn"
         },
 
         "fn_threshold":
@@ -681,8 +680,7 @@
             "type": "string",
             "value": "nopath",
             "description": "Path of a map file",
-            "section": "map",
-            "file": "open"
+            "section": "map"
         },
 
         "algorithm":
