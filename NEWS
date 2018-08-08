@@ -26,6 +26,7 @@ Build:
 - Renamed directory hnco/src/ -> hnco/app/
 - Moved files hnco/algorithms/restart.* under hnco/algorithms/decorators/
 - Moved file hnco/algorithms/util.hh under hnco/
+- optgen.pl: added section folding in help messages
 
 hnco:
 - LabsMeritFactor renumbered 80 -> 81
