@@ -148,7 +148,7 @@ Options::Options(int argc, char *argv[]):
   _pv_log_pv(false),
   _restart(false),
   _rls_strict(false),
-  _rw_log(false),
+  _rw_log_value(false),
   _stop_on_maximum(false),
   _stop_on_target(false)
 {
@@ -246,7 +246,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_PV_LOG_PV,
     OPTION_RESTART,
     OPTION_RLS_STRICT,
-    OPTION_RW_LOG,
+    OPTION_RW_LOG_VALUE,
     OPTION_STOP_ON_MAXIMUM,
     OPTION_STOP_ON_TARGET
   };
@@ -338,7 +338,7 @@ Options::Options(int argc, char *argv[]):
     {"pv-log-pv", no_argument, 0, OPTION_PV_LOG_PV},
     {"restart", no_argument, 0, OPTION_RESTART},
     {"rls-strict", no_argument, 0, OPTION_RLS_STRICT},
-    {"rw-log", no_argument, 0, OPTION_RW_LOG},
+    {"rw-log-value", no_argument, 0, OPTION_RW_LOG_VALUE},
     {"stop-on-maximum", no_argument, 0, OPTION_STOP_ON_MAXIMUM},
     {"stop-on-target", no_argument, 0, OPTION_STOP_ON_TARGET},
     {"version", no_argument, 0, OPTION_VERSION},
@@ -716,8 +716,8 @@ Options::Options(int argc, char *argv[]):
       _rls_strict = true;
       break;
 
-    case OPTION_RW_LOG:
-      _rw_log = true;
+    case OPTION_RW_LOG_VALUE:
+      _rw_log_value = true;
       break;
 
     case OPTION_STOP_ON_MAXIMUM:
@@ -911,7 +911,7 @@ void Options::print_help(ostream& stream) const
   stream << "          Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)" << endl;
   stream << "      --rls-strict" << endl;
   stream << "          Strict (>) random local search" << endl;
-  stream << "      --rw-log" << endl;
+  stream << "      --rw-log-value" << endl;
   stream << "          Log bit vector value during random walk" << endl;
   stream << endl;
   stream << "Simulated Annealing" << endl;
@@ -1213,8 +1213,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# restart" << endl;
   if (options._rls_strict)
     stream << "# rls_strict" << endl;
-  if (options._rw_log)
-    stream << "# rw_log" << endl;
+  if (options._rw_log_value)
+    stream << "# rw_log_value" << endl;
   if (options._stop_on_maximum)
     stream << "# stop_on_maximum" << endl;
   if (options._stop_on_target)

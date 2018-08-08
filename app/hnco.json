@@ -239,7 +239,7 @@
             "section": "ls"
         },
 
-        "rw_log":
+        "rw_log_value":
         {
             "description": "Log bit vector value during random walk",
             "section": "ls"
