@@ -5,253 +5,316 @@
 
     "version": "0.10",
 
-    "tab_order": [
-        "General",
-        "Function",
-        "Function Decorators",
-        "Prior Noise",
-        "Map",
-        "Algorithm",
-        "Local Search",
-        "Simulated Annealing",
-        "Evolutionary Algorithms",
-        "EDA",
-        "HEA",
-        "Boltzmann Machine PBIL"
+    "sections": [
+
+        {
+            "id": "gen",
+            "title": "General",
+            "fold": false
+        },
+
+        {
+            "id": "fn",
+            "title": "Functions",
+            "fold": false
+        },
+
+        {
+            "id": "dec",
+            "title": "Function Decorators",
+            "fold": false
+        },
+
+        {
+            "id": "pn",
+            "title": "Prior Noise",
+            "fold": true
+        },
+
+        {
+            "id": "map",
+            "title": "Maps",
+            "fold": true
+        },
+
+        {
+            "id": "alg",
+            "title": "Algorithms",
+            "fold": false
+        },
+
+        {
+            "id": "ls",
+            "title": "Local Search",
+            "fold": false
+        },
+
+        {
+            "id": "sa",
+            "title": "Simulated Annealing",
+            "fold": false
+        },
+
+        {
+            "id": "ea",
+            "title": "Evolutionary Algorithms",
+            "fold": false
+        },
+
+        {
+            "id": "eda",
+            "title": "Estimation of Distribution Algorithms",
+            "fold": false
+        },
+
+        {
+            "id": "hea",
+            "title": "Herding Evolutionary Algorithms",
+            "fold": true
+        },
+
+        {
+            "id": "bm",
+            "title": "Boltzmann Machine PBIL",
+            "fold": true
+        }
+
     ],
+
+    "order": [ "gen", "fn", "dec", "pn", "map", "alg", "ls", "sa", "ea", "eda", "hea", "bm" ],
 
     "flags": {
 
         "print_defaults":
         {
             "description": "Print the default parameters and exit",
-            "category": "General"
+            "section": "gen"
         },
 
         "print_header":
         {
             "description": "At the beginning, print the header",
-            "category": "General"
+            "section": "gen"
         },
 
         "print_performance":
         {
             "description": "At the end, print performance (maximum and number of evaluations needed to reach it)",
-            "category": "General"
+            "section": "gen"
         },
 
         "print_solution":
         {
             "description": "At the end, print the solution",
-            "category": "General"
+            "section": "gen"
         },
 
         "describe_solution":
         {
             "description": "At the end, describe the solution",
-            "category": "General"
+            "section": "gen"
         },
 
 
         "fn_has_known_maximum":
         {
             "description": "Does the function have a known maximum?",
-            "category": "Function"
+            "section": "fn"
         },
 
         "fn_get_maximum":
         {
             "description": "If the maximum is known then print it and exit with status 0 else exit with status 1",
-            "category": "Function"
+            "section": "fn"
         },
 
         "fn_get_bv_size":
         {
             "description": "Print the size of bit vectors",
-            "category": "Function"
+            "section": "fn"
         },
 
         "fn_provides_incremental_evaluation":
         {
             "description": "Does the function provide incremental evaluation?",
-            "category": "Function"
+            "section": "fn"
         },
 
         "fn_walsh_transform":
         {
             "description": "Compute the Walsh transform of the function",
-            "category": "Function"
+            "section": "fn"
         },
 
         "fn_display":
         {
             "description": "Display the function and exit",
-            "category": "Function"
+            "section": "fn"
         },
 
 
         "log_improvement":
         {
             "description": "Log improvement",
-            "category": "Function Decorators"
+            "section": "dec"
         },
 
         "stop_on_maximum":
         {
             "description": "Stop on maximum",
-            "category": "Function Decorators"
+            "section": "dec"
         },
 
         "stop_on_target":
         {
             "description": "Stop on target",
-            "category": "Function Decorators"
+            "section": "dec"
         },
 
         "cache":
         {
             "description": "Cache function evaluations",
-            "category": "Function Decorators"
+            "section": "dec"
         },
 
         "negation":
         {
             "description": "Negation (hence minimization) of the function",
-            "category": "Function Decorators"
+            "section": "dec"
         },
 
         "additive_gaussian_noise":
         {
             "description": "Additive Gaussian noise",
-            "category": "Function Decorators"
+            "section": "dec"
         },
 
 
         "prior_noise":
         {
             "description": "Prior noise",
-            "category": "Prior Noise"
+            "section": "pn"
         },
 
         "pn_allow_stay":
         {
             "description": "In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)",
-            "category": "Prior Noise"
+            "section": "pn"
         },
 
 
         "map_random":
         {
             "description": "Sample a random map",
-            "category": "Map"
+            "section": "map"
         },
 
         "map_surjective":
         {
             "description": "Ensure that the sampled linear or affine map is surjective",
-            "category": "Map"
+            "section": "map"
         },
 
         "restart":
         {
             "description": "Restart any algorithm an indefinite number of times",
-            "category": "Algorithm"
+            "section": "alg"
         },
 
         "incremental_evaluation":
         {
             "description": "Incremental evaluation",
-            "category": "Local Search"
+            "section": "ls"
         },
 
         "rls_strict":
         {
             "description": "Strict (>) random local search",
-            "category": "Local Search"
+            "section": "ls"
         },
 
         "allow_stay":
         {
             "description": "In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)",
-            "category": "Local Search"
+            "section": "ls"
         },
 
         "rw_log":
         {
             "description": "Log bit vector value during random walk",
-            "category": "Local Search"
+            "section": "ls"
         },
 
         "pv_log_pv":
         {
             "description": "Log probability vector",
-            "category": "EDA"
+            "section": "eda"
         },
 
         "pv_log_entropy":
         {
             "description": "Log entropy of probability vector",
-            "category": "EDA"
+            "section": "eda"
         },
 
         "mmas_strict":
         {
             "description": "Strict (>) max-min ant system",
-            "category": "EDA"
+            "section": "eda"
         },
 
         "hea_randomize_bit_order":
         {
             "description": "Randomize bit order",
-            "category": "HEA"
+            "section": "hea"
         },
 
         "hea_log_error":
         {
             "description": "Log error (moment discrepancy)",
-            "category": "HEA"
+            "section": "hea"
         },
 
         "hea_log_dtu":
         {
             "description": "Log distance to uniform",
-            "category": "HEA"
+            "section": "hea"
         },
 
         "hea_log_delta":
         {
             "description": "Log norm of delta, the moment increment",
-            "category": "HEA"
+            "section": "hea"
         },
 
         "hea_log_selection":
         {
             "description": "Log the distance between the target and the selection moment",
-            "category": "HEA"
+            "section": "hea"
         },
 
         "hea_bound_moment":
         {
             "description": "Bound moment after update",
-            "category": "HEA"
+            "section": "hea"
         },
 
         "bm_negative_positive_selection":
         {
             "description": "Negative and positive selection",
-            "category": "Boltzmann Machine PBIL"
+            "section": "bm"
         },
 
         "bm_log_norm_infinite":
         {
             "description": "Log infinite norm of the parameters",
-            "category": "Boltzmann Machine PBIL"
+            "section": "bm"
         },
 
         "bm_log_norm_l1":
         {
             "description": "Log L1 norm of the parameters",
-            "category": "Boltzmann Machine PBIL"
+            "section": "bm"
         }
 
     },
@@ -263,7 +326,7 @@
             "type": "unsigned",
             "value": 0,
             "description": "Seed for the random number generator",
-            "category": "General"
+            "section": "gen"
         },
 
         "num_threads":
@@ -271,7 +334,7 @@
             "type": "int",
             "value": 1,
             "description": "Number of threads",
-            "category": "General"
+            "section": "gen"
         },
 
 
@@ -281,7 +344,7 @@
             "type": "int",
             "value": 0,
             "description": "Type of function",
-            "category": "Function",
+            "section": "fn",
             "alternatives":
             [
 
@@ -430,7 +493,7 @@
             "type": "int",
             "value": 100,
             "description": "Size of bit vectors",
-            "category": "Function"
+            "section": "fn"
         },
 
         "path":
@@ -439,7 +502,7 @@
             "type": "string",
             "value": "nopath",
             "description": "Path of a function file",
-            "category": "Function",
+            "section": "fn",
             "file": "open"
         },
 
@@ -449,7 +512,7 @@
             "type": "int",
             "value": 10,
             "description": "Threshold (in bits) for Jump, Four Peaks, and Six Peaks",
-            "category": "Function"
+            "section": "fn"
         },
 
         "fn_num_traps":
@@ -457,7 +520,7 @@
             "type": "int",
             "value": 10,
             "description": "Number of traps",
-            "category": "Function"
+            "section": "fn"
         },
 
         "fn_prefix_length":
@@ -465,7 +528,7 @@
             "type": "int",
             "value": 2,
             "description": "Prefix length for long path",
-            "category": "Function"
+            "section": "fn"
         },
 
         "fn_name":
@@ -473,7 +536,7 @@
             "type": "string",
             "value": "noname",
             "description": "Name of the function in the dynamic library",
-            "category": "Function"
+            "section": "fn"
         },
 
 
@@ -483,7 +546,7 @@
             "type": "int",
             "value": 10000,
             "description": "Number of allowed function evaluations (<= 0 means indefinite)",
-            "category": "Function Decorators"
+            "section": "dec"
         },
 
         "cache_budget":
@@ -491,7 +554,7 @@
             "type": "int",
             "value": 0,
             "description": "Cache budget (<= 0 means indefinite)",
-            "category": "Function Decorators"
+            "section": "dec"
         },
 
         "noise_stddev":
@@ -499,7 +562,7 @@
             "type": "double",
             "value": 1.0,
             "description": "Noise standard deviation",
-            "category": "Function Decorators"
+            "section": "dec"
         },
 
         "target":
@@ -507,7 +570,7 @@
             "type": "double",
             "value": 100.0,
             "description": "Target",
-            "category": "Function Decorators"
+            "section": "dec"
         },
 
 
@@ -516,7 +579,7 @@
             "type": "double",
             "value": 1.0,
             "description": "Expected number of flipped bits (bv_size times mutation probability)",
-            "category": "Prior Noise"
+            "section": "pn"
         },
 
         "pn_radius":
@@ -524,7 +587,7 @@
             "type": "int",
             "value": 2,
             "description": "Radius of Hamming ball or sphere",
-            "category": "Prior Noise"
+            "section": "pn"
         },
 
         "pn_neighborhood":
@@ -532,7 +595,7 @@
             "type": "int",
             "value": 0,
             "description": "Type of neighborhood",
-            "category": "Prior Noise",
+            "section": "pn",
             "alternatives":
             [
 
@@ -567,7 +630,7 @@
             "type": "int",
             "value": 0,
             "description": "Type of map",
-            "category": "Map",
+            "section": "map",
             "alternatives":
             [
 
@@ -610,7 +673,7 @@
             "type": "int",
             "value": 100,
             "description": "Input size of linear and affine maps",
-            "category": "Map"
+            "section": "map"
         },
 
         "map_path":
@@ -618,7 +681,7 @@
             "type": "string",
             "value": "nopath",
             "description": "Path of a map file",
-            "category": "Map",
+            "section": "map",
             "file": "open"
         },
 
@@ -628,7 +691,7 @@
             "type": "int",
             "value": 100,
             "description": "Type of algorithm",
-            "category": "Algorithm",
+            "section": "alg",
             "alternatives":
             [
 
@@ -762,7 +825,7 @@
             "type": "int",
             "value": 0,
             "description": "Number of iterations (<= 0 means indefinite)",
-            "category": "Algorithm"
+            "section": "alg"
         },
 
         "mutation_probability":
@@ -771,7 +834,7 @@
             "type": "double",
             "value": 1.0,
             "description": "Expected number of flipped bits (bv_size times mutation probability)",
-            "category": "Algorithm"
+            "section": "alg"
         },
 
         "neighborhood":
@@ -780,7 +843,7 @@
             "type": "int",
             "value": 0,
             "description": "Type of neighborhood",
-            "category": "Local Search",
+            "section": "ls",
             "alternatives":
             [
 
@@ -813,7 +876,7 @@
             "type": "int",
             "value": 0,
             "description": "Type of neighborhood iterator",
-            "category": "Local Search",
+            "section": "ls",
             "alternatives":
             [
 
@@ -836,7 +899,7 @@
             "type": "int",
             "value": 50,
             "description": "Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)",
-            "category": "Local Search"
+            "section": "ls"
         },
 
         "radius":
@@ -844,7 +907,7 @@
             "type": "int",
             "value": 2,
             "description": "Radius of Hamming ball or sphere",
-            "category": "Local Search"
+            "section": "ls"
         },
 
         "sa_num_transitions":
@@ -852,7 +915,7 @@
             "type": "int",
             "value": 50,
             "description": "Number of accepted transitions before annealing",
-            "category": "Simulated Annealing"
+            "section": "sa"
         },
 
         "sa_num_trials":
@@ -860,7 +923,7 @@
             "type": "int",
             "value": 100,
             "description": "Number of trials to estimate initial inverse temperature",
-            "category": "Simulated Annealing"
+            "section": "sa"
         },
 
         "sa_initial_acceptance_probability":
@@ -868,7 +931,7 @@
             "type": "double",
             "value": 0.6,
             "description": "Initial acceptance probability",
-            "category": "Simulated Annealing"
+            "section": "sa"
         },
 
         "sa_beta_ratio":
@@ -876,7 +939,7 @@
             "type": "double",
             "value": 1.2,
             "description": "Ratio for beta or inverse temperature",
-            "category": "Simulated Annealing"
+            "section": "sa"
         },
 
         "ea_mu":
@@ -884,7 +947,7 @@
             "type": "int",
             "value": 10,
             "description": "Parent population size",
-            "category": "Evolutionary Algorithms"
+            "section": "ea"
         },
 
         "ea_lambda":
@@ -892,7 +955,7 @@
             "type": "int",
             "value": 100,
             "description": "Offspring population size",
-            "category": "Evolutionary Algorithms"
+            "section": "ea"
         },
 
         "ga_tournament_size":
@@ -900,7 +963,7 @@
             "type": "int",
             "value": 10,
             "description": "Tournament size",
-            "category": "Evolutionary Algorithms"
+            "section": "ea"
         },
 
         "ga_crossover_probability":
@@ -908,7 +971,7 @@
             "type": "double",
             "value": 0.5,
             "description": "Crossover probability",
-            "category": "Evolutionary Algorithms"
+            "section": "ea"
         },
 
         "ga_crossover_bias":
@@ -916,7 +979,7 @@
             "type": "double",
             "value": 0.5,
             "description": "Crossover bias",
-            "category": "Evolutionary Algorithms"
+            "section": "ea"
         },
 
         "population_size":
@@ -925,7 +988,7 @@
             "type": "int",
             "value": 10,
             "description": "Population size",
-            "category": "EDA"
+            "section": "eda"
         },
 
         "selection_size":
@@ -934,7 +997,7 @@
             "type": "int",
             "value": 1,
             "description": "Selection size (number of selected individuals)",
-            "category": "EDA"
+            "section": "eda"
         },
 
         "learning_rate":
@@ -943,7 +1006,7 @@
             "type": "double",
             "value": 1e-3,
             "description": "Learning rate",
-            "category": "EDA"
+            "section": "eda"
         },
 
         "pv_log_num_components":
@@ -951,7 +1014,7 @@
             "type": "int",
             "value": 5,
             "description": "Number of probability vector components to log",
-            "category": "EDA"
+            "section": "eda"
         },
 
         "hea_sampling_method":
@@ -959,7 +1022,7 @@
             "type": "int",
             "value": 0,
             "description": "Sampling method for spin variables only",
-            "category": "HEA",
+            "section": "hea",
             "alternatives":
             [
 
@@ -991,7 +1054,7 @@
             "type": "int",
             "value": 0,
             "description": "Rate strategy",
-            "category": "HEA",
+            "section": "hea",
             "alternatives":
             [
 
@@ -1019,7 +1082,7 @@
             "type": "int",
             "value": 0,
             "description": "Herding dynamics for binary variables",
-            "category": "HEA",
+            "section": "hea",
             "alternatives":
             [
 
@@ -1042,7 +1105,7 @@
             "type": "double",
             "value": 1000,
             "description": "Time constant for exponential decay",
-            "category": "HEA"
+            "section": "hea"
         },
 
         "hea_weight":
@@ -1050,7 +1113,7 @@
             "type": "double",
             "value": 1,
             "description": "Weight of second moments",
-            "category": "HEA"
+            "section": "hea"
         },
 
         "hea_num_seq_updates":
@@ -1058,7 +1121,7 @@
             "type": "int",
             "value": 100,
             "description": "Number of sequential updates per sample",
-            "category": "HEA"
+            "section": "hea"
         },
 
         "hea_num_par_updates":
@@ -1066,7 +1129,7 @@
             "type": "int",
             "value": 1,
             "description": "Number of parallel updates per sample",
-            "category": "HEA"
+            "section": "hea"
         },
 
         "hea_reset_period":
@@ -1074,7 +1137,7 @@
             "type": "int",
             "value": 0,
             "description": "Reset period (<= 0 means no reset)",
-            "category": "HEA"
+            "section": "hea"
         },
 
         "hea_delay":
@@ -1082,7 +1145,7 @@
             "type": "int",
             "value": 10000,
             "description": "Delay before learning rate decay",
-            "category": "HEA"
+            "section": "hea"
         },
 
         "bm_num_gs_steps":
@@ -1090,7 +1153,7 @@
             "type": "int",
             "value": 100,
             "description": "Number of Gibbs sampler steps per bit vector",
-            "category": "Boltzmann Machine PBIL"
+            "section": "bm"
         },
 
         "bm_num_gs_cycles":
@@ -1098,7 +1161,7 @@
             "type": "int",
             "value": 1,
             "description": "Number of Gibbs sampler cycles per bit vector",
-            "category": "Boltzmann Machine PBIL"
+            "section": "bm"
         },
 
         "bm_sampling":
@@ -1106,7 +1169,7 @@
             "type": "int",
             "value": 1,
             "description": "Sampling mode for the Boltzmann machine",
-            "category": "Boltzmann Machine PBIL",
+            "section": "bm",
             "alternatives":
             [
 
@@ -1134,7 +1197,7 @@
             "type": "int",
             "value": 1,
             "description": "Markov chain reset strategy",
-            "category": "Boltzmann Machine PBIL",
+            "section": "bm",
             "alternatives":
             [
 
