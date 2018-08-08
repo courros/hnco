@@ -34,8 +34,6 @@ hnco:
 Experiments:
 - Updated function number of LabsMeritFactor
 - walsh-transforms: apply to Labs instead of LabsMeritFactor
-
-Experiments:
 - Added experiment autocorrelation
 
 
