@@ -18,6 +18,7 @@
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
 use JSON;
+use Statistics::Descriptive;
 
 my $plan = "plan.json";
 if (@ARGV) {
@@ -25,8 +26,7 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
-open(FILE, $plan)
-    or die "hnco-walsh-doc.pl: Cannot open $plan\n";
+open(FILE, $plan) or die "hnco-autocorrelation-stat.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
@@ -38,6 +38,7 @@ my $path_results        = $obj->{results};
 my $path_report         = $obj->{report};
 my $path_graphics       = $obj->{graphics};
 my $functions           = $obj->{functions};
+my $lag_max             = $obj->{lag_max};
 
 my %terminal = (
     eps => "set term epscairo color enhanced",
@@ -46,47 +47,49 @@ my %terminal = (
 
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
-generate_spectrum();
+generate_autocorrelation();
 generate_graphics();
 generate_latex();
 
-sub generate_spectrum
+sub generate_autocorrelation
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
+        print "$function_id: ";
 
         my $path = "$path_results/$function_id/1.out";
-        my $file = IO::File->new($path, '<') or die "hnco-walsh-doc.pl: generate_spectrum: Cannot open '$path': $!\n";
-        my @walsh_transform = ();
+        my $file = IO::File->new($path, '<') or die "hnco-autocorrelation-stat.pl: generate_autocorrelation: Cannot open '$path': $!\n";
+        my @rw = ();
         while (defined(my $line = $file->getline)) {
             chomp $line;
-            my ($order, $coefficient) = split ' ', $line;
-            push @walsh_transform, { order => $order, coefficient => $coefficient };
+            push @rw, $line;
         }
         $file->close;
 
-        my @sorted_walsh_transform = sort { $a->{order} <=> $b->{order} } @walsh_transform;
-        my %spectrum = ();
-        my $i = 0;
-        while ($i < @sorted_walsh_transform) {
-            my $energy = ($sorted_walsh_transform[$i]->{coefficient})**2;
-            my $order = $sorted_walsh_transform[$i]->{order};
-            my $j = $i + 1;
-            while ($j < @sorted_walsh_transform && $sorted_walsh_transform[$j]->{order} == $order) {
-                $energy += ($sorted_walsh_transform[$j]->{coefficient})**2;
-                $j++;
+        my $SD = Statistics::Descriptive::Full->new();
+        $SD->add_data(@rw);
+        my $mean = $SD->mean();
+        my $standard_deviation = $SD->standard_deviation();
+
+        my @autocorrelation = (0.0) x ($lag_max);
+        for (my $tau = 0; $tau < $lag_max; $tau++) {
+            for (my $t = 0; $t < @rw - $tau; $t++) {
+                $autocorrelation[$tau] += ($rw[$t] - $mean) * ($rw[$t + $tau] - $mean);
             }
-            $spectrum{$order} = $energy;
-            $i = $j;
+        }
+        my $norm = $autocorrelation[0];
+        for (my $tau = 0; $tau < $lag_max; $tau++) {
+            $autocorrelation[$tau] /= $norm;
         }
 
-        $path = "$path_results/$function_id/spectrum.dat";
-        $file = IO::File->new($path, '>') or die "hnco-walsh-doc.pl: generate_spectrum: Cannot open '$path': $!\n";
-        while (my ($order, $energy) = each %spectrum) {
-            $file->print("$order $energy\n");
+        $path = "$path_results/$function_id/autocorrelation.txt";
+        $file = IO::File->new($path, '>') or die "hnco-autocorrelation-stat.pl: generate_autocorrelation: Cannot open '$path': $!\n";
+        foreach (@autocorrelation) {
+            $file->print("$_\n");
         }
         $file->close;
 
+        print "done\n";
     }
 }
 
@@ -94,26 +97,19 @@ sub generate_graphics
 {
     open(GRAPHICS, ">graphics.gp") or die "hnco-walsh-doc.pl: generate_graphics: cannot open graphics.gp\n";
     print GRAPHICS "#!/usr/bin/gnuplot -persist\n";
-    generate_graphics_coefficients();
-    generate_graphics_spectrum();
-    close(GRAPHICS);
-    system("chmod a+x graphics.gp");
-}
 
-sub generate_graphics_coefficients
-{
     print GRAPHICS
         "set grid\n",
-        "set xlabel \"Coefficient rank\"\n",
-        "set ylabel \"Amplitude\"\n",
+        "set xlabel \"Time lag\"\n",
+        "set ylabel \"Autocorrelation\"\n",
         "set key top right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
 
     my $fmt = quote("10^{\%T}");
-    print GRAPHICS
-        "set logscale y\n",
-        "set format y $fmt\n";
+    #print GRAPHICS
+    #"set logscale y\n",
+    #"set format y $fmt\n";
 
     print GRAPHICS "\n";
 
@@ -122,21 +118,21 @@ sub generate_graphics_coefficients
 
         my $quoted_title = quote("$function_id");
 
-        my $quoted_path = quote("$path_graphics/$function_id-coef.eps");
+        my $quoted_path = quote("$path_graphics/$function_id.eps");
         print GRAPHICS
             $terminal{eps}, "\n",
             "set output $quoted_path\n";
 
-        $quoted_path = quote("$path_results/$function_id/1.out");
-        print GRAPHICS "plot $quoted_path using 2 with lines lw 2 title $quoted_title\n";
+        $quoted_path = quote("$path_results/$function_id/autocorrelation.txt");
+        print GRAPHICS "plot $quoted_path with lines lw 2 title $quoted_title\n";
 
-        $quoted_path = quote("$path_graphics/$function_id-coef.pdf");
+        $quoted_path = quote("$path_graphics/$function_id.pdf");
         print GRAPHICS
             $terminal{pdf}, "\n",
             "set output $quoted_path\n",
             "replot\n";
 
-        $quoted_path = quote("$path_graphics/$function_id-coef.png");
+        $quoted_path = quote("$path_graphics/$function_id.png");
         print GRAPHICS
             $terminal{png}, "\n",
             "set output $quoted_path\n",
@@ -149,21 +145,19 @@ sub generate_graphics_coefficients
 
     generate_group("all", $functions);
 
-    if ($obj->{groups}) {
-        foreach(@{$obj->{groups}}) {
-            generate_group($_->{id}, $_->{functions});
-        }
-    }
-
+    close(GRAPHICS);
+    system("chmod a+x graphics.gp");
 }
 
 sub generate_group
 {
     my ($id, $ref) = @_;
 
-    print GRAPHICS "unset key\n";
+    my $quoted_title = quote("All functions");
+    print GRAPHICS
+        "set key font \",10\" outside right top box vertical title $quoted_title font \",10\"\n";
 
-    $quoted_path = quote("$path_graphics/$id.eps");
+    my $quoted_path = quote("$path_graphics/$id.eps");
     print GRAPHICS
         $terminal{eps}, "\n",
         "set output $quoted_path\n";
@@ -173,8 +167,9 @@ sub generate_group
         join ", \\\n",
         (map {
             my $function_id = $_->{id};
-            $quoted_path = quote("$path_results/$function_id/1.out");
-            "  $quoted_path using 2 with lines lw 1 notitle";
+            $quoted_title = quote("$function_id");
+            $quoted_path = quote("$path_results/$function_id/autocorrelation.txt");
+            "  $quoted_path with lines lw 1 title $quoted_title";
          } @$ref);
 
     print GRAPHICS "\n";
@@ -192,56 +187,10 @@ sub generate_group
         "replot\n\n";
 }
 
-sub generate_graphics_spectrum
-{
-    print GRAPHICS
-        "set grid\n",
-        "set xlabel \"Feature Hamming weight\"\n",
-        "set ylabel \"Energy\"\n",
-        "set key top right box opaque\n",
-        "set autoscale fix\n",
-        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
-
-    my $fmt = quote("10^{\%T}");
-    print GRAPHICS
-        "set logscale y\n",
-        "set format y $fmt\n";
-
-    print GRAPHICS "\n";
-
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-
-        my $quoted_title = quote("$function_id");
-
-        my $quoted_path = quote("$path_graphics/$function_id-spectrum.eps");
-        print GRAPHICS
-            $terminal{eps}, "\n",
-            "set output $quoted_path\n";
-
-        $quoted_path = quote("$path_results/$function_id/spectrum.dat");
-        print GRAPHICS
-            "plot $quoted_path using 1:2 w impulses lw 2 title $quoted_title\n";
-
-        $quoted_path = quote("$path_graphics/$function_id-spectrum.pdf");
-        print GRAPHICS
-            $terminal{pdf}, "\n",
-            "set output $quoted_path\n",
-            "replot\n";
-
-        $quoted_path = quote("$path_graphics/$function_id-spectrum.png");
-        print GRAPHICS
-            $terminal{png}, "\n",
-            "set output $quoted_path\n",
-            "replot\n\n";
-    }
-
-}
-
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
-        or die "hnco-walsh-doc.pl: generate_latex: Cannot open $path_report/results.tex\n";
+        or die "hnco-autocorrelation-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
 
@@ -250,22 +199,12 @@ sub generate_latex
     latex_includegraphics("all");
     latex_end_center();
 
-    if ($obj->{groups}) {
-        foreach(@{$obj->{groups}}) {
-            latex_section($_->{id});
-            latex_begin_center();
-            latex_includegraphics($_->{id});
-            latex_end_center();
-        }
-    }
-
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
         latex_section($function_id);
         latex_begin_center();
-        latex_includegraphics("$function_id-coef");
-        latex_includegraphics("$function_id-spectrum");
+        latex_includegraphics("$function_id");
         latex_end_center();
     }
 }
