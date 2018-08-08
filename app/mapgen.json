@@ -5,14 +5,11 @@
 
     "version": "0.10",
 
-    "nocategory": true,
-
     "flags": {
 
         "surjective":
         {
-            "description": "Ensure that the sampled linear or affine map is surjective",
-            "category": "nocategory"
+            "description": "Ensure that the sampled linear or affine map is surjective"
         }
 
     },
@@ -23,8 +20,7 @@
         {
             "type": "int",
             "value": 0,
-            "description": "Seed for the random number generator",
-            "category": "nocategory"
+            "description": "Seed for the random number generator"
         },
 
         "map":
@@ -33,7 +29,6 @@
             "type": "int",
             "value": 1,
             "description": "Type of map",
-            "category": "nocategory",
             "alternatives":
             [
 
@@ -71,8 +66,7 @@
             "optchar": "x",
             "type": "int",
             "value": 100,
-            "description": "Input bit vector size",
-            "category": "nocategory"
+            "description": "Input bit vector size"
         },
 
         "output_size":
@@ -80,8 +74,7 @@
             "optchar": "y",
             "type": "int",
             "value": 100,
-            "description": "Output bit vector size",
-            "category": "nocategory"
+            "description": "Output bit vector size"
         },
 
         "path":
@@ -89,9 +82,7 @@
             "optchar": "p",
             "type": "string",
             "value": "nopath",
-            "description": "Path (relative or absolute) of a map file",
-            "category": "nocategory",
-            "file": "open"
+            "description": "Path (relative or absolute) of a map file"
         }
 
     }

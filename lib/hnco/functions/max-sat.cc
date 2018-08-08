@@ -35,6 +35,158 @@ using namespace hnco::random;
 
 
 void
+eat_white(std::istringstream& stream)
+{
+  if (stream.eof())
+    return;
+
+  char c;
+  do {
+    stream.get(c);
+  } while (stream.good() && (c == ' ' || c == '\t'));
+  if (stream.good())
+    stream.putback(c);
+}
+
+
+bool
+has_next_variable(std::istringstream& stream)
+{
+  eat_white(stream);
+  return stream.good();
+}
+
+
+void
+AbstractMaxSat::load(std::istream& stream)
+{
+  _expression.clear();
+  _num_variables = 0;
+
+  bool spec = false;
+  size_t num_clauses = 0;
+
+  while (!stream.eof()) {
+    std::string line;
+    getline(stream, line);
+
+    if (line.empty())
+      continue;
+
+    // Comment
+    if (line[0] == 'c')
+      continue;
+
+    // Spec
+    if (line[0] == 'p') {
+
+      if (spec)
+        throw Error("AbstractMaxSat::load: More than one p line");
+
+      std::istringstream iss(line);
+      std::string token;
+
+      iss >> token;
+      if (iss.fail() || token != "p")
+        throw Error("AbstractMaxSat::load: Bad p line");
+
+      iss >> token;
+      if (iss.fail() || token != "cnf")
+        throw Error("AbstractMaxSat::load: Bad p line");
+
+      int n;
+
+      iss >> n;
+      if (iss.fail() || n <= 0)
+        throw Error("AbstractMaxSat::load: Bad number of variables");
+      _num_variables = size_t(n);
+
+      iss >> n;
+      if (iss.fail() || n <= 0)
+        throw Error("AbstractMaxSat::load: Bad number of clauses");
+      num_clauses = size_t(n);
+
+      spec = true;
+    }
+
+    // Clause
+    else {
+      if (!spec)
+        throw Error("AbstractMaxSat::load: No p line");
+
+      std::istringstream iss(line);
+      int n;
+      std::vector<int> clause;
+
+      while (has_next_variable(iss)) {
+
+        iss >> n;
+        if (iss.fail())
+          throw Error("AbstractMaxSat::load: Bad variable index");
+
+        if (n == 0)
+          break;
+
+        int v = (n > 0) ? n : -n;
+        if (size_t(v) > _num_variables)
+          throw Error("AbstractMaxSat::load: Variable index overflow");
+
+        clause.push_back(n);
+      }
+
+      if (n != 0)
+        throw Error("AbstractMaxSat::load: Clause not ended by 0");
+
+      clause.shrink_to_fit();
+      _expression.push_back(clause);
+    }
+  }
+
+  if (_expression.size() != num_clauses)
+    throw Error("AbstractMaxSat::load: Incoherent number of clauses");
+
+  _expression.shrink_to_fit();
+}
+
+
+void
+AbstractMaxSat::save(std::ostream& stream)
+{
+  stream
+    << "c HNCO AbstractMaxSat::save" << std::endl
+    << "p cnf " << _num_variables << " " << _expression.size() << std::endl;
+  for (size_t i = 0; i < _expression.size(); i++) {
+    for (size_t j = 0; j < _expression[i].size(); j++) {
+      stream << _expression[i][j] << " ";
+    }
+    stream << 0 << std::endl;
+  }
+}
+
+
+void
+AbstractMaxSat::display(std::ostream& stream)
+{
+  for (size_t i = 0; i < _expression.size(); i++) {
+    if (i > 0)
+      stream << " ^ ";
+    stream << "(";
+    for (size_t j = 0; j < _expression[i].size(); j++) {
+      if (j > 0)
+        stream << " v ";
+      int lit = _expression[i][j];
+      if (lit < 0) {
+        stream << "¬";
+        stream << "x" << (-lit);
+      } else
+        stream << "x" << lit;
+    }
+    stream << ")";
+  }
+}
+
+
+void
 MaxSat::random(int n, int k, int c)
 {
   assert(n > 0);
@@ -106,158 +258,6 @@ MaxSat::random(const bit_vector_t& solution, int k, int c)
 }
 
 
-void
-eat_white(std::istringstream& stream)
-{
-  if (stream.eof())
-    return;
-
-  char c;
-  do {
-    stream.get(c);
-  } while (stream.good() && (c == ' ' || c == '\t'));
-  if (stream.good())
-    stream.putback(c);
-}
-
-
-bool
-has_next_variable(std::istringstream& stream)
-{
-  eat_white(stream);
-  return stream.good();
-}
-
-
-void
-MaxSat::load(std::istream& stream)
-{
-  _expression.clear();
-  _num_variables = 0;
-
-  bool spec = false;
-  size_t num_clauses = 0;
-
-  while (!stream.eof()) {
-    std::string line;
-    getline(stream, line);
-
-    if (line.empty())
-      continue;
-
-    // Comment
-    if (line[0] == 'c')
-      continue;
-
-    // Spec
-    if (line[0] == 'p') {
-
-      if (spec)
-        throw Error("MaxSat::load: More than one p line");
-
-      std::istringstream iss(line);
-      std::string token;
-
-      iss >> token;
-      if (iss.fail() || token != "p")
-        throw Error("MaxSat::load: Bad p line");
-
-      iss >> token;
-      if (iss.fail() || token != "cnf")
-        throw Error("MaxSat::load: Bad p line");
-
-      int n;
-
-      iss >> n;
-      if (iss.fail() || n <= 0)
-        throw Error("MaxSat::load: Bad number of variables");
-      _num_variables = size_t(n);
-
-      iss >> n;
-      if (iss.fail() || n <= 0)
-        throw Error("MaxSat::load: Bad number of clauses");
-      num_clauses = size_t(n);
-
-      spec = true;
-    }
-
-    // Clause
-    else {
-      if (!spec)
-        throw Error("MaxSat::load: No p line");
-
-      std::istringstream iss(line);
-      int n;
-      std::vector<int> clause;
-
-      while (has_next_variable(iss)) {
-
-        iss >> n;
-        if (iss.fail())
-          throw Error("MaxSat::load: Bad variable index");
-
-        if (n == 0)
-          break;
-
-        int v = (n > 0) ? n : -n;
-        if (size_t(v) > _num_variables)
-          throw Error("MaxSat::load: Variable index overflow");
-
-        clause.push_back(n);
-      }
-
-      if (n != 0)
-        throw Error("MaxSat::load: Clause not ended by 0");
-
-      clause.shrink_to_fit();
-      _expression.push_back(clause);
-    }
-  }
-
-  if (_expression.size() != num_clauses)
-    throw Error("MaxSat::load: Incoherent number of clauses");
-
-  _expression.shrink_to_fit();
-}
-
-
-void
-MaxSat::save(std::ostream& stream)
-{
-  stream
-    << "c HNCO MaxSat::save" << std::endl
-    << "p cnf " << _num_variables << " " << _expression.size() << std::endl;
-  for (size_t i = 0; i < _expression.size(); i++) {
-    for (size_t j = 0; j < _expression[i].size(); j++) {
-      stream << _expression[i][j] << " ";
-    }
-    stream << 0 << std::endl;
-  }
-}
-
-
-void
-MaxSat::display(std::ostream& stream)
-{
-  for (size_t i = 0; i < _expression.size(); i++) {
-    if (i > 0)
-      stream << " ^ ";
-    stream << "(";
-    for (size_t j = 0; j < _expression[i].size(); j++) {
-      if (j > 0)
-        stream << " v ";
-      int lit = _expression[i][j];
-      if (lit < 0) {
-        stream << "¬";
-        stream << "x" << (-lit);
-      } else
-        stream << "x" << lit;
-    }
-    stream << ")";
-  }
-}
-
-
 double
 MaxSat::eval(const bit_vector_t& x)
 {
@@ -272,6 +272,38 @@ MaxSat::eval(const bit_vector_t& x)
         break;
       }
     }
+  }
+
+  return result;
+}
+
+
+void
+MaxNae3Sat::load(std::istream& stream)
+{
+  AbstractMaxSat::load(stream);
+  for (auto& clause: _expression)
+    if (clause.size() != 3)
+      throw Error("MaxNae3Sat::load: All clauses must have exactly 3 literals");
+}
+
+
+double
+MaxNae3Sat::eval(const bit_vector_t& x)
+{
+  double result = 0;
+
+  for (auto& clause: _expression) {
+    int num_true_literals = 0;
+    for (size_t j = 0; j < clause.size(); j++) {
+      int literal = clause[j];
+      if ((literal > 0 && (x[literal - 1] == 1)) ||
+          (literal < 0 && (x[-literal - 1] == 0))) {
+        num_true_literals++;
+      }
+    }
+    if (num_true_literals != 0 && num_true_literals != 3)
+      result++;
   }
 
   return result;

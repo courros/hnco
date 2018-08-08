@@ -21,13 +21,14 @@
 #include <assert.h>
 
 #include "hnco/functions/labs.hh"
+#include "hnco/util.hh"         // square
 
 
 using namespace hnco::function;
 
 
 double
-Labs::eval(const bit_vector_t& x)
+AbstractLabs::compute_autocorrelation(const bit_vector_t& x)
 {
   assert(x.size() == _sequence.size());
 
@@ -39,14 +40,28 @@ Labs::eval(const bit_vector_t& x)
 
   double E = 0;
   for (size_t k = 1; k < x.size(); k++) {
-
     double C = 0;
     for (size_t i = 0; i < x.size() - k; i++)
-      C += _sequence[i] * _sequence[i+k];
-
-    E += C*C;
+      C += _sequence[i] * _sequence[i + k];
+    E += square(C);
   }
 
-  return x.size() * x.size() / (2 * E);
+  return E;
+}
 
+
+double
+Labs::eval(const bit_vector_t& x)
+{
+  assert(x.size() == _sequence.size());
+
+  return -compute_autocorrelation(x);
+}
+
+double
+LabsMeritFactor::eval(const bit_vector_t& x)
+{
+  assert(x.size() == _sequence.size());
+
+  return square(x.size()) / (2 * compute_autocorrelation(x));
 }

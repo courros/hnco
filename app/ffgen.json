@@ -5,14 +5,48 @@
 
     "version": "0.10",
 
-    "tab_order": [ "General", "NkLandscape", "MaxSat", "EqualProducts", "WalshExpansion"],
+    "sections": [
+
+        {
+            "id": "gen",
+            "title": "General",
+            "fold": false
+        },
+
+        {
+            "id": "nk",
+            "title": "NK Landscape",
+            "fold": false
+        },
+
+        {
+            "id": "ms",
+            "title": "Max-SAT",
+            "fold": false
+        },
+
+        {
+            "id": "ep",
+            "title": "Equal Products",
+            "fold": false
+        },
+
+        {
+            "id": "walsh",
+            "title": "Walsh Expansion",
+            "fold": false
+        }
+
+    ],
+
+    "order": [ "gen", "nk", "ms", "ep", "walsh" ],
 
     "flags": {
 
         "ms_known_maximum":
         {
             "description": "Generate an instance with known maximum",
-            "category": "MaxSat"
+            "section": "ms"
         }
 
     },
@@ -24,7 +58,7 @@
             "type": "int",
             "value": 0,
             "description": "Seed for the random number generator",
-            "category": "General"
+            "section": "gen"
         },
 
         "bv_size":
@@ -33,7 +67,7 @@
             "type": "int",
             "value": 100,
             "description": "Size of bit vectors",
-            "category": "General"
+            "section": "gen"
         },
 
         "path":
@@ -42,8 +76,7 @@
             "type": "string",
             "value": "nopath",
             "description": "Path (relative or absolute) of a function file",
-            "category": "General",
-            "file": "open"
+            "section": "gen"
         },
 
         "stddev":
@@ -51,7 +84,7 @@
             "type": "double",
             "value": 1,
             "description": "Standard deviation",
-            "category": "General"
+            "section": "gen"
         },
 
         "function":
@@ -60,7 +93,7 @@
             "type": "int",
             "value": 1,
             "description": "Type of function",
-            "category": "General",
+            "section": "gen",
             "alternatives":
             [
 
@@ -108,7 +141,7 @@
             "type": "int",
             "value": 3,
             "description": "Each bit is connected to k other bits",
-            "category": "NkLandscape"
+            "section": "nk"
         },
 
         "ms_num_literals_per_clause":
@@ -116,7 +149,7 @@
             "type": "int",
             "value": 3,
             "description": "Number of literals per clause",
-            "category": "MaxSat"
+            "section": "ms"
         },
 
         "ms_num_clauses":
@@ -124,7 +157,7 @@
             "type": "int",
             "value": 100,
             "description": "Number of clauses",
-            "category": "MaxSat"
+            "section": "ms"
         },
 
         "ep_upper_bound":
@@ -132,7 +165,7 @@
             "type": "double",
             "value": 1,
             "description": "Parameter upper bound",
-            "category": "EqualProducts"
+            "section": "ep"
         },
 
         "walsh_num_features":
@@ -140,8 +173,9 @@
             "type": "int",
             "value": 100,
             "description": "Number of features",
-            "category": "WalshExpansion"
+            "section": "walsh"
         }
+
     }
 
 }

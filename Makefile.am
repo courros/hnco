@@ -1,4 +1,4 @@
-SUBDIRS = lib src tests scripts examples
+SUBDIRS = lib app tests scripts examples
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -79,4 +79,4 @@ doc:
 
 count:
 	cd $(top_srcdir) && (find . -name "*.hh" -or -name "*.cc" -or -name "*.h" -or -name "*.cpp" | xargs wc -l)
-	cloc --no3 --by-file-by-lang $(top_srcdir)/lib $(top_srcdir)/scripts $(top_srcdir)/src $(top_srcdir)/tests
+	cloc --no3 --by-file-by-lang $(top_srcdir)/lib $(top_srcdir)/scripts $(top_srcdir)/app $(top_srcdir)/tests

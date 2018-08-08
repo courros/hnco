@@ -10,7 +10,7 @@ class Options {
   /// Name of the executable
   std::string _exec_name;
 
-  /// Version
+  /// Name Version
   std::string _version;
 
   /// Type of algorithm
@@ -327,7 +327,7 @@ class Options {
   bool _rls_strict;
 
   /// Log bit vector value during random walk
-  bool _rw_log;
+  bool _rw_log_value;
 
   /// Stop on maximum
   bool _stop_on_maximum;
@@ -337,6 +337,18 @@ class Options {
 
   /// Print help message
   void print_help(std::ostream& stream) const;
+
+  /// Print help message for section pn
+  void print_help_pn(std::ostream& stream) const;
+
+  /// Print help message for section map
+  void print_help_map(std::ostream& stream) const;
+
+  /// Print help message for section hea
+  void print_help_hea(std::ostream& stream) const;
+
+  /// Print help message for section bm
+  void print_help_bm(std::ostream& stream) const;
 
   /// Print version
   void print_version(std::ostream& stream) const;
@@ -1180,11 +1192,11 @@ public:
   /// Set rls_strict
   void set_rls_strict() { _rls_strict = true; }
  
-  /// Get rw_log
-  bool with_rw_log() const { return _rw_log; }
+  /// Get rw_log_value
+  bool with_rw_log_value() const { return _rw_log_value; }
 
-  /// Set rw_log
-  void set_rw_log() { _rw_log = true; }
+  /// Set rw_log_value
+  void set_rw_log_value() { _rw_log_value = true; }
  
   /// Get stop_on_maximum
   bool with_stop_on_maximum() const { return _stop_on_maximum; }

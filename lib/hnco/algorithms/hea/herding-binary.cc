@@ -22,9 +22,9 @@
 
 #include <math.h>		// sqrt
 
-#include "hnco/algorithms/util.hh"
 #include "hnco/exception.hh"
 #include "hnco/permutation.hh"
+#include "hnco/util.hh"
 
 #include "herding-binary.hh"
 

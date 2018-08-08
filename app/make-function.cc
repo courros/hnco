@@ -136,8 +136,24 @@ make_concrete_function(const Options& options)
     return function;
   }
 
+  case 71: {
+    std::ifstream ifs(options.get_path());
+    if (!ifs.good()) {
+      std::ostringstream stream;
+      stream << "make_concrete_function (MaxNae3Sat): Cannot open " << options.get_path();
+      throw Error(stream.str());
+    }
+    MaxNae3Sat *function = new MaxNae3Sat;
+    function->load(ifs);
+    return function;
+  }
+
   case 80:
     return new Labs
+      (options.get_bv_size());
+
+  case 81:
+    return new LabsMeritFactor
       (options.get_bv_size());
 
   case 90: {

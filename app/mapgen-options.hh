@@ -10,7 +10,7 @@ class Options {
   /// Name of the executable
   std::string _exec_name;
 
-  /// Version
+  /// Name Version
   std::string _version;
 
   /// Input bit vector size

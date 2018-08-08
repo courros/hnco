@@ -592,7 +592,7 @@ PACKAGE_STRING='hnco 0.10'
 PACKAGE_BUGREPORT=''
 PACKAGE_URL=''
 
-ac_unique_file="src/hnco.cc"
+ac_unique_file="app/hnco.cc"
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stdio.h>
@@ -17683,7 +17683,7 @@ fi
 # Output files.
 ac_config_headers="$ac_config_headers config.h"
 
-ac_config_files="$ac_config_files Makefile lib/Makefile src/Makefile tests/Makefile scripts/Makefile examples/Makefile"
+ac_config_files="$ac_config_files Makefile lib/Makefile app/Makefile tests/Makefile scripts/Makefile examples/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -18808,7 +18808,7 @@ do
     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "lib/Makefile") CONFIG_FILES="$CONFIG_FILES lib/Makefile" ;;
-    "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
+    "app/Makefile") CONFIG_FILES="$CONFIG_FILES app/Makefile" ;;
     "tests/Makefile") CONFIG_FILES="$CONFIG_FILES tests/Makefile" ;;
     "scripts/Makefile") CONFIG_FILES="$CONFIG_FILES scripts/Makefile" ;;
     "examples/Makefile") CONFIG_FILES="$CONFIG_FILES examples/Makefile" ;;

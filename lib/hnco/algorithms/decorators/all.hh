@@ -18,19 +18,9 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_ALL_H
-#define HNCO_ALGORITHMS_ALL_H
+#ifndef HNCO_ALGORITHMS_DECORATORS_ALL_H
+#define HNCO_ALGORITHMS_DECORATORS_ALL_H
 
-#include "hnco/algorithms/algorithm.hh"
-#include "hnco/algorithms/bm-pbil/bm-pbil.hh"
-#include "hnco/algorithms/complete-search.hh"
-#include "hnco/algorithms/decorators/all.hh"
-#include "hnco/algorithms/ea/all.hh"
-#include "hnco/algorithms/eda/all.hh"
-#include "hnco/algorithms/fast-efficient-p3/all.hh"
-#include "hnco/algorithms/hea/all.hh"
-#include "hnco/algorithms/ls/all.hh"
-#include "hnco/algorithms/pv/all.hh"
-#include "hnco/algorithms/random-search.hh"
+#include "restart.hh"
 
 #endif

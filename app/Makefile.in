@@ -89,7 +89,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS = hnco$(EXEEXT) ffgen$(EXEEXT) mapgen$(EXEEXT)
-subdir = src
+subdir = app
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
@@ -391,9 +391,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign src/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign app/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign src/Makefile
+	  $(AUTOMAKE) --foreign app/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -730,13 +730,13 @@ uninstall-am: uninstall-binPROGRAMS
 
 
 hnco-options.hh hnco-options.cc: hnco.json
-	cd $(top_srcdir)/src && $(top_srcdir)/scripts/optgen.pl hnco.json
+	cd $(top_srcdir)/app && $(top_srcdir)/scripts/optgen.pl hnco.json
 
 ffgen-options.hh ffgen-options.cc: ffgen.json
-	cd $(top_srcdir)/src && $(top_srcdir)/scripts/optgen.pl ffgen.json
+	cd $(top_srcdir)/app && $(top_srcdir)/scripts/optgen.pl ffgen.json
 
 mapgen-options.hh mapgen-options.cc: mapgen.json
-	cd $(top_srcdir)/src && $(top_srcdir)/scripts/optgen.pl mapgen.json
+	cd $(top_srcdir)/app && $(top_srcdir)/scripts/optgen.pl mapgen.json
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -95,7 +95,7 @@ namespace algorithm {
     void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }
 
     /// Set log
-    void set_log() { _something_to_log = true; }
+    void set_log_value() { _something_to_log = true; }
 
     ///@}
 

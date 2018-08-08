@@ -25,8 +25,8 @@
 #include <algorithm>
 
 #include "hnco/algorithms/matrix.hh"
-#include "hnco/algorithms/util.hh"
 #include "hnco/random.hh"
+#include "hnco/util.hh"
 
 #include "model.hh"
 

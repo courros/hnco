@@ -10,6 +10,12 @@ Library:
 - Added bit_random
 - Algorithm: bv_size must be positive
 - Added RandomWalk
+- Added AbstractLabs
+- Labs renamed LabsMeritFactor
+- Labs now only computes autocorrelation
+- Added AbstractMaxSat
+- Added MaxNae3Sat
+- Functions square and logistic moved from namespace hnco::algorithm to hnco
 
 Tests:
 - Added test-steepest-ascent-hill-climbing-local
@@ -17,6 +23,17 @@ Tests:
 
 Build:
 - Added directory hnco/algorithms/eda/
+- Renamed directory hnco/src/ -> hnco/app/
+- Moved files hnco/algorithms/restart.* under hnco/algorithms/decorators/
+- Moved file hnco/algorithms/util.hh under hnco/
+- optgen.pl: added section folding in help messages
+
+hnco:
+- LabsMeritFactor renumbered 80 -> 81
+
+Experiments:
+- Updated function number of LabsMeritFactor
+- walsh-transforms: apply to Labs instead of LabsMeritFactor
 
 Experiments:
 - Added experiment autocorrelation

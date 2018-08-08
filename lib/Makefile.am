@@ -12,6 +12,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.cc \
 	hnco/algorithms/complete-search.hh \
+	hnco/algorithms/decorators/restart.cc \
+	hnco/algorithms/decorators/restart.hh \
 	hnco/algorithms/ea/all.hh \
 	hnco/algorithms/ea/crossover.cc \
 	hnco/algorithms/ea/crossover.hh \
@@ -99,9 +101,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.cc \
 	hnco/algorithms/random-search.hh \
-	hnco/algorithms/restart.cc \
-	hnco/algorithms/restart.hh \
-	hnco/algorithms/util.hh \
 	hnco/bit-matrix.cc \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.cc \
@@ -164,7 +163,8 @@ libhnco_la_SOURCES = \
 	hnco/sparse-bit-matrix.cc \
 	hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.cc \
-	hnco/sparse-bit-vector.hh
+	hnco/sparse-bit-vector.hh \
+	hnco/util.hh
 
 if ENABLE_FACTORIZATION
 libhnco_la_SOURCES += \
@@ -184,6 +184,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.hh \
+	hnco/algorithms/decorators/restart.hh \
 	hnco/algorithms/ea/all.hh \
 	hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.hh \
@@ -232,8 +233,6 @@ nobase_include_HEADERS = \
 	hnco/algorithms/pv/pv-algorithm.hh \
 	hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.hh \
-	hnco/algorithms/restart.hh \
-	hnco/algorithms/util.hh \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.hh \
 	hnco/exception.hh \
@@ -267,7 +266,8 @@ nobase_include_HEADERS = \
 	hnco/permutation.hh \
 	hnco/random.hh \
 	hnco/sparse-bit-matrix.hh \
-	hnco/sparse-bit-vector.hh
+	hnco/sparse-bit-vector.hh \
+	hnco/util.hh
 
 if ENABLE_FACTORIZATION
 nobase_include_HEADERS += hnco/functions/factorization.hh
