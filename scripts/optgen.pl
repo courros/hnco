@@ -315,20 +315,15 @@ sub generate_source_cons()
 	}
 
         my $type = $parameter->{type};
-	if ($type eq "int" or
-	    $type eq "bool") {
+	if ($type eq "int" or $type eq "bool") {
 	    print SRC "atoi(optarg));\n";
-	}
-	elsif ($type eq "unsigned") {
+	} elsif ($type eq "unsigned") {
 	    print SRC "strtoul(optarg, NULL, 0));\n";
-	}
-	elsif ($type eq "double") {
+	} elsif ($type eq "double") {
 	    print SRC "atof(optarg));\n";
-	}
-	elsif ($type eq "string") {
+	} elsif ($type eq "string") {
 	    print SRC "string(optarg));\n";
-	}
-	else {
+	} else {
 	    die "$type: unknown type\n";
 	}
 
