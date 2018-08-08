@@ -29,15 +29,15 @@ if (@ARGV) {
 print "Using $plan\n";
 
 open(FILE, $plan)
-    or die "hnco-benchmark-run.pl: Cannot open $plan\n";
+    or die "hnco-dynamics-run.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
 }
+
 my $obj = from_json($json);
 
 my $path_results        = $obj->{results};
-my $num_runs            = $obj->{num_runs};
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
 my $parallel            = $obj->{parallel};
@@ -47,19 +47,24 @@ if ($parallel) {
     if ($servers) {
         my $dir = File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
         foreach (@$servers) {
-            system("ssh $_->{hostname} \"cd $dir ; hnco-benchmark-skeleton.pl\"\n");
+            system("ssh $_->{hostname} \"cd $dir ; hnco-dynamics-skeleton.pl\"\n");
         }
     }
 }
 
 my $commands = ();
 
-iterate_functions($path_results, "$obj->{exec} $obj->{opt}");
+my $path = $obj->{results};
+unless (-d $path) {
+    mkdir $path;
+    print "Created $path\n";
+}
+iterate_functions($path, "$obj->{exec} $obj->{opt}");
 
 if ($parallel) {
     my $path = 'commands.txt';
     my $file = IO::File->new($path, '>')
-        or die "hnco-benchmark-run.pl: Cannot open '$path': $!\n";
+        or die "hnco-dynamics-run.pl: Cannot open '$path': $!\n";
     $file->print(join("\n", @commands));
     $file->close;
     if ($servers) {
@@ -80,25 +85,24 @@ sub iterate_functions
     my ($prefix, $cmd) = @_;
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        print "$function_id: ";
-        iterate_runs("$prefix/$function_id", "$cmd $f->{opt}");
-        print "\n";
+        my $path = "$prefix/$function_id";
+        unless (-d $path) {
+            mkdir $path;
+            print "Created $path\n";
+        }
+        print "$function_id\n";
+        single_run($path, "$cmd $f->{opt}");
     }
 }
 
-sub iterate_runs
+sub single_run
 {
     my ($prefix, $cmd) = @_;
     if ($parallel) {
-        foreach (1 .. $num_runs) {
-            push @commands,
-                "/usr/bin/time --quiet -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> $prefix/$_.err";
-        }
+        push @commands, "$cmd > $prefix/1.out 2>> $prefix/1.err";
         print "added to the job queue";
     } else {
-        foreach (1 .. $num_runs) {
-            system("/usr/bin/time --quiet -f \"\%e\" -o $prefix/$_.time $cmd > $prefix/$_.out 2>> log.err");
-            print ".";
-        }
+        system("$cmd > $prefix/1.out 2>> log.err");
+        print "done";
     }
 }
