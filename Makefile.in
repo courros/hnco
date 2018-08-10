@@ -334,6 +334,16 @@ top_srcdir = @top_srcdir@
 SUBDIRS = lib app tests scripts examples
 ACLOCAL_AMFLAGS = -I m4
 EXTRA_DIST = \
+	experiments/autocorrelation/Makefile \
+	experiments/autocorrelation/instances/Makefile \
+	experiments/autocorrelation/instances/ep.100 \
+	experiments/autocorrelation/instances/lin.100 \
+	experiments/autocorrelation/instances/ms.100.3.1000 \
+	experiments/autocorrelation/instances/nk.100.4 \
+	experiments/autocorrelation/instances/walsh2.100 \
+	experiments/autocorrelation/plan.json \
+	experiments/autocorrelation/report/Makefile \
+	experiments/autocorrelation/report/report.tex \
 	experiments/benchmark/Makefile \
 	experiments/benchmark/instances/Makefile \
 	experiments/benchmark/instances/ep.100 \

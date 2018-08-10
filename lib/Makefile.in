@@ -151,6 +151,7 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.cc \
 	hnco/algorithms/complete-search.hh \
+	hnco/algorithms/decorators/all.hh \
 	hnco/algorithms/decorators/restart.cc \
 	hnco/algorithms/decorators/restart.hh \
 	hnco/algorithms/ea/all.hh hnco/algorithms/ea/crossover.cc \
@@ -399,6 +400,7 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.hh \
+	hnco/algorithms/decorators/all.hh \
 	hnco/algorithms/decorators/restart.hh \
 	hnco/algorithms/ea/all.hh hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.hh \
@@ -620,6 +622,7 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.cc \
 	hnco/algorithms/complete-search.hh \
+	hnco/algorithms/decorators/all.hh \
 	hnco/algorithms/decorators/restart.cc \
 	hnco/algorithms/decorators/restart.hh \
 	hnco/algorithms/ea/all.hh hnco/algorithms/ea/crossover.cc \
@@ -741,6 +744,7 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.hh \
+	hnco/algorithms/decorators/all.hh \
 	hnco/algorithms/decorators/restart.hh \
 	hnco/algorithms/ea/all.hh hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.hh \
