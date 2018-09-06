@@ -560,6 +560,8 @@ sub generate_latex
     latex_empty_line();
 
     latex_section("Rankings");
+    latex_empty_line();
+
     latex_begin_center();
     latex_input_file("table-ranking.tex");
     latex_end_center();
@@ -574,13 +576,11 @@ sub generate_latex
         latex_newpage();
 
         latex_section("Function $function_id");
-
         latex_empty_line();
 
         latex_begin_center();
         latex_input_file("table-$function_id.tex");
         latex_end_center();
-
         latex_empty_line();
 
         latex_begin_center();
@@ -589,7 +589,6 @@ sub generate_latex
         latex_caption("$function_id");
         latex_end_figure();
         latex_end_center();
-
         latex_empty_line();
 
         latex_begin_center();
@@ -598,9 +597,7 @@ sub generate_latex
         latex_caption("$function_id");
         latex_end_figure();
         latex_end_center();
-
         latex_empty_line();
-
     }
 
     close LATEX;
