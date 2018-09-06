@@ -575,6 +575,8 @@ sub generate_latex
 
         latex_section("Function $function_id");
 
+        latex_empty_line();
+
         latex_begin_center();
         latex_input_file("table-$function_id.tex");
         latex_end_center();
@@ -676,10 +678,7 @@ EOF
 
 sub latex_begin_figure
 {
-    print LATEX <<EOF;
-\\begin{figure}[h]
-\\centering
-EOF
+    print LATEX "\\begin{figure}[h]\n";
 }
 
 sub latex_includegraphics
@@ -700,9 +699,7 @@ EOF
 
 sub latex_end_figure
 {
-    print LATEX <<EOF;
-\\end{figure}
-EOF
+    print LATEX "\\end{figure}[h]\n";
 }
 
 sub latex_newpage
