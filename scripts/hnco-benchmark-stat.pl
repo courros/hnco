@@ -40,6 +40,8 @@ my $path_graphics       = $obj->{graphics};
 my $path_results        = $obj->{results};
 my $path_report         = $obj->{report};
 
+unless (-d "$path_graphics") { mkdir "$path_graphics"; }
+
 my $ranges = {};
 my $stat_eval = {};
 my $stat_time = {};
@@ -57,8 +59,6 @@ my %terminal = (
     eps => "set term epscairo color enhanced",
     pdf => "set term pdfcairo color enhanced",
     png => "set term png enhanced" );
-
-unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
 compute_statistics();
 compute_statistics_time();
@@ -569,10 +569,6 @@ sub generate_latex
 
     }
 
-    # latex_newpage();
-    # latex_section("Graphics");
-    # latex_graphics();
-
 }
 
 sub latex_index_table
@@ -597,7 +593,6 @@ sub latex_index_table
         "\\end{tabular}\n";
 
     latex_end_center();
-
 }
 
 sub latex_graphics
