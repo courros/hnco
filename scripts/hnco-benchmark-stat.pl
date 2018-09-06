@@ -690,17 +690,6 @@ sub latex_includegraphics
 EOF
 }
 
-sub latex_subfigure_includegraphics
-{
-    my ($id, $path) = @_;
-    print LATEX
-        "\\begin{subfigure}[t]{0.45\\textwidth}\n",
-        "\\centering\n",
-        "\\includegraphics[width=\\textwidth]{$path}\n",
-        "\\caption{$id}\n",
-        "\\end{subfigure}\n";
-}
-
 sub latex_caption
 {
     my ($caption) = @_;
