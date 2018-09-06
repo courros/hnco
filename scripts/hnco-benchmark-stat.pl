@@ -405,7 +405,6 @@ sub generate_gnuplot_clouds
             "set output $quoted_path\n";
 
         print CLOUDS "plot \\\n";
-        my $position = 1;
         print CLOUDS
             join ", \\\n",
             (map {
@@ -413,7 +412,6 @@ sub generate_gnuplot_clouds
                 my $value = $stat_value->{$function_id}->{$algorithm_id};
                 $quoted_path = quote("$path_results/$function_id/$algorithm_id/$algorithm_id.dat");
                 $quoted_title = quote("$algorithm_id");
-                $position++;
                 $f->{reverse} ?
                     "  $quoted_path using 1:(-\$2) with points title $quoted_title" :
                     "  $quoted_path using 1:2 with points title $quoted_title";
