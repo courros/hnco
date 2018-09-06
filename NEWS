@@ -34,6 +34,7 @@ hnco:
 Scripts:
 - Added hnco-autocorrelation-run.pl
 - Added hnco-autocorrelation-stat.pl
+- hnco-benchmark-stat.pl generates tables in separate latex files
 
 Experiments:
 - Updated function number of LabsMeritFactor
