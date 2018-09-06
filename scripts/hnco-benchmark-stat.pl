@@ -604,36 +604,6 @@ sub generate_latex
     close LATEX;
 }
 
-sub latex_graphics
-{
-    my $counter = 0;
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-
-        if ($counter == 0) {
-            latex_begin_figure();
-            print LATEX "\\ContinuedFloat\n";
-        }
-
-        latex_subfigure_includegraphics("$function_id", "$function_id");
-        if ($counter % 2 == 1) {
-            print LATEX "\\\\\n";
-        }
-
-        $counter++;
-        if ($counter == 8) {
-            latex_end_figure();
-            $counter = 0;
-        }
-
-    }
-
-    if ($counter > 0) {
-        latex_end_figure();
-    }
-
-}
-
 sub latex_tableofcontents
 {
     print LATEX <<EOF;
