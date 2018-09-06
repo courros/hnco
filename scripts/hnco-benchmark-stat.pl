@@ -71,6 +71,8 @@ compute_ranges();
 generate_function_data();
 generate_gnuplot_candlesticks();
 generate_gnuplot_clouds();
+generate_table_ranking();
+generate_table_functions();
 generate_latex();
 
 sub compute_statistics
@@ -308,7 +310,8 @@ sub generate_function_data
 
 sub generate_gnuplot_candlesticks
 {
-    open(CANDLESTICKS, ">candlesticks.gp") or die "hnco-benchmark-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
+    open(CANDLESTICKS, ">candlesticks.gp")
+        or die "hnco-benchmark-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
 
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
@@ -501,24 +504,66 @@ sub generate_gnuplot_clouds
 
 }
 
+sub generate_table_ranking
+{
+    open(LATEX, ">$path_report/table-ranking.tex")
+        or die "hnco-benchmark-stat.pl: generate_table_ranking: Cannot open $path_report/table-ranking.tex\n";
+    latex_rankings_table_begin();
+    latex_rankings_table_body();
+    latex_rankings_table_end();
+    close LATEX;
+}
+
+sub generate_table_functions
+{
+    foreach my $fn (@$functions) {
+        generate_table_function($fn);
+    }
+}
+
+sub generate_table_function
+{
+    my $fn = shift;
+
+    my $function_id = $fn->{id};
+    my $value = $stat_value->{$function_id};
+    my $best = $stat_value_best->{$function_id};
+    my $time = $stat_time->{$function_id};
+
+    open(LATEX, ">$path_report/table-$function_id.tex")
+        or die "hnco-benchmark-stat.pl: generate_table_function: Cannot open $path_report/table-$function_id.tex\n";
+
+    if (exists($fn->{col})) {
+        latex_function_table_begin($fn->{col});
+    } else {
+        latex_function_table_begin("N{2}{3}");
+    }
+    foreach my $a (@$algorithms) {
+        my $algorithm_id = $a->{id};
+        latex_function_table_add_line($algorithm_id,
+                                      $value->{$algorithm_id},
+                                      $best,
+                                      $fn->{logscale},
+                                      $time->{$algorithm_id});
+    }
+    latex_funtion_table_end();
+
+    close LATEX;
+}
+
 sub generate_latex
 {
-    open(LATEX, ">$path_report/results.tex") or die "hnco-benchmark-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
+    open(LATEX, ">$path_report/content.tex")
+        or die "hnco-benchmark-stat.pl: generate_latex: Cannot open $path_report/content.tex\n";
 
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
     latex_empty_line();
 
     latex_section("Rankings");
     latex_begin_center();
-    latex_rankings_table_begin();
-    latex_rankings_table_body();
-    latex_rankings_table_end();
+    latex_input_file("table-ranking.tex");
     latex_end_center();
     latex_empty_line();
-
-    # latex_section("Algorithm index table");
-    # latex_index_table();
-    # latex_empty_line();
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
@@ -531,20 +576,7 @@ sub generate_latex
         latex_section("Function $function_id");
 
         latex_begin_center();
-        if (exists($f->{col})) {
-            latex_function_table_begin($f->{col});
-        } else {
-            latex_function_table_begin("N{2}{3}");
-        }
-        foreach my $a (@$algorithms) {
-            my $algorithm_id = $a->{id};
-            latex_function_table_add_line($algorithm_id,
-                                          $value->{$algorithm_id},
-                                          $best,
-                                          $f->{logscale},
-                                          $time->{$algorithm_id});
-        }
-        latex_funtion_table_end();
+        latex_input_file("table-$function_id.tex");
         latex_end_center();
 
         latex_empty_line();
@@ -569,30 +601,7 @@ sub generate_latex
 
     }
 
-}
-
-sub latex_index_table
-{
-    latex_begin_center();
-
-    print LATEX
-        "\\begin{tabular}{\@{}lr\@{}}\n",
-        "\\toprule\n",
-        "{algorithm} & {index} \\\\\n",
-        "\\midrule\n";
-
-    my $position = 1;
-    foreach my $a (@$algorithms) {
-        my $id = $a->{id};
-        print LATEX "$id & $position \\\\\n";
-        $position++;
-    }
-
-    print LATEX
-        "\\bottomrule\n",
-        "\\end{tabular}\n";
-
-    latex_end_center();
+    close LATEX;
 }
 
 sub latex_graphics
@@ -784,6 +793,12 @@ sub latex_rankings_table_end
 sub latex_empty_line
 {
     print LATEX "\n";
+}
+
+sub latex_input_file
+{
+    my $path = shift;
+    print LATEX "\\input{$path}\n";
 }
 
 sub quote
