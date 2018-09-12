@@ -42,6 +42,7 @@ my $num_targets         = $obj->{num_targets};
 my $path_graphics       = $obj->{graphics};
 my $path_report         = $obj->{report};
 my $path_results        = $obj->{results};
+my $budget              = $obj->{budget};
 
 unless (-d "$path_graphics") {
     mkdir "$path_graphics";
@@ -150,7 +151,7 @@ sub generate_ecdf
         my @sorted_events = sort { $a <=> $b } @events;
 
         my $path_ecdf = "$prefix/ecdf.txt";
-        my $fh_ecdf = IO::File->new($path_ecdf, '>')
+        my $file_ecdf = IO::File->new($path_ecdf, '>')
             or die "hnco-ecdf-stat.pl: generate_ecdf: Cannot open '$path_ecdf': $!\n";
 
         my $i = 0;
@@ -160,11 +161,11 @@ sub generate_ecdf
             while ($j < @sorted_events && $sorted_events[$j] == $head) {
                 $j++;
             }
-            $fh_ecdf->printf("%d %e\n", $head, $j / $algorithm_num_targets);
+            $file_ecdf->printf("%d %e\n", $head, $j / $algorithm_num_targets);
             $i = $j;
         }
 
-        $fh_ecdf->close;
+        $file_ecdf->close;
     }
 }
 
@@ -218,7 +219,7 @@ sub generate_ecdf_all
         my @sorted_events = sort { $a <=> $b } @events;
 
         my $path_ecdf = "$path_results/ecdf/$algorithm_id.txt";
-        my $fh_ecdf = IO::File->new($path_ecdf, '>')
+        my $file_ecdf = IO::File->new($path_ecdf, '>')
             or die "hnco-ecdf-stat.pl: generate_ecdf_all: Cannot open '$path_ecdf': $!\n";
 
         my $i = 0;
@@ -228,11 +229,11 @@ sub generate_ecdf_all
             while ($j < @sorted_events && $sorted_events[$j] == $head) {
                 $j++;
             }
-            $fh_ecdf->printf("%d %e\n", $head, $j / $algorithm_num_targets);
+            $file_ecdf->printf("%d %e\n", $head, $j / $algorithm_num_targets);
             $i = $j;
         }
 
-        $fh_ecdf->close;
+        $file_ecdf->close;
     }
 }
 
