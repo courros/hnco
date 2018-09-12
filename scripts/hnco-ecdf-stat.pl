@@ -55,6 +55,7 @@ foreach (@$functions) {
     generate_ecdf($_);
 }
 generate_ecdf_all();
+generate_end_of_ecdf();
 generate_graphics();
 generate_graphics_all();
 generate_latex();
@@ -237,6 +238,38 @@ sub generate_ecdf_all
     }
 }
 
+sub generate_end_of_ecdf
+{
+    my @levels = ();
+    foreach my $algorithm (@$algorithms) {
+        my $algorithm_id = $algorithm->{id};
+
+        my $path = "$path_results/ecdf/$algorithm_id.txt";
+        my $fh = IO::File->new($path, '<')
+            or die "hnco-ecdf-stat.pl: generate_end_of_ecdf: Cannot open '$path': $!\n";
+        my @lines = $fh->getlines;
+        $fh->close;
+
+        push @levels, { algorithm_id => $algorithm_id, high => get_value($lines[-1]), low => get_value($lines[0])}
+    }
+
+    my @sorted_levels = sort { $a->{high} <=> $b->{high} } @levels;
+
+    for (my $i = 0; $i < @sorted_levels; $i++) {
+        my $algorithm_id = $sorted_levels[$i]->{algorithm_id};
+
+        my $path = "$path_results/ecdf/$algorithm_id.txt";
+        my $fh = IO::File->new($path, '>>')
+            or die "hnco-ecdf-stat.pl: generate_end_of_ecdf: Cannot open '$path': $!\n";
+        $fh->printf("%d %e\n", $budget, $sorted_levels[$i]->{high});
+        $fh->printf("%d %e\n",
+                    10 * $budget,
+                    $sorted_levels[$i]->{low} + ($i + 0.5) * ($sorted_levels[$i]->{high} - $sorted_levels[$i]->{low}) / @sorted_levels);
+        $fh->close;
+    }
+
+}
+
 sub generate_graphics
 {
     open(GRAPHICS, ">graphics.gp")
@@ -271,7 +304,7 @@ sub generate_graphics
                 my $algorithm_id = $_->{id};
                 $quoted_path = quote("$path_results/$function_id/$algorithm_id/ecdf.txt");
                 $quoted_title = quote("$algorithm_id");
-                "  $quoted_path using 1:2 with steps title $quoted_title";
+                "  $quoted_path using 1:2 with lines title $quoted_title";
              } @$algorithms);
         print GRAPHICS "\n";
 
@@ -322,7 +355,7 @@ sub generate_graphics_all
             my $algorithm_id = $_->{id};
             $quoted_path = quote("$path_results/ecdf/$algorithm_id.txt");
             $quoted_title = quote("$algorithm_id");
-            "  $quoted_path using 1:2 with steps title $quoted_title";
+            "  $quoted_path using 1:2 with lines title $quoted_title";
          } @$algorithms);
     print GRAPHICS "\n";
 
