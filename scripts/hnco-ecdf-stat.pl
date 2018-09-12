@@ -40,8 +40,8 @@ my $functions           = $obj->{functions};
 my $num_runs            = $obj->{num_runs};
 my $num_targets         = $obj->{num_targets};
 my $path_graphics       = $obj->{graphics};
-my $path_results        = $obj->{results};
 my $path_report         = $obj->{report};
+my $path_results        = $obj->{results};
 
 unless (-d "$path_graphics") {
     mkdir "$path_graphics";
@@ -170,11 +170,6 @@ sub generate_ecdf
 
 sub generate_ecdf_all
 {
-    unless (-d "$path_results") {
-        mkdir "$path_results";
-        print "Created $path_results\n";
-    }
-
     unless (-d "$path_results/ecdf") {
         mkdir "$path_results/ecdf";
         print "Created $path_results/ecdf\n";
