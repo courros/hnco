@@ -35,13 +35,14 @@ my $obj = from_json($json);
 
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
+my $path_results        = $obj->{results};
 
-my $path = $obj->{results};
-unless (-d $path) {
-    mkdir $path;
-    print "Created $path\n";
+unless (-d $path_results) {
+    mkdir $path_results;
+    print "Created $path_results\n";
 }
-iterate_functions($path);
+
+iterate_functions($path_results);
 
 sub iterate_functions
 {
