@@ -33,11 +33,10 @@ while (<FILE>) {
 }
 my $obj = from_json($json);
 
-my $path_results        = $obj->{results};
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
 
-my $path = $path_results;
+my $path = $obj->{results};
 unless (-d $path) {
     mkdir $path;
     print "Created $path\n";
