@@ -49,6 +49,8 @@ unless (-d "$path_graphics") {
     print "Created $path_graphics\n";
 }
 
+my @sorted_levels = ();
+
 foreach (@$functions) {
     compute_ranges($_);
     compute_targets($_);
@@ -250,10 +252,17 @@ sub generate_end_of_ecdf
         my @lines = $fh->getlines;
         $fh->close;
 
-        push @levels, { algorithm_id => $algorithm_id, high => get_value($lines[-1]), low => get_value($lines[0])}
+        push @levels, { algorithm_id => $algorithm_id,
+                        high => get_value($lines[-1]),
+                        low => get_value($lines[0]),
+                        ordinate => 0.0 };
     }
 
-    my @sorted_levels = sort { $a->{high} <=> $b->{high} } @levels;
+    @sorted_levels = sort { $a->{high} <=> $b->{high} } @levels;
+    for (my $i = 0; $i < @sorted_levels; $i++) {
+        $sorted_levels[$i]->{ordinate} = $sorted_levels[0]->{low} +
+            ($i + 0.5) * ($sorted_levels[$i]->{high} - $sorted_levels[0]->{low}) / @sorted_levels;
+    }
 
     for (my $i = 0; $i < @sorted_levels; $i++) {
         my $algorithm_id = $sorted_levels[$i]->{algorithm_id};
@@ -262,9 +271,7 @@ sub generate_end_of_ecdf
         my $fh = IO::File->new($path, '>>')
             or die "hnco-ecdf-stat.pl: generate_end_of_ecdf: Cannot open '$path': $!\n";
         $fh->printf("%d %e\n", $budget, $sorted_levels[$i]->{high});
-        $fh->printf("%d %e\n",
-                    10 * $budget,
-                    $sorted_levels[$i]->{low} + ($i + 0.5) * ($sorted_levels[$i]->{high} - $sorted_levels[$i]->{low}) / @sorted_levels);
+        $fh->printf("%d %e\n", 10 * $budget, $sorted_levels[$i]->{ordinate});
         $fh->close;
     }
 
@@ -329,47 +336,45 @@ sub generate_graphics_all
     open(GRAPHICS, ">graphics-all.gp")
         or die "hnco-ecdf-stat.pl: generate_graphics_all: cannot open graphics.gp\n";
 
+    my $quoted_title = quote("All functions");
+
     print GRAPHICS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"Number of evaluations\"\n",
         "set ylabel \"Proportion of targets\"\n",
-        "set key outside top center box opaque horizontal\n",
-        "set format x ", quote("10^{%L}"), "\n",
+        "set key font \",10\" reverse Left outside right center box vertical title $quoted_title font \",10\"\n",
         "set logscale x\n",
-        "set autoscale fix\n\n",
-        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
+        "set format x ", quote("10^{%L}"), "\n",
+        "set autoscale fix\n",
+        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
-    my $quoted_title = quote("All functions");
     my $quoted_path = quote("$path_graphics/all.eps");
-
     print GRAPHICS
         $terminal{eps}, "\n",
-        "set output $quoted_path\n",
-        "set key title $quoted_title\n";
-
+        "set output $quoted_path\n";
     print GRAPHICS "plot \\\n";
     print GRAPHICS
         join ", \\\n",
         (map {
-            my $algorithm_id = $_->{id};
+            my $algorithm_id = $_->{algorithm_id};
             $quoted_path = quote("$path_results/ecdf/$algorithm_id.txt");
             $quoted_title = quote("$algorithm_id");
             "  $quoted_path using 1:2 with lines title $quoted_title";
-         } @$algorithms);
-    print GRAPHICS "\n";
+         } reverse(@sorted_levels));
+    print GRAPHICS "\n\n";
 
     $quoted_path = quote("$path_graphics/all.pdf");
     print GRAPHICS
         $terminal{pdf}, "\n",
         "set output $quoted_path\n",
-        "replot\n";
+        "replot\n\n";
 
     $quoted_path = quote("$path_graphics/all.png");
     print GRAPHICS
         $terminal{png}, "\n",
         "set output $quoted_path\n",
-        "replot\n\n";
+        "replot\n";
 
     system("chmod a+x graphics-all.gp");
 }
