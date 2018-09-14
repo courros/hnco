@@ -6,10 +6,6 @@
     "num_runs": 20,
     "parallel": true,
 
-    "results": "results",
-    "graphics": "graphics",
-    "report": "report",
-
     "functions": [
 
         {
