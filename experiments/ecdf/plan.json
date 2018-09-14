@@ -7,10 +7,6 @@
     "num_targets": 50,
     "parallel": true,
 
-    "results": "results",
-    "graphics": "graphics",
-    "report": "report",
-
     "functions": [
 
         {
