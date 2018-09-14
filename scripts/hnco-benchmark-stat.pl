@@ -39,7 +39,7 @@ my $num_runs            = $obj->{num_runs};
 
 my $path_graphics       = "graphics";
 my $path_report         = "report";
-my $path_results        = "results"
+my $path_results        = "results";
 
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 

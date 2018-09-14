@@ -43,7 +43,7 @@ my $num_runs            = $obj->{num_runs};
 my $parallel            = $obj->{parallel};
 my $servers             = $obj->{servers};
 
-my $path_results        = "results"
+my $path_results        = "results";
 
 if ($parallel) {
     if ($servers) {
