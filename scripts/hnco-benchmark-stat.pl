@@ -697,7 +697,7 @@ EOF
 
 sub latex_end_figure
 {
-    print LATEX "\\end{figure}[h]\n";
+    print LATEX "\\end{figure}\n";
 }
 
 sub latex_newpage
