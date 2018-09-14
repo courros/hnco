@@ -584,20 +584,20 @@ sub generate_latex
         latex_end_center();
         latex_empty_line();
 
-        latex_begin_center();
         latex_begin_figure();
+        latex_begin_center();
         latex_includegraphics("$function_id");
         latex_caption("$function_id");
-        latex_end_figure();
         latex_end_center();
+        latex_end_figure();
         latex_empty_line();
 
-        latex_begin_center();
         latex_begin_figure();
+        latex_begin_center();
         latex_includegraphics("$function_id+all");
         latex_caption("$function_id");
-        latex_end_figure();
         latex_end_center();
+        latex_end_figure();
         latex_empty_line();
     }
 
