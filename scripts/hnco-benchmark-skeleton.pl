@@ -35,7 +35,8 @@ my $obj = from_json($json);
 
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
-my $path_results        = $obj->{results};
+
+my $path_results        = "results"
 
 unless (-d $path_results) {
     mkdir $path_results;
