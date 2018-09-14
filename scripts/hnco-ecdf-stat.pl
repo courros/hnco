@@ -262,7 +262,7 @@ sub generate_end_of_ecdf
     @sorted_levels = sort { $a->{high} <=> $b->{high} } @levels;
     for (my $i = 0; $i < @sorted_levels; $i++) {
         $sorted_levels[$i]->{ordinate} = $sorted_levels[0]->{low} +
-            ($i + 0.5) * ($sorted_levels[$i]->{high} - $sorted_levels[0]->{low}) / @sorted_levels;
+            ($i + 0.5) * ($sorted_levels[-1]->{high} - $sorted_levels[0]->{low}) / @sorted_levels;
     }
 
     for (my $i = 0; $i < @sorted_levels; $i++) {
