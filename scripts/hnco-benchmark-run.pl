@@ -41,8 +41,9 @@ my $budget              = $obj->{budget};
 my $functions           = $obj->{functions};
 my $num_runs            = $obj->{num_runs};
 my $parallel            = $obj->{parallel};
-my $path_results        = $obj->{results};
 my $servers             = $obj->{servers};
+
+my $path_results        = "results"
 
 if ($parallel) {
     if ($servers) {
