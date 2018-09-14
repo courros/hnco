@@ -39,10 +39,11 @@ my $algorithms          = $obj->{algorithms};
 my $functions           = $obj->{functions};
 my $num_runs            = $obj->{num_runs};
 my $num_targets         = $obj->{num_targets};
-my $path_graphics       = $obj->{graphics};
-my $path_report         = $obj->{report};
-my $path_results        = $obj->{results};
 my $budget              = $obj->{budget};
+
+my $path_graphics       = "graphics";
+my $path_report         = "report";
+my $path_results        = "results"
 
 unless (-d "$path_graphics") {
     mkdir "$path_graphics";
