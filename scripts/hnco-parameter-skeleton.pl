@@ -45,7 +45,7 @@ unless (-d $path_results) {
     print "Created $path_results\n";
 }
 
-iterate_functions($path);
+iterate_functions($path_results);
 
 sub iterate_functions
 {
