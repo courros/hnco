@@ -47,13 +47,14 @@ my $obj = from_json($json);
 my $algorithms          = $obj->{algorithms};
 my $functions           = $obj->{functions};
 my $num_runs            = $obj->{num_runs};
-my $path_graphics       = $obj->{graphics};
-my $path_results        = $obj->{results};
-my $path_report         = $obj->{report};
 my $parameter           = $obj->{parameter};
 
 my $parameter_id        = $parameter->{id};
 my $boxwidth            = $parameter->{boxwidth};
+
+my $path_graphics       = "graphics";
+my $path_report         = "report";
+my $path_results        = "results";
 
 my $values;
 if ($parameter->{values_perl}) {
