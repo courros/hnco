@@ -4,8 +4,8 @@ default-parameters:
 	hnco --print-defaults > log.defaults
 
 run:
-	hnco-benchmark-skeleton.pl
 	echo `date` >> log.err
+	hnco-benchmark-skeleton.pl
 	time -o log.err -a hnco-benchmark-run.pl
 
 doc:
