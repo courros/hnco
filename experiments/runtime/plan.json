@@ -5,10 +5,6 @@
     "num_runs": 20,
     "parallel": true,
 
-    "results": "results",
-    "report": "report",
-    "graphics": "graphics",
-
     "parameter": {
         "id": "bv-size",
         "values_perl": "map { 100 + 100 * $_ } (0 .. 19)",
