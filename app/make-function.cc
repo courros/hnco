@@ -507,19 +507,26 @@ make_function_controller(Function *function, const Options& options)
     function = new StopOnTarget(function, options.get_target());
   }
 
-  // Budget
-  if (options.get_budget() > 0) {
+  //
+  // The following conditions are exclusive
+  //
+
+  if (options.get_budget() > 0 && !options.with_cache()) {
     function = new OnBudgetFunction(function, options.get_budget());
   }
 
-  // Cache
-  if (options.with_cache()) {
+  if (options.get_budget() <= 0 && options.with_cache()) {
     function = new Cache(function);
   }
 
-  // Cache budget
-  if (options.get_cache_budget() > 0) {
-    function = new OnBudgetFunction(function, options.get_budget());
+  if (options.get_budget() > 0 && options.with_cache()) {
+    if (options.with_cache_budget()) {
+      function = new Cache(function);
+      function = new OnBudgetFunction(function, options.get_budget());
+    } else {
+      function = new OnBudgetFunction(function, options.get_budget());
+      function = new Cache(function);
+    }
   }
 
   return function;
