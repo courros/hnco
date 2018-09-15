@@ -38,10 +38,11 @@ my $parameter           = $obj->{parameter};
 my $parallel            = $obj->{parallel};
 my $servers             = $obj->{servers};
 
-my $path = $obj->{results};
-unless (-d $path) {
-    mkdir $path;
-    print "Created $path\n";
+my $path_results        = "results";
+
+unless (-d $path_results) {
+    mkdir $path_results;
+    print "Created $path_results\n";
 }
 
 iterate_functions($path);
