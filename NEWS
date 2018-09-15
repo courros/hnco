@@ -43,6 +43,7 @@ Experiments:
 - benchmark, ecdf: added field budget
 - benchmark, ecdf: removed -b option in plan.json
 - benchmark, ecdf: removed fields results, graphics, and report
+- hnco-benchmark-run.pl: managed budget
 - hnco-benchmark-run.pl: hardcoded path for results, graphics, and report
 - hnco-ecdf-stat.pl: added last plateau and new key in main ecdf graphics
 
