@@ -177,6 +177,12 @@
             "section": "dec"
         },
 
+        "cache_budget":
+        {
+            "description": "Set cache on budget",
+            "section": "dec"
+        },
+
         "negation":
         {
             "description": "Negation (hence minimization) of the function",
@@ -545,14 +551,6 @@
             "type": "int",
             "value": 10000,
             "description": "Number of allowed function evaluations (<= 0 means indefinite)",
-            "section": "dec"
-        },
-
-        "cache_budget":
-        {
-            "type": "int",
-            "value": 0,
-            "description": "Cache budget (<= 0 means indefinite)",
             "section": "dec"
         },
 
