@@ -30,6 +30,8 @@ Build:
 
 hnco:
 - LabsMeritFactor renumbered 80 -> 81
+- cache_budget was an int parameter, now a flag
+- make_function_decorator: set new logic structure for budget and cache decorators
 
 Scripts:
 - Added hnco-autocorrelation-run.pl
