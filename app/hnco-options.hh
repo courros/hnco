@@ -41,10 +41,6 @@ class Options {
   int _bv_size;
   bool _opt_bv_size;
 
-  /// Cache budget (<= 0 means indefinite)
-  int _cache_budget;
-  bool _opt_cache_budget;
-
   /// Offspring population size
   int _ea_lambda;
   bool _opt_ea_lambda;
@@ -238,6 +234,9 @@ class Options {
 
   /// Cache function evaluations
   bool _cache;
+
+  /// Set cache on budget
+  bool _cache_budget;
 
   /// At the end, describe the solution
   bool _describe_solution;
@@ -441,18 +440,6 @@ public:
 
   /// Get set-flag for bv_size
   bool set_bv_size() const { return _opt_bv_size; }
-
-  /// Get cache_budget
-  int get_cache_budget() const { return _cache_budget; }
-
-  /// Set cache_budget
-  void set_cache_budget(int x) {
-    _cache_budget = x;
-    _opt_cache_budget = true;
-  }
-
-  /// Get set-flag for cache_budget
-  bool set_cache_budget() const { return _opt_cache_budget; }
 
   /// Get ea_lambda
   int get_ea_lambda() const { return _ea_lambda; }
@@ -1017,6 +1004,12 @@ public:
 
   /// Set cache
   void set_cache() { _cache = true; }
+ 
+  /// Get cache_budget
+  bool with_cache_budget() const { return _cache_budget; }
+
+  /// Set cache_budget
+  void set_cache_budget() { _cache_budget = true; }
  
   /// Get describe_solution
   bool with_describe_solution() const { return _describe_solution; }
