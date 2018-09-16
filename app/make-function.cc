@@ -508,7 +508,7 @@ make_function_controller(Function *function, const Options& options)
   }
 
   //
-  // The following conditions are exclusive
+  // The following conditions are mutually exclusive
   //
 
   if (options.get_budget() > 0 && !options.with_cache()) {
