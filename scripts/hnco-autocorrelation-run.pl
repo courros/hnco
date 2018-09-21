@@ -55,10 +55,6 @@ if ($parallel) {
 my $commands = ();
 
 my $path = $obj->{results};
-unless (-d $path) {
-    mkdir $path;
-    print "Created $path\n";
-}
 iterate_functions($path, "$obj->{exec} $obj->{opt}");
 
 if ($parallel) {
@@ -86,10 +82,6 @@ sub iterate_functions
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         my $path = "$prefix/$function_id";
-        unless (-d $path) {
-            mkdir $path;
-            print "Created $path\n";
-        }
         print "$function_id: ";
         single_run($path, "$cmd $f->{opt}");
     }
