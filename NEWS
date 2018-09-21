@@ -11,7 +11,7 @@ Library:
 - Algorithm: bv_size must be positive
 - Added RandomWalk
 - Added AbstractLabs
-- Labs renamed LabsMeritFactor
+- Renamed Labs -> LabsMeritFactor
 - Labs now only computes autocorrelation
 - Added AbstractMaxSat
 - Added MaxNae3Sat
@@ -39,14 +39,13 @@ Scripts:
 - hnco-benchmark-stat.pl generates tables in separate latex files
 
 Experiments:
-- Updated function number of LabsMeritFactor
-- walsh-transforms: apply to Labs instead of LabsMeritFactor
 - Added experiment autocorrelation
+- autocorrelation, walsh-transforms: use Labs instead of LabsMeritFactor
 - benchmark, ecdf: added field budget
 - benchmark, ecdf: removed -b option in plan.json
 - benchmark, ecdf: removed fields results, graphics, and report
-- hnco-benchmark-run.pl: managed budget
-- hnco-benchmark-run.pl: hardcoded path for results, graphics, and report
+- hnco-benchmark-run.pl: sets hnco option budget
+- hnco-benchmark-run.pl: hardcoded paths for results, graphics, and report
 - hnco-ecdf-stat.pl: added last plateau and new key in main ecdf graphics
 
 
