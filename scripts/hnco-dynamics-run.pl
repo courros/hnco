@@ -37,11 +37,12 @@ while (<FILE>) {
 
 my $obj = from_json($json);
 
-my $path_results        = $obj->{results};
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
 my $parallel            = $obj->{parallel};
 my $servers             = $obj->{servers};
+
+my $path_results        = $obj->{results};
 
 if ($parallel) {
     if ($servers) {
@@ -54,12 +55,7 @@ if ($parallel) {
 
 my $commands = ();
 
-my $path = $obj->{results};
-unless (-d $path) {
-    mkdir $path;
-    print "Created $path\n";
-}
-iterate_functions($path, "$obj->{exec} $obj->{opt}");
+iterate_functions($path_results, "$obj->{exec} $obj->{opt}");
 
 if ($parallel) {
     my $path = 'commands.txt';
@@ -85,13 +81,8 @@ sub iterate_functions
     my ($prefix, $cmd) = @_;
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $path = "$prefix/$function_id";
-        unless (-d $path) {
-            mkdir $path;
-            print "Created $path\n";
-        }
         print "$function_id\n";
-        iterate_algorithms($path, "$cmd $f->{opt}");
+        iterate_algorithms("$prefix/$function_id", "$cmd $f->{opt}");
     }
 }
 
@@ -100,13 +91,8 @@ sub iterate_algorithms
     my ($prefix, $cmd) = @_;
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
-        my $path = "$prefix/$algorithm_id";
-        unless (-d $path) {
-            mkdir "$path";
-            print "Created $path\n";
-        }
         print "$algorithm_id: ";
-        iterate_runs($path, "$cmd $a->{opt}");
+        iterate_runs("$prefix/$algorithm_id", "$cmd $a->{opt}");
         print "\n";
     }
 }
