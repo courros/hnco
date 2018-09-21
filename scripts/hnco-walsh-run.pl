@@ -37,10 +37,11 @@ while (<FILE>) {
 
 my $obj = from_json($json);
 
-my $path_results        = $obj->{results};
 my $functions           = $obj->{functions};
 my $parallel            = $obj->{parallel};
 my $servers             = $obj->{servers};
+
+my $path_results        = $obj->{results};
 
 if ($parallel) {
     if ($servers) {
@@ -53,12 +54,7 @@ if ($parallel) {
 
 my $commands = ();
 
-my $path = $obj->{results};
-unless (-d $path) {
-    mkdir $path;
-    print "Created $path\n";
-}
-iterate_functions($path, "$obj->{exec} $obj->{opt}");
+iterate_functions($path_results, "$obj->{exec} $obj->{opt}");
 
 if ($parallel) {
     my $path = 'commands.txt';
