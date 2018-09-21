@@ -80,13 +80,8 @@ sub iterate_functions
     my ($prefix, $cmd) = @_;
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $path = "$prefix/$function_id";
-        unless (-d $path) {
-            mkdir $path;
-            print "Created $path\n";
-        }
         print "$function_id: ";
-        run($path, "$cmd $f->{opt}");
+        run("$prefix/$function_id", "$cmd $f->{opt}");
     }
 }
 
