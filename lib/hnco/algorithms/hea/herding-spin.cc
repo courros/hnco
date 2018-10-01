@@ -130,7 +130,7 @@ SpinHerding::sample_greedy(bit_vector_t& x)
         a = j;
         b = i;
       }
-      assert(a < b);
+      assert(b < a);
       if (x[j])
 	tmp -= _delta._second[a][b];
       else
