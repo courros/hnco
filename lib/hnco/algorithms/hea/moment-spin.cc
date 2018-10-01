@@ -29,62 +29,40 @@ using namespace hnco::algorithm::hea;
 
 
 void
-SpinMoment::uniform()
-{
-  for (size_t i = 0; i < _second.size(); i++) {
-    _first[i] = 0;
-    _second[i][i] = 1;
-    for (size_t j = 0; j < i; j++) {
-      _second[i][j] = 0;
-      _second[j][i] = 0;
-    }
-  }
-
-  assert(matrix_is_symmetric(_second));
-  assert(matrix_has_range(_second, -1.0, 1.0));
-}
-
-
-void
 SpinMoment::init()
 {
-  for (size_t i = 0; i < _first.size(); i++)
+  for (size_t i = 0; i < _first.size(); i++) {
     _first[i] = 0;
 
-  for (size_t i = 0; i < _second.size(); i++)
-    for (size_t j = 0; j < i; j++) {
-      _second[i][j] = 0;
-      _second[j][i] = 0;
-    }
+    std::vector<double>& line = _second[i];
+    for (size_t j = 0; j < i; j++)
+      line[j] = 0;
+  }
 
-  assert(matrix_is_symmetric(_second));
-  assert(matrix_has_range(_second, -1.0, 1.0));
+  assert(matrix_is_strictly_lower_triangular(_second));
 }
 
 
 void
 SpinMoment::add(const bit_vector_t& x)
 {
-  assert(x.size() == _second.size());
+  assert(x.size() == _first.size());
 
-  for (size_t i = 0; i < _first.size(); i++)
+  for (size_t i = 0; i < _first.size(); i++) {
     if (x[i])
-      _first[i]++;
-    else
       _first[i]--;
+    else
+      _first[i]++;
 
-  for (size_t i = 0; i < _second.size(); i++) {
-    for (size_t j = 0; j < i; j++) {
+    std::vector<double>& line = _second[i];
+    for (size_t j = 0; j < i; j++)
       if (x[j] == x[i])
-	_second[i][j]++;
+	line[j]++;
       else
-        _second[i][j]--;
-      _second[j][i] = _second[i][j];
-    }
+        line[j]--;
   }
 
-  assert(matrix_is_symmetric(_second));
-  assert(matrix_has_range(_second, -1.0, 1.0));
+  assert(matrix_is_strictly_lower_triangular(_second));
 }
 
 
@@ -94,17 +72,15 @@ SpinMoment::average(int count)
   for (size_t i = 0; i < _first.size(); i++) {
     _first[i] /= count;
     assert(_first[i] >= -1 && _first[i] <= 1);
-  }
 
-  for (size_t i = 0; i < _second.size(); i++) {
+    std::vector<double>& line = _second[i];
     for (size_t j = 0; j < i; j++) {
-      _second[i][j] /= count;
-      _second[j][i] = _second[i][j];
+      line[j] /= count;
+      assert(line[j] >= -1 && line[j] <= 1);
     }
   }
 
-  assert(matrix_is_symmetric(_second));
-  assert(matrix_has_range(_second, -1.0, 1.0));
+  assert(matrix_is_strictly_lower_triangular(_second));
 }
 
 
@@ -114,17 +90,16 @@ SpinMoment::update(const SpinMoment& p, double rate)
   for (size_t i = 0; i < _first.size(); i++) {
     _first[i] += rate * (p._first[i] - _first[i]);
     assert(_first[i] >= -1 && _first[i] <= 1);
-  }
 
-  for (size_t i = 0; i < _second.size(); i++) {
+    std::vector<double>& line = _second[i];
+    const std::vector<double>& line2 = p._second[i];
     for (size_t j = 0; j < i; j++) {
-      _second[i][j] += rate * (p._second[i][j] - _second[i][j]);
-      _second[j][i] = _second[i][j];
+      line[j] += rate * (line2[j] - line[j]);
+      assert(line[j] >= -1 && line[j] <= 1);
     }
   }
 
-  assert(matrix_is_symmetric(_second));
-  assert(matrix_has_range(_second, -1.0, 1.0));
+  assert(matrix_is_strictly_lower_triangular(_second));
 }
 
 
@@ -134,43 +109,45 @@ SpinMoment::bound(double margin)
   const double high = 1 - margin;
   const double low = margin - 1;
 
-  for (size_t i = 0; i < _first.size(); i++) {
+  for (size_t i = 0; i < _second.size(); i++) {
     double tmp = _first[i];
     tmp = std::min(high, tmp);
     tmp = std::max(low, tmp);
     _first[i] = tmp;
-  }
 
-  for (size_t i = 0; i < _second.size(); i++) {
+    std::vector<double>& line = _second[i];
     for (size_t j = 0; j < i; j++) {
-      double tmp = _second[i][j];
+      double tmp = line[j];
       tmp = std::min(high, tmp);
       tmp = std::max(low, tmp);
-      _second[i][j] = tmp;
-      _second[j][i] = tmp;
+      line[j] = tmp;
     }
   }
 
-  assert(matrix_is_symmetric(_second));
-  assert(matrix_has_range(_second, low, high));
+  assert(matrix_is_strictly_lower_triangular(_second));
 }
 
 
 double
 SpinMoment::distance(const SpinMoment& moment) const
 {
-  assert(_first.size() == moment._first.size());
-  assert(_second.size() == moment._second.size());
+  assert(moment._first.size() == _first.size());
+  assert(moment._second.size() == _second.size());
 
   double result = 0;
   for (size_t i = 0; i < _first.size(); i++) {
     result += square(_first[i] - moment._first[i]);
+
     double tmp = 0;
+    const std::vector<double>& line = _second[i];
+    const std::vector<double>& line2 = moment._second[i];
     for (size_t j = 0; j < i; j++)
-      tmp += square(_second[i][j] - moment._second[i][j]);
+      tmp += square(line[j] - line2[j]);
+
     result += _weight * tmp;
   }
-  return sqrt(result) / diameter() ;
+
+  return sqrt(result) / diameter();
 }
 
 
@@ -180,10 +157,14 @@ SpinMoment::norm_2() const
   double result = 0;
   for (size_t i = 0; i < _first.size(); i++) {
     result += square(_first[i]);
+
     double tmp = 0;
+    const std::vector<double>& line = _second[i];
     for (size_t j = 0; j < i; j++)
-      tmp += square(_second[i][j]);
+      tmp += square(line[j]);
+
     result += _weight * tmp;
   }
-  return sqrt(result) / diameter() ;
+
+  return sqrt(result) / diameter();
 }
