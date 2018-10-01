@@ -40,6 +40,7 @@ SpinHerding::init()
 {
   _time = 0;
   _count.init();
+  perm_identity(_permutation);
 }
 
 
