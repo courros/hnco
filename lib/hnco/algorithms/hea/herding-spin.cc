@@ -94,18 +94,18 @@ SpinHerding::compute_delta(const SpinMoment& target)
   _time++;
 
   const size_t dimension = _count._first.size();
-  for (size_t i = 0; i < dimension; i++)
-    _delta._first[i] = _time * target._first[i] - _count._first[i];
 
   for (size_t i = 0; i < dimension; i++) {
-    for (size_t j = 0; j < i; j++) {
-      _delta._second[i][j] = _time * target._second[i][j] - _count._second[i][j];
-      _delta._second[j][i] = _delta._second[i][j];
-    }
+    _delta._first[i] = _time * target._first[i] - _count._first[i];
+
+    std::vector<double>& line = _delta._second[i];
+    const std::vector<double>& line2 = target._second[i];
+    const std::vector<double>& line3 = _count._second[i];
+    for (size_t j = 0; j < i; j++)
+      line[j] = _time * line2[j] - line3[j];
   }
 
-  assert(matrix_is_symmetric(_delta._second));
-  assert(matrix_has_diagonal(_delta._second, 0.0));
+  assert(matrix_is_strictly_lower_triangular(_delta._second));
 }
 
 
@@ -118,19 +118,30 @@ SpinHerding::sample_greedy(bit_vector_t& x)
   for (size_t k = 0; k < _permutation.size(); k++) {
     size_t i = _randomize_bit_order ? _permutation[k] : k;
     double lambda = _delta._first[i];
+
     double tmp = 0;
     for (size_t l = 0; l < k; l++) {
       size_t j = _randomize_bit_order ? _permutation[l] : l;
+      size_t a, b;
+      if (j < i) {
+        a = i;
+        b = j;
+      } else {
+        a = j;
+        b = i;
+      }
+      assert(a < b);
       if (x[j])
-	tmp += _delta._second[i][j];
+	tmp -= _delta._second[a][b];
       else
-	tmp -= _delta._second[i][j];
+	tmp += _delta._second[a][b];
     }
+
     lambda += _weight * tmp;
     if (lambda > 0)
-      x[i] = 1;
-    else
       x[i] = 0;
+    else
+      x[i] = 1;
   }
 }
 
