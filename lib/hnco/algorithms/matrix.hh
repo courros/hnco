@@ -41,6 +41,19 @@ namespace algorithm {
     return true;
   }
 
+  /// Check for strictly lower triangular matrix
+  template<class T>
+  bool matrix_is_strictly_lower_triangular(const std::vector<std::vector<T> >& A)
+  {
+    for (std::size_t i = 0; i < A.size(); i++) {
+      for (std::size_t j = i; j < A.size(); j++) {
+        if (A[i][j] != 0)
+          return false;
+      }
+    }
+    return true;
+  }
+
   /// Check for diagonal elements
   template<class T>
   bool matrix_has_diagonal(const std::vector<std::vector<T> >& A, T x)
