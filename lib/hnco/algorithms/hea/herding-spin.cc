@@ -232,30 +232,3 @@ SpinHerding::sample_nn(bit_vector_t& x)
     x = _state;
   }
 }
-
-
-void
-SpinHerding::update_counters(const bit_vector_t& x)
-{
-  assert(x.size() == _count._first.size());
-
-  for (size_t i = 0; i < x.size(); i++) {
-    if (x[i]) {
-      _count._first[i]--;
-      for (size_t j = 0; j < i; j++)
-        if (x[j])
-          _count._second[i][j]++;
-        else
-          _count._second[i][j]--;
-    } else {
-      _count._first[i]++;
-      for (size_t j = 0; j < i; j++)
-        if (x[j])
-          _count._second[i][j]--;
-        else
-          _count._second[i][j]++;
-    }
-  }
-
-  assert(matrix_is_strictly_lower_triangular(_count._second));
-}
