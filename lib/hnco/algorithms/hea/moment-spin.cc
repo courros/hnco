@@ -48,18 +48,23 @@ SpinMoment::add(const bit_vector_t& x)
 {
   assert(x.size() == _first.size());
 
-  for (size_t i = 0; i < _first.size(); i++) {
-    if (x[i])
-      _first[i]--;
-    else
-      _first[i]++;
-
+  for (size_t i = 0; i < x.size(); i++) {
     std::vector<double>& line = _second[i];
-    for (size_t j = 0; j < i; j++)
-      if (x[j] == x[i])
-	line[j]++;
-      else
-        line[j]--;
+    if (x[i]) {
+      _first[i]--;
+      for (size_t j = 0; j < i; j++)
+        if (x[j])
+          line[j]++;
+        else
+          line[j]--;
+    } else {
+      _first[i]++;
+      for (size_t j = 0; j < i; j++)
+        if (x[j])
+          line[j]--;
+        else
+          line[j]++;
+    }
   }
 
   assert(matrix_is_strictly_lower_triangular(_second));
