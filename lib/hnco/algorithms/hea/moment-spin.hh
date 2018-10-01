@@ -38,7 +38,12 @@ namespace hea {
     /// First moment
     std::vector<double> _first;
 
-    /// Second moment
+    /** Second moment.
+
+        This is a lower triangular matrix with only zeros on the
+        diagonal. Put another way, only entries _second[i][j] with j <
+        i are considered.
+    */
     std::vector<std::vector<double> > _second;
 
     /// Constructor
@@ -50,7 +55,7 @@ namespace hea {
     double _weight = 1;
 
     /// Set the moment to that of the uniform distribution
-    void uniform();
+    void uniform() { init(); }
 
     /// Initialize accumulators
     void init();
