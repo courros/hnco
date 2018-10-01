@@ -240,15 +240,22 @@ SpinHerding::update_counters(const bit_vector_t& x)
   assert(x.size() == _count._first.size());
 
   for (size_t i = 0; i < x.size(); i++) {
-    int yi = x[i] ? 1 : -1;
-    _count._first[i] += yi;
-    for (size_t j = 0; j < i; j++) {
-      int yj = x[j] ? 1 : -1;
-      _count._second[i][j] += yi * yj;
-      _count._second[j][i] = _count._second[i][j];
+    if (x[i]) {
+      _count._first[i]--;
+      for (size_t j = 0; j < i; j++)
+        if (x[j])
+          _count._second[i][j]++;
+        else
+          _count._second[i][j]--;
+    } else {
+      _count._first[i]++;
+      for (size_t j = 0; j < i; j++)
+        if (x[j])
+          _count._second[i][j]--;
+        else
+          _count._second[i][j]++;
     }
   }
 
-  assert(matrix_is_symmetric(_count._second));
-  assert(matrix_has_diagonal(_count._second, 0.0));
+  assert(matrix_is_strictly_lower_triangular(_count._second));
 }
