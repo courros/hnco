@@ -34,16 +34,16 @@ namespace algorithm {
 namespace hea {
 
 
-  /// Herding with binary variables
-  class BinaryHerding {
+  /// Herding with bit features
+  class BitHerding {
 
   protected:
 
     /// Counter moment
-    BinaryMoment _count;
+    BitMoment _count;
 
     /// Delta moment
-    BinaryMoment _delta;
+    BitMoment _delta;
 
     /// Permutation
     permutation_t _permutation;
@@ -70,13 +70,13 @@ namespace hea {
     ///@}
 
     /// Compute delta
-    void compute_delta(const BinaryMoment& target);
+    void compute_delta(const BitMoment& target);
 
     /// Sample a bit vector
-    void sample_minimize_norm(const BinaryMoment& target, bit_vector_t& x);
+    void sample_minimize_norm(const BitMoment& target, bit_vector_t& x);
 
     /// Sample a bit vector
-    void sample_maximize_inner_product(const BinaryMoment& target, bit_vector_t& x);
+    void sample_maximize_inner_product(const BitMoment& target, bit_vector_t& x);
 
   public:
 
@@ -89,7 +89,7 @@ namespace hea {
     };
 
     /// Constructor
-    BinaryHerding(int n):
+    BitHerding(int n):
       _count(n),
       _delta(n),
       _permutation(n, 0),
@@ -99,17 +99,17 @@ namespace hea {
     void init();
 
     /// Sample a bit vector
-    void sample(const BinaryMoment& target, bit_vector_t& x);
+    void sample(const BitMoment& target, bit_vector_t& x);
 
     /// Compute the error
-    double error(const BinaryMoment& target);
+    double error(const BitMoment& target);
 
     /** @name Getters
      */
     ///@{
 
     /// Get delta
-    const BinaryMoment& get_delta() { return _delta; }
+    const BitMoment& get_delta() { return _delta; }
 
     ///@}
 

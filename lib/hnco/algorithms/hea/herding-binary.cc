@@ -34,7 +34,7 @@ using namespace hnco::exception;
 
 
 void
-BinaryHerding::init()
+BitHerding::init()
 {
   _time = 0;
   _count.init();
@@ -42,7 +42,7 @@ BinaryHerding::init()
 
 
 double
-BinaryHerding::error(const BinaryMoment& target)
+BitHerding::error(const BitMoment& target)
 {
   assert(target.size() == _count.size());
 
@@ -59,7 +59,7 @@ BinaryHerding::error(const BinaryMoment& target)
 
 
 void
-BinaryHerding::sample(const BinaryMoment& target, bit_vector_t& x)
+BitHerding::sample(const BitMoment& target, bit_vector_t& x)
 {
   assert(target.size() == _count.size());
 
@@ -75,13 +75,13 @@ BinaryHerding::sample(const BinaryMoment& target, bit_vector_t& x)
   default:
     std::ostringstream stream;
     stream << _dynamics;
-    throw Error("BinaryHerding::sample: Unknown _dynamics: " + stream.str());
+    throw Error("BitHerding::sample: Unknown _dynamics: " + stream.str());
   }
 }
 
 
 void
-BinaryHerding::compute_delta(const BinaryMoment& target)
+BitHerding::compute_delta(const BitMoment& target)
 {
   _time++;
 
@@ -98,7 +98,7 @@ BinaryHerding::compute_delta(const BinaryMoment& target)
 
 
 void
-BinaryHerding::sample_minimize_norm(const BinaryMoment& target, bit_vector_t& x)
+BitHerding::sample_minimize_norm(const BitMoment& target, bit_vector_t& x)
 {
   if (_randomize_bit_order)
     perm_random(_permutation);
@@ -135,7 +135,7 @@ BinaryHerding::sample_minimize_norm(const BinaryMoment& target, bit_vector_t& x)
 
 
 void
-BinaryHerding::sample_maximize_inner_product(const BinaryMoment& target, bit_vector_t& x)
+BitHerding::sample_maximize_inner_product(const BitMoment& target, bit_vector_t& x)
 {
   if (_randomize_bit_order)
     perm_random(_permutation);
