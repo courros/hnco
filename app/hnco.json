@@ -289,7 +289,7 @@
 
         "hea_log_delta":
         {
-            "description": "Log norm of delta, the moment increment",
+            "description": "Log norm 2 of delta (in moment space)",
             "section": "hea"
         },
 
