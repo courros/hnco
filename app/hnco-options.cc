@@ -43,8 +43,8 @@ Options::Options(int argc, char *argv[]):
   _opt_ga_crossover_probability(false),
   _ga_tournament_size(10),
   _opt_ga_tournament_size(false),
-  _hea_binary_dynamics(0),
-  _opt_hea_binary_dynamics(false),
+  _hea_bit_herding(0),
+  _opt_hea_bit_herding(false),
   _hea_delay(10000),
   _opt_hea_delay(false),
   _hea_num_par_updates(1),
@@ -175,7 +175,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_GA_CROSSOVER_BIAS,
     OPTION_GA_CROSSOVER_PROBABILITY,
     OPTION_GA_TOURNAMENT_SIZE,
-    OPTION_HEA_BINARY_DYNAMICS,
+    OPTION_HEA_BIT_HERDING,
     OPTION_HEA_DELAY,
     OPTION_HEA_NUM_PAR_UPDATES,
     OPTION_HEA_NUM_SEQ_UPDATES,
@@ -267,7 +267,7 @@ Options::Options(int argc, char *argv[]):
     {"ga-crossover-bias", required_argument, 0, OPTION_GA_CROSSOVER_BIAS},
     {"ga-crossover-probability", required_argument, 0, OPTION_GA_CROSSOVER_PROBABILITY},
     {"ga-tournament-size", required_argument, 0, OPTION_GA_TOURNAMENT_SIZE},
-    {"hea-binary-dynamics", required_argument, 0, OPTION_HEA_BINARY_DYNAMICS},
+    {"hea-bit-herding", required_argument, 0, OPTION_HEA_BIT_HERDING},
     {"hea-delay", required_argument, 0, OPTION_HEA_DELAY},
     {"hea-num-par-updates", required_argument, 0, OPTION_HEA_NUM_PAR_UPDATES},
     {"hea-num-seq-updates", required_argument, 0, OPTION_HEA_NUM_SEQ_UPDATES},
@@ -427,8 +427,8 @@ Options::Options(int argc, char *argv[]):
       set_ga_tournament_size(atoi(optarg));
       break;
 
-    case OPTION_HEA_BINARY_DYNAMICS:
-      set_hea_binary_dynamics(atoi(optarg));
+    case OPTION_HEA_BIT_HERDING:
+      set_hea_bit_herding(atoi(optarg));
       break;
 
     case OPTION_HEA_DELAY:
@@ -875,8 +875,8 @@ void Options::print_help(ostream& stream) const
   stream << "            600: Univariate marginal distribution algorithm" << endl;
   stream << "            700: Compact genetic algorithm" << endl;
   stream << "            800: Max-min ant system" << endl;
-  stream << "            900: Herding evolutionary algorithm, herding with binary variables" << endl;
-  stream << "            901: Herding evolutionary algorithm, herding with spin variables" << endl;
+  stream << "            900: Herding evolutionary algorithm, herding with bit features" << endl;
+  stream << "            901: Herding evolutionary algorithm, herding with spin features" << endl;
   stream << "            1000: Boltzmann machine PBIL" << endl;
   stream << "            1100: Mutual information maximizing input clustering (MIMIC)" << endl;
   stream << "            1110: Hierarchical Bayesian Optimization Algorithm" << endl;
@@ -1013,9 +1013,9 @@ void Options::print_help_hea(ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
   stream << "Herding Evolutionary Algorithms" << endl;
-  stream << "      --hea-binary-dynamics (type int, default to 0)" << endl;
-  stream << "          Herding dynamics for binary variables" << endl;
-  stream << "            0: Minimize distance" << endl;
+  stream << "      --hea-bit-herding (type int, default to 0)" << endl;
+  stream << "          Type of bit herding" << endl;
+  stream << "            0: Minimize norm" << endl;
   stream << "            1: Maximize inner product" << endl;
   stream << "      --hea-bound-moment" << endl;
   stream << "          Bound moment after update" << endl;
@@ -1043,7 +1043,7 @@ void Options::print_help_hea(ostream& stream) const
   stream << "      --hea-reset-period (type int, default to 0)" << endl;
   stream << "          Reset period (<= 0 means no reset)" << endl;
   stream << "      --hea-sampling-method (type int, default to 0)" << endl;
-  stream << "          Sampling method for spin variables only" << endl;
+  stream << "          Sampling method for spin features" << endl;
   stream << "            0: Greedy algorithm" << endl;
   stream << "            1: Random local search" << endl;
   stream << "            2: Deterministic local search" << endl;
@@ -1107,7 +1107,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# ga_crossover_bias = " << options._ga_crossover_bias << endl;
   stream << "# ga_crossover_probability = " << options._ga_crossover_probability << endl;
   stream << "# ga_tournament_size = " << options._ga_tournament_size << endl;
-  stream << "# hea_binary_dynamics = " << options._hea_binary_dynamics << endl;
+  stream << "# hea_bit_herding = " << options._hea_bit_herding << endl;
   stream << "# hea_delay = " << options._hea_delay << endl;
   stream << "# hea_num_par_updates = " << options._hea_num_par_updates << endl;
   stream << "# hea_num_seq_updates = " << options._hea_num_seq_updates << endl;

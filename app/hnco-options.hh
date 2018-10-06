@@ -81,9 +81,9 @@ class Options {
   int _ga_tournament_size;
   bool _opt_ga_tournament_size;
 
-  /// Herding dynamics for binary variables
-  int _hea_binary_dynamics;
-  bool _opt_hea_binary_dynamics;
+  /// Type of bit herding
+  int _hea_bit_herding;
+  bool _opt_hea_bit_herding;
 
   /// Delay before learning rate decay
   int _hea_delay;
@@ -105,7 +105,7 @@ class Options {
   int _hea_reset_period;
   bool _opt_hea_reset_period;
 
-  /// Sampling method for spin variables only
+  /// Sampling method for spin features
   int _hea_sampling_method;
   bool _opt_hea_sampling_method;
 
@@ -561,17 +561,17 @@ public:
   /// Get set-flag for ga_tournament_size
   bool set_ga_tournament_size() const { return _opt_ga_tournament_size; }
 
-  /// Get hea_binary_dynamics
-  int get_hea_binary_dynamics() const { return _hea_binary_dynamics; }
+  /// Get hea_bit_herding
+  int get_hea_bit_herding() const { return _hea_bit_herding; }
 
-  /// Set hea_binary_dynamics
-  void set_hea_binary_dynamics(int x) {
-    _hea_binary_dynamics = x;
-    _opt_hea_binary_dynamics = true;
+  /// Set hea_bit_herding
+  void set_hea_bit_herding(int x) {
+    _hea_bit_herding = x;
+    _opt_hea_bit_herding = true;
   }
 
-  /// Get set-flag for hea_binary_dynamics
-  bool set_hea_binary_dynamics() const { return _opt_hea_binary_dynamics; }
+  /// Get set-flag for hea_bit_herding
+  bool set_hea_bit_herding() const { return _opt_hea_bit_herding; }
 
   /// Get hea_delay
   int get_hea_delay() const { return _hea_delay; }

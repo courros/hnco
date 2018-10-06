@@ -778,12 +778,12 @@
 
                 {
                     "value": 900,
-                    "description": "Herding evolutionary algorithm, herding with binary variables"
+                    "description": "Herding evolutionary algorithm, herding with bit features"
                 },
 
                 {
                     "value": 901,
-                    "description": "Herding evolutionary algorithm, herding with spin variables"
+                    "description": "Herding evolutionary algorithm, herding with spin features"
                 },
 
                 {
@@ -1017,7 +1017,7 @@
         {
             "type": "int",
             "value": 0,
-            "description": "Sampling method for spin variables only",
+            "description": "Sampling method for spin features",
             "section": "hea",
             "alternatives":
             [
@@ -1073,18 +1073,18 @@
 
         },
 
-        "hea_binary_dynamics":
+        "hea_bit_herding":
         {
             "type": "int",
             "value": 0,
-            "description": "Herding dynamics for binary variables",
+            "description": "Type of bit herding",
             "section": "hea",
             "alternatives":
             [
 
                 {
                     "value": 0,
-                    "description": "Minimize distance"
+                    "description": "Minimize norm"
                 },
 
                 {

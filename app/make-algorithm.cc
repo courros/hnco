@@ -327,15 +327,15 @@ make_concrete_algorithm(const Options& options)
   case 900: {
     using namespace hea;
 
-    auto herding = new BinaryHerding(options.get_bv_size());
+    auto herding = new BitHerding(options.get_bv_size());
 
     herding->set_randomize_bit_order(options.with_hea_randomize_bit_order());
-    herding->set_dynamics(options.get_hea_binary_dynamics());
+    herding->set_dynamics(options.get_hea_bit_herding());
     herding->set_weight(options.get_hea_weight());
 
     auto algo = new
-      Hea<BinaryMoment, BinaryHerding>(options.get_bv_size(),
-                                       options.get_population_size());
+      Hea<BitMoment, BitHerding>(options.get_bv_size(),
+                                 options.get_population_size());
 
     algo->set_herding(herding);
     algo->set_num_iterations(options.get_num_iterations());
@@ -348,15 +348,15 @@ make_concrete_algorithm(const Options& options)
     algo->set_bound_moment(options.with_hea_bound_moment());
     algo->set_weight(options.get_hea_weight());
 
-    Hea<BinaryMoment, BinaryHerding>::log_flags_t lf = {};
+    Hea<BitMoment, BitHerding>::log_flags_t lf = {};
     if (options.with_hea_log_error())
-      lf.set(Hea<BinaryMoment, BinaryHerding>::LOG_ERROR);
+      lf.set(Hea<BitMoment, BitHerding>::LOG_ERROR);
     if (options.with_hea_log_dtu())
-      lf.set(Hea<BinaryMoment, BinaryHerding>::LOG_DTU);
+      lf.set(Hea<BitMoment, BitHerding>::LOG_DTU);
     if (options.with_hea_log_delta())
-      lf.set(Hea<BinaryMoment, BinaryHerding>::LOG_DELTA);
+      lf.set(Hea<BitMoment, BitHerding>::LOG_DELTA);
     if (options.with_hea_log_selection())
-      lf.set(Hea<BinaryMoment, BinaryHerding>::LOG_SELECTION);
+      lf.set(Hea<BitMoment, BitHerding>::LOG_SELECTION);
     algo->set_log_flags(lf);
 
     return algo;
