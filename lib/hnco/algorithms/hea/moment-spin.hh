@@ -21,7 +21,10 @@
 #ifndef HNCO_ALGORITHMS_HEA_MOMENT_SPIN_H
 #define HNCO_ALGORITHMS_HEA_MOMENT_SPIN_H
 
+#include <math.h>		// sqrt
+
 #include <vector>
+#include <iostream>
 
 #include "hnco/bit-vector.hh"
 

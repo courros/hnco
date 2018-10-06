@@ -24,6 +24,7 @@
 #include <math.h>		// sqrt
 
 #include <vector>
+#include <iostream>
 
 #include "hnco/bit-vector.hh"
 

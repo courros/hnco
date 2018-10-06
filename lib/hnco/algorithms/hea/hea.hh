@@ -75,6 +75,9 @@ namespace hnco::algorithm::hea {
       /// Log the distance between the target and the selection moment
       LOG_SELECTION,
 
+      /// Log the moment matrix
+      LOG_MOMENT_MATRIX,
+
       LAST_LOG
     };
 
@@ -215,6 +218,12 @@ namespace hnco::algorithm::hea {
     void log() {
       assert(_log_flags.any());
 
+      if (_log_flags[LOG_MOMENT_MATRIX]) {
+        _target.display(*_stream);
+        return;
+      }
+
+      // Single line
       if (_log_flags[LOG_ERROR])
         (*_stream) << _error_cache << " ";
 
