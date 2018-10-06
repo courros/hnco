@@ -160,7 +160,7 @@ namespace hnco::algorithm::hea {
         _dtu_cache = _target.distance(_uniform);
 
       if (_log_flags[LOG_DELTA])
-        _delta_cache = _herding->delta(_target);
+        _delta_cache = _herding->get_delta().norm_2();
 
       if (_functions.size() > 1)
         _population.eval(_functions);

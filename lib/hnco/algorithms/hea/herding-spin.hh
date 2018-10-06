@@ -145,8 +145,14 @@ namespace hea {
     /// Compute the error
     double error(const SpinMoment& target);
 
-    /// Compute the norm of the moment increment
-    double delta(const SpinMoment& target) { return _delta.norm_2(); }
+    /** @name Getters
+     */
+    ///@{
+
+    /// Get delta
+    const SpinMoment& get_delta() { return _delta; }
+
+    ///@}
 
     /** @name Setters
      */

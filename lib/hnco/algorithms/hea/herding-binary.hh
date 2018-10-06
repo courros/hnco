@@ -104,8 +104,14 @@ namespace hea {
     /// Compute the error
     double error(const BinaryMoment& target);
 
-    /// Compute the norm of delta
-    double delta(const BinaryMoment& target) { return _delta.norm_2(); }
+    /** @name Getters
+     */
+    ///@{
+
+    /// Get delta
+    const BinaryMoment& get_delta() { return _delta; }
+
+    ///@}
 
     /** @name Setters
      */
