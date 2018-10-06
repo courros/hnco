@@ -98,6 +98,10 @@ namespace hnco::algorithm::hea {
     /// Herding
     Herding *_herding;
 
+    /** @name Logging
+     */
+    ///@{
+
     /// Error cache
     double _error_cache;
 
@@ -112,6 +116,8 @@ namespace hnco::algorithm::hea {
 
     /// Log flags
     log_flags_t _log_flags;
+
+    ///@}
 
     /** @name Parameters
      */
