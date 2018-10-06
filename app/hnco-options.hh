@@ -262,7 +262,7 @@ class Options {
   /// Bound moment after update
   bool _hea_bound_moment;
 
-  /// Log norm of delta, the moment increment
+  /// Log norm 2 of delta (in moment space)
   bool _hea_log_delta;
 
   /// Log distance to uniform

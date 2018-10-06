@@ -1022,7 +1022,7 @@ void Options::print_help_hea(ostream& stream) const
   stream << "      --hea-delay (type int, default to 10000)" << endl;
   stream << "          Delay before learning rate decay" << endl;
   stream << "      --hea-log-delta" << endl;
-  stream << "          Log norm of delta, the moment increment" << endl;
+  stream << "          Log norm 2 of delta (in moment space)" << endl;
   stream << "      --hea-log-dtu" << endl;
   stream << "          Log distance to uniform" << endl;
   stream << "      --hea-log-error" << endl;
