@@ -173,3 +173,19 @@ SpinMoment::norm_2() const
 
   return sqrt(result) / diameter();
 }
+
+
+void
+SpinMoment::display(std::ostream& stream)
+{
+  for (size_t i = 0; i < _first.size(); i++) {
+    for (size_t j = 0; j < i; j++)
+      stream << _second[i][j] << " ";
+    stream << _first [i] << " ";
+    for (size_t j = i; j < _first.size(); j++)
+      stream << _second[j][i] << " ";
+    stream << std::endl;
+  }
+  stream << std::endl;
+  stream << std::endl;
+}

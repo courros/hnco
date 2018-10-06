@@ -87,6 +87,9 @@ namespace hea {
     /// Size
     size_t size() const { return _first.size(); }
 
+    /// Display
+    void display(std::ostream& stream);
+
   };
 
 
