@@ -89,10 +89,6 @@ class Options {
   int _hea_delay;
   bool _opt_hea_delay;
 
-  /// Number of parallel updates per sample
-  int _hea_num_par_updates;
-  bool _opt_hea_num_par_updates;
-
   /// Number of sequential updates per sample
   int _hea_num_seq_updates;
   bool _opt_hea_num_seq_updates;
@@ -584,18 +580,6 @@ public:
 
   /// Get set-flag for hea_delay
   bool set_hea_delay() const { return _opt_hea_delay; }
-
-  /// Get hea_num_par_updates
-  int get_hea_num_par_updates() const { return _hea_num_par_updates; }
-
-  /// Set hea_num_par_updates
-  void set_hea_num_par_updates(int x) {
-    _hea_num_par_updates = x;
-    _opt_hea_num_par_updates = true;
-  }
-
-  /// Get set-flag for hea_num_par_updates
-  bool set_hea_num_par_updates() const { return _opt_hea_num_par_updates; }
 
   /// Get hea_num_seq_updates
   int get_hea_num_seq_updates() const { return _hea_num_seq_updates; }

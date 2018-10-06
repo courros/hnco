@@ -69,9 +69,6 @@ namespace hea {
     /// Number of sequential updates per sample
     int _num_seq_updates;
 
-    /// Number of parallel updates per sample
-    int _num_par_updates = 1;
-
     /// Weight of second order moments
     double _weight = 1;
 
@@ -157,9 +154,6 @@ namespace hea {
 
     /// Set the number of sequential updates per sample
     void set_num_seq_updates(int x) { _num_seq_updates = x; }
-
-    /// Set the number of parallel updates per sample
-    void set_num_par_updates(int x) { _num_par_updates = x; }
 
     /// Set the weight of second order moments
     void set_weight(double x) { _weight = x; }

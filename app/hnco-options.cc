@@ -47,8 +47,6 @@ Options::Options(int argc, char *argv[]):
   _opt_hea_bit_herding(false),
   _hea_delay(10000),
   _opt_hea_delay(false),
-  _hea_num_par_updates(1),
-  _opt_hea_num_par_updates(false),
   _hea_num_seq_updates(100),
   _opt_hea_num_seq_updates(false),
   _hea_rate_strategy(0),
@@ -177,7 +175,6 @@ Options::Options(int argc, char *argv[]):
     OPTION_GA_TOURNAMENT_SIZE,
     OPTION_HEA_BIT_HERDING,
     OPTION_HEA_DELAY,
-    OPTION_HEA_NUM_PAR_UPDATES,
     OPTION_HEA_NUM_SEQ_UPDATES,
     OPTION_HEA_RATE_STRATEGY,
     OPTION_HEA_RESET_PERIOD,
@@ -269,7 +266,6 @@ Options::Options(int argc, char *argv[]):
     {"ga-tournament-size", required_argument, 0, OPTION_GA_TOURNAMENT_SIZE},
     {"hea-bit-herding", required_argument, 0, OPTION_HEA_BIT_HERDING},
     {"hea-delay", required_argument, 0, OPTION_HEA_DELAY},
-    {"hea-num-par-updates", required_argument, 0, OPTION_HEA_NUM_PAR_UPDATES},
     {"hea-num-seq-updates", required_argument, 0, OPTION_HEA_NUM_SEQ_UPDATES},
     {"hea-rate-strategy", required_argument, 0, OPTION_HEA_RATE_STRATEGY},
     {"hea-reset-period", required_argument, 0, OPTION_HEA_RESET_PERIOD},
@@ -433,10 +429,6 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_HEA_DELAY:
       set_hea_delay(atoi(optarg));
-      break;
-
-    case OPTION_HEA_NUM_PAR_UPDATES:
-      set_hea_num_par_updates(atoi(optarg));
       break;
 
     case OPTION_HEA_NUM_SEQ_UPDATES:
@@ -1029,8 +1021,6 @@ void Options::print_help_hea(ostream& stream) const
   stream << "          Log error (moment discrepancy)" << endl;
   stream << "      --hea-log-selection" << endl;
   stream << "          Log the distance between the target and the selection moment" << endl;
-  stream << "      --hea-num-par-updates (type int, default to 1)" << endl;
-  stream << "          Number of parallel updates per sample" << endl;
   stream << "      --hea-num-seq-updates (type int, default to 100)" << endl;
   stream << "          Number of sequential updates per sample" << endl;
   stream << "      --hea-randomize-bit-order" << endl;
@@ -1108,7 +1098,6 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# ga_tournament_size = " << options._ga_tournament_size << endl;
   stream << "# hea_bit_herding = " << options._hea_bit_herding << endl;
   stream << "# hea_delay = " << options._hea_delay << endl;
-  stream << "# hea_num_par_updates = " << options._hea_num_par_updates << endl;
   stream << "# hea_num_seq_updates = " << options._hea_num_seq_updates << endl;
   stream << "# hea_rate_strategy = " << options._hea_rate_strategy << endl;
   stream << "# hea_reset_period = " << options._hea_reset_period << endl;

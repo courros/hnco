@@ -369,7 +369,6 @@ make_concrete_algorithm(const Options& options)
 
     herding->set_randomize_bit_order(options.with_hea_randomize_bit_order());
     herding->set_weight(options.get_hea_weight());
-    herding->set_num_par_updates(options.get_hea_num_par_updates());
     herding->set_num_seq_updates(options.get_hea_num_seq_updates());
     herding->set_sampling_method(options.get_hea_sampling_method());
 

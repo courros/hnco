@@ -1115,14 +1115,6 @@
             "section": "hea"
         },
 
-        "hea_num_par_updates":
-        {
-            "type": "int",
-            "value": 1,
-            "description": "Number of parallel updates per sample",
-            "section": "hea"
-        },
-
         "hea_reset_period":
         {
             "type": "int",
