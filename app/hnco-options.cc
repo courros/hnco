@@ -127,6 +127,7 @@ Options::Options(int argc, char *argv[]):
   _hea_log_delta(false),
   _hea_log_dtu(false),
   _hea_log_error(false),
+  _hea_log_moment_matrix(false),
   _hea_log_selection(false),
   _hea_randomize_bit_order(false),
   _incremental_evaluation(false),
@@ -224,6 +225,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_HEA_LOG_DELTA,
     OPTION_HEA_LOG_DTU,
     OPTION_HEA_LOG_ERROR,
+    OPTION_HEA_LOG_MOMENT_MATRIX,
     OPTION_HEA_LOG_SELECTION,
     OPTION_HEA_RANDOMIZE_BIT_ORDER,
     OPTION_INCREMENTAL_EVALUATION,
@@ -315,6 +317,7 @@ Options::Options(int argc, char *argv[]):
     {"hea-log-delta", no_argument, 0, OPTION_HEA_LOG_DELTA},
     {"hea-log-dtu", no_argument, 0, OPTION_HEA_LOG_DTU},
     {"hea-log-error", no_argument, 0, OPTION_HEA_LOG_ERROR},
+    {"hea-log-moment-matrix", no_argument, 0, OPTION_HEA_LOG_MOMENT_MATRIX},
     {"hea-log-selection", no_argument, 0, OPTION_HEA_LOG_SELECTION},
     {"hea-randomize-bit-order", no_argument, 0, OPTION_HEA_RANDOMIZE_BIT_ORDER},
     {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
@@ -633,6 +636,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_HEA_LOG_ERROR:
       _hea_log_error = true;
+      break;
+
+    case OPTION_HEA_LOG_MOMENT_MATRIX:
+      _hea_log_moment_matrix = true;
       break;
 
     case OPTION_HEA_LOG_SELECTION:
@@ -1019,6 +1026,8 @@ void Options::print_help_hea(ostream& stream) const
   stream << "          Log distance to uniform" << endl;
   stream << "      --hea-log-error" << endl;
   stream << "          Log error (moment discrepancy)" << endl;
+  stream << "      --hea-log-moment-matrix" << endl;
+  stream << "          Log moment matrix" << endl;
   stream << "      --hea-log-selection" << endl;
   stream << "          Log the distance between the target and the selection moment" << endl;
   stream << "      --hea-num-seq-updates (type int, default to 100)" << endl;
@@ -1165,6 +1174,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# hea_log_dtu" << endl;
   if (options._hea_log_error)
     stream << "# hea_log_error" << endl;
+  if (options._hea_log_moment_matrix)
+    stream << "# hea_log_moment_matrix" << endl;
   if (options._hea_log_selection)
     stream << "# hea_log_selection" << endl;
   if (options._hea_randomize_bit_order)

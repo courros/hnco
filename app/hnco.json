@@ -299,6 +299,12 @@
             "section": "hea"
         },
 
+        "hea_log_moment_matrix":
+        {
+            "description": "Log moment matrix",
+            "section": "hea"
+        },
+
         "hea_bound_moment":
         {
             "description": "Bound moment after update",

@@ -267,6 +267,9 @@ class Options {
   /// Log error (moment discrepancy)
   bool _hea_log_error;
 
+  /// Log moment matrix
+  bool _hea_log_moment_matrix;
+
   /// Log the distance between the target and the selection moment
   bool _hea_log_selection;
 
@@ -1060,6 +1063,12 @@ public:
 
   /// Set hea_log_error
   void set_hea_log_error() { _hea_log_error = true; }
+ 
+  /// Get hea_log_moment_matrix
+  bool with_hea_log_moment_matrix() const { return _hea_log_moment_matrix; }
+
+  /// Set hea_log_moment_matrix
+  void set_hea_log_moment_matrix() { _hea_log_moment_matrix = true; }
  
   /// Get hea_log_selection
   bool with_hea_log_selection() const { return _hea_log_selection; }

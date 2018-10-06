@@ -357,6 +357,8 @@ make_concrete_algorithm(const Options& options)
       lf.set(Hea<BitMoment, BitHerding>::LOG_DELTA);
     if (options.with_hea_log_selection())
       lf.set(Hea<BitMoment, BitHerding>::LOG_SELECTION);
+    if (options.with_hea_log_moment_matrix())
+      lf.set(Hea<BitMoment, BitHerding>::LOG_MOMENT_MATRIX);
     algo->set_log_flags(lf);
 
     return algo;
@@ -396,6 +398,8 @@ make_concrete_algorithm(const Options& options)
       lf.set(Hea<SpinMoment, SpinHerding>::LOG_DELTA);
     if (options.with_hea_log_selection())
       lf.set(Hea<SpinMoment, SpinHerding>::LOG_SELECTION);
+    if (options.with_hea_log_moment_matrix())
+      lf.set(Hea<SpinMoment, SpinHerding>::LOG_MOMENT_MATRIX);
     algo->set_log_flags(lf);
 
     return algo;
