@@ -193,7 +193,8 @@ namespace hnco::algorithm::hea {
       _selection.init();
       for (int i = 0; i < _selection_size; i++)
         _selection.add(_population.get_best_bv(i));
-      _selection.average(_selection_size);
+      if (_selection_size > 1)
+        _selection.average(_selection_size);
 
       if (_log_flags[LOG_SELECTION])
         _selection_cache = _target.distance(_selection);
