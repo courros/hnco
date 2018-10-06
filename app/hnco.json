@@ -1035,11 +1035,6 @@
                 {
                     "value": 2,
                     "description": "Deterministic local search"
-                },
-
-                {
-                    "value": 3,
-                    "description": "Neural network"
                 }
 
             ]

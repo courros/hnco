@@ -76,9 +76,6 @@ SpinHerding::sample(const SpinMoment& target, bit_vector_t& x)
   case SAMPLE_DLS:
     sample_dls(x);
     break;
-  case SAMPLE_NN:
-    sample_nn(x);
-    break;
   default:
     std::ostringstream stream;
     stream << _sampling_method;
@@ -211,23 +208,5 @@ SpinHerding::sample_dls(bit_vector_t& x)
       failures++;
     if (failures == x.size())
       break;
-  }
-}
-
-
-void
-SpinHerding::sample_nn(bit_vector_t& x)
-{
-  assert(x.size() == _state.size());
-
-  bv_random(x);
-  for (int t = 0; t < _num_par_updates; t++) {
-    for (size_t i = 0; i < x.size(); i++) {
-      if (q_derivative(x, i) >= 0)
-        _state[i] = 1;
-      else
-        _state[i] = 0;
-    }
-    x = _state;
   }
 }

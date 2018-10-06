@@ -98,9 +98,6 @@ namespace hea {
     /// Sample by means of deterministic local search
     void sample_dls(bit_vector_t& x);
 
-    /// Sample by means of a neural network
-    void sample_nn(bit_vector_t& x);
-
   public:
 
     enum {
@@ -112,9 +109,6 @@ namespace hea {
 
       /// Deterministic local search
       SAMPLE_DLS,
-
-      /// Neural network
-      SAMPLE_NN,
 
       LAST_SAMPLE
     };

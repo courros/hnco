@@ -1047,7 +1047,6 @@ void Options::print_help_hea(ostream& stream) const
   stream << "            0: Greedy algorithm" << endl;
   stream << "            1: Random local search" << endl;
   stream << "            2: Deterministic local search" << endl;
-  stream << "            3: Neural network" << endl;
   stream << "      --hea-time-constant (type double, default to 1000)" << endl;
   stream << "          Time constant for exponential decay" << endl;
   stream << "      --hea-weight (type double, default to 1)" << endl;
