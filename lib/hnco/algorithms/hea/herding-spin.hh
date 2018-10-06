@@ -101,9 +101,6 @@ namespace hea {
     /// Sample by means of a neural network
     void sample_nn(bit_vector_t& x);
 
-    /// Update counters
-    void update_counters(const bit_vector_t& x) { _count.add(x); }
-
   public:
 
     enum {
