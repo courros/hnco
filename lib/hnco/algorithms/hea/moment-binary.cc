@@ -173,3 +173,16 @@ BitMoment::norm_2() const
   }
   return sqrt(result) / diameter();
 }
+
+
+void
+BitMoment::display(std::ostream& stream)
+{
+  for (size_t i = 0; i < _moment.size(); i++) {
+    for (size_t j = 0; j < _moment.size(); j++)
+      stream << _moment[i][j] << " ";
+    stream << std::endl;
+  }
+  stream << std::endl;
+  stream << std::endl;
+}

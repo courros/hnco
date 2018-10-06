@@ -80,6 +80,9 @@ namespace hea {
     /// Size
     size_t size() const { return _moment.size(); }
 
+    /// Display
+    void display(std::ostream& stream);
+
   };
 
 
