@@ -123,19 +123,17 @@ SpinHerding::sample_greedy(bit_vector_t& x)
     double tmp = 0;
     for (size_t l = 0; l < k; l++) {
       size_t j = _randomize_bit_order ? _permutation[l] : l;
-      size_t a, b;
       if (j < i) {
-        a = i;
-        b = j;
+        if (x[j])
+          tmp -= _delta._second[i][j];
+        else
+          tmp += _delta._second[i][j];
       } else {
-        a = j;
-        b = i;
+        if (x[j])
+          tmp -= _delta._second[j][i];
+        else
+          tmp += _delta._second[j][i];
       }
-      assert(b < a);
-      if (x[j])
-	tmp -= _delta._second[a][b];
-      else
-	tmp += _delta._second[a][b];
     }
 
     lambda += _weight * tmp;
