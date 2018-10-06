@@ -85,7 +85,7 @@ SpinHerding::sample(const SpinMoment& target, bit_vector_t& x)
     throw Error("SpinHerding::sample: Unknown _sampling_method: " + stream.str());
   }
 
-  update_counters(x);
+  _count.add(x);
 }
 
 
