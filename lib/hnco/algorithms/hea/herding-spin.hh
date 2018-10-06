@@ -44,9 +44,6 @@ namespace hea {
     /// Counter moment
     SpinMoment _count;
 
-    /// State
-    bit_vector_t _state;
-
     /// Permutation
     permutation_t _permutation;
 
@@ -119,7 +116,6 @@ namespace hea {
     SpinHerding(int n):
       _delta(n),
       _count(n),
-      _state(n),
       _permutation(n, 0),
       _choose_bit(0, n - 1),
       _num_seq_updates(n) {}
