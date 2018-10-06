@@ -33,8 +33,8 @@ namespace algorithm {
 namespace hea {
 
 
-  /// Moment for binary variables
-  struct BinaryMoment
+  /// Moment for bit features
+  struct BitMoment
   {
 
     /// Moment
@@ -44,7 +44,7 @@ namespace hea {
     double _weight = 1;
 
     /// Constructor
-    BinaryMoment(int n):
+    BitMoment(int n):
       _moment(n, std::vector<double>(n, 0)) {}
 
     /// Set the moment to that of the uniform distribution
@@ -60,13 +60,13 @@ namespace hea {
     void average(int count);
 
     /// Update moment
-    void update(const BinaryMoment& p, double rate);
+    void update(const BitMoment& p, double rate);
 
     /// Bound moment
     void bound(double margin);
 
     /// Distance
-    double distance(const BinaryMoment& p) const;
+    double distance(const BitMoment& p) const;
 
     /// Compute the norm 2
     double norm_2() const;

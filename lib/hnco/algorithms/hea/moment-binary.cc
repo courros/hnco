@@ -30,7 +30,7 @@ using namespace hnco::algorithm;
 
 
 void
-BinaryMoment::uniform()
+BitMoment::uniform()
 {
   for (size_t i = 0; i < _moment.size(); i++) {
     _moment[i][i] = 0.5;
@@ -43,7 +43,7 @@ BinaryMoment::uniform()
 
 
 void
-BinaryMoment::init()
+BitMoment::init()
 {
   for (size_t i = 0; i < _moment.size(); i++) {
     _moment[i][i] = 0;
@@ -56,7 +56,7 @@ BinaryMoment::init()
 
 
 void
-BinaryMoment::add(const bit_vector_t& x)
+BitMoment::add(const bit_vector_t& x)
 {
   assert(x.size() == _moment.size());
 
@@ -78,7 +78,7 @@ BinaryMoment::add(const bit_vector_t& x)
 
 
 void
-BinaryMoment::average(int count)
+BitMoment::average(int count)
 {
   for (size_t i = 0; i < _moment.size(); i++) {
     _moment[i][i] /= count;
@@ -95,7 +95,7 @@ BinaryMoment::average(int count)
 
 
 void
-BinaryMoment::update(const BinaryMoment& p, double rate)
+BitMoment::update(const BitMoment& p, double rate)
 {
   for (size_t i = 0; i < _moment.size(); i++) {
     _moment[i][i] += rate * (p._moment[i][i] - _moment[i][i]);
@@ -112,7 +112,7 @@ BinaryMoment::update(const BinaryMoment& p, double rate)
 
 
 void
-BinaryMoment::bound(double margin)
+BitMoment::bound(double margin)
 {
   const double high = 1 - margin;
   const double low = margin;
@@ -144,7 +144,7 @@ BinaryMoment::bound(double margin)
 
 
 double
-BinaryMoment::distance(const BinaryMoment& p) const
+BitMoment::distance(const BitMoment& p) const
 {
   assert(p._moment.size() == _moment.size());
 
@@ -161,7 +161,7 @@ BinaryMoment::distance(const BinaryMoment& p) const
 
 
 double
-BinaryMoment::norm_2() const
+BitMoment::norm_2() const
 {
   double result = 0;
   for (size_t i = 0; i < _moment.size(); i++) {
