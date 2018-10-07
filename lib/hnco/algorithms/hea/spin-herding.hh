@@ -21,7 +21,7 @@
 #ifndef HNCO_ALGORITHMS_HEA_HERDING_SPIN_H
 #define HNCO_ALGORITHMS_HEA_HERDING_SPIN_H
 
-#include "moment-spin.hh"
+#include "spin-moment.hh"
 
 
 namespace hnco {

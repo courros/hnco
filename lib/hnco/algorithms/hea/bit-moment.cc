@@ -23,7 +23,7 @@
 #include "hnco/algorithms/matrix.hh"
 #include "hnco/util.hh"
 
-#include "moment-binary.hh"
+#include "bit-moment.hh"
 
 using namespace hnco::algorithm::hea;
 using namespace hnco::algorithm;

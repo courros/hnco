@@ -198,15 +198,14 @@ am__libhnco_la_SOURCES_DIST = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/fast-efficient-p3/src/Record.h \
 	hnco/algorithms/fast-efficient-p3/src/Util.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Util.h \
-	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
-	hnco/algorithms/hea/herding-binary.cc \
-	hnco/algorithms/hea/herding-binary.hh \
-	hnco/algorithms/hea/herding-spin.cc \
-	hnco/algorithms/hea/herding-spin.hh \
-	hnco/algorithms/hea/moment-binary.cc \
-	hnco/algorithms/hea/moment-binary.hh \
-	hnco/algorithms/hea/moment-spin.cc \
-	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.cc \
+	hnco/algorithms/hea/bit-herding.hh \
+	hnco/algorithms/hea/bit-moment.cc \
+	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
+	hnco/algorithms/hea/spin-herding.cc \
+	hnco/algorithms/hea/spin-herding.hh \
+	hnco/algorithms/hea/spin-moment.cc \
+	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/random-local-search.cc \
@@ -300,10 +299,10 @@ am_libhnco_la_OBJECTS = hnco/algorithms/algorithm.lo \
 	hnco/algorithms/fast-efficient-p3/src/Pyramid.lo \
 	hnco/algorithms/fast-efficient-p3/src/Record.lo \
 	hnco/algorithms/fast-efficient-p3/src/Util.lo \
-	hnco/algorithms/hea/herding-binary.lo \
-	hnco/algorithms/hea/herding-spin.lo \
-	hnco/algorithms/hea/moment-binary.lo \
-	hnco/algorithms/hea/moment-spin.lo \
+	hnco/algorithms/hea/bit-herding.lo \
+	hnco/algorithms/hea/bit-moment.lo \
+	hnco/algorithms/hea/spin-herding.lo \
+	hnco/algorithms/hea/spin-moment.lo \
 	hnco/algorithms/ls/first-ascent-hill-climbing.lo \
 	hnco/algorithms/ls/random-local-search.lo \
 	hnco/algorithms/ls/random-walk.lo \
@@ -425,11 +424,10 @@ am__nobase_include_HEADERS_DIST = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/fast-efficient-p3/src/Pyramid.h \
 	hnco/algorithms/fast-efficient-p3/src/Record.h \
 	hnco/algorithms/fast-efficient-p3/src/Util.h \
-	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
-	hnco/algorithms/hea/herding-binary.hh \
-	hnco/algorithms/hea/herding-spin.hh \
-	hnco/algorithms/hea/moment-binary.hh \
-	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
+	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
+	hnco/algorithms/hea/spin-herding.hh \
+	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/random-walk.hh \
@@ -669,15 +667,14 @@ libhnco_la_SOURCES = hnco/algorithms/algorithm.cc \
 	hnco/algorithms/fast-efficient-p3/src/Record.h \
 	hnco/algorithms/fast-efficient-p3/src/Util.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Util.h \
-	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
-	hnco/algorithms/hea/herding-binary.cc \
-	hnco/algorithms/hea/herding-binary.hh \
-	hnco/algorithms/hea/herding-spin.cc \
-	hnco/algorithms/hea/herding-spin.hh \
-	hnco/algorithms/hea/moment-binary.cc \
-	hnco/algorithms/hea/moment-binary.hh \
-	hnco/algorithms/hea/moment-spin.cc \
-	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.cc \
+	hnco/algorithms/hea/bit-herding.hh \
+	hnco/algorithms/hea/bit-moment.cc \
+	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
+	hnco/algorithms/hea/spin-herding.cc \
+	hnco/algorithms/hea/spin-herding.hh \
+	hnco/algorithms/hea/spin-moment.cc \
+	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/random-local-search.cc \
@@ -769,11 +766,10 @@ nobase_include_HEADERS = hnco/algorithms/algorithm.hh \
 	hnco/algorithms/fast-efficient-p3/src/Pyramid.h \
 	hnco/algorithms/fast-efficient-p3/src/Record.h \
 	hnco/algorithms/fast-efficient-p3/src/Util.h \
-	hnco/algorithms/hea/all.hh hnco/algorithms/hea/hea.hh \
-	hnco/algorithms/hea/herding-binary.hh \
-	hnco/algorithms/hea/herding-spin.hh \
-	hnco/algorithms/hea/moment-binary.hh \
-	hnco/algorithms/hea/moment-spin.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
+	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
+	hnco/algorithms/hea/spin-herding.hh \
+	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/random-walk.hh \
@@ -996,16 +992,16 @@ hnco/algorithms/hea/$(am__dirstamp):
 hnco/algorithms/hea/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/hea/$(DEPDIR)
 	@: > hnco/algorithms/hea/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/hea/herding-binary.lo:  \
+hnco/algorithms/hea/bit-herding.lo:  \
 	hnco/algorithms/hea/$(am__dirstamp) \
 	hnco/algorithms/hea/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/hea/herding-spin.lo:  \
+hnco/algorithms/hea/bit-moment.lo:  \
 	hnco/algorithms/hea/$(am__dirstamp) \
 	hnco/algorithms/hea/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/hea/moment-binary.lo:  \
+hnco/algorithms/hea/spin-herding.lo:  \
 	hnco/algorithms/hea/$(am__dirstamp) \
 	hnco/algorithms/hea/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/hea/moment-spin.lo:  \
+hnco/algorithms/hea/spin-moment.lo:  \
 	hnco/algorithms/hea/$(am__dirstamp) \
 	hnco/algorithms/hea/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/ls/$(am__dirstamp):
@@ -1226,10 +1222,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/Pyramid.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/Record.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/src/$(DEPDIR)/Util.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-binary.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/herding-spin.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/moment-binary.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/moment-spin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/bit-herding.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/bit-moment.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/spin-herding.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/spin-moment.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/first-ascent-hill-climbing.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/random-walk.Plo@am__quote@

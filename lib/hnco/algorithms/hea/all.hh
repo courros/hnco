@@ -21,10 +21,10 @@
 #ifndef HNCO_ALGORITHMS_HEA_ALL_H
 #define HNCO_ALGORITHMS_HEA_ALL_H
 
+#include "bit-herding.hh"
+#include "bit-moment.hh"
 #include "hea.hh"
-#include "herding-binary.hh"
-#include "herding-spin.hh"
-#include "moment-binary.hh"
-#include "moment-spin.hh"
+#include "spin-herding.hh"
+#include "spin-moment.hh"
 
 #endif

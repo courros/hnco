@@ -25,7 +25,7 @@
 #include <random>
 
 #include "hnco/bit-vector.hh"
-#include "hnco/algorithms/hea/moment-binary.hh"
+#include "hnco/algorithms/hea/bit-moment.hh"
 #include "hnco/algorithms/matrix.hh"
 
 

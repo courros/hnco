@@ -27,7 +27,7 @@
 #include "hnco/permutation.hh"
 #include "hnco/util.hh"
 
-#include "herding-spin.hh"
+#include "spin-herding.hh"
 
 
 using namespace hnco::algorithm::hea;

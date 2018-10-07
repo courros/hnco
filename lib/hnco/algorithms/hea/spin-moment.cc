@@ -23,7 +23,7 @@
 #include "hnco/algorithms/matrix.hh"
 #include "hnco/util.hh"
 
-#include "moment-spin.hh"
+#include "spin-moment.hh"
 
 using namespace hnco::algorithm::hea;
 

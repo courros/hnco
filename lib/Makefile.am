@@ -62,15 +62,15 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/fast-efficient-p3/src/Util.cpp \
 	hnco/algorithms/fast-efficient-p3/src/Util.h \
 	hnco/algorithms/hea/all.hh \
+	hnco/algorithms/hea/bit-herding.cc \
+	hnco/algorithms/hea/bit-herding.hh \
+	hnco/algorithms/hea/bit-moment.cc \
+	hnco/algorithms/hea/bit-moment.hh \
 	hnco/algorithms/hea/hea.hh \
-	hnco/algorithms/hea/herding-binary.cc \
-	hnco/algorithms/hea/herding-binary.hh \
-	hnco/algorithms/hea/herding-spin.cc \
-	hnco/algorithms/hea/herding-spin.hh \
-	hnco/algorithms/hea/moment-binary.cc \
-	hnco/algorithms/hea/moment-binary.hh \
-	hnco/algorithms/hea/moment-spin.cc \
-	hnco/algorithms/hea/moment-spin.hh \
+	hnco/algorithms/hea/spin-herding.cc \
+	hnco/algorithms/hea/spin-herding.hh \
+	hnco/algorithms/hea/spin-moment.cc \
+	hnco/algorithms/hea/spin-moment.hh \
 	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
@@ -213,11 +213,11 @@ nobase_include_HEADERS = \
 	hnco/algorithms/fast-efficient-p3/src/Record.h \
 	hnco/algorithms/fast-efficient-p3/src/Util.h \
 	hnco/algorithms/hea/all.hh \
+	hnco/algorithms/hea/bit-herding.hh \
+	hnco/algorithms/hea/bit-moment.hh \
 	hnco/algorithms/hea/hea.hh \
-	hnco/algorithms/hea/herding-binary.hh \
-	hnco/algorithms/hea/herding-spin.hh \
-	hnco/algorithms/hea/moment-binary.hh \
-	hnco/algorithms/hea/moment-spin.hh \
+	hnco/algorithms/hea/spin-herding.hh \
+	hnco/algorithms/hea/spin-moment.hh \
 	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/random-local-search.hh \

@@ -26,7 +26,7 @@
 #include "hnco/permutation.hh"
 #include "hnco/util.hh"
 
-#include "herding-binary.hh"
+#include "bit-herding.hh"
 
 
 using namespace hnco::algorithm::hea;
