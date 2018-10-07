@@ -21,12 +21,11 @@
 #ifndef HNCO_ALGORITHMS_HEA_HEA_H
 #define HNCO_ALGORITHMS_HEA_HEA_H
 
-#include <math.h>               // exp, sqrt
+#include <math.h>               // std::exp
 
 #include <bitset>
 
 #include "hnco/algorithms/algorithm.hh"
-#include "hnco/algorithms/matrix.hh"
 #include "hnco/algorithms/population.hh"
 #include "hnco/exception.hh"
 
