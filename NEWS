@@ -16,6 +16,12 @@ Library:
 - Added AbstractMaxSat
 - Added MaxNae3Sat
 - Functions square and logistic moved from namespace hnco::algorithm to hnco
+- SpinHerding: removed sample by means of neural network
+- SpinHerding, SpinMoment: use lower triangular matrices
+- Renamed BinaryHerding -> BitHerding
+- Renamed BinaryMoment -> BitMoment
+- BitMoment, SpinMoment: added member function display
+- HEA: added flag to log moment matrix
 
 Tests:
 - Added test-steepest-ascent-hill-climbing-local
@@ -27,11 +33,16 @@ Build:
 - Moved files hnco/algorithms/restart.* under hnco/algorithms/decorators/
 - Moved file hnco/algorithms/util.hh under hnco/
 - optgen.pl: added section folding in help messages
+- Renamed files moment-binary.* -> bit-moment.*
+- Renamed files herding-binary.* -> bit-herding.*
+- Renamed files moment-spin.* -> spin-moment.*
+- Renamed files herding-spin.* -> spin-herding.*
 
 hnco:
 - LabsMeritFactor renumbered 80 -> 81
 - cache_budget was an int parameter, now a flag
 - make_function_decorator: set new logic structure for budget and cache decorators
+- Added option --hea-log-moment-matrix
 
 Scripts:
 - Added hnco-autocorrelation-run.pl
