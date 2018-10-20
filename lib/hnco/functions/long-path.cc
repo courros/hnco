@@ -62,7 +62,7 @@ double
 LongPath::get_maximum()
 {
   if (has_known_maximum())
-    return _prefix_length * (1 << (_bv_size / _prefix_length)) - _prefix_length + 1;
+    return _prefix_length * std::pow(2, _bv_size / _prefix_length) - _prefix_length + 1;
   else
     throw exception::Error("Maximum cannot be computed exactly");
 }
@@ -131,9 +131,9 @@ LongPath::eval(const bit_vector_t& x)
   double index = compute_index(x.begin(), x.end(), _prefix_length);
   if (index < 0)
     return
-      -_bv_size *
-      std::accumulate(x.begin(), x.begin() + _prefix_length, 0.0) +
-      std::accumulate(x.begin() + _prefix_length, x.end(), 0.0);
+      -(_bv_size *
+        std::accumulate(x.begin(), x.begin() + _prefix_length, 0.0) +
+        std::accumulate(x.begin() + _prefix_length, x.end(), 0.0));
   else
     return index + 1;
 }
