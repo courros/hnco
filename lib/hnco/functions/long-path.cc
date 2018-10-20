@@ -51,7 +51,7 @@ LongPath::LongPath(int bv_size, int prefix_length):
 bool
 LongPath::has_known_maximum()
 {
-  if (std::log(_prefix_length) / std::log(2) + _bv_size / _prefix_length <= 52)
+  if (std::log(_prefix_length) / std::log(2) + _bv_size / _prefix_length <= 53)
     return true;
   else
     return false;
@@ -128,17 +128,12 @@ LongPath::eval(const bit_vector_t& x)
 {
   assert(x.size() == _bv_size);
 
-  double result = _bv_size * _bv_size;
   double index = compute_index(x.begin(), x.end(), _prefix_length);
-
-  if (index < 0) {
-    result -=
-      _bv_size *
+  if (index < 0)
+    return
+      -_bv_size *
       std::accumulate(x.begin(), x.begin() + _prefix_length, 0.0) +
       std::accumulate(x.begin() + _prefix_length, x.end(), 0.0);
-  } else {
-    result += index + 1;
-  }
-
-  return result;
+  else
+    return index + 1;
 }
