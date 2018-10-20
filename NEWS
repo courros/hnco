@@ -22,10 +22,12 @@ Library:
 - Renamed BinaryMoment -> BitMoment
 - BitMoment, SpinMoment: added member function display
 - HEA: added flag to log moment matrix
+- LongPath: override member functions has_known_maximum and get_maximum
 
 Tests:
 - Added test-steepest-ascent-hill-climbing-local
 - Added test-first-ascent-hill-climbing-local
+- Added test-complete-search-long-path
 
 Build:
 - Added directory hnco/algorithms/eda/
