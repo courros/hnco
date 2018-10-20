@@ -24,35 +24,42 @@
 
 #include "fast-efficient-p3/Configuration.h"
 #include "fast-efficient-p3/MiddleLayer.h"
-#include "fast-efficient-p3/HBOA.h"
+#include "fast-efficient-p3/LTGA.h"
 
-#include "hboa.hh"
+#include "ltga.hh"
 #include "hnco-evaluator.hh"
 
-using namespace hnco::algorithm::fast_efficient_p3;
+using namespace hnco::algorithm::eda;
 using namespace hnco::algorithm;
 using namespace hnco;
 
 
 void
-Hboa::maximize()
+Ltga::maximize()
 {
   Configuration configuration;
 
-  configuration.set("verbosity", 0);
-  configuration.set("solution_file", std::string("hboa-solution.txt"));
+  configuration.set("binary_insert", 1);
+  configuration.set("cluster_ordering", std::string("least_linked_first"));
   configuration.set("disable_solution_outfile", 1);
+  configuration.set("donate_until_different", 0);
+  configuration.set("hill_climber", std::string("no_action"));
+  configuration.set("keep_zeros", 0);
+  configuration.set("no_singles", 0);
+  configuration.set("precision", 65536);
+  configuration.set("restrict_cluster_size", 0);
+  configuration.set("solution_file", std::string("hboa-solution.txt"));
+  configuration.set("verbosity", 0);
 
   configuration.set("length", _solution.first.size());
   configuration.set("pop_size", _population_size);
-  configuration.set("hill_climber", std::string("no_action"));
 
   std::shared_ptr<HncoEvaluator> evaluator(new HncoEvaluator(_function));
   std::shared_ptr<Middle_Layer> middle_layer(new Middle_Layer(configuration, evaluator));
 
-  HBOA hboa(hnco::random::Random::engine, middle_layer, configuration);
+  LTGA ltga(hnco::random::Random::engine, middle_layer, configuration);
 
-  while (hboa.iterate()) {}
+  while (ltga.iterate()) {}
 
   bv_from_vector_bool(_solution.first, middle_layer->best_solution);
   _solution.second = middle_layer->best_fitness;

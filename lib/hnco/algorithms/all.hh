@@ -27,7 +27,6 @@
 #include "hnco/algorithms/decorators/all.hh"
 #include "hnco/algorithms/ea/all.hh"
 #include "hnco/algorithms/eda/all.hh"
-#include "hnco/algorithms/fast-efficient-p3/all.hh"
 #include "hnco/algorithms/hea/all.hh"
 #include "hnco/algorithms/ls/all.hh"
 #include "hnco/algorithms/pv/all.hh"

@@ -21,6 +21,9 @@
 #ifndef HNCO_ALGORITHMS_EDA_ALL_H
 #define HNCO_ALGORITHMS_EDA_ALL_H
 
+#include "hboa.hh"
+#include "ltga.hh"
 #include "mimic.hh"
+#include "p3.hh"
 
 #endif

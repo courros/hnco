@@ -29,7 +29,7 @@
 
 
 /// Algorithms from the FastEfficientP3 project
-namespace hnco::algorithm::fast_efficient_p3 {
+namespace hnco::algorithm::eda {
 
   /// Evaluator for HNCO functions
   class HncoEvaluator:
@@ -62,7 +62,7 @@ namespace hnco::algorithm::fast_efficient_p3 {
 
   };
 
-} // end of namespace hnco::algorithm::fast_efficient_p3
+} // end of namespace hnco::algorithm::eda
 
 
 #endif
