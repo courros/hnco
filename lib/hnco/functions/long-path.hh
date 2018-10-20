@@ -69,11 +69,24 @@ namespace function {
     /// Constructor
     LongPath(int bv_size, int prefix_length);
 
+    /// Evaluate a bit vector
+    double eval(const bit_vector_t&);
+
+    /** @name Information about the function
+     */
+    ///@{
+
     /// Get bit vector size
     size_t get_bv_size() { return _bv_size; }
 
-    /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    /// Check for a known maximum.
+    bool has_known_maximum();
+
+    /** Get the global maximum.
+        \throw Error */
+    double get_maximum();
+
+    ///@}
 
   };
 

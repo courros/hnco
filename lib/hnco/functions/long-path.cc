@@ -19,9 +19,9 @@
 */
 
 #include <assert.h>
-#include <math.h>
 
 #include <algorithm>            // std::all_of, std::find
+#include <cmath>                // std::log
 
 #include "hnco/exception.hh"
 
@@ -45,6 +45,26 @@ LongPath::LongPath(int bv_size, int prefix_length):
 
   if (_prefix_length < 2)
     throw Error("LongPath::LongPath: _prefix_length must be > 1");
+}
+
+
+bool
+LongPath::has_known_maximum()
+{
+  if (std::log(_prefix_length) / std::log(2) + _bv_size / _prefix_length <= 52)
+    return true;
+  else
+    return false;
+}
+
+
+double
+LongPath::get_maximum()
+{
+  if (has_known_maximum())
+    return _prefix_length * (1 << (_bv_size / _prefix_length)) - _prefix_length + 1;
+  else
+    throw exception::Error("Maximum cannot be computed exactly");
 }
 
 
