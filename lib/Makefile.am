@@ -3,6 +3,27 @@ AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
 lib_LTLIBRARIES = libhnco.la
 
 libhnco_la_SOURCES = \
+	fast-efficient-p3/Configuration.cpp \
+	fast-efficient-p3/Configuration.h \
+	fast-efficient-p3/Evaluation.cpp \
+	fast-efficient-p3/Evaluation.h \
+	fast-efficient-p3/HBOA.cpp \
+	fast-efficient-p3/HBOA.h \
+	fast-efficient-p3/HillCimb.cpp \
+	fast-efficient-p3/HillClimb.h \
+	fast-efficient-p3/LTGA.cpp \
+	fast-efficient-p3/LTGA.h \
+	fast-efficient-p3/MiddleLayer.cpp \
+	fast-efficient-p3/MiddleLayer.h \
+	fast-efficient-p3/Optimizer.h \
+	fast-efficient-p3/Population.cpp \
+	fast-efficient-p3/Population.h \
+	fast-efficient-p3/Pyramid.cpp \
+	fast-efficient-p3/Pyramid.h \
+	fast-efficient-p3/Record.cpp \
+	fast-efficient-p3/Record.h \
+	fast-efficient-p3/Util.cpp \
+	fast-efficient-p3/Util.h \
 	hnco/algorithms/algorithm.cc \
 	hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh \
@@ -40,27 +61,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.cc \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
-	hnco/algorithms/fast-efficient-p3/src/Configuration.cpp \
-	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
-	hnco/algorithms/fast-efficient-p3/src/Evaluation.cpp \
-	hnco/algorithms/fast-efficient-p3/src/Evaluation.h \
-	hnco/algorithms/fast-efficient-p3/src/HBOA.cpp \
-	hnco/algorithms/fast-efficient-p3/src/HBOA.h \
-	hnco/algorithms/fast-efficient-p3/src/HillCimb.cpp \
-	hnco/algorithms/fast-efficient-p3/src/HillClimb.h \
-	hnco/algorithms/fast-efficient-p3/src/LTGA.cpp \
-	hnco/algorithms/fast-efficient-p3/src/LTGA.h \
-	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.cpp \
-	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.h \
-	hnco/algorithms/fast-efficient-p3/src/Optimizer.h \
-	hnco/algorithms/fast-efficient-p3/src/Population.cpp \
-	hnco/algorithms/fast-efficient-p3/src/Population.h \
-	hnco/algorithms/fast-efficient-p3/src/Pyramid.cpp \
-	hnco/algorithms/fast-efficient-p3/src/Pyramid.h \
-	hnco/algorithms/fast-efficient-p3/src/Record.cpp \
-	hnco/algorithms/fast-efficient-p3/src/Record.h \
-	hnco/algorithms/fast-efficient-p3/src/Util.cpp \
-	hnco/algorithms/fast-efficient-p3/src/Util.h \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/bit-herding.cc \
 	hnco/algorithms/hea/bit-herding.hh \
@@ -180,6 +180,17 @@ libhnco_la_SOURCES += \
 endif
 
 nobase_include_HEADERS = \
+	fast-efficient-p3/Configuration.h \
+	fast-efficient-p3/Evaluation.h \
+	fast-efficient-p3/HBOA.h \
+	fast-efficient-p3/HillClimb.h \
+	fast-efficient-p3/LTGA.h \
+	fast-efficient-p3/MiddleLayer.h \
+	fast-efficient-p3/Optimizer.h \
+	fast-efficient-p3/Population.h \
+	fast-efficient-p3/Pyramid.h \
+	fast-efficient-p3/Record.h \
+	fast-efficient-p3/Util.h \
 	hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh \
 	hnco/algorithms/bm-pbil/bm-pbil.hh \
@@ -201,17 +212,6 @@ nobase_include_HEADERS = \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
-	hnco/algorithms/fast-efficient-p3/src/Configuration.h \
-	hnco/algorithms/fast-efficient-p3/src/Evaluation.h \
-	hnco/algorithms/fast-efficient-p3/src/HBOA.h \
-	hnco/algorithms/fast-efficient-p3/src/HillClimb.h \
-	hnco/algorithms/fast-efficient-p3/src/LTGA.h \
-	hnco/algorithms/fast-efficient-p3/src/MiddleLayer.h \
-	hnco/algorithms/fast-efficient-p3/src/Optimizer.h \
-	hnco/algorithms/fast-efficient-p3/src/Population.h \
-	hnco/algorithms/fast-efficient-p3/src/Pyramid.h \
-	hnco/algorithms/fast-efficient-p3/src/Record.h \
-	hnco/algorithms/fast-efficient-p3/src/Util.h \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh \
@@ -279,7 +279,7 @@ if ENABLE_PLUGIN
 nobase_include_HEADERS += hnco/functions/plugin.hh
 endif
 
-EXTRA_DIST = hnco/algorithms/fast-efficient-p3/src/LICENSE.txt
+EXTRA_DIST = fast-efficient-p3/LICENSE.txt
 
 #
 # Code management

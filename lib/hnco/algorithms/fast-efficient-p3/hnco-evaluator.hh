@@ -25,7 +25,7 @@
 
 #include "hnco/functions/function.hh"
 
-#include "src/Evaluation.h"
+#include "fast-efficient-p3/Evaluation.h"
 
 
 /// Algorithms from the FastEfficientP3 project

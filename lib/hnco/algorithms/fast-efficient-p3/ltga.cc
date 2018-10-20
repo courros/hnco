@@ -22,12 +22,12 @@
 
 #include "hnco/random.hh"
 
+#include "fast-efficient-p3/Configuration.h"
+#include "fast-efficient-p3/MiddleLayer.h"
+#include "fast-efficient-p3/LTGA.h"
+
 #include "ltga.hh"
 #include "hnco-evaluator.hh"
-
-#include "src/Configuration.h"
-#include "src/MiddleLayer.h"
-#include "src/LTGA.h"
 
 using namespace hnco::algorithm::fast_efficient_p3;
 using namespace hnco::algorithm;
