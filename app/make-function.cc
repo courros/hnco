@@ -444,7 +444,7 @@ make_prior_noise_neighborhood(const Options& options)
 
 
 Function *
-make_function_modifier(Function *function, const Options& options)
+make_function_modifier(Function *function, Options& options)
 {
   assert(function);
 
@@ -461,7 +461,11 @@ make_function_modifier(Function *function, const Options& options)
     std::cerr << "Warning: make_function_modifier: After composition by a map, bv_size changed from "
               << bv_size << " to "
               << function->get_bv_size() << std::endl;
+    options.set_bv_size(function->get_bv_size());
   }
+
+  if (options.get_bv_size() <= 0)
+    throw Error("make_function_modifier: bv_size must be positive");
 
   // Prior noise
   if (options.with_prior_noise()) {
@@ -538,6 +542,9 @@ make_function(Options& options)
 {
   const int bv_size = options.get_bv_size();
 
+  if (options.get_bv_size() <= 0)
+    throw Error("make_function: bv_size must be positive");
+
   Function *function = make_concrete_function(options);
   assert(function);
 
@@ -545,15 +552,15 @@ make_function(Options& options)
     std::cerr << "Warning: make_function: After make_concrete_function, bv_size changed from "
               << bv_size << " to "
               << function->get_bv_size() << std::endl;
+    options.set_bv_size(function->get_bv_size());
   }
+
+  if (options.get_bv_size() <= 0)
+    throw Error("make_function: bv_size must be positive");
 
   function = make_function_modifier(function, options);
   function = make_function_controller(function, options);
   assert(function);
-
-  options.set_bv_size(function->get_bv_size());
-  if (options.get_bv_size() <= 0)
-    throw Error("make_function: bv_size must be positive");
 
   return function;
 }
