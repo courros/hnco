@@ -128,7 +128,7 @@ Factorization::describe(const bit_vector_t& x, std::ostream& stream)
   convert(x);
   mpz_mul(_product, _first_factor, _second_factor);
   stream << "Found " << _first_factor << " (a) x " << _second_factor << " (b) = " << _product
-         << " (p), expected " << _number << " (n)" << std::endl;
+         << " (c), expected " << _number << " (n)" << std::endl;
 
   mpz_class first_factor(_first_factor);
   std::string first_factor_str = first_factor.get_str(2);
@@ -140,7 +140,7 @@ Factorization::describe(const bit_vector_t& x, std::ostream& stream)
 
   mpz_class product(_product);
   std::string product_str = product.get_str(2);
-  stream << "p = " << std::setw(_bv_size) << product_str << std::endl;
+  stream << "c = " << std::setw(_bv_size) << product_str << std::endl;
 
   mpz_class number(_number);
   std::string number_str = number.get_str(2);
