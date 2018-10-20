@@ -52,9 +52,9 @@ Scripts:
 Experiments:
 - Added experiment autocorrelation
 - autocorrelation, walsh-transforms: use Labs instead of LabsMeritFactor
-- benchmark, ecdf: added field budget
+- benchmark, ecdf: added field budget in plan.json
 - benchmark, ecdf: removed -b option in plan.json
-- benchmark, ecdf: removed fields results, graphics, and report
+- benchmark, ecdf: removed fields results, graphics, and report in plan.json
 - hnco-benchmark-run.pl: sets hnco option budget
 - hnco-benchmark-run.pl: hardcoded paths for results, graphics, and report
 - hnco-ecdf-stat.pl: added last plateau and new key in main ecdf graphics
