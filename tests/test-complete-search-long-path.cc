@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 {
   Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  std::uniform_int_distribution<int> prefix_length_dist(2, 20);
+  std::uniform_int_distribution<int> prefix_length_dist(2, 4);
   std::uniform_int_distribution<int> divisor_dist(2, 5);
 
   for (int i = 0; i < 10; i++) {
