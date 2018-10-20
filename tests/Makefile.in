@@ -97,6 +97,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-complete-search-hiff$(EXEEXT) \
 	test-complete-search-jump$(EXEEXT) \
 	test-complete-search-leading-ones$(EXEEXT) \
+	test-complete-search-long-path$(EXEEXT) \
 	test-complete-search-needle$(EXEEXT) \
 	test-complete-search-one-max$(EXEEXT) \
 	test-complete-search-plateau$(EXEEXT) \
@@ -213,6 +214,12 @@ test_complete_search_leading_ones_OBJECTS =  \
 	$(am_test_complete_search_leading_ones_OBJECTS)
 test_complete_search_leading_ones_LDADD = $(LDADD)
 test_complete_search_leading_ones_DEPENDENCIES = ../lib/libhnco.la
+am_test_complete_search_long_path_OBJECTS =  \
+	test-complete-search-long-path.$(OBJEXT)
+test_complete_search_long_path_OBJECTS =  \
+	$(am_test_complete_search_long_path_OBJECTS)
+test_complete_search_long_path_LDADD = $(LDADD)
+test_complete_search_long_path_DEPENDENCIES = ../lib/libhnco.la
 am_test_complete_search_needle_OBJECTS =  \
 	test-complete-search-needle.$(OBJEXT)
 test_complete_search_needle_OBJECTS =  \
@@ -433,6 +440,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-complete-search-hiff.Po \
 	./$(DEPDIR)/test-complete-search-jump.Po \
 	./$(DEPDIR)/test-complete-search-leading-ones.Po \
+	./$(DEPDIR)/test-complete-search-long-path.Po \
 	./$(DEPDIR)/test-complete-search-needle.Po \
 	./$(DEPDIR)/test-complete-search-one-max.Po \
 	./$(DEPDIR)/test-complete-search-plateau.Po \
@@ -495,6 +503,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_hiff_SOURCES) \
 	$(test_complete_search_jump_SOURCES) \
 	$(test_complete_search_leading_ones_SOURCES) \
+	$(test_complete_search_long_path_SOURCES) \
 	$(test_complete_search_needle_SOURCES) \
 	$(test_complete_search_one_max_SOURCES) \
 	$(test_complete_search_plateau_SOURCES) \
@@ -538,6 +547,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_hiff_SOURCES) \
 	$(test_complete_search_jump_SOURCES) \
 	$(test_complete_search_leading_ones_SOURCES) \
+	$(test_complete_search_long_path_SOURCES) \
 	$(test_complete_search_needle_SOURCES) \
 	$(test_complete_search_one_max_SOURCES) \
 	$(test_complete_search_plateau_SOURCES) \
@@ -945,6 +955,7 @@ test_complete_search_four_peaks_SOURCES = test-complete-search-four-peaks.cc
 test_complete_search_hiff_SOURCES = test-complete-search-hiff.cc
 test_complete_search_jump_SOURCES = test-complete-search-jump.cc
 test_complete_search_leading_ones_SOURCES = test-complete-search-leading-ones.cc
+test_complete_search_long_path_SOURCES = test-complete-search-long-path.cc
 test_complete_search_needle_SOURCES = test-complete-search-needle.cc
 test_complete_search_one_max_SOURCES = test-complete-search-one-max.cc
 test_complete_search_plateau_SOURCES = test-complete-search-plateau.cc
@@ -1091,6 +1102,10 @@ test-complete-search-jump$(EXEEXT): $(test_complete_search_jump_OBJECTS) $(test_
 test-complete-search-leading-ones$(EXEEXT): $(test_complete_search_leading_ones_OBJECTS) $(test_complete_search_leading_ones_DEPENDENCIES) $(EXTRA_test_complete_search_leading_ones_DEPENDENCIES) 
 	@rm -f test-complete-search-leading-ones$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_leading_ones_OBJECTS) $(test_complete_search_leading_ones_LDADD) $(LIBS)
+
+test-complete-search-long-path$(EXEEXT): $(test_complete_search_long_path_OBJECTS) $(test_complete_search_long_path_DEPENDENCIES) $(EXTRA_test_complete_search_long_path_DEPENDENCIES) 
+	@rm -f test-complete-search-long-path$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_long_path_OBJECTS) $(test_complete_search_long_path_LDADD) $(LIBS)
 
 test-complete-search-needle$(EXEEXT): $(test_complete_search_needle_OBJECTS) $(test_complete_search_needle_DEPENDENCIES) $(EXTRA_test_complete_search_needle_DEPENDENCIES) 
 	@rm -f test-complete-search-needle$(EXEEXT)
@@ -1244,6 +1259,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-hiff.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-jump.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-leading-ones.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-long-path.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-needle.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-one-max.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-plateau.Po@am__quote@ # am--include-marker
@@ -1605,6 +1621,13 @@ test-complete-search-leading-ones.log: test-complete-search-leading-ones$(EXEEXT
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-complete-search-long-path.log: test-complete-search-long-path$(EXEEXT)
+	@p='test-complete-search-long-path$(EXEEXT)'; \
+	b='test-complete-search-long-path'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-complete-search-needle.log: test-complete-search-needle$(EXEEXT)
 	@p='test-complete-search-needle$(EXEEXT)'; \
 	b='test-complete-search-needle'; \
@@ -1944,6 +1967,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-complete-search-hiff.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-jump.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-leading-ones.Po
+	-rm -f ./$(DEPDIR)/test-complete-search-long-path.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-needle.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-one-max.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-plateau.Po
@@ -2036,6 +2060,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-complete-search-hiff.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-jump.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-leading-ones.Po
+	-rm -f ./$(DEPDIR)/test-complete-search-long-path.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-needle.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-one-max.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-plateau.Po

@@ -13,6 +13,7 @@ check_PROGRAMS = \
 	test-complete-search-hiff \
 	test-complete-search-jump \
 	test-complete-search-leading-ones \
+	test-complete-search-long-path \
 	test-complete-search-needle \
 	test-complete-search-one-max \
 	test-complete-search-plateau \
@@ -67,6 +68,7 @@ test_complete_search_four_peaks_SOURCES = test-complete-search-four-peaks.cc
 test_complete_search_hiff_SOURCES = test-complete-search-hiff.cc
 test_complete_search_jump_SOURCES = test-complete-search-jump.cc
 test_complete_search_leading_ones_SOURCES = test-complete-search-leading-ones.cc
+test_complete_search_long_path_SOURCES = test-complete-search-long-path.cc
 test_complete_search_needle_SOURCES = test-complete-search-needle.cc
 test_complete_search_one_max_SOURCES = test-complete-search-one-max.cc
 test_complete_search_plateau_SOURCES = test-complete-search-plateau.cc
