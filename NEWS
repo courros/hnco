@@ -23,6 +23,7 @@ Library:
 - BitMoment, SpinMoment: added member function display
 - HEA: added flag to log moment matrix
 - LongPath: override member functions has_known_maximum and get_maximum
+- Merged namespace hnco::algorithm::fast_efficient_p3 into hnco::algorithm::eda
 
 Tests:
 - Added test-steepest-ascent-hill-climbing-local
