@@ -30,13 +30,15 @@ Tests:
 Build:
 - Added directory hnco/algorithms/eda/
 - Renamed directory hnco/src/ -> hnco/app/
-- Moved files hnco/algorithms/restart.* under hnco/algorithms/decorators/
-- Moved file hnco/algorithms/util.hh under hnco/
+- Moved files hnco/algorithms/restart.* to hnco/algorithms/decorators/
+- Moved file hnco/algorithms/util.hh to hnco/
 - optgen.pl: added section folding in help messages
 - Renamed files moment-binary.* -> bit-moment.*
 - Renamed files herding-binary.* -> bit-herding.*
 - Renamed files moment-spin.* -> spin-moment.*
 - Renamed files herding-spin.* -> spin-herding.*
+- Renamed directory hnco/algorithms/fast-efficient-p3/src/ -> fast-efficient-p3/
+- Moved files in hnco/algorithms/fast-efficient-p3/ to hnco/algorithms/eda/
 
 hnco:
 - LabsMeritFactor renumbered 80 -> 81
