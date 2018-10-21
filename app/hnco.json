@@ -115,6 +115,12 @@
             "section": "gen"
         },
 
+        "print_lookup_ratio":
+        {
+            "description": "At the end, print the cache lookup ratio",
+            "section": "gen"
+        },
+
         "describe_solution":
         {
             "description": "At the end, describe the solution",

@@ -306,6 +306,9 @@ class Options {
   /// At the beginning, print the header
   bool _print_header;
 
+  /// At the end, print the cache lookup ratio
+  bool _print_lookup_ratio;
+
   /// At the end, print performance (maximum and number of evaluations needed to reach it)
   bool _print_performance;
 
@@ -1144,6 +1147,12 @@ public:
 
   /// Set print_header
   void set_print_header() { _print_header = true; }
+ 
+  /// Get print_lookup_ratio
+  bool with_print_lookup_ratio() const { return _print_lookup_ratio; }
+
+  /// Set print_lookup_ratio
+  void set_print_lookup_ratio() { _print_lookup_ratio = true; }
  
   /// Get print_performance
   bool with_print_performance() const { return _print_performance; }

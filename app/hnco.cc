@@ -281,6 +281,15 @@ int main(int argc, char *argv[])
     tracker->describe(solution.first, std::cout);
   }
 
+  // Print lookup ratio
+  if (options.with_print_lookup_ratio()) {
+    hnco::function::Cache *cache = function_factory.get_cache();
+    if (cache)
+      std::cout << cache->get_lookup_ratio() << std::endl;
+    else
+      std::cerr << "Warning: no cache to get lookup ratio" << std::endl;
+  }
+
   if (options.with_stop_on_maximum() && !maximum_reached)
     return 2;
 

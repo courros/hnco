@@ -140,6 +140,7 @@ Options::Options(int argc, char *argv[]):
   _print_concrete_solution(false),
   _print_defaults(false),
   _print_header(false),
+  _print_lookup_ratio(false),
   _print_performance(false),
   _print_solution(false),
   _prior_noise(false),
@@ -239,6 +240,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_PRINT_CONCRETE_SOLUTION,
     OPTION_PRINT_DEFAULTS,
     OPTION_PRINT_HEADER,
+    OPTION_PRINT_LOOKUP_RATIO,
     OPTION_PRINT_PERFORMANCE,
     OPTION_PRINT_SOLUTION,
     OPTION_PRIOR_NOISE,
@@ -332,6 +334,7 @@ Options::Options(int argc, char *argv[]):
     {"print-concrete-solution", no_argument, 0, OPTION_PRINT_CONCRETE_SOLUTION},
     {"print-defaults", no_argument, 0, OPTION_PRINT_DEFAULTS},
     {"print-header", no_argument, 0, OPTION_PRINT_HEADER},
+    {"print-lookup-ratio", no_argument, 0, OPTION_PRINT_LOOKUP_RATIO},
     {"print-performance", no_argument, 0, OPTION_PRINT_PERFORMANCE},
     {"print-solution", no_argument, 0, OPTION_PRINT_SOLUTION},
     {"prior-noise", no_argument, 0, OPTION_PRIOR_NOISE},
@@ -693,6 +696,10 @@ Options::Options(int argc, char *argv[]):
       _print_header = true;
       break;
 
+    case OPTION_PRINT_LOOKUP_RATIO:
+      _print_lookup_ratio = true;
+      break;
+
     case OPTION_PRINT_PERFORMANCE:
       _print_performance = true;
       break;
@@ -779,6 +786,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Print the default parameters and exit" << endl;
   stream << "      --print-header" << endl;
   stream << "          At the beginning, print the header" << endl;
+  stream << "      --print-lookup-ratio" << endl;
+  stream << "          At the end, print the cache lookup ratio" << endl;
   stream << "      --print-performance" << endl;
   stream << "          At the end, print performance (maximum and number of evaluations needed to reach it)" << endl;
   stream << "      --print-solution" << endl;
@@ -1209,6 +1218,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# print_defaults" << endl;
   if (options._print_header)
     stream << "# print_header" << endl;
+  if (options._print_lookup_ratio)
+    stream << "# print_lookup_ratio" << endl;
   if (options._print_performance)
     stream << "# print_performance" << endl;
   if (options._print_solution)
