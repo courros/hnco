@@ -1,5 +1,5 @@
 # Prelude.
-AC_INIT([hnco], [0.10])
+AC_INIT([hnco], [0.11])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([app/hnco.cc])
 
