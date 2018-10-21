@@ -32,9 +32,10 @@ namespace algorithm {
 
   /** (1+1) EA.
 
-      (1+1) EA is implemented as a RandomLocalSearch with a BernoulliProcess
-      neighborhood and infinite patience. Thus it does derive from
-      IterativeAlgorithm.
+      (1+1) EA is implemented as a RandomLocalSearch with a
+      BernoulliProcess neighborhood and infinite patience. Thus it
+      does derive from IterativeAlgorithm. It should be noted that
+      member Algorithm::_solution is not used by OnePlusOneEa.
 
       Reference:
 
@@ -99,10 +100,10 @@ namespace algorithm {
     }
 
     /// Maximize
-    void maximize() {
-      _rls.maximize();
-      _solution = _rls.get_solution();
-    }
+    void maximize() { _rls.maximize(); }
+
+    /// Solution
+    const point_value_t& get_solution() { return _rls.get_solution(); }
 
     /** @name Setters
      */
