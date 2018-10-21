@@ -33,12 +33,12 @@ using namespace hnco;
 
 
 template<class T>
-void load_function(T *fn, const Options& options)
+void load_function_from_boost_archive(T *fn, const Options& options)
 {
   std::ifstream ifs(options.get_path());
   if (!ifs.good()) {
     std::ostringstream stream;
-    stream << "load_function: Cannot open " << options.get_map_path();
+    stream << "load_function_from_boost_archive: Cannot open " << options.get_map_path();
     throw Error(stream.str());
   }
   try {
@@ -48,6 +48,19 @@ void load_function(T *fn, const Options& options)
   catch (boost::archive::archive_exception& e) {
     throw Error(e.what());
   }
+}
+
+
+template<class T>
+void load_function_from_file(T *fn, const Options& options)
+{
+  std::ifstream ifs(options.get_path());
+  if (!ifs.good()) {
+    std::ostringstream stream;
+    stream << "load_function_from_file: Cannot open " << options.get_path();
+    throw Error(stream.str());
+  }
+  fn->load(ifs);
 }
 
 
@@ -65,7 +78,7 @@ make_concrete_function(const Options& options)
 
   case 1: {
     LinearFunction* function = new LinearFunction;
-    load_function<LinearFunction>(function, options);
+    load_function_from_boost_archive<LinearFunction>(function, options);
     return function;
   }
 
@@ -102,44 +115,26 @@ make_concrete_function(const Options& options)
        options.get_fn_threshold());
 
   case 50: {
-    std::ifstream ifs(options.get_path());
-    if (!ifs.good()) {
-      std::ostringstream stream;
-      stream << "make_concrete_function (Qubo): Cannot open " << options.get_path();
-      throw Error(stream.str());
-    }
     Qubo* function = new Qubo;
-    function->load(ifs);
+    load_function_from_file<Qubo>(function, options);
     return function;
   }
 
   case 60: {
     NkLandscape* function = new NkLandscape;
-    load_function<NkLandscape>(function, options);
+    load_function_from_boost_archive<NkLandscape>(function, options);
     return function;
   }
 
   case 70: {
-    std::ifstream ifs(options.get_path());
-    if (!ifs.good()) {
-      std::ostringstream stream;
-      stream << "make_concrete_function (MaxSat): Cannot open " << options.get_path();
-      throw Error(stream.str());
-    }
     MaxSat *function = new MaxSat;
-    function->load(ifs);
+    load_function_from_file<MaxSat>(function, options);
     return function;
   }
 
   case 71: {
-    std::ifstream ifs(options.get_path());
-    if (!ifs.good()) {
-      std::ostringstream stream;
-      stream << "make_concrete_function (MaxNae3Sat): Cannot open " << options.get_path();
-      throw Error(stream.str());
-    }
     MaxNae3Sat *function = new MaxNae3Sat;
-    function->load(ifs);
+    load_function_from_file<MaxNae3Sat>(function, options);
     return function;
   }
 
@@ -153,7 +148,7 @@ make_concrete_function(const Options& options)
 
   case 90: {
     EqualProducts* function = new EqualProducts;
-    load_function<EqualProducts>(function, options);
+    load_function_from_boost_archive<EqualProducts>(function, options);
     return function;
   }
 
@@ -191,19 +186,19 @@ make_concrete_function(const Options& options)
 
   case 160: {
     WalshExpansion* function = new WalshExpansion;
-    load_function<WalshExpansion>(function, options);
+    load_function_from_boost_archive<WalshExpansion>(function, options);
     return function;
   }
 
   case 161: {
     WalshExpansion1* function = new WalshExpansion1;
-    load_function<WalshExpansion1>(function, options);
+    load_function_from_boost_archive<WalshExpansion1>(function, options);
     return function;
   }
 
   case 162: {
     WalshExpansion2* function = new WalshExpansion2;
-    load_function<WalshExpansion2>(function, options);
+    load_function_from_boost_archive<WalshExpansion2>(function, options);
     return function;
   }
 
