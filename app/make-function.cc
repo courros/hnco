@@ -277,10 +277,30 @@ make_concrete_function(const Options& options)
 }
 
 
+template<class T>
+void load_single_map(T *map, const Options& options)
+{
+  std::ifstream ifs(options.get_map_path());
+  if (!ifs.good()) {
+    std::ostringstream stream;
+    stream << "load_single_map: Cannot open " << options.get_map_path();
+    throw Error(stream.str());
+  }
+  try {
+    boost::archive::text_iarchive archive(ifs);
+    archive >> (*map);
+  }
+  catch (boost::archive::archive_exception& e) {
+    throw Error(e.what());
+  }
+}
+
+
 Map *
 make_map(const Options& options)
 {
   assert(options.get_map() > 0);
+  assert(options.get_bv_size() > 0);
 
   switch(options.get_map()) {
 
@@ -288,21 +308,8 @@ make_map(const Options& options)
     Translation *map = new Translation;
     if (options.with_map_random()) {
       map->random(options.get_bv_size());
-    } else {
-      std::ifstream ifs(options.get_map_path());
-      if (!ifs.good()) {
-        std::ostringstream stream;
-        stream << "make_map (Translation): Cannot open " << options.get_map_path();
-        throw Error(stream.str());
-      }
-      try {
-        boost::archive::text_iarchive ia(ifs);
-        ia >> (*map);
-      }
-      catch (boost::archive::archive_exception& e) {
-        throw Error(e.what());
-      }
-    }
+    } else
+      load_single_map<Translation>(map, options);
     return map;
   }
 
@@ -310,21 +317,8 @@ make_map(const Options& options)
     Permutation *map = new Permutation;
     if (options.with_map_random()) {
       map->random(options.get_bv_size());
-    } else {
-      std::ifstream ifs(options.get_map_path());
-      if (!ifs.good()) {
-        std::ostringstream stream;
-        stream << "make_map (Permutation): Cannot open " << options.get_map_path();
-        throw Error(stream.str());
-      }
-      try {
-        boost::archive::text_iarchive ia(ifs);
-        ia >> (*map);
-      }
-      catch (boost::archive::archive_exception& e) {
-        throw Error(e.what());
-      }
-    }
+    } else
+      load_single_map<Permutation>(map, options);
     return map;
   }
 
@@ -355,44 +349,22 @@ make_map(const Options& options)
   case 4: {
     LinearMap *map = new LinearMap;
     if (options.with_map_random()) {
+      if (options.get_map_input_size() <= 0)
+        throw Error("make_map: map_input_size must be positive");
       map->random(options.get_bv_size(), options.get_map_input_size(), options.with_map_surjective());
-    } else {
-      std::ifstream ifs(options.get_map_path());
-      if (!ifs.good()) {
-        std::ostringstream stream;
-        stream << "make_map (LinearMap): Cannot open " << options.get_map_path();
-        throw Error(stream.str());
-      }
-      try {
-        boost::archive::text_iarchive ia(ifs);
-        ia >> (*map);
-      }
-      catch (boost::archive::archive_exception& e) {
-        throw Error(e.what());
-      }
-    }
+    } else
+      load_single_map<LinearMap>(map, options);
     return map;
   }
 
   case 5: {
     AffineMap *map = new AffineMap;
     if (options.with_map_random()) {
+      if (options.get_map_input_size() <= 0)
+        throw Error("make_map: map_input_size must be positive");
       map->random(options.get_bv_size(), options.get_map_input_size(), options.with_map_surjective());
-    } else {
-      std::ifstream ifs(options.get_map_path());
-      if (!ifs.good()) {
-        std::ostringstream stream;
-        stream << "make_map (AffineMap): Cannot open " << options.get_map_path();
-        throw Error(stream.str());
-      }
-      try {
-        boost::archive::text_iarchive ia(ifs);
-        ia >> (*map);
-      }
-      catch (boost::archive::archive_exception& e) {
-        throw Error(e.what());
-      }
-    }
+    } else
+      load_single_map<AffineMap>(map, options);
     return map;
   }
 
@@ -444,27 +416,15 @@ make_prior_noise_neighborhood(const Options& options)
 
 
 Function *
-FunctionFactory::make_function_modifier(Function *function, Options& options)
+FunctionFactory::make_function_modifier(Function *function, const Options& options)
 {
   assert(function);
-
-  const size_t bv_size = function->get_bv_size();
 
   // Map
   if (options.get_map() > 0) {
     _map = make_map(options);
     function = new FunctionMapComposition(function, _map);
   }
-
-  if (function->get_bv_size() != bv_size) {
-    std::cerr << "Warning: make_function_modifier: After composition by a map, bv_size changed from "
-              << bv_size << " to "
-              << function->get_bv_size() << std::endl;
-    options.set_bv_size(function->get_bv_size());
-  }
-
-  if (options.get_bv_size() <= 0)
-    throw Error("make_function_modifier: bv_size must be positive");
 
   // Prior noise
   if (options.with_prior_noise()) {
@@ -547,7 +507,6 @@ FunctionFactory::make_function(Options& options)
     throw Error("make_function: bv_size must be positive");
 
   Function *function = make_concrete_function(options);
-  assert(function);
 
   if (int(function->get_bv_size()) != bv_size) {
     std::cerr << "Warning: make_function: After make_concrete_function, bv_size changed from "
@@ -555,13 +514,10 @@ FunctionFactory::make_function(Options& options)
               << function->get_bv_size() << std::endl;
     options.set_bv_size(function->get_bv_size());
   }
-
-  if (options.get_bv_size() <= 0)
-    throw Error("make_function: bv_size must be positive");
+  assert(options.get_bv_size() > 0);
 
   function = make_function_modifier(function, options);
   function = make_function_controller(function, options);
-  assert(function);
 
   return function;
 }
