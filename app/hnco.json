@@ -109,6 +109,12 @@
             "section": "gen"
         },
 
+        "print_concrete_solution":
+        {
+            "description": "At the end, print the solution in the domain of the concrete function",
+            "section": "gen"
+        },
+
         "describe_solution":
         {
             "description": "At the end, describe the solution",

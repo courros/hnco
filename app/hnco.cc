@@ -215,15 +215,14 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  // Solution
+  //
+  // Maximize
+  //
+
   point_value_t solution;
 
   bool maximum_reached = false;
   bool target_reached = false;
-
-  //
-  // Maximize
-  //
 
   try {
     algorithm->maximize();
@@ -261,6 +260,19 @@ int main(int argc, char *argv[])
   // Print solution
   if (options.with_print_solution()) {
     bv_display(solution.first, std::cout);
+    std::cout << std::endl;
+  }
+
+  // Print concrete solution
+  if (options.with_print_concrete_solution()) {
+    hnco::Map *map = function_factory.get_map();
+    if (map) {
+      bit_vector_t concrete_solution(map->get_output_size());
+      map->map(solution.first, concrete_solution);
+      bv_display(concrete_solution, std::cout);
+    } else {
+      bv_display(solution.first, std::cout);
+    }
     std::cout << std::endl;
   }
 

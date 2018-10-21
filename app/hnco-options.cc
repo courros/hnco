@@ -137,6 +137,7 @@ Options::Options(int argc, char *argv[]):
   _mmas_strict(false),
   _negation(false),
   _pn_allow_stay(false),
+  _print_concrete_solution(false),
   _print_defaults(false),
   _print_header(false),
   _print_performance(false),
@@ -235,6 +236,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_MMAS_STRICT,
     OPTION_NEGATION,
     OPTION_PN_ALLOW_STAY,
+    OPTION_PRINT_CONCRETE_SOLUTION,
     OPTION_PRINT_DEFAULTS,
     OPTION_PRINT_HEADER,
     OPTION_PRINT_PERFORMANCE,
@@ -327,6 +329,7 @@ Options::Options(int argc, char *argv[]):
     {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
     {"negation", no_argument, 0, OPTION_NEGATION},
     {"pn-allow-stay", no_argument, 0, OPTION_PN_ALLOW_STAY},
+    {"print-concrete-solution", no_argument, 0, OPTION_PRINT_CONCRETE_SOLUTION},
     {"print-defaults", no_argument, 0, OPTION_PRINT_DEFAULTS},
     {"print-header", no_argument, 0, OPTION_PRINT_HEADER},
     {"print-performance", no_argument, 0, OPTION_PRINT_PERFORMANCE},
@@ -678,6 +681,10 @@ Options::Options(int argc, char *argv[]):
       _pn_allow_stay = true;
       break;
 
+    case OPTION_PRINT_CONCRETE_SOLUTION:
+      _print_concrete_solution = true;
+      break;
+
     case OPTION_PRINT_DEFAULTS:
       _print_defaults = true;
       break;
@@ -766,6 +773,8 @@ void Options::print_help(ostream& stream) const
   stream << "          At the end, describe the solution" << endl;
   stream << "      --num-threads (type int, default to 1)" << endl;
   stream << "          Number of threads" << endl;
+  stream << "      --print-concrete-solution" << endl;
+  stream << "          At the end, print the solution in the domain of the concrete function" << endl;
   stream << "      --print-defaults" << endl;
   stream << "          Print the default parameters and exit" << endl;
   stream << "      --print-header" << endl;
@@ -1194,6 +1203,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# negation" << endl;
   if (options._pn_allow_stay)
     stream << "# pn_allow_stay" << endl;
+  if (options._print_concrete_solution)
+    stream << "# print_concrete_solution" << endl;
   if (options._print_defaults)
     stream << "# print_defaults" << endl;
   if (options._print_header)
