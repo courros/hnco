@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_SRC_MAKE_FUNCTION
-#define HNCO_SRC_MAKE_FUNCTION
+#ifndef HNCO_APP_MAKE_FUNCTION
+#define HNCO_APP_MAKE_FUNCTION
 
 #include "hnco/map.hh"
 

@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_SRC_MAKE_ALGORITHM_H
-#define HNCO_SRC_MAKE_ALGORITHM_H
+#ifndef HNCO_APP_MAKE_ALGORITHM_H
+#define HNCO_APP_MAKE_ALGORITHM_H
 
 #include "hnco/algorithms/algorithm.hh"
 
