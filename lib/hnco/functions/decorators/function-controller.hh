@@ -391,6 +391,9 @@ namespace hnco::function {
 
     ///@}
 
+    /// Get lookup ratio
+    double get_lookup_ratio() { return double(_num_lookups) / double(_num_evaluations); }
+
   };
 
 
