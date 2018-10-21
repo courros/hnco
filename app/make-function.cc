@@ -32,6 +32,25 @@ using namespace hnco::neighborhood;
 using namespace hnco;
 
 
+template<class T>
+void load_function(T *fn, const Options& options)
+{
+  std::ifstream ifs(options.get_path());
+  if (!ifs.good()) {
+    std::ostringstream stream;
+    stream << "load_function: Cannot open " << options.get_map_path();
+    throw Error(stream.str());
+  }
+  try {
+    boost::archive::text_iarchive archive(ifs);
+    archive >> (*fn);
+  }
+  catch (boost::archive::archive_exception& e) {
+    throw Error(e.what());
+  }
+}
+
+
 Function *
 make_concrete_function(const Options& options)
 {
@@ -46,19 +65,7 @@ make_concrete_function(const Options& options)
 
   case 1: {
     LinearFunction* function = new LinearFunction;
-    std::ifstream ifs(options.get_path());
-    if (!ifs.good()) {
-      std::ostringstream stream;
-      stream << "make_concrete_function (LinearFunction): Cannot open " << options.get_path();
-      throw Error(stream.str());
-    }
-    try {
-      boost::archive::text_iarchive ia(ifs);
-      ia >> (*function);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw Error(e.what());
-    }
+    load_function<LinearFunction>(function, options);
     return function;
   }
 
@@ -108,19 +115,7 @@ make_concrete_function(const Options& options)
 
   case 60: {
     NkLandscape* function = new NkLandscape;
-    std::ifstream ifs(options.get_path());
-    if (!ifs.good()) {
-      std::ostringstream stream;
-      stream << "make_concrete_function (NkLandscape): Cannot open " << options.get_path();
-      throw Error(stream.str());
-    }
-    try {
-      boost::archive::text_iarchive ia(ifs);
-      ia >> (*function);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw Error(e.what());
-    }
+    load_function<NkLandscape>(function, options);
     return function;
   }
 
@@ -158,19 +153,7 @@ make_concrete_function(const Options& options)
 
   case 90: {
     EqualProducts* function = new EqualProducts;
-    std::ifstream ifs(options.get_path());
-    if (!ifs.good()) {
-      std::ostringstream stream;
-      stream << "make_concrete_function (EqualProducts): Cannot open " << options.get_path();
-      throw Error(stream.str());
-    }
-    try {
-      boost::archive::text_iarchive ia(ifs);
-      ia >> (*function);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw Error(e.what());
-    }
+    load_function<EqualProducts>(function, options);
     return function;
   }
 
@@ -208,55 +191,19 @@ make_concrete_function(const Options& options)
 
   case 160: {
     WalshExpansion* function = new WalshExpansion;
-    std::ifstream ifs(options.get_path());
-    if (!ifs.good()) {
-      std::ostringstream stream;
-      stream << "make_concrete_function (WalshExpansion): Cannot open " << options.get_path();
-      throw Error(stream.str());
-    }
-    try {
-      boost::archive::text_iarchive ia(ifs);
-      ia >> (*function);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw Error(e.what());
-    }
+    load_function<WalshExpansion>(function, options);
     return function;
   }
 
   case 161: {
     WalshExpansion1* function = new WalshExpansion1;
-    std::ifstream ifs(options.get_path());
-    if (!ifs.good()) {
-      std::ostringstream stream;
-      stream << "make_concrete_function (WalshExpansion1): Cannot open " << options.get_path();
-      throw Error(stream.str());
-    }
-    try {
-      boost::archive::text_iarchive ia(ifs);
-      ia >> (*function);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw Error(e.what());
-    }
+    load_function<WalshExpansion1>(function, options);
     return function;
   }
 
   case 162: {
     WalshExpansion2* function = new WalshExpansion2;
-    std::ifstream ifs(options.get_path());
-    if (!ifs.good()) {
-      std::ostringstream stream;
-      stream << "make_concrete_function (WalshExpansion2): Cannot open " << options.get_path();
-      throw Error(stream.str());
-    }
-    try {
-      boost::archive::text_iarchive ia(ifs);
-      ia >> (*function);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw Error(e.what());
-    }
+    load_function<WalshExpansion2>(function, options);
     return function;
   }
 
@@ -278,12 +225,12 @@ make_concrete_function(const Options& options)
 
 
 template<class T>
-void load_single_map(T *map, const Options& options)
+void load_map(T *map, const Options& options)
 {
   std::ifstream ifs(options.get_map_path());
   if (!ifs.good()) {
     std::ostringstream stream;
-    stream << "load_single_map: Cannot open " << options.get_map_path();
+    stream << "load_map: Cannot open " << options.get_map_path();
     throw Error(stream.str());
   }
   try {
@@ -309,7 +256,7 @@ make_map(const Options& options)
     if (options.with_map_random()) {
       map->random(options.get_bv_size());
     } else
-      load_single_map<Translation>(map, options);
+      load_map<Translation>(map, options);
     return map;
   }
 
@@ -318,7 +265,7 @@ make_map(const Options& options)
     if (options.with_map_random()) {
       map->random(options.get_bv_size());
     } else
-      load_single_map<Permutation>(map, options);
+      load_map<Permutation>(map, options);
     return map;
   }
 
@@ -353,7 +300,7 @@ make_map(const Options& options)
         throw Error("make_map: map_input_size must be positive");
       map->random(options.get_bv_size(), options.get_map_input_size(), options.with_map_surjective());
     } else
-      load_single_map<LinearMap>(map, options);
+      load_map<LinearMap>(map, options);
     return map;
   }
 
@@ -364,7 +311,7 @@ make_map(const Options& options)
         throw Error("make_map: map_input_size must be positive");
       map->random(options.get_bv_size(), options.get_map_input_size(), options.with_map_surjective());
     } else
-      load_single_map<AffineMap>(map, options);
+      load_map<AffineMap>(map, options);
     return map;
   }
 
