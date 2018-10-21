@@ -21,9 +21,39 @@
 #ifndef HNCO_SRC_MAKE_FUNCTION
 #define HNCO_SRC_MAKE_FUNCTION
 
+#include "hnco/map.hh"
+
 #include "hnco-options.hh"
 
-/// Make a function
-hnco::function::Function *make_function(Options& options);
+
+/// Function factory
+class FunctionFactory
+{
+
+  /// Map
+  hnco::Map *_map = 0;
+
+  /// Cache
+  hnco::function::Cache *_cache = 0;
+
+  /// Make a function modifier
+  hnco::function::Function *make_function_modifier(hnco::function::Function *function, Options& options);
+
+  /// Make a function controller
+  hnco::function::Function *make_function_controller(hnco::function::Function *function, const Options& options);
+
+public:
+
+  /// Make a function
+  hnco::function::Function *make_function(Options& options);
+
+  /// Get map
+  hnco::Map *get_map() { return _map; }
+
+  /// Get cache
+  hnco::function::Cache *get_cache() { return _cache; }
+
+};
+
 
 #endif

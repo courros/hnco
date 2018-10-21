@@ -444,17 +444,16 @@ make_prior_noise_neighborhood(const Options& options)
 
 
 Function *
-make_function_modifier(Function *function, Options& options)
+FunctionFactory::make_function_modifier(Function *function, Options& options)
 {
   assert(function);
 
   const size_t bv_size = function->get_bv_size();
 
   // Map
-  Map *map = 0;
   if (options.get_map() > 0) {
-    map = make_map(options);
-    function = new FunctionMapComposition(function, map);
+    _map = make_map(options);
+    function = new FunctionMapComposition(function, _map);
   }
 
   if (function->get_bv_size() != bv_size) {
@@ -488,7 +487,7 @@ make_function_modifier(Function *function, Options& options)
 
 
 Function *
-make_function_controller(Function *function, const Options& options)
+FunctionFactory::make_function_controller(Function *function, const Options& options)
 {
   assert(function);
 
@@ -520,16 +519,18 @@ make_function_controller(Function *function, const Options& options)
   }
 
   if (options.get_budget() <= 0 && options.with_cache()) {
-    function = new Cache(function);
+    _cache = new Cache(function);
+    function = _cache;
   }
 
   if (options.get_budget() > 0 && options.with_cache()) {
     if (options.with_cache_budget()) {
-      function = new Cache(function);
-      function = new OnBudgetFunction(function, options.get_budget());
+      _cache = new Cache(function);
+      function = new OnBudgetFunction(_cache, options.get_budget());
     } else {
       function = new OnBudgetFunction(function, options.get_budget());
-      function = new Cache(function);
+      _cache = new Cache(function);
+      function = _cache;
     }
   }
 
@@ -538,7 +539,7 @@ make_function_controller(Function *function, const Options& options)
 
 
 Function *
-make_function(Options& options)
+FunctionFactory::make_function(Options& options)
 {
   const int bv_size = options.get_bv_size();
 

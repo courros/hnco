@@ -64,8 +64,10 @@ int main(int argc, char *argv[])
   // Make fitness function
   //
 
+  FunctionFactory function_factory;
+
   Function *fn;
-  try { fn = make_function(options); }
+  try { fn = function_factory.make_function(options); }
   catch (const Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     return 1;
@@ -158,7 +160,7 @@ int main(int argc, char *argv[])
   fns[0] = tracker;
   for (int i = 1; i < num_threads; i++) {
     Random::engine.seed(options.get_seed());
-    try { fns[i] = make_function(options); }
+    try { fns[i] = function_factory.make_function(options); }
     catch (const Error& e) {
       std::cerr << "Error: " << e.what() << std::endl;
       return 1;
