@@ -369,7 +369,7 @@ FunctionFactory::make_function_modifier(Function *function, Options& options)
   }
 
   if (int(function->get_bv_size()) != options.get_bv_size()) {
-    std::cerr << "Warning: make_function_modifier: After function map composition, bv_size changed from "
+    std::cerr << "Warning: make_function_modifier: After composition by a map, bv_size changed from "
               << options.get_bv_size() << " to "
               << function->get_bv_size() << std::endl;
     options.set_bv_size(function->get_bv_size());
