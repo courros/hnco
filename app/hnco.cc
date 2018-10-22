@@ -139,7 +139,6 @@ int main(int argc, char *argv[])
   //
 
   ProgressTracker *tracker = new ProgressTracker(fn);
-  assert(tracker);
 
   tracker->set_log_improvement(options.with_log_improvement());
 
