@@ -37,7 +37,7 @@ class FunctionFactory
   hnco::function::Cache *_cache = 0;
 
   /// Make a function modifier
-  hnco::function::Function *make_function_modifier(hnco::function::Function *function, const Options& options);
+  hnco::function::Function *make_function_modifier(hnco::function::Function *function, Options& options);
 
   /// Make a function controller
   hnco::function::Function *make_function_controller(hnco::function::Function *function, const Options& options);
