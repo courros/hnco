@@ -1,5 +1,14 @@
 * Version 0.11 (unreleased)
 
+Library:
+- OnePlusOneEa: fixed bug which prevented from getting the actual solution
+- Cache: added member function get_lookup_ratio
+
+hnco:
+- Replaced make_function with FunctionFactory
+- Added option --print-concrete-solution
+- Added option --print-lookup-ratio
+
 
 * Version 0.10 (2018-10-21)
 
