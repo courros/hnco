@@ -109,7 +109,7 @@ namespace hnco::function {
     /// Map
     Map *_map;
 
-    /// _bv
+    /// Image of bit vectors under the map
     bit_vector_t _bv;
 
   public:
@@ -158,6 +158,16 @@ namespace hnco::function {
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
+
+
+    /** @name Display
+     */
+    ///@{
+
+    /// Describe a bit vector
+    void describe(const bit_vector_t& x, std::ostream& stream);
+
+    ///@}
 
   };
 
