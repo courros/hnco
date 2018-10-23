@@ -156,6 +156,8 @@ namespace hnco::function {
 
     /// Describe a bit vector
     virtual void describe(const bit_vector_t& x, std::ostream& stream) {
+      assert(x.size() == get_bv_size());
+
       bv_display(x, stream);
       stream << std::endl;
     }
