@@ -54,6 +54,9 @@ namespace algorithm {
       assert(algorithm);
     }
 
+    /// Initialization
+    void init() {}
+
     /// Set function
     void set_function(function::Function *function) {
       assert(function);
