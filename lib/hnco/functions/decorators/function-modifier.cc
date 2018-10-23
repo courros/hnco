@@ -48,6 +48,15 @@ FunctionMapComposition::eval(const bit_vector_t& x)
   return _function->eval(_bv);
 }
 
+void
+FunctionMapComposition::describe(const bit_vector_t& x, std::ostream& stream)
+{
+  assert(x.size() == get_bv_size());
+
+  _map->map(x, _bv);
+  return _function->describe(_bv, stream);
+}
+
 
 double
 AdditiveGaussianNoise::eval(const bit_vector_t& x)
