@@ -33,18 +33,26 @@ using namespace hnco::random;
 void
 SimulatedAnnealing::init_beta()
 {
+  assert(_neighborhood);
+  assert(_function);
+
+  bit_vector_t bv(_solution.first);
+
   double delta = 0;
   int count = 0;
   for (int i = 0; i < _num_trials; i++) {
-    bv_random(_solution.first);
-    double a = _function->eval(_solution.first);
-    _neighborhood->set_origin(_solution.first);
+    bv_random(bv);
+    double a = _function->eval(bv);
+    update_solution(bv, a);
+    _neighborhood->set_origin(bv);
     _neighborhood->propose();
     double b = _function->eval(_neighborhood->get_candidate());
+    update_solution(_neighborhood->get_candidate(), b);
     if (b < a) {
       delta += b - a;
       count++;
     }
+    _neighborhood->forget();
   }
   delta /= count;
 
@@ -57,16 +65,19 @@ void
 SimulatedAnnealing::init()
 {
   random_solution();
+  init_beta();
   _neighborhood->set_origin(_solution.first);
   _current_value = _solution.second;
   _transitions = 0;
-  init_beta();
 }
 
 
 void
 SimulatedAnnealing::iterate()
 {
+  assert(_neighborhood);
+  assert(_function);
+
   _neighborhood->propose();
   double value = _function->eval(_neighborhood->get_candidate());
 
