@@ -55,7 +55,6 @@ SteepestAscentHillClimbing::init(const bit_vector_t& x, double value)
 {
   assert(_function);
   assert(_neighborhood);
-  assert(value == _function->eval(x));
 
   set_solution(x, value);
   _neighborhood->set_origin(_solution.first);
