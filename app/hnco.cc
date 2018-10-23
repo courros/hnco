@@ -246,8 +246,6 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  assert(tracker->get_last_improvement().value == solution.second);
-
   //
   // Results
   //
