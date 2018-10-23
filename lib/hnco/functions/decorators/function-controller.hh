@@ -74,19 +74,6 @@ namespace hnco::function {
 
     ///@}
 
-
-    /** @name Display
-     */
-    ///@{
-
-    /// Display
-    void display(std::ostream& stream) { _function->display(stream); }
-
-    /// Describe a bit vector
-    void describe(const bit_vector_t& x, std::ostream& stream) { _function->describe(x, stream); }
-
-    ///@}
-
   };
 
 
