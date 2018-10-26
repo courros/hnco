@@ -38,7 +38,7 @@ void load_function_from_boost_archive(T *fn, const Options& options)
   std::ifstream ifs(options.get_path());
   if (!ifs.good()) {
     std::ostringstream stream;
-    stream << "load_function_from_boost_archive: Cannot open " << options.get_map_path();
+    stream << "load_function_from_boost_archive: Cannot open " << options.get_path();
     throw Error(stream.str());
   }
   try {
