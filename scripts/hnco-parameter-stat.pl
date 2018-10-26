@@ -554,18 +554,19 @@ sub generate_latex
     latex_end_center();
     latex_empty_line();
 
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
+    foreach my $fn (@$functions) {
+        my $function_id = $fn->{id};
         my $function_best = $all_best->{$function_id};
+
+        my $rounding_value_before = $fn->{rounding}->{value}->{before} || 3;
+        my $rounding_value_after = $fn->{rounding}->{value}->{after} || 0;
+        my $rounding_time_before = $fn->{rounding}->{time}->{before} || 1;
+        my $rounding_time_after = $fn->{rounding}->{time}->{after} || 2;
 
         latex_section("Function $function_id");
 
         latex_begin_center();
-        if (exists($f->{col})) {
-            latex_function_table_begin($f->{col});
-        } else {
-            latex_function_table_begin("N{2}{3}");
-        }
+        latex_function_table_begin(">{{\\nprounddigits{$rounding_value_after}}}N{$rounding_value_before}{$rounding_value_after}");
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
             foreach my $value (@$values) {
@@ -573,7 +574,7 @@ sub generate_latex
                                               $value,
                                               $all_stat->{$function_id}->{$algorithm_id}->{$value},
                                               $function_best,
-                                              $f->{logscale});
+                                              $fn->{logscale});
             }
         }
         latex_funtion_table_end();
