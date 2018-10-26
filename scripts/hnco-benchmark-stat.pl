@@ -49,11 +49,11 @@ my $stat_time = {};
 my $stat_value = {};
 my $stat_value_best = {};
 
-my $rank_distributions = {};
+my $rank_distribution = {};
 foreach my $a (@$algorithms) {
     my $algorithm_id = $a->{id};
     my @counts = (0) x @$algorithms;
-    $rank_distributions->{$algorithm_id} = \@counts;
+    $rank_distribution->{$algorithm_id} = \@counts;
 }
 
 my %terminal = (
@@ -64,7 +64,7 @@ my %terminal = (
 compute_statistics();
 compute_statistics_time();
 compute_best_statistics();
-compute_rankings();
+compute_rank_distribution();
 reverse_values();
 reverse_best_statistics();
 compute_ranges();
@@ -72,7 +72,7 @@ compute_ranges();
 generate_function_data();
 generate_gnuplot_candlesticks();
 generate_gnuplot_clouds();
-generate_table_ranking();
+generate_table_rank_distribution();
 generate_table_functions();
 generate_latex();
 
@@ -190,13 +190,13 @@ sub compute_best_statistics
 
 }
 
-sub compute_rankings
+sub compute_rank_distribution
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         my $stat = $stat_value->{$function_id};
 
-        # Sort algorithm by decreasing order of performance
+        # Sort algorithms by decreasing order of performance
         @sorted = sort {
             foreach (@pref_max) {
                 if ($stat->{$b}->{$_} != $stat->{$a}->{$_}) {
@@ -218,10 +218,10 @@ sub compute_rankings
             }
         }
 
-        # Update rankings
+        # Update rank distributions
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-            ${ $rank_distributions->{$algorithm_id} }[$stat->{$algorithm_id}->{rank}]++; # Update rankings
+            ${ $rank_distribution->{$algorithm_id} }[$stat->{$algorithm_id}->{rank}]++;
         }
 
     }
@@ -505,13 +505,14 @@ sub generate_gnuplot_clouds
 
 }
 
-sub generate_table_ranking
+sub generate_table_rank_distribution
 {
-    open(LATEX, ">$path_report/table-ranking.tex")
-        or die "hnco-benchmark-stat.pl: generate_table_ranking: Cannot open $path_report/table-ranking.tex\n";
-    latex_rankings_table_begin();
-    latex_rankings_table_body();
-    latex_rankings_table_end();
+    my $path = "$path_report/table-rank-distribution.tex";
+    open(LATEX, ">$path")
+        or die "hnco-benchmark-stat.pl: generate_table_rank_distribution: Cannot open $path\n";
+    latex_rank_distribution_table_begin();
+    latex_rank_distribution_table_body();
+    latex_rank_distribution_table_end();
     close LATEX;
 }
 
@@ -568,7 +569,7 @@ sub generate_latex
     latex_empty_line();
 
     latex_begin_center();
-    latex_input_file("table-ranking.tex");
+    latex_input_file("table-rank-distribution.tex");
     latex_end_center();
     latex_empty_line();
 
@@ -712,7 +713,7 @@ sub latex_newpage
 EOF
 }
 
-sub latex_rankings_table_begin
+sub latex_rank_distribution_table_begin
 {
     my $num_algo = @$algorithms;
     print LATEX
@@ -724,24 +725,24 @@ sub latex_rankings_table_begin
         "\\midrule\n";
 }
 
-sub latex_rankings_table_body
+sub latex_rank_distribution_table_body
 {
     my @order = sort {
         foreach (0 .. @$algorithms - 1) {
-            if (${ $rank_distributions->{$b} }[$_] != ${ $rank_distributions->{$a} }[$_]) {
-                return ${ $rank_distributions->{$b} }[$_] <=> ${ $rank_distributions->{$a} }[$_];
+            if (${ $rank_distribution->{$b} }[$_] != ${ $rank_distribution->{$a} }[$_]) {
+                return ${ $rank_distribution->{$b} }[$_] <=> ${ $rank_distribution->{$a} }[$_];
             }
         }
         return 0;
-    } keys %$rank_distributions;
+    } keys %$rank_distribution;
 
     foreach (@order) {
-        print LATEX "$_ & ", join(" & ", @{ $rank_distributions->{$_} }), "\\\\\n";
+        print LATEX "$_ & ", join(" & ", @{ $rank_distribution->{$_} }), "\\\\\n";
     }
 
 }
 
-sub latex_rankings_table_end
+sub latex_rank_distribution_table_end
 {
     print LATEX
         "\\bottomrule\n",
