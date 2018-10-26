@@ -9,6 +9,14 @@ hnco:
 - Added option --print-concrete-solution
 - Added option --print-lookup-ratio
 
+Scripts:
+- hnco-benchmark-stat.pl: rounding specification in json data structure
+- hnco-parameter-stat.pl: rounding specification in json data structure
+- hnco-benchmark-stat.pl: generate ranking per function
+
+Experiments:
+- Benchmark, parameter: rounding specification in json data structure
+
 
 * Version 0.10 (2018-10-21)
 
