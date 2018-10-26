@@ -48,6 +48,7 @@ my $stat_eval = {};
 my $stat_time = {};
 my $stat_value = {};
 my $stat_value_best = {};
+my $ranking = {};
 
 my $rank_distribution = {};
 foreach my $a (@$algorithms) {
@@ -65,6 +66,7 @@ compute_statistics();
 compute_statistics_time();
 compute_best_statistics();
 compute_rank_distribution();
+
 reverse_values();
 reverse_best_statistics();
 compute_ranges();
@@ -73,6 +75,7 @@ generate_function_data();
 generate_gnuplot_candlesticks();
 generate_gnuplot_clouds();
 generate_table_rank_distribution();
+generate_ranking();
 generate_table_functions();
 generate_latex();
 
@@ -197,7 +200,7 @@ sub compute_rank_distribution
         my $stat = $stat_value->{$function_id};
 
         # Sort algorithms by decreasing order of performance
-        @sorted = sort {
+        my @sorted = sort {
             foreach (@pref_max) {
                 if ($stat->{$b}->{$_} != $stat->{$a}->{$_}) {
                     return $stat->{$b}->{$_} <=> $stat->{$a}->{$_};
@@ -208,21 +211,33 @@ sub compute_rank_distribution
 
         # Set ranks
         for (my $i = 0; $i < @sorted; $i++) {
-            $stat->{$sorted[$i]}->{rank} = $i;
+            my $current = $sorted[$i];
+            $stat->{$current}->{rank} = $i;
         }
 
         # Handle ex-aequo
+        my $rk = [];
+        my $ex_aequo = [$sorted[0]];
         for (my $i = 1; $i < @sorted; $i++) {
-            if (all { $stat->{$sorted[$i]}->{$_} == $stat->{$sorted[$i - 1]}->{$_} } @summary_statistics) {
-                $stat->{$sorted[$i]}->{rank} = $stat->{$sorted[$i - 1]}->{rank};
+            my $current = $sorted[$i];
+            my $previous = $sorted[$i - 1];
+            if (all { $stat->{$current}->{$_} == $stat->{$previous}->{$_} } @summary_statistics) {
+                $stat->{$current}->{rank} = $stat->{$previous}->{rank};
+                push @{ $ex_aequo }, $current;
+            } else {
+                push @{ $rk }, $ex_aequo;
+                $ex_aequo = [$current];
             }
         }
+        push @{ $rk }, $ex_aequo;
 
         # Update rank distributions
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
             ${ $rank_distribution->{$algorithm_id} }[$stat->{$algorithm_id}->{rank}]++;
         }
+
+        $ranking->{$function_id} = $rk;
 
     }
 
@@ -557,6 +572,15 @@ sub generate_table_function
     close LATEX;
 }
 
+sub generate_ranking
+{
+    my $path = "$path_report/ranking.tex";
+    open(LATEX, ">$path")
+        or die "hnco-benchmark-stat.pl: generate_ranking: Cannot open $path\n";
+    latex_ranking();
+    close LATEX;
+}
+
 sub generate_latex
 {
     open(LATEX, ">$path_report/content.tex")
@@ -565,13 +589,15 @@ sub generate_latex
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
     latex_empty_line();
 
-    latex_section("Rankings");
+    latex_section("Ranking");
     latex_empty_line();
 
     latex_begin_center();
     latex_input_file("table-rank-distribution.tex");
     latex_end_center();
     latex_empty_line();
+
+    latex_input_file("ranking.tex");
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
@@ -711,6 +737,23 @@ sub latex_newpage
 \\newpage
 
 EOF
+}
+
+sub latex_ranking
+{
+    foreach my $f (@$functions) {
+        my $function_id = $f->{id};
+        print LATEX "$function_id: ";
+        print LATEX join (", ",
+                          map {
+                              if (@{ $_ } == 1) {
+                                  join(", ", @{ $_ });
+                              } else {
+                                  "(" . join(", ", @{ $_ }) . ")";
+                              }
+                          } @{ $ranking->{$function_id} });
+        print LATEX "\n\n";
+    }
 }
 
 sub latex_rank_distribution_table_begin
