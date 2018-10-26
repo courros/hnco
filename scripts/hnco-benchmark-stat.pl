@@ -527,6 +527,12 @@ sub generate_table_function
     my $fn = shift;
 
     my $function_id = $fn->{id};
+
+    my $rounding_value_before = $fn->{rounding}->{value}->{before} || 3;
+    my $rounding_value_after = $fn->{rounding}->{value}->{after} || 0;
+    my $rounding_time_before = $fn->{rounding}->{time}->{before} || 1;
+    my $rounding_time_after = $fn->{rounding}->{time}->{after} || 2;
+
     my $value = $stat_value->{$function_id};
     my $best = $stat_value_best->{$function_id};
     my $time = $stat_time->{$function_id};
@@ -534,11 +540,9 @@ sub generate_table_function
     open(LATEX, ">$path_report/table-$function_id.tex")
         or die "hnco-benchmark-stat.pl: generate_table_function: Cannot open $path_report/table-$function_id.tex\n";
 
-    if (exists($fn->{col})) {
-        latex_function_table_begin($fn->{col});
-    } else {
-        latex_function_table_begin("N{2}{3}");
-    }
+    latex_function_table_begin(">{{\\nprounddigits{$rounding_value_after}}}N{$rounding_value_before}{$rounding_value_after}",
+                               ">{{\\nprounddigits{$rounding_time_after}}}N{$rounding_time_before}{$rounding_time_after}");
+
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
         latex_function_table_add_line($algorithm_id,
@@ -635,10 +639,10 @@ EOF
 
 sub latex_function_table_begin
 {
-    my $col = shift;
+    my ($rounding_value, $rounding_time) = @_;
 
     print LATEX
-        "\\begin{tabular}{\@{}l*{5}{$col}>{{\\nprounddigits{0}}}N{2}{0}N{1}{3}N{1}{3}\@{}}\n",
+        "\\begin{tabular}{\@{}l*{5}{$rounding_value}>{{\\nprounddigits{0}}}N{2}{0}$rounding_time$rounding_time\@{}}\n",
         "\\toprule\n",
         "{algorithm} & \\multicolumn{6}{l}{{function value}} & \\multicolumn{2}{l}{{time (s)}} \\\\\n",
         "\\midrule\n",
