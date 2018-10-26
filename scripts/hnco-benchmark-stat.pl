@@ -741,9 +741,11 @@ EOF
 
 sub latex_ranking
 {
+    print LATEX "Per function rankings (ex-eaquo are grouped in parentheses):\n";
+    print LATEX "\\begin{description}\n";
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        print LATEX "$function_id: ";
+        print LATEX "\\item[$function_id]\n";
         print LATEX join (", ",
                           map {
                               if (@{ $_ } == 1) {
@@ -754,6 +756,7 @@ sub latex_ranking
                           } @{ $ranking->{$function_id} });
         print LATEX "\n\n";
     }
+    print LATEX "\\end{description}\n";
 }
 
 sub latex_rank_distribution_table_begin
