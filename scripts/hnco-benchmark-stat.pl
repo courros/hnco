@@ -49,11 +49,11 @@ my $stat_time = {};
 my $stat_value = {};
 my $stat_value_best = {};
 
-my $rankings = {};
+my $rank_distributions = {};
 foreach my $a (@$algorithms) {
     my $algorithm_id = $a->{id};
     my @counts = (0) x @$algorithms;
-    $rankings->{$algorithm_id} = \@counts;
+    $rank_distributions->{$algorithm_id} = \@counts;
 }
 
 my %terminal = (
@@ -221,7 +221,7 @@ sub compute_rankings
         # Update rankings
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-            ${ $rankings->{$algorithm_id} }[$stat->{$algorithm_id}->{rank}]++; # Update rankings
+            ${ $rank_distributions->{$algorithm_id} }[$stat->{$algorithm_id}->{rank}]++; # Update rankings
         }
 
     }
@@ -728,15 +728,15 @@ sub latex_rankings_table_body
 {
     my @order = sort {
         foreach (0 .. @$algorithms - 1) {
-            if (${ $rankings->{$b} }[$_] != ${ $rankings->{$a} }[$_]) {
-                return ${ $rankings->{$b} }[$_] <=> ${ $rankings->{$a} }[$_];
+            if (${ $rank_distributions->{$b} }[$_] != ${ $rank_distributions->{$a} }[$_]) {
+                return ${ $rank_distributions->{$b} }[$_] <=> ${ $rank_distributions->{$a} }[$_];
             }
         }
         return 0;
-    } keys %$rankings;
+    } keys %$rank_distributions;
 
     foreach (@order) {
-        print LATEX "$_ & ", join(" & ", @{ $rankings->{$_} }), "\\\\\n";
+        print LATEX "$_ & ", join(" & ", @{ $rank_distributions->{$_} }), "\\\\\n";
     }
 
 }
