@@ -10,9 +10,10 @@ hnco:
 - Added option --print-lookup-ratio
 
 Scripts:
-- hnco-benchmark-stat.pl: rounding specification in json data structure
-- hnco-parameter-stat.pl: rounding specification in json data structure
+- hnco-benchmark-stat.pl, hnco-parameter-stat.pl: rounding specification in json data structure
 - hnco-benchmark-stat.pl: generate ranking per function
+- hnco-benchmark-run.pl, hnco-parameter-run.pl: replace elapsed time with user time
+- hnco-*-run.pl: added option --joblog to parallel
 
 Experiments:
 - Benchmark, parameter: rounding specification in json data structure
