@@ -66,14 +66,14 @@ if ($parallel) {
     $file->close;
     if ($servers) {
         my $hostnames = join(',', map { $_->{hostname} } @$servers);
-        system("parallel --eta --progress --workdir . -S :,$hostnames :::: commands.txt");
+        system("parallel --joblog log.parallel --eta --progress --workdir . -S :,$hostnames :::: commands.txt");
         print "Bringing back the files:\n";
         foreach (@$servers) {
             my $src = "$_->{hostname}:" . File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
             system("rsync -avvz $src/$path_results/ $path_results");
         }
     } else {
-        system("parallel --eta --progress :::: commands.txt");
+        system("parallel --joblog log.parallel --eta --progress :::: commands.txt");
     }
 }
 
