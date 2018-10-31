@@ -250,9 +250,28 @@ int main(int argc, char *argv[])
   // Results
   //
 
-  // Print performances
-  if (options.with_print_performance())
-    std::cout << tracker->get_last_improvement() << std::endl;
+  std::ostringstream results;
+  results << "{\n";
+
+  ProgressTracker::Event last_improvement = tracker->get_last_improvement();
+  results << "  num_evaluations: " << last_improvement.time << ",\n";
+  results << "  value: " << last_improvement.value;
+
+  hnco::function::Cache *cache = function_factory.get_cache();
+  if (cache)
+    results << ",\n  lookup_ratio: " << cache->get_lookup_ratio();
+
+  results << "\n}\n";
+
+  // Print results
+  if (options.with_print_results())
+    std::cout << results.str();
+
+  // Save results
+  if (options.with_save_results()) {
+    std::ofstream stream(options.get_results_path());
+    stream << results.str();
+  }
 
   // Print solution
   if (options.with_print_solution()) {
@@ -276,15 +295,6 @@ int main(int argc, char *argv[])
   // Describe solution
   if (options.with_describe_solution()) {
     tracker->describe(solution.first, std::cout);
-  }
-
-  // Print lookup ratio
-  if (options.with_print_lookup_ratio()) {
-    hnco::function::Cache *cache = function_factory.get_cache();
-    if (cache)
-      std::cout << cache->get_lookup_ratio() << std::endl;
-    else
-      std::cerr << "Warning: no cache to get lookup ratio" << std::endl;
   }
 
   if (options.with_stop_on_maximum() && !maximum_reached)

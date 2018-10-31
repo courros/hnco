@@ -97,9 +97,15 @@
             "section": "gen"
         },
 
-        "print_performance":
+        "print_results":
         {
-            "description": "At the end, print performance (maximum and number of evaluations needed to reach it)",
+            "description": "At the end, print results",
+            "section": "gen"
+        },
+
+        "save_results":
+        {
+            "description": "At the end, save results in a file",
             "section": "gen"
         },
 
@@ -112,12 +118,6 @@
         "print_concrete_solution":
         {
             "description": "At the end, print the solution in the domain of the concrete function",
-            "section": "gen"
-        },
-
-        "print_lookup_ratio":
-        {
-            "description": "At the end, print the cache lookup ratio",
             "section": "gen"
         },
 
@@ -361,6 +361,14 @@
             "section": "gen"
         },
 
+
+        "results_path":
+        {
+            "type": "string",
+            "value": "results.json",
+            "description": "Path of the results file",
+            "section": "gen"
+        },
 
         "function":
         {

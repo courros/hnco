@@ -181,6 +181,10 @@ class Options {
   int _radius;
   bool _opt_radius;
 
+  /// Path of the results file
+  std::string _results_path;
+  bool _opt_results_path;
+
   /// Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)
   int _rls_patience;
   bool _opt_rls_patience;
@@ -306,11 +310,8 @@ class Options {
   /// At the beginning, print the header
   bool _print_header;
 
-  /// At the end, print the cache lookup ratio
-  bool _print_lookup_ratio;
-
-  /// At the end, print performance (maximum and number of evaluations needed to reach it)
-  bool _print_performance;
+  /// At the end, print results
+  bool _print_results;
 
   /// At the end, print the solution
   bool _print_solution;
@@ -332,6 +333,9 @@ class Options {
 
   /// Log bit vector value during random walk
   bool _rw_log_value;
+
+  /// At the end, save results in a file
+  bool _save_results;
 
   /// Stop on maximum
   bool _stop_on_maximum;
@@ -866,6 +870,18 @@ public:
   /// Get set-flag for radius
   bool set_radius() const { return _opt_radius; }
 
+  /// Get results_path
+  std::string get_results_path() const { return _results_path; }
+
+  /// Set results_path
+  void set_results_path(std::string x) {
+    _results_path = x;
+    _opt_results_path = true;
+  }
+
+  /// Get set-flag for results_path
+  bool set_results_path() const { return _opt_results_path; }
+
   /// Get rls_patience
   int get_rls_patience() const { return _rls_patience; }
 
@@ -1148,17 +1164,11 @@ public:
   /// Set print_header
   void set_print_header() { _print_header = true; }
  
-  /// Get print_lookup_ratio
-  bool with_print_lookup_ratio() const { return _print_lookup_ratio; }
+  /// Get print_results
+  bool with_print_results() const { return _print_results; }
 
-  /// Set print_lookup_ratio
-  void set_print_lookup_ratio() { _print_lookup_ratio = true; }
- 
-  /// Get print_performance
-  bool with_print_performance() const { return _print_performance; }
-
-  /// Set print_performance
-  void set_print_performance() { _print_performance = true; }
+  /// Set print_results
+  void set_print_results() { _print_results = true; }
  
   /// Get print_solution
   bool with_print_solution() const { return _print_solution; }
@@ -1201,6 +1211,12 @@ public:
 
   /// Set rw_log_value
   void set_rw_log_value() { _rw_log_value = true; }
+ 
+  /// Get save_results
+  bool with_save_results() const { return _save_results; }
+
+  /// Set save_results
+  void set_save_results() { _save_results = true; }
  
   /// Get stop_on_maximum
   bool with_stop_on_maximum() const { return _stop_on_maximum; }

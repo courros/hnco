@@ -93,6 +93,8 @@ Options::Options(int argc, char *argv[]):
   _opt_pv_log_num_components(false),
   _radius(2),
   _opt_radius(false),
+  _results_path("results.json"),
+  _opt_results_path(false),
   _rls_patience(50),
   _opt_rls_patience(false),
   _sa_beta_ratio(1.2),
@@ -140,8 +142,7 @@ Options::Options(int argc, char *argv[]):
   _print_concrete_solution(false),
   _print_defaults(false),
   _print_header(false),
-  _print_lookup_ratio(false),
-  _print_performance(false),
+  _print_results(false),
   _print_solution(false),
   _prior_noise(false),
   _pv_log_entropy(false),
@@ -149,6 +150,7 @@ Options::Options(int argc, char *argv[]):
   _restart(false),
   _rls_strict(false),
   _rw_log_value(false),
+  _save_results(false),
   _stop_on_maximum(false),
   _stop_on_target(false)
 {
@@ -201,6 +203,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_POPULATION_SIZE,
     OPTION_PV_LOG_NUM_COMPONENTS,
     OPTION_RADIUS,
+    OPTION_RESULTS_PATH,
     OPTION_RLS_PATIENCE,
     OPTION_SA_BETA_RATIO,
     OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY,
@@ -240,8 +243,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_PRINT_CONCRETE_SOLUTION,
     OPTION_PRINT_DEFAULTS,
     OPTION_PRINT_HEADER,
-    OPTION_PRINT_LOOKUP_RATIO,
-    OPTION_PRINT_PERFORMANCE,
+    OPTION_PRINT_RESULTS,
     OPTION_PRINT_SOLUTION,
     OPTION_PRIOR_NOISE,
     OPTION_PV_LOG_ENTROPY,
@@ -249,6 +251,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_RESTART,
     OPTION_RLS_STRICT,
     OPTION_RW_LOG_VALUE,
+    OPTION_SAVE_RESULTS,
     OPTION_STOP_ON_MAXIMUM,
     OPTION_STOP_ON_TARGET
   };
@@ -295,6 +298,7 @@ Options::Options(int argc, char *argv[]):
     {"population-size", required_argument, 0, OPTION_POPULATION_SIZE},
     {"pv-log-num-components", required_argument, 0, OPTION_PV_LOG_NUM_COMPONENTS},
     {"radius", required_argument, 0, OPTION_RADIUS},
+    {"results-path", required_argument, 0, OPTION_RESULTS_PATH},
     {"rls-patience", required_argument, 0, OPTION_RLS_PATIENCE},
     {"sa-beta-ratio", required_argument, 0, OPTION_SA_BETA_RATIO},
     {"sa-initial-acceptance-probability", required_argument, 0, OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY},
@@ -334,8 +338,7 @@ Options::Options(int argc, char *argv[]):
     {"print-concrete-solution", no_argument, 0, OPTION_PRINT_CONCRETE_SOLUTION},
     {"print-defaults", no_argument, 0, OPTION_PRINT_DEFAULTS},
     {"print-header", no_argument, 0, OPTION_PRINT_HEADER},
-    {"print-lookup-ratio", no_argument, 0, OPTION_PRINT_LOOKUP_RATIO},
-    {"print-performance", no_argument, 0, OPTION_PRINT_PERFORMANCE},
+    {"print-results", no_argument, 0, OPTION_PRINT_RESULTS},
     {"print-solution", no_argument, 0, OPTION_PRINT_SOLUTION},
     {"prior-noise", no_argument, 0, OPTION_PRIOR_NOISE},
     {"pv-log-entropy", no_argument, 0, OPTION_PV_LOG_ENTROPY},
@@ -343,6 +346,7 @@ Options::Options(int argc, char *argv[]):
     {"restart", no_argument, 0, OPTION_RESTART},
     {"rls-strict", no_argument, 0, OPTION_RLS_STRICT},
     {"rw-log-value", no_argument, 0, OPTION_RW_LOG_VALUE},
+    {"save-results", no_argument, 0, OPTION_SAVE_RESULTS},
     {"stop-on-maximum", no_argument, 0, OPTION_STOP_ON_MAXIMUM},
     {"stop-on-target", no_argument, 0, OPTION_STOP_ON_TARGET},
     {"version", no_argument, 0, OPTION_VERSION},
@@ -539,6 +543,10 @@ Options::Options(int argc, char *argv[]):
       set_radius(atoi(optarg));
       break;
 
+    case OPTION_RESULTS_PATH:
+      set_results_path(string(optarg));
+      break;
+
     case OPTION_RLS_PATIENCE:
       set_rls_patience(atoi(optarg));
       break;
@@ -696,12 +704,8 @@ Options::Options(int argc, char *argv[]):
       _print_header = true;
       break;
 
-    case OPTION_PRINT_LOOKUP_RATIO:
-      _print_lookup_ratio = true;
-      break;
-
-    case OPTION_PRINT_PERFORMANCE:
-      _print_performance = true;
+    case OPTION_PRINT_RESULTS:
+      _print_results = true;
       break;
 
     case OPTION_PRINT_SOLUTION:
@@ -730,6 +734,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_RW_LOG_VALUE:
       _rw_log_value = true;
+      break;
+
+    case OPTION_SAVE_RESULTS:
+      _save_results = true;
       break;
 
     case OPTION_STOP_ON_MAXIMUM:
@@ -786,12 +794,14 @@ void Options::print_help(ostream& stream) const
   stream << "          Print the default parameters and exit" << endl;
   stream << "      --print-header" << endl;
   stream << "          At the beginning, print the header" << endl;
-  stream << "      --print-lookup-ratio" << endl;
-  stream << "          At the end, print the cache lookup ratio" << endl;
-  stream << "      --print-performance" << endl;
-  stream << "          At the end, print performance (maximum and number of evaluations needed to reach it)" << endl;
+  stream << "      --print-results" << endl;
+  stream << "          At the end, print results" << endl;
   stream << "      --print-solution" << endl;
   stream << "          At the end, print the solution" << endl;
+  stream << "      --results-path (type string, default to \"results.json\")" << endl;
+  stream << "          Path of the results file" << endl;
+  stream << "      --save-results" << endl;
+  stream << "          At the end, save results in a file" << endl;
   stream << "      --seed (type unsigned, default to 0)" << endl;
   stream << "          Seed for the random number generator" << endl;
   stream << endl;
@@ -1148,6 +1158,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# population_size = " << options._population_size << endl;
   stream << "# pv_log_num_components = " << options._pv_log_num_components << endl;
   stream << "# radius = " << options._radius << endl;
+  stream << "# results_path = " << options._results_path << endl;
   stream << "# rls_patience = " << options._rls_patience << endl;
   stream << "# sa_beta_ratio = " << options._sa_beta_ratio << endl;
   stream << "# sa_initial_acceptance_probability = " << options._sa_initial_acceptance_probability << endl;
@@ -1218,10 +1229,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# print_defaults" << endl;
   if (options._print_header)
     stream << "# print_header" << endl;
-  if (options._print_lookup_ratio)
-    stream << "# print_lookup_ratio" << endl;
-  if (options._print_performance)
-    stream << "# print_performance" << endl;
+  if (options._print_results)
+    stream << "# print_results" << endl;
   if (options._print_solution)
     stream << "# print_solution" << endl;
   if (options._prior_noise)
@@ -1236,6 +1245,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# rls_strict" << endl;
   if (options._rw_log_value)
     stream << "# rw_log_value" << endl;
+  if (options._save_results)
+    stream << "# save_results" << endl;
   if (options._stop_on_maximum)
     stream << "# stop_on_maximum" << endl;
   if (options._stop_on_target)

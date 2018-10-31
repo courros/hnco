@@ -7,7 +7,10 @@ Library:
 hnco:
 - Replaced make_function with FunctionFactory
 - Added option --print-concrete-solution
-- Added option --print-lookup-ratio
+- Removed option --print-performance
+- Added options --print-results, --save-results and --results-path
+- Results are printed and saved in json
+
 
 Scripts:
 - hnco-benchmark-stat.pl, hnco-parameter-stat.pl: rounding specification in json data structure
