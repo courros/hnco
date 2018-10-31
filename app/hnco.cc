@@ -22,7 +22,8 @@
 #include <omp.h>                // omp_set_num_threads
 
 #include <algorithm>            // sort
-#include <chrono>
+#include <chrono>               // system_clock::now
+#include <ctime>                // clock
 #include <iostream>
 
 #include "hnco/exception.hh"
@@ -223,6 +224,8 @@ int main(int argc, char *argv[])
   bool maximum_reached = false;
   bool target_reached = false;
 
+  clock_t start_point = clock();
+
   try {
     algorithm->maximize();
     solution = algorithm->get_solution();
@@ -246,6 +249,8 @@ int main(int argc, char *argv[])
     return 1;
   }
 
+  double total_time = double(clock() - start_point) / CLOCKS_PER_SEC;
+
   //
   // Results
   //
@@ -254,9 +259,9 @@ int main(int argc, char *argv[])
   results << "{\n";
 
   ProgressTracker::Event last_improvement = tracker->get_last_improvement();
+  results << "  value: " << last_improvement.value << ",\n";
   results << "  num_evaluations: " << last_improvement.num_evaluations << ",\n";
-  results << "  value: " << last_improvement.value;
-
+  results << "  total_time: " << total_time;
   hnco::function::Cache *cache = function_factory.get_cache();
   if (cache)
     results << ",\n  lookup_ratio: " << cache->get_lookup_ratio();
