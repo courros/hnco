@@ -27,6 +27,7 @@
 #include <unordered_map>
 
 #include "hnco/map.hh"
+#include "hnco/stop-watch.hh"
 
 #include "function-decorator.hh"
 
@@ -218,6 +219,9 @@ namespace hnco::function {
     /// Last improvement
     Event _last_improvement;
 
+    /// Stop watch
+    StopWatch _stop_watch;
+
     /** @name Parameters
      */
     ///@{
@@ -267,6 +271,10 @@ namespace hnco::function {
     ///@}
 
 
+    /** @name Get information
+     */
+    ///@{
+
     /** Get the last improvement.
 
         \warning If _last_improvement.num_evaluations is zero then
@@ -274,6 +282,11 @@ namespace hnco::function {
         get_last_improvement has therefore no meaning.
     */
     const Event& get_last_improvement() { return _last_improvement; }
+
+    /// Get evaluation time
+    double get_evaluation_time() { return _stop_watch.get_total(); }
+
+    ///@}
 
     /** @name Setters
      */
