@@ -153,7 +153,11 @@ double
 ProgressTracker::eval(const bit_vector_t& x)
 {
   double result;
-  try { result = _function->eval(x); }
+  try {
+    _stop_watch.start();
+    result = _function->eval(x);
+    _stop_watch.stop();
+  }
   catch (MaximumReached) {
     assert(_function->has_known_maximum());
     update_last_improvement(_function->get_maximum());
