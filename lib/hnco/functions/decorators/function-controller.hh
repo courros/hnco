@@ -193,8 +193,9 @@ namespace hnco::function {
 
   /** ProgressTracker.
 
-      A ProgressTracker is a CallCounter which records the last event,
-      that is the time and value of the last improvement.
+      A ProgressTracker is a CallCounter which keeps track the last
+      improvement, that is its value and the number of evaluations
+      needed to reach it.
   */    
   class ProgressTracker:
     public CallCounter {
@@ -204,8 +205,8 @@ namespace hnco::function {
     /// Event
     struct Event {
 
-      /// Time
-      int time;
+      /// Number of evaluations
+      int num_evaluations;
 
       /// Value
       double value;
@@ -238,7 +239,7 @@ namespace hnco::function {
     ProgressTracker(Function *function):
       CallCounter(function)
     {
-      _last_improvement.time = 0;
+      _last_improvement.num_evaluations = 0;
     }
 
     /** @name Evaluation
@@ -268,9 +269,9 @@ namespace hnco::function {
 
     /** Get the last improvement.
 
-        \warning If _last_improvement.time is zero then _function has
-        never been called. The Event returned by get_last_improvement
-        has therefore no meaning.
+        \warning If _last_improvement.num_evaluations is zero then
+        _function has never been called. The Event returned by
+        get_last_improvement has therefore no meaning.
     */
     const Event& get_last_improvement() { return _last_improvement; }
 

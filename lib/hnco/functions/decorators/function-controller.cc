@@ -211,7 +211,7 @@ ProgressTracker::update_last_improvement(double value)
 
   if (_num_calls == 1) {
 
-    _last_improvement.time = _num_calls;
+    _last_improvement.num_evaluations = _num_calls;
     _last_improvement.value = value;
 
     if (_log_improvement)
@@ -220,7 +220,7 @@ ProgressTracker::update_last_improvement(double value)
   } else if (value > _last_improvement.value) {
     assert(_num_calls > 1);
 
-    _last_improvement.time = _num_calls;
+    _last_improvement.num_evaluations = _num_calls;
     _last_improvement.value = value;
 
     if (_log_improvement)
@@ -231,7 +231,7 @@ ProgressTracker::update_last_improvement(double value)
 
 std::ostream& hnco::function::operator<<(std::ostream& stream, const ProgressTracker::Event& event)
 {
-  stream << event.time << " " << event.value;
+  stream << event.num_evaluations << " " << event.value;
   return stream;
 }
 

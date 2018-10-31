@@ -254,7 +254,7 @@ int main(int argc, char *argv[])
   results << "{\n";
 
   ProgressTracker::Event last_improvement = tracker->get_last_improvement();
-  results << "  num_evaluations: " << last_improvement.time << ",\n";
+  results << "  num_evaluations: " << last_improvement.num_evaluations << ",\n";
   results << "  value: " << last_improvement.value;
 
   hnco::function::Cache *cache = function_factory.get_cache();
