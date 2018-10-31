@@ -107,13 +107,12 @@ sub iterate_runs
     my ($prefix, $cmd, $num_runs) = @_;
     if ($parallel) {
         foreach (1 .. $num_runs) {
-            push @commands,
-                "/usr/bin/time --quiet -f \"\%U\" -o $prefix/$_.time $cmd --print-results > $prefix/$_.out 2>> $prefix/$_.err";
+            push @commands, "$cmd --print-results > $prefix/$_.out 2>> $prefix/$_.err";
         }
         print "added to the job queue";
     } else {
         foreach (1 .. $num_runs) {
-            system("/usr/bin/time --quiet -f \"\%U\" -o $prefix/$_.time $cmd --print-results > $prefix/$_.out 2>> log.err");
+            system("$cmd --print-results > $prefix/$_.out 2>> log.err");
             print ".";
         }
     }
