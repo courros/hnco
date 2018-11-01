@@ -18,7 +18,7 @@ hnco:
 Scripts:
 - hnco-benchmark-stat.pl, hnco-parameter-stat.pl: rounding specification in json data structure
 - hnco-benchmark-stat.pl: generate ranking per function
-- hnco-parameter-run.pl: replace elapsed time with user time
+- hnco-parameter-run.pl: replaced elapsed time with user time
 - hnco-*-run.pl: added option --joblog to parallel
 - hnco-benchmark-run.pl: removed external dependency on /usr/bin/time
 - hnco-benchmark-stat.pl: added tables for CPU time
