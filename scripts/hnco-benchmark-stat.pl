@@ -44,11 +44,13 @@ my $path_results        = "results";
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
 my $ranges = {};
-my $stat_eval = {};
-my $stat_time = {};
-my $stat_value = {};
-my $stat_value_best = {};
 my $ranking = {};
+my $stat_eval = {};
+my $stat_value = {};
+my $stat_total_time = {};
+my $stat_evaluation_time = {};
+my $stat_algorithm_time = {};
+my $stat_value_best = {};
 
 my $rank_distribution = {};
 foreach my $a (@$algorithms) {
@@ -63,7 +65,6 @@ my %terminal = (
     png => "set term png enhanced" );
 
 compute_statistics();
-compute_statistics_time();
 compute_best_statistics();
 compute_rank_distribution();
 
@@ -83,8 +84,12 @@ sub compute_statistics
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $eval = {};
+
         my $value = {};
+        my $eval = {};
+        my $total_time = {};
+        my $evaluation_time = {};
+        my $algorithm_time = {};
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
@@ -94,31 +99,25 @@ sub compute_statistics
             }
 
             my $prefix = "$path_results/$function_id/$algorithm_id";
-            my $SD_eval = Statistics::Descriptive::Full->new();
+
             my $SD_value = Statistics::Descriptive::Full->new();
+            my $SD_eval = Statistics::Descriptive::Full->new();
+            my $SD_total_time = Statistics::Descriptive::Full->new();
+            my $SD_evaluation_time = Statistics::Descriptive::Full->new();
+            my $SD_algorithm_time = Statistics::Descriptive::Full->new();
 
             my $path = "$prefix/$algorithm_id.dat";
-            my $file_data = IO::File->new($path, '>')
-                or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+            my $file_data = IO::File->new($path, '>') or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
             foreach (1 .. $algorithm_num_runs) {
-                $path = "$prefix/$_.out";
-                my $file_run = IO::File->new($path, '<')
-                    or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
-                my $line = $file_run->getline;
-                $file_data->print($line);
-                chomp $line;
-                my @results = split ' ', $line;
-                $SD_eval->add_data($results[0]);
-                $SD_value->add_data($results[1]);
-                $file_run->close;
+                my $obj = from_json(read_file("$prefix/$_.out"));
+                $file_data->print("$obj->{num_evaluations} $obj->{value}\n");
+                $SD_value->add_data($obj->{value});
+                $SD_eval->add_data($obj->{num_evaluations});
+                $SD_total_time->add_data($obj->{total_time});
+                $SD_evaluation_time->add_data($obj->{evaluation_time});
+                $SD_algorithm_time->add_data($obj->{total_time} - $obj->{evaluation_time});
             }
             $file_data->close;
-
-            $eval->{$algorithm_id} = { min     => $SD_eval->min(),
-                                       q1      => $SD_eval->quantile(1),
-                                       median  => $SD_eval->median(),
-                                       q3      => $SD_eval->quantile(3),
-                                       max     => $SD_eval->max() };
 
             $value->{$algorithm_id} = { min     => $SD_value->min(),
                                         q1      => $SD_value->quantile(1),
@@ -126,46 +125,28 @@ sub compute_statistics
                                         q3      => $SD_value->quantile(3),
                                         max     => $SD_value->max() };
 
+            $eval->{$algorithm_id} = { min     => $SD_eval->min(),
+                                       q1      => $SD_eval->quantile(1),
+                                       median  => $SD_eval->median(),
+                                       q3      => $SD_eval->quantile(3),
+                                       max     => $SD_eval->max() };
+
+            $total_time->{$algorithm_id} = { mean     => $SD_total_time->mean(),
+                                             stddev   => $SD_total_time->standard_deviation() };
+
+            $evaluation_time->{$algorithm_id} = { mean     => $SD_evaluation_time->mean(),
+                                                  stddev   => $SD_evaluation_time->standard_deviation() };
+
+            $algorithm_time->{$algorithm_id} = { mean     => $SD_algorithm_time->mean(),
+                                                 stddev   => $SD_algorithm_time->standard_deviation() };
+
         }
 
-        $stat_eval->{$function_id} = $eval;
         $stat_value->{$function_id} = $value;
-
-    }
-
-}
-
-sub compute_statistics_time
-{
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        my $time = {};
-
-        foreach my $a (@$algorithms) {
-            my $algorithm_id = $a->{id};
-            my $algorithm_num_runs = $num_runs;
-            if ($a->{deterministic}) {
-                $algorithm_num_runs = 1;
-            }
-
-            my $prefix = "$path_results/$function_id/$algorithm_id";
-            my $SD_time = Statistics::Descriptive::Full->new();
-
-            foreach (1 .. $algorithm_num_runs) {
-                my $path = "$prefix/$_.time";
-                my $file = IO::File->new($path, '<')
-                    or die "hnco-benchmark-stat.pl: compute_statistics_time: Cannot open '$path': $!\n";
-                my $line = $file->getline;
-                $SD_time->add_data($line);
-                $file->close;
-            }
-
-            $time->{$algorithm_id} = { mean     => $SD_time->mean(),
-                                       stddev   => $SD_time->standard_deviation() };
-
-        }
-
-        $stat_time->{$function_id} = $time;
+        $stat_eval->{$function_id} = $eval;
+        $stat_total_time->{$function_id} = $total_time;
+        $stat_evaluation_time->{$function_id} = $evaluation_time;
+        $stat_algorithm_time->{$function_id} = $algorithm_time;
 
     }
 
@@ -525,20 +506,21 @@ sub generate_table_rank_distribution
     my $path = "$path_report/table-rank-distribution.tex";
     open(LATEX, ">$path")
         or die "hnco-benchmark-stat.pl: generate_table_rank_distribution: Cannot open $path\n";
-    latex_rank_distribution_table_begin();
-    latex_rank_distribution_table_body();
-    latex_rank_distribution_table_end();
+    latex_table_rank_distribution_begin();
+    latex_table_rank_distribution_body();
+    latex_table_rank_distribution_end();
     close LATEX;
 }
 
 sub generate_table_functions
 {
     foreach my $fn (@$functions) {
-        generate_table_function($fn);
+        generate_table_value($fn);
+        generate_table_time($fn);
     }
 }
 
-sub generate_table_function
+sub generate_table_value
 {
     my $fn = shift;
 
@@ -546,28 +528,50 @@ sub generate_table_function
 
     my $rounding_value_before = $fn->{rounding}->{value}->{before} || 3;
     my $rounding_value_after = $fn->{rounding}->{value}->{after} || 0;
-    my $rounding_time_before = $fn->{rounding}->{time}->{before} || 1;
-    my $rounding_time_after = $fn->{rounding}->{time}->{after} || 2;
 
     my $value = $stat_value->{$function_id};
     my $best = $stat_value_best->{$function_id};
-    my $time = $stat_time->{$function_id};
 
-    open(LATEX, ">$path_report/table-$function_id.tex")
-        or die "hnco-benchmark-stat.pl: generate_table_function: Cannot open $path_report/table-$function_id.tex\n";
+    my $path = "$path_report/table-value-$function_id.tex";
+    open(LATEX, ">$path") or die "hnco-benchmark-stat.pl: generate_table_value: Cannot open $path\n";
 
-    latex_function_table_begin(">{{\\nprounddigits{$rounding_value_after}}}N{$rounding_value_before}{$rounding_value_after}",
-                               ">{{\\nprounddigits{$rounding_time_after}}}N{$rounding_time_before}{$rounding_time_after}");
+    latex_table_value_begin(">{{\\nprounddigits{$rounding_value_after}}}N{$rounding_value_before}{$rounding_value_after}");
 
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
-        latex_function_table_add_line($algorithm_id,
-                                      $value->{$algorithm_id},
-                                      $best,
-                                      $fn->{logscale},
-                                      $time->{$algorithm_id});
+        latex_table_value_add_line($algorithm_id,
+                                   $value->{$algorithm_id},
+                                   $best,
+                                   $fn->{logscale});
     }
-    latex_funtion_table_end();
+    latex_table_end();
+
+    close LATEX;
+}
+
+sub generate_table_time
+{
+    my $fn = shift;
+
+    my $function_id = $fn->{id};
+    my $rounding_time_before = $fn->{rounding}->{time}->{before} || 1;
+    my $rounding_time_after = $fn->{rounding}->{time}->{after} || 2;
+    my $total_time = $stat_total_time->{$function_id};
+    my $evaluation_time = $stat_evaluation_time->{$function_id};
+    my $algorithm_time = $stat_algorithm_time->{$function_id};
+
+    my $path = "$path_report/table-time-$function_id.tex";
+    open(LATEX, ">$path") or die "hnco-benchmark-stat.pl: generate_table_time: Cannot open $path\n";
+
+    latex_table_time_begin(">{{\\nprounddigits{$rounding_time_after}}}N{$rounding_time_before}{$rounding_time_after}");
+    foreach my $a (@$algorithms) {
+        my $algorithm_id = $a->{id};
+        latex_table_time_add_line($algorithm_id,
+                                  $total_time->{$algorithm_id},
+                                  $evaluation_time->{$algorithm_id},
+                                  $algorithm_time->{$algorithm_id});
+    }
+    latex_table_end();
 
     close LATEX;
 }
@@ -577,7 +581,24 @@ sub generate_ranking
     my $path = "$path_report/ranking.tex";
     open(LATEX, ">$path")
         or die "hnco-benchmark-stat.pl: generate_ranking: Cannot open $path\n";
-    latex_ranking();
+
+    print LATEX "Per function rankings (ex-eaquo are grouped in parentheses):\n";
+    print LATEX "\\begin{description}\n";
+    foreach my $f (@$functions) {
+        my $function_id = $f->{id};
+        print LATEX "\\item[$function_id]\n";
+        print LATEX join (", ",
+                          map {
+                              if (@{ $_ } == 1) {
+                                  join(", ", @{ $_ });
+                              } else {
+                                  "(" . join(", ", @{ $_ }) . ")";
+                              }
+                          } @{ $ranking->{$function_id} });
+        print LATEX "\n\n";
+    }
+    print LATEX "\\end{description}\n";
+
     close LATEX;
 }
 
@@ -603,7 +624,7 @@ sub generate_latex
         my $function_id = $f->{id};
         my $value = $stat_value->{$function_id};
         my $best = $stat_value_best->{$function_id};
-        my $time = $stat_time->{$function_id};
+        my $total_time = $stat_total_time->{$function_id};
 
         latex_newpage();
 
@@ -611,7 +632,12 @@ sub generate_latex
         latex_empty_line();
 
         latex_begin_center();
-        latex_input_file("table-$function_id.tex");
+        latex_input_file("table-value-$function_id.tex");
+        latex_end_center();
+        latex_empty_line();
+
+        latex_begin_center();
+        latex_input_file("table-time-$function_id.tex");
         latex_end_center();
         latex_empty_line();
 
@@ -664,22 +690,22 @@ sub latex_end_center
 EOF
 }
 
-sub latex_function_table_begin
+sub latex_table_value_begin
 {
-    my ($rounding_value, $rounding_time) = @_;
+    my $rounding_value = shift;
 
     print LATEX
-        "\\begin{tabular}{\@{}l*{5}{$rounding_value}>{{\\nprounddigits{0}}}N{2}{0}$rounding_time$rounding_time\@{}}\n",
+        "\\begin{tabular}{\@{}l*{5}{$rounding_value}>{{\\nprounddigits{0}}}N{2}{0}\@{}}\n",
         "\\toprule\n",
-        "{algorithm} & \\multicolumn{6}{l}{{function value}} & \\multicolumn{2}{l}{{time (s)}} \\\\\n",
+        "{algorithm} & \\multicolumn{6}{l}{{function value}} \\\\\n",
         "\\midrule\n",
-        "& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} & {mean} & {dev.} \\\\\n",
+        "& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk}\\\\\n",
         "\\midrule\n";
 }
 
-sub latex_function_table_add_line
+sub latex_table_value_add_line
 {
-    my ($algo, $perf, $best, $logscale, $time) = @_;
+    my ($algo, $perf, $best, $logscale) = @_;
 
     print LATEX "$algo & ";
 
@@ -692,12 +718,34 @@ sub latex_function_table_add_line
 
     printf LATEX ($format, $perf->{min}, $perf->{q1}, $perf->{median}, $perf->{q3}, $perf->{max});
 
-    printf LATEX (" & %d", $perf->{rank} + 1);
-    printf LATEX (" & %f & %f \\\\\n ", $time->{mean}, $time->{stddev});
-
+    printf LATEX (" & %d\\\\\n", $perf->{rank} + 1);
 }
 
-sub latex_funtion_table_end
+sub latex_table_time_begin
+{
+    my $rounding_time = shift;
+
+    print LATEX
+        "\\begin{tabular}{\@{}l*{6}{$rounding_time}\@{}}\n",
+        "\\toprule\n",
+        "{algorithm} & \\multicolumn{2}{l}{{algo. time (s)}} & \\multicolumn{2}{l}{{eval. time (s)}} & \\multicolumn{2}{l}{{total time (s)}} \\\\\n",
+        "\\midrule\n",
+        "& {mean} & {dev.} & {mean} & {dev.} & {mean} & {dev.} \\\\\n",
+        "\\midrule\n";
+}
+
+sub latex_table_time_add_line
+{
+    my ($algo, $total_time, $evaluation_time, $algorithm_time) = @_;
+
+    print LATEX "$algo";
+    printf LATEX (" & %f & %f & %f & %f & %f & %f \\\\\n ",
+                  $algorithm_time->{mean}, $algorithm_time->{stddev},
+                  $evaluation_time->{mean}, $evaluation_time->{stddev},
+                  $total_time->{mean}, $total_time->{stddev});
+}
+
+sub latex_table_end
 {
     print LATEX <<EOF;
 \\bottomrule
@@ -739,27 +787,7 @@ sub latex_newpage
 EOF
 }
 
-sub latex_ranking
-{
-    print LATEX "Per function rankings (ex-eaquo are grouped in parentheses):\n";
-    print LATEX "\\begin{description}\n";
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        print LATEX "\\item[$function_id]\n";
-        print LATEX join (", ",
-                          map {
-                              if (@{ $_ } == 1) {
-                                  join(", ", @{ $_ });
-                              } else {
-                                  "(" . join(", ", @{ $_ }) . ")";
-                              }
-                          } @{ $ranking->{$function_id} });
-        print LATEX "\n\n";
-    }
-    print LATEX "\\end{description}\n";
-}
-
-sub latex_rank_distribution_table_begin
+sub latex_table_rank_distribution_begin
 {
     my $num_algo = @$algorithms;
     print LATEX
@@ -771,7 +799,7 @@ sub latex_rank_distribution_table_begin
         "\\midrule\n";
 }
 
-sub latex_rank_distribution_table_body
+sub latex_table_rank_distribution_body
 {
     my @order = sort {
         foreach (0 .. @$algorithms - 1) {
@@ -788,7 +816,7 @@ sub latex_rank_distribution_table_body
 
 }
 
-sub latex_rank_distribution_table_end
+sub latex_table_rank_distribution_end
 {
     print LATEX
         "\\bottomrule\n",
@@ -810,4 +838,16 @@ sub quote
 {
     my $s = shift;
     return "\"$s\"";
+}
+
+sub read_file
+{
+    my $path = shift;
+    my $json;
+    {
+        local $/;
+        open my $fh, '<', $path or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+        $json = <$fh>;
+    }
+    return $json;
 }
