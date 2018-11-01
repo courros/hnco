@@ -4,6 +4,8 @@ Library:
 - OnePlusOneEa: fixed bug which prevented from getting the actual solution
 - Cache: added member function get_lookup_ratio
 - Event: renamed member time -> num_evaluations
+- Added class StopWatch
+- ProgressTracker: added member function get_evaluation_time
 
 hnco:
 - Replaced make_function with FunctionFactory
@@ -11,13 +13,15 @@ hnco:
 - Removed option --print-performance
 - Added options --print-results, --save-results and --results-path
 - Results are printed and saved in json
-
+- hnco measures total CPU time with clock()
 
 Scripts:
 - hnco-benchmark-stat.pl, hnco-parameter-stat.pl: rounding specification in json data structure
 - hnco-benchmark-stat.pl: generate ranking per function
-- hnco-benchmark-run.pl, hnco-parameter-run.pl: replace elapsed time with user time
+- hnco-parameter-run.pl: replace elapsed time with user time
 - hnco-*-run.pl: added option --joblog to parallel
+- hnco-benchmark-run.pl: removed external dependency on /usr/bin/time
+- hnco-benchmark-stat.pl: added tables for CPU time
 
 Experiments:
 - Benchmark, parameter: rounding specification in json data structure
