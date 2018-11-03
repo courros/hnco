@@ -340,11 +340,8 @@ make_concrete_algorithm(const Options& options)
     algo->set_herding(herding);
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
-    algo->set_rate_strategy(options.get_hea_rate_strategy());
-    algo->set_initial_rate(options.get_learning_rate());
-    algo->set_time_constant(options.get_hea_time_constant());
+    algo->set_rate(options.get_learning_rate());
     algo->set_reset_period(options.get_hea_reset_period());
-    algo->set_delay(options.get_hea_delay());
     algo->set_bound_moment(options.with_hea_bound_moment());
     algo->set_weight(options.get_hea_weight());
 
@@ -381,11 +378,8 @@ make_concrete_algorithm(const Options& options)
     algo->set_herding(herding);
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
-    algo->set_rate_strategy(options.get_hea_rate_strategy());
-    algo->set_initial_rate(options.get_learning_rate());
-    algo->set_time_constant(options.get_hea_time_constant());
+    algo->set_rate(options.get_learning_rate());
     algo->set_reset_period(options.get_hea_reset_period());
-    algo->set_delay(options.get_hea_delay());
     algo->set_bound_moment(options.with_hea_bound_moment());
     algo->set_weight(options.get_hea_weight());
 
