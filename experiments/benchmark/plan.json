@@ -1,6 +1,6 @@
 {
     "exec": "hnco",
-    "opt": "--print-performance --map 1 --map-random -s 100 -i 0",
+    "opt": "--map 1 --map-random -s 100",
     "budget": 300000,
 
     "num_runs": 20,
@@ -18,7 +18,7 @@
 
         {
             "id": "lin",
-	    "opt": "-F 1 -p instances/lin.100",
+	    "opt": "-F 1 --stop-on-maximum -p instances/lin.100",
             "rounding": {
                 "value": { "before": 2, "after": 2 },
                 "time": { "before": 1, "after": 2 } }
@@ -143,7 +143,7 @@
             "id": "hiff",
 	    "opt": "-F 120 --stop-on-maximum -s 128",
             "rounding": {
-                "value": { "before": 3, "after": 0 },
+                "value": { "before": 4, "after": 0 },
                 "time": { "before": 1, "after": 2 } }
         },
 
