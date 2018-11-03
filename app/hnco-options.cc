@@ -45,18 +45,12 @@ Options::Options(int argc, char *argv[]):
   _opt_ga_tournament_size(false),
   _hea_bit_herding(0),
   _opt_hea_bit_herding(false),
-  _hea_delay(10000),
-  _opt_hea_delay(false),
   _hea_num_seq_updates(100),
   _opt_hea_num_seq_updates(false),
-  _hea_rate_strategy(0),
-  _opt_hea_rate_strategy(false),
   _hea_reset_period(0),
   _opt_hea_reset_period(false),
   _hea_sampling_method(0),
   _opt_hea_sampling_method(false),
-  _hea_time_constant(1000),
-  _opt_hea_time_constant(false),
   _hea_weight(1),
   _opt_hea_weight(false),
   _learning_rate(0.001),
@@ -179,12 +173,9 @@ Options::Options(int argc, char *argv[]):
     OPTION_GA_CROSSOVER_PROBABILITY,
     OPTION_GA_TOURNAMENT_SIZE,
     OPTION_HEA_BIT_HERDING,
-    OPTION_HEA_DELAY,
     OPTION_HEA_NUM_SEQ_UPDATES,
-    OPTION_HEA_RATE_STRATEGY,
     OPTION_HEA_RESET_PERIOD,
     OPTION_HEA_SAMPLING_METHOD,
-    OPTION_HEA_TIME_CONSTANT,
     OPTION_HEA_WEIGHT,
     OPTION_LEARNING_RATE,
     OPTION_MAP,
@@ -274,12 +265,9 @@ Options::Options(int argc, char *argv[]):
     {"ga-crossover-probability", required_argument, 0, OPTION_GA_CROSSOVER_PROBABILITY},
     {"ga-tournament-size", required_argument, 0, OPTION_GA_TOURNAMENT_SIZE},
     {"hea-bit-herding", required_argument, 0, OPTION_HEA_BIT_HERDING},
-    {"hea-delay", required_argument, 0, OPTION_HEA_DELAY},
     {"hea-num-seq-updates", required_argument, 0, OPTION_HEA_NUM_SEQ_UPDATES},
-    {"hea-rate-strategy", required_argument, 0, OPTION_HEA_RATE_STRATEGY},
     {"hea-reset-period", required_argument, 0, OPTION_HEA_RESET_PERIOD},
     {"hea-sampling-method", required_argument, 0, OPTION_HEA_SAMPLING_METHOD},
-    {"hea-time-constant", required_argument, 0, OPTION_HEA_TIME_CONSTANT},
     {"hea-weight", required_argument, 0, OPTION_HEA_WEIGHT},
     {"learning-rate", required_argument, 0, OPTION_LEARNING_RATE},
     {"map", required_argument, 0, OPTION_MAP},
@@ -440,16 +428,8 @@ Options::Options(int argc, char *argv[]):
       set_hea_bit_herding(atoi(optarg));
       break;
 
-    case OPTION_HEA_DELAY:
-      set_hea_delay(atoi(optarg));
-      break;
-
     case OPTION_HEA_NUM_SEQ_UPDATES:
       set_hea_num_seq_updates(atoi(optarg));
-      break;
-
-    case OPTION_HEA_RATE_STRATEGY:
-      set_hea_rate_strategy(atoi(optarg));
       break;
 
     case OPTION_HEA_RESET_PERIOD:
@@ -458,10 +438,6 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_HEA_SAMPLING_METHOD:
       set_hea_sampling_method(atoi(optarg));
-      break;
-
-    case OPTION_HEA_TIME_CONSTANT:
-      set_hea_time_constant(atof(optarg));
       break;
 
     case OPTION_HEA_WEIGHT:
@@ -1046,8 +1022,6 @@ void Options::print_help_hea(ostream& stream) const
   stream << "            1: Maximize inner product" << endl;
   stream << "      --hea-bound-moment" << endl;
   stream << "          Bound moment after update" << endl;
-  stream << "      --hea-delay (type int, default to 10000)" << endl;
-  stream << "          Delay before learning rate decay" << endl;
   stream << "      --hea-log-delta" << endl;
   stream << "          Log norm 2 of delta (in moment space)" << endl;
   stream << "      --hea-log-dtu" << endl;
@@ -1062,11 +1036,6 @@ void Options::print_help_hea(ostream& stream) const
   stream << "          Number of sequential updates per sample" << endl;
   stream << "      --hea-randomize-bit-order" << endl;
   stream << "          Randomize bit order" << endl;
-  stream << "      --hea-rate-strategy (type int, default to 0)" << endl;
-  stream << "          Rate strategy" << endl;
-  stream << "            0: Constant rate" << endl;
-  stream << "            1: Exponential decay" << endl;
-  stream << "            2: Inverse decay" << endl;
   stream << "      --hea-reset-period (type int, default to 0)" << endl;
   stream << "          Reset period (<= 0 means no reset)" << endl;
   stream << "      --hea-sampling-method (type int, default to 0)" << endl;
@@ -1074,8 +1043,6 @@ void Options::print_help_hea(ostream& stream) const
   stream << "            0: Greedy algorithm" << endl;
   stream << "            1: Random local search" << endl;
   stream << "            2: Deterministic local search" << endl;
-  stream << "      --hea-time-constant (type double, default to 1000)" << endl;
-  stream << "          Time constant for exponential decay" << endl;
   stream << "      --hea-weight (type double, default to 1)" << endl;
   stream << "          Weight of second moments" << endl;
   stream << endl;
@@ -1134,12 +1101,9 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# ga_crossover_probability = " << options._ga_crossover_probability << endl;
   stream << "# ga_tournament_size = " << options._ga_tournament_size << endl;
   stream << "# hea_bit_herding = " << options._hea_bit_herding << endl;
-  stream << "# hea_delay = " << options._hea_delay << endl;
   stream << "# hea_num_seq_updates = " << options._hea_num_seq_updates << endl;
-  stream << "# hea_rate_strategy = " << options._hea_rate_strategy << endl;
   stream << "# hea_reset_period = " << options._hea_reset_period << endl;
   stream << "# hea_sampling_method = " << options._hea_sampling_method << endl;
-  stream << "# hea_time_constant = " << options._hea_time_constant << endl;
   stream << "# hea_weight = " << options._hea_weight << endl;
   stream << "# learning_rate = " << options._learning_rate << endl;
   stream << "# map = " << options._map << endl;

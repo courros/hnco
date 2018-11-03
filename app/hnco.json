@@ -1066,34 +1066,6 @@
             ]
         },
 
-        "hea_rate_strategy":
-        {
-            "type": "int",
-            "value": 0,
-            "description": "Rate strategy",
-            "section": "hea",
-            "alternatives":
-            [
-
-                {
-                    "value": 0,
-                    "description": "Constant rate"
-                },
-
-                {
-                    "value": 1,
-                    "description": "Exponential decay"
-                },
-
-                {
-                    "value": 2,
-                    "description": "Inverse decay"
-                }
-
-            ]
-
-        },
-
         "hea_bit_herding":
         {
             "type": "int",
@@ -1117,14 +1089,6 @@
 
         },
 
-        "hea_time_constant":
-        {
-            "type": "double",
-            "value": 1000,
-            "description": "Time constant for exponential decay",
-            "section": "hea"
-        },
-
         "hea_weight":
         {
             "type": "double",
@@ -1146,14 +1110,6 @@
             "type": "int",
             "value": 0,
             "description": "Reset period (<= 0 means no reset)",
-            "section": "hea"
-        },
-
-        "hea_delay":
-        {
-            "type": "int",
-            "value": 10000,
-            "description": "Delay before learning rate decay",
             "section": "hea"
         },
 

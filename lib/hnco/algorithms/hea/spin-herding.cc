@@ -115,26 +115,24 @@ SpinHerding::sample_greedy(bit_vector_t& x)
 
   for (size_t k = 0; k < _permutation.size(); k++) {
     size_t i = _randomize_bit_order ? _permutation[k] : k;
-    double lambda = _delta._first[i];
 
-    double tmp = 0;
+    double acc = 0;
     for (size_t l = 0; l < k; l++) {
       size_t j = _randomize_bit_order ? _permutation[l] : l;
       if (j < i) {
         if (x[j])
-          tmp -= _delta._second[i][j];
+          acc -= _delta._second[i][j];
         else
-          tmp += _delta._second[i][j];
+          acc += _delta._second[i][j];
       } else {
         if (x[j])
-          tmp -= _delta._second[j][i];
+          acc -= _delta._second[j][i];
         else
-          tmp += _delta._second[j][i];
+          acc += _delta._second[j][i];
       }
     }
 
-    lambda += _weight * tmp;
-    if (lambda > 0)
+    if (_delta._first[i] + _weight * acc > 0)
       x[i] = 0;
     else
       x[i] = 1;
