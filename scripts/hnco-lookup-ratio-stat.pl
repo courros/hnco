@@ -43,7 +43,6 @@ my $path_results        = "results";
 
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
-my $ranges = {};
 my $ranking = {};
 my $stat_eval = {};
 my $stat_value = {};
@@ -67,8 +66,6 @@ my %terminal = (
 compute_statistics();
 compute_best_statistics();
 compute_rank_distribution();
-
-compute_ranges();
 
 generate_function_data();
 generate_gnuplot_candlesticks();
@@ -221,24 +218,6 @@ sub compute_rank_distribution
 
 }
 
-sub compute_ranges
-{
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        my $eval = $stat_eval->{$function_id};
-        my $value = $stat_value->{$function_id};
-        my $range = {};
-
-        $range->{xmin} = min (map { $eval->{$_}->{min} } keys %$eval);
-        $range->{xmax} = max (map { $eval->{$_}->{max} } keys %$eval);
-        $range->{ymin} = min (map { $value->{$_}->{min} } keys %$value);
-        $range->{ymax} = max (map { $value->{$_}->{max} } keys %$value);
-
-        $ranges->{$function_id} = $range;
-    }
-
-}
-
 sub generate_function_data
 {
     foreach my $f (@$functions) {
@@ -282,8 +261,8 @@ sub generate_gnuplot_candlesticks
         "set grid y\n",
         "set xlabel \"Algorithm\"\n",
         "set xtics rotate by -45\n",
-        "set ylabel \"Function value\"\n",
-        "set autoscale y\n",
+        "set ylabel \"Cache lookup ratio\"\n",
+        "set yrange [0:1]\n",
         "set boxwidth 0.4\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
 
@@ -294,16 +273,9 @@ sub generate_gnuplot_candlesticks
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
-        if ($f->{logscale}) {
-            my $fmt = quote("10^{\%T}");
-            print CANDLESTICKS
-                "set logscale y 10\n",
-                "set format y $fmt\n";
-        } else {
-            print CANDLESTICKS
-                "unset logscale\n",
-                "set format y\n";
-        }
+        print CANDLESTICKS
+            "unset logscale\n",
+            "set format y\n";
 
         my $quoted_path = quote("$path_graphics/$function_id.pdf");
         print CANDLESTICKS
@@ -371,8 +343,7 @@ sub generate_table_value
         my $algorithm_id = $a->{id};
         latex_table_value_add_line($algorithm_id,
                                    $value->{$algorithm_id},
-                                   $best,
-                                   $fn->{logscale});
+                                   $best);
     }
     latex_table_end();
 
@@ -452,6 +423,8 @@ sub generate_latex
         latex_end_figure();
         latex_empty_line();
 
+    }
+
     close LATEX;
 }
 
@@ -491,7 +464,7 @@ sub latex_table_value_begin
     print LATEX
         "\\begin{tabular}{\@{}l*{5}{$rounding_value}>{{\\nprounddigits{0}}}N{2}{0}\@{}}\n",
         "\\toprule\n",
-        "{algorithm} & \\multicolumn{6}{l}{{function value}} \\\\\n",
+        "{algorithm} & \\multicolumn{6}{l}{{cache lookup ratio}} \\\\\n",
         "\\midrule\n",
         "& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk}\\\\\n",
         "\\midrule\n";
@@ -499,19 +472,13 @@ sub latex_table_value_begin
 
 sub latex_table_value_add_line
 {
-    my ($algo, $perf, $best, $logscale) = @_;
-
-    print LATEX "$algo & ";
+    my ($algo, $perf, $best) = @_;
 
     my $conversion = "%f";
-    if ($logscale) {
-        $conversion = "%e";
-    }
-
     my $format = join " & ", map { $perf->{$_} == $best->{$_} ? "{\\color{blue}} $conversion" : "$conversion" } @summary_statistics;
 
+    print LATEX "$algo & ";
     printf LATEX ($format, $perf->{min}, $perf->{q1}, $perf->{median}, $perf->{q3}, $perf->{max});
-
     printf LATEX (" & %d\\\\\n", $perf->{rank} + 1);
 }
 
