@@ -8,6 +8,7 @@ dist_bin_SCRIPTS = \
 	hnco-dynamics-skeleton.pl \
 	hnco-dynamics-stat.pl \
 	hnco-ecdf-stat.pl \
+	hnco-lookup-ratio-stat.pl \
 	hnco-maximum-stat.pl \
 	hnco-parameter-run.pl \
 	hnco-parameter-skeleton.pl \
