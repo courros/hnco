@@ -51,17 +51,6 @@ namespace hnco::algorithm::hea {
   public:
 
     enum {
-      /// Constant rate
-      RATE_CONSTANT,
-
-      /// Exponentiel decay
-      RATE_EXPONENTIAL,
-
-      /// Inverse decay
-      RATE_INVERSE
-    };
-
-    enum {
       /// Log error
       LOG_ERROR,
 
@@ -131,20 +120,11 @@ namespace hnco::algorithm::hea {
     /// Selection size
     int _selection_size = 1;
 
-    /// Rate strategy
-    int _rate_strategy = RATE_CONSTANT;
-
     /// Reset period
     int _reset_period = 0;
 
-    /// Delay
-    int _delay = 10000;
-
-    /// Initial value of the learning rate
-    double _initial_rate = 1e-4;
-
-    /// Time constant
-    double _time_constant = 1000;
+    /// Learning rate
+    double _rate = 1e-4;
 
     /// Bound moment after update
     bool _bound_moment = false;
@@ -180,24 +160,6 @@ namespace hnco::algorithm::hea {
       update_solution(_population.get_best_bv(),
                       _population.get_best_value());
 
-      double rate = _initial_rate;
-
-      if (_iteration > _delay)
-        switch (_rate_strategy) {
-        case RATE_CONSTANT:
-          break;
-        case RATE_EXPONENTIAL:
-          rate = _initial_rate * exp(-double(_iteration - _delay) / double(_time_constant));
-          break;
-        case RATE_INVERSE:
-          rate = _initial_rate / double(_iteration - _delay);
-          break;
-        default:
-          std::ostringstream stream;
-          stream << _rate_strategy;
-          throw exception::Error("Hea::iterate: Unknown rate strategy: " + stream.str());
-        }
-
       _selection.init();
       for (int i = 0; i < _selection_size; i++)
         _selection.add(_population.get_best_bv(i));
@@ -207,7 +169,7 @@ namespace hnco::algorithm::hea {
       if (_log_flags[LOG_SELECTION])
         _selection_cache = _target.distance(_selection);
 
-      _target.update(_selection, rate);
+      _target.update(_selection, _rate);
 
       if (_bound_moment)
         _target.bound(_margin);
@@ -284,9 +246,6 @@ namespace hnco::algorithm::hea {
     */
     void set_selection_size(int x) { _selection_size = x; }
 
-    /// Set the rate strategy
-    void set_rate_strategy(int x) { _rate_strategy = x; }
-
     /** Set the reset period
 
         \param x Reset period
@@ -295,14 +254,8 @@ namespace hnco::algorithm::hea {
     */
     void set_reset_period(int x) { _reset_period = x; }
 
-    /// Set the delay
-    void set_delay(int x) { _delay = x; }
-
-    /// Set the initial value of the learning rate
-    void set_initial_rate(double x) { _initial_rate = x; }
-
-    /// Set the time constant
-    void set_time_constant(double x) { _time_constant = x; }
+    /// Set the learning rate
+    void set_rate(double x) { _rate = x; }
 
     /// Set the bound moment after update
     void set_bound_moment(bool x) { _bound_moment = x; }
