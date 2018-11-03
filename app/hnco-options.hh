@@ -85,17 +85,9 @@ class Options {
   int _hea_bit_herding;
   bool _opt_hea_bit_herding;
 
-  /// Delay before learning rate decay
-  int _hea_delay;
-  bool _opt_hea_delay;
-
   /// Number of sequential updates per sample
   int _hea_num_seq_updates;
   bool _opt_hea_num_seq_updates;
-
-  /// Rate strategy
-  int _hea_rate_strategy;
-  bool _opt_hea_rate_strategy;
 
   /// Reset period (<= 0 means no reset)
   int _hea_reset_period;
@@ -104,10 +96,6 @@ class Options {
   /// Sampling method for spin features
   int _hea_sampling_method;
   bool _opt_hea_sampling_method;
-
-  /// Time constant for exponential decay
-  double _hea_time_constant;
-  bool _opt_hea_time_constant;
 
   /// Weight of second moments
   double _hea_weight;
@@ -582,18 +570,6 @@ public:
   /// Get set-flag for hea_bit_herding
   bool set_hea_bit_herding() const { return _opt_hea_bit_herding; }
 
-  /// Get hea_delay
-  int get_hea_delay() const { return _hea_delay; }
-
-  /// Set hea_delay
-  void set_hea_delay(int x) {
-    _hea_delay = x;
-    _opt_hea_delay = true;
-  }
-
-  /// Get set-flag for hea_delay
-  bool set_hea_delay() const { return _opt_hea_delay; }
-
   /// Get hea_num_seq_updates
   int get_hea_num_seq_updates() const { return _hea_num_seq_updates; }
 
@@ -605,18 +581,6 @@ public:
 
   /// Get set-flag for hea_num_seq_updates
   bool set_hea_num_seq_updates() const { return _opt_hea_num_seq_updates; }
-
-  /// Get hea_rate_strategy
-  int get_hea_rate_strategy() const { return _hea_rate_strategy; }
-
-  /// Set hea_rate_strategy
-  void set_hea_rate_strategy(int x) {
-    _hea_rate_strategy = x;
-    _opt_hea_rate_strategy = true;
-  }
-
-  /// Get set-flag for hea_rate_strategy
-  bool set_hea_rate_strategy() const { return _opt_hea_rate_strategy; }
 
   /// Get hea_reset_period
   int get_hea_reset_period() const { return _hea_reset_period; }
@@ -641,18 +605,6 @@ public:
 
   /// Get set-flag for hea_sampling_method
   bool set_hea_sampling_method() const { return _opt_hea_sampling_method; }
-
-  /// Get hea_time_constant
-  double get_hea_time_constant() const { return _hea_time_constant; }
-
-  /// Set hea_time_constant
-  void set_hea_time_constant(double x) {
-    _hea_time_constant = x;
-    _opt_hea_time_constant = true;
-  }
-
-  /// Get set-flag for hea_time_constant
-  bool set_hea_time_constant() const { return _opt_hea_time_constant; }
 
   /// Get hea_weight
   double get_hea_weight() const { return _hea_weight; }
