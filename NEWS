@@ -6,6 +6,7 @@ Library:
 - Event: renamed member time -> num_evaluations
 - Added class StopWatch
 - ProgressTracker: added member function get_evaluation_time
+- Map: added classes Projection and Injection
 
 hnco:
 - Replaced make_function with FunctionFactory
