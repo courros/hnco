@@ -25,6 +25,7 @@ Scripts:
 
 Experiments:
 - Benchmark, parameter: rounding specification in json data structure
+- Added experiment lookup-ratio
 
 
 * Version 0.10 (2018-10-21)
