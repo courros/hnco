@@ -403,11 +403,43 @@ namespace hnco {
     /// Get output size
     size_t get_output_size() { return _output_size; }
 
+    /// Check for surjective map
+    bool is_surjective() { return get_output_size() == get_input_size(); }
+
+  };
+
+
+  /** Projection.
+
+  */
+  class Projection:
+    public Map {
+
+    /// Bit positions
+    std::vector<std::size_t> _bit_positions;
+
+    /// Input size
+    std::size_t _input_size;
+
+  public:
+
+    /// Constructor
+    Projection(const std::vector<std::size_t>& bit_positions, std::size_t input_size);
+
+    /// Map
+    void map(const bit_vector_t& input, bit_vector_t& output);
+
+    /// Get input size
+    size_t get_input_size() { return _input_size; }
+
+    /// Get output size
+    size_t get_output_size() { return _bit_positions.size(); }
+
     /** Check for surjective map.
 
-        \return false
+        \return true
     */
-    bool is_surjective() { return false; }
+    bool is_surjective() { return true; }
 
   };
 
