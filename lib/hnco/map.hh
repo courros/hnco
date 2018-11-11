@@ -377,6 +377,41 @@ namespace hnco {
   };
 
 
+  /** Injection.
+
+  */
+  class Injection:
+    public Map {
+
+    /// Bit positions
+    std::vector<std::size_t> _bit_positions;
+
+    /// Output size
+    std::size_t _output_size;
+
+  public:
+
+    /// Constructor
+    Injection(const std::vector<std::size_t>& bit_positions, std::size_t output_size);
+
+    /// Map
+    void map(const bit_vector_t& input, bit_vector_t& output);
+
+    /// Get input size
+    size_t get_input_size() { return _bit_positions.size(); }
+
+    /// Get output size
+    size_t get_output_size() { return _output_size; }
+
+    /** Check for surjective map.
+
+        \return false
+    */
+    bool is_surjective() { return false; }
+
+  };
+
+
 } // end of namespace hnco
 
 #endif

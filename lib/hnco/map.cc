@@ -139,3 +139,18 @@ AffineMap::is_surjective()
   bm_row_echelon_form(M);
   return bm_rank(M) == bm_num_rows(_bm);
 }
+
+
+Injection::Injection(const std::vector<std::size_t>& bit_positions, std::size_t output_size):
+  _bit_positions(bit_positions),
+  _output_size(output_size)
+{
+
+}
+
+
+void
+Injection::map(const bit_vector_t& input, bit_vector_t& output)
+{
+
+}
