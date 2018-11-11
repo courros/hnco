@@ -42,7 +42,7 @@ namespace hnco {
   /** Identity permutation.
 
       \warning This function does not set the size of the permutation.
-   */
+  */
   inline void perm_identity(permutation_t& s)
   {
     for (std::size_t i = 0; i < s.size(); i++)
@@ -52,7 +52,7 @@ namespace hnco {
   /** Sample a random permutation.
 
       \warning This function does not set the size of the permutation.
-   */
+  */
   inline void perm_random(permutation_t& s)
   {
     perm_identity(s);
