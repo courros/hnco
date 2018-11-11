@@ -28,6 +28,7 @@ check_PROGRAMS = \
 	test-incremental-one-max-hamming-ball \
 	test-incremental-one-max-hamming-sphere \
 	test-incremental-one-max-single-bit-flip \
+	test-injection-projection \
 	test-max-sat \
 	test-one-plus-one-ea-one-max \
 	test-sbm-multiply \
@@ -83,6 +84,7 @@ test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-be
 test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
 test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
+test_injection_projection_SOURCES = test-injection-projection.cc
 test_max_sat_SOURCES = test-max-sat.cc
 test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc

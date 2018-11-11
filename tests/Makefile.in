@@ -112,7 +112,8 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-incremental-one-max-hamming-ball$(EXEEXT) \
 	test-incremental-one-max-hamming-sphere$(EXEEXT) \
 	test-incremental-one-max-single-bit-flip$(EXEEXT) \
-	test-max-sat$(EXEEXT) test-one-plus-one-ea-one-max$(EXEEXT) \
+	test-injection-projection$(EXEEXT) test-max-sat$(EXEEXT) \
+	test-one-plus-one-ea-one-max$(EXEEXT) \
 	test-sbm-multiply$(EXEEXT) test-serialize-affine-map$(EXEEXT) \
 	test-serialize-equal-products$(EXEEXT) \
 	test-serialize-linear-function$(EXEEXT) \
@@ -307,6 +308,12 @@ test_incremental_one_max_single_bit_flip_OBJECTS =  \
 test_incremental_one_max_single_bit_flip_LDADD = $(LDADD)
 test_incremental_one_max_single_bit_flip_DEPENDENCIES =  \
 	../lib/libhnco.la
+am_test_injection_projection_OBJECTS =  \
+	test-injection-projection.$(OBJEXT)
+test_injection_projection_OBJECTS =  \
+	$(am_test_injection_projection_OBJECTS)
+test_injection_projection_LDADD = $(LDADD)
+test_injection_projection_DEPENDENCIES = ../lib/libhnco.la
 am_test_max_sat_OBJECTS = test-max-sat.$(OBJEXT)
 test_max_sat_OBJECTS = $(am_test_max_sat_OBJECTS)
 test_max_sat_LDADD = $(LDADD)
@@ -455,6 +462,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po \
 	./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po \
 	./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po \
+	./$(DEPDIR)/test-injection-projection.Po \
 	./$(DEPDIR)/test-max-sat.Po \
 	./$(DEPDIR)/test-one-plus-one-ea-one-max.Po \
 	./$(DEPDIR)/test-sbm-multiply.Po \
@@ -518,7 +526,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
 	$(test_incremental_one_max_hamming_sphere_SOURCES) \
 	$(test_incremental_one_max_single_bit_flip_SOURCES) \
-	$(test_max_sat_SOURCES) \
+	$(test_injection_projection_SOURCES) $(test_max_sat_SOURCES) \
 	$(test_one_plus_one_ea_one_max_SOURCES) \
 	$(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
@@ -562,7 +570,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
 	$(test_incremental_one_max_hamming_sphere_SOURCES) \
 	$(test_incremental_one_max_single_bit_flip_SOURCES) \
-	$(test_max_sat_SOURCES) \
+	$(test_injection_projection_SOURCES) $(test_max_sat_SOURCES) \
 	$(test_one_plus_one_ea_one_max_SOURCES) \
 	$(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
@@ -970,6 +978,7 @@ test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-be
 test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
 test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
+test_injection_projection_SOURCES = test-injection-projection.cc
 test_max_sat_SOURCES = test-max-sat.cc
 test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
@@ -1163,6 +1172,10 @@ test-incremental-one-max-single-bit-flip$(EXEEXT): $(test_incremental_one_max_si
 	@rm -f test-incremental-one-max-single-bit-flip$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_one_max_single_bit_flip_OBJECTS) $(test_incremental_one_max_single_bit_flip_LDADD) $(LIBS)
 
+test-injection-projection$(EXEEXT): $(test_injection_projection_OBJECTS) $(test_injection_projection_DEPENDENCIES) $(EXTRA_test_injection_projection_DEPENDENCIES) 
+	@rm -f test-injection-projection$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_injection_projection_OBJECTS) $(test_injection_projection_LDADD) $(LIBS)
+
 test-max-sat$(EXEEXT): $(test_max_sat_OBJECTS) $(test_max_sat_DEPENDENCIES) $(EXTRA_test_max_sat_DEPENDENCIES) 
 	@rm -f test-max-sat$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_max_sat_OBJECTS) $(test_max_sat_LDADD) $(LIBS)
@@ -1274,6 +1287,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-injection-projection.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-max-sat.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-one-plus-one-ea-one-max.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-sbm-multiply.Po@am__quote@ # am--include-marker
@@ -1726,6 +1740,13 @@ test-incremental-one-max-single-bit-flip.log: test-incremental-one-max-single-bi
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-injection-projection.log: test-injection-projection$(EXEEXT)
+	@p='test-injection-projection$(EXEEXT)'; \
+	b='test-injection-projection'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-max-sat.log: test-max-sat$(EXEEXT)
 	@p='test-max-sat$(EXEEXT)'; \
 	b='test-max-sat'; \
@@ -1982,6 +2003,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po
+	-rm -f ./$(DEPDIR)/test-injection-projection.Po
 	-rm -f ./$(DEPDIR)/test-max-sat.Po
 	-rm -f ./$(DEPDIR)/test-one-plus-one-ea-one-max.Po
 	-rm -f ./$(DEPDIR)/test-sbm-multiply.Po
@@ -2075,6 +2097,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po
+	-rm -f ./$(DEPDIR)/test-injection-projection.Po
 	-rm -f ./$(DEPDIR)/test-max-sat.Po
 	-rm -f ./$(DEPDIR)/test-one-plus-one-ea-one-max.Po
 	-rm -f ./$(DEPDIR)/test-sbm-multiply.Po
