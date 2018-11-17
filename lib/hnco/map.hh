@@ -379,6 +379,19 @@ namespace hnco {
 
   /** Injection.
 
+      An injection copies the bits of input x to given positions of
+      output y.
+
+      Let \f$I = \{i_1, i_2, \ldots, i_m\}\f$ be a subset of \f$\{1,
+      2, \ldots, n\}\f$.
+
+      An injection f from \f$Z_2^m\f$ to \f$Z_2^n\f$, where \f$n \ge
+      m\f$, is defined by \f$f(x) = y\f$, where, for all \f$j\in \{1,
+      2, \ldots, m\}\f$, \f$y_{i_j} = x_j\f$.
+
+      If f is a projection and g is an injection with the same bit
+      positions then their composition \f$f\circ g\f$ is the identity.
+
   */
   class Injection:
     public Map {
@@ -391,7 +404,18 @@ namespace hnco {
 
   public:
 
-    /// Constructor
+    /** Constructor.
+
+        The input size of the map is given by the size of
+        bit_positions.
+
+        \param bit_positions Bit positions in the output to where
+        input bits are copied
+
+        \param output_size Output size
+
+        \pre output_size >= bit_positions.size()
+    */
     Injection(const std::vector<std::size_t>& bit_positions, std::size_t output_size);
 
     /// Map
@@ -411,6 +435,19 @@ namespace hnco {
 
   /** Projection.
 
+      The projection y of a bit vector x is x where we have dropped a
+      given set of components.
+
+      Let \f$I = \{i_1, i_2, \ldots, i_m\}\f$ be a subset of \f$\{1,
+      2, \ldots, n\}\f$.
+
+      A projection f from \f$Z_2^n\f$ to \f$Z_2^m\f$, where \f$n \ge
+      m\f$, is defined by \f$f(x) = y\f$, where, for all \f$j\in \{1,
+      2, \ldots, m\}\f$, \f$y_j = x_{i_j}\f$.
+
+      If f is a projection and g is an injection with the same bit
+      positions then their composition \f$f\circ g\f$ is the identity.
+
   */
   class Projection:
     public Map {
@@ -423,7 +460,18 @@ namespace hnco {
 
   public:
 
-    /// Constructor
+    /** Constructor.
+
+        The output size of the map is given by the size of
+        bit_positions.
+
+        \param bit_positions Bit positions in the input from where
+        output bits are copied
+
+        \param input_size Input size
+
+        \pre input_size >= bit_positions.size()
+    */
     Projection(const std::vector<std::size_t>& bit_positions, std::size_t input_size);
 
     /// Map
