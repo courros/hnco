@@ -16,9 +16,11 @@ doc:
 	make -C report
 
 clean:
-	rm -f graphics.gp graphics-all.gp plan-compact.json log.defaults log.err
-	rm -rf results
+	rm -f plan-compact.json
+	rm -f log.defaults log.err log.parallel
+	rm -f commands.txt
+	rm -f graphics.gp graphics-all.gp
 	rm -rf graphics
-	rm -rf commands.txt
+	rm -rf results
 
 .PHONY: all default-parameters run doc clean
