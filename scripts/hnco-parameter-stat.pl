@@ -121,34 +121,28 @@ sub compute_statistics
 
             foreach my $value (@$values) {
                 my $prefix = "$path_results/$function_id/$algorithm_id/$parameter_id-$value";
-                my $SD = Statistics::Descriptive::Full->new();
+                my $SD_value = Statistics::Descriptive::Full->new();
 
                 foreach (1 .. $algorithm_num_runs) {
-                    my $path = "$prefix/$_.out";
-                    my $file = IO::File->new($path, '<')
-                        or die "hnco-parameter-stat.pl: compute_statistics: Cannot open '$path': $!\n";
-                    my $line = $file->getline;
-                    chomp $line;
-                    my @results = split ' ', $line;
-                    $SD->add_data($results[1]);
-                    $file->close;
+                    my $obj = from_json(read_file("$prefix/$_.out"));
+                    $SD_value->add_data($obj->{value});
                 }
 
-                $algorithm_stat->{$value} = { min         => $SD->min(),
-                                              q1          => $SD->quantile(1),
-                                              median      => $SD->median(),
-                                              q3          => $SD->quantile(3),
-                                              max         => $SD->max(),
-                                              mean        => $SD->mean(),
-                                              stddev      => $SD->standard_deviation() };
+                $algorithm_stat->{$value} = { min         => $SD_value->min(),
+                                              q1          => $SD_value->quantile(1),
+                                              median      => $SD_value->median(),
+                                              q3          => $SD_value->quantile(3),
+                                              max         => $SD_value->max(),
+                                              mean        => $SD_value->mean(),
+                                              stddev      => $SD_value->standard_deviation() };
 
                 my $item = { algorithm  => $algorithm_id,
                              value      => $value,
-                             min        => $SD->min(),
-                             q1         => $SD->quantile(1),
-                             median     => $SD->median(),
-                             q3         => $SD->quantile(3),
-                             max        => $SD->max() };
+                             min        => $SD_value->min(),
+                             q1         => $SD_value->quantile(1),
+                             median     => $SD_value->median(),
+                             q3         => $SD_value->quantile(3),
+                             max        => $SD_value->max() };
                 push @items, $item;
 
             }
@@ -725,4 +719,16 @@ sub latex_funtion_table_end
 \\bottomrule
 \\end{tabular}
 EOF
+}
+
+sub read_file
+{
+    my $path = shift;
+    my $json;
+    {
+        local $/;
+        open my $fh, '<', $path or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+        $json = <$fh>;
+    }
+    return $json;
 }
