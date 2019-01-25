@@ -17,8 +17,10 @@ doc:
 	make -C report
 
 clean:
-	rm -f candlesticks.gp plan-compact.json log.defaults log.err mean.gp stddev.gp
-	rm -rf results
+	rm -f candlesticks.gp mean.gp stddev.gp
+	rm -f plan-compact.json
+	rm -f log.defaults log.err log.parallel
 	rm -rf graphics
+	rm -rf results
 
 .PHONY: all default-parameters run doc clean
