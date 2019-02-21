@@ -18,6 +18,7 @@ hnco:
 - Added options --print-results, --save-results and --results-path
 - Results are printed and saved in json
 - hnco measures total CPU time with clock()
+- Population: add member functions partial_sort and shuffle
 
 Scripts:
 - hnco-benchmark-stat.pl, hnco-parameter-stat.pl: rounding specification in json data structure
