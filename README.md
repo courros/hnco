@@ -345,10 +345,7 @@ The Perl scripts depend on the following modules:
 - `JSON`
 - `Statistics::Descriptive`
 
-They also depend on the following executables:
-
-- `/usr/bin/time`
-- GNU parallel
+They also depend on GNU parallel.
 
 You will need gnuplot and latex to generate reports, which finally
 requires the `minted` latex package and the executable `pygmentize`.
@@ -359,7 +356,7 @@ necessary packages:
 sudo apt-get install build-essential libboost-serialization-dev
 sudo apt-get install libgmp-dev
 sudo apt-get install parallel
-sudo apt-get install libfile-homedir-perl libjson-perl libstatistics-descriptive-perl gnuplot
+sudo apt-get install libfile-homedir-perl libjson-perl libstatistics-descriptive-perl
 sudo apt-get install gnuplot
 sudo apt-get install texlive-base texlive-latex-extra python-pygments
 ```
