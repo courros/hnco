@@ -107,13 +107,12 @@ sub compute_statistics
 
                 foreach (1 .. $algorithm_num_runs) {
                     my $path = "$prefix/$_.out";
-                    my $file = IO::File->new($path, '<')
-                        or die "hnco-runtime-stat.pl: compute_statistics: Cannot open '$path': $!\n";
-                    my $line = $file->getline;
-                    chomp $line;
-                    my @results = split ' ', $line;
-                    $SD->add_data($results[0]);
-                    $file->close;
+                    if (-f $path) {
+                        my $obj = from_json(read_file($path));
+                        $SD->add_data($obj->{num_evaluations});
+                    } else {
+                        die "hnco-runtime-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+                    }
                 }
 
                 $algorithm_stat->{$value} = { min       => $SD->min(),
@@ -482,4 +481,16 @@ sub quote
 {
     my $s = shift;
     return "\"$s\"";
+}
+
+sub read_file
+{
+    my $path = shift;
+    my $json;
+    {
+        local $/;
+        open my $fh, '<', $path or die "hnco-runtime-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+        $json = <$fh>;
+    }
+    return $json;
 }
