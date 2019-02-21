@@ -1,12 +1,14 @@
-plan-compact.json
+commands.txt
 
 log.defaults
 log.err
-commands.txt
+log.parallel
 
 candlesticks.gp
 mean.gp
 stddev.gp
+
+plan-compact.json
 
 graphics
 results
