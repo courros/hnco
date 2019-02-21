@@ -20,6 +20,8 @@ hnco:
 - hnco measures total CPU time with clock()
 - Population: add member functions partial_sort and shuffle
 - Population: plus_selection and comma_selection with swap instead of copy
+- Renamed member functions set_rate -> set_learning_rate
+- Renamed members _rate -> _learning_rate
 
 Scripts:
 - hnco-benchmark-stat.pl, hnco-parameter-stat.pl: rounding specification in json data structure
