@@ -90,6 +90,25 @@ Population::plus_selection(const Population& offsprings)
 
 
 void
+Population::plus_selection(Population& offsprings)
+{
+  for (size_t
+         i = 0,
+         j = 0;
+       i < _bvs.size() && j < offsprings.size(); i++) {
+    if (_compare_index_value(_lookup[i], offsprings._lookup[j]))
+      continue;
+    else {
+      // _lookup[i].first is left unchanged
+      _lookup[i].second = offsprings.get_best_value(j);
+      std::swap(_bvs[_lookup[i].first], offsprings.get_best_bv(j));
+      j++;
+    }
+  }
+}
+
+
+void
 Population::comma_selection(const Population& offsprings)
 {
   assert(_bvs.size() <= offsprings.size());
@@ -98,6 +117,20 @@ Population::comma_selection(const Population& offsprings)
     _lookup[i].first = i;
     _lookup[i].second = offsprings.get_best_value(i);
     _bvs[i] = offsprings.get_best_bv(i);
+  }
+
+}
+
+
+void
+Population::comma_selection(Population& offsprings)
+{
+  assert(_bvs.size() <= offsprings.size());
+
+  for (size_t i = 0; i < _bvs.size(); i++) {
+    _lookup[i].first = i;
+    _lookup[i].second = offsprings.get_best_value(i);
+    std::swap(_bvs[i], offsprings.get_best_bv(i));
   }
 
 }

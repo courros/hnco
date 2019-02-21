@@ -70,16 +70,51 @@ namespace algorithm {
     /// Initialize the population with random bit vectors
     void random();
 
+
+    /** @name Get bit vectors for non const populations
+     */
+    ///@{
+
     /// Get a bit vector
     bit_vector_t& get_bv(int i) { return _bvs[i]; }
+
+    /** Get best bit vector.
+
+        \pre The population must be sorted.
+    */
+    bit_vector_t& get_best_bv() { return _bvs[_lookup[0].first]; }
+
+    /** Get best bit vector.
+
+        \param i Index in the sorted population
+
+        \pre The population must be sorted.
+    */
+    bit_vector_t& get_best_bv(int i) { return _bvs[_lookup[i].first]; }
+
+    /** Get worst bit vector.
+
+        \param i Index in the sorted population
+
+        \pre The population must be sorted.
+    */
+    bit_vector_t& get_worst_bv(int i) { return get_best_bv(_bvs.size() - 1 - i); }
+
+    ///@}
+
+
+    /** @name Get bit vectors for const populations
+     */
+    ///@{
 
     /// Get a bit vector
     const bit_vector_t& get_bv(int i) const { return _bvs[i]; }
 
+    /** Get best bit vector.
 
-    /** @name Get sorted bit vectors
-     */
-    ///@{
+        \pre The population must be sorted.
+    */
+    const bit_vector_t& get_best_bv() const { return _bvs[_lookup[0].first]; }
 
     /** Get best bit vector.
 
@@ -88,12 +123,6 @@ namespace algorithm {
         \pre The population must be sorted.
     */
     const bit_vector_t& get_best_bv(int i) const { return _bvs[_lookup[i].first]; }
-
-    /** Get best bit vector.
-
-        \pre The population must be sorted.
-    */
-    const bit_vector_t& get_best_bv() const { return _bvs[_lookup[0].first]; }
 
     /** Get worst bit vector.
 
@@ -158,6 +187,8 @@ namespace algorithm {
 
     /** Plus selection.
 
+        Implemented with a copy.
+
         \pre Both populations must be sorted.
 
         \warning The function does not break ties randomly as it
@@ -165,7 +196,23 @@ namespace algorithm {
     */
     void plus_selection(const Population& offsprings);
 
+    /** Plus selection.
+
+        Implemented with a swap. Should be faster than comma_selection
+        with a copy.
+
+        \pre Both populations must be sorted.
+
+        \warning The function does not break ties randomly as it
+        should.
+
+        \warning Modifies its argument.
+    */
+    void plus_selection(Population& offsprings);
+
     /** Comma selection.
+
+        Implemented with a copy.
 
         \pre Offspring population must be sorted.
 
@@ -173,6 +220,20 @@ namespace algorithm {
         should.
     */
     void comma_selection(const Population& offsprings);
+
+    /** Comma selection.
+
+        Implemented with a swap. Should be faster than comma_selection
+        with a copy.
+
+        \pre Offspring population must be sorted.
+
+        \warning The function does not break ties randomly as it
+        should.
+
+        \warning Modifies its argument.
+    */
+    void comma_selection(Population& offsprings);
 
     ///@}
 
