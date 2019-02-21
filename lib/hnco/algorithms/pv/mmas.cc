@@ -32,7 +32,7 @@ Mmas::init()
   pv_uniform(_pv);
 
   // Update probability vector
-  pv_update(_pv, _rate, _solution.first);
+  pv_update(_pv, _learning_rate, _solution.first);
   pv_bound(_pv, _lower_bound, _upper_bound);
 }
 
@@ -47,6 +47,6 @@ Mmas::iterate()
   }
 
   // Update probability vector
-  pv_update(_pv, _rate, _solution.first);
+  pv_update(_pv, _learning_rate, _solution.first);
   pv_bound(_pv, _lower_bound, _upper_bound);
 }

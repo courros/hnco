@@ -54,7 +54,7 @@ namespace hnco::algorithm {
     std::function<bool(double, double)> _compare = std::greater_equal<double>();
 
     /// Learning rate
-    double _rate = 1e-3;
+    double _learning_rate = 1e-3;
 
     ///@}
 
@@ -79,7 +79,7 @@ namespace hnco::algorithm {
     void set_compare(std::function<bool(double, double)> x) { _compare = x; }
 
     /// Set the learning rate
-    void set_rate(double x) { _rate = x; }
+    void set_learning_rate(double x) { _learning_rate = x; }
 
     ///@}
 

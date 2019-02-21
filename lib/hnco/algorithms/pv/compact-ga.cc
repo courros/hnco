@@ -59,9 +59,9 @@ CompactGa::iterate()
   for (size_t i = 0; i < _pv.size(); i++)
     if (_candidates[best][i] != _candidates[worst][i]) {
       if (_candidates[best][i])
-        _pv[i] += _rate;
+        _pv[i] += _learning_rate;
       else
-        _pv[i] -= _rate;
+        _pv[i] -= _learning_rate;
     }
 
   pv_bound(_pv, _lower_bound, _upper_bound);

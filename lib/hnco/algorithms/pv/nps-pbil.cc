@@ -59,7 +59,7 @@ NpsPbil::iterate()
     pv_add(_mean_worst, _population.get_best_bv(i));
   pv_average(_mean_worst, _selection_size);
 
-  pv_update(_pv, _rate, _mean_best, _mean_worst);
+  pv_update(_pv, _learning_rate, _mean_best, _mean_worst);
   pv_bound(_pv, _lower_bound, _upper_bound);
 
 }

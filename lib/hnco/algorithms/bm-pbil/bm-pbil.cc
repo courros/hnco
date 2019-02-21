@@ -123,14 +123,14 @@ BmPbil::iterate()
     for (int i = 0; i < _selection_size; i++)
       _parameters_worst.add(_population.get_worst_bv(i));
     _parameters_worst.average(_selection_size);
-    _model.update(_parameters_best, _parameters_worst, _rate);
+    _model.update(_parameters_best, _parameters_worst, _learning_rate);
   } else {
     // Average all individuals
     _parameters_all.init();
     for (size_t i = 0; i < _population.size(); i++)
       _parameters_all.add(_population.get_bv(i));
     _parameters_all.average(_population.size());
-    _model.update(_parameters_best, _parameters_all, _rate);
+    _model.update(_parameters_best, _parameters_all, _learning_rate);
   }
 
 }

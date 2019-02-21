@@ -235,7 +235,7 @@ make_concrete_algorithm(const Options& options)
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
-    algo->set_rate(options.get_learning_rate());
+    algo->set_learning_rate(options.get_learning_rate());
     algo->set_log_num_components(options.get_pv_log_num_components());
 
     PvAlgorithm::log_flags_t lf = {};
@@ -255,7 +255,7 @@ make_concrete_algorithm(const Options& options)
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
-    algo->set_rate(options.get_learning_rate());
+    algo->set_learning_rate(options.get_learning_rate());
     algo->set_log_num_components(options.get_pv_log_num_components());
 
     PvAlgorithm::log_flags_t lf = {};
@@ -291,7 +291,7 @@ make_concrete_algorithm(const Options& options)
     auto algo = new CompactGa(options.get_bv_size());
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->set_rate(options.get_learning_rate());
+    algo->set_learning_rate(options.get_learning_rate());
     algo->set_log_num_components(options.get_pv_log_num_components());
 
     PvAlgorithm::log_flags_t lf = {};
@@ -308,7 +308,7 @@ make_concrete_algorithm(const Options& options)
     auto algo = new Mmas(options.get_bv_size());
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->set_rate(options.get_learning_rate());
+    algo->set_learning_rate(options.get_learning_rate());
     algo->set_log_num_components(options.get_pv_log_num_components());
 
     if (options.with_mmas_strict())
@@ -340,7 +340,7 @@ make_concrete_algorithm(const Options& options)
     algo->set_herding(herding);
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
-    algo->set_rate(options.get_learning_rate());
+    algo->set_learning_rate(options.get_learning_rate());
     algo->set_reset_period(options.get_hea_reset_period());
     algo->set_bound_moment(options.with_hea_bound_moment());
     algo->set_weight(options.get_hea_weight());
@@ -378,7 +378,7 @@ make_concrete_algorithm(const Options& options)
     algo->set_herding(herding);
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
-    algo->set_rate(options.get_learning_rate());
+    algo->set_learning_rate(options.get_learning_rate());
     algo->set_reset_period(options.get_hea_reset_period());
     algo->set_bound_moment(options.with_hea_bound_moment());
     algo->set_weight(options.get_hea_weight());
@@ -407,7 +407,7 @@ make_concrete_algorithm(const Options& options)
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
-    algo->set_rate(options.get_learning_rate());
+    algo->set_learning_rate(options.get_learning_rate());
     algo->set_num_gs_steps(options.get_bm_num_gs_steps());
     algo->set_num_gs_cycles(options.get_bm_num_gs_cycles());
     algo->set_negative_positive_selection(options.with_bm_negative_positive_selection());

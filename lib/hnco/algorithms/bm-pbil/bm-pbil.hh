@@ -144,7 +144,7 @@ namespace bm_pbil {
     int _selection_size = 1;
 
     /// Learning rate
-    double _rate = 1e-3;
+    double _learning_rate = 1e-3;
 
     /// Number of gibbs sampler steps
     int _num_gs_steps = 100;
@@ -210,7 +210,7 @@ namespace bm_pbil {
     void set_selection_size(int x) { _selection_size = x; }
 
     /// Set the learning rate
-    void set_rate(double x) { _rate = x; }
+    void set_learning_rate(double x) { _learning_rate = x; }
 
     /// Set the number of gibbs sampler steps
     void set_num_gs_steps(int x) { _num_gs_steps = x; }

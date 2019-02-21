@@ -52,7 +52,7 @@ namespace algorithm {
     ///@{
 
     /// Learning rate
-    double _rate = 1e-3;
+    double _learning_rate = 1e-3;
 
     ///@}
 
@@ -73,7 +73,7 @@ namespace algorithm {
     ///@{
 
     /// Set the learning rate
-    void set_rate(double x) { _rate = x; }
+    void set_learning_rate(double x) { _learning_rate = x; }
 
     ///@}
 

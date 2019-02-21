@@ -124,7 +124,7 @@ namespace hnco::algorithm::hea {
     int _reset_period = 0;
 
     /// Learning rate
-    double _rate = 1e-4;
+    double _learning_rate = 1e-4;
 
     /// Bound moment after update
     bool _bound_moment = false;
@@ -169,7 +169,7 @@ namespace hnco::algorithm::hea {
       if (_log_flags[LOG_SELECTION])
         _selection_cache = _target.distance(_selection);
 
-      _target.update(_selection, _rate);
+      _target.update(_selection, _learning_rate);
 
       if (_bound_moment)
         _target.bound(_margin);
@@ -255,7 +255,7 @@ namespace hnco::algorithm::hea {
     void set_reset_period(int x) { _reset_period = x; }
 
     /// Set the learning rate
-    void set_rate(double x) { _rate = x; }
+    void set_learning_rate(double x) { _learning_rate = x; }
 
     /// Set the bound moment after update
     void set_bound_moment(bool x) { _bound_moment = x; }
