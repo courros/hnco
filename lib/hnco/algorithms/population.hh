@@ -22,7 +22,7 @@
 #define HNCO_ALGORITHMS_POPULATION_H
 
 #include <functional>           // std::function
-#include <algorithm>            // std::sort
+#include <algorithm>            // std::sort, std::shuffle
 
 #include "hnco/functions/function.hh"
 #include "hnco/random.hh"
@@ -139,6 +139,15 @@ namespace algorithm {
 
     /// Sort the lookup table
     void sort() { std::sort(_lookup.begin(), _lookup.end(), _compare_index_value); }
+
+    /// Partially sort the lookup table
+    void partial_sort(int selection_size) {
+      assert(selection_size > 0);
+      std::partial_sort(_lookup.begin(), _lookup.begin() + selection_size, _lookup.end(), _compare_index_value);
+    }
+
+    /// Shuffle the lookup table
+    void shuffle() { std::shuffle(_lookup.begin(), _lookup.end(), hnco::random::Random::engine); }
 
     ///@}
 
