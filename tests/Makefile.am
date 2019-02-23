@@ -47,6 +47,7 @@ check_PROGRAMS = \
 	test-single-bit-flip-iterator \
 	test-steepest-ascent-hill-climbing \
 	test-steepest-ascent-hill-climbing-local \
+	test-translation \
 	test-walsh-transform
 
 AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
@@ -103,6 +104,7 @@ test_serialize_walsh_expansion_SOURCES = test-serialize-walsh-expansion.cc
 test_single_bit_flip_iterator_SOURCES = test-single-bit-flip-iterator.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 test_steepest_ascent_hill_climbing_local_SOURCES = test-steepest-ascent-hill-climbing-local.cc
+test_translation_SOURCES = test-translation.cc
 test_walsh_transform_SOURCES = test-walsh-transform.cc
 
 TESTS = $(check_PROGRAMS)

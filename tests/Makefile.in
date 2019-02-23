@@ -129,7 +129,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-single-bit-flip-iterator$(EXEEXT) \
 	test-steepest-ascent-hill-climbing$(EXEEXT) \
 	test-steepest-ascent-hill-climbing-local$(EXEEXT) \
-	test-walsh-transform$(EXEEXT)
+	test-translation$(EXEEXT) test-walsh-transform$(EXEEXT)
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -417,6 +417,10 @@ test_steepest_ascent_hill_climbing_local_OBJECTS =  \
 test_steepest_ascent_hill_climbing_local_LDADD = $(LDADD)
 test_steepest_ascent_hill_climbing_local_DEPENDENCIES =  \
 	../lib/libhnco.la
+am_test_translation_OBJECTS = test-translation.$(OBJEXT)
+test_translation_OBJECTS = $(am_test_translation_OBJECTS)
+test_translation_LDADD = $(LDADD)
+test_translation_DEPENDENCIES = ../lib/libhnco.la
 am_test_walsh_transform_OBJECTS = test-walsh-transform.$(OBJEXT)
 test_walsh_transform_OBJECTS = $(am_test_walsh_transform_OBJECTS)
 test_walsh_transform_LDADD = $(LDADD)
@@ -481,6 +485,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-single-bit-flip-iterator.Po \
 	./$(DEPDIR)/test-steepest-ascent-hill-climbing-local.Po \
 	./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po \
+	./$(DEPDIR)/test-translation.Po \
 	./$(DEPDIR)/test-walsh-transform.Po
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
@@ -544,7 +549,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_single_bit_flip_iterator_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_local_SOURCES) \
-	$(test_walsh_transform_SOURCES)
+	$(test_translation_SOURCES) $(test_walsh_transform_SOURCES)
 DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_bm_invert_SOURCES) $(test_bm_multiply_SOURCES) \
 	$(test_bm_rank_SOURCES) $(test_bm_row_column_rank_SOURCES) \
@@ -588,7 +593,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_single_bit_flip_iterator_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_local_SOURCES) \
-	$(test_walsh_transform_SOURCES)
+	$(test_translation_SOURCES) $(test_walsh_transform_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -997,6 +1002,7 @@ test_serialize_walsh_expansion_SOURCES = test-serialize-walsh-expansion.cc
 test_single_bit_flip_iterator_SOURCES = test-single-bit-flip-iterator.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 test_steepest_ascent_hill_climbing_local_SOURCES = test-steepest-ascent-hill-climbing-local.cc
+test_translation_SOURCES = test-translation.cc
 test_walsh_transform_SOURCES = test-walsh-transform.cc
 TESTS = $(check_PROGRAMS)
 DISTCLEANFILES = \
@@ -1248,6 +1254,10 @@ test-steepest-ascent-hill-climbing-local$(EXEEXT): $(test_steepest_ascent_hill_c
 	@rm -f test-steepest-ascent-hill-climbing-local$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_steepest_ascent_hill_climbing_local_OBJECTS) $(test_steepest_ascent_hill_climbing_local_LDADD) $(LIBS)
 
+test-translation$(EXEEXT): $(test_translation_OBJECTS) $(test_translation_DEPENDENCIES) $(EXTRA_test_translation_DEPENDENCIES) 
+	@rm -f test-translation$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_translation_OBJECTS) $(test_translation_LDADD) $(LIBS)
+
 test-walsh-transform$(EXEEXT): $(test_walsh_transform_OBJECTS) $(test_walsh_transform_DEPENDENCIES) $(EXTRA_test_walsh_transform_DEPENDENCIES) 
 	@rm -f test-walsh-transform$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_walsh_transform_OBJECTS) $(test_walsh_transform_LDADD) $(LIBS)
@@ -1306,6 +1316,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-single-bit-flip-iterator.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-steepest-ascent-hill-climbing-local.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-translation.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-walsh-transform.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
@@ -1873,6 +1884,13 @@ test-steepest-ascent-hill-climbing-local.log: test-steepest-ascent-hill-climbing
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-translation.log: test-translation$(EXEEXT)
+	@p='test-translation$(EXEEXT)'; \
+	b='test-translation'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-walsh-transform.log: test-walsh-transform$(EXEEXT)
 	@p='test-walsh-transform$(EXEEXT)'; \
 	b='test-walsh-transform'; \
@@ -2022,6 +2040,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-single-bit-flip-iterator.Po
 	-rm -f ./$(DEPDIR)/test-steepest-ascent-hill-climbing-local.Po
 	-rm -f ./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po
+	-rm -f ./$(DEPDIR)/test-translation.Po
 	-rm -f ./$(DEPDIR)/test-walsh-transform.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
@@ -2116,6 +2135,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-single-bit-flip-iterator.Po
 	-rm -f ./$(DEPDIR)/test-steepest-ascent-hill-climbing-local.Po
 	-rm -f ./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po
+	-rm -f ./$(DEPDIR)/test-translation.Po
 	-rm -f ./$(DEPDIR)/test-walsh-transform.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
