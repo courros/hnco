@@ -58,10 +58,8 @@ MuPlusLambdaEa::iterate()
     _offsprings.eval(_function);
 
   _offsprings.sort();
-
   _parents.plus_selection(_offsprings);
 
   update_solution(_parents.get_best_bv(),
                   _parents.get_best_value());
-
 }
