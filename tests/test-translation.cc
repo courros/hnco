@@ -21,9 +21,7 @@
 #include <chrono>
 #include <random>
 
-#include "hnco/bit-vector.hh"
 #include "hnco/map.hh"
-#include "hnco/permutation.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::random;
@@ -37,30 +35,21 @@ int main(int argc, char *argv[])
   for (int i = 0; i < 1000; i++) {
 
     std::uniform_int_distribution<int> input_size_dist(1, 100);
-    std::uniform_int_distribution<int> delta_size_dist(0, 100);
 
     int input_size = input_size_dist(Random::engine);
-    int delta_size = delta_size_dist(Random::engine);
-    int output_size = input_size + delta_size;
 
-    permutation_t permutation(output_size);
-    perm_random(permutation);
-    std::vector<std::size_t> bit_positions(input_size);
-    for (std::size_t i = 0; i < bit_positions.size(); i++)
-      bit_positions[i] = permutation[i];
+    Translation translation;
 
-    Injection injection(bit_positions, output_size);
-    Projection projection(bit_positions, output_size);
+    translation.random(input_size);
 
     bit_vector_t a(input_size);
-    bit_vector_t b(output_size);
+    bit_vector_t b(input_size);
     bit_vector_t c(input_size);
 
     bv_random(a);
-    bv_random(b);
 
-    injection.map(a, b);
-    projection.map(b, c);
+    translation.map(a, b);
+    translation.map(b, c);
 
     if (c != a)
       return 1;
