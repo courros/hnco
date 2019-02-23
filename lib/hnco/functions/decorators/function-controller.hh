@@ -80,8 +80,12 @@ namespace hnco::function {
 
   /** Stop on maximum.
 
-      The eval() member function throws a MaximumReached exception
-      when its argument maximizes the decorated function.
+      The member function eval throws an exception MaximumReached when
+      its argument maximizes the decorated function.
+
+      \warning The maximum is detected using the equality operator
+      hence the result should be taken with care in case of non
+      integer (floating point) function values.
   */
   class StopOnMaximum:
     public FunctionController {
@@ -118,7 +122,15 @@ namespace hnco::function {
   };
 
 
-  /// Stop on target
+  /** Stop on target.
+
+      The member function eval throws an exception TargetReached when
+      the value of its decorated function reaches a given target.
+
+      \warning The target is detected using the greater or equal
+      operator hence the result should be taken with care in case of
+      non integer (floating point) function values.
+  */
   class StopOnTarget:
     public FunctionController {
 
