@@ -191,8 +191,8 @@ namespace algorithm {
 
         \pre Both populations must be completely sorted.
 
-        \warning The function does not break ties randomly as it
-        should.
+        \warning The function does not break ties randomly
+        (workaround: shuffle parents and offsprings).
     */
     void plus_selection(const Population& offsprings);
 
@@ -203,8 +203,8 @@ namespace algorithm {
 
         \pre Both populations must be completely sorted.
 
-        \warning The function does not break ties randomly as it
-        should.
+        \warning The function does not break ties randomly
+        (workaround: shuffle parents and offsprings).
 
         \warning Modifies its argument.
     */
@@ -216,8 +216,8 @@ namespace algorithm {
 
         \pre Offspring population must be partially sorted.
 
-        \warning The function does not break ties randomly as it
-        should.
+        \warning The function does not break ties randomly
+        (workaround: shuffle offsprings).
     */
     void comma_selection(const Population& offsprings);
 
@@ -228,8 +228,8 @@ namespace algorithm {
 
         \pre Offspring population must be partially sorted.
 
-        \warning The function does not break ties randomly as it
-        should.
+        \warning The function does not break ties randomly
+        (workaround: shuffle offsprings).
 
         \warning Modifies its argument.
     */
