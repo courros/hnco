@@ -183,7 +183,9 @@ HNCO provides the command-line tools `ffgen`, `hnco`, and `mapgen`.
 `ffgen` generates random instances of fitness functions and saves them
 to files which can be later loaded by `hnco` and used by different
 algorithms. HNCO uses the Boost serialization library with text
-format. The files are portable across different platforms.
+format. The files are portable across different platforms. However
+they can only be read by programs compiled with the same (or newer)
+version of the library.
 
 To get the list of available options, execute the following command:
 
