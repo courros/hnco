@@ -10,6 +10,8 @@ Library:
 
 Tests:
 - Added test-injection-projection
+- Added test-translation
+- test-hamming-sphere-iterator uses a random radius
 
 hnco:
 - Replaced make_function with FunctionFactory
