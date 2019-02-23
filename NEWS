@@ -18,8 +18,8 @@ hnco:
 - Added options --print-results, --save-results and --results-path
 - Results are printed and saved in json
 - hnco measures total CPU time with clock()
-- Population: add member functions partial_sort and shuffle
-- Population: plus_selection and comma_selection with swap instead of copy
+- Population: added member functions partial_sort and shuffle
+- Population: added plus_selection and comma_selection with swap
 - Renamed member functions set_rate -> set_learning_rate
 - Renamed members _rate -> _learning_rate
 
