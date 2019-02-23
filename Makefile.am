@@ -3,6 +3,7 @@ SUBDIRS = lib app tests scripts examples
 ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_DIST = \
+	Doxyfile \
 	experiments/autocorrelation/Makefile \
 	experiments/autocorrelation/instances/Makefile \
 	experiments/autocorrelation/instances/ep.100 \
@@ -76,7 +77,8 @@ EXTRA_DIST = \
 	experiments/walsh-transforms/instances/walsh2.10 \
 	experiments/walsh-transforms/plan.json \
 	experiments/walsh-transforms/report/Makefile \
-	experiments/walsh-transforms/report/report.tex
+	experiments/walsh-transforms/report/report.tex \
+	README.md
 
 #
 # Code management
