@@ -189,7 +189,7 @@ namespace algorithm {
 
         Implemented with a copy.
 
-        \pre Both populations must be sorted.
+        \pre Both populations must be completely sorted.
 
         \warning The function does not break ties randomly as it
         should.
@@ -201,7 +201,7 @@ namespace algorithm {
         Implemented with a swap. Should be faster than comma_selection
         with a copy.
 
-        \pre Both populations must be sorted.
+        \pre Both populations must be completely sorted.
 
         \warning The function does not break ties randomly as it
         should.
@@ -214,7 +214,7 @@ namespace algorithm {
 
         Implemented with a copy.
 
-        \pre Offspring population must be sorted.
+        \pre Offspring population must be partially sorted.
 
         \warning The function does not break ties randomly as it
         should.
@@ -226,7 +226,7 @@ namespace algorithm {
         Implemented with a swap. Should be faster than comma_selection
         with a copy.
 
-        \pre Offspring population must be sorted.
+        \pre Offspring population must be partially sorted.
 
         \warning The function does not break ties randomly as it
         should.
