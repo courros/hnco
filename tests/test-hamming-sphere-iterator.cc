@@ -32,21 +32,32 @@ int main(int argc, char *argv[])
 {
   Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  std::uniform_int_distribution<int> bv_size_dist(2, 100); 
+  std::uniform_int_distribution<int> radius_dist(1, 5); 
+  std::uniform_int_distribution<int> delta_dist(0, 5); 
 
   for (int i = 0; i < 1000; i++) {
-    int bv_size = bv_size_dist(Random::engine);
-    HammingSphereIterator iterator(bv_size, 2); // radius should also be random instead of 2
+
+    int radius = radius_dist(Random::engine);
+    int bv_size = radius + delta_dist(Random::engine);
+
     bit_vector_t bv(bv_size);
     bv_random(bv);
+
+    HammingSphereIterator iterator(bv_size, radius);
     iterator.set_origin(bv);
+
     int count = 0;
     while (iterator.has_next()) {
-      if (bv_hamming_distance(iterator.next(), bv) != 2)
+      if (bv_hamming_distance(iterator.next(), bv) != radius)
         return 1;
       count++;
     };
-    if (count != bv_size * (bv_size - 1) / 2)
+
+    // We should compute the size of the neighborhood in the general
+    // case, that is (bv_size choose radius). Only implemented the
+    // case radius == 2
+
+    if (radius == 2 && count != bv_size * (bv_size - 1) / 2)
       return 1;
   }
 
