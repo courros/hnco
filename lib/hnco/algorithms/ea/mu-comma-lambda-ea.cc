@@ -35,11 +35,11 @@ MuCommaLambdaEa::init()
   _mutation.set_allow_stay(_allow_stay);
 
   _parents.random();
-  _parents.eval(_function);
-  _parents.sort();
 
-  set_solution(_parents.get_best_bv(),
-               _parents.get_best_value());
+  // There is no need to evaluate them as they are going to be
+  // replaced by offsprings.
+
+  random_solution();
 }
 
 
