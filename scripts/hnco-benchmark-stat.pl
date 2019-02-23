@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 
-# Copyright (C) 2016, 2017, 2018 Arnaud Berny
+# Copyright (C) 2016, 2017, 2018, 2019 Arnaud Berny
 
 # This file is part of HNCO.
 
