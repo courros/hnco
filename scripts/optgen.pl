@@ -71,13 +71,17 @@ foreach (@$sections) {
 my %options = ();
 
 foreach (keys(%$parameters)) {
-    my $id = $parameters->{$_}->{section};
-    push @{ $options{$id} }, $_;
+    if ($parameters->{$_}->{section}) {
+        my $id = $parameters->{$_}->{section};
+        push @{ $options{$id} }, $_;
+    }
 }
 
 foreach (keys(%$flags)) {
-    my $id = $flags->{$_}->{section};
-    push @{ $options{$id} }, $_;
+    if ($flags->{$_}->{section}) {
+        my $id = $flags->{$_}->{section};
+        push @{ $options{$id} }, $_;
+    }
 }
 
 generate_header();
