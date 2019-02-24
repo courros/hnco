@@ -198,7 +198,7 @@ namespace algorithm {
 
     /** Plus selection.
 
-        Implemented with a swap. Should be faster than comma_selection
+        Implemented with a swap. Should be faster than plus_selection
         with a copy.
 
         \pre Both populations must be completely sorted.
