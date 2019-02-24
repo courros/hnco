@@ -13,6 +13,9 @@ Tests:
 - Added test-translation
 - test-hamming-sphere-iterator uses a random radius
 
+Build:
+- optgen.pl: handle the case with no section (cf. mapgen.json)
+
 hnco:
 - Replaced make_function with FunctionFactory
 - Added option --print-concrete-solution
