@@ -65,7 +65,7 @@ html documentation as it is neither version controlled nor
 distributed. However the pdf documentation can be found under
 `doc/api/latex/refman.pdf`.
 
-The source files of the command-line tools in `src/` provide a
+The source files of the command-line tools in `app/` provide a
 starting point to learn how to use the library, in particular
 `make-function.cc`, `make-algorithm.cc`, and `hnco.cc`.
 
@@ -258,6 +258,7 @@ HNCO is distributed with the following experiments:
 - `experiments/benchmark/`
 - `experiments/dynamics/`
 - `experiments/ecdf/`
+- `experiments/lookup-ratio/`
 - `experiments/maximum/`
 - `experiments/parameter/`
 - `experiments/runtime/`
@@ -308,6 +309,14 @@ cumulative distribution function of the runtime for each
 algorithm-function couple in a given set. Results are computed per
 function then globally. This experiment partly follows the
 experimental procedure of the COCO framework (see references).
+
+### Lookup ratio
+
+The purpose of this experiment is to compare the cache lookup ratio of
+a set of algorithms applied to a set of functions with a fixed
+budget. It is designed after the benchmark experiment. A high lookup
+ratio indicates that an algorithm often resamples already sampled bit
+vectors.
 
 ### Maximum
 
