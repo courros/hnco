@@ -31,6 +31,9 @@ PvAlgorithm::log()
 {
   assert(_log_flags.any());
 
+  if (_log_context)
+    (*_stream) << _log_context->get_context() << " ";
+
   if (_log_flags[LOG_ENTROPY])
     (*_stream) << pv_entropy(_pv) << " ";
 
