@@ -88,6 +88,7 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.cc \
 	hnco/algorithms/hea/spin-moment.hh \
+	hnco/algorithms/log-context.hh \
 	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
@@ -234,6 +235,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.hh \
+	hnco/algorithms/log-context.hh \
 	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/random-local-search.hh \

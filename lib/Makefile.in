@@ -210,7 +210,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/hea/spin-herding.cc \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.cc \
-	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/hea/spin-moment.hh \
+	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/random-local-search.cc \
@@ -490,7 +491,8 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.hh \
-	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/hea/spin-moment.hh \
+	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/random-walk.hh \
@@ -724,7 +726,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/hea/spin-herding.cc \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.cc \
-	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/hea/spin-moment.hh \
+	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/random-local-search.cc \
@@ -812,7 +815,8 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.hh \
-	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/hea/spin-moment.hh \
+	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/random-walk.hh \
