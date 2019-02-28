@@ -8,9 +8,12 @@
     "graphics": "graphics",
     "report": "report",
 
-    "ylabel": "Entropy",
-    "ylogscale": false,
+    "xcolumn": 1,
     "xlogscale": true,
+
+    "ycolumn": 2,
+    "ylogscale": false,
+    "ylabel": "Entropy",
 
     "functions": [
 
