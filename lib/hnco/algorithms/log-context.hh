@@ -62,7 +62,7 @@ namespace algorithm {
       assert(_pt);
 
       std::ostringstream stream;
-      stream << _pt->get_last_improvement().num_evaluations;
+      stream << _pt->get_num_calls();
       return stream.str();
     }
 
