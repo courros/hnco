@@ -60,7 +60,7 @@ sub generate_graphics
     print GRAPHICS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"Iteration\"\n",
+        "set xlabel \"$obj->{xlabel}\"\n",
         "set ylabel \"$obj->{ylabel}\"\n",
         "set key outside top center box opaque horizontal\n",
         "set autoscale fix\n\n",
@@ -108,7 +108,7 @@ sub generate_graphics
                 $quoted_path = quote("$path_results/$function_id/$algorithm_id/1.out");
                 $quoted_title = quote("$algorithm_id");
                 $position++;
-                "  $quoted_path using $xcolumn:$ycolumn with lines lw 2 title $quoted_title";
+                "  $quoted_path using $xcolumn:$ycolumn with lines lw 1 title $quoted_title";
              } @$algorithms);
 
         print GRAPHICS "\n";
