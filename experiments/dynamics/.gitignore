@@ -2,6 +2,8 @@ plan-compact.json
 
 log.defaults
 log.err
+log.parallel
+
 commands.txt
 
 graphics.gp
