@@ -54,6 +54,10 @@ namespace algorithm {
     /// Solution
     point_value_t _solution;
 
+    /// Log context
+    LogContext *_log_context = nullptr;
+
+
     /** @name Parameters
      */
     ///@{
@@ -62,6 +66,11 @@ namespace algorithm {
     std::ostream *_stream = &std::cout;
 
     ///@}
+
+
+    /** @name Managing solution
+     */
+    ///@{
 
     /// Random solution
     void random_solution();
@@ -87,6 +96,8 @@ namespace algorithm {
     */
     void update_solution(const bit_vector_t& x);
 
+    ///@}
+
   public:
 
     /// Constructor
@@ -100,6 +111,7 @@ namespace algorithm {
     /// Destructor
     virtual ~Algorithm() {}
 
+
     /** @name Optimization
      */
     ///@{
@@ -112,6 +124,7 @@ namespace algorithm {
 
     ///@}
 
+
     /** @name Getters
      */
     ///@{
@@ -123,6 +136,7 @@ namespace algorithm {
     virtual size_t get_bv_size() { return _solution.first.size(); }
 
     ///@}
+
 
     /** @name Setters
      */
@@ -143,6 +157,9 @@ namespace algorithm {
     /// Output stream
     void set_stream(std::ostream *x) { _stream = x; }
 
+    /// Set log context
+    void set_log_context(LogContext *lc) { _log_context = lc; }
+
     ///@}
     
   };
@@ -159,9 +176,6 @@ namespace algorithm {
 
     /// Something to log
     bool _something_to_log;
-
-    /// Log context
-    LogContext *_log_context = 0;
 
     /** @name Parameters
      */
@@ -207,9 +221,6 @@ namespace algorithm {
 
         x <= 0 means indefinite */
     void set_num_iterations(int x) { _num_iterations = x; }
-
-    /// Set log context
-    void set_log_context(LogContext *lc) { _log_context = lc; }
 
     ///@}
 
