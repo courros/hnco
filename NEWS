@@ -1,5 +1,21 @@
 * Version 0.12 (unreleased)
 
+Library:
+- Added class LogContext
+- Algorithm: added protected member _log_context and its setter
+
+hnco:
+- Set log context
+
+Scripts:
+- hnco-dynamics-stat.pl: set xlabel, xcolumn, and ycolumn in plot
+  command
+
+Experiments:
+- dynamics: plan.json: added fields for xlabel, xcolumn, and ycolumn
+- dynamics: plan.json: updated Pbil parameters
+
+
 * Version 0.11 (2019-02-24)
 
 Library:
