@@ -1,6 +1,6 @@
 {
     "exec": "hnco",
-    "opt": "--map 1 --map-random -s 100 -i 20000 -b 0 --pv-log-entropy",
+    "opt": "--map 1 --map-random -s 100 -i 0 -b 200001 --pv-log-entropy",
 
     "parallel": true,
 
@@ -8,12 +8,13 @@
     "graphics": "graphics",
     "report": "report",
 
+    "xlabel": "Number of evaluations",
     "xcolumn": 1,
     "xlogscale": true,
 
+    "ylabel": "Entropy",
     "ycolumn": 2,
     "ylogscale": false,
-    "ylabel": "Entropy",
 
     "functions": [
 
@@ -118,7 +119,7 @@
 
         {
             "id": "pbil",
-	    "opt": "-A 500 -x 100 -y 1 -r 5e-3"
+	    "opt": "-A 500 -x 10 -y 1 -r 5e-3"
         },
 
         {
