@@ -26,6 +26,8 @@
 #include "hnco/exception.hh"
 #include "hnco/functions/function.hh"
 
+#include "log-context.hh"
+
 
 namespace hnco {
 /// Algorithms
@@ -158,6 +160,9 @@ namespace algorithm {
     /// Something to log
     bool _something_to_log;
 
+    /// Log context
+    LogContext *_log_context = 0;
+
     /** @name Parameters
      */
     ///@{
@@ -202,6 +207,9 @@ namespace algorithm {
 
         x <= 0 means indefinite */
     void set_num_iterations(int x) { _num_iterations = x; }
+
+    /// Set log context
+    void set_log_context(LogContext *lc) { _log_context = lc; }
 
     ///@}
 
