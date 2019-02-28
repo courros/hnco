@@ -39,6 +39,8 @@ my $path_report         = $obj->{report};
 my $path_graphics       = $obj->{graphics};
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
+my $xcolumn             = $obj->{xcolumn};
+my $ycolumn             = $obj->{ycolumn};
 
 my %terminal = (
     eps => "set term epscairo color enhanced",
@@ -106,7 +108,7 @@ sub generate_graphics
                 $quoted_path = quote("$path_results/$function_id/$algorithm_id/1.out");
                 $quoted_title = quote("$algorithm_id");
                 $position++;
-                "  $quoted_path with lines lw 2 title $quoted_title";
+                "  $quoted_path using $xcolumn:$ycolumn with lines lw 2 title $quoted_title";
              } @$algorithms);
 
         print GRAPHICS "\n";
