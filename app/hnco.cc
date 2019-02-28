@@ -179,9 +179,13 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  // Connect algorithm and function
+  // Connect algorithm to functions
   algorithm->set_function(tracker);
   algorithm->set_functions(fns);
+
+  // Connect algorithm to log context
+  ProgressTrackerContext log_context(tracker);
+  algorithm->set_log_context(&log_context);
 
   //
   // Print header
