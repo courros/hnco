@@ -21,6 +21,8 @@
 #ifndef HNCO_ALGORITHMS_LOG_CONTEXT_H
 #define HNCO_ALGORITHMS_LOG_CONTEXT_H
 
+#include "hnco/functions/decorators/function-controller.hh"
+
 
 namespace hnco {
 namespace algorithm {
@@ -42,23 +44,25 @@ namespace algorithm {
   };
 
 
-  /// Log context for %ProgressTracker
+  /// Log context for ProgressTracker
   class ProgressTrackerContext:
     public LogContext {
 
-    /// %ProgressTracker
-    ProgressTracker *_pt;
+    /// Progress tracker
+    hnco::function::ProgressTracker *_pt;
 
   public:
 
     /// Constructor
-    ProgressTrackerContext(ProgressTracker *pt):
+    ProgressTrackerContext(hnco::function::ProgressTracker *pt):
       _pt(pt) {}
 
     /// Get context
     std::string get_context() {
+      assert(_pt);
+
       std::ostringstream stream;
-      stream << _pt.get_last_improvement().num_evaluations;
+      stream << _pt->get_last_improvement().num_evaluations;
       return stream.str();
     }
 
