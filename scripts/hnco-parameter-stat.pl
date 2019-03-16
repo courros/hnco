@@ -21,6 +21,10 @@ use JSON;
 use Statistics::Descriptive;
 use List::MoreUtils qw(all);
 
+my $path_graphics       = "graphics";
+my $path_report         = "report";
+my $path_results        = "results";
+
 my @summary_statistics = qw(median q1 q3 min max);
 my @summary_statistics_display = qw(min q1 median q3 max);
 
@@ -38,7 +42,9 @@ print "Using $plan\n";
 open(FILE, $plan)
     or die "hnco-parameter-stat.pl: Cannot open $plan\n";
 my $json = "";
-while (<FILE>) { $json .= $_; }
+while (<FILE>) {
+    $json .= $_;
+}
 
 my $obj = from_json($json);
 
@@ -49,10 +55,6 @@ my $parameter           = $obj->{parameter};
 
 my $parameter_id        = $parameter->{id};
 my $boxwidth            = $parameter->{boxwidth};
-
-my $path_graphics       = "graphics";
-my $path_report         = "report";
-my $path_results        = "results";
 
 my $values;
 if ($parameter->{values_perl}) {
