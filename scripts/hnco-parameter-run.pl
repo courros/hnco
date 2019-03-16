@@ -22,17 +22,21 @@ use File::Spec;
 use File::HomeDir;
 use Cwd;
 
+my $path_results        = "results";
+
 my $plan = "plan.json";
 if (@ARGV) {
     $plan = shift @ARGV;
 }
 print "Using $plan\n";
 
-open(FILE, $plan) || die "hnco-parameter-run: Cannot open $plan\n";
+open(FILE, $plan)
+    or die "hnco-parameter-run: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
 }
+
 my $obj = from_json($json);
 
 my $algorithms          = $obj->{algorithms};
@@ -42,7 +46,15 @@ my $parallel            = $obj->{parallel};
 my $parameter           = $obj->{parameter};
 my $servers             = $obj->{servers};
 
-my $path_results        = "results";
+my $parameter_id        = $parameter->{id};
+
+my $values;
+if ($parameter->{values_perl}) {
+    my @tmp = eval $parameter->{values_perl};
+    $values = \@tmp;
+} else {
+    $values = $parameter->{values};
+}
 
 if ($parallel) {
     if ($servers) {
@@ -99,16 +111,6 @@ sub iterate_algorithms
 sub iterate_values
 {
     my ($prefix, $cmd, $a) = @_;
-
-    my $parameter_id = $parameter->{id};
-
-    my $values;
-    if ($parameter->{values_perl}) {
-        my @tmp = eval $parameter->{values_perl};
-        $values = \@tmp;
-    } else {
-        $values = $parameter->{values};
-    }
 
     my $num_runs = $obj->{num_runs};
     if ($a->{deterministic}) {
