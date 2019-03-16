@@ -28,9 +28,13 @@ namespace hnco::function {
 
   /** OneMax.
 
-      Reference:
+      References:
 
-      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+      Heinz Mühlenbein, "How genetic algorithms really work:
+      I. mutation and hillclimbing", in Proc. 2nd Int. Conf. on
+      Parallel Problem Solving from Nature, 1992
+
+      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
   */
   class OneMax:
@@ -87,7 +91,7 @@ namespace hnco::function {
 
       Reference:
 
-      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
   */
   class LeadingOnes:
@@ -123,7 +127,7 @@ namespace hnco::function {
 
       Reference:
 
-      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
   */
   class Needle:
@@ -159,7 +163,7 @@ namespace hnco::function {
 
       Reference:
 
-      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
   */
   class Hiff:
@@ -197,7 +201,7 @@ namespace hnco::function {
 
       Reference:
 
-      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
   */
   class Ridge:
@@ -233,7 +237,7 @@ namespace hnco::function {
 
       Reference:
 
-      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
   */
   class Plateau:

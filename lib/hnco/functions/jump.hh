@@ -78,7 +78,7 @@ namespace hnco::function {
 
       Reference:
 
-      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
   */
   class DeceptiveJump:

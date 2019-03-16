@@ -56,7 +56,7 @@ namespace function {
       Jeffrey Horn, David E. Goldberg, and Kalyanmoy Deb, "Long Path
       Problems", PPSN III, 1994.
 
-      Thomas Jansen. 2013. Analyzing Evolutionary Algorithms. Springer.
+      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
   */
   class LongPath:
