@@ -36,22 +36,28 @@ class FunctionFactory
   /// Cache
   hnco::function::Cache *_cache = 0;
 
+  /// Tracker
+  hnco::function::ProgressTracker *_tracker = 0;
+
   /// Make a function modifier
   hnco::function::Function *make_function_modifier(hnco::function::Function *function, Options& options);
-
-  /// Make a function controller
-  hnco::function::Function *make_function_controller(hnco::function::Function *function, const Options& options);
 
 public:
 
   /// Make a function
   hnco::function::Function *make_function(Options& options);
 
+  /// Make a function controller
+  hnco::function::Function *make_function_controller(hnco::function::Function *function, const Options& options);
+
   /// Get map
   hnco::Map *get_map() { return _map; }
 
   /// Get cache
   hnco::function::Cache *get_cache() { return _cache; }
+
+  /// Get tracker
+  hnco::function::ProgressTracker *get_tracker() { return _tracker; }
 
 };
 
