@@ -62,17 +62,34 @@ int main(int argc, char *argv[])
   Random::engine.seed(options.get_seed());
 
   //
+  // OpenMP
+  //
+
+  int num_threads = options.get_num_threads();
+  if (num_threads < 1) {
+    std::cerr << "Error: at least one thread is required" << std::endl;
+    return 1;
+  }
+  assert(num_threads >= 1);
+  omp_set_num_threads(num_threads);
+
+  //
   // Make fitness function
   //
 
   FunctionFactory function_factory;
-
-  Function *fn;
-  try { fn = function_factory.make_function(options); }
-  catch (const Error& e) {
-    std::cerr << "Error: " << e.what() << std::endl;
-    return 1;
+  std::vector<function::Function *> fns(num_threads);
+  for (int i = 0; i < num_threads; i++) {
+    Random::engine.seed(options.get_seed());
+    try { fns[i] = function_factory.make_function(options); }
+    catch (const Error& e) {
+      std::cerr << "Error: " << e.what() << std::endl;
+      return 1;
+    }
   }
+
+  fns[0] = function_factory.make_function_controller(fns[0], options);
+  Function *fn = fns[0];
   assert(options.get_bv_size() == int(fn->get_bv_size()));
 
   //
@@ -139,33 +156,9 @@ int main(int argc, char *argv[])
   // Progress tracker
   //
 
-  ProgressTracker *tracker = new ProgressTracker(fn);
+  ProgressTracker *tracker = function_factory.get_tracker();
 
   tracker->set_log_improvement(options.with_log_improvement());
-
-  //
-  // OpenMP
-  //
-
-  int num_threads = options.get_num_threads();
-  if (num_threads < 1) {
-    std::cerr << "Error: at least one thread is required" << std::endl;
-    return 1;
-  }
-  assert(num_threads >= 1);
-  omp_set_num_threads(num_threads);
-
-  // Functions
-  std::vector<function::Function *> fns(num_threads);
-  fns[0] = tracker;
-  for (int i = 1; i < num_threads; i++) {
-    Random::engine.seed(options.get_seed());
-    try { fns[i] = function_factory.make_function(options); }
-    catch (const Error& e) {
-      std::cerr << "Error: " << e.what() << std::endl;
-      return 1;
-    }
-  }
 
   //
   // Algorithm
@@ -180,7 +173,7 @@ int main(int argc, char *argv[])
   }
 
   // Connect algorithm to functions
-  algorithm->set_function(tracker);
+  algorithm->set_function(fn);
   algorithm->set_functions(fns);
 
   // Connect algorithm to log context
@@ -260,14 +253,18 @@ int main(int argc, char *argv[])
   //
 
   std::ostringstream results;
+
   results << "{\n";
 
   ProgressTracker::Event last_improvement = tracker->get_last_improvement();
-  results << "  \"value\": " << last_improvement.value << ",\n";
-  results << "  \"num_evaluations\": " << last_improvement.num_evaluations << ",\n";
-  results << "  \"total_time\": " << total_time << ",\n";
-  results << "  \"evaluation_time\": " << tracker->get_evaluation_time();
+
+  results << "  \"value\": "            << last_improvement.value << ",\n";
+  results << "  \"num_evaluations\": "  << last_improvement.num_evaluations << ",\n";
+  results << "  \"total_time\": "       << total_time << ",\n";
+  results << "  \"evaluation_time\": "  << tracker->get_evaluation_time();
+
   hnco::function::Cache *cache = function_factory.get_cache();
+
   if (cache)
     results << ",\n  \"lookup_ratio\": " << cache->get_lookup_ratio();
 
@@ -304,7 +301,7 @@ int main(int argc, char *argv[])
 
   // Describe solution
   if (options.with_describe_solution()) {
-    tracker->describe(solution.first, std::cout);
+    fn->describe(solution.first, std::cout);
   }
 
   if (options.with_stop_on_maximum() && !maximum_reached)
