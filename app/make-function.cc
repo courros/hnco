@@ -400,24 +400,8 @@ FunctionFactory::make_function_controller(Function *function, const Options& opt
 {
   assert(function);
 
-  // Stop on maximum
-  if (options.with_stop_on_maximum()) {
-
-    // Known maximum
-    if (function->has_known_maximum()) {
-      function = new StopOnMaximum(function);
-    } else {
-      std::ostringstream stream;
-      stream << "make_function_controller (StopOnMaximum): Unknown maximum";
-      throw Error(stream.str());
-    }
-
-  }
-
-  // Stop on target
-  if (options.with_stop_on_target()) {
-    function = new StopOnTarget(function, options.get_target());
-  }
+  _tracker = new ProgressTracker(function);
+  function = _tracker;
 
   //
   // The following conditions are mutually exclusive
@@ -443,6 +427,25 @@ FunctionFactory::make_function_controller(Function *function, const Options& opt
     }
   }
 
+  // Stop on maximum
+  if (options.with_stop_on_maximum()) {
+
+    // Requires known maximum
+    if (function->has_known_maximum()) {
+      function = new StopOnMaximum(function);
+    } else {
+      std::ostringstream stream;
+      stream << "make_function_controller (StopOnMaximum): Unknown maximum";
+      throw Error(stream.str());
+    }
+
+  }
+
+  // Stop on target
+  if (options.with_stop_on_target()) {
+    function = new StopOnTarget(function, options.get_target());
+  }
+
   return function;
 }
 
@@ -465,7 +468,6 @@ FunctionFactory::make_function(Options& options)
   assert(options.get_bv_size() > 0);
 
   function = make_function_modifier(function, options);
-  function = make_function_controller(function, options);
 
   return function;
 }
