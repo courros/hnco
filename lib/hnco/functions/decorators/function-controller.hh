@@ -262,22 +262,13 @@ namespace hnco::function {
      */
     ///@{
 
-    /** Evaluate a bit vector.
-        \throw MaximumReached
-        \throw TargetReached
-    */
+    /// Evaluate a bit vector
     double eval(const bit_vector_t&);
 
-    /** Incremental evaluation.
-        \throw MaximumReached
-        \throw TargetReached
-    */
+    /// Incremental evaluation
     double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
-    /** Update after a safe evaluation.
-        \throw MaximumReached
-        \throw TargetReached
-    */
+    /// Update after a safe evaluation
     void update(const bit_vector_t& x, double value);
 
     ///@}
