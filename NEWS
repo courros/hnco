@@ -3,6 +3,7 @@
 Library:
 - Added class LogContext
 - Algorithm: added protected member _log_context and its setter
+- ProgressTracker: removed exception handling code from member functions
 
 hnco:
 - Set log context
