@@ -32,25 +32,25 @@ namespace random {
   /// Random numbers
   struct Random {
 
-    /// Engine
-    static std::mt19937 engine;
+    /// Mersenne Twister 19937 generator
+    static std::mt19937 generator;
 
     /// Next uniformly distributed sample
     static double uniform() {
       std::uniform_real_distribution<double> dist;
-      return dist(engine);
+      return dist(generator);
     }
 
     /// Next normally distributed sample
     static double normal() {
       std::normal_distribution<double> dist;
-      return dist(engine);
+      return dist(generator);
     }
 
     /// Next random bit
     static bool bernoulli() {
       std::bernoulli_distribution dist;
-      return dist(engine);
+      return dist(generator);
     }
 
   };

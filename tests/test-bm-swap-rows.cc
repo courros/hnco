@@ -33,14 +33,14 @@ bool check_bm_swap_rows()
 {
   std::uniform_int_distribution<int> dimension_dist(1, 100);
   for (size_t t = 0; t < 1000; t++) {
-    int dimension = dimension_dist(Random::engine);
+    int dimension = dimension_dist(Random::generator);
     bit_matrix_t M(dimension, bit_vector_t(dimension));
     for (size_t i = 0; i < M.size(); i++)
       bv_random(M[i]);
     bit_matrix_t N = M;
     std::uniform_int_distribution<int> index_dist(0, dimension - 1);
-    int i = index_dist(Random::engine);
-    int j = index_dist(Random::engine);
+    int i = index_dist(Random::generator);
+    int j = index_dist(Random::generator);
     bm_swap_rows(M, i, j);
     bm_swap_rows(M, i, j);
     if (M != N)
@@ -51,7 +51,7 @@ bool check_bm_swap_rows()
 
 int main(int argc, char *argv[])
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   if (check_bm_swap_rows())
     exit(0);

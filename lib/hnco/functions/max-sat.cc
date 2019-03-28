@@ -249,7 +249,7 @@ MaxSat::random(const bit_vector_t& solution, int k, int c)
     }
     if (!ok) {
       std::uniform_int_distribution<int> dist(0, _expression[i].size() - 1);
-      int index = dist(Random::engine);
+      int index = dist(Random::generator);
       _expression[i][index] = -_expression[i][index];
     }
   }

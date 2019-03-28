@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     options.set_seed(seed);
   }
-  Random::engine.seed(options.get_seed());
+  Random::generator.seed(options.get_seed());
 
   switch(options.get_map()) {
 

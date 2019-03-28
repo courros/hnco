@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 
   for (int i = 0; i < 1000; i++) {
 
-    int bv_size = bv_size_dist(random::Random::engine);
+    int bv_size = bv_size_dist(random::Random::generator);
 
     Labs fn(bv_size);
     SingleBitFlipIterator it(bv_size);

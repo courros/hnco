@@ -30,12 +30,12 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   std::uniform_int_distribution<int> bv_size_dist(0, 64);
 
   for (int i = 0; i < 1000; i++) {
-    int bv_size = bv_size_dist(Random::engine);
+    int bv_size = bv_size_dist(Random::generator);
     bit_vector_t src(bv_size);
     bv_random(src);
     std::size_t index = bv_to_size_type(src);

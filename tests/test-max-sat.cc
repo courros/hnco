@@ -33,7 +33,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   uniform_int_distribution<int> dist_n(10, 1000);
   uniform_int_distribution<int> dist_k(2, 10);
@@ -41,9 +41,9 @@ int main(int argc, char *argv[])
 
   for (int i = 0; i < 100; i++) {
 
-    int n = dist_n(Random::engine);
-    int k = dist_k(Random::engine);
-    int c = dist_c(Random::engine);
+    int n = dist_n(Random::generator);
+    int k = dist_k(Random::generator);
+    int c = dist_c(Random::generator);
 
     bit_vector_t solution(n);
     bv_random(solution);

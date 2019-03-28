@@ -56,7 +56,7 @@ namespace hnco {
   inline void perm_random(permutation_t& s)
   {
     perm_identity(s);
-    shuffle(s.begin(), s.end(), random::Random::engine);
+    shuffle(s.begin(), s.end(), random::Random::generator);
   }
 
   ///@}

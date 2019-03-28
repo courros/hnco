@@ -177,7 +177,7 @@ SpinHerding::sample_rls(bit_vector_t& x)
 
   size_t failures = 0;
   for (int t = 0; t < _num_seq_updates; t++) {
-    int i = _choose_bit(Random::engine);
+    int i = _choose_bit(Random::generator);
     if (q_variation(x, i) >= 0) {
       bv_flip(x, i);
       failures = 0;

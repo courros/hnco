@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     options.set_seed(seed);
   }
-  Random::engine.seed(options.get_seed());
+  Random::generator.seed(options.get_seed());
 
   //
   // OpenMP
@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
   FunctionFactory function_factory;
   std::vector<function::Function *> fns(num_threads);
   for (int i = 0; i < num_threads; i++) {
-    Random::engine.seed(options.get_seed());
+    Random::generator.seed(options.get_seed());
     try { fns[i] = function_factory.make_function(options); }
     catch (const Error& e) {
       std::cerr << "Error: " << e.what() << std::endl;

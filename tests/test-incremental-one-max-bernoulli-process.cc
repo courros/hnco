@@ -38,10 +38,10 @@ int main(int argc, char *argv[])
 
   std::uniform_int_distribution<int> dist(1, 100);
 
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   for (int i = 0; i < num_runs; i++) {
-    int bv_size = dist(Random::engine);
+    int bv_size = dist(Random::generator);
     OneMax function(bv_size);
     BernoulliProcess neighborhood(bv_size);
     bit_vector_t bv(bv_size);

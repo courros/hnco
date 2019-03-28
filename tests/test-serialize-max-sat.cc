@@ -33,7 +33,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   const string path("test-serialize-max-sat.txt");
 
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 
   for (int i = 0; i < 10; i++) {
 
-    int n = dist_n(Random::engine);
+    int n = dist_n(Random::generator);
 
     MaxSat src;
     {

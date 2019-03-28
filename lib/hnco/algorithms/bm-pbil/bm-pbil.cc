@@ -64,7 +64,7 @@ void
 BmPbil::sample_asynchronous()
 {
   for (int t = 0; t < _num_gs_steps; t++)
-    _model.gibbs_sampler(_choose_bit(random::Random::engine));
+    _model.gibbs_sampler(_choose_bit(random::Random::generator));
 }
 
 

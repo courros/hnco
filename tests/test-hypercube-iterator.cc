@@ -31,12 +31,12 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   std::uniform_int_distribution<int> bv_size_dist(0, 20); 
 
   for (int i = 0; i < 100; i++) {
-    int bv_size = bv_size_dist(Random::engine);
+    int bv_size = bv_size_dist(Random::generator);
     int count = 0;
     HypercubeIterator iterator(bv_size);
     while (iterator.has_next()) {

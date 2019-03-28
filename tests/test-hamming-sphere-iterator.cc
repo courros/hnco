@@ -30,15 +30,15 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   std::uniform_int_distribution<int> radius_dist(1, 5); 
   std::uniform_int_distribution<int> delta_dist(0, 5); 
 
   for (int i = 0; i < 1000; i++) {
 
-    int radius = radius_dist(Random::engine);
-    int bv_size = radius + delta_dist(Random::engine);
+    int radius = radius_dist(Random::generator);
+    int bv_size = radius + delta_dist(Random::generator);
 
     bit_vector_t bv(bv_size);
     bv_random(bv);

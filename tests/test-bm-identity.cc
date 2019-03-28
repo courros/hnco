@@ -34,7 +34,7 @@ bool check_bm_identity()
 {
   std::uniform_int_distribution<int> dimension_dist(1, 100);
   for (size_t t = 0; t < 1000; t++) {
-    int dimension = dimension_dist(Random::engine);
+    int dimension = dimension_dist(Random::generator);
     bit_matrix_t M(dimension, bit_vector_t(dimension));
     bm_identity(M);
     if (!bm_is_identity(M))
@@ -45,7 +45,7 @@ bool check_bm_identity()
 
 int main(int argc, char *argv[])
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   if (check_bm_identity())
     exit(0);

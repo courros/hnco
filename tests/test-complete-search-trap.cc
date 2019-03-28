@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
   const int bv_size     = 20;
   const int num_traps   = 5;
 
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   for (int i = 0; i < 10; i++) {
     Translation map;

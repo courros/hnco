@@ -30,15 +30,15 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   const string path("test-serialize-linear-map.txt");
 
   for (int i = 0; i < 10; i++) {
 
     uniform_int_distribution<int> dist_n(2, 100);
-    int n = dist_n(Random::engine);
-    int m = dist_n(Random::engine);
+    int n = dist_n(Random::generator);
+    int m = dist_n(Random::generator);
 
     LinearMap src;
     src.random(n, m, false);

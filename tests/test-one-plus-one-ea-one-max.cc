@@ -37,7 +37,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   std::uniform_int_distribution<int> bv_size_dist(1, 100);
 
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
   point_value_t solution;
 
   for (int i = 0; i < 100; i++) {
-    int bv_size = bv_size_dist(Random::engine);
+    int bv_size = bv_size_dist(Random::generator);
 
     OneMax f0(bv_size);
 

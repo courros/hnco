@@ -57,7 +57,7 @@ Ltga::maximize()
   std::shared_ptr<HncoEvaluator> evaluator(new HncoEvaluator(_function));
   std::shared_ptr<Middle_Layer> middle_layer(new Middle_Layer(configuration, evaluator));
 
-  LTGA ltga(hnco::random::Random::engine, middle_layer, configuration);
+  LTGA ltga(hnco::random::Random::generator, middle_layer, configuration);
 
   while (ltga.iterate()) {}
 

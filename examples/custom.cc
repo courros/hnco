@@ -78,7 +78,7 @@ public:
 
 int main()
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   const int bv_size = 50;
 

@@ -41,7 +41,7 @@ void
 OnePlusLambdaCommaLambdaGa::iterate()
 {
   // Mutation
-  _mutation.set_radius(_radius_dist(Random::engine));
+  _mutation.set_radius(_radius_dist(Random::generator));
   for (size_t i = 0; i < _offsprings.size(); i++) {
     bit_vector_t& offspring = _offsprings.get_bv(i);
     _mutation.map(_solution.first, offspring);
@@ -54,7 +54,7 @@ OnePlusLambdaCommaLambdaGa::iterate()
   while (_offsprings.get_best_value(n) == value && n < _offsprings.size())
     n++;
   std::uniform_int_distribution<int> choose_parent(0, n - 1);
-  _parent = _offsprings.get_best_bv(choose_parent(Random::engine));
+  _parent = _offsprings.get_best_bv(choose_parent(Random::generator));
 
   // Crossover
   for (size_t i = 0; i < _offsprings.size(); i++)
@@ -70,7 +70,7 @@ OnePlusLambdaCommaLambdaGa::iterate()
       n++;
     choose_parent = std::uniform_int_distribution<int>(0, n - 1);
 
-    _solution.first = _offsprings.get_best_bv(choose_parent(Random::engine));
+    _solution.first = _offsprings.get_best_bv(choose_parent(Random::generator));
     _solution.second = value;
   }
 

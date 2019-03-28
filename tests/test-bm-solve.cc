@@ -33,7 +33,7 @@ bool check_bm_solve()
 {
   std::uniform_int_distribution<int> dimension_dist(1, 100);
   for (size_t t = 0; t < 100; t++) {
-    int dimension = dimension_dist(Random::engine);
+    int dimension = dimension_dist(Random::generator);
 
     bit_matrix_t A, B, C;
     bm_resize(A, dimension);
@@ -69,7 +69,7 @@ bool check_bm_solve()
 
 int main(int argc, char *argv[])
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   return check_bm_solve() ? 0 : 1;
 }

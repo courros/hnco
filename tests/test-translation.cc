@@ -30,13 +30,13 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   for (int i = 0; i < 1000; i++) {
 
     std::uniform_int_distribution<int> input_size_dist(1, 100);
 
-    int input_size = input_size_dist(Random::engine);
+    int input_size = input_size_dist(Random::generator);
 
     Translation translation;
 

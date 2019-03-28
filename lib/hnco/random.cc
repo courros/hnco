@@ -20,4 +20,4 @@
 
 #include "random.hh"
 
-std::mt19937 hnco::random::Random::engine;
+std::mt19937 hnco::random::Random::generator;

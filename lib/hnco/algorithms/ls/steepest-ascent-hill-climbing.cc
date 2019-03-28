@@ -98,7 +98,7 @@ SteepestAscentHillClimbing::iterate()
 
   if (best_value > _solution.second) {
     std::uniform_int_distribution<int> candidate_dist(0, index - 1);
-    _solution.first = _candidates[candidate_dist(random::Random::engine)];
+    _solution.first = _candidates[candidate_dist(random::Random::generator)];
     _solution.second = best_value;
     _neighborhood->set_origin(_solution.first);
   } else

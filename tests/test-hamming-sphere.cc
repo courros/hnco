@@ -35,15 +35,15 @@ int main(int argc, char *argv[])
 
   std::uniform_int_distribution<int> dist(1, bv_size_max);
 
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   for (int i = 0 ; i < num_iterations; i++) {
 
     int n, radius;
 
     do {
-      n = dist(Random::engine);
-      radius = dist(Random::engine);
+      n = dist(Random::generator);
+      radius = dist(Random::generator);
     } while (radius > n);
 
     assert(radius <= n);

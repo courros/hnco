@@ -36,15 +36,15 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   std::uniform_int_distribution<int> prefix_length_dist(2, 4);
   std::uniform_int_distribution<int> divisor_dist(2, 5);
 
   for (int i = 0; i < 10; i++) {
 
-    int prefix_length = prefix_length_dist(random::Random::engine);
-    int bv_size = divisor_dist(random::Random::engine) * prefix_length;
+    int prefix_length = prefix_length_dist(random::Random::generator);
+    int bv_size = divisor_dist(random::Random::generator) * prefix_length;
 
     Translation map;
     map.random(bv_size);

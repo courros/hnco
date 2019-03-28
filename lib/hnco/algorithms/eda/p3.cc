@@ -58,7 +58,7 @@ ParameterLessPopulationPyramid::maximize()
   std::shared_ptr<HncoEvaluator> evaluator(new HncoEvaluator(_function));
   std::shared_ptr<Middle_Layer> middle_layer(new Middle_Layer(configuration, evaluator));
 
-  Pyramid pyramid(hnco::random::Random::engine, middle_layer, configuration);
+  Pyramid pyramid(hnco::random::Random::generator, middle_layer, configuration);
 
   while (pyramid.iterate()) {}
 

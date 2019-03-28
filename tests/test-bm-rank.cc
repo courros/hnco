@@ -33,7 +33,7 @@ bool check_bm_rank()
 {
   std::uniform_int_distribution<size_t> dimension_dist(1, 100);
   for (size_t t = 0; t < 100; t++) {
-    size_t dimension = dimension_dist(Random::engine);
+    size_t dimension = dimension_dist(Random::generator);
 
     bit_matrix_t M;
     bm_resize(M, dimension);
@@ -51,7 +51,7 @@ bool check_bm_rank()
 
 int main(int argc, char *argv[])
 {
-  Random::engine.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   if (check_bm_rank())
     exit(0);

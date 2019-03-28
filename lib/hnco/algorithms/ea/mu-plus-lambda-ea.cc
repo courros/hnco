@@ -48,7 +48,7 @@ MuPlusLambdaEa::iterate()
 {
   for (size_t i = 0; i < _offsprings.size(); i++) {
     bit_vector_t& offspring = _offsprings.get_bv(i);
-    offspring = _parents.get_bv(_select_parent(Random::engine));
+    offspring = _parents.get_bv(_select_parent(Random::generator));
     _mutation.mutate(offspring);
   }
 
