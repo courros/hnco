@@ -401,6 +401,8 @@ FunctionFactory::make_function_controller(Function *function, const Options& opt
   assert(function);
 
   _tracker = new ProgressTracker(function);
+  _tracker->set_log_improvement(options.with_log_improvement());
+
   function = _tracker;
 
   //
