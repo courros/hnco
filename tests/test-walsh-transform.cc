@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     WalshExpansion destination;
     destination.set_terms(terms);
     bit_vector_t bv(bv_size);
-    for (int t; t < 1000; t++) {
+    for (int t = 0; t < 1000; t++) {
       bv_random(bv);
       if (norm * destination.eval(bv) != source.eval(bv))
         return 1;
