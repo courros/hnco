@@ -26,7 +26,8 @@
 #include "pv-algorithm.hh"
 
 
-namespace hnco::algorithm {
+namespace hnco {
+namespace algorithm {
 
   /** Univariate marginal distribution algorithm.
 
@@ -45,9 +46,6 @@ namespace hnco::algorithm {
     /// Population
     Population _population;
 
-    /// Mean of selected bit vectors
-    pv_t _mean;
-
     /** @name Parameters
      */
     ///@{
@@ -65,8 +63,7 @@ namespace hnco::algorithm {
     /// Constructor
     Umda(int n, int population_size):
       PvAlgorithm(n),
-      _population(population_size, n),
-      _mean(n) {}
+      _population(population_size, n) {}
 
     /// Initialization
     void init();
@@ -82,7 +79,8 @@ namespace hnco::algorithm {
 
   };
 
-} // end of namespace hnco::algorithm
+} // end of namespace algorithm
+} // end of namespace hnco
 
 
 #endif
