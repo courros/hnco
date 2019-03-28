@@ -30,15 +30,12 @@ using namespace hnco;
 void
 Function::compute_walsh_transform(std::vector<Function::WalshTransformTerm>& terms)
 {
-  terms.clear();
+  const size_t n = get_bv_size();
 
-  HypercubeIterator bv_it(get_bv_size());
-  HypercubeIterator features_it(get_bv_size());
+  std::vector<double> coefficients(1 << n, 0.0);
 
-  std::vector<double> coefficients(1 << get_bv_size(), 0);
-
-  std::vector<bool> feature(get_bv_size());
-  bit_vector_t bv(get_bv_size());
+  HypercubeIterator bv_it(n);
+  HypercubeIterator features_it(n);
 
   bv_it.init();
   while (bv_it.has_next()) {
@@ -58,6 +55,12 @@ Function::compute_walsh_transform(std::vector<Function::WalshTransformTerm>& ter
   }
 
   // Only keep non zero terms
+
+  terms.clear();
+
+  std::vector<bool> feature(n);
+  bit_vector_t bv(n);
+
   for (std::size_t i = 1; i < coefficients.size(); i++) {
     if (coefficients[i]) {
       bv_from_size_type(bv, i);
