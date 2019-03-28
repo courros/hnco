@@ -163,7 +163,7 @@ namespace neighborhood {
     /// Sample bits
     void sample_bits() {
       assert(_flipped_bits.size() == 1);
-      _flipped_bits[0] = _uniform_index_dist(random::Random::engine);
+      _flipped_bits[0] = _uniform_index_dist(random::Random::generator);
     }
 
   public:
@@ -304,9 +304,6 @@ namespace neighborhood {
   class HammingBall:
     public MultiBitFlip {
 
-    /// Radius of the ball
-    int _radius;
-
     /// Choose the distance to the center
     std::uniform_int_distribution<int> _choose_k;
 
@@ -322,7 +319,6 @@ namespace neighborhood {
     */
     HammingBall(int n, int r):
       MultiBitFlip(n),
-      _radius(r),
       _choose_k(1, r)
     {
       assert(n > 0);
