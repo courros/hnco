@@ -5,6 +5,9 @@ Library:
 - Algorithm: added protected member _log_context and its setter
 - ProgressTracker: removed exception handling code from member functions
 
+Tests:
+- Fixed test-walsh-transform
+
 hnco:
 - Set log context
 - FunctionFactory: added member _tracker and its getter
