@@ -11,7 +11,8 @@ Tests:
 hnco:
 - Set log context
 - FunctionFactory: added member _tracker and its getter
-- make_function_controller decorates its argument with ProgressTracker before other FunctionController
+- make_function_controller decorates its argument with ProgressTracker
+  before other FunctionController
 - main: functions are uniformly created with make_function
 - main: only one function is decorated with make_function_controller
 
