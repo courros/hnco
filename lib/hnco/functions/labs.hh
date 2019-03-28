@@ -24,7 +24,8 @@
 #include "function.hh"
 
 
-namespace hnco::function {
+namespace hnco {
+namespace function {
 
 
   /// Abstract class for low autocorrelation binary sequences.
@@ -100,7 +101,8 @@ namespace hnco::function {
 
   };
 
-} // end of namespace hnco::function
+} // end of namespace function
+} // end of namespace hnco
 
 
 #endif

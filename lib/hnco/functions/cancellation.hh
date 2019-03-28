@@ -28,7 +28,8 @@
 #include "function.hh"
 
 
-namespace hnco::function {
+namespace hnco {
+namespace function {
 
   /** Summation cancellation.
 
@@ -114,7 +115,8 @@ namespace hnco::function {
 
   };
 
-} // end of namespace hnco::function
+} // end of namespace function
+} // end of namespace hnco
 
 
 #endif

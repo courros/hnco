@@ -61,7 +61,7 @@ Function::compute_walsh_transform(std::vector<Function::WalshTransformTerm>& ter
   std::vector<bool> feature(n);
   bit_vector_t bv(n);
 
-  for (std::size_t i = 1; i < coefficients.size(); i++) {
+  for (std::size_t i = 0; i < coefficients.size(); i++) {
     if (coefficients[i]) {
       bv_from_size_type(bv, i);
       bv_to_vector_bool(bv, feature);

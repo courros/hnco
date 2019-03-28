@@ -28,7 +28,8 @@
 #include "function-modifier.hh"
 
 
-namespace hnco::function {
+namespace hnco {
+namespace function {
 
 
   /// Prior noise
@@ -91,7 +92,8 @@ namespace hnco::function {
   };
 
 
-} // end of namespace hnco::function
+} // end of namespace function
+} // end of namespace hnco
 
 
 #endif

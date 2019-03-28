@@ -29,7 +29,8 @@
 
 
 /// Exceptions
-namespace hnco::exception {
+namespace hnco {
+namespace exception {
 
   /// Basic exception
   class Exception {};
@@ -104,7 +105,8 @@ namespace hnco::exception {
 
   };
 
-} // end of namespace hnco::exception
+} // end of namespace exception
+} // end of namespace hnco
 
 
 #endif

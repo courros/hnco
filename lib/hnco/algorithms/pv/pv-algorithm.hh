@@ -28,7 +28,8 @@
 #include "probability-vector.hh"
 
 
-namespace hnco::algorithm {
+namespace hnco {
+namespace algorithm {
 
   /// Probability vector algorithm
   class PvAlgorithm:
@@ -100,7 +101,8 @@ namespace hnco::algorithm {
 
   };
 
-} // end of namespace hnco::algorithm
+} // end of namespace algorithm
+} // end of namespace hnco
 
 
 #endif

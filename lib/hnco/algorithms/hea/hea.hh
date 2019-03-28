@@ -30,8 +30,10 @@
 #include "hnco/exception.hh"
 
 
+namespace hnco {
+namespace algorithm {
 /// Herding evolutionary algorithm
-namespace hnco::algorithm::hea {
+namespace hea {
 
 
   /** Herding evolutionary algorithm.
@@ -277,7 +279,9 @@ namespace hnco::algorithm::hea {
 
   };
 
-} // end of namespace hnco::algorithm::hea
+} // end of namespace hea
+} // end of namespace algorithm
+} // end of namespace hnco
 
 
 #endif

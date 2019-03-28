@@ -32,7 +32,8 @@
 #include "function-decorator.hh"
 
 
-namespace hnco::function {
+namespace hnco {
+namespace function {
 
 
   /// Function controller
@@ -401,7 +402,8 @@ namespace hnco::function {
   };
 
 
-} // end of namespace hnco::function
+} // end of namespace function
+} // end of namespace hnco
 
 
 #endif

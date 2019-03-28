@@ -26,7 +26,8 @@
 #include "pv-algorithm.hh"
 
 
-namespace hnco::algorithm {
+namespace hnco {
+namespace algorithm {
 
   /** Population-based incremental learning with negative and positive selection.
 
@@ -93,7 +94,8 @@ namespace hnco::algorithm {
 
   };
 
-} // end of namespace hnco::algorithm
+} // end of namespace algorithm
+} // end of namespace hnco
 
 
 #endif

@@ -26,7 +26,8 @@
 #include "pv-algorithm.hh"
 
 
-namespace hnco::algorithm {
+namespace hnco {
+namespace algorithm {
 
   /** Population-based incremental learning.
 
@@ -88,7 +89,8 @@ namespace hnco::algorithm {
 
   };
 
-} // end of namespace hncoalgorithm
+} // end of namespace algorithm
+} // end of namespace hnco
 
 
 #endif

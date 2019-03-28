@@ -24,7 +24,8 @@
 #include "hnco/algorithms/algorithm.hh"
 
 
-namespace hnco::algorithm {
+namespace hnco {
+namespace algorithm {
 
   /// Random search
   class RandomSearch:
@@ -47,7 +48,8 @@ namespace hnco::algorithm {
 
   };
 
-} // end of namespace hnco::algorithm
+} // end of namespace algorithm
+} // end of namespace hnco
 
 
 #endif

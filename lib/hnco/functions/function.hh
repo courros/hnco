@@ -34,7 +34,8 @@
 
 
 /// Functions to be maximized
-namespace hnco::function {
+namespace hnco {
+namespace function {
 
   /// Function
   class Function {
@@ -172,7 +173,8 @@ namespace hnco::function {
   /// Check whether a bit vector is globally maximal
   bool bv_is_globally_maximal(const bit_vector_t& bv, Function& fn);
 
-} // end of namespace hnco::function
+} // end of namespace function
+} // end of namespace hnco
 
 
 #endif

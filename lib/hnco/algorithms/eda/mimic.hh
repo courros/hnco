@@ -31,7 +31,9 @@
 #include "hnco/permutation.hh"
 
 
-namespace hnco::algorithm::eda {
+namespace hnco {
+namespace algorithm {
+namespace eda {
 
   /** Mutual information maximizing input clustering.
 
@@ -143,7 +145,9 @@ namespace hnco::algorithm::eda {
 
   };
 
-} // end of namespace hnco::algorithm
+} // end of namespace eda
+} // end of namespace algorithm
+} // end of namespace hnco
 
 
 #endif

@@ -18,13 +18,15 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_HBOA_H
-#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_HBOA_H
+#ifndef HNCO_ALGORITHMS_EDA_HBOA_H
+#define HNCO_ALGORITHMS_EDA_HBOA_H
 
 #include "hnco/algorithms/algorithm.hh"
 
 
-namespace hnco::algorithm::eda {
+namespace hnco {
+namespace algorithm {
+namespace eda {
 
   /** Hierarchical Bayesian Optimization %Algorithm.
 
@@ -59,7 +61,9 @@ namespace hnco::algorithm::eda {
 
   };
 
-} // end of namespace hnco::algorithm::eda
+} // end of namespace eda
+} // end of namespace algorithm
+} // end of namespace hnco
 
 
 #endif

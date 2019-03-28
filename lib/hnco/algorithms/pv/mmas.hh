@@ -26,7 +26,8 @@
 #include "pv-algorithm.hh"
 
 
-namespace hnco::algorithm {
+namespace hnco {
+namespace algorithm {
 
 
   /** Max-min ant system.
@@ -86,7 +87,8 @@ namespace hnco::algorithm {
   };
 
 
-} // end of namespace hnco::algorithm
+} // end of namespace algorithm
+} // end of namespace hnco
 
 
 #endif

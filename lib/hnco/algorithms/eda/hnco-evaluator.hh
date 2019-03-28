@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_HNCO_EVALUATOR_H
-#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_HNCO_EVALUATOR_H
+#ifndef HNCO_ALGORITHMS_EDA_HNCO_EVALUATOR_H
+#define HNCO_ALGORITHMS_EDA_HNCO_EVALUATOR_H
 
 #include <assert.h>
 
@@ -28,8 +28,9 @@
 #include "fast-efficient-p3/Evaluation.h"
 
 
-/// Algorithms from the FastEfficientP3 project
-namespace hnco::algorithm::eda {
+namespace hnco {
+namespace algorithm {
+namespace eda {
 
   /// Evaluator for HNCO functions
   class HncoEvaluator:
@@ -62,7 +63,9 @@ namespace hnco::algorithm::eda {
 
   };
 
-} // end of namespace hnco::algorithm::eda
+} // end of namespace eda
+} // end of namespace algorithm
+} // end of namespace hnco
 
 
 #endif

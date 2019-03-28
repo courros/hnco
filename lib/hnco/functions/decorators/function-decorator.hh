@@ -31,7 +31,8 @@
 #include "hnco/functions/function.hh"
 
 
-namespace hnco::function {
+namespace hnco {
+namespace function {
 
   /// Function decorator
   class FunctionDecorator:
@@ -63,7 +64,8 @@ namespace hnco::function {
 
   };
 
-} // end of namespace hnco::function
+} // end of namespace function
+} // end of namespace hnco
 
 
 #endif
