@@ -24,6 +24,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <functional>           // std::function
 
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
@@ -61,22 +62,59 @@ namespace function {
 
     /** Random instance.
 
+        The weights are independently and uniformly distributed on the
+        interval [0, 1).
+
         \param n Size of bit vectors
     */
     void random(int n);
 
-    /// Get bit vector size
-    size_t get_bv_size() { return _weights.size(); }
+    /** Random instance.
+
+        \param n Size of bit vectors
+        \param fn Function of type T()
+    */
+    template<class T>
+    void random(int n, T fn) {
+      assert(n > 0);
+
+      _weights.resize(n);
+      for (size_t i = 0; i < _weights.size(); i++)
+        _weights[i] = fn();
+    }
+
+    /** @name Evaluation
+     */
+    ///@{
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
+
+    /// Incremental evaluation
+    double incremental_eval(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits);
+
+    ///@}
+
+    /** @name Information about the function
+     */
+    ///@{
+
+    /// Get bit vector size
+    size_t get_bv_size() { return _weights.size(); }
+
+    /// Get the global maximum
+    double get_maximum();
 
     /** Check for a known maximum.
         \return true */
     bool has_known_maximum() { return true; }
 
-    /// Get the global maximum
-    double get_maximum();
+    /** Check whether the function provides incremental evaluation.
+        \return true
+    */
+    bool provides_incremental_evaluation() { return true; }
+
+    ///@}
 
   };
 
