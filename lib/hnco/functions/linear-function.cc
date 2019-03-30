@@ -41,6 +41,17 @@ LinearFunction::random(int n)
 
 
 double
+LinearFunction::get_maximum()
+{
+  double result = 0;
+  for (size_t i = 0; i < _weights.size(); i++)
+    if (_weights[i] > 0)
+      result += _weights[i];
+  return result;
+}
+
+
+double
 LinearFunction::eval(const bit_vector_t& x)
 {
   assert(x.size() == _weights.size());
@@ -54,11 +65,15 @@ LinearFunction::eval(const bit_vector_t& x)
 
 
 double
-LinearFunction::get_maximum()
+LinearFunction::incremental_eval(const bit_vector_t& x,
+                                 double value,
+                                 const hnco::sparse_bit_vector_t& flipped_bits)
 {
-  double result = 0;
-  for (size_t i = 0; i < _weights.size(); i++)
-    if (_weights[i] > 0)
-      result += _weights[i];
+  double result = value;
+  for (auto index : flipped_bits)
+    if (x[index])
+      result -= _weights[index];
+    else
+      result += _weights[index];
   return result;
 }
