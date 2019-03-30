@@ -4,9 +4,12 @@ Library:
 - Added class LogContext
 - Algorithm: added protected member _log_context and its setter
 - ProgressTracker: removed exception handling code from member functions
+- LinearFunction: added member function incremental_eval
+- LinearFunction: added template member function random
 
 Tests:
 - Fixed test-walsh-transform
+- Added test-incremental-linear-function-bernoulli-process
 
 hnco:
 - Set log context
