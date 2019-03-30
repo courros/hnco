@@ -126,6 +126,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-hamming-sphere$(EXEEXT) \
 	test-hamming-sphere-iterator$(EXEEXT) \
 	test-hypercube-iterator$(EXEEXT) \
+	test-incremental-linear-function-bernoulli-process$(EXEEXT) \
 	test-incremental-one-max-bernoulli-process$(EXEEXT) \
 	test-incremental-one-max-hamming-ball$(EXEEXT) \
 	test-incremental-one-max-hamming-sphere$(EXEEXT) \
@@ -298,6 +299,12 @@ test_hypercube_iterator_OBJECTS =  \
 	$(am_test_hypercube_iterator_OBJECTS)
 test_hypercube_iterator_LDADD = $(LDADD)
 test_hypercube_iterator_DEPENDENCIES = ../lib/libhnco.la
+am_test_incremental_linear_function_bernoulli_process_OBJECTS =  \
+	test-incremental-linear-function-bernoulli-process.$(OBJEXT)
+test_incremental_linear_function_bernoulli_process_OBJECTS = $(am_test_incremental_linear_function_bernoulli_process_OBJECTS)
+test_incremental_linear_function_bernoulli_process_LDADD = $(LDADD)
+test_incremental_linear_function_bernoulli_process_DEPENDENCIES =  \
+	../lib/libhnco.la
 am_test_incremental_one_max_bernoulli_process_OBJECTS =  \
 	test-incremental-one-max-bernoulli-process.$(OBJEXT)
 test_incremental_one_max_bernoulli_process_OBJECTS =  \
@@ -480,6 +487,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-hamming-sphere-iterator.Po \
 	./$(DEPDIR)/test-hamming-sphere.Po \
 	./$(DEPDIR)/test-hypercube-iterator.Po \
+	./$(DEPDIR)/test-incremental-linear-function-bernoulli-process.Po \
 	./$(DEPDIR)/test-incremental-one-max-bernoulli-process.Po \
 	./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po \
 	./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po \
@@ -545,6 +553,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
 	$(test_hamming_sphere_iterator_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
+	$(test_incremental_linear_function_bernoulli_process_SOURCES) \
 	$(test_incremental_one_max_bernoulli_process_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
 	$(test_incremental_one_max_hamming_sphere_SOURCES) \
@@ -589,6 +598,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
 	$(test_hamming_sphere_iterator_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
+	$(test_incremental_linear_function_bernoulli_process_SOURCES) \
 	$(test_incremental_one_max_bernoulli_process_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
 	$(test_incremental_one_max_hamming_sphere_SOURCES) \
@@ -997,6 +1007,7 @@ test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
+test_incremental_linear_function_bernoulli_process_SOURCES = test-incremental-linear-function-bernoulli-process.cc
 test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-bernoulli-process.cc
 test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
 test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
@@ -1180,6 +1191,10 @@ test-hypercube-iterator$(EXEEXT): $(test_hypercube_iterator_OBJECTS) $(test_hype
 	@rm -f test-hypercube-iterator$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_hypercube_iterator_OBJECTS) $(test_hypercube_iterator_LDADD) $(LIBS)
 
+test-incremental-linear-function-bernoulli-process$(EXEEXT): $(test_incremental_linear_function_bernoulli_process_OBJECTS) $(test_incremental_linear_function_bernoulli_process_DEPENDENCIES) $(EXTRA_test_incremental_linear_function_bernoulli_process_DEPENDENCIES) 
+	@rm -f test-incremental-linear-function-bernoulli-process$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_linear_function_bernoulli_process_OBJECTS) $(test_incremental_linear_function_bernoulli_process_LDADD) $(LIBS)
+
 test-incremental-one-max-bernoulli-process$(EXEEXT): $(test_incremental_one_max_bernoulli_process_OBJECTS) $(test_incremental_one_max_bernoulli_process_DEPENDENCIES) $(EXTRA_test_incremental_one_max_bernoulli_process_DEPENDENCIES) 
 	@rm -f test-incremental-one-max-bernoulli-process$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_one_max_bernoulli_process_OBJECTS) $(test_incremental_one_max_bernoulli_process_LDADD) $(LIBS)
@@ -1311,6 +1326,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere-iterator.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hypercube-iterator.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-linear-function-bernoulli-process.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-bernoulli-process.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po@am__quote@ # am--include-marker
@@ -1741,6 +1757,13 @@ test-hypercube-iterator.log: test-hypercube-iterator$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-incremental-linear-function-bernoulli-process.log: test-incremental-linear-function-bernoulli-process$(EXEEXT)
+	@p='test-incremental-linear-function-bernoulli-process$(EXEEXT)'; \
+	b='test-incremental-linear-function-bernoulli-process'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-incremental-one-max-bernoulli-process.log: test-incremental-one-max-bernoulli-process$(EXEEXT)
 	@p='test-incremental-one-max-bernoulli-process$(EXEEXT)'; \
 	b='test-incremental-one-max-bernoulli-process'; \
@@ -2035,6 +2058,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-hypercube-iterator.Po
+	-rm -f ./$(DEPDIR)/test-incremental-linear-function-bernoulli-process.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-bernoulli-process.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po
@@ -2130,6 +2154,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-hypercube-iterator.Po
+	-rm -f ./$(DEPDIR)/test-incremental-linear-function-bernoulli-process.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-bernoulli-process.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po

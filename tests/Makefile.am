@@ -42,6 +42,7 @@ check_PROGRAMS = \
 	test-hamming-sphere \
 	test-hamming-sphere-iterator \
 	test-hypercube-iterator \
+	test-incremental-linear-function-bernoulli-process \
 	test-incremental-one-max-bernoulli-process \
 	test-incremental-one-max-hamming-ball \
 	test-incremental-one-max-hamming-sphere \
@@ -99,6 +100,7 @@ test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
+test_incremental_linear_function_bernoulli_process_SOURCES = test-incremental-linear-function-bernoulli-process.cc
 test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-bernoulli-process.cc
 test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
 test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
