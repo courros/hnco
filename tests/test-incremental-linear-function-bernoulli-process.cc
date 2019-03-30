@@ -22,7 +22,7 @@
 #include <random>
 
 #include "hnco/neighborhoods/neighborhood.hh"
-#include "hnco/functions/theory.hh"
+#include "hnco/functions/linear-function.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::neighborhood;
@@ -36,23 +36,29 @@ int main(int argc, char *argv[])
   const int num_runs            = 100;
   const int num_iterations      = 100;
 
-  std::uniform_int_distribution<int> dist(1, 100);
-
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
+  std::uniform_int_distribution<int> bv_size_dist(1, 100);
+  std::uniform_int_distribution<int> coefficient_dist(-100, 100);
+
+  auto fn = [coefficient_dist]() mutable
+    { return coefficient_dist(Random::generator); };
+
   for (int i = 0; i < num_runs; i++) {
-    int bv_size = dist(Random::generator);
-    OneMax function(bv_size);
+    int bv_size = bv_size_dist(Random::generator);
+    LinearFunction function;
+    function.random(bv_size, fn);
     BernoulliProcess neighborhood(bv_size);
     bit_vector_t bv(bv_size);
-
     bv_random(bv);
     neighborhood.set_origin(bv);
     for (int j = 0; j < num_iterations; j++) {
       double value = function.eval(neighborhood.get_origin());
       neighborhood.propose();
       if (function.eval(neighborhood.get_candidate()) !=
-          function.incremental_eval(neighborhood.get_origin(), value, neighborhood.get_flipped_bits()))
+          function.incremental_eval(neighborhood.get_origin(),
+                                    value,
+                                    neighborhood.get_flipped_bits()))
         return 1;
       neighborhood.keep();
     }
