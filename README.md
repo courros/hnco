@@ -29,9 +29,9 @@ Library features:
 - Maps and functions can be serialized to text files
 - Neighborhoods and neighborhood iterators for local search
 - Population with parallel evaluation (OpenMP)
-- Support for incremental evaluation (OneMax and RLS)
+- Support for incremental evaluation
 - Uses a unique instance of random number generator `std::mt19937`
-- 50 unit tests
+- 54 unit tests
 
 Purposes:
 
