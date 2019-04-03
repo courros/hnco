@@ -23,7 +23,7 @@
 
 #include "hnco/algorithms/complete-search.hh"
 #include "hnco/functions/decorators/function-modifier.hh"
-#include "hnco/functions/theory.hh"
+#include "hnco/functions/linear-function.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::algorithm;
@@ -36,15 +36,23 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-  const int bv_size = 20;
-
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
+  std::uniform_int_distribution<int> bv_size_dist(1, 20);
+  std::uniform_int_distribution<int> coefficient_dist(-100, 100);
+
+  auto fn = [coefficient_dist]() mutable
+    { return coefficient_dist(Random::generator); };
+
   for (int i = 0; i < 10; i++) {
+    int bv_size = bv_size_dist(Random::generator);
+
+    LinearFunction function0;
+    function0.random(bv_size, fn);
+
     Translation map;
     map.random(bv_size);
 
-    OneMax function0(bv_size);
     FunctionMapComposition function(&function0, &map);
 
     CompleteSearch algorithm(bv_size);
