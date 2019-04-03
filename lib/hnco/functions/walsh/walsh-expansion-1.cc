@@ -30,15 +30,27 @@ using namespace hnco::function;
 
 
 void
-WalshExpansion1::random(int n, double stddev)
+WalshExpansion1::random(int n)
 {
   assert(n > 0);
-  assert(stddev > 0);
 
   // Linear part
   _linear.resize(n);
   for (size_t i = 0; i < _linear.size(); i++)
-    _linear[i] = stddev * Random::normal();
+    _linear[i] = Random::normal();
+}
+
+
+double
+WalshExpansion1::get_maximum()
+{
+  double result = 0;
+  for (auto w : _linear)
+    if (w > 0)
+      result += w;
+    else
+      result -= w;
+  return result;
 }
 
 
@@ -57,4 +69,20 @@ WalshExpansion1::eval(const bit_vector_t& s)
       result += _linear[i];
 
   return result;
+}
+
+
+double
+WalshExpansion1::incremental_eval(const bit_vector_t& x,
+                                  double value,
+                                  const hnco::sparse_bit_vector_t& flipped_bits)
+{
+  assert(x.size() == _linear.size());
+
+  for (auto index : flipped_bits)
+    if (x[index])
+      value += 2 * _linear[index];
+    else
+      value -= 2 * _linear[index];
+  return value;
 }
