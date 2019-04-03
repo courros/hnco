@@ -115,12 +115,14 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-complete-search-hiff$(EXEEXT) \
 	test-complete-search-jump$(EXEEXT) \
 	test-complete-search-leading-ones$(EXEEXT) \
+	test-complete-search-linear-function$(EXEEXT) \
 	test-complete-search-long-path$(EXEEXT) \
 	test-complete-search-needle$(EXEEXT) \
 	test-complete-search-one-max$(EXEEXT) \
 	test-complete-search-plateau$(EXEEXT) \
 	test-complete-search-ridge$(EXEEXT) \
 	test-complete-search-trap$(EXEEXT) \
+	test-complete-search-walsh-expansion-1$(EXEEXT) \
 	test-first-ascent-hill-climbing$(EXEEXT) \
 	test-first-ascent-hill-climbing-local$(EXEEXT) \
 	test-hamming-sphere$(EXEEXT) \
@@ -131,6 +133,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-incremental-one-max-hamming-ball$(EXEEXT) \
 	test-incremental-one-max-hamming-sphere$(EXEEXT) \
 	test-incremental-one-max-single-bit-flip$(EXEEXT) \
+	test-incremental-walsh-expansion-1-bernoulli-process$(EXEEXT) \
 	test-injection-projection$(EXEEXT) test-max-sat$(EXEEXT) \
 	test-one-plus-one-ea-one-max$(EXEEXT) \
 	test-sbm-multiply$(EXEEXT) test-serialize-affine-map$(EXEEXT) \
@@ -234,6 +237,12 @@ test_complete_search_leading_ones_OBJECTS =  \
 	$(am_test_complete_search_leading_ones_OBJECTS)
 test_complete_search_leading_ones_LDADD = $(LDADD)
 test_complete_search_leading_ones_DEPENDENCIES = ../lib/libhnco.la
+am_test_complete_search_linear_function_OBJECTS =  \
+	test-complete-search-linear-function.$(OBJEXT)
+test_complete_search_linear_function_OBJECTS =  \
+	$(am_test_complete_search_linear_function_OBJECTS)
+test_complete_search_linear_function_LDADD = $(LDADD)
+test_complete_search_linear_function_DEPENDENCIES = ../lib/libhnco.la
 am_test_complete_search_long_path_OBJECTS =  \
 	test-complete-search-long-path.$(OBJEXT)
 test_complete_search_long_path_OBJECTS =  \
@@ -270,6 +279,13 @@ test_complete_search_trap_OBJECTS =  \
 	$(am_test_complete_search_trap_OBJECTS)
 test_complete_search_trap_LDADD = $(LDADD)
 test_complete_search_trap_DEPENDENCIES = ../lib/libhnco.la
+am_test_complete_search_walsh_expansion_1_OBJECTS =  \
+	test-complete-search-walsh-expansion-1.$(OBJEXT)
+test_complete_search_walsh_expansion_1_OBJECTS =  \
+	$(am_test_complete_search_walsh_expansion_1_OBJECTS)
+test_complete_search_walsh_expansion_1_LDADD = $(LDADD)
+test_complete_search_walsh_expansion_1_DEPENDENCIES =  \
+	../lib/libhnco.la
 am_test_first_ascent_hill_climbing_OBJECTS =  \
 	test-first-ascent-hill-climbing.$(OBJEXT)
 test_first_ascent_hill_climbing_OBJECTS =  \
@@ -332,6 +348,11 @@ test_incremental_one_max_single_bit_flip_OBJECTS =  \
 	$(am_test_incremental_one_max_single_bit_flip_OBJECTS)
 test_incremental_one_max_single_bit_flip_LDADD = $(LDADD)
 test_incremental_one_max_single_bit_flip_DEPENDENCIES =  \
+	../lib/libhnco.la
+am_test_incremental_walsh_expansion_1_bernoulli_process_OBJECTS = test-incremental-walsh-expansion-1-bernoulli-process.$(OBJEXT)
+test_incremental_walsh_expansion_1_bernoulli_process_OBJECTS = $(am_test_incremental_walsh_expansion_1_bernoulli_process_OBJECTS)
+test_incremental_walsh_expansion_1_bernoulli_process_LDADD = $(LDADD)
+test_incremental_walsh_expansion_1_bernoulli_process_DEPENDENCIES =  \
 	../lib/libhnco.la
 am_test_injection_projection_OBJECTS =  \
 	test-injection-projection.$(OBJEXT)
@@ -476,12 +497,14 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-complete-search-hiff.Po \
 	./$(DEPDIR)/test-complete-search-jump.Po \
 	./$(DEPDIR)/test-complete-search-leading-ones.Po \
+	./$(DEPDIR)/test-complete-search-linear-function.Po \
 	./$(DEPDIR)/test-complete-search-long-path.Po \
 	./$(DEPDIR)/test-complete-search-needle.Po \
 	./$(DEPDIR)/test-complete-search-one-max.Po \
 	./$(DEPDIR)/test-complete-search-plateau.Po \
 	./$(DEPDIR)/test-complete-search-ridge.Po \
 	./$(DEPDIR)/test-complete-search-trap.Po \
+	./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po \
 	./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po \
 	./$(DEPDIR)/test-first-ascent-hill-climbing.Po \
 	./$(DEPDIR)/test-hamming-sphere-iterator.Po \
@@ -492,6 +515,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po \
 	./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po \
 	./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po \
+	./$(DEPDIR)/test-incremental-walsh-expansion-1-bernoulli-process.Po \
 	./$(DEPDIR)/test-injection-projection.Po \
 	./$(DEPDIR)/test-max-sat.Po \
 	./$(DEPDIR)/test-one-plus-one-ea-one-max.Po \
@@ -542,12 +566,14 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_hiff_SOURCES) \
 	$(test_complete_search_jump_SOURCES) \
 	$(test_complete_search_leading_ones_SOURCES) \
+	$(test_complete_search_linear_function_SOURCES) \
 	$(test_complete_search_long_path_SOURCES) \
 	$(test_complete_search_needle_SOURCES) \
 	$(test_complete_search_one_max_SOURCES) \
 	$(test_complete_search_plateau_SOURCES) \
 	$(test_complete_search_ridge_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
+	$(test_complete_search_walsh_expansion_1_SOURCES) \
 	$(test_first_ascent_hill_climbing_SOURCES) \
 	$(test_first_ascent_hill_climbing_local_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
@@ -558,6 +584,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
 	$(test_incremental_one_max_hamming_sphere_SOURCES) \
 	$(test_incremental_one_max_single_bit_flip_SOURCES) \
+	$(test_incremental_walsh_expansion_1_bernoulli_process_SOURCES) \
 	$(test_injection_projection_SOURCES) $(test_max_sat_SOURCES) \
 	$(test_one_plus_one_ea_one_max_SOURCES) \
 	$(test_sbm_multiply_SOURCES) \
@@ -587,12 +614,14 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_hiff_SOURCES) \
 	$(test_complete_search_jump_SOURCES) \
 	$(test_complete_search_leading_ones_SOURCES) \
+	$(test_complete_search_linear_function_SOURCES) \
 	$(test_complete_search_long_path_SOURCES) \
 	$(test_complete_search_needle_SOURCES) \
 	$(test_complete_search_one_max_SOURCES) \
 	$(test_complete_search_plateau_SOURCES) \
 	$(test_complete_search_ridge_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
+	$(test_complete_search_walsh_expansion_1_SOURCES) \
 	$(test_first_ascent_hill_climbing_SOURCES) \
 	$(test_first_ascent_hill_climbing_local_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
@@ -603,6 +632,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
 	$(test_incremental_one_max_hamming_sphere_SOURCES) \
 	$(test_incremental_one_max_single_bit_flip_SOURCES) \
+	$(test_incremental_walsh_expansion_1_bernoulli_process_SOURCES) \
 	$(test_injection_projection_SOURCES) $(test_max_sat_SOURCES) \
 	$(test_one_plus_one_ea_one_max_SOURCES) \
 	$(test_sbm_multiply_SOURCES) \
@@ -996,12 +1026,14 @@ test_complete_search_four_peaks_SOURCES = test-complete-search-four-peaks.cc
 test_complete_search_hiff_SOURCES = test-complete-search-hiff.cc
 test_complete_search_jump_SOURCES = test-complete-search-jump.cc
 test_complete_search_leading_ones_SOURCES = test-complete-search-leading-ones.cc
+test_complete_search_linear_function_SOURCES = test-complete-search-linear-function.cc
 test_complete_search_long_path_SOURCES = test-complete-search-long-path.cc
 test_complete_search_needle_SOURCES = test-complete-search-needle.cc
 test_complete_search_one_max_SOURCES = test-complete-search-one-max.cc
 test_complete_search_plateau_SOURCES = test-complete-search-plateau.cc
 test_complete_search_ridge_SOURCES = test-complete-search-ridge.cc
 test_complete_search_trap_SOURCES = test-complete-search-trap.cc
+test_complete_search_walsh_expansion_1_SOURCES = test-complete-search-walsh-expansion-1.cc
 test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-local.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
@@ -1012,6 +1044,7 @@ test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-be
 test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
 test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
+test_incremental_walsh_expansion_1_bernoulli_process_SOURCES = test-incremental-walsh-expansion-1-bernoulli-process.cc
 test_injection_projection_SOURCES = test-injection-projection.cc
 test_max_sat_SOURCES = test-max-sat.cc
 test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
@@ -1147,6 +1180,10 @@ test-complete-search-leading-ones$(EXEEXT): $(test_complete_search_leading_ones_
 	@rm -f test-complete-search-leading-ones$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_leading_ones_OBJECTS) $(test_complete_search_leading_ones_LDADD) $(LIBS)
 
+test-complete-search-linear-function$(EXEEXT): $(test_complete_search_linear_function_OBJECTS) $(test_complete_search_linear_function_DEPENDENCIES) $(EXTRA_test_complete_search_linear_function_DEPENDENCIES) 
+	@rm -f test-complete-search-linear-function$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_linear_function_OBJECTS) $(test_complete_search_linear_function_LDADD) $(LIBS)
+
 test-complete-search-long-path$(EXEEXT): $(test_complete_search_long_path_OBJECTS) $(test_complete_search_long_path_DEPENDENCIES) $(EXTRA_test_complete_search_long_path_DEPENDENCIES) 
 	@rm -f test-complete-search-long-path$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_long_path_OBJECTS) $(test_complete_search_long_path_LDADD) $(LIBS)
@@ -1170,6 +1207,10 @@ test-complete-search-ridge$(EXEEXT): $(test_complete_search_ridge_OBJECTS) $(tes
 test-complete-search-trap$(EXEEXT): $(test_complete_search_trap_OBJECTS) $(test_complete_search_trap_DEPENDENCIES) $(EXTRA_test_complete_search_trap_DEPENDENCIES) 
 	@rm -f test-complete-search-trap$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_trap_OBJECTS) $(test_complete_search_trap_LDADD) $(LIBS)
+
+test-complete-search-walsh-expansion-1$(EXEEXT): $(test_complete_search_walsh_expansion_1_OBJECTS) $(test_complete_search_walsh_expansion_1_DEPENDENCIES) $(EXTRA_test_complete_search_walsh_expansion_1_DEPENDENCIES) 
+	@rm -f test-complete-search-walsh-expansion-1$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_walsh_expansion_1_OBJECTS) $(test_complete_search_walsh_expansion_1_LDADD) $(LIBS)
 
 test-first-ascent-hill-climbing$(EXEEXT): $(test_first_ascent_hill_climbing_OBJECTS) $(test_first_ascent_hill_climbing_DEPENDENCIES) $(EXTRA_test_first_ascent_hill_climbing_DEPENDENCIES) 
 	@rm -f test-first-ascent-hill-climbing$(EXEEXT)
@@ -1210,6 +1251,10 @@ test-incremental-one-max-hamming-sphere$(EXEEXT): $(test_incremental_one_max_ham
 test-incremental-one-max-single-bit-flip$(EXEEXT): $(test_incremental_one_max_single_bit_flip_OBJECTS) $(test_incremental_one_max_single_bit_flip_DEPENDENCIES) $(EXTRA_test_incremental_one_max_single_bit_flip_DEPENDENCIES) 
 	@rm -f test-incremental-one-max-single-bit-flip$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_one_max_single_bit_flip_OBJECTS) $(test_incremental_one_max_single_bit_flip_LDADD) $(LIBS)
+
+test-incremental-walsh-expansion-1-bernoulli-process$(EXEEXT): $(test_incremental_walsh_expansion_1_bernoulli_process_OBJECTS) $(test_incremental_walsh_expansion_1_bernoulli_process_DEPENDENCIES) $(EXTRA_test_incremental_walsh_expansion_1_bernoulli_process_DEPENDENCIES) 
+	@rm -f test-incremental-walsh-expansion-1-bernoulli-process$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_walsh_expansion_1_bernoulli_process_OBJECTS) $(test_incremental_walsh_expansion_1_bernoulli_process_LDADD) $(LIBS)
 
 test-injection-projection$(EXEEXT): $(test_injection_projection_OBJECTS) $(test_injection_projection_DEPENDENCIES) $(EXTRA_test_injection_projection_DEPENDENCIES) 
 	@rm -f test-injection-projection$(EXEEXT)
@@ -1315,12 +1360,14 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-hiff.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-jump.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-leading-ones.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-linear-function.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-long-path.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-needle.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-one-max.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-plateau.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-ridge.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-trap.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-first-ascent-hill-climbing.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere-iterator.Po@am__quote@ # am--include-marker
@@ -1331,6 +1378,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-walsh-expansion-1-bernoulli-process.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-injection-projection.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-max-sat.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-one-plus-one-ea-one-max.Po@am__quote@ # am--include-marker
@@ -1680,6 +1728,13 @@ test-complete-search-leading-ones.log: test-complete-search-leading-ones$(EXEEXT
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-complete-search-linear-function.log: test-complete-search-linear-function$(EXEEXT)
+	@p='test-complete-search-linear-function$(EXEEXT)'; \
+	b='test-complete-search-linear-function'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-complete-search-long-path.log: test-complete-search-long-path$(EXEEXT)
 	@p='test-complete-search-long-path$(EXEEXT)'; \
 	b='test-complete-search-long-path'; \
@@ -1718,6 +1773,13 @@ test-complete-search-ridge.log: test-complete-search-ridge$(EXEEXT)
 test-complete-search-trap.log: test-complete-search-trap$(EXEEXT)
 	@p='test-complete-search-trap$(EXEEXT)'; \
 	b='test-complete-search-trap'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-complete-search-walsh-expansion-1.log: test-complete-search-walsh-expansion-1$(EXEEXT)
+	@p='test-complete-search-walsh-expansion-1$(EXEEXT)'; \
+	b='test-complete-search-walsh-expansion-1'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -1788,6 +1850,13 @@ test-incremental-one-max-hamming-sphere.log: test-incremental-one-max-hamming-sp
 test-incremental-one-max-single-bit-flip.log: test-incremental-one-max-single-bit-flip$(EXEEXT)
 	@p='test-incremental-one-max-single-bit-flip$(EXEEXT)'; \
 	b='test-incremental-one-max-single-bit-flip'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-incremental-walsh-expansion-1-bernoulli-process.log: test-incremental-walsh-expansion-1-bernoulli-process$(EXEEXT)
+	@p='test-incremental-walsh-expansion-1-bernoulli-process$(EXEEXT)'; \
+	b='test-incremental-walsh-expansion-1-bernoulli-process'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -2047,12 +2116,14 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-complete-search-hiff.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-jump.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-leading-ones.Po
+	-rm -f ./$(DEPDIR)/test-complete-search-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-long-path.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-needle.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-one-max.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-plateau.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-ridge.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-trap.Po
+	-rm -f ./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
@@ -2063,6 +2134,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po
+	-rm -f ./$(DEPDIR)/test-incremental-walsh-expansion-1-bernoulli-process.Po
 	-rm -f ./$(DEPDIR)/test-injection-projection.Po
 	-rm -f ./$(DEPDIR)/test-max-sat.Po
 	-rm -f ./$(DEPDIR)/test-one-plus-one-ea-one-max.Po
@@ -2143,12 +2215,14 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-complete-search-hiff.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-jump.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-leading-ones.Po
+	-rm -f ./$(DEPDIR)/test-complete-search-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-long-path.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-needle.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-one-max.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-plateau.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-ridge.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-trap.Po
+	-rm -f ./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
@@ -2159,6 +2233,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po
+	-rm -f ./$(DEPDIR)/test-incremental-walsh-expansion-1-bernoulli-process.Po
 	-rm -f ./$(DEPDIR)/test-injection-projection.Po
 	-rm -f ./$(DEPDIR)/test-max-sat.Po
 	-rm -f ./$(DEPDIR)/test-one-plus-one-ea-one-max.Po

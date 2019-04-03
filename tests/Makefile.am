@@ -31,12 +31,14 @@ check_PROGRAMS = \
 	test-complete-search-hiff \
 	test-complete-search-jump \
 	test-complete-search-leading-ones \
+	test-complete-search-linear-function \
 	test-complete-search-long-path \
 	test-complete-search-needle \
 	test-complete-search-one-max \
 	test-complete-search-plateau \
 	test-complete-search-ridge \
 	test-complete-search-trap \
+	test-complete-search-walsh-expansion-1 \
 	test-first-ascent-hill-climbing \
 	test-first-ascent-hill-climbing-local \
 	test-hamming-sphere \
@@ -47,6 +49,7 @@ check_PROGRAMS = \
 	test-incremental-one-max-hamming-ball \
 	test-incremental-one-max-hamming-sphere \
 	test-incremental-one-max-single-bit-flip \
+	test-incremental-walsh-expansion-1-bernoulli-process \
 	test-injection-projection \
 	test-max-sat \
 	test-one-plus-one-ea-one-max \
@@ -89,12 +92,14 @@ test_complete_search_four_peaks_SOURCES = test-complete-search-four-peaks.cc
 test_complete_search_hiff_SOURCES = test-complete-search-hiff.cc
 test_complete_search_jump_SOURCES = test-complete-search-jump.cc
 test_complete_search_leading_ones_SOURCES = test-complete-search-leading-ones.cc
+test_complete_search_linear_function_SOURCES = test-complete-search-linear-function.cc
 test_complete_search_long_path_SOURCES = test-complete-search-long-path.cc
 test_complete_search_needle_SOURCES = test-complete-search-needle.cc
 test_complete_search_one_max_SOURCES = test-complete-search-one-max.cc
 test_complete_search_plateau_SOURCES = test-complete-search-plateau.cc
 test_complete_search_ridge_SOURCES = test-complete-search-ridge.cc
 test_complete_search_trap_SOURCES = test-complete-search-trap.cc
+test_complete_search_walsh_expansion_1_SOURCES = test-complete-search-walsh-expansion-1.cc
 test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-local.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
@@ -105,6 +110,7 @@ test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-be
 test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
 test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
+test_incremental_walsh_expansion_1_bernoulli_process_SOURCES = test-incremental-walsh-expansion-1-bernoulli-process.cc
 test_injection_projection_SOURCES = test-injection-projection.cc
 test_max_sat_SOURCES = test-max-sat.cc
 test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
