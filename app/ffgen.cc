@@ -36,7 +36,6 @@ using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])
@@ -50,27 +49,30 @@ int main(int argc, char *argv[])
   }
   Random::generator.seed(options.get_seed());
 
+  double stddev = options.get_stddev();
+  auto dist = [stddev]() { return stddev * Random::normal(); };
+
   switch(options.get_function()) {
 
   case 1: {
     LinearFunction function;
-    function.random(options.get_bv_size());
-    cout << "Writing LinearFunction to " << options.get_path() << " ... ";
+    function.random(options.get_bv_size(), dist);
+    std::cout << "Writing LinearFunction to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     oa << function;
-    cout << "done" << endl;
+    std::cout << "done" << std::endl;
     break;
   }
 
   case 60: {
     NkLandscape function;
     function.random(options.get_bv_size(), options.get_nk_k(), options.get_stddev());
-    cout << "Writing NkLandscape to " << options.get_path() << " ... ";
+    std::cout << "Writing NkLandscape to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     oa << function;
-    cout << "done" << endl;
+    std::cout << "done" << std::endl;
     break;
   }
 
@@ -87,60 +89,60 @@ int main(int argc, char *argv[])
                       options.get_ms_num_literals_per_clause(),
                       options.get_ms_num_clauses());
     }
-    cout << "Writing MaxSat to " << options.get_path() << " ... ";
+    std::cout << "Writing MaxSat to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     function.save(ofs);
-    cout << "done" << endl;
+    std::cout << "done" << std::endl;
     break;
   }
 
   case 90: {
     EqualProducts function;
     function.random(options.get_bv_size(), options.get_ep_upper_bound());
-    cout << "Writing EqualProducts to " << options.get_path() << " ... ";
+    std::cout << "Writing EqualProducts to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     oa << function;
-    cout << "done" << endl;
+    std::cout << "done" << std::endl;
     break;
   }
 
   case 160: {
     WalshExpansion function;
     function.random(options.get_bv_size(), options.get_walsh_num_features(), options.get_stddev());
-    cout << "Writing WalshExpansion to " << options.get_path() << " ... ";
+    std::cout << "Writing WalshExpansion to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     oa << function;
-    cout << "done" << endl;
+    std::cout << "done" << std::endl;
     break;
   }
 
   case 161: {
     WalshExpansion1 function;
-    function.random(options.get_bv_size(), options.get_stddev());
-    cout << "Writing WalshExpansion1 to " << options.get_path() << " ... ";
+    function.random(options.get_bv_size(), dist);
+    std::cout << "Writing WalshExpansion1 to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     oa << function;
-    cout << "done" << endl;
+    std::cout << "done" << std::endl;
     break;
   }
 
   case 162: {
     WalshExpansion2 function;
     function.random(options.get_bv_size(), options.get_stddev(), options.get_stddev());
-    cout << "Writing WalshExpansion2 to " << options.get_path() << " ... ";
+    std::cout << "Writing WalshExpansion2 to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
     oa << function;
-    cout << "done" << endl;
+    std::cout << "done" << std::endl;
     break;
   }
 
   default: {
-    cerr << "Cannot create any function of type " << options.get_function() << endl;;
-    exit(1);
+    std::cerr << "Cannot create any function of type " << options.get_function() << std::endl;;
+    return 1;
   }
 
   }
