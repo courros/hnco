@@ -23,7 +23,7 @@
 
 #include "hnco/algorithms/complete-search.hh"
 #include "hnco/functions/decorators/function-modifier.hh"
-#include "hnco/functions/linear-function.hh"
+#include "hnco/functions/walsh/walsh-expansion-1.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::algorithm;
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
   for (int i = 0; i < 10; i++) {
     int bv_size = bv_size_dist(Random::generator);
 
-    LinearFunction function0;
+    WalshExpansion1 function0;
     function0.random(bv_size, fn);
 
     Translation map;
