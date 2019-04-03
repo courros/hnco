@@ -24,7 +24,6 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include <functional>           // std::function
 
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
@@ -72,15 +71,15 @@ namespace function {
     /** Random instance.
 
         \param n Size of bit vectors
-        \param fn Function of type T()
+        \param dist Distribution of weights
     */
     template<class T>
-    void random(int n, T fn) {
+    void random(int n, T dist) {
       assert(n > 0);
 
       _weights.resize(n);
       for (size_t i = 0; i < _weights.size(); i++)
-        _weights[i] = fn();
+        _weights[i] = dist();
     }
 
     /** @name Evaluation
