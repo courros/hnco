@@ -69,11 +69,10 @@ LinearFunction::incremental_eval(const bit_vector_t& x,
                                  double value,
                                  const hnco::sparse_bit_vector_t& flipped_bits)
 {
-  double result = value;
   for (auto index : flipped_bits)
     if (x[index])
-      result -= _weights[index];
+      value -= _weights[index];
     else
-      result += _weights[index];
-  return result;
+      value += _weights[index];
+  return value;
 }
