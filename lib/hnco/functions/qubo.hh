@@ -35,7 +35,7 @@ namespace function {
   /** Quadratic unconstrained binary optimization.
 
       Its expression is of the form \f$ f(x) = \sum_i Q_{ii} x_i +
-      \sum_{i < j} Q_{ij} x_i x_{ij} = x^TQx\f$, where Q is an n x n
+      \sum_{i < j} Q_{ij} x_i x_j = x^TQx\f$, where Q is an n x n
       upper-triangular matrix.
 
       Qubo is the problem addressed by qbsolv. Here is its description
