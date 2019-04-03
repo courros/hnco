@@ -21,8 +21,8 @@
 #include <chrono>
 #include <random>
 
+#include "hnco/functions/walsh/walsh-expansion-1.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
-#include "hnco/functions/linear-function.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::neighborhood;
@@ -47,8 +47,8 @@ int main(int argc, char *argv[])
   for (int i = 0; i < num_runs; i++) {
     int bv_size = bv_size_dist(Random::generator);
 
-    WalshExpansion1 function0;
-    function0.random(bv_size, fn);
+    WalshExpansion1 function;
+    function.random(bv_size, fn);
 
     BernoulliProcess neighborhood(bv_size);
     bit_vector_t bv(bv_size);
