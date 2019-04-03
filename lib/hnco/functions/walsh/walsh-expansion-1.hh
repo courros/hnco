@@ -69,18 +69,60 @@ namespace function {
     /// Constructor
     WalshExpansion1() {}
 
-    /// Get bit vector size
-    size_t get_bv_size() { return _linear.size(); }
+    /** Random instance.
+
+        The weights are sampled from the normal distribution.
+
+        \param n Size of bit vector
+    */
+    void random(int n);
 
     /** Random instance.
 
-        \param n                Size of bit vector
-        \param stddev           Standard deviation of the coefficients
+        \param n Size of bit vectors
+        \param dist Distribution of weights
     */
-    void random(int n, double stddev);
+    template<class T>
+    void random(int n, T dist) {
+      assert(n > 0);
+
+      _linear.resize(n);
+      for (size_t i = 0; i < _linear.size(); i++)
+        _linear[i] = dist();
+    }
+
+    /** @name Evaluation
+     */
+    ///@{
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
+
+    /// Incremental evaluation
+    double incremental_eval(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits);
+
+    ///@}
+
+    /** @name Information about the function
+     */
+    ///@{
+
+    /// Get bit vector size
+    size_t get_bv_size() { return _linear.size(); }
+
+    /// Get the global maximum
+    double get_maximum();
+
+    /** Check for a known maximum.
+        \return true */
+    bool has_known_maximum() { return true; }
+
+    /** Check whether the function provides incremental evaluation.
+        \return true
+    */
+    bool provides_incremental_evaluation() { return true; }
+
+    ///@}
 
   };
 
