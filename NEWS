@@ -6,10 +6,16 @@ Library:
 - ProgressTracker: removed exception handling code from member functions
 - LinearFunction: added member function incremental_eval
 - LinearFunction: added template member function random
+- WalshExpansion1: added member get_maximum
+- WalshExpansion1: added member function incremental_eval
+- WalshExpansion1: added template member function random
 
 Tests:
 - Fixed test-walsh-transform
+- Added test-complete-search-linear-function
+- Added test-complete-search-walsh-expansion-1
 - Added test-incremental-linear-function-bernoulli-process
+- Added test-incremental-walsh-expansion-1-bernoulli-process
 
 hnco:
 - Set log context
@@ -18,6 +24,10 @@ hnco:
   before other FunctionController
 - main: functions are uniformly created with make_function
 - main: only one function is decorated with make_function_controller
+
+ffgen:
+- LinearFunction, WalshExpansion1: use template member function random
+  with normal distribution
 
 Scripts:
 - hnco-dynamics-stat.pl: set xlabel, xcolumn, and ycolumn in plot
