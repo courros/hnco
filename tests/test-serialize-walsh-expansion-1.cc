@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     int n = dist_n(Random::generator);
 
     WalshExpansion1 src;
-    src.random(n, 1);
+    src.random(n);
     {
       std::ofstream ofs(path);
       boost::archive::text_oarchive oa(ofs);
