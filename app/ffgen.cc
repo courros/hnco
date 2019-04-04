@@ -23,11 +23,10 @@
 #include <sstream>
 #include <string>
 
+#include "hnco/bit-vector.hh"
 #include "hnco/exception.hh"
 #include "hnco/functions/all.hh"
 #include "hnco/random.hh"
-#include "hnco/bit-vector.hh"
-#include "hnco/bit-matrix.hh"
 
 #include "ffgen-options.hh"
 
@@ -38,17 +37,8 @@ using namespace hnco::random;
 using namespace hnco;
 
 
-int main(int argc, char *argv[])
+int generate_function(Options& options)
 {
-  Options options(argc, argv);
-
-  // Initialize random number generator
-  if (!options.set_seed()) {
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    options.set_seed(seed);
-  }
-  Random::generator.seed(options.get_seed());
-
   double stddev = options.get_stddev();
   auto dist = [stddev]() { return stddev * Random::normal(); };
 
@@ -148,4 +138,26 @@ int main(int argc, char *argv[])
   }
 
   return 0;
+}
+
+
+int main(int argc, char *argv[])
+{
+  Options options(argc, argv);
+
+  // Initialize random number generator
+  if (!options.set_seed()) {
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    options.set_seed(seed);
+  }
+  Random::generator.seed(options.get_seed());
+
+  try {
+    return generate_function(options);
+  }
+  catch (const Error& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+    return 1;
+  }
+
 }
