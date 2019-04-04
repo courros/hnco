@@ -9,6 +9,7 @@ Library:
 - WalshExpansion1: added member get_maximum
 - WalshExpansion1: added member function incremental_eval
 - WalshExpansion1: added template member function random
+- PvAlgorithm: replace bitset with individual log flags
 
 Tests:
 - Fixed test-walsh-transform
