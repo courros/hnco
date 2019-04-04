@@ -233,17 +233,14 @@ make_concrete_algorithm(const Options& options)
       (options.get_bv_size(),
        options.get_population_size());
 
+    algo->set_learning_rate(options.get_learning_rate());
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
-    algo->set_learning_rate(options.get_learning_rate());
-    algo->set_log_num_components(options.get_pv_log_num_components());
 
-    PvAlgorithm::log_flags_t lf = {};
-    if (options.with_pv_log_pv())
-      lf.set(PvAlgorithm::LOG_PV);
-    if (options.with_pv_log_entropy())
-      lf.set(PvAlgorithm::LOG_ENTROPY);
-    algo->set_log_flags(lf);
+    algo->set_log_entropy(options.with_pv_log_entropy());
+    algo->set_log_num_components(options.get_pv_log_num_components());
+    algo->set_log_pv(options.with_pv_log_pv());
+    algo->set_something_to_log();
 
     return algo;
   }
@@ -253,17 +250,14 @@ make_concrete_algorithm(const Options& options)
       (options.get_bv_size(),
        options.get_population_size());
 
+    algo->set_learning_rate(options.get_learning_rate());
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
-    algo->set_learning_rate(options.get_learning_rate());
-    algo->set_log_num_components(options.get_pv_log_num_components());
 
-    PvAlgorithm::log_flags_t lf = {};
-    if (options.with_pv_log_pv())
-      lf.set(PvAlgorithm::LOG_PV);
-    if (options.with_pv_log_entropy())
-      lf.set(PvAlgorithm::LOG_ENTROPY);
-    algo->set_log_flags(lf);
+    algo->set_log_entropy(options.with_pv_log_entropy());
+    algo->set_log_num_components(options.get_pv_log_num_components());
+    algo->set_log_pv(options.with_pv_log_pv());
+    algo->set_something_to_log();
 
     return algo;
   }
@@ -275,14 +269,11 @@ make_concrete_algorithm(const Options& options)
 
     algo->set_num_iterations(options.get_num_iterations());
     algo->set_selection_size(options.get_selection_size());
-    algo->set_log_num_components(options.get_pv_log_num_components());
 
-    PvAlgorithm::log_flags_t lf = {};
-    if (options.with_pv_log_pv())
-      lf.set(PvAlgorithm::LOG_PV);
-    if (options.with_pv_log_entropy())
-      lf.set(PvAlgorithm::LOG_ENTROPY);
-    algo->set_log_flags(lf);
+    algo->set_log_entropy(options.with_pv_log_entropy());
+    algo->set_log_num_components(options.get_pv_log_num_components());
+    algo->set_log_pv(options.with_pv_log_pv());
+    algo->set_something_to_log();
 
     return algo;
   }
@@ -290,16 +281,13 @@ make_concrete_algorithm(const Options& options)
   case 700: {
     auto algo = new CompactGa(options.get_bv_size());
 
-    algo->set_num_iterations(options.get_num_iterations());
     algo->set_learning_rate(options.get_learning_rate());
-    algo->set_log_num_components(options.get_pv_log_num_components());
+    algo->set_num_iterations(options.get_num_iterations());
 
-    PvAlgorithm::log_flags_t lf = {};
-    if (options.with_pv_log_pv())
-      lf.set(PvAlgorithm::LOG_PV);
-    if (options.with_pv_log_entropy())
-      lf.set(PvAlgorithm::LOG_ENTROPY);
-    algo->set_log_flags(lf);
+    algo->set_log_entropy(options.with_pv_log_entropy());
+    algo->set_log_num_components(options.get_pv_log_num_components());
+    algo->set_log_pv(options.with_pv_log_pv());
+    algo->set_something_to_log();
 
     return algo;
   }
@@ -307,19 +295,16 @@ make_concrete_algorithm(const Options& options)
   case 800: {
     auto algo = new Mmas(options.get_bv_size());
 
-    algo->set_num_iterations(options.get_num_iterations());
     algo->set_learning_rate(options.get_learning_rate());
-    algo->set_log_num_components(options.get_pv_log_num_components());
+    algo->set_num_iterations(options.get_num_iterations());
 
     if (options.with_mmas_strict())
       algo->set_compare(std::greater<double>());
 
-    PvAlgorithm::log_flags_t lf = {};
-    if (options.with_pv_log_pv())
-      lf.set(PvAlgorithm::LOG_PV);
-    if (options.with_pv_log_entropy())
-      lf.set(PvAlgorithm::LOG_ENTROPY);
-    algo->set_log_flags(lf);
+    algo->set_log_entropy(options.with_pv_log_entropy());
+    algo->set_log_num_components(options.get_pv_log_num_components());
+    algo->set_log_pv(options.with_pv_log_pv());
+    algo->set_something_to_log();
 
     return algo;
   }
