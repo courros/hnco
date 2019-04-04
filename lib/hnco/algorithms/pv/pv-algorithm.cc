@@ -34,10 +34,10 @@ PvAlgorithm::log()
   if (_log_context)
     (*_stream) << _log_context->get_context() << " ";
 
-  if (_log_flags[LOG_ENTROPY])
+  if (_log_entropy)
     (*_stream) << pv_entropy(_pv) << " ";
 
-  if (_log_flags[LOG_PV]) {
+  if (_log_pv) {
     int upper_bound = std::min(_log_num_components, int(_pv.size()));
     for (int i = 0; i < upper_bound; i++)
       (*_stream) << _pv[i] << " ";

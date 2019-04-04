@@ -35,20 +35,6 @@ namespace algorithm {
   class PvAlgorithm:
     public IterativeAlgorithm {
 
-  public:
-
-    enum {
-      /// Log probability vector
-      LOG_PV,
-
-      /// Log entropy
-      LOG_ENTROPY,
-
-      LAST_LOG
-    };
-
-    typedef std::bitset<LAST_LOG> log_flags_t;
-
   protected:
 
     /// Probability vector
@@ -60,17 +46,20 @@ namespace algorithm {
     /// Upper bound of probability
     double _upper_bound;
 
-    /** @name Parameters
+    /** @name Logging
      */
     ///@{
+
+    /// Log entropy
+    bool _log_entropy = false;
+
+    /// Log probability vector
+    bool _log_pv = false;
 
     /// Number of probability vector components to log
     int _log_num_components = 5;
 
     ///@}
-
-    /// Log flags
-    log_flags_t _log_flags;
 
     /// Log
     void log();
@@ -84,18 +73,21 @@ namespace algorithm {
       _lower_bound(1 / double(n)),
       _upper_bound(1 - 1 / double(n)) {}
 
-    /// Set log flags
-    void set_log_flags(const log_flags_t& lf) {
-      _log_flags = lf;
-      _something_to_log = _log_flags.any();
-    }
-
-    /** @name Setters
+    /** @name Setters for logging
      */
     ///@{
 
+    /// Log entropy
+    void set_log_entropy(bool x) { _log_entropy = x; }
+
     /// Set the number of probability vector components to log
     void set_log_num_components(int x) { _log_num_components = x; }
+
+    /// Log probability vector
+    void set_log_pv(bool x) { _log_pv = x; }
+
+    /// Set flag for something to log
+    void set_something_to_log() { _something_to_log = _log_entropy || _log_pv; }
 
     ///@}
 
