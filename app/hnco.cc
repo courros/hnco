@@ -138,11 +138,17 @@ int main(int argc, char *argv[])
               terms.end(),
               [](const Function::WalshTransformTerm& a,
                  const Function::WalshTransformTerm& b){ return a.coefficient > b.coefficient; });
-    double norm = terms[0].coefficient;
+    assert(terms.size() > 0);
+    double norm;
+    if (bv_hamming_weight(terms[0].feature) == 0)
+      norm = terms[1].coefficient;
+    else
+      norm = terms[0].coefficient;
     for (auto t : terms) {
-      double relative = t.coefficient / norm;
-      if (relative > 1e-10)
-        std::cout << bv_hamming_weight(t.feature) << " " << relative << std::endl;
+      int weight = bv_hamming_weight(t.feature);
+      double amplitude = t.coefficient / norm;
+      if (amplitude > 1e-10 && weight > 0)
+        std::cout << weight << " " << amplitude << std::endl;
     }
     return 0;
   }
