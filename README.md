@@ -31,7 +31,7 @@ Library features:
 - Population with parallel evaluation (OpenMP)
 - Support for incremental evaluation
 - Uses a unique instance of random number generator `std::mt19937`
-- 54 unit tests
+- 55 unit tests
 
 Purposes:
 
