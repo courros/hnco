@@ -10,6 +10,7 @@ Library:
 - WalshExpansion1: added member function incremental_eval
 - WalshExpansion1: added template member function random
 - PvAlgorithm: replace bitset with individual log flags
+- Optimized bv_random
 
 Tests:
 - Fixed test-walsh-transform
