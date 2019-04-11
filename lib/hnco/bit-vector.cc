@@ -98,15 +98,22 @@ hnco::bv_flip(bit_vector_t& x, const bit_vector_t& mask)
 void
 hnco::bv_random(bit_vector_t& x, int k)
 {
-  fill(x.begin(), x.end(), 0);
+  assert(k >= 0);
+  assert(k <= static_cast<int>(x.size()));
+
   int n = x.size();
   for (size_t i = 0; i < x.size(); i++) {
-    double p = double(k) / double(n);
-    if (random::Random::uniform() < p) {
-      x[i] = 1;
-      k--;
-    }
-    n--;
+    if (k > 0) {
+      assert(n > 0);
+      double p = double(k) / double(n);
+      if (random::Random::uniform() < p) {
+        x[i] = 1;
+        k--;
+      } else
+        x[i] = 0;
+      n--;
+    } else
+      x[i] = 0;
   }
 }
 
