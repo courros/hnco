@@ -91,3 +91,19 @@ NkLandscape::eval(const bit_vector_t& s)
 
   return result / _partial_functions.size();
 }
+
+
+void
+NkLandscape::display(std::ostream& stream)
+{
+  stream << "NK landscape with N = " << get_bv_size()
+         << " and K = " << (_neighbors[0].size() - 1) << std::endl;
+  stream << "Neighbors:" << std::endl;
+  for (size_t i = 0; i < _neighbors.size(); i++) {
+    stream << i << " -> ";
+    auto ns = _neighbors[i];
+    for (auto n : ns)
+      stream << n << " ";
+    stream << std::endl;
+  }
+}

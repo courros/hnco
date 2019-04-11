@@ -11,6 +11,7 @@ Library:
 - WalshExpansion1: added template member function random
 - PvAlgorithm: replace bitset with individual log flags
 - Optimized bv_random
+- NkLandscape: added member function display
 
 Tests:
 - Fixed test-walsh-transform
