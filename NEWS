@@ -28,6 +28,7 @@ hnco:
   before other FunctionController
 - main: functions are uniformly created with make_function
 - main: only one function is decorated with make_function_controller
+- Fixed: filter out the coefficient of the feature zero
 
 ffgen:
 - LinearFunction, WalshExpansion1: use template member function random
