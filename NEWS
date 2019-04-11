@@ -19,6 +19,7 @@ Tests:
 - Added test-complete-search-walsh-expansion-1
 - Added test-incremental-linear-function-bernoulli-process
 - Added test-incremental-walsh-expansion-1-bernoulli-process
+- Added test-bv-random
 
 hnco:
 - Set log context
