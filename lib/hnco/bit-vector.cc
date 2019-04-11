@@ -66,7 +66,7 @@ hnco::bv_dot_product(const bit_vector_t& x, const bit_vector_t& y)
 {
   assert(x.size() == y.size());
 
-  int result = 0;
+  size_t result = 0;
   for (std::size_t i = 0; i < x.size(); i++)
     if (x[i] && y[i])
       result++;
@@ -78,7 +78,7 @@ hnco::bv_dot_product(const bit_vector_t& x, const std::vector<bool>& y)
 {
   assert(x.size() == y.size());
 
-  int result = 0;
+  size_t result = 0;
   for (std::size_t i = 0; i < x.size(); i++)
     if (x[i] && y[i])
       result++;
