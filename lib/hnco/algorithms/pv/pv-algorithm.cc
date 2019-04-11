@@ -29,7 +29,7 @@ using namespace hnco;
 void
 PvAlgorithm::log()
 {
-  assert(_log_flags.any());
+  assert(_something_to_log);
 
   if (_log_context)
     (*_stream) << _log_context->get_context() << " ";
@@ -44,5 +44,4 @@ PvAlgorithm::log()
   }
 
   (*_stream) << std::endl;
-
 }
