@@ -511,6 +511,11 @@
                 },
 
                 {
+                    "value": 171,
+                    "description": "Nearest neighbor Ising model in one dimension"
+                },
+
+                {
                     "value": 1000,
                     "description": "Plugin"
                 }

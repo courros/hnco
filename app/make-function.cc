@@ -202,6 +202,12 @@ make_concrete_function(const Options& options)
     return function;
   }
 
+  case 171: {
+    NearestNeighborIsingModel1* function = new NearestNeighborIsingModel1;
+    load_function_from_boost_archive<NearestNeighborIsingModel1>(function, options);
+    return function;
+  }
+
 #ifdef ENABLE_PLUGIN
   case 1000:
     return new FunctionPlugin

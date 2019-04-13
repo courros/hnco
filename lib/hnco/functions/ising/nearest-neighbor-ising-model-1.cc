@@ -22,7 +22,7 @@
 
 #include "hnco/random.hh"
 
-#include "walsh-expansion-1.hh"
+#include "nearest-neighbor-ising-model-1.hh"
 
 
 using namespace hnco::random;

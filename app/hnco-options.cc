@@ -832,6 +832,7 @@ void Options::print_help(ostream& stream) const
   stream << "            160: Walsh expansion" << endl;
   stream << "            161: Walsh expansion of degree 1" << endl;
   stream << "            162: Walsh expansion of degree 2" << endl;
+  stream << "            171: Nearest neighbor Ising model in one dimension" << endl;
   stream << "            1000: Plugin" << endl;
   stream << "  -p, --path (type string, default to \"nopath\")" << endl;
   stream << "          Path of a function file" << endl;
