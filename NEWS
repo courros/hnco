@@ -12,6 +12,7 @@ Library:
 - PvAlgorithm: replace bitset with individual log flags
 - Optimized bv_random
 - NkLandscape: added member function display
+- Added NearestNeighborIsingModel1
 
 Tests:
 - Fixed test-walsh-transform
@@ -20,6 +21,8 @@ Tests:
 - Added test-incremental-linear-function-bernoulli-process
 - Added test-incremental-walsh-expansion-1-bernoulli-process
 - Added test-bv-random
+- Added test-incremental-nn-ising-1
+- Added test-serialize-nn-ising-1
 
 hnco:
 - Set log context
