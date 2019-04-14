@@ -36,8 +36,9 @@ hnco:
 ffgen:
 - LinearFunction, WalshExpansion1: use template member function random
   with normal distribution
-- Add function generate_function
-- catch Error exceptions
+- Added function generate_function
+- Catch Error exceptions
+- Added NearestNeighborIsingModel1 with number 171
 
 Scripts:
 - hnco-dynamics-stat.pl: set xlabel, xcolumn, and ycolumn in plot
