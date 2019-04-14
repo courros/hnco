@@ -30,43 +30,59 @@ using namespace hnco::function;
 
 
 void
+NearestNeighborIsingModel1::resize(int n)
+{
+  assert(n > 0);
+
+  _couplings.resize(n);
+  _external_field.resize(n);
+  _flipped_bits = bit_vector_t(n, 0);
+}
+
+
+void
 NearestNeighborIsingModel1::random(int n)
 {
   assert(n > 0);
 
-  // Linear part
-  _linear.resize(n);
-  for (size_t i = 0; i < _linear.size(); i++)
-    _linear[i] = Random::normal();
-}
-
-
-double
-NearestNeighborIsingModel1::get_maximum()
-{
-  double result = 0;
-  for (auto w : _linear)
-    if (w > 0)
-      result += w;
-    else
-      result -= w;
-  return result;
+  resize(n);
+  for (size_t i = 0; i < _couplings.size(); i++) {
+    _couplings[i] = Random::normal();
+    _external_field[i] = Random::normal();
+  }
 }
 
 
 double
 NearestNeighborIsingModel1::eval(const bit_vector_t& s)
 {
-  assert(s.size() == _linear.size());
+  assert(_couplings.size() > 0);
+  assert(s.size() == _couplings.size());
+
+  const size_t n = _couplings.size();
+  const size_t last = n - 1;
 
   double result = 0;
 
-  // Linear part
-  for (size_t i = 0; i < _linear.size(); i++)
-    if (s[i])
-      result -= _linear[i];
+  // Interactions
+  for (size_t i = 0; i < last; i++)
+    if ((s[i] + s[i + 1]) % 2 == 0)
+      result += _couplings[i];
     else
-      result += _linear[i];
+      result -= _couplings[i];
+  if (_periodic_boundary_conditions) {
+    if ((s[last] + s[0]) % 2 == 0)
+      result += _couplings[last];
+    else
+      result -= _couplings[last];
+  }
+
+  // External field
+  for (size_t i = 0; i < n; i++)
+    if (s[i])
+      result -= _external_field[i];
+    else
+      result += _external_field[i];
 
   return result;
 }
@@ -74,15 +90,68 @@ NearestNeighborIsingModel1::eval(const bit_vector_t& s)
 
 double
 NearestNeighborIsingModel1::incremental_eval(const bit_vector_t& x,
-                                  double value,
-                                  const hnco::sparse_bit_vector_t& flipped_bits)
+                                             double value,
+                                             const hnco::sparse_bit_vector_t& flipped_bits)
 {
-  assert(x.size() == _linear.size());
+  assert(_couplings.size() > 0);
+  assert(x.size() == _couplings.size());
 
-  for (auto index : flipped_bits)
-    if (x[index])
-      value += 2 * _linear[index];
+  const size_t n = _couplings.size();
+  const size_t last = n - 1;
+
+  assert(bv_is_zero(_flipped_bits));
+  bv_flip(_flipped_bits, flipped_bits);
+
+  // Interactions with the right site
+  for (auto index : flipped_bits) {
+    size_t next;
+    if (index == last) {
+      if (_periodic_boundary_conditions)
+        next = 0;
+      else
+        continue;
+    } else {
+      next = index + 1;
+      assert(next < n);
+    }
+    if (_flipped_bits[next])
+      continue;
+    if ((x[index] + x[next]) % 2 == 0)
+      value -= 2 * _couplings[index];
     else
-      value -= 2 * _linear[index];
+      value += 2 * _couplings[index];
+  }
+
+  // Interactions with the left site
+  for (auto index : flipped_bits) {
+    size_t previous;
+    if (index == 0) {
+      if (_periodic_boundary_conditions)
+        previous = last;
+      else
+        continue;
+    } else {
+      previous = index - 1;
+      assert(previous < n);
+    }
+    if (_flipped_bits[previous])
+      continue;
+    if ((x[previous] + x[index]) % 2 == 0)
+      value -= 2 * _couplings[previous];
+    else
+      value += 2 * _couplings[previous];
+  }
+
+  bv_flip(_flipped_bits, flipped_bits);
+  assert(bv_is_zero(_flipped_bits));
+
+  // External field
+  for (auto index : flipped_bits) {
+    if (x[index])
+      value += 2 * _external_field[index];
+    else
+      value -= 2 * _external_field[index];
+  }
+
   return value;
 }

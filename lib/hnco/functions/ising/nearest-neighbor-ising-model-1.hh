@@ -36,16 +36,31 @@ namespace hnco {
 namespace function {
 
 
-  /** Walsh expansion of degree 1.
+  /** Nearest neighbor Ising model in one dimension.
 
       Its expression is of the form
 
-      \f$ f(x) = \sum_i a_i (1 - 2x_i) \f$
+      \f$ f(x) = \sum_i J_{i,i+1} (1 - 2x_i)(1 - 2x_{i+1}) + \sum_i h_i (1 - 2x_i)\f$
 
       or equivalently
 
-      \f$ f(x) = \sum_i a_i (-1)^{x_i} \f$
+      \f$ f(x) = \sum_i J_{i,i+1} (-1)^{x_i + x_{i+1}} + \sum_i h_i
+      (-1)^{x_i}\f$
 
+      where \f$J_{i,i+1}\f$ is the interaction between adjacent sites
+      i and i+1 and \f$h_i\f$ is the external magnetic field
+      interacting with site i.
+
+      In the case of perdiodic boundary conditions, the sum \f$i+1\f$
+      is mod n.
+
+      Since we are maximizing f or minimizing -f, the expression of f
+      is compatible with what can be found in physics textbooks.
+
+      It should be noted that such an Ising model can be represented
+      by a Walsh expansion of degree 2, that is WalshExpansion2.
+
+      Reference: https://en.wikipedia.org/wiki/Ising_model
   */
   class NearestNeighborIsingModel1:
     public Function {
@@ -58,11 +73,24 @@ namespace function {
     template<class Archive>
     void serialize(Archive& ar, const unsigned int version)
     {
-      ar & _linear;
+      ar & _couplings;
+      ar & _external_field;
     }
 
-    /// Linear part
-    std::vector<double> _linear;
+    /// Couplings between nearest neighbors
+    std::vector<double> _couplings;
+
+    /// External field
+    std::vector<double> _external_field;
+
+    /// Flipped bits
+    bit_vector_t _flipped_bits;
+
+    /// Periodic boundary conditions
+    bool _periodic_boundary_conditions = false;
+
+    /// Resize data structures
+    void resize(int n);
 
   public:
 
@@ -86,16 +114,21 @@ namespace function {
     void random(int n, T dist) {
       assert(n > 0);
 
-      _linear.resize(n);
-      for (size_t i = 0; i < _linear.size(); i++)
-        _linear[i] = dist();
+      resize(n);
+      for (size_t i = 0; i < _couplings.size(); i++) {
+        _couplings[i] = dist();
+        _external_field[i] = dist();
+      }
     }
 
     /** @name Evaluation
      */
     ///@{
 
-    /// Evaluate a bit vector
+    /** Evaluate a bit vector.
+
+        Complexity: O(n)
+    */
     double eval(const bit_vector_t&);
 
     /// Incremental evaluation
@@ -108,14 +141,7 @@ namespace function {
     ///@{
 
     /// Get bit vector size
-    size_t get_bv_size() { return _linear.size(); }
-
-    /// Get the global maximum
-    double get_maximum();
-
-    /** Check for a known maximum.
-        \return true */
-    bool has_known_maximum() { return true; }
+    size_t get_bv_size() { return _couplings.size(); }
 
     /** Check whether the function provides incremental evaluation.
         \return true
@@ -123,6 +149,9 @@ namespace function {
     bool provides_incremental_evaluation() { return true; }
 
     ///@}
+
+    /// Set periodic boundary conditions
+    void set_periodic_boundary_conditions(bool x) { _periodic_boundary_conditions = x; }
 
   };
 
