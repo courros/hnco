@@ -130,6 +130,17 @@ int generate_function(Options& options)
     break;
   }
 
+  case 171: {
+    NearestNeighborIsingModel1 function;
+    function.random(options.get_bv_size(), dist);
+    std::cout << "Writing NearestNeighborIsingModel1 to " << options.get_path() << " ... ";
+    std::ofstream ofs(options.get_path());
+    boost::archive::text_oarchive oa(ofs);
+    oa << function;
+    std::cout << "done" << std::endl;
+    break;
+  }
+
   default: {
     std::cerr << "Cannot create any function of type " << options.get_function() << std::endl;;
     return 1;

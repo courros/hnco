@@ -130,6 +130,11 @@
                 {
                     "value": 162,
                     "description": "Walsh expansion of degree 2"
+                },
+
+                {
+                    "value": 171,
+                    "description": "Nearest neighbor Ising model in one dimension"
                 }
 
             ]
