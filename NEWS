@@ -25,6 +25,7 @@ Tests:
 - Added test-incremental-nn-ising-1
 - Added test-serialize-nn-ising-1
 - Added test-complete-search-six-peaks
+- Added test-complete-search-factorization
 
 hnco:
 - Set log context
