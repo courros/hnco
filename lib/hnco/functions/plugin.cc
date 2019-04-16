@@ -21,8 +21,6 @@
 #include <assert.h>
 #include <dlfcn.h>              // dlopen, dlsym, dlclose
 
-#include <numeric>		// accumulate, partial_sum
-
 #include "hnco/exception.hh"
 
 #include "plugin.hh"
@@ -47,8 +45,7 @@ FunctionPlugin::FunctionPlugin(int bv_size, std::string path, std::string name):
   char *error = dlerror();
   if (error != NULL) {
     std::ostringstream stream;
-    stream << "FunctionPlugin::FunctionPlugin: "
-           << std::string(error);
+    stream << "FunctionPlugin::FunctionPlugin: " << std::string(error);
     throw Error(stream.str());
   }
 }
