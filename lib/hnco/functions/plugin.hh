@@ -41,7 +41,7 @@ namespace function {
     void *_handle;
 
     /// Type of an extern function
-    typedef double (*extern_function_t)(const char[], size_t);
+    typedef double (*extern_function_t)(const bit_t *, size_t);
 
     /// Extern function
     extern_function_t _extern_function;
