@@ -141,7 +141,10 @@ namespace function {
   public:
 
     /** Constructor.
-        \param function Decorated function */
+
+        \param function Decorated function
+        \param target Target
+    */
     StopOnTarget(Function *function, double target):
       FunctionController(function),
       _target(target) {}
