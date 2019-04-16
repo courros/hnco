@@ -121,6 +121,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-complete-search-one-max$(EXEEXT) \
 	test-complete-search-plateau$(EXEEXT) \
 	test-complete-search-ridge$(EXEEXT) \
+	test-complete-search-six-peaks$(EXEEXT) \
 	test-complete-search-trap$(EXEEXT) \
 	test-complete-search-walsh-expansion-1$(EXEEXT) \
 	test-first-ascent-hill-climbing$(EXEEXT) \
@@ -279,6 +280,12 @@ test_complete_search_ridge_OBJECTS =  \
 	$(am_test_complete_search_ridge_OBJECTS)
 test_complete_search_ridge_LDADD = $(LDADD)
 test_complete_search_ridge_DEPENDENCIES = ../lib/libhnco.la
+am_test_complete_search_six_peaks_OBJECTS =  \
+	test-complete-search-six-peaks.$(OBJEXT)
+test_complete_search_six_peaks_OBJECTS =  \
+	$(am_test_complete_search_six_peaks_OBJECTS)
+test_complete_search_six_peaks_LDADD = $(LDADD)
+test_complete_search_six_peaks_DEPENDENCIES = ../lib/libhnco.la
 am_test_complete_search_trap_OBJECTS =  \
 	test-complete-search-trap.$(OBJEXT)
 test_complete_search_trap_OBJECTS =  \
@@ -522,6 +529,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-complete-search-one-max.Po \
 	./$(DEPDIR)/test-complete-search-plateau.Po \
 	./$(DEPDIR)/test-complete-search-ridge.Po \
+	./$(DEPDIR)/test-complete-search-six-peaks.Po \
 	./$(DEPDIR)/test-complete-search-trap.Po \
 	./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po \
 	./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po \
@@ -593,6 +601,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_one_max_SOURCES) \
 	$(test_complete_search_plateau_SOURCES) \
 	$(test_complete_search_ridge_SOURCES) \
+	$(test_complete_search_six_peaks_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
 	$(test_complete_search_walsh_expansion_1_SOURCES) \
 	$(test_first_ascent_hill_climbing_SOURCES) \
@@ -643,6 +652,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_one_max_SOURCES) \
 	$(test_complete_search_plateau_SOURCES) \
 	$(test_complete_search_ridge_SOURCES) \
+	$(test_complete_search_six_peaks_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
 	$(test_complete_search_walsh_expansion_1_SOURCES) \
 	$(test_first_ascent_hill_climbing_SOURCES) \
@@ -1058,6 +1068,7 @@ test_complete_search_needle_SOURCES = test-complete-search-needle.cc
 test_complete_search_one_max_SOURCES = test-complete-search-one-max.cc
 test_complete_search_plateau_SOURCES = test-complete-search-plateau.cc
 test_complete_search_ridge_SOURCES = test-complete-search-ridge.cc
+test_complete_search_six_peaks_SOURCES = test-complete-search-six-peaks.cc
 test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_complete_search_walsh_expansion_1_SOURCES = test-complete-search-walsh-expansion-1.cc
 test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
@@ -1236,6 +1247,10 @@ test-complete-search-ridge$(EXEEXT): $(test_complete_search_ridge_OBJECTS) $(tes
 	@rm -f test-complete-search-ridge$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_ridge_OBJECTS) $(test_complete_search_ridge_LDADD) $(LIBS)
 
+test-complete-search-six-peaks$(EXEEXT): $(test_complete_search_six_peaks_OBJECTS) $(test_complete_search_six_peaks_DEPENDENCIES) $(EXTRA_test_complete_search_six_peaks_DEPENDENCIES) 
+	@rm -f test-complete-search-six-peaks$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_six_peaks_OBJECTS) $(test_complete_search_six_peaks_LDADD) $(LIBS)
+
 test-complete-search-trap$(EXEEXT): $(test_complete_search_trap_OBJECTS) $(test_complete_search_trap_DEPENDENCIES) $(EXTRA_test_complete_search_trap_DEPENDENCIES) 
 	@rm -f test-complete-search-trap$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_trap_OBJECTS) $(test_complete_search_trap_LDADD) $(LIBS)
@@ -1407,6 +1422,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-one-max.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-plateau.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-ridge.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-six-peaks.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-trap.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po@am__quote@ # am--include-marker
@@ -1820,6 +1836,13 @@ test-complete-search-ridge.log: test-complete-search-ridge$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-complete-search-six-peaks.log: test-complete-search-six-peaks$(EXEEXT)
+	@p='test-complete-search-six-peaks$(EXEEXT)'; \
+	b='test-complete-search-six-peaks'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-complete-search-trap.log: test-complete-search-trap$(EXEEXT)
 	@p='test-complete-search-trap$(EXEEXT)'; \
 	b='test-complete-search-trap'; \
@@ -2187,6 +2210,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-complete-search-one-max.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-plateau.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-ridge.Po
+	-rm -f ./$(DEPDIR)/test-complete-search-six-peaks.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-trap.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po
@@ -2289,6 +2313,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-complete-search-one-max.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-plateau.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-ridge.Po
+	-rm -f ./$(DEPDIR)/test-complete-search-six-peaks.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-trap.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po

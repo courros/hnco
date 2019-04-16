@@ -23,6 +23,7 @@ Tests:
 - Added test-bv-random
 - Added test-incremental-nn-ising-1
 - Added test-serialize-nn-ising-1
+- Added test-complete-search-six-peaks
 
 hnco:
 - Set log context
