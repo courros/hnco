@@ -179,9 +179,11 @@ make_concrete_function(const Options& options)
        options.get_fn_prefix_length());
 
 #ifdef ENABLE_FACTORIZATION
-  case 150:
-    return new Factorization
-      (options.get_path());
+  case 150: {
+    Factorization *function = new Factorization;
+    load_function_from_file<Factorization>(function, options);
+    return function;
+  }
 #endif
 
   case 160: {
