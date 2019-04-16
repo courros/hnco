@@ -13,23 +13,39 @@ using namespace hnco::function;
 using namespace hnco::exception;
 
 
-Factorization::Factorization(std::string path)
+void
+Factorization::init()
 {
   mpz_init(_number);
   mpz_init(_first_factor);
   mpz_init(_second_factor);
   mpz_init(_product);
+}
 
-  std::ifstream stream(path);
-  if (!stream.good()) {
-    std::ostringstream oss;
-    oss << "Factorization::Factorization: Cannot open " << path;
-    throw Error(oss.str());
-  }
-  std::string decimal;
-  stream >> decimal;
 
-  if (mpz_set_str(_number, decimal.c_str(), 10) != 0) {
+void
+Factorization::clear()
+{
+  mpz_clear(_number);
+  mpz_clear(_first_factor);
+  mpz_clear(_second_factor);
+  mpz_clear(_product);
+}
+
+
+void
+Factorization::load(std::istream& stream)
+{
+  std::string number;
+  stream >> number;
+  set_number(number);
+}
+
+
+void
+Factorization::set_number(const std::string number)
+{
+  if (mpz_set_str(_number, number.c_str(), 10) != 0) {
     std::ostringstream oss;
     oss << "Factorization::Factorization: mpz_set_str failed";
     throw Error(oss.str());
@@ -48,15 +64,6 @@ Factorization::Factorization(std::string path)
 
   _first_factor_string = std::string(_first_factor_size, '0');
   _second_factor_string = std::string(_second_factor_size, '0');
-}
-
-
-Factorization::~Factorization()
-{
-  mpz_clear(_number);
-  mpz_clear(_first_factor);
-  mpz_clear(_second_factor);
-  mpz_clear(_product);
 }
 
 

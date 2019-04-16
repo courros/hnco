@@ -58,22 +58,43 @@ namespace function {
     /// Bit vector size
     size_t _bv_size;
 
+    /// Init GMP data structures
+    void init();
+
+    /// Clear GMP data structures
+    void clear();
+
+    /// Set number
+    void set_number(const std::string number);
+
     /// Convert a bit vector into two numbers
     void convert(const bit_vector_t& x);
 
   public:
 
+    /// Constructor
+    Factorization() { init(); }
+
     /** Constructor.
 
-        \param path Path to a file containing a number to factorize
+        \param number Number to factorize written in decimal form
+    */
+    Factorization(const std::string number) {
+      init();
+      set_number(number);
+    }
+
+    /// Destructor
+    ~Factorization() { clear(); }
+
+    /** Load an instance.
 
         \warning The file is a text file which contains exactly one
         natural number written in base 10 without any space.
-     */
-    Factorization(std::string path);
 
-    /// Destructor
-    ~Factorization();
+        \throw Error
+    */
+    void load(std::istream& stream);
 
     /// Get bit vector size
     size_t get_bv_size() { return _bv_size; }
