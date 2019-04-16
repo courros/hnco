@@ -28,6 +28,7 @@ check_PROGRAMS = \
 	test-bv-random \
 	test-bv-to-size-type \
 	test-complete-search-deceptive-jump \
+	test-complete-search-factorization \
 	test-complete-search-four-peaks \
 	test-complete-search-hiff \
 	test-complete-search-jump \
@@ -76,6 +77,10 @@ check_PROGRAMS = \
 	test-translation \
 	test-walsh-transform
 
+if ENABLE_FACTORIZATION
+check_PROGRAMS += test-complete-search-factorization
+endif
+
 AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
 
 AM_CPPFLAGS = -I $(top_srcdir)/lib
@@ -93,6 +98,7 @@ test_bm_swap_rows_SOURCES = test-bm-swap-rows.cc
 test_bv_random_SOURCES = test-bv-random.cc
 test_bv_to_size_type_SOURCES = 	test-bv-to-size-type.cc
 test_complete_search_deceptive_jump_SOURCES = test-complete-search-deceptive-jump.cc
+test_complete_search_factorization_SOURCES = test-complete-search-factorization.cc
 test_complete_search_four_peaks_SOURCES = test-complete-search-four-peaks.cc
 test_complete_search_hiff_SOURCES = test-complete-search-hiff.cc
 test_complete_search_jump_SOURCES = test-complete-search-jump.cc

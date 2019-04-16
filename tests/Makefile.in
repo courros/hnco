@@ -111,6 +111,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-bm-solve$(EXEEXT) test-bm-swap-rows$(EXEEXT) \
 	test-bv-random$(EXEEXT) test-bv-to-size-type$(EXEEXT) \
 	test-complete-search-deceptive-jump$(EXEEXT) \
+	test-complete-search-factorization$(EXEEXT) \
 	test-complete-search-four-peaks$(EXEEXT) \
 	test-complete-search-hiff$(EXEEXT) \
 	test-complete-search-jump$(EXEEXT) \
@@ -154,7 +155,9 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-single-bit-flip-iterator$(EXEEXT) \
 	test-steepest-ascent-hill-climbing$(EXEEXT) \
 	test-steepest-ascent-hill-climbing-local$(EXEEXT) \
-	test-translation$(EXEEXT) test-walsh-transform$(EXEEXT)
+	test-translation$(EXEEXT) test-walsh-transform$(EXEEXT) \
+	$(am__EXEEXT_1)
+@ENABLE_FACTORIZATION_TRUE@am__append_1 = test-complete-search-factorization
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -168,6 +171,7 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
+@ENABLE_FACTORIZATION_TRUE@am__EXEEXT_1 = test-complete-search-factorization$(EXEEXT)
 am_test_bm_add_rows_OBJECTS = test-bm-add-rows.$(OBJEXT)
 test_bm_add_rows_OBJECTS = $(am_test_bm_add_rows_OBJECTS)
 test_bm_add_rows_LDADD = $(LDADD)
@@ -220,6 +224,12 @@ test_complete_search_deceptive_jump_OBJECTS =  \
 	$(am_test_complete_search_deceptive_jump_OBJECTS)
 test_complete_search_deceptive_jump_LDADD = $(LDADD)
 test_complete_search_deceptive_jump_DEPENDENCIES = ../lib/libhnco.la
+am_test_complete_search_factorization_OBJECTS =  \
+	test-complete-search-factorization.$(OBJEXT)
+test_complete_search_factorization_OBJECTS =  \
+	$(am_test_complete_search_factorization_OBJECTS)
+test_complete_search_factorization_LDADD = $(LDADD)
+test_complete_search_factorization_DEPENDENCIES = ../lib/libhnco.la
 am_test_complete_search_four_peaks_OBJECTS =  \
 	test-complete-search-four-peaks.$(OBJEXT)
 test_complete_search_four_peaks_OBJECTS =  \
@@ -519,6 +529,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-bv-random.Po \
 	./$(DEPDIR)/test-bv-to-size-type.Po \
 	./$(DEPDIR)/test-complete-search-deceptive-jump.Po \
+	./$(DEPDIR)/test-complete-search-factorization.Po \
 	./$(DEPDIR)/test-complete-search-four-peaks.Po \
 	./$(DEPDIR)/test-complete-search-hiff.Po \
 	./$(DEPDIR)/test-complete-search-jump.Po \
@@ -591,6 +602,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_bm_solve_SOURCES) $(test_bm_swap_rows_SOURCES) \
 	$(test_bv_random_SOURCES) $(test_bv_to_size_type_SOURCES) \
 	$(test_complete_search_deceptive_jump_SOURCES) \
+	$(test_complete_search_factorization_SOURCES) \
 	$(test_complete_search_four_peaks_SOURCES) \
 	$(test_complete_search_hiff_SOURCES) \
 	$(test_complete_search_jump_SOURCES) \
@@ -642,6 +654,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_bm_solve_SOURCES) $(test_bm_swap_rows_SOURCES) \
 	$(test_bv_random_SOURCES) $(test_bv_to_size_type_SOURCES) \
 	$(test_complete_search_deceptive_jump_SOURCES) \
+	$(test_complete_search_factorization_SOURCES) \
 	$(test_complete_search_four_peaks_SOURCES) \
 	$(test_complete_search_hiff_SOURCES) \
 	$(test_complete_search_jump_SOURCES) \
@@ -1058,6 +1071,7 @@ test_bm_swap_rows_SOURCES = test-bm-swap-rows.cc
 test_bv_random_SOURCES = test-bv-random.cc
 test_bv_to_size_type_SOURCES = test-bv-to-size-type.cc
 test_complete_search_deceptive_jump_SOURCES = test-complete-search-deceptive-jump.cc
+test_complete_search_factorization_SOURCES = test-complete-search-factorization.cc
 test_complete_search_four_peaks_SOURCES = test-complete-search-four-peaks.cc
 test_complete_search_hiff_SOURCES = test-complete-search-hiff.cc
 test_complete_search_jump_SOURCES = test-complete-search-jump.cc
@@ -1206,6 +1220,10 @@ test-bv-to-size-type$(EXEEXT): $(test_bv_to_size_type_OBJECTS) $(test_bv_to_size
 test-complete-search-deceptive-jump$(EXEEXT): $(test_complete_search_deceptive_jump_OBJECTS) $(test_complete_search_deceptive_jump_DEPENDENCIES) $(EXTRA_test_complete_search_deceptive_jump_DEPENDENCIES) 
 	@rm -f test-complete-search-deceptive-jump$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_deceptive_jump_OBJECTS) $(test_complete_search_deceptive_jump_LDADD) $(LIBS)
+
+test-complete-search-factorization$(EXEEXT): $(test_complete_search_factorization_OBJECTS) $(test_complete_search_factorization_DEPENDENCIES) $(EXTRA_test_complete_search_factorization_DEPENDENCIES) 
+	@rm -f test-complete-search-factorization$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_factorization_OBJECTS) $(test_complete_search_factorization_LDADD) $(LIBS)
 
 test-complete-search-four-peaks$(EXEEXT): $(test_complete_search_four_peaks_OBJECTS) $(test_complete_search_four_peaks_DEPENDENCIES) $(EXTRA_test_complete_search_four_peaks_DEPENDENCIES) 
 	@rm -f test-complete-search-four-peaks$(EXEEXT)
@@ -1412,6 +1430,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bv-random.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bv-to-size-type.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-deceptive-jump.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-factorization.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-four-peaks.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-hiff.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-jump.Po@am__quote@ # am--include-marker
@@ -1762,6 +1781,13 @@ test-bv-to-size-type.log: test-bv-to-size-type$(EXEEXT)
 test-complete-search-deceptive-jump.log: test-complete-search-deceptive-jump$(EXEEXT)
 	@p='test-complete-search-deceptive-jump$(EXEEXT)'; \
 	b='test-complete-search-deceptive-jump'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-complete-search-factorization.log: test-complete-search-factorization$(EXEEXT)
+	@p='test-complete-search-factorization$(EXEEXT)'; \
+	b='test-complete-search-factorization'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -2200,6 +2226,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-bv-random.Po
 	-rm -f ./$(DEPDIR)/test-bv-to-size-type.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-deceptive-jump.Po
+	-rm -f ./$(DEPDIR)/test-complete-search-factorization.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-four-peaks.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-hiff.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-jump.Po
@@ -2303,6 +2330,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-bv-random.Po
 	-rm -f ./$(DEPDIR)/test-bv-to-size-type.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-deceptive-jump.Po
+	-rm -f ./$(DEPDIR)/test-complete-search-factorization.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-four-peaks.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-hiff.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-jump.Po

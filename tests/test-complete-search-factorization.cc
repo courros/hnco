@@ -22,8 +22,8 @@
 #include <random>
 
 #include "hnco/algorithms/complete-search.hh"
-#include "hnco/functions/four-peaks.hh"
 #include "hnco/functions/decorators/function-modifier.hh"
+#include "hnco/functions/factorization.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::algorithm;
@@ -31,24 +31,32 @@ using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])
 {
-  const int bv_size     = 20;
-  const int gap         = 5;
-
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  for (int i = 0; i < 10; i++) {
-    Translation map;
-    map.random(bv_size);
+  std::uniform_int_distribution<int> dist_a(2, 15);
+  std::uniform_int_distribution<int> dist_b(2, 15);
 
-    SixPeaks function0(bv_size, gap);
+  for (int i = 0; i < 10; i++) {
+
+    int a = dist_a(Random::generator);
+    int b = dist_b(Random::generator);
+    int c = a * b;
+
+    std::ostringstream stream;
+    stream << c;
+
+    Factorization function0(stream.str());
+
+    Translation map;
+    map.random(function0.get_bv_size());
+
     FunctionMapComposition function(&function0, &map);
 
-    CompleteSearch algorithm(bv_size);
+    CompleteSearch algorithm(function0.get_bv_size());
     algorithm.set_function(&function);
     algorithm.init();
     try { algorithm.maximize(); }
@@ -56,7 +64,7 @@ int main(int argc, char *argv[])
       return 1;
     }
 
-    if (algorithm.get_solution().second != function.get_maximum())
+    if (algorithm.get_solution().second != double(0))
       return 1;
   }
 
