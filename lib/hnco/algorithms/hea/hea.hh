@@ -207,6 +207,7 @@ namespace hea {
     /** Constructor.
 
         \param n Size of bit vectors
+        \param population_size Population size
 
         _margin is initialized to 1 / n.
     */
