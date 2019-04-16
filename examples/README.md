@@ -12,4 +12,8 @@ into hnco with
 
 This should work with any C function with the following prototype:
 
-    double fn(const char[], size_t);
+    double fn(const unsigned char *, size_t);
+
+or even with:
+
+    double fn(const char *, size_t);
