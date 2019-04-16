@@ -6,13 +6,14 @@ Library:
 - ProgressTracker: removed exception handling code from member functions
 - LinearFunction: added member function incremental_eval
 - LinearFunction: added template member function random
-- WalshExpansion1: added member get_maximum
+- WalshExpansion1: added member function get_maximum
 - WalshExpansion1: added member function incremental_eval
 - WalshExpansion1: added template member function random
 - PvAlgorithm: replace bitset with individual log flags
 - Optimized bv_random
 - NkLandscape: added member function display
 - Added NearestNeighborIsingModel1
+- Factorization: added default constructor and load member function
 
 Tests:
 - Fixed test-walsh-transform
