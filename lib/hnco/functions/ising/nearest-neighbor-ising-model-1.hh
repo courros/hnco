@@ -75,6 +75,7 @@ namespace function {
     {
       ar & _couplings;
       ar & _field;
+      ar & _periodic_boundary_conditions;
     }
 
     /// Couplings between nearest neighbors
