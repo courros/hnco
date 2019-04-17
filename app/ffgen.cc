@@ -83,7 +83,7 @@ int generate_function(Options& options)
 
   case 70: {
     MaxSat function;
-    if (options.with_ms_known_maximum()) {
+    if (options.with_ms_planted_solution()) {
       bit_vector_t solution(options.get_bv_size());
       bv_random(solution);
       function.random(solution,

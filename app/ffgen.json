@@ -49,9 +49,9 @@
 
     "flags": {
 
-        "ms_known_maximum":
+        "ms_planted_solution":
         {
-            "description": "Generate an instance with known maximum",
+            "description": "Generate an instance with a planted solution",
             "section": "ms"
         },
 

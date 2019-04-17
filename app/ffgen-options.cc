@@ -30,7 +30,7 @@ Options::Options(int argc, char *argv[]):
   _walsh_num_features(100),
   _opt_walsh_num_features(false),
   _ising_periodic_boundary_condition(false),
-  _ms_known_maximum(false)
+  _ms_planted_solution(false)
 {
   enum {
     OPTION_HELP=256,
@@ -46,7 +46,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_STDDEV,
     OPTION_WALSH_NUM_FEATURES,
     OPTION_ISING_PERIODIC_BOUNDARY_CONDITION,
-    OPTION_MS_KNOWN_MAXIMUM
+    OPTION_MS_PLANTED_SOLUTION
   };
   const struct option long_options[] = {
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
@@ -60,7 +60,7 @@ Options::Options(int argc, char *argv[]):
     {"stddev", required_argument, 0, OPTION_STDDEV},
     {"walsh-num-features", required_argument, 0, OPTION_WALSH_NUM_FEATURES},
     {"ising-periodic-boundary-condition", no_argument, 0, OPTION_ISING_PERIODIC_BOUNDARY_CONDITION},
-    {"ms-known-maximum", no_argument, 0, OPTION_MS_KNOWN_MAXIMUM},
+    {"ms-planted-solution", no_argument, 0, OPTION_MS_PLANTED_SOLUTION},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
     {0, no_argument, 0, 0}
@@ -118,8 +118,8 @@ Options::Options(int argc, char *argv[]):
       _ising_periodic_boundary_condition = true;
       break;
 
-    case OPTION_MS_KNOWN_MAXIMUM:
-      _ms_known_maximum = true;
+    case OPTION_MS_PLANTED_SOLUTION:
+      _ms_planted_solution = true;
       break;
 
     case OPTION_HELP:
@@ -166,12 +166,12 @@ void Options::print_help(ostream& stream) const
   stream << "          Each bit is connected to k other bits" << endl;
   stream << endl;
   stream << "Max-SAT" << endl;
-  stream << "      --ms-known-maximum" << endl;
-  stream << "          Generate an instance with known maximum" << endl;
   stream << "      --ms-num-clauses (type int, default to 100)" << endl;
   stream << "          Number of clauses" << endl;
   stream << "      --ms-num-literals-per-clause (type int, default to 3)" << endl;
   stream << "          Number of literals per clause" << endl;
+  stream << "      --ms-planted-solution" << endl;
+  stream << "          Generate an instance with a planted solution" << endl;
   stream << endl;
   stream << "Equal Products" << endl;
   stream << "      --ep-upper-bound (type double, default to 1)" << endl;
@@ -206,8 +206,8 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# walsh_num_features = " << options._walsh_num_features << endl;
   if (options._ising_periodic_boundary_condition)
     stream << "# ising_periodic_boundary_condition" << endl;
-  if (options._ms_known_maximum)
-    stream << "# ms_known_maximum" << endl;
+  if (options._ms_planted_solution)
+    stream << "# ms_planted_solution" << endl;
   stream << "# last_parameter" << endl;
   stream << "# exec_name = " << options._exec_name << endl;
   stream << "# version = " << options._version << endl;

@@ -56,8 +56,8 @@ class Options {
   /// Periodic boundary condition
   bool _ising_periodic_boundary_condition;
 
-  /// Generate an instance with known maximum
-  bool _ms_known_maximum;
+  /// Generate an instance with a planted solution
+  bool _ms_planted_solution;
 
   /// Print help message
   void print_help(std::ostream& stream) const;
@@ -196,11 +196,11 @@ public:
   /// Set ising_periodic_boundary_condition
   void set_ising_periodic_boundary_condition() { _ising_periodic_boundary_condition = true; }
  
-  /// Get ms_known_maximum
-  bool with_ms_known_maximum() const { return _ms_known_maximum; }
+  /// Get ms_planted_solution
+  bool with_ms_planted_solution() const { return _ms_planted_solution; }
 
-  /// Set ms_known_maximum
-  void set_ms_known_maximum() { _ms_known_maximum = true; }
+  /// Set ms_planted_solution
+  void set_ms_planted_solution() { _ms_planted_solution = true; }
  
   /// Print a header containing the parameter values
   friend std::ostream& operator<<(std::ostream&, const Options&);
