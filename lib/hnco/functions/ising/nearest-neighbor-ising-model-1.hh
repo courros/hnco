@@ -155,6 +155,9 @@ namespace function {
     /// Set periodic boundary conditions
     void set_periodic_boundary_conditions(bool x) { _periodic_boundary_conditions = x; }
 
+    /// Display
+    void display(std::ostream& stream);
+
   };
 
 

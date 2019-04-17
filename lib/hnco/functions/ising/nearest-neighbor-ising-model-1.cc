@@ -155,3 +155,12 @@ NearestNeighborIsingModel1::incremental_eval(const bit_vector_t& x,
 
   return value;
 }
+
+
+void
+NearestNeighborIsingModel1::display(std::ostream& stream)
+{
+  stream << "NearestNeighborIsingModel1" << std::endl;
+  stream << "n = " << get_bv_size() << std::endl;
+  stream << "Periodic boundary condition = " << _periodic_boundary_conditions << std::endl;
+}
