@@ -35,7 +35,7 @@ NearestNeighborIsingModel1::resize(int n)
   assert(n > 0);
 
   _couplings.resize(n);
-  _external_field.resize(n);
+  _field.resize(n);
   _flipped_bits = bit_vector_t(n, 0);
 }
 
@@ -48,7 +48,7 @@ NearestNeighborIsingModel1::random(int n)
   resize(n);
   for (size_t i = 0; i < _couplings.size(); i++) {
     _couplings[i] = Random::normal();
-    _external_field[i] = Random::normal();
+    _field[i] = Random::normal();
   }
 }
 
@@ -80,9 +80,9 @@ NearestNeighborIsingModel1::eval(const bit_vector_t& s)
   // External field
   for (size_t i = 0; i < n; i++)
     if (s[i])
-      result -= _external_field[i];
+      result -= _field[i];
     else
-      result += _external_field[i];
+      result += _field[i];
 
   return result;
 }
@@ -148,9 +148,9 @@ NearestNeighborIsingModel1::incremental_eval(const bit_vector_t& x,
   // External field
   for (auto index : flipped_bits) {
     if (x[index])
-      value += 2 * _external_field[index];
+      value += 2 * _field[index];
     else
-      value -= 2 * _external_field[index];
+      value -= 2 * _field[index];
   }
 
   return value;

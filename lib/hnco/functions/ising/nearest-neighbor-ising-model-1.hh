@@ -74,14 +74,14 @@ namespace function {
     void serialize(Archive& ar, const unsigned int version)
     {
       ar & _couplings;
-      ar & _external_field;
+      ar & _field;
     }
 
     /// Couplings between nearest neighbors
     std::vector<double> _couplings;
 
     /// External field
-    std::vector<double> _external_field;
+    std::vector<double> _field;
 
     /// Flipped bits
     bit_vector_t _flipped_bits;
@@ -118,7 +118,7 @@ namespace function {
       resize(n);
       for (size_t i = 0; i < _couplings.size(); i++) {
         _couplings[i] = generator_couplings();
-        _external_field[i] = generator_field();
+        _field[i] = generator_field();
       }
     }
 
