@@ -44,6 +44,8 @@ ffgen:
 - Added function generate_function
 - Catch Error exceptions
 - Added NearestNeighborIsingModel1 with number 171
+- Renamed flag ms_known_maximum -> ms_planted_solution
+- Added template function save_function_to_boost_archive
 
 Scripts:
 - hnco-dynamics-stat.pl: set xlabel, xcolumn, and ycolumn in plot
