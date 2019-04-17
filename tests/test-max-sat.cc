@@ -19,42 +19,56 @@
 */
 
 #include <chrono>
+#include <random>
 
+#include "hnco/algorithms/complete-search.hh"
 #include "hnco/exception.hh"
 #include "hnco/functions/max-sat.hh"
 #include "hnco/random.hh"
 
+using namespace hnco::algorithm;
 using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])
 {
+  const int num_runs = 100;
+
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  uniform_int_distribution<int> dist_n(10, 1000);
-  uniform_int_distribution<int> dist_k(2, 10);
-  uniform_int_distribution<int> dist_c(10, 1000);
+  for (int i = 0; i < num_runs; i++) {
 
-  for (int i = 0; i < 100; i++) {
+    std::uniform_int_distribution<int> dist_bv_size(1, 15);
 
-    int n = dist_n(Random::generator);
+    int bv_size = dist_bv_size(Random::generator);
+
+    std::uniform_int_distribution<int> dist_k(1, bv_size);
+    std::uniform_int_distribution<int> dist_c(1, 100);
+
     int k = dist_k(Random::generator);
     int c = dist_c(Random::generator);
 
-    bit_vector_t solution(n);
+    bit_vector_t solution(bv_size);
     bv_random(solution);
 
     MaxSat function;
     function.random(solution, k, c);
 
-    for (int j = 0; j < 1000; j++) {
-      if (function.eval(solution) != double(c))
-        exit(1);
+    CompleteSearch algorithm(bv_size);
+    algorithm.set_function(&function);
+    algorithm.init();
+    try {
+      algorithm.maximize();
     }
+    catch (...) {
+      return 1;
+    }
+
+    if (algorithm.get_solution().second != double(c))
+      return 1;
 
   }
 
