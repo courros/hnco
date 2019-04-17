@@ -133,6 +133,7 @@ int generate_function(Options& options)
   case 171: {
     NearestNeighborIsingModel1 function;
     function.random(options.get_bv_size(), generator, generator);
+    function.set_periodic_boundary_conditions(options.with_ising_periodic_boundary_condition());
     std::cout << "Writing NearestNeighborIsingModel1 to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
