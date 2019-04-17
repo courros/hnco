@@ -38,17 +38,19 @@ int main(int argc, char *argv[])
 
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  std::uniform_int_distribution<int> bv_size_dist(1, 100);
-  std::uniform_int_distribution<int> coefficient_dist(-100, 100);
+  std::uniform_int_distribution<int> dist_bv_size(1, 100);
+  std::uniform_int_distribution<int> dist_coefficient(-100, 100);
 
-  auto fn = [coefficient_dist]() mutable
-    { return coefficient_dist(Random::generator); };
+  auto generator = [dist_coefficient]() mutable
+    {
+      return dist_coefficient(Random::generator);
+    };
 
   for (int i = 0; i < num_runs; i++) {
-    int bv_size = bv_size_dist(Random::generator);
+    int bv_size = dist_bv_size(Random::generator);
 
     NearestNeighborIsingModel1 function;
-    function.random(bv_size, fn);
+    function.random(bv_size, generator, generator);
     if (Random::bernoulli())
       function.set_periodic_boundary_conditions(true);
 
