@@ -53,6 +53,9 @@ class Options {
   int _walsh_num_features;
   bool _opt_walsh_num_features;
 
+  /// Periodic boundary condition
+  bool _ising_periodic_boundary_condition;
+
   /// Generate an instance with known maximum
   bool _ms_known_maximum;
 
@@ -187,6 +190,12 @@ public:
   /// Get set-flag for walsh_num_features
   bool set_walsh_num_features() const { return _opt_walsh_num_features; }
 
+  /// Get ising_periodic_boundary_condition
+  bool with_ising_periodic_boundary_condition() const { return _ising_periodic_boundary_condition; }
+
+  /// Set ising_periodic_boundary_condition
+  void set_ising_periodic_boundary_condition() { _ising_periodic_boundary_condition = true; }
+ 
   /// Get ms_known_maximum
   bool with_ms_known_maximum() const { return _ms_known_maximum; }
 

@@ -29,6 +29,7 @@ Options::Options(int argc, char *argv[]):
   _opt_stddev(false),
   _walsh_num_features(100),
   _opt_walsh_num_features(false),
+  _ising_periodic_boundary_condition(false),
   _ms_known_maximum(false)
 {
   enum {
@@ -44,6 +45,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_SEED,
     OPTION_STDDEV,
     OPTION_WALSH_NUM_FEATURES,
+    OPTION_ISING_PERIODIC_BOUNDARY_CONDITION,
     OPTION_MS_KNOWN_MAXIMUM
   };
   const struct option long_options[] = {
@@ -57,6 +59,7 @@ Options::Options(int argc, char *argv[]):
     {"seed", required_argument, 0, OPTION_SEED},
     {"stddev", required_argument, 0, OPTION_STDDEV},
     {"walsh-num-features", required_argument, 0, OPTION_WALSH_NUM_FEATURES},
+    {"ising-periodic-boundary-condition", no_argument, 0, OPTION_ISING_PERIODIC_BOUNDARY_CONDITION},
     {"ms-known-maximum", no_argument, 0, OPTION_MS_KNOWN_MAXIMUM},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
@@ -109,6 +112,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_WALSH_NUM_FEATURES:
       set_walsh_num_features(atoi(optarg));
+      break;
+
+    case OPTION_ISING_PERIODIC_BOUNDARY_CONDITION:
+      _ising_periodic_boundary_condition = true;
       break;
 
     case OPTION_MS_KNOWN_MAXIMUM:
@@ -174,6 +181,10 @@ void Options::print_help(ostream& stream) const
   stream << "      --walsh-num-features (type int, default to 100)" << endl;
   stream << "          Number of features" << endl;
   stream << endl;
+  stream << "Nearest Neighbor Ising Model" << endl;
+  stream << "      --ising-periodic-boundary-condition" << endl;
+  stream << "          Periodic boundary condition" << endl;
+  stream << endl;
 }
 
 void Options::print_version(ostream& stream) const
@@ -193,6 +204,8 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# seed = " << options._seed << endl;
   stream << "# stddev = " << options._stddev << endl;
   stream << "# walsh_num_features = " << options._walsh_num_features << endl;
+  if (options._ising_periodic_boundary_condition)
+    stream << "# ising_periodic_boundary_condition" << endl;
   if (options._ms_known_maximum)
     stream << "# ms_known_maximum" << endl;
   stream << "# last_parameter" << endl;

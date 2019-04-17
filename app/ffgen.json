@@ -35,11 +35,17 @@
             "id": "walsh",
             "title": "Walsh Expansion",
             "fold": false
+        },
+
+        {
+            "id": "ising",
+            "title": "Nearest Neighbor Ising Model",
+            "fold": false
         }
 
     ],
 
-    "order": [ "gen", "nk", "ms", "ep", "walsh" ],
+    "order": [ "gen", "nk", "ms", "ep", "walsh", "ising" ],
 
     "flags": {
 
@@ -47,6 +53,12 @@
         {
             "description": "Generate an instance with known maximum",
             "section": "ms"
+        },
+
+        "ising_periodic_boundary_condition":
+        {
+            "description": "Periodic boundary condition",
+            "section": "ising"
         }
 
     },
