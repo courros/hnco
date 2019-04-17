@@ -35,6 +35,7 @@ check_PROGRAMS = \
 	test-complete-search-leading-ones \
 	test-complete-search-linear-function \
 	test-complete-search-long-path \
+	test-complete-search-max-sat \
 	test-complete-search-needle \
 	test-complete-search-one-max \
 	test-complete-search-plateau \
@@ -55,7 +56,6 @@ check_PROGRAMS = \
 	test-incremental-one-max-single-bit-flip \
 	test-incremental-walsh-expansion-1-bernoulli-process \
 	test-injection-projection \
-	test-max-sat \
 	test-one-plus-one-ea-one-max \
 	test-sbm-multiply \
 	test-serialize-affine-map \
@@ -105,6 +105,7 @@ test_complete_search_jump_SOURCES = test-complete-search-jump.cc
 test_complete_search_leading_ones_SOURCES = test-complete-search-leading-ones.cc
 test_complete_search_linear_function_SOURCES = test-complete-search-linear-function.cc
 test_complete_search_long_path_SOURCES = test-complete-search-long-path.cc
+test_complete_search_max_sat_SOURCES = test-complete-search-max-sat.cc
 test_complete_search_needle_SOURCES = test-complete-search-needle.cc
 test_complete_search_one_max_SOURCES = test-complete-search-one-max.cc
 test_complete_search_plateau_SOURCES = test-complete-search-plateau.cc
@@ -125,7 +126,6 @@ test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hammi
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
 test_incremental_walsh_expansion_1_bernoulli_process_SOURCES = test-incremental-walsh-expansion-1-bernoulli-process.cc
 test_injection_projection_SOURCES = test-injection-projection.cc
-test_max_sat_SOURCES = test-max-sat.cc
 test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
