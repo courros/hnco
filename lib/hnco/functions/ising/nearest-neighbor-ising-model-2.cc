@@ -22,7 +22,7 @@
 
 #include "hnco/random.hh"
 
-#include "nearest-neighbor-ising-model-1.hh"
+#include "nearest-neighbor-ising-model-2.hh"
 
 
 using namespace hnco::random;
@@ -30,7 +30,7 @@ using namespace hnco::function;
 
 
 void
-NearestNeighborIsingModel1::resize(int n)
+NearestNeighborIsingModel2::resize(int n)
 {
   assert(n > 0);
 
@@ -41,7 +41,7 @@ NearestNeighborIsingModel1::resize(int n)
 
 
 void
-NearestNeighborIsingModel1::random(int n)
+NearestNeighborIsingModel2::random(int n)
 {
   assert(n > 0);
 
@@ -54,7 +54,7 @@ NearestNeighborIsingModel1::random(int n)
 
 
 double
-NearestNeighborIsingModel1::eval(const bit_vector_t& s)
+NearestNeighborIsingModel2::eval(const bit_vector_t& s)
 {
   assert(_couplings.size() > 0);
   assert(s.size() == _couplings.size());
@@ -89,7 +89,7 @@ NearestNeighborIsingModel1::eval(const bit_vector_t& s)
 
 
 double
-NearestNeighborIsingModel1::incremental_eval(const bit_vector_t& x,
+NearestNeighborIsingModel2::incremental_eval(const bit_vector_t& x,
                                              double value,
                                              const hnco::sparse_bit_vector_t& flipped_bits)
 {
@@ -158,9 +158,9 @@ NearestNeighborIsingModel1::incremental_eval(const bit_vector_t& x,
 
 
 void
-NearestNeighborIsingModel1::display(std::ostream& stream)
+NearestNeighborIsingModel2::display(std::ostream& stream)
 {
-  stream << "NearestNeighborIsingModel1" << std::endl;
+  stream << "NearestNeighborIsingModel2" << std::endl;
   stream << "n = " << get_bv_size() << std::endl;
   stream << "Periodic boundary condition = " << _periodic_boundary_conditions << std::endl;
 }

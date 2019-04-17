@@ -145,6 +145,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/ising/all.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-1.cc \
 	hnco/functions/ising/nearest-neighbor-ising-model-1.hh \
+	hnco/functions/ising/nearest-neighbor-ising-model-2.cc \
+	hnco/functions/ising/nearest-neighbor-ising-model-2.hh \
 	hnco/functions/jump.cc \
 	hnco/functions/jump.hh \
 	hnco/functions/labs.cc \
@@ -271,6 +273,7 @@ nobase_include_HEADERS = \
 	hnco/functions/function.hh \
 	hnco/functions/ising/all.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-1.hh \
+	hnco/functions/ising/nearest-neighbor-ising-model-2.hh \
 	hnco/functions/jump.hh \
 	hnco/functions/labs.hh \
 	hnco/functions/linear-function.hh \

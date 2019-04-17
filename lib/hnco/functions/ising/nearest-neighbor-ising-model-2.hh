@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_ISING_NEAREST_NEIGHBOR_ISING_MODEL_1_H
-#define HNCO_FUNCTIONS_ISING_NEAREST_NEIGHBOR_ISING_MODEL_1_H
+#ifndef HNCO_FUNCTIONS_ISING_NEAREST_NEIGHBOR_ISING_MODEL_2_H
+#define HNCO_FUNCTIONS_ISING_NEAREST_NEIGHBOR_ISING_MODEL_2_H
 
 #include <iostream>
 #include <vector>
@@ -36,7 +36,7 @@ namespace hnco {
 namespace function {
 
 
-  /** Nearest neighbor Ising model in one dimension.
+  /** Nearest neighbor Ising model in two dimension.
 
       Its expression is of the form
 
@@ -62,7 +62,7 @@ namespace function {
 
       Reference: https://en.wikipedia.org/wiki/Ising_model
   */
-  class NearestNeighborIsingModel1:
+  class NearestNeighborIsingModel2:
     public Function {
 
   private:
@@ -96,7 +96,7 @@ namespace function {
   public:
 
     /// Constructor
-    NearestNeighborIsingModel1() {}
+    NearestNeighborIsingModel2() {}
 
     /** Random instance.
 

@@ -22,5 +22,6 @@
 #define HNCO_FUNCTIONS_ISING_ALL_H
 
 #include "nearest-neighbor-ising-model-1.hh"
+#include "nearest-neighbor-ising-model-2.hh"
 
 #endif
