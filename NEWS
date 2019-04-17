@@ -26,6 +26,8 @@ Tests:
 - Added test-serialize-nn-ising-1
 - Added test-complete-search-six-peaks
 - Added test-complete-search-factorization
+- Renamed test-max-sat -> test-complete-search-max-sat
+- Fixed test-complete-search-max-sat
 
 hnco:
 - Set log context
