@@ -40,13 +40,13 @@ using namespace hnco;
 int generate_function(Options& options)
 {
   double stddev = options.get_stddev();
-  auto dist = [stddev]() { return stddev * Random::normal(); };
+  auto generator = [stddev]() { return stddev * Random::normal(); };
 
   switch(options.get_function()) {
 
   case 1: {
     LinearFunction function;
-    function.random(options.get_bv_size(), dist);
+    function.random(options.get_bv_size(), generator);
     std::cout << "Writing LinearFunction to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
@@ -110,7 +110,7 @@ int generate_function(Options& options)
 
   case 161: {
     WalshExpansion1 function;
-    function.random(options.get_bv_size(), dist);
+    function.random(options.get_bv_size(), generator);
     std::cout << "Writing WalshExpansion1 to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
@@ -132,7 +132,7 @@ int generate_function(Options& options)
 
   case 171: {
     NearestNeighborIsingModel1 function;
-    function.random(options.get_bv_size(), dist);
+    function.random(options.get_bv_size(), generator, generator);
     std::cout << "Writing NearestNeighborIsingModel1 to " << options.get_path() << " ... ";
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);

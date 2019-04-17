@@ -108,16 +108,17 @@ namespace function {
     /** Random instance.
 
         \param n Size of bit vectors
-        \param dist Distribution of weights
+        \param generator_couplings Couplings generator
+        \param generator_field External field generator
     */
-    template<class T>
-    void random(int n, T dist) {
+    template<class Generator>
+    void random(int n, Generator generator_couplings, Generator generator_field) {
       assert(n > 0);
 
       resize(n);
       for (size_t i = 0; i < _couplings.size(); i++) {
-        _couplings[i] = dist();
-        _external_field[i] = dist();
+        _couplings[i] = generator_couplings();
+        _external_field[i] = generator_field();
       }
     }
 
@@ -132,7 +133,7 @@ namespace function {
     double eval(const bit_vector_t&);
 
     /// Incremental evaluation
-    double incremental_eval(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits);
+    double incremental_eval(const bit_vector_t& x, double v, const sparse_bit_vector_t& flipped_bits);
 
     ///@}
 
