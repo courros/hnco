@@ -38,8 +38,9 @@ using namespace hnco;
 
 
 template<class T>
-void save_function_to_boost_archive(const T& function, const Options& options)
+void save_function_to_boost_archive(const T& function, const std::string name, const Options& options)
 {
+  std::cout << "Writing " << name << " to " << options.get_path() << " ... ";
   std::ofstream ofs(options.get_path());
   if (!ofs.good()) {
     std::ostringstream stream;
@@ -53,6 +54,7 @@ void save_function_to_boost_archive(const T& function, const Options& options)
   catch (boost::archive::archive_exception& e) {
     throw Error(e.what());
   }
+  std::cout << "done" << std::endl;
 }
 
 
@@ -66,18 +68,14 @@ int generate_function(Options& options)
   case 1: {
     LinearFunction function;
     function.random(options.get_bv_size(), generator);
-    std::cout << "Writing LinearFunction to " << options.get_path() << " ... ";
-    save_function_to_boost_archive(function, options);
-    std::cout << "done" << std::endl;
+    save_function_to_boost_archive(function, "LinearFunction", options);
     break;
   }
 
   case 60: {
     NkLandscape function;
     function.random(options.get_bv_size(), options.get_nk_k(), options.get_stddev());
-    std::cout << "Writing NkLandscape to " << options.get_path() << " ... ";
-    save_function_to_boost_archive(function, options);
-    std::cout << "done" << std::endl;
+    save_function_to_boost_archive(function, "NkLandscape", options);
     break;
   }
 
@@ -104,36 +102,28 @@ int generate_function(Options& options)
   case 90: {
     EqualProducts function;
     function.random(options.get_bv_size(), options.get_ep_upper_bound());
-    std::cout << "Writing EqualProducts to " << options.get_path() << " ... ";
-    save_function_to_boost_archive(function, options);
-    std::cout << "done" << std::endl;
+    save_function_to_boost_archive(function, "EqualProducts", options);
     break;
   }
 
   case 160: {
     WalshExpansion function;
     function.random(options.get_bv_size(), options.get_walsh_num_features(), options.get_stddev());
-    std::cout << "Writing WalshExpansion to " << options.get_path() << " ... ";
-    save_function_to_boost_archive(function, options);
-    std::cout << "done" << std::endl;
+    save_function_to_boost_archive(function, "WalshExpansion", options);
     break;
   }
 
   case 161: {
     WalshExpansion1 function;
     function.random(options.get_bv_size(), generator);
-    std::cout << "Writing WalshExpansion1 to " << options.get_path() << " ... ";
-    save_function_to_boost_archive(function, options);
-    std::cout << "done" << std::endl;
+    save_function_to_boost_archive(function, "WalshExpansion1", options);
     break;
   }
 
   case 162: {
     WalshExpansion2 function;
     function.random(options.get_bv_size(), options.get_stddev(), options.get_stddev());
-    std::cout << "Writing WalshExpansion2 to " << options.get_path() << " ... ";
-    save_function_to_boost_archive(function, options);
-    std::cout << "done" << std::endl;
+    save_function_to_boost_archive(function, "WalshExpansion2", options);
     break;
   }
 
@@ -141,9 +131,7 @@ int generate_function(Options& options)
     NearestNeighborIsingModel1 function;
     function.random(options.get_bv_size(), generator, generator);
     function.set_periodic_boundary_conditions(options.with_ising_periodic_boundary_condition());
-    std::cout << "Writing NearestNeighborIsingModel1 to " << options.get_path() << " ... ";
-    save_function_to_boost_archive(function, options);
-    std::cout << "done" << std::endl;
+    save_function_to_boost_archive(function, "NearestNeighborIsingModel1", options);
     break;
   }
 
