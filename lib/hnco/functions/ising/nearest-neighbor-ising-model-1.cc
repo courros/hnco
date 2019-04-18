@@ -40,19 +40,6 @@ NearestNeighborIsingModel1::resize(int n)
 }
 
 
-void
-NearestNeighborIsingModel1::random(int n)
-{
-  assert(n > 0);
-
-  resize(n);
-  for (size_t i = 0; i < _couplings.size(); i++) {
-    _couplings[i] = Random::normal();
-    _field[i] = Random::normal();
-  }
-}
-
-
 double
 NearestNeighborIsingModel1::eval(const bit_vector_t& s)
 {

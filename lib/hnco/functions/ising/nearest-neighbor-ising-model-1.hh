@@ -98,13 +98,10 @@ namespace function {
     /// Constructor
     NearestNeighborIsingModel1() {}
 
-    /** Random instance.
 
-        The weights are sampled from the normal distribution.
-
-        \param n Size of bit vector
-    */
-    void random(int n);
+    /** @name Random instances
+     */
+    ///@{
 
     /** Random instance.
 
@@ -122,6 +119,21 @@ namespace function {
         _field[i] = generator_field();
       }
     }
+
+    /** Random instance.
+
+        The weights are sampled from the normal distribution.
+
+        \param n Size of bit vector
+    */
+    void random(int n) {
+      assert(n > 0);
+
+      random(n, hnco::random::Random::normal, hnco::random::Random::normal);
+    }
+
+    ///@}
+
 
     /** @name Evaluation
      */
