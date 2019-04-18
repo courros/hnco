@@ -78,7 +78,7 @@ namespace function {
       ar & _periodic_boundary_conditions;
     }
 
-    /// Couplings between nearest neighbors
+    /// Couplings with nearest neighbors to the right
     std::vector<double> _couplings;
 
     /// External field
