@@ -51,7 +51,7 @@ namespace function {
       i and i+1 and \f$h_i\f$ is the external magnetic field
       interacting with site i.
 
-      In the case of perdiodic boundary conditions, the sum \f$i+1\f$
+      In the case of periodic boundary conditions, the sum \f$i+1\f$
       is mod n.
 
       Since we are maximizing f or minimizing -f, the expression of f
