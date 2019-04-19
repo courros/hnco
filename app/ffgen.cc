@@ -135,6 +135,14 @@ int generate_function(Options& options)
     break;
   }
 
+  case 172: {
+    NearestNeighborIsingModel2 function;
+    function.random(options.get_ising_num_rows(), options.get_ising_num_columns(), generator, generator);
+    function.set_periodic_boundary_conditions(options.with_ising_periodic_boundary_condition());
+    save_function_to_boost_archive(function, "NearestNeighborIsingModel2", options);
+    break;
+  }
+
   default: {
     std::cerr << "Cannot create any function of type " << options.get_function() << std::endl;;
     return 1;

@@ -25,6 +25,14 @@ class Options {
   int _function;
   bool _opt_function;
 
+  /// Number of columns
+  int _ising_num_columns;
+  bool _opt_ising_num_columns;
+
+  /// Number of rows
+  int _ising_num_rows;
+  bool _opt_ising_num_rows;
+
   /// Number of clauses
   int _ms_num_clauses;
   bool _opt_ms_num_clauses;
@@ -105,6 +113,30 @@ public:
 
   /// Get set-flag for function
   bool set_function() const { return _opt_function; }
+
+  /// Get ising_num_columns
+  int get_ising_num_columns() const { return _ising_num_columns; }
+
+  /// Set ising_num_columns
+  void set_ising_num_columns(int x) {
+    _ising_num_columns = x;
+    _opt_ising_num_columns = true;
+  }
+
+  /// Get set-flag for ising_num_columns
+  bool set_ising_num_columns() const { return _opt_ising_num_columns; }
+
+  /// Get ising_num_rows
+  int get_ising_num_rows() const { return _ising_num_rows; }
+
+  /// Set ising_num_rows
+  void set_ising_num_rows(int x) {
+    _ising_num_rows = x;
+    _opt_ising_num_rows = true;
+  }
+
+  /// Get set-flag for ising_num_rows
+  bool set_ising_num_rows() const { return _opt_ising_num_rows; }
 
   /// Get ms_num_clauses
   int get_ms_num_clauses() const { return _ms_num_clauses; }

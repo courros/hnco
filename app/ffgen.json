@@ -147,6 +147,11 @@
                 {
                     "value": 171,
                     "description": "Nearest neighbor Ising model in one dimension"
+                },
+
+                {
+                    "value": 172,
+                    "description": "Nearest neighbor Ising model in two dimensions"
                 }
 
             ]
@@ -191,6 +196,22 @@
             "value": 100,
             "description": "Number of features",
             "section": "walsh"
+        },
+
+        "ising_num_rows":
+        {
+            "type": "int",
+            "value": 10,
+            "description": "Number of rows",
+            "section": "ising"
+        },
+
+        "ising_num_columns":
+        {
+            "type": "int",
+            "value": 10,
+            "description": "Number of columns",
+            "section": "ising"
         }
 
     }

@@ -15,6 +15,10 @@ Options::Options(int argc, char *argv[]):
   _opt_ep_upper_bound(false),
   _function(1),
   _opt_function(false),
+  _ising_num_columns(10),
+  _opt_ising_num_columns(false),
+  _ising_num_rows(10),
+  _opt_ising_num_rows(false),
   _ms_num_clauses(100),
   _opt_ms_num_clauses(false),
   _ms_num_literals_per_clause(3),
@@ -38,6 +42,8 @@ Options::Options(int argc, char *argv[]):
     OPTION_BV_SIZE,
     OPTION_EP_UPPER_BOUND,
     OPTION_FUNCTION,
+    OPTION_ISING_NUM_COLUMNS,
+    OPTION_ISING_NUM_ROWS,
     OPTION_MS_NUM_CLAUSES,
     OPTION_MS_NUM_LITERALS_PER_CLAUSE,
     OPTION_NK_K,
@@ -52,6 +58,8 @@ Options::Options(int argc, char *argv[]):
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
     {"ep-upper-bound", required_argument, 0, OPTION_EP_UPPER_BOUND},
     {"function", required_argument, 0, OPTION_FUNCTION},
+    {"ising-num-columns", required_argument, 0, OPTION_ISING_NUM_COLUMNS},
+    {"ising-num-rows", required_argument, 0, OPTION_ISING_NUM_ROWS},
     {"ms-num-clauses", required_argument, 0, OPTION_MS_NUM_CLAUSES},
     {"ms-num-literals-per-clause", required_argument, 0, OPTION_MS_NUM_LITERALS_PER_CLAUSE},
     {"nk-k", required_argument, 0, OPTION_NK_K},
@@ -83,6 +91,14 @@ Options::Options(int argc, char *argv[]):
     case 'F':
     case OPTION_FUNCTION:
       set_function(atoi(optarg));
+      break;
+
+    case OPTION_ISING_NUM_COLUMNS:
+      set_ising_num_columns(atoi(optarg));
+      break;
+
+    case OPTION_ISING_NUM_ROWS:
+      set_ising_num_rows(atoi(optarg));
       break;
 
     case OPTION_MS_NUM_CLAUSES:
@@ -154,6 +170,7 @@ void Options::print_help(ostream& stream) const
   stream << "            161: Walsh expansion of degree 1" << endl;
   stream << "            162: Walsh expansion of degree 2" << endl;
   stream << "            171: Nearest neighbor Ising model in one dimension" << endl;
+  stream << "            172: Nearest neighbor Ising model in two dimensions" << endl;
   stream << "  -p, --path (type string, default to \"nopath\")" << endl;
   stream << "          Path (relative or absolute) of a function file" << endl;
   stream << "      --seed (type int, default to 0)" << endl;
@@ -182,6 +199,10 @@ void Options::print_help(ostream& stream) const
   stream << "          Number of features" << endl;
   stream << endl;
   stream << "Nearest Neighbor Ising Model" << endl;
+  stream << "      --ising-num-columns (type int, default to 10)" << endl;
+  stream << "          Number of columns" << endl;
+  stream << "      --ising-num-rows (type int, default to 10)" << endl;
+  stream << "          Number of rows" << endl;
   stream << "      --ising-periodic-boundary-condition" << endl;
   stream << "          Periodic boundary condition" << endl;
   stream << endl;
@@ -197,6 +218,8 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# bv_size = " << options._bv_size << endl;
   stream << "# ep_upper_bound = " << options._ep_upper_bound << endl;
   stream << "# function = " << options._function << endl;
+  stream << "# ising_num_columns = " << options._ising_num_columns << endl;
+  stream << "# ising_num_rows = " << options._ising_num_rows << endl;
   stream << "# ms_num_clauses = " << options._ms_num_clauses << endl;
   stream << "# ms_num_literals_per_clause = " << options._ms_num_literals_per_clause << endl;
   stream << "# nk_k = " << options._nk_k << endl;
