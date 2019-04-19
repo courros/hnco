@@ -171,11 +171,6 @@ namespace function {
       return _field.size() * _field[0].size();
     }
 
-    /** Check whether the function provides incremental evaluation.
-        \return true
-    */
-    bool provides_incremental_evaluation() { return true; }
-
     ///@}
 
 
