@@ -72,19 +72,59 @@ namespace function {
     /// Constructor
     WalshExpansion() {}
 
+
+    /** @name Random instances
+     */
+    ///@{
+
+    /** Random instance.
+
+        \param n Size of bit vectors
+        \param num_features Number of feature vectors
+        \param generator Coefficient generator
+    */
+    template<class Generator>
+    void random(int n, int num_features, Generator generator) {
+      assert(n > 0);
+      assert(num_features);
+
+      bit_vector_t bv(n);
+      std::vector<bool> feature(n);
+
+      _terms.resize(num_features);
+
+      for (size_t i = 0; i < _terms.size(); i++) {
+        WalshTransformTerm& t = _terms[i];
+        bv_random(bv);
+        bv_to_vector_bool(bv, feature);
+        t.feature = feature;
+        t.coefficient = generator();
+      }
+
+    }
+
+    /** Random instance.
+
+        The coefficient are sampled from the normal distribution.
+
+        \param n Size of bit vector
+        \param num_features Number of feature vectors
+    */
+    void random(int n, int num_features) {
+      assert(n > 0);
+      assert(num_features);
+
+      random(n, num_features, hnco::random::Random::normal);
+    }
+
+    ///@}
+
+
     /// Get bit vector size
     size_t get_bv_size() {
       assert(_terms.size() > 0);
       return _terms[0].feature.size();
     }
-
-    /** Random instance.
-
-        \param n                Size of bit vector
-        \param num_features     Number of feature vectors
-        \param stddev           Standard deviation of the coefficients
-    */
-    void random(int n, int num_features, double stddev);
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);

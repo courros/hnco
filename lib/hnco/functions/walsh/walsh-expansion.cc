@@ -30,29 +30,6 @@ using namespace hnco::random;
 using namespace hnco::function;
 
 
-void
-WalshExpansion::random(int n, int num_features, double stddev)
-{
-  assert(n > 0);
-  assert(num_features > 0);
-  assert(stddev > 0);
-
-  bit_vector_t bv(n);
-  std::vector<bool> feature(n);
-
-  _terms.resize(num_features);
-
-  for (size_t i = 0; i < _terms.size(); i++) {
-    WalshTransformTerm& t = _terms[i];
-    bv_random(bv);
-    bv_to_vector_bool(bv, feature);
-    t.feature = feature;
-    t.coefficient = stddev * Random::normal();
-  }
-
-}
-
-
 double
 WalshExpansion::eval(const bit_vector_t& x)
 {
