@@ -516,6 +516,11 @@
                 },
 
                 {
+                    "value": 172,
+                    "description": "Nearest neighbor Ising model in two dimensions"
+                },
+
+                {
                     "value": 1000,
                     "description": "Plugin"
                 }
