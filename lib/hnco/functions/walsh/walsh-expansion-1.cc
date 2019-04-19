@@ -29,18 +29,6 @@ using namespace hnco::random;
 using namespace hnco::function;
 
 
-void
-WalshExpansion1::random(int n)
-{
-  assert(n > 0);
-
-  // Linear part
-  _linear.resize(n);
-  for (size_t i = 0; i < _linear.size(); i++)
-    _linear[i] = Random::normal();
-}
-
-
 double
 WalshExpansion1::get_maximum()
 {
