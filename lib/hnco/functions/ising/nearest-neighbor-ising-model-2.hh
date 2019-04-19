@@ -30,29 +30,31 @@
 #include <boost/serialization/vector.hpp>
 
 #include "hnco/functions/function.hh"
+#include "hnco/random.hh"
 
 
 namespace hnco {
 namespace function {
 
 
-  /** Nearest neighbor Ising model in two dimension.
+  /** Nearest neighbor Ising model in two dimensions.
 
-      Its expression is of the form
+      We are considering a rectangular lattice in which each site has
+      (at most) four neighbors (left, right, above, below).
 
-      \f$ f(x) = \sum_i J_{i,i+1} (1 - 2x_i)(1 - 2x_{i+1}) + \sum_i h_i (1 - 2x_i)\f$
+      The expression of the function is of the form
+
+      \f$ f(x) = \sum_{(i, j)} J_{ij} (1 - 2x_i)(1 - 2x_j) + \sum_i
+      h_i (1 - 2x_i)\f$
 
       or equivalently
 
-      \f$ f(x) = \sum_i J_{i,i+1} (-1)^{x_i + x_{i+1}} + \sum_i h_i
+      \f$ f(x) = \sum_{(i, j)} J_{ij} (-1)^{x_i + x_j} + \sum_i h_i
       (-1)^{x_i}\f$
 
-      where \f$J_{i,i+1}\f$ is the interaction between adjacent sites
-      i and i+1 and \f$h_i\f$ is the external magnetic field
-      interacting with site i.
-
-      In the case of perdiodic boundary conditions, the sum \f$i+1\f$
-      is mod n.
+      where the first sum is over adjacent sites (i, j), \f$J_{ij}\f$
+      is the interaction between adjacent sites i and j, and \f$h_i\f$
+      is the external magnetic field interacting with site i.
 
       Since we are maximizing f or minimizing -f, the expression of f
       is compatible with what can be found in physics textbooks.
@@ -73,16 +75,20 @@ namespace function {
     template<class Archive>
     void serialize(Archive& ar, const unsigned int version)
     {
-      ar & _couplings;
+      ar & _couplings_right;
+      ar & _couplings_below;
       ar & _field;
       ar & _periodic_boundary_conditions;
     }
 
-    /// Couplings between nearest neighbors
-    std::vector<double> _couplings;
+    /// Couplings with nearest neighbors to the right
+    std::vector<std::vector<double> > _couplings_right;
+
+    /// Couplings with nearest neighbors below
+    std::vector<std::vector<double> > _couplings_below;
 
     /// External field
-    std::vector<double> _field;
+    std::vector<std::vector<double> > _field;
 
     /// Flipped bits
     bit_vector_t _flipped_bits;
@@ -91,37 +97,55 @@ namespace function {
     bool _periodic_boundary_conditions = false;
 
     /// Resize data structures
-    void resize(int n);
+    void resize(int num_rows, int num_columns);
 
   public:
 
     /// Constructor
     NearestNeighborIsingModel2() {}
 
-    /** Random instance.
 
-        The weights are sampled from the normal distribution.
-
-        \param n Size of bit vector
-    */
-    void random(int n);
+    /** @name Random instances
+     */
+    ///@{
 
     /** Random instance.
 
-        \param n Size of bit vectors
+        \param num_rows Number of rows
+        \param num_columns Number of columns
         \param generator_couplings Couplings generator
         \param generator_field External field generator
     */
     template<class Generator>
-    void random(int n, Generator generator_couplings, Generator generator_field) {
-      assert(n > 0);
+    void random(int num_rows, int num_columns, Generator generator_couplings, Generator generator_field) {
+      assert(num_rows > 0);
+      assert(num_columns > 0);
 
-      resize(n);
-      for (size_t i = 0; i < _couplings.size(); i++) {
-        _couplings[i] = generator_couplings();
-        _field[i] = generator_field();
-      }
+      resize(num_rows, num_columns);
+      for (int i = 0; i < num_rows; i++)
+        for (int j = 0; j < num_columns; j++) {
+          _couplings_right[i][j] = generator_couplings();
+          _couplings_below[i][j] = generator_couplings();
+          _field[i][j] = generator_field();
+        }
     }
+
+    /** Random instance.
+
+        The weights are sampled from the normal distribution.
+
+        \param num_rows Number of rows
+        \param num_columns Number of columns
+    */
+    void random(int num_rows, int num_columns) {
+      assert(num_rows > 0);
+      assert(num_columns > 0);
+
+      random(num_rows, num_columns, hnco::random::Random::normal, hnco::random::Random::normal);
+    }
+
+    ///@}
+
 
     /** @name Evaluation
      */
@@ -133,17 +157,19 @@ namespace function {
     */
     double eval(const bit_vector_t&);
 
-    /// Incremental evaluation
-    double incremental_eval(const bit_vector_t& x, double v, const sparse_bit_vector_t& flipped_bits);
-
     ///@}
+
 
     /** @name Information about the function
      */
     ///@{
 
     /// Get bit vector size
-    size_t get_bv_size() { return _couplings.size(); }
+    size_t get_bv_size() {
+      assert(_field.size() > 0);
+
+      return _field.size() * _field[0].size();
+    }
 
     /** Check whether the function provides incremental evaluation.
         \return true
@@ -151,6 +177,7 @@ namespace function {
     bool provides_incremental_evaluation() { return true; }
 
     ///@}
+
 
     /// Set periodic boundary conditions
     void set_periodic_boundary_conditions(bool x) { _periodic_boundary_conditions = x; }
