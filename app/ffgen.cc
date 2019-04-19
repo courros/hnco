@@ -101,10 +101,9 @@ void generate_function(Options& options)
   }
 
   case 90: {
-    double upper_bound = options.get_ep_upper_bound();
-    auto generator = [upper_bound]() { return upper_bound * Random::uniform(); };
     EqualProducts function;
-    function.random(options.get_bv_size(), generator);
+    double upper_bound = options.get_ep_upper_bound();
+    function.random(options.get_bv_size(), [upper_bound]() { return upper_bound * Random::uniform(); });
     save_function_to_boost_archive(function, "EqualProducts", options);
     break;
   }
