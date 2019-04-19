@@ -58,7 +58,8 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
 
   double result = 0;
 
-  for (size_t i = 0, start = 0; i < last_row; i++, start += num_columns) {
+  size_t start = 0;
+  for (size_t i = 0; i < last_row; i++, start += num_columns) {
     for (size_t j = 0; j < last_column; j++) {
       size_t site = start + j;
 
@@ -83,6 +84,36 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
         result += _field[i][j];
 
     }
+  }
+
+  assert(start == last_row * num_columns);
+
+  if (_periodic_boundary_conditions) {
+
+    // Last row is connected to the first row
+    for (size_t j = 0; j < num_columns; j++) {
+      // site:  s[start + j]
+      // below: s[j]
+      if ((s[start + j] + s[j]) % 2 == 0)
+        result += _couplings_below[last_row][j];
+      else
+        result -= _couplings_below[last_row][j];
+    }
+
+    assert(start == last_row * num_columns);
+
+    // Last colum is connected to the first column
+    for (size_t i = 0, start = 0; i < num_rows; i++, start += num_columns) {
+      // site:  s[start + last_column]
+      // right: s[start]
+      if ((s[start + last_column] + s[start]) % 2 == 0)
+        result += _couplings_right[i][last_column];
+      else
+        result -= _couplings_right[i][last_column];
+    }
+
+    assert(start == last_row * num_columns);
+
   }
 
   return result;
