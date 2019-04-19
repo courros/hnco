@@ -29,28 +29,6 @@ using namespace hnco::random;
 using namespace hnco::function;
 
 
-void
-WalshExpansion2::random(int n, double stddev_lin, double stddev_quad)
-{
-  assert(n > 0);
-  assert(stddev_lin > 0);
-  assert(stddev_quad > 0);
-
-  // Linear part
-  _linear.resize(n);
-  for (size_t i = 0; i < _linear.size(); i++)
-    _linear[i] = stddev_lin * Random::normal();
-
-  // Quadratic part
-  _quadratic.resize(n);
-  for (size_t i = 1; i < _quadratic.size(); i++) {
-    _quadratic[i].resize(i);
-    for (size_t j = 0; j < i; j++)
-      _quadratic[i][j] = stddev_quad * Random::normal();
-  }
-}
-
-
 double
 WalshExpansion2::eval(const bit_vector_t& s)
 {

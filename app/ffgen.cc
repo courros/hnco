@@ -122,7 +122,7 @@ void generate_function(Options& options)
 
   case 162: {
     WalshExpansion2 function;
-    function.random(options.get_bv_size(), options.get_stddev(), options.get_stddev());
+    function.random(options.get_bv_size(), generator, generator);
     save_function_to_boost_archive(function, "WalshExpansion2", options);
     break;
   }

@@ -79,16 +79,53 @@ namespace function {
     /// Constructor
     WalshExpansion2() {}
 
-    /// Get bit vector size
-    size_t get_bv_size() { return _quadratic.size(); }
+
+    /** @name Random instances
+     */
+    ///@{
 
     /** Random instance.
 
-        \param n                Size of bit vector
-        \param stddev_lin       Standard deviation of the coefficients of the linear part
-        \param stddev_quad      Standard deviation of the coefficients of the quadratic part
+        \param n Size of bit vectors
+        \param generator_linear Generator for the linear part
+        \param generator_quadratic Generator for the quadratic part
     */
-    void random(int n, double stddev_lin, double stddev_quad);
+    template<class Generator>
+    void random(int n, Generator generator_linear, Generator generator_quadratic) {
+      assert(n > 0);
+
+      // Linear part
+      _linear.resize(n);
+      for (size_t i = 0; i < _linear.size(); i++)
+        _linear[i] = generator_linear();
+
+      // Quadratic part
+      _quadratic.resize(n);
+      for (size_t i = 1; i < _quadratic.size(); i++) {
+        _quadratic[i].resize(i);
+        for (size_t j = 0; j < i; j++)
+          _quadratic[i][j] = generator_quadratic();
+      }
+
+    }
+
+    /** Random instance.
+
+        The weights are sampled from the normal distribution.
+
+        \param n Size of bit vector
+    */
+    void random(int n) {
+      assert(n > 0);
+
+      random(n, hnco::random::Random::normal, hnco::random::Random::normal);
+    }
+
+    ///@}
+
+
+    /// Get bit vector size
+    size_t get_bv_size() { return _quadratic.size(); }
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
