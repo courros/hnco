@@ -29,18 +29,6 @@ using namespace hnco::random;
 using namespace hnco::function;
 
 
-void
-EqualProducts::random(int n, double upper_bound)
-{
-  assert(n > 0);
-  assert(upper_bound > 0);
-
-  _numbers.resize(n);
-  for (size_t i = 0; i < _numbers.size(); i++)
-    _numbers[i] = upper_bound * Random::uniform();
-}
-
-
 double
 EqualProducts::eval(const bit_vector_t& s)
 {

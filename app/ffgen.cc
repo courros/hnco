@@ -61,6 +61,7 @@ void save_function_to_boost_archive(const T& function, const std::string name, c
 void generate_function(Options& options)
 {
   double stddev = options.get_stddev();
+
   auto generator = [stddev]() { return stddev * Random::normal(); };
 
   switch(options.get_function()) {
@@ -100,8 +101,10 @@ void generate_function(Options& options)
   }
 
   case 90: {
+    double upper_bound = options.get_ep_upper_bound();
+    auto generator = [upper_bound]() { return upper_bound * Random::uniform(); };
     EqualProducts function;
-    function.random(options.get_bv_size(), options.get_ep_upper_bound());
+    function.random(options.get_bv_size(), generator);
     save_function_to_boost_archive(function, "EqualProducts", options);
     break;
   }

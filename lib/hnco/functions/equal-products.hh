@@ -80,15 +80,43 @@ namespace function {
     /// Constructor
     EqualProducts() {}
 
-    /// Get bit vector size
-    size_t get_bv_size() { return _numbers.size(); }
+
+    /** @name Random instances
+     */
+    ///@{
 
     /** Random instance.
 
-        \param n Size of bit vector
-        \param upper_bound Upper bound of numbers
+        \param n Size of bit vectors
+        \param generator Number generator
     */
-    void random(int n, double upper_bound);
+    template<class Generator>
+    void random(int n, Generator generator) {
+      assert(n > 0);
+
+      _numbers.resize(n);
+      for (size_t i = 0; i < _numbers.size(); i++)
+        _numbers[i] = generator();
+    }
+
+    /** Random instance.
+
+        The weights are sampled from the uniform distribution on
+        [0,1).
+
+        \param n Size of bit vector
+    */
+    void random(int n) {
+      assert(n > 0);
+
+      random(n, hnco::random::Random::uniform);
+    }
+
+    ///@}
+
+
+    /// Get bit vector size
+    size_t get_bv_size() { return _numbers.size(); }
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
