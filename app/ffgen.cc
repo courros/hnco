@@ -58,7 +58,7 @@ void save_function_to_boost_archive(const T& function, const std::string name, c
 }
 
 
-int generate_function(Options& options)
+void generate_function(Options& options)
 {
   double stddev = options.get_stddev();
   auto generator = [stddev]() { return stddev * Random::normal(); };
@@ -140,17 +140,20 @@ int generate_function(Options& options)
     function.random(options.get_ising_num_rows(), options.get_ising_num_columns(), generator, generator);
     function.set_periodic_boundary_conditions(options.with_ising_periodic_boundary_condition());
     save_function_to_boost_archive(function, "NearestNeighborIsingModel2", options);
+    if (options.get_bv_size() != int(function.get_bv_size()))
+      std::cerr
+        << "Warning: bv_size changed from " << options.get_bv_size()
+        << " to " << function.get_bv_size() << std::endl;
     break;
   }
 
-  default: {
-    std::cerr << "Cannot create any function of type " << options.get_function() << std::endl;;
-    return 1;
-  }
+  default:
+    std::ostringstream stream;
+    stream << "Cannot create any function of type " << options.get_function();
+    throw Error(stream.str());
 
   }
 
-  return 0;
 }
 
 
@@ -166,11 +169,12 @@ int main(int argc, char *argv[])
   Random::generator.seed(options.get_seed());
 
   try {
-    return generate_function(options);
+    generate_function(options);
   }
   catch (const Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     return 1;
   }
 
+  return 0;
 }
