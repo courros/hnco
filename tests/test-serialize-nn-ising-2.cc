@@ -20,7 +20,7 @@
 
 #include <chrono>
 
-#include "hnco/functions/ising/nearest-neighbor-ising-model-1.hh"
+#include "hnco/functions/ising/nearest-neighbor-ising-model-2.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::function;
@@ -32,36 +32,39 @@ int main(int argc, char *argv[])
 {
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  const std::string path("test-serialize-nn-ising-1.txt");
+  const std::string path("test-serialize-nn-ising-2.txt");
 
   for (int i = 0; i < 10; i++) {
 
-    std::uniform_int_distribution<int> dist_n(1, 100);
-    int n = dist_n(Random::generator);
+    std::uniform_int_distribution<int> dist_num_rows(1, 100);
+    std::uniform_int_distribution<int> dist_num_colomuns(1, 100);
 
-    NearestNeighborIsingModel1 src;
-    src.random(n);
+    int num_rows = dist_num_rows(Random::generator);
+    int num_columns = dist_num_colomuns(Random::generator);
+
+    NearestNeighborIsingModel2 src;
+    src.random(num_rows, num_columns);
     {
       std::ofstream ofs(path);
       boost::archive::text_oarchive oa(ofs);
       oa << src;
     }
 
-    NearestNeighborIsingModel1 dest;
+    NearestNeighborIsingModel2 dest;
     {
       std::ifstream ifs(path);
       if (!ifs.good())
-        exit(1);
+        return 1;
       boost::archive::text_iarchive ia(ifs);
       ia >> dest;
     }
 
-    bit_vector_t bv(n);
+    bit_vector_t bv(num_rows * num_columns);
 
     for (int j = 0; j < 1000; j++) {
       bv_random(bv);
       if (src.eval(bv) != dest.eval(bv))
-        exit(1);
+        return 1;
     }
 
   }

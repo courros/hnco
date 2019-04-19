@@ -66,6 +66,7 @@ check_PROGRAMS = \
 	test-serialize-max-sat \
 	test-serialize-nk-landscape \
 	test-serialize-nn-ising-1 \
+	test-serialize-nn-ising-2 \
 	test-serialize-permutation \
 	test-serialize-translation \
 	test-serialize-walsh-expansion \
@@ -136,6 +137,7 @@ test_serialize_map_composition_SOURCES = test-serialize-map-composition.cc
 test_serialize_max_sat_SOURCES = test-serialize-max-sat.cc
 test_serialize_nk_landscape_SOURCES = test-serialize-nk-landscape.cc
 test_serialize_nn_ising_1_SOURCES = test-serialize-nn-ising-1.cc
+test_serialize_nn_ising_2_SOURCES = test-serialize-nn-ising-2.cc
 test_serialize_permutation_SOURCES = test-serialize-permutation.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
 test_serialize_walsh_expansion_1_SOURCES = test-serialize-walsh-expansion-1.cc
