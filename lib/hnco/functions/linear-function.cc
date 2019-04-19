@@ -29,17 +29,6 @@ using namespace hnco::function;
 using namespace hnco::random;
 
 
-void
-LinearFunction::random(int n)
-{
-  assert(n > 0);
-
-  _weights.resize(n);
-  for (size_t i = 0; i < _weights.size(); i++)
-    _weights[i] = Random::uniform();
-}
-
-
 double
 LinearFunction::get_maximum()
 {

@@ -59,28 +59,38 @@ namespace function {
     /// Constructor
     LinearFunction() {}
 
-    /** Random instance.
-
-        The weights are independently and uniformly distributed on the
-        interval [0, 1).
-
-        \param n Size of bit vectors
-    */
-    void random(int n);
+    /** @name Random instances
+     */
+    ///@{
 
     /** Random instance.
 
         \param n Size of bit vectors
-        \param dist Distribution of weights
+        \param generator Weight generator
     */
-    template<class T>
-    void random(int n, T dist) {
+    template<class Generator>
+    void random(int n, Generator generator) {
       assert(n > 0);
 
       _weights.resize(n);
       for (size_t i = 0; i < _weights.size(); i++)
-        _weights[i] = dist();
+        _weights[i] = generator();
     }
+
+    /** Random instance.
+
+        The weights are sampled from the normal distribution.
+
+        \param n Size of bit vectors
+    */
+    void random(int n) {
+      assert(n > 0);
+
+      random(n, hnco::random::Random::normal);
+    }
+
+    ///@}
+
 
     /** @name Evaluation
      */
