@@ -14,6 +14,7 @@ Library:
 - NkLandscape: added member function display
 - Added NearestNeighborIsingModel1
 - Factorization: added default constructor and load member function
+- Added NearestNeighborIsingModel2
 
 Tests:
 - Fixed test-walsh-transform
@@ -28,6 +29,7 @@ Tests:
 - Added test-complete-search-factorization
 - Renamed test-max-sat -> test-complete-search-max-sat
 - Fixed test-complete-search-max-sat
+- Added test-serialize-nn-ising-2
 
 hnco:
 - Set log context
