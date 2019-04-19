@@ -105,7 +105,7 @@ namespace function {
 
     /** Random instance.
 
-        The coefficient are sampled from the normal distribution.
+        The coefficients are sampled from the normal distribution.
 
         \param n Size of bit vector
         \param num_features Number of feature vectors
