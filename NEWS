@@ -15,6 +15,11 @@ Library:
 - Added NearestNeighborIsingModel1
 - Factorization: added default constructor and load member function
 - Added NearestNeighborIsingModel2
+- LinearFunction, NkLandscape, EqualProducts, WalshExpansion,
+  WalshExpansion1, WalshExpansion2, NearestNeighborIsingModel1,
+  NearestNeighborIsingModel2: add template member function random with
+  generic generators and member function random with default
+  generators (normal or uniform)
 
 Tests:
 - Fixed test-walsh-transform
@@ -48,6 +53,7 @@ ffgen:
 - Added NearestNeighborIsingModel1 with number 171
 - Renamed flag ms_known_maximum -> ms_planted_solution
 - Added template function save_function_to_boost_archive
+- Added NearestNeighborIsingModel1 with number 172
 
 Scripts:
 - hnco-dynamics-stat.pl: set xlabel, xcolumn, and ycolumn in plot
