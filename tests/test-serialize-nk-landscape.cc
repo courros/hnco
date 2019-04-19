@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     int k = dist_k(Random::generator);
 
     NkLandscape src;
-    src.random(n, k, 1);
+    src.random(n, k);
     {
       std::ofstream ofs(path);
       boost::archive::text_oarchive oa(ofs);
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
     {
       ifstream ifs(path);
       if (!ifs.good())
-        exit(1);
+        return 1;
       boost::archive::text_iarchive ia(ifs);
       ia >> dest;
     }
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     for (int j = 0; j < 1000; j++) {
       bv_random(bv);
       if (src.eval(bv) != dest.eval(bv))
-        exit(1);
+        return 1;
     }
 
   }

@@ -74,7 +74,7 @@ void generate_function(Options& options)
 
   case 60: {
     NkLandscape function;
-    function.random(options.get_bv_size(), options.get_nk_k(), options.get_stddev());
+    function.random(options.get_bv_size(), options.get_nk_k(), generator);
     save_function_to_boost_archive(function, "NkLandscape", options);
     break;
   }

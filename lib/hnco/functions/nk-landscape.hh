@@ -65,22 +65,59 @@ namespace function {
     /// Partial functions
     std::vector<std::vector<double> > _partial_functions;
 
+    /** Random structue.
+
+        \param n Size of bit vector
+        \param k Number of neighbors of each bit
+    */
+    void random_structure(int n, int k);
+
   public:
 
     /// Default constructor
     NkLandscape() {}
 
-    /// Get bit vector size
-    size_t get_bv_size() { return _partial_functions.size(); }
+
+    /** @name Random instances
+     */
+    ///@{
 
     /** Random instance.
 
         \param n Size of bit vector
         \param k Number of neighbors of each bit
-        \param stddev Standard deviation of the values of the partial
-        functions
+        \param generator Generator for partial function values
     */
-    void random(int n, int k, double stddev);
+    template<class Generator>
+    void random(int n, int k, Generator generator) {
+      assert(n > 0);
+      assert(k > 0);
+
+      random_structure(n, k);
+      for (size_t i = 0; i < _partial_functions.size(); i++)
+        for (size_t j = 0; j < _partial_functions[i].size(); j++)
+          _partial_functions[i][j] = generator();
+    }
+
+    /** Random instance.
+
+        Partial function values are sampled from the normal
+        distribution.
+
+        \param n Size of bit vector
+    */
+    void random(int n, int k) {
+      assert(n > 0);
+      assert(k > 0);
+
+      random(n, k, hnco::random::Random::normal);
+    }
+
+    ///@}
+
+
+    /// Get bit vector size
+    size_t get_bv_size() { return _partial_functions.size(); }
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);

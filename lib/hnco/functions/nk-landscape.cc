@@ -29,11 +29,10 @@ using namespace hnco::random;
 
 
 void
-NkLandscape::random(int n, int k, double stddev)
+NkLandscape::random_structure(int n, int k)
 {
   assert(n > 0);
   assert(k > 0);
-  assert(stddev > 0);
 
   _neighbors.resize(n, std::vector<int>(k + 1));
   _partial_functions.resize(n, std::vector<double>(1 << (k + 1)));
@@ -63,11 +62,6 @@ NkLandscape::random(int n, int k, double stddev)
     }
     assert(a == 0);
   }
-
-  // Sampling partial function values
-  for (size_t i = 0; i < length; i++)
-    for (size_t j = 0; j < _partial_functions[i].size(); j++)
-      _partial_functions[i][j] = stddev * Random::normal();
 }
 
 
