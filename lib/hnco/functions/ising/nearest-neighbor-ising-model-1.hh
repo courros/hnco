@@ -73,13 +73,13 @@ namespace function {
     template<class Archive>
     void serialize(Archive& ar, const unsigned int version)
     {
-      ar & _couplings;
+      ar & _coupling;
       ar & _field;
       ar & _periodic_boundary_conditions;
     }
 
-    /// Couplings with nearest neighbors to the right
-    std::vector<double> _couplings;
+    /// Coupling with nearest neighbor to the right
+    std::vector<double> _coupling;
 
     /// External field
     std::vector<double> _field;
@@ -106,7 +106,7 @@ namespace function {
     /** Random instance.
 
         \param n Size of bit vectors
-        \param coupling_gen Couplings generator
+        \param coupling_gen Coupling generator
         \param field_gen External field generator
     */
     template<class CouplingGen, class FieldGen>
@@ -114,8 +114,8 @@ namespace function {
       assert(n > 0);
 
       resize(n);
-      for (size_t i = 0; i < _couplings.size(); i++) {
-        _couplings[i] = coupling_gen();
+      for (size_t i = 0; i < _coupling.size(); i++) {
+        _coupling[i] = coupling_gen();
         _field[i] = field_gen();
       }
     }
@@ -155,7 +155,7 @@ namespace function {
     ///@{
 
     /// Get bit vector size
-    size_t get_bv_size() { return _couplings.size(); }
+    size_t get_bv_size() { return _coupling.size(); }
 
     /** Check whether the function provides incremental evaluation.
         \return true
