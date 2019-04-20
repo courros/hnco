@@ -119,7 +119,7 @@ void generate_nearest_neighbor_ising_model_1(Options& options)
 
   default:
     std::ostringstream stream;
-    stream << "generate_nearest_neighbor_ising_model_1: unknown generator: " << options.get_walsh2_generator();
+    stream << "generate_nearest_neighbor_ising_model_1: unknown generator: " << options.get_nn1_generator();
     throw Error(stream.str());
 
   }
@@ -167,10 +167,15 @@ void generate_nearest_neighbor_ising_model_2(Options& options)
 
   default:
     std::ostringstream stream;
-    stream << "generate_nearest_neighbor_ising_model_2: unknown generator: " << options.get_walsh2_generator();
+    stream << "generate_nearest_neighbor_ising_model_2: unknown generator: " << options.get_nn2_generator();
     throw Error(stream.str());
 
   }
+
+  if (options.get_bv_size() != int(function.get_bv_size()))
+    std::cerr
+      << "Warning: bv_size changed from " << options.get_bv_size()
+      << " to " << function.get_bv_size() << std::endl;
 
   function.set_periodic_boundary_conditions(options.with_periodic_boundary_conditions());
   save_function_to_boost_archive(function, "NearestNeighborIsingModel2", options);
@@ -249,17 +254,9 @@ void generate_function(Options& options)
     generate_nearest_neighbor_ising_model_1(options);
     break;
 
-  case 172: {
-    NearestNeighborIsingModel2 function;
-    function.random(options.get_nn2_num_rows(), options.get_nn2_num_columns(), generator, generator);
-    function.set_periodic_boundary_conditions(options.with_periodic_boundary_conditions());
-    save_function_to_boost_archive(function, "NearestNeighborIsingModel2", options);
-    if (options.get_bv_size() != int(function.get_bv_size()))
-      std::cerr
-        << "Warning: bv_size changed from " << options.get_bv_size()
-        << " to " << function.get_bv_size() << std::endl;
+  case 172:
+    generate_nearest_neighbor_ising_model_2(options);
     break;
-  }
 
   default:
     std::ostringstream stream;
