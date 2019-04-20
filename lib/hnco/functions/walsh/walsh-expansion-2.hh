@@ -90,23 +90,23 @@ namespace function {
     /** Instance generators.
 
         \param n Size of bit vectors
-        \param generator_linear Generator for the linear part
-        \param generator_quadratic Generator for the quadratic part
+        \param linear_gen Generator for the linear part
+        \param quadratic_gen Generator for the quadratic part
     */
-    template<class Generator>
-    void random(int n, Generator generator_linear, Generator generator_quadratic) {
+    template<class LinearGen, class QuadraticGen>
+    void random(int n, LinearGen linear_gen, QuadraticGen quadratic_gen) {
       assert(n > 0);
 
       resize(n);
 
       // Linear part
       for (size_t i = 0; i < _linear.size(); i++)
-        _linear[i] = generator_linear();
+        _linear[i] = linear_gen();
 
       // Quadratic part
       for (size_t i = 1; i < _quadratic.size(); i++)
         for (size_t j = 0; j < i; j++)
-          _quadratic[i][j] = generator_quadratic();
+          _quadratic[i][j] = quadratic_gen();
 
     }
 
