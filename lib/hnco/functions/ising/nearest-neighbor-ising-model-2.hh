@@ -75,17 +75,17 @@ namespace function {
     template<class Archive>
     void serialize(Archive& ar, const unsigned int version)
     {
-      ar & _couplings_right;
-      ar & _couplings_below;
+      ar & _coupling_right;
+      ar & _coupling_below;
       ar & _field;
       ar & _periodic_boundary_conditions;
     }
 
-    /// Couplings with nearest neighbors to the right
-    std::vector<std::vector<double> > _couplings_right;
+    /// Coupling with nearest neighbor to the right
+    std::vector<std::vector<double> > _coupling_right;
 
-    /// Couplings with nearest neighbors below
-    std::vector<std::vector<double> > _couplings_below;
+    /// Coupling with nearest neighbor below
+    std::vector<std::vector<double> > _coupling_below;
 
     /// External field
     std::vector<std::vector<double> > _field;
@@ -113,7 +113,7 @@ namespace function {
 
         \param num_rows Number of rows
         \param num_columns Number of columns
-        \param coupling_gen Couplings generator
+        \param coupling_gen Coupling generator
         \param field_gen External field generator
     */
     template<class CouplingGen, class FieldGen>
@@ -124,8 +124,8 @@ namespace function {
       resize(num_rows, num_columns);
       for (int i = 0; i < num_rows; i++)
         for (int j = 0; j < num_columns; j++) {
-          _couplings_right[i][j] = coupling_gen();
-          _couplings_below[i][j] = coupling_gen();
+          _coupling_right[i][j] = coupling_gen();
+          _coupling_below[i][j] = coupling_gen();
           _field[i][j] = field_gen();
         }
     }

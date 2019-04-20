@@ -35,8 +35,8 @@ NearestNeighborIsingModel2::resize(int num_rows, int num_columns)
   assert(num_rows > 0);
   assert(num_columns > 0);
 
-  _couplings_right = std::vector<std::vector<double> >(num_rows, std::vector<double>(num_columns));
-  _couplings_below = std::vector<std::vector<double> >(num_rows, std::vector<double>(num_columns));
+  _coupling_right = std::vector<std::vector<double> >(num_rows, std::vector<double>(num_columns));
+  _coupling_below = std::vector<std::vector<double> >(num_rows, std::vector<double>(num_columns));
   _field = std::vector<std::vector<double> >(num_rows, std::vector<double>(num_columns));
 
   _flipped_bits = bit_vector_t(get_bv_size(), 0);
@@ -67,9 +67,9 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
       size_t site = start + j;
       assert(site + 1 < s.size());
       if ((s[site] + s[site + 1]) % 2 == 0)
-        result += _couplings_right[i][j];
+        result += _coupling_right[i][j];
       else
-        result -= _couplings_right[i][j];
+        result -= _coupling_right[i][j];
     }
   }
 
@@ -80,9 +80,9 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
       size_t site = start + j;
       assert(site + num_columns < s.size());
       if ((s[site] + s[site + num_columns]) % 2 == 0)
-        result += _couplings_below[i][j];
+        result += _coupling_below[i][j];
       else
-        result -= _couplings_below[i][j];
+        result -= _coupling_below[i][j];
     }
   }
 
@@ -94,9 +94,9 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
       // site:  s[start + last_column]
       // right: s[start]
       if ((s[start + last_column] + s[start]) % 2 == 0)
-        result += _couplings_right[i][last_column];
+        result += _coupling_right[i][last_column];
       else
-        result -= _couplings_right[i][last_column];
+        result -= _coupling_right[i][last_column];
     }
 
     // Last row is connected to the first row
@@ -105,9 +105,9 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
       // site:  s[start + j]
       // below: s[j]
       if ((s[start + j] + s[j]) % 2 == 0)
-        result += _couplings_below[last_row][j];
+        result += _coupling_below[last_row][j];
       else
-        result -= _couplings_below[last_row][j];
+        result -= _coupling_below[last_row][j];
     }
 
   }
@@ -167,9 +167,9 @@ NearestNeighborIsingModel2::incremental_eval(const bit_vector_t& x,
     if (_flipped_bits[neighbor])
       continue;
     if ((x[index] + x[neighbor]) % 2 == 0)
-      value -= 2 * _couplings_right[i][j];
+      value -= 2 * _coupling_right[i][j];
     else
-      value += 2 * _couplings_right[i][j];
+      value += 2 * _coupling_right[i][j];
   }
 
   // Interactions with sites on the left
@@ -195,9 +195,9 @@ NearestNeighborIsingModel2::incremental_eval(const bit_vector_t& x,
     if (_flipped_bits[neighbor])
       continue;
     if ((x[index] + x[neighbor]) % 2 == 0)
-      value -= 2 * _couplings_right[i][j];
+      value -= 2 * _coupling_right[i][j];
     else
-      value += 2 * _couplings_right[i][j];
+      value += 2 * _coupling_right[i][j];
   }
 
   // Interactions with sites below
@@ -218,9 +218,9 @@ NearestNeighborIsingModel2::incremental_eval(const bit_vector_t& x,
     if (_flipped_bits[neighbor])
       continue;
     if ((x[index] + x[neighbor]) % 2 == 0)
-      value -= 2 * _couplings_below[i][j];
+      value -= 2 * _coupling_below[i][j];
     else
-      value += 2 * _couplings_below[i][j];
+      value += 2 * _coupling_below[i][j];
   }
 
   // Interactions with sites above
@@ -247,9 +247,9 @@ NearestNeighborIsingModel2::incremental_eval(const bit_vector_t& x,
     if (_flipped_bits[neighbor])
       continue;
     if ((x[index] + x[neighbor]) % 2 == 0)
-      value -= 2 * _couplings_below[i][j];
+      value -= 2 * _coupling_below[i][j];
     else
-      value += 2 * _couplings_below[i][j];
+      value += 2 * _coupling_below[i][j];
   }
 
   bv_flip(_flipped_bits, flipped_bits);
