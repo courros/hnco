@@ -167,13 +167,13 @@ void generate_nearest_neighbor_ising_model_2(Options& options)
 
   default:
     std::ostringstream stream;
-    stream << "generate_nearest_neighbor_ising_model_1: unknown generator: " << options.get_walsh2_generator();
+    stream << "generate_nearest_neighbor_ising_model_2: unknown generator: " << options.get_walsh2_generator();
     throw Error(stream.str());
 
   }
 
   function.set_periodic_boundary_conditions(options.with_periodic_boundary_conditions());
-  save_function_to_boost_archive(function, "NearestNeighborIsingModel1", options);
+  save_function_to_boost_archive(function, "NearestNeighborIsingModel2", options);
 }
 
 
