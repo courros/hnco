@@ -91,7 +91,7 @@ void generate_nearest_neighbor_ising_model_1(Options& options)
 
   NearestNeighborIsingModel1 function;
 
-  switch (options.get_ising1_generator()) {
+  switch (options.get_nn1_generator()) {
 
   case 0:
     function.random(options.get_bv_size(),
@@ -113,6 +113,54 @@ void generate_nearest_neighbor_ising_model_1(Options& options)
 
   case 3:
     function.random(options.get_bv_size(),
+                    [&options](){ return options.get_coupling_constant(); },
+                    [&options](){ return options.get_field_constant(); });
+    break;
+
+  default:
+    std::ostringstream stream;
+    stream << "generate_nearest_neighbor_ising_model_1: unknown generator: " << options.get_walsh2_generator();
+    throw Error(stream.str());
+
+  }
+
+  function.set_periodic_boundary_conditions(options.with_periodic_boundary_conditions());
+  save_function_to_boost_archive(function, "NearestNeighborIsingModel1", options);
+}
+
+
+void generate_nearest_neighbor_ising_model_2(Options& options)
+{
+  auto generator = [&options]() { return options.get_stddev() * Random::normal(); };
+
+  NearestNeighborIsingModel2 function;
+
+  switch (options.get_nn2_generator()) {
+
+  case 0:
+    function.random(options.get_nn2_num_rows(),
+                    options.get_nn2_num_columns(),
+                    generator,
+                    generator);
+    break;
+
+  case 1:
+    function.random(options.get_nn2_num_rows(),
+                    options.get_nn2_num_columns(),
+                    generator,
+                    [&options](){ return options.get_field_constant(); });
+    break;
+
+  case 2:
+    function.random(options.get_nn2_num_rows(),
+                    options.get_nn2_num_columns(),
+                    [&options](){ return options.get_coupling_constant(); },
+                    generator);
+    break;
+
+  case 3:
+    function.random(options.get_nn2_num_rows(),
+                    options.get_nn2_num_columns(),
                     [&options](){ return options.get_coupling_constant(); },
                     [&options](){ return options.get_field_constant(); });
     break;
@@ -197,17 +245,13 @@ void generate_function(Options& options)
     generate_walsh_expansion_2(options);
     break;
 
-  case 171: {
-    NearestNeighborIsingModel1 function;
-    function.random(options.get_bv_size(), generator, generator);
-    function.set_periodic_boundary_conditions(options.with_periodic_boundary_conditions());
-    save_function_to_boost_archive(function, "NearestNeighborIsingModel1", options);
+  case 171:
+    generate_nearest_neighbor_ising_model_1(options);
     break;
-  }
 
   case 172: {
     NearestNeighborIsingModel2 function;
-    function.random(options.get_ising2_num_rows(), options.get_ising2_num_columns(), generator, generator);
+    function.random(options.get_nn2_num_rows(), options.get_nn2_num_columns(), generator, generator);
     function.set_periodic_boundary_conditions(options.with_periodic_boundary_conditions());
     save_function_to_boost_archive(function, "NearestNeighborIsingModel2", options);
     if (options.get_bv_size() != int(function.get_bv_size()))
