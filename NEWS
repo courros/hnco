@@ -61,8 +61,8 @@ ffgen:
 - Added function generate_walsh_expansion_2
 - Added function generate_nearest_neighbor_ising_model_1
 - Added function generate_nearest_neighbor_ising_model_2
-- Added generator type de WalshExpansion2, NearestNeighborIsingModel1,
-  and NearestNeighborIsingModel2
+- Added generator type for WalshExpansion2,
+  NearestNeighborIsingModel1, and NearestNeighborIsingModel2
 
 Scripts:
 - hnco-dynamics-stat.pl: set xlabel, xcolumn, and ycolumn in plot
