@@ -5,10 +5,8 @@ Library:
 - Algorithm: added protected member _log_context and its setter
 - ProgressTracker: removed exception handling code from member functions
 - LinearFunction: added member function incremental_eval
-- LinearFunction: added template member function random
 - WalshExpansion1: added member function get_maximum
 - WalshExpansion1: added member function incremental_eval
-- WalshExpansion1: added template member function random
 - PvAlgorithm: replace bitset with individual log flags
 - Optimized bv_random
 - NkLandscape: added member function display
@@ -17,9 +15,10 @@ Library:
 - Added NearestNeighborIsingModel2
 - LinearFunction, NkLandscape, EqualProducts, WalshExpansion,
   WalshExpansion1, WalshExpansion2, NearestNeighborIsingModel1,
-  NearestNeighborIsingModel2: add template member function random with
-  generic generators and member function random with default
+  NearestNeighborIsingModel2: added template member function random
+  with generic generators and member function random with default
   generators (normal or uniform)
+- WalshExpansion2: added member function generate_ising1_long_range
 
 Tests:
 - Fixed test-walsh-transform
@@ -59,6 +58,11 @@ ffgen:
 - Renamed flag ms_known_maximum -> ms_planted_solution
 - Added template function save_function_to_boost_archive
 - Added NearestNeighborIsingModel1 with number 172
+- Added function generate_walsh_expansion_2
+- Added function generate_nearest_neighbor_ising_model_1
+- Added function generate_nearest_neighbor_ising_model_2
+- Added generator type de WalshExpansion2, NearestNeighborIsingModel1,
+  and NearestNeighborIsingModel2
 
 Scripts:
 - hnco-dynamics-stat.pl: set xlabel, xcolumn, and ycolumn in plot
