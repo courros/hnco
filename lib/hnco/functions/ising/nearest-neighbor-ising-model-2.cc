@@ -58,39 +58,49 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
 
   double result = 0;
 
-  size_t start = 0;
-  for (size_t i = 0; i < last_row; i++, start += num_columns) {
+  size_t start;
+
+  // Right
+  start = 0;
+  for (size_t i = 0; i < num_rows; i++, start += num_columns) {
     for (size_t j = 0; j < last_column; j++) {
       size_t site = start + j;
-
-      // Right
       assert(site + 1 < s.size());
       if ((s[site] + s[site + 1]) % 2 == 0)
         result += _couplings_right[i][j];
       else
         result -= _couplings_right[i][j];
-
-      // Below
-      assert(site + num_columns < s.size());
-      if ((s[site] + s[site + num_columns]) % 2 == 0)
-        result += _couplings_right[i][j];
-      else
-        result -= _couplings_right[i][j];
-
-      // External field
-      if (s[site])
-        result -= _field[i][j];
-      else
-        result += _field[i][j];
-
     }
   }
 
-  assert(start == last_row * num_columns);
+  // Below
+  start = 0;
+  for (size_t i = 0; i < last_row; i++, start += num_columns) {
+    for (size_t j = 0; j < num_columns; j++) {
+      size_t site = start + j;
+      assert(site + num_columns < s.size());
+      if ((s[site] + s[site + num_columns]) % 2 == 0)
+        result += _couplings_below[i][j];
+      else
+        result -= _couplings_below[i][j];
+    }
+  }
 
   if (_periodic_boundary_conditions) {
 
+    // Last column is connected to the first column
+    start = 0;
+    for (size_t i = 0; i < num_rows; i++, start += num_columns) {
+      // site:  s[start + last_column]
+      // right: s[start]
+      if ((s[start + last_column] + s[start]) % 2 == 0)
+        result += _couplings_right[i][last_column];
+      else
+        result -= _couplings_right[i][last_column];
+    }
+
     // Last row is connected to the first row
+    start = last_row * num_columns;
     for (size_t j = 0; j < num_columns; j++) {
       // site:  s[start + j]
       // below: s[j]
@@ -100,20 +110,18 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
         result -= _couplings_below[last_row][j];
     }
 
-    assert(start == last_row * num_columns);
+  }
 
-    // Last colum is connected to the first column
-    for (size_t i = 0, start = 0; i < num_rows; i++, start += num_columns) {
-      // site:  s[start + last_column]
-      // right: s[start]
-      if ((s[start + last_column] + s[start]) % 2 == 0)
-        result += _couplings_right[i][last_column];
+  // External field
+  start = 0;
+  for (size_t i = 0; i < num_rows; i++, start += num_columns) {
+    for (size_t j = 0; j < num_columns; j++) {
+      size_t site = start + j;
+      if (s[site])
+        result -= _field[i][j];
       else
-        result -= _couplings_right[i][last_column];
+        result += _field[i][j];
     }
-
-    assert(start == last_row * num_columns);
-
   }
 
   return result;
