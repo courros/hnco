@@ -22,7 +22,7 @@
 #include <random>
 
 #include "hnco/neighborhoods/neighborhood.hh"
-#include "hnco/functions/ising/nearest-neighbor-ising-model-1.hh"
+#include "hnco/functions/ising/nearest-neighbor-ising-model-2.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::neighborhood;
@@ -38,7 +38,8 @@ int main(int argc, char *argv[])
 
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  std::uniform_int_distribution<int> dist_bv_size(1, 100);
+  std::uniform_int_distribution<int> dist_num_rows(1, 20);
+  std::uniform_int_distribution<int> dist_num_columns(1, 20);
   std::uniform_int_distribution<int> dist_coefficient(-100, 100);
 
   auto generator = [dist_coefficient]() mutable
@@ -47,10 +48,12 @@ int main(int argc, char *argv[])
     };
 
   for (int i = 0; i < num_runs; i++) {
-    int bv_size = dist_bv_size(Random::generator);
+    int num_rows = dist_num_rows(Random::generator);
+    int num_columns = dist_num_columns(Random::generator);
+    int bv_size = num_rows * num_columns;
 
-    NearestNeighborIsingModel1 function;
-    function.random(bv_size, generator, generator);
+    NearestNeighborIsingModel2 function;
+    function.random(num_rows, num_columns, generator, generator);
     if (Random::bernoulli())
       function.set_periodic_boundary_conditions(true);
 
