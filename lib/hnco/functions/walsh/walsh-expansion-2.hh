@@ -46,8 +46,6 @@ namespace function {
 
       \f$ f(x) = \sum_i a_i (-1)^{x_i} + \sum_{i < j} a_{ij} (-1)^{x_i + x_j} \f$
 
-      where the sum \f$ x_i + x_j \f$ is mod 2 (xor).
-
   */
   class WalshExpansion2:
     public Function {
