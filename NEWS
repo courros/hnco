@@ -47,8 +47,12 @@ hnco:
 - Fixed: filter out the coefficient of the feature zero
 
 ffgen:
-- LinearFunction, WalshExpansion1: use template member function random
-  with normal distribution
+- LinearFunction, NkLandscape, WalshExpansion, WalshExpansion1,
+  WalshExpansion2, NearestNeighborIsingModel1,
+  NearestNeighborIsingModel2: use template member function random with
+  normal distribution
+- EqualProducts: use template member function random with uniform
+  distribution
 - Added function generate_function
 - Catch Error exceptions
 - Added NearestNeighborIsingModel1 with number 171
