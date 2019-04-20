@@ -120,6 +120,148 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
 }
 
 
+double
+NearestNeighborIsingModel2::incremental_eval(const bit_vector_t& x,
+                                             double value,
+                                             const hnco::sparse_bit_vector_t& flipped_bits)
+{
+  assert(_field.size() > 0);
+  assert(_field[0].size() > 0);
+  assert(x.size() == get_bv_size());
+
+  const size_t num_rows = _field.size();
+  const size_t last_row = num_rows - 1;
+
+  const size_t num_columns = _field[0].size();
+  const size_t last_column = num_columns - 1;
+
+  const size_t n = get_bv_size();
+
+  assert(bv_is_zero(_flipped_bits));
+  bv_flip(_flipped_bits, flipped_bits);
+
+  // Interactions with sites on the right
+  for (auto index : flipped_bits) {
+    // index is of type std::size_t
+    size_t i = index / num_columns;
+    size_t j = index % num_columns;
+    size_t neighbor;
+    if (j == last_column) {
+      if (_periodic_boundary_conditions) {
+        assert(last_column <= index);
+        neighbor = index - last_column;
+      } else
+        continue;
+    } else
+      neighbor = index + 1;
+    assert(index < n);
+    assert(neighbor < n);
+    if (_flipped_bits[neighbor])
+      continue;
+    if ((x[index] + x[neighbor]) % 2 == 0)
+      value -= 2 * _couplings_right[i][j];
+    else
+      value += 2 * _couplings_right[i][j];
+  }
+
+  // Interactions with sites on the left
+  for (auto index : flipped_bits) {
+    // index is of type std::size_t
+    size_t i = index / num_columns;
+    size_t j = index % num_columns;
+    size_t neighbor;
+    if (j == 0) {
+      if (_periodic_boundary_conditions) {
+        neighbor = index + last_column;
+        j = last_column;
+      } else
+        continue;
+    } else {
+      assert(index > 0);
+      neighbor = index - 1;
+      j--;
+    }
+    assert(index < n);
+    assert(neighbor < n);
+    assert(j < num_columns);
+    if (_flipped_bits[neighbor])
+      continue;
+    if ((x[index] + x[neighbor]) % 2 == 0)
+      value -= 2 * _couplings_right[i][j];
+    else
+      value += 2 * _couplings_right[i][j];
+  }
+
+  // Interactions with sites below
+  for (auto index : flipped_bits) {
+    // index is of type std::size_t
+    size_t i = index / num_columns;
+    size_t j = index % num_columns;
+    size_t neighbor;
+    if (i == last_row) {
+      if (_periodic_boundary_conditions)
+        neighbor = j;
+      else
+        continue;
+    } else
+      neighbor = index + num_columns;
+    assert(index < n);
+    assert(neighbor < n);
+    if (_flipped_bits[neighbor])
+      continue;
+    if ((x[index] + x[neighbor]) % 2 == 0)
+      value -= 2 * _couplings_below[i][j];
+    else
+      value += 2 * _couplings_below[i][j];
+  }
+
+  // Interactions with sites above
+  for (auto index : flipped_bits) {
+    // index is of type std::size_t
+    size_t i = index / num_columns;
+    size_t j = index % num_columns;
+    size_t neighbor;
+    if (i == 0) {
+      if (_periodic_boundary_conditions) {
+        neighbor = (n + j) - num_columns;
+        i = last_row;
+      }
+      else
+        continue;
+    } else {
+      assert(num_columns <= index);
+      neighbor = index - num_columns;
+      i--;
+    }
+    assert(index < n);
+    assert(neighbor < n);
+    assert(i < num_rows);
+    if (_flipped_bits[neighbor])
+      continue;
+    if ((x[index] + x[neighbor]) % 2 == 0)
+      value -= 2 * _couplings_below[i][j];
+    else
+      value += 2 * _couplings_below[i][j];
+  }
+
+  bv_flip(_flipped_bits, flipped_bits);
+  assert(bv_is_zero(_flipped_bits));
+
+  // External field
+  for (auto index : flipped_bits) {
+    // index is of type std::size_t
+    int i = index / num_columns;
+    int j = index % num_columns;
+    if (x[index])
+      value += 2 * _field[i][j];
+    else
+      value -= 2 * _field[i][j];
+  }
+
+  return value;
+}
+
+
 void
 NearestNeighborIsingModel2::display(std::ostream& stream)
 {

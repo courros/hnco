@@ -157,6 +157,9 @@ namespace function {
     */
     double eval(const bit_vector_t&);
 
+    /// Incremental evaluation
+    double incremental_eval(const bit_vector_t& x, double v, const sparse_bit_vector_t& flipped_bits);
+
     ///@}
 
 
@@ -170,6 +173,11 @@ namespace function {
 
       return _field.size() * _field[0].size();
     }
+
+    /** Check whether the function provides incremental evaluation.
+        \return true
+    */
+    bool provides_incremental_evaluation() { return true; }
 
     ///@}
 
