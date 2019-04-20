@@ -37,10 +37,10 @@ int main(int argc, char *argv[])
   for (int i = 0; i < 10; i++) {
 
     std::uniform_int_distribution<int> dist_num_rows(1, 100);
-    std::uniform_int_distribution<int> dist_num_colomuns(1, 100);
+    std::uniform_int_distribution<int> dist_num_columns(1, 100);
 
     int num_rows = dist_num_rows(Random::generator);
-    int num_columns = dist_num_colomuns(Random::generator);
+    int num_columns = dist_num_columns(Random::generator);
 
     NearestNeighborIsingModel2 src;
     src.random(num_rows, num_columns);
