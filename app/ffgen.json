@@ -50,20 +50,20 @@
         },
 
         {
-            "id": "ising1",
+            "id": "nn1",
             "title": "Nearest neighbor Ising model in one dimension",
             "fold": false
         },
 
         {
-            "id": "ising2",
+            "id": "nn2",
             "title": "Nearest neighbor Ising model in two dimensions",
             "fold": false
         }
 
     ],
 
-    "order": [ "gen", "param", "nk", "ms", "ep", "walsh", "walsh2", "ising1", "ising2" ],
+    "order": [ "gen", "param", "nk", "ms", "ep", "walsh", "walsh2", "nn1", "nn2" ],
 
     "flags": {
 
@@ -263,12 +263,12 @@
             "section": "walsh2"
         },
 
-        "ising1_generator":
+        "nn1_generator":
         {
             "type": "int",
             "value": 0,
             "description": "Type of NearestNeighborIsingModel1 generator",
-            "section": "ising1",
+            "section": "nn1",
             "alternatives":
             [
 
@@ -296,12 +296,12 @@
 
         },
 
-        "ising2_generator":
+        "nn2_generator":
         {
             "type": "int",
             "value": 0,
             "description": "Type of NearestNeighborIsingModel2 generator",
-            "section": "ising2",
+            "section": "nn2",
             "alternatives":
             [
 
@@ -329,20 +329,20 @@
 
         },
 
-        "ising2_num_rows":
+        "nn2_num_rows":
         {
             "type": "int",
             "value": 10,
             "description": "Number of rows",
-            "section": "ising2"
+            "section": "nn2"
         },
 
-        "ising2_num_columns":
+        "nn2_num_columns":
         {
             "type": "int",
             "value": 10,
             "description": "Number of columns",
-            "section": "ising2"
+            "section": "nn2"
         }
 
     }

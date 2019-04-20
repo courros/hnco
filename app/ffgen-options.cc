@@ -19,20 +19,20 @@ Options::Options(int argc, char *argv[]):
   _opt_field_constant(false),
   _function(1),
   _opt_function(false),
-  _ising1_generator(0),
-  _opt_ising1_generator(false),
-  _ising2_generator(0),
-  _opt_ising2_generator(false),
-  _ising2_num_columns(10),
-  _opt_ising2_num_columns(false),
-  _ising2_num_rows(10),
-  _opt_ising2_num_rows(false),
   _ms_num_clauses(100),
   _opt_ms_num_clauses(false),
   _ms_num_literals_per_clause(3),
   _opt_ms_num_literals_per_clause(false),
   _nk_k(3),
   _opt_nk_k(false),
+  _nn1_generator(0),
+  _opt_nn1_generator(false),
+  _nn2_generator(0),
+  _opt_nn2_generator(false),
+  _nn2_num_columns(10),
+  _opt_nn2_num_columns(false),
+  _nn2_num_rows(10),
+  _opt_nn2_num_rows(false),
   _path("nopath"),
   _opt_path(false),
   _seed(0),
@@ -56,13 +56,13 @@ Options::Options(int argc, char *argv[]):
     OPTION_EP_UPPER_BOUND,
     OPTION_FIELD_CONSTANT,
     OPTION_FUNCTION,
-    OPTION_ISING1_GENERATOR,
-    OPTION_ISING2_GENERATOR,
-    OPTION_ISING2_NUM_COLUMNS,
-    OPTION_ISING2_NUM_ROWS,
     OPTION_MS_NUM_CLAUSES,
     OPTION_MS_NUM_LITERALS_PER_CLAUSE,
     OPTION_NK_K,
+    OPTION_NN1_GENERATOR,
+    OPTION_NN2_GENERATOR,
+    OPTION_NN2_NUM_COLUMNS,
+    OPTION_NN2_NUM_ROWS,
     OPTION_PATH,
     OPTION_SEED,
     OPTION_STDDEV,
@@ -78,13 +78,13 @@ Options::Options(int argc, char *argv[]):
     {"ep-upper-bound", required_argument, 0, OPTION_EP_UPPER_BOUND},
     {"field-constant", required_argument, 0, OPTION_FIELD_CONSTANT},
     {"function", required_argument, 0, OPTION_FUNCTION},
-    {"ising1-generator", required_argument, 0, OPTION_ISING1_GENERATOR},
-    {"ising2-generator", required_argument, 0, OPTION_ISING2_GENERATOR},
-    {"ising2-num-columns", required_argument, 0, OPTION_ISING2_NUM_COLUMNS},
-    {"ising2-num-rows", required_argument, 0, OPTION_ISING2_NUM_ROWS},
     {"ms-num-clauses", required_argument, 0, OPTION_MS_NUM_CLAUSES},
     {"ms-num-literals-per-clause", required_argument, 0, OPTION_MS_NUM_LITERALS_PER_CLAUSE},
     {"nk-k", required_argument, 0, OPTION_NK_K},
+    {"nn1-generator", required_argument, 0, OPTION_NN1_GENERATOR},
+    {"nn2-generator", required_argument, 0, OPTION_NN2_GENERATOR},
+    {"nn2-num-columns", required_argument, 0, OPTION_NN2_NUM_COLUMNS},
+    {"nn2-num-rows", required_argument, 0, OPTION_NN2_NUM_ROWS},
     {"path", required_argument, 0, OPTION_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
     {"stddev", required_argument, 0, OPTION_STDDEV},
@@ -125,22 +125,6 @@ Options::Options(int argc, char *argv[]):
       set_function(atoi(optarg));
       break;
 
-    case OPTION_ISING1_GENERATOR:
-      set_ising1_generator(atoi(optarg));
-      break;
-
-    case OPTION_ISING2_GENERATOR:
-      set_ising2_generator(atoi(optarg));
-      break;
-
-    case OPTION_ISING2_NUM_COLUMNS:
-      set_ising2_num_columns(atoi(optarg));
-      break;
-
-    case OPTION_ISING2_NUM_ROWS:
-      set_ising2_num_rows(atoi(optarg));
-      break;
-
     case OPTION_MS_NUM_CLAUSES:
       set_ms_num_clauses(atoi(optarg));
       break;
@@ -151,6 +135,22 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_NK_K:
       set_nk_k(atoi(optarg));
+      break;
+
+    case OPTION_NN1_GENERATOR:
+      set_nn1_generator(atoi(optarg));
+      break;
+
+    case OPTION_NN2_GENERATOR:
+      set_nn2_generator(atoi(optarg));
+      break;
+
+    case OPTION_NN2_NUM_COLUMNS:
+      set_nn2_num_columns(atoi(optarg));
+      break;
+
+    case OPTION_NN2_NUM_ROWS:
+      set_nn2_num_rows(atoi(optarg));
       break;
 
     case 'p':
@@ -263,7 +263,7 @@ void Options::print_help(ostream& stream) const
   stream << "          Dyson-Ising: exponential decay parameter for long range interactions" << endl;
   stream << endl;
   stream << "Nearest neighbor Ising model in one dimension" << endl;
-  stream << "      --ising1-generator (type int, default to 0)" << endl;
+  stream << "      --nn1-generator (type int, default to 0)" << endl;
   stream << "          Type of NearestNeighborIsingModel1 generator" << endl;
   stream << "            0: Random couplings, random field" << endl;
   stream << "            1: Random couplings, constant field" << endl;
@@ -271,15 +271,15 @@ void Options::print_help(ostream& stream) const
   stream << "            3: Constant couplings, constant field" << endl;
   stream << endl;
   stream << "Nearest neighbor Ising model in two dimensions" << endl;
-  stream << "      --ising2-generator (type int, default to 0)" << endl;
+  stream << "      --nn2-generator (type int, default to 0)" << endl;
   stream << "          Type of NearestNeighborIsingModel2 generator" << endl;
   stream << "            0: Random couplings, random field" << endl;
   stream << "            1: Random couplings, constant field" << endl;
   stream << "            2: Constant couplings, random field" << endl;
   stream << "            3: Constant couplings, constant field" << endl;
-  stream << "      --ising2-num-columns (type int, default to 10)" << endl;
+  stream << "      --nn2-num-columns (type int, default to 10)" << endl;
   stream << "          Number of columns" << endl;
-  stream << "      --ising2-num-rows (type int, default to 10)" << endl;
+  stream << "      --nn2-num-rows (type int, default to 10)" << endl;
   stream << "          Number of rows" << endl;
   stream << endl;
 }
@@ -296,13 +296,13 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# ep_upper_bound = " << options._ep_upper_bound << endl;
   stream << "# field_constant = " << options._field_constant << endl;
   stream << "# function = " << options._function << endl;
-  stream << "# ising1_generator = " << options._ising1_generator << endl;
-  stream << "# ising2_generator = " << options._ising2_generator << endl;
-  stream << "# ising2_num_columns = " << options._ising2_num_columns << endl;
-  stream << "# ising2_num_rows = " << options._ising2_num_rows << endl;
   stream << "# ms_num_clauses = " << options._ms_num_clauses << endl;
   stream << "# ms_num_literals_per_clause = " << options._ms_num_literals_per_clause << endl;
   stream << "# nk_k = " << options._nk_k << endl;
+  stream << "# nn1_generator = " << options._nn1_generator << endl;
+  stream << "# nn2_generator = " << options._nn2_generator << endl;
+  stream << "# nn2_num_columns = " << options._nn2_num_columns << endl;
+  stream << "# nn2_num_rows = " << options._nn2_num_rows << endl;
   stream << "# path = " << options._path << endl;
   stream << "# seed = " << options._seed << endl;
   stream << "# stddev = " << options._stddev << endl;

@@ -33,22 +33,6 @@ class Options {
   int _function;
   bool _opt_function;
 
-  /// Type of NearestNeighborIsingModel1 generator
-  int _ising1_generator;
-  bool _opt_ising1_generator;
-
-  /// Type of NearestNeighborIsingModel2 generator
-  int _ising2_generator;
-  bool _opt_ising2_generator;
-
-  /// Number of columns
-  int _ising2_num_columns;
-  bool _opt_ising2_num_columns;
-
-  /// Number of rows
-  int _ising2_num_rows;
-  bool _opt_ising2_num_rows;
-
   /// Number of clauses
   int _ms_num_clauses;
   bool _opt_ms_num_clauses;
@@ -60,6 +44,22 @@ class Options {
   /// Each bit is connected to k other bits
   int _nk_k;
   bool _opt_nk_k;
+
+  /// Type of NearestNeighborIsingModel1 generator
+  int _nn1_generator;
+  bool _opt_nn1_generator;
+
+  /// Type of NearestNeighborIsingModel2 generator
+  int _nn2_generator;
+  bool _opt_nn2_generator;
+
+  /// Number of columns
+  int _nn2_num_columns;
+  bool _opt_nn2_num_columns;
+
+  /// Number of rows
+  int _nn2_num_rows;
+  bool _opt_nn2_num_rows;
 
   /// Path (relative or absolute) of a function file
   std::string _path;
@@ -162,54 +162,6 @@ public:
   /// Get set-flag for function
   bool set_function() const { return _opt_function; }
 
-  /// Get ising1_generator
-  int get_ising1_generator() const { return _ising1_generator; }
-
-  /// Set ising1_generator
-  void set_ising1_generator(int x) {
-    _ising1_generator = x;
-    _opt_ising1_generator = true;
-  }
-
-  /// Get set-flag for ising1_generator
-  bool set_ising1_generator() const { return _opt_ising1_generator; }
-
-  /// Get ising2_generator
-  int get_ising2_generator() const { return _ising2_generator; }
-
-  /// Set ising2_generator
-  void set_ising2_generator(int x) {
-    _ising2_generator = x;
-    _opt_ising2_generator = true;
-  }
-
-  /// Get set-flag for ising2_generator
-  bool set_ising2_generator() const { return _opt_ising2_generator; }
-
-  /// Get ising2_num_columns
-  int get_ising2_num_columns() const { return _ising2_num_columns; }
-
-  /// Set ising2_num_columns
-  void set_ising2_num_columns(int x) {
-    _ising2_num_columns = x;
-    _opt_ising2_num_columns = true;
-  }
-
-  /// Get set-flag for ising2_num_columns
-  bool set_ising2_num_columns() const { return _opt_ising2_num_columns; }
-
-  /// Get ising2_num_rows
-  int get_ising2_num_rows() const { return _ising2_num_rows; }
-
-  /// Set ising2_num_rows
-  void set_ising2_num_rows(int x) {
-    _ising2_num_rows = x;
-    _opt_ising2_num_rows = true;
-  }
-
-  /// Get set-flag for ising2_num_rows
-  bool set_ising2_num_rows() const { return _opt_ising2_num_rows; }
-
   /// Get ms_num_clauses
   int get_ms_num_clauses() const { return _ms_num_clauses; }
 
@@ -245,6 +197,54 @@ public:
 
   /// Get set-flag for nk_k
   bool set_nk_k() const { return _opt_nk_k; }
+
+  /// Get nn1_generator
+  int get_nn1_generator() const { return _nn1_generator; }
+
+  /// Set nn1_generator
+  void set_nn1_generator(int x) {
+    _nn1_generator = x;
+    _opt_nn1_generator = true;
+  }
+
+  /// Get set-flag for nn1_generator
+  bool set_nn1_generator() const { return _opt_nn1_generator; }
+
+  /// Get nn2_generator
+  int get_nn2_generator() const { return _nn2_generator; }
+
+  /// Set nn2_generator
+  void set_nn2_generator(int x) {
+    _nn2_generator = x;
+    _opt_nn2_generator = true;
+  }
+
+  /// Get set-flag for nn2_generator
+  bool set_nn2_generator() const { return _opt_nn2_generator; }
+
+  /// Get nn2_num_columns
+  int get_nn2_num_columns() const { return _nn2_num_columns; }
+
+  /// Set nn2_num_columns
+  void set_nn2_num_columns(int x) {
+    _nn2_num_columns = x;
+    _opt_nn2_num_columns = true;
+  }
+
+  /// Get set-flag for nn2_num_columns
+  bool set_nn2_num_columns() const { return _opt_nn2_num_columns; }
+
+  /// Get nn2_num_rows
+  int get_nn2_num_rows() const { return _nn2_num_rows; }
+
+  /// Set nn2_num_rows
+  void set_nn2_num_rows(int x) {
+    _nn2_num_rows = x;
+    _opt_nn2_num_rows = true;
+  }
+
+  /// Get set-flag for nn2_num_rows
+  bool set_nn2_num_rows() const { return _opt_nn2_num_rows; }
 
   /// Get path
   std::string get_path() const { return _path; }
