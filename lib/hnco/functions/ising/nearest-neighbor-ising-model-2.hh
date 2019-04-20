@@ -113,20 +113,20 @@ namespace function {
 
         \param num_rows Number of rows
         \param num_columns Number of columns
-        \param generator_couplings Couplings generator
-        \param generator_field External field generator
+        \param coupling_gen Couplings generator
+        \param field_gen External field generator
     */
-    template<class Generator>
-    void random(int num_rows, int num_columns, Generator generator_couplings, Generator generator_field) {
+    template<class CouplingGen, class FieldGen>
+    void random(int num_rows, int num_columns, CouplingGen coupling_gen, FieldGen field_gen) {
       assert(num_rows > 0);
       assert(num_columns > 0);
 
       resize(num_rows, num_columns);
       for (int i = 0; i < num_rows; i++)
         for (int j = 0; j < num_columns; j++) {
-          _couplings_right[i][j] = generator_couplings();
-          _couplings_below[i][j] = generator_couplings();
-          _field[i][j] = generator_field();
+          _couplings_right[i][j] = coupling_gen();
+          _couplings_below[i][j] = coupling_gen();
+          _field[i][j] = field_gen();
         }
     }
 
