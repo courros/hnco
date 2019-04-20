@@ -89,44 +89,45 @@ NearestNeighborIsingModel1::incremental_eval(const bit_vector_t& x,
   assert(bv_is_zero(_flipped_bits));
   bv_flip(_flipped_bits, flipped_bits);
 
-  // Interactions with the right site
+  // Interactions with sites on the right
   for (auto index : flipped_bits) {
-    size_t next;
+    size_t neighbor;
     if (index == last) {
       if (_periodic_boundary_conditions)
-        next = 0;
+        neighbor = 0;
       else
         continue;
     } else {
-      next = index + 1;
-      assert(next < n);
+      neighbor = index + 1;
     }
-    if (_flipped_bits[next])
+    assert(neighbor < n);
+    if (_flipped_bits[neighbor])
       continue;
-    if ((x[index] + x[next]) % 2 == 0)
+    if ((x[index] + x[neighbor]) % 2 == 0)
       value -= 2 * _couplings[index];
     else
       value += 2 * _couplings[index];
   }
 
-  // Interactions with the left site
+  // Interactions with sites on the left
   for (auto index : flipped_bits) {
-    size_t previous;
+    size_t neighbor;
     if (index == 0) {
       if (_periodic_boundary_conditions)
-        previous = last;
+        neighbor = last;
       else
         continue;
     } else {
-      previous = index - 1;
-      assert(previous < n);
+      assert(index > 0);
+      neighbor = index - 1;
     }
-    if (_flipped_bits[previous])
+    assert(neighbor < n);
+    if (_flipped_bits[neighbor])
       continue;
-    if ((x[previous] + x[index]) % 2 == 0)
-      value -= 2 * _couplings[previous];
+    if ((x[neighbor] + x[index]) % 2 == 0)
+      value -= 2 * _couplings[neighbor];
     else
-      value += 2 * _couplings[previous];
+      value += 2 * _couplings[neighbor];
   }
 
   bv_flip(_flipped_bits, flipped_bits);
