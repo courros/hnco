@@ -87,26 +87,34 @@ void generate_walsh_expansion_2(Options& options)
 
 void generate_nearest_neighbor_ising_model_1(Options& options)
 {
-  double stddev = options.get_stddev();
-  auto generator = [stddev]() { return stddev * Random::normal(); };
+  auto generator = [&options]() { return options.get_stddev() * Random::normal(); };
 
-  WalshExpansion2 function;
-  switch (options.get_walsh2_generator()) {
+  NearestNeighborIsingModel1 function;
+
+  switch (options.get_ising1_generator()) {
 
   case 0:
-    function.random(options.get_bv_size(), generator, generator);
+    function.random(options.get_bv_size(),
+                    generator,
+                    generator);
     break;
 
   case 1:
-    function.random(options.get_bv_size(), generator, generator);
+    function.random(options.get_bv_size(),
+                    generator,
+                    [&options](){ return options.get_field_constant(); });
     break;
 
   case 2:
-    function.random(options.get_bv_size(), generator, generator);
+    function.random(options.get_bv_size(),
+                    [&options](){ return options.get_coupling_constant(); },
+                    generator);
     break;
 
   case 3:
-    function.random(options.get_bv_size(), generator, generator);
+    function.random(options.get_bv_size(),
+                    [&options](){ return options.get_coupling_constant(); },
+                    [&options](){ return options.get_field_constant(); });
     break;
 
   default:
@@ -116,7 +124,8 @@ void generate_nearest_neighbor_ising_model_1(Options& options)
 
   }
 
-  save_function_to_boost_archive(function, "WalshExpansion2", options);
+  function.set_periodic_boundary_conditions(options.with_periodic_boundary_conditions());
+  save_function_to_boost_archive(function, "NearestNeighborIsingModel1", options);
 }
 
 
