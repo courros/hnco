@@ -274,22 +274,22 @@
 
                 {
                     "value": 0,
-                    "description": "Random couplings, random field"
+                    "description": "Random coupling, random field"
                 },
 
                 {
                     "value": 1,
-                    "description": "Random couplings, constant field"
+                    "description": "Random coupling, constant field"
                 },
 
                 {
                     "value": 2,
-                    "description": "Constant couplings, random field"
+                    "description": "Constant coupling, random field"
                 },
 
                 {
                     "value": 3,
-                    "description": "Constant couplings, constant field"
+                    "description": "Constant coupling, constant field"
                 }
 
             ]
@@ -307,22 +307,22 @@
 
                 {
                     "value": 0,
-                    "description": "Random couplings, random field"
+                    "description": "Random coupling, random field"
                 },
 
                 {
                     "value": 1,
-                    "description": "Random couplings, constant field"
+                    "description": "Random coupling, constant field"
                 },
 
                 {
                     "value": 2,
-                    "description": "Constant couplings, random field"
+                    "description": "Constant coupling, random field"
                 },
 
                 {
                     "value": 3,
-                    "description": "Constant couplings, constant field"
+                    "description": "Constant coupling, constant field"
                 }
 
             ]
