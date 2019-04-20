@@ -35,6 +35,7 @@ Tests:
 - Renamed test-max-sat -> test-complete-search-max-sat
 - Fixed test-complete-search-max-sat
 - Added test-serialize-nn-ising-2
+- Added test-incremental-nn-ising-2
 
 hnco:
 - Set log context
