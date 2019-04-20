@@ -20,6 +20,9 @@
 
 #include <assert.h>
 
+#include <cmath>                // std::fabs, std::pow
+#include <algorithm>            // std::fill, std::min
+
 #include "hnco/random.hh"
 
 #include "walsh-expansion-2.hh"
@@ -27,6 +30,22 @@
 
 using namespace hnco::random;
 using namespace hnco::function;
+
+
+void
+WalshExpansion2::resize(int n)
+{
+  assert(n > 0);
+
+  // Linear part
+  _linear.resize(n);
+
+  // Quadratic part
+  _quadratic.resize(n);
+  for (size_t i = 1; i < _quadratic.size(); i++)
+    _quadratic[i].resize(i);
+
+}
 
 
 double
@@ -56,4 +75,47 @@ WalshExpansion2::eval(const bit_vector_t& s)
   }
 
   return result;
+}
+
+
+void
+WalshExpansion2::generate_ising1_long_range(int n, double alpha)
+{
+  assert(n > 0);
+
+  resize(n);
+
+  // Linear part
+  std::fill(begin(_linear), end(_linear), 0.0);
+
+  // Quadratic part
+  for (size_t i = 1; i < _quadratic.size(); i++)
+    for (size_t j = 0; j < i; j++) {
+      // warning: i and j are unsigned
+      assert(j < i);
+      _quadratic[i][j] = std::pow(std::fabs(i - j), -alpha);
+    }
+
+}
+
+
+void
+WalshExpansion2::generate_ising1_long_range_periodic(int n, double alpha)
+{
+  assert(n > 0);
+
+  resize(n);
+
+  // Linear part
+  std::fill(begin(_linear), end(_linear), 0.0);
+
+  // Quadratic part
+  for (size_t i = 1; i < _quadratic.size(); i++)
+    for (size_t j = 0; j < i; j++) {
+      // warning: i and j are unsigned
+      assert(j < i);
+      double d = std::fabs(i - j);
+      _quadratic[i][j] = std::pow(std::min(d, n - d), -alpha);
+    }
+
 }

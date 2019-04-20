@@ -74,6 +74,9 @@ namespace function {
     */
     std::vector<std::vector<double> > _quadratic;
 
+    /// Resize data structures
+    void resize(int n);
+
   public:
 
     /// Constructor
@@ -84,7 +87,7 @@ namespace function {
      */
     ///@{
 
-    /** Random instance.
+    /** Instance generators.
 
         \param n Size of bit vectors
         \param generator_linear Generator for the linear part
@@ -94,18 +97,16 @@ namespace function {
     void random(int n, Generator generator_linear, Generator generator_quadratic) {
       assert(n > 0);
 
+      resize(n);
+
       // Linear part
-      _linear.resize(n);
       for (size_t i = 0; i < _linear.size(); i++)
         _linear[i] = generator_linear();
 
       // Quadratic part
-      _quadratic.resize(n);
-      for (size_t i = 1; i < _quadratic.size(); i++) {
-        _quadratic[i].resize(i);
+      for (size_t i = 1; i < _quadratic.size(); i++)
         for (size_t j = 0; j < i; j++)
           _quadratic[i][j] = generator_quadratic();
-      }
 
     }
 
@@ -120,6 +121,57 @@ namespace function {
 
       random(n, hnco::random::Random::normal, hnco::random::Random::normal);
     }
+
+    /** Generate one dimensional Ising model with long range
+        interactions.
+
+        Similar to a Dyson-Ising model except for the finite, instead
+        of infinite, linear chain of spins.
+
+        Its expression is of the form
+
+        \f$ f(x) = \sum_{ij} J(d_{ij}) (1 - 2x_i)(1 - 2x_j)\f$
+
+        or equivalently
+
+        \f$ f(x) = \sum_{ij} J(d_{ij}) (-1)^{x_i + x_j}\f$
+
+        where \f$J(d_{ij})\f$ is the interaction between sites i and
+        j, \f$d_{ij} = |i-j|\f$, and \f$J(n) = n^{-\alpha}\f$.
+
+        Since we are maximizing f or minimizing -f, the expression of f
+        is compatible with what can be found in physics textbooks.
+
+        \param n Size of bit vectors
+        \param alpha Exponential decay parameter
+    */
+    void generate_ising1_long_range(int n, double alpha);
+
+    /** Generate one dimensional Ising model with long range
+        interactions and periodic boundary conditions.
+
+        Similar to a Dyson-Ising model except for the finite, instead
+        of infinite, linear chain of spins.
+
+        Its expression is of the form
+
+        \f$ f(x) = \sum_{ij} J(d_{ij}) (1 - 2x_i)(1 - 2x_j)\f$
+
+        or equivalently
+
+        \f$ f(x) = \sum_{ij} J(d_{ij}) (-1)^{x_i + x_j}\f$
+
+        where \f$J(d_{ij})\f$ is the interaction between sites i and
+        j, \f$d_{ij} = \min \{|i-j|, n - |i-j|\}\f$, and \f$J(n) =
+        n^{-\alpha}\f$.
+
+        Since we are maximizing f or minimizing -f, the expression of f
+        is compatible with what can be found in physics textbooks.
+
+        \param n Size of bit vectors
+        \param alpha Exponential decay parameter
+    */
+    void generate_ising1_long_range_periodic(int n, double alpha);
 
     ///@}
 
