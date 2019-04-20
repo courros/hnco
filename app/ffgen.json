@@ -14,6 +14,12 @@
         },
 
         {
+            "id": "param",
+            "title": "Parameters",
+            "fold": false
+        },
+
+        {
             "id": "nk",
             "title": "NK Landscape",
             "fold": false
@@ -38,27 +44,39 @@
         },
 
         {
-            "id": "ising",
-            "title": "Nearest Neighbor Ising Model",
+            "id": "walsh2",
+            "title": "Walsh expansion of degree 2",
+            "fold": false
+        },
+
+        {
+            "id": "ising1",
+            "title": "Nearest neighbor Ising model in one dimension",
+            "fold": false
+        },
+
+        {
+            "id": "ising2",
+            "title": "Nearest neighbor Ising model in two dimensions",
             "fold": false
         }
 
     ],
 
-    "order": [ "gen", "nk", "ms", "ep", "walsh", "ising" ],
+    "order": [ "gen", "param", "nk", "ms", "ep", "walsh", "walsh2", "ising1", "ising2" ],
 
     "flags": {
+
+        "periodic_boundary_conditions":
+        {
+            "description": "Periodic boundary conditions",
+            "section": "param"
+        },
 
         "ms_planted_solution":
         {
             "description": "Generate an instance with a planted solution",
             "section": "ms"
-        },
-
-        "ising_periodic_boundary_condition":
-        {
-            "description": "Periodic boundary condition",
-            "section": "ising"
         }
 
     },
@@ -88,14 +106,6 @@
             "type": "string",
             "value": "nopath",
             "description": "Path (relative or absolute) of a function file",
-            "section": "gen"
-        },
-
-        "stddev":
-        {
-            "type": "double",
-            "value": 1,
-            "description": "Standard deviation",
             "section": "gen"
         },
 
@@ -158,6 +168,30 @@
 
         },
 
+        "stddev":
+        {
+            "type": "double",
+            "value": 1,
+            "description": "Standard deviation",
+            "section": "param"
+        },
+
+        "coupling_constant":
+        {
+            "type": "double",
+            "value": 1,
+            "description": "Coupling constant",
+            "section": "param"
+        },
+
+        "field_constant":
+        {
+            "type": "double",
+            "value": 1,
+            "description": "Field constant",
+            "section": "param"
+        },
+
         "nk_k":
         {
             "type": "int",
@@ -198,20 +232,117 @@
             "section": "walsh"
         },
 
-        "ising_num_rows":
+        "walsh2_generator":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Type of WalshExpansion2 generator",
+            "section": "walsh2",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Random coefficients"
+                },
+
+                {
+                    "value": 1,
+                    "description": "One dimensional Dyson Ising model with long range interactions"
+                }
+
+            ]
+
+        },
+
+        "walsh2_ising_alpha":
+        {
+            "type": "double",
+            "value": 2,
+            "description": "Dyson-Ising: exponential decay parameter for long range interactions",
+            "section": "walsh2"
+        },
+
+        "ising1_generator":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Type of NearestNeighborIsingModel1 generator",
+            "section": "ising1",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Random couplings, random field"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Random couplings, constant field"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Constant couplings, random field"
+                },
+
+                {
+                    "value": 3,
+                    "description": "Constant couplings, constant field"
+                }
+
+            ]
+
+        },
+
+        "ising2_generator":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Type of NearestNeighborIsingModel2 generator",
+            "section": "ising2",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Random couplings, random field"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Random couplings, constant field"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Constant couplings, random field"
+                },
+
+                {
+                    "value": 3,
+                    "description": "Constant couplings, constant field"
+                }
+
+            ]
+
+        },
+
+        "ising2_num_rows":
         {
             "type": "int",
             "value": 10,
             "description": "Number of rows",
-            "section": "ising"
+            "section": "ising2"
         },
 
-        "ising_num_columns":
+        "ising2_num_columns":
         {
             "type": "int",
             "value": 10,
             "description": "Number of columns",
-            "section": "ising"
+            "section": "ising2"
         }
 
     }

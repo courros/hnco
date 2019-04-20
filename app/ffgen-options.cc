@@ -11,14 +11,22 @@ Options::Options(int argc, char *argv[]):
   _version("0.12"),
   _bv_size(100),
   _opt_bv_size(false),
+  _coupling_constant(1),
+  _opt_coupling_constant(false),
   _ep_upper_bound(1),
   _opt_ep_upper_bound(false),
+  _field_constant(1),
+  _opt_field_constant(false),
   _function(1),
   _opt_function(false),
-  _ising_num_columns(10),
-  _opt_ising_num_columns(false),
-  _ising_num_rows(10),
-  _opt_ising_num_rows(false),
+  _ising1_generator(0),
+  _opt_ising1_generator(false),
+  _ising2_generator(0),
+  _opt_ising2_generator(false),
+  _ising2_num_columns(10),
+  _opt_ising2_num_columns(false),
+  _ising2_num_rows(10),
+  _opt_ising2_num_rows(false),
   _ms_num_clauses(100),
   _opt_ms_num_clauses(false),
   _ms_num_literals_per_clause(3),
@@ -31,44 +39,60 @@ Options::Options(int argc, char *argv[]):
   _opt_seed(false),
   _stddev(1),
   _opt_stddev(false),
+  _walsh2_generator(0),
+  _opt_walsh2_generator(false),
+  _walsh2_ising_alpha(2),
+  _opt_walsh2_ising_alpha(false),
   _walsh_num_features(100),
   _opt_walsh_num_features(false),
-  _ising_periodic_boundary_condition(false),
-  _ms_planted_solution(false)
+  _ms_planted_solution(false),
+  _periodic_boundary_conditions(false)
 {
   enum {
     OPTION_HELP=256,
     OPTION_VERSION,
     OPTION_BV_SIZE,
+    OPTION_COUPLING_CONSTANT,
     OPTION_EP_UPPER_BOUND,
+    OPTION_FIELD_CONSTANT,
     OPTION_FUNCTION,
-    OPTION_ISING_NUM_COLUMNS,
-    OPTION_ISING_NUM_ROWS,
+    OPTION_ISING1_GENERATOR,
+    OPTION_ISING2_GENERATOR,
+    OPTION_ISING2_NUM_COLUMNS,
+    OPTION_ISING2_NUM_ROWS,
     OPTION_MS_NUM_CLAUSES,
     OPTION_MS_NUM_LITERALS_PER_CLAUSE,
     OPTION_NK_K,
     OPTION_PATH,
     OPTION_SEED,
     OPTION_STDDEV,
+    OPTION_WALSH2_GENERATOR,
+    OPTION_WALSH2_ISING_ALPHA,
     OPTION_WALSH_NUM_FEATURES,
-    OPTION_ISING_PERIODIC_BOUNDARY_CONDITION,
-    OPTION_MS_PLANTED_SOLUTION
+    OPTION_MS_PLANTED_SOLUTION,
+    OPTION_PERIODIC_BOUNDARY_CONDITIONS
   };
   const struct option long_options[] = {
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
+    {"coupling-constant", required_argument, 0, OPTION_COUPLING_CONSTANT},
     {"ep-upper-bound", required_argument, 0, OPTION_EP_UPPER_BOUND},
+    {"field-constant", required_argument, 0, OPTION_FIELD_CONSTANT},
     {"function", required_argument, 0, OPTION_FUNCTION},
-    {"ising-num-columns", required_argument, 0, OPTION_ISING_NUM_COLUMNS},
-    {"ising-num-rows", required_argument, 0, OPTION_ISING_NUM_ROWS},
+    {"ising1-generator", required_argument, 0, OPTION_ISING1_GENERATOR},
+    {"ising2-generator", required_argument, 0, OPTION_ISING2_GENERATOR},
+    {"ising2-num-columns", required_argument, 0, OPTION_ISING2_NUM_COLUMNS},
+    {"ising2-num-rows", required_argument, 0, OPTION_ISING2_NUM_ROWS},
     {"ms-num-clauses", required_argument, 0, OPTION_MS_NUM_CLAUSES},
     {"ms-num-literals-per-clause", required_argument, 0, OPTION_MS_NUM_LITERALS_PER_CLAUSE},
     {"nk-k", required_argument, 0, OPTION_NK_K},
     {"path", required_argument, 0, OPTION_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
     {"stddev", required_argument, 0, OPTION_STDDEV},
+    {"walsh2-generator", required_argument, 0, OPTION_WALSH2_GENERATOR},
+    {"walsh2-ising-alpha", required_argument, 0, OPTION_WALSH2_ISING_ALPHA},
     {"walsh-num-features", required_argument, 0, OPTION_WALSH_NUM_FEATURES},
-    {"ising-periodic-boundary-condition", no_argument, 0, OPTION_ISING_PERIODIC_BOUNDARY_CONDITION},
     {"ms-planted-solution", no_argument, 0, OPTION_MS_PLANTED_SOLUTION},
+    {"periodic-boundary-conditions", no_argument, 0, OPTION_PERIODIC_BOUNDARY_CONDITIONS},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
     {0, no_argument, 0, 0}
@@ -84,8 +108,16 @@ Options::Options(int argc, char *argv[]):
       set_bv_size(atoi(optarg));
       break;
 
+    case OPTION_COUPLING_CONSTANT:
+      set_coupling_constant(atof(optarg));
+      break;
+
     case OPTION_EP_UPPER_BOUND:
       set_ep_upper_bound(atof(optarg));
+      break;
+
+    case OPTION_FIELD_CONSTANT:
+      set_field_constant(atof(optarg));
       break;
 
     case 'F':
@@ -93,12 +125,20 @@ Options::Options(int argc, char *argv[]):
       set_function(atoi(optarg));
       break;
 
-    case OPTION_ISING_NUM_COLUMNS:
-      set_ising_num_columns(atoi(optarg));
+    case OPTION_ISING1_GENERATOR:
+      set_ising1_generator(atoi(optarg));
       break;
 
-    case OPTION_ISING_NUM_ROWS:
-      set_ising_num_rows(atoi(optarg));
+    case OPTION_ISING2_GENERATOR:
+      set_ising2_generator(atoi(optarg));
+      break;
+
+    case OPTION_ISING2_NUM_COLUMNS:
+      set_ising2_num_columns(atoi(optarg));
+      break;
+
+    case OPTION_ISING2_NUM_ROWS:
+      set_ising2_num_rows(atoi(optarg));
       break;
 
     case OPTION_MS_NUM_CLAUSES:
@@ -126,16 +166,24 @@ Options::Options(int argc, char *argv[]):
       set_stddev(atof(optarg));
       break;
 
+    case OPTION_WALSH2_GENERATOR:
+      set_walsh2_generator(atoi(optarg));
+      break;
+
+    case OPTION_WALSH2_ISING_ALPHA:
+      set_walsh2_ising_alpha(atof(optarg));
+      break;
+
     case OPTION_WALSH_NUM_FEATURES:
       set_walsh_num_features(atoi(optarg));
       break;
 
-    case OPTION_ISING_PERIODIC_BOUNDARY_CONDITION:
-      _ising_periodic_boundary_condition = true;
-      break;
-
     case OPTION_MS_PLANTED_SOLUTION:
       _ms_planted_solution = true;
+      break;
+
+    case OPTION_PERIODIC_BOUNDARY_CONDITIONS:
+      _periodic_boundary_conditions = true;
       break;
 
     case OPTION_HELP:
@@ -175,6 +223,14 @@ void Options::print_help(ostream& stream) const
   stream << "          Path (relative or absolute) of a function file" << endl;
   stream << "      --seed (type int, default to 0)" << endl;
   stream << "          Seed for the random number generator" << endl;
+  stream << endl;
+  stream << "Parameters" << endl;
+  stream << "      --coupling-constant (type double, default to 1)" << endl;
+  stream << "          Coupling constant" << endl;
+  stream << "      --field-constant (type double, default to 1)" << endl;
+  stream << "          Field constant" << endl;
+  stream << "      --periodic-boundary-conditions" << endl;
+  stream << "          Periodic boundary conditions" << endl;
   stream << "      --stddev (type double, default to 1)" << endl;
   stream << "          Standard deviation" << endl;
   stream << endl;
@@ -198,13 +254,33 @@ void Options::print_help(ostream& stream) const
   stream << "      --walsh-num-features (type int, default to 100)" << endl;
   stream << "          Number of features" << endl;
   stream << endl;
-  stream << "Nearest Neighbor Ising Model" << endl;
-  stream << "      --ising-num-columns (type int, default to 10)" << endl;
+  stream << "Walsh expansion of degree 2" << endl;
+  stream << "      --walsh2-generator (type int, default to 0)" << endl;
+  stream << "          Type of WalshExpansion2 generator" << endl;
+  stream << "            0: Random coefficients" << endl;
+  stream << "            1: One dimensional Dyson Ising model with long range interactions" << endl;
+  stream << "      --walsh2-ising-alpha (type double, default to 2)" << endl;
+  stream << "          Dyson-Ising: exponential decay parameter for long range interactions" << endl;
+  stream << endl;
+  stream << "Nearest neighbor Ising model in one dimension" << endl;
+  stream << "      --ising1-generator (type int, default to 0)" << endl;
+  stream << "          Type of NearestNeighborIsingModel1 generator" << endl;
+  stream << "            0: Random couplings, random field" << endl;
+  stream << "            1: Random couplings, constant field" << endl;
+  stream << "            2: Constant couplings, random field" << endl;
+  stream << "            3: Constant couplings, constant field" << endl;
+  stream << endl;
+  stream << "Nearest neighbor Ising model in two dimensions" << endl;
+  stream << "      --ising2-generator (type int, default to 0)" << endl;
+  stream << "          Type of NearestNeighborIsingModel2 generator" << endl;
+  stream << "            0: Random couplings, random field" << endl;
+  stream << "            1: Random couplings, constant field" << endl;
+  stream << "            2: Constant couplings, random field" << endl;
+  stream << "            3: Constant couplings, constant field" << endl;
+  stream << "      --ising2-num-columns (type int, default to 10)" << endl;
   stream << "          Number of columns" << endl;
-  stream << "      --ising-num-rows (type int, default to 10)" << endl;
+  stream << "      --ising2-num-rows (type int, default to 10)" << endl;
   stream << "          Number of rows" << endl;
-  stream << "      --ising-periodic-boundary-condition" << endl;
-  stream << "          Periodic boundary condition" << endl;
   stream << endl;
 }
 
@@ -216,21 +292,27 @@ void Options::print_version(ostream& stream) const
 ostream& operator<<(ostream& stream, const Options& options)
 {
   stream << "# bv_size = " << options._bv_size << endl;
+  stream << "# coupling_constant = " << options._coupling_constant << endl;
   stream << "# ep_upper_bound = " << options._ep_upper_bound << endl;
+  stream << "# field_constant = " << options._field_constant << endl;
   stream << "# function = " << options._function << endl;
-  stream << "# ising_num_columns = " << options._ising_num_columns << endl;
-  stream << "# ising_num_rows = " << options._ising_num_rows << endl;
+  stream << "# ising1_generator = " << options._ising1_generator << endl;
+  stream << "# ising2_generator = " << options._ising2_generator << endl;
+  stream << "# ising2_num_columns = " << options._ising2_num_columns << endl;
+  stream << "# ising2_num_rows = " << options._ising2_num_rows << endl;
   stream << "# ms_num_clauses = " << options._ms_num_clauses << endl;
   stream << "# ms_num_literals_per_clause = " << options._ms_num_literals_per_clause << endl;
   stream << "# nk_k = " << options._nk_k << endl;
   stream << "# path = " << options._path << endl;
   stream << "# seed = " << options._seed << endl;
   stream << "# stddev = " << options._stddev << endl;
+  stream << "# walsh2_generator = " << options._walsh2_generator << endl;
+  stream << "# walsh2_ising_alpha = " << options._walsh2_ising_alpha << endl;
   stream << "# walsh_num_features = " << options._walsh_num_features << endl;
-  if (options._ising_periodic_boundary_condition)
-    stream << "# ising_periodic_boundary_condition" << endl;
   if (options._ms_planted_solution)
     stream << "# ms_planted_solution" << endl;
+  if (options._periodic_boundary_conditions)
+    stream << "# periodic_boundary_conditions" << endl;
   stream << "# last_parameter" << endl;
   stream << "# exec_name = " << options._exec_name << endl;
   stream << "# version = " << options._version << endl;

@@ -17,21 +17,37 @@ class Options {
   int _bv_size;
   bool _opt_bv_size;
 
+  /// Coupling constant
+  double _coupling_constant;
+  bool _opt_coupling_constant;
+
   /// Parameter upper bound
   double _ep_upper_bound;
   bool _opt_ep_upper_bound;
+
+  /// Field constant
+  double _field_constant;
+  bool _opt_field_constant;
 
   /// Type of function
   int _function;
   bool _opt_function;
 
+  /// Type of NearestNeighborIsingModel1 generator
+  int _ising1_generator;
+  bool _opt_ising1_generator;
+
+  /// Type of NearestNeighborIsingModel2 generator
+  int _ising2_generator;
+  bool _opt_ising2_generator;
+
   /// Number of columns
-  int _ising_num_columns;
-  bool _opt_ising_num_columns;
+  int _ising2_num_columns;
+  bool _opt_ising2_num_columns;
 
   /// Number of rows
-  int _ising_num_rows;
-  bool _opt_ising_num_rows;
+  int _ising2_num_rows;
+  bool _opt_ising2_num_rows;
 
   /// Number of clauses
   int _ms_num_clauses;
@@ -57,15 +73,23 @@ class Options {
   double _stddev;
   bool _opt_stddev;
 
+  /// Type of WalshExpansion2 generator
+  int _walsh2_generator;
+  bool _opt_walsh2_generator;
+
+  /// Dyson-Ising: exponential decay parameter for long range interactions
+  double _walsh2_ising_alpha;
+  bool _opt_walsh2_ising_alpha;
+
   /// Number of features
   int _walsh_num_features;
   bool _opt_walsh_num_features;
 
-  /// Periodic boundary condition
-  bool _ising_periodic_boundary_condition;
-
   /// Generate an instance with a planted solution
   bool _ms_planted_solution;
+
+  /// Periodic boundary conditions
+  bool _periodic_boundary_conditions;
 
   /// Print help message
   void print_help(std::ostream& stream) const;
@@ -90,6 +114,18 @@ public:
   /// Get set-flag for bv_size
   bool set_bv_size() const { return _opt_bv_size; }
 
+  /// Get coupling_constant
+  double get_coupling_constant() const { return _coupling_constant; }
+
+  /// Set coupling_constant
+  void set_coupling_constant(double x) {
+    _coupling_constant = x;
+    _opt_coupling_constant = true;
+  }
+
+  /// Get set-flag for coupling_constant
+  bool set_coupling_constant() const { return _opt_coupling_constant; }
+
   /// Get ep_upper_bound
   double get_ep_upper_bound() const { return _ep_upper_bound; }
 
@@ -101,6 +137,18 @@ public:
 
   /// Get set-flag for ep_upper_bound
   bool set_ep_upper_bound() const { return _opt_ep_upper_bound; }
+
+  /// Get field_constant
+  double get_field_constant() const { return _field_constant; }
+
+  /// Set field_constant
+  void set_field_constant(double x) {
+    _field_constant = x;
+    _opt_field_constant = true;
+  }
+
+  /// Get set-flag for field_constant
+  bool set_field_constant() const { return _opt_field_constant; }
 
   /// Get function
   int get_function() const { return _function; }
@@ -114,29 +162,53 @@ public:
   /// Get set-flag for function
   bool set_function() const { return _opt_function; }
 
-  /// Get ising_num_columns
-  int get_ising_num_columns() const { return _ising_num_columns; }
+  /// Get ising1_generator
+  int get_ising1_generator() const { return _ising1_generator; }
 
-  /// Set ising_num_columns
-  void set_ising_num_columns(int x) {
-    _ising_num_columns = x;
-    _opt_ising_num_columns = true;
+  /// Set ising1_generator
+  void set_ising1_generator(int x) {
+    _ising1_generator = x;
+    _opt_ising1_generator = true;
   }
 
-  /// Get set-flag for ising_num_columns
-  bool set_ising_num_columns() const { return _opt_ising_num_columns; }
+  /// Get set-flag for ising1_generator
+  bool set_ising1_generator() const { return _opt_ising1_generator; }
 
-  /// Get ising_num_rows
-  int get_ising_num_rows() const { return _ising_num_rows; }
+  /// Get ising2_generator
+  int get_ising2_generator() const { return _ising2_generator; }
 
-  /// Set ising_num_rows
-  void set_ising_num_rows(int x) {
-    _ising_num_rows = x;
-    _opt_ising_num_rows = true;
+  /// Set ising2_generator
+  void set_ising2_generator(int x) {
+    _ising2_generator = x;
+    _opt_ising2_generator = true;
   }
 
-  /// Get set-flag for ising_num_rows
-  bool set_ising_num_rows() const { return _opt_ising_num_rows; }
+  /// Get set-flag for ising2_generator
+  bool set_ising2_generator() const { return _opt_ising2_generator; }
+
+  /// Get ising2_num_columns
+  int get_ising2_num_columns() const { return _ising2_num_columns; }
+
+  /// Set ising2_num_columns
+  void set_ising2_num_columns(int x) {
+    _ising2_num_columns = x;
+    _opt_ising2_num_columns = true;
+  }
+
+  /// Get set-flag for ising2_num_columns
+  bool set_ising2_num_columns() const { return _opt_ising2_num_columns; }
+
+  /// Get ising2_num_rows
+  int get_ising2_num_rows() const { return _ising2_num_rows; }
+
+  /// Set ising2_num_rows
+  void set_ising2_num_rows(int x) {
+    _ising2_num_rows = x;
+    _opt_ising2_num_rows = true;
+  }
+
+  /// Get set-flag for ising2_num_rows
+  bool set_ising2_num_rows() const { return _opt_ising2_num_rows; }
 
   /// Get ms_num_clauses
   int get_ms_num_clauses() const { return _ms_num_clauses; }
@@ -210,6 +282,30 @@ public:
   /// Get set-flag for stddev
   bool set_stddev() const { return _opt_stddev; }
 
+  /// Get walsh2_generator
+  int get_walsh2_generator() const { return _walsh2_generator; }
+
+  /// Set walsh2_generator
+  void set_walsh2_generator(int x) {
+    _walsh2_generator = x;
+    _opt_walsh2_generator = true;
+  }
+
+  /// Get set-flag for walsh2_generator
+  bool set_walsh2_generator() const { return _opt_walsh2_generator; }
+
+  /// Get walsh2_ising_alpha
+  double get_walsh2_ising_alpha() const { return _walsh2_ising_alpha; }
+
+  /// Set walsh2_ising_alpha
+  void set_walsh2_ising_alpha(double x) {
+    _walsh2_ising_alpha = x;
+    _opt_walsh2_ising_alpha = true;
+  }
+
+  /// Get set-flag for walsh2_ising_alpha
+  bool set_walsh2_ising_alpha() const { return _opt_walsh2_ising_alpha; }
+
   /// Get walsh_num_features
   int get_walsh_num_features() const { return _walsh_num_features; }
 
@@ -222,17 +318,17 @@ public:
   /// Get set-flag for walsh_num_features
   bool set_walsh_num_features() const { return _opt_walsh_num_features; }
 
-  /// Get ising_periodic_boundary_condition
-  bool with_ising_periodic_boundary_condition() const { return _ising_periodic_boundary_condition; }
-
-  /// Set ising_periodic_boundary_condition
-  void set_ising_periodic_boundary_condition() { _ising_periodic_boundary_condition = true; }
- 
   /// Get ms_planted_solution
   bool with_ms_planted_solution() const { return _ms_planted_solution; }
 
   /// Set ms_planted_solution
   void set_ms_planted_solution() { _ms_planted_solution = true; }
+ 
+  /// Get periodic_boundary_conditions
+  bool with_periodic_boundary_conditions() const { return _periodic_boundary_conditions; }
+
+  /// Set periodic_boundary_conditions
+  void set_periodic_boundary_conditions() { _periodic_boundary_conditions = true; }
  
   /// Print a header containing the parameter values
   friend std::ostream& operator<<(std::ostream&, const Options&);

@@ -58,6 +58,68 @@ void save_function_to_boost_archive(const T& function, const std::string name, c
 }
 
 
+void generate_walsh_expansion_2(Options& options)
+{
+  double stddev = options.get_stddev();
+  auto generator = [stddev]() { return stddev * Random::normal(); };
+
+  WalshExpansion2 function;
+  switch (options.get_walsh2_generator()) {
+
+  case 0:
+    function.random(options.get_bv_size(), generator, generator);
+    break;
+
+  case 1:
+    function.generate_ising1_long_range(options.get_bv_size(), options.get_walsh2_ising_alpha());
+    break;
+
+  default:
+    std::ostringstream stream;
+    stream << "generate_walsh_expansion_2: unknown generator: " << options.get_walsh2_generator();
+    throw Error(stream.str());
+
+  }
+
+  save_function_to_boost_archive(function, "WalshExpansion2", options);
+}
+
+
+void generate_nearest_neighbor_ising_model_1(Options& options)
+{
+  double stddev = options.get_stddev();
+  auto generator = [stddev]() { return stddev * Random::normal(); };
+
+  WalshExpansion2 function;
+  switch (options.get_walsh2_generator()) {
+
+  case 0:
+    function.random(options.get_bv_size(), generator, generator);
+    break;
+
+  case 1:
+    function.random(options.get_bv_size(), generator, generator);
+    break;
+
+  case 2:
+    function.random(options.get_bv_size(), generator, generator);
+    break;
+
+  case 3:
+    function.random(options.get_bv_size(), generator, generator);
+    break;
+
+  default:
+    std::ostringstream stream;
+    stream << "generate_nearest_neighbor_ising_model_1: unknown generator: " << options.get_walsh2_generator();
+    throw Error(stream.str());
+
+  }
+
+  save_function_to_boost_archive(function, "WalshExpansion2", options);
+}
+
+
 void generate_function(Options& options)
 {
   double stddev = options.get_stddev();
@@ -122,25 +184,22 @@ void generate_function(Options& options)
     break;
   }
 
-  case 162: {
-    WalshExpansion2 function;
-    function.random(options.get_bv_size(), generator, generator);
-    save_function_to_boost_archive(function, "WalshExpansion2", options);
+  case 162:
+    generate_walsh_expansion_2(options);
     break;
-  }
 
   case 171: {
     NearestNeighborIsingModel1 function;
     function.random(options.get_bv_size(), generator, generator);
-    function.set_periodic_boundary_conditions(options.with_ising_periodic_boundary_condition());
+    function.set_periodic_boundary_conditions(options.with_periodic_boundary_conditions());
     save_function_to_boost_archive(function, "NearestNeighborIsingModel1", options);
     break;
   }
 
   case 172: {
     NearestNeighborIsingModel2 function;
-    function.random(options.get_ising_num_rows(), options.get_ising_num_columns(), generator, generator);
-    function.set_periodic_boundary_conditions(options.with_ising_periodic_boundary_condition());
+    function.random(options.get_ising2_num_rows(), options.get_ising2_num_columns(), generator, generator);
+    function.set_periodic_boundary_conditions(options.with_periodic_boundary_conditions());
     save_function_to_boost_archive(function, "NearestNeighborIsingModel2", options);
     if (options.get_bv_size() != int(function.get_bv_size()))
       std::cerr
