@@ -106,17 +106,17 @@ namespace function {
     /** Random instance.
 
         \param n Size of bit vectors
-        \param generator_couplings Couplings generator
-        \param generator_field External field generator
+        \param coupling_gen Couplings generator
+        \param field_gen External field generator
     */
-    template<class Generator>
-    void random(int n, Generator generator_couplings, Generator generator_field) {
+    template<class CouplingGen, class FieldGen>
+    void random(int n, CouplingGen coupling_gen, FieldGen field_gen) {
       assert(n > 0);
 
       resize(n);
       for (size_t i = 0; i < _couplings.size(); i++) {
-        _couplings[i] = generator_couplings();
-        _field[i] = generator_field();
+        _couplings[i] = coupling_gen();
+        _field[i] = field_gen();
       }
     }
 
