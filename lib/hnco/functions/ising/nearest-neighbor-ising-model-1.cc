@@ -46,13 +46,13 @@ NearestNeighborIsingModel1::eval(const bit_vector_t& s)
   assert(_coupling.size() > 0);
   assert(s.size() == _coupling.size());
 
-  const size_t n = _coupling.size();
-  const size_t last = n - 1;
+  const int n = _coupling.size();
+  const int last = n - 1;
 
   double result = 0;
 
   // Interactions
-  for (size_t i = 0; i < last; i++)
+  for (int i = 0; i < last; i++)
     if ((s[i] + s[i + 1]) % 2 == 0)
       result += _coupling[i];
     else
@@ -65,7 +65,7 @@ NearestNeighborIsingModel1::eval(const bit_vector_t& s)
   }
 
   // External field
-  for (size_t i = 0; i < n; i++)
+  for (int i = 0; i < n; i++)
     if (s[i])
       result -= _field[i];
     else
@@ -83,15 +83,15 @@ NearestNeighborIsingModel1::incremental_eval(const bit_vector_t& x,
   assert(_coupling.size() > 0);
   assert(x.size() == _coupling.size());
 
-  const size_t n = _coupling.size();
-  const size_t last = n - 1;
+  const int n = _coupling.size();
+  const int last = n - 1;
 
   assert(bv_is_zero(_flipped_bits));
   bv_flip(_flipped_bits, flipped_bits);
 
   // Interactions with sites on the right
   for (auto index : flipped_bits) {
-    size_t neighbor;
+    int neighbor;
     if (index == last) {
       if (_periodic_boundary_conditions)
         neighbor = 0;
@@ -111,7 +111,7 @@ NearestNeighborIsingModel1::incremental_eval(const bit_vector_t& x,
 
   // Interactions with sites on the left
   for (auto index : flipped_bits) {
-    size_t neighbor;
+    int neighbor;
     if (index == 0) {
       if (_periodic_boundary_conditions)
         neighbor = last;

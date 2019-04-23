@@ -50,22 +50,22 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
   assert(_field[0].size() > 0);
   assert(s.size() == get_bv_size());
 
-  const size_t num_rows = _field.size();
-  const size_t last_row = num_rows - 1;
+  const int num_rows = _field.size();
+  const int last_row = num_rows - 1;
 
-  const size_t num_columns = _field[0].size();
-  const size_t last_column = num_columns - 1;
+  const int num_columns = _field[0].size();
+  const int last_column = num_columns - 1;
 
   double result = 0;
 
-  size_t start;
+  int start;
 
   // Right
   start = 0;
-  for (size_t i = 0; i < num_rows; i++, start += num_columns) {
-    for (size_t j = 0; j < last_column; j++) {
-      size_t site = start + j;
-      assert(site + 1 < s.size());
+  for (int i = 0; i < num_rows; i++, start += num_columns) {
+    for (int j = 0; j < last_column; j++) {
+      int site = start + j;
+      assert(site + 1 < int(s.size()));
       if ((s[site] + s[site + 1]) % 2 == 0)
         result += _coupling_right[i][j];
       else
@@ -75,10 +75,10 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
 
   // Below
   start = 0;
-  for (size_t i = 0; i < last_row; i++, start += num_columns) {
-    for (size_t j = 0; j < num_columns; j++) {
-      size_t site = start + j;
-      assert(site + num_columns < s.size());
+  for (int i = 0; i < last_row; i++, start += num_columns) {
+    for (int j = 0; j < num_columns; j++) {
+      int site = start + j;
+      assert(site + num_columns < int(s.size()));
       if ((s[site] + s[site + num_columns]) % 2 == 0)
         result += _coupling_below[i][j];
       else
@@ -90,7 +90,7 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
 
     // Last column is connected to the first column
     start = 0;
-    for (size_t i = 0; i < num_rows; i++, start += num_columns) {
+    for (int i = 0; i < num_rows; i++, start += num_columns) {
       // site:  s[start + last_column]
       // right: s[start]
       if ((s[start + last_column] + s[start]) % 2 == 0)
@@ -101,7 +101,7 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
 
     // Last row is connected to the first row
     start = last_row * num_columns;
-    for (size_t j = 0; j < num_columns; j++) {
+    for (int j = 0; j < num_columns; j++) {
       // site:  s[start + j]
       // below: s[j]
       if ((s[start + j] + s[j]) % 2 == 0)
@@ -114,9 +114,9 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
 
   // External field
   start = 0;
-  for (size_t i = 0; i < num_rows; i++, start += num_columns) {
-    for (size_t j = 0; j < num_columns; j++) {
-      size_t site = start + j;
+  for (int i = 0; i < num_rows; i++, start += num_columns) {
+    for (int j = 0; j < num_columns; j++) {
+      int site = start + j;
       if (s[site])
         result -= _field[i][j];
       else
@@ -137,23 +137,22 @@ NearestNeighborIsingModel2::incremental_eval(const bit_vector_t& x,
   assert(_field[0].size() > 0);
   assert(x.size() == get_bv_size());
 
-  const size_t num_rows = _field.size();
-  const size_t last_row = num_rows - 1;
+  const int num_rows = _field.size();
+  const int last_row = num_rows - 1;
 
-  const size_t num_columns = _field[0].size();
-  const size_t last_column = num_columns - 1;
+  const int num_columns = _field[0].size();
+  const int last_column = num_columns - 1;
 
-  const size_t n = get_bv_size();
+  const int n = get_bv_size();
 
   assert(bv_is_zero(_flipped_bits));
   bv_flip(_flipped_bits, flipped_bits);
 
   // Interactions with sites on the right
   for (auto index : flipped_bits) {
-    // index is of type std::size_t
-    size_t i = index / num_columns;
-    size_t j = index % num_columns;
-    size_t neighbor;
+    int i = index / num_columns;
+    int j = index % num_columns;
+    int neighbor;
     if (j == last_column) {
       if (_periodic_boundary_conditions) {
         assert(last_column <= index);
@@ -174,10 +173,9 @@ NearestNeighborIsingModel2::incremental_eval(const bit_vector_t& x,
 
   // Interactions with sites on the left
   for (auto index : flipped_bits) {
-    // index is of type std::size_t
-    size_t i = index / num_columns;
-    size_t j = index % num_columns;
-    size_t neighbor;
+    int i = index / num_columns;
+    int j = index % num_columns;
+    int neighbor;
     if (j == 0) {
       if (_periodic_boundary_conditions) {
         neighbor = index + last_column;
@@ -202,10 +200,9 @@ NearestNeighborIsingModel2::incremental_eval(const bit_vector_t& x,
 
   // Interactions with sites below
   for (auto index : flipped_bits) {
-    // index is of type std::size_t
-    size_t i = index / num_columns;
-    size_t j = index % num_columns;
-    size_t neighbor;
+    int i = index / num_columns;
+    int j = index % num_columns;
+    int neighbor;
     if (i == last_row) {
       if (_periodic_boundary_conditions)
         neighbor = j;
@@ -225,10 +222,9 @@ NearestNeighborIsingModel2::incremental_eval(const bit_vector_t& x,
 
   // Interactions with sites above
   for (auto index : flipped_bits) {
-    // index is of type std::size_t
-    size_t i = index / num_columns;
-    size_t j = index % num_columns;
-    size_t neighbor;
+    int i = index / num_columns;
+    int j = index % num_columns;
+    int neighbor;
     if (i == 0) {
       if (_periodic_boundary_conditions) {
         neighbor = (n + j) - num_columns;
@@ -257,7 +253,6 @@ NearestNeighborIsingModel2::incremental_eval(const bit_vector_t& x,
 
   // External field
   for (auto index : flipped_bits) {
-    // index is of type std::size_t
     int i = index / num_columns;
     int j = index % num_columns;
     if (x[index])
