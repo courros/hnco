@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 
     permutation_t permutation(output_size);
     perm_random(permutation);
-    std::vector<std::size_t> bit_positions(input_size);
+    std::vector<int> bit_positions(input_size);
     for (std::size_t i = 0; i < bit_positions.size(); i++)
       bit_positions[i] = permutation[i];
 

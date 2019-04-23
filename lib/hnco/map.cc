@@ -141,11 +141,11 @@ AffineMap::is_surjective()
 }
 
 
-Injection::Injection(const std::vector<std::size_t>& bit_positions, std::size_t output_size):
+Injection::Injection(const std::vector<int>& bit_positions, int output_size):
   _bit_positions(bit_positions),
   _output_size(output_size)
 {
-  if (output_size < bit_positions.size())
+  if (output_size < int(bit_positions.size()))
     throw Error("Injection::Injection: output size must be greater or equal to input size");
 }
 
@@ -154,18 +154,18 @@ void
 Injection::map(const bit_vector_t& input, bit_vector_t& output)
 {
   assert(input.size() == _bit_positions.size());
-  assert(output.size() == _output_size);
+  assert(int(output.size()) == _output_size);
 
   for (std::size_t i = 0; i < _bit_positions.size(); i++)
     output[_bit_positions[i]] = input[i];
 }
 
 
-Projection::Projection(const std::vector<std::size_t>& bit_positions, std::size_t input_size):
+Projection::Projection(const std::vector<int>& bit_positions, int input_size):
   _bit_positions(bit_positions),
   _input_size(input_size)
 {
-  if (input_size < bit_positions.size())
+  if (input_size < int(bit_positions.size()))
     throw Error("Projection::Projection: input size must be greater or equal to output size");
 }
 
@@ -173,7 +173,7 @@ Projection::Projection(const std::vector<std::size_t>& bit_positions, std::size_
 void
 Projection::map(const bit_vector_t& input, bit_vector_t& output)
 {
-  assert(input.size() == _input_size);
+  assert(int(input.size()) == _input_size);
   assert(output.size() == _bit_positions.size());
 
   for (std::size_t i = 0; i < _bit_positions.size(); i++)

@@ -47,10 +47,10 @@ namespace hnco {
     virtual void map(const bit_vector_t& input, bit_vector_t& output) = 0;
 
     /// Get input size
-    virtual size_t get_input_size() = 0;
+    virtual int get_input_size() = 0;
 
     /// Get output size
-    virtual size_t get_output_size() = 0;
+    virtual int get_output_size() = 0;
 
     /** Check for surjective map.
 
@@ -109,10 +109,10 @@ namespace hnco {
     void map(const bit_vector_t& input, bit_vector_t& output);
 
     /// Get input size
-    size_t get_input_size() { return _bv.size(); }
+    int get_input_size() { return _bv.size(); }
 
     /// Get output size
-    size_t get_output_size() { return _bv.size(); }
+    int get_output_size() { return _bv.size(); }
 
     /** Check for surjective map.
 
@@ -171,10 +171,10 @@ namespace hnco {
     void map(const bit_vector_t& input, bit_vector_t& output);
 
     /// Get input size
-    size_t get_input_size() { return _permutation.size(); }
+    int get_input_size() { return _permutation.size(); }
 
     /// Get output size
-    size_t get_output_size() { return _permutation.size(); }
+    int get_output_size() { return _permutation.size(); }
 
     /** Check for surjective map.
 
@@ -234,10 +234,10 @@ namespace hnco {
     void map(const bit_vector_t& input, bit_vector_t& output);
 
     /// Get input size
-    size_t get_input_size() { return bm_num_columns(_bm); }
+    int get_input_size() { return bm_num_columns(_bm); }
 
     /// Get output size
-    size_t get_output_size() { return bm_num_rows(_bm); }
+    int get_output_size() { return bm_num_rows(_bm); }
 
     /** Check for surjective map.
 
@@ -305,10 +305,10 @@ namespace hnco {
     void map(const bit_vector_t& input, bit_vector_t& output);
 
     /// Get input size
-    size_t get_input_size() { return bm_num_columns(_bm); }
+    int get_input_size() { return bm_num_columns(_bm); }
 
     /// Get output size
-    size_t get_output_size() { return bm_num_rows(_bm); }
+    int get_output_size() { return bm_num_rows(_bm); }
 
     /** Check for surjective map.
 
@@ -363,10 +363,10 @@ namespace hnco {
     }
 
     /// Get input size
-    size_t get_input_size() { return _inner->get_input_size(); }
+    int get_input_size() { return _inner->get_input_size(); }
 
     /// Get output size
-    size_t get_output_size() { return _outer->get_output_size(); }
+    int get_output_size() { return _outer->get_output_size(); }
 
     /** Check for surjective map.
 
@@ -397,10 +397,10 @@ namespace hnco {
     public Map {
 
     /// Bit positions
-    std::vector<std::size_t> _bit_positions;
+    std::vector<int> _bit_positions;
 
     /// Output size
-    std::size_t _output_size;
+    int _output_size;
 
   public:
 
@@ -416,16 +416,16 @@ namespace hnco {
 
         \pre output_size >= bit_positions.size()
     */
-    Injection(const std::vector<std::size_t>& bit_positions, std::size_t output_size);
+    Injection(const std::vector<int>& bit_positions, int output_size);
 
     /// Map
     void map(const bit_vector_t& input, bit_vector_t& output);
 
     /// Get input size
-    size_t get_input_size() { return _bit_positions.size(); }
+    int get_input_size() { return _bit_positions.size(); }
 
     /// Get output size
-    size_t get_output_size() { return _output_size; }
+    int get_output_size() { return _output_size; }
 
     /// Check for surjective map
     bool is_surjective() { return get_output_size() == get_input_size(); }
@@ -453,10 +453,10 @@ namespace hnco {
     public Map {
 
     /// Bit positions
-    std::vector<std::size_t> _bit_positions;
+    std::vector<int> _bit_positions;
 
     /// Input size
-    std::size_t _input_size;
+    int _input_size;
 
   public:
 
@@ -472,16 +472,16 @@ namespace hnco {
 
         \pre input_size >= bit_positions.size()
     */
-    Projection(const std::vector<std::size_t>& bit_positions, std::size_t input_size);
+    Projection(const std::vector<int>& bit_positions, int input_size);
 
     /// Map
     void map(const bit_vector_t& input, bit_vector_t& output);
 
     /// Get input size
-    size_t get_input_size() { return _input_size; }
+    int get_input_size() { return _input_size; }
 
     /// Get output size
-    size_t get_output_size() { return _bit_positions.size(); }
+    int get_output_size() { return _bit_positions.size(); }
 
     /** Check for surjective map.
 
