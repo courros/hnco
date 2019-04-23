@@ -233,7 +233,7 @@ MaxSat::random(const bit_vector_t& solution, int k, int c)
         if (Random::bernoulli())
           _expression[i][count++] = j + 1;
         else
-          _expression[i][count++] = -(j + 1);
+          _expression[i][count++] = -int(j + 1);
       }
     }
     assert(count == bv_hamming_weight(x));
