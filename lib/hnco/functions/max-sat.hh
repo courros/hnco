@@ -56,7 +56,7 @@ namespace function {
       _num_variables(0) {}
 
     /// Get bit vector size
-    size_t get_bv_size() { return _num_variables; }
+    int get_bv_size() { return _num_variables; }
 
     /// Display the expression
     void display(std::ostream& stream);

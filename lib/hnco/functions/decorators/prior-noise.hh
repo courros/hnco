@@ -59,7 +59,7 @@ namespace function {
     ///@{
 
     /// Get bit vector size
-    size_t get_bv_size() { return _function->get_bv_size(); }
+    int get_bv_size() { return _function->get_bv_size(); }
 
     /** Get the global maximum.
 

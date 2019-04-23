@@ -35,7 +35,7 @@ namespace function {
     public Function {
 
     /// Bit vector size
-    size_t _bv_size;
+    int _bv_size;
 
     /// Handle returned by dlopen
     void *_handle;
@@ -60,7 +60,7 @@ namespace function {
     ~FunctionPlugin();
 
     /// Get bit vector size
-    size_t get_bv_size() { return _bv_size; }
+    int get_bv_size() { return _bv_size; }
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);

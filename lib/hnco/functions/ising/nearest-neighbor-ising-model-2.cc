@@ -48,7 +48,7 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
 {
   assert(_field.size() > 0);
   assert(_field[0].size() > 0);
-  assert(s.size() == get_bv_size());
+  assert(int(s.size()) == get_bv_size());
 
   const int num_rows = _field.size();
   const int last_row = num_rows - 1;
@@ -135,7 +135,7 @@ NearestNeighborIsingModel2::incremental_eval(const bit_vector_t& x,
 {
   assert(_field.size() > 0);
   assert(_field[0].size() > 0);
-  assert(x.size() == get_bv_size());
+  assert(int(x.size()) == get_bv_size());
 
   const int num_rows = _field.size();
   const int last_row = num_rows - 1;

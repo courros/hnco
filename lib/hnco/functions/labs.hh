@@ -44,7 +44,7 @@ namespace function {
       _sequence(n) {}
 
     /// Get bit vector size
-    size_t get_bv_size() { return _sequence.size(); }
+    int get_bv_size() { return _sequence.size(); }
 
     /// Compute autocorrelation
     double compute_autocorrelation(const bit_vector_t&);

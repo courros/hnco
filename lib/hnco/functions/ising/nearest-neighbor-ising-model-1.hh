@@ -155,7 +155,7 @@ namespace function {
     ///@{
 
     /// Get bit vector size
-    size_t get_bv_size() { return _coupling.size(); }
+    int get_bv_size() { return _coupling.size(); }
 
     /** Check whether the function provides incremental evaluation.
         \return true

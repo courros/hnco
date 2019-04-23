@@ -109,7 +109,7 @@ namespace function {
     ///@{
 
     /// Get bit vector size
-    size_t get_bv_size() { return _weights.size(); }
+    int get_bv_size() { return _weights.size(); }
 
     /// Get the global maximum
     double get_maximum();

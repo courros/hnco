@@ -57,6 +57,6 @@ FunctionPlugin::~FunctionPlugin()
 
 double FunctionPlugin::eval(const bit_vector_t& x)
 {
-  assert(x.size() == _bv_size);
+  assert(int(x.size()) == _bv_size);
   return (*_extern_function)(x.data(), _bv_size);
 }

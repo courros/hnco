@@ -126,7 +126,7 @@ double compute_index(bit_vector_t::const_iterator first, bit_vector_t::const_ite
 double
 LongPath::eval(const bit_vector_t& x)
 {
-  assert(x.size() == _bv_size);
+  assert(int(x.size()) == _bv_size);
 
   double index = compute_index(x.begin(), x.end(), _prefix_length);
   if (index < 0)

@@ -72,6 +72,7 @@ Hiff::Hiff(int bv_size):
   _bv_size(bv_size)
 {
   assert(bv_size > 0);
+
   std::bitset<8 * sizeof(int)> bs(bv_size);
   if (bs.count() != 1)
     throw exception::Error("Hiff::Hiff: bv_size must be a power of 2");
@@ -86,9 +87,9 @@ double
 Hiff::eval(const bit_vector_t& x)
 {
   double result = 0;
-  for (size_t i = 0, num_blocks = _bv_size, block_size = 1; i <= _depth; i++, num_blocks /= 2, block_size *= 2) {
+  for (int i = 0, num_blocks = _bv_size, block_size = 1; i <= _depth; i++, num_blocks /= 2, block_size *= 2) {
     bool last = true;
-    for (size_t j = 0, offset = 0; j < num_blocks; j++, offset += block_size) {
+    for (int j = 0, offset = 0; j < num_blocks; j++, offset += block_size) {
       bit_t b0 = x[offset];
       if (all_of(x.begin() + offset, x.begin() + offset + block_size, [b0](bit_t b){ return b == b0; })) {
         result += block_size;

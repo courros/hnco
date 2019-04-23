@@ -34,18 +34,18 @@ using namespace hnco;
 class MyFunction:
   public Function {
 
-  size_t _bv_size;
+  int _bv_size;
 
 public:
 
   MyFunction(int bv_size):
     _bv_size(bv_size) {}
 
-  size_t get_bv_size() { return _bv_size; }
+  int get_bv_size() { return _bv_size; }
 
   double eval(const bit_vector_t& x) {
     double result = 0;
-    for (size_t i = 0; i < _bv_size; i++)
+    for (int i = 0; i < _bv_size; i++)
       if (x[i])
         result += 1;
     return result;

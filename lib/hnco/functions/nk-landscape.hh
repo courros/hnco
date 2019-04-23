@@ -117,7 +117,7 @@ namespace function {
 
 
     /// Get bit vector size
-    size_t get_bv_size() { return _partial_functions.size(); }
+    int get_bv_size() { return _partial_functions.size(); }
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);

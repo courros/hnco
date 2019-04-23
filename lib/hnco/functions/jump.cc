@@ -43,7 +43,7 @@ Jump::Jump(int bv_size, int gap):
 double
 Jump::eval(const bit_vector_t& x)
 {
-  assert(x.size() == _bv_size);
+  assert(int(x.size()) == _bv_size);
 
   int weight = bv_hamming_weight(x);
 
@@ -73,7 +73,7 @@ DeceptiveJump::DeceptiveJump(int bv_size, int gap):
 double
 DeceptiveJump::eval(const bit_vector_t& x)
 {
-  assert(x.size() == _bv_size);
+  assert(int(x.size()) == _bv_size);
 
   int weight = bv_hamming_weight(x);
 

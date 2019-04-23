@@ -121,7 +121,7 @@ namespace function {
 
 
     /// Get bit vector size
-    size_t get_bv_size() {
+    int get_bv_size() {
       assert(_terms.size() > 0);
       return _terms[0].feature.size();
     }

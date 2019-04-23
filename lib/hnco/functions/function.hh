@@ -73,7 +73,7 @@ namespace function {
     ///@{
 
     /// Get bit vector size
-    virtual size_t get_bv_size() = 0;
+    virtual int get_bv_size() = 0;
 
     /** Get the global maximum.
         \throw Error */
@@ -157,7 +157,7 @@ namespace function {
 
     /// Describe a bit vector
     virtual void describe(const bit_vector_t& x, std::ostream& stream) {
-      assert(x.size() == get_bv_size());
+      assert(int(x.size()) == get_bv_size());
 
       bv_display(x, stream);
       stream << std::endl;

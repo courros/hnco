@@ -61,7 +61,7 @@ namespace function {
     public Function {
 
     /// Bit vector size
-    size_t _bv_size;
+    int _bv_size;
 
     /// Threshold
     int _threshold;
@@ -75,7 +75,7 @@ namespace function {
     FourPeaks(int bv_size, int threshold);
 
     /// Get bit vector size
-    size_t get_bv_size() { return _bv_size; }
+    int get_bv_size() { return _bv_size; }
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
@@ -129,7 +129,7 @@ namespace function {
     public Function {
 
     /// Bit vector size
-    size_t _bv_size;
+    int _bv_size;
 
     /// Threshold
     int _threshold;
@@ -143,7 +143,7 @@ namespace function {
     SixPeaks(int bv_size, int threshold);
 
     /// Get bit vector size
-    size_t get_bv_size() { return _bv_size; }
+    int get_bv_size() { return _bv_size; }
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);

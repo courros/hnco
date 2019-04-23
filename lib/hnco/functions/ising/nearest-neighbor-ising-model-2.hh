@@ -168,7 +168,7 @@ namespace function {
     ///@{
 
     /// Get bit vector size
-    size_t get_bv_size() {
+    int get_bv_size() {
       assert(_field.size() > 0);
 
       return _field.size() * _field[0].size();

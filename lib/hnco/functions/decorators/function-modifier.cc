@@ -51,7 +51,7 @@ FunctionMapComposition::eval(const bit_vector_t& x)
 void
 FunctionMapComposition::describe(const bit_vector_t& x, std::ostream& stream)
 {
-  assert(x.size() == get_bv_size());
+  assert(int(x.size()) == get_bv_size());
 
   _map->map(x, _bv);
   return _function->describe(_bv, stream);

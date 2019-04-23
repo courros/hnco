@@ -70,7 +70,7 @@ Factorization::set_number(const std::string number)
 void
 Factorization::convert(const bit_vector_t& x)
 {
-  assert(x.size() == _bv_size);
+  assert(int(x.size()) == _bv_size);
   assert(x.size() == _first_factor_size + _second_factor_size);
 
   for (size_t i = 0; i < _first_factor_size; i++)

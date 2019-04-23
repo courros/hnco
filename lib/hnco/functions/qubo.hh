@@ -92,7 +92,7 @@ namespace function {
     void load(std::istream& stream);
 
     /// Get bit vector size
-    size_t get_bv_size() { return _q.size(); }
+    int get_bv_size() { return _q.size(); }
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);

@@ -44,7 +44,7 @@ namespace function {
     public Function {
 
     /// Bit vector size
-    size_t _bv_size;
+    int _bv_size;
 
     /// Number of traps
     int _num_traps;
@@ -72,7 +72,7 @@ namespace function {
     }
 
     /// Get bit vector size
-    size_t get_bv_size() { return _bv_size; }
+    int get_bv_size() { return _bv_size; }
 
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
