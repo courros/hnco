@@ -15,7 +15,7 @@ Library:
 - Added NearestNeighborIsingModel2
 - LinearFunction, NkLandscape, EqualProducts, WalshExpansion,
   WalshExpansion1, WalshExpansion2, NearestNeighborIsingModel1,
-  NearestNeighborIsingModel2: added template member function random
+  NearestNeighborIsingModel2: added template member function generate
   with generic generators and member function random with default
   generators (normal or uniform)
 - WalshExpansion2: added member function generate_ising1_long_range
@@ -48,9 +48,9 @@ hnco:
 ffgen:
 - LinearFunction, NkLandscape, WalshExpansion, WalshExpansion1,
   WalshExpansion2, NearestNeighborIsingModel1,
-  NearestNeighborIsingModel2: use template member function random with
-  normal distribution
-- EqualProducts: use template member function random with uniform
+  NearestNeighborIsingModel2: use template member function generate
+  with normal distribution
+- EqualProducts: use template member function generate with uniform
   distribution
 - Added function generate_function
 - Catch Error exceptions
