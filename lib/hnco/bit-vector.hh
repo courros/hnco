@@ -95,7 +95,7 @@ namespace hnco {
   inline void bv_clear(bit_vector_t& x) { fill(x.begin(), x.end(), 0); }
 
   /// Flip a single bit
-  inline void bv_flip(bit_vector_t& x, std::size_t i) { x[i] = bit_flip(x[i]); }
+  inline void bv_flip(bit_vector_t& x, int i) { x[i] = bit_flip(x[i]); }
 
   /// Flip many bits
   void bv_flip(bit_vector_t& x, const bit_vector_t& mask);
