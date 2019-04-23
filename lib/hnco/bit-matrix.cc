@@ -26,8 +26,7 @@
 using namespace hnco;
 
 
-void
-hnco::bm_display(const bit_matrix_t& M, std::ostream& stream)
+void hnco::bm_display(const bit_matrix_t& M, std::ostream& stream)
 {
   for (auto& bv : M) {
     bv_display(bv, stream);
@@ -35,12 +34,11 @@ hnco::bm_display(const bit_matrix_t& M, std::ostream& stream)
   }
 }
 
-bool
-hnco::bm_is_valid(const bit_matrix_t& M)
+bool hnco::bm_is_valid(const bit_matrix_t& M)
 {
   if (M.size() == 0)
     return false;
-  std::size_t num_columns = M[0].size();
+  size_t num_columns = M[0].size();
   if (num_columns == 0)
     return false;
   return std::all_of(M.begin(), M.end(), [num_columns](const bit_vector_t& row){ return row.size() == num_columns; });
@@ -89,8 +87,11 @@ bool hnco::bm_is_upper_triangular(const bit_matrix_t& M)
   return true;
 }
 
-void hnco::bm_resize(bit_matrix_t& M, std::size_t num_rows, std::size_t num_columns)
+void hnco::bm_resize(bit_matrix_t& M, int num_rows, int num_columns)
 {
+  assert(num_rows >= 0);
+  assert(num_columns >= 0);
+
   M.resize(num_rows);
   for (auto& row: M)
     row.resize(num_columns);
@@ -102,19 +103,23 @@ void hnco::bm_random(bit_matrix_t& M)
     bv_random(row);
 }
 
-void hnco::bm_swap_rows(bit_matrix_t& M, std::size_t i, std::size_t j)
+void hnco::bm_swap_rows(bit_matrix_t& M, int i, int j)
 {
-  assert(i < bm_num_rows(M));
-  assert(j < bm_num_rows(M));
+  assert(i >= 0);
+  assert(i < int(bm_num_rows(M)));
+  assert(j >= 0);
+  assert(j < int(bm_num_rows(M)));
 
   for (size_t k = 0; k < bm_num_columns(M); k++)
     std::swap(M[i][k], M[j][k]);
 }
 
-void hnco::bm_add_rows(bit_matrix_t& M, std::size_t i, std::size_t j)
+void hnco::bm_add_rows(bit_matrix_t& M, int i, int j)
 {
-  assert(i < bm_num_rows(M));
-  assert(j < bm_num_rows(M));
+  assert(i >= 0);
+  assert(i < int(bm_num_rows(M)));
+  assert(j >= 0);
+  assert(j < int(bm_num_rows(M)));
   assert(i != j);
 
   bv_add(M[i], M[j]);
@@ -150,7 +155,7 @@ void hnco::bm_row_echelon_form(bit_matrix_t& A)
   }
 }
 
-std::size_t hnco::bm_rank(const bit_matrix_t& A)
+size_t hnco::bm_rank(const bit_matrix_t& A)
 {
   size_t rank = 0;
   size_t rows = bm_num_rows(A);

@@ -57,10 +57,10 @@ namespace hnco {
   bool bm_is_upper_triangular(const bit_matrix_t& M);
 
   /// Resize a bit matrix
-  void bm_resize(bit_matrix_t& M, std::size_t num_rows, std::size_t num_columns);
+  void bm_resize(bit_matrix_t& M, int num_rows, int num_columns);
 
   /// Resize a bit matrix and make it a square matrix
-  inline void bm_resize(bit_matrix_t& M, std::size_t num_rows) { bm_resize(M, num_rows, num_rows); }
+  inline void bm_resize(bit_matrix_t& M, int num_rows) { bm_resize(M, num_rows, num_rows); }
 
   /// Clear bit matrix
   inline void bm_clear(bit_matrix_t& M) { std::for_each(M.begin(), M.end(), [](bit_vector_t& row){ bv_clear(row); }); }
@@ -75,13 +75,13 @@ namespace hnco {
   void bm_random(bit_matrix_t& M);
 
   /// Swap two rows
-  void bm_swap_rows(bit_matrix_t& M, std::size_t i, std::size_t j);
+  void bm_swap_rows(bit_matrix_t& M, int i, int j);
 
   /** Add two rows.
 
       Row i is added to row j.
   */
-  void bm_add_rows(bit_matrix_t& M, std::size_t i, std::size_t j);
+  void bm_add_rows(bit_matrix_t& M, int i, int j);
 
   /** Compute a row echelon form of a matrix.
 
