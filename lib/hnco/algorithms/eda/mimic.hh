@@ -97,7 +97,7 @@ namespace eda {
     void sample(bit_vector_t& bv);
 
     /// Compute conditional entropy
-    void compute_conditional_entropy(std::size_t index);
+    void compute_conditional_entropy(int index);
 
     /// Update model
     void update_model();
@@ -135,7 +135,7 @@ namespace eda {
       if (!(x > 0))
         throw hnco::exception::Error("Mimic::set_selection_size: selection size must be positive");
 
-      if (!(size_t(x) < _population.size()))
+      if (!(x < int(_population.size())))
         throw hnco::exception::Error("Mimic::set_selection_size: selection size must be lower than population size");
 
       _selection_size = x;

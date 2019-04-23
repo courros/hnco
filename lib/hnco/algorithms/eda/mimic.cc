@@ -55,13 +55,16 @@ Mimic::sample(bit_vector_t& bv)
   bv[_permutation[0]] = bit_random(_parameters[1][0]);
 
   // Other components
-  for (std::size_t i = 1; i < bv.size(); i++)
+  for (size_t i = 1; i < bv.size(); i++)
     bv[_permutation[i]] = bit_random(_parameters[bv[_permutation[i - 1]]][i]);
 }
 
 void
-Mimic::compute_conditional_entropy(std::size_t index)
+Mimic::compute_conditional_entropy(int index)
 {
+  assert(index >= 0);
+  assert(index < int(_entropies.size()));
+
   double entropy = 0;
   int total = 0;
 
@@ -96,7 +99,7 @@ Mimic::update_model()
 
   std::transform(_mean.begin(), _mean.end(), _entropies.begin(), [](double x){ return std::min(x, 1 - x); });
   assert(std::all_of(_entropies.begin(), _entropies.end(), [](double x){ return x >= 0; }));
-  std::size_t root = std::min_element(_entropies.begin(), _entropies.end()) - _entropies.begin();
+  size_t root = std::min_element(_entropies.begin(), _entropies.end()) - _entropies.begin();
   assert(root < _permutation.size());
 
   perm_identity(_permutation);
@@ -104,11 +107,11 @@ Mimic::update_model()
   _parameters[0][0] = _mean[root];
   _parameters[1][0] = _mean[root];
 
-  for (std::size_t i = 1; i < _permutation.size(); i++) {
-    std::size_t first = _permutation[i - 1];
+  for (size_t i = 1; i < _permutation.size(); i++) {
+    size_t first = _permutation[i - 1];
 
-    for (std::size_t j = i; j < _permutation.size(); j++) {
-      std::size_t second = _permutation[j];
+    for (size_t j = i; j < _permutation.size(); j++) {
+      size_t second = _permutation[j];
       assert(second != first);
 
       _table.fill({0, 0});
@@ -120,7 +123,7 @@ Mimic::update_model()
       compute_conditional_entropy(j);
     }
 
-    std::size_t child = std::min_element(_entropies.begin() + i, _entropies.end()) - _entropies.begin();
+    size_t child = std::min_element(_entropies.begin() + i, _entropies.end()) - _entropies.begin();
     assert(child < _permutation.size());
 
     if (child != i) {
