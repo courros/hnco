@@ -69,7 +69,7 @@ namespace function {
         \param generator Weight generator
     */
     template<class Generator>
-    void random(int n, Generator generator) {
+    void generate(int n, Generator generator) {
       assert(n > 0);
 
       _weights.resize(n);
@@ -86,7 +86,7 @@ namespace function {
     void random(int n) {
       assert(n > 0);
 
-      random(n, hnco::random::Random::normal);
+      generate(n, hnco::random::Random::normal);
     }
 
     ///@}

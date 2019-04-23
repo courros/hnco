@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
   for (int i = 0; i < num_runs; i++) {
     int bv_size = bv_size_dist(Random::generator);
     LinearFunction function;
-    function.random(bv_size, fn);
+    function.generate(bv_size, fn);
     BernoulliProcess neighborhood(bv_size);
     bit_vector_t bv(bv_size);
     bv_random(bv);

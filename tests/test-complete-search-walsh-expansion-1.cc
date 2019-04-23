@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     int bv_size = bv_size_dist(Random::generator);
 
     WalshExpansion1 function0;
-    function0.random(bv_size, fn);
+    function0.generate(bv_size, fn);
 
     Translation map;
     map.random(bv_size);

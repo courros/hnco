@@ -67,7 +67,7 @@ void generate_walsh_expansion_2(Options& options)
   switch (options.get_walsh2_generator()) {
 
   case 0:
-    function.random(options.get_bv_size(), generator, generator);
+    function.generate(options.get_bv_size(), generator, generator);
     break;
 
   case 1:
@@ -94,27 +94,27 @@ void generate_nearest_neighbor_ising_model_1(Options& options)
   switch (options.get_nn1_generator()) {
 
   case 0:
-    function.random(options.get_bv_size(),
-                    generator,
-                    generator);
+    function.generate(options.get_bv_size(),
+                      generator,
+                      generator);
     break;
 
   case 1:
-    function.random(options.get_bv_size(),
-                    generator,
-                    [&options](){ return options.get_field_constant(); });
+    function.generate(options.get_bv_size(),
+                      generator,
+                      [&options](){ return options.get_field_constant(); });
     break;
 
   case 2:
-    function.random(options.get_bv_size(),
-                    [&options](){ return options.get_coupling_constant(); },
-                    generator);
+    function.generate(options.get_bv_size(),
+                      [&options](){ return options.get_coupling_constant(); },
+                      generator);
     break;
 
   case 3:
-    function.random(options.get_bv_size(),
-                    [&options](){ return options.get_coupling_constant(); },
-                    [&options](){ return options.get_field_constant(); });
+    function.generate(options.get_bv_size(),
+                      [&options](){ return options.get_coupling_constant(); },
+                      [&options](){ return options.get_field_constant(); });
     break;
 
   default:
@@ -138,31 +138,31 @@ void generate_nearest_neighbor_ising_model_2(Options& options)
   switch (options.get_nn2_generator()) {
 
   case 0:
-    function.random(options.get_nn2_num_rows(),
-                    options.get_nn2_num_columns(),
-                    generator,
-                    generator);
+    function.generate(options.get_nn2_num_rows(),
+                      options.get_nn2_num_columns(),
+                      generator,
+                      generator);
     break;
 
   case 1:
-    function.random(options.get_nn2_num_rows(),
-                    options.get_nn2_num_columns(),
-                    generator,
-                    [&options](){ return options.get_field_constant(); });
+    function.generate(options.get_nn2_num_rows(),
+                      options.get_nn2_num_columns(),
+                      generator,
+                      [&options](){ return options.get_field_constant(); });
     break;
 
   case 2:
-    function.random(options.get_nn2_num_rows(),
-                    options.get_nn2_num_columns(),
-                    [&options](){ return options.get_coupling_constant(); },
-                    generator);
+    function.generate(options.get_nn2_num_rows(),
+                      options.get_nn2_num_columns(),
+                      [&options](){ return options.get_coupling_constant(); },
+                      generator);
     break;
 
   case 3:
-    function.random(options.get_nn2_num_rows(),
-                    options.get_nn2_num_columns(),
-                    [&options](){ return options.get_coupling_constant(); },
-                    [&options](){ return options.get_field_constant(); });
+    function.generate(options.get_nn2_num_rows(),
+                      options.get_nn2_num_columns(),
+                      [&options](){ return options.get_coupling_constant(); },
+                      [&options](){ return options.get_field_constant(); });
     break;
 
   default:
@@ -192,14 +192,14 @@ void generate_function(Options& options)
 
   case 1: {
     LinearFunction function;
-    function.random(options.get_bv_size(), generator);
+    function.generate(options.get_bv_size(), generator);
     save_function_to_boost_archive(function, "LinearFunction", options);
     break;
   }
 
   case 60: {
     NkLandscape function;
-    function.random(options.get_bv_size(), options.get_nk_k(), generator);
+    function.generate(options.get_bv_size(), options.get_nk_k(), generator);
     save_function_to_boost_archive(function, "NkLandscape", options);
     break;
   }
@@ -227,21 +227,21 @@ void generate_function(Options& options)
   case 90: {
     EqualProducts function;
     double upper_bound = options.get_ep_upper_bound();
-    function.random(options.get_bv_size(), [upper_bound]() { return upper_bound * Random::uniform(); });
+    function.generate(options.get_bv_size(), [upper_bound]() { return upper_bound * Random::uniform(); });
     save_function_to_boost_archive(function, "EqualProducts", options);
     break;
   }
 
   case 160: {
     WalshExpansion function;
-    function.random(options.get_bv_size(), options.get_walsh_num_features(), generator);
+    function.generate(options.get_bv_size(), options.get_walsh_num_features(), generator);
     save_function_to_boost_archive(function, "WalshExpansion", options);
     break;
   }
 
   case 161: {
     WalshExpansion1 function;
-    function.random(options.get_bv_size(), generator);
+    function.generate(options.get_bv_size(), generator);
     save_function_to_boost_archive(function, "WalshExpansion1", options);
     break;
   }

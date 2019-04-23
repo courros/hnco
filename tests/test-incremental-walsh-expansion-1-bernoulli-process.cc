@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     int bv_size = bv_size_dist(Random::generator);
 
     WalshExpansion1 function;
-    function.random(bv_size, fn);
+    function.generate(bv_size, fn);
 
     BernoulliProcess neighborhood(bv_size);
     bit_vector_t bv(bv_size);

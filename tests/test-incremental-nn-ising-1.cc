@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     int bv_size = dist_bv_size(Random::generator);
 
     NearestNeighborIsingModel1 function;
-    function.random(bv_size, generator, generator);
+    function.generate(bv_size, generator, generator);
     if (Random::bernoulli())
       function.set_periodic_boundary_conditions(true);
 

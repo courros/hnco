@@ -91,7 +91,7 @@ namespace function {
         \param generator Number generator
     */
     template<class Generator>
-    void random(int n, Generator generator) {
+    void generate(int n, Generator generator) {
       assert(n > 0);
 
       _numbers.resize(n);
@@ -109,7 +109,7 @@ namespace function {
     void random(int n) {
       assert(n > 0);
 
-      random(n, hnco::random::Random::uniform);
+      generate(n, hnco::random::Random::uniform);
     }
 
     ///@}

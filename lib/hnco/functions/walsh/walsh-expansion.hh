@@ -84,7 +84,7 @@ namespace function {
         \param generator Coefficient generator
     */
     template<class Generator>
-    void random(int n, int num_features, Generator generator) {
+    void generate(int n, int num_features, Generator generator) {
       assert(n > 0);
       assert(num_features);
 
@@ -114,7 +114,7 @@ namespace function {
       assert(n > 0);
       assert(num_features);
 
-      random(n, num_features, hnco::random::Random::normal);
+      generate(n, num_features, hnco::random::Random::normal);
     }
 
     ///@}

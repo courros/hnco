@@ -92,7 +92,7 @@ namespace function {
         \param quadratic_gen Generator for the quadratic part
     */
     template<class LinearGen, class QuadraticGen>
-    void random(int n, LinearGen linear_gen, QuadraticGen quadratic_gen) {
+    void generate(int n, LinearGen linear_gen, QuadraticGen quadratic_gen) {
       assert(n > 0);
 
       resize(n);
@@ -117,7 +117,7 @@ namespace function {
     void random(int n) {
       assert(n > 0);
 
-      random(n, hnco::random::Random::normal, hnco::random::Random::normal);
+      generate(n, hnco::random::Random::normal, hnco::random::Random::normal);
     }
 
     /** Generate one dimensional Ising model with long range

@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     int bv_size = num_rows * num_columns;
 
     NearestNeighborIsingModel2 function;
-    function.random(num_rows, num_columns, generator, generator);
+    function.generate(num_rows, num_columns, generator, generator);
     if (Random::bernoulli())
       function.set_periodic_boundary_conditions(true);
 

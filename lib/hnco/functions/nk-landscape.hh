@@ -89,7 +89,7 @@ namespace function {
         \param generator Generator for partial function values
     */
     template<class Generator>
-    void random(int n, int k, Generator generator) {
+    void generate(int n, int k, Generator generator) {
       assert(n > 0);
       assert(k > 0);
 
@@ -110,7 +110,7 @@ namespace function {
       assert(n > 0);
       assert(k > 0);
 
-      random(n, k, hnco::random::Random::normal);
+      generate(n, k, hnco::random::Random::normal);
     }
 
     ///@}

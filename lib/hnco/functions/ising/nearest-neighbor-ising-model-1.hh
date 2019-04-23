@@ -110,7 +110,7 @@ namespace function {
         \param field_gen External field generator
     */
     template<class CouplingGen, class FieldGen>
-    void random(int n, CouplingGen coupling_gen, FieldGen field_gen) {
+    void generate(int n, CouplingGen coupling_gen, FieldGen field_gen) {
       assert(n > 0);
 
       resize(n);
@@ -129,7 +129,7 @@ namespace function {
     void random(int n) {
       assert(n > 0);
 
-      random(n, hnco::random::Random::normal, hnco::random::Random::normal);
+      generate(n, hnco::random::Random::normal, hnco::random::Random::normal);
     }
 
     ///@}
