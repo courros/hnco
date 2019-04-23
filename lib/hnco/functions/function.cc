@@ -30,7 +30,7 @@ using namespace hnco;
 void
 Function::compute_walsh_transform(std::vector<Function::WalshTransformTerm>& terms)
 {
-  const size_t n = get_bv_size();
+  const int n = get_bv_size();
 
   std::vector<double> coefficients(1 << n, 0.0);
 
