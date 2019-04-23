@@ -22,7 +22,7 @@
 #define HNCO_PERMUTATION_H
 
 #include <vector>
-#include <algorithm>            // shuffle
+#include <algorithm>            // std::shuffle
 
 #include "random.hh"
 
@@ -34,7 +34,7 @@ namespace hnco {
   ///@{
 
   /// Permutation type
-  typedef std::vector<std::size_t> permutation_t;
+  typedef std::vector<int> permutation_t;
 
   /// Check that a vector represents a permutation
   bool perm_is_valid(const permutation_t& permutation);

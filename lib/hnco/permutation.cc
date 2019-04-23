@@ -18,8 +18,6 @@
 
 */
 
-#include <assert.h>
-
 #include "permutation.hh"
 
 
@@ -30,12 +28,13 @@ bool hnco::perm_is_valid(const permutation_t& permutation)
 {
   std::vector<bool> checked(permutation.size(), false);
   for (size_t i = 0; i < permutation.size(); i++) {
-    assert(permutation[i] >= 0);
-    assert(permutation[i] < permutation.size());
+    if (permutation[i] < 0)
+      return false;
+    if (permutation[i] >= int(permutation.size()))
+      return false;
     if (checked[permutation[i]])
       return false;
-    else
-      checked[permutation[i]] = true;
+    checked[permutation[i]] = true;
   }
   return true;
 }
