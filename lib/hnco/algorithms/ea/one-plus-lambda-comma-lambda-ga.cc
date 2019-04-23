@@ -50,9 +50,10 @@ OnePlusLambdaCommaLambdaGa::iterate()
   _offsprings.sort();
 
   double value = _offsprings.get_best_value(0);
-  size_t n = 0;
-  while (_offsprings.get_best_value(n) == value && n < _offsprings.size())
+  int n = 0;
+  while (_offsprings.get_best_value(n) == value && n < int(_offsprings.size()))
     n++;
+  assert(n > 0);
   std::uniform_int_distribution<int> choose_parent(0, n - 1);
   _parent = _offsprings.get_best_bv(choose_parent(Random::generator));
 
@@ -66,8 +67,9 @@ OnePlusLambdaCommaLambdaGa::iterate()
   value = _offsprings.get_best_value(0);
   if (value >= _solution.second) {
     n = 0;
-    while (_offsprings.get_best_value(n) == value && n < _offsprings.size())
+    while (_offsprings.get_best_value(n) == value && n < int(_offsprings.size()))
       n++;
+    assert(n > 0);
     choose_parent = std::uniform_int_distribution<int>(0, n - 1);
 
     _solution.first = _offsprings.get_best_bv(choose_parent(Random::generator));
