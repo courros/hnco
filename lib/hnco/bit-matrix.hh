@@ -42,10 +42,10 @@ namespace hnco {
   bool bm_is_valid(const bit_matrix_t& M);
 
   /// Number of rows
-  inline size_t bm_num_rows(const bit_matrix_t& M) { return M.size(); }
+  inline int bm_num_rows(const bit_matrix_t& M) { return M.size(); }
 
   /// Number of columns
-  inline size_t bm_num_columns(const bit_matrix_t& M) { return M[0].size(); }
+  inline int bm_num_columns(const bit_matrix_t& M) { return M[0].size(); }
 
   /// Check whether the matrix is a square matrix
   inline bool bm_is_square(const bit_matrix_t& M) { return bm_num_rows(M) == bm_num_columns(M); }
@@ -93,7 +93,7 @@ namespace hnco {
 
       \pre A must be in row echelon form.
   */
-  std::size_t bm_rank(const bit_matrix_t& A);
+  int bm_rank(const bit_matrix_t& A);
 
   /** Solve a linear system.
 
