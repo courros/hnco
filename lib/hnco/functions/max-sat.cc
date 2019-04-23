@@ -64,7 +64,7 @@ AbstractMaxSat::load(std::istream& stream)
   _num_variables = 0;
 
   bool spec = false;
-  size_t num_clauses = 0;
+  int num_clauses = 0;
 
   while (!stream.eof()) {
     std::string line;
@@ -99,12 +99,12 @@ AbstractMaxSat::load(std::istream& stream)
       iss >> n;
       if (iss.fail() || n <= 0)
         throw Error("AbstractMaxSat::load: Bad number of variables");
-      _num_variables = size_t(n);
+      _num_variables = n;
 
       iss >> n;
       if (iss.fail() || n <= 0)
         throw Error("AbstractMaxSat::load: Bad number of clauses");
-      num_clauses = size_t(n);
+      num_clauses = n;
 
       spec = true;
     }
@@ -128,7 +128,7 @@ AbstractMaxSat::load(std::istream& stream)
           break;
 
         int v = (n > 0) ? n : -n;
-        if (size_t(v) > _num_variables)
+        if (v > _num_variables)
           throw Error("AbstractMaxSat::load: Variable index overflow");
 
         clause.push_back(n);
@@ -142,7 +142,7 @@ AbstractMaxSat::load(std::istream& stream)
     }
   }
 
-  if (_expression.size() != num_clauses)
+  if (int(_expression.size()) != num_clauses)
     throw Error("AbstractMaxSat::load: Incoherent number of clauses");
 
   _expression.shrink_to_fit();
@@ -219,7 +219,7 @@ MaxSat::random(const bit_vector_t& solution, int k, int c)
 {
   assert(k > 0);
   assert(c > 0);
-  assert(size_t(k) <= solution.size());
+  assert(k <= int(solution.size()));
 
   _num_variables = solution.size();
   _expression = std::vector<std::vector<int> >(c, std::vector<int>(k));

@@ -47,7 +47,7 @@ namespace function {
     std::vector<std::vector<int> > _expression;
 
     /// Number of variables
-    size_t _num_variables;
+    int _num_variables;
 
   public:
 
