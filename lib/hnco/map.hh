@@ -278,7 +278,7 @@ namespace hnco {
 
       assert(bm_is_valid(_bm));
       assert(bv_is_valid(_bv));
-      assert(bm_num_rows(_bm) == _bv.size());
+      assert(bm_num_rows(_bm) == int(_bv.size()));
     }
 
     BOOST_SERIALIZATION_SPLIT_MEMBER()

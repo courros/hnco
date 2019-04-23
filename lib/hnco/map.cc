@@ -116,7 +116,7 @@ AffineMap::random(int rows, int cols, bool surjective)
   _bv.resize(rows);
   bv_random(_bv);
 
-  assert(bm_num_rows(_bm) == _bv.size());
+  assert(bm_num_rows(_bm) == int(_bv.size()));
 }
 
 
