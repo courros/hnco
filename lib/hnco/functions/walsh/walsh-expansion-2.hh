@@ -81,7 +81,7 @@ namespace function {
     WalshExpansion2() {}
 
 
-    /** @name Random instances
+    /** @name Instance generators
      */
     ///@{
 
@@ -108,7 +108,7 @@ namespace function {
 
     }
 
-    /** Random instance.
+    /** Instance generator.
 
         The weights are sampled from the normal distribution.
 

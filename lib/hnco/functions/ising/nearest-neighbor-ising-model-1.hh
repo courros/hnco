@@ -99,11 +99,11 @@ namespace function {
     NearestNeighborIsingModel1() {}
 
 
-    /** @name Random instances
+    /** @name Instance generators
      */
     ///@{
 
-    /** Random instance.
+    /** Instance generator.
 
         \param n Size of bit vectors
         \param coupling_gen Coupling generator

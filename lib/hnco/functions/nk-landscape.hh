@@ -78,11 +78,11 @@ namespace function {
     NkLandscape() {}
 
 
-    /** @name Random instances
+    /** @name Instance generators
      */
     ///@{
 
-    /** Random instance.
+    /** Instance generator.
 
         \param n Size of bit vector
         \param k Number of neighbors of each bit

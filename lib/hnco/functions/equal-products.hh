@@ -81,11 +81,11 @@ namespace function {
     EqualProducts() {}
 
 
-    /** @name Random instances
+    /** @name Instance generators
      */
     ///@{
 
-    /** Random instance.
+    /** Instance generator.
 
         \param n Size of bit vectors
         \param generator Number generator

@@ -105,11 +105,11 @@ namespace function {
     NearestNeighborIsingModel2() {}
 
 
-    /** @name Random instances
+    /** @name Instance generators
      */
     ///@{
 
-    /** Random instance.
+    /** Instance generator.
 
         \param num_rows Number of rows
         \param num_columns Number of columns

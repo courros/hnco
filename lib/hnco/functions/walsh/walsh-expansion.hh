@@ -73,11 +73,11 @@ namespace function {
     WalshExpansion() {}
 
 
-    /** @name Random instances
+    /** @name Instance generators
      */
     ///@{
 
-    /** Random instance.
+    /** Instance generator.
 
         \param n Size of bit vectors
         \param num_features Number of feature vectors
