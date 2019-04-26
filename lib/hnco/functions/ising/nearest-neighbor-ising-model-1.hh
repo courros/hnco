@@ -69,14 +69,27 @@ namespace function {
 
     friend class boost::serialization::access;
 
-    /// Serialize
+    /// Save
     template<class Archive>
-    void serialize(Archive& ar, const unsigned int version)
+    void save(Archive& ar, const unsigned int version) const
     {
       ar & _coupling;
       ar & _field;
       ar & _periodic_boundary_conditions;
     }
+
+    /// Load
+    template<class Archive>
+    void load(Archive& ar, const unsigned int version)
+    {
+      ar & _coupling;
+      ar & _field;
+      ar & _periodic_boundary_conditions;
+
+      _flipped_bits = bit_vector_t(get_bv_size(), 0);
+    }
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
 
     /// Coupling with nearest neighbor to the right
     std::vector<double> _coupling;
