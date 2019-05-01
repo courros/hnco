@@ -68,8 +68,8 @@ namespace neighborhood {
     /// candidate bit vector
     bit_vector_t _candidate;
 
-    /// Uniform index distribution
-    std::uniform_int_distribution<int> _uniform_index_dist;
+    /// Index distribution
+    std::uniform_int_distribution<int> _index_dist;
 
     /// Flipped bits
     sparse_bit_vector_t _flipped_bits;
@@ -86,7 +86,7 @@ namespace neighborhood {
     Neighborhood(int n):
       _origin(n),
       _candidate(n),
-      _uniform_index_dist(0, n - 1) {}
+      _index_dist(0, n - 1) {}
 
     /// Destructor
     virtual ~Neighborhood() {}
@@ -163,7 +163,7 @@ namespace neighborhood {
     /// Sample bits
     void sample_bits() {
       assert(_flipped_bits.size() == 1);
-      _flipped_bits[0] = _uniform_index_dist(random::Random::generator);
+      _flipped_bits[0] = _index_dist(random::Random::generator);
     }
 
   public:

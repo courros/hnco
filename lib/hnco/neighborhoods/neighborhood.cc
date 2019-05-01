@@ -55,7 +55,7 @@ MultiBitFlip::reservoir_sampling(int k)
   for (int i = 0; i < k; i++) {
     int index;
     do {
-      index = _uniform_index_dist(Random::generator);
+      index = _index_dist(Random::generator);
     } while (find(begin(_flipped_bits),
                   end(_flipped_bits), index) != _flipped_bits.end());
     _flipped_bits.push_back(index);
