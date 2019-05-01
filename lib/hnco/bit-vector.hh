@@ -46,7 +46,7 @@ namespace hnco {
 
       A single bit is represented by an unsigned char.
   */
-  typedef unsigned char bit_t;
+  typedef char bit_t;
 
   /// Flip bit
   inline bit_t bit_flip(bit_t b) { return b ? 0 : 1; }
