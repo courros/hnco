@@ -261,7 +261,7 @@ int main(int argc, char *argv[])
   }
 
   stop_watch.stop();
-  double total_time = stop_watch.get_total();
+  double total_time = stop_watch.get_total_time();
 
   //
   // Results

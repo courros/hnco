@@ -291,7 +291,7 @@ namespace function {
     const Event& get_last_improvement() { return _last_improvement; }
 
     /// Get evaluation time
-    double get_evaluation_time() { return _stop_watch.get_total(); }
+    double get_evaluation_time() { return _stop_watch.get_total_time(); }
 
     ///@}
 
