@@ -37,7 +37,7 @@ Umda::init()
 void
 Umda::iterate()
 {
-  for (size_t i = 0; i < _population.size(); i++)
+  for (int i = 0; i < _population.size(); i++)
     pv_sample(_pv, _population.get_bv(i));
 
   if (_functions.size() > 1)

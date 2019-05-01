@@ -94,7 +94,7 @@ BmPbil::iterate()
     _model.reset_mc();
 
   // Sample population
-  for (size_t i = 0; i < _population.size(); i++) {
+  for (int i = 0; i < _population.size(); i++) {
     if (_mc_reset_strategy == RESET_BIT_VECTOR)
       _model.reset_mc();
     sample(_population.get_bv(i));
@@ -127,7 +127,7 @@ BmPbil::iterate()
   } else {
     // Average all individuals
     _parameters_all.init();
-    for (size_t i = 0; i < _population.size(); i++)
+    for (int i = 0; i < _population.size(); i++)
       _parameters_all.add(_population.get_bv(i));
     _parameters_all.average(_population.size());
     _model.update(_parameters_best, _parameters_all, _learning_rate);

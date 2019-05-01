@@ -113,12 +113,12 @@ SpinHerding::sample_greedy(bit_vector_t& x)
   if (_randomize_bit_order)
     perm_random(_permutation);
 
-  for (size_t k = 0; k < _permutation.size(); k++) {
-    size_t i = _randomize_bit_order ? _permutation[k] : k;
+  for (int k = 0; k < int(_permutation.size()); k++) {
+    int i = _randomize_bit_order ? _permutation[k] : k;
 
     double acc = 0;
-    for (size_t l = 0; l < k; l++) {
-      size_t j = _randomize_bit_order ? _permutation[l] : l;
+    for (int l = 0; l < k; l++) {
+      int j = _randomize_bit_order ? _permutation[l] : l;
       if (j < i) {
         if (x[j])
           acc -= _delta._second[i][j];
@@ -141,12 +141,12 @@ SpinHerding::sample_greedy(bit_vector_t& x)
 
 
 double
-SpinHerding::q_derivative(const bit_vector_t& x, size_t i)
+SpinHerding::q_derivative(const bit_vector_t& x, int i)
 {
-  assert(i < _delta._first.size());
+  assert(i < int(_delta._first.size()));
 
   double result = _delta._first[i];
-  for (size_t j = 0; j < _delta._second.size(); j++) {
+  for (int j = 0; j < int(_delta._second.size()); j++) {
     if (j == i)
       continue;
     if (x[j])
@@ -159,9 +159,9 @@ SpinHerding::q_derivative(const bit_vector_t& x, size_t i)
 
 
 double
-SpinHerding::q_variation(const bit_vector_t& x, size_t i)
+SpinHerding::q_variation(const bit_vector_t& x, int i)
 {
-  assert(i < _delta._first.size());
+  assert(i < int(_delta._first.size()));
 
   if (x[i])
     return -q_derivative(x, i);   // transition 1 -> 0
@@ -175,7 +175,7 @@ SpinHerding::sample_rls(bit_vector_t& x)
 {
   bv_random(x);
 
-  size_t failures = 0;
+  int failures = 0;
   for (int t = 0; t < _num_seq_updates; t++) {
     int i = _choose_bit(Random::generator);
     if (q_variation(x, i) >= 0) {
@@ -195,16 +195,16 @@ SpinHerding::sample_dls(bit_vector_t& x)
   if (_randomize_bit_order)
     perm_random(_permutation);
 
-  size_t failures = 0;
+  int failures = 0;
   for (int t = 0; t < _num_seq_updates; t++) {
-    size_t index = t % x.size();
+    int index = t % int(x.size());
     int i = _randomize_bit_order ? _permutation[index] : index;
     if (q_variation(x, i) >= 0) {
       bv_flip(x, i);
       failures = 0;
     } else
       failures++;
-    if (failures == x.size())
+    if (failures == int(x.size()))
       break;
   }
 }

@@ -103,12 +103,12 @@ BitHerding::sample_minimize_norm(const BitMoment& target, bit_vector_t& x)
   if (_randomize_bit_order)
     perm_random(_permutation);
 
-  for (size_t k = 0; k < _delta.size(); k++) {
-    size_t i = _randomize_bit_order ? _permutation[k] : k;
+  for (int k = 0; k < int(_delta.size()); k++) {
+    int i = _randomize_bit_order ? _permutation[k] : k;
     double lambda = 1 - 2 * _delta._moment[i][i];
     double off_diagonal = 0;
-    for (size_t l = 0; l < k; l++) {
-      size_t j = _randomize_bit_order ? _permutation[l] : l;
+    for (int l = 0; l < k; l++) {
+      int j = _randomize_bit_order ? _permutation[l] : l;
       if (x[j])
 	off_diagonal += 1 - 2 * _delta._moment[i][j];
     }
@@ -116,8 +116,8 @@ BitHerding::sample_minimize_norm(const BitMoment& target, bit_vector_t& x)
     if (lambda < 0) {
       x[i] = 1;
       _count._moment[i][i]++;
-      for (size_t l = 0; l < k; l++) {
-	size_t j = _randomize_bit_order ? _permutation[l] : l;
+      for (int l = 0; l < k; l++) {
+	int j = _randomize_bit_order ? _permutation[l] : l;
         assert(j != i);
 	if (x[j]) {
           _count._moment[i][j]++;
@@ -140,12 +140,12 @@ BitHerding::sample_maximize_inner_product(const BitMoment& target, bit_vector_t&
   if (_randomize_bit_order)
     perm_random(_permutation);
 
-  for (size_t k = 0; k < _delta.size(); k++) {
-    size_t i = _randomize_bit_order ? _permutation[k] : k;
+  for (int k = 0; k < int(_delta.size()); k++) {
+    int i = _randomize_bit_order ? _permutation[k] : k;
     double lambda = _delta._moment[i][i];
     double off_diagonal = 0;
-    for (size_t l = 0; l < k; l++) {
-      size_t j = _randomize_bit_order ? _permutation[l] : l;
+    for (int l = 0; l < k; l++) {
+      int j = _randomize_bit_order ? _permutation[l] : l;
       if (x[j])
 	off_diagonal += _delta._moment[i][j];
     }
@@ -153,8 +153,8 @@ BitHerding::sample_maximize_inner_product(const BitMoment& target, bit_vector_t&
     if (lambda > 0) {
       x[i] = 1;
       _count._moment[i][i]++;
-      for (size_t l = 0; l < k; l++) {
-	size_t j = _randomize_bit_order ? _permutation[l] : l;
+      for (int l = 0; l < k; l++) {
+	int j = _randomize_bit_order ? _permutation[l] : l;
         assert(j != i);
 	if (x[j]) {
           _count._moment[i][j]++;

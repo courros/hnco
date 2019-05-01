@@ -108,10 +108,10 @@ Mimic::update_model()
   _parameters[1][0] = _mean[root];
 
   for (size_t i = 1; i < _permutation.size(); i++) {
-    size_t first = _permutation[i - 1];
+    int first = _permutation[i - 1];
 
     for (size_t j = i; j < _permutation.size(); j++) {
-      size_t second = _permutation[j];
+      int second = _permutation[j];
       assert(second != first);
 
       _table.fill({0, 0});
@@ -142,7 +142,7 @@ Mimic::update_model()
 void
 Mimic::iterate()
 {
-  for (size_t i = 0; i < _population.size(); i++)
+  for (int i = 0; i < _population.size(); i++)
     sample(_population.get_bv(i));
 
   if (_functions.size() > 1)

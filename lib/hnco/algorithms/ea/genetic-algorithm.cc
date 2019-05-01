@@ -49,7 +49,7 @@ GeneticAlgorithm::init()
 void
 GeneticAlgorithm::iterate()
 {
-  for (size_t i = 0; i < _offsprings.size(); i++) {
+  for (int i = 0; i < _offsprings.size(); i++) {
     bit_vector_t& offspring = _offsprings.get_bv(i);
 
     // Crossover

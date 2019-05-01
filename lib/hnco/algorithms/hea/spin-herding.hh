@@ -78,13 +78,13 @@ namespace hea {
     void sample_greedy(bit_vector_t& x);
 
     /// Derivative of q
-    double q_derivative(const bit_vector_t& x, size_t i);
+    double q_derivative(const bit_vector_t& x, int i);
 
     /** Variation of q.
 
         Up to a positive multiplicative constant. Only the sign of
         the variation matters to local search. */
-    double q_variation(const bit_vector_t& x, size_t i);
+    double q_variation(const bit_vector_t& x, int i);
 
     /// Sample by means of random local search
     void sample_rls(bit_vector_t& x);

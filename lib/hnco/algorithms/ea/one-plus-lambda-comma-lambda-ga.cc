@@ -42,7 +42,7 @@ OnePlusLambdaCommaLambdaGa::iterate()
 {
   // Mutation
   _mutation.set_radius(_radius_dist(Random::generator));
-  for (size_t i = 0; i < _offsprings.size(); i++) {
+  for (int i = 0; i < _offsprings.size(); i++) {
     bit_vector_t& offspring = _offsprings.get_bv(i);
     _mutation.map(_solution.first, offspring);
   }
@@ -58,7 +58,7 @@ OnePlusLambdaCommaLambdaGa::iterate()
   _parent = _offsprings.get_best_bv(choose_parent(Random::generator));
 
   // Crossover
-  for (size_t i = 0; i < _offsprings.size(); i++)
+  for (int i = 0; i < _offsprings.size(); i++)
     _crossover.breed(_solution.first, _parent, _offsprings.get_bv(i));
   _offsprings.eval(_function);
   _offsprings.sort();
