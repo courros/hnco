@@ -24,6 +24,8 @@ Library:
 - Population::size now returns an int
 - Algorithm::get_bv_size now returns an int
 - Function::get_bv_size now returns an int
+- StopWatch: renamed member function get_total -> get_total_time
+- StopWatch: renamed member _total -> _total_time
 
 Tests:
 - Fixed test-walsh-transform
@@ -49,6 +51,7 @@ hnco:
 - main: functions are uniformly created with make_function
 - main: only one function is decorated with make_function_controller
 - Fixed: filter out the coefficient of the feature zero
+- Use StopWatch
 
 ffgen:
 - LinearFunction, NkLandscape, WalshExpansion, WalshExpansion1,
