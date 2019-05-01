@@ -81,7 +81,7 @@
         {
             "optchar": "p",
             "type": "string",
-            "value": "nopath",
+            "value": "map.txt",
             "description": "Path (relative or absolute) of a map file"
         }
 

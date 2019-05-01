@@ -542,7 +542,7 @@
         {
             "optchar": "p",
             "type": "string",
-            "value": "nopath",
+            "value": "function.txt",
             "description": "Path of a function file",
             "section": "fn"
         },
@@ -712,7 +712,7 @@
         "map_path":
         {
             "type": "string",
-            "value": "nopath",
+            "value": "map.txt",
             "description": "Path of a map file",
             "section": "map"
         },

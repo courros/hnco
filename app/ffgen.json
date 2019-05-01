@@ -104,7 +104,7 @@
         {
             "optchar": "p",
             "type": "string",
-            "value": "nopath",
+            "value": "function.txt",
             "description": "Path (relative or absolute) of a function file",
             "section": "gen"
         },

@@ -59,7 +59,7 @@ Options::Options(int argc, char *argv[]):
   _opt_map(false),
   _map_input_size(100),
   _opt_map_input_size(false),
-  _map_path("nopath"),
+  _map_path("map.txt"),
   _opt_map_path(false),
   _mutation_probability(1),
   _opt_mutation_probability(false),
@@ -73,7 +73,7 @@ Options::Options(int argc, char *argv[]):
   _opt_num_iterations(false),
   _num_threads(1),
   _opt_num_threads(false),
-  _path("nopath"),
+  _path("function.txt"),
   _opt_path(false),
   _pn_mutation_probability(1),
   _opt_pn_mutation_probability(false),
@@ -835,7 +835,7 @@ void Options::print_help(ostream& stream) const
   stream << "            171: Nearest neighbor Ising model in one dimension" << endl;
   stream << "            172: Nearest neighbor Ising model in two dimensions" << endl;
   stream << "            1000: Plugin" << endl;
-  stream << "  -p, --path (type string, default to \"nopath\")" << endl;
+  stream << "  -p, --path (type string, default to \"function.txt\")" << endl;
   stream << "          Path of a function file" << endl;
   stream << endl;
   stream << "Function Decorators" << endl;
@@ -1004,7 +1004,7 @@ void Options::print_help_map(ostream& stream) const
   stream << "            5: Affine" << endl;
   stream << "      --map-input-size (type int, default to 100)" << endl;
   stream << "          Input size of linear and affine maps" << endl;
-  stream << "      --map-path (type string, default to \"nopath\")" << endl;
+  stream << "      --map-path (type string, default to \"map.txt\")" << endl;
   stream << "          Path of a map file" << endl;
   stream << "      --map-random" << endl;
   stream << "          Sample a random map" << endl;

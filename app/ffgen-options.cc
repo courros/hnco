@@ -33,7 +33,7 @@ Options::Options(int argc, char *argv[]):
   _opt_nn2_num_columns(false),
   _nn2_num_rows(10),
   _opt_nn2_num_rows(false),
-  _path("nopath"),
+  _path("function.txt"),
   _opt_path(false),
   _seed(0),
   _opt_seed(false),
@@ -219,7 +219,7 @@ void Options::print_help(ostream& stream) const
   stream << "            162: Walsh expansion of degree 2" << endl;
   stream << "            171: Nearest neighbor Ising model in one dimension" << endl;
   stream << "            172: Nearest neighbor Ising model in two dimensions" << endl;
-  stream << "  -p, --path (type string, default to \"nopath\")" << endl;
+  stream << "  -p, --path (type string, default to \"function.txt\")" << endl;
   stream << "          Path (relative or absolute) of a function file" << endl;
   stream << "      --seed (type int, default to 0)" << endl;
   stream << "          Seed for the random number generator" << endl;

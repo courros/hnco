@@ -15,7 +15,7 @@ Options::Options(int argc, char *argv[]):
   _opt_map(false),
   _output_size(100),
   _opt_output_size(false),
-  _path("nopath"),
+  _path("map.txt"),
   _opt_path(false),
   _seed(0),
   _opt_seed(false),
@@ -106,7 +106,7 @@ void Options::print_help(ostream& stream) const
   stream << "            5: Affine" << endl;
   stream << "  -y, --output-size (type int, default to 100)" << endl;
   stream << "          Output bit vector size" << endl;
-  stream << "  -p, --path (type string, default to \"nopath\")" << endl;
+  stream << "  -p, --path (type string, default to \"map.txt\")" << endl;
   stream << "          Path (relative or absolute) of a map file" << endl;
   stream << "      --seed (type int, default to 0)" << endl;
   stream << "          Seed for the random number generator" << endl;
