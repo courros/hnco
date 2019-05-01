@@ -31,7 +31,7 @@ namespace hnco
   class StopWatch
   {
     /// Total time
-    double _total = 0;
+    double _total_time = 0;
 
     /// Start time
     clock_t _start;
@@ -45,11 +45,11 @@ namespace hnco
 
     /// Stop
     void stop() {
-      _total += double(clock() - _start) / CLOCKS_PER_SEC;
+      _total_time += double(clock() - _start) / CLOCKS_PER_SEC;
     }
 
-    /// Get total
-    double get_total() { return _total; }
+    /// Get total time
+    double get_total_time() { return _total_time; }
 
   };
 
