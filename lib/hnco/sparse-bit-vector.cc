@@ -31,7 +31,8 @@ hnco::bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv)
 {
   for (auto index : sbv) {
     assert(index < int(x.size()));
-    x[index] = bit_flip(x[index]);
+    assert(index >= 0);
+    bv_flip(x, index);
   }
 }
 

@@ -92,7 +92,7 @@ hnco::bv_flip(bit_vector_t& x, const bit_vector_t& mask)
 
   for (std::size_t i = 0; i < x.size(); i++)
     if (mask[i])
-      x[i] = bit_flip(x[i]);
+      bv_flip(x, i);
 }
 
 void
