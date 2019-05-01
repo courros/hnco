@@ -73,10 +73,10 @@ Population::eval(const std::vector<function::Function *>& fns)
 void
 Population::plus_selection(const Population& offsprings)
 {
-  for (size_t
+  for (int
          i = 0,
          j = 0;
-       i < _bvs.size() && j < offsprings.size(); i++) {
+       i < int(_bvs.size()) && j < offsprings.size(); i++) {
     if (_compare_index_value(_lookup[i], offsprings._lookup[j]))
       continue;
     else {
@@ -92,10 +92,10 @@ Population::plus_selection(const Population& offsprings)
 void
 Population::plus_selection(Population& offsprings)
 {
-  for (size_t
+  for (int
          i = 0,
          j = 0;
-       i < _bvs.size() && j < offsprings.size(); i++) {
+       i < int(_bvs.size()) && j < offsprings.size(); i++) {
     if (_compare_index_value(_lookup[i], offsprings._lookup[j]))
       continue;
     else {
@@ -111,7 +111,7 @@ Population::plus_selection(Population& offsprings)
 void
 Population::comma_selection(const Population& offsprings)
 {
-  assert(_bvs.size() <= offsprings.size());
+  assert(int(_bvs.size()) <= offsprings.size());
 
   for (size_t i = 0; i < _bvs.size(); i++) {
     _lookup[i].first = i;
@@ -125,7 +125,7 @@ Population::comma_selection(const Population& offsprings)
 void
 Population::comma_selection(Population& offsprings)
 {
-  assert(_bvs.size() <= offsprings.size());
+  assert(int(_bvs.size()) <= offsprings.size());
 
   for (size_t i = 0; i < _bvs.size(); i++) {
     _lookup[i].first = i;

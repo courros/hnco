@@ -38,7 +38,7 @@ namespace algorithm {
   public:
 
     /// Index-value type
-    typedef std::pair<size_t, double> index_value_t;
+    typedef std::pair<int, double> index_value_t;
 
   protected:
 
@@ -47,9 +47,9 @@ namespace algorithm {
 
     /** Lookup table.
 
-        Let p be of type std::pair<size_t, double>. Then p.first is
-        the bv index in the unsorted population whereas p.second is
-        the bv value.
+        Let p be of type std::pair<int, double>. Then p.first is the
+        bv index in the unsorted population whereas p.second is the bv
+        value.
     */
     std::vector<index_value_t> _lookup;
 
@@ -65,7 +65,7 @@ namespace algorithm {
       _lookup(population_size) {}
 
     /// Size
-    std::size_t size() const { return _bvs.size(); }
+    int size() const { return _bvs.size(); }
 
     /// Initialize the population with random bit vectors
     void random();
