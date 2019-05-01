@@ -23,11 +23,11 @@
 
 #include <algorithm>            // sort
 #include <chrono>               // system_clock::now
-#include <ctime>                // clock
 #include <iostream>
 
 #include "hnco/exception.hh"
 #include "hnco/functions/all.hh"
+#include "hnco/stop-watch.hh"   // StopWatch
 #include "hnco/random.hh"
 
 #include "hnco-options.hh"
@@ -234,7 +234,8 @@ int main(int argc, char *argv[])
   bool maximum_reached = false;
   bool target_reached = false;
 
-  clock_t start_point = clock();
+  StopWatch stop_watch;
+  stop_watch.start();
 
   try {
     algorithm->maximize();
@@ -259,7 +260,8 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  double total_time = double(clock() - start_point) / CLOCKS_PER_SEC;
+  stop_watch.stop();
+  double total_time = stop_watch.get_total();
 
   //
   // Results
