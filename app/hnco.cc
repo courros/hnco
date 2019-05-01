@@ -81,14 +81,23 @@ int main(int argc, char *argv[])
   std::vector<function::Function *> fns(num_threads);
   for (int i = 0; i < num_threads; i++) {
     Random::generator.seed(options.get_seed());
-    try { fns[i] = function_factory.make_function(options); }
+    try {
+      fns[i] = function_factory.make_function(options);
+    }
     catch (const Error& e) {
       std::cerr << "Error: " << e.what() << std::endl;
       return 1;
     }
   }
 
-  fns[0] = function_factory.make_function_controller(fns[0], options);
+  try {
+    fns[0] = function_factory.make_function_controller(fns[0], options);
+  }
+  catch (const Error& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+    return 1;
+  }
+
   Function *fn = fns[0];
   assert(options.get_bv_size() == int(fn->get_bv_size()));
 
