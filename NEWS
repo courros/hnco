@@ -19,6 +19,11 @@ Library:
   with generic generators and member function random with default
   generators (normal or uniform)
 - WalshExpansion2: added member function generate_ising1_long_range
+- Changed type permutation_t: std::vector<size_t> -> std::vector<int>
+- Changed type Population::index_value_t: std::pair<size_t, double> -> std::pair<int, double>
+- Population::size now returns an int
+- Algorithm::get_bv_size now returns an int
+- Function::get_bv_size now returns an int
 
 Tests:
 - Fixed test-walsh-transform
