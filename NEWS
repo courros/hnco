@@ -1,4 +1,11 @@
-* Version 0.12 (unreleased)
+* Version 0.12 (2019-05-08)
+
+Highlight:
+- New functions: NearestNeighborIsingModel1 and
+  NearestNeighborIsingModel2
+- 11 new tests
+
+Details follow.
 
 Library:
 - Added class LogContext
@@ -7,7 +14,7 @@ Library:
 - LinearFunction: added member function incremental_eval
 - WalshExpansion1: added member function get_maximum
 - WalshExpansion1: added member function incremental_eval
-- PvAlgorithm: replace bitset with individual log flags
+- PvAlgorithm: replaced bitset with individual log flags
 - Optimized bv_random
 - NkLandscape: added member function display
 - Added NearestNeighborIsingModel1
@@ -16,16 +23,16 @@ Library:
 - LinearFunction, NkLandscape, EqualProducts, WalshExpansion,
   WalshExpansion1, WalshExpansion2, NearestNeighborIsingModel1,
   NearestNeighborIsingModel2: added template member function generate
-  with generic generators and member function random with default
-  generators (normal or uniform)
+  and member function random
 - WalshExpansion2: added member function generate_ising1_long_range
 - Changed type permutation_t: std::vector<size_t> -> std::vector<int>
 - Changed type Population::index_value_t: std::pair<size_t, double> -> std::pair<int, double>
 - Population::size now returns an int
 - Algorithm::get_bv_size now returns an int
 - Function::get_bv_size now returns an int
-- StopWatch: renamed member function get_total -> get_total_time
+- The library now uses int almost everywhere.
 - StopWatch: renamed member _total -> _total_time
+- StopWatch: renamed member function get_total -> get_total_time
 
 Tests:
 - Fixed test-walsh-transform
@@ -61,7 +68,7 @@ ffgen:
 - EqualProducts: use template member function generate with uniform
   distribution
 - Added function generate_function
-- Catch Error exceptions
+- Catch exceptions Error
 - Added NearestNeighborIsingModel1 with number 171
 - Renamed flag ms_known_maximum -> ms_planted_solution
 - Added template function save_function_to_boost_archive
