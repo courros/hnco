@@ -28,7 +28,6 @@ check_PROGRAMS = \
 	test-bv-random \
 	test-bv-to-size-type \
 	test-complete-search-deceptive-jump \
-	test-complete-search-factorization \
 	test-complete-search-four-peaks \
 	test-complete-search-hiff \
 	test-complete-search-jump \
@@ -161,6 +160,8 @@ DISTCLEANFILES = \
 	test-serialize-map-composition.txt \
 	test-serialize-max-sat.txt \
 	test-serialize-nk-landscape.txt \
+	test-serialize-nn-ising-1.txt \
+	test-serialize-nn-ising-2.txt \
 	test-serialize-permutation.txt \
 	test-serialize-translation.txt \
 	test-serialize-walsh-expansion-1.txt \

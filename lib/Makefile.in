@@ -278,7 +278,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
 	hnco/sparse-bit-matrix.cc hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.cc hnco/sparse-bit-vector.hh \
-	hnco/util.hh hnco/functions/factorization.cc \
+	hnco/stop-watch.hh hnco/util.hh \
+	hnco/functions/factorization.cc \
 	hnco/functions/factorization.hh hnco/functions/plugin.cc \
 	hnco/functions/plugin.hh
 am__dirstamp = $(am__leading_dot)dirstamp
@@ -537,7 +538,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/map.hh hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
-	hnco/sparse-bit-vector.hh hnco/util.hh \
+	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
 	hnco/functions/factorization.hh hnco/functions/plugin.hh
 HEADERS = $(nobase_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
@@ -806,7 +807,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
 	hnco/sparse-bit-matrix.cc hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.cc hnco/sparse-bit-vector.hh \
-	hnco/util.hh $(am__append_1) $(am__append_2)
+	hnco/stop-watch.hh hnco/util.hh $(am__append_1) \
+	$(am__append_2)
 nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	fast-efficient-p3/Evaluation.h fast-efficient-p3/HBOA.h \
 	fast-efficient-p3/HillClimb.h fast-efficient-p3/LTGA.h \
@@ -868,8 +870,8 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/map.hh hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
-	hnco/sparse-bit-vector.hh hnco/util.hh $(am__append_3) \
-	$(am__append_4)
+	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
+	$(am__append_3) $(am__append_4)
 EXTRA_DIST = fast-efficient-p3/LICENSE.txt
 all: all-am
 

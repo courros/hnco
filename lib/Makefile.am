@@ -188,6 +188,7 @@ libhnco_la_SOURCES = \
 	hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.cc \
 	hnco/sparse-bit-vector.hh \
+	hnco/stop-watch.hh \
 	hnco/util.hh
 
 if ENABLE_FACTORIZATION
@@ -295,6 +296,7 @@ nobase_include_HEADERS = \
 	hnco/random.hh \
 	hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.hh \
+	hnco/stop-watch.hh \
 	hnco/util.hh
 
 if ENABLE_FACTORIZATION
