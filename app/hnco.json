@@ -764,32 +764,32 @@
 
                 {
                     "value": 300,
-                    "description": "(1+1) evolutionary algorithm"
+                    "description": "(1+1) evolutionary algorithm (EA)"
                 },
 
                 {
                     "value": 310,
-                    "description": "(mu+lambda) evolutionary algorithm"
+                    "description": "(mu+lambda) evolutionary algorithm (EA)"
                 },
 
                 {
                     "value": 320,
-                    "description": "(mu,lambda) evolutionary algorithm"
+                    "description": "(mu,lambda) evolutionary algorithm (EA)"
                 },
 
                 {
                     "value": 400,
-                    "description": "Genetic algorithm"
+                    "description": "Genetic algorithm (GA)"
                 },
 
                 {
                     "value": 450,
-                    "description": "(1+(lambda,lambda)) genetic algorithm"
+                    "description": "(1+(lambda,lambda)) genetic algorithm (GA)"
                 },
 
                 {
                     "value": 500,
-                    "description": "Population-based incremental learning"
+                    "description": "Population-based incremental learning (PBIL)"
                 },
 
                 {
@@ -799,27 +799,27 @@
 
                 {
                     "value": 600,
-                    "description": "Univariate marginal distribution algorithm"
+                    "description": "Univariate marginal distribution algorithm (UMDA)"
                 },
 
                 {
                     "value": 700,
-                    "description": "Compact genetic algorithm"
+                    "description": "Compact genetic algorithm (cGA)"
                 },
 
                 {
                     "value": 800,
-                    "description": "Max-min ant system"
+                    "description": "Max-min ant system (MMAS)"
                 },
 
                 {
                     "value": 900,
-                    "description": "Herding evolutionary algorithm, herding with bit features"
+                    "description": "Herding evolutionary algorithm, herding with bit features (HEA)"
                 },
 
                 {
                     "value": 901,
-                    "description": "Herding evolutionary algorithm, herding with spin features"
+                    "description": "Herding evolutionary algorithm, herding with spin features (HEA)"
                 },
 
                 {
@@ -834,17 +834,17 @@
 
                 {
                     "value": 1110,
-                    "description": "Hierarchical Bayesian Optimization Algorithm"
+                    "description": "Hierarchical Bayesian optimization algorithm (hBOA)"
                 },
 
                 {
                     "value": 1200,
-                    "description": "Linkage Tree Genetic Algorithm"
+                    "description": "Linkage tree genetic algorithm (LTGA)"
                 },
 
                 {
                     "value": 1300,
-                    "description": "Parameter-less Population Pyramid"
+                    "description": "Parameter-less population pyramid (P3)"
                 }
 
             ]
