@@ -111,7 +111,6 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-bm-solve$(EXEEXT) test-bm-swap-rows$(EXEEXT) \
 	test-bv-random$(EXEEXT) test-bv-to-size-type$(EXEEXT) \
 	test-complete-search-deceptive-jump$(EXEEXT) \
-	test-complete-search-factorization$(EXEEXT) \
 	test-complete-search-four-peaks$(EXEEXT) \
 	test-complete-search-hiff$(EXEEXT) \
 	test-complete-search-jump$(EXEEXT) \
@@ -1155,6 +1154,8 @@ DISTCLEANFILES = \
 	test-serialize-map-composition.txt \
 	test-serialize-max-sat.txt \
 	test-serialize-nk-landscape.txt \
+	test-serialize-nn-ising-1.txt \
+	test-serialize-nn-ising-2.txt \
 	test-serialize-permutation.txt \
 	test-serialize-translation.txt \
 	test-serialize-walsh-expansion-1.txt \
@@ -1822,13 +1823,6 @@ test-complete-search-deceptive-jump.log: test-complete-search-deceptive-jump$(EX
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-test-complete-search-factorization.log: test-complete-search-factorization$(EXEEXT)
-	@p='test-complete-search-factorization$(EXEEXT)'; \
-	b='test-complete-search-factorization'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-complete-search-four-peaks.log: test-complete-search-four-peaks$(EXEEXT)
 	@p='test-complete-search-four-peaks$(EXEEXT)'; \
 	b='test-complete-search-four-peaks'; \
@@ -2168,6 +2162,13 @@ test-translation.log: test-translation$(EXEEXT)
 test-walsh-transform.log: test-walsh-transform$(EXEEXT)
 	@p='test-walsh-transform$(EXEEXT)'; \
 	b='test-walsh-transform'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-complete-search-factorization.log: test-complete-search-factorization$(EXEEXT)
+	@p='test-complete-search-factorization$(EXEEXT)'; \
+	b='test-complete-search-factorization'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
