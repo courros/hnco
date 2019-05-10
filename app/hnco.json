@@ -207,6 +207,12 @@
             "section": "dec"
         },
 
+        "real_function":
+        {
+            "description": "Compose the function by a real function",
+            "section": "dec"
+        },
+
 
         "prior_noise":
         {
@@ -603,6 +609,14 @@
             "type": "double",
             "value": 100.0,
             "description": "Target",
+            "section": "dec"
+        },
+
+        "expression":
+        {
+            "type": "string",
+            "value": "x",
+            "description": "Expression of the variable x",
             "section": "dec"
         },
 

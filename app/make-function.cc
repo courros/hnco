@@ -395,6 +395,11 @@ FunctionFactory::make_function_modifier(Function *function, Options& options)
     function = new PriorNoise(function, nh);
   }
 
+  // Expression modifier
+  if (options.with_real_function()) {
+    function = new ExpressionModifier(function, options.get_expression());
+  }
+
   // Negation
   if (options.with_negation()) {
     function = new Negation(function);

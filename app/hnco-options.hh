@@ -49,6 +49,10 @@ class Options {
   int _ea_mu;
   bool _opt_ea_mu;
 
+  /// Expression of the variable x
+  std::string _expression;
+  bool _opt_expression;
+
   /// Name of the function in the dynamic library
   std::string _fn_name;
   bool _opt_fn_name;
@@ -313,6 +317,9 @@ class Options {
   /// Log probability vector
   bool _pv_log_pv;
 
+  /// Compose the function by a real function
+  bool _real_function;
+
   /// Restart any algorithm an indefinite number of times
   bool _restart;
 
@@ -461,6 +468,18 @@ public:
 
   /// Get set-flag for ea_mu
   bool set_ea_mu() const { return _opt_ea_mu; }
+
+  /// Get expression
+  std::string get_expression() const { return _expression; }
+
+  /// Set expression
+  void set_expression(std::string x) {
+    _expression = x;
+    _opt_expression = true;
+  }
+
+  /// Get set-flag for expression
+  bool set_expression() const { return _opt_expression; }
 
   /// Get fn_name
   std::string get_fn_name() const { return _fn_name; }
@@ -1145,6 +1164,12 @@ public:
 
   /// Set pv_log_pv
   void set_pv_log_pv() { _pv_log_pv = true; }
+ 
+  /// Get real_function
+  bool with_real_function() const { return _real_function; }
+
+  /// Set real_function
+  void set_real_function() { _real_function = true; }
  
   /// Get restart
   bool with_restart() const { return _restart; }

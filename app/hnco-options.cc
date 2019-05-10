@@ -27,6 +27,8 @@ Options::Options(int argc, char *argv[]):
   _opt_ea_lambda(false),
   _ea_mu(10),
   _opt_ea_mu(false),
+  _expression("x"),
+  _opt_expression(false),
   _fn_name("noname"),
   _opt_fn_name(false),
   _fn_num_traps(10),
@@ -141,6 +143,7 @@ Options::Options(int argc, char *argv[]):
   _prior_noise(false),
   _pv_log_entropy(false),
   _pv_log_pv(false),
+  _real_function(false),
   _restart(false),
   _rls_strict(false),
   _rw_log_value(false),
@@ -164,6 +167,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_BV_SIZE,
     OPTION_EA_LAMBDA,
     OPTION_EA_MU,
+    OPTION_EXPRESSION,
     OPTION_FN_NAME,
     OPTION_FN_NUM_TRAPS,
     OPTION_FN_PREFIX_LENGTH,
@@ -239,6 +243,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_PRIOR_NOISE,
     OPTION_PV_LOG_ENTROPY,
     OPTION_PV_LOG_PV,
+    OPTION_REAL_FUNCTION,
     OPTION_RESTART,
     OPTION_RLS_STRICT,
     OPTION_RW_LOG_VALUE,
@@ -256,6 +261,7 @@ Options::Options(int argc, char *argv[]):
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
     {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
+    {"expression", required_argument, 0, OPTION_EXPRESSION},
     {"fn-name", required_argument, 0, OPTION_FN_NAME},
     {"fn-num-traps", required_argument, 0, OPTION_FN_NUM_TRAPS},
     {"fn-prefix-length", required_argument, 0, OPTION_FN_PREFIX_LENGTH},
@@ -331,6 +337,7 @@ Options::Options(int argc, char *argv[]):
     {"prior-noise", no_argument, 0, OPTION_PRIOR_NOISE},
     {"pv-log-entropy", no_argument, 0, OPTION_PV_LOG_ENTROPY},
     {"pv-log-pv", no_argument, 0, OPTION_PV_LOG_PV},
+    {"real-function", no_argument, 0, OPTION_REAL_FUNCTION},
     {"restart", no_argument, 0, OPTION_RESTART},
     {"rls-strict", no_argument, 0, OPTION_RLS_STRICT},
     {"rw-log-value", no_argument, 0, OPTION_RW_LOG_VALUE},
@@ -388,6 +395,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_EA_MU:
       set_ea_mu(atoi(optarg));
+      break;
+
+    case OPTION_EXPRESSION:
+      set_expression(string(optarg));
       break;
 
     case OPTION_FN_NAME:
@@ -700,6 +711,10 @@ Options::Options(int argc, char *argv[]):
       _pv_log_pv = true;
       break;
 
+    case OPTION_REAL_FUNCTION:
+      _real_function = true;
+      break;
+
     case OPTION_RESTART:
       _restart = true;
       break;
@@ -847,12 +862,16 @@ void Options::print_help(ostream& stream) const
   stream << "          Cache function evaluations" << endl;
   stream << "      --cache-budget" << endl;
   stream << "          Set cache on budget" << endl;
+  stream << "      --expression (type string, default to \"x\")" << endl;
+  stream << "          Expression of the variable x" << endl;
   stream << "      --log-improvement" << endl;
   stream << "          Log improvement" << endl;
   stream << "      --negation" << endl;
   stream << "          Negation (hence minimization) of the function" << endl;
   stream << "      --noise-stddev (type double, default to 1)" << endl;
   stream << "          Noise standard deviation" << endl;
+  stream << "      --real-function" << endl;
+  stream << "          Compose the function by a real function" << endl;
   stream << "      --stop-on-maximum" << endl;
   stream << "          Stop on maximum" << endl;
   stream << "      --stop-on-target" << endl;
@@ -1094,6 +1113,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# bv_size = " << options._bv_size << endl;
   stream << "# ea_lambda = " << options._ea_lambda << endl;
   stream << "# ea_mu = " << options._ea_mu << endl;
+  stream << "# expression = " << options._expression << endl;
   stream << "# fn_name = " << options._fn_name << endl;
   stream << "# fn_num_traps = " << options._fn_num_traps << endl;
   stream << "# fn_prefix_length = " << options._fn_prefix_length << endl;
@@ -1205,6 +1225,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# pv_log_entropy" << endl;
   if (options._pv_log_pv)
     stream << "# pv_log_pv" << endl;
+  if (options._real_function)
+    stream << "# real_function" << endl;
   if (options._restart)
     stream << "# restart" << endl;
   if (options._rls_strict)
