@@ -25,5 +25,6 @@
 #include "function-controller.hh"
 #include "function-modifier.hh"
 #include "prior-noise.hh"
+#include "expression-modifier.hh"
 
 #endif
