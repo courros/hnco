@@ -42,6 +42,10 @@ libhnco_la_SOURCES = \
 	fast-efficient-p3/Record.h \
 	fast-efficient-p3/Util.cpp \
 	fast-efficient-p3/Util.h \
+	fparser/fparser.cc \
+	fparser/fparser.hh \
+	fparser/fpconfig.hh \
+	fparser/fpoptimizer.cc \
 	hnco/algorithms/algorithm.cc \
 	hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh \
@@ -129,6 +133,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/cancellation.cc \
 	hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
+	hnco/functions/decorators/expression-modifier.cc \
+	hnco/functions/decorators/expression-modifier.hh \
 	hnco/functions/decorators/function-controller.cc \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
@@ -215,6 +221,8 @@ nobase_include_HEADERS = \
 	fast-efficient-p3/Pyramid.h \
 	fast-efficient-p3/Record.h \
 	fast-efficient-p3/Util.h \
+	fparser/fparser.hh \
+	fparser/fpconfig.hh \
 	hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh \
 	hnco/algorithms/bm-pbil/bm-pbil.hh \
@@ -265,6 +273,7 @@ nobase_include_HEADERS = \
 	hnco/functions/all.hh \
 	hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
+	hnco/functions/decorators/expression-modifier.hh \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.hh \

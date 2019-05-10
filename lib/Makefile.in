@@ -173,9 +173,10 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	fast-efficient-p3/Population.h fast-efficient-p3/Pyramid.cpp \
 	fast-efficient-p3/Pyramid.h fast-efficient-p3/Record.cpp \
 	fast-efficient-p3/Record.h fast-efficient-p3/Util.cpp \
-	fast-efficient-p3/Util.h hnco/algorithms/algorithm.cc \
-	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
-	hnco/algorithms/bm-pbil/bm-pbil.cc \
+	fast-efficient-p3/Util.h fparser/fparser.cc fparser/fparser.hh \
+	fparser/fpconfig.hh fparser/fpoptimizer.cc \
+	hnco/algorithms/algorithm.cc hnco/algorithms/algorithm.hh \
+	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.cc \
 	hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.cc \
 	hnco/algorithms/bm-pbil/model.hh \
@@ -239,6 +240,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
+	hnco/functions/decorators/expression-modifier.cc \
+	hnco/functions/decorators/expression-modifier.hh \
 	hnco/functions/decorators/function-controller.cc \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
@@ -292,6 +295,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	fast-efficient-p3/MiddleLayer.lo \
 	fast-efficient-p3/Population.lo fast-efficient-p3/Pyramid.lo \
 	fast-efficient-p3/Record.lo fast-efficient-p3/Util.lo \
+	fparser/fparser.lo fparser/fpoptimizer.lo \
 	hnco/algorithms/algorithm.lo \
 	hnco/algorithms/bm-pbil/bm-pbil.lo \
 	hnco/algorithms/bm-pbil/model.lo \
@@ -321,6 +325,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/pv/pv-algorithm.lo hnco/algorithms/pv/umda.lo \
 	hnco/algorithms/random-search.lo hnco/bit-matrix.lo \
 	hnco/bit-vector.lo hnco/functions/cancellation.lo \
+	hnco/functions/decorators/expression-modifier.lo \
 	hnco/functions/decorators/function-controller.lo \
 	hnco/functions/decorators/function-modifier.lo \
 	hnco/functions/decorators/prior-noise.lo \
@@ -370,6 +375,8 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	fast-efficient-p3/$(DEPDIR)/Pyramid.Plo \
 	fast-efficient-p3/$(DEPDIR)/Record.Plo \
 	fast-efficient-p3/$(DEPDIR)/Util.Plo \
+	fparser/$(DEPDIR)/fparser.Plo \
+	fparser/$(DEPDIR)/fpoptimizer.Plo \
 	hnco/$(DEPDIR)/bit-matrix.Plo hnco/$(DEPDIR)/bit-vector.Plo \
 	hnco/$(DEPDIR)/iterator.Plo hnco/$(DEPDIR)/map.Plo \
 	hnco/$(DEPDIR)/permutation.Plo hnco/$(DEPDIR)/random.Plo \
@@ -423,6 +430,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/$(DEPDIR)/qubo.Plo \
 	hnco/functions/$(DEPDIR)/theory.Plo \
 	hnco/functions/$(DEPDIR)/trap.Plo \
+	hnco/functions/decorators/$(DEPDIR)/expression-modifier.Plo \
 	hnco/functions/decorators/$(DEPDIR)/function-controller.Plo \
 	hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo \
 	hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo \
@@ -483,6 +491,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	fast-efficient-p3/MiddleLayer.h fast-efficient-p3/Optimizer.h \
 	fast-efficient-p3/Population.h fast-efficient-p3/Pyramid.h \
 	fast-efficient-p3/Record.h fast-efficient-p3/Util.h \
+	fparser/fparser.hh fparser/fpconfig.hh \
 	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
 	hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.hh \
@@ -519,6 +528,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
+	hnco/functions/decorators/expression-modifier.hh \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.hh \
@@ -702,9 +712,10 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	fast-efficient-p3/Population.h fast-efficient-p3/Pyramid.cpp \
 	fast-efficient-p3/Pyramid.h fast-efficient-p3/Record.cpp \
 	fast-efficient-p3/Record.h fast-efficient-p3/Util.cpp \
-	fast-efficient-p3/Util.h hnco/algorithms/algorithm.cc \
-	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
-	hnco/algorithms/bm-pbil/bm-pbil.cc \
+	fast-efficient-p3/Util.h fparser/fparser.cc fparser/fparser.hh \
+	fparser/fpconfig.hh fparser/fpoptimizer.cc \
+	hnco/algorithms/algorithm.cc hnco/algorithms/algorithm.hh \
+	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.cc \
 	hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.cc \
 	hnco/algorithms/bm-pbil/model.hh \
@@ -768,6 +779,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
+	hnco/functions/decorators/expression-modifier.cc \
+	hnco/functions/decorators/expression-modifier.hh \
 	hnco/functions/decorators/function-controller.cc \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
@@ -815,6 +828,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	fast-efficient-p3/MiddleLayer.h fast-efficient-p3/Optimizer.h \
 	fast-efficient-p3/Population.h fast-efficient-p3/Pyramid.h \
 	fast-efficient-p3/Record.h fast-efficient-p3/Util.h \
+	fparser/fparser.hh fparser/fpconfig.hh \
 	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
 	hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.hh \
@@ -851,6 +865,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
+	hnco/functions/decorators/expression-modifier.hh \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.hh \
@@ -967,6 +982,16 @@ fast-efficient-p3/Record.lo: fast-efficient-p3/$(am__dirstamp) \
 	fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
 fast-efficient-p3/Util.lo: fast-efficient-p3/$(am__dirstamp) \
 	fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
+fparser/$(am__dirstamp):
+	@$(MKDIR_P) fparser
+	@: > fparser/$(am__dirstamp)
+fparser/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) fparser/$(DEPDIR)
+	@: > fparser/$(DEPDIR)/$(am__dirstamp)
+fparser/fparser.lo: fparser/$(am__dirstamp) \
+	fparser/$(DEPDIR)/$(am__dirstamp)
+fparser/fpoptimizer.lo: fparser/$(am__dirstamp) \
+	fparser/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms
 	@: > hnco/algorithms/$(am__dirstamp)
@@ -1123,6 +1148,9 @@ hnco/functions/decorators/$(am__dirstamp):
 hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/functions/decorators/$(DEPDIR)
 	@: > hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/decorators/expression-modifier.lo:  \
+	hnco/functions/decorators/$(am__dirstamp) \
+	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/decorators/function-controller.lo:  \
 	hnco/functions/decorators/$(am__dirstamp) \
 	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
@@ -1216,6 +1244,8 @@ mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 	-rm -f fast-efficient-p3/*.$(OBJEXT)
 	-rm -f fast-efficient-p3/*.lo
+	-rm -f fparser/*.$(OBJEXT)
+	-rm -f fparser/*.lo
 	-rm -f hnco/*.$(OBJEXT)
 	-rm -f hnco/*.lo
 	-rm -f hnco/algorithms/*.$(OBJEXT)
@@ -1258,6 +1288,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@fast-efficient-p3/$(DEPDIR)/Pyramid.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@fast-efficient-p3/$(DEPDIR)/Record.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@fast-efficient-p3/$(DEPDIR)/Util.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@fparser/$(DEPDIR)/fparser.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@fparser/$(DEPDIR)/fpoptimizer.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/bit-matrix.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/bit-vector.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/iterator.Plo@am__quote@ # am--include-marker
@@ -1314,6 +1346,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/qubo.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/theory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/trap.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/expression-modifier.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-controller.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo@am__quote@ # am--include-marker
@@ -1385,6 +1418,7 @@ mostlyclean-libtool:
 clean-libtool:
 	-rm -rf .libs _libs
 	-rm -rf fast-efficient-p3/.libs fast-efficient-p3/_libs
+	-rm -rf fparser/.libs fparser/_libs
 	-rm -rf hnco/.libs hnco/_libs
 	-rm -rf hnco/algorithms/.libs hnco/algorithms/_libs
 	-rm -rf hnco/algorithms/bm-pbil/.libs hnco/algorithms/bm-pbil/_libs
@@ -1544,6 +1578,8 @@ distclean-generic:
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
 	-rm -f fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
 	-rm -f fast-efficient-p3/$(am__dirstamp)
+	-rm -f fparser/$(DEPDIR)/$(am__dirstamp)
+	-rm -f fparser/$(am__dirstamp)
 	-rm -f hnco/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/$(am__dirstamp)
 	-rm -f hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
@@ -1592,6 +1628,8 @@ distclean: distclean-am
 	-rm -f fast-efficient-p3/$(DEPDIR)/Pyramid.Plo
 	-rm -f fast-efficient-p3/$(DEPDIR)/Record.Plo
 	-rm -f fast-efficient-p3/$(DEPDIR)/Util.Plo
+	-rm -f fparser/$(DEPDIR)/fparser.Plo
+	-rm -f fparser/$(DEPDIR)/fpoptimizer.Plo
 	-rm -f hnco/$(DEPDIR)/bit-matrix.Plo
 	-rm -f hnco/$(DEPDIR)/bit-vector.Plo
 	-rm -f hnco/$(DEPDIR)/iterator.Plo
@@ -1648,6 +1686,7 @@ distclean: distclean-am
 	-rm -f hnco/functions/$(DEPDIR)/qubo.Plo
 	-rm -f hnco/functions/$(DEPDIR)/theory.Plo
 	-rm -f hnco/functions/$(DEPDIR)/trap.Plo
+	-rm -f hnco/functions/decorators/$(DEPDIR)/expression-modifier.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/function-controller.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo
@@ -1713,6 +1752,8 @@ maintainer-clean: maintainer-clean-am
 	-rm -f fast-efficient-p3/$(DEPDIR)/Pyramid.Plo
 	-rm -f fast-efficient-p3/$(DEPDIR)/Record.Plo
 	-rm -f fast-efficient-p3/$(DEPDIR)/Util.Plo
+	-rm -f fparser/$(DEPDIR)/fparser.Plo
+	-rm -f fparser/$(DEPDIR)/fpoptimizer.Plo
 	-rm -f hnco/$(DEPDIR)/bit-matrix.Plo
 	-rm -f hnco/$(DEPDIR)/bit-vector.Plo
 	-rm -f hnco/$(DEPDIR)/iterator.Plo
@@ -1769,6 +1810,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/$(DEPDIR)/qubo.Plo
 	-rm -f hnco/functions/$(DEPDIR)/theory.Plo
 	-rm -f hnco/functions/$(DEPDIR)/trap.Plo
+	-rm -f hnco/functions/decorators/$(DEPDIR)/expression-modifier.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/function-controller.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo
