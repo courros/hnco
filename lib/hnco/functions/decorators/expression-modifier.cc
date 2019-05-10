@@ -18,9 +18,7 @@
 
 */
 
-#include "hnco/random.hh"
-
-#include "function-modifier.hh"
+#include "expression-modifier.hh"
 
 
 using namespace hnco::exception;
@@ -28,38 +26,7 @@ using namespace hnco::function;
 
 
 double
-Negation::eval(const bit_vector_t& x)
+ExpressionModifier::eval(const bit_vector_t& x)
 {
   return -_function->eval(x);
-}
-
-
-double
-Negation::incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
-{
-  return -_function->incremental_eval(x, value, flipped_bits);
-}
-
-
-double
-FunctionMapComposition::eval(const bit_vector_t& x)
-{
-  _map->map(x, _bv);
-  return _function->eval(_bv);
-}
-
-void
-FunctionMapComposition::describe(const bit_vector_t& x, std::ostream& stream)
-{
-  assert(int(x.size()) == get_bv_size());
-
-  _map->map(x, _bv);
-  return _function->describe(_bv, stream);
-}
-
-
-double
-AdditiveGaussianNoise::eval(const bit_vector_t& x)
-{
-  return _function->eval(x) + _dist(random::Random::generator);
 }
