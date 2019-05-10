@@ -23,8 +23,9 @@
 
 #include <assert.h>
 
-#include "function-modifier.hh"
+#include "fparser/fparser.hh"
 
+#include "function-modifier.hh"
 
 namespace hnco {
 namespace function {
@@ -38,11 +39,21 @@ namespace function {
   class ExpressionModifier:
     public FunctionModifier {
 
+    /// Function parser
+    FunctionParser _fparser;
+
+    /// Array of values
+    double _values[1];
+
   public:
 
     /// Constructor
-    ExpressionModifier(Function *function):
-      FunctionModifier(function) {}
+    /** Constructor.
+
+        \param function Decorated function
+        \param expression Expression to parse
+    */
+    ExpressionModifier(Function *function, std::string expression);
 
     /** @name Information about the function
      */
