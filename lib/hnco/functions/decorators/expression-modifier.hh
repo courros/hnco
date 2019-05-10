@@ -47,7 +47,6 @@ namespace function {
 
   public:
 
-    /// Constructor
     /** Constructor.
 
         \param function Decorated function
