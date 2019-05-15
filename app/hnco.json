@@ -20,8 +20,14 @@
         },
 
         {
-            "id": "dec",
-            "title": "Function Decorators",
+            "id": "mod",
+            "title": "Function Modifiers",
+            "fold": false
+        },
+
+        {
+            "id": "ctrl",
+            "title": "Function Controllers",
             "fold": false
         },
 
@@ -81,7 +87,7 @@
 
     ],
 
-    "order": [ "gen", "fn", "dec", "pn", "map", "alg", "ls", "sa", "ea", "eda", "hea", "bm" ],
+    "order": [ "gen", "fn", "mod", "ctrl", "pn", "map", "alg", "ls", "sa", "ea", "eda", "hea", "bm" ],
 
     "flags": {
 
@@ -168,49 +174,50 @@
         "log_improvement":
         {
             "description": "Log improvement",
-            "section": "dec"
+            "section": "ctrl"
         },
 
         "stop_on_maximum":
         {
             "description": "Stop on maximum",
-            "section": "dec"
+            "section": "ctrl"
         },
 
         "stop_on_target":
         {
             "description": "Stop on target",
-            "section": "dec"
+            "section": "ctrl"
         },
 
         "cache":
         {
             "description": "Cache function evaluations",
-            "section": "dec"
+            "section": "ctrl"
         },
 
         "cache_budget":
         {
             "description": "Set cache on budget",
-            "section": "dec"
+            "section": "ctrl"
         },
+
 
         "negation":
         {
             "description": "Negation (hence minimization) of the function",
-            "section": "dec"
+            "section": "mod"
         },
 
         "additive_gaussian_noise":
         {
             "description": "Additive Gaussian noise",
-            "section": "dec"
+            "section": "mod"
         },
 
         "real_function":
         {
             "description": "Compose the function by a real function",
-            "section": "dec"
+            "section": "mod"
         },
 
 
@@ -593,15 +600,7 @@
             "type": "int",
             "value": 10000,
             "description": "Number of allowed function evaluations (<= 0 means indefinite)",
-            "section": "dec"
-        },
-
-        "noise_stddev":
-        {
-            "type": "double",
-            "value": 1.0,
-            "description": "Noise standard deviation",
-            "section": "dec"
+            "section": "ctrl"
         },
 
         "target":
@@ -609,7 +608,16 @@
             "type": "double",
             "value": 100.0,
             "description": "Target",
-            "section": "dec"
+            "section": "ctrl"
+        },
+
+
+        "noise_stddev":
+        {
+            "type": "double",
+            "value": 1.0,
+            "description": "Noise standard deviation",
+            "section": "mod"
         },
 
         "expression":
@@ -617,7 +625,7 @@
             "type": "string",
             "value": "x",
             "description": "Expression of the variable x",
-            "section": "dec"
+            "section": "mod"
         },
 
 
