@@ -76,10 +76,6 @@ namespace function {
         \throw Error */
     double get_maximum() { throw exception::Error("Unknown maximum"); }
 
-    /** Check for a known maximum.
-        \return false */
-    bool has_known_maximum() { return false; }
-
     /** Check whether the function provides incremental evaluation.
         \return true
     */
@@ -197,10 +193,6 @@ namespace function {
     /** Get the global maximum.
         \throw Error */
     double get_maximum() { throw exception::Error("Unknown maximum"); }
-
-    /** Check for a known maximum.
-        \return false */
-    bool has_known_maximum() { return false; }
 
     ///@}
 
