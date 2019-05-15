@@ -347,6 +347,18 @@ class Options {
   /// Print help message for section map
   void print_help_map(std::ostream& stream) const;
 
+  /// Print help message for section ls
+  void print_help_ls(std::ostream& stream) const;
+
+  /// Print help message for section sa
+  void print_help_sa(std::ostream& stream) const;
+
+  /// Print help message for section ea
+  void print_help_ea(std::ostream& stream) const;
+
+  /// Print help message for section eda
+  void print_help_eda(std::ostream& stream) const;
+
   /// Print help message for section hea
   void print_help_hea(std::ostream& stream) const;
 

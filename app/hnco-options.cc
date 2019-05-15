@@ -154,9 +154,13 @@ Options::Options(int argc, char *argv[]):
   enum {
     OPTION_HELP=256,
     OPTION_HELP_BM,
+    OPTION_HELP_EA,
+    OPTION_HELP_EDA,
     OPTION_HELP_HEA,
+    OPTION_HELP_LS,
     OPTION_HELP_MAP,
     OPTION_HELP_PN,
+    OPTION_HELP_SA,
     OPTION_VERSION,
     OPTION_ALGORITHM,
     OPTION_BM_MC_RESET_STRATEGY,
@@ -348,6 +352,10 @@ Options::Options(int argc, char *argv[]):
     {"help", no_argument, 0, OPTION_HELP},
     {"help-pn", no_argument, 0, OPTION_HELP_PN},
     {"help-map", no_argument, 0, OPTION_HELP_MAP},
+    {"help-ls", no_argument, 0, OPTION_HELP_LS},
+    {"help-sa", no_argument, 0, OPTION_HELP_SA},
+    {"help-ea", no_argument, 0, OPTION_HELP_EA},
+    {"help-eda", no_argument, 0, OPTION_HELP_EDA},
     {"help-hea", no_argument, 0, OPTION_HELP_HEA},
     {"help-bm", no_argument, 0, OPTION_HELP_BM},
     {0, no_argument, 0, 0}
@@ -751,6 +759,22 @@ Options::Options(int argc, char *argv[]):
       print_help_map(cerr);
       exit(0);
 
+    case OPTION_HELP_LS:
+      print_help_ls(cerr);
+      exit(0);
+
+    case OPTION_HELP_SA:
+      print_help_sa(cerr);
+      exit(0);
+
+    case OPTION_HELP_EA:
+      print_help_ea(cerr);
+      exit(0);
+
+    case OPTION_HELP_EDA:
+      print_help_eda(cerr);
+      exit(0);
+
     case OPTION_HELP_HEA:
       print_help_hea(cerr);
       exit(0);
@@ -913,73 +937,19 @@ void Options::print_help(ostream& stream) const
   stream << "      --restart" << endl;
   stream << "          Restart any algorithm an indefinite number of times" << endl;
   stream << endl;
-  stream << "Local Search" << endl;
-  stream << "      --allow-stay" << endl;
-  stream << "          In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)" << endl;
-  stream << "      --incremental-evaluation" << endl;
-  stream << "          Incremental evaluation" << endl;
-  stream << "  -N, --neighborhood (type int, default to 0)" << endl;
-  stream << "          Type of neighborhood" << endl;
-  stream << "            0: Single bit flip" << endl;
-  stream << "            1: Bernoulli process" << endl;
-  stream << "            2: Hamming ball" << endl;
-  stream << "            3: Hamming sphere" << endl;
-  stream << "      --neighborhood-iterator (type int, default to 0)" << endl;
-  stream << "          Type of neighborhood iterator" << endl;
-  stream << "            0: Single bit flip iterator" << endl;
-  stream << "            1: Hamming sphere iterator" << endl;
-  stream << "      --radius (type int, default to 2)" << endl;
-  stream << "          Radius of Hamming ball or sphere" << endl;
-  stream << "      --rls-patience (type int, default to 50)" << endl;
-  stream << "          Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)" << endl;
-  stream << "      --rls-strict" << endl;
-  stream << "          Strict (>) random local search" << endl;
-  stream << "      --rw-log-value" << endl;
-  stream << "          Log bit vector value during random walk" << endl;
-  stream << endl;
-  stream << "Simulated Annealing" << endl;
-  stream << "      --sa-beta-ratio (type double, default to 1.2)" << endl;
-  stream << "          Ratio for beta or inverse temperature" << endl;
-  stream << "      --sa-initial-acceptance-probability (type double, default to 0.6)" << endl;
-  stream << "          Initial acceptance probability" << endl;
-  stream << "      --sa-num-transitions (type int, default to 50)" << endl;
-  stream << "          Number of accepted transitions before annealing" << endl;
-  stream << "      --sa-num-trials (type int, default to 100)" << endl;
-  stream << "          Number of trials to estimate initial inverse temperature" << endl;
-  stream << endl;
-  stream << "Evolutionary Algorithms" << endl;
-  stream << "      --ea-lambda (type int, default to 100)" << endl;
-  stream << "          Offspring population size" << endl;
-  stream << "      --ea-mu (type int, default to 10)" << endl;
-  stream << "          Parent population size" << endl;
-  stream << "      --ga-crossover-bias (type double, default to 0.5)" << endl;
-  stream << "          Crossover bias" << endl;
-  stream << "      --ga-crossover-probability (type double, default to 0.5)" << endl;
-  stream << "          Crossover probability" << endl;
-  stream << "      --ga-tournament-size (type int, default to 10)" << endl;
-  stream << "          Tournament size" << endl;
-  stream << endl;
-  stream << "Estimation of Distribution Algorithms" << endl;
-  stream << "  -r, --learning-rate (type double, default to 0.001)" << endl;
-  stream << "          Learning rate" << endl;
-  stream << "      --mmas-strict" << endl;
-  stream << "          Strict (>) max-min ant system" << endl;
-  stream << "  -x, --population-size (type int, default to 10)" << endl;
-  stream << "          Population size" << endl;
-  stream << "      --pv-log-entropy" << endl;
-  stream << "          Log entropy of probability vector" << endl;
-  stream << "      --pv-log-num-components (type int, default to 5)" << endl;
-  stream << "          Number of probability vector components to log" << endl;
-  stream << "      --pv-log-pv" << endl;
-  stream << "          Log probability vector" << endl;
-  stream << "  -y, --selection-size (type int, default to 1)" << endl;
-  stream << "          Selection size (number of selected individuals)" << endl;
-  stream << endl;
   stream  << "Additional Sections" << endl;
   stream << "      --help-pn" << endl;
   stream << "          Prior Noise" << endl;
   stream << "      --help-map" << endl;
   stream << "          Maps" << endl;
+  stream << "      --help-ls" << endl;
+  stream << "          Local Search" << endl;
+  stream << "      --help-sa" << endl;
+  stream << "          Simulated Annealing" << endl;
+  stream << "      --help-ea" << endl;
+  stream << "          Evolutionary Algorithms" << endl;
+  stream << "      --help-eda" << endl;
+  stream << "          Estimation of Distribution Algorithms" << endl;
   stream << "      --help-hea" << endl;
   stream << "          Herding Evolutionary Algorithms" << endl;
   stream << "      --help-bm" << endl;
@@ -1029,6 +999,92 @@ void Options::print_help_map(ostream& stream) const
   stream << "          Sample a random map" << endl;
   stream << "      --map-surjective" << endl;
   stream << "          Ensure that the sampled linear or affine map is surjective" << endl;
+  stream << endl;
+}
+
+void Options::print_help_ls(ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
+  stream << "Local Search" << endl;
+  stream << "      --allow-stay" << endl;
+  stream << "          In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)" << endl;
+  stream << "      --incremental-evaluation" << endl;
+  stream << "          Incremental evaluation" << endl;
+  stream << "  -N, --neighborhood (type int, default to 0)" << endl;
+  stream << "          Type of neighborhood" << endl;
+  stream << "            0: Single bit flip" << endl;
+  stream << "            1: Bernoulli process" << endl;
+  stream << "            2: Hamming ball" << endl;
+  stream << "            3: Hamming sphere" << endl;
+  stream << "      --neighborhood-iterator (type int, default to 0)" << endl;
+  stream << "          Type of neighborhood iterator" << endl;
+  stream << "            0: Single bit flip iterator" << endl;
+  stream << "            1: Hamming sphere iterator" << endl;
+  stream << "      --radius (type int, default to 2)" << endl;
+  stream << "          Radius of Hamming ball or sphere" << endl;
+  stream << "      --rls-patience (type int, default to 50)" << endl;
+  stream << "          Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)" << endl;
+  stream << "      --rls-strict" << endl;
+  stream << "          Strict (>) random local search" << endl;
+  stream << "      --rw-log-value" << endl;
+  stream << "          Log bit vector value during random walk" << endl;
+  stream << endl;
+}
+
+void Options::print_help_sa(ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
+  stream << "Simulated Annealing" << endl;
+  stream << "      --sa-beta-ratio (type double, default to 1.2)" << endl;
+  stream << "          Ratio for beta or inverse temperature" << endl;
+  stream << "      --sa-initial-acceptance-probability (type double, default to 0.6)" << endl;
+  stream << "          Initial acceptance probability" << endl;
+  stream << "      --sa-num-transitions (type int, default to 50)" << endl;
+  stream << "          Number of accepted transitions before annealing" << endl;
+  stream << "      --sa-num-trials (type int, default to 100)" << endl;
+  stream << "          Number of trials to estimate initial inverse temperature" << endl;
+  stream << endl;
+}
+
+void Options::print_help_ea(ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
+  stream << "Evolutionary Algorithms" << endl;
+  stream << "      --ea-lambda (type int, default to 100)" << endl;
+  stream << "          Offspring population size" << endl;
+  stream << "      --ea-mu (type int, default to 10)" << endl;
+  stream << "          Parent population size" << endl;
+  stream << "      --ga-crossover-bias (type double, default to 0.5)" << endl;
+  stream << "          Crossover bias" << endl;
+  stream << "      --ga-crossover-probability (type double, default to 0.5)" << endl;
+  stream << "          Crossover probability" << endl;
+  stream << "      --ga-tournament-size (type int, default to 10)" << endl;
+  stream << "          Tournament size" << endl;
+  stream << endl;
+}
+
+void Options::print_help_eda(ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
+  stream << "Estimation of Distribution Algorithms" << endl;
+  stream << "  -r, --learning-rate (type double, default to 0.001)" << endl;
+  stream << "          Learning rate" << endl;
+  stream << "      --mmas-strict" << endl;
+  stream << "          Strict (>) max-min ant system" << endl;
+  stream << "  -x, --population-size (type int, default to 10)" << endl;
+  stream << "          Population size" << endl;
+  stream << "      --pv-log-entropy" << endl;
+  stream << "          Log entropy of probability vector" << endl;
+  stream << "      --pv-log-num-components (type int, default to 5)" << endl;
+  stream << "          Number of probability vector components to log" << endl;
+  stream << "      --pv-log-pv" << endl;
+  stream << "          Log probability vector" << endl;
+  stream << "  -y, --selection-size (type int, default to 1)" << endl;
+  stream << "          Selection size (number of selected individuals)" << endl;
   stream << endl;
 }
 

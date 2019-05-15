@@ -46,25 +46,25 @@
         {
             "id": "ls",
             "title": "Local Search",
-            "fold": false
+            "fold": true
         },
 
         {
             "id": "sa",
             "title": "Simulated Annealing",
-            "fold": false
+            "fold": true
         },
 
         {
             "id": "ea",
             "title": "Evolutionary Algorithms",
-            "fold": false
+            "fold": true
         },
 
         {
             "id": "eda",
             "title": "Estimation of Distribution Algorithms",
-            "fold": false
+            "fold": true
         },
 
         {
