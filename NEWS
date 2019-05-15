@@ -1,5 +1,13 @@
 * Version 0.13 (unreleased)
 
+Library:
+- Import fparser
+- Added ExpressionModifier
+
+hnco:
+- Added options --expression and --real-function
+
+
 * Version 0.12 (2019-05-08)
 
 Highlight:
