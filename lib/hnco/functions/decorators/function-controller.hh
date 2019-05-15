@@ -26,7 +26,6 @@
 #include <iostream>
 #include <unordered_map>
 
-#include "hnco/map.hh"
 #include "hnco/stop-watch.hh"
 
 #include "function-decorator.hh"
