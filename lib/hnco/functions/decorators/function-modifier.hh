@@ -72,10 +72,6 @@ namespace function {
     /// Get bit vector size
     int get_bv_size() { return _function->get_bv_size(); }
 
-    /** Get the global maximum.
-        \throw Error */
-    double get_maximum() { throw exception::Error("Unknown maximum"); }
-
     /** Check whether the function provides incremental evaluation.
         \return true
     */
@@ -189,10 +185,6 @@ namespace function {
 
     /// Get bit vector size
     int get_bv_size() { return _function->get_bv_size(); }
-
-    /** Get the global maximum.
-        \throw Error */
-    double get_maximum() { throw exception::Error("Unknown maximum"); }
 
     ///@}
 
