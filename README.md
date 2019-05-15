@@ -148,7 +148,7 @@ Available function controllers: Cache, CallCounter, OnBudgetFunction,
 ProgressTracker, StopOnMaximum, StopOnTarget.
 
 Available function modifiers: AdditiveGaussianNoise,
-FunctionMapComposition, Negation, PriorNoise.
+FunctionMapComposition, Negation, PriorNoise, ExpressionModifier.
 
 ### Neighborhoods
 
@@ -434,6 +434,16 @@ same bit vector when no mutation occurs.
 The library embeds code from Brian W. Goldman's project
 FastEfficientP3 to provide Hboa, Ltga, and P3 algorithms.
 
+The library is distributed with fparser. Quoting the preface of
+fparser:
+
+>This C++ library offers a class which can be used to parse and
+>evaluate a mathematical function from a string (which might be
+>eg. requested from the user). The syntax of the function string is
+>similar to mathematical expressions written in C/C++ (the exact
+>syntax is specified later in this document). The function can then be
+>evaluated with different values of variables.
+
 ## References
 
 - Berny A. (2017). "In Hypercubo Nigrae Capsulae Optimum". In:
@@ -447,3 +457,5 @@ FastEfficientP3 to provide Hboa, Ltga, and P3 algorithms.
   [abs/1605.03560](http://arxiv.org/abs/1605.03560).
 - Brian W. Goldman,
   [FastEfficientP3](https://github.com/brianwgoldman/FastEfficientP3)
+- Juha Nieminen, Joel Yliluoma,
+  [fparser](http://warp.povusers.org/FunctionParser/fparser.html)
