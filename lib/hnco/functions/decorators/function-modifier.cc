@@ -37,7 +37,7 @@ Negation::eval(const bit_vector_t& x)
 double
 Negation::incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
-  return -_function->incremental_eval(x, value, flipped_bits);
+  return -_function->incremental_eval(x, -value, flipped_bits);
 }
 
 
