@@ -21,12 +21,7 @@
 #ifndef HNCO_FUNCTIONS_DECORATORS_FUNCTION_DECORATOR_H
 #define HNCO_FUNCTIONS_DECORATORS_FUNCTION_DECORATOR_H
 
-#include <assert.h>
-
 #include <iostream>
-#include <unordered_map>
-
-#include "hnco/map.hh"
 
 #include "hnco/functions/function.hh"
 
