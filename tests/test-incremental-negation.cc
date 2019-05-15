@@ -22,6 +22,7 @@
 #include <random>
 
 #include "hnco/neighborhoods/neighborhood.hh"
+#include "hnco/functions/decorators/function-modifier.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/random.hh"
 
@@ -42,7 +43,9 @@ int main(int argc, char *argv[])
 
   for (int i = 0; i < num_runs; i++) {
     int bv_size = dist(Random::generator);
-    OneMax function(bv_size);
+    OneMax f0(bv_size);
+    Negation function(&f0);
+
     BernoulliProcess neighborhood(bv_size);
     bit_vector_t bv(bv_size);
 
