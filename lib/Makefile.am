@@ -42,6 +42,10 @@ libhnco_la_SOURCES = \
 	fast-efficient-p3/Record.h \
 	fast-efficient-p3/Util.cpp \
 	fast-efficient-p3/Util.h \
+	fparser/extrasrc/fp_identifier_parser.inc \
+	fparser/extrasrc/fp_opcode_add.inc \
+	fparser/extrasrc/fpaux.hh \
+	fparser/extrasrc/fptypes.hh \
 	fparser/fparser.cc \
 	fparser/fparser.hh \
 	fparser/fpconfig.hh \
@@ -221,6 +225,10 @@ nobase_include_HEADERS = \
 	fast-efficient-p3/Pyramid.h \
 	fast-efficient-p3/Record.h \
 	fast-efficient-p3/Util.h \
+	fparser/extrasrc/fp_identifier_parser.inc \
+	fparser/extrasrc/fp_opcode_add.inc \
+	fparser/extrasrc/fpaux.hh \
+	fparser/extrasrc/fptypes.hh \
 	fparser/fparser.hh \
 	fparser/fpconfig.hh \
 	hnco/algorithms/algorithm.hh \

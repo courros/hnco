@@ -173,8 +173,11 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	fast-efficient-p3/Population.h fast-efficient-p3/Pyramid.cpp \
 	fast-efficient-p3/Pyramid.h fast-efficient-p3/Record.cpp \
 	fast-efficient-p3/Record.h fast-efficient-p3/Util.cpp \
-	fast-efficient-p3/Util.h fparser/fparser.cc fparser/fparser.hh \
-	fparser/fpconfig.hh fparser/fpoptimizer.cc \
+	fast-efficient-p3/Util.h \
+	fparser/extrasrc/fp_identifier_parser.inc \
+	fparser/extrasrc/fp_opcode_add.inc fparser/extrasrc/fpaux.hh \
+	fparser/extrasrc/fptypes.hh fparser/fparser.cc \
+	fparser/fparser.hh fparser/fpconfig.hh fparser/fpoptimizer.cc \
 	hnco/algorithms/algorithm.cc hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.cc \
 	hnco/algorithms/bm-pbil/bm-pbil.hh \
@@ -491,9 +494,11 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	fast-efficient-p3/MiddleLayer.h fast-efficient-p3/Optimizer.h \
 	fast-efficient-p3/Population.h fast-efficient-p3/Pyramid.h \
 	fast-efficient-p3/Record.h fast-efficient-p3/Util.h \
-	fparser/fparser.hh fparser/fpconfig.hh \
-	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
-	hnco/algorithms/bm-pbil/bm-pbil.hh \
+	fparser/extrasrc/fp_identifier_parser.inc \
+	fparser/extrasrc/fp_opcode_add.inc fparser/extrasrc/fpaux.hh \
+	fparser/extrasrc/fptypes.hh fparser/fparser.hh \
+	fparser/fpconfig.hh hnco/algorithms/algorithm.hh \
+	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/decorators/all.hh \
@@ -712,8 +717,11 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	fast-efficient-p3/Population.h fast-efficient-p3/Pyramid.cpp \
 	fast-efficient-p3/Pyramid.h fast-efficient-p3/Record.cpp \
 	fast-efficient-p3/Record.h fast-efficient-p3/Util.cpp \
-	fast-efficient-p3/Util.h fparser/fparser.cc fparser/fparser.hh \
-	fparser/fpconfig.hh fparser/fpoptimizer.cc \
+	fast-efficient-p3/Util.h \
+	fparser/extrasrc/fp_identifier_parser.inc \
+	fparser/extrasrc/fp_opcode_add.inc fparser/extrasrc/fpaux.hh \
+	fparser/extrasrc/fptypes.hh fparser/fparser.cc \
+	fparser/fparser.hh fparser/fpconfig.hh fparser/fpoptimizer.cc \
 	hnco/algorithms/algorithm.cc hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.cc \
 	hnco/algorithms/bm-pbil/bm-pbil.hh \
@@ -828,9 +836,11 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	fast-efficient-p3/MiddleLayer.h fast-efficient-p3/Optimizer.h \
 	fast-efficient-p3/Population.h fast-efficient-p3/Pyramid.h \
 	fast-efficient-p3/Record.h fast-efficient-p3/Util.h \
-	fparser/fparser.hh fparser/fpconfig.hh \
-	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
-	hnco/algorithms/bm-pbil/bm-pbil.hh \
+	fparser/extrasrc/fp_identifier_parser.inc \
+	fparser/extrasrc/fp_opcode_add.inc fparser/extrasrc/fpaux.hh \
+	fparser/extrasrc/fptypes.hh fparser/fparser.hh \
+	fparser/fpconfig.hh hnco/algorithms/algorithm.hh \
+	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/decorators/all.hh \
