@@ -18,7 +18,14 @@
 
 */
 
+#include <assert.h>
+
 #include "real-representation.hh"
+
+
+using namespace hnco;
+using namespace hnco::function;
+using namespace hnco::function::real;
 
 
 DyadicRealRepresentation::DyadicRealRepresentation(double lower_bound, double upper_bound, int num_bits):
@@ -30,8 +37,11 @@ DyadicRealRepresentation::DyadicRealRepresentation(double lower_bound, double up
   assert(num_bits > 0);
 
   _lengths = std::vector<double>(num_bits);
-  for (size_t i = 0, double x = 0.5; i < _lengths.size(); i++, x /= 2)
+  double x = 0.5;
+  for (size_t i = 0; i < _lengths.size(); i++) {
     _lengths[i] = x;
+    x /= 2;
+  }
 }
 
 
