@@ -20,9 +20,40 @@
 
 #include <assert.h>
 
-#include "real-real-multivariate-function-adapter.hh"
+#include "real-multivariate-function-adapter.hh"
 
 
 using namespace hnco;
 using namespace hnco::function;
 using namespace hnco::function::real;
+
+
+void
+RealMultivariateFunctionAdapter::convert(const bit_vector_t& x)
+{
+  assert(int(x.size()) == get_bv_size());
+
+  hnco::bit_vector_t::const_iterator iter = x.begin();
+  for (size_t i = 0; i < _rv.size(); i++) {
+    _rv[i] = _representation->convert(iter, iter + _representation->size());
+    iter += _representation->size();
+  }
+}
+
+
+double
+RealMultivariateFunctionAdapter::eval(const bit_vector_t& x)
+{
+  convert(x);
+  return _function->eval(_rv);
+}
+
+
+void
+RealMultivariateFunctionAdapter::describe(const bit_vector_t& x, std::ostream& stream)
+{
+  convert(x);
+  for (size_t i = 0; i < _rv.size(); i++)
+    stream << _rv[i] << " ";
+  stream << std::endl;
+}

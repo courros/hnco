@@ -28,22 +28,50 @@
 
 
 namespace hnco {
-namespace hnco {
+namespace function {
 namespace real {
 
 
   /// Real multivariate function adapter
   class RealMultivariateFunctionAdapter:
-    public Function {
+    public hnco::function::Function {
+
+    /// Real representation
+    RealRepresentation *_representation;
+
+    /// Real multivariate function
+    RealMultivariateFunction *_function;
+
+    /// Real vector
+    std::vector<double> _rv;
+
+    /// Convert a bit vector
+    void convert(const bit_vector_t& x);
 
   public:
+
+    /** Constructor.
+
+        \param rep Real representation
+        \param fn Real multivariate function
+    */
+    RealMultivariateFunctionAdapter(RealRepresentation *rep,
+                                    RealMultivariateFunction *fn):
+      _representation(rep),
+      _function(fn)
+    {
+      assert(rep);
+      assert(fn);
+
+      _rv = std::vector<double>(fn->get_dimension());
+    }
 
     /** @name Information about the function
      */
     ///@{
 
     /// Get bit vector size
-    int get_bv_size();
+    int get_bv_size() { return _function->get_dimension() * _representation->size(); }
 
     ///@}
 
@@ -53,7 +81,7 @@ namespace real {
     ///@{
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double eval(const bit_vector_t& x);
 
     ///@}
 
@@ -63,12 +91,7 @@ namespace real {
     ///@{
 
     /// Describe a bit vector
-    void describe(const bit_vector_t& x, std::ostream& stream) {
-      assert(int(x.size()) == get_bv_size());
-
-      bv_display(x, stream);
-      stream << std::endl;
-    }
+    void describe(const bit_vector_t& x, std::ostream& stream);
 
     ///@}
 
