@@ -18,59 +18,30 @@
 
 */
 
-#include <assert.h>
-
-#include "hnco/random.hh"
-
-#include "walsh-expansion-1.hh"
+#include "real-representation.hh"
 
 
-using namespace hnco::random;
-using namespace hnco::function;
-
-
-double
-WalshExpansion1::get_maximum()
+DyadicRealRepresentation::DyadicRealRepresentation(double lower_bound, double upper_bound, int num_bits):
+  _lower_bound(lower_bound),
+  _upper_bound(upper_bound),
+  _length(upper_bound - lower_bound)
 {
-  double result = 0;
-  for (auto w : _linear)
-    if (w > 0)
-      result += w;
-    else
-      result -= w;
-  return result;
+  assert(lower_bound < upper_bound);
+  assert(num_bits > 0);
+
+  _lengths = std::vector<double>(num_bits);
+  for (size_t i = 0, double x = 0.5; i < _lengths.size(); i++, x /= 2)
+    _lengths[i] = x;
 }
 
 
 double
-WalshExpansion1::eval(const bit_vector_t& s)
+DyadicRealRepresentation::convert(hnco::bit_vector_t::const_iterator first, hnco::bit_vector_t::const_iterator last)
 {
-  assert(s.size() == _linear.size());
-
   double result = 0;
-
-  // Linear part
-  for (size_t i = 0; i < _linear.size(); i++)
-    if (s[i])
-      result -= _linear[i];
-    else
-      result += _linear[i];
-
-  return result;
-}
-
-
-double
-WalshExpansion1::incremental_eval(const bit_vector_t& x,
-                                  double value,
-                                  const hnco::sparse_bit_vector_t& flipped_bits)
-{
-  assert(x.size() == _linear.size());
-
-  for (auto index : flipped_bits)
-    if (x[index])
-      value += 2 * _linear[index];
-    else
-      value -= 2 * _linear[index];
-  return value;
+  for (hnco::bit_vector_t::const_iterator iter = first; iter != last; iter++) {
+    if (*iter)
+      result += _lengths[iter - first];
+  }
+  return affine_transformation(result);
 }
