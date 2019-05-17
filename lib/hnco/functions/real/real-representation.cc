@@ -30,7 +30,6 @@ using namespace hnco::function::real;
 
 DyadicRealRepresentation::DyadicRealRepresentation(double lower_bound, double upper_bound, int num_bits):
   _lower_bound(lower_bound),
-  _upper_bound(upper_bound),
   _length(upper_bound - lower_bound)
 {
   assert(lower_bound < upper_bound);

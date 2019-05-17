@@ -58,9 +58,6 @@ namespace real {
     /// Lower bound of the search interval
     double _lower_bound;
 
-    /// Upper bound of the search interval
-    double _upper_bound;
-
     /// Length of the search interval
     double _length;
 
