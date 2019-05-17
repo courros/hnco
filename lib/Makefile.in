@@ -267,9 +267,12 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/long-path.hh hnco/functions/max-sat.cc \
 	hnco/functions/max-sat.hh hnco/functions/nk-landscape.cc \
 	hnco/functions/nk-landscape.hh hnco/functions/qubo.cc \
-	hnco/functions/qubo.hh hnco/functions/theory.cc \
-	hnco/functions/theory.hh hnco/functions/trap.cc \
-	hnco/functions/trap.hh hnco/functions/walsh/all.hh \
+	hnco/functions/qubo.hh hnco/functions/real/all.hh \
+	hnco/functions/real/real-representation.cc \
+	hnco/functions/real/real-representation.hh \
+	hnco/functions/theory.cc hnco/functions/theory.hh \
+	hnco/functions/trap.cc hnco/functions/trap.hh \
+	hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.cc \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.cc \
@@ -339,8 +342,9 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/functions/jump.lo hnco/functions/labs.lo \
 	hnco/functions/linear-function.lo hnco/functions/long-path.lo \
 	hnco/functions/max-sat.lo hnco/functions/nk-landscape.lo \
-	hnco/functions/qubo.lo hnco/functions/theory.lo \
-	hnco/functions/trap.lo \
+	hnco/functions/qubo.lo \
+	hnco/functions/real/real-representation.lo \
+	hnco/functions/theory.lo hnco/functions/trap.lo \
 	hnco/functions/walsh/walsh-expansion-1.lo \
 	hnco/functions/walsh/walsh-expansion-2.lo \
 	hnco/functions/walsh/walsh-expansion.lo hnco/iterator.lo \
@@ -439,6 +443,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo \
 	hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo \
 	hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo \
+	hnco/functions/real/$(DEPDIR)/real-representation.Plo \
 	hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo \
 	hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo \
 	hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo \
@@ -545,8 +550,10 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/jump.hh hnco/functions/labs.hh \
 	hnco/functions/linear-function.hh hnco/functions/long-path.hh \
 	hnco/functions/max-sat.hh hnco/functions/nk-landscape.hh \
-	hnco/functions/qubo.hh hnco/functions/theory.hh \
-	hnco/functions/trap.hh hnco/functions/walsh/all.hh \
+	hnco/functions/qubo.hh hnco/functions/real/all.hh \
+	hnco/functions/real/real-representation.hh \
+	hnco/functions/theory.hh hnco/functions/trap.hh \
+	hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
@@ -811,9 +818,12 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/long-path.hh hnco/functions/max-sat.cc \
 	hnco/functions/max-sat.hh hnco/functions/nk-landscape.cc \
 	hnco/functions/nk-landscape.hh hnco/functions/qubo.cc \
-	hnco/functions/qubo.hh hnco/functions/theory.cc \
-	hnco/functions/theory.hh hnco/functions/trap.cc \
-	hnco/functions/trap.hh hnco/functions/walsh/all.hh \
+	hnco/functions/qubo.hh hnco/functions/real/all.hh \
+	hnco/functions/real/real-representation.cc \
+	hnco/functions/real/real-representation.hh \
+	hnco/functions/theory.cc hnco/functions/theory.hh \
+	hnco/functions/trap.cc hnco/functions/trap.hh \
+	hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.cc \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.cc \
@@ -887,8 +897,10 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/jump.hh hnco/functions/labs.hh \
 	hnco/functions/linear-function.hh hnco/functions/long-path.hh \
 	hnco/functions/max-sat.hh hnco/functions/nk-landscape.hh \
-	hnco/functions/qubo.hh hnco/functions/theory.hh \
-	hnco/functions/trap.hh hnco/functions/walsh/all.hh \
+	hnco/functions/qubo.hh hnco/functions/real/all.hh \
+	hnco/functions/real/real-representation.hh \
+	hnco/functions/theory.hh hnco/functions/trap.hh \
+	hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
@@ -1202,6 +1214,15 @@ hnco/functions/nk-landscape.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/qubo.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/real/$(am__dirstamp):
+	@$(MKDIR_P) hnco/functions/real
+	@: > hnco/functions/real/$(am__dirstamp)
+hnco/functions/real/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/functions/real/$(DEPDIR)
+	@: > hnco/functions/real/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/real/real-representation.lo:  \
+	hnco/functions/real/$(am__dirstamp) \
+	hnco/functions/real/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/theory.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/trap.lo: hnco/functions/$(am__dirstamp) \
@@ -1280,6 +1301,8 @@ mostlyclean-compile:
 	-rm -f hnco/functions/decorators/*.lo
 	-rm -f hnco/functions/ising/*.$(OBJEXT)
 	-rm -f hnco/functions/ising/*.lo
+	-rm -f hnco/functions/real/*.$(OBJEXT)
+	-rm -f hnco/functions/real/*.lo
 	-rm -f hnco/functions/walsh/*.$(OBJEXT)
 	-rm -f hnco/functions/walsh/*.lo
 	-rm -f hnco/neighborhoods/*.$(OBJEXT)
@@ -1362,6 +1385,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/real/$(DEPDIR)/real-representation.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo@am__quote@ # am--include-marker
@@ -1441,6 +1465,7 @@ clean-libtool:
 	-rm -rf hnco/functions/.libs hnco/functions/_libs
 	-rm -rf hnco/functions/decorators/.libs hnco/functions/decorators/_libs
 	-rm -rf hnco/functions/ising/.libs hnco/functions/ising/_libs
+	-rm -rf hnco/functions/real/.libs hnco/functions/real/_libs
 	-rm -rf hnco/functions/walsh/.libs hnco/functions/walsh/_libs
 	-rm -rf hnco/neighborhoods/.libs hnco/neighborhoods/_libs
 install-nobase_includeHEADERS: $(nobase_include_HEADERS)
@@ -1614,6 +1639,8 @@ distclean-generic:
 	-rm -f hnco/functions/decorators/$(am__dirstamp)
 	-rm -f hnco/functions/ising/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/ising/$(am__dirstamp)
+	-rm -f hnco/functions/real/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/functions/real/$(am__dirstamp)
 	-rm -f hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/walsh/$(am__dirstamp)
 	-rm -f hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp)
@@ -1702,6 +1729,7 @@ distclean: distclean-am
 	-rm -f hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo
+	-rm -f hnco/functions/real/$(DEPDIR)/real-representation.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo
@@ -1826,6 +1854,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo
+	-rm -f hnco/functions/real/$(DEPDIR)/real-representation.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo

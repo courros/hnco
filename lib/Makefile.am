@@ -171,6 +171,9 @@ libhnco_la_SOURCES = \
 	hnco/functions/nk-landscape.hh \
 	hnco/functions/qubo.cc \
 	hnco/functions/qubo.hh \
+	hnco/functions/real/all.hh \
+	hnco/functions/real/real-representation.cc \
+	hnco/functions/real/real-representation.hh \
 	hnco/functions/theory.cc \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.cc \
@@ -299,6 +302,8 @@ nobase_include_HEADERS = \
 	hnco/functions/max-sat.hh \
 	hnco/functions/nk-landscape.hh \
 	hnco/functions/qubo.hh \
+	hnco/functions/real/all.hh \
+	hnco/functions/real/real-representation.hh \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.hh \
 	hnco/functions/walsh/all.hh \
