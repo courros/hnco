@@ -30,6 +30,7 @@ namespace hnco {
 namespace function {
 namespace real {
 
+
   /// Real representation
   class RealRepresentation {
 
@@ -38,6 +39,9 @@ namespace real {
     /// Destructor
     virtual ~RealRepresentation() {}
 
+    /// Size of the representation
+    virtual int size() = 0;
+
     /// Convert a bit vector range into a double
     virtual double convert(hnco::bit_vector_t::const_iterator first, hnco::bit_vector_t::const_iterator last) = 0;
 
@@ -45,7 +49,8 @@ namespace real {
 
 
   /// Dyadic real representation
-  class DyadicRealRepresentation {
+  class DyadicRealRepresentation:
+    public RealRepresentation {
 
     /// Lengths of dyadic intervals
     std::vector<double> _lengths;
@@ -60,12 +65,20 @@ namespace real {
     double _length;
 
     /// Affine transformation
-    double affine_transformation(double x) { return _lower_bound + x * _length; }
+    double affine_transformation(double x) { return _lower_bound + _length * x; }
 
   public:
 
-    /// Constructor
+    /** Constructor.
+
+        \param lower_bound Lower bound of the search interval
+        \param upper_bound Upper bound of the search interval
+        \param num_bits Number of bits per real
+    */
     DyadicRealRepresentation(double lower_bound, double upper_bound, int num_bits);
+
+    /// Size of the representation
+    int size() { return _lengths.size(); }
 
     /// Convert a bit vector range into a double
     double convert(hnco::bit_vector_t::const_iterator first, hnco::bit_vector_t::const_iterator last);
