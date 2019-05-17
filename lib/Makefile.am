@@ -172,7 +172,11 @@ libhnco_la_SOURCES = \
 	hnco/functions/qubo.cc \
 	hnco/functions/qubo.hh \
 	hnco/functions/real/all.hh \
+	hnco/functions/real/real-multivariate-function-adapter.cc \
+	hnco/functions/real/real-multivariate-function-adapter.hh \
+	hnco/functions/real/real-multivariate-function.hh \
 	hnco/functions/real/real-representation.cc \
+	hnco/functions/real/real-representation.hh \
 	hnco/functions/real/real-representation.hh \
 	hnco/functions/theory.cc \
 	hnco/functions/theory.hh \
@@ -303,6 +307,8 @@ nobase_include_HEADERS = \
 	hnco/functions/nk-landscape.hh \
 	hnco/functions/qubo.hh \
 	hnco/functions/real/all.hh \
+	hnco/functions/real/real-multivariate-function-adapter.hh \
+	hnco/functions/real/real-multivariate-function.hh \
 	hnco/functions/real/real-representation.hh \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.hh \
