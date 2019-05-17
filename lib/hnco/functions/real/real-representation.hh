@@ -18,47 +18,31 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_DECORATORS_FUNCTION_DECORATOR_H
-#define HNCO_FUNCTIONS_DECORATORS_FUNCTION_DECORATOR_H
+#ifndef HNCO_FUNCTIONS_REAL_REAL_REPRESENTATION_H
+#define HNCO_FUNCTIONS_REAL_REAL_REPRESENTATION_H
 
-#include <iostream>
-
-#include "hnco/functions/function.hh"
+#include "hnco/bit-vector.hh"
 
 
 namespace hnco {
 namespace function {
+namespace real {
 
-  /// Function decorator
-  class FunctionDecorator:
-    public Function {
-
-  protected:
-
-    /// Decorated function
-    Function *_function;
+  /// Real representation
+  class RealRepresentation {
 
   public:
 
-    /// Constructor
-    FunctionDecorator(Function *function):
-      _function(function) {}
+    /// Destructor
+    virtual ~RealRepresentation() {}
 
-
-    /** @name Display
-     */
-    ///@{
-
-    /// Display
-    void display(std::ostream& stream) { _function->display(stream); }
-
-    /// Describe a bit vector
-    void describe(const bit_vector_t& x, std::ostream& stream) { _function->describe(x, stream); }
-
-    ///@}
+    /// Convert a bit vector range into a double
+    virtual double convert(hnco::bit_vector_t::const_iterator first, hnco::bit_vector_t::const_iterator last) = 0;
 
   };
 
+
+} // end of namespace real
 } // end of namespace function
 } // end of namespace hnco
 
