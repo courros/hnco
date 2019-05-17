@@ -37,6 +37,9 @@ namespace real {
     /// Destructor
     virtual ~RealMultivariateFunction() {}
 
+    /// Get the dimension of vectors
+    virtual int get_dimension() = 0;
+
     /// Evaluate a real vector
     virtual double eval(const std::vector<double> x) = 0;
 
