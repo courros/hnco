@@ -21,6 +21,8 @@
 #ifndef HNCO_FUNCTIONS_REAL_REAL_REPRESENTATION_H
 #define HNCO_FUNCTIONS_REAL_REAL_REPRESENTATION_H
 
+#include <assert.h>
+
 #include "hnco/bit-vector.hh"
 
 
@@ -38,6 +40,36 @@ namespace real {
 
     /// Convert a bit vector range into a double
     virtual double convert(hnco::bit_vector_t::const_iterator first, hnco::bit_vector_t::const_iterator last) = 0;
+
+  };
+
+
+  /// Dyadic real representation
+  class DyadicRealRepresentation {
+
+    /// Lower bound
+    double _lower_bound;
+
+    /// Upper bound
+    double _upper_bound;
+
+    /// Number of bits
+    int _num_bits;
+
+  public:
+
+    /// Constructor
+    DyadicRealRepresentation(double lower_bound, double upper_bound, int num_bits):
+      _lower_bound(lower_bound),
+      _upper_bound(upper_bound),
+      _num_bits(num_bits)
+    {
+      assert(_lower_bound < _upper_bound);
+      assert(_num_bits > 0);
+    }
+
+    /// Convert a bit vector range into a double
+    double convert(hnco::bit_vector_t::const_iterator first, hnco::bit_vector_t::const_iterator last);
 
   };
 
