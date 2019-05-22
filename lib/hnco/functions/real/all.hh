@@ -22,5 +22,7 @@
 #define HNCO_FUNCTIONS_REAL_ALL_H
 
 #include "real-representation.hh"
+#include "real-multivariate-function.hh"
+#include "real-multivariate-function-adapter.hh"
 
 #endif
