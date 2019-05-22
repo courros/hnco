@@ -89,6 +89,14 @@ Options::Options(int argc, char *argv[]):
   _opt_pv_log_num_components(false),
   _radius(2),
   _opt_radius(false),
+  _real_expression("(1-x)^2+100*(y-x^2)^2"),
+  _opt_real_expression(false),
+  _real_lower_bound(-2),
+  _opt_real_lower_bound(false),
+  _real_num_bits(8),
+  _opt_real_num_bits(false),
+  _real_upper_bound(2),
+  _opt_real_upper_bound(false),
   _results_path("results.json"),
   _opt_results_path(false),
   _rls_patience(50),
@@ -160,6 +168,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_HELP_LS,
     OPTION_HELP_MAP,
     OPTION_HELP_PN,
+    OPTION_HELP_REAL,
     OPTION_HELP_SA,
     OPTION_VERSION,
     OPTION_ALGORITHM,
@@ -202,6 +211,10 @@ Options::Options(int argc, char *argv[]):
     OPTION_POPULATION_SIZE,
     OPTION_PV_LOG_NUM_COMPONENTS,
     OPTION_RADIUS,
+    OPTION_REAL_EXPRESSION,
+    OPTION_REAL_LOWER_BOUND,
+    OPTION_REAL_NUM_BITS,
+    OPTION_REAL_UPPER_BOUND,
     OPTION_RESULTS_PATH,
     OPTION_RLS_PATIENCE,
     OPTION_SA_BETA_RATIO,
@@ -296,6 +309,10 @@ Options::Options(int argc, char *argv[]):
     {"population-size", required_argument, 0, OPTION_POPULATION_SIZE},
     {"pv-log-num-components", required_argument, 0, OPTION_PV_LOG_NUM_COMPONENTS},
     {"radius", required_argument, 0, OPTION_RADIUS},
+    {"real-expression", required_argument, 0, OPTION_REAL_EXPRESSION},
+    {"real-lower-bound", required_argument, 0, OPTION_REAL_LOWER_BOUND},
+    {"real-num-bits", required_argument, 0, OPTION_REAL_NUM_BITS},
+    {"real-upper-bound", required_argument, 0, OPTION_REAL_UPPER_BOUND},
     {"results-path", required_argument, 0, OPTION_RESULTS_PATH},
     {"rls-patience", required_argument, 0, OPTION_RLS_PATIENCE},
     {"sa-beta-ratio", required_argument, 0, OPTION_SA_BETA_RATIO},
@@ -350,6 +367,7 @@ Options::Options(int argc, char *argv[]):
     {"stop-on-target", no_argument, 0, OPTION_STOP_ON_TARGET},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
+    {"help-real", no_argument, 0, OPTION_HELP_REAL},
     {"help-pn", no_argument, 0, OPTION_HELP_PN},
     {"help-map", no_argument, 0, OPTION_HELP_MAP},
     {"help-ls", no_argument, 0, OPTION_HELP_LS},
@@ -536,6 +554,22 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_RADIUS:
       set_radius(atoi(optarg));
+      break;
+
+    case OPTION_REAL_EXPRESSION:
+      set_real_expression(string(optarg));
+      break;
+
+    case OPTION_REAL_LOWER_BOUND:
+      set_real_lower_bound(atof(optarg));
+      break;
+
+    case OPTION_REAL_NUM_BITS:
+      set_real_num_bits(atoi(optarg));
+      break;
+
+    case OPTION_REAL_UPPER_BOUND:
+      set_real_upper_bound(atof(optarg));
       break;
 
     case OPTION_RESULTS_PATH:
@@ -751,6 +785,10 @@ Options::Options(int argc, char *argv[]):
       print_help(cerr);
       exit(0);
 
+    case OPTION_HELP_REAL:
+      print_help_real(cerr);
+      exit(0);
+
     case OPTION_HELP_PN:
       print_help_pn(cerr);
       exit(0);
@@ -873,6 +911,7 @@ void Options::print_help(ostream& stream) const
   stream << "            162: Walsh expansion of degree 2" << endl;
   stream << "            171: Nearest neighbor Ising model in one dimension" << endl;
   stream << "            172: Nearest neighbor Ising model in two dimensions" << endl;
+  stream << "            180: Real multivariate function" << endl;
   stream << "            1000: Plugin" << endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << endl;
   stream << "          Path of a function file" << endl;
@@ -940,6 +979,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Restart any algorithm an indefinite number of times" << endl;
   stream << endl;
   stream  << "Additional Sections" << endl;
+  stream << "      --help-real" << endl;
+  stream << "          Real multivariate function" << endl;
   stream << "      --help-pn" << endl;
   stream << "          Prior Noise" << endl;
   stream << "      --help-map" << endl;
@@ -956,6 +997,22 @@ void Options::print_help(ostream& stream) const
   stream << "          Herding Evolutionary Algorithms" << endl;
   stream << "      --help-bm" << endl;
   stream << "          Boltzmann Machine PBIL" << endl;
+}
+
+void Options::print_help_real(ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
+  stream << "Real multivariate function" << endl;
+  stream << "      --real-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << endl;
+  stream << "          Expression" << endl;
+  stream << "      --real-lower-bound (type double, default to -2)" << endl;
+  stream << "          Lower bound" << endl;
+  stream << "      --real-num-bits (type int, default to 8)" << endl;
+  stream << "          Number of bits in the dyadic representation of a real number" << endl;
+  stream << "      --real-upper-bound (type double, default to 2)" << endl;
+  stream << "          upper bound" << endl;
+  stream << endl;
 }
 
 void Options::print_help_pn(ostream& stream) const
@@ -1202,6 +1259,10 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# population_size = " << options._population_size << endl;
   stream << "# pv_log_num_components = " << options._pv_log_num_components << endl;
   stream << "# radius = " << options._radius << endl;
+  stream << "# real_expression = " << options._real_expression << endl;
+  stream << "# real_lower_bound = " << options._real_lower_bound << endl;
+  stream << "# real_num_bits = " << options._real_num_bits << endl;
+  stream << "# real_upper_bound = " << options._real_upper_bound << endl;
   stream << "# results_path = " << options._results_path << endl;
   stream << "# rls_patience = " << options._rls_patience << endl;
   stream << "# sa_beta_ratio = " << options._sa_beta_ratio << endl;

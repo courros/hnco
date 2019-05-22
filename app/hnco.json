@@ -20,6 +20,12 @@
         },
 
         {
+            "id": "real",
+            "title": "Real multivariate function",
+            "fold": true
+        },
+
+        {
             "id": "mod",
             "title": "Function Modifiers",
             "fold": false
@@ -534,6 +540,11 @@
                 },
 
                 {
+                    "value": 180,
+                    "description": "Real multivariate function"
+                },
+
+                {
                     "value": 1000,
                     "description": "Plugin"
                 }
@@ -591,6 +602,39 @@
             "value": "noname",
             "description": "Name of the function in the dynamic library",
             "section": "fn"
+        },
+
+
+        "real_lower_bound":
+        {
+            "type": "double",
+            "value": -2,
+            "description": "Lower bound",
+            "section": "real"
+        },
+
+        "real_upper_bound":
+        {
+            "type": "double",
+            "value": 2,
+            "description": "upper bound",
+            "section": "real"
+        },
+
+        "real_expression":
+        {
+            "type": "string",
+            "value": "(1-x)^2+100*(y-x^2)^2",
+            "description": "Expression",
+            "section": "real"
+        },
+
+        "real_num_bits":
+        {
+            "type": "int",
+            "value": "8",
+            "description": "Number of bits in the dyadic representation of a real number",
+            "section": "real"
         },
 
 

@@ -216,6 +216,16 @@ make_concrete_function(const Options& options)
     return function;
   }
 
+  case 180: {
+    auto rep = new hnco::function::real::DyadicRealRepresentation
+      (options.get_real_lower_bound(),
+       options.get_real_upper_bound(),
+       options.get_real_num_bits());
+    auto fn = new hnco::function::real::ParsedRealMultivariateFunction
+      (options.get_real_expression());
+    return new hnco::function::real::RealMultivariateFunctionAdapter(rep, fn);
+  }
+
 #ifdef ENABLE_PLUGIN
   case 1000:
     return new FunctionPlugin
