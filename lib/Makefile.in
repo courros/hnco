@@ -270,6 +270,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/qubo.hh hnco/functions/real/all.hh \
 	hnco/functions/real/real-multivariate-function-adapter.cc \
 	hnco/functions/real/real-multivariate-function-adapter.hh \
+	hnco/functions/real/real-multivariate-function.cc \
 	hnco/functions/real/real-multivariate-function.hh \
 	hnco/functions/real/real-representation.cc \
 	hnco/functions/real/real-representation.hh \
@@ -347,6 +348,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/functions/max-sat.lo hnco/functions/nk-landscape.lo \
 	hnco/functions/qubo.lo \
 	hnco/functions/real/real-multivariate-function-adapter.lo \
+	hnco/functions/real/real-multivariate-function.lo \
 	hnco/functions/real/real-representation.lo \
 	hnco/functions/theory.lo hnco/functions/trap.lo \
 	hnco/functions/walsh/walsh-expansion-1.lo \
@@ -448,6 +450,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo \
 	hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo \
 	hnco/functions/real/$(DEPDIR)/real-multivariate-function-adapter.Plo \
+	hnco/functions/real/$(DEPDIR)/real-multivariate-function.Plo \
 	hnco/functions/real/$(DEPDIR)/real-representation.Plo \
 	hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo \
 	hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo \
@@ -828,6 +831,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/qubo.hh hnco/functions/real/all.hh \
 	hnco/functions/real/real-multivariate-function-adapter.cc \
 	hnco/functions/real/real-multivariate-function-adapter.hh \
+	hnco/functions/real/real-multivariate-function.cc \
 	hnco/functions/real/real-multivariate-function.hh \
 	hnco/functions/real/real-representation.cc \
 	hnco/functions/real/real-representation.hh \
@@ -1236,6 +1240,9 @@ hnco/functions/real/$(DEPDIR)/$(am__dirstamp):
 hnco/functions/real/real-multivariate-function-adapter.lo:  \
 	hnco/functions/real/$(am__dirstamp) \
 	hnco/functions/real/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/real/real-multivariate-function.lo:  \
+	hnco/functions/real/$(am__dirstamp) \
+	hnco/functions/real/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/real/real-representation.lo:  \
 	hnco/functions/real/$(am__dirstamp) \
 	hnco/functions/real/$(DEPDIR)/$(am__dirstamp)
@@ -1402,6 +1409,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/real/$(DEPDIR)/real-multivariate-function-adapter.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/real/$(DEPDIR)/real-multivariate-function.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/real/$(DEPDIR)/real-representation.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo@am__quote@ # am--include-marker
@@ -1747,6 +1755,7 @@ distclean: distclean-am
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo
 	-rm -f hnco/functions/real/$(DEPDIR)/real-multivariate-function-adapter.Plo
+	-rm -f hnco/functions/real/$(DEPDIR)/real-multivariate-function.Plo
 	-rm -f hnco/functions/real/$(DEPDIR)/real-representation.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo
@@ -1873,6 +1882,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo
 	-rm -f hnco/functions/real/$(DEPDIR)/real-multivariate-function-adapter.Plo
+	-rm -f hnco/functions/real/$(DEPDIR)/real-multivariate-function.Plo
 	-rm -f hnco/functions/real/$(DEPDIR)/real-representation.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo

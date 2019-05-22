@@ -174,6 +174,7 @@ libhnco_la_SOURCES = \
 	hnco/functions/real/all.hh \
 	hnco/functions/real/real-multivariate-function-adapter.cc \
 	hnco/functions/real/real-multivariate-function-adapter.hh \
+	hnco/functions/real/real-multivariate-function.cc \
 	hnco/functions/real/real-multivariate-function.hh \
 	hnco/functions/real/real-representation.cc \
 	hnco/functions/real/real-representation.hh \
