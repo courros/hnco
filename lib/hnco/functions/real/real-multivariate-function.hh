@@ -49,7 +49,8 @@ namespace real {
 
 
   /// Parsed real multivariate function
-  class ParsedRealMultivariateFunction {
+  class ParsedRealMultivariateFunction:
+    public RealMultivariateFunction {
 
     /// Function parser
     FunctionParser _fparser;
