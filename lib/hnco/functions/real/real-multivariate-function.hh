@@ -23,6 +23,8 @@
 
 #include <vector>
 
+#include "fparser/fparser.hh"
+
 
 namespace hnco {
 namespace function {
@@ -42,6 +44,32 @@ namespace real {
 
     /// Evaluate a real vector
     virtual double eval(const std::vector<double> x) = 0;
+
+  };
+
+
+  /// Parsed real multivariate function
+  class ParsedRealMultivariateFunction {
+
+    /// Function parser
+    FunctionParser _fparser;
+
+    /// Number of variables
+    int _num_variables = 0;
+
+  public:
+
+    /** Constructor.
+
+        \param expression Expression to parse
+    */
+    ParsedRealMultivariateFunction(std::string expression);
+
+    /// Get the dimension of vectors
+    int get_dimension() { return _num_variables; }
+
+    /// Evaluate a real vector
+    double eval(const std::vector<double> x);
 
   };
 

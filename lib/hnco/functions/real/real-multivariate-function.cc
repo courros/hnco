@@ -20,9 +20,33 @@
 
 #include <assert.h>
 
+#include "hnco/exception.hh"
+
 #include "real-multivariate-function.hh"
 
 
 using namespace hnco;
+using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::function::real;
+
+
+ParsedRealMultivariateFunction::ParsedRealMultivariateFunction(std::string expression)
+{
+  int result = _fparser.ParseAndDeduceVariables(expression, &_num_variables);
+  if (result != -1) {
+    std::ostringstream stream;
+    stream
+      << "ParsedRealMultivariateFunction::ParsedRealMultivariateFunction: " << _fparser.ErrorMsg()
+      << " at position: " << result
+      << " in expression: " << expression;
+    throw Error(stream.str());
+  }
+}
+
+
+double
+ParsedRealMultivariateFunction::eval(const std::vector<double> x)
+{
+  return _fparser.Eval(x.data());
+}
