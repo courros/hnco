@@ -4,9 +4,21 @@ Library:
 - Import fparser
 - Added ExpressionModifier
 - Negation: fixed incremental_eval
+- Added namespace hnco::function::real
+- Added class RealRepresentation
+- Added class DyadicRealRepresentation
+- Added class RealMultivariateFunction
+- Added class ParsedRealMultivariateFunction
+- Added class RealMultivariateFunctionAdapter
 
 hnco:
 - Added options --expression and --real-function
+- Added section real
+- Added option --real-expression
+- Added option --real-lower-bound
+- Added option --real-upper-bound
+- Added option --real-num-bits
+- Added RealMultivariateFunctionAdapter with number 180
 
 Tests:
 - Added test-incremental-negation
