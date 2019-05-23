@@ -148,7 +148,7 @@ Available function controllers: Cache, CallCounter, OnBudgetFunction,
 ProgressTracker, StopOnMaximum, StopOnTarget.
 
 Available function modifiers: AdditiveGaussianNoise,
-FunctionMapComposition, Negation, PriorNoise, ExpressionModifier.
+FunctionMapComposition, Negation, PriorNoise, ParsedModifier.
 
 ### Neighborhoods
 

@@ -2,7 +2,7 @@
 
 Library:
 - Import fparser
-- Added ExpressionModifier
+- Added ParsedModifier
 - Negation: fixed incremental_eval
 - Added namespace hnco::function::real
 - Added class RealRepresentation

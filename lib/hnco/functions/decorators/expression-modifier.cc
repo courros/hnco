@@ -27,14 +27,14 @@ using namespace hnco::exception;
 using namespace hnco::function;
 
 
-ExpressionModifier::ExpressionModifier(Function *function, std::string expression):
+ParsedModifier::ParsedModifier(Function *function, std::string expression):
   FunctionModifier(function)
 {
   int result = _fparser.Parse(expression, "x");
   if (result != -1) {
     std::ostringstream stream;
     stream
-      << "ExpressionModifier::ExpressionModifier: " << _fparser.ErrorMsg()
+      << "ParsedModifier::ParsedModifier: " << _fparser.ErrorMsg()
       << " at position: " << result
       << " in expression: " << expression;
     throw Error(stream.str());
@@ -43,7 +43,7 @@ ExpressionModifier::ExpressionModifier(Function *function, std::string expressio
 
 
 double
-ExpressionModifier::eval(const bit_vector_t& x)
+ParsedModifier::eval(const bit_vector_t& x)
 {
   _values[0] = _function->eval(x);
   return _fparser.Eval(_values);

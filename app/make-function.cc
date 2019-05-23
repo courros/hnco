@@ -407,7 +407,7 @@ FunctionFactory::make_function_modifier(Function *function, Options& options)
 
   // Expression modifier
   if (options.with_real_function()) {
-    function = new ExpressionModifier(function, options.get_expression());
+    function = new ParsedModifier(function, options.get_expression());
   }
 
   // Negation

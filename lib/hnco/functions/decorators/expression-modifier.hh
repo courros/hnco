@@ -36,7 +36,7 @@ namespace function {
       equivalent to \f$g\circ f\f$, where g is a real function defined
       by an expression \f$g(x)\f$ provided as a string.
   */
-  class ExpressionModifier:
+  class ParsedModifier:
     public FunctionModifier {
 
     /// Function parser
@@ -52,7 +52,7 @@ namespace function {
         \param function Decorated function
         \param expression Expression to parse
     */
-    ExpressionModifier(Function *function, std::string expression);
+    ParsedModifier(Function *function, std::string expression);
 
     /** @name Information about the function
      */
