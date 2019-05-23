@@ -406,7 +406,7 @@ FunctionFactory::make_function_modifier(Function *function, Options& options)
   }
 
   // Expression modifier
-  if (options.with_real_function()) {
+  if (options.with_parsed_modifier()) {
     function = new ParsedModifier(function, options.get_expression());
   }
 

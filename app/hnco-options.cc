@@ -142,6 +142,7 @@ Options::Options(int argc, char *argv[]):
   _map_surjective(false),
   _mmas_strict(false),
   _negation(false),
+  _parsed_modifier(false),
   _pn_allow_stay(false),
   _print_concrete_solution(false),
   _print_defaults(false),
@@ -151,7 +152,6 @@ Options::Options(int argc, char *argv[]):
   _prior_noise(false),
   _pv_log_entropy(false),
   _pv_log_pv(false),
-  _real_function(false),
   _restart(false),
   _rls_strict(false),
   _rw_log_value(false),
@@ -251,6 +251,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_MAP_SURJECTIVE,
     OPTION_MMAS_STRICT,
     OPTION_NEGATION,
+    OPTION_PARSED_MODIFIER,
     OPTION_PN_ALLOW_STAY,
     OPTION_PRINT_CONCRETE_SOLUTION,
     OPTION_PRINT_DEFAULTS,
@@ -260,7 +261,6 @@ Options::Options(int argc, char *argv[]):
     OPTION_PRIOR_NOISE,
     OPTION_PV_LOG_ENTROPY,
     OPTION_PV_LOG_PV,
-    OPTION_REAL_FUNCTION,
     OPTION_RESTART,
     OPTION_RLS_STRICT,
     OPTION_RW_LOG_VALUE,
@@ -349,6 +349,7 @@ Options::Options(int argc, char *argv[]):
     {"map-surjective", no_argument, 0, OPTION_MAP_SURJECTIVE},
     {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
     {"negation", no_argument, 0, OPTION_NEGATION},
+    {"parsed-modifier", no_argument, 0, OPTION_PARSED_MODIFIER},
     {"pn-allow-stay", no_argument, 0, OPTION_PN_ALLOW_STAY},
     {"print-concrete-solution", no_argument, 0, OPTION_PRINT_CONCRETE_SOLUTION},
     {"print-defaults", no_argument, 0, OPTION_PRINT_DEFAULTS},
@@ -358,7 +359,6 @@ Options::Options(int argc, char *argv[]):
     {"prior-noise", no_argument, 0, OPTION_PRIOR_NOISE},
     {"pv-log-entropy", no_argument, 0, OPTION_PV_LOG_ENTROPY},
     {"pv-log-pv", no_argument, 0, OPTION_PV_LOG_PV},
-    {"real-function", no_argument, 0, OPTION_REAL_FUNCTION},
     {"restart", no_argument, 0, OPTION_RESTART},
     {"rls-strict", no_argument, 0, OPTION_RLS_STRICT},
     {"rw-log-value", no_argument, 0, OPTION_RW_LOG_VALUE},
@@ -717,6 +717,10 @@ Options::Options(int argc, char *argv[]):
       _negation = true;
       break;
 
+    case OPTION_PARSED_MODIFIER:
+      _parsed_modifier = true;
+      break;
+
     case OPTION_PN_ALLOW_STAY:
       _pn_allow_stay = true;
       break;
@@ -751,10 +755,6 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_PV_LOG_PV:
       _pv_log_pv = true;
-      break;
-
-    case OPTION_REAL_FUNCTION:
-      _real_function = true;
       break;
 
     case OPTION_RESTART:
@@ -925,8 +925,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Negation (hence minimization) of the function" << endl;
   stream << "      --noise-stddev (type double, default to 1)" << endl;
   stream << "          Noise standard deviation" << endl;
-  stream << "      --real-function" << endl;
-  stream << "          Compose the function by a real function" << endl;
+  stream << "      --parsed-modifier" << endl;
+  stream << "          Parsed modifier" << endl;
   stream << endl;
   stream << "Function Controllers" << endl;
   stream << "  -b, --budget (type int, default to 10000)" << endl;
@@ -1326,6 +1326,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# mmas_strict" << endl;
   if (options._negation)
     stream << "# negation" << endl;
+  if (options._parsed_modifier)
+    stream << "# parsed_modifier" << endl;
   if (options._pn_allow_stay)
     stream << "# pn_allow_stay" << endl;
   if (options._print_concrete_solution)
@@ -1344,8 +1346,6 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# pv_log_entropy" << endl;
   if (options._pv_log_pv)
     stream << "# pv_log_pv" << endl;
-  if (options._real_function)
-    stream << "# real_function" << endl;
   if (options._restart)
     stream << "# restart" << endl;
   if (options._rls_strict)

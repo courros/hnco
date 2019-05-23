@@ -306,6 +306,9 @@ class Options {
   /// Negation (hence minimization) of the function
   bool _negation;
 
+  /// Parsed modifier
+  bool _parsed_modifier;
+
   /// In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)
   bool _pn_allow_stay;
 
@@ -332,9 +335,6 @@ class Options {
 
   /// Log probability vector
   bool _pv_log_pv;
-
-  /// Compose the function by a real function
-  bool _real_function;
 
   /// Restart any algorithm an indefinite number of times
   bool _restart;
@@ -1190,6 +1190,12 @@ public:
   /// Set negation
   void set_negation() { _negation = true; }
  
+  /// Get parsed_modifier
+  bool with_parsed_modifier() const { return _parsed_modifier; }
+
+  /// Set parsed_modifier
+  void set_parsed_modifier() { _parsed_modifier = true; }
+ 
   /// Get pn_allow_stay
   bool with_pn_allow_stay() const { return _pn_allow_stay; }
 
@@ -1243,12 +1249,6 @@ public:
 
   /// Set pv_log_pv
   void set_pv_log_pv() { _pv_log_pv = true; }
- 
-  /// Get real_function
-  bool with_real_function() const { return _real_function; }
-
-  /// Set real_function
-  void set_real_function() { _real_function = true; }
  
   /// Get restart
   bool with_restart() const { return _restart; }

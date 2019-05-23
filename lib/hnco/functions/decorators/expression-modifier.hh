@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_DECORATORS_EXPRESSION_MODIFIER_H
-#define HNCO_FUNCTIONS_DECORATORS_EXPRESSION_MODIFIER_H
+#ifndef HNCO_FUNCTIONS_DECORATORS_PARSED_MODIFIER_H
+#define HNCO_FUNCTIONS_DECORATORS_PARSED_MODIFIER_H
 
 #include <assert.h>
 
@@ -30,7 +30,7 @@
 namespace hnco {
 namespace function {
 
-  /** Expression modifier.
+  /** Parsed modifier.
 
       Let f be the original function. Then the modified function is
       equivalent to \f$g\circ f\f$, where g is a real function defined
