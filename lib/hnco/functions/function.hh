@@ -34,7 +34,7 @@
 
 
 namespace hnco {
-/// Real functions over bit vectors
+/// Real black box functions defined on bit vectors
 namespace function {
 
   /// Function
