@@ -243,13 +243,13 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/expression-modifier.cc \
-	hnco/functions/decorators/expression-modifier.hh \
 	hnco/functions/decorators/function-controller.cc \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.cc \
 	hnco/functions/decorators/function-modifier.hh \
+	hnco/functions/decorators/parsed-modifier.cc \
+	hnco/functions/decorators/parsed-modifier.hh \
 	hnco/functions/decorators/prior-noise.cc \
 	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.cc \
@@ -335,9 +335,9 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/pv/pv-algorithm.lo hnco/algorithms/pv/umda.lo \
 	hnco/algorithms/random-search.lo hnco/bit-matrix.lo \
 	hnco/bit-vector.lo hnco/functions/cancellation.lo \
-	hnco/functions/decorators/expression-modifier.lo \
 	hnco/functions/decorators/function-controller.lo \
 	hnco/functions/decorators/function-modifier.lo \
+	hnco/functions/decorators/parsed-modifier.lo \
 	hnco/functions/decorators/prior-noise.lo \
 	hnco/functions/equal-products.lo hnco/functions/four-peaks.lo \
 	hnco/functions/function.lo \
@@ -443,9 +443,9 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/$(DEPDIR)/qubo.Plo \
 	hnco/functions/$(DEPDIR)/theory.Plo \
 	hnco/functions/$(DEPDIR)/trap.Plo \
-	hnco/functions/decorators/$(DEPDIR)/expression-modifier.Plo \
 	hnco/functions/decorators/$(DEPDIR)/function-controller.Plo \
 	hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo \
+	hnco/functions/decorators/$(DEPDIR)/parsed-modifier.Plo \
 	hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo \
 	hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo \
 	hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo \
@@ -546,10 +546,10 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/expression-modifier.hh \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.hh \
+	hnco/functions/decorators/parsed-modifier.hh \
 	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.hh \
 	hnco/functions/function.hh hnco/functions/ising/all.hh \
@@ -804,13 +804,13 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/expression-modifier.cc \
-	hnco/functions/decorators/expression-modifier.hh \
 	hnco/functions/decorators/function-controller.cc \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.cc \
 	hnco/functions/decorators/function-modifier.hh \
+	hnco/functions/decorators/parsed-modifier.cc \
+	hnco/functions/decorators/parsed-modifier.hh \
 	hnco/functions/decorators/prior-noise.cc \
 	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.cc \
@@ -900,10 +900,10 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/expression-modifier.hh \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.hh \
+	hnco/functions/decorators/parsed-modifier.hh \
 	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.hh \
 	hnco/functions/function.hh hnco/functions/ising/all.hh \
@@ -1187,13 +1187,13 @@ hnco/functions/decorators/$(am__dirstamp):
 hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/functions/decorators/$(DEPDIR)
 	@: > hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/decorators/expression-modifier.lo:  \
-	hnco/functions/decorators/$(am__dirstamp) \
-	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/decorators/function-controller.lo:  \
 	hnco/functions/decorators/$(am__dirstamp) \
 	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/decorators/function-modifier.lo:  \
+	hnco/functions/decorators/$(am__dirstamp) \
+	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/decorators/parsed-modifier.lo:  \
 	hnco/functions/decorators/$(am__dirstamp) \
 	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/decorators/prior-noise.lo:  \
@@ -1402,9 +1402,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/qubo.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/theory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/trap.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/expression-modifier.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-controller.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/parsed-modifier.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo@am__quote@ # am--include-marker
@@ -1748,9 +1748,9 @@ distclean: distclean-am
 	-rm -f hnco/functions/$(DEPDIR)/qubo.Plo
 	-rm -f hnco/functions/$(DEPDIR)/theory.Plo
 	-rm -f hnco/functions/$(DEPDIR)/trap.Plo
-	-rm -f hnco/functions/decorators/$(DEPDIR)/expression-modifier.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/function-controller.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo
+	-rm -f hnco/functions/decorators/$(DEPDIR)/parsed-modifier.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo
@@ -1875,9 +1875,9 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/$(DEPDIR)/qubo.Plo
 	-rm -f hnco/functions/$(DEPDIR)/theory.Plo
 	-rm -f hnco/functions/$(DEPDIR)/trap.Plo
-	-rm -f hnco/functions/decorators/$(DEPDIR)/expression-modifier.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/function-controller.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo
+	-rm -f hnco/functions/decorators/$(DEPDIR)/parsed-modifier.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo

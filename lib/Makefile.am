@@ -137,13 +137,13 @@ libhnco_la_SOURCES = \
 	hnco/functions/cancellation.cc \
 	hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/expression-modifier.cc \
-	hnco/functions/decorators/expression-modifier.hh \
 	hnco/functions/decorators/function-controller.cc \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.cc \
 	hnco/functions/decorators/function-modifier.hh \
+	hnco/functions/decorators/parsed-modifier.cc \
+	hnco/functions/decorators/parsed-modifier.hh \
 	hnco/functions/decorators/prior-noise.cc \
 	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.cc \
@@ -289,10 +289,10 @@ nobase_include_HEADERS = \
 	hnco/functions/all.hh \
 	hnco/functions/cancellation.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/expression-modifier.hh \
 	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.hh \
+	hnco/functions/decorators/parsed-modifier.hh \
 	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.hh \
 	hnco/functions/four-peaks.hh \

@@ -20,7 +20,7 @@
 
 #include "hnco/exception.hh"
 
-#include "expression-modifier.hh"
+#include "parsed-modifier.hh"
 
 
 using namespace hnco::exception;
