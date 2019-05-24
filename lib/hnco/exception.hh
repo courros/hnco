@@ -28,8 +28,8 @@
 #include "bit-vector.hh"
 
 
-/// Exceptions
 namespace hnco {
+/// Exceptions
 namespace exception {
 
   /// Basic exception
