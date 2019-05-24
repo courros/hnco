@@ -1,7 +1,7 @@
 * Version 0.13 (unreleased)
 
 Library:
-- Import fparser
+- Imported fparser
 - Added ParsedModifier
 - Negation: fixed incremental_eval
 - Added namespace hnco::function::real
