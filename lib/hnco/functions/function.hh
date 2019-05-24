@@ -33,8 +33,8 @@
 #include "hnco/sparse-bit-vector.hh"
 
 
-/// Functions to be maximized
 namespace hnco {
+/// Real functions over bit vectors
 namespace function {
 
   /// Function
