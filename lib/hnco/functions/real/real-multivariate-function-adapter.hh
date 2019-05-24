@@ -29,6 +29,7 @@
 
 namespace hnco {
 namespace function {
+/// Real multivariate functions
 namespace real {
 
 
