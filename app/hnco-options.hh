@@ -299,6 +299,9 @@ class Options {
   /// Incremental evaluation
   bool _incremental_evaluation;
 
+  /// Load a solution from a file
+  bool _load_solution;
+
   /// Log improvement
   bool _log_improvement;
 
@@ -323,16 +326,16 @@ class Options {
   /// Print the default parameters and exit
   bool _print_defaults;
 
-  /// At the end, print a description of the solution
+  /// Print a description of the solution
   bool _print_description;
 
   /// At the beginning, print the header
   bool _print_header;
 
-  /// At the end, print results
+  /// Print results
   bool _print_results;
 
-  /// At the end, print the solution
+  /// Print the solution
   bool _print_solution;
 
   /// Prior noise
@@ -1197,6 +1200,12 @@ public:
 
   /// Set incremental_evaluation
   void set_incremental_evaluation() { _incremental_evaluation = true; }
+ 
+  /// Get load_solution
+  bool with_load_solution() const { return _load_solution; }
+
+  /// Set load_solution
+  void set_load_solution() { _load_solution = true; }
  
   /// Get log_improvement
   bool with_log_improvement() const { return _log_improvement; }

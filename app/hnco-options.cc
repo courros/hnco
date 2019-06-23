@@ -141,6 +141,7 @@ Options::Options(int argc, char *argv[]):
   _hea_log_selection(false),
   _hea_randomize_bit_order(false),
   _incremental_evaluation(false),
+  _load_solution(false),
   _log_improvement(false),
   _map_random(false),
   _map_surjective(false),
@@ -254,6 +255,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_HEA_LOG_SELECTION,
     OPTION_HEA_RANDOMIZE_BIT_ORDER,
     OPTION_INCREMENTAL_EVALUATION,
+    OPTION_LOAD_SOLUTION,
     OPTION_LOG_IMPROVEMENT,
     OPTION_MAP_RANDOM,
     OPTION_MAP_SURJECTIVE,
@@ -356,6 +358,7 @@ Options::Options(int argc, char *argv[]):
     {"hea-log-selection", no_argument, 0, OPTION_HEA_LOG_SELECTION},
     {"hea-randomize-bit-order", no_argument, 0, OPTION_HEA_RANDOMIZE_BIT_ORDER},
     {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
+    {"load-solution", no_argument, 0, OPTION_LOAD_SOLUTION},
     {"log-improvement", no_argument, 0, OPTION_LOG_IMPROVEMENT},
     {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
     {"map-surjective", no_argument, 0, OPTION_MAP_SURJECTIVE},
@@ -719,6 +722,10 @@ Options::Options(int argc, char *argv[]):
       _incremental_evaluation = true;
       break;
 
+    case OPTION_LOAD_SOLUTION:
+      _load_solution = true;
+      break;
+
     case OPTION_LOG_IMPROVEMENT:
       _log_improvement = true;
       break;
@@ -871,18 +878,20 @@ void Options::print_help(ostream& stream) const
   stream << "          At the end, print or save the solution in the domain of the concrete function" << endl;
   stream << "      --description-path (type string, default to \"description.txt\")" << endl;
   stream << "          Path of the description file" << endl;
+  stream << "      --load-solution" << endl;
+  stream << "          Load a solution from a file" << endl;
   stream << "      --num-threads (type int, default to 1)" << endl;
   stream << "          Number of threads" << endl;
   stream << "      --print-defaults" << endl;
   stream << "          Print the default parameters and exit" << endl;
   stream << "      --print-description" << endl;
-  stream << "          At the end, print a description of the solution" << endl;
+  stream << "          Print a description of the solution" << endl;
   stream << "      --print-header" << endl;
   stream << "          At the beginning, print the header" << endl;
   stream << "      --print-results" << endl;
-  stream << "          At the end, print results" << endl;
+  stream << "          Print results" << endl;
   stream << "      --print-solution" << endl;
-  stream << "          At the end, print the solution" << endl;
+  stream << "          Print the solution" << endl;
   stream << "      --results-path (type string, default to \"results.json\")" << endl;
   stream << "          Path of the results file" << endl;
   stream << "      --save-description" << endl;
@@ -1356,6 +1365,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# hea_randomize_bit_order" << endl;
   if (options._incremental_evaluation)
     stream << "# incremental_evaluation" << endl;
+  if (options._load_solution)
+    stream << "# load_solution" << endl;
   if (options._log_improvement)
     stream << "# log_improvement" << endl;
   if (options._map_random)

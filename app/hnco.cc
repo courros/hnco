@@ -102,6 +102,14 @@ int main(int argc, char *argv[])
   assert(options.get_bv_size() == int(fn->get_bv_size()));
 
   //
+  // Load a solution
+  //
+
+  if (options.with_load_solution()) {
+
+  }
+
+  //
   // Print information about the function
   //
 

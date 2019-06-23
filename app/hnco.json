@@ -111,7 +111,7 @@
 
         "print_results":
         {
-            "description": "At the end, print results",
+            "description": "Print results",
             "section": "gen"
         },
 
@@ -123,7 +123,7 @@
 
         "print_solution":
         {
-            "description": "At the end, print the solution",
+            "description": "Print the solution",
             "section": "gen"
         },
 
@@ -139,9 +139,15 @@
             "section": "gen"
         },
 
+        "load_solution":
+        {
+            "description": "Load a solution from a file",
+            "section": "gen"
+        },
+
         "print_description":
         {
-            "description": "At the end, print a description of the solution",
+            "description": "Print a description of the solution",
             "section": "gen"
         },
 
