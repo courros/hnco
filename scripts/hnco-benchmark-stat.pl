@@ -51,6 +51,7 @@ my $stat_total_time = {};
 my $stat_evaluation_time = {};
 my $stat_algorithm_time = {};
 my $stat_value_best = {};
+my $hall_of_fame = {};
 
 my $rank_distribution = {};
 foreach my $a (@$algorithms) {
@@ -73,6 +74,7 @@ reverse_best_statistics();
 compute_ranges();
 
 generate_function_data();
+generate_function_results();
 generate_gnuplot_candlesticks();
 generate_gnuplot_clouds();
 generate_table_rank_distribution();
@@ -90,6 +92,8 @@ sub compute_statistics
         my $total_time = {};
         my $evaluation_time = {};
         my $algorithm_time = {};
+
+        $hall_of_fame->{$function_id} = [];
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
@@ -116,6 +120,9 @@ sub compute_statistics
                 $SD_total_time->add_data($obj->{total_time});
                 $SD_evaluation_time->add_data($obj->{evaluation_time});
                 $SD_algorithm_time->add_data($obj->{total_time} - $obj->{evaluation_time});
+
+                push @{ $hall_of_fame->{$function_id} }, { algorithm => $algorithm_id, run => $_, value => $obj->{value} };
+
             }
             $file_data->close;
 
@@ -303,6 +310,23 @@ sub generate_function_data
 
     }
 
+}
+
+sub generate_function_results
+{
+    foreach my $f (@$functions) {
+        my $function_id = $f->{id};
+        my $path = "$path_results/$function_id/results.txt";
+        $file = IO::File->new($path, '>')
+            or die "hnco-benchmark-stat.pl: generate_function_results: Cannot open '$path': $!\n";
+
+        my @sorted = sort { $b->{value} <=> $a->{value} } @{ $hall_of_fame->{$function_id} };
+        foreach (@sorted) {
+            $file->print("$_->{algorithm} $_->{run} $_->{value}\n")
+        }
+
+        $file->close();
+    }
 }
 
 sub generate_gnuplot_candlesticks
