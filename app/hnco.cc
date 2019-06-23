@@ -106,7 +106,18 @@ int main(int argc, char *argv[])
   //
 
   if (options.with_load_solution()) {
-
+    std::ifstream stream(options.get_solution_path());
+    bit_vector_t x;
+    bv_from_stream(x, stream);
+    if (int(x.size()) != fn->get_bv_size()) {
+      std::cerr << "Error: main: solution size and function bv_size must be equal" << std::endl;
+      return 1;
+    }
+    if (options.with_print_results())
+      std::cout << fn->eval(x) << std::endl;
+    if (options.with_print_description())
+      fn->describe(x, std::cout);
+    return 0;
   }
 
   //
