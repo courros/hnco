@@ -107,6 +107,10 @@ int main(int argc, char *argv[])
 
   if (options.with_load_solution()) {
     std::ifstream stream(options.get_solution_path());
+    if (!stream.good()) {
+      std::cerr << "main: Cannot open " << options.get_solution_path() << std::endl;
+      return 1;
+    }
     bit_vector_t x;
     bv_from_stream(x, stream);
     if (int(x.size()) != fn->get_bv_size()) {
