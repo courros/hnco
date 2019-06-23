@@ -23,6 +23,8 @@ Options::Options(int argc, char *argv[]):
   _opt_budget(false),
   _bv_size(100),
   _opt_bv_size(false),
+  _description_path("description.txt"),
+  _opt_description_path(false),
   _ea_lambda(100),
   _opt_ea_lambda(false),
   _ea_mu(10),
@@ -157,6 +159,7 @@ Options::Options(int argc, char *argv[]):
   _restart(false),
   _rls_strict(false),
   _rw_log_value(false),
+  _save_description(false),
   _save_results(false),
   _save_solution(false),
   _stop_on_maximum(false),
@@ -181,6 +184,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_BM_SAMPLING,
     OPTION_BUDGET,
     OPTION_BV_SIZE,
+    OPTION_DESCRIPTION_PATH,
     OPTION_EA_LAMBDA,
     OPTION_EA_MU,
     OPTION_EXPRESSION,
@@ -268,6 +272,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_RESTART,
     OPTION_RLS_STRICT,
     OPTION_RW_LOG_VALUE,
+    OPTION_SAVE_DESCRIPTION,
     OPTION_SAVE_RESULTS,
     OPTION_SAVE_SOLUTION,
     OPTION_STOP_ON_MAXIMUM,
@@ -281,6 +286,7 @@ Options::Options(int argc, char *argv[]):
     {"bm-sampling", required_argument, 0, OPTION_BM_SAMPLING},
     {"budget", required_argument, 0, OPTION_BUDGET},
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
+    {"description-path", required_argument, 0, OPTION_DESCRIPTION_PATH},
     {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
     {"expression", required_argument, 0, OPTION_EXPRESSION},
@@ -368,6 +374,7 @@ Options::Options(int argc, char *argv[]):
     {"restart", no_argument, 0, OPTION_RESTART},
     {"rls-strict", no_argument, 0, OPTION_RLS_STRICT},
     {"rw-log-value", no_argument, 0, OPTION_RW_LOG_VALUE},
+    {"save-description", no_argument, 0, OPTION_SAVE_DESCRIPTION},
     {"save-results", no_argument, 0, OPTION_SAVE_RESULTS},
     {"save-solution", no_argument, 0, OPTION_SAVE_SOLUTION},
     {"stop-on-maximum", no_argument, 0, OPTION_STOP_ON_MAXIMUM},
@@ -420,6 +427,10 @@ Options::Options(int argc, char *argv[]):
     case 's':
     case OPTION_BV_SIZE:
       set_bv_size(atoi(optarg));
+      break;
+
+    case OPTION_DESCRIPTION_PATH:
+      set_description_path(string(optarg));
       break;
 
     case OPTION_EA_LAMBDA:
@@ -780,6 +791,10 @@ Options::Options(int argc, char *argv[]):
       _rw_log_value = true;
       break;
 
+    case OPTION_SAVE_DESCRIPTION:
+      _save_description = true;
+      break;
+
     case OPTION_SAVE_RESULTS:
       _save_results = true;
       break;
@@ -852,6 +867,8 @@ void Options::print_help(ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
   stream << "General" << endl;
+  stream << "      --description-path (type string, default to \"description.txt\")" << endl;
+  stream << "          Path of the description file" << endl;
   stream << "      --num-threads (type int, default to 1)" << endl;
   stream << "          Number of threads" << endl;
   stream << "      --print-concrete-solution" << endl;
@@ -868,6 +885,8 @@ void Options::print_help(ostream& stream) const
   stream << "          At the end, print the solution" << endl;
   stream << "      --results-path (type string, default to \"results.json\")" << endl;
   stream << "          Path of the results file" << endl;
+  stream << "      --save-description" << endl;
+  stream << "          At the end, save a description of the solution in a file" << endl;
   stream << "      --save-results" << endl;
   stream << "          At the end, save results in a file" << endl;
   stream << "      --save-solution" << endl;
@@ -1245,6 +1264,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# bm_sampling = " << options._bm_sampling << endl;
   stream << "# budget = " << options._budget << endl;
   stream << "# bv_size = " << options._bv_size << endl;
+  stream << "# description_path = " << options._description_path << endl;
   stream << "# ea_lambda = " << options._ea_lambda << endl;
   stream << "# ea_mu = " << options._ea_mu << endl;
   stream << "# expression = " << options._expression << endl;
@@ -1372,6 +1392,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# rls_strict" << endl;
   if (options._rw_log_value)
     stream << "# rw_log_value" << endl;
+  if (options._save_description)
+    stream << "# save_description" << endl;
   if (options._save_results)
     stream << "# save_results" << endl;
   if (options._save_solution)

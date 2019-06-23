@@ -145,6 +145,12 @@
             "section": "gen"
         },
 
+        "save_description":
+        {
+            "description": "At the end, save a description of the solution in a file",
+            "section": "gen"
+        },
+
 
         "fn_has_known_maximum":
         {
@@ -399,6 +405,14 @@
             "type": "string",
             "value": "solution.txt",
             "description": "Path of the solution file",
+            "section": "gen"
+        },
+
+        "description_path":
+        {
+            "type": "string",
+            "value": "description.txt",
+            "description": "Path of the description file",
             "section": "gen"
         },
 

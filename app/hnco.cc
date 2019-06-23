@@ -295,36 +295,51 @@ int main(int argc, char *argv[])
     stream << results.str();
   }
 
+  //
+  // Solution
+  //
+
+  bit_vector_t concrete_solution = solution.first;
+
+  if (options.with_print_concrete_solution()) {
+    hnco::Map *map = function_factory.get_map();
+    if (map) {
+      concrete_solution.resize(map->get_output_size());
+      map->map(solution.first, concrete_solution);
+    }
+  }
+
   // Print solution
   if (options.with_print_solution()) {
-    bv_display(solution.first, std::cout);
+    bv_display(concrete_solution, std::cout);
     std::cout << std::endl;
   }
 
   // Save solution
   if (options.with_save_solution()) {
     std::ofstream stream(options.get_solution_path());
-    bv_display(solution.first, stream);
+    bv_display(concrete_solution, stream);
     stream << std::endl;
   }
 
-  // Print concrete solution
-  if (options.with_print_concrete_solution()) {
-    hnco::Map *map = function_factory.get_map();
-    if (map) {
-      bit_vector_t concrete_solution(map->get_output_size());
-      map->map(solution.first, concrete_solution);
-      bv_display(concrete_solution, std::cout);
-    } else {
-      bv_display(solution.first, std::cout);
-    }
-    std::cout << std::endl;
-  }
+  //
+  // Description
+  //
 
   // Print description
   if (options.with_print_description()) {
-    fn->describe(solution.first, std::cout);
+    fn->describe(concrete_solution, std::cout);
   }
+
+  // Save description
+  if (options.with_save_description()) {
+    std::ofstream stream(options.get_description_path());
+    fn->describe(concrete_solution, stream);
+  }
+
+  //
+  // Exit status
+  //
 
   if (options.with_stop_on_maximum() && !maximum_reached)
     return 2;

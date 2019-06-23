@@ -41,6 +41,10 @@ class Options {
   int _bv_size;
   bool _opt_bv_size;
 
+  /// Path of the description file
+  std::string _description_path;
+  bool _opt_description_path;
+
   /// Offspring population size
   int _ea_lambda;
   bool _opt_ea_lambda;
@@ -349,6 +353,9 @@ class Options {
   /// Log bit vector value during random walk
   bool _rw_log_value;
 
+  /// At the end, save a description of the solution in a file
+  bool _save_description;
+
   /// At the end, save results in a file
   bool _save_results;
 
@@ -482,6 +489,18 @@ public:
 
   /// Get set-flag for bv_size
   bool set_bv_size() const { return _opt_bv_size; }
+
+  /// Get description_path
+  std::string get_description_path() const { return _description_path; }
+
+  /// Set description_path
+  void set_description_path(std::string x) {
+    _description_path = x;
+    _opt_description_path = true;
+  }
+
+  /// Get set-flag for description_path
+  bool set_description_path() const { return _opt_description_path; }
 
   /// Get ea_lambda
   int get_ea_lambda() const { return _ea_lambda; }
@@ -1286,6 +1305,12 @@ public:
 
   /// Set rw_log_value
   void set_rw_log_value() { _rw_log_value = true; }
+ 
+  /// Get save_description
+  bool with_save_description() const { return _save_description; }
+
+  /// Set save_description
+  void set_save_description() { _save_description = true; }
  
   /// Get save_results
   bool with_save_results() const { return _save_results; }
