@@ -41,7 +41,7 @@ my $budget              = $obj->{budget};
 my $functions           = $obj->{functions};
 my $parallel            = $obj->{parallel};
 my $servers             = $obj->{servers};
-my $save_solutions      = $obj->{save_solutions};
+my $save_solution      = $obj->{save_solution};
 
 my $path_results        = "results";
 
@@ -107,7 +107,7 @@ sub iterate_runs
     my ($prefix, $cmd, $num_runs) = @_;
     if ($parallel) {
         foreach (1 .. $num_runs) {
-            if ($save_solutions) {
+            if ($save_solution) {
                 push @commands, "$cmd --save-solution --solution-path $prefix/$_.sol --save-description --description-path $prefix/$_.des > $prefix/$_.out 2>> $prefix/$_.err";
             } else {
                 push @commands, "$cmd > $prefix/$_.out 2>> $prefix/$_.err";
@@ -116,7 +116,7 @@ sub iterate_runs
         print "added to the job queue";
     } else {
         foreach (1 .. $num_runs) {
-            if ($save_solutions) {
+            if ($save_solution) {
                 system("$cmd --save-solution --solution-path $prefix/$_.sol --save-description --description-path $prefix/$_.des > $prefix/$_.out 2>> log.err");
             } else {
                 system("$cmd > $prefix/$_.out 2>> log.err");
