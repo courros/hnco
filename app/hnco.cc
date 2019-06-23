@@ -301,6 +301,13 @@ int main(int argc, char *argv[])
     std::cout << std::endl;
   }
 
+  // Save solution
+  if (options.with_save_solution()) {
+    std::ofstream stream(options.get_solution_path());
+    bv_display(solution.first, stream);
+    stream << std::endl;
+  }
+
   // Print concrete solution
   if (options.with_print_concrete_solution()) {
     hnco::Map *map = function_factory.get_map();
