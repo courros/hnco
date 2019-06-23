@@ -10,6 +10,7 @@ Library:
 - Added class RealMultivariateFunction
 - Added class ParsedRealMultivariateFunction
 - Added class RealMultivariateFunctionAdapter
+- Added bv_from_stream
 
 hnco:
 - Added options --expression and --parsed-modifier
@@ -19,6 +20,11 @@ hnco:
 - Added option --real-upper-bound
 - Added option --real-num-bits
 - Added RealMultivariateFunctionAdapter with number 180
+- Renamed option --describe-solution -> --print-description
+- Added option --save-solution
+- Added option --save-description
+- Renamed option --print-concrete-solution -> --concrete-solution
+- Added option --load-solution
 
 Tests:
 - Added test-incremental-negation
