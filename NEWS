@@ -29,6 +29,9 @@ hnco:
 Tests:
 - Added test-incremental-negation
 
+Scripts:
+- hnco-benchmark-run.pl: take into account flag save_solution
+
 
 * Version 0.12 (2019-05-08)
 
