@@ -221,6 +221,10 @@ class Options {
   int _selection_size;
   bool _opt_selection_size;
 
+  /// Path of the solution file
+  std::string _solution_path;
+  bool _opt_solution_path;
+
   /// Target
   double _target;
   bool _opt_target;
@@ -245,9 +249,6 @@ class Options {
 
   /// Set cache on budget
   bool _cache_budget;
-
-  /// At the end, describe the solution
-  bool _describe_solution;
 
   /// Display the function and exit
   bool _fn_display;
@@ -318,6 +319,9 @@ class Options {
   /// Print the default parameters and exit
   bool _print_defaults;
 
+  /// At the end, print a description of the solution
+  bool _print_description;
+
   /// At the beginning, print the header
   bool _print_header;
 
@@ -347,6 +351,9 @@ class Options {
 
   /// At the end, save results in a file
   bool _save_results;
+
+  /// At the end, save the solution in a file
+  bool _save_solution;
 
   /// Stop on maximum
   bool _stop_on_maximum;
@@ -1016,6 +1023,18 @@ public:
   /// Get set-flag for selection_size
   bool set_selection_size() const { return _opt_selection_size; }
 
+  /// Get solution_path
+  std::string get_solution_path() const { return _solution_path; }
+
+  /// Set solution_path
+  void set_solution_path(std::string x) {
+    _solution_path = x;
+    _opt_solution_path = true;
+  }
+
+  /// Get set-flag for solution_path
+  bool set_solution_path() const { return _opt_solution_path; }
+
   /// Get target
   double get_target() const { return _target; }
 
@@ -1069,12 +1088,6 @@ public:
 
   /// Set cache_budget
   void set_cache_budget() { _cache_budget = true; }
- 
-  /// Get describe_solution
-  bool with_describe_solution() const { return _describe_solution; }
-
-  /// Set describe_solution
-  void set_describe_solution() { _describe_solution = true; }
  
   /// Get fn_display
   bool with_fn_display() const { return _fn_display; }
@@ -1214,6 +1227,12 @@ public:
   /// Set print_defaults
   void set_print_defaults() { _print_defaults = true; }
  
+  /// Get print_description
+  bool with_print_description() const { return _print_description; }
+
+  /// Set print_description
+  void set_print_description() { _print_description = true; }
+ 
   /// Get print_header
   bool with_print_header() const { return _print_header; }
 
@@ -1273,6 +1292,12 @@ public:
 
   /// Set save_results
   void set_save_results() { _save_results = true; }
+ 
+  /// Get save_solution
+  bool with_save_solution() const { return _save_solution; }
+
+  /// Set save_solution
+  void set_save_solution() { _save_solution = true; }
  
   /// Get stop_on_maximum
   bool with_stop_on_maximum() const { return _stop_on_maximum; }

@@ -113,6 +113,8 @@ Options::Options(int argc, char *argv[]):
   _opt_seed(false),
   _selection_size(1),
   _opt_selection_size(false),
+  _solution_path("solution.txt"),
+  _opt_solution_path(false),
   _target(100),
   _opt_target(false),
   _additive_gaussian_noise(false),
@@ -122,7 +124,6 @@ Options::Options(int argc, char *argv[]):
   _bm_negative_positive_selection(false),
   _cache(false),
   _cache_budget(false),
-  _describe_solution(false),
   _fn_display(false),
   _fn_get_bv_size(false),
   _fn_get_maximum(false),
@@ -146,6 +147,7 @@ Options::Options(int argc, char *argv[]):
   _pn_allow_stay(false),
   _print_concrete_solution(false),
   _print_defaults(false),
+  _print_description(false),
   _print_header(false),
   _print_results(false),
   _print_solution(false),
@@ -156,6 +158,7 @@ Options::Options(int argc, char *argv[]):
   _rls_strict(false),
   _rw_log_value(false),
   _save_results(false),
+  _save_solution(false),
   _stop_on_maximum(false),
   _stop_on_target(false)
 {
@@ -223,6 +226,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_SA_NUM_TRIALS,
     OPTION_SEED,
     OPTION_SELECTION_SIZE,
+    OPTION_SOLUTION_PATH,
     OPTION_TARGET,
     OPTION_ADDITIVE_GAUSSIAN_NOISE,
     OPTION_ALLOW_STAY,
@@ -231,7 +235,6 @@ Options::Options(int argc, char *argv[]):
     OPTION_BM_NEGATIVE_POSITIVE_SELECTION,
     OPTION_CACHE,
     OPTION_CACHE_BUDGET,
-    OPTION_DESCRIBE_SOLUTION,
     OPTION_FN_DISPLAY,
     OPTION_FN_GET_BV_SIZE,
     OPTION_FN_GET_MAXIMUM,
@@ -255,6 +258,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_PN_ALLOW_STAY,
     OPTION_PRINT_CONCRETE_SOLUTION,
     OPTION_PRINT_DEFAULTS,
+    OPTION_PRINT_DESCRIPTION,
     OPTION_PRINT_HEADER,
     OPTION_PRINT_RESULTS,
     OPTION_PRINT_SOLUTION,
@@ -265,6 +269,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_RLS_STRICT,
     OPTION_RW_LOG_VALUE,
     OPTION_SAVE_RESULTS,
+    OPTION_SAVE_SOLUTION,
     OPTION_STOP_ON_MAXIMUM,
     OPTION_STOP_ON_TARGET
   };
@@ -321,6 +326,7 @@ Options::Options(int argc, char *argv[]):
     {"sa-num-trials", required_argument, 0, OPTION_SA_NUM_TRIALS},
     {"seed", required_argument, 0, OPTION_SEED},
     {"selection-size", required_argument, 0, OPTION_SELECTION_SIZE},
+    {"solution-path", required_argument, 0, OPTION_SOLUTION_PATH},
     {"target", required_argument, 0, OPTION_TARGET},
     {"additive-gaussian-noise", no_argument, 0, OPTION_ADDITIVE_GAUSSIAN_NOISE},
     {"allow-stay", no_argument, 0, OPTION_ALLOW_STAY},
@@ -329,7 +335,6 @@ Options::Options(int argc, char *argv[]):
     {"bm-negative-positive-selection", no_argument, 0, OPTION_BM_NEGATIVE_POSITIVE_SELECTION},
     {"cache", no_argument, 0, OPTION_CACHE},
     {"cache-budget", no_argument, 0, OPTION_CACHE_BUDGET},
-    {"describe-solution", no_argument, 0, OPTION_DESCRIBE_SOLUTION},
     {"fn-display", no_argument, 0, OPTION_FN_DISPLAY},
     {"fn-get-bv-size", no_argument, 0, OPTION_FN_GET_BV_SIZE},
     {"fn-get-maximum", no_argument, 0, OPTION_FN_GET_MAXIMUM},
@@ -353,6 +358,7 @@ Options::Options(int argc, char *argv[]):
     {"pn-allow-stay", no_argument, 0, OPTION_PN_ALLOW_STAY},
     {"print-concrete-solution", no_argument, 0, OPTION_PRINT_CONCRETE_SOLUTION},
     {"print-defaults", no_argument, 0, OPTION_PRINT_DEFAULTS},
+    {"print-description", no_argument, 0, OPTION_PRINT_DESCRIPTION},
     {"print-header", no_argument, 0, OPTION_PRINT_HEADER},
     {"print-results", no_argument, 0, OPTION_PRINT_RESULTS},
     {"print-solution", no_argument, 0, OPTION_PRINT_SOLUTION},
@@ -363,6 +369,7 @@ Options::Options(int argc, char *argv[]):
     {"rls-strict", no_argument, 0, OPTION_RLS_STRICT},
     {"rw-log-value", no_argument, 0, OPTION_RW_LOG_VALUE},
     {"save-results", no_argument, 0, OPTION_SAVE_RESULTS},
+    {"save-solution", no_argument, 0, OPTION_SAVE_SOLUTION},
     {"stop-on-maximum", no_argument, 0, OPTION_STOP_ON_MAXIMUM},
     {"stop-on-target", no_argument, 0, OPTION_STOP_ON_TARGET},
     {"version", no_argument, 0, OPTION_VERSION},
@@ -605,6 +612,10 @@ Options::Options(int argc, char *argv[]):
       set_selection_size(atoi(optarg));
       break;
 
+    case OPTION_SOLUTION_PATH:
+      set_solution_path(string(optarg));
+      break;
+
     case OPTION_TARGET:
       set_target(atof(optarg));
       break;
@@ -635,10 +646,6 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_CACHE_BUDGET:
       _cache_budget = true;
-      break;
-
-    case OPTION_DESCRIBE_SOLUTION:
-      _describe_solution = true;
       break;
 
     case OPTION_FN_DISPLAY:
@@ -733,6 +740,10 @@ Options::Options(int argc, char *argv[]):
       _print_defaults = true;
       break;
 
+    case OPTION_PRINT_DESCRIPTION:
+      _print_description = true;
+      break;
+
     case OPTION_PRINT_HEADER:
       _print_header = true;
       break;
@@ -771,6 +782,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_SAVE_RESULTS:
       _save_results = true;
+      break;
+
+    case OPTION_SAVE_SOLUTION:
+      _save_solution = true;
       break;
 
     case OPTION_STOP_ON_MAXIMUM:
@@ -837,14 +852,14 @@ void Options::print_help(ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
   stream << "General" << endl;
-  stream << "      --describe-solution" << endl;
-  stream << "          At the end, describe the solution" << endl;
   stream << "      --num-threads (type int, default to 1)" << endl;
   stream << "          Number of threads" << endl;
   stream << "      --print-concrete-solution" << endl;
   stream << "          At the end, print the solution in the domain of the concrete function" << endl;
   stream << "      --print-defaults" << endl;
   stream << "          Print the default parameters and exit" << endl;
+  stream << "      --print-description" << endl;
+  stream << "          At the end, print a description of the solution" << endl;
   stream << "      --print-header" << endl;
   stream << "          At the beginning, print the header" << endl;
   stream << "      --print-results" << endl;
@@ -855,8 +870,12 @@ void Options::print_help(ostream& stream) const
   stream << "          Path of the results file" << endl;
   stream << "      --save-results" << endl;
   stream << "          At the end, save results in a file" << endl;
+  stream << "      --save-solution" << endl;
+  stream << "          At the end, save the solution in a file" << endl;
   stream << "      --seed (type unsigned, default to 0)" << endl;
   stream << "          Seed for the random number generator" << endl;
+  stream << "      --solution-path (type string, default to \"solution.txt\")" << endl;
+  stream << "          Path of the solution file" << endl;
   stream << endl;
   stream << "Functions" << endl;
   stream << "  -s, --bv-size (type int, default to 100)" << endl;
@@ -1271,6 +1290,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# sa_num_trials = " << options._sa_num_trials << endl;
   stream << "# seed = " << options._seed << endl;
   stream << "# selection_size = " << options._selection_size << endl;
+  stream << "# solution_path = " << options._solution_path << endl;
   stream << "# target = " << options._target << endl;
   if (options._additive_gaussian_noise)
     stream << "# additive_gaussian_noise" << endl;
@@ -1286,8 +1306,6 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# cache" << endl;
   if (options._cache_budget)
     stream << "# cache_budget" << endl;
-  if (options._describe_solution)
-    stream << "# describe_solution" << endl;
   if (options._fn_display)
     stream << "# fn_display" << endl;
   if (options._fn_get_bv_size)
@@ -1334,6 +1352,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# print_concrete_solution" << endl;
   if (options._print_defaults)
     stream << "# print_defaults" << endl;
+  if (options._print_description)
+    stream << "# print_description" << endl;
   if (options._print_header)
     stream << "# print_header" << endl;
   if (options._print_results)
@@ -1354,6 +1374,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# rw_log_value" << endl;
   if (options._save_results)
     stream << "# save_results" << endl;
+  if (options._save_solution)
+    stream << "# save_solution" << endl;
   if (options._stop_on_maximum)
     stream << "# stop_on_maximum" << endl;
   if (options._stop_on_target)

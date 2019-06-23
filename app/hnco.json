@@ -127,15 +127,21 @@
             "section": "gen"
         },
 
+        "save_solution":
+        {
+            "description": "At the end, save the solution in a file",
+            "section": "gen"
+        },
+
         "print_concrete_solution":
         {
             "description": "At the end, print the solution in the domain of the concrete function",
             "section": "gen"
         },
 
-        "describe_solution":
+        "print_description":
         {
-            "description": "At the end, describe the solution",
+            "description": "At the end, print a description of the solution",
             "section": "gen"
         },
 
@@ -380,7 +386,6 @@
             "section": "gen"
         },
 
-
         "results_path":
         {
             "type": "string",
@@ -388,6 +393,15 @@
             "description": "Path of the results file",
             "section": "gen"
         },
+
+        "solution_path":
+        {
+            "type": "string",
+            "value": "solution.txt",
+            "description": "Path of the solution file",
+            "section": "gen"
+        },
+
 
         "function":
         {

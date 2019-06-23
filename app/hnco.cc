@@ -314,8 +314,8 @@ int main(int argc, char *argv[])
     std::cout << std::endl;
   }
 
-  // Describe solution
-  if (options.with_describe_solution()) {
+  // Print description
+  if (options.with_print_description()) {
     fn->describe(solution.first, std::cout);
   }
 
