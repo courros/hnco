@@ -254,6 +254,9 @@ class Options {
   /// Set cache on budget
   bool _cache_budget;
 
+  /// At the end, print or save the solution in the domain of the concrete function
+  bool _concrete_solution;
+
   /// Display the function and exit
   bool _fn_display;
 
@@ -316,9 +319,6 @@ class Options {
 
   /// In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)
   bool _pn_allow_stay;
-
-  /// At the end, print the solution in the domain of the concrete function
-  bool _print_concrete_solution;
 
   /// Print the default parameters and exit
   bool _print_defaults;
@@ -1108,6 +1108,12 @@ public:
   /// Set cache_budget
   void set_cache_budget() { _cache_budget = true; }
  
+  /// Get concrete_solution
+  bool with_concrete_solution() const { return _concrete_solution; }
+
+  /// Set concrete_solution
+  void set_concrete_solution() { _concrete_solution = true; }
+ 
   /// Get fn_display
   bool with_fn_display() const { return _fn_display; }
 
@@ -1233,12 +1239,6 @@ public:
 
   /// Set pn_allow_stay
   void set_pn_allow_stay() { _pn_allow_stay = true; }
- 
-  /// Get print_concrete_solution
-  bool with_print_concrete_solution() const { return _print_concrete_solution; }
-
-  /// Set print_concrete_solution
-  void set_print_concrete_solution() { _print_concrete_solution = true; }
  
   /// Get print_defaults
   bool with_print_defaults() const { return _print_defaults; }

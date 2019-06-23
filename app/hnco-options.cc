@@ -126,6 +126,7 @@ Options::Options(int argc, char *argv[]):
   _bm_negative_positive_selection(false),
   _cache(false),
   _cache_budget(false),
+  _concrete_solution(false),
   _fn_display(false),
   _fn_get_bv_size(false),
   _fn_get_maximum(false),
@@ -147,7 +148,6 @@ Options::Options(int argc, char *argv[]):
   _negation(false),
   _parsed_modifier(false),
   _pn_allow_stay(false),
-  _print_concrete_solution(false),
   _print_defaults(false),
   _print_description(false),
   _print_header(false),
@@ -239,6 +239,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_BM_NEGATIVE_POSITIVE_SELECTION,
     OPTION_CACHE,
     OPTION_CACHE_BUDGET,
+    OPTION_CONCRETE_SOLUTION,
     OPTION_FN_DISPLAY,
     OPTION_FN_GET_BV_SIZE,
     OPTION_FN_GET_MAXIMUM,
@@ -260,7 +261,6 @@ Options::Options(int argc, char *argv[]):
     OPTION_NEGATION,
     OPTION_PARSED_MODIFIER,
     OPTION_PN_ALLOW_STAY,
-    OPTION_PRINT_CONCRETE_SOLUTION,
     OPTION_PRINT_DEFAULTS,
     OPTION_PRINT_DESCRIPTION,
     OPTION_PRINT_HEADER,
@@ -341,6 +341,7 @@ Options::Options(int argc, char *argv[]):
     {"bm-negative-positive-selection", no_argument, 0, OPTION_BM_NEGATIVE_POSITIVE_SELECTION},
     {"cache", no_argument, 0, OPTION_CACHE},
     {"cache-budget", no_argument, 0, OPTION_CACHE_BUDGET},
+    {"concrete-solution", no_argument, 0, OPTION_CONCRETE_SOLUTION},
     {"fn-display", no_argument, 0, OPTION_FN_DISPLAY},
     {"fn-get-bv-size", no_argument, 0, OPTION_FN_GET_BV_SIZE},
     {"fn-get-maximum", no_argument, 0, OPTION_FN_GET_MAXIMUM},
@@ -362,7 +363,6 @@ Options::Options(int argc, char *argv[]):
     {"negation", no_argument, 0, OPTION_NEGATION},
     {"parsed-modifier", no_argument, 0, OPTION_PARSED_MODIFIER},
     {"pn-allow-stay", no_argument, 0, OPTION_PN_ALLOW_STAY},
-    {"print-concrete-solution", no_argument, 0, OPTION_PRINT_CONCRETE_SOLUTION},
     {"print-defaults", no_argument, 0, OPTION_PRINT_DEFAULTS},
     {"print-description", no_argument, 0, OPTION_PRINT_DESCRIPTION},
     {"print-header", no_argument, 0, OPTION_PRINT_HEADER},
@@ -659,6 +659,10 @@ Options::Options(int argc, char *argv[]):
       _cache_budget = true;
       break;
 
+    case OPTION_CONCRETE_SOLUTION:
+      _concrete_solution = true;
+      break;
+
     case OPTION_FN_DISPLAY:
       _fn_display = true;
       break;
@@ -741,10 +745,6 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_PN_ALLOW_STAY:
       _pn_allow_stay = true;
-      break;
-
-    case OPTION_PRINT_CONCRETE_SOLUTION:
-      _print_concrete_solution = true;
       break;
 
     case OPTION_PRINT_DEFAULTS:
@@ -867,12 +867,12 @@ void Options::print_help(ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
   stream << "General" << endl;
+  stream << "      --concrete-solution" << endl;
+  stream << "          At the end, print or save the solution in the domain of the concrete function" << endl;
   stream << "      --description-path (type string, default to \"description.txt\")" << endl;
   stream << "          Path of the description file" << endl;
   stream << "      --num-threads (type int, default to 1)" << endl;
   stream << "          Number of threads" << endl;
-  stream << "      --print-concrete-solution" << endl;
-  stream << "          At the end, print the solution in the domain of the concrete function" << endl;
   stream << "      --print-defaults" << endl;
   stream << "          Print the default parameters and exit" << endl;
   stream << "      --print-description" << endl;
@@ -1326,6 +1326,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# cache" << endl;
   if (options._cache_budget)
     stream << "# cache_budget" << endl;
+  if (options._concrete_solution)
+    stream << "# concrete_solution" << endl;
   if (options._fn_display)
     stream << "# fn_display" << endl;
   if (options._fn_get_bv_size)
@@ -1368,8 +1370,6 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# parsed_modifier" << endl;
   if (options._pn_allow_stay)
     stream << "# pn_allow_stay" << endl;
-  if (options._print_concrete_solution)
-    stream << "# print_concrete_solution" << endl;
   if (options._print_defaults)
     stream << "# print_defaults" << endl;
   if (options._print_description)

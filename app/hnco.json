@@ -133,9 +133,9 @@
             "section": "gen"
         },
 
-        "print_concrete_solution":
+        "concrete_solution":
         {
-            "description": "At the end, print the solution in the domain of the concrete function",
+            "description": "At the end, print or save the solution in the domain of the concrete function",
             "section": "gen"
         },
 

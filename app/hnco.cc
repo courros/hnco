@@ -301,7 +301,7 @@ int main(int argc, char *argv[])
 
   bit_vector_t concrete_solution = solution.first;
 
-  if (options.with_print_concrete_solution()) {
+  if (options.with_concrete_solution()) {
     hnco::Map *map = function_factory.get_map();
     if (map) {
       concrete_solution.resize(map->get_output_size());
