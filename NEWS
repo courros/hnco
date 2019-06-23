@@ -31,6 +31,7 @@ Tests:
 
 Scripts:
 - hnco-benchmark-run.pl: take into account flag save_solution
+- hnco-benchmark-stat.pl: generate hall of fame file results.txt per function
 
 
 * Version 0.12 (2019-05-08)
