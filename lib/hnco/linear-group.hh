@@ -29,6 +29,7 @@
 
 namespace hnco {
 
+
   /** @name Types and functions related to the linear group
    */
   ///@{
@@ -91,6 +92,7 @@ namespace hnco {
 
   };
 
+
   /** Element of the linear group.
 
       The linear group on the finite field F_2 (GL for short) is the
@@ -100,8 +102,10 @@ namespace hnco {
   */
   typedef std::vector<GlGenerator> gl_element_t;
 
+
   /// Display a GL element
-  void gl_display(const gl_element_t& M, std::ostream& stream);
+  void gl_display(const gl_element_t& A, std::ostream& stream);
+
 
   /** Sample a random GL element.
 
@@ -109,7 +113,8 @@ namespace hnco {
       \param n Dimension
       \param t Length of the generator sequence
   */
-  void gl_random(gl_element_t& M, int n, int t);
+  void gl_random(gl_element_t& A, int n, int t);
+
 
   /** Apply a GL element to a bit vector.
 
@@ -118,7 +123,18 @@ namespace hnco {
       \param M GL element
       \param x Bit vector
   */
-  void gl_apply(const gl_element_t& M, bit_vector_t& x);
+  void gl_apply(const gl_element_t& A, bit_vector_t& x);
+
+
+  /** Apply a GL element to a bit matrix.
+
+      This function modifies the given bit matrix.
+
+      \param A GL element
+      \param M Bit matrix
+  */
+  void gl_apply(const gl_element_t& A, bit_matrix_t& M);
+
 
   ///@}
 

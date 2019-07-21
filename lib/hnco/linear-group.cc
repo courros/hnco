@@ -111,9 +111,9 @@ GlGenerator::apply(bit_matrix_t& M) const
 }
 
 
-void hnco::gl_display(const gl_element_t& M, std::ostream& stream)
+void hnco::gl_display(const gl_element_t& A, std::ostream& stream)
 {
-  for (auto& gen : M) {
+  for (auto& gen : A) {
     gen.display(stream);
     stream << " :: ";
   }
@@ -121,19 +121,26 @@ void hnco::gl_display(const gl_element_t& M, std::ostream& stream)
 }
 
 
-void hnco::gl_random(gl_element_t& M, int n, int t)
+void hnco::gl_random(gl_element_t& A, int n, int t)
 {
   assert(n > 0);
   assert(t > 0);
 
-  M = gl_element_t(t);
-  for (auto& gen : M)
+  A = gl_element_t(t);
+  for (auto& gen : A)
     gen.random(n);
 }
 
 
-void hnco::gl_apply(const gl_element_t& M, bit_vector_t& x)
+void hnco::gl_apply(const gl_element_t& A, bit_vector_t& x)
 {
-  for (const auto& gen : M)
+  for (const auto& gen : A)
     gen.apply(x);
+}
+
+
+void hnco::gl_apply(const gl_element_t& A, bit_matrix_t& M)
+{
+  for (const auto& gen : A)
+    gen.apply(M);
 }
