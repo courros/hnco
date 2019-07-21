@@ -49,16 +49,7 @@ namespace hnco {
     int second_index;
 
     /// Check validity
-    bool is_valid() const {
-      if (type != Type::Permutation &&
-          type != Type::Transvection)
-        return false;
-      if (first_index < 0)
-        return false;
-      if (second_index < 0)
-        return false;
-      return true;
-    }
+    bool is_valid() const;
 
     /// Display generator
     void display(std::ostream& stream) const {
@@ -66,6 +57,20 @@ namespace hnco {
 
       stream << names[static_cast<int>(type)] << "(" << first_index << ", " << second_index << ")";
     }
+
+    /** Sample a random generator.
+
+        \param n Dimension
+    */
+    void random(int n);
+
+    /** Apply the generator to a bit vector.
+
+        This function modifies the given bit vector.
+
+        \param x Bit vector
+    */
+    void apply(bit_vector_t& x) const;
 
   };
 
@@ -84,15 +89,19 @@ namespace hnco {
   /** Sample a random GL element.
 
       \param M GL element
+      \param n Dimension
       \param t Length of the generator sequence
   */
-  void gl_random(gl_element_t& M, int t);
+  void gl_random(gl_element_t& M, int n, int t);
 
-  /** Multiply a GL element and a bit vector.
+  /** Apply a GL element to a bit vector.
 
-      The result is y = Mx.
+      This function modifies the given bit vector.
+
+      \param M GL element
+      \param x Bit vector
   */
-  void gl_multiply(const gl_element_t& M, const bit_vector_t& x, bit_vector_t& y);
+  void gl_apply(const gl_element_t& M, bit_vector_t& x);
 
   ///@}
 

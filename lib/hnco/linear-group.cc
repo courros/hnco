@@ -20,14 +20,74 @@
 
 #include <assert.h>
 
+#include "random.hh"
 #include "linear-group.hh"
 
 
 using namespace hnco;
+using namespace random;
 
 
 // Static member
 const std::string hnco::GlGenerator::names[] = { "Permutation", "Transvection" };
+
+
+bool
+GlGenerator::is_valid() const
+{
+  if (type != Type::Permutation &&
+      type != Type::Transvection)
+    return false;
+  if (first_index < 0)
+    return false;
+  if (second_index < 0)
+    return false;
+  return true;
+}
+
+
+void
+GlGenerator::random(int n)
+{
+  assert(n > 0);
+
+  if (Random::bernoulli())
+    type = Type::Permutation;
+  else
+    type = Type::Transvection;
+
+  std::uniform_int_distribution<int> index_dist(0, n - 1);
+  int i, j;
+  do {
+    i = index_dist(Random::generator);
+    j = index_dist(Random::generator);
+  } while (i == j);
+  first_index = i;
+  second_index = j;
+}
+
+
+void
+GlGenerator::apply(bit_vector_t& x) const
+{
+  assert(is_valid());
+
+  if (type == Type::Permutation) {
+    std::swap(x[first_index], x[second_index]);
+    return;
+  }
+
+  if (type == Type::Transvection) {
+    x[first_index] += x[second_index];
+    assert(x[first_index] == 0 ||
+           x[first_index] == 1 ||
+           x[first_index] == 2);
+    if (x[first_index] == 2)
+      x[first_index] = 0;
+    return;
+  }
+
+}
 
 
 void hnco::gl_display(const gl_element_t& M, std::ostream& stream)
@@ -39,10 +99,20 @@ void hnco::gl_display(const gl_element_t& M, std::ostream& stream)
   stream << std::endl;
 }
 
-void hnco::gl_random(gl_element_t& M, int t)
+
+void hnco::gl_random(gl_element_t& M, int n, int t)
 {
+  assert(n > 0);
+  assert(t > 0);
+
+  M = gl_element_t(t);
+  for (auto& gen : M)
+    gen.random(n);
 }
 
-void hnco::gl_multiply(const gl_element_t& M, const bit_vector_t& x, bit_vector_t& y)
+
+void hnco::gl_apply(const gl_element_t& M, bit_vector_t& x)
 {
+  for (const auto& gen : M)
+    gen.apply(x);
 }
