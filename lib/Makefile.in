@@ -283,7 +283,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.cc \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.cc \
-	hnco/iterator.hh hnco/map.cc hnco/map.hh \
+	hnco/iterator.hh hnco/linear-group.cc hnco/linear-group.hh \
+	hnco/map.cc hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -354,7 +355,8 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/functions/walsh/walsh-expansion-1.lo \
 	hnco/functions/walsh/walsh-expansion-2.lo \
 	hnco/functions/walsh/walsh-expansion.lo hnco/iterator.lo \
-	hnco/map.lo hnco/neighborhoods/neighborhood-iterator.lo \
+	hnco/linear-group.lo hnco/map.lo \
+	hnco/neighborhoods/neighborhood-iterator.lo \
 	hnco/neighborhoods/neighborhood.lo hnco/permutation.lo \
 	hnco/random.lo hnco/sparse-bit-matrix.lo \
 	hnco/sparse-bit-vector.lo $(am__objects_1) $(am__objects_2)
@@ -391,9 +393,9 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	fparser/$(DEPDIR)/fparser.Plo \
 	fparser/$(DEPDIR)/fpoptimizer.Plo \
 	hnco/$(DEPDIR)/bit-matrix.Plo hnco/$(DEPDIR)/bit-vector.Plo \
-	hnco/$(DEPDIR)/iterator.Plo hnco/$(DEPDIR)/map.Plo \
-	hnco/$(DEPDIR)/permutation.Plo hnco/$(DEPDIR)/random.Plo \
-	hnco/$(DEPDIR)/sparse-bit-matrix.Plo \
+	hnco/$(DEPDIR)/iterator.Plo hnco/$(DEPDIR)/linear-group.Plo \
+	hnco/$(DEPDIR)/map.Plo hnco/$(DEPDIR)/permutation.Plo \
+	hnco/$(DEPDIR)/random.Plo hnco/$(DEPDIR)/sparse-bit-matrix.Plo \
 	hnco/$(DEPDIR)/sparse-bit-vector.Plo \
 	hnco/algorithms/$(DEPDIR)/algorithm.Plo \
 	hnco/algorithms/$(DEPDIR)/complete-search.Plo \
@@ -567,7 +569,8 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
-	hnco/map.hh hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/linear-group.hh hnco/map.hh \
+	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
@@ -845,7 +848,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.cc \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.cc \
-	hnco/iterator.hh hnco/map.cc hnco/map.hh \
+	hnco/iterator.hh hnco/linear-group.cc hnco/linear-group.hh \
+	hnco/map.cc hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -921,7 +925,8 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
-	hnco/map.hh hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/linear-group.hh hnco/map.hh \
+	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
@@ -1266,6 +1271,8 @@ hnco/functions/walsh/walsh-expansion.lo:  \
 	hnco/functions/walsh/$(am__dirstamp) \
 	hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp)
 hnco/iterator.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
+hnco/linear-group.lo: hnco/$(am__dirstamp) \
+	hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/map.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/neighborhoods/$(am__dirstamp):
 	@$(MKDIR_P) hnco/neighborhoods
@@ -1349,6 +1356,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/bit-matrix.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/bit-vector.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/iterator.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/linear-group.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/map.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/permutation.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/random.Plo@am__quote@ # am--include-marker
@@ -1695,6 +1703,7 @@ distclean: distclean-am
 	-rm -f hnco/$(DEPDIR)/bit-matrix.Plo
 	-rm -f hnco/$(DEPDIR)/bit-vector.Plo
 	-rm -f hnco/$(DEPDIR)/iterator.Plo
+	-rm -f hnco/$(DEPDIR)/linear-group.Plo
 	-rm -f hnco/$(DEPDIR)/map.Plo
 	-rm -f hnco/$(DEPDIR)/permutation.Plo
 	-rm -f hnco/$(DEPDIR)/random.Plo
@@ -1822,6 +1831,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/$(DEPDIR)/bit-matrix.Plo
 	-rm -f hnco/$(DEPDIR)/bit-vector.Plo
 	-rm -f hnco/$(DEPDIR)/iterator.Plo
+	-rm -f hnco/$(DEPDIR)/linear-group.Plo
 	-rm -f hnco/$(DEPDIR)/map.Plo
 	-rm -f hnco/$(DEPDIR)/permutation.Plo
 	-rm -f hnco/$(DEPDIR)/random.Plo
