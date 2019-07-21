@@ -22,35 +22,46 @@
 #include <iostream>
 #include <iterator>
 
-#include "hnco/bit-matrix.hh"
+#include "hnco/linear-group.hh"
 
 
 using namespace hnco::random;
 using namespace hnco;
 using namespace std;
 
-bool check_bm_multiply()
+bool check_gl_apply()
 {
-  std::uniform_int_distribution<int> dimension_dist(1, 100);
-  for (size_t t = 0; t < 100; t++) {
-    int dimension = dimension_dist(Random::generator);
-    bit_matrix_t M(dimension, bit_vector_t(dimension));
-    bit_matrix_t N, P;
-    N = M;
-    do {
-      for (size_t i = 0; i < M.size(); i++)
-        bv_random(M[i]);
-      P = M;
-    } while (!bm_invert(P, N));
-    bit_vector_t x(dimension);
-    bit_vector_t y(dimension);
-    bit_vector_t z(dimension);
-    bv_random(x);
-    bm_multiply(M, x, y);
-    bm_multiply(N, y, z);
-    if (x != z)
-      return false;
+  uniform_int_distribution<int> dimension_dist(1, 100);
+  uniform_int_distribution<int> lenght_dist(1, 10);
+
+  for (int i = 0; i < 10; i++) {
+    int n = dimension_dist(Random::generator);
+    int t = lenght_dist(Random::generator);
+
+    bit_matrix_t M;
+    bm_resize(M, n);
+    bm_identity(M);
+
+    gl_element_t element;
+    gl_random(element, n, t);
+    gl_apply(element, M);
+
+    for (int j = 0; j < 10; j++) {
+      bit_vector_t x(n);
+      bit_vector_t y(n);
+      bv_random(x);
+      bv_random(y);
+      bm_multiply(M, x, y);
+
+      bit_vector_t z(x);
+      gl_apply(element, z);
+
+      if (z != y)
+        return false;
+    }
+
   }
+
   return true;
 }
 
@@ -58,9 +69,9 @@ int main(int argc, char *argv[])
 {
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  if (check_bm_multiply())
-    exit(0);
+  if (check_gl_apply())
+    return 0;
   else
-    exit(1);
+    return 1;
 
 }
