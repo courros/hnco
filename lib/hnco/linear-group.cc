@@ -69,6 +69,8 @@ void
 GlGenerator::apply(bit_vector_t& x) const
 {
   assert(is_valid());
+  assert(first_index < int(x.size()));
+  assert(second_index < int(x.size()));
 
   if (type == Type::Permutation) {
     std::swap(x[first_index], x[second_index]);
@@ -76,12 +78,33 @@ GlGenerator::apply(bit_vector_t& x) const
   }
 
   if (type == Type::Transvection) {
-    x[first_index] += x[second_index];
-    assert(x[first_index] == 0 ||
-           x[first_index] == 1 ||
-           x[first_index] == 2);
-    if (x[first_index] == 2)
-      x[first_index] = 0;
+    x[second_index] += x[first_index];
+    assert(x[second_index] == 0 ||
+           x[second_index] == 1 ||
+           x[second_index] == 2);
+    if (x[second_index] == 2)
+      x[second_index] = 0;
+    return;
+  }
+
+}
+
+
+void
+GlGenerator::apply(bit_matrix_t& M) const
+{
+  assert(is_valid());
+  assert(bm_is_square(M));
+  assert(first_index < bm_num_rows(M));
+  assert(second_index < bm_num_rows(M));
+
+  if (type == Type::Permutation) {
+    bm_swap_rows(M, first_index, second_index);
+    return;
+  }
+
+  if (type == Type::Transvection) {
+    bm_add_rows(M, first_index, second_index);
     return;
   }
 

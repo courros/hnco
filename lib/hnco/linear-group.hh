@@ -24,6 +24,7 @@
 #include <assert.h>
 
 #include "bit-vector.hh"
+#include "bit-matrix.hh"
 
 
 namespace hnco {
@@ -32,7 +33,13 @@ namespace hnco {
    */
   ///@{
 
-  /// Generator of the linear group
+  /** Generator of the linear group.
+
+      For a permutation, the first and second lines are swapped.
+
+      For a transvection, the first line is added (mod 2) to the
+      second line.
+   */
   struct GlGenerator {
 
     /// Types of generator
@@ -73,6 +80,14 @@ namespace hnco {
         \param x Bit vector
     */
     void apply(bit_vector_t& x) const;
+
+    /** Apply the generator to a bit matrix.
+
+        This function modifies the given bit matrix.
+
+        \param M Bit matrix
+    */
+    void apply(bit_matrix_t& M) const;
 
   };
 
