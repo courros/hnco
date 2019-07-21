@@ -20,284 +20,29 @@
 
 #include <assert.h>
 
-#include "bit-matrix.hh"
+#include "linear-group.hh"
 
 
 using namespace hnco;
 
 
-void hnco::bm_display(const bit_matrix_t& M, std::ostream& stream)
+// Static member
+GlGenerator::names = { "Permutation", "Transvection" };
+
+
+void hnco::gl_display(const gl_element_t& M, std::ostream& stream)
 {
-  for (auto& bv : M) {
-    bv_display(bv, stream);
-    stream << std::endl;
+  for (auto& gen : M) {
+    gen.display(stream);
+    stream << " :: ";
   }
+  stream << std::endl;
 }
 
-bool hnco::bm_is_valid(const bit_matrix_t& M)
+void hnco::gl_random(gl_element_t& M, int t)
 {
-  if (M.size() == 0)
-    return false;
-  size_t num_columns = M[0].size();
-  if (num_columns == 0)
-    return false;
-  return std::all_of(M.begin(), M.end(), [num_columns](const bit_vector_t& row){ return row.size() == num_columns; });
 }
 
-void hnco::bm_identity(bit_matrix_t& M)
+void hnco::gl_multiply(const gl_element_t& M, const bit_vector_t& x, bit_vector_t& y)
 {
-  assert(bm_is_square(M));
-
-  const int rows = bm_num_rows(M);
-
-  for (int i = 0; i < rows; i++)
-    for (int j = 0; j < rows; j++) {
-      if (i == j)
-        M[i][j] = 1;
-      else
-        M[i][j] = 0;
-    }
-}
-
-bool hnco::bm_is_identity(const bit_matrix_t& M)
-{
-  if (!bm_is_square(M))
-    return false;
-
-  const int rows = bm_num_rows(M);
-
-  for (int i = 0; i < rows; i++)
-    for (int j = 0; j < rows; j++) {
-      if (i == j) {
-        if (M[i][j] != 1)
-          return false;
-      } else {
-        if (M[i][j] != 0)
-          return false;
-      }
-    }
-  return true;
-}
-
-bool hnco::bm_is_upper_triangular(const bit_matrix_t& M)
-{
-  const int rows = bm_num_rows(M);
-  const int cols = bm_num_columns(M);
-
-  for (int i = 0; i < rows; i++)
-    for (int j = 0; j < std::min(i, cols); j++) {
-      if (M[i][j] != 0)
-        return false;
-    }
-  return true;
-}
-
-void hnco::bm_resize(bit_matrix_t& M, int num_rows, int num_columns)
-{
-  assert(num_rows >= 0);
-  assert(num_columns >= 0);
-
-  M.resize(num_rows);
-  for (auto& row: M)
-    row.resize(num_columns);
-}
-
-void hnco::bm_random(bit_matrix_t& M)
-{
-  for (auto& row: M)
-    bv_random(row);
-}
-
-void hnco::bm_swap_rows(bit_matrix_t& M, int i, int j)
-{
-  assert(i >= 0);
-  assert(i < int(bm_num_rows(M)));
-  assert(j >= 0);
-  assert(j < int(bm_num_rows(M)));
-
-  const int cols = bm_num_columns(M);
-
-  for (int k = 0; k < cols; k++)
-    std::swap(M[i][k], M[j][k]);
-}
-
-void hnco::bm_add_rows(bit_matrix_t& M, int i, int j)
-{
-  assert(i >= 0);
-  assert(i < int(bm_num_rows(M)));
-  assert(j >= 0);
-  assert(j < int(bm_num_rows(M)));
-  assert(i != j);
-
-  bv_add(M[i], M[j]);
-}
-
-void hnco::bm_row_echelon_form(bit_matrix_t& A)
-{
-  const int rows = bm_num_rows(A);
-  const int cols = bm_num_columns(A);
-
-  int r = 0;
-
-  for (int j = 0; j < cols; j++) {
-    bool found = false;
-    int pivot;
-    for (int i = r; i < rows; i++)
-      if (A[i][j]) {
-        pivot = i;
-        found = true;
-        break;
-      }
-    if (found) {
-      if (pivot != r) {
-        bm_swap_rows(A, pivot, r);
-      }
-      for (int i = r + 1; i < rows; i++)
-        if (A[i][j]) {
-          bm_add_rows(A, r, i);
-        }
-      r++;
-      if (r == rows)
-        break;
-    }
-  }
-}
-
-int hnco::bm_rank(const bit_matrix_t& A)
-{
-  const int rows = bm_num_rows(A);
-
-  int rank = 0;
-
-  for (int i = 0; i < rows; i++)
-    if (bv_is_zero(A[i]))
-      break;
-    else
-      rank++;
-
-  assert(rank <= rows);
-  assert(rank <= bm_num_columns(A));
-
-  return rank;
-}
-
-bool hnco::bm_solve(bit_matrix_t& A, bit_vector_t& b)
-{
-  assert(bm_is_square(A));
-  assert(bm_num_rows(A) == int(b.size()));
-
-  const int rows = bm_num_rows(A);
-
-  for (int i = 0; i < rows; i++) {
-    bool found = false;
-    int pivot;
-    for (int j = i; j < rows; j++)
-      if (A[j][i]) {
-        pivot = j;
-        found = true;
-        break;
-      }
-    if (!found)
-      return false;
-    if (pivot != i) {
-      bm_swap_rows(A, i, pivot);
-      std::swap(b[i], b[pivot]);
-    }
-    for (int j = i + 1; j < rows; j++)
-      if (A[j][i]) {
-        bm_add_rows(A, i, j);
-        b[j] = (b[i] + b[j]) % 2;
-      }
-  }
-  assert(bm_is_upper_triangular(A));
-
-  return bm_solve_upper_triangular(A, b);
-}
-
-bool hnco::bm_solve_upper_triangular(bit_matrix_t& A, bit_vector_t& b)
-{
-  assert(bm_is_square(A));
-  assert(bm_num_rows(A) == int(b.size()));
-  assert(bm_is_upper_triangular(A));
-
-  const int rows = bm_num_rows(A);
-
-  for (int k = 0; k < rows; k++) {
-    int i = rows - 1 - k;
-    for (int j = 0; j < i; j++)
-      if (A[j][i]) {
-        bm_add_rows(A, i, j);
-        b[j] = (b[i] + b[j]) % 2;
-      }
-  }
-  assert(bm_is_identity(A));
-
-  return true;
-}
-
-bool hnco::bm_invert(bit_matrix_t& M, bit_matrix_t& N)
-{
-  assert(bm_is_square(M));
-  assert(bm_is_square(N));
-  assert(M.size() == N.size());
-
-  const int rows = bm_num_rows(M);
-
-  bm_identity(N);
-  for (int i = 0; i < rows; i++) {
-    bool found = false;
-    int pivot;
-    for (int j = i; j < rows; j++)
-      if (M[j][i]) {
-        pivot = j;
-        found = true;
-        break;
-      }
-    if (!found)
-      return false;
-    if (pivot != i) {
-      bm_swap_rows(M, i, pivot);
-      bm_swap_rows(N, i, pivot);
-    }
-    for (int j = i + 1; j < rows; j++)
-      if (M[j][i]) {
-        bm_add_rows(M, i, j);
-        bm_add_rows(N, i, j);
-      }
-  }
-  assert(bm_is_upper_triangular(M));
-
-  for (int k = 0; k < rows; k++) {
-    int i = rows - 1 - k;
-    for (int j = 0; j < i; j++)
-      if (M[j][i]) {
-        bm_add_rows(M, i, j);
-        bm_add_rows(N, i, j);
-      }
-  }
-  assert(bm_is_identity(M));
-  return true;
-}
-
-void hnco::bm_multiply(const bit_matrix_t& M, const bit_vector_t& x, bit_vector_t& y)
-{
-  assert(bm_is_valid(M));
-  assert(int(x.size()) == bm_num_columns(M));
-  assert(int(y.size()) == bm_num_rows(M));
-
-  for (size_t i = 0; i < y.size(); i++)
-    y[i] = bv_dot_product(M[i], x);
-}
-
-void hnco::bm_transpose(const bit_matrix_t& M, bit_matrix_t& N)
-{
-  assert(bm_is_valid(M));
-
-  const int rows = bm_num_rows(M);
-  const int cols = bm_num_columns(M);
-
-  bm_resize(N, cols, rows);
-  for (int i = 0; i < cols; i++)
-    for (int j = 0; j < rows; j++)
-      N[i][j] = M[j][i];
 }

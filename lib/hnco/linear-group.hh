@@ -36,6 +36,9 @@ namespace hnco {
     /// Types of generator
     enum class Type { Permutation, Transvection };
 
+    /// Type names
+    static const string names;
+
     /// Type of generator
     Type type;
 
@@ -44,6 +47,26 @@ namespace hnco {
 
     /// Second index
     int second_index;
+
+    /// Check validity
+    bool is_valid() {
+      if (type != Permutation &&
+          type != Transvection)
+        return false;
+      if (first_index < 0)
+        return false;
+      if (second_index < 0)
+        return false;
+      return true;
+    }
+
+    /// Display generator
+    void display(const gl_element_t& M, std::ostream& stream) {
+      assert(is_valid());
+
+      stream << names[M.type] << "(" << M.first_index << ", " << M.second_index << ")";
+    }
+
   };
 
   /** Element of the linear group.
