@@ -27,7 +27,7 @@ using namespace hnco;
 
 
 // Static member
-GlGenerator::names = { "Permutation", "Transvection" };
+const std::string hnco::GlGenerator::names[] = { "Permutation", "Transvection" };
 
 
 void hnco::gl_display(const gl_element_t& M, std::ostream& stream)

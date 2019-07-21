@@ -37,7 +37,7 @@ namespace hnco {
     enum class Type { Permutation, Transvection };
 
     /// Type names
-    static const string names;
+    static const std::string names[];
 
     /// Type of generator
     Type type;
@@ -49,9 +49,9 @@ namespace hnco {
     int second_index;
 
     /// Check validity
-    bool is_valid() {
-      if (type != Permutation &&
-          type != Transvection)
+    bool is_valid() const {
+      if (type != Type::Permutation &&
+          type != Type::Transvection)
         return false;
       if (first_index < 0)
         return false;
@@ -61,10 +61,10 @@ namespace hnco {
     }
 
     /// Display generator
-    void display(const gl_element_t& M, std::ostream& stream) {
+    void display(std::ostream& stream) const {
       assert(is_valid());
 
-      stream << names[M.type] << "(" << M.first_index << ", " << M.second_index << ")";
+      stream << names[static_cast<int>(type)] << "(" << first_index << ", " << second_index << ")";
     }
 
   };
