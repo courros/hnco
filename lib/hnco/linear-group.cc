@@ -18,8 +18,6 @@
 
 */
 
-#include <assert.h>
-
 #include "random.hh"
 #include "linear-group.hh"
 

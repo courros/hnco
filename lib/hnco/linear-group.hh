@@ -21,6 +21,8 @@
 #ifndef HNCO_LINEAR_GROUP_H
 #define HNCO_LINEAR_GROUP_H
 
+#include <assert.h>
+
 #include "bit-vector.hh"
 
 
