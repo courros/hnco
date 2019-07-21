@@ -40,7 +40,7 @@ namespace hnco {
 
       For a transvection, the first line is added (mod 2) to the
       second line.
-   */
+  */
   struct GlGenerator {
 
     /// Types of generator
