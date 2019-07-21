@@ -127,7 +127,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-complete-search-walsh-expansion-1$(EXEEXT) \
 	test-first-ascent-hill-climbing$(EXEEXT) \
 	test-first-ascent-hill-climbing-local$(EXEEXT) \
-	test-hamming-sphere$(EXEEXT) \
+	test-gl-apply$(EXEEXT) test-hamming-sphere$(EXEEXT) \
 	test-hamming-sphere-iterator$(EXEEXT) \
 	test-hypercube-iterator$(EXEEXT) \
 	test-incremental-linear-function-bernoulli-process$(EXEEXT) \
@@ -331,6 +331,10 @@ test_first_ascent_hill_climbing_local_OBJECTS =  \
 test_first_ascent_hill_climbing_local_LDADD = $(LDADD)
 test_first_ascent_hill_climbing_local_DEPENDENCIES =  \
 	../lib/libhnco.la
+am_test_gl_apply_OBJECTS = test-gl-apply.$(OBJEXT)
+test_gl_apply_OBJECTS = $(am_test_gl_apply_OBJECTS)
+test_gl_apply_LDADD = $(LDADD)
+test_gl_apply_DEPENDENCIES = ../lib/libhnco.la
 am_test_hamming_sphere_OBJECTS = test-hamming-sphere.$(OBJEXT)
 test_hamming_sphere_OBJECTS = $(am_test_hamming_sphere_OBJECTS)
 test_hamming_sphere_LDADD = $(LDADD)
@@ -569,6 +573,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po \
 	./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po \
 	./$(DEPDIR)/test-first-ascent-hill-climbing.Po \
+	./$(DEPDIR)/test-gl-apply.Po \
 	./$(DEPDIR)/test-hamming-sphere-iterator.Po \
 	./$(DEPDIR)/test-hamming-sphere.Po \
 	./$(DEPDIR)/test-hypercube-iterator.Po \
@@ -645,7 +650,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_walsh_expansion_1_SOURCES) \
 	$(test_first_ascent_hill_climbing_SOURCES) \
 	$(test_first_ascent_hill_climbing_local_SOURCES) \
-	$(test_hamming_sphere_SOURCES) \
+	$(test_gl_apply_SOURCES) $(test_hamming_sphere_SOURCES) \
 	$(test_hamming_sphere_iterator_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
 	$(test_incremental_linear_function_bernoulli_process_SOURCES) \
@@ -701,7 +706,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_complete_search_walsh_expansion_1_SOURCES) \
 	$(test_first_ascent_hill_climbing_SOURCES) \
 	$(test_first_ascent_hill_climbing_local_SOURCES) \
-	$(test_hamming_sphere_SOURCES) \
+	$(test_gl_apply_SOURCES) $(test_hamming_sphere_SOURCES) \
 	$(test_hamming_sphere_iterator_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
 	$(test_incremental_linear_function_bernoulli_process_SOURCES) \
@@ -1122,6 +1127,7 @@ test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_complete_search_walsh_expansion_1_SOURCES = test-complete-search-walsh-expansion-1.cc
 test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-local.cc
+test_gl_apply_SOURCES = test-gl-apply.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
@@ -1328,6 +1334,10 @@ test-first-ascent-hill-climbing-local$(EXEEXT): $(test_first_ascent_hill_climbin
 	@rm -f test-first-ascent-hill-climbing-local$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_first_ascent_hill_climbing_local_OBJECTS) $(test_first_ascent_hill_climbing_local_LDADD) $(LIBS)
 
+test-gl-apply$(EXEEXT): $(test_gl_apply_OBJECTS) $(test_gl_apply_DEPENDENCIES) $(EXTRA_test_gl_apply_DEPENDENCIES) 
+	@rm -f test-gl-apply$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_gl_apply_OBJECTS) $(test_gl_apply_LDADD) $(LIBS)
+
 test-hamming-sphere$(EXEEXT): $(test_hamming_sphere_OBJECTS) $(test_hamming_sphere_DEPENDENCIES) $(EXTRA_test_hamming_sphere_DEPENDENCIES) 
 	@rm -f test-hamming-sphere$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_hamming_sphere_OBJECTS) $(test_hamming_sphere_LDADD) $(LIBS)
@@ -1498,6 +1508,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-first-ascent-hill-climbing.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-gl-apply.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere-iterator.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hypercube-iterator.Po@am__quote@ # am--include-marker
@@ -1951,6 +1962,13 @@ test-first-ascent-hill-climbing-local.log: test-first-ascent-hill-climbing-local
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-gl-apply.log: test-gl-apply$(EXEEXT)
+	@p='test-gl-apply$(EXEEXT)'; \
+	b='test-gl-apply'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-hamming-sphere.log: test-hamming-sphere$(EXEEXT)
 	@p='test-hamming-sphere$(EXEEXT)'; \
 	b='test-hamming-sphere'; \
@@ -2318,6 +2336,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing.Po
+	-rm -f ./$(DEPDIR)/test-gl-apply.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-hypercube-iterator.Po
@@ -2425,6 +2444,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing.Po
+	-rm -f ./$(DEPDIR)/test-gl-apply.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-hypercube-iterator.Po

@@ -44,6 +44,7 @@ check_PROGRAMS = \
 	test-complete-search-walsh-expansion-1 \
 	test-first-ascent-hill-climbing \
 	test-first-ascent-hill-climbing-local \
+	test-gl-apply \
 	test-hamming-sphere \
 	test-hamming-sphere-iterator \
 	test-hypercube-iterator \
@@ -117,6 +118,7 @@ test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_complete_search_walsh_expansion_1_SOURCES = test-complete-search-walsh-expansion-1.cc
 test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-local.cc
+test_gl_apply_SOURCES = test-gl-apply.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
