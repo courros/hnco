@@ -54,6 +54,12 @@ namespace hnco {
     /// Check validity
     bool is_valid() const;
 
+    /** Check validity.
+
+        \param n Dimension
+    */
+    bool is_valid(int n) const;
+
     /// Display generator
     void display(std::ostream& stream) const { stream << "(" << first_index << ", " << second_index << ")"; }
 
@@ -93,6 +99,19 @@ namespace hnco {
   */
   typedef std::vector<Transvection> gl_element_t;
 
+
+  /** Check validity.
+
+      \param A GL element
+  */
+  bool gl_is_valid(const gl_element_t& A);
+
+  /** Check validity.
+
+      \param A GL element
+      \param n Dimension
+  */
+  bool gl_is_valid(const gl_element_t& A, int n);
 
   /// Display a GL element
   void gl_display(const gl_element_t& A, std::ostream& stream);

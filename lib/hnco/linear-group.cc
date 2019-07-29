@@ -39,6 +39,19 @@ Transvection::is_valid() const
 }
 
 
+bool
+Transvection::is_valid(int n) const
+{
+  if (!is_valid())
+    return false;
+  if (first_index >= n)
+    return false;
+  if (second_index >= n)
+    return false;
+  return true;
+}
+
+
 void
 Transvection::random(int n)
 {
@@ -82,6 +95,24 @@ Transvection::apply(bit_matrix_t& M) const
   assert(second_index < bm_num_rows(M));
 
   bm_add_rows(M, first_index, second_index);
+}
+
+
+bool hnco::gl_is_valid(const gl_element_t& A)
+{
+  for (auto& gen : A)
+    if (!gen.is_valid())
+      return false;
+  return true;
+}
+
+
+bool hnco::gl_is_valid(const gl_element_t& A, int n)
+{
+  for (auto& gen : A)
+    if (!gen.is_valid(n))
+      return false;
+  return true;
 }
 
 
