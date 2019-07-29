@@ -179,3 +179,27 @@ Projection::map(const bit_vector_t& input, bit_vector_t& output)
   for (std::size_t i = 0; i < _bit_positions.size(); i++)
     output[i] = input[_bit_positions[i]];
 }
+
+
+void
+GlElementAffineMap::random(int n, int t)
+{
+  assert(n > 0);
+  assert(t > 0);
+
+  _bv.resize(n);
+  bv_random(_bv);
+  gl_random(_gl_element, n, t);
+}
+
+
+void
+GlElementAffineMap::map(const bit_vector_t& input, bit_vector_t& output)
+{
+  assert(input.size() == _bv.size());
+  assert(output.size() == _bv.size());
+
+  output = input;
+  gl_apply(_gl_element, output);
+  bv_flip(output, _bv);
+}

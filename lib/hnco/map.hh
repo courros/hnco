@@ -31,6 +31,7 @@
 #include "bit-matrix.hh"
 #include "bit-vector.hh"
 #include "permutation.hh"
+#include "linear-group.hh"
 
 
 namespace hnco {
@@ -482,6 +483,76 @@ namespace hnco {
 
     /// Get output size
     int get_output_size() { return _bit_positions.size(); }
+
+    /** Check for surjective map.
+
+        \return true
+    */
+    bool is_surjective() { return true; }
+
+  };
+
+
+  /** GL element affine map.
+
+      An affine map f from \f$Z_2^m\f$ to \f$Z_2^n\f$ is defined by
+      \f$f(x) = Ax + b\f$, where A is an n x m bit matrix and b is an
+      n-dimensional bit vector.
+
+      In GlElementAffineMap, A is a finite product of transvections
+      represented by a gl_element_t.
+  */
+  class GlElementAffineMap:
+    public Map {
+
+  private:
+
+    friend class boost::serialization::access;
+
+    /// Save
+    template<class Archive>
+    void save(Archive& ar, const unsigned int version) const
+    {
+      ar & _bv;
+      ar & _gl_element;
+    }
+
+    /// Load
+    template<class Archive>
+    void load(Archive& ar, const unsigned int version)
+    {
+      ar & _bv;
+      ar & _gl_element;
+
+      assert(bv_is_valid(_bv));
+      assert(gl_is_valid(_gl_element, _bv.size()));
+    }
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+
+    /// GL element
+    gl_element_t _gl_element;
+
+    /// Translation vector
+    bit_vector_t _bv;
+
+  public:
+
+    /** Random instance.
+
+        \param n Dimension
+        \param t Length of sequence of transvections
+    */
+    void random(int n, int t);
+
+    /// Map
+    void map(const bit_vector_t& input, bit_vector_t& output);
+
+    /// Get input size
+    int get_input_size() { return _bv.size(); }
+
+    /// Get output size
+    int get_output_size() { return _bv.size(); }
 
     /** Check for surjective map.
 
