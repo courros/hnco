@@ -100,7 +100,7 @@ void hnco::gl_random(gl_element_t& A, int n, int t)
   assert(n > 0);
   assert(t > 0);
 
-  A = gl_element_t(t);
+  A.resize(t);
   for (auto& gen : A)
     gen.random(n);
 }
