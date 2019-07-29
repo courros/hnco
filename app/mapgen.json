@@ -55,6 +55,11 @@
                 {
                     "value": 5,
                     "description": "Affine"
+                },
+
+                {
+                    "value": 6,
+                    "description": "Affine (product of transvections)"
                 }
 
             ]
@@ -75,6 +80,14 @@
             "type": "int",
             "value": 100,
             "description": "Output bit vector size"
+        },
+
+        "sequence_length":
+        {
+            "optchar": "t",
+            "type": "int",
+            "value": 10,
+            "description": "Length of sequence of transvections"
         },
 
         "path":

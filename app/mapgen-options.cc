@@ -19,6 +19,8 @@ Options::Options(int argc, char *argv[]):
   _opt_path(false),
   _seed(0),
   _opt_seed(false),
+  _sequence_length(10),
+  _opt_sequence_length(false),
   _surjective(false)
 {
   enum {
@@ -29,6 +31,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_OUTPUT_SIZE,
     OPTION_PATH,
     OPTION_SEED,
+    OPTION_SEQUENCE_LENGTH,
     OPTION_SURJECTIVE
   };
   const struct option long_options[] = {
@@ -37,12 +40,13 @@ Options::Options(int argc, char *argv[]):
     {"output-size", required_argument, 0, OPTION_OUTPUT_SIZE},
     {"path", required_argument, 0, OPTION_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
+    {"sequence-length", required_argument, 0, OPTION_SEQUENCE_LENGTH},
     {"surjective", no_argument, 0, OPTION_SURJECTIVE},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
     {0, no_argument, 0, 0}
   };
-  const char *short_options = "x:M:y:p:";
+  const char *short_options = "x:M:y:p:t:";
   while (true) {
     int option = getopt_long(argc, argv, short_options, long_options, 0);
     if (option < 0)
@@ -70,6 +74,11 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_SEED:
       set_seed(atoi(optarg));
+      break;
+
+    case 't':
+    case OPTION_SEQUENCE_LENGTH:
+      set_sequence_length(atoi(optarg));
       break;
 
     case OPTION_SURJECTIVE:
@@ -104,12 +113,15 @@ void Options::print_help(ostream& stream) const
   stream << "            3: Composition of permutation and translation" << endl;
   stream << "            4: Linear" << endl;
   stream << "            5: Affine" << endl;
+  stream << "            6: Affine (product of transvections)" << endl;
   stream << "  -y, --output-size (type int, default to 100)" << endl;
   stream << "          Output bit vector size" << endl;
   stream << "  -p, --path (type string, default to \"map.txt\")" << endl;
   stream << "          Path (relative or absolute) of a map file" << endl;
   stream << "      --seed (type int, default to 0)" << endl;
   stream << "          Seed for the random number generator" << endl;
+  stream << "  -t, --sequence-length (type int, default to 10)" << endl;
+  stream << "          Length of sequence of transvections" << endl;
   stream << "      --surjective" << endl;
   stream << "          Ensure that the sampled linear or affine map is surjective" << endl;
 }
@@ -126,6 +138,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# output_size = " << options._output_size << endl;
   stream << "# path = " << options._path << endl;
   stream << "# seed = " << options._seed << endl;
+  stream << "# sequence_length = " << options._sequence_length << endl;
   if (options._surjective)
     stream << "# surjective" << endl;
   stream << "# last_parameter" << endl;

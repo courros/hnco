@@ -33,6 +33,10 @@ class Options {
   int _seed;
   bool _opt_seed;
 
+  /// Length of sequence of transvections
+  int _sequence_length;
+  bool _opt_sequence_length;
+
   /// Ensure that the sampled linear or affine map is surjective
   bool _surjective;
 
@@ -106,6 +110,18 @@ public:
 
   /// Get set-flag for seed
   bool set_seed() const { return _opt_seed; }
+
+  /// Get sequence_length
+  int get_sequence_length() const { return _sequence_length; }
+
+  /// Set sequence_length
+  void set_sequence_length(int x) {
+    _sequence_length = x;
+    _opt_sequence_length = true;
+  }
+
+  /// Get set-flag for sequence_length
+  bool set_sequence_length() const { return _opt_sequence_length; }
 
   /// Get surjective
   bool with_surjective() const { return _surjective; }
