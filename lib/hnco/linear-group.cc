@@ -27,7 +27,7 @@ using namespace random;
 
 
 bool
-GlGenerator::is_valid() const
+Transvection::is_valid() const
 {
   if (first_index < 0)
     return false;
@@ -40,7 +40,7 @@ GlGenerator::is_valid() const
 
 
 void
-GlGenerator::random(int n)
+Transvection::random(int n)
 {
   assert(n > 0);
 
@@ -56,7 +56,7 @@ GlGenerator::random(int n)
 
 
 void
-GlGenerator::apply(bit_vector_t& x) const
+Transvection::apply(bit_vector_t& x) const
 {
   assert(is_valid());
   assert(first_index < int(x.size()));
@@ -74,7 +74,7 @@ GlGenerator::apply(bit_vector_t& x) const
 
 
 void
-GlGenerator::apply(bit_matrix_t& M) const
+Transvection::apply(bit_matrix_t& M) const
 {
   assert(is_valid());
   assert(bm_is_square(M));

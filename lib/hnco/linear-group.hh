@@ -34,13 +34,16 @@ namespace hnco {
    */
   ///@{
 
-  /** Generator of the linear group.
+  /** Transvection.
 
-      Generators are elementary transvections. When applied to a
-      matrix M, an elementary transvection (i, j) adds the i-th row of
-      M to its j-th row modulo 2.
+      When applied to a matrix M, a transvection (i, j) adds the i-th
+      row of M to its j-th row modulo 2.
+
+      Transvections generate invertible matrices over the finite field
+      F_2.
+
   */
-  struct GlGenerator {
+  struct Transvection {
 
     /// First index
     int first_index;
@@ -85,12 +88,14 @@ namespace hnco {
 
   /** Element of the linear group.
 
-      The linear group on the finite field F_2 (GL for short) is the
-      set of invertible n by n bit matrices.
+      The general linear (GL for short) group of a linear space of
+      dimension n over the finite field F_2 is the group of invertible
+      n by n bit matrices.
 
-      A GL element is encoded as a sequence of generators.
+      Any element of GL is a finite product of transvections. Elements
+      of GL are represented as sequences of transvections.
   */
-  typedef std::vector<GlGenerator> gl_element_t;
+  typedef std::vector<Transvection> gl_element_t;
 
 
   /// Display a GL element
