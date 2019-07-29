@@ -23,6 +23,10 @@
 
 #include <assert.h>
 
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/serialization/vector.hpp>
+
 #include "bit-vector.hh"
 #include "bit-matrix.hh"
 
@@ -44,6 +48,26 @@ namespace hnco {
 
   */
   struct Transvection {
+
+    /// Save
+    template<class Archive>
+    void save(Archive& ar, const unsigned int version) const
+    {
+      ar & first_index;
+      ar & second_index;
+    }
+
+    /// Load
+    template<class Archive>
+    void load(Archive& ar, const unsigned int version)
+    {
+      ar & first_index;
+      ar & second_index;
+
+      assert(is_valid());
+    }
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
 
     /// First index
     int first_index;
