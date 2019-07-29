@@ -55,11 +55,7 @@ namespace hnco {
     bool is_valid() const;
 
     /// Display generator
-    void display(std::ostream& stream) const {
-      assert(is_valid());
-
-      stream << "(" << first_index << ", " << second_index << ")";
-    }
+    void display(std::ostream& stream) const { stream << "(" << first_index << ", " << second_index << ")"; }
 
     /** Sample a random generator.
 
