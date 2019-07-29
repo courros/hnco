@@ -32,23 +32,24 @@ int main(int argc, char *argv[])
 {
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  const string path("test-serialize-affine-map.txt");
+  const string path("test-serialize-gl-element-affine-map.txt");
 
   for (int i = 0; i < 10; i++) {
 
     uniform_int_distribution<int> dist_n(2, 100);
+    uniform_int_distribution<int> dist_t(1, 100);
     int n = dist_n(Random::generator);
-    int m = dist_n(Random::generator);
+    int t = dist_t(Random::generator);
 
-    AffineMap src;
-    src.random(n, m, false);
+    GlElementAffineMap src;
+    src.random(n, t);
     {
       std::ofstream ofs(path);
       boost::archive::text_oarchive oa(ofs);
       oa << src;
     }
 
-    AffineMap dest;
+    GlElementAffineMap dest;
     {
       ifstream ifs(path);
       if (!ifs.good())
@@ -57,15 +58,15 @@ int main(int argc, char *argv[])
       ia >> dest;
     }
 
-    bit_vector_t x(m);
-    bit_vector_t y1(n);
-    bit_vector_t y2(n);
+    bit_vector_t x(n);
+    bit_vector_t y(n);
+    bit_vector_t z(n);
 
     for (int j = 0; j < 1000; j++) {
       bv_random(x);
-      src.map(x, y1);
-      dest.map(x, y2);
-      if (y1 != y2)
+      src.map(x, y);
+      dest.map(x, z);
+      if (y != z)
         return 1;
     }
 
