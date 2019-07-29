@@ -26,19 +26,14 @@ using namespace hnco;
 using namespace random;
 
 
-// Static member
-const std::string hnco::GlGenerator::names[] = { "Permutation", "Transvection" };
-
-
 bool
 GlGenerator::is_valid() const
 {
-  if (type != Type::Permutation &&
-      type != Type::Transvection)
-    return false;
   if (first_index < 0)
     return false;
   if (second_index < 0)
+    return false;
+  if (first_index == second_index)
     return false;
   return true;
 }
@@ -48,11 +43,6 @@ void
 GlGenerator::random(int n)
 {
   assert(n > 0);
-
-  if (Random::bernoulli())
-    type = Type::Permutation;
-  else
-    type = Type::Transvection;
 
   std::uniform_int_distribution<int> index_dist(0, n - 1);
   int i, j;
@@ -72,20 +62,13 @@ GlGenerator::apply(bit_vector_t& x) const
   assert(first_index < int(x.size()));
   assert(second_index < int(x.size()));
 
-  if (type == Type::Permutation) {
-    std::swap(x[first_index], x[second_index]);
-    return;
-  }
-
-  if (type == Type::Transvection) {
-    x[second_index] += x[first_index];
-    assert(x[second_index] == 0 ||
-           x[second_index] == 1 ||
-           x[second_index] == 2);
-    if (x[second_index] == 2)
-      x[second_index] = 0;
-    return;
-  }
+  x[second_index] += x[first_index];
+  assert(x[second_index] == 0 ||
+         x[second_index] == 1 ||
+         x[second_index] == 2);
+  if (x[second_index] == 2)
+    x[second_index] = 0;
+  return;
 
 }
 
@@ -98,16 +81,7 @@ GlGenerator::apply(bit_matrix_t& M) const
   assert(first_index < bm_num_rows(M));
   assert(second_index < bm_num_rows(M));
 
-  if (type == Type::Permutation) {
-    bm_swap_rows(M, first_index, second_index);
-    return;
-  }
-
-  if (type == Type::Transvection) {
-    bm_add_rows(M, first_index, second_index);
-    return;
-  }
-
+  bm_add_rows(M, first_index, second_index);
 }
 
 

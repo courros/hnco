@@ -36,21 +36,11 @@ namespace hnco {
 
   /** Generator of the linear group.
 
-      For a permutation, the first and second lines are swapped.
-
-      For a transvection, the first line is added (mod 2) to the
-      second line.
+      Generators are elementary transvections. When applied to a
+      matrix M, an elementary transvection (i, j) adds the i-th row of
+      M to its j-th row modulo 2.
   */
   struct GlGenerator {
-
-    /// Types of generator
-    enum class Type { Permutation, Transvection };
-
-    /// Type names
-    static const std::string names[];
-
-    /// Type of generator
-    Type type;
 
     /// First index
     int first_index;
@@ -65,7 +55,7 @@ namespace hnco {
     void display(std::ostream& stream) const {
       assert(is_valid());
 
-      stream << names[static_cast<int>(type)] << "(" << first_index << ", " << second_index << ")";
+      stream << "(" << first_index << ", " << second_index << ")";
     }
 
     /** Sample a random generator.
