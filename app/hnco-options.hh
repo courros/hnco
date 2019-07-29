@@ -125,6 +125,10 @@ class Options {
   std::string _map_path;
   bool _opt_map_path;
 
+  /// Length of sequence of transvections
+  int _map_sequence_length;
+  bool _opt_map_sequence_length;
+
   /// Expected number of flipped bits (bv_size times mutation probability)
   double _mutation_probability;
   bool _opt_mutation_probability;
@@ -744,6 +748,18 @@ public:
 
   /// Get set-flag for map_path
   bool set_map_path() const { return _opt_map_path; }
+
+  /// Get map_sequence_length
+  int get_map_sequence_length() const { return _map_sequence_length; }
+
+  /// Set map_sequence_length
+  void set_map_sequence_length(int x) {
+    _map_sequence_length = x;
+    _opt_map_sequence_length = true;
+  }
+
+  /// Get set-flag for map_sequence_length
+  bool set_map_sequence_length() const { return _opt_map_sequence_length; }
 
   /// Get mutation_probability
   double get_mutation_probability() const { return _mutation_probability; }

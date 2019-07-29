@@ -795,6 +795,11 @@
                 {
                     "value": 5,
                     "description": "Affine"
+                },
+
+                {
+                    "value": 6,
+                    "description": "Affine (product of transvections)"
                 }
 
             ]
@@ -806,6 +811,14 @@
             "type": "int",
             "value": 100,
             "description": "Input size of linear and affine maps",
+            "section": "map"
+        },
+
+        "map_sequence_length":
+        {
+            "type": "int",
+            "value": 10,
+            "description": "Length of sequence of transvections",
             "section": "map"
         },
 

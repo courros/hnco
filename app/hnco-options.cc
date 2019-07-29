@@ -65,6 +65,8 @@ Options::Options(int argc, char *argv[]):
   _opt_map_input_size(false),
   _map_path("map.txt"),
   _opt_map_path(false),
+  _map_sequence_length(10),
+  _opt_map_sequence_length(false),
   _mutation_probability(1),
   _opt_mutation_probability(false),
   _neighborhood(0),
@@ -206,6 +208,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_MAP,
     OPTION_MAP_INPUT_SIZE,
     OPTION_MAP_PATH,
+    OPTION_MAP_SEQUENCE_LENGTH,
     OPTION_MUTATION_PROBABILITY,
     OPTION_NEIGHBORHOOD,
     OPTION_NEIGHBORHOOD_ITERATOR,
@@ -309,6 +312,7 @@ Options::Options(int argc, char *argv[]):
     {"map", required_argument, 0, OPTION_MAP},
     {"map-input-size", required_argument, 0, OPTION_MAP_INPUT_SIZE},
     {"map-path", required_argument, 0, OPTION_MAP_PATH},
+    {"map-sequence-length", required_argument, 0, OPTION_MAP_SEQUENCE_LENGTH},
     {"mutation-probability", required_argument, 0, OPTION_MUTATION_PROBABILITY},
     {"neighborhood", required_argument, 0, OPTION_NEIGHBORHOOD},
     {"neighborhood-iterator", required_argument, 0, OPTION_NEIGHBORHOOD_ITERATOR},
@@ -518,6 +522,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_MAP_PATH:
       set_map_path(string(optarg));
+      break;
+
+    case OPTION_MAP_SEQUENCE_LENGTH:
+      set_map_sequence_length(atoi(optarg));
       break;
 
     case 'm':
@@ -1097,12 +1105,15 @@ void Options::print_help_map(ostream& stream) const
   stream << "            3: Composition of permutation and translation" << endl;
   stream << "            4: Linear" << endl;
   stream << "            5: Affine" << endl;
+  stream << "            6: Affine (product of transvections)" << endl;
   stream << "      --map-input-size (type int, default to 100)" << endl;
   stream << "          Input size of linear and affine maps" << endl;
   stream << "      --map-path (type string, default to \"map.txt\")" << endl;
   stream << "          Path of a map file" << endl;
   stream << "      --map-random" << endl;
   stream << "          Sample a random map" << endl;
+  stream << "      --map-sequence-length (type int, default to 10)" << endl;
+  stream << "          Length of sequence of transvections" << endl;
   stream << "      --map-surjective" << endl;
   stream << "          Ensure that the sampled linear or affine map is surjective" << endl;
   stream << endl;
@@ -1294,6 +1305,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# map = " << options._map << endl;
   stream << "# map_input_size = " << options._map_input_size << endl;
   stream << "# map_path = " << options._map_path << endl;
+  stream << "# map_sequence_length = " << options._map_sequence_length << endl;
   stream << "# mutation_probability = " << options._mutation_probability << endl;
   stream << "# neighborhood = " << options._neighborhood << endl;
   stream << "# neighborhood_iterator = " << options._neighborhood_iterator << endl;

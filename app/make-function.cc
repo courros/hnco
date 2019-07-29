@@ -334,6 +334,17 @@ make_map(const Options& options)
     return map;
   }
 
+  case 6: {
+    GlElementAffineMap *map = new GlElementAffineMap;
+    if (options.with_map_random()) {
+      if (options.get_map_input_size() != options.get_bv_size())
+        std::cerr << "Warning: make_map: GlElementAffineMap: using bv_size, discarding map_input_size" << std::endl;
+      map->random(options.get_bv_size(), options.get_map_sequence_length());
+    } else
+      load_map<GlElementAffineMap>(map, options);
+    return map;
+  }
+
   default: {
     std::ostringstream stream;
     stream << "make_map: Unknown map type: " << options.get_map();
