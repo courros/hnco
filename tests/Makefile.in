@@ -143,6 +143,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-one-plus-one-ea-one-max$(EXEEXT) \
 	test-sbm-multiply$(EXEEXT) test-serialize-affine-map$(EXEEXT) \
 	test-serialize-equal-products$(EXEEXT) \
+	test-serialize-gl-element-affine-map$(EXEEXT) \
 	test-serialize-linear-function$(EXEEXT) \
 	test-serialize-linear-map$(EXEEXT) \
 	test-serialize-map-composition$(EXEEXT) \
@@ -436,6 +437,12 @@ test_serialize_equal_products_OBJECTS =  \
 	$(am_test_serialize_equal_products_OBJECTS)
 test_serialize_equal_products_LDADD = $(LDADD)
 test_serialize_equal_products_DEPENDENCIES = ../lib/libhnco.la
+am_test_serialize_gl_element_affine_map_OBJECTS =  \
+	test-serialize-gl-element-affine-map.$(OBJEXT)
+test_serialize_gl_element_affine_map_OBJECTS =  \
+	$(am_test_serialize_gl_element_affine_map_OBJECTS)
+test_serialize_gl_element_affine_map_LDADD = $(LDADD)
+test_serialize_gl_element_affine_map_DEPENDENCIES = ../lib/libhnco.la
 am_test_serialize_linear_function_OBJECTS =  \
 	test-serialize-linear-function.$(OBJEXT)
 test_serialize_linear_function_OBJECTS =  \
@@ -591,6 +598,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-sbm-multiply.Po \
 	./$(DEPDIR)/test-serialize-affine-map.Po \
 	./$(DEPDIR)/test-serialize-equal-products.Po \
+	./$(DEPDIR)/test-serialize-gl-element-affine-map.Po \
 	./$(DEPDIR)/test-serialize-linear-function.Po \
 	./$(DEPDIR)/test-serialize-linear-map.Po \
 	./$(DEPDIR)/test-serialize-map-composition.Po \
@@ -667,6 +675,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
+	$(test_serialize_gl_element_affine_map_SOURCES) \
 	$(test_serialize_linear_function_SOURCES) \
 	$(test_serialize_linear_map_SOURCES) \
 	$(test_serialize_map_composition_SOURCES) \
@@ -723,6 +732,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
+	$(test_serialize_gl_element_affine_map_SOURCES) \
 	$(test_serialize_linear_function_SOURCES) \
 	$(test_serialize_linear_map_SOURCES) \
 	$(test_serialize_map_composition_SOURCES) \
@@ -1145,6 +1155,7 @@ test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
 test_serialize_equal_products_SOURCES = test-serialize-equal-products.cc
+test_serialize_gl_element_affine_map_SOURCES = test-serialize-gl-element-affine-map.cc
 test_serialize_linear_function_SOURCES = test-serialize-linear-function.cc
 test_serialize_linear_map_SOURCES = test-serialize-linear-map.cc
 test_serialize_map_composition_SOURCES = test-serialize-map-composition.cc
@@ -1166,6 +1177,7 @@ TESTS = $(check_PROGRAMS)
 DISTCLEANFILES = \
 	test-serialize-affine-map.txt \
 	test-serialize-equal-products.txt \
+	test-serialize-gl-element-affine-map.txt \
 	test-serialize-linear-function.txt \
 	test-serialize-linear-map.txt \
 	test-serialize-map-composition.txt \
@@ -1406,6 +1418,10 @@ test-serialize-equal-products$(EXEEXT): $(test_serialize_equal_products_OBJECTS)
 	@rm -f test-serialize-equal-products$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_equal_products_OBJECTS) $(test_serialize_equal_products_LDADD) $(LIBS)
 
+test-serialize-gl-element-affine-map$(EXEEXT): $(test_serialize_gl_element_affine_map_OBJECTS) $(test_serialize_gl_element_affine_map_DEPENDENCIES) $(EXTRA_test_serialize_gl_element_affine_map_DEPENDENCIES) 
+	@rm -f test-serialize-gl-element-affine-map$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_gl_element_affine_map_OBJECTS) $(test_serialize_gl_element_affine_map_LDADD) $(LIBS)
+
 test-serialize-linear-function$(EXEEXT): $(test_serialize_linear_function_OBJECTS) $(test_serialize_linear_function_DEPENDENCIES) $(EXTRA_test_serialize_linear_function_DEPENDENCIES) 
 	@rm -f test-serialize-linear-function$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_linear_function_OBJECTS) $(test_serialize_linear_function_LDADD) $(LIBS)
@@ -1526,6 +1542,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-sbm-multiply.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-affine-map.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-equal-products.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-gl-element-affine-map.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-linear-function.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-linear-map.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-map-composition.Po@am__quote@ # am--include-marker
@@ -2088,6 +2105,13 @@ test-serialize-equal-products.log: test-serialize-equal-products$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-serialize-gl-element-affine-map.log: test-serialize-gl-element-affine-map$(EXEEXT)
+	@p='test-serialize-gl-element-affine-map$(EXEEXT)'; \
+	b='test-serialize-gl-element-affine-map'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-serialize-linear-function.log: test-serialize-linear-function$(EXEEXT)
 	@p='test-serialize-linear-function$(EXEEXT)'; \
 	b='test-serialize-linear-function'; \
@@ -2354,6 +2378,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-sbm-multiply.Po
 	-rm -f ./$(DEPDIR)/test-serialize-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-equal-products.Po
+	-rm -f ./$(DEPDIR)/test-serialize-gl-element-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-serialize-linear-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-map-composition.Po
@@ -2462,6 +2487,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-sbm-multiply.Po
 	-rm -f ./$(DEPDIR)/test-serialize-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-equal-products.Po
+	-rm -f ./$(DEPDIR)/test-serialize-gl-element-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-serialize-linear-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-map-composition.Po

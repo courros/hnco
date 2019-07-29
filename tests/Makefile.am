@@ -62,6 +62,7 @@ check_PROGRAMS = \
 	test-sbm-multiply \
 	test-serialize-affine-map \
 	test-serialize-equal-products \
+	test-serialize-gl-element-affine-map \
 	test-serialize-linear-function \
 	test-serialize-linear-map \
 	test-serialize-map-composition \
@@ -136,6 +137,7 @@ test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
 test_serialize_equal_products_SOURCES = test-serialize-equal-products.cc
+test_serialize_gl_element_affine_map_SOURCES = test-serialize-gl-element-affine-map.cc
 test_serialize_linear_function_SOURCES = test-serialize-linear-function.cc
 test_serialize_linear_map_SOURCES = test-serialize-linear-map.cc
 test_serialize_map_composition_SOURCES = test-serialize-map-composition.cc
@@ -159,6 +161,7 @@ TESTS = $(check_PROGRAMS)
 DISTCLEANFILES = \
 	test-serialize-affine-map.txt \
 	test-serialize-equal-products.txt \
+	test-serialize-gl-element-affine-map.txt \
 	test-serialize-linear-function.txt \
 	test-serialize-linear-map.txt \
 	test-serialize-map-composition.txt \
