@@ -31,8 +31,8 @@ using namespace std;
 
 bool check_ts_apply()
 {
-  uniform_int_distribution<int> dimension_dist(1, 100);
-  uniform_int_distribution<int> length_dist(1, 10);
+  uniform_int_distribution<int> dimension_dist(2, 10);
+  uniform_int_distribution<int> length_dist(0, 10);
 
   for (int i = 0; i < 10; i++) {
     const int n = dimension_dist(Random::generator);
