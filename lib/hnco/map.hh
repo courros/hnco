@@ -31,7 +31,7 @@
 #include "bit-matrix.hh"
 #include "bit-vector.hh"
 #include "permutation.hh"
-#include "linear-group.hh"
+#include "transvection.hh"
 
 
 namespace hnco {

@@ -192,8 +192,6 @@ libhnco_la_SOURCES = \
 	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.cc \
 	hnco/iterator.hh \
-	hnco/linear-group.cc \
-	hnco/linear-group.hh \
 	hnco/map.cc \
 	hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
@@ -209,6 +207,8 @@ libhnco_la_SOURCES = \
 	hnco/sparse-bit-vector.cc \
 	hnco/sparse-bit-vector.hh \
 	hnco/stop-watch.hh \
+	hnco/transvection.cc \
+	hnco/transvection.hh \
 	hnco/util.hh
 
 if ENABLE_FACTORIZATION
@@ -320,7 +320,6 @@ nobase_include_HEADERS = \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.hh \
-	hnco/linear-group.hh \
 	hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh \
@@ -329,6 +328,7 @@ nobase_include_HEADERS = \
 	hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.hh \
 	hnco/stop-watch.hh \
+	hnco/transvection.hh \
 	hnco/util.hh
 
 if ENABLE_FACTORIZATION

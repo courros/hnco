@@ -22,7 +22,7 @@
 #include <iostream>
 #include <iterator>
 
-#include "hnco/linear-group.hh"
+#include "hnco/transvection.hh"
 
 
 using namespace hnco::random;

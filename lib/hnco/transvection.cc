@@ -19,7 +19,7 @@
 */
 
 #include "random.hh"
-#include "linear-group.hh"
+#include "transvection.hh"
 
 
 using namespace hnco;
