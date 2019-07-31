@@ -143,7 +143,6 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-one-plus-one-ea-one-max$(EXEEXT) \
 	test-sbm-multiply$(EXEEXT) test-serialize-affine-map$(EXEEXT) \
 	test-serialize-equal-products$(EXEEXT) \
-	test-serialize-gl-element-affine-map$(EXEEXT) \
 	test-serialize-linear-function$(EXEEXT) \
 	test-serialize-linear-map$(EXEEXT) \
 	test-serialize-map-composition$(EXEEXT) \
@@ -153,6 +152,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-serialize-nn-ising-2$(EXEEXT) \
 	test-serialize-permutation$(EXEEXT) \
 	test-serialize-translation$(EXEEXT) \
+	test-serialize-ts-affine-map$(EXEEXT) \
 	test-serialize-walsh-expansion$(EXEEXT) \
 	test-serialize-walsh-expansion-1$(EXEEXT) \
 	test-serialize-walsh-expansion-2$(EXEEXT) \
@@ -433,12 +433,6 @@ test_serialize_equal_products_OBJECTS =  \
 	$(am_test_serialize_equal_products_OBJECTS)
 test_serialize_equal_products_LDADD = $(LDADD)
 test_serialize_equal_products_DEPENDENCIES = ../lib/libhnco.la
-am_test_serialize_gl_element_affine_map_OBJECTS =  \
-	test-serialize-gl-element-affine-map.$(OBJEXT)
-test_serialize_gl_element_affine_map_OBJECTS =  \
-	$(am_test_serialize_gl_element_affine_map_OBJECTS)
-test_serialize_gl_element_affine_map_LDADD = $(LDADD)
-test_serialize_gl_element_affine_map_DEPENDENCIES = ../lib/libhnco.la
 am_test_serialize_linear_function_OBJECTS =  \
 	test-serialize-linear-function.$(OBJEXT)
 test_serialize_linear_function_OBJECTS =  \
@@ -491,6 +485,12 @@ test_serialize_translation_OBJECTS =  \
 	$(am_test_serialize_translation_OBJECTS)
 test_serialize_translation_LDADD = $(LDADD)
 test_serialize_translation_DEPENDENCIES = ../lib/libhnco.la
+am_test_serialize_ts_affine_map_OBJECTS =  \
+	test-serialize-ts-affine-map.$(OBJEXT)
+test_serialize_ts_affine_map_OBJECTS =  \
+	$(am_test_serialize_ts_affine_map_OBJECTS)
+test_serialize_ts_affine_map_LDADD = $(LDADD)
+test_serialize_ts_affine_map_DEPENDENCIES = ../lib/libhnco.la
 am_test_serialize_walsh_expansion_OBJECTS =  \
 	test-serialize-walsh-expansion.$(OBJEXT)
 test_serialize_walsh_expansion_OBJECTS =  \
@@ -597,7 +597,6 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-sbm-multiply.Po \
 	./$(DEPDIR)/test-serialize-affine-map.Po \
 	./$(DEPDIR)/test-serialize-equal-products.Po \
-	./$(DEPDIR)/test-serialize-gl-element-affine-map.Po \
 	./$(DEPDIR)/test-serialize-linear-function.Po \
 	./$(DEPDIR)/test-serialize-linear-map.Po \
 	./$(DEPDIR)/test-serialize-map-composition.Po \
@@ -607,6 +606,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-serialize-nn-ising-2.Po \
 	./$(DEPDIR)/test-serialize-permutation.Po \
 	./$(DEPDIR)/test-serialize-translation.Po \
+	./$(DEPDIR)/test-serialize-ts-affine-map.Po \
 	./$(DEPDIR)/test-serialize-walsh-expansion-1.Po \
 	./$(DEPDIR)/test-serialize-walsh-expansion-2.Po \
 	./$(DEPDIR)/test-serialize-walsh-expansion.Po \
@@ -674,7 +674,6 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
-	$(test_serialize_gl_element_affine_map_SOURCES) \
 	$(test_serialize_linear_function_SOURCES) \
 	$(test_serialize_linear_map_SOURCES) \
 	$(test_serialize_map_composition_SOURCES) \
@@ -684,6 +683,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_serialize_nn_ising_2_SOURCES) \
 	$(test_serialize_permutation_SOURCES) \
 	$(test_serialize_translation_SOURCES) \
+	$(test_serialize_ts_affine_map_SOURCES) \
 	$(test_serialize_walsh_expansion_SOURCES) \
 	$(test_serialize_walsh_expansion_1_SOURCES) \
 	$(test_serialize_walsh_expansion_2_SOURCES) \
@@ -732,7 +732,6 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
-	$(test_serialize_gl_element_affine_map_SOURCES) \
 	$(test_serialize_linear_function_SOURCES) \
 	$(test_serialize_linear_map_SOURCES) \
 	$(test_serialize_map_composition_SOURCES) \
@@ -742,6 +741,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_serialize_nn_ising_2_SOURCES) \
 	$(test_serialize_permutation_SOURCES) \
 	$(test_serialize_translation_SOURCES) \
+	$(test_serialize_ts_affine_map_SOURCES) \
 	$(test_serialize_walsh_expansion_SOURCES) \
 	$(test_serialize_walsh_expansion_1_SOURCES) \
 	$(test_serialize_walsh_expansion_2_SOURCES) \
@@ -1155,7 +1155,6 @@ test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
 test_serialize_equal_products_SOURCES = test-serialize-equal-products.cc
-test_serialize_gl_element_affine_map_SOURCES = test-serialize-gl-element-affine-map.cc
 test_serialize_linear_function_SOURCES = test-serialize-linear-function.cc
 test_serialize_linear_map_SOURCES = test-serialize-linear-map.cc
 test_serialize_map_composition_SOURCES = test-serialize-map-composition.cc
@@ -1165,6 +1164,7 @@ test_serialize_nn_ising_1_SOURCES = test-serialize-nn-ising-1.cc
 test_serialize_nn_ising_2_SOURCES = test-serialize-nn-ising-2.cc
 test_serialize_permutation_SOURCES = test-serialize-permutation.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
+test_serialize_ts_affine_map_SOURCES = test-serialize-ts-affine-map.cc
 test_serialize_walsh_expansion_1_SOURCES = test-serialize-walsh-expansion-1.cc
 test_serialize_walsh_expansion_2_SOURCES = test-serialize-walsh-expansion-2.cc
 test_serialize_walsh_expansion_SOURCES = test-serialize-walsh-expansion.cc
@@ -1178,7 +1178,6 @@ TESTS = $(check_PROGRAMS)
 DISTCLEANFILES = \
 	test-serialize-affine-map.txt \
 	test-serialize-equal-products.txt \
-	test-serialize-gl-element-affine-map.txt \
 	test-serialize-linear-function.txt \
 	test-serialize-linear-map.txt \
 	test-serialize-map-composition.txt \
@@ -1188,6 +1187,7 @@ DISTCLEANFILES = \
 	test-serialize-nn-ising-2.txt \
 	test-serialize-permutation.txt \
 	test-serialize-translation.txt \
+	test-serialize-ts-affine-map.txt \
 	test-serialize-walsh-expansion-1.txt \
 	test-serialize-walsh-expansion-2.txt \
 	test-serialize-walsh-expansion.txt
@@ -1415,10 +1415,6 @@ test-serialize-equal-products$(EXEEXT): $(test_serialize_equal_products_OBJECTS)
 	@rm -f test-serialize-equal-products$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_equal_products_OBJECTS) $(test_serialize_equal_products_LDADD) $(LIBS)
 
-test-serialize-gl-element-affine-map$(EXEEXT): $(test_serialize_gl_element_affine_map_OBJECTS) $(test_serialize_gl_element_affine_map_DEPENDENCIES) $(EXTRA_test_serialize_gl_element_affine_map_DEPENDENCIES) 
-	@rm -f test-serialize-gl-element-affine-map$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_gl_element_affine_map_OBJECTS) $(test_serialize_gl_element_affine_map_LDADD) $(LIBS)
-
 test-serialize-linear-function$(EXEEXT): $(test_serialize_linear_function_OBJECTS) $(test_serialize_linear_function_DEPENDENCIES) $(EXTRA_test_serialize_linear_function_DEPENDENCIES) 
 	@rm -f test-serialize-linear-function$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_linear_function_OBJECTS) $(test_serialize_linear_function_LDADD) $(LIBS)
@@ -1454,6 +1450,10 @@ test-serialize-permutation$(EXEEXT): $(test_serialize_permutation_OBJECTS) $(tes
 test-serialize-translation$(EXEEXT): $(test_serialize_translation_OBJECTS) $(test_serialize_translation_DEPENDENCIES) $(EXTRA_test_serialize_translation_DEPENDENCIES) 
 	@rm -f test-serialize-translation$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_translation_OBJECTS) $(test_serialize_translation_LDADD) $(LIBS)
+
+test-serialize-ts-affine-map$(EXEEXT): $(test_serialize_ts_affine_map_OBJECTS) $(test_serialize_ts_affine_map_DEPENDENCIES) $(EXTRA_test_serialize_ts_affine_map_DEPENDENCIES) 
+	@rm -f test-serialize-ts-affine-map$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_ts_affine_map_OBJECTS) $(test_serialize_ts_affine_map_LDADD) $(LIBS)
 
 test-serialize-walsh-expansion$(EXEEXT): $(test_serialize_walsh_expansion_OBJECTS) $(test_serialize_walsh_expansion_DEPENDENCIES) $(EXTRA_test_serialize_walsh_expansion_DEPENDENCIES) 
 	@rm -f test-serialize-walsh-expansion$(EXEEXT)
@@ -1542,7 +1542,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-sbm-multiply.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-affine-map.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-equal-products.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-gl-element-affine-map.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-linear-function.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-linear-map.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-map-composition.Po@am__quote@ # am--include-marker
@@ -1552,6 +1551,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-nn-ising-2.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-permutation.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-translation.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-ts-affine-map.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-walsh-expansion-1.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-walsh-expansion-2.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-walsh-expansion.Po@am__quote@ # am--include-marker
@@ -2099,13 +2099,6 @@ test-serialize-equal-products.log: test-serialize-equal-products$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-test-serialize-gl-element-affine-map.log: test-serialize-gl-element-affine-map$(EXEEXT)
-	@p='test-serialize-gl-element-affine-map$(EXEEXT)'; \
-	b='test-serialize-gl-element-affine-map'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-serialize-linear-function.log: test-serialize-linear-function$(EXEEXT)
 	@p='test-serialize-linear-function$(EXEEXT)'; \
 	b='test-serialize-linear-function'; \
@@ -2165,6 +2158,13 @@ test-serialize-permutation.log: test-serialize-permutation$(EXEEXT)
 test-serialize-translation.log: test-serialize-translation$(EXEEXT)
 	@p='test-serialize-translation$(EXEEXT)'; \
 	b='test-serialize-translation'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-serialize-ts-affine-map.log: test-serialize-ts-affine-map$(EXEEXT)
+	@p='test-serialize-ts-affine-map$(EXEEXT)'; \
+	b='test-serialize-ts-affine-map'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -2378,7 +2378,6 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-sbm-multiply.Po
 	-rm -f ./$(DEPDIR)/test-serialize-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-equal-products.Po
-	-rm -f ./$(DEPDIR)/test-serialize-gl-element-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-serialize-linear-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-map-composition.Po
@@ -2388,6 +2387,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-serialize-nn-ising-2.Po
 	-rm -f ./$(DEPDIR)/test-serialize-permutation.Po
 	-rm -f ./$(DEPDIR)/test-serialize-translation.Po
+	-rm -f ./$(DEPDIR)/test-serialize-ts-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-serialize-walsh-expansion-2.Po
 	-rm -f ./$(DEPDIR)/test-serialize-walsh-expansion.Po
@@ -2487,7 +2487,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-sbm-multiply.Po
 	-rm -f ./$(DEPDIR)/test-serialize-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-equal-products.Po
-	-rm -f ./$(DEPDIR)/test-serialize-gl-element-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-serialize-linear-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-map-composition.Po
@@ -2497,6 +2496,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-serialize-nn-ising-2.Po
 	-rm -f ./$(DEPDIR)/test-serialize-permutation.Po
 	-rm -f ./$(DEPDIR)/test-serialize-translation.Po
+	-rm -f ./$(DEPDIR)/test-serialize-ts-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-serialize-walsh-expansion-2.Po
 	-rm -f ./$(DEPDIR)/test-serialize-walsh-expansion.Po
