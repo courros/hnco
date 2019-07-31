@@ -182,24 +182,24 @@ Projection::map(const bit_vector_t& input, bit_vector_t& output)
 
 
 void
-GlElementAffineMap::random(int n, int t)
+TsAffineMap::random(int n, int t)
 {
   assert(n > 0);
   assert(t > 0);
 
   _bv.resize(n);
   bv_random(_bv);
-  gl_random(_gl_element, n, t);
+  ts_random(_ts, n, t);
 }
 
 
 void
-GlElementAffineMap::map(const bit_vector_t& input, bit_vector_t& output)
+TsAffineMap::map(const bit_vector_t& input, bit_vector_t& output)
 {
   assert(input.size() == _bv.size());
   assert(output.size() == _bv.size());
 
   output = input;
-  gl_apply(_gl_element, output);
+  ts_apply(_ts, output);
   bv_flip(output, _bv);
 }

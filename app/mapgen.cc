@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
   }
 
   case 6: {
-    GlElementAffineMap map;
+    TsAffineMap map;
     if (options.get_input_size() != options.get_output_size())
       cerr << "Only input size is taken into account" << endl;
     map.random(options.get_input_size(), options.get_sequence_length());

@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     int n = dist_n(Random::generator);
     int t = dist_t(Random::generator);
 
-    GlElementAffineMap src;
+    TsAffineMap src;
     src.random(n, t);
     {
       std::ofstream ofs(path);
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
       oa << src;
     }
 
-    GlElementAffineMap dest;
+    TsAffineMap dest;
     {
       ifstream ifs(path);
       if (!ifs.good())

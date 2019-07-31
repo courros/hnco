@@ -34,7 +34,7 @@
 namespace hnco {
 
 
-  /** @name Types and functions related to the linear group
+  /** @name Types and functions related to transvections
    */
   ///@{
 
@@ -112,62 +112,65 @@ namespace hnco {
   };
 
 
-  /** Element of the linear group.
+  /** Transvection sequence.
 
-      The general linear (GL for short) group of a linear space of
-      dimension n over the finite field F_2 is the group of invertible
-      n by n bit matrices.
+      The general linear group of a linear space of dimension n over
+      the finite field F_2 is the group of invertible n by n bit
+      matrices.
 
-      Any element of GL is a finite product of transvections. Elements
-      of GL are represented as sequences of transvections.
+      Any invertible bit matrix can be expressed as a finite product
+      of transvections.
+
+      Finite transvection sequences can then represent all invertible
+      bit matrices.
   */
-  typedef std::vector<Transvection> gl_element_t;
+  typedef std::vector<Transvection> transvection_sequence_t;
 
 
   /** Check validity.
 
-      \param A GL element
+      \param A Transvection sequence
   */
-  bool gl_is_valid(const gl_element_t& A);
+  bool ts_is_valid(const transvection_sequence_t& A);
 
   /** Check validity.
 
-      \param A GL element
+      \param A Transvection sequence
       \param n Dimension
   */
-  bool gl_is_valid(const gl_element_t& A, int n);
+  bool ts_is_valid(const transvection_sequence_t& A, int n);
 
-  /// Display a GL element
-  void gl_display(const gl_element_t& A, std::ostream& stream);
+  /// Display a transvection sequence
+  void ts_display(const transvection_sequence_t& A, std::ostream& stream);
 
 
-  /** Sample a random GL element.
+  /** Sample a random transvection sequence.
 
-      \param M GL element
+      \param M Transvection sequence
       \param n Dimension
-      \param t Length of the generator sequence
+      \param t Length of the sequence
   */
-  void gl_random(gl_element_t& A, int n, int t);
+  void ts_random(transvection_sequence_t& A, int n, int t);
 
 
-  /** Apply a GL element to a bit vector.
+  /** Apply a transvection sequence to a bit vector.
 
       This function modifies the given bit vector.
 
-      \param M GL element
+      \param M Transvection sequence
       \param x Bit vector
   */
-  void gl_apply(const gl_element_t& A, bit_vector_t& x);
+  void ts_apply(const transvection_sequence_t& A, bit_vector_t& x);
 
 
-  /** Apply a GL element to a bit matrix.
+  /** Apply a transvection sequence to a bit matrix.
 
       This function modifies the given bit matrix.
 
-      \param A GL element
+      \param A Transvection sequence
       \param M Bit matrix
   */
-  void gl_apply(const gl_element_t& A, bit_matrix_t& M);
+  void ts_apply(const transvection_sequence_t& A, bit_matrix_t& M);
 
 
   ///@}

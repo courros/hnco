@@ -493,16 +493,16 @@ namespace hnco {
   };
 
 
-  /** GL element affine map.
+  /** Transvection sequence affine map.
 
       An affine map f from \f$Z_2^m\f$ to \f$Z_2^n\f$ is defined by
       \f$f(x) = Ax + b\f$, where A is an n x m bit matrix and b is an
       n-dimensional bit vector.
 
-      In GlElementAffineMap, A is a finite product of transvections
-      represented by a gl_element_t.
+      In TsAffineMap, A is a finite product of transvections
+      represented by a transvection_sequence_t.
   */
-  class GlElementAffineMap:
+  class TsAffineMap:
     public Map {
 
   private:
@@ -514,7 +514,7 @@ namespace hnco {
     void save(Archive& ar, const unsigned int version) const
     {
       ar & _bv;
-      ar & _gl_element;
+      ar & _ts;
     }
 
     /// Load
@@ -522,16 +522,16 @@ namespace hnco {
     void load(Archive& ar, const unsigned int version)
     {
       ar & _bv;
-      ar & _gl_element;
+      ar & _ts;
 
       assert(bv_is_valid(_bv));
-      assert(gl_is_valid(_gl_element, _bv.size()));
+      assert(ts_is_valid(_ts, _bv.size()));
     }
 
     BOOST_SERIALIZATION_SPLIT_MEMBER()
 
-    /// GL element
-    gl_element_t _gl_element;
+    /// Transvection sequence
+    transvection_sequence_t _ts;
 
     /// Translation vector
     bit_vector_t _bv;

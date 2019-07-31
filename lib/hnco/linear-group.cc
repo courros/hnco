@@ -98,7 +98,7 @@ Transvection::apply(bit_matrix_t& M) const
 }
 
 
-bool hnco::gl_is_valid(const gl_element_t& A)
+bool hnco::ts_is_valid(const transvection_sequence_t& A)
 {
   for (auto& gen : A)
     if (!gen.is_valid())
@@ -107,7 +107,7 @@ bool hnco::gl_is_valid(const gl_element_t& A)
 }
 
 
-bool hnco::gl_is_valid(const gl_element_t& A, int n)
+bool hnco::ts_is_valid(const transvection_sequence_t& A, int n)
 {
   for (auto& gen : A)
     if (!gen.is_valid(n))
@@ -116,7 +116,7 @@ bool hnco::gl_is_valid(const gl_element_t& A, int n)
 }
 
 
-void hnco::gl_display(const gl_element_t& A, std::ostream& stream)
+void hnco::ts_display(const transvection_sequence_t& A, std::ostream& stream)
 {
   for (auto& gen : A) {
     gen.display(stream);
@@ -126,7 +126,7 @@ void hnco::gl_display(const gl_element_t& A, std::ostream& stream)
 }
 
 
-void hnco::gl_random(gl_element_t& A, int n, int t)
+void hnco::ts_random(transvection_sequence_t& A, int n, int t)
 {
   assert(n > 0);
   assert(t > 0);
@@ -137,14 +137,14 @@ void hnco::gl_random(gl_element_t& A, int n, int t)
 }
 
 
-void hnco::gl_apply(const gl_element_t& A, bit_vector_t& x)
+void hnco::ts_apply(const transvection_sequence_t& A, bit_vector_t& x)
 {
   for (const auto& gen : A)
     gen.apply(x);
 }
 
 
-void hnco::gl_apply(const gl_element_t& A, bit_matrix_t& M)
+void hnco::ts_apply(const transvection_sequence_t& A, bit_matrix_t& M)
 {
   for (const auto& gen : A)
     gen.apply(M);
