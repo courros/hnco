@@ -44,7 +44,6 @@ check_PROGRAMS = \
 	test-complete-search-walsh-expansion-1 \
 	test-first-ascent-hill-climbing \
 	test-first-ascent-hill-climbing-local \
-	test-gl-apply \
 	test-hamming-sphere \
 	test-hamming-sphere-iterator \
 	test-hypercube-iterator \
@@ -79,6 +78,7 @@ check_PROGRAMS = \
 	test-steepest-ascent-hill-climbing \
 	test-steepest-ascent-hill-climbing-local \
 	test-translation \
+	test-ts-apply \
 	test-walsh-transform
 
 if ENABLE_FACTORIZATION
@@ -119,7 +119,6 @@ test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_complete_search_walsh_expansion_1_SOURCES = test-complete-search-walsh-expansion-1.cc
 test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-local.cc
-test_gl_apply_SOURCES = test-gl-apply.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
@@ -154,6 +153,7 @@ test_single_bit_flip_iterator_SOURCES = test-single-bit-flip-iterator.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 test_steepest_ascent_hill_climbing_local_SOURCES = test-steepest-ascent-hill-climbing-local.cc
 test_translation_SOURCES = test-translation.cc
+test_ts_apply_SOURCES = test-ts-apply.cc
 test_walsh_transform_SOURCES = test-walsh-transform.cc
 
 TESTS = $(check_PROGRAMS)
