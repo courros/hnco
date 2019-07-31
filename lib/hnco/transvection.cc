@@ -55,7 +55,7 @@ Transvection::is_valid(int n) const
 void
 Transvection::random(int n)
 {
-  assert(n > 0);
+  assert(n > 1);
 
   std::uniform_int_distribution<int> index_dist(0, n - 1);
   int i, j;
@@ -72,8 +72,7 @@ void
 Transvection::apply(bit_vector_t& x) const
 {
   assert(is_valid());
-  assert(first_index < int(x.size()));
-  assert(second_index < int(x.size()));
+  assert(is_valid(x.size()));
 
   x[second_index] += x[first_index];
   assert(x[second_index] == 0 ||
@@ -90,9 +89,7 @@ void
 Transvection::apply(bit_matrix_t& M) const
 {
   assert(is_valid());
-  assert(bm_is_square(M));
-  assert(first_index < bm_num_rows(M));
-  assert(second_index < bm_num_rows(M));
+  assert(is_valid(bm_num_rows(M)));
 
   bm_add_rows(M, first_index, second_index);
 }
@@ -128,8 +125,8 @@ void hnco::ts_display(const transvection_sequence_t& A, std::ostream& stream)
 
 void hnco::ts_random(transvection_sequence_t& A, int n, int t)
 {
-  assert(n > 0);
-  assert(t > 0);
+  assert(n > 1);
+  assert(t >= 0);
 
   A.resize(t);
   for (auto& gen : A)
@@ -139,6 +136,9 @@ void hnco::ts_random(transvection_sequence_t& A, int n, int t)
 
 void hnco::ts_apply(const transvection_sequence_t& A, bit_vector_t& x)
 {
+  assert(ts_is_valid(A));
+  assert(ts_is_valid(A, x.size()));
+
   for (const auto& gen : A)
     gen.apply(x);
 }
@@ -146,6 +146,9 @@ void hnco::ts_apply(const transvection_sequence_t& A, bit_vector_t& x)
 
 void hnco::ts_apply(const transvection_sequence_t& A, bit_matrix_t& M)
 {
+  assert(ts_is_valid(A));
+  assert(ts_is_valid(A, bm_num_rows(M)));
+
   for (const auto& gen : A)
     gen.apply(M);
 }

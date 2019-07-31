@@ -90,6 +90,8 @@ namespace hnco {
     /** Sample a random generator.
 
         \param n Dimension
+
+        \pre n > 1
     */
     void random(int n);
 
@@ -98,6 +100,9 @@ namespace hnco {
         This function modifies the given bit vector.
 
         \param x Bit vector
+
+        \pre is_valid()
+        \pre is_valid(x.size())
     */
     void apply(bit_vector_t& x) const;
 
@@ -106,6 +111,9 @@ namespace hnco {
         This function modifies the given bit matrix.
 
         \param M Bit matrix
+
+        \pre is_valid()
+        \pre is_valid(bm_num_rows(M))
     */
     void apply(bit_matrix_t& M) const;
 
@@ -149,6 +157,9 @@ namespace hnco {
       \param M Transvection sequence
       \param n Dimension
       \param t Length of the sequence
+
+      \pre n > 1
+      \pre t >= 0
   */
   void ts_random(transvection_sequence_t& A, int n, int t);
 
@@ -159,6 +170,9 @@ namespace hnco {
 
       \param M Transvection sequence
       \param x Bit vector
+
+      \pre ts_is_valid(A)
+      \pre ts_is_valid(A, x.size())
   */
   void ts_apply(const transvection_sequence_t& A, bit_vector_t& x);
 
@@ -169,6 +183,9 @@ namespace hnco {
 
       \param A Transvection sequence
       \param M Bit matrix
+
+      \pre ts_is_valid(A)
+      \pre ts_is_valid(A, bm_num_rows(M))
   */
   void ts_apply(const transvection_sequence_t& A, bit_matrix_t& M);
 
