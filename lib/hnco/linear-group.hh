@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_LINEAR_GROUP_H
-#define HNCO_LINEAR_GROUP_H
+#ifndef HNCO_TRANSVECTION_H
+#define HNCO_TRANSVECTION_H
 
 #include <assert.h>
 
