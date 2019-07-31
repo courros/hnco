@@ -35,8 +35,8 @@ bool check_ts_apply()
   uniform_int_distribution<int> length_dist(1, 10);
 
   for (int i = 0; i < 10; i++) {
-    int n = dimension_dist(Random::generator);
-    int t = length_dist(Random::generator);
+    const int n = dimension_dist(Random::generator);
+    const int t = length_dist(Random::generator);
 
     bit_matrix_t M;
     bm_resize(M, n);
