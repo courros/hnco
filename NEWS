@@ -11,6 +11,9 @@ Library:
 - Added class ParsedRealMultivariateFunction
 - Added class RealMultivariateFunctionAdapter
 - Added bv_from_stream
+- Added class Transvection
+- Added type transvection_sequence_t and its functions
+- Added class TsAffineMap
 
 hnco:
 - Added options --expression and --parsed-modifier
@@ -28,6 +31,8 @@ hnco:
 
 Tests:
 - Added test-incremental-negation
+- Added test-ts-apply
+- Added test-serialize-ts-affine-map
 
 Scripts:
 - hnco-benchmark-run.pl: take into account flag save_solution
