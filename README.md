@@ -23,7 +23,7 @@ Library features:
 
 - 28 concrete functions
 - 24 concrete algorithms
-- 62 unit tests
+- 64 unit tests
 - Maps from bit vectors to bit vectors (affine maps)
 - Function decorators to control evaluation (budget)
 - Function decorators to modify functions (noise)
@@ -248,10 +248,11 @@ Meaning of the options:
 
 ### mapgen
 
-`mapgen` generates random instances of maps and saves them to
-files. The map can be a translation, a permutation, a linear map, or
-an affine map in the space of bit vectors. The same map instance can
-be loaded by `hnco` and used by different algorithms.
+`mapgen` generates random maps and saves them to files. A map can be a
+translation, a permutation, the composition of a permutation and a
+translation, a linear map, an affine map, or and affine map whose
+linear map is given by a sequence of transvections. A map file can be
+loaded by `hnco` and used by different algorithms.
 
 ## Experiments
 
