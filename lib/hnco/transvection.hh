@@ -154,7 +154,7 @@ namespace hnco {
 
   /** Sample a random transvection sequence.
 
-      \param M Transvection sequence
+      \param A Transvection sequence
       \param n Dimension
       \param t Length of the sequence
 
@@ -168,7 +168,7 @@ namespace hnco {
 
       This function modifies the given bit vector.
 
-      \param M Transvection sequence
+      \param A Transvection sequence
       \param x Bit vector
 
       \pre ts_is_valid(A)
