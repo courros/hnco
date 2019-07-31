@@ -223,7 +223,7 @@ random numbers.
 For example, to apply (1+1) EA to the previous Nk landscape instance,
 execute the following command:
 
-    hnco -A 300 -F 60 --path nk.txt -b 200000 --print-performance
+    hnco -A 300 -F 60 --path nk.txt -b 200000 --print-results
 
 Meaning of the options:
 
@@ -231,8 +231,9 @@ Meaning of the options:
 - `-F 60` sets the function type, here 60 represents Nk landscape
 - `--path nk.txt` sets the path to the file containing the function
 - `-b 200000` sets the budget to 200000 evaluations
-- `--print-performance` tells `hnco` to print performance (maximum and
-  number of evaluations needed to reach it) at the end
+- `--print-results` prints in JSON the maximum, the number of
+  evaluations needed to reach it, the total time (clock time), and the
+  time spent in evaluating solutions.
 
 As another example, let us apply (1+1) EA to OneMax:
 
