@@ -296,10 +296,11 @@ int main(int argc, char *argv[])
 
   ProgressTracker::Event last_improvement = tracker->get_last_improvement();
 
-  results << "  \"value\": "            << last_improvement.value << ",\n";
-  results << "  \"num_evaluations\": "  << last_improvement.num_evaluations << ",\n";
-  results << "  \"total_time\": "       << total_time << ",\n";
-  results << "  \"evaluation_time\": "  << tracker->get_evaluation_time();
+  results << "  \"value\": "                    << last_improvement.value << ",\n";
+  results << "  \"num_evaluations\": "          << last_improvement.num_evaluations << ",\n";
+  results << "  \"total_num_evaluations\": "    << tracker->get_num_calls() << ",\n";
+  results << "  \"total_time\": "               << total_time << ",\n";
+  results << "  \"evaluation_time\": "          << tracker->get_evaluation_time();
 
   hnco::function::Cache *cache = function_factory.get_cache();
 
