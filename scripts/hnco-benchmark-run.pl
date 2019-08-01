@@ -56,7 +56,7 @@ if ($parallel) {
 
 my $commands = ();
 
-iterate_functions($path_results, "$obj->{exec} $obj->{opt} -b $budget -i 0");
+iterate_functions($path_results, "$obj->{exec} $obj->{opt} -b $budget");
 
 if ($parallel) {
     my $path = 'commands.txt';
