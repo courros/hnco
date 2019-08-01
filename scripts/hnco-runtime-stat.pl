@@ -109,7 +109,7 @@ sub compute_statistics
                     my $path = "$prefix/$_.out";
                     if (-f $path) {
                         my $obj = from_json(read_file($path));
-                        $SD->add_data($obj->{num_evaluations});
+                        $SD->add_data($obj->{total_num_evaluations});
                     } else {
                         die "hnco-runtime-stat.pl: compute_statistics: Cannot open '$path': $!\n";
                     }
@@ -199,6 +199,17 @@ sub generate_gnuplot_candlesticks
         my $function_id = $f->{id};
         unless (-d "$path_graphics/$function_id") {
             mkdir "$path_graphics/$function_id";
+        }
+
+        if ($f->{logscale}) {
+            my $fmt = quote("10^{\%T}");
+            print CANDLESTICKS
+                "set logscale y 10\n",
+                "set format y $fmt\n";
+        } else {
+            print CANDLESTICKS
+                "unset logscale y\n",
+                "set format y\n";
         }
 
         foreach my $a (@$algorithms) {
