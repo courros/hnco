@@ -44,6 +44,7 @@ Scripts:
 - hnco-parameter-run.pl: remove option -i 0
 - hnco-benchmark-run.pl: print each run's exit status (sequential mode)
 - hnco-parameter-run.pl: print each run's exit status (sequential mode)
+- Renamed hnco-walsh-doc.pl -> hnco-walsh-stat.pl
 
 Experiments:
 - runtime: set budget field to 0 (indefinite)
