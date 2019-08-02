@@ -95,7 +95,7 @@ sub generate_autocorrelation
 
 sub generate_graphics
 {
-    open(GRAPHICS, ">graphics.gp") or die "hnco-walsh-doc.pl: generate_graphics: cannot open graphics.gp\n";
+    open(GRAPHICS, ">graphics.gp") or die "hnco-autocorrelation-stat.pl: generate_graphics: cannot open graphics.gp\n";
     print GRAPHICS "#!/usr/bin/gnuplot -persist\n";
 
     print GRAPHICS
