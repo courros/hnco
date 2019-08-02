@@ -42,6 +42,8 @@ Scripts:
 - hnco-runtime-stat.pl: take into account per function boolean field logscale
 - hnco-benchmark-run.pl: remove option -i 0
 - hnco-parameter-run.pl: remove option -i 0
+- hnco-benchmark-run.pl: print each run's exit status (sequential mode)
+- hnco-parameter-run.pl: print each run's exit status (sequential mode)
 
 Experiments:
 - runtime: set budget field to 0 (indefinite)
