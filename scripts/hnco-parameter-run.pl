@@ -93,7 +93,7 @@ sub iterate_functions
     my ($prefix, $cmd) = @_;
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        print "$function_id\n";
+        print "$function_id\n\n";
         iterate_algorithms("$prefix/$function_id", "$cmd $f->{opt}");
     }
 }
@@ -103,8 +103,9 @@ sub iterate_algorithms
     my ($prefix, $cmd) = @_;
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
-        print "$algorithm_id\n";
+        print "$algorithm_id\n\n";
         iterate_values("$prefix/$algorithm_id", "$cmd $a->{opt}", $a);
+        print "\n";
     }
 }
 
@@ -142,7 +143,7 @@ sub iterate_runs
     } else {
         foreach (1 .. $num_runs) {
             system("$cmd > $prefix/$_.out 2>> log.err");
-            print ".";
+            print ($? >> 8);
         }
     }
 }
