@@ -123,7 +123,6 @@ sub iterate_runs
                 system("$cmd > $prefix/$_.out 2>> log.err");
             }
             print ($? >> 8);
-            print ", ";
         }
     }
 }
