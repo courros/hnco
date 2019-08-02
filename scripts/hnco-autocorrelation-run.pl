@@ -91,7 +91,7 @@ sub single_run
 {
     my ($prefix, $cmd) = @_;
     if ($parallel) {
-        push @commands, "$cmd > $prefix/1.out 2>> $prefix/1.err";
+        push @commands, "$cmd > $prefix/1.out 2> $prefix/1.err";
         print "added to the job queue\n";
     } else {
         system("$cmd > $prefix/1.out 2>> log.err");
