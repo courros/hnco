@@ -1,6 +1,7 @@
 {
     "exec": "hnco",
-    "opt": "--print-results -i 0 -b 0 --stop-on-maximum",
+    "opt": "--print-results --stop-on-maximum",
+    "budget": 0,
 
     "num_runs": 20,
     "parallel": true,
