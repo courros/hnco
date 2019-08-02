@@ -41,7 +41,7 @@ my $budget              = $obj->{budget};
 my $functions           = $obj->{functions};
 my $parallel            = $obj->{parallel};
 my $servers             = $obj->{servers};
-my $save_solution      = $obj->{save_solution};
+my $save_solution       = $obj->{save_solution};
 
 my $path_results        = "results";
 
