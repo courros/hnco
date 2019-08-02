@@ -36,8 +36,8 @@ Tests:
 - Added test-serialize-ts-affine-map
 
 Scripts:
-- hnco-benchmark-run.pl: take into account flag save_solution
-- hnco-benchmark-stat.pl: generate hall of fame file results.txt per function
+- hnco-benchmark-run.pl: take into account boolean field save_solution
+- hnco-benchmark-stat.pl: generate per function file results.txt (hall of fame)
 - hnco-runtime-stat.pl: use total_num_evaluations instead of num_evaluations
 - hnco-runtime-stat.pl: take into account per function boolean field logscale
 - hnco-benchmark-run.pl: remove option -i 0
@@ -48,9 +48,9 @@ Scripts:
 
 Experiments:
 - runtime: set budget field to 0 (indefinite)
-- ecdf: plan.json: remove option -i 0
-- maximum: plan.json: remove option -i 0
-- dynamics: plan.json: remove option -i 0
+- ecdf: remove option -i 0
+- maximum: remove option -i 0
+- dynamics: remove option -i 0
 
 * Version 0.12 (2019-05-08)
 
