@@ -1,6 +1,6 @@
 {
     "exec": "hnco",
-    "opt": "--map 1 --map-random -s 100 -i 0 -b 200001 --pv-log-entropy",
+    "opt": "--map 1 --map-random -s 100 -b 200001 --pv-log-entropy",
 
     "parallel": true,
 

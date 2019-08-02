@@ -1,6 +1,6 @@
 {
     "exec": "hnco",
-    "opt": "--log-improvement --map 1 --map-random -s 100 -i 0",
+    "opt": "--log-improvement --map 1 --map-random -s 100",
     "budget": 500000,
 
     "num_runs": 20,

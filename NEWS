@@ -45,6 +45,9 @@ Scripts:
 
 Experiments:
 - runtime: set budget field to 0 (indefinite)
+- ecdf: plan.json: remove option -i 0
+- maximum: plan.json: remove option -i 0
+- dynamics: plan.json: remove option -i 0
 
 * Version 0.12 (2019-05-08)
 
