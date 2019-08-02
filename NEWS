@@ -40,8 +40,8 @@ Scripts:
 - hnco-benchmark-stat.pl: generate per function file results.txt (hall of fame)
 - hnco-runtime-stat.pl: use total_num_evaluations instead of num_evaluations
 - hnco-runtime-stat.pl: take into account per function boolean field logscale
-- hnco-benchmark-run.pl: remove option -i 0
-- hnco-parameter-run.pl: remove option -i 0
+- hnco-benchmark-run.pl: removed option -i 0
+- hnco-parameter-run.pl: removed option -i 0
 - hnco-benchmark-run.pl: print each run's exit status (sequential mode)
 - hnco-parameter-run.pl: print each run's exit status (sequential mode)
 - Renamed hnco-walsh-doc.pl -> hnco-walsh-stat.pl
@@ -53,6 +53,7 @@ Experiments:
 - ecdf: remove option -i 0
 - maximum: remove option -i 0
 - dynamics: remove option -i 0
+
 
 * Version 0.12 (2019-05-08)
 
