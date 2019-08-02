@@ -9,7 +9,7 @@ run:
 	time -o log.err -a hnco-walsh-run.pl
 
 doc:
-	hnco-walsh-doc.pl
+	hnco-walsh-stat.pl
 	./graphics.gp
 	sed '/^$$/d' plan.json > plan-compact.json
 	make -C report
