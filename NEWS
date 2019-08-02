@@ -45,6 +45,8 @@ Scripts:
 - hnco-benchmark-run.pl: print each run's exit status (sequential mode)
 - hnco-parameter-run.pl: print each run's exit status (sequential mode)
 - Renamed hnco-walsh-doc.pl -> hnco-walsh-stat.pl
+- hnco-benchmark-run.pl: redirect standard error without appending (parallel mode)
+- hnco-parameter-run.pl: redirect standard error without appending (parallel mode)
 
 Experiments:
 - runtime: set budget field to 0 (indefinite)
