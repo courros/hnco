@@ -28,6 +28,7 @@ hnco:
 - Added option --save-description
 - Renamed option --print-concrete-solution -> --concrete-solution
 - Added option --load-solution
+- Added total_num_evaluations to results
 
 Tests:
 - Added test-incremental-negation
@@ -37,7 +38,13 @@ Tests:
 Scripts:
 - hnco-benchmark-run.pl: take into account flag save_solution
 - hnco-benchmark-stat.pl: generate hall of fame file results.txt per function
+- hnco-runtime-stat.pl: use total_num_evaluations instead of num_evaluations
+- hnco-runtime-stat.pl: take into account per function boolean field logscale
+- hnco-benchmark-run.pl: remove option -i 0
+- hnco-parameter-run.pl: remove option -i 0
 
+Experiments:
+- runtime: set budget field to 0 (indefinite)
 
 * Version 0.12 (2019-05-08)
 
