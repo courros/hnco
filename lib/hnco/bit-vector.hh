@@ -44,7 +44,7 @@ namespace hnco {
 
   /** Bit.
 
-      A single bit is represented by an unsigned char.
+      A single bit is represented by a char.
   */
   typedef char bit_t;
 
