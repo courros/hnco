@@ -111,9 +111,9 @@ void hnco::bm_random(bit_matrix_t& M)
 void hnco::bm_swap_rows(bit_matrix_t& M, int i, int j)
 {
   assert(i >= 0);
-  assert(i < int(bm_num_rows(M)));
+  assert(i < bm_num_rows(M));
   assert(j >= 0);
-  assert(j < int(bm_num_rows(M)));
+  assert(j < bm_num_rows(M));
 
   const int cols = bm_num_columns(M);
 
@@ -124,9 +124,9 @@ void hnco::bm_swap_rows(bit_matrix_t& M, int i, int j)
 void hnco::bm_add_rows(bit_matrix_t& M, int i, int j)
 {
   assert(i >= 0);
-  assert(i < int(bm_num_rows(M)));
+  assert(i < bm_num_rows(M));
   assert(j >= 0);
-  assert(j < int(bm_num_rows(M)));
+  assert(j < bm_num_rows(M));
   assert(i != j);
 
   bv_add(M[i], M[j]);
