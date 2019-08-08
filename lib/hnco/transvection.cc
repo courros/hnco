@@ -29,11 +29,11 @@ using namespace random;
 bool
 Transvection::is_valid() const
 {
-  if (first_index < 0)
+  if (row_index < 0)
     return false;
-  if (second_index < 0)
+  if (column_index < 0)
     return false;
-  if (first_index == second_index)
+  if (row_index == column_index)
     return false;
   return true;
 }
@@ -44,9 +44,9 @@ Transvection::is_valid(int n) const
 {
   if (!is_valid())
     return false;
-  if (first_index >= n)
+  if (row_index >= n)
     return false;
-  if (second_index >= n)
+  if (column_index >= n)
     return false;
   return true;
 }
@@ -63,8 +63,8 @@ Transvection::random(int n)
     i = index_dist(Random::generator);
     j = index_dist(Random::generator);
   } while (i == j);
-  first_index = i;
-  second_index = j;
+  row_index = i;
+  column_index = j;
 }
 
 
@@ -74,12 +74,12 @@ Transvection::multiply(bit_vector_t& x) const
   assert(is_valid());
   assert(is_valid(x.size()));
 
-  x[second_index] += x[first_index];
-  assert(x[second_index] == 0 ||
-         x[second_index] == 1 ||
-         x[second_index] == 2);
-  if (x[second_index] == 2)
-    x[second_index] = 0;
+  x[column_index] += x[row_index];
+  assert(x[column_index] == 0 ||
+         x[column_index] == 1 ||
+         x[column_index] == 2);
+  if (x[column_index] == 2)
+    x[column_index] = 0;
 }
 
 
@@ -89,7 +89,7 @@ Transvection::multiply(bit_matrix_t& M) const
   assert(is_valid());
   assert(is_valid(bm_num_rows(M)));
 
-  bm_add_rows(M, first_index, second_index);
+  bm_add_rows(M, row_index, column_index);
 }
 
 
@@ -99,7 +99,7 @@ Transvection::multiply_right(bit_matrix_t& M) const
   assert(is_valid());
   assert(is_valid(bm_num_rows(M)));
 
-  bm_add_columns(M, first_index, second_index);
+  bm_add_columns(M, row_index, column_index);
 }
 
 

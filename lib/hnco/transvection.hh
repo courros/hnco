@@ -40,11 +40,14 @@ namespace hnco {
 
   /** Transvection.
 
-      When applied to a matrix M, a transvection (i, j) adds the i-th
-      row of M to its j-th row modulo 2.
+      We only consider transvections defined by matrices \f$\tau_{ij}
+      = I_n + B_{ij}\f$, where \f$I_n\f$ is the \f$n\times n\f$
+      identity matrix and \f$B_{ij}\f$ is the matrix whose \f$(i,
+      j)\f$ entry is 1 and other entries are zero. Such a matrix is
+      also sometimes called a shear matrix.
 
       Transvections generate invertible matrices over the finite field
-      F_2.
+      \f$F_2\f$.
 
   */
   struct Transvection {
@@ -53,27 +56,27 @@ namespace hnco {
     template<class Archive>
     void save(Archive& ar, const unsigned int version) const
     {
-      ar & first_index;
-      ar & second_index;
+      ar & row_index;
+      ar & column_index;
     }
 
     /// Load
     template<class Archive>
     void load(Archive& ar, const unsigned int version)
     {
-      ar & first_index;
-      ar & second_index;
+      ar & row_index;
+      ar & column_index;
 
       assert(is_valid());
     }
 
     BOOST_SERIALIZATION_SPLIT_MEMBER()
 
-    /// First index
-    int first_index;
+    /// Row index
+    int row_index;
 
-    /// Second index
-    int second_index;
+    /// Column index
+    int column_index;
 
     /// Check validity
     bool is_valid() const;
@@ -85,7 +88,7 @@ namespace hnco {
     bool is_valid(int n) const;
 
     /// Display transvection
-    void display(std::ostream& stream) const { stream << "(" << first_index << ", " << second_index << ")"; }
+    void display(std::ostream& stream) const { stream << "(" << row_index << ", " << column_index << ")"; }
 
     /** Sample a random transvection.
 
