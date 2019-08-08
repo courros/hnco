@@ -29,7 +29,7 @@ using namespace hnco::random;
 using namespace hnco;
 using namespace std;
 
-bool check_ts_apply()
+bool check_ts_multiply()
 {
   uniform_int_distribution<int> dimension_dist(2, 10);
   uniform_int_distribution<int> length_dist(0, 10);
@@ -44,7 +44,7 @@ bool check_ts_apply()
 
     transvection_sequence_t element;
     ts_random(element, n, t);
-    ts_apply(element, M);
+    ts_multiply(element, M);
 
     for (int j = 0; j < 10; j++) {
       bit_vector_t x(n);
@@ -54,7 +54,7 @@ bool check_ts_apply()
       bm_multiply(M, x, y);
 
       bit_vector_t z(x);
-      ts_apply(element, z);
+      ts_multiply(element, z);
 
       if (z != y)
         return false;
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 {
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  if (check_ts_apply())
+  if (check_ts_multiply())
     return 0;
   else
     return 1;

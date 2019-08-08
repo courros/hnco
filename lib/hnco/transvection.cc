@@ -134,7 +134,7 @@ void hnco::ts_random(transvection_sequence_t& A, int n, int t)
 }
 
 
-void hnco::ts_apply(const transvection_sequence_t& A, bit_vector_t& x)
+void hnco::ts_multiply(const transvection_sequence_t& A, bit_vector_t& x)
 {
   assert(ts_is_valid(A));
   assert(ts_is_valid(A, x.size()));
@@ -144,7 +144,7 @@ void hnco::ts_apply(const transvection_sequence_t& A, bit_vector_t& x)
 }
 
 
-void hnco::ts_apply(const transvection_sequence_t& A, bit_matrix_t& M)
+void hnco::ts_multiply(const transvection_sequence_t& A, bit_matrix_t& M)
 {
   assert(ts_is_valid(A));
   assert(ts_is_valid(A, bm_num_rows(M)));

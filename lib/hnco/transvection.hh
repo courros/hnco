@@ -164,7 +164,7 @@ namespace hnco {
   void ts_random(transvection_sequence_t& A, int n, int t);
 
 
-  /** Apply a transvection sequence to a bit vector.
+  /** Multiply a vector by a transvection sequence.
 
       This function modifies the given bit vector.
 
@@ -174,10 +174,10 @@ namespace hnco {
       \pre ts_is_valid(A)
       \pre ts_is_valid(A, x.size())
   */
-  void ts_apply(const transvection_sequence_t& A, bit_vector_t& x);
+  void ts_multiply(const transvection_sequence_t& A, bit_vector_t& x);
 
 
-  /** Apply a transvection sequence to a bit matrix.
+  /** Multiply a matrix by a transvection sequence.
 
       This function modifies the given bit matrix.
 
@@ -187,7 +187,7 @@ namespace hnco {
       \pre ts_is_valid(A)
       \pre ts_is_valid(A, bm_num_rows(M))
   */
-  void ts_apply(const transvection_sequence_t& A, bit_matrix_t& M);
+  void ts_multiply(const transvection_sequence_t& A, bit_matrix_t& M);
 
 
   ///@}
