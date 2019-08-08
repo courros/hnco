@@ -129,23 +129,19 @@ void hnco::bm_random(bit_matrix_t& M)
 
 void hnco::bm_swap_rows(bit_matrix_t& M, int i, int j)
 {
-  assert(i >= 0);
-  assert(i < bm_num_rows(M));
-  assert(j >= 0);
-  assert(j < bm_num_rows(M));
+  assert(is_in_range(i, bm_num_rows(M)));
+  assert(is_in_range(j, bm_num_rows(M)));
 
-  const int cols = bm_num_columns(M);
+  const int ncols = bm_num_columns(M);
 
-  for (int k = 0; k < cols; k++)
+  for (int k = 0; k < ncols; k++)
     std::swap(M[i][k], M[j][k]);
 }
 
 void hnco::bm_add_rows(bit_matrix_t& M, int i, int j)
 {
-  assert(i >= 0);
-  assert(i < bm_num_rows(M));
-  assert(j >= 0);
-  assert(j < bm_num_rows(M));
+  assert(is_in_range(i, bm_num_rows(M)));
+  assert(is_in_range(j, bm_num_rows(M)));
   assert(i != j);
 
   bv_add(M[i], M[j]);
@@ -153,15 +149,13 @@ void hnco::bm_add_rows(bit_matrix_t& M, int i, int j)
 
 void hnco::bm_add_columns(bit_matrix_t& M, int src, int dest)
 {
-  assert(src >= 0);
-  assert(src < bm_num_columns(M));
-  assert(dest >= 0);
-  assert(dest < bm_num_columns(M));
+  assert(is_in_range(src, bm_num_columns(M)));
+  assert(is_in_range(dest, bm_num_columns(M)));
   assert(src != dest);
 
-  const int rows = bm_num_rows(M);
+  const int nrows = bm_num_rows(M);
 
-  for (int i = 0; i < rows; i++) {
+  for (int i = 0; i < nrows; i++) {
     auto& row = M[i];
     if (row[src])
       bv_flip(row, dest);
@@ -275,7 +269,7 @@ bool hnco::bm_invert(bit_matrix_t& M, bit_matrix_t& N)
 {
   assert(bm_is_square(M));
   assert(bm_is_square(N));
-  assert(M.size() == N.size());
+  assert(bm_num_rows(M) == bm_num_rows(N));
 
   const int rows = bm_num_rows(M);
 
