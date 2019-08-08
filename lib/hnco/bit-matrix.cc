@@ -132,6 +132,23 @@ void hnco::bm_add_rows(bit_matrix_t& M, int i, int j)
   bv_add(M[i], M[j]);
 }
 
+void hnco::bm_add_columns(bit_matrix_t& M, int src, int dest)
+{
+  assert(src >= 0);
+  assert(src < bm_num_columns(M));
+  assert(dest >= 0);
+  assert(dest < bm_num_columns(M));
+  assert(src != dest);
+
+  const int rows = bm_num_rows(M);
+
+  for (int i = 0; i < rows; i++) {
+    auto& row = M[i];
+    if (row[src])
+      bv_flip(row, dest);
+  }
+}
+
 void hnco::bm_row_echelon_form(bit_matrix_t& A)
 {
   const int rows = bm_num_rows(A);

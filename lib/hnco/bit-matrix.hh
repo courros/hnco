@@ -83,6 +83,18 @@ namespace hnco {
   */
   void bm_add_rows(bit_matrix_t& M, int i, int j);
 
+  /** Add two columns.
+
+      Column src is added to column dest.
+
+      \param M Bit matrix
+      \param src Source column
+      \param dest Destination column
+
+      \warning M is modified by the function.
+  */
+  void bm_add_columns(bit_matrix_t& M, int src, int dest);
+
   /** Compute a row echelon form of a matrix.
 
       \warning A is modified by the function.
