@@ -136,6 +136,33 @@ namespace hnco {
   ///@}
 
 
+  /** @name Range checking
+   */
+  ///@{
+
+  /** Check whether an index is in a given range.
+
+      The lower bound is implicit and is equal to 0.
+
+      \param i Index
+      \param n Upper bound
+
+      \return true if i >= 0 and i < n
+  */
+  inline bool is_in_range(int i, int n) { return i >= 0 && i < n; }
+
+  /** Check whether an index is in a given range.
+
+      \param i Index
+      \param a Lower bound
+      \param b Upper bound
+
+      \return true if i >= a and i < b
+  */
+  inline bool is_in_range(int i, int a, int b) { return i >= a && i < b; }
+
+  ///@}
+
 } // end of namespace hnco
 
 
