@@ -68,6 +68,14 @@ void hnco::bm_identity(bit_matrix_t& M)
     }
 }
 
+void hnco::bm_identity(bit_matrix_t& M, int n)
+{
+  assert(n > 0);
+
+  bm_resize(M, n);
+  bm_identity(M);
+}
+
 bool hnco::bm_is_identity(const bit_matrix_t& M)
 {
   if (!bm_is_square(M))

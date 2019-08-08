@@ -71,6 +71,13 @@ namespace hnco {
   */
   void bm_identity(bit_matrix_t& M);
 
+  /** Set the matrix to the identity matrix.
+
+      \param M Bit matrix
+      \param n Dimension
+  */
+  void bm_identity(bit_matrix_t& M, int n);
+
   /// Sample a random bit matrix
   void bm_random(bit_matrix_t& M);
 
