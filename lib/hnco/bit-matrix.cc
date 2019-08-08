@@ -36,12 +36,21 @@ void hnco::bm_display(const bit_matrix_t& M, std::ostream& stream)
 
 bool hnco::bm_is_valid(const bit_matrix_t& M)
 {
-  if (M.size() == 0)
+  if (bm_num_rows(M) == 0)
     return false;
-  size_t num_columns = M[0].size();
-  if (num_columns == 0)
+
+  const int ncols = bm_num_columns(M);
+
+  if (ncols == 0)
     return false;
-  return std::all_of(M.begin(), M.end(), [num_columns](const bit_vector_t& row){ return row.size() == num_columns; });
+
+  if (!std::all_of(M.begin(), M.end(), [ncols](const bit_vector_t& row){ return int(row.size()) == ncols; }))
+    return false;
+
+  if (!std::all_of(M.begin(), M.end(), [](const bit_vector_t& row){ return bv_is_valid(row); }))
+    return false;
+
+  return true;
 }
 
 void hnco::bm_identity(bit_matrix_t& M)
