@@ -69,7 +69,7 @@ Transvection::random(int n)
 
 
 void
-Transvection::apply(bit_vector_t& x) const
+Transvection::multiply(bit_vector_t& x) const
 {
   assert(is_valid());
   assert(is_valid(x.size()));
@@ -80,18 +80,26 @@ Transvection::apply(bit_vector_t& x) const
          x[second_index] == 2);
   if (x[second_index] == 2)
     x[second_index] = 0;
-  return;
-
 }
 
 
 void
-Transvection::apply(bit_matrix_t& M) const
+Transvection::multiply(bit_matrix_t& M) const
 {
   assert(is_valid());
   assert(is_valid(bm_num_rows(M)));
 
   bm_add_rows(M, first_index, second_index);
+}
+
+
+void
+Transvection::multiply_right(bit_matrix_t& M) const
+{
+  assert(is_valid());
+  assert(is_valid(bm_num_rows(M)));
+
+  bm_add_columns(M, first_index, second_index);
 }
 
 
@@ -140,7 +148,7 @@ void hnco::ts_multiply(const transvection_sequence_t& A, bit_vector_t& x)
   assert(ts_is_valid(A, x.size()));
 
   for (const auto& gen : A)
-    gen.apply(x);
+    gen.multiply(x);
 }
 
 
@@ -150,5 +158,5 @@ void hnco::ts_multiply(const transvection_sequence_t& A, bit_matrix_t& M)
   assert(ts_is_valid(A, bm_num_rows(M)));
 
   for (const auto& gen : A)
-    gen.apply(M);
+    gen.multiply(M);
 }

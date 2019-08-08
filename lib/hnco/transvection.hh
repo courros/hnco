@@ -84,10 +84,10 @@ namespace hnco {
     */
     bool is_valid(int n) const;
 
-    /// Display generator
+    /// Display transvection
     void display(std::ostream& stream) const { stream << "(" << first_index << ", " << second_index << ")"; }
 
-    /** Sample a random generator.
+    /** Sample a random transvection.
 
         \param n Dimension
 
@@ -95,27 +95,38 @@ namespace hnco {
     */
     void random(int n);
 
-    /** Apply the generator to a bit vector.
-
-        This function modifies the given bit vector.
+    /** Multiply a bit vector from the left.
 
         \param x Bit vector
 
         \pre is_valid()
         \pre is_valid(x.size())
+
+        \warning This function modifies the given bit vector.
     */
-    void apply(bit_vector_t& x) const;
+    void multiply(bit_vector_t& x) const;
 
-    /** Apply the generator to a bit matrix.
-
-        This function modifies the given bit matrix.
+    /** Multiply a bit matrix from the left.
 
         \param M Bit matrix
 
         \pre is_valid()
         \pre is_valid(bm_num_rows(M))
+
+        \warning This function modifies the given bit vector.
     */
-    void apply(bit_matrix_t& M) const;
+    void multiply(bit_matrix_t& M) const;
+
+    /** Multiply a bit matrix from the right.
+
+        \param M Bit matrix
+
+        \pre is_valid()
+        \pre is_valid(bm_num_rows(M))
+
+        \warning This function modifies the given bit vector.
+    */
+    void multiply_right(bit_matrix_t& M) const;
 
   };
 
@@ -164,28 +175,28 @@ namespace hnco {
   void ts_random(transvection_sequence_t& A, int n, int t);
 
 
-  /** Multiply a vector by a transvection sequence.
-
-      This function modifies the given bit vector.
+  /** Multiply a vector by a transvection sequence from the left.
 
       \param A Transvection sequence
       \param x Bit vector
 
       \pre ts_is_valid(A)
       \pre ts_is_valid(A, x.size())
+
+      \warning This function modifies the given bit vector.
   */
   void ts_multiply(const transvection_sequence_t& A, bit_vector_t& x);
 
 
-  /** Multiply a matrix by a transvection sequence.
-
-      This function modifies the given bit matrix.
+  /** Multiply a matrix by a transvection sequence from the left.
 
       \param A Transvection sequence
       \param M Bit matrix
 
       \pre ts_is_valid(A)
       \pre ts_is_valid(A, bm_num_rows(M))
+
+      \warning This function modifies the given bit vector.
   */
   void ts_multiply(const transvection_sequence_t& A, bit_matrix_t& M);
 
