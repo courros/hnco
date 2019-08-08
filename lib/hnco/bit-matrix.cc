@@ -111,14 +111,14 @@ bool hnco::bm_is_upper_triangular(const bit_matrix_t& M)
   return true;
 }
 
-void hnco::bm_resize(bit_matrix_t& M, int num_rows, int num_columns)
+void hnco::bm_resize(bit_matrix_t& M, int nrows, int ncols)
 {
-  assert(num_rows >= 0);
-  assert(num_columns >= 0);
+  assert(nrows > 0);
+  assert(ncols > 0);
 
-  M.resize(num_rows);
+  M.resize(nrows);
   for (auto& row: M)
-    row.resize(num_columns);
+    row.resize(ncols);
 }
 
 void hnco::bm_random(bit_matrix_t& M)
