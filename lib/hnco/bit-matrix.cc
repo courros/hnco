@@ -55,17 +55,13 @@ bool hnco::bm_is_valid(const bit_matrix_t& M)
 
 void hnco::bm_identity(bit_matrix_t& M)
 {
+  assert(bm_is_valid(M));
   assert(bm_is_square(M));
 
-  const int rows = bm_num_rows(M);
-
-  for (int i = 0; i < rows; i++)
-    for (int j = 0; j < rows; j++) {
-      if (i == j)
-        M[i][j] = 1;
-      else
-        M[i][j] = 0;
-    }
+  bm_clear(M);
+  const int nrows = bm_num_rows(M);
+  for (int i = 0; i < nrows; i++)
+    M[i][i] = 1;
 }
 
 void hnco::bm_identity(bit_matrix_t& M, int n)
@@ -78,21 +74,27 @@ void hnco::bm_identity(bit_matrix_t& M, int n)
 
 bool hnco::bm_is_identity(const bit_matrix_t& M)
 {
+  if (!bm_is_valid(M))
+    return false;
+
   if (!bm_is_square(M))
     return false;
 
-  const int rows = bm_num_rows(M);
+  const int nrows = bm_num_rows(M);
 
-  for (int i = 0; i < rows; i++)
-    for (int j = 0; j < rows; j++) {
+  for (int i = 0; i < nrows; i++) {
+    auto& row = M[i];
+    for (int j = 0; j < nrows; j++) {
       if (i == j) {
-        if (M[i][j] != 1)
+        if (row[j] != 1)
           return false;
       } else {
-        if (M[i][j] != 0)
+        if (row[j] != 0)
           return false;
       }
     }
+  }
+
   return true;
 }
 
