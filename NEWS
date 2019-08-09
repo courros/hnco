@@ -14,6 +14,9 @@ Library:
 - Added class Transvection
 - Added type transvection_sequence_t and its functions
 - Added class TsAffineMap
+- Added bm_add_columns,
+- Added resizing bm_identity
+- Added is_in_range
 
 hnco:
 - Added options --expression and --parsed-modifier
