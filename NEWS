@@ -35,7 +35,7 @@ hnco:
 
 Tests:
 - Added test-incremental-negation
-- Added test-ts-apply
+- Added test-ts-multiply
 - Added test-serialize-ts-affine-map
 
 Scripts:
