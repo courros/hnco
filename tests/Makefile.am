@@ -78,7 +78,7 @@ check_PROGRAMS = \
 	test-steepest-ascent-hill-climbing \
 	test-steepest-ascent-hill-climbing-local \
 	test-translation \
-	test-ts-apply \
+	test-ts-multiply \
 	test-walsh-transform
 
 if ENABLE_FACTORIZATION
@@ -153,7 +153,7 @@ test_single_bit_flip_iterator_SOURCES = test-single-bit-flip-iterator.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 test_steepest_ascent_hill_climbing_local_SOURCES = test-steepest-ascent-hill-climbing-local.cc
 test_translation_SOURCES = test-translation.cc
-test_ts_apply_SOURCES = test-ts-apply.cc
+test_ts_multiply_SOURCES = test-ts-multiply.cc
 test_walsh_transform_SOURCES = test-walsh-transform.cc
 
 TESTS = $(check_PROGRAMS)

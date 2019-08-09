@@ -159,7 +159,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-single-bit-flip-iterator$(EXEEXT) \
 	test-steepest-ascent-hill-climbing$(EXEEXT) \
 	test-steepest-ascent-hill-climbing-local$(EXEEXT) \
-	test-translation$(EXEEXT) test-ts-apply$(EXEEXT) \
+	test-translation$(EXEEXT) test-ts-multiply$(EXEEXT) \
 	test-walsh-transform$(EXEEXT) $(am__EXEEXT_1)
 @ENABLE_FACTORIZATION_TRUE@am__append_1 = test-complete-search-factorization
 subdir = tests
@@ -532,10 +532,10 @@ am_test_translation_OBJECTS = test-translation.$(OBJEXT)
 test_translation_OBJECTS = $(am_test_translation_OBJECTS)
 test_translation_LDADD = $(LDADD)
 test_translation_DEPENDENCIES = ../lib/libhnco.la
-am_test_ts_apply_OBJECTS = test-ts-apply.$(OBJEXT)
-test_ts_apply_OBJECTS = $(am_test_ts_apply_OBJECTS)
-test_ts_apply_LDADD = $(LDADD)
-test_ts_apply_DEPENDENCIES = ../lib/libhnco.la
+am_test_ts_multiply_OBJECTS = test-ts-multiply.$(OBJEXT)
+test_ts_multiply_OBJECTS = $(am_test_ts_multiply_OBJECTS)
+test_ts_multiply_LDADD = $(LDADD)
+test_ts_multiply_DEPENDENCIES = ../lib/libhnco.la
 am_test_walsh_transform_OBJECTS = test-walsh-transform.$(OBJEXT)
 test_walsh_transform_OBJECTS = $(am_test_walsh_transform_OBJECTS)
 test_walsh_transform_LDADD = $(LDADD)
@@ -613,7 +613,8 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-single-bit-flip-iterator.Po \
 	./$(DEPDIR)/test-steepest-ascent-hill-climbing-local.Po \
 	./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po \
-	./$(DEPDIR)/test-translation.Po ./$(DEPDIR)/test-ts-apply.Po \
+	./$(DEPDIR)/test-translation.Po \
+	./$(DEPDIR)/test-ts-multiply.Po \
 	./$(DEPDIR)/test-walsh-transform.Po
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
@@ -690,7 +691,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_single_bit_flip_iterator_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_local_SOURCES) \
-	$(test_translation_SOURCES) $(test_ts_apply_SOURCES) \
+	$(test_translation_SOURCES) $(test_ts_multiply_SOURCES) \
 	$(test_walsh_transform_SOURCES)
 DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_bm_invert_SOURCES) $(test_bm_multiply_SOURCES) \
@@ -748,7 +749,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_single_bit_flip_iterator_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_local_SOURCES) \
-	$(test_translation_SOURCES) $(test_ts_apply_SOURCES) \
+	$(test_translation_SOURCES) $(test_ts_multiply_SOURCES) \
 	$(test_walsh_transform_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -1172,7 +1173,7 @@ test_single_bit_flip_iterator_SOURCES = test-single-bit-flip-iterator.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 test_steepest_ascent_hill_climbing_local_SOURCES = test-steepest-ascent-hill-climbing-local.cc
 test_translation_SOURCES = test-translation.cc
-test_ts_apply_SOURCES = test-ts-apply.cc
+test_ts_multiply_SOURCES = test-ts-multiply.cc
 test_walsh_transform_SOURCES = test-walsh-transform.cc
 TESTS = $(check_PROGRAMS)
 DISTCLEANFILES = \
@@ -1483,9 +1484,9 @@ test-translation$(EXEEXT): $(test_translation_OBJECTS) $(test_translation_DEPEND
 	@rm -f test-translation$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_translation_OBJECTS) $(test_translation_LDADD) $(LIBS)
 
-test-ts-apply$(EXEEXT): $(test_ts_apply_OBJECTS) $(test_ts_apply_DEPENDENCIES) $(EXTRA_test_ts_apply_DEPENDENCIES) 
-	@rm -f test-ts-apply$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(test_ts_apply_OBJECTS) $(test_ts_apply_LDADD) $(LIBS)
+test-ts-multiply$(EXEEXT): $(test_ts_multiply_OBJECTS) $(test_ts_multiply_DEPENDENCIES) $(EXTRA_test_ts_multiply_DEPENDENCIES) 
+	@rm -f test-ts-multiply$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_ts_multiply_OBJECTS) $(test_ts_multiply_LDADD) $(LIBS)
 
 test-walsh-transform$(EXEEXT): $(test_walsh_transform_OBJECTS) $(test_walsh_transform_DEPENDENCIES) $(EXTRA_test_walsh_transform_DEPENDENCIES) 
 	@rm -f test-walsh-transform$(EXEEXT)
@@ -1559,7 +1560,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-steepest-ascent-hill-climbing-local.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-translation.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ts-apply.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ts-multiply.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-walsh-transform.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
@@ -2218,9 +2219,9 @@ test-translation.log: test-translation$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-test-ts-apply.log: test-ts-apply$(EXEEXT)
-	@p='test-ts-apply$(EXEEXT)'; \
-	b='test-ts-apply'; \
+test-ts-multiply.log: test-ts-multiply$(EXEEXT)
+	@p='test-ts-multiply$(EXEEXT)'; \
+	b='test-ts-multiply'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -2395,7 +2396,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-steepest-ascent-hill-climbing-local.Po
 	-rm -f ./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po
 	-rm -f ./$(DEPDIR)/test-translation.Po
-	-rm -f ./$(DEPDIR)/test-ts-apply.Po
+	-rm -f ./$(DEPDIR)/test-ts-multiply.Po
 	-rm -f ./$(DEPDIR)/test-walsh-transform.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
@@ -2504,7 +2505,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-steepest-ascent-hill-climbing-local.Po
 	-rm -f ./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po
 	-rm -f ./$(DEPDIR)/test-translation.Po
-	-rm -f ./$(DEPDIR)/test-ts-apply.Po
+	-rm -f ./$(DEPDIR)/test-ts-multiply.Po
 	-rm -f ./$(DEPDIR)/test-walsh-transform.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
