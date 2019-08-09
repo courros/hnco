@@ -105,19 +105,13 @@ Transvection::multiply_right(bit_matrix_t& M) const
 
 bool hnco::ts_is_valid(const transvection_sequence_t& A)
 {
-  for (auto& gen : A)
-    if (!gen.is_valid())
-      return false;
-  return true;
+  return std::all_of(A.begin(), A.end(), [](auto& gen){ return gen.is_valid(); });
 }
 
 
 bool hnco::ts_is_valid(const transvection_sequence_t& A, int n)
 {
-  for (auto& gen : A)
-    if (!gen.is_valid(n))
-      return false;
-  return true;
+  return std::all_of(A.begin(), A.end(), [n](auto& gen){ return gen.is_valid(n); });
 }
 
 
