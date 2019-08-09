@@ -73,13 +73,10 @@ Transvection::multiply(bit_vector_t& x) const
 {
   assert(is_valid());
   assert(is_valid(x.size()));
+  assert(bv_is_valid(x));
 
-  x[column_index] += x[row_index];
-  assert(x[column_index] == 0 ||
-         x[column_index] == 1 ||
-         x[column_index] == 2);
-  if (x[column_index] == 2)
-    x[column_index] = 0;
+  if (x[column_index])
+    bv_flip(x, row_index);
 }
 
 
