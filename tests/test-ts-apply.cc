@@ -39,12 +39,11 @@ bool check_ts_multiply()
     const int t = length_dist(Random::generator);
 
     bit_matrix_t M;
-    bm_resize(M, n);
-    bm_identity(M);
+    bm_identity(M, n);
 
-    transvection_sequence_t element;
-    ts_random(element, n, t);
-    ts_multiply(element, M);
+    transvection_sequence_t seq;
+    ts_random(seq, n, t);
+    ts_multiply(seq, M);
 
     for (int j = 0; j < 10; j++) {
       bit_vector_t x(n);
@@ -54,7 +53,7 @@ bool check_ts_multiply()
       bm_multiply(M, x, y);
 
       bit_vector_t z(x);
-      ts_multiply(element, z);
+      ts_multiply(seq, z);
 
       if (z != y)
         return false;
