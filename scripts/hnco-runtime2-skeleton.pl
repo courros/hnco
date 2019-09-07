@@ -32,9 +32,10 @@ while (<FILE>) {
 }
 my $obj = from_json($json);
 
-my $functions           = $obj->{functions};
+my $function            = $obj->{function};
 my $algorithms          = $obj->{algorithms};
-my $parameter           = $obj->{parameter};
+my $parameter1          = $obj->{parameter1};
+my $parameter2          = $obj->{parameter2};
 my $parallel            = $obj->{parallel};
 my $servers             = $obj->{servers};
 
@@ -45,21 +46,7 @@ unless (-d $path_results) {
     print "Created $path_results\n";
 }
 
-iterate_functions($path_results);
-
-sub iterate_functions
-{
-    my ($prefix) = @_;
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        my $path = "$prefix/$function_id";
-        unless (-d $path) {
-            mkdir $path;
-            print "Created $path\n";
-        }
-        iterate_algorithms($path);
-    }
-}
+iterate_algorithms($path_results);
 
 sub iterate_algorithms
 {
@@ -71,29 +58,48 @@ sub iterate_algorithms
             mkdir "$path";
             print "Created $path\n";
         }
-        iterate_values($path);
+        iterate_parameter1($path);
     }
 }
 
-sub iterate_values
+sub iterate_parameter1
 {
     my ($prefix) = @_;
-
-    my $parameter_id = $parameter->{id};
-
+    my $parameter1_id = $parameter1->{id};
     my $values;
-    if ($parameter->{values_perl}) {
-        my @tmp = eval $parameter->{values_perl};
+    if ($parameter1->{values_perl}) {
+        my @tmp = eval $parameter1->{values_perl};
         $values = \@tmp;
     } else {
-        $values = $parameter->{values};
+        $values = $parameter1->{values};
     }
-
     foreach my $value (@$values) {
-        my $path = "$prefix/$parameter_id-$value";
+        my $path = "$prefix/$parameter1_id-$value";
         unless (-d $path) {
             mkdir "$path";
             print "Created $path\n";
         }
+        iterate_parameter2($path);
+    }
+}
+
+sub iterate_parameter2
+{
+    my ($prefix) = @_;
+    my $parameter2_id = $parameter2->{id};
+    my $values;
+    if ($parameter2->{values_perl}) {
+        my @tmp = eval $parameter2->{values_perl};
+        $values = \@tmp;
+    } else {
+        $values = $parameter2->{values};
+    }
+    foreach my $value (@$values) {
+        my $path = "$prefix/$parameter2_id-$value";
+        unless (-d $path) {
+            mkdir "$path";
+            print "Created $path\n";
+        }
+        iterate_parameter2($path);
     }
 }
