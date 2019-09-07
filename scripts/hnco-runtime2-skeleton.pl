@@ -32,23 +32,31 @@ while (<FILE>) {
 }
 my $obj = from_json($json);
 
-my $function            = $obj->{function};
 my $algorithms          = $obj->{algorithms};
+my $function            = $obj->{function};
+my $parallel            = $obj->{parallel};
 my $parameter1          = $obj->{parameter1};
 my $parameter2          = $obj->{parameter2};
-my $parallel            = $obj->{parallel};
 my $servers             = $obj->{servers};
 
-my $path_results        = "results";
+my $parameter1_id       = $parameter1->{id};
+my $parameter2_id       = $parameter2->{id};
 
+my $path_results = "results";
 unless (-d $path_results) {
     mkdir $path_results;
     print "Created $path_results\n";
 }
+results_iterate_algorithms($path_results);
 
-iterate_algorithms($path_results);
+my $path_stats = "stats";
+unless (-d $path_stats) {
+    mkdir $path_stats;
+    print "Created $path_stats\n";
+}
+stats_iterate_algorithms($path_stats);
 
-sub iterate_algorithms
+sub results_iterate_algorithms
 {
     my ($prefix) = @_;
     foreach my $a (@$algorithms) {
@@ -58,14 +66,13 @@ sub iterate_algorithms
             mkdir "$path";
             print "Created $path\n";
         }
-        iterate_parameter1($path);
+        results_iterate_parameter1($path);
     }
 }
 
-sub iterate_parameter1
+sub results_iterate_parameter1
 {
     my ($prefix) = @_;
-    my $parameter1_id = $parameter1->{id};
     my $values;
     if ($parameter1->{values_perl}) {
         my @tmp = eval $parameter1->{values_perl};
@@ -79,14 +86,13 @@ sub iterate_parameter1
             mkdir "$path";
             print "Created $path\n";
         }
-        iterate_parameter2($path);
+        results_iterate_parameter2($path);
     }
 }
 
-sub iterate_parameter2
+sub results_iterate_parameter2
 {
     my ($prefix) = @_;
-    my $parameter2_id = $parameter2->{id};
     my $values;
     if ($parameter2->{values_perl}) {
         my @tmp = eval $parameter2->{values_perl};
@@ -99,6 +105,20 @@ sub iterate_parameter2
         unless (-d $path) {
             mkdir "$path";
             print "Created $path\n";
+        }
+    }
+}
+
+sub stats_iterate_algorithms
+{
+    my ($prefix) = @_;
+    foreach my $a (@$algorithms) {
+        my $algorithm_id = $a->{id};
+        foreach ("$prefix/$algorithm_id", "$prefix/$algorithm_id/$parameter1_id", "$prefix/$algorithm_id/$parameter2_id") {
+            unless (-d $_) {
+                mkdir "$_";
+                print "Created $_\n";
+            }
         }
     }
 }
