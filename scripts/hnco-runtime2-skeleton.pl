@@ -25,7 +25,7 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
-open(FILE, $plan) || die "hnco-parameter-run: Cannot open $plan\n";
+open(FILE, $plan) || die "hnco-runtime2-skeleton.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
