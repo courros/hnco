@@ -100,6 +100,5 @@ sub iterate_parameter2
             mkdir "$path";
             print "Created $path\n";
         }
-        iterate_parameter2($path);
     }
 }
