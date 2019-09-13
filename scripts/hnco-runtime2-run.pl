@@ -31,7 +31,7 @@ if (@ARGV) {
 print "Using $plan\n";
 
 open(FILE, $plan)
-    or die "hnco-parameter-run: Cannot open $plan\n";
+    or die "hnco-runtime2-run: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
@@ -41,19 +41,29 @@ my $obj = from_json($json);
 
 my $algorithms          = $obj->{algorithms};
 my $budget              = $obj->{budget};
-my $functions           = $obj->{functions};
+my $function            = $obj->{function};
 my $parallel            = $obj->{parallel};
-my $parameter           = $obj->{parameter};
+my $parameter1          = $obj->{parameter1};
+my $parameter2          = $obj->{parameter2};
 my $servers             = $obj->{servers};
 
-my $parameter_id        = $parameter->{id};
+my $parameter1_id       = $parameter1->{id};
+my $parameter2_id       = $parameter2->{id};
 
-my $values;
-if ($parameter->{values_perl}) {
-    my @tmp = eval $parameter->{values_perl};
-    $values = \@tmp;
+my $parameter1_values;
+if ($parameter1->{values_perl}) {
+    my @tmp = eval $parameter1->{values_perl};
+    $parameter1_values = \@tmp;
 } else {
-    $values = $parameter->{values};
+    $parameter1_values = $parameter1->{values};
+}
+
+my $parameter2_values;
+if ($parameter2->{values_perl}) {
+    my @tmp = eval $parameter2->{values_perl};
+    $parameter2_values = \@tmp;
+} else {
+    $parameter2_values = $parameter2->{values};
 }
 
 if ($parallel) {
@@ -67,7 +77,7 @@ if ($parallel) {
 
 my $commands = ();
 
-iterate_functions($path_results, "$obj->{exec} $obj->{opt} -b $budget");
+iterate_algorithms($path_results, "$obj->{exec} $obj->{opt} -b $budget $function->{opt}");
 
 if ($parallel) {
     my $path = 'commands.txt';
@@ -88,46 +98,37 @@ if ($parallel) {
     }
 }
 
-sub iterate_functions
-{
-    my ($prefix, $cmd) = @_;
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        print "$function_id\n\n";
-        iterate_algorithms("$prefix/$function_id", "$cmd $f->{opt}");
-    }
-}
-
 sub iterate_algorithms
 {
     my ($prefix, $cmd) = @_;
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
         print "$algorithm_id\n\n";
-        iterate_values("$prefix/$algorithm_id", "$cmd $a->{opt}", $a);
+        iterate_parameter1_values("$prefix/$algorithm_id", "$cmd $a->{opt}", $a);
         print "\n";
     }
 }
 
-sub iterate_values
+sub iterate_parameter1_values
 {
     my ($prefix, $cmd, $a) = @_;
+    foreach my $value (@$parameter1_values) {
+        print "$parameter1_id = $value\n\n";
+        iterate_parameter2_values("$prefix/$parameter1_id-$value", "$cmd --$parameter1_id $value", $a);
+        print "\n";
+    }
+}
 
+sub iterate_parameter2_values
+{
+    my ($prefix, $cmd, $a) = @_;
     my $num_runs = $obj->{num_runs};
     if ($a->{deterministic}) {
         $num_runs = 1;
     }
-
-    foreach my $value (@$values) {
-        print "$parameter_id = $value: ";
-        my $dep = "";
-        if (exists($a->{opt_perl})) {
-            foreach (@{ $a->{opt_perl} }) {
-                my $value = eval $_->{value};
-                $dep = "$dep $_->{opt} $value";
-            }
-        }
-        iterate_runs("$prefix/$parameter_id-$value", "$cmd --$parameter_id $value $dep", $num_runs);
+    foreach my $value (@$parameter2_values) {
+        print "$parameter2_id = $value: ";
+        iterate_runs("$prefix/$parameter2_id-$value", "$cmd --$parameter2_id $value", $num_runs);
         print "\n";
     }
 }
