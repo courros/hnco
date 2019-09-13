@@ -38,7 +38,7 @@ if (@ARGV) {
 print "Using $plan\n";
 
 open(FILE, $plan)
-    or die "hnco-runtime2-stat.pl: Cannot open $plan\n";
+    or die "hnco-runtime2-stat.pl: Cannot open '$plan': $!\n";
 my $json = "";
 while (<FILE>) { $json .= $_; }
 
@@ -54,10 +54,7 @@ my $parameter2          = $obj->{parameter2};
 my $servers             = $obj->{servers};
 
 my $parameter1_id       = $parameter1->{id};
-my $boxwidth1           = $parameter1->{boxwidth};
-
 my $parameter2_id       = $parameter2->{id};
-my $boxwidth2           = $parameter2->{boxwidth};
 
 my $parameter1_values;
 if ($parameter1->{values_perl}) {
@@ -87,7 +84,8 @@ my $data = {};
 add_missing_names($algorithms);
 compute_statistics();
 generate_data();
-generate_gnuplot();
+generate_gnuplot($parameter1_id, $parameter2_id, $parameter2_values);
+generate_gnuplot($parameter2_id, $parameter1_id, $parameter1_values);
 generate_latex();
 
 sub add_missing_names
@@ -184,13 +182,13 @@ sub generate_data
 
 sub generate_gnuplot
 {
-    open(MEAN, ">mean.gp")
-        or die "hnco-runtime2-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
+    my $path = "mean.gp";
+    open(MEAN, ">$path")
+        or die "hnco-runtime2-stat.pl: generate_gnuplot: Cannot open '$path': $!\n";
 
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"$parameter1_id\"\n",
         "set ylabel \"Mean runtime\"\n",
         "set logscale y\n",
         "set format y", quote("10^{\%T}"), "\n",
@@ -198,65 +196,73 @@ sub generate_gnuplot
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
-    my $xmin = min(@$parameter1_values);
-    my $xmax = max(@$parameter1_values);
-
     foreach my $a (@$algorithms) {
-        my $algorithm_id = $a->{id};
-        my $prefix_stats = "$path_stats/$algorithm_id";
-        my $prefix_graphics = "$path_graphics/$algorithm_id";
-
-        unless (-d "$prefix_graphics") {
-            mkdir "$prefix_graphics";
-        }
-
-        my $quoted_string = quote("$a->{name}: Mean runtime as a function of $parameter2_id");
-        print MEAN "set title $quoted_string\n";
-
-        my $path = "$prefix_graphics/mean-$parameter1_id";
-
-        $quoted_string = quote("$path.pdf");
-        print MEAN
-            $terminal{pdf}, "\n",
-            "set output $quoted_string\n";
-        print MEAN "plot \\\n";
-        print MEAN
-            join ", \\\n",
-            (map {
-                my $key = "$parameter1_id-$_";
-                my $title = quote("$parameter1_id = $_");
-                my $quoted_path = quote("$prefix_stats/mean-$key.dat");
-                "  $quoted_path using 1:2 with l lw 2 title $title";
-             } @$parameter1_values);
-        print MEAN "\n";
-
-        $quoted_string = quote("$path.eps");
-        print MEAN
-            $terminal{eps}, "\n",
-            "set output $quoted_string\n",
-            "replot\n";
-
-        $quoted_string = quote("$path.png");
-        print MEAN
-            $terminal{png}, "\n",
-            "set output $quoted_string\n",
-            "replot\n\n";
+        generate_gnuplot_section($a, $parameter1_id, $parameter2_id, $parameter2_values);
+        generate_gnuplot_section($a, $parameter2_id, $parameter1_id, $parameter1_values);
     }
 
     close(MEAN);
     system("chmod a+x mean.gp");
 }
 
+sub generate_gnuplot_section
+{
+    my ($a, $variable, $parameter, $values) = @_;
+
+    my $algorithm_id = $a->{id};
+    my $prefix_stats = "$path_stats/$algorithm_id";
+    my $prefix_graphics = "$path_graphics/$algorithm_id";
+    unless (-d "$prefix_graphics") {
+        mkdir "$prefix_graphics";
+    }
+
+    my $quoted_string = quote("Mean runtime as a function of $variable ($a->{name})");
+    print MEAN "set title $quoted_string\n";
+    print MEAN "set xlabel \"$variable\"\n";
+    $path = "$prefix_graphics/mean-$parameter";
+
+    $quoted_string = quote("$path.pdf");
+    print MEAN
+        $terminal{pdf}, "\n",
+        "set output $quoted_string\n";
+    print MEAN "plot \\\n";
+    print MEAN
+        join ", \\\n",
+        (map {
+            my $key = "$parameter-$_";
+            my $title = quote("$parameter = $_");
+            my $quoted_path = quote("$prefix_stats/mean-$key.dat");
+            "  $quoted_path using 1:2 with l lw 2 title $title";
+         } @$values);
+    print MEAN "\n";
+
+    $quoted_string = quote("$path.eps");
+    print MEAN
+        $terminal{eps}, "\n",
+        "set output $quoted_string\n",
+        "replot\n";
+
+    $quoted_string = quote("$path.png");
+    print MEAN
+        $terminal{png}, "\n",
+        "set output $quoted_string\n",
+        "replot\n\n";
+}
+
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
-        or die "hnco-runtime2-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
+        or die "hnco-runtime2-stat.pl: generate_latex: Cannot open '$path_report/results.tex': $!\n";
 
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
     latex_empty_line();
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
         latex_section("Algorithm $a->{name}");
+        latex_begin_center();
+        latex_includegraphics("$algorithm_id/mean-$parameter1_id");
+        latex_includegraphics("$algorithm_id/mean-$parameter2_id");
+        latex_end_center();
     }
 }
 
@@ -338,7 +344,8 @@ sub read_file
     my $json;
     {
         local $/;
-        open my $fh, '<', $path or die "hnco-runtime2-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+        open my $fh, '<', $path
+            or die "hnco-runtime2-stat.pl: compute_statistics: Cannot open '$path': $!\n";
         $json = <$fh>;
     }
     return $json;
