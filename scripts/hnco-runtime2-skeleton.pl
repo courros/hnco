@@ -114,11 +114,10 @@ sub stats_iterate_algorithms
     my ($prefix) = @_;
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
-        foreach ("$prefix/$algorithm_id", "$prefix/$algorithm_id/$parameter1_id", "$prefix/$algorithm_id/$parameter2_id") {
-            unless (-d $_) {
-                mkdir "$_";
-                print "Created $_\n";
-            }
+        my $path = "$prefix/$algorithm_id";
+        unless (-d $path) {
+            mkdir "$path";
+            print "Created $path\n";
         }
     }
 }
