@@ -47,6 +47,7 @@ my $obj = from_json($json);
 my $algorithms          = $obj->{algorithms};
 my $budget              = $obj->{budget};
 my $function            = $obj->{function};
+my $num_runs            = $obj->{num_runs};
 my $parallel            = $obj->{parallel};
 my $parameter1          = $obj->{parameter1};
 my $parameter2          = $obj->{parameter2};
@@ -77,11 +78,15 @@ if ($parameter2->{values_perl}) {
 my $path_graphics       = "graphics";
 my $path_report         = "report";
 my $path_results        = "results";
-my $path_stats          = "results";
+my $path_stats          = "stats";
 
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
+my $data = {};
+
 add_missing_names($algorithms);
+compute_statistics();
+generate_data();
 generate_latex();
 
 sub add_missing_names
@@ -91,6 +96,88 @@ sub add_missing_names
         if (!exists($item->{name})) {
             $item->{name} = $item->{id};
         }
+    }
+}
+
+sub compute_statistics
+{
+    foreach my $a (@$algorithms) {
+        my $algorithm_id = $a->{id};
+        my $algorithm_num_runs = $num_runs;
+        if ($a->{deterministic}) {
+            $algorithm_num_runs = 1;
+        }
+
+        foreach my $v1 (@$parameter1_values) {
+            my $key1 = "$parameter1_id-$v1";
+            $data->{$key1} = {};
+            foreach my $v2 (@$parameter2_values) {
+                my $key2 = "$parameter2_id-$v2";
+                my $prefix = "$path_results/$algorithm_id/$key1/$key2";
+                my $SD = Statistics::Descriptive::Full->new();
+                foreach (1 .. $algorithm_num_runs) {
+                    my $path = "$prefix/$_.out";
+                    if (-f $path) {
+                        my $obj = from_json(read_file($path));
+                        $SD->add_data($obj->{total_num_evaluations});
+                    } else {
+                        die "hnco-runtime2-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+                    }
+                }
+                $data->{$key1}->{$key2} = { min       => $SD->min(),
+                                            q1        => $SD->quantile(1),
+                                            median    => $SD->median(),
+                                            q3        => $SD->quantile(3),
+                                            max       => $SD->max(),
+                                            mean      => $SD->mean(),
+                                            stddev    => $SD->standard_deviation() };
+            }
+        }
+    }
+}
+
+sub generate_data
+{
+    foreach my $a (@$algorithms) {
+        my $algorithm_id = $a->{id};
+        my $prefix = "$path_stats/$algorithm_id";
+
+        foreach my $v1 (@$parameter1_values) {
+            my $key1 = "$parameter1_id-$v1";
+            my $path = "$prefix/mean-$key1.dat";
+            my $file = IO::File->new($path, '>')
+                or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!\n";
+            foreach my $v2 (@$parameter2_values) {
+                my $key2 = "$parameter2_id-$v2";
+                $file->printf("%e %e\n", $v2, $data->{$key1}->{$key2}->{mean});
+            }
+            $file->close();
+        }
+
+        foreach my $v2 (@$parameter2_values) {
+            my $key2 = "$parameter2_id-$v2";
+            my $path = "$prefix/mean-$key2.dat";
+            my $file = IO::File->new($path, '>')
+                or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!\n";
+            foreach my $v1 (@$parameter1_values) {
+                my $key1 = "$parameter1_id-$v1";
+                $file->printf("%e %e\n", $v1, $data->{$key1}->{$key2}->{mean});
+            }
+            $file->close();
+        }
+
+        my $path = "$prefix/mean.dat";
+        my $file = IO::File->new($path, '>')
+            or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!\n";
+        foreach my $v1 (@$parameter1_values) {
+            my $key1 = "$parameter1_id-$v1";
+            foreach my $v2 (@$parameter2_values) {
+                my $key2 = "$parameter2_id-$v2";
+                $file->printf("%e %e %e\n", $v1, $v2, $data->{$key1}->{$key2}->{mean});
+            }
+        }
+        $file->close();
+
     }
 }
 
