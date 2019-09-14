@@ -173,7 +173,7 @@ sub generate_gnuplot
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set ylabel \"Mean runtime\"\n",
+        "set ylabel \"Runtime\"\n",
         "set logscale y\n",
         "set format y", quote("10^{\%T}"), "\n",
         "set autoscale fix\n",
