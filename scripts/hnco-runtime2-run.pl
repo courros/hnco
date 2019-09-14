@@ -41,7 +41,6 @@ my $obj = from_json($json);
 
 my $algorithms          = $obj->{algorithms};
 my $budget              = $obj->{budget};
-my $function            = $obj->{function};
 my $parallel            = $obj->{parallel};
 my $parameter1          = $obj->{parameter1};
 my $parameter2          = $obj->{parameter2};
@@ -77,7 +76,7 @@ if ($parallel) {
 
 my $commands = ();
 
-iterate_algorithms($path_results, "$obj->{exec} $obj->{opt} -b $budget $function->{opt}");
+iterate_algorithms($path_results, "$obj->{exec} $obj->{opt} -b $budget");
 
 if ($parallel) {
     my $path = 'commands.txt';
