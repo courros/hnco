@@ -64,8 +64,6 @@ my $path_report         = "report";
 my $path_results        = "results";
 my $path_stats          = "stats";
 
-unless (-d "$path_graphics") { mkdir "$path_graphics"; }
-
 my $data = {};
 
 add_missing_names($algorithms);
@@ -197,9 +195,6 @@ sub generate_gnuplot_section
     my $algorithm_id = $a->{id};
     my $prefix_stats = "$path_stats/$algorithm_id";
     my $prefix_graphics = "$path_graphics/$algorithm_id";
-    unless (-d "$prefix_graphics") {
-        mkdir "$prefix_graphics";
-    }
 
     my $quoted_string = quote("$variable->{name}");
     print MEAN "set xlabel $quoted_string\n";
