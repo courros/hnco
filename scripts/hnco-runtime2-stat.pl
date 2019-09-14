@@ -240,7 +240,7 @@ sub generate_latex
     latex_empty_line();
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
-        latex_section("Algorithm $a->{name}");
+        latex_section("$a->{name}");
         latex_begin_center();
         latex_includegraphics("$algorithm_id/mean-$parameter1->{id}");
         latex_includegraphics("$algorithm_id/mean-$parameter2->{id}");
