@@ -46,7 +46,6 @@ my $obj = from_json($json);
 
 my $algorithms          = $obj->{algorithms};
 my $budget              = $obj->{budget};
-my $function            = $obj->{function};
 my $num_runs            = $obj->{num_runs};
 my $parallel            = $obj->{parallel};
 my $parameter1          = $obj->{parameter1};

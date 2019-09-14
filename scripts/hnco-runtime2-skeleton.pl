@@ -33,7 +33,6 @@ while (<FILE>) {
 my $obj = from_json($json);
 
 my $algorithms          = $obj->{algorithms};
-my $function            = $obj->{function};
 my $parallel            = $obj->{parallel};
 my $parameter1          = $obj->{parameter1};
 my $parameter2          = $obj->{parameter2};
