@@ -52,12 +52,13 @@ unless (-d $path_results) {
 }
 results_iterate_algorithms($path_results);
 
-my $path_stats = "stats";
-unless (-d $path_stats) {
-    mkdir $path_stats;
-    print "Created $path_stats\n";
+foreach ("stats", "graphics") {
+    unless (-d $_) {
+        mkdir $_;
+        print "Created $_\n";
+    }
+    iterate_algorithms($_);
 }
-stats_iterate_algorithms($path_stats);
 
 sub results_iterate_algorithms
 {
@@ -76,7 +77,7 @@ sub results_iterate_algorithms
 sub results_iterate_parameter1
 {
     my ($prefix) = @_;
-    foreach (@{ $parameter1->{value} }) {
+    foreach (@{ $parameter1->{values} }) {
         my $path = "$prefix/$parameter1->{id}-$_";
         unless (-d $path) {
             mkdir "$path";
@@ -89,7 +90,7 @@ sub results_iterate_parameter1
 sub results_iterate_parameter2
 {
     my ($prefix) = @_;
-    foreach (@{ $parameter2->{value} }) {
+    foreach (@{ $parameter2->{values} }) {
         my $path = "$prefix/$parameter2->{id}-$_";
         unless (-d $path) {
             mkdir "$path";
@@ -98,12 +99,11 @@ sub results_iterate_parameter2
     }
 }
 
-sub stats_iterate_algorithms
+sub iterate_algorithms
 {
     my ($prefix) = @_;
-    foreach my $a (@$algorithms) {
-        my $algorithm_id = $a->{id};
-        my $path = "$prefix/$algorithm_id";
+    foreach (@$algorithms) {
+        my $path = "$prefix/$_->{id}";
         unless (-d $path) {
             mkdir "$path";
             print "Created $path\n";
