@@ -23,8 +23,6 @@ use List::Util qw(min max);
 use List::MoreUtils qw(all);
 
 my @summary_statistics = qw(min q1 median q3 max);
-my @pref_max = qw(median q1 q3 min max);
-my @pref_min = qw(median q3 q1 max min);
 
 my %terminal = (
     eps => "set term epscairo color enhanced",
@@ -59,16 +57,18 @@ foreach ($parameter1, $parameter2) {
     }
 }
 
-my $path_graphics       = "graphics";
-my $path_report         = "report";
-my $path_results        = "results";
-my $path_stats          = "stats";
+my $root_graphics       = "graphics";
+my $root_report         = "report";
+my $root_results        = "results";
+my $root_stats          = "stats";
 
 my $data = {};
 
 add_missing_names($algorithms);
 compute_statistics();
-generate_data();
+foreach (@summary_statistics) {
+    generate_data($_);
+}
 generate_gnuplot();
 generate_latex();
 
@@ -86,6 +86,8 @@ sub compute_statistics
 {
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
+        $data->{$algorithm_id} = {};
+
         my $algorithm_num_runs = $num_runs;
         if ($a->{deterministic}) {
             $algorithm_num_runs = 1;
@@ -93,10 +95,10 @@ sub compute_statistics
 
         foreach my $v1 (@{ $parameter1->{values} }) {
             my $key1 = "$parameter1->{id}-$v1";
-            $data->{$key1} = {};
+            $data->{$algorithm_id}->{$key1} = {};
             foreach my $v2 (@{ $parameter2->{values} }) {
                 my $key2 = "$parameter2->{id}-$v2";
-                my $prefix = "$path_results/$algorithm_id/$key1/$key2";
+                my $prefix = "$root_results/$algorithm_id/$key1/$key2";
                 my $SD = Statistics::Descriptive::Full->new();
                 foreach (1 .. $algorithm_num_runs) {
                     my $path = "$prefix/$_.out";
@@ -107,13 +109,13 @@ sub compute_statistics
                         die "hnco-runtime2-stat.pl: compute_statistics: Cannot open '$path': $!\n";
                     }
                 }
-                $data->{$key1}->{$key2} = { min       => $SD->min(),
-                                            q1        => $SD->quantile(1),
-                                            median    => $SD->median(),
-                                            q3        => $SD->quantile(3),
-                                            max       => $SD->max(),
-                                            mean      => $SD->mean(),
-                                            stddev    => $SD->standard_deviation() };
+                $data->{$algorithm_id}->{$key1}->{$key2} = { min       => $SD->min(),
+                                                             q1        => $SD->quantile(1),
+                                                             median    => $SD->median(),
+                                                             q3        => $SD->quantile(3),
+                                                             max       => $SD->max(),
+                                                             mean      => $SD->mean(),
+                                                             stddev    => $SD->standard_deviation() };
             }
         }
     }
@@ -121,42 +123,44 @@ sub compute_statistics
 
 sub generate_data
 {
+    my $measure = shift;
+
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
-        my $prefix = "$path_stats/$algorithm_id";
+        my $prefix = "$root_stats/$algorithm_id";
 
         foreach my $v1 (@{ $parameter1->{values} }) {
             my $key1 = "$parameter1->{id}-$v1";
-            my $path = "$prefix/mean-$key1.dat";
+            my $path = "$prefix/$measure-$key1.dat";
             my $file = IO::File->new($path, '>')
                 or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!\n";
             foreach my $v2 (@{ $parameter2->{values} }) {
                 my $key2 = "$parameter2->{id}-$v2";
-                $file->printf("%e %e\n", $v2, $data->{$key1}->{$key2}->{mean});
+                $file->printf("%e %e\n", $v2, $data->{$algorithm_id}->{$key1}->{$key2}->{$measure});
             }
             $file->close();
         }
 
         foreach my $v2 (@{ $parameter2->{values} }) {
             my $key2 = "$parameter2->{id}-$v2";
-            my $path = "$prefix/mean-$key2.dat";
+            my $path = "$prefix/$measure-$key2.dat";
             my $file = IO::File->new($path, '>')
                 or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!\n";
             foreach my $v1 (@{ $parameter1->{values} }) {
                 my $key1 = "$parameter1->{id}-$v1";
-                $file->printf("%e %e\n", $v1, $data->{$key1}->{$key2}->{mean});
+                $file->printf("%e %e\n", $v1, $data->{$algorithm_id}->{$key1}->{$key2}->{$measure});
             }
             $file->close();
         }
 
-        my $path = "$prefix/mean.dat";
+        my $path = "$prefix/$measure.dat";
         my $file = IO::File->new($path, '>')
             or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!\n";
         foreach my $v1 (@{ $parameter1->{values} }) {
             my $key1 = "$parameter1->{id}-$v1";
             foreach my $v2 (@{ $parameter2->{values} }) {
                 my $key2 = "$parameter2->{id}-$v2";
-                $file->printf("%e %e %e\n", $v1, $v2, $data->{$key1}->{$key2}->{mean});
+                $file->printf("%e %e %e\n", $v1, $v2, $data->{$algorithm_id}->{$key1}->{$key2}->{$measure});
             }
         }
         $file->close();
@@ -167,10 +171,10 @@ sub generate_data
 sub generate_gnuplot
 {
     my $path = "mean.gp";
-    open(MEAN, ">$path")
+    open(GRAPHICS, ">$path")
         or die "hnco-runtime2-stat.pl: generate_gnuplot: Cannot open '$path': $!\n";
 
-    print MEAN
+    print GRAPHICS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set ylabel \"Runtime\"\n",
@@ -180,52 +184,54 @@ sub generate_gnuplot
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
     foreach my $a (@$algorithms) {
-        generate_gnuplot_section($a, $parameter1, $parameter2);
-        generate_gnuplot_section($a, $parameter2, $parameter1);
+        foreach my $measure (@summary_statistics) {
+            generate_gnuplot_section($a, $parameter1, $parameter2, $measure);
+            generate_gnuplot_section($a, $parameter2, $parameter1, $measure);
+        }
     }
 
-    close(MEAN);
+    close(GRAPHICS);
     system("chmod a+x mean.gp");
 }
 
 sub generate_gnuplot_section
 {
-    my ($a, $variable, $parameter) = @_;
+    my ($a, $variable, $parameter, $measure) = @_;
 
     my $algorithm_id = $a->{id};
-    my $prefix_stats = "$path_stats/$algorithm_id";
-    my $prefix_graphics = "$path_graphics/$algorithm_id";
+    my $prefix_stats = "$root_stats/$algorithm_id";
+    my $prefix_graphics = "$root_graphics/$algorithm_id";
 
     my $quoted_string = quote("$variable->{name}");
-    print MEAN "set xlabel $quoted_string\n";
+    print GRAPHICS "set xlabel $quoted_string\n";
 
     $quoted_string = quote("$parameter->{name}");
-    print MEAN "set key font \",10\" reverse Left outside right center box vertical title $quoted_string font \",10\"\n";
+    print GRAPHICS "set key font \",10\" reverse Left outside right center box vertical title $quoted_string font \",10\"\n";
 
-    $path = "$prefix_graphics/mean-$parameter->{id}";
+    my $path = "$prefix_graphics/$measure-$parameter->{id}";
     $quoted_string = quote("$path.pdf");
-    print MEAN
+    print GRAPHICS
         $terminal{pdf}, "\n",
         "set output $quoted_string\n";
-    print MEAN "plot \\\n";
-    print MEAN
+    print GRAPHICS "plot \\\n";
+    print GRAPHICS
         join ", \\\n",
         (map {
             my $key = "$parameter->{id}-$_";
-            my $path = quote("$prefix_stats/mean-$key.dat");
+            my $path = quote("$prefix_stats/$measure-$key.dat");
             my $title = quote("$parameter->{key} = $_");
             "  $path using 1:2 with l lw 2 title $title";
          } reverse(@{ $parameter->{values} }));
-    print MEAN "\n";
+    print GRAPHICS "\n";
 
     $quoted_string = quote("$path.eps");
-    print MEAN
+    print GRAPHICS
         $terminal{eps}, "\n",
         "set output $quoted_string\n",
         "replot\n";
 
     $quoted_string = quote("$path.png");
-    print MEAN
+    print GRAPHICS
         $terminal{png}, "\n",
         "set output $quoted_string\n",
         "replot\n\n";
@@ -233,18 +239,23 @@ sub generate_gnuplot_section
 
 sub generate_latex
 {
-    open(LATEX, ">$path_report/results.tex")
-        or die "hnco-runtime2-stat.pl: generate_latex: Cannot open '$path_report/results.tex': $!\n";
+    open(LATEX, ">$root_report/results.tex")
+        or die "hnco-runtime2-stat.pl: generate_latex: Cannot open '$root_report/results.tex': $!\n";
 
-    print LATEX "\\graphicspath{{../$path_graphics/}}\n";
+    print LATEX "\\graphicspath{{../$root_graphics/}}\n";
     latex_empty_line();
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
         latex_section("$a->{name}");
-        latex_begin_center();
-        latex_includegraphics("$algorithm_id/mean-$parameter1->{id}");
-        latex_includegraphics("$algorithm_id/mean-$parameter2->{id}");
-        latex_end_center();
+        foreach ($parameter1, $parameter2) {
+            latex_subsection("$_->{name}");
+            foreach my $measure (@summary_statistics) {
+                latex_subsubsection("$measure");
+                latex_begin_center();
+                latex_includegraphics("$algorithm_id/$measure-$_->{id}");
+                latex_end_center();
+            }
+        }
     }
 
     close(LATEX);
@@ -255,6 +266,22 @@ sub latex_section
     my ($title) = @_;
     print LATEX <<EOF;
 \\section{$title}
+EOF
+}
+
+sub latex_subsection
+{
+    my ($title) = @_;
+    print LATEX <<EOF;
+\\subsection{$title}
+EOF
+}
+
+sub latex_subsubsection
+{
+    my ($title) = @_;
+    print LATEX <<EOF;
+\\subsubsection{$title}
 EOF
 }
 
