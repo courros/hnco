@@ -22,7 +22,7 @@ use Statistics::Descriptive;
 use List::Util qw(min max);
 use List::MoreUtils qw(all);
 
-my @summary_statistics = qw(min q1 median q3 max);
+my @summary_statistics = qw(min q1 median q3 max mean stddev);
 
 my %terminal = (
     eps => "set term epscairo color enhanced",
