@@ -53,23 +53,11 @@ my $parameter1          = $obj->{parameter1};
 my $parameter2          = $obj->{parameter2};
 my $servers             = $obj->{servers};
 
-my $parameter1_id       = $parameter1->{id};
-my $parameter2_id       = $parameter2->{id};
-
-my $parameter1_values;
-if ($parameter1->{values_perl}) {
-    my @tmp = eval $parameter1->{values_perl};
-    $parameter1_values = \@tmp;
-} else {
-    $parameter1_values = $parameter1->{values};
-}
-
-my $parameter2_values;
-if ($parameter2->{values_perl}) {
-    my @tmp = eval $parameter2->{values_perl};
-    $parameter2_values = \@tmp;
-} else {
-    $parameter2_values = $parameter2->{values};
+foreach ($parameter1, $parameter2) {
+    if ($_->{values_perl}) {
+        my @tmp = eval $_->{values_perl};
+        $_->{values} = \@tmp;
+    }
 }
 
 my $path_graphics       = "graphics";
@@ -84,16 +72,15 @@ my $data = {};
 add_missing_names($algorithms);
 compute_statistics();
 generate_data();
-generate_gnuplot($parameter1_id, $parameter2_id, $parameter2_values);
-generate_gnuplot($parameter2_id, $parameter1_id, $parameter1_values);
+generate_gnuplot();
 generate_latex();
 
 sub add_missing_names
 {
     my $list = shift;
-    foreach my $item (@$list) {
-        if (!exists($item->{name})) {
-            $item->{name} = $item->{id};
+    foreach (@$list) {
+        if (!exists($_->{name})) {
+            $_->{name} = $_->{id};
         }
     }
 }
@@ -107,11 +94,11 @@ sub compute_statistics
             $algorithm_num_runs = 1;
         }
 
-        foreach my $v1 (@$parameter1_values) {
-            my $key1 = "$parameter1_id-$v1";
+        foreach my $v1 (@{ $parameter1->{values} }) {
+            my $key1 = "$parameter1->{id}-$v1";
             $data->{$key1} = {};
-            foreach my $v2 (@$parameter2_values) {
-                my $key2 = "$parameter2_id-$v2";
+            foreach my $v2 (@{ $parameter2->{values} }) {
+                my $key2 = "$parameter2->{id}-$v2";
                 my $prefix = "$path_results/$algorithm_id/$key1/$key2";
                 my $SD = Statistics::Descriptive::Full->new();
                 foreach (1 .. $algorithm_num_runs) {
@@ -141,25 +128,25 @@ sub generate_data
         my $algorithm_id = $a->{id};
         my $prefix = "$path_stats/$algorithm_id";
 
-        foreach my $v1 (@$parameter1_values) {
-            my $key1 = "$parameter1_id-$v1";
+        foreach my $v1 (@{ $parameter1->{values} }) {
+            my $key1 = "$parameter1->{id}-$v1";
             my $path = "$prefix/mean-$key1.dat";
             my $file = IO::File->new($path, '>')
                 or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!\n";
-            foreach my $v2 (@$parameter2_values) {
-                my $key2 = "$parameter2_id-$v2";
+            foreach my $v2 (@{ $parameter2->{values} }) {
+                my $key2 = "$parameter2->{id}-$v2";
                 $file->printf("%e %e\n", $v2, $data->{$key1}->{$key2}->{mean});
             }
             $file->close();
         }
 
-        foreach my $v2 (@$parameter2_values) {
-            my $key2 = "$parameter2_id-$v2";
+        foreach my $v2 (@{ $parameter2->{values} }) {
+            my $key2 = "$parameter2->{id}-$v2";
             my $path = "$prefix/mean-$key2.dat";
             my $file = IO::File->new($path, '>')
                 or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!\n";
-            foreach my $v1 (@$parameter1_values) {
-                my $key1 = "$parameter1_id-$v1";
+            foreach my $v1 (@{ $parameter1->{values} }) {
+                my $key1 = "$parameter1->{id}-$v1";
                 $file->printf("%e %e\n", $v1, $data->{$key1}->{$key2}->{mean});
             }
             $file->close();
@@ -168,10 +155,10 @@ sub generate_data
         my $path = "$prefix/mean.dat";
         my $file = IO::File->new($path, '>')
             or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!\n";
-        foreach my $v1 (@$parameter1_values) {
-            my $key1 = "$parameter1_id-$v1";
-            foreach my $v2 (@$parameter2_values) {
-                my $key2 = "$parameter2_id-$v2";
+        foreach my $v1 (@{ $parameter1->{values} }) {
+            my $key1 = "$parameter1->{id}-$v1";
+            foreach my $v2 (@{ $parameter2->{values} }) {
+                my $key2 = "$parameter2->{id}-$v2";
                 $file->printf("%e %e %e\n", $v1, $v2, $data->{$key1}->{$key2}->{mean});
             }
         }
@@ -192,13 +179,12 @@ sub generate_gnuplot
         "set ylabel \"Mean runtime\"\n",
         "set logscale y\n",
         "set format y", quote("10^{\%T}"), "\n",
-        "set key bottom right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
     foreach my $a (@$algorithms) {
-        generate_gnuplot_section($a, $parameter1_id, $parameter2_id, $parameter2_values);
-        generate_gnuplot_section($a, $parameter2_id, $parameter1_id, $parameter1_values);
+        generate_gnuplot_section($a, $parameter1, $parameter2);
+        generate_gnuplot_section($a, $parameter2, $parameter1);
     }
 
     close(MEAN);
@@ -207,7 +193,7 @@ sub generate_gnuplot
 
 sub generate_gnuplot_section
 {
-    my ($a, $variable, $parameter, $values) = @_;
+    my ($a, $variable, $parameter) = @_;
 
     my $algorithm_id = $a->{id};
     my $prefix_stats = "$path_stats/$algorithm_id";
@@ -216,11 +202,13 @@ sub generate_gnuplot_section
         mkdir "$prefix_graphics";
     }
 
-    my $quoted_string = quote("Mean runtime as a function of $variable ($a->{name})");
-    print MEAN "set title $quoted_string\n";
-    print MEAN "set xlabel \"$variable\"\n";
-    $path = "$prefix_graphics/mean-$parameter";
+    my $quoted_string = quote("$variable->{name}");
+    print MEAN "set xlabel $quoted_string\n";
 
+    $quoted_string = quote("$parameter->{name}");
+    print MEAN "set key font \",10\" reverse Left outside right center box vertical title $quoted_string font \",10\"\n";
+
+    $path = "$prefix_graphics/mean-$parameter->{id}";
     $quoted_string = quote("$path.pdf");
     print MEAN
         $terminal{pdf}, "\n",
@@ -229,11 +217,11 @@ sub generate_gnuplot_section
     print MEAN
         join ", \\\n",
         (map {
-            my $key = "$parameter-$_";
-            my $title = quote("$parameter = $_");
-            my $quoted_path = quote("$prefix_stats/mean-$key.dat");
-            "  $quoted_path using 1:2 with l lw 2 title $title";
-         } @$values);
+            my $key = "$parameter->{id}-$_";
+            my $path = quote("$prefix_stats/mean-$key.dat");
+            my $title = quote("$parameter->{key} = $_");
+            "  $path using 1:2 with l lw 2 title $title";
+         } reverse(@{ $parameter->{values} }));
     print MEAN "\n";
 
     $quoted_string = quote("$path.eps");
@@ -260,10 +248,12 @@ sub generate_latex
         my $algorithm_id = $a->{id};
         latex_section("Algorithm $a->{name}");
         latex_begin_center();
-        latex_includegraphics("$algorithm_id/mean-$parameter1_id");
-        latex_includegraphics("$algorithm_id/mean-$parameter2_id");
+        latex_includegraphics("$algorithm_id/mean-$parameter1->{id}");
+        latex_includegraphics("$algorithm_id/mean-$parameter2->{id}");
         latex_end_center();
     }
+
+    close(LATEX);
 }
 
 sub latex_section
