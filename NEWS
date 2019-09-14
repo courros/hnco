@@ -50,6 +50,9 @@ Scripts:
 - Renamed hnco-walsh-doc.pl -> hnco-walsh-stat.pl
 - hnco-benchmark-run.pl: redirect standard error without appending (parallel mode)
 - hnco-parameter-run.pl: redirect standard error without appending (parallel mode)
+- Added hnco-runtime2-skeleton.pl
+- Added hnco-runtime2-run.pl
+- Added hnco-runtime2-stat.pl
 
 Experiments:
 - runtime: set budget field to 0 (indefinite)
