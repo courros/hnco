@@ -170,7 +170,7 @@ sub generate_data
 
 sub generate_gnuplot
 {
-    my $path = "mean.gp";
+    my $path = "graphics.gp";
     open(GRAPHICS, ">$path")
         or die "hnco-runtime2-stat.pl: generate_gnuplot: Cannot open '$path': $!\n";
 
@@ -191,7 +191,7 @@ sub generate_gnuplot
     }
 
     close(GRAPHICS);
-    system("chmod a+x mean.gp");
+    system("chmod a+x graphics.gp");
 }
 
 sub generate_gnuplot_section
