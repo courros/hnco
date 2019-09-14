@@ -46,23 +46,11 @@ my $parameter1          = $obj->{parameter1};
 my $parameter2          = $obj->{parameter2};
 my $servers             = $obj->{servers};
 
-my $parameter1_id       = $parameter1->{id};
-my $parameter2_id       = $parameter2->{id};
-
-my $parameter1_values;
-if ($parameter1->{values_perl}) {
-    my @tmp = eval $parameter1->{values_perl};
-    $parameter1_values = \@tmp;
-} else {
-    $parameter1_values = $parameter1->{values};
-}
-
-my $parameter2_values;
-if ($parameter2->{values_perl}) {
-    my @tmp = eval $parameter2->{values_perl};
-    $parameter2_values = \@tmp;
-} else {
-    $parameter2_values = $parameter2->{values};
+foreach ($parameter1, $parameter2) {
+    if ($_->{values_perl}) {
+        my @tmp = eval $_->{values_perl};
+        $_->{values} = \@tmp;
+    }
 }
 
 if ($parallel) {
@@ -111,9 +99,9 @@ sub iterate_algorithms
 sub iterate_parameter1_values
 {
     my ($prefix, $cmd, $a) = @_;
-    foreach my $value (@$parameter1_values) {
-        print "$parameter1_id = $value\n\n";
-        iterate_parameter2_values("$prefix/$parameter1_id-$value", "$cmd --$parameter1_id $value", $a);
+    foreach my $value (@{ $parameter1->{values} }) {
+        print "$parameter1->{id} = $value\n\n";
+        iterate_parameter2_values("$prefix/$parameter1->{id}-$value", "$cmd --$parameter1->{id} $value", $a);
         print "\n";
     }
 }
@@ -125,9 +113,9 @@ sub iterate_parameter2_values
     if ($a->{deterministic}) {
         $num_runs = 1;
     }
-    foreach my $value (@$parameter2_values) {
-        print "$parameter2_id = $value: ";
-        iterate_runs("$prefix/$parameter2_id-$value", "$cmd --$parameter2_id $value", $num_runs);
+    foreach my $value (@{ $parameter2->{values} }) {
+        print "$parameter2->{id} = $value: ";
+        iterate_runs("$prefix/$parameter2->{id}-$value", "$cmd --$parameter2->{id} $value", $num_runs);
         print "\n";
     }
 }
