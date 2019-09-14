@@ -38,8 +38,12 @@ my $parameter1          = $obj->{parameter1};
 my $parameter2          = $obj->{parameter2};
 my $servers             = $obj->{servers};
 
-my $parameter1_id       = $parameter1->{id};
-my $parameter2_id       = $parameter2->{id};
+foreach ($parameter1, $parameter2) {
+    if ($_->{values_perl}) {
+        my @tmp = eval $_->{values_perl};
+        $_->{values} = \@tmp;
+    }
+}
 
 my $path_results = "results";
 unless (-d $path_results) {
@@ -72,15 +76,8 @@ sub results_iterate_algorithms
 sub results_iterate_parameter1
 {
     my ($prefix) = @_;
-    my $values;
-    if ($parameter1->{values_perl}) {
-        my @tmp = eval $parameter1->{values_perl};
-        $values = \@tmp;
-    } else {
-        $values = $parameter1->{values};
-    }
-    foreach my $value (@$values) {
-        my $path = "$prefix/$parameter1_id-$value";
+    foreach (@{ $parameter1->{value} }) {
+        my $path = "$prefix/$parameter1->{id}-$_";
         unless (-d $path) {
             mkdir "$path";
             print "Created $path\n";
@@ -92,15 +89,8 @@ sub results_iterate_parameter1
 sub results_iterate_parameter2
 {
     my ($prefix) = @_;
-    my $values;
-    if ($parameter2->{values_perl}) {
-        my @tmp = eval $parameter2->{values_perl};
-        $values = \@tmp;
-    } else {
-        $values = $parameter2->{values};
-    }
-    foreach my $value (@$values) {
-        my $path = "$prefix/$parameter2_id-$value";
+    foreach (@{ $parameter2->{value} }) {
+        my $path = "$prefix/$parameter2->{id}-$_";
         unless (-d $path) {
             mkdir "$path";
             print "Created $path\n";
