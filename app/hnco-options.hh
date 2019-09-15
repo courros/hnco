@@ -309,6 +309,9 @@ class Options {
   /// Log improvement
   bool _log_improvement;
 
+  /// Ensure that two consecutive transvections do not commute
+  bool _map_non_commuting_transvections;
+
   /// Sample a random map
   bool _map_random;
 
@@ -1228,6 +1231,12 @@ public:
 
   /// Set log_improvement
   void set_log_improvement() { _log_improvement = true; }
+ 
+  /// Get map_non_commuting_transvections
+  bool with_map_non_commuting_transvections() const { return _map_non_commuting_transvections; }
+
+  /// Set map_non_commuting_transvections
+  void set_map_non_commuting_transvections() { _map_non_commuting_transvections = true; }
  
   /// Get map_random
   bool with_map_random() const { return _map_random; }

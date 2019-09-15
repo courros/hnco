@@ -270,6 +270,12 @@
             "section": "map"
         },
 
+        "map_non_commuting_transvections":
+        {
+            "description": "Ensure that two consecutive transvections do not commute",
+            "section": "map"
+        },
+
         "restart":
         {
             "description": "Restart any algorithm an indefinite number of times",
