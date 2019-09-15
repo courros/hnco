@@ -177,6 +177,20 @@ namespace hnco {
   */
   void ts_random(transvection_sequence_t& A, int n, int t);
 
+  /** Sample a random sequence of non commuting transvections.
+
+      This function ensures that two consecutive transvections do not
+      commute.
+
+      \param A Transvection sequence
+      \param n Dimension
+      \param t Length of the sequence
+
+      \pre n > 1
+      \pre t >= 0
+  */
+  void ts_random_non_commuting(transvection_sequence_t& A, int n, int t);
+
 
   /** Multiply a vector by a transvection sequence from the left.
 

@@ -133,6 +133,17 @@ void hnco::ts_random(transvection_sequence_t& A, int n, int t)
 }
 
 
+void hnco::ts_random_non_commuting(transvection_sequence_t& A, int n, int t)
+{
+  assert(n > 1);
+  assert(t >= 0);
+
+  A.resize(t);
+  for (auto& gen : A)
+    gen.random(n);
+}
+
+
 void hnco::ts_multiply(const transvection_sequence_t& A, bit_vector_t& x)
 {
   assert(ts_is_valid(A));
