@@ -69,6 +69,33 @@ Transvection::random(int n)
 
 
 void
+Transvection::random(int n, const Transvection& a)
+{
+  assert(n > 1);
+
+  std::uniform_int_distribution<int> index_dist(0, n - 1);
+
+  if (Random::bernoulli()) {
+    row_index = a.column_index;
+    int i;
+    do {
+      i = index_dist(Random::generator);
+    } while (i == row_index);
+    column_index = i;
+  } else {
+    column_index = a.row_index;
+    int i;
+    do {
+      i = index_dist(Random::generator);
+    } while (i == row_index);
+    row_index = i;
+  }
+
+  assert(!transvections_commute(*this, a));
+}
+
+
+void
 Transvection::multiply(bit_vector_t& x) const
 {
   assert(is_valid());
@@ -153,7 +180,7 @@ void hnco::ts_random_non_commuting(transvection_sequence_t& A, int n, int t)
   A.resize(t);
   A[0].random(n);
   for (size_t i = 1; i < A.size(); i++) {
-    A[i].random(n);
+    A[i].random(n, A[i - 1]);
   }
 }
 

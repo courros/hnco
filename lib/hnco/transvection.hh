@@ -98,6 +98,18 @@ namespace hnco {
     */
     void random(int n);
 
+    /** Sample a random transvection.
+
+        This member function ensures that the sampled transvection
+        does not commute with some given one.
+
+        \param n Dimension
+        \param a Given transvection
+
+        \pre n > 1
+    */
+    void random(int n, const Transvection& a);
+
     /** Multiply a bit vector from the left.
 
         \param x Bit vector
