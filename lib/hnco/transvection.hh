@@ -133,6 +133,9 @@ namespace hnco {
 
   };
 
+  /// Check whether two transvections commute
+  bool transvections_commute(const Transvection& a, const Transvection& b);
+
 
   /** Transvection sequence.
 

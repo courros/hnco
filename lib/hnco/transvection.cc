@@ -100,6 +100,16 @@ Transvection::multiply_right(bit_matrix_t& M) const
 }
 
 
+bool hnco::transvections_commute(const Transvection& a, const Transvection& b)
+{
+  if (a.row_index == b.column_index)
+    return false;
+  if (b.row_index == a.column_index)
+    return false;
+  return true;
+}
+
+
 bool hnco::ts_is_valid(const transvection_sequence_t& A)
 {
   return std::all_of(A.begin(), A.end(), [](auto& gen){ return gen.is_valid(); });
@@ -136,11 +146,15 @@ void hnco::ts_random(transvection_sequence_t& A, int n, int t)
 void hnco::ts_random_non_commuting(transvection_sequence_t& A, int n, int t)
 {
   assert(n > 1);
-  assert(t >= 0);
+
+  if (t <= 0)
+    return;
 
   A.resize(t);
-  for (auto& gen : A)
-    gen.random(n);
+  A[0].random(n);
+  for (size_t i = 1; i < A.size(); i++) {
+    A[i].random(n);
+  }
 }
 
 
