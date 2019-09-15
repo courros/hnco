@@ -182,14 +182,18 @@ Projection::map(const bit_vector_t& input, bit_vector_t& output)
 
 
 void
-TsAffineMap::random(int n, int t)
+TsAffineMap::random(int n, int t, bool nc)
 {
   assert(n > 0);
   assert(t > 0);
 
   _bv.resize(n);
   bv_random(_bv);
-  ts_random(_ts, n, t);
+
+  if (nc)
+    ts_random_non_commuting(_ts, n, t);
+  else
+    ts_random(_ts, n, t);
 }
 
 
