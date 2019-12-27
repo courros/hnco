@@ -198,6 +198,8 @@ TsAffineMap::random(int n, int t, SamplingMode mode)
     ts_random_non_commuting(_ts, n, t);
     break;
   case DisjointTransvections:
+    ts_random_disjoint(_ts, n, t);
+    break;
   case CommutingTransvections:
   default:
     std::ostringstream stream;

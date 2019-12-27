@@ -18,6 +18,8 @@
 
 */
 
+#include <algorithm>            // std::shuffle
+
 #include "random.hh"
 #include "transvection.hh"
 
@@ -181,6 +183,35 @@ void hnco::ts_random_non_commuting(transvection_sequence_t& A, int n, int t)
   A[0].random(n);
   for (size_t i = 1; i < A.size(); i++) {
     A[i].random(n, A[i - 1]);
+  }
+}
+
+
+void hnco::ts_random_disjoint(transvection_sequence_t& ts, int n, int t)
+{
+  assert(n > 1);
+
+  if (t <= 0)
+    return;
+
+  std::vector<int> variables(n);
+  for (size_t i = 0; i < variables.size(); i++)
+    variables[i] = i;
+  std::shuffle(variables.begin(), variables.end(), random::Random::generator);
+
+  if (2 * t > n) {
+    std::cerr << "Warning: ts_random_disjoint: requested sequence length too large (" << t << "), set to ";
+    t = n / 2;
+    std::cerr << t << std::endl;
+  }
+  assert(2 * t <= n);
+
+  ts.resize(t);
+  Transvection tv;
+  for (size_t i = 0; i < ts.size(); i++) {
+    tv.row_index = variables[2 * i];
+    tv.column_index = variables[2 * i + 1];
+    ts[i] = tv;
   }
 }
 

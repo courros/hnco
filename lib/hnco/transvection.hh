@@ -206,6 +206,23 @@ namespace hnco {
   */
   void ts_random_non_commuting(transvection_sequence_t& A, int n, int t);
 
+  /** Sample a random sequence of disjoint transvections.
+
+      Two transvections \f$\tau_{ij}\f$ and \f$\tau_{kl}\f$ are said
+      to be disjoint if the pairs {i,j} and {k,l} are disjoint.
+
+      If 2t>n then the sequence length is set to the largest t such
+      that 2t<=n.
+
+      \param A Transvection sequence
+      \param n Dimension
+      \param t Length of the sequence
+
+      \pre n > 1
+      \pre t >= 0
+  */
+  void ts_random_disjoint(transvection_sequence_t& A, int n, int t);
+
 
   /** Multiply a vector by a transvection sequence from the left.
 
