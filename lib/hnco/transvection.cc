@@ -247,8 +247,6 @@ void hnco::ts_random_commuting(transvection_sequence_t& ts, int n, int t)
   if (t > int(ts.size())) {
     std::cerr << "Warning: ts_random_commuting: requested sequence length too large (" << t << "), set to " << ts.size() << std::endl;
   }
-
-  ts_display(ts, std::cerr);
 }
 
 
