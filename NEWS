@@ -11,7 +11,7 @@ Library:
 - Added class ParsedRealMultivariateFunction
 - Added class RealMultivariateFunctionAdapter
 - Added bv_from_stream
-- Added class Transvection
+- Added struct Transvection
 - Added type transvection_sequence_t and its functions
 - Added class TsAffineMap
 - Added bm_add_columns,
@@ -32,6 +32,7 @@ hnco:
 - Renamed option --print-concrete-solution -> --concrete-solution
 - Added option --load-solution
 - Added total_num_evaluations to results
+- Added options for transvection sequences
 
 Tests:
 - Added test-incremental-negation
