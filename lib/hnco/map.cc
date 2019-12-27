@@ -201,6 +201,8 @@ TsAffineMap::random(int n, int t, SamplingMode mode)
     ts_random_disjoint(_ts, n, t);
     break;
   case CommutingTransvections:
+    ts_random_commuting(_ts, n, t);
+    break;
   default:
     std::ostringstream stream;
     stream << mode;
