@@ -182,7 +182,7 @@ Projection::map(const bit_vector_t& input, bit_vector_t& output)
 
 
 void
-TsAffineMap::random(int n, int t, bool nc)
+TsAffineMap::random(int n, int t, SamplingMode mode)
 {
   assert(n > 0);
   assert(t > 0);
@@ -190,10 +190,20 @@ TsAffineMap::random(int n, int t, bool nc)
   _bv.resize(n);
   bv_random(_bv);
 
-  if (nc)
-    ts_random_non_commuting(_ts, n, t);
-  else
+  switch (mode) {
+  case Unconstrained:
     ts_random(_ts, n, t);
+    break;
+  case NonCommutingTransvections:
+    ts_random_non_commuting(_ts, n, t);
+    break;
+  case DisjointTransvections:
+  case CommutingTransvections:
+  default:
+    std::ostringstream stream;
+    stream << mode;
+    throw Error("TsAffineMap::random: Unknown sampling mode: " + stream.str());
+  }
 }
 
 

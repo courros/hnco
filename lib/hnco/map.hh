@@ -538,13 +538,25 @@ namespace hnco {
 
   public:
 
+    /// Sampling mode
+    enum SamplingMode {
+                       /// Unconstrained
+                       Unconstrained,
+                       /// Non commuting transvections
+                       NonCommutingTransvections,
+                       /// Disjoint transvections
+                       DisjointTransvections,
+                       /// Commuting transvections
+                       CommutingTransvections
+    };
+
     /** Random instance.
 
         \param n Dimension
         \param t Length of sequence of transvections
         \param nc Non commuting transvections
     */
-    void random(int n, int t, bool nc = false);
+    void random(int n, int t, SamplingMode mode = Unconstrained);
 
     /// Map
     void map(const bit_vector_t& input, bit_vector_t& output);
