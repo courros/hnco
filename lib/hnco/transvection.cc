@@ -216,18 +216,35 @@ void hnco::ts_random_disjoint(transvection_sequence_t& ts, int n, int t)
 }
 
 
-void hnco::ts_random_commuting(transvection_sequence_t& A, int n, int t)
+void hnco::ts_random_commuting(transvection_sequence_t& ts, int n, int t)
 {
   assert(n > 1);
 
   if (t <= 0)
     return;
 
-  A.resize(t);
-  A[0].random(n);
-  for (size_t i = 1; i < A.size(); i++) {
-    A[i].random(n, A[i - 1]);
+  std::vector<int> variables(n);
+  for (size_t i = 0; i < variables.size(); i++)
+    variables[i] = i;
+  std::shuffle(variables.begin(), variables.end(), random::Random::generator);
+
+  size_t split = variables.size() / 2;
+
+  for (size_t i = 0; i < split; i++) {
+    for (size_t j = split; j < variables.size(); j++) {
+      Transvection tv;
+      tv.row_index = variables[i];
+      tv.column_index = variables[j];
+      ts.push_back(tv);
+    }
   }
+
+  std::shuffle(ts.begin(), ts.end(), random::Random::generator);
+
+  if (t < int(ts.size()))
+    ts.resize(t);
+
+  ts_display(ts, std::cerr);
 }
 
 
