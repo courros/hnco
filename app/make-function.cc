@@ -340,7 +340,8 @@ make_map(const Options& options)
       if (options.get_map_input_size() != options.get_bv_size())
         std::cerr << "Warning: make_map: TsAffineMap: using bv_size, discarding map_input_size" << std::endl;
       map->random(options.get_bv_size(),
-                  options.get_map_sequence_length());
+                  options.get_map_ts_length(),
+                  static_cast<TsAffineMap::SamplingMode>(options.get_map_ts_sampling_mode()));
     } else
       load_map<TsAffineMap>(map, options);
     return map;

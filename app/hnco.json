@@ -270,12 +270,6 @@
             "section": "map"
         },
 
-        "map_non_commuting_transvections":
-        {
-            "description": "Ensure that two consecutive transvections do not commute",
-            "section": "map"
-        },
-
         "restart":
         {
             "description": "Restart any algorithm an indefinite number of times",
@@ -820,19 +814,52 @@
             "section": "map"
         },
 
-        "map_sequence_length":
-        {
-            "type": "int",
-            "value": 10,
-            "description": "Length of sequence of transvections",
-            "section": "map"
-        },
-
         "map_path":
         {
             "type": "string",
             "value": "map.txt",
             "description": "Path of a map file",
+            "section": "map"
+        },
+
+        "map_ts_sampling_mode":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Transvection sequence sampling mode",
+            "section": "map",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Unconstrained"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Non commuting transvections"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Disjoint transvections"
+                },
+
+                {
+                    "value": 3,
+                    "description": "Commuting transvections"
+                }
+
+            ]
+
+        },
+
+        "map_ts_length":
+        {
+            "type": "int",
+            "value": 10,
+            "description": "Transvection sequence length",
             "section": "map"
         },
 

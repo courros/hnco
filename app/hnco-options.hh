@@ -125,9 +125,13 @@ class Options {
   std::string _map_path;
   bool _opt_map_path;
 
-  /// Length of sequence of transvections
-  int _map_sequence_length;
-  bool _opt_map_sequence_length;
+  /// Transvection sequence length
+  int _map_ts_length;
+  bool _opt_map_ts_length;
+
+  /// Transvection sequence sampling mode
+  int _map_ts_sampling_mode;
+  bool _opt_map_ts_sampling_mode;
 
   /// Expected number of flipped bits (bv_size times mutation probability)
   double _mutation_probability;
@@ -308,9 +312,6 @@ class Options {
 
   /// Log improvement
   bool _log_improvement;
-
-  /// Ensure that two consecutive transvections do not commute
-  bool _map_non_commuting_transvections;
 
   /// Sample a random map
   bool _map_random;
@@ -752,17 +753,29 @@ public:
   /// Get set-flag for map_path
   bool set_map_path() const { return _opt_map_path; }
 
-  /// Get map_sequence_length
-  int get_map_sequence_length() const { return _map_sequence_length; }
+  /// Get map_ts_length
+  int get_map_ts_length() const { return _map_ts_length; }
 
-  /// Set map_sequence_length
-  void set_map_sequence_length(int x) {
-    _map_sequence_length = x;
-    _opt_map_sequence_length = true;
+  /// Set map_ts_length
+  void set_map_ts_length(int x) {
+    _map_ts_length = x;
+    _opt_map_ts_length = true;
   }
 
-  /// Get set-flag for map_sequence_length
-  bool set_map_sequence_length() const { return _opt_map_sequence_length; }
+  /// Get set-flag for map_ts_length
+  bool set_map_ts_length() const { return _opt_map_ts_length; }
+
+  /// Get map_ts_sampling_mode
+  int get_map_ts_sampling_mode() const { return _map_ts_sampling_mode; }
+
+  /// Set map_ts_sampling_mode
+  void set_map_ts_sampling_mode(int x) {
+    _map_ts_sampling_mode = x;
+    _opt_map_ts_sampling_mode = true;
+  }
+
+  /// Get set-flag for map_ts_sampling_mode
+  bool set_map_ts_sampling_mode() const { return _opt_map_ts_sampling_mode; }
 
   /// Get mutation_probability
   double get_mutation_probability() const { return _mutation_probability; }
@@ -1231,12 +1244,6 @@ public:
 
   /// Set log_improvement
   void set_log_improvement() { _log_improvement = true; }
- 
-  /// Get map_non_commuting_transvections
-  bool with_map_non_commuting_transvections() const { return _map_non_commuting_transvections; }
-
-  /// Set map_non_commuting_transvections
-  void set_map_non_commuting_transvections() { _map_non_commuting_transvections = true; }
  
   /// Get map_random
   bool with_map_random() const { return _map_random; }

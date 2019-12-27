@@ -65,8 +65,10 @@ Options::Options(int argc, char *argv[]):
   _opt_map_input_size(false),
   _map_path("map.txt"),
   _opt_map_path(false),
-  _map_sequence_length(10),
-  _opt_map_sequence_length(false),
+  _map_ts_length(10),
+  _opt_map_ts_length(false),
+  _map_ts_sampling_mode(0),
+  _opt_map_ts_sampling_mode(false),
   _mutation_probability(1),
   _opt_mutation_probability(false),
   _neighborhood(0),
@@ -145,7 +147,6 @@ Options::Options(int argc, char *argv[]):
   _incremental_evaluation(false),
   _load_solution(false),
   _log_improvement(false),
-  _map_non_commuting_transvections(false),
   _map_random(false),
   _map_surjective(false),
   _mmas_strict(false),
@@ -209,7 +210,8 @@ Options::Options(int argc, char *argv[]):
     OPTION_MAP,
     OPTION_MAP_INPUT_SIZE,
     OPTION_MAP_PATH,
-    OPTION_MAP_SEQUENCE_LENGTH,
+    OPTION_MAP_TS_LENGTH,
+    OPTION_MAP_TS_SAMPLING_MODE,
     OPTION_MUTATION_PROBABILITY,
     OPTION_NEIGHBORHOOD,
     OPTION_NEIGHBORHOOD_ITERATOR,
@@ -261,7 +263,6 @@ Options::Options(int argc, char *argv[]):
     OPTION_INCREMENTAL_EVALUATION,
     OPTION_LOAD_SOLUTION,
     OPTION_LOG_IMPROVEMENT,
-    OPTION_MAP_NON_COMMUTING_TRANSVECTIONS,
     OPTION_MAP_RANDOM,
     OPTION_MAP_SURJECTIVE,
     OPTION_MMAS_STRICT,
@@ -314,7 +315,8 @@ Options::Options(int argc, char *argv[]):
     {"map", required_argument, 0, OPTION_MAP},
     {"map-input-size", required_argument, 0, OPTION_MAP_INPUT_SIZE},
     {"map-path", required_argument, 0, OPTION_MAP_PATH},
-    {"map-sequence-length", required_argument, 0, OPTION_MAP_SEQUENCE_LENGTH},
+    {"map-ts-length", required_argument, 0, OPTION_MAP_TS_LENGTH},
+    {"map-ts-sampling-mode", required_argument, 0, OPTION_MAP_TS_SAMPLING_MODE},
     {"mutation-probability", required_argument, 0, OPTION_MUTATION_PROBABILITY},
     {"neighborhood", required_argument, 0, OPTION_NEIGHBORHOOD},
     {"neighborhood-iterator", required_argument, 0, OPTION_NEIGHBORHOOD_ITERATOR},
@@ -366,7 +368,6 @@ Options::Options(int argc, char *argv[]):
     {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
     {"load-solution", no_argument, 0, OPTION_LOAD_SOLUTION},
     {"log-improvement", no_argument, 0, OPTION_LOG_IMPROVEMENT},
-    {"map-non-commuting-transvections", no_argument, 0, OPTION_MAP_NON_COMMUTING_TRANSVECTIONS},
     {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
     {"map-surjective", no_argument, 0, OPTION_MAP_SURJECTIVE},
     {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
@@ -527,8 +528,12 @@ Options::Options(int argc, char *argv[]):
       set_map_path(string(optarg));
       break;
 
-    case OPTION_MAP_SEQUENCE_LENGTH:
-      set_map_sequence_length(atoi(optarg));
+    case OPTION_MAP_TS_LENGTH:
+      set_map_ts_length(atoi(optarg));
+      break;
+
+    case OPTION_MAP_TS_SAMPLING_MODE:
+      set_map_ts_sampling_mode(atoi(optarg));
       break;
 
     case 'm':
@@ -739,10 +744,6 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_LOG_IMPROVEMENT:
       _log_improvement = true;
-      break;
-
-    case OPTION_MAP_NON_COMMUTING_TRANSVECTIONS:
-      _map_non_commuting_transvections = true;
       break;
 
     case OPTION_MAP_RANDOM:
@@ -1115,16 +1116,20 @@ void Options::print_help_map(ostream& stream) const
   stream << "            6: Affine (product of transvections)" << endl;
   stream << "      --map-input-size (type int, default to 100)" << endl;
   stream << "          Input size of linear and affine maps" << endl;
-  stream << "      --map-non-commuting-transvections" << endl;
-  stream << "          Ensure that two consecutive transvections do not commute" << endl;
   stream << "      --map-path (type string, default to \"map.txt\")" << endl;
   stream << "          Path of a map file" << endl;
   stream << "      --map-random" << endl;
   stream << "          Sample a random map" << endl;
-  stream << "      --map-sequence-length (type int, default to 10)" << endl;
-  stream << "          Length of sequence of transvections" << endl;
   stream << "      --map-surjective" << endl;
   stream << "          Ensure that the sampled linear or affine map is surjective" << endl;
+  stream << "      --map-ts-length (type int, default to 10)" << endl;
+  stream << "          Transvection sequence length" << endl;
+  stream << "      --map-ts-sampling-mode (type int, default to 0)" << endl;
+  stream << "          Transvection sequence sampling mode" << endl;
+  stream << "            0: Unconstrained" << endl;
+  stream << "            1: Non commuting transvections" << endl;
+  stream << "            2: Disjoint transvections" << endl;
+  stream << "            3: Commuting transvections" << endl;
   stream << endl;
 }
 
@@ -1314,7 +1319,8 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# map = " << options._map << endl;
   stream << "# map_input_size = " << options._map_input_size << endl;
   stream << "# map_path = " << options._map_path << endl;
-  stream << "# map_sequence_length = " << options._map_sequence_length << endl;
+  stream << "# map_ts_length = " << options._map_ts_length << endl;
+  stream << "# map_ts_sampling_mode = " << options._map_ts_sampling_mode << endl;
   stream << "# mutation_probability = " << options._mutation_probability << endl;
   stream << "# neighborhood = " << options._neighborhood << endl;
   stream << "# neighborhood_iterator = " << options._neighborhood_iterator << endl;
@@ -1390,8 +1396,6 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# load_solution" << endl;
   if (options._log_improvement)
     stream << "# log_improvement" << endl;
-  if (options._map_non_commuting_transvections)
-    stream << "# map_non_commuting_transvections" << endl;
   if (options._map_random)
     stream << "# map_random" << endl;
   if (options._map_surjective)
