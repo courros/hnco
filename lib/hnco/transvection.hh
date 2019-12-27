@@ -223,6 +223,20 @@ namespace hnco {
   */
   void ts_random_disjoint(transvection_sequence_t& A, int n, int t);
 
+  /** Sample a random sequence of commuting transvections.
+
+      This function ensures that all transvections in the sequence
+      commute.
+
+      \param A Transvection sequence
+      \param n Dimension
+      \param t Length of the sequence
+
+      \pre n > 1
+      \pre t >= 0
+  */
+  void ts_random_commuting(transvection_sequence_t& A, int n, int t);
+
 
   /** Multiply a vector by a transvection sequence from the left.
 

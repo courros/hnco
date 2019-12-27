@@ -216,6 +216,21 @@ void hnco::ts_random_disjoint(transvection_sequence_t& ts, int n, int t)
 }
 
 
+void hnco::ts_random_commuting(transvection_sequence_t& A, int n, int t)
+{
+  assert(n > 1);
+
+  if (t <= 0)
+    return;
+
+  A.resize(t);
+  A[0].random(n);
+  for (size_t i = 1; i < A.size(); i++) {
+    A[i].random(n, A[i - 1]);
+  }
+}
+
+
 void hnco::ts_multiply(const transvection_sequence_t& A, bit_vector_t& x)
 {
   assert(ts_is_valid(A));
