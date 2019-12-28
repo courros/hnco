@@ -32,6 +32,8 @@ hnco:
 - Renamed option --print-concrete-solution -> --concrete-solution
 - Added option --load-solution
 - Added total_num_evaluations to results
+- Put init and maximize in the same try block
+- Report a warning if an exception occurs during initialization
 
 Tests:
 - Added test-incremental-negation
