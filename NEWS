@@ -33,6 +33,8 @@ hnco:
 - Added option --load-solution
 - Added total_num_evaluations to results
 - Added options for transvection sequences
+- Put init and maximize in the same try block
+- Report a warning if an exception occurs during initialization
 
 Tests:
 - Added test-incremental-negation
