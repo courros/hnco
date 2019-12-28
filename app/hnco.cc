@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 
   int num_threads = options.get_num_threads();
   if (num_threads < 1) {
-    std::cerr << "Error: at least one thread is required" << std::endl;
+    std::cerr << "Error: At least one thread is required" << std::endl;
     return 1;
   }
   assert(num_threads >= 1);
@@ -108,13 +108,13 @@ int main(int argc, char *argv[])
   if (options.with_load_solution()) {
     std::ifstream stream(options.get_solution_path());
     if (!stream.good()) {
-      std::cerr << "main: Cannot open " << options.get_solution_path() << std::endl;
+      std::cerr << "Cannot open " << options.get_solution_path() << std::endl;
       return 1;
     }
     bit_vector_t x;
     bv_from_stream(x, stream);
     if (int(x.size()) != fn->get_bv_size()) {
-      std::cerr << "Error: main: solution size and function bv_size must be equal" << std::endl;
+      std::cerr << "Error: Solution size and function bv_size must be equal" << std::endl;
       return 1;
     }
     if (options.with_print_results())
@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
       std::cout << fn->get_maximum() << std::endl;
       return 0;
     } else {
-      std::cerr << "Error: function with unknown maximum" << std::endl;
+      std::cerr << "Error: Function with unknown maximum" << std::endl;
       return 1;
     }
   }
