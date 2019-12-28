@@ -224,31 +224,6 @@ int main(int argc, char *argv[])
     std::cout << options;
 
   //
-  // Initialization
-  //
-
-  try { algorithm->init(); }
-  catch (LastEvaluation) {
-    std::cerr << "Error: Not enough evaluations for initialization" << std::endl;
-    std::cout << tracker->get_last_improvement() << std::endl;
-    return 1;
-  }
-  catch (MaximumReached) {
-    std::cerr << "Warning: Maximum reached during initialization" << std::endl;
-    std::cout << tracker->get_last_improvement() << std::endl;
-    return 1;
-  }
-  catch (TargetReached) {
-    std::cerr << "Warning: Target reached during initialization" << std::endl;
-    std::cout << tracker->get_last_improvement() << std::endl;
-    return 1;
-  }
-  catch (const Error& e) {
-    std::cerr << "Error: " << e.what() << std::endl;
-    return 1;
-  }
-
-  //
   // Maximize
   //
 
@@ -256,11 +231,14 @@ int main(int argc, char *argv[])
 
   bool maximum_reached = false;
   bool target_reached = false;
+  bool initialized = false;
 
   StopWatch stop_watch;
   stop_watch.start();
 
   try {
+    algorithm->init();
+    initialized = true;
     algorithm->maximize();
     solution = algorithm->get_solution();
   }
@@ -285,6 +263,9 @@ int main(int argc, char *argv[])
 
   stop_watch.stop();
   double total_time = stop_watch.get_total_time();
+
+  if (!initialized)
+    std::cerr << "Warning: Initialization has not been completed" << std::endl;
 
   //
   // Results
