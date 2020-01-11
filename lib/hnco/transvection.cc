@@ -200,7 +200,7 @@ void hnco::ts_random_commuting(transvection_sequence_t& ts, int n, int t)
 
   double M = std::sqrt(double(n * n) / 4.0 - t);
 
-  size_t split;
+  int split;
   if (n % 2 == 0) {
     int bound = std::min(k - 1, int(M));
     std::uniform_int_distribution<int> dist(0, bound);
@@ -219,8 +219,8 @@ void hnco::ts_random_commuting(transvection_sequence_t& ts, int n, int t)
       split = k + 1 - r;
   }
 
-  for (size_t i = 0; i < split; i++) {
-    for (size_t j = split; j < variables.size(); j++) {
+  for (int i = 0; i < split; i++) {
+    for (int j = split; j < n; j++) {
       Transvection tv;
       tv.row_index = variables[i];
       tv.column_index = variables[j];
