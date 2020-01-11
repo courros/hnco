@@ -19,8 +19,10 @@ Options::Options(int argc, char *argv[]):
   _opt_path(false),
   _seed(0),
   _opt_seed(false),
-  _sequence_length(10),
-  _opt_sequence_length(false),
+  _ts_length(10),
+  _opt_ts_length(false),
+  _ts_sampling_mode(0),
+  _opt_ts_sampling_mode(false),
   _surjective(false)
 {
   enum {
@@ -31,7 +33,8 @@ Options::Options(int argc, char *argv[]):
     OPTION_OUTPUT_SIZE,
     OPTION_PATH,
     OPTION_SEED,
-    OPTION_SEQUENCE_LENGTH,
+    OPTION_TS_LENGTH,
+    OPTION_TS_SAMPLING_MODE,
     OPTION_SURJECTIVE
   };
   const struct option long_options[] = {
@@ -40,13 +43,14 @@ Options::Options(int argc, char *argv[]):
     {"output-size", required_argument, 0, OPTION_OUTPUT_SIZE},
     {"path", required_argument, 0, OPTION_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
-    {"sequence-length", required_argument, 0, OPTION_SEQUENCE_LENGTH},
+    {"ts-length", required_argument, 0, OPTION_TS_LENGTH},
+    {"ts-sampling-mode", required_argument, 0, OPTION_TS_SAMPLING_MODE},
     {"surjective", no_argument, 0, OPTION_SURJECTIVE},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
     {0, no_argument, 0, 0}
   };
-  const char *short_options = "x:M:y:p:t:";
+  const char *short_options = "x:M:y:p:";
   while (true) {
     int option = getopt_long(argc, argv, short_options, long_options, 0);
     if (option < 0)
@@ -76,9 +80,12 @@ Options::Options(int argc, char *argv[]):
       set_seed(atoi(optarg));
       break;
 
-    case 't':
-    case OPTION_SEQUENCE_LENGTH:
-      set_sequence_length(atoi(optarg));
+    case OPTION_TS_LENGTH:
+      set_ts_length(atoi(optarg));
+      break;
+
+    case OPTION_TS_SAMPLING_MODE:
+      set_ts_sampling_mode(atoi(optarg));
       break;
 
     case OPTION_SURJECTIVE:
@@ -120,10 +127,18 @@ void Options::print_help(ostream& stream) const
   stream << "          Path (relative or absolute) of a map file" << endl;
   stream << "      --seed (type int, default to 0)" << endl;
   stream << "          Seed for the random number generator" << endl;
-  stream << "  -t, --sequence-length (type int, default to 10)" << endl;
-  stream << "          Length of sequence of transvections" << endl;
   stream << "      --surjective" << endl;
   stream << "          Ensure that the sampled linear or affine map is surjective" << endl;
+  stream << "      --ts-length (type int, default to 10)" << endl;
+  stream << "          Transvection sequence length" << endl;
+  stream << "      --ts-sampling-mode (type int, default to 0)" << endl;
+  stream << "          Transvection sequence sampling mode" << endl;
+  stream << "            0: Unconstrained" << endl;
+  stream << "            1: Commuting transvections" << endl;
+  stream << "            2: Unique source" << endl;
+  stream << "            3: Unique destination" << endl;
+  stream << "            4: Disjoint transvections" << endl;
+  stream << "            5: Non commuting transvections" << endl;
 }
 
 void Options::print_version(ostream& stream) const
@@ -138,7 +153,8 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# output_size = " << options._output_size << endl;
   stream << "# path = " << options._path << endl;
   stream << "# seed = " << options._seed << endl;
-  stream << "# sequence_length = " << options._sequence_length << endl;
+  stream << "# ts_length = " << options._ts_length << endl;
+  stream << "# ts_sampling_mode = " << options._ts_sampling_mode << endl;
   if (options._surjective)
     stream << "# surjective" << endl;
   stream << "# last_parameter" << endl;

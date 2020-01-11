@@ -59,7 +59,7 @@
 
                 {
                     "value": 6,
-                    "description": "Affine (product of transvections)"
+                    "description": "Affine (transvection sequence)"
                 }
 
             ]
@@ -82,12 +82,55 @@
             "description": "Output bit vector size"
         },
 
-        "sequence_length":
+        "ts_sampling_mode":
         {
-            "optchar": "t",
+            "type": "int",
+            "value": 0,
+            "description": "Transvection sequence sampling mode",
+            "section": "map",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Unconstrained"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Commuting transvections"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Unique source"
+                },
+
+                {
+                    "value": 3,
+                    "description": "Unique destination"
+                },
+
+                {
+                    "value": 4,
+                    "description": "Disjoint transvections"
+                },
+
+                {
+                    "value": 5,
+                    "description": "Non commuting transvections"
+                }
+
+            ]
+
+        },
+
+        "ts_length":
+        {
             "type": "int",
             "value": 10,
-            "description": "Length of sequence of transvections"
+            "description": "Transvection sequence length",
+            "section": "map"
         },
 
         "path":

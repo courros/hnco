@@ -33,9 +33,13 @@ class Options {
   int _seed;
   bool _opt_seed;
 
-  /// Length of sequence of transvections
-  int _sequence_length;
-  bool _opt_sequence_length;
+  /// Transvection sequence length
+  int _ts_length;
+  bool _opt_ts_length;
+
+  /// Transvection sequence sampling mode
+  int _ts_sampling_mode;
+  bool _opt_ts_sampling_mode;
 
   /// Ensure that the sampled linear or affine map is surjective
   bool _surjective;
@@ -111,17 +115,29 @@ public:
   /// Get set-flag for seed
   bool set_seed() const { return _opt_seed; }
 
-  /// Get sequence_length
-  int get_sequence_length() const { return _sequence_length; }
+  /// Get ts_length
+  int get_ts_length() const { return _ts_length; }
 
-  /// Set sequence_length
-  void set_sequence_length(int x) {
-    _sequence_length = x;
-    _opt_sequence_length = true;
+  /// Set ts_length
+  void set_ts_length(int x) {
+    _ts_length = x;
+    _opt_ts_length = true;
   }
 
-  /// Get set-flag for sequence_length
-  bool set_sequence_length() const { return _opt_sequence_length; }
+  /// Get set-flag for ts_length
+  bool set_ts_length() const { return _opt_ts_length; }
+
+  /// Get ts_sampling_mode
+  int get_ts_sampling_mode() const { return _ts_sampling_mode; }
+
+  /// Set ts_sampling_mode
+  void set_ts_sampling_mode(int x) {
+    _ts_sampling_mode = x;
+    _opt_ts_sampling_mode = true;
+  }
+
+  /// Get set-flag for ts_sampling_mode
+  bool set_ts_sampling_mode() const { return _opt_ts_sampling_mode; }
 
   /// Get surjective
   bool with_surjective() const { return _surjective; }

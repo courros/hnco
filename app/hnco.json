@@ -799,7 +799,7 @@
 
                 {
                     "value": 6,
-                    "description": "Affine (product of transvections)"
+                    "description": "Affine (transvection sequence)"
                 }
 
             ]
