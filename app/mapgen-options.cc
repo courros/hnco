@@ -120,7 +120,7 @@ void Options::print_help(ostream& stream) const
   stream << "            3: Composition of permutation and translation" << endl;
   stream << "            4: Linear" << endl;
   stream << "            5: Affine" << endl;
-  stream << "            6: Affine (product of transvections)" << endl;
+  stream << "            6: Affine (transvection sequence)" << endl;
   stream << "  -y, --output-size (type int, default to 100)" << endl;
   stream << "          Output bit vector size" << endl;
   stream << "  -p, --path (type string, default to \"map.txt\")" << endl;

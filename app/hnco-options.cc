@@ -1113,7 +1113,7 @@ void Options::print_help_map(ostream& stream) const
   stream << "            3: Composition of permutation and translation" << endl;
   stream << "            4: Linear" << endl;
   stream << "            5: Affine" << endl;
-  stream << "            6: Affine (product of transvections)" << endl;
+  stream << "            6: Affine (transvection sequence)" << endl;
   stream << "      --map-input-size (type int, default to 100)" << endl;
   stream << "          Input size of linear and affine maps" << endl;
   stream << "      --map-path (type string, default to \"map.txt\")" << endl;
