@@ -200,6 +200,10 @@ TsAffineMap::random(int n, int t, SamplingMode mode)
     ts_random_commuting(_ts, n, t);
     break;
 
+  case UniqueSource:
+    ts_random_unique_source(_ts, n, t);
+    break;
+
   case UniqueDestination:
     ts_random_unique_destination(_ts, n, t);
     break;
