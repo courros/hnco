@@ -160,6 +160,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-steepest-ascent-hill-climbing$(EXEEXT) \
 	test-steepest-ascent-hill-climbing-local$(EXEEXT) \
 	test-translation$(EXEEXT) test-ts-multiply$(EXEEXT) \
+	test-tsaffinemap-commuting-transvections-involution$(EXEEXT) \
 	test-walsh-transform$(EXEEXT) $(am__EXEEXT_1)
 @ENABLE_FACTORIZATION_TRUE@am__append_1 = test-complete-search-factorization
 subdir = tests
@@ -536,6 +537,12 @@ am_test_ts_multiply_OBJECTS = test-ts-multiply.$(OBJEXT)
 test_ts_multiply_OBJECTS = $(am_test_ts_multiply_OBJECTS)
 test_ts_multiply_LDADD = $(LDADD)
 test_ts_multiply_DEPENDENCIES = ../lib/libhnco.la
+am_test_tsaffinemap_commuting_transvections_involution_OBJECTS =  \
+	test-tsaffinemap-commuting-transvections-involution.$(OBJEXT)
+test_tsaffinemap_commuting_transvections_involution_OBJECTS = $(am_test_tsaffinemap_commuting_transvections_involution_OBJECTS)
+test_tsaffinemap_commuting_transvections_involution_LDADD = $(LDADD)
+test_tsaffinemap_commuting_transvections_involution_DEPENDENCIES =  \
+	../lib/libhnco.la
 am_test_walsh_transform_OBJECTS = test-walsh-transform.$(OBJEXT)
 test_walsh_transform_OBJECTS = $(am_test_walsh_transform_OBJECTS)
 test_walsh_transform_LDADD = $(LDADD)
@@ -615,6 +622,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po \
 	./$(DEPDIR)/test-translation.Po \
 	./$(DEPDIR)/test-ts-multiply.Po \
+	./$(DEPDIR)/test-tsaffinemap-commuting-transvections-involution.Po \
 	./$(DEPDIR)/test-walsh-transform.Po
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
@@ -692,6 +700,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_local_SOURCES) \
 	$(test_translation_SOURCES) $(test_ts_multiply_SOURCES) \
+	$(test_tsaffinemap_commuting_transvections_involution_SOURCES) \
 	$(test_walsh_transform_SOURCES)
 DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_bm_invert_SOURCES) $(test_bm_multiply_SOURCES) \
@@ -750,6 +759,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_local_SOURCES) \
 	$(test_translation_SOURCES) $(test_ts_multiply_SOURCES) \
+	$(test_tsaffinemap_commuting_transvections_involution_SOURCES) \
 	$(test_walsh_transform_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -1174,6 +1184,7 @@ test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.
 test_steepest_ascent_hill_climbing_local_SOURCES = test-steepest-ascent-hill-climbing-local.cc
 test_translation_SOURCES = test-translation.cc
 test_ts_multiply_SOURCES = test-ts-multiply.cc
+test_tsaffinemap_commuting_transvections_involution_SOURCES = test-tsaffinemap-commuting-transvections-involution.cc
 test_walsh_transform_SOURCES = test-walsh-transform.cc
 TESTS = $(check_PROGRAMS)
 DISTCLEANFILES = \
@@ -1488,6 +1499,10 @@ test-ts-multiply$(EXEEXT): $(test_ts_multiply_OBJECTS) $(test_ts_multiply_DEPEND
 	@rm -f test-ts-multiply$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_ts_multiply_OBJECTS) $(test_ts_multiply_LDADD) $(LIBS)
 
+test-tsaffinemap-commuting-transvections-involution$(EXEEXT): $(test_tsaffinemap_commuting_transvections_involution_OBJECTS) $(test_tsaffinemap_commuting_transvections_involution_DEPENDENCIES) $(EXTRA_test_tsaffinemap_commuting_transvections_involution_DEPENDENCIES) 
+	@rm -f test-tsaffinemap-commuting-transvections-involution$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_tsaffinemap_commuting_transvections_involution_OBJECTS) $(test_tsaffinemap_commuting_transvections_involution_LDADD) $(LIBS)
+
 test-walsh-transform$(EXEEXT): $(test_walsh_transform_OBJECTS) $(test_walsh_transform_DEPENDENCIES) $(EXTRA_test_walsh_transform_DEPENDENCIES) 
 	@rm -f test-walsh-transform$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_walsh_transform_OBJECTS) $(test_walsh_transform_LDADD) $(LIBS)
@@ -1561,6 +1576,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-translation.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ts-multiply.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-tsaffinemap-commuting-transvections-involution.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-walsh-transform.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
@@ -2226,6 +2242,13 @@ test-ts-multiply.log: test-ts-multiply$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-tsaffinemap-commuting-transvections-involution.log: test-tsaffinemap-commuting-transvections-involution$(EXEEXT)
+	@p='test-tsaffinemap-commuting-transvections-involution$(EXEEXT)'; \
+	b='test-tsaffinemap-commuting-transvections-involution'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-walsh-transform.log: test-walsh-transform$(EXEEXT)
 	@p='test-walsh-transform$(EXEEXT)'; \
 	b='test-walsh-transform'; \
@@ -2397,6 +2420,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po
 	-rm -f ./$(DEPDIR)/test-translation.Po
 	-rm -f ./$(DEPDIR)/test-ts-multiply.Po
+	-rm -f ./$(DEPDIR)/test-tsaffinemap-commuting-transvections-involution.Po
 	-rm -f ./$(DEPDIR)/test-walsh-transform.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
@@ -2506,6 +2530,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-steepest-ascent-hill-climbing.Po
 	-rm -f ./$(DEPDIR)/test-translation.Po
 	-rm -f ./$(DEPDIR)/test-ts-multiply.Po
+	-rm -f ./$(DEPDIR)/test-tsaffinemap-commuting-transvections-involution.Po
 	-rm -f ./$(DEPDIR)/test-walsh-transform.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
