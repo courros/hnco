@@ -206,6 +206,17 @@ namespace hnco {
   */
   void ts_random_commuting(transvection_sequence_t& A, int n, int t);
 
+  /** Sample a random sequence of transvections with unique destination.
+
+      \param A Transvection sequence
+      \param n Dimension
+      \param t Length of the sequence
+
+      \pre n > 1
+      \pre t >= 0
+  */
+  void ts_random_unique_destination(transvection_sequence_t& A, int n, int t);
+
   /** Sample a random sequence of disjoint transvections.
 
       Two transvections \f$\tau_{ij}\f$ and \f$\tau_{kl}\f$ are said
