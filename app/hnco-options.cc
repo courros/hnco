@@ -1127,9 +1127,11 @@ void Options::print_help_map(ostream& stream) const
   stream << "      --map-ts-sampling-mode (type int, default to 0)" << endl;
   stream << "          Transvection sequence sampling mode" << endl;
   stream << "            0: Unconstrained" << endl;
-  stream << "            1: Non commuting transvections" << endl;
-  stream << "            2: Disjoint transvections" << endl;
-  stream << "            3: Commuting transvections" << endl;
+  stream << "            1: Commuting transvections" << endl;
+  stream << "            2: Unique source" << endl;
+  stream << "            3: Unique destination" << endl;
+  stream << "            4: Disjoint transvections" << endl;
+  stream << "            5: Non commuting transvections" << endl;
   stream << endl;
 }
 

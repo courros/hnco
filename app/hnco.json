@@ -838,17 +838,27 @@
 
                 {
                     "value": 1,
-                    "description": "Non commuting transvections"
+                    "description": "Commuting transvections"
                 },
 
                 {
                     "value": 2,
-                    "description": "Disjoint transvections"
+                    "description": "Unique source"
                 },
 
                 {
                     "value": 3,
-                    "description": "Commuting transvections"
+                    "description": "Unique destination"
+                },
+
+                {
+                    "value": 4,
+                    "description": "Disjoint transvections"
+                },
+
+                {
+                    "value": 5,
+                    "description": "Non commuting transvections"
                 }
 
             ]
