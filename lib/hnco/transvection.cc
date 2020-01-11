@@ -242,16 +242,10 @@ void hnco::ts_random_unique_destination(transvection_sequence_t& ts, int n, int 
   if (t <= 0)
     return;
 
-  int k = n / 2;
-
-  int length_max;
-  if (n % 2 == 0)
-    length_max = k * k;
-  else
-    length_max = k * (k + 1);
+  int length_max = n - 1;
 
   if (t > length_max) {
-    std::cerr << "Warning: ts_random_commuting: requested sequence length too large (" << t << "), set to " << length_max << std::endl;
+    std::cerr << "Warning: ts_random_unique_destination: requested sequence length too large (" << t << "), set to " << length_max << std::endl;
     t = length_max;
   }
 
@@ -260,40 +254,17 @@ void hnco::ts_random_unique_destination(transvection_sequence_t& ts, int n, int 
     variables[i] = i;
   std::shuffle(variables.begin(), variables.end(), random::Random::generator);
 
-  double M = std::sqrt(double(n * n) / 4.0 - t);
+  std::uniform_int_distribution<int> dist(t, n - 1);
 
-  size_t split;
-  if (n % 2 == 0) {
-    int bound = std::min(k - 1, int(M));
-    std::uniform_int_distribution<int> dist(0, bound);
-    int r = dist(Random::generator);
-    if (Random::bernoulli())
-      split = k + r;
-    else
-      split = k - r;
-  } else {
-    int bound = std::min(k, int(M + 0.5));
-    std::uniform_int_distribution<int> dist(1, bound);
-    int r = dist(Random::generator);
-    if (Random::bernoulli())
-      split = k + r;
-    else
-      split = k + 1 - r;
+  for (int j = 0; j < t; j++) {
+    Transvection tv;
+    tv.row_index = variables[dist(Random::generator)];
+    tv.column_index = variables[j];
+    ts.push_back(tv);
   }
-
-  for (size_t i = 0; i < split; i++) {
-    for (size_t j = split; j < variables.size(); j++) {
-      Transvection tv;
-      tv.row_index = variables[i];
-      tv.column_index = variables[j];
-      ts.push_back(tv);
-    }
-  }
+  assert(t == int(ts.size()));
 
   std::shuffle(ts.begin(), ts.end(), random::Random::generator);
-
-  if (t < int(ts.size()))
-    ts.resize(t);
 }
 
 
