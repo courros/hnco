@@ -36,6 +36,9 @@ hnco:
 - Put init and maximize in the same try block
 - Report a warning if an exception occurs during initialization
 
+mapgen:
+- Added options for transvection sequences
+
 Tests:
 - Added test-incremental-negation
 - Added test-ts-multiply
