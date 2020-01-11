@@ -235,6 +235,39 @@ void hnco::ts_random_commuting(transvection_sequence_t& ts, int n, int t)
 }
 
 
+void hnco::ts_random_unique_source(transvection_sequence_t& ts, int n, int t)
+{
+  assert(n > 1);
+
+  if (t <= 0)
+    return;
+
+  int length_max = n - 1;
+
+  if (t > length_max) {
+    std::cerr << "Warning: ts_random_unique_destination: requested sequence length too large (" << t << "), set to " << length_max << std::endl;
+    t = length_max;
+  }
+
+  std::vector<int> variables(n);
+  for (size_t i = 0; i < variables.size(); i++)
+    variables[i] = i;
+  std::shuffle(variables.begin(), variables.end(), random::Random::generator);
+
+  std::uniform_int_distribution<int> dist(t, n - 1);
+
+  for (int i = 0; i < t; i++) {
+    Transvection tv;
+    tv.row_index = variables[i];
+    tv.column_index = variables[dist(Random::generator)];
+    ts.push_back(tv);
+  }
+  assert(t == int(ts.size()));
+
+  std::shuffle(ts.begin(), ts.end(), random::Random::generator);
+}
+
+
 void hnco::ts_random_unique_destination(transvection_sequence_t& ts, int n, int t)
 {
   assert(n > 1);
