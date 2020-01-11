@@ -221,8 +221,6 @@ TsAffineMap::random(int n, int t, SamplingMode mode)
     stream << mode;
     throw Error("TsAffineMap::random: Unknown sampling mode: " + stream.str());
   }
-
-  ts_display(_ts, std::cerr);
 }
 
 
