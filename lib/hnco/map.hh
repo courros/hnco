@@ -565,9 +565,9 @@ namespace hnco {
 
         \param n Dimension
         \param t Length of sequence of transvections
-        \param nc Non commuting transvections
+        \param mode Sampling mode
     */
-    void random(int n, int t, SamplingMode mode = Unconstrained);
+    void random(int n, int t, SamplingMode mode);
 
     /// Map
     void map(const bit_vector_t& input, bit_vector_t& output);
