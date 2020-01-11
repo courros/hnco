@@ -19,6 +19,7 @@
 */
 
 #include <algorithm>            // std::shuffle
+#include <math.h>               // std::sqrt
 
 #include "random.hh"
 #include "transvection.hh"
@@ -179,12 +180,44 @@ void hnco::ts_random_commuting(transvection_sequence_t& ts, int n, int t)
   if (t <= 0)
     return;
 
+  int k = n / 2;
+
+  int length_max;
+  if (n % 2 == 0)
+    length_max = k * k;
+  else
+    length_max = k * (k + 1);
+
+  if (t > length_max) {
+    std::cerr << "Warning: ts_random_commuting: requested sequence length too large (" << t << "), set to " << length_max << std::endl;
+    t = length_max;
+  }
+
   std::vector<int> variables(n);
   for (size_t i = 0; i < variables.size(); i++)
     variables[i] = i;
   std::shuffle(variables.begin(), variables.end(), random::Random::generator);
 
-  size_t split = variables.size() / 2;
+  double M = std::sqrt(double(n * n) / 4.0 - t);
+
+  size_t split;
+  if (n % 2 == 0) {
+    int bound = std::min(k - 1, int(M));
+    std::uniform_int_distribution<int> dist(0, bound);
+    int r = dist(Random::generator);
+    if (Random::bernoulli())
+      split = k + r;
+    else
+      split = k - r;
+  } else {
+    int bound = std::min(k, int(M + 0.5));
+    std::uniform_int_distribution<int> dist(1, bound);
+    int r = dist(Random::generator);
+    if (Random::bernoulli())
+      split = k + r;
+    else
+      split = k + 1 - r;
+  }
 
   for (size_t i = 0; i < split; i++) {
     for (size_t j = split; j < variables.size(); j++) {
@@ -199,10 +232,6 @@ void hnco::ts_random_commuting(transvection_sequence_t& ts, int n, int t)
 
   if (t < int(ts.size()))
     ts.resize(t);
-
-  if (t > int(ts.size())) {
-    std::cerr << "Warning: ts_random_commuting: requested sequence length too large (" << t << "), set to " << ts.size() << std::endl;
-  }
 }
 
 
