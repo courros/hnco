@@ -540,14 +540,25 @@ namespace hnco {
 
     /// Sampling mode
     enum SamplingMode {
+
                        /// Unconstrained
                        Unconstrained,
-                       /// Non commuting transvections
-                       NonCommutingTransvections,
+
+                       /// Commuting transvections
+                       CommutingTransvections,
+
+                       /// Transvections with unique source
+                       UniqueSource,
+
+                       /// Transvections with unique destination
+                       UniqueDestination,
+
                        /// Disjoint transvections
                        DisjointTransvections,
-                       /// Commuting transvections
-                       CommutingTransvections
+
+                       /// Non commuting transvections
+                       NonCommutingTransvections
+
     };
 
     /** Random instance.
