@@ -22,6 +22,7 @@
 #include <iostream>
 #include <iterator>
 
+#include "hnco/map.hh"
 #include "hnco/transvection.hh"
 
 
@@ -29,33 +30,29 @@ using namespace hnco::random;
 using namespace hnco;
 using namespace std;
 
-bool check_ts_multiply()
+bool check_involution()
 {
-  uniform_int_distribution<int> dimension_dist(2, 10);
-  uniform_int_distribution<int> length_dist(0, 10);
+  uniform_int_distribution<int> dist(2, 10);
 
   for (int i = 0; i < 10; i++) {
-    const int n = dimension_dist(Random::generator);
-    const int t = length_dist(Random::generator);
+    const int n = dist(Random::generator);
+    const int k = n / 2;
+    const int t = (n % 2 == 0) ? k * k : k * (k + 1);
 
-    bit_matrix_t M;
-    bm_identity(M, n);
-
-    transvection_sequence_t seq;
-    ts_random(seq, n, t);
-    ts_multiply(seq, M);
+    TsAffineMap map;
+    map.random(n, t, TsAffineMap::CommutingTransvections);
 
     for (int j = 0; j < 10; j++) {
       bit_vector_t x(n);
       bit_vector_t y(n);
+      bit_vector_t z(n);
+
       bv_random(x);
-      bv_random(y);
-      bm_multiply(M, x, y);
 
-      bit_vector_t z(x);
-      ts_multiply(seq, z);
+      map.map(x, y);
+      map.map(y, z);
 
-      if (z != y)
+      if (z != x)
         return false;
     }
 
@@ -68,7 +65,7 @@ int main(int argc, char *argv[])
 {
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  if (check_ts_multiply())
+  if (check_involution())
     return 0;
   else
     return 1;
