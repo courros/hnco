@@ -22,7 +22,6 @@
 #include <iostream>
 #include <iterator>
 
-#include "hnco/map.hh"
 #include "hnco/transvection.hh"
 
 
@@ -32,27 +31,26 @@ using namespace std;
 
 bool check_involution()
 {
-  uniform_int_distribution<int> dist(2, 10);
+  uniform_int_distribution<int> dist(2, 20);
 
   for (int i = 0; i < 10; i++) {
     const int n = dist(Random::generator);
     const int k = n / 2;
     const int t = (n % 2 == 0) ? k * k : k * (k + 1);
 
-    TsAffineMap map;
-    map.random(n, t, TsAffineMap::CommutingTransvections);
+    transvection_sequence_t ts;
+    ts_random_commuting(ts, n, t);
 
     for (int j = 0; j < 10; j++) {
       bit_vector_t x(n);
       bit_vector_t y(n);
-      bit_vector_t z(n);
 
       bv_random(x);
+      y = x;
+      ts_multiply(ts, y);
+      ts_multiply(ts, y);
 
-      map.map(x, y);
-      map.map(y, z);
-
-      if (z != x)
+      if (y != x)
         return false;
     }
 
