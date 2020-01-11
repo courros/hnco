@@ -110,10 +110,12 @@ int main(int argc, char *argv[])
     TsAffineMap map;
     if (options.get_input_size() != options.get_output_size())
       cerr << "Only input size is taken into account" << endl;
-    map.random(options.get_input_size(), options.get_sequence_length());
+    map.random(options.get_input_size(),
+               options.get_ts_length(),
+               static_cast<TsAffineMap::SamplingMode>(options.get_ts_sampling_mode()));
     std::ofstream ofs(options.get_path());
     boost::archive::text_oarchive oa(ofs);
-    cout << "Writing affine map (product of transvections) to " << options.get_path() << " ... ";
+    cout << "Writing affine map (transvection sequence) to " << options.get_path() << " ... ";
     oa << map;
     cout << "done" << endl;
     break;
