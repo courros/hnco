@@ -1,4 +1,7 @@
-* Version 0.13 (unreleased)
+* Version 0.13 (2020-01-12)
+
+Highlight: real multivariate functions through
+RealMultivariateFunction and RealMultivariateFunctionAdapter classes
 
 Library:
 - Imported fparser
