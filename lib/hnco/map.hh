@@ -44,7 +44,7 @@ namespace hnco {
     /// Destructor
     virtual ~Map() {}
 
-    /// Map
+    /// %Map
     virtual void map(const bit_vector_t& input, bit_vector_t& output) = 0;
 
     /// Get input size
@@ -93,7 +93,7 @@ namespace hnco {
 
     BOOST_SERIALIZATION_SPLIT_MEMBER()
 
-    /// Translation vector
+    /// %Translation vector
     bit_vector_t _bv;
 
   public:
@@ -106,7 +106,7 @@ namespace hnco {
       bv_random(_bv);
     }
 
-    /// Map
+    /// %Map
     void map(const bit_vector_t& input, bit_vector_t& output);
 
     /// Get input size
@@ -168,7 +168,7 @@ namespace hnco {
       perm_random(_permutation);
     }
 
-    /// Map
+    /// %Map
     void map(const bit_vector_t& input, bit_vector_t& output);
 
     /// Get input size
@@ -231,7 +231,7 @@ namespace hnco {
     */
     void random(int rows, int cols, bool surjective);
 
-    /// Map
+    /// %Map
     void map(const bit_vector_t& input, bit_vector_t& output);
 
     /// Get input size
@@ -287,7 +287,7 @@ namespace hnco {
     /// Bit matrix
     bit_matrix_t _bm;
 
-    /// Translation vector
+    /// %Translation vector
     bit_vector_t _bv;
 
   public:
@@ -302,7 +302,7 @@ namespace hnco {
     */
     void random(int rows, int cols, bool surjective);
 
-    /// Map
+    /// %Map
     void map(const bit_vector_t& input, bit_vector_t& output);
 
     /// Get input size
@@ -357,7 +357,7 @@ namespace hnco {
       _bv.resize(_inner->get_output_size());
     }
 
-    /// Map
+    /// %Map
     void map(const bit_vector_t& input, bit_vector_t& output) {
       _inner->map(input, _bv);
       _outer->map(_bv, output);
@@ -419,7 +419,7 @@ namespace hnco {
     */
     Injection(const std::vector<int>& bit_positions, int output_size);
 
-    /// Map
+    /// %Map
     void map(const bit_vector_t& input, bit_vector_t& output);
 
     /// Get input size
@@ -475,7 +475,7 @@ namespace hnco {
     */
     Projection(const std::vector<int>& bit_positions, int input_size);
 
-    /// Map
+    /// %Map
     void map(const bit_vector_t& input, bit_vector_t& output);
 
     /// Get input size
@@ -533,7 +533,7 @@ namespace hnco {
     /// %Transvection sequence
     transvection_sequence_t _ts;
 
-    /// Translation vector
+    /// %Translation vector
     bit_vector_t _bv;
 
   public:
@@ -569,7 +569,7 @@ namespace hnco {
     */
     void random(int n, int t, SamplingMode mode);
 
-    /// Map
+    /// %Map
     void map(const bit_vector_t& input, bit_vector_t& output);
 
     /// Get input size
