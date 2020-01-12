@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 {
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  const string path("test-serialize-gl-element-affine-map.txt");
+  const string path("test-serialize-ts-affine-map.txt");
 
   for (int i = 0; i < 10; i++) {
 
