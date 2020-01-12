@@ -149,7 +149,7 @@ namespace hnco {
   bool transvections_commute(const Transvection& a, const Transvection& b);
 
 
-  /** Transvection sequence.
+  /** %Transvection sequence.
 
       The general linear group of a linear space of dimension n over
       the finite field F_2 is the group of invertible n by n bit

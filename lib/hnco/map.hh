@@ -493,7 +493,7 @@ namespace hnco {
   };
 
 
-  /** Transvection sequence affine map.
+  /** %Transvection sequence affine map.
 
       An affine map f from \f$Z_2^m\f$ to \f$Z_2^n\f$ is defined by
       \f$f(x) = Ax + b\f$, where A is an n x m bit matrix and b is an
@@ -530,7 +530,7 @@ namespace hnco {
 
     BOOST_SERIALIZATION_SPLIT_MEMBER()
 
-    /// Transvection sequence
+    /// %Transvection sequence
     transvection_sequence_t _ts;
 
     /// Translation vector
@@ -547,10 +547,10 @@ namespace hnco {
                        /// Commuting transvections
                        CommutingTransvections,
 
-                       /// Transvections with unique source
+                       /// %Transvections with unique source
                        UniqueSource,
 
-                       /// Transvections with unique destination
+                       /// %Transvections with unique destination
                        UniqueDestination,
 
                        /// Disjoint transvections
