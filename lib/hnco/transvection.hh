@@ -38,7 +38,7 @@ namespace hnco {
    */
   ///@{
 
-  /** Transvection.
+  /** %Transvection.
 
       We only consider transvections defined by matrices \f$\tau_{ij}
       = I_n + B_{ij}\f$, where \f$I_n\f$ is the \f$n\times n\f$

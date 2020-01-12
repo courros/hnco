@@ -33,7 +33,7 @@ namespace hnco {
    */
   ///@{
 
-  /// Permutation type
+  /// %Permutation type
   typedef std::vector<int> permutation_t;
 
   /// Check that a vector represents a permutation

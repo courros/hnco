@@ -36,7 +36,7 @@
 
 namespace hnco {
 
-  /// Map
+  /// %Map
   class Map {
 
   public:
@@ -62,7 +62,7 @@ namespace hnco {
   };
 
 
-  /** Translation.
+  /** %Translation.
 
       A translation is an affine map f from \f$Z_2^n\f$ to itself
       defined by \f$f(x) = x + b\f$, where b is an n-dimensional bit
@@ -124,7 +124,7 @@ namespace hnco {
   };
 
   
-  /** Permutation.
+  /** %Permutation.
 
       A permutation is a linear map f from \f$Z_2^n\f$ to itself
       defined by \f$f(x) = y\f$, where \f$y_i = x_{\sigma_i}\f$ and
@@ -320,7 +320,7 @@ namespace hnco {
   };
 
 
-  /** Map composition.
+  /** %Map composition.
 
       The resulting composition f is defined for all bit vector x by
       f(x) = outer(inner(x)).
@@ -378,7 +378,7 @@ namespace hnco {
   };
 
 
-  /** Injection.
+  /** %Injection.
 
       An injection copies the bits of input x to given positions of
       output y.
@@ -434,7 +434,7 @@ namespace hnco {
   };
 
 
-  /** Projection.
+  /** %Projection.
 
       The projection y of a bit vector x is x where we have dropped a
       given set of components.

@@ -30,7 +30,7 @@
 namespace hnco {
 
 
-  /// Iterator over bit vectors
+  /// %Iterator over bit vectors
   class Iterator {
 
   protected:
