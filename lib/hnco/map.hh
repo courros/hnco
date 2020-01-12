@@ -547,10 +547,10 @@ namespace hnco {
                        /// Commuting transvections
                        CommutingTransvections,
 
-                       /// %Transvections with unique source
+                       /// %Transvection sequence with unique source
                        UniqueSource,
 
-                       /// %Transvections with unique destination
+                       /// %Transvection sequence with unique destination
                        UniqueDestination,
 
                        /// Disjoint transvections
