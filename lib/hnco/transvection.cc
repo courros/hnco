@@ -140,21 +140,21 @@ bool hnco::transvections_commute(const Transvection& a, const Transvection& b)
 }
 
 
-bool hnco::ts_is_valid(const transvection_sequence_t& A)
+bool hnco::ts_is_valid(const transvection_sequence_t& ts)
 {
-  return std::all_of(A.begin(), A.end(), [](auto& gen){ return gen.is_valid(); });
+  return std::all_of(ts.begin(), ts.end(), [](auto& gen){ return gen.is_valid(); });
 }
 
 
-bool hnco::ts_is_valid(const transvection_sequence_t& A, int n)
+bool hnco::ts_is_valid(const transvection_sequence_t& ts, int n)
 {
-  return std::all_of(A.begin(), A.end(), [n](auto& gen){ return gen.is_valid(n); });
+  return std::all_of(ts.begin(), ts.end(), [n](auto& gen){ return gen.is_valid(n); });
 }
 
 
-void hnco::ts_display(const transvection_sequence_t& A, std::ostream& stream)
+void hnco::ts_display(const transvection_sequence_t& ts, std::ostream& stream)
 {
-  for (auto& gen : A) {
+  for (auto& gen : ts) {
     gen.display(stream);
     stream << " :: ";
   }
@@ -162,13 +162,13 @@ void hnco::ts_display(const transvection_sequence_t& A, std::ostream& stream)
 }
 
 
-void hnco::ts_random(transvection_sequence_t& A, int n, int t)
+void hnco::ts_random(transvection_sequence_t& ts, int n, int t)
 {
   assert(n > 1);
   assert(t >= 0);
 
-  A.resize(t);
-  for (auto& gen : A)
+  ts.resize(t);
+  for (auto& gen : ts)
     gen.random(n);
 }
 
@@ -330,36 +330,36 @@ void hnco::ts_random_disjoint(transvection_sequence_t& ts, int n, int t)
 }
 
 
-void hnco::ts_random_non_commuting(transvection_sequence_t& A, int n, int t)
+void hnco::ts_random_non_commuting(transvection_sequence_t& ts, int n, int t)
 {
   assert(n > 1);
 
   if (t <= 0)
     return;
 
-  A.resize(t);
-  A[0].random(n);
-  for (size_t i = 1; i < A.size(); i++) {
-    A[i].random_non_commuting(n, A[i - 1]);
+  ts.resize(t);
+  ts[0].random(n);
+  for (size_t i = 1; i < ts.size(); i++) {
+    ts[i].random_non_commuting(n, ts[i - 1]);
   }
 }
 
 
-void hnco::ts_multiply(const transvection_sequence_t& A, bit_vector_t& x)
+void hnco::ts_multiply(const transvection_sequence_t& ts, bit_vector_t& x)
 {
-  assert(ts_is_valid(A));
-  assert(ts_is_valid(A, x.size()));
+  assert(ts_is_valid(ts));
+  assert(ts_is_valid(ts, x.size()));
 
-  for (const auto& gen : A)
+  for (const auto& gen : ts)
     gen.multiply(x);
 }
 
 
-void hnco::ts_multiply(const transvection_sequence_t& A, bit_matrix_t& M)
+void hnco::ts_multiply(const transvection_sequence_t& ts, bit_matrix_t& M)
 {
-  assert(ts_is_valid(A));
-  assert(ts_is_valid(A, bm_num_rows(M)));
+  assert(ts_is_valid(ts));
+  assert(ts_is_valid(ts, bm_num_rows(M)));
 
-  for (const auto& gen : A)
+  for (const auto& gen : ts)
     gen.multiply(M);
 }

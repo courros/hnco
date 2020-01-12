@@ -166,67 +166,73 @@ namespace hnco {
 
   /** Check validity.
 
-      \param A Transvection sequence
+      \param A %Transvection sequence
   */
-  bool ts_is_valid(const transvection_sequence_t& A);
+  bool ts_is_valid(const transvection_sequence_t& ts);
 
   /** Check validity.
 
-      \param A Transvection sequence
+      \param A %Transvection sequence
       \param n Dimension
   */
-  bool ts_is_valid(const transvection_sequence_t& A, int n);
+  bool ts_is_valid(const transvection_sequence_t& ts, int n);
 
   /// Display a transvection sequence
-  void ts_display(const transvection_sequence_t& A, std::ostream& stream);
+  void ts_display(const transvection_sequence_t& ts, std::ostream& stream);
 
 
   /** Sample a random transvection sequence.
 
-      \param A Transvection sequence
+      \param A %Transvection sequence
       \param n Dimension
       \param t Length of the sequence
 
       \pre n > 1
       \pre t >= 0
   */
-  void ts_random(transvection_sequence_t& A, int n, int t);
+  void ts_random(transvection_sequence_t& ts, int n, int t);
 
   /** Sample a random sequence of commuting transvections.
 
       This function ensures that all transvections in the sequence
       commute.
 
-      \param A Transvection sequence
+      \param A %Transvection sequence
       \param n Dimension
       \param t Length of the sequence
 
       \pre n > 1
       \pre t >= 0
   */
-  void ts_random_commuting(transvection_sequence_t& A, int n, int t);
+  void ts_random_commuting(transvection_sequence_t& ts, int n, int t);
 
   /** Sample a random sequence of transvections with unique source.
 
-      \param A Transvection sequence
+      A transvection sequence with unique source is such that, for
+      each destination, there is a unique source.
+
+      \param A %Transvection sequence
       \param n Dimension
       \param t Length of the sequence
 
       \pre n > 1
       \pre t >= 0
   */
-  void ts_random_unique_source(transvection_sequence_t& A, int n, int t);
+  void ts_random_unique_source(transvection_sequence_t& ts, int n, int t);
 
   /** Sample a random sequence of transvections with unique destination.
 
-      \param A Transvection sequence
+      A transvection sequence with unique destination is such that,
+      for each source, there is a unique destination.
+
+      \param A %Transvection sequence
       \param n Dimension
       \param t Length of the sequence
 
       \pre n > 1
       \pre t >= 0
   */
-  void ts_random_unique_destination(transvection_sequence_t& A, int n, int t);
+  void ts_random_unique_destination(transvection_sequence_t& ts, int n, int t);
 
   /** Sample a random sequence of disjoint transvections.
 
@@ -236,33 +242,33 @@ namespace hnco {
       If 2t>n then the sequence length is set to the largest t such
       that 2t<=n.
 
-      \param A Transvection sequence
+      \param A %Transvection sequence
       \param n Dimension
       \param t Length of the sequence
 
       \pre n > 1
       \pre t >= 0
   */
-  void ts_random_disjoint(transvection_sequence_t& A, int n, int t);
+  void ts_random_disjoint(transvection_sequence_t& ts, int n, int t);
 
   /** Sample a random sequence of non commuting transvections.
 
       This function ensures that two consecutive transvections do not
       commute.
 
-      \param A Transvection sequence
+      \param A %Transvection sequence
       \param n Dimension
       \param t Length of the sequence
 
       \pre n > 1
       \pre t >= 0
   */
-  void ts_random_non_commuting(transvection_sequence_t& A, int n, int t);
+  void ts_random_non_commuting(transvection_sequence_t& ts, int n, int t);
 
 
   /** Multiply a vector by a transvection sequence from the left.
 
-      \param A Transvection sequence
+      \param A %Transvection sequence
       \param x Bit vector
 
       \pre ts_is_valid(A)
@@ -270,12 +276,12 @@ namespace hnco {
 
       \warning This function modifies the given bit vector.
   */
-  void ts_multiply(const transvection_sequence_t& A, bit_vector_t& x);
+  void ts_multiply(const transvection_sequence_t& ts, bit_vector_t& x);
 
 
   /** Multiply a matrix by a transvection sequence from the left.
 
-      \param A Transvection sequence
+      \param A %Transvection sequence
       \param M Bit matrix
 
       \pre ts_is_valid(A)
@@ -283,8 +289,7 @@ namespace hnco {
 
       \warning This function modifies the given bit vector.
   */
-  void ts_multiply(const transvection_sequence_t& A, bit_matrix_t& M);
-
+  void ts_multiply(const transvection_sequence_t& ts, bit_matrix_t& M);
 
   ///@}
 
