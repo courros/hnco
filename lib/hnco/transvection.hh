@@ -166,13 +166,13 @@ namespace hnco {
 
   /** Check validity.
 
-      \param A %Transvection sequence
+      \param ts %Transvection sequence
   */
   bool ts_is_valid(const transvection_sequence_t& ts);
 
   /** Check validity.
 
-      \param A %Transvection sequence
+      \param ts %Transvection sequence
       \param n Dimension
   */
   bool ts_is_valid(const transvection_sequence_t& ts, int n);
@@ -183,7 +183,7 @@ namespace hnco {
 
   /** Sample a random transvection sequence.
 
-      \param A %Transvection sequence
+      \param ts %Transvection sequence
       \param n Dimension
       \param t Length of the sequence
 
@@ -197,7 +197,7 @@ namespace hnco {
       This function ensures that all transvections in the sequence
       commute.
 
-      \param A %Transvection sequence
+      \param ts %Transvection sequence
       \param n Dimension
       \param t Length of the sequence
 
@@ -211,7 +211,7 @@ namespace hnco {
       A transvection sequence with unique source is such that, for
       each destination, there is a unique source.
 
-      \param A %Transvection sequence
+      \param ts %Transvection sequence
       \param n Dimension
       \param t Length of the sequence
 
@@ -225,7 +225,7 @@ namespace hnco {
       A transvection sequence with unique destination is such that,
       for each source, there is a unique destination.
 
-      \param A %Transvection sequence
+      \param ts %Transvection sequence
       \param n Dimension
       \param t Length of the sequence
 
@@ -242,7 +242,7 @@ namespace hnco {
       If 2t>n then the sequence length is set to the largest t such
       that 2t<=n.
 
-      \param A %Transvection sequence
+      \param ts %Transvection sequence
       \param n Dimension
       \param t Length of the sequence
 
@@ -256,7 +256,7 @@ namespace hnco {
       This function ensures that two consecutive transvections do not
       commute.
 
-      \param A %Transvection sequence
+      \param ts %Transvection sequence
       \param n Dimension
       \param t Length of the sequence
 
@@ -268,11 +268,11 @@ namespace hnco {
 
   /** Multiply a vector by a transvection sequence from the left.
 
-      \param A %Transvection sequence
+      \param ts %Transvection sequence
       \param x Bit vector
 
-      \pre ts_is_valid(A)
-      \pre ts_is_valid(A, x.size())
+      \pre ts_is_valid(ts)
+      \pre ts_is_valid(ts, x.size())
 
       \warning This function modifies the given bit vector.
   */
@@ -281,11 +281,11 @@ namespace hnco {
 
   /** Multiply a matrix by a transvection sequence from the left.
 
-      \param A %Transvection sequence
+      \param ts %Transvection sequence
       \param M Bit matrix
 
-      \pre ts_is_valid(A)
-      \pre ts_is_valid(A, bm_num_rows(M))
+      \pre ts_is_valid(ts)
+      \pre ts_is_valid(ts, bm_num_rows(M))
 
       \warning This function modifies the given bit vector.
   */
