@@ -64,7 +64,7 @@ namespace hnco {
 
   /** %Translation.
 
-      A translation is an affine map f from \f$Z_2^n\f$ to itself
+      A translation is an affine map f from \f$F_2y^n\f$ to itself
       defined by \f$f(x) = x + b\f$, where b is an n-dimensional bit
       vector.
   */
@@ -126,7 +126,7 @@ namespace hnco {
   
   /** %Permutation.
 
-      A permutation is a linear map f from \f$Z_2^n\f$ to itself
+      A permutation is a linear map f from \f$F_2^n\f$ to itself
       defined by \f$f(x) = y\f$, where \f$y_i = x_{\sigma_i}\f$ and
       \f$\sigma\f$ is a permutation of 0, 1, ..., n - 1.
   */
@@ -188,7 +188,7 @@ namespace hnco {
 
   /** Linear map.
 
-      A linear map f from \f$Z_2^m\f$ to \f$Z_2^n\f$ is defined by
+      A linear map f from \f$F_2^m\f$ to \f$F_2^n\f$ is defined by
       \f$f(x) = Ax\f$, where A is an n x m bit matrix.
   */
   class LinearMap:
@@ -251,7 +251,7 @@ namespace hnco {
 
   /** Affine map.
 
-      An affine map f from \f$Z_2^m\f$ to \f$Z_2^n\f$ is defined by
+      An affine map f from \f$F_2^m\f$ to \f$F_2^n\f$ is defined by
       \f$f(x) = Ax + b\f$, where A is an n x m bit matrix and b is an
       n-dimensional bit vector.
   */
@@ -386,7 +386,7 @@ namespace hnco {
       Let \f$I = \{i_1, i_2, \ldots, i_m\}\f$ be a subset of \f$\{1,
       2, \ldots, n\}\f$.
 
-      An injection f from \f$Z_2^m\f$ to \f$Z_2^n\f$, where \f$n \ge
+      An injection f from \f$F_2^m\f$ to \f$F_2^n\f$, where \f$n \ge
       m\f$, is defined by \f$f(x) = y\f$, where, for all \f$j\in \{1,
       2, \ldots, m\}\f$, \f$y_{i_j} = x_j\f$.
 
@@ -442,7 +442,7 @@ namespace hnco {
       Let \f$I = \{i_1, i_2, \ldots, i_m\}\f$ be a subset of \f$\{1,
       2, \ldots, n\}\f$.
 
-      A projection f from \f$Z_2^n\f$ to \f$Z_2^m\f$, where \f$n \ge
+      A projection f from \f$F_2^n\f$ to \f$F_2^m\f$, where \f$n \ge
       m\f$, is defined by \f$f(x) = y\f$, where, for all \f$j\in \{1,
       2, \ldots, m\}\f$, \f$y_j = x_{i_j}\f$.
 
@@ -495,7 +495,7 @@ namespace hnco {
 
   /** %Transvection sequence affine map.
 
-      An affine map f from \f$Z_2^m\f$ to \f$Z_2^n\f$ is defined by
+      An affine map f from \f$F_2^m\f$ to \f$F_2^n\f$ is defined by
       \f$f(x) = Ax + b\f$, where A is an n x m bit matrix and b is an
       n-dimensional bit vector.
 
