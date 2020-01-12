@@ -72,7 +72,7 @@ Transvection::random(int n)
 
 
 void
-Transvection::random(int n, const Transvection& a)
+Transvection::random_non_commuting(int n, const Transvection& a)
 {
   assert(n > 1);
 
@@ -340,7 +340,7 @@ void hnco::ts_random_non_commuting(transvection_sequence_t& A, int n, int t)
   A.resize(t);
   A[0].random(n);
   for (size_t i = 1; i < A.size(); i++) {
-    A[i].random(n, A[i - 1]);
+    A[i].random_non_commuting(n, A[i - 1]);
   }
 }
 

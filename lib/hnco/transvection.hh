@@ -108,7 +108,7 @@ namespace hnco {
 
         \pre n > 1
     */
-    void random(int n, const Transvection& a);
+    void random_non_commuting(int n, const Transvection& a);
 
     /** Multiply a bit vector from the left.
 
