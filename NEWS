@@ -43,6 +43,7 @@ Tests:
 - Added test-incremental-negation
 - Added test-ts-multiply
 - Added test-serialize-ts-affine-map
+- Added test-ts-involution
 
 Scripts:
 - hnco-benchmark-run.pl: take into account boolean field save_solution
