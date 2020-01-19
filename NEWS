@@ -1,5 +1,13 @@
 * Version 0.14 (unreleased)
 
+Library:
+- Added Map::display
+- Added TsAffineMap::display
+- Fixed Transvection::random_non_commuting
+
+hnco:
+- Added option --map-display
+
 * Version 0.13 (2020-01-12)
 
 Highlight: real multivariate functions through
