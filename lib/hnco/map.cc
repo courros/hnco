@@ -234,3 +234,10 @@ TsAffineMap::map(const bit_vector_t& input, bit_vector_t& output)
   ts_multiply(_ts, output);
   bv_flip(output, _bv);
 }
+
+
+void
+TsAffineMap::display(std::ostream& stream)
+{
+  ts_display(_ts, stream);
+}

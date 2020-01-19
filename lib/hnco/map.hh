@@ -587,6 +587,9 @@ namespace hnco {
     */
     bool is_surjective() { return true; }
 
+    /// Display
+    void display(std::ostream& stream);
+
   };
 
 
