@@ -21,7 +21,7 @@
 #ifndef HNCO_MAP_H
 #define HNCO_MAP_H
 
-#include <fstream>
+#include <iostream>             // std::ostream
 #include <vector>
 
 #include <boost/archive/text_iarchive.hpp>
@@ -58,6 +58,9 @@ namespace hnco {
         \return false
     */
     virtual bool is_surjective() { return false; }
+
+    /// Display
+    virtual void display(std::ostream& stream) {}
 
   };
 
