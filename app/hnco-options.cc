@@ -147,6 +147,7 @@ Options::Options(int argc, char *argv[]):
   _incremental_evaluation(false),
   _load_solution(false),
   _log_improvement(false),
+  _map_display(false),
   _map_random(false),
   _map_surjective(false),
   _mmas_strict(false),
@@ -263,6 +264,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_INCREMENTAL_EVALUATION,
     OPTION_LOAD_SOLUTION,
     OPTION_LOG_IMPROVEMENT,
+    OPTION_MAP_DISPLAY,
     OPTION_MAP_RANDOM,
     OPTION_MAP_SURJECTIVE,
     OPTION_MMAS_STRICT,
@@ -368,6 +370,7 @@ Options::Options(int argc, char *argv[]):
     {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
     {"load-solution", no_argument, 0, OPTION_LOAD_SOLUTION},
     {"log-improvement", no_argument, 0, OPTION_LOG_IMPROVEMENT},
+    {"map-display", no_argument, 0, OPTION_MAP_DISPLAY},
     {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
     {"map-surjective", no_argument, 0, OPTION_MAP_SURJECTIVE},
     {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
@@ -746,6 +749,10 @@ Options::Options(int argc, char *argv[]):
       _log_improvement = true;
       break;
 
+    case OPTION_MAP_DISPLAY:
+      _map_display = true;
+      break;
+
     case OPTION_MAP_RANDOM:
       _map_random = true;
       break;
@@ -1114,6 +1121,8 @@ void Options::print_help_map(ostream& stream) const
   stream << "            4: Linear" << endl;
   stream << "            5: Affine" << endl;
   stream << "            6: Affine (transvection sequence)" << endl;
+  stream << "      --map-display" << endl;
+  stream << "          Display the map and exit" << endl;
   stream << "      --map-input-size (type int, default to 100)" << endl;
   stream << "          Input size of linear and affine maps" << endl;
   stream << "      --map-path (type string, default to \"map.txt\")" << endl;
@@ -1398,6 +1407,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# load_solution" << endl;
   if (options._log_improvement)
     stream << "# log_improvement" << endl;
+  if (options._map_display)
+    stream << "# map_display" << endl;
   if (options._map_random)
     stream << "# map_random" << endl;
   if (options._map_surjective)

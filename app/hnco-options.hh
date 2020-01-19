@@ -313,6 +313,9 @@ class Options {
   /// Log improvement
   bool _log_improvement;
 
+  /// Display the map and exit
+  bool _map_display;
+
   /// Sample a random map
   bool _map_random;
 
@@ -1244,6 +1247,12 @@ public:
 
   /// Set log_improvement
   void set_log_improvement() { _log_improvement = true; }
+ 
+  /// Get map_display
+  bool with_map_display() const { return _map_display; }
+
+  /// Set map_display
+  void set_map_display() { _map_display = true; }
  
   /// Get map_random
   bool with_map_random() const { return _map_random; }
