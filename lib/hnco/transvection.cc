@@ -90,10 +90,11 @@ Transvection::random_non_commuting(int n, const Transvection& a)
     int i;
     do {
       i = index_dist(Random::generator);
-    } while (i == row_index);
+    } while (i == column_index);
     row_index = i;
   }
 
+  assert(is_valid(n));
   assert(!transvections_commute(*this, a));
 }
 
