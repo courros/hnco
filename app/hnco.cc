@@ -191,6 +191,17 @@ int main(int argc, char *argv[])
   }
 
   //
+  // Print information about the map
+  //
+
+  if (options.with_map_display()) {
+    hnco::Map *map = function_factory.get_map();
+    if (map) {
+      map->display(std::cerr);
+    }
+  }
+
+  //
   // Progress tracker
   //
 
