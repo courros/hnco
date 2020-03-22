@@ -8,8 +8,13 @@
 
     "parameter": {
         "id": "bv-size",
-        "values_perl": "map { 100 + 100 * $_ } (0 .. 19)",
-        "boxwidth": "40"
+        "values_perl": "map { 100 + 100 * $_ } (0 .. 19)"
+    },
+
+    "graphics": {
+        "candlesticks": {
+            "boxwidth": 40
+        }
     },
 
     "functions": [
