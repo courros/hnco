@@ -10,6 +10,7 @@ hnco:
 
 Scripts:
 - hnco-benchmark-stat.pl: set font face and size
+- hnco-runtime-stat.pl: set font face and size
 
 
 * Version 0.13 (2020-01-12)
