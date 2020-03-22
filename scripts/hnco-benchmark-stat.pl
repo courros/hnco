@@ -36,6 +36,7 @@ my $obj = from_json($json);
 my $algorithms          = $obj->{algorithms};
 my $functions           = $obj->{functions};
 my $num_runs            = $obj->{num_runs};
+my $graphics            = $obj->{graphics};
 
 my $path_graphics       = "graphics";
 my $path_report         = "report";
@@ -349,6 +350,17 @@ sub generate_gnuplot_candlesticks
     my $xrange = @$algorithms + 1;
     print CANDLESTICKS "set xrange [0:$xrange]\n\n";
 
+    # Font face and size
+    my $font = "";
+    if ($graphics->{candlesticks}->{font_face}) {
+        $font = $graphics->{candlesticks}->{font_face};
+    }
+    if ($graphics->{candlesticks}->{font_size}) {
+        $font = "$font,$graphics->{candlesticks}->{font_size}";
+    }
+    $font = quote($font);
+    $font = "font $font";
+
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
@@ -365,7 +377,7 @@ sub generate_gnuplot_candlesticks
 
         my $quoted_path = quote("$path_graphics/$function_id.pdf");
         print CANDLESTICKS
-            $terminal{pdf}, "\n",
+            "$terminal{pdf} $font\n",
             "set output $quoted_path\n";
         $quoted_path = quote("$path_results/$function_id/$function_id.dat");
         print CANDLESTICKS
@@ -374,13 +386,13 @@ sub generate_gnuplot_candlesticks
 
         $quoted_path = quote("$path_graphics/$function_id.eps");
         print CANDLESTICKS
-            $terminal{eps}, "\n",
+            "$terminal{eps} $font\n",
             "set output $quoted_path\n",
             "replot\n";
 
         $quoted_path = quote("$path_graphics/$function_id.png");
         print CANDLESTICKS
-            $terminal{png}, "\n",
+            "$terminal{png} $font\n",
             "set output $quoted_path\n",
             "replot\n\n";
 
@@ -405,6 +417,17 @@ sub generate_gnuplot_clouds
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
+    # Font face and size
+    my $font = "";
+    if ($graphics->{scatter}->{font_face}) {
+        $font = $graphics->{scatter}->{font_face};
+    }
+    if ($graphics->{scatter}->{font_size}) {
+        $font = "$font,$graphics->{scatter}->{font_size}";
+    }
+    $font = quote($font);
+    $font = "font $font";
+
     # One function one file
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
@@ -425,7 +448,7 @@ sub generate_gnuplot_clouds
 
         $quoted_path = quote("$path_graphics/$function_id+all.eps");
         print CLOUDS
-            $terminal{eps}, "\n",
+            "$terminal{eps} $font\n",
             "set output $quoted_path\n";
 
         print CLOUDS "plot \\\n";
@@ -445,13 +468,13 @@ sub generate_gnuplot_clouds
 
         $quoted_path = quote("$path_graphics/$function_id+all.pdf");
         print CLOUDS
-            $terminal{pdf}, "\n",
+            "$terminal{pdf} $font\n",
             "set output $quoted_path\n",
             "replot\n";
 
         $quoted_path = quote("$path_graphics/$function_id+all.png");
         print CLOUDS
-            $terminal{png}, "\n",
+            "$terminal{png} $font\n",
             "set output $quoted_path\n",
             "replot\n\n";
 
@@ -493,7 +516,7 @@ sub generate_gnuplot_clouds
 
             $quoted_path = quote("$path_graphics/$function_id+$algorithm_id.eps");
             print CLOUDS
-                $terminal{eps}, "\n",
+                "$terminal{eps} $font\n",
                 "set output $quoted_path\n";
 
             $quoted_path = quote("$path_results/$function_id/$algorithm_id/$algorithm_id.dat");
@@ -505,13 +528,13 @@ sub generate_gnuplot_clouds
 
             $quoted_path = quote("$path_graphics/$function_id+$algorithm_id.pdf");
             print CLOUDS
-                $terminal{pdf}, "\n",
+                "$terminal{pdf} $font\n",
                 "set output $quoted_path\n",
                 "replot\n";
 
             $quoted_path = quote("$path_graphics/$function_id+$algorithm_id.png");
             print CLOUDS
-                $terminal{png}, "\n",
+                "$terminal{png} $font\n",
                 "set output $quoted_path\n",
                 "replot\n";
 
