@@ -77,7 +77,7 @@ compute_ranges();
 generate_function_data();
 generate_function_results();
 generate_gnuplot_candlesticks();
-generate_gnuplot_clouds();
+generate_gnuplot_scatter();
 generate_table_rank_distribution();
 generate_ranking();
 generate_table_functions();
@@ -402,12 +402,12 @@ sub generate_gnuplot_candlesticks
 
 }
 
-sub generate_gnuplot_clouds
+sub generate_gnuplot_scatter
 {
-    open(CLOUDS, ">clouds.gp")
-        or die "hnco-benchmark-stat.pl: generate_gnuplot_clouds: Cannot open clouds.gp\n";
+    open(SCATTER, ">scatter.gp")
+        or die "hnco-benchmark-stat.pl: generate_gnuplot_scatter: Cannot open scatter.gp\n";
 
-    print CLOUDS
+    print SCATTER
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel \"Number of evaluations (x10^3)\"\n",
@@ -434,11 +434,11 @@ sub generate_gnuplot_clouds
 
         if ($f->{logscale}) {
             my $fmt = quote("10^{\%T}");
-            print CLOUDS
+            print SCATTER
                 "set logscale y 10\n",
                 "set format y $fmt\n";
         } else {
-            print CLOUDS
+            print SCATTER
                 "unset logscale y\n",
                 "set format y\n";
         }
@@ -447,12 +447,12 @@ sub generate_gnuplot_clouds
         my $quoted_title;
 
         $quoted_path = quote("$path_graphics/$function_id+all.eps");
-        print CLOUDS
+        print SCATTER
             "$terminal{eps} $font\n",
             "set output $quoted_path\n";
 
-        print CLOUDS "plot \\\n";
-        print CLOUDS
+        print SCATTER "plot \\\n";
+        print SCATTER
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
@@ -464,16 +464,16 @@ sub generate_gnuplot_clouds
                     "  $quoted_path using 1:2 with points title $quoted_title";
              } @$algorithms);
 
-        print CLOUDS "\n";
+        print SCATTER "\n";
 
         $quoted_path = quote("$path_graphics/$function_id+all.pdf");
-        print CLOUDS
+        print SCATTER
             "$terminal{pdf} $font\n",
             "set output $quoted_path\n",
             "replot\n";
 
         $quoted_path = quote("$path_graphics/$function_id+all.png");
-        print CLOUDS
+        print SCATTER
             "$terminal{png} $font\n",
             "set output $quoted_path\n",
             "replot\n\n";
@@ -485,11 +485,11 @@ sub generate_gnuplot_clouds
 
         if ($f->{logscale}) {
             $fmt = quote("10^{\%T}");
-            print CLOUDS
+            print SCATTER
                 "set logscale y 10\n",
                 "set format y $fmt\n";
         } else {
-            print CLOUDS
+            print SCATTER
                 "unset logscale y\n",
                 "set format y\n";
         }
@@ -500,11 +500,11 @@ sub generate_gnuplot_clouds
         my $ymin = $range->{ymin};
         my $ymax = $range->{ymax};
 
-        print CLOUDS
+        print SCATTER
             "set xrange [$xmin:$xmax]\n",
             ($ymin == $ymax) ? "set autoscale y\n" : "set yrange [$ymin:$ymax]\n";
 
-        print CLOUDS "\n";
+        print SCATTER "\n";
 
         my $quoted_path;
         my $quoted_title;
@@ -515,36 +515,36 @@ sub generate_gnuplot_clouds
             my $value = $stat_value->{$function_id}->{$algorithm_id};
 
             $quoted_path = quote("$path_graphics/$function_id+$algorithm_id.eps");
-            print CLOUDS
+            print SCATTER
                 "$terminal{eps} $font\n",
                 "set output $quoted_path\n";
 
             $quoted_path = quote("$path_results/$function_id/$algorithm_id/$algorithm_id.dat");
             if ($f->{reverse}) {
-                print CLOUDS "plot $quoted_path using 1:(-\$2) with points notitle\n";
+                print SCATTER "plot $quoted_path using 1:(-\$2) with points notitle\n";
             } else {
-                print CLOUDS "plot $quoted_path using 1:2 with points notitle\n";
+                print SCATTER "plot $quoted_path using 1:2 with points notitle\n";
             }
 
             $quoted_path = quote("$path_graphics/$function_id+$algorithm_id.pdf");
-            print CLOUDS
+            print SCATTER
                 "$terminal{pdf} $font\n",
                 "set output $quoted_path\n",
                 "replot\n";
 
             $quoted_path = quote("$path_graphics/$function_id+$algorithm_id.png");
-            print CLOUDS
+            print SCATTER
                 "$terminal{png} $font\n",
                 "set output $quoted_path\n",
                 "replot\n";
 
         }
 
-        print CLOUDS "\n";
+        print SCATTER "\n";
 
     }
 
-    system("chmod a+x clouds.gp");
+    system("chmod a+x scatter.gp");
 
 }
 
