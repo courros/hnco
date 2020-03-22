@@ -48,9 +48,9 @@ my $algorithms          = $obj->{algorithms};
 my $functions           = $obj->{functions};
 my $num_runs            = $obj->{num_runs};
 my $parameter           = $obj->{parameter};
+my $graphics            = $obj->{graphics};
 
 my $parameter_id        = $parameter->{id};
-my $boxwidth            = $parameter->{boxwidth};
 
 my $path_graphics       = "graphics";
 my $path_report         = "report";
@@ -195,6 +195,23 @@ sub generate_gnuplot_candlesticks
             "set format x $fmt\n";
     }
 
+    # Font face and size
+    my $font = "";
+    if ($graphics->{candlesticks}->{font_face}) {
+        $font = $graphics->{candlesticks}->{font_face};
+    }
+    if ($graphics->{candlesticks}->{font_size}) {
+        $font = "$font,$graphics->{candlesticks}->{font_size}";
+    }
+    $font = quote($font);
+    $font = "font $font";
+
+    # boxwidth
+    my $boxwidth = 10;
+    if ($graphics->{candlesticks}->{boxwidth}) {
+        $boxwidth = $graphics->{candlesticks}->{boxwidth};
+    }
+
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         unless (-d "$path_graphics/$function_id") {
@@ -219,7 +236,7 @@ sub generate_gnuplot_candlesticks
 
             $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.pdf");
             print CANDLESTICKS
-                $terminal{pdf}, "\n",
+                "$terminal{pdf} $font\n",
                 "set output $quoted_string\n";
             $quoted_string = quote("$path_results/$function_id/$algorithm_id/quartiles.dat");
             print CANDLESTICKS
@@ -228,13 +245,13 @@ sub generate_gnuplot_candlesticks
 
             $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.eps");
             print CANDLESTICKS
-                $terminal{eps}, "\n",
+                "$terminal{eps} $font\n",
                 "set output $quoted_string\n",
                 "replot\n";
 
             $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.png");
             print CANDLESTICKS
-                $terminal{png}, "\n",
+                "$terminal{png} $font\n",
                 "set output $quoted_string\n",
                 "replot\n\n";
 
@@ -261,6 +278,17 @@ sub generate_gnuplot_mean
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
+    # Font face and size
+    my $font = "";
+    if ($graphics->{mean}->{font_face}) {
+        $font = $graphics->{mean}->{font_face};
+    }
+    if ($graphics->{mean}->{font_size}) {
+        $font = "$font,$graphics->{mean}->{font_size}";
+    }
+    $font = quote($font);
+    $font = "font $font";
+
     my $xmin = min(@$values);
     my $xmax = max(@$values);
 
@@ -275,7 +303,7 @@ sub generate_gnuplot_mean
 
         my $quoted_string = quote("$path_graphics/$function_id/mean.pdf");
         print MEAN
-            $terminal{pdf}, "\n",
+            "$terminal{pdf} $font\n",
             "set output $quoted_string\n";
 
         print MEAN "plot \\\n";
@@ -299,13 +327,13 @@ sub generate_gnuplot_mean
 
         $quoted_path = quote("$path_graphics/$function_id/mean.eps");
         print MEAN
-            $terminal{eps}, "\n",
+            "$terminal{eps} $font\n",
             "set output $quoted_path\n",
             "replot\n";
 
         $quoted_path = quote("$path_graphics/$function_id/mean.png");
         print MEAN
-            $terminal{png}, "\n",
+            "$terminal{png} $font\n",
             "set output $quoted_path\n",
             "replot\n\n";
 
@@ -333,6 +361,17 @@ sub generate_gnuplot_stddev
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
+    # Font face and size
+    my $font = "";
+    if ($graphics->{stddev}->{font_face}) {
+        $font = $graphics->{stddev}->{font_face};
+    }
+    if ($graphics->{stddev}->{font_size}) {
+        $font = "$font,$graphics->{stddev}->{font_size}";
+    }
+    $font = quote($font);
+    $font = "font $font";
+
     my $xmin = min(@$values);
     my $xmax = max(@$values);
 
@@ -347,7 +386,7 @@ sub generate_gnuplot_stddev
 
         my $quoted_string = quote("$path_graphics/$function_id/stddev.pdf");
         print STDDEV
-            $terminal{pdf}, "\n",
+            "$terminal{pdf} $font\n",
             "set output $quoted_string\n";
 
         print STDDEV "plot \\\n";
@@ -371,13 +410,13 @@ sub generate_gnuplot_stddev
 
         $quoted_path = quote("$path_graphics/$function_id/stddev.eps");
         print STDDEV
-            $terminal{eps}, "\n",
+            "$terminal{eps} $font\n",
             "set output $quoted_path\n",
             "replot\n";
 
         $quoted_path = quote("$path_graphics/$function_id/stddev.png");
         print STDDEV
-            $terminal{png}, "\n",
+            "$terminal{png} $font\n",
             "set output $quoted_path\n",
             "replot\n\n";
 
