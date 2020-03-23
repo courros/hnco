@@ -7,7 +7,7 @@ log.parallel
 commands.txt
 
 candlesticks.gp
-clouds.gp
+scatter.gp
 mean.gp
 stddev.gp
 
