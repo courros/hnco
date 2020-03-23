@@ -8,9 +8,14 @@
 
     "parameter": {
         "id": "learning-rate",
-        "values": [ 1e-2, 2e-2, 5e-2, 1e-1, 2e-1, 5e-1, 1 ],
+        "values": [ 1e-2, 2e-2, 5e-2, 1e-1, 2e-1, 5e-1, 1 ]
+    },
+
+    "graphics": {
         "logscale": true,
-        "boxwidth": "$1 * 0.3"
+        "candlesticks": {
+            "boxwidth": "$1 * 0.3"
+        }
     },
 
     "functions": [
