@@ -270,7 +270,7 @@ sub generate_gnuplot_mean
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"$parameter_id\"\n",
+        "set xlabel " . quote($graphics->{mean}->{xlabel} || $parameter_id) . "\n",
         "set ylabel \"Mean runtime\"\n",
         "set logscale y\n",
         "set format y", quote("10^{\%T}"), "\n",
@@ -295,13 +295,20 @@ sub generate_gnuplot_mean
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
-        $quoted_string = quote("$f->{name}: Mean runtime as a function of $parameter_id");
-        print MEAN "set title $quoted_string\n";
+
+        my $quoted_string;
+
+        if ($graphics->{mean}->{title}) {
+            $quoted_string = quote("$f->{name}: Mean runtime as a function of $parameter_id");
+            print MEAN "set title $quoted_string\n";
+        }
+
+        # Additional functions
         foreach my $gnuplot (@{$f->{mean_gnuplot}}) {
             print MEAN $gnuplot->{expression}, "\n";
         }
 
-        my $quoted_string = quote("$path_graphics/$function_id/mean.pdf");
+        $quoted_string = quote("$path_graphics/$function_id/mean.pdf");
         print MEAN
             "$terminal{pdf} $font\n",
             "set output $quoted_string\n";
