@@ -202,11 +202,14 @@ sub generate_gnuplot_section
     my $prefix_stats = "$root_stats/$algorithm_id";
     my $prefix_graphics = "$root_graphics/$algorithm_id";
 
-    my $quoted_string = quote("$variable->{name}");
+    my $quoted_string = quote("$variable->{xlabel}");
     print GRAPHICS "set xlabel $quoted_string\n";
 
-    $quoted_string = quote("$parameter->{name}");
-    print GRAPHICS "set key font \",10\" reverse Left outside right center box vertical title $quoted_string font \",10\"\n";
+    $quoted_string = quote("$parameter->{title}");
+    print GRAPHICS
+        "set key default\n",
+        "set key " . ($parameter->{key} ||
+                      "reverse Left outside right center box vertical") . " title $quoted_string\n";
 
     my $path = "$prefix_graphics/$measure-$parameter->{id}";
     $quoted_string = quote("$path.pdf");
@@ -219,7 +222,7 @@ sub generate_gnuplot_section
         (map {
             my $key = "$parameter->{id}-$_";
             my $path = quote("$prefix_stats/$measure-$key.dat");
-            my $title = quote("$parameter->{key} = $_");
+            my $title = quote("$parameter->{entry} = $_");
             "  $path using 1:2 with l lw 2 title $title";
          } reverse(@{ $parameter->{values} }));
     print GRAPHICS "\n";
