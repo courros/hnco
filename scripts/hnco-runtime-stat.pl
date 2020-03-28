@@ -274,7 +274,7 @@ sub generate_gnuplot_mean
         "set ylabel \"Mean runtime\"\n",
         "set logscale y\n",
         "set format y", quote("10^{\%T}"), "\n",
-        "set key bottom right box opaque\n",
+        "set key " . ($graphics->{mean}->{key} || "bottom right box opaque") . "\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
