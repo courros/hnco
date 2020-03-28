@@ -325,7 +325,7 @@ sub generate_gnuplot_candlesticks
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"$parameter_id\"\n",
+        "set xlabel " . quote($graphics->{candlesticks}->{xlabel} || $parameter_id) . "\n",
         "set ylabel \"Function value\"\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -373,10 +373,12 @@ sub generate_gnuplot_candlesticks
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
 
-            my $quoted_string = quote("$algorithm_id on $function_id");
+            my $quoted_string;
 
-            print CANDLESTICKS
-                "set title $quoted_string\n";
+            if ($graphics->{candlesticks}->{title}) {
+                $quoted_string = quote("$algorithm_id on $function_id");
+                print CANDLESTICKS "set title $quoted_string\n";
+            }
 
             $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.pdf");
             print CANDLESTICKS
