@@ -211,10 +211,21 @@ sub generate_gnuplot_section
         "set key " . ($parameter->{key} ||
                       "reverse Left outside right center box vertical") . " title $quoted_string\n";
 
+    # Font face and size
+    my $font = "";
+    if ($variable->{font_face}) {
+        $font = $variable->{font_face};
+    }
+    if ($variable->{font_size}) {
+        $font = "$font,$variable->{font_size}";
+    }
+    $font = quote($font);
+    $font = "font $font";
+
     my $path = "$prefix_graphics/$measure-$parameter->{id}";
     $quoted_string = quote("$path.pdf");
     print GRAPHICS
-        $terminal{pdf}, "\n",
+        "$terminal{pdf} $font\n",
         "set output $quoted_string\n";
     print GRAPHICS "plot \\\n";
     print GRAPHICS
@@ -229,13 +240,13 @@ sub generate_gnuplot_section
 
     $quoted_string = quote("$path.eps");
     print GRAPHICS
-        $terminal{eps}, "\n",
+        "$terminal{eps} $font\n",
         "set output $quoted_string\n",
         "replot\n";
 
     $quoted_string = quote("$path.png");
     print GRAPHICS
-        $terminal{png}, "\n",
+        "$terminal{png} $font\n",
         "set output $quoted_string\n",
         "replot\n\n";
 }
@@ -251,7 +262,7 @@ sub generate_latex
         my $algorithm_id = $a->{id};
         latex_section("$a->{name}");
         foreach ($parameter1, $parameter2) {
-            latex_subsection("$_->{name}");
+            latex_subsection("$_->{xlabel}");
             foreach my $measure (@summary_statistics) {
                 latex_subsubsection("$measure");
                 latex_begin_center();
