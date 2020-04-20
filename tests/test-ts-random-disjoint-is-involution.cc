@@ -20,10 +20,10 @@
 
 /** \file
 
-    Check ts_random_commuting.
+    Check ts_random_disjoint.
 
     Check that the transvection_sequence_t sampled by
-    ts_random_commuting is an involution.
+    ts_random_disjoint is an involution.
 */
 
 #include <chrono>
