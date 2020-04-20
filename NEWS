@@ -9,8 +9,14 @@ hnco:
 - Added option --map-display
 
 Scripts:
-- hnco-benchmark-stat.pl: set font face and size
-- hnco-runtime-stat.pl: set font face and size
+- hnco-benchmark-stat.pl: candlesticks, scatter: set font face and size
+- hnco-runtime-stat.pl: update plan.json
+- hnco-runtime-stat.pl: mean, candlesticks: set font face and size
+- hnco-runtime-stat.pl: mean: set xlabel, title, and key
+- hnco-parameter-stat.pl: update plan.json
+- hnco-parameter-stat.pl: candlesticks, mean: set font face and size
+- hnco-parameter-stat.pl: candlesticks: set xlabel and title
+- hnco-runtime2-stat.pl: graphics: set font face, font size, and key
 
 
 * Version 0.13 (2020-01-12)
