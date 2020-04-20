@@ -20,10 +20,10 @@
 
 /** \file
 
-    Check ts_random_commuting.
+    Check Transvection::random.
 
-    Check that the transvection_sequence_t sampled by
-    ts_random_commuting is an involution.
+    Check that the Transvection sampled by Transvection::random is an
+    involution.
 */
 
 #include <chrono>
@@ -43,11 +43,12 @@ bool check_involution()
 
   for (int i = 0; i < 10; i++) {
     const int n = dist(Random::generator);
-    const int k = n / 2;
-    const int t = (n % 2 == 0) ? k * k : k * (k + 1);
 
-    transvection_sequence_t ts;
-    ts_random_commuting(ts, n, t);
+    Transvection transvection;
+    transvection.random(n);
+
+    if (!transvection.is_valid(n))
+      return false;
 
     for (int j = 0; j < 10; j++) {
       bit_vector_t x(n);
@@ -55,8 +56,8 @@ bool check_involution()
 
       bv_random(x);
       y = x;
-      ts_multiply(ts, y);
-      ts_multiply(ts, y);
+      transvection.multiply(y);
+      transvection.multiply(y);
 
       if (y != x)
         return false;

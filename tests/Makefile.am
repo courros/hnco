@@ -78,6 +78,7 @@ check_PROGRAMS = \
 	test-steepest-ascent-hill-climbing \
 	test-steepest-ascent-hill-climbing-local \
 	test-translation \
+	test-transvection-is-involution \
 	test-ts-multiply \
 	test-ts-random-commuting-is-involution \
 	test-ts-random-disjoint-is-involution \
@@ -157,6 +158,7 @@ test_single_bit_flip_iterator_SOURCES = test-single-bit-flip-iterator.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 test_steepest_ascent_hill_climbing_local_SOURCES = test-steepest-ascent-hill-climbing-local.cc
 test_translation_SOURCES = test-translation.cc
+test_transvection_is_involution_SOURCES = test-transvection-is-involution.cc
 test_ts_multiply_SOURCES = test-ts-multiply.cc
 test_ts_random_commuting_is_involution_SOURCES = test-ts-random-commuting-is-involution.cc
 test_ts_random_disjoint_is_involution_SOURCES = test-ts-random-disjoint-is-involution.cc
