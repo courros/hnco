@@ -8,6 +8,9 @@ Library:
 hnco:
 - Added option --map-display
 
+Tests:
+- Renamed test-ts-involution -> test-ts-random-commuting-is-involution
+
 Scripts:
 - hnco-benchmark-stat.pl: candlesticks, scatter: set font face and size
 - hnco-runtime-stat.pl: update plan.json
