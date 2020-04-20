@@ -203,6 +203,11 @@ namespace hnco {
 
       \pre n > 1
       \pre t >= 0
+
+      \warning If t > floor(n / 2) then t is set to floor(n / 2).
+
+      \warning If t = floor(n / 2) then the space and time complexity
+      of ts_random_commuting is quadratic in the dimension n.
   */
   void ts_random_commuting(transvection_sequence_t& ts, int n, int t);
 
