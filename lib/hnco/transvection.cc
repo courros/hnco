@@ -141,6 +141,16 @@ bool hnco::transvections_commute(const Transvection& a, const Transvection& b)
 }
 
 
+bool hnco::transvections_are_disjoint(const Transvection& a, const Transvection& b)
+{
+  if (a.row_index == b.column_index)
+    return false;
+  if (b.row_index == a.column_index)
+    return false;
+  return true;
+}
+
+
 bool hnco::ts_is_valid(const transvection_sequence_t& ts)
 {
   return std::all_of(ts.begin(), ts.end(), [](auto& tv){ return tv.is_valid(); });
