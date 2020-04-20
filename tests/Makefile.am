@@ -80,6 +80,7 @@ check_PROGRAMS = \
 	test-translation \
 	test-transvection-is-involution \
 	test-ts-multiply \
+	test-ts-random-commuting \
 	test-ts-random-commuting-is-involution \
 	test-ts-random-disjoint-is-involution \
 	test-ts-random-unique-destination-is-involution \
@@ -160,6 +161,7 @@ test_steepest_ascent_hill_climbing_local_SOURCES = test-steepest-ascent-hill-cli
 test_translation_SOURCES = test-translation.cc
 test_transvection_is_involution_SOURCES = test-transvection-is-involution.cc
 test_ts_multiply_SOURCES = test-ts-multiply.cc
+test_ts_random_commuting_SOURCES = test-ts-random-commuting.cc
 test_ts_random_commuting_is_involution_SOURCES = test-ts-random-commuting-is-involution.cc
 test_ts_random_disjoint_is_involution_SOURCES = test-ts-random-disjoint-is-involution.cc
 test_ts_random_unique_destination_is_involution_SOURCES = test-ts-random-unique-destination-is-involution.cc
