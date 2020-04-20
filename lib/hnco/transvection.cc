@@ -143,9 +143,13 @@ bool hnco::transvections_commute(const Transvection& a, const Transvection& b)
 
 bool hnco::transvections_are_disjoint(const Transvection& a, const Transvection& b)
 {
+  if (a.row_index == b.row_index)
+    return false;
   if (a.row_index == b.column_index)
     return false;
-  if (b.row_index == a.column_index)
+  if (a.column_index == b.row_index)
+    return false;
+  if (a.column_index == b.column_index)
     return false;
   return true;
 }
