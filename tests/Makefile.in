@@ -161,6 +161,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-steepest-ascent-hill-climbing-local$(EXEEXT) \
 	test-translation$(EXEEXT) test-ts-multiply$(EXEEXT) \
 	test-ts-random-commuting-is-involution$(EXEEXT) \
+	test-ts-random-unique-destination-is-involution$(EXEEXT) \
 	test-ts-random-unique-source-is-involution$(EXEEXT) \
 	test-walsh-transform$(EXEEXT) $(am__EXEEXT_1)
 @ENABLE_FACTORIZATION_TRUE@am__append_1 = test-complete-search-factorization
@@ -545,6 +546,13 @@ test_ts_random_commuting_is_involution_OBJECTS =  \
 test_ts_random_commuting_is_involution_LDADD = $(LDADD)
 test_ts_random_commuting_is_involution_DEPENDENCIES =  \
 	../lib/libhnco.la
+am_test_ts_random_unique_destination_is_involution_OBJECTS =  \
+	test-ts-random-unique-destination-is-involution.$(OBJEXT)
+test_ts_random_unique_destination_is_involution_OBJECTS =  \
+	$(am_test_ts_random_unique_destination_is_involution_OBJECTS)
+test_ts_random_unique_destination_is_involution_LDADD = $(LDADD)
+test_ts_random_unique_destination_is_involution_DEPENDENCIES =  \
+	../lib/libhnco.la
 am_test_ts_random_unique_source_is_involution_OBJECTS =  \
 	test-ts-random-unique-source-is-involution.$(OBJEXT)
 test_ts_random_unique_source_is_involution_OBJECTS =  \
@@ -632,6 +640,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-translation.Po \
 	./$(DEPDIR)/test-ts-multiply.Po \
 	./$(DEPDIR)/test-ts-random-commuting-is-involution.Po \
+	./$(DEPDIR)/test-ts-random-unique-destination-is-involution.Po \
 	./$(DEPDIR)/test-ts-random-unique-source-is-involution.Po \
 	./$(DEPDIR)/test-walsh-transform.Po
 am__mv = mv -f
@@ -711,6 +720,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_local_SOURCES) \
 	$(test_translation_SOURCES) $(test_ts_multiply_SOURCES) \
 	$(test_ts_random_commuting_is_involution_SOURCES) \
+	$(test_ts_random_unique_destination_is_involution_SOURCES) \
 	$(test_ts_random_unique_source_is_involution_SOURCES) \
 	$(test_walsh_transform_SOURCES)
 DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
@@ -771,6 +781,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_steepest_ascent_hill_climbing_local_SOURCES) \
 	$(test_translation_SOURCES) $(test_ts_multiply_SOURCES) \
 	$(test_ts_random_commuting_is_involution_SOURCES) \
+	$(test_ts_random_unique_destination_is_involution_SOURCES) \
 	$(test_ts_random_unique_source_is_involution_SOURCES) \
 	$(test_walsh_transform_SOURCES)
 am__can_run_installinfo = \
@@ -1197,6 +1208,7 @@ test_steepest_ascent_hill_climbing_local_SOURCES = test-steepest-ascent-hill-cli
 test_translation_SOURCES = test-translation.cc
 test_ts_multiply_SOURCES = test-ts-multiply.cc
 test_ts_random_commuting_is_involution_SOURCES = test-ts-random-commuting-is-involution.cc
+test_ts_random_unique_destination_is_involution_SOURCES = test-ts-random-unique-destination-is-involution.cc
 test_ts_random_unique_source_is_involution_SOURCES = test-ts-random-unique-source-is-involution.cc
 test_walsh_transform_SOURCES = test-walsh-transform.cc
 TESTS = $(check_PROGRAMS)
@@ -1516,6 +1528,10 @@ test-ts-random-commuting-is-involution$(EXEEXT): $(test_ts_random_commuting_is_i
 	@rm -f test-ts-random-commuting-is-involution$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_ts_random_commuting_is_involution_OBJECTS) $(test_ts_random_commuting_is_involution_LDADD) $(LIBS)
 
+test-ts-random-unique-destination-is-involution$(EXEEXT): $(test_ts_random_unique_destination_is_involution_OBJECTS) $(test_ts_random_unique_destination_is_involution_DEPENDENCIES) $(EXTRA_test_ts_random_unique_destination_is_involution_DEPENDENCIES) 
+	@rm -f test-ts-random-unique-destination-is-involution$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_ts_random_unique_destination_is_involution_OBJECTS) $(test_ts_random_unique_destination_is_involution_LDADD) $(LIBS)
+
 test-ts-random-unique-source-is-involution$(EXEEXT): $(test_ts_random_unique_source_is_involution_OBJECTS) $(test_ts_random_unique_source_is_involution_DEPENDENCIES) $(EXTRA_test_ts_random_unique_source_is_involution_DEPENDENCIES) 
 	@rm -f test-ts-random-unique-source-is-involution$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_ts_random_unique_source_is_involution_OBJECTS) $(test_ts_random_unique_source_is_involution_LDADD) $(LIBS)
@@ -1594,6 +1610,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-translation.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ts-multiply.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ts-random-commuting-is-involution.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ts-random-unique-destination-is-involution.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ts-random-unique-source-is-involution.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-walsh-transform.Po@am__quote@ # am--include-marker
 
@@ -2267,6 +2284,13 @@ test-ts-random-commuting-is-involution.log: test-ts-random-commuting-is-involuti
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-ts-random-unique-destination-is-involution.log: test-ts-random-unique-destination-is-involution$(EXEEXT)
+	@p='test-ts-random-unique-destination-is-involution$(EXEEXT)'; \
+	b='test-ts-random-unique-destination-is-involution'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-ts-random-unique-source-is-involution.log: test-ts-random-unique-source-is-involution$(EXEEXT)
 	@p='test-ts-random-unique-source-is-involution$(EXEEXT)'; \
 	b='test-ts-random-unique-source-is-involution'; \
@@ -2446,6 +2470,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-translation.Po
 	-rm -f ./$(DEPDIR)/test-ts-multiply.Po
 	-rm -f ./$(DEPDIR)/test-ts-random-commuting-is-involution.Po
+	-rm -f ./$(DEPDIR)/test-ts-random-unique-destination-is-involution.Po
 	-rm -f ./$(DEPDIR)/test-ts-random-unique-source-is-involution.Po
 	-rm -f ./$(DEPDIR)/test-walsh-transform.Po
 	-rm -f Makefile
@@ -2557,6 +2582,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-translation.Po
 	-rm -f ./$(DEPDIR)/test-ts-multiply.Po
 	-rm -f ./$(DEPDIR)/test-ts-random-commuting-is-involution.Po
+	-rm -f ./$(DEPDIR)/test-ts-random-unique-destination-is-involution.Po
 	-rm -f ./$(DEPDIR)/test-ts-random-unique-source-is-involution.Po
 	-rm -f ./$(DEPDIR)/test-walsh-transform.Po
 	-rm -f Makefile

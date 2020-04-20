@@ -20,10 +20,10 @@
 
 /** \file
 
-    Check ts_random_unique_source.
+    Check ts_random_unique_destination.
 
     Check that the transvection_sequence_t sampled by
-    ts_random_unique_source is an involution.
+    ts_random_unique_destination is an involution.
 */
 
 #include <chrono>
@@ -45,7 +45,7 @@ bool check_involution()
     const int n = dist(Random::generator);
 
     transvection_sequence_t ts;
-    ts_random_unique_source(ts, n, n - 1);
+    ts_random_unique_destination(ts, n, n - 1);
 
     for (int j = 0; j < 10; j++) {
       bit_vector_t x(n);
