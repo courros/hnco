@@ -20,10 +20,10 @@
 
 /** \file
 
-    Check ts_random_disjoint.
+    Check ts_random_non_commuting.
 
-    Check that all transvections in the sequence are pairwise
-    disjoint.
+    Check that all consecutive transvections in the sequence do not
+    commute.
 */
 
 #include <chrono>
@@ -39,10 +39,9 @@ using namespace std;
 
 bool check_ts(const transvection_sequence_t& ts)
 {
-  for (size_t i = 0; i < ts.size(); i++)
-    for (size_t j = i + 1; j < ts.size(); j++)
-      if (!transvections_are_disjoint(ts[i], ts[j]))
-        return false;
+  for (size_t i = 1; i < ts.size(); i++)
+    if (transvections_commute(ts[i], ts[i - 1]))
+      return false;
   return true;
 }
 
@@ -52,9 +51,10 @@ bool check()
 
   for (int i = 0; i < 10; i++) {
     const int n = dist(Random::generator);
+    const int t = 2 * n;
 
     transvection_sequence_t ts;
-    ts_random_disjoint(ts, n, n / 2);
+    ts_random_non_commuting(ts, n, t);
     if (!check_ts(ts))
       return false;
   }
