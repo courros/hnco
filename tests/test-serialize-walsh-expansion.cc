@@ -19,6 +19,7 @@
 */
 
 #include <chrono>
+#include <fstream>              // std::ifstream, std::ofstream
 
 #include "hnco/functions/walsh/walsh-expansion.hh"
 #include "hnco/random.hh"

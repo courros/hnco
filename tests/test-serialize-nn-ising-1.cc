@@ -19,6 +19,7 @@
 */
 
 #include <chrono>
+#include <fstream>              // std::ifstream, std::ofstream
 
 #include "hnco/functions/ising/nearest-neighbor-ising-model-1.hh"
 #include "hnco/random.hh"
