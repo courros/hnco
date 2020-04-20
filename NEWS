@@ -13,6 +13,7 @@ Tests:
 - Added test-ts-random-unique-destination-is-involution
 - Added test-ts-random-unique-source-is-involution
 - Added test-ts-random-disjoint-is-involution
+- Added test-transvection-is-involution
 
 Scripts:
 - hnco-benchmark-stat.pl: candlesticks, scatter: set font face and size
