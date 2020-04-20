@@ -43,11 +43,9 @@ bool check_involution()
 
   for (int i = 0; i < 10; i++) {
     const int n = dist(Random::generator);
-    const int k = n / 2;
-    const int t = (n % 2 == 0) ? k * k : k * (k + 1);
 
     transvection_sequence_t ts;
-    ts_random_commuting(ts, n, t);
+    ts_random_disjoint(ts, n, n / 2);
 
     for (int j = 0; j < 10; j++) {
       bit_vector_t x(n);
