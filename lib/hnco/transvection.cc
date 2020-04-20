@@ -340,6 +340,7 @@ void hnco::ts_random_disjoint(transvection_sequence_t& ts, int n, int t)
   for (size_t i = 0; i < ts.size(); i++) {
     tv.row_index = variables[2 * i];
     tv.column_index = variables[2 * i + 1];
+    assert(tv.is_valid(n));
     ts[i] = tv;
   }
 }
