@@ -16,6 +16,7 @@ Tests:
 - Added test-transvection-is-involution
 - Added test-ts-random-commuting
 - Added test-ts-random-disjoint
+- Added test-ts-random-non-commuting
 
 Scripts:
 - hnco-benchmark-stat.pl: candlesticks, scatter: set font face and size

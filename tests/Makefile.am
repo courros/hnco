@@ -84,6 +84,7 @@ check_PROGRAMS = \
 	test-ts-random-commuting-is-involution \
 	test-ts-random-disjoint \
 	test-ts-random-disjoint-is-involution \
+	test-ts-random-non-commuting \
 	test-ts-random-unique-destination-is-involution \
 	test-ts-random-unique-source-is-involution \
 	test-walsh-transform
@@ -166,6 +167,7 @@ test_ts_random_commuting_SOURCES = test-ts-random-commuting.cc
 test_ts_random_commuting_is_involution_SOURCES = test-ts-random-commuting-is-involution.cc
 test_ts_random_disjoint_SOURCES = test-ts-random-disjoint.cc
 test_ts_random_disjoint_is_involution_SOURCES = test-ts-random-disjoint-is-involution.cc
+test_ts_random_non_commuting_SOURCES = test-ts-random-non-commuting.cc
 test_ts_random_unique_destination_is_involution_SOURCES = test-ts-random-unique-destination-is-involution.cc
 test_ts_random_unique_source_is_involution_SOURCES = test-ts-random-unique-source-is-involution.cc
 test_walsh_transform_SOURCES = test-walsh-transform.cc
