@@ -18,6 +18,14 @@
 
 */
 
+/** \file
+
+    Check ts_random_commuting.
+
+    Check that the transvection_sequence_t sampled by
+    ts_random_commuting is an involution.
+*/
+
 #include <chrono>
 #include <iostream>
 #include <iterator>
