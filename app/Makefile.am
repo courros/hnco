@@ -1,4 +1,4 @@
-# Copyright (C) 2016, 2017, 2018, 2019 Arnaud Berny
+# Copyright (C) 2016, 2017, 2018, 2019, 2020 Arnaud Berny
 
 # This file is part of HNCO.
 
