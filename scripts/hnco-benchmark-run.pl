@@ -21,6 +21,9 @@ use JSON;
 use File::Spec;
 use File::HomeDir;
 use Cwd;
+use List::MoreUtils qw(none any);
+use strict;
+use warnings;
 
 my $plan = "plan.json";
 if (@ARGV) {
@@ -37,6 +40,8 @@ while (<FILE>) {
 my $obj = from_json($json);
 
 my $algorithms          = $obj->{algorithms};
+my $only_algorithms     = $obj->{only_algorithms};
+my $skip_algorithms     = $obj->{skip_algorithms};
 my $budget              = $obj->{budget};
 my $functions           = $obj->{functions};
 my $parallel            = $obj->{parallel};
@@ -54,7 +59,7 @@ if ($parallel) {
     }
 }
 
-my $commands = ();
+my @commands = ();
 
 iterate_functions($path_results, "$obj->{exec} $obj->{opt} -b $budget");
 
@@ -91,13 +96,17 @@ sub iterate_functions
 sub iterate_algorithms
 {
     my ($prefix, $cmd) = @_;
-    foreach my $a (@$algorithms) {
-        my $algorithm_id = $a->{id};
-        print "$algorithm_id: ";
-        if ($a->{deterministic}) {
-            iterate_runs("$prefix/$algorithm_id", "$cmd $a->{opt}", 1);
+    foreach my $algorithm (@$algorithms) {
+        my $id = $algorithm->{id};
+        if ($only_algorithms &&
+            none { $_ eq $id } @$only_algorithms) { next; }
+        if ($skip_algorithms &&
+            any { $_ eq $id } @$skip_algorithms) { next; }
+        print "$id: ";
+        if ($algorithm->{deterministic}) {
+            iterate_runs("$prefix/$id", "$cmd $algorithm->{opt}", 1);
         } else {
-            iterate_runs("$prefix/$algorithm_id", "$cmd $a->{opt}", $obj->{num_runs});
+            iterate_runs("$prefix/$id", "$cmd $algorithm->{opt}", $obj->{num_runs});
         }
         print "\n";
     }
