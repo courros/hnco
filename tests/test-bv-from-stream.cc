@@ -20,46 +20,47 @@
 
 /** \file
 
-    Check ts_random_unique_source.
+    Check bv_from_stream.
 
-    Check that the transvection_sequence_t sampled by
-    ts_random_unique_source is an involution.
 */
 
 #include <chrono>
 #include <iostream>
 #include <iterator>
+#include <fstream>              // std::ifstream, std::ofstream
 
-#include "hnco/transvection.hh"
+#include "hnco/bit-vector.hh"
+#include "hnco/random.hh"
 
 
 using namespace hnco::random;
 using namespace hnco;
 using namespace std;
 
-bool check_involution()
+bool check()
 {
+  const string path("test-bv-from-stream.txt");
+
   uniform_int_distribution<int> dist(2, 1000);
 
   for (int i = 0; i < 10; i++) {
     const int n = dist(Random::generator);
 
-    transvection_sequence_t ts;
-    ts_random_unique_source(ts, n, n - 1);
-
-    for (int j = 0; j < 10; j++) {
-      bit_vector_t x(n);
-      bit_vector_t y(n);
-
-      bv_random(x);
-      y = x;
-      ts_multiply(ts, y);
-      ts_multiply(ts, y);
-
-      if (y != x)
-        return false;
+    bit_vector_t x(n);
+    bv_random(x);
+    {
+      std::ofstream stream(path);
+      bv_display(x, stream);
     }
 
+    bit_vector_t y(n);
+    {
+      std::ifstream stream(path);
+      bv_from_stream(y, stream);
+    }
+
+    if (y != x)
+      return false;
   }
 
   return true;
@@ -69,7 +70,7 @@ int main(int argc, char *argv[])
 {
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  if (check_involution())
+  if (check())
     return 0;
   else
     return 1;
