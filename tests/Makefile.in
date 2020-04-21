@@ -109,7 +109,8 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-bm-invert$(EXEEXT) test-bm-multiply$(EXEEXT) \
 	test-bm-rank$(EXEEXT) test-bm-row-column-rank$(EXEEXT) \
 	test-bm-solve$(EXEEXT) test-bm-swap-rows$(EXEEXT) \
-	test-bv-random$(EXEEXT) test-bv-to-size-type$(EXEEXT) \
+	test-bv-from-stream$(EXEEXT) test-bv-random$(EXEEXT) \
+	test-bv-to-size-type$(EXEEXT) \
 	test-complete-search-deceptive-jump$(EXEEXT) \
 	test-complete-search-four-peaks$(EXEEXT) \
 	test-complete-search-hiff$(EXEEXT) \
@@ -222,6 +223,10 @@ am_test_bm_swap_rows_OBJECTS = test-bm-swap-rows.$(OBJEXT)
 test_bm_swap_rows_OBJECTS = $(am_test_bm_swap_rows_OBJECTS)
 test_bm_swap_rows_LDADD = $(LDADD)
 test_bm_swap_rows_DEPENDENCIES = ../lib/libhnco.la
+am_test_bv_from_stream_OBJECTS = test-bv-from-stream.$(OBJEXT)
+test_bv_from_stream_OBJECTS = $(am_test_bv_from_stream_OBJECTS)
+test_bv_from_stream_LDADD = $(LDADD)
+test_bv_from_stream_DEPENDENCIES = ../lib/libhnco.la
 am_test_bv_random_OBJECTS = test-bv-random.$(OBJEXT)
 test_bv_random_OBJECTS = $(am_test_bv_random_OBJECTS)
 test_bv_random_LDADD = $(LDADD)
@@ -620,6 +625,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-bm-multiply.Po ./$(DEPDIR)/test-bm-rank.Po \
 	./$(DEPDIR)/test-bm-row-column-rank.Po \
 	./$(DEPDIR)/test-bm-solve.Po ./$(DEPDIR)/test-bm-swap-rows.Po \
+	./$(DEPDIR)/test-bv-from-stream.Po \
 	./$(DEPDIR)/test-bv-random.Po \
 	./$(DEPDIR)/test-bv-to-size-type.Po \
 	./$(DEPDIR)/test-complete-search-deceptive-jump.Po \
@@ -707,7 +713,8 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_bm_invert_SOURCES) $(test_bm_multiply_SOURCES) \
 	$(test_bm_rank_SOURCES) $(test_bm_row_column_rank_SOURCES) \
 	$(test_bm_solve_SOURCES) $(test_bm_swap_rows_SOURCES) \
-	$(test_bv_random_SOURCES) $(test_bv_to_size_type_SOURCES) \
+	$(test_bv_from_stream_SOURCES) $(test_bv_random_SOURCES) \
+	$(test_bv_to_size_type_SOURCES) \
 	$(test_complete_search_deceptive_jump_SOURCES) \
 	$(test_complete_search_factorization_SOURCES) \
 	$(test_complete_search_four_peaks_SOURCES) \
@@ -774,7 +781,8 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_bm_invert_SOURCES) $(test_bm_multiply_SOURCES) \
 	$(test_bm_rank_SOURCES) $(test_bm_row_column_rank_SOURCES) \
 	$(test_bm_solve_SOURCES) $(test_bm_swap_rows_SOURCES) \
-	$(test_bv_random_SOURCES) $(test_bv_to_size_type_SOURCES) \
+	$(test_bv_from_stream_SOURCES) $(test_bv_random_SOURCES) \
+	$(test_bv_to_size_type_SOURCES) \
 	$(test_complete_search_deceptive_jump_SOURCES) \
 	$(test_complete_search_factorization_SOURCES) \
 	$(test_complete_search_four_peaks_SOURCES) \
@@ -1205,6 +1213,7 @@ test_bm_rank_SOURCES = test-bm-rank.cc
 test_bm_row_column_rank_SOURCES = test-bm-row-column-rank.cc
 test_bm_solve_SOURCES = test-bm-solve.cc
 test_bm_swap_rows_SOURCES = test-bm-swap-rows.cc
+test_bv_from_stream_SOURCES = test-bv-from-stream.cc
 test_bv_random_SOURCES = test-bv-random.cc
 test_bv_to_size_type_SOURCES = test-bv-to-size-type.cc
 test_complete_search_deceptive_jump_SOURCES = test-complete-search-deceptive-jump.cc
@@ -1361,6 +1370,10 @@ test-bm-solve$(EXEEXT): $(test_bm_solve_OBJECTS) $(test_bm_solve_DEPENDENCIES) $
 test-bm-swap-rows$(EXEEXT): $(test_bm_swap_rows_OBJECTS) $(test_bm_swap_rows_DEPENDENCIES) $(EXTRA_test_bm_swap_rows_DEPENDENCIES) 
 	@rm -f test-bm-swap-rows$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_bm_swap_rows_OBJECTS) $(test_bm_swap_rows_LDADD) $(LIBS)
+
+test-bv-from-stream$(EXEEXT): $(test_bv_from_stream_OBJECTS) $(test_bv_from_stream_DEPENDENCIES) $(EXTRA_test_bv_from_stream_DEPENDENCIES) 
+	@rm -f test-bv-from-stream$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_bv_from_stream_OBJECTS) $(test_bv_from_stream_LDADD) $(LIBS)
 
 test-bv-random$(EXEEXT): $(test_bv_random_OBJECTS) $(test_bv_random_DEPENDENCIES) $(EXTRA_test_bv_random_DEPENDENCIES) 
 	@rm -f test-bv-random$(EXEEXT)
@@ -1632,6 +1645,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bm-row-column-rank.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bm-solve.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bm-swap-rows.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bv-from-stream.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bv-random.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bv-to-size-type.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-deceptive-jump.Po@am__quote@ # am--include-marker
@@ -1978,6 +1992,13 @@ test-bm-solve.log: test-bm-solve$(EXEEXT)
 test-bm-swap-rows.log: test-bm-swap-rows$(EXEEXT)
 	@p='test-bm-swap-rows$(EXEEXT)'; \
 	b='test-bm-swap-rows'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-bv-from-stream.log: test-bv-from-stream$(EXEEXT)
+	@p='test-bv-from-stream$(EXEEXT)'; \
+	b='test-bv-from-stream'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -2532,6 +2553,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-bm-row-column-rank.Po
 	-rm -f ./$(DEPDIR)/test-bm-solve.Po
 	-rm -f ./$(DEPDIR)/test-bm-swap-rows.Po
+	-rm -f ./$(DEPDIR)/test-bv-from-stream.Po
 	-rm -f ./$(DEPDIR)/test-bv-random.Po
 	-rm -f ./$(DEPDIR)/test-bv-to-size-type.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-deceptive-jump.Po
@@ -2649,6 +2671,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-bm-row-column-rank.Po
 	-rm -f ./$(DEPDIR)/test-bm-solve.Po
 	-rm -f ./$(DEPDIR)/test-bm-swap-rows.Po
+	-rm -f ./$(DEPDIR)/test-bv-from-stream.Po
 	-rm -f ./$(DEPDIR)/test-bv-random.Po
 	-rm -f ./$(DEPDIR)/test-bv-to-size-type.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-deceptive-jump.Po

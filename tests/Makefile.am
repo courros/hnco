@@ -25,6 +25,7 @@ check_PROGRAMS = \
 	test-bm-row-column-rank \
 	test-bm-solve \
 	test-bm-swap-rows \
+	test-bv-from-stream \
 	test-bv-random \
 	test-bv-to-size-type \
 	test-complete-search-deceptive-jump \
@@ -107,6 +108,7 @@ test_bm_rank_SOURCES = test-bm-rank.cc
 test_bm_row_column_rank_SOURCES = test-bm-row-column-rank.cc
 test_bm_solve_SOURCES = test-bm-solve.cc
 test_bm_swap_rows_SOURCES = test-bm-swap-rows.cc
+test_bv_from_stream_SOURCES = test-bv-from-stream.cc
 test_bv_random_SOURCES = test-bv-random.cc
 test_bv_to_size_type_SOURCES = 	test-bv-to-size-type.cc
 test_complete_search_deceptive_jump_SOURCES = test-complete-search-deceptive-jump.cc
