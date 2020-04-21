@@ -177,6 +177,7 @@ test_walsh_transform_SOURCES = test-walsh-transform.cc
 TESTS = $(check_PROGRAMS)
 
 DISTCLEANFILES = \
+	test-bv-from-stream.txt \
 	test-serialize-affine-map.txt \
 	test-serialize-equal-products.txt \
 	test-serialize-linear-function.txt \
