@@ -41,9 +41,9 @@ bool check()
 {
   const string path("test-bv-from-stream.txt");
 
-  uniform_int_distribution<int> dist(2, 1000);
+  uniform_int_distribution<int> dist(0, 1000);
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 100; i++) {
     const int n = dist(Random::generator);
 
     bit_vector_t x(n);
