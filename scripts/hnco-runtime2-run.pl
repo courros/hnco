@@ -17,6 +17,8 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
+use strict;
+use warnings;
 use JSON;
 use File::Spec;
 use File::HomeDir;
@@ -62,7 +64,7 @@ if ($parallel) {
     }
 }
 
-my $commands = ();
+my @commands = ();
 
 iterate_algorithms($path_results, "$obj->{exec} $obj->{opt} -b $budget");
 
