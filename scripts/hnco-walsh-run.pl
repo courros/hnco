@@ -21,6 +21,8 @@ use JSON;
 use File::Spec;
 use File::HomeDir;
 use Cwd;
+use strict;
+use warnings;
 
 my $plan = "plan.json";
 if (@ARGV) {
@@ -52,7 +54,7 @@ if ($parallel) {
     }
 }
 
-my $commands = ();
+my @commands = ();
 
 iterate_functions($path_results, "$obj->{exec} $obj->{opt}");
 
