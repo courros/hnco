@@ -29,6 +29,8 @@ using namespace hnco;
 void
 Umda::init()
 {
+  set_something_to_log();
+
   random_solution();
   pv_uniform(_pv);
 }
