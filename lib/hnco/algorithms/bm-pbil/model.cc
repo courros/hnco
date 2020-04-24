@@ -20,13 +20,11 @@
 
 #include <assert.h>
 
-#include <math.h>
+#include <algorithm>            // std::max
 
-#include <algorithm>
-
-#include "hnco/algorithms/matrix.hh"
+#include "hnco/algorithms/matrix.hh" // hnco::algorithm::matrix_is_symmetric
 #include "hnco/random.hh"
-#include "hnco/util.hh"
+#include "hnco/util.hh"         // hnco::logistic
 
 #include "model.hh"
 
