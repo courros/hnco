@@ -162,6 +162,9 @@ namespace bm_pbil {
     /// Single iteration
     void iterate();
 
+    /// Set flag for something to log
+    void set_something_to_log() { _something_to_log = _log_norm_infinite || _log_norm_l1; }
+
     /// Log
     void log();
 
@@ -234,9 +237,6 @@ namespace bm_pbil {
 
     /// Log 1-norm of the model parameters
     void set_log_norm_l1(bool x) { _log_norm_l1 = x; }
-
-    /// Set flag for something to log
-    void set_something_to_log() { _something_to_log = _log_norm_infinite || _log_norm_l1; }
 
     ///@}
 

@@ -31,6 +31,8 @@ using namespace hnco;
 void
 BmPbil::init()
 {
+  set_something_to_log();
+
   random_solution();
   _model.init();
 }

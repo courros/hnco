@@ -401,7 +401,6 @@ make_concrete_algorithm(const Options& options)
 
     algo->set_log_norm_infinite(options.with_bm_log_norm_infinite());
     algo->set_log_norm_l1(options.with_bm_log_norm_l1());
-    algo->set_something_to_log();
 
     return algo;
   }
