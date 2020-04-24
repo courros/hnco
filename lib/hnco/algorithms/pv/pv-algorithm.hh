@@ -61,6 +61,9 @@ namespace algorithm {
 
     ///@}
 
+    /// Set flag for something to log
+    void set_something_to_log() { _something_to_log = _log_entropy || _log_pv; }
+
     /// Log
     void log();
 
@@ -85,9 +88,6 @@ namespace algorithm {
 
     /// Log probability vector
     void set_log_pv(bool x) { _log_pv = x; }
-
-    /// Set flag for something to log
-    void set_something_to_log() { _something_to_log = _log_entropy || _log_pv; }
 
     ///@}
 
