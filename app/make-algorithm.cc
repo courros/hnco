@@ -300,7 +300,6 @@ make_concrete_algorithm(const Options& options)
     algo->set_log_entropy(options.with_pv_log_entropy());
     algo->set_log_num_components(options.get_pv_log_num_components());
     algo->set_log_pv(options.with_pv_log_pv());
-    algo->set_something_to_log();
 
     return algo;
   }
