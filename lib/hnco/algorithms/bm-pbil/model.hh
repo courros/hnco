@@ -35,7 +35,11 @@ namespace bm_pbil {
   /// Parameters of a Boltzmann machine
   class ModelParameters
   {
-    /// Weights
+    /** Weights.
+
+        _weight is a full square matrix of order n, where n is the
+        dimension of the search space.
+    */
     std::vector<std::vector<double> > _weight;
 
     /// Bias
@@ -50,16 +54,39 @@ namespace bm_pbil {
       _weight(n, std::vector<double>(n)),
       _bias(n) {}
 
-    /// Initialize
+    /** Initialize.
+
+        All entries of _weight are set to 0.
+    */
     void init();
 
-    /// Add a bit_vector_t
+    /** Add a bit vector.
+
+        Only the upper triangular part of _weight is updated with the
+        equation:
+
+        \f$ w_{ij} = w_{ij} + (-1)^{x_i + x_j} \f$
+
+        where i < j.
+
+    */
     void add(const bit_vector_t& x);
 
-    /// Compute averages
+    /** Compute averages.
+
+        Only the upper triangular part of _weight is averaged.
+
+    */
     void average(int count);
 
-    /// Update parameters in the direction of p and away from q
+    /** Update parameters in the direction of p and away from q.
+
+        First, the upper triangular part of _weight is updated.
+
+        Second, _weight is made symmetrical.
+
+        \post _weight is symmetrical.
+    */
     void update(const ModelParameters& p, const ModelParameters& q, double rate);
 
     /// Infinite norm of the parameters

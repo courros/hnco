@@ -91,6 +91,8 @@ ModelParameters::update(const ModelParameters& p, const ModelParameters& q, doub
       _weight[j][i] = _weight[i][j];
     }
   }
+
+  assert(matrix_is_symmetric(_weight));
 }
 
 
