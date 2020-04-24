@@ -115,7 +115,7 @@ namespace bm_pbil {
     ModelParameters _parameters_worst;
 
     /// Uniform distribution on bit_vector_t components
-    std::uniform_int_distribution<size_t> _choose_bit;
+    std::uniform_int_distribution<int> _choose_bit;
 
     /// Permutation
     permutation_t _permutation;
