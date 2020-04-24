@@ -18,8 +18,6 @@
 
 */
 
-#include <math.h>               // exp, sqrt
-
 #include "hnco/exception.hh"
 
 #include "bm-pbil.hh"

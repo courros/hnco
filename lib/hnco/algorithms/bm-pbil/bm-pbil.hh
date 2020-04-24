@@ -21,9 +21,6 @@
 #ifndef HNCO_ALGORITHMS_BM_PBIL_BM_PBIL_H
 #define HNCO_ALGORITHMS_BM_PBIL_BM_PBIL_H
 
-#include <bitset>
-#include <random>
-
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/algorithms/population.hh"
 #include "hnco/permutation.hh"
