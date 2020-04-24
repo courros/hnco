@@ -144,15 +144,15 @@ Model::reset_mc()
 
 
 void
-Model::gibbs_sampler(size_t i)
+Model::gibbs_sampler(int i)
 {
-  assert(i < _state.size());
+  assert(is_in_range(i, 0, _state.size()));
   assert(matrix_is_symmetric(_model_parameters._weight));
 
   double delta = _model_parameters._bias[i];
   const std::vector<double>& ws = _model_parameters._weight[i];
   for (size_t j = 0; j < _state.size(); j++) {
-    if (j == i)
+    if (int(j) == i)
       continue;
     if (_state[j])
       delta -= ws[j];

@@ -98,7 +98,7 @@ namespace bm_pbil {
     void reset_mc();
 
     /// A Gibbs sampler cycle
-    void gibbs_sampler(size_t i);
+    void gibbs_sampler(int i);
 
     /// A synchronous Gibbs sampler
     void gibbs_sampler_synchronous();
