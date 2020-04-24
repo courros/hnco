@@ -28,6 +28,8 @@ using namespace hnco;
 void
 NpsPbil::init()
 {
+  set_something_to_log();
+
   random_solution();
   pv_uniform(_pv);
 }
