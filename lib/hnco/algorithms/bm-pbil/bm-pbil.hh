@@ -197,7 +197,7 @@ namespace bm_pbil {
     /// Initialization
     void init();
 
-    /** @name Parameters
+    /** @name Setters for parameters
      */
     ///@{
 
