@@ -399,12 +399,9 @@ make_concrete_algorithm(const Options& options)
     algo->set_sampling(options.get_bm_sampling());
     algo->set_mc_reset_strategy(options.get_bm_mc_reset_strategy());
 
-    BmPbil::log_flags_t lf = {};
-    if (options.with_bm_log_norm_infinite())
-      lf.set(BmPbil::LOG_NORM_INFINITE);
-    if (options.with_bm_log_norm_l1())
-      lf.set(BmPbil::LOG_NORM_L1);
-    algo->set_log_flags(lf);
+    algo->set_log_norm_infinite(options.with_bm_log_norm_infinite());
+    algo->set_log_norm_l1(options.with_bm_log_norm_l1());
+    algo->set_something_to_log();
 
     return algo;
   }

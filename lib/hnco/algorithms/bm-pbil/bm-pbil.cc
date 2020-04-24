@@ -139,12 +139,12 @@ BmPbil::iterate()
 void
 BmPbil::log()
 {
-  assert(_log_flags.any());
+  assert(_something_to_log);
 
-  if (_log_flags[LOG_NORM_INFINITE])
+  if (_log_norm_infinite)
     (*_stream) << _model.norm_infinite() << " ";
 
-  if (_log_flags[LOG_NORM_L1])
+  if (_log_norm_l1)
     (*_stream) << _model.norm_l1() << " ";
 
   (*_stream) << std::endl;

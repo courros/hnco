@@ -54,16 +54,6 @@ namespace bm_pbil {
   public:
 
     enum {
-      /// Log infinite norm of the model parameters
-      LOG_NORM_INFINITE,
-
-      /// Log 1-norm of the model parameters
-      LOG_NORM_L1,
-
-      LAST_LOG
-    };
-
-    enum {
 
       /** Asynchronous sampling.
 
@@ -88,6 +78,7 @@ namespace bm_pbil {
           used in Gibbs sampling.
       */
       SAMPLING_SYNCHRONOUS
+
     };
 
     enum {
@@ -106,14 +97,10 @@ namespace bm_pbil {
 
        */
       RESET_BIT_VECTOR
+
     };
 
-    typedef std::bitset<LAST_LOG> log_flags_t;
-
   private:
-
-    /// Log flags
-    log_flags_t _log_flags;
 
     /// Population
     Population _population;
@@ -160,6 +147,18 @@ namespace bm_pbil {
 
     /// MC reset strategy
     int _mc_reset_strategy = RESET_NO_RESET;
+
+    ///@}
+
+    /** @name Logging
+     */
+    ///@{
+
+    /// Log infinite norm of the model parameters
+    bool _log_norm_infinite = false;
+
+    /// Log 1-norm of the model parameters
+    bool _log_norm_l1 = false;
 
     ///@}
 
@@ -227,11 +226,20 @@ namespace bm_pbil {
     /// Set the MC reset strategy
     void set_mc_reset_strategy(int x) { _mc_reset_strategy = x; }
 
-    /// Set log flags
-    void set_log_flags(const log_flags_t& lf) {
-      _log_flags = lf;
-      _something_to_log = _log_flags.any();
-    }
+    ///@}
+
+    /** @name Setters for logging
+     */
+    ///@{
+
+    /// Log infinite norm of the model parameters
+    void set_log_norm_infinite(bool x) { _log_norm_infinite = x; }
+
+    /// Log 1-norm of the model parameters
+    void set_log_norm_l1(bool x) { _log_norm_l1 = x; }
+
+    /// Set flag for something to log
+    void set_something_to_log() { _something_to_log = _log_norm_infinite || _log_norm_l1; }
 
     ///@}
 
