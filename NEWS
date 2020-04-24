@@ -5,9 +5,12 @@ Library:
 - Added TsAffineMap::display
 - Fixed Transvection::random_non_commuting
 - BmPbil: added setters for logging
+- BmPbil, PvAlgorithm: member function set_something_to_log is private
+- BmPbil, PvAlgorithm: member function init calls set_something_to_log
 
 hnco:
 - Added option --map-display
+- make_concrete_algorithm: does not call set_something_to_log
 
 Tests:
 - Renamed test-ts-involution -> test-ts-random-commuting-is-involution
