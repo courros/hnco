@@ -124,6 +124,9 @@ namespace hnco {
     */
     bool is_surjective() { return true; }
 
+    /// Set the translation vector
+    void set_bv(const bit_vector_t& bv) { _bv = bv; }
+
   };
 
   

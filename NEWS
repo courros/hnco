@@ -7,6 +7,7 @@ Library:
 - BmPbil: added setters for logging
 - BmPbil, PvAlgorithm: member function set_something_to_log is private
 - BmPbil, PvAlgorithm: member function init calls set_something_to_log
+- Translation: added member function set_bv
 
 hnco:
 - Added option --map-display
