@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     int bv_size = bv_size_dist(Random::generator);
     int norm = 1 << bv_size;
     Plateau source(bv_size);
-    std::vector<Function::WalshTransformTerm> terms;
+    std::vector<function::WalshTerm> terms;
     source.compute_walsh_transform(terms);
     WalshExpansion destination;
     destination.set_terms(terms);

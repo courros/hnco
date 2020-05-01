@@ -65,7 +65,7 @@ namespace function {
     }
 
     /// Terms
-    std::vector<Function::WalshTransformTerm> _terms;
+    std::vector<function::WalshTerm> _terms;
 
   public:
 
@@ -94,7 +94,7 @@ namespace function {
       _terms.resize(num_features);
 
       for (size_t i = 0; i < _terms.size(); i++) {
-        WalshTransformTerm& t = _terms[i];
+        WalshTerm& t = _terms[i];
         bv_random(bv);
         bv_to_vector_bool(bv, feature);
         t.feature = feature;
@@ -133,7 +133,7 @@ namespace function {
     void display(std::ostream& stream);
 
     /// Set terms
-    void set_terms(const std::vector<Function::WalshTransformTerm> terms) { _terms = terms; }
+    void set_terms(const std::vector<function::WalshTerm> terms) { _terms = terms; }
 
   };
 

@@ -28,7 +28,7 @@ using namespace hnco;
 
 
 void
-Function::compute_walsh_transform(std::vector<Function::WalshTransformTerm>& terms)
+Function::compute_walsh_transform(std::vector<function::WalshTerm>& terms)
 {
   const int n = get_bv_size();
 

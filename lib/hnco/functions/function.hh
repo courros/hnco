@@ -32,38 +32,17 @@
 #include "hnco/neighborhoods/neighborhood-iterator.hh"
 #include "hnco/sparse-bit-vector.hh"
 
+#include "walsh-term.hh"
+
 
 namespace hnco {
-/// Real black box functions defined on bit vectors
+/// Functions defined on bit vectors
 namespace function {
 
   /// Function
   class Function {
 
   public:
-
-    /// Walsh transform term
-    struct WalshTransformTerm {
-
-      /** Feature.
-
-          Implemented with a vector bool instead of a bit_vector_t to
-          reduce the memory consumption.
-      */
-      std::vector<bool> feature;
-
-      /// Coefficient
-      double coefficient;
-
-      /// Serialize
-      template<class Archive>
-      void serialize(Archive& ar, const unsigned int version)
-      {
-        ar & feature;
-        ar & coefficient;
-      }
-
-    };
 
     /// Destructor
     virtual ~Function() {}
@@ -114,7 +93,7 @@ namespace function {
         the number of terms is at most 1024.
 
     */
-    virtual void compute_walsh_transform(std::vector<Function::WalshTransformTerm>& terms);
+    virtual void compute_walsh_transform(std::vector<function::WalshTerm>& terms);
 
     ///@}
 

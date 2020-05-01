@@ -163,14 +163,14 @@ int main(int argc, char *argv[])
   if (options.with_fn_walsh_transform()) {
     if (fn->get_bv_size() > 15)
       std::cerr << "Warning: Walsh transform computation might take a long time or fail due to large bv_size" << std::endl;
-    std::vector<Function::WalshTransformTerm> terms;
+    std::vector<function::WalshTerm> terms;
     fn->compute_walsh_transform(terms);
     for (auto& t : terms)
       t.coefficient = std::abs(t.coefficient);
     std::sort(terms.begin(),
               terms.end(),
-              [](const Function::WalshTransformTerm& a,
-                 const Function::WalshTransformTerm& b){ return a.coefficient > b.coefficient; });
+              [](const function::WalshTerm& a,
+                 const function::WalshTerm& b){ return a.coefficient > b.coefficient; });
     assert(terms.size() > 0);
     double norm;
     if (bv_hamming_weight(terms[0].feature) == 0)

@@ -13,6 +13,9 @@ Library:
 - Moved controllers under functions/controllers
 - Moved modifiers under functions/modifiers
 - Moved function-decorator.hh under functions
+- Renamed WalshTransformTerm -> WalshTerm
+- Moved WalshTerm inside namespace hnco::function
+- Moved WalshTerm inside file functions/walsh-term.hh
 
 hnco:
 - Added option --map-display

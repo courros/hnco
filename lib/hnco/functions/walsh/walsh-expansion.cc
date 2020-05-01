@@ -47,11 +47,11 @@ WalshExpansion::eval(const bit_vector_t& x)
 void
 WalshExpansion::display(std::ostream& stream)
 {
-  std::vector<Function::WalshTransformTerm>::iterator it =
+  std::vector<function::WalshTerm>::iterator it =
     std::max_element(_terms.begin(),
                      _terms.end(),
-                     [](const Function::WalshTransformTerm& a,
-                        const Function::WalshTransformTerm& b){ return bv_hamming_weight(a.feature) < bv_hamming_weight(b.feature); });
+                     [](const function::WalshTerm& a,
+                        const function::WalshTerm& b){ return bv_hamming_weight(a.feature) < bv_hamming_weight(b.feature); });
 
   stream
     << "Number of terms = " << _terms.size() << std::endl

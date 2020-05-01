@@ -184,6 +184,7 @@ libhnco_la_SOURCES = \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.cc \
 	hnco/functions/trap.hh \
+	hnco/functions/walsh-term.hh \
 	hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.cc \
 	hnco/functions/walsh/walsh-expansion-1.hh \
@@ -317,6 +318,7 @@ nobase_include_HEADERS = \
 	hnco/functions/real/real-representation.hh \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.hh \
+	hnco/functions/walsh-term.hh \
 	hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
