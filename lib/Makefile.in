@@ -242,9 +242,10 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/bit-matrix.hh hnco/bit-vector.cc hnco/bit-vector.hh \
 	hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
+	hnco/functions/controllers/all.hh \
+	hnco/functions/controllers/function-controller.cc \
+	hnco/functions/controllers/function-controller.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-controller.cc \
-	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.cc \
 	hnco/functions/decorators/function-modifier.hh \
@@ -335,7 +336,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/pv/pv-algorithm.lo hnco/algorithms/pv/umda.lo \
 	hnco/algorithms/random-search.lo hnco/bit-matrix.lo \
 	hnco/bit-vector.lo hnco/functions/cancellation.lo \
-	hnco/functions/decorators/function-controller.lo \
+	hnco/functions/controllers/function-controller.lo \
 	hnco/functions/decorators/function-modifier.lo \
 	hnco/functions/decorators/parsed-modifier.lo \
 	hnco/functions/decorators/prior-noise.lo \
@@ -445,7 +446,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/$(DEPDIR)/qubo.Plo \
 	hnco/functions/$(DEPDIR)/theory.Plo \
 	hnco/functions/$(DEPDIR)/trap.Plo \
-	hnco/functions/decorators/$(DEPDIR)/function-controller.Plo \
+	hnco/functions/controllers/$(DEPDIR)/function-controller.Plo \
 	hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo \
 	hnco/functions/decorators/$(DEPDIR)/parsed-modifier.Plo \
 	hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo \
@@ -547,8 +548,9 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/random-search.hh hnco/bit-matrix.hh \
 	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.hh \
+	hnco/functions/controllers/all.hh \
+	hnco/functions/controllers/function-controller.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.hh \
 	hnco/functions/decorators/parsed-modifier.hh \
@@ -806,9 +808,10 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/bit-matrix.hh hnco/bit-vector.cc hnco/bit-vector.hh \
 	hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
+	hnco/functions/controllers/all.hh \
+	hnco/functions/controllers/function-controller.cc \
+	hnco/functions/controllers/function-controller.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-controller.cc \
-	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.cc \
 	hnco/functions/decorators/function-modifier.hh \
@@ -902,8 +905,9 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/random-search.hh hnco/bit-matrix.hh \
 	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.hh \
+	hnco/functions/controllers/all.hh \
+	hnco/functions/controllers/function-controller.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.hh \
 	hnco/functions/decorators/parsed-modifier.hh \
@@ -1185,15 +1189,21 @@ hnco/functions/$(DEPDIR)/$(am__dirstamp):
 	@: > hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/cancellation.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/controllers/$(am__dirstamp):
+	@$(MKDIR_P) hnco/functions/controllers
+	@: > hnco/functions/controllers/$(am__dirstamp)
+hnco/functions/controllers/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/functions/controllers/$(DEPDIR)
+	@: > hnco/functions/controllers/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/controllers/function-controller.lo:  \
+	hnco/functions/controllers/$(am__dirstamp) \
+	hnco/functions/controllers/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/decorators/$(am__dirstamp):
 	@$(MKDIR_P) hnco/functions/decorators
 	@: > hnco/functions/decorators/$(am__dirstamp)
 hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/functions/decorators/$(DEPDIR)
 	@: > hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/decorators/function-controller.lo:  \
-	hnco/functions/decorators/$(am__dirstamp) \
-	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/decorators/function-modifier.lo:  \
 	hnco/functions/decorators/$(am__dirstamp) \
 	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
@@ -1326,6 +1336,8 @@ mostlyclean-compile:
 	-rm -f hnco/algorithms/pv/*.lo
 	-rm -f hnco/functions/*.$(OBJEXT)
 	-rm -f hnco/functions/*.lo
+	-rm -f hnco/functions/controllers/*.$(OBJEXT)
+	-rm -f hnco/functions/controllers/*.lo
 	-rm -f hnco/functions/decorators/*.$(OBJEXT)
 	-rm -f hnco/functions/decorators/*.lo
 	-rm -f hnco/functions/ising/*.$(OBJEXT)
@@ -1409,7 +1421,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/qubo.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/theory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/trap.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-controller.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/controllers/$(DEPDIR)/function-controller.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/parsed-modifier.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo@am__quote@ # am--include-marker
@@ -1495,6 +1507,7 @@ clean-libtool:
 	-rm -rf hnco/algorithms/ls/.libs hnco/algorithms/ls/_libs
 	-rm -rf hnco/algorithms/pv/.libs hnco/algorithms/pv/_libs
 	-rm -rf hnco/functions/.libs hnco/functions/_libs
+	-rm -rf hnco/functions/controllers/.libs hnco/functions/controllers/_libs
 	-rm -rf hnco/functions/decorators/.libs hnco/functions/decorators/_libs
 	-rm -rf hnco/functions/ising/.libs hnco/functions/ising/_libs
 	-rm -rf hnco/functions/real/.libs hnco/functions/real/_libs
@@ -1667,6 +1680,8 @@ distclean-generic:
 	-rm -f hnco/algorithms/pv/$(am__dirstamp)
 	-rm -f hnco/functions/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/$(am__dirstamp)
+	-rm -f hnco/functions/controllers/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/functions/controllers/$(am__dirstamp)
 	-rm -f hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/decorators/$(am__dirstamp)
 	-rm -f hnco/functions/ising/$(DEPDIR)/$(am__dirstamp)
@@ -1756,7 +1771,7 @@ distclean: distclean-am
 	-rm -f hnco/functions/$(DEPDIR)/qubo.Plo
 	-rm -f hnco/functions/$(DEPDIR)/theory.Plo
 	-rm -f hnco/functions/$(DEPDIR)/trap.Plo
-	-rm -f hnco/functions/decorators/$(DEPDIR)/function-controller.Plo
+	-rm -f hnco/functions/controllers/$(DEPDIR)/function-controller.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/parsed-modifier.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo
@@ -1884,7 +1899,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/$(DEPDIR)/qubo.Plo
 	-rm -f hnco/functions/$(DEPDIR)/theory.Plo
 	-rm -f hnco/functions/$(DEPDIR)/trap.Plo
-	-rm -f hnco/functions/decorators/$(DEPDIR)/function-controller.Plo
+	-rm -f hnco/functions/controllers/$(DEPDIR)/function-controller.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/parsed-modifier.Plo
 	-rm -f hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo

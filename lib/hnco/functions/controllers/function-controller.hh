@@ -28,7 +28,7 @@
 
 #include "hnco/stop-watch.hh"
 
-#include "function-decorator.hh"
+#include "../decorators/function-decorator.hh"
 
 
 namespace hnco {

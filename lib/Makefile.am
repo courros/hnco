@@ -136,9 +136,10 @@ libhnco_la_SOURCES = \
 	hnco/functions/all.hh \
 	hnco/functions/cancellation.cc \
 	hnco/functions/cancellation.hh \
+	hnco/functions/controllers/all.hh \
+	hnco/functions/controllers/function-controller.cc \
+	hnco/functions/controllers/function-controller.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-controller.cc \
-	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.cc \
 	hnco/functions/decorators/function-modifier.hh \
@@ -290,8 +291,9 @@ nobase_include_HEADERS = \
 	hnco/exception.hh \
 	hnco/functions/all.hh \
 	hnco/functions/cancellation.hh \
+	hnco/functions/controllers/all.hh \
+	hnco/functions/controllers/function-controller.hh \
 	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-controller.hh \
 	hnco/functions/decorators/function-decorator.hh \
 	hnco/functions/decorators/function-modifier.hh \
 	hnco/functions/decorators/parsed-modifier.hh \

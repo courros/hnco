@@ -18,11 +18,9 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_DECORATORS_ALL_H
-#define HNCO_FUNCTIONS_DECORATORS_ALL_H
+#ifndef HNCO_FUNCTIONS_CONTROLLERS_ALL_H
+#define HNCO_FUNCTIONS_CONTROLLERS_ALL_H
 
-#include "function-modifier.hh"
-#include "prior-noise.hh"
-#include "parsed-modifier.hh"
+#include "function-controller.hh"
 
 #endif
