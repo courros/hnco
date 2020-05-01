@@ -33,6 +33,7 @@
 
 namespace hnco {
 namespace function {
+/// Controllers
 namespace controller {
 
 
