@@ -30,6 +30,7 @@
 
 namespace hnco {
 namespace function {
+namespace modifier {
 
 
   /// Prior noise
@@ -92,6 +93,7 @@ namespace function {
   };
 
 
+} // end of namespace modifier
 } // end of namespace function
 } // end of namespace hnco
 

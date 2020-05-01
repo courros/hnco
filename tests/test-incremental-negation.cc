@@ -28,6 +28,7 @@
 
 using namespace hnco::neighborhood;
 using namespace hnco::function;
+using namespace hnco::function::modifier;
 using namespace hnco::random;
 using namespace hnco;
 

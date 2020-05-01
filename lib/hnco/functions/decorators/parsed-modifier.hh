@@ -29,6 +29,7 @@
 
 namespace hnco {
 namespace function {
+namespace modifier {
 
   /** Parsed modifier.
 
@@ -76,6 +77,7 @@ namespace function {
   };
 
 
+} // end of namespace modifier
 } // end of namespace function
 } // end of namespace hnco
 

@@ -32,6 +32,7 @@
 
 namespace hnco {
 namespace function {
+namespace modifier {
 
 
   /// Function modifier
@@ -195,6 +196,7 @@ namespace function {
   };
 
 
+} // end of namespace modifier
 } // end of namespace function
 } // end of namespace hnco
 

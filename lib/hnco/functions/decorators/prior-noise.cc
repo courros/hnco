@@ -22,6 +22,7 @@
 
 
 using namespace hnco::function;
+using namespace hnco::function::modifier;
 
 
 double
