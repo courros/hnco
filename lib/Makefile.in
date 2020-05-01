@@ -247,8 +247,10 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/controllers/function-controller.hh \
 	hnco/functions/equal-products.cc \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.cc \
-	hnco/functions/four-peaks.hh hnco/functions/function.cc \
-	hnco/functions/function.hh hnco/functions/ising/all.hh \
+	hnco/functions/four-peaks.hh \
+	hnco/functions/function-decorator.hh \
+	hnco/functions/function.cc hnco/functions/function.hh \
+	hnco/functions/ising/all.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-1.cc \
 	hnco/functions/ising/nearest-neighbor-ising-model-1.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-2.cc \
@@ -259,7 +261,6 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/linear-function.hh hnco/functions/long-path.cc \
 	hnco/functions/long-path.hh hnco/functions/max-sat.cc \
 	hnco/functions/max-sat.hh hnco/functions/modifiers/all.hh \
-	hnco/functions/modifiers/function-decorator.hh \
 	hnco/functions/modifiers/function-modifier.cc \
 	hnco/functions/modifiers/function-modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.cc \
@@ -551,13 +552,13 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/function-controller.hh \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.hh \
+	hnco/functions/function-decorator.hh \
 	hnco/functions/function.hh hnco/functions/ising/all.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-1.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-2.hh \
 	hnco/functions/jump.hh hnco/functions/labs.hh \
 	hnco/functions/linear-function.hh hnco/functions/long-path.hh \
 	hnco/functions/max-sat.hh hnco/functions/modifiers/all.hh \
-	hnco/functions/modifiers/function-decorator.hh \
 	hnco/functions/modifiers/function-modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.hh \
@@ -813,8 +814,10 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/controllers/function-controller.hh \
 	hnco/functions/equal-products.cc \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.cc \
-	hnco/functions/four-peaks.hh hnco/functions/function.cc \
-	hnco/functions/function.hh hnco/functions/ising/all.hh \
+	hnco/functions/four-peaks.hh \
+	hnco/functions/function-decorator.hh \
+	hnco/functions/function.cc hnco/functions/function.hh \
+	hnco/functions/ising/all.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-1.cc \
 	hnco/functions/ising/nearest-neighbor-ising-model-1.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-2.cc \
@@ -825,7 +828,6 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/linear-function.hh hnco/functions/long-path.cc \
 	hnco/functions/long-path.hh hnco/functions/max-sat.cc \
 	hnco/functions/max-sat.hh hnco/functions/modifiers/all.hh \
-	hnco/functions/modifiers/function-decorator.hh \
 	hnco/functions/modifiers/function-modifier.cc \
 	hnco/functions/modifiers/function-modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.cc \
@@ -908,13 +910,13 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/function-controller.hh \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.hh \
+	hnco/functions/function-decorator.hh \
 	hnco/functions/function.hh hnco/functions/ising/all.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-1.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-2.hh \
 	hnco/functions/jump.hh hnco/functions/labs.hh \
 	hnco/functions/linear-function.hh hnco/functions/long-path.hh \
 	hnco/functions/max-sat.hh hnco/functions/modifiers/all.hh \
-	hnco/functions/modifiers/function-decorator.hh \
 	hnco/functions/modifiers/function-modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.hh \

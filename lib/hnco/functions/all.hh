@@ -25,6 +25,7 @@
 #include "hnco/functions/controllers/all.hh"
 #include "hnco/functions/equal-products.hh"
 #include "hnco/functions/four-peaks.hh"
+#include "hnco/functions/function-decorator.hh"
 #include "hnco/functions/function.hh"
 #include "hnco/functions/ising/all.hh"
 #include "hnco/functions/jump.hh"
