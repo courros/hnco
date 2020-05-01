@@ -8,6 +8,11 @@ Library:
 - BmPbil, PvAlgorithm: member function set_something_to_log is private
 - BmPbil, PvAlgorithm: member function init calls set_something_to_log
 - Translation: added member function set_bv
+- Added namespace hnco::function::controller
+- Added namespace hnco::function::modifier
+- Moved controllers under functions/controllers
+- Moved modifiers under functions/modifiers
+- Moved function-decorator.hh under functions
 
 hnco:
 - Added option --map-display
