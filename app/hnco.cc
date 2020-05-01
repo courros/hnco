@@ -38,6 +38,7 @@
 using namespace hnco::algorithm;
 using namespace hnco::exception;
 using namespace hnco::function;
+using namespace hnco::function::controller;
 using namespace hnco::random;
 using namespace hnco;
 
@@ -294,7 +295,7 @@ int main(int argc, char *argv[])
   results << "  \"total_time\": "               << total_time << ",\n";
   results << "  \"evaluation_time\": "          << tracker->get_evaluation_time();
 
-  hnco::function::Cache *cache = function_factory.get_cache();
+  hnco::function::controller::Cache *cache = function_factory.get_cache();
 
   if (cache)
     results << ",\n  \"lookup_ratio\": " << cache->get_lookup_ratio();

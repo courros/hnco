@@ -25,6 +25,7 @@
 
 using namespace hnco::exception;
 using namespace hnco::function;
+using namespace hnco::function::controller;
 
 
 double
@@ -204,7 +205,7 @@ ProgressTracker::update_last_improvement(double value)
 }
 
 
-std::ostream& hnco::function::operator<<(std::ostream& stream, const ProgressTracker::Event& event)
+std::ostream& hnco::function::controller::operator<<(std::ostream& stream, const ProgressTracker::Event& event)
 {
   stream << event.num_evaluations << " " << event.value;
   return stream;

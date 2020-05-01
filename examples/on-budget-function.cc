@@ -26,11 +26,12 @@
 #include "hnco/functions/theory.hh"
 #include "hnco/random.hh"
 
+using namespace hnco;
 using namespace hnco::algorithm;
 using namespace hnco::exception;
 using namespace hnco::function;
+using namespace hnco::function::controller;
 using namespace hnco::random;
-using namespace hnco;
 
 
 int main()

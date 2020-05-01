@@ -49,12 +49,12 @@ namespace algorithm {
     public LogContext {
 
     /// Progress tracker
-    hnco::function::ProgressTracker *_pt;
+    hnco::function::controller::ProgressTracker *_pt;
 
   public:
 
     /// Constructor
-    ProgressTrackerContext(hnco::function::ProgressTracker *pt):
+    ProgressTrackerContext(hnco::function::controller::ProgressTracker *pt):
       _pt(pt) {}
 
     /// Get context

@@ -34,10 +34,10 @@ class FunctionFactory
   hnco::Map *_map = 0;
 
   /// Cache
-  hnco::function::Cache *_cache = 0;
+  hnco::function::controller::Cache *_cache = 0;
 
   /// Tracker
-  hnco::function::ProgressTracker *_tracker = 0;
+  hnco::function::controller::ProgressTracker *_tracker = 0;
 
   /// Make a function modifier
   hnco::function::Function *make_function_modifier(hnco::function::Function *function, Options& options);
@@ -54,10 +54,10 @@ public:
   hnco::Map *get_map() { return _map; }
 
   /// Get cache
-  hnco::function::Cache *get_cache() { return _cache; }
+  hnco::function::controller::Cache *get_cache() { return _cache; }
 
   /// Get tracker
-  hnco::function::ProgressTracker *get_tracker() { return _tracker; }
+  hnco::function::controller::ProgressTracker *get_tracker() { return _tracker; }
 
 };
 

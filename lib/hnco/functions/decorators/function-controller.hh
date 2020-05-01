@@ -33,6 +33,7 @@
 
 namespace hnco {
 namespace function {
+namespace controller {
 
 
   /// Function controller
@@ -404,6 +405,7 @@ namespace function {
   };
 
 
+} // end of namespace controller
 } // end of namespace function
 } // end of namespace hnco
 
