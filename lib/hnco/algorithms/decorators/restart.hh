@@ -23,7 +23,7 @@
 
 #include <assert.h>
 
-#include "hnco/algorithms/algorithm.hh"
+#include "hnco/algorithms/iterative-algorithm.hh"
 
 
 namespace hnco {

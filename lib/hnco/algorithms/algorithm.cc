@@ -72,21 +72,3 @@ Algorithm::update_solution(const bit_vector_t& x)
   assert(_function);
   update_solution(x, _function->eval(x));
 }
-
-void
-IterativeAlgorithm::maximize()
-{
-  if (_num_iterations > 0) {
-    for (_iteration = 0; _iteration < _num_iterations; _iteration++) {
-      iterate();
-      if (_something_to_log)
-        log();
-    }
-  } else {
-    for (_iteration = 0;; _iteration++) {
-      iterate();
-      if (_something_to_log)
-        log();
-    }
-  }
-}

@@ -23,7 +23,7 @@
 
 #include <bitset>
 
-#include "hnco/algorithms/algorithm.hh"
+#include "hnco/algorithms/iterative-algorithm.hh"
 
 #include "probability-vector.hh"
 

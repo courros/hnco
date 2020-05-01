@@ -23,7 +23,7 @@
 
 #include <random>
 
-#include "hnco/algorithms/algorithm.hh"
+#include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/random.hh"
 

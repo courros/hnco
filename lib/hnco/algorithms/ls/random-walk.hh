@@ -21,7 +21,7 @@
 #ifndef HNCO_ALGORITHMS_LS_RANDOM_WALK_H
 #define HNCO_ALGORITHMS_LS_RANDOM_WALK_H
 
-#include "hnco/algorithms/algorithm.hh"
+#include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/exception.hh"
 
 #include "hnco/neighborhoods/neighborhood.hh"

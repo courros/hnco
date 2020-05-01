@@ -23,7 +23,7 @@
 
 #include <functional>           // std::function
 
-#include "hnco/algorithms/algorithm.hh"
+#include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/neighborhoods/neighborhood-iterator.hh"
 
 

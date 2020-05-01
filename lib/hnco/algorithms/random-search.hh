@@ -21,7 +21,7 @@
 #ifndef HNCO_ALGORITHMS_RANDOM_SEARCH_H
 #define HNCO_ALGORITHMS_RANDOM_SEARCH_H
 
-#include "hnco/algorithms/algorithm.hh"
+#include "hnco/algorithms/iterative-algorithm.hh"
 
 
 namespace hnco {

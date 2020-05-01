@@ -28,6 +28,7 @@
 #include "hnco/algorithms/ea/all.hh"
 #include "hnco/algorithms/eda/all.hh"
 #include "hnco/algorithms/hea/all.hh"
+#include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/algorithms/ls/all.hh"
 #include "hnco/algorithms/pv/all.hh"
 #include "hnco/algorithms/random-search.hh"

@@ -16,6 +16,7 @@ Library:
 - Renamed WalshTransformTerm -> WalshTerm
 - Moved WalshTerm inside namespace hnco::function
 - Moved WalshTerm inside file functions/walsh-term.hh
+- Moved IterativeAlgorithm inside files algorithms/iterative-algorithm.*
 
 hnco:
 - Added option --map-display

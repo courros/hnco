@@ -165,68 +165,6 @@ namespace algorithm {
   };
 
 
-  /// Iterative search
-  class IterativeAlgorithm:
-    public Algorithm {
-
-  protected:
-
-    /// Current iteration
-    int _iteration;
-
-    /// Something to log
-    bool _something_to_log;
-
-    /** @name Parameters
-     */
-    ///@{
-
-    /// Number of iterations
-    int _num_iterations = 0;
-
-    ///@}
-
-    /// Single iteration
-    virtual void iterate() = 0;
-
-    /// Log
-    virtual void log() {}
-
-  public:
-
-    /** Constructor.
-        \param n Size of bit vectors */
-    IterativeAlgorithm(int n):
-      Algorithm(n),
-      _something_to_log(false) {}
-
-    /** Maximize.
-
-        Inside the loop:
-        - call iterate()
-        - call log()
-
-        \warning If an exception such as LocalMaximum is thrown by
-        iterate(), log() will not be called. However, hnco reports the
-        maximum at the end of the search. */
-    void maximize();
-
-    /** @name Setters
-     */
-    ///@{
-
-    /** Set the number of iterations.
-
-        \param x Number of iterations
-
-        x <= 0 means indefinite */
-    void set_num_iterations(int x) { _num_iterations = x; }
-
-    ///@}
-
-  };
-
-
 } // end of namespace algorithm
 } // end of namespace hnco
 

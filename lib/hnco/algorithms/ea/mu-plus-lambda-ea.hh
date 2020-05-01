@@ -21,7 +21,7 @@
 #ifndef HNCO_ALGORITHMS_EA_MU_PLUS_LAMBDA_H
 #define HNCO_ALGORITHMS_EA_MU_PLUS_LAMBDA_H
 
-#include "hnco/algorithms/algorithm.hh"
+#include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/algorithms/population.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/random.hh"

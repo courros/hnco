@@ -21,7 +21,7 @@
 #ifndef HNCO_ALGORITHMS_BM_PBIL_BM_PBIL_H
 #define HNCO_ALGORITHMS_BM_PBIL_BM_PBIL_H
 
-#include "hnco/algorithms/algorithm.hh"
+#include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/algorithms/population.hh"
 #include "hnco/permutation.hh"
 

@@ -18,60 +18,11 @@
 
 */
 
-#include <assert.h>
-
-#include "algorithm.hh"
+#include "iterative-algorithm.hh"
 
 
 using namespace hnco::algorithm;
-using namespace hnco::random;
 
-
-void
-Algorithm::random_solution()
-{
-  assert(_function);
-
-  bv_random(_solution.first);
-  _solution.second = _function->eval(_solution.first);
-}
-
-void
-Algorithm::set_solution(const bit_vector_t& x, double value)
-{
-  _solution.first = x;
-  _solution.second = value;
-}
-
-void
-Algorithm::set_solution(const bit_vector_t& x)
-{
-  assert(_function);
-  set_solution(x, _function->eval(x));
-}
-
-void
-Algorithm::update_solution(const bit_vector_t& x, double value)
-{
-  if (value > _solution.second) {
-    _solution.first = x;
-    _solution.second = value;
-  }
-}
-
-void
-Algorithm::update_solution(const point_value_t& pv)
-{
-  if (pv.second > _solution.second)
-    _solution = pv;
-}
-
-void
-Algorithm::update_solution(const bit_vector_t& x)
-{
-  assert(_function);
-  update_solution(x, _function->eval(x));
-}
 
 void
 IterativeAlgorithm::maximize()

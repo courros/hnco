@@ -25,7 +25,7 @@
 #include <utility>              // std::pair
 #include <vector>
 
-#include "hnco/algorithms/algorithm.hh"
+#include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/algorithms/population.hh"
 #include "hnco/exception.hh"
 #include "hnco/permutation.hh"
