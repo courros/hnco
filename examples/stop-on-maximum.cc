@@ -22,7 +22,7 @@
 #include <iostream>
 
 #include "hnco/algorithms/ea/one-plus-one-ea.hh"
-#include "hnco/functions/decorators/function-controller.hh"
+#include "hnco/functions/controllers/function-controller.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/random.hh"
 

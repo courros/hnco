@@ -139,14 +139,6 @@ libhnco_la_SOURCES = \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/function-controller.cc \
 	hnco/functions/controllers/function-controller.hh \
-	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-decorator.hh \
-	hnco/functions/decorators/function-modifier.cc \
-	hnco/functions/decorators/function-modifier.hh \
-	hnco/functions/decorators/parsed-modifier.cc \
-	hnco/functions/decorators/parsed-modifier.hh \
-	hnco/functions/decorators/prior-noise.cc \
-	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.cc \
 	hnco/functions/equal-products.hh \
 	hnco/functions/four-peaks.cc \
@@ -168,6 +160,14 @@ libhnco_la_SOURCES = \
 	hnco/functions/long-path.hh \
 	hnco/functions/max-sat.cc \
 	hnco/functions/max-sat.hh \
+	hnco/functions/modifiers/all.hh \
+	hnco/functions/modifiers/function-decorator.hh \
+	hnco/functions/modifiers/function-modifier.cc \
+	hnco/functions/modifiers/function-modifier.hh \
+	hnco/functions/modifiers/parsed-modifier.cc \
+	hnco/functions/modifiers/parsed-modifier.hh \
+	hnco/functions/modifiers/prior-noise.cc \
+	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/nk-landscape.cc \
 	hnco/functions/nk-landscape.hh \
 	hnco/functions/qubo.cc \
@@ -293,11 +293,6 @@ nobase_include_HEADERS = \
 	hnco/functions/cancellation.hh \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/function-controller.hh \
-	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-decorator.hh \
-	hnco/functions/decorators/function-modifier.hh \
-	hnco/functions/decorators/parsed-modifier.hh \
-	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.hh \
 	hnco/functions/four-peaks.hh \
 	hnco/functions/function.hh \
@@ -309,6 +304,11 @@ nobase_include_HEADERS = \
 	hnco/functions/linear-function.hh \
 	hnco/functions/long-path.hh \
 	hnco/functions/max-sat.hh \
+	hnco/functions/modifiers/all.hh \
+	hnco/functions/modifiers/function-decorator.hh \
+	hnco/functions/modifiers/function-modifier.hh \
+	hnco/functions/modifiers/parsed-modifier.hh \
+	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/nk-landscape.hh \
 	hnco/functions/qubo.hh \
 	hnco/functions/real/all.hh \

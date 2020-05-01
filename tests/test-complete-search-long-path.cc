@@ -22,7 +22,7 @@
 #include <random>
 
 #include "hnco/algorithms/complete-search.hh"
-#include "hnco/functions/decorators/function-modifier.hh"
+#include "hnco/functions/modifiers/function-modifier.hh"
 #include "hnco/functions/long-path.hh"
 #include "hnco/random.hh"
 

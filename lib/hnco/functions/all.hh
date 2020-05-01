@@ -22,7 +22,7 @@
 #define HNCO_FUNCTIONS_ALL_H
 
 #include "hnco/functions/cancellation.hh"
-#include "hnco/functions/decorators/all.hh"
+#include "hnco/functions/controllers/all.hh"
 #include "hnco/functions/equal-products.hh"
 #include "hnco/functions/four-peaks.hh"
 #include "hnco/functions/function.hh"
@@ -32,6 +32,7 @@
 #include "hnco/functions/linear-function.hh"
 #include "hnco/functions/long-path.hh"
 #include "hnco/functions/max-sat.hh"
+#include "hnco/functions/modifiers/all.hh"
 #include "hnco/functions/nk-landscape.hh"
 #include "hnco/functions/qubo.hh"
 #include "hnco/functions/real/all.hh"

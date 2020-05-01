@@ -245,14 +245,6 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/function-controller.cc \
 	hnco/functions/controllers/function-controller.hh \
-	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-decorator.hh \
-	hnco/functions/decorators/function-modifier.cc \
-	hnco/functions/decorators/function-modifier.hh \
-	hnco/functions/decorators/parsed-modifier.cc \
-	hnco/functions/decorators/parsed-modifier.hh \
-	hnco/functions/decorators/prior-noise.cc \
-	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.cc \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.cc \
 	hnco/functions/four-peaks.hh hnco/functions/function.cc \
@@ -266,9 +258,17 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/linear-function.cc \
 	hnco/functions/linear-function.hh hnco/functions/long-path.cc \
 	hnco/functions/long-path.hh hnco/functions/max-sat.cc \
-	hnco/functions/max-sat.hh hnco/functions/nk-landscape.cc \
-	hnco/functions/nk-landscape.hh hnco/functions/qubo.cc \
-	hnco/functions/qubo.hh hnco/functions/real/all.hh \
+	hnco/functions/max-sat.hh hnco/functions/modifiers/all.hh \
+	hnco/functions/modifiers/function-decorator.hh \
+	hnco/functions/modifiers/function-modifier.cc \
+	hnco/functions/modifiers/function-modifier.hh \
+	hnco/functions/modifiers/parsed-modifier.cc \
+	hnco/functions/modifiers/parsed-modifier.hh \
+	hnco/functions/modifiers/prior-noise.cc \
+	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/nk-landscape.cc hnco/functions/nk-landscape.hh \
+	hnco/functions/qubo.cc hnco/functions/qubo.hh \
+	hnco/functions/real/all.hh \
 	hnco/functions/real/real-multivariate-function-adapter.cc \
 	hnco/functions/real/real-multivariate-function-adapter.hh \
 	hnco/functions/real/real-multivariate-function.cc \
@@ -337,17 +337,17 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/random-search.lo hnco/bit-matrix.lo \
 	hnco/bit-vector.lo hnco/functions/cancellation.lo \
 	hnco/functions/controllers/function-controller.lo \
-	hnco/functions/decorators/function-modifier.lo \
-	hnco/functions/decorators/parsed-modifier.lo \
-	hnco/functions/decorators/prior-noise.lo \
 	hnco/functions/equal-products.lo hnco/functions/four-peaks.lo \
 	hnco/functions/function.lo \
 	hnco/functions/ising/nearest-neighbor-ising-model-1.lo \
 	hnco/functions/ising/nearest-neighbor-ising-model-2.lo \
 	hnco/functions/jump.lo hnco/functions/labs.lo \
 	hnco/functions/linear-function.lo hnco/functions/long-path.lo \
-	hnco/functions/max-sat.lo hnco/functions/nk-landscape.lo \
-	hnco/functions/qubo.lo \
+	hnco/functions/max-sat.lo \
+	hnco/functions/modifiers/function-modifier.lo \
+	hnco/functions/modifiers/parsed-modifier.lo \
+	hnco/functions/modifiers/prior-noise.lo \
+	hnco/functions/nk-landscape.lo hnco/functions/qubo.lo \
 	hnco/functions/real/real-multivariate-function-adapter.lo \
 	hnco/functions/real/real-multivariate-function.lo \
 	hnco/functions/real/real-representation.lo \
@@ -447,11 +447,11 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/$(DEPDIR)/theory.Plo \
 	hnco/functions/$(DEPDIR)/trap.Plo \
 	hnco/functions/controllers/$(DEPDIR)/function-controller.Plo \
-	hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo \
-	hnco/functions/decorators/$(DEPDIR)/parsed-modifier.Plo \
-	hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo \
 	hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo \
 	hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo \
+	hnco/functions/modifiers/$(DEPDIR)/function-modifier.Plo \
+	hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo \
+	hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo \
 	hnco/functions/real/$(DEPDIR)/real-multivariate-function-adapter.Plo \
 	hnco/functions/real/$(DEPDIR)/real-multivariate-function.Plo \
 	hnco/functions/real/$(DEPDIR)/real-representation.Plo \
@@ -550,19 +550,19 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/cancellation.hh \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/function-controller.hh \
-	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-decorator.hh \
-	hnco/functions/decorators/function-modifier.hh \
-	hnco/functions/decorators/parsed-modifier.hh \
-	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.hh \
 	hnco/functions/function.hh hnco/functions/ising/all.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-1.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-2.hh \
 	hnco/functions/jump.hh hnco/functions/labs.hh \
 	hnco/functions/linear-function.hh hnco/functions/long-path.hh \
-	hnco/functions/max-sat.hh hnco/functions/nk-landscape.hh \
-	hnco/functions/qubo.hh hnco/functions/real/all.hh \
+	hnco/functions/max-sat.hh hnco/functions/modifiers/all.hh \
+	hnco/functions/modifiers/function-decorator.hh \
+	hnco/functions/modifiers/function-modifier.hh \
+	hnco/functions/modifiers/parsed-modifier.hh \
+	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/nk-landscape.hh hnco/functions/qubo.hh \
+	hnco/functions/real/all.hh \
 	hnco/functions/real/real-multivariate-function-adapter.hh \
 	hnco/functions/real/real-multivariate-function.hh \
 	hnco/functions/real/real-representation.hh \
@@ -811,14 +811,6 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/function-controller.cc \
 	hnco/functions/controllers/function-controller.hh \
-	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-decorator.hh \
-	hnco/functions/decorators/function-modifier.cc \
-	hnco/functions/decorators/function-modifier.hh \
-	hnco/functions/decorators/parsed-modifier.cc \
-	hnco/functions/decorators/parsed-modifier.hh \
-	hnco/functions/decorators/prior-noise.cc \
-	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.cc \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.cc \
 	hnco/functions/four-peaks.hh hnco/functions/function.cc \
@@ -832,9 +824,17 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/linear-function.cc \
 	hnco/functions/linear-function.hh hnco/functions/long-path.cc \
 	hnco/functions/long-path.hh hnco/functions/max-sat.cc \
-	hnco/functions/max-sat.hh hnco/functions/nk-landscape.cc \
-	hnco/functions/nk-landscape.hh hnco/functions/qubo.cc \
-	hnco/functions/qubo.hh hnco/functions/real/all.hh \
+	hnco/functions/max-sat.hh hnco/functions/modifiers/all.hh \
+	hnco/functions/modifiers/function-decorator.hh \
+	hnco/functions/modifiers/function-modifier.cc \
+	hnco/functions/modifiers/function-modifier.hh \
+	hnco/functions/modifiers/parsed-modifier.cc \
+	hnco/functions/modifiers/parsed-modifier.hh \
+	hnco/functions/modifiers/prior-noise.cc \
+	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/nk-landscape.cc hnco/functions/nk-landscape.hh \
+	hnco/functions/qubo.cc hnco/functions/qubo.hh \
+	hnco/functions/real/all.hh \
 	hnco/functions/real/real-multivariate-function-adapter.cc \
 	hnco/functions/real/real-multivariate-function-adapter.hh \
 	hnco/functions/real/real-multivariate-function.cc \
@@ -907,19 +907,19 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/cancellation.hh \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/function-controller.hh \
-	hnco/functions/decorators/all.hh \
-	hnco/functions/decorators/function-decorator.hh \
-	hnco/functions/decorators/function-modifier.hh \
-	hnco/functions/decorators/parsed-modifier.hh \
-	hnco/functions/decorators/prior-noise.hh \
 	hnco/functions/equal-products.hh hnco/functions/four-peaks.hh \
 	hnco/functions/function.hh hnco/functions/ising/all.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-1.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-2.hh \
 	hnco/functions/jump.hh hnco/functions/labs.hh \
 	hnco/functions/linear-function.hh hnco/functions/long-path.hh \
-	hnco/functions/max-sat.hh hnco/functions/nk-landscape.hh \
-	hnco/functions/qubo.hh hnco/functions/real/all.hh \
+	hnco/functions/max-sat.hh hnco/functions/modifiers/all.hh \
+	hnco/functions/modifiers/function-decorator.hh \
+	hnco/functions/modifiers/function-modifier.hh \
+	hnco/functions/modifiers/parsed-modifier.hh \
+	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/nk-landscape.hh hnco/functions/qubo.hh \
+	hnco/functions/real/all.hh \
 	hnco/functions/real/real-multivariate-function-adapter.hh \
 	hnco/functions/real/real-multivariate-function.hh \
 	hnco/functions/real/real-representation.hh \
@@ -1198,21 +1198,6 @@ hnco/functions/controllers/$(DEPDIR)/$(am__dirstamp):
 hnco/functions/controllers/function-controller.lo:  \
 	hnco/functions/controllers/$(am__dirstamp) \
 	hnco/functions/controllers/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/decorators/$(am__dirstamp):
-	@$(MKDIR_P) hnco/functions/decorators
-	@: > hnco/functions/decorators/$(am__dirstamp)
-hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) hnco/functions/decorators/$(DEPDIR)
-	@: > hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/decorators/function-modifier.lo:  \
-	hnco/functions/decorators/$(am__dirstamp) \
-	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/decorators/parsed-modifier.lo:  \
-	hnco/functions/decorators/$(am__dirstamp) \
-	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/decorators/prior-noise.lo:  \
-	hnco/functions/decorators/$(am__dirstamp) \
-	hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/equal-products.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/four-peaks.lo: hnco/functions/$(am__dirstamp) \
@@ -1241,6 +1226,21 @@ hnco/functions/long-path.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/max-sat.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/modifiers/$(am__dirstamp):
+	@$(MKDIR_P) hnco/functions/modifiers
+	@: > hnco/functions/modifiers/$(am__dirstamp)
+hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/functions/modifiers/$(DEPDIR)
+	@: > hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/modifiers/function-modifier.lo:  \
+	hnco/functions/modifiers/$(am__dirstamp) \
+	hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/modifiers/parsed-modifier.lo:  \
+	hnco/functions/modifiers/$(am__dirstamp) \
+	hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/modifiers/prior-noise.lo:  \
+	hnco/functions/modifiers/$(am__dirstamp) \
+	hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/nk-landscape.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/qubo.lo: hnco/functions/$(am__dirstamp) \
@@ -1338,10 +1338,10 @@ mostlyclean-compile:
 	-rm -f hnco/functions/*.lo
 	-rm -f hnco/functions/controllers/*.$(OBJEXT)
 	-rm -f hnco/functions/controllers/*.lo
-	-rm -f hnco/functions/decorators/*.$(OBJEXT)
-	-rm -f hnco/functions/decorators/*.lo
 	-rm -f hnco/functions/ising/*.$(OBJEXT)
 	-rm -f hnco/functions/ising/*.lo
+	-rm -f hnco/functions/modifiers/*.$(OBJEXT)
+	-rm -f hnco/functions/modifiers/*.lo
 	-rm -f hnco/functions/real/*.$(OBJEXT)
 	-rm -f hnco/functions/real/*.lo
 	-rm -f hnco/functions/walsh/*.$(OBJEXT)
@@ -1422,11 +1422,11 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/theory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/trap.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/controllers/$(DEPDIR)/function-controller.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/parsed-modifier.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/function-modifier.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/real/$(DEPDIR)/real-multivariate-function-adapter.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/real/$(DEPDIR)/real-multivariate-function.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/real/$(DEPDIR)/real-representation.Plo@am__quote@ # am--include-marker
@@ -1508,8 +1508,8 @@ clean-libtool:
 	-rm -rf hnco/algorithms/pv/.libs hnco/algorithms/pv/_libs
 	-rm -rf hnco/functions/.libs hnco/functions/_libs
 	-rm -rf hnco/functions/controllers/.libs hnco/functions/controllers/_libs
-	-rm -rf hnco/functions/decorators/.libs hnco/functions/decorators/_libs
 	-rm -rf hnco/functions/ising/.libs hnco/functions/ising/_libs
+	-rm -rf hnco/functions/modifiers/.libs hnco/functions/modifiers/_libs
 	-rm -rf hnco/functions/real/.libs hnco/functions/real/_libs
 	-rm -rf hnco/functions/walsh/.libs hnco/functions/walsh/_libs
 	-rm -rf hnco/neighborhoods/.libs hnco/neighborhoods/_libs
@@ -1682,10 +1682,10 @@ distclean-generic:
 	-rm -f hnco/functions/$(am__dirstamp)
 	-rm -f hnco/functions/controllers/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/controllers/$(am__dirstamp)
-	-rm -f hnco/functions/decorators/$(DEPDIR)/$(am__dirstamp)
-	-rm -f hnco/functions/decorators/$(am__dirstamp)
 	-rm -f hnco/functions/ising/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/ising/$(am__dirstamp)
+	-rm -f hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/functions/modifiers/$(am__dirstamp)
 	-rm -f hnco/functions/real/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/real/$(am__dirstamp)
 	-rm -f hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp)
@@ -1772,11 +1772,11 @@ distclean: distclean-am
 	-rm -f hnco/functions/$(DEPDIR)/theory.Plo
 	-rm -f hnco/functions/$(DEPDIR)/trap.Plo
 	-rm -f hnco/functions/controllers/$(DEPDIR)/function-controller.Plo
-	-rm -f hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo
-	-rm -f hnco/functions/decorators/$(DEPDIR)/parsed-modifier.Plo
-	-rm -f hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo
+	-rm -f hnco/functions/modifiers/$(DEPDIR)/function-modifier.Plo
+	-rm -f hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo
+	-rm -f hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo
 	-rm -f hnco/functions/real/$(DEPDIR)/real-multivariate-function-adapter.Plo
 	-rm -f hnco/functions/real/$(DEPDIR)/real-multivariate-function.Plo
 	-rm -f hnco/functions/real/$(DEPDIR)/real-representation.Plo
@@ -1900,11 +1900,11 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/$(DEPDIR)/theory.Plo
 	-rm -f hnco/functions/$(DEPDIR)/trap.Plo
 	-rm -f hnco/functions/controllers/$(DEPDIR)/function-controller.Plo
-	-rm -f hnco/functions/decorators/$(DEPDIR)/function-modifier.Plo
-	-rm -f hnco/functions/decorators/$(DEPDIR)/parsed-modifier.Plo
-	-rm -f hnco/functions/decorators/$(DEPDIR)/prior-noise.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo
 	-rm -f hnco/functions/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo
+	-rm -f hnco/functions/modifiers/$(DEPDIR)/function-modifier.Plo
+	-rm -f hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo
+	-rm -f hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo
 	-rm -f hnco/functions/real/$(DEPDIR)/real-multivariate-function-adapter.Plo
 	-rm -f hnco/functions/real/$(DEPDIR)/real-multivariate-function.Plo
 	-rm -f hnco/functions/real/$(DEPDIR)/real-representation.Plo

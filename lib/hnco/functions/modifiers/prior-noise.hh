@@ -18,42 +18,42 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_DECORATORS_PARSED_MODIFIER_H
-#define HNCO_FUNCTIONS_DECORATORS_PARSED_MODIFIER_H
+#ifndef HNCO_FUNCTIONS_MODIFIERS_PRIOR_NOISE_H
+#define HNCO_FUNCTIONS_MODIFIERS_PRIOR_NOISE_H
 
 #include <assert.h>
 
-#include "fparser/fparser.hh"
+#include "hnco/neighborhoods/neighborhood.hh"
 
 #include "function-modifier.hh"
+
 
 namespace hnco {
 namespace function {
 namespace modifier {
 
-  /** Parsed modifier.
 
-      Let f be the original function. Then the modified function is
-      equivalent to \f$g\circ f\f$, where g is a real function defined
-      by an expression \f$g(x)\f$ provided as a string.
-  */
-  class ParsedModifier:
+  /// Prior noise
+  class PriorNoise:
     public FunctionModifier {
 
-    /// Function parser
-    FunctionParser _fparser;
+    /// Neighborhood
+    neighborhood::Neighborhood *_neighborhood;
 
-    /// Array of values
-    double _values[1];
+    /// Noisy bit vector
+    bit_vector_t _noisy_bv;
 
   public:
 
-    /** Constructor.
-
-        \param function Decorated function
-        \param expression Expression to parse
-    */
-    ParsedModifier(Function *function, std::string expression);
+    /// Constructor
+    PriorNoise(Function *fn, neighborhood::Neighborhood *nh):
+      FunctionModifier(fn),
+      _neighborhood(nh)
+    {
+      assert(fn);
+      assert(nh);
+      _noisy_bv.resize(fn->get_bv_size());
+    }
 
     /** @name Information about the function
      */
@@ -61,6 +61,22 @@ namespace modifier {
 
     /// Get bit vector size
     int get_bv_size() { return _function->get_bv_size(); }
+
+    /** Get the global maximum.
+
+        Delegation is questionable here.
+    */
+    double get_maximum() { return _function->get_maximum(); }
+
+    /** Check for a known maximum.
+
+        Delegation is questionable here.
+    */
+    bool has_known_maximum() { return _function->has_known_maximum(); }
+
+    /** Check whether the function provides incremental evaluation.
+        \return false */
+    bool provides_incremental_evaluation() { return false; }
 
     ///@}
 

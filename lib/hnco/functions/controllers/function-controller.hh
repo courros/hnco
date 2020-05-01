@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_DECORATORS_FUNCTION_CONTROLLER_H
-#define HNCO_FUNCTIONS_DECORATORS_FUNCTION_CONTROLLER_H
+#ifndef HNCO_FUNCTIONS_CONTROLLERS_CONTROLLER_H
+#define HNCO_FUNCTIONS_CONTROLLERS_CONTROLLER_H
 
 #include <assert.h>
 
@@ -27,8 +27,7 @@
 #include <unordered_map>
 
 #include "hnco/stop-watch.hh"
-
-#include "../decorators/function-decorator.hh"
+#include "hnco/functions/modifiers/function-decorator.hh"
 
 
 namespace hnco {
