@@ -7,8 +7,8 @@
     "parallel": true,
 
     "parameter": {
-        "id": "learning-rate",
-        "values": [ 1e-2, 2e-2, 5e-2, 1e-1, 2e-1, 5e-1, 1 ]
+        "id": "fn-threshold",
+        "values": [ 0, 5, 10, 15, 20, 25, 30, 35 ]
     },
 
     "graphics": {
@@ -21,77 +21,20 @@
     "functions": [
 
         {
-            "id": "one-max",
-	    "opt": "-F 0 --stop-on-maximum",
+            "id": "jump",
+            "name": "Jump",
+	    "opt": "-F 30 --stop-on-maximum",
             "rounding": {
                 "value": { "before": 3, "after": 0 },
                 "time": { "before": 1, "after": 2 } }
         },
 
         {
-            "id": "leading-ones",
-	    "opt": "-F 10 --stop-on-maximum",
+            "id": "four-peaks",
+            "name": "Four Peaks",
+	    "opt": "-F 40 --stop-on-maximum",
             "rounding": {
                 "value": { "before": 3, "after": 0 },
-                "time": { "before": 1, "after": 2 } }
-        },
-
-        {
-            "id": "jmp-5",
-	    "opt": "-F 30 --stop-on-maximum -t 5",
-            "rounding": {
-                "value": { "before": 3, "after": 0 },
-                "time": { "before": 1, "after": 2 } }
-        },
-
-        {
-            "id": "nk",
-	    "opt": "-F 60 -p instances/nk.100.4",
-            "rounding": {
-                "value": { "before": 1, "after": 2 },
-                "time": { "before": 1, "after": 2 } }
-        },
-
-        {
-            "id": "max-sat",
-	    "opt": "-F 70 -p instances/ms.100.3.1000",
-            "rounding": {
-                "value": { "before": 3, "after": 0 },
-                "time": { "before": 1, "after": 2 } }
-        },
-
-        {
-            "id": "labs",
-	    "opt": "-F 81",
-            "rounding": {
-                "value": { "before": 1, "after": 2 },
-                "time": { "before": 1, "after": 2 } }
-        },
-
-        {
-            "id": "ep",
-	    "opt": "-F 90 -p instances/ep.100",
-            "reverse": true,
-            "logscale": true,
-            "rounding": {
-                "value": { "before": 1, "after": 1 },
-                "time": { "before": 1, "after": 2 } }
-        },
-
-        {
-            "id": "cancel",
-	    "opt": "-F 100 -s 99",
-            "reverse": true,
-            "rounding": {
-                "value": { "before": 1, "after": 2 },
-                "time": { "before": 1, "after": 2 } }
-        },
-
-        {
-            "id": "walsh2",
-	    "opt": "-F 162 -p instances/walsh2.100",
-            "rounding": {
-                "value": { "before": 3, "after": 2 },
                 "time": { "before": 1, "after": 2 } }
         }
 
@@ -100,8 +43,53 @@
     "algorithms": [
 
         {
+            "id": "rls",
+	    "opt": "-A 100 --restart"
+        },
+
+        {
+            "id": "hc",
+	    "opt": "-A 150 --restart"
+        },
+
+        {
+            "id": "sa",
+	    "opt": "-A 200 --sa-beta-ratio 1.05 --sa-num-trials 10"
+        },
+
+        {
+            "id": "ea-1p1",
+	    "opt": "-A 300"
+        },
+
+        {
+            "id": "ea-1p10",
+	    "opt": "-A 310 --ea-mu 1 --ea-lambda 10"
+        },
+
+        {
+            "id": "ea-10p1",
+	    "opt": "-A 310 --ea-mu 10 --ea-lambda 1"
+        },
+
+        {
+            "id": "ea-1c10",
+	    "opt": "-A 320 --ea-mu 1 --ea-lambda 10 --allow-stay"
+        },
+
+        {
+            "id": "ga",
+	    "opt": "-A 400 --ea-mu 100"
+        },
+
+        {
             "id": "pbil",
-	    "opt": "-A 500 -x 10 -y 1"
+	    "opt": "-A 500 -r 5e-3"
+        },
+
+        {
+            "id": "umda",
+	    "opt": "-A 600 -x 100 -y 10"
         }
 
     ]
