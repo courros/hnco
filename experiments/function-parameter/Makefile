@@ -5,11 +5,11 @@ default-parameters:
 
 run:
 	echo `date` >> log.err
-	hnco-parameter-skeleton.pl
-	time -a -o log.err hnco-parameter-run.pl
+	hnco-function-parameter-skeleton.pl
+	time -a -o log.err hnco-function-parameter-run.pl
 
 doc:
-	hnco-parameter-stat.pl
+	hnco-function-parameter-stat.pl
 	./candlesticks.gp
 	./mean.gp
 	./stddev.gp
