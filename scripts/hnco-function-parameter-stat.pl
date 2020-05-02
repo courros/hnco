@@ -17,34 +17,49 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
+use strict;
+use warnings;
+
 use JSON;
 use Statistics::Descriptive;
 use List::MoreUtils qw(all);
 
+#
+# Global constants
+#
+
+my $path_results        = "results";
 my $path_graphics       = "graphics";
 my $path_report         = "report";
-my $path_results        = "results";
 
-my @summary_statistics = qw(median q1 q3 min max);
-my @summary_statistics_display = qw(min q1 median q3 max);
+my @summary_statistics          = qw(median q1 q3 min max);
+my @summary_statistics_display  = qw(min q1 median q3 max);
 
 my %terminal = (
     eps => "set term epscairo color enhanced",
     pdf => "set term pdfcairo color enhanced",
     png => "set term png enhanced" );
 
+#
+# Read plan
+#
+
 my $plan = "plan.json";
+
 if (@ARGV) {
     $plan = shift @ARGV;
 }
 print "Using $plan\n";
 
-open(FILE, $plan)
-    or die "hnco-parameter-stat.pl: Cannot open $plan\n";
+open(FILE, $plan) or die "hnco-function-parameter-stat.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
 }
+
+#
+# Global variables
+#
 
 my $obj = from_json($json);
 
@@ -55,7 +70,6 @@ my $parameter           = $obj->{parameter};
 my $graphics            = $obj->{graphics};
 
 my $parameter_id        = $parameter->{id};
-my $boxwidth            = $parameter->{boxwidth};
 
 my $values;
 if ($parameter->{values_perl}) {
@@ -66,32 +80,18 @@ if ($parameter->{values_perl}) {
 }
 
 my $all_stat = {};
-my $all_stat_flat = {};
-my $all_best = {};
 
-my $num_lines = @$algorithms * @$values;
-
-my $rankings = {};
-foreach my $a (@$algorithms) {
-    my $algorithm_id = $a->{id};
-    foreach my $value (@$values) {
-        my @counts = (0) x ($num_lines); # Array of size $num_lines initialized to 0
-        $rankings->{$algorithm_id}->{$value} = \@counts;
-    }
-}
-my @rankings_flat = ();
-
-unless (-d "$path_graphics") { mkdir "$path_graphics"; }
+#
+# Processing
+#
 
 add_missing_names($functions);
 add_missing_names($algorithms);
 compute_statistics();
-compute_rankings();
-compute_rankings_flat();
-compute_best_statistics();
-reverse_values();
-reverse_best_statistics();
 generate_data();
+
+unless (-d "$path_graphics") { mkdir "$path_graphics"; }
+
 generate_gnuplot_candlesticks();
 generate_gnuplot_mean();
 generate_gnuplot_stddev();
@@ -112,7 +112,6 @@ sub compute_statistics
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         my $function_stat = {};
-        my @items = ();
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
@@ -139,15 +138,6 @@ sub compute_statistics
                                               mean        => $SD_value->mean(),
                                               stddev      => $SD_value->standard_deviation() };
 
-                my $item = { algorithm  => $algorithm_id,
-                             value      => $value,
-                             min        => $SD_value->min(),
-                             q1         => $SD_value->quantile(1),
-                             median     => $SD_value->median(),
-                             q3         => $SD_value->quantile(3),
-                             max        => $SD_value->max() };
-                push @items, $item;
-
             }
 
             $function_stat->{$algorithm_id} = $algorithm_stat;
@@ -155,7 +145,7 @@ sub compute_statistics
         }
 
         $all_stat->{$function_id} = $function_stat;
-        $all_stat_flat->{$function_id} = \@items;
+
     }
 
 }
@@ -171,11 +161,11 @@ sub generate_data
 
             my $path = "$prefix/mean.dat";
             my $mean = IO::File->new($path, '>')
-                or die "hnco-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
+                or die "hnco-function-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
 
             $path = "$prefix/quartiles.dat";
             my $quartiles = IO::File->new($path, '>')
-                or die "hnco-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
+                or die "hnco-function-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
 
             foreach my $value (@$values) {
                 my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
@@ -201,126 +191,10 @@ sub generate_data
 
 }
 
-sub compute_rankings
-{
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-
-        # Sort results
-        my @sorted = sort {
-            foreach (@summary_statistics) {
-                # Decreasing order
-                if ($b->{$_} != $a->{$_}) {
-                    return $b->{$_} <=> $a->{$_};
-                }
-            }
-            return 0;
-        } @{ $all_stat_flat->{$function_id} };
-        $all_stat_flat->{$function_id} = \@sorted;
-
-        # Set ranks
-        for (my $i = 0; $i < @sorted; $i++) {
-            $sorted[$i]->{rank} = $i;
-        }
-
-        # Handle ex-aequo
-        for (my $i = 1; $i < @sorted; $i++) {
-            if (all { $sorted[$i]->{$_} == $sorted[$i - 1]->{$_} } @summary_statistics) {
-                $sorted[$i]->{rank} = $sorted[$i - 1]->{rank};
-            }
-        }
-
-        # Update rank_counts and store rank
-        foreach (@sorted) {
-            ${ $rankings->{$_->{algorithm}}->{$_->{value}} }[$_->{rank}]++;
-            $all_stat->{$function_id}->{$_->{algorithm}}->{$_->{value}}->{rank} = $_->{rank};
-        }
-
-    }
-
-}
-
-sub compute_rankings_flat
-{
-    @rankings_flat = ();
-    foreach my $a (@$algorithms) {
-        my $algorithm_id = $a->{id};
-        foreach my $value (@$values) {
-            my $item = {
-                algorithm       => $algorithm_id,
-                value           => $value,
-                rank_counts     => $rankings->{$algorithm_id}->{$value}
-            };
-            push @rankings_flat, $item;
-        }
-    }
-
-    my @sorted = sort {
-        foreach (0 .. $num_lines - 1) {
-            if (${ $b->{rank_counts} }[$_] != ${ $a->{rank_counts} }[$_]) {
-                return ${ $b->{rank_counts} }[$_] <=> ${ $a->{rank_counts} }[$_];
-            }
-        }
-        return 0;
-    } @rankings_flat;
-
-    @rankings_flat = @sorted;
-}
-
-sub compute_best_statistics
-{
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        my $function_best = {};
-
-        foreach (@summary_statistics) {
-            my @sorted = sort { $b->{$_} <=> $a->{$_} } @{ $all_stat_flat->{$function_id} };
-            $function_best->{$_} = $sorted[0]->{$_};
-        }
-        $all_best->{$function_id} = $function_best;
-
-    }
-
-}
-
-sub reverse_values
-{
-    foreach my $f (@$functions) {
-        if ($f->{reverse}) {
-            foreach my $a (@$algorithms) {
-                foreach my $value (@$values) {
-                    my $stat = $all_stat->{$f->{id}}->{$a->{id}}->{$value};
-                    ($stat->{min}, $stat->{max}) = ($stat->{max}, $stat->{min});
-                    ($stat->{q1}, $stat->{q3}) = ($stat->{q3}, $stat->{q1});
-                    foreach (@summary_statistics) {
-                        $stat->{$_} = -$stat->{$_};
-                    }
-                    $stat->{mean} = -$stat->{mean};
-                }
-            }
-        }
-    }
-}
-
-sub reverse_best_statistics
-{
-    foreach my $f (@$functions) {
-        if ($f->{reverse}) {
-            my $function_id = $f->{id};
-            my $function_best = $all_best->{$function_id};
-            ($function_best->{min}, $function_best->{max}) = ($function_best->{max}, $function_best->{min});
-            ($function_best->{q1}, $function_best->{q3}) = ($function_best->{q3}, $function_best->{q1});
-            foreach (@summary_statistics) {
-                $function_best->{$_} = -$function_best->{$_};
-            }
-        }
-    }
-}
-
 sub generate_gnuplot_candlesticks
 {
     open(CANDLESTICKS, ">candlesticks.gp")
-        or die "hnco-parameter-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
+        or die "hnco-function-parameter-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
 
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
@@ -411,7 +285,7 @@ sub generate_gnuplot_candlesticks
 sub generate_gnuplot_mean
 {
     open(MEAN, ">mean.gp")
-        or die "hnco-parameter-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
+        or die "hnco-function-parameter-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
 
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
@@ -495,7 +369,7 @@ sub generate_gnuplot_mean
 sub generate_gnuplot_stddev
 {
     open(STDDEV, ">stddev.gp")
-        or die "hnco-parameter-stat.pl: generate_gnuplot_stddev: Cannot open stddev.gp\n";
+        or die "hnco-function-parameter-stat.pl: generate_gnuplot_stddev: Cannot open stddev.gp\n";
 
     print STDDEV
         "#!/usr/bin/gnuplot -persist\n",
@@ -581,42 +455,15 @@ sub generate_gnuplot_stddev
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
-        or die "hnco-parameter-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
+        or die "hnco-function-parameter-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX "\\graphicspath{{../$path_graphics/}}\n";
     latex_empty_line();
 
-    latex_section("Rankings");
-    latex_begin_center();
-    latex_rankings_table();
-    latex_end_center();
-    latex_empty_line();
-
     foreach my $fn (@$functions) {
         my $function_id = $fn->{id};
-        my $function_best = $all_best->{$function_id};
-
-        my $rounding_value_before = $fn->{rounding}->{value}->{before} || 3;
-        my $rounding_value_after = $fn->{rounding}->{value}->{after} || 0;
-        my $rounding_time_before = $fn->{rounding}->{time}->{before} || 1;
-        my $rounding_time_after = $fn->{rounding}->{time}->{after} || 2;
 
         latex_section("Function $function_id");
-
-        latex_begin_center();
-        latex_function_table_begin(">{{\\nprounddigits{$rounding_value_after}}}N{$rounding_value_before}{$rounding_value_after}");
-        foreach my $a (@$algorithms) {
-            my $algorithm_id = $a->{id};
-            foreach my $value (@$values) {
-                latex_function_table_add_line($algorithm_id,
-                                              $value,
-                                              $all_stat->{$function_id}->{$algorithm_id}->{$value},
-                                              $function_best,
-                                              $fn->{logscale});
-            }
-        }
-        latex_funtion_table_end();
-        latex_end_center();
 
         latex_begin_center();
         latex_includegraphics("$function_id/mean");
@@ -711,67 +558,13 @@ sub quote
     return "\"$s\"";
 }
 
-sub latex_rankings_table
-{
-    print LATEX
-        "\\begin{tabular}{\@{}ll*{$num_lines}{r}\@{}}\n",
-        "\\toprule\n",
-        "algorithm & $parameter_id & \\multicolumn{$num_lines}{l}{{rank distribution}}\\\\\n",
-        "\\midrule\n",
-        "&& ", join(" & ", 1 .. $num_lines), "\\\\\n",
-        "\\midrule\n";
-
-    foreach (@rankings_flat) {
-        print LATEX "$_->{algorithm} & $_->{value} & ", join(" & ", @{ $_->{rank_counts} }), "\\\\\n";
-    }
-
-    print LATEX
-        "\\bottomrule\n",
-        "\\end{tabular}\n";
-}
-
-sub latex_function_table_begin
-{
-    my $col = shift;
-
-    print LATEX
-        "\\begin{tabular}{\@{}ll*{5}{$col}>{{\\nprounddigits{0}}}N{2}{0}\@{}}\n",
-        "\\toprule\n",
-        "{algorithm} & {$parameter_id} & \\multicolumn{6}{l}{{function value}} \\\\\n",
-        "\\midrule\n",
-        "& & {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} \\\\\n",
-        "\\midrule\n";
-}
-
-sub latex_function_table_add_line
-{
-    my ($algo, $value, $stat, $best, $logscale) = @_;
-
-    my $conversion = $logscale ? "%e" : "%f";
-    my $format = join " & ",
-        map { $stat->{$_} == $best->{$_} ? "{\\color{blue}} $conversion" : "$conversion" } @summary_statistics_display;
-
-    printf LATEX "$algo & $value & ";
-    printf LATEX ($format, $stat->{min}, $stat->{q1}, $stat->{median}, $stat->{q3}, $stat->{max});
-    printf LATEX (" & %d \\\\\n", $stat->{rank} + 1);
-
-}
-
-sub latex_funtion_table_end
-{
-    print LATEX <<EOF;
-\\bottomrule
-\\end{tabular}
-EOF
-}
-
 sub read_file
 {
     my $path = shift;
     my $json;
     {
         local $/;
-        open my $fh, '<', $path or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+        open my $fh, '<', $path or die "hnco-function-parameter-stat.pl: read_file: Cannot open '$path': $!\n";
         $json = <$fh>;
     }
     return $json;
