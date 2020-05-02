@@ -5,7 +5,7 @@ default-parameters:
 
 run:
 	echo `date` >> log.err
-	hnco-function-parameter-skeleton.pl
+	hnco-parameter-skeleton.pl
 	time -a -o log.err hnco-function-parameter-run.pl
 
 doc:
