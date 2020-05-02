@@ -1,0 +1,109 @@
+{
+    "exec": "hnco",
+    "opt": "--print-results --map 1 --map-random -s 100",
+    "budget": 200000,
+
+    "num_runs": 20,
+    "parallel": true,
+
+    "parameter": {
+        "id": "learning-rate",
+        "values": [ 1e-2, 2e-2, 5e-2, 1e-1, 2e-1, 5e-1, 1 ]
+    },
+
+    "graphics": {
+        "logscale": true,
+        "candlesticks": {
+            "boxwidth": "$1 * 0.3"
+        }
+    },
+
+    "functions": [
+
+        {
+            "id": "one-max",
+	    "opt": "-F 0 --stop-on-maximum",
+            "rounding": {
+                "value": { "before": 3, "after": 0 },
+                "time": { "before": 1, "after": 2 } }
+        },
+
+        {
+            "id": "leading-ones",
+	    "opt": "-F 10 --stop-on-maximum",
+            "rounding": {
+                "value": { "before": 3, "after": 0 },
+                "time": { "before": 1, "after": 2 } }
+        },
+
+        {
+            "id": "jmp-5",
+	    "opt": "-F 30 --stop-on-maximum -t 5",
+            "rounding": {
+                "value": { "before": 3, "after": 0 },
+                "time": { "before": 1, "after": 2 } }
+        },
+
+        {
+            "id": "nk",
+	    "opt": "-F 60 -p instances/nk.100.4",
+            "rounding": {
+                "value": { "before": 1, "after": 2 },
+                "time": { "before": 1, "after": 2 } }
+        },
+
+        {
+            "id": "max-sat",
+	    "opt": "-F 70 -p instances/ms.100.3.1000",
+            "rounding": {
+                "value": { "before": 3, "after": 0 },
+                "time": { "before": 1, "after": 2 } }
+        },
+
+        {
+            "id": "labs",
+	    "opt": "-F 81",
+            "rounding": {
+                "value": { "before": 1, "after": 2 },
+                "time": { "before": 1, "after": 2 } }
+        },
+
+        {
+            "id": "ep",
+	    "opt": "-F 90 -p instances/ep.100",
+            "reverse": true,
+            "logscale": true,
+            "rounding": {
+                "value": { "before": 1, "after": 1 },
+                "time": { "before": 1, "after": 2 } }
+        },
+
+        {
+            "id": "cancel",
+	    "opt": "-F 100 -s 99",
+            "reverse": true,
+            "rounding": {
+                "value": { "before": 1, "after": 2 },
+                "time": { "before": 1, "after": 2 } }
+        },
+
+        {
+            "id": "walsh2",
+	    "opt": "-F 162 -p instances/walsh2.100",
+            "rounding": {
+                "value": { "before": 3, "after": 2 },
+                "time": { "before": 1, "after": 2 } }
+        }
+
+    ],
+
+    "algorithms": [
+
+        {
+            "id": "pbil",
+	    "opt": "-A 500 -x 10 -y 1"
+        }
+
+    ]
+
+}

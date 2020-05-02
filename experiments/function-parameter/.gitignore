@@ -1,0 +1,14 @@
+plan-compact.json
+
+log.defaults
+log.err
+log.parallel
+
+commands.txt
+
+candlesticks.gp
+mean.gp
+stddev.gp
+
+graphics
+results
