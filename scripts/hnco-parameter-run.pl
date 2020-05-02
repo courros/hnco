@@ -17,23 +17,23 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
+use strict;
+use warnings;
+
 use JSON;
 use File::Spec;
 use File::HomeDir;
 use Cwd;
-use strict;
-use warnings;
 
+my $plan                = "plan.json";
 my $path_results        = "results";
 
-my $plan = "plan.json";
 if (@ARGV) {
     $plan = shift @ARGV;
 }
 print "Using $plan\n";
 
-open(FILE, $plan)
-    or die "hnco-parameter-run: Cannot open $plan\n";
+open(FILE, $plan) or die "hnco-parameter-run.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
