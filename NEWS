@@ -43,6 +43,10 @@ Scripts:
 - hnco-parameter-stat.pl: candlesticks: set xlabel and title
 - hnco-runtime2-stat.pl: graphics: set font face, font size, and key
 - hnco-benchmark-run.pl: take into account fields only_algorithms and skip_algorithms
+- Added hnco-function-parameter-stat.pl
+
+Experiments:
+- Added experiment function-parameter
 
 
 * Version 0.13 (2020-01-12)
@@ -474,7 +478,6 @@ Library:
 - Added OnePlusLambdaCommaLambdaGa
 - Added references to function documentation
 - Added references to algorithm documentation
-
 
 hnco:
 - Renamed options --fun-* -> --fn-*
