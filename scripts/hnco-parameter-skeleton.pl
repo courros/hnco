@@ -17,15 +17,20 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
+use strict;
+use warnings;
+
 use JSON;
 
-my $plan = "plan.json";
+my $plan                = "plan.json";
+my $path_results        = "results";
+
 if (@ARGV) {
     $plan = shift @ARGV;
 }
 print "Using $plan\n";
 
-open(FILE, $plan) || die "hnco-parameter-run: Cannot open $plan\n";
+open(FILE, $plan) || die "hnco-parameter-skeleton.pl: Cannot open $plan\n";
 my $json = "";
 while (<FILE>) {
     $json .= $_;
@@ -37,8 +42,6 @@ my $algorithms          = $obj->{algorithms};
 my $parameter           = $obj->{parameter};
 my $parallel            = $obj->{parallel};
 my $servers             = $obj->{servers};
-
-my $path_results        = "results";
 
 unless (-d $path_results) {
     mkdir $path_results;
