@@ -70,6 +70,8 @@ my $parameter           = $obj->{parameter};
 my $graphics            = $obj->{graphics};
 
 my $parameter_id        = $parameter->{id};
+my $parameter_name      = $parameter->{name} || $parameter_id;
+my $xlabel              = quote($parameter_name);
 
 my $all_stat = {};
 
@@ -203,7 +205,7 @@ sub generate_gnuplot_candlesticks
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel " . quote($graphics->{candlesticks}->{xlabel} || $parameter_id) . "\n",
+        "set xlabel $xlabel\n",
         "set ylabel \"Function value\"\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -234,6 +236,7 @@ sub generate_gnuplot_candlesticks
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
+        my $function_name = $f->{name};
 
         if ($f->{logscale}) {
             my $fmt = quote("10^{\%T}");
@@ -250,11 +253,12 @@ sub generate_gnuplot_candlesticks
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
+            my $algorithm_name = $a->{name};
 
             my $quoted_string;
 
             if ($graphics->{candlesticks}->{title}) {
-                $quoted_string = quote("$algorithm_id on $function_id");
+                $quoted_string = quote("$algorithm_name on $function_name");
                 print CANDLESTICKS "set title $quoted_string\n";
             }
 
@@ -294,7 +298,7 @@ sub generate_gnuplot_mean
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"$parameter_id\"\n",
+        "set xlabel $xlabel\n",
         "set ylabel \"Mean value\"\n",
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
@@ -320,10 +324,11 @@ sub generate_gnuplot_mean
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
+        my $function_name = $f->{name};
 
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
-        my $quoted_string = quote("$function_id: Mean value as a function of $parameter_id");
+        my $quoted_string = quote("$function_name: Mean value as a function of $parameter_name");
         print MEAN "set title $quoted_string\n";
         if ($f->{logscale}) {
             my $fmt = quote("10^{\%T}");
@@ -352,7 +357,7 @@ sub generate_gnuplot_mean
              } @$algorithms);
         print MEAN "\n";
 
-        $quoted_path = quote("$path_graphics/$function_id/mean.eps");
+        my $quoted_path = quote("$path_graphics/$function_id/mean.eps");
         print MEAN
             "$terminal{eps} $font\n",
             "set output $quoted_path\n",
@@ -378,7 +383,7 @@ sub generate_gnuplot_stddev
     print STDDEV
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"$parameter_id\"\n",
+        "set xlabel $xlabel\n",
         "set ylabel \"Standard deviation of value\"\n",
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
@@ -404,6 +409,7 @@ sub generate_gnuplot_stddev
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
+        my $function_name = $f->{name};
 
         if ($f->{logscale}) {
             my $fmt = quote("10^{\%T}");
@@ -423,7 +429,7 @@ sub generate_gnuplot_stddev
             "$terminal{pdf} $font\n",
             "set output $quoted_string\n";
 
-        $quoted_string = quote("$function_id: Standard deviation of value as a function of $parameter_id");
+        $quoted_string = quote("$function_name: Standard deviation of value as a function of $parameter_name");
         print STDDEV
             "set title $quoted_string\n";
 
@@ -438,7 +444,7 @@ sub generate_gnuplot_stddev
              } @$algorithms);
         print STDDEV "\n";
 
-        $quoted_path = quote("$path_graphics/$function_id/stddev.eps");
+        my $quoted_path = quote("$path_graphics/$function_id/stddev.eps");
         print STDDEV
             "$terminal{eps} $font\n",
             "set output $quoted_path\n",
@@ -466,8 +472,9 @@ sub generate_latex
 
     foreach my $fn (@$functions) {
         my $function_id = $fn->{id};
+        my $function_name = $fn->{name};
 
-        latex_section("Function $function_id");
+        latex_section("Function $function_name");
 
         latex_begin_center();
         latex_includegraphics("$function_id/mean");
