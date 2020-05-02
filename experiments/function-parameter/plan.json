@@ -1,14 +1,14 @@
 {
     "exec": "hnco",
     "opt": "--print-results --map 1 --map-random -s 100",
-    "budget": 200000,
+    "budget": 200,
 
     "num_runs": 20,
     "parallel": true,
 
     "parameter": {
         "id": "fn-threshold",
-        "values": [ 0, 5, 10, 15, 20, 25, 30, 35 ]
+        "values": [ 5, 10, 15, 20, 25, 30, 35 ]
     },
 
     "graphics": {
