@@ -32,9 +32,6 @@ my $path_results        = "results";
 my $path_graphics       = "graphics";
 my $path_report         = "report";
 
-my @summary_statistics          = qw(median q1 q3 min max);
-my @summary_statistics_display  = qw(min q1 median q3 max);
-
 my %terminal = (
     eps => "set term epscairo color enhanced",
     pdf => "set term pdfcairo color enhanced",
