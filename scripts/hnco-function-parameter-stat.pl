@@ -71,6 +71,12 @@ my $graphics            = $obj->{graphics};
 
 my $parameter_id        = $parameter->{id};
 
+my $all_stat = {};
+
+#
+# Parameter values
+#
+
 my $values;
 if ($parameter->{values_perl}) {
     my @tmp = eval $parameter->{values_perl};
@@ -78,8 +84,6 @@ if ($parameter->{values_perl}) {
 } else {
     $values = $parameter->{values};
 }
-
-my $all_stat = {};
 
 #
 # Processing
