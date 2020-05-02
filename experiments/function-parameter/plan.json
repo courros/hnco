@@ -1,20 +1,22 @@
 {
     "exec": "hnco",
     "opt": "--print-results --map 1 --map-random -s 100",
-    "budget": 200,
+    "budget": 200000,
 
     "num_runs": 20,
     "parallel": true,
 
     "parameter": {
         "id": "fn-threshold",
+        "name": "Gap",
         "values": [ 5, 10, 15, 20, 25, 30, 35 ]
     },
 
     "graphics": {
-        "logscale": true,
+        "logscale": false,
         "candlesticks": {
-            "boxwidth": "$1 * 0.3"
+            "title": true,
+            "boxwidth": "2"
         }
     },
 
@@ -23,19 +25,13 @@
         {
             "id": "jump",
             "name": "Jump",
-	    "opt": "-F 30 --stop-on-maximum",
-            "rounding": {
-                "value": { "before": 3, "after": 0 },
-                "time": { "before": 1, "after": 2 } }
+	    "opt": "-F 30 --stop-on-maximum"
         },
 
         {
             "id": "four-peaks",
             "name": "Four Peaks",
-	    "opt": "-F 40 --stop-on-maximum",
-            "rounding": {
-                "value": { "before": 3, "after": 0 },
-                "time": { "before": 1, "after": 2 } }
+	    "opt": "-F 40 --stop-on-maximum"
         }
 
     ],
@@ -44,51 +40,43 @@
 
         {
             "id": "rls",
+            "name": "RLS",
 	    "opt": "-A 100 --restart"
         },
 
         {
             "id": "hc",
+            "name": "Hill Climbing",
 	    "opt": "-A 150 --restart"
         },
 
         {
             "id": "sa",
+            "name": "Simulated Annealing",
 	    "opt": "-A 200 --sa-beta-ratio 1.05 --sa-num-trials 10"
         },
 
         {
             "id": "ea-1p1",
+            "name": "(1+1) EA",
 	    "opt": "-A 300"
         },
 
         {
-            "id": "ea-1p10",
-	    "opt": "-A 310 --ea-mu 1 --ea-lambda 10"
-        },
-
-        {
-            "id": "ea-10p1",
-	    "opt": "-A 310 --ea-mu 10 --ea-lambda 1"
-        },
-
-        {
-            "id": "ea-1c10",
-	    "opt": "-A 320 --ea-mu 1 --ea-lambda 10 --allow-stay"
-        },
-
-        {
             "id": "ga",
+            "name": "Genetic Algorithm",
 	    "opt": "-A 400 --ea-mu 100"
         },
 
         {
             "id": "pbil",
+            "name": "PBIL",
 	    "opt": "-A 500 -r 5e-3"
         },
 
         {
             "id": "umda",
+            "name": "UMDA",
 	    "opt": "-A 600 -x 100 -y 10"
         }
 
