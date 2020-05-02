@@ -38,7 +38,6 @@ Purposes:
 - Provide a collection of standard functions
 - Provide a collection of standard algorithms
 - Favor reproducible research
-- Provide an implementation of the author's algorithms (BM-PBIL, HEA)
 
 Use cases:
 
@@ -263,6 +262,7 @@ HNCO is distributed with the following experiments:
 - `experiments/benchmark/`
 - `experiments/dynamics/`
 - `experiments/ecdf/`
+- `experiments/function-parameter/`
 - `experiments/lookup-ratio/`
 - `experiments/maximum/`
 - `experiments/parameter/`
@@ -314,6 +314,11 @@ cumulative distribution function of the runtime for each
 algorithm-function couple in a given set. Results are computed per
 function then globally. This experiment partly follows the
 experimental procedure of the COCO framework (see references).
+
+### Function parameter
+
+The purpose of this experiment is to study the influence of a function
+parameter on the performance of search algorithms.
 
 ### Lookup ratio
 
