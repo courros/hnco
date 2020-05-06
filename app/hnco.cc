@@ -164,7 +164,7 @@ int main(int argc, char *argv[])
     if (fn->get_bv_size() > 15)
       std::cerr << "Warning: Walsh transform computation might take a long time or fail due to large bv_size" << std::endl;
     std::vector<function::WalshTerm> terms;
-    fn->compute_walsh_transform(terms);
+    compute_walsh_transform(fn, terms);
     for (auto& t : terms)
       t.coefficient = std::abs(t.coefficient);
     std::sort(terms.begin(),

@@ -56,7 +56,9 @@ namespace function {
 
     /** Get the global maximum.
         \throw Error */
-    virtual double get_maximum() { throw exception::Error("Unknown maximum"); }
+    virtual double get_maximum() {
+      throw exception::Error("Function::get_maximum: Unknown maximum");
+    }
 
     /// Check for a known maximum.
     virtual bool has_known_maximum() { return false; }
@@ -65,35 +67,6 @@ namespace function {
         \return false
     */
     virtual bool provides_incremental_evaluation() { return false; }
-
-    /** Compute the Walsh transform of the function.
-
-        Let \f$f\f$ be a fitness function defined on the hypercube
-        \f$\{0, 1\}^n\f$. Then it can be expressed as \f$\sum_u c_u
-        \chi_u\f$ where \f$c_u = \langle f, \chi_u\rangle\f$,
-        \f$\langle f, g\rangle = \frac1{2^n} \sum_x f(x) g(x)\f$,
-        \f$\chi_u(x) = (-1)^{x\cdot u}\f$, and \f$x\cdot u = \sum_i
-        x_i u_i\f$ (mod 2). In the respective sums, we have \f$x\f$
-        and \f$u\f$ in the hypercube and \f$i\f$ in \f$\{1, \ldots,
-        n\}\f$.
-
-        We have dropped the normalizing constant \f$2^n\f$ since we
-        are mostly interested in ratios \f$|c_u/c_{\max}|\f$, where
-        \f$c_{\max}\f$ is the coefficient with the largest amplitude.
-        
-        \param terms Vector of non zero terms of the Walsh transform
-
-        \warning The time complexity is exponential in the dimension
-        n. The computation is done with two nested loops over the
-        hypercube. It requires \f$2^n\f$ function evaluations and
-        \f$2^{2n}\f$ dot products and additions.
-
-        \warning The size of the Walsh transform is potentially
-        exponential in the dimension n. For example, if n = 10 then
-        the number of terms is at most 1024.
-
-    */
-    virtual void compute_walsh_transform(std::vector<function::WalshTerm>& terms);
 
     ///@}
 
@@ -110,7 +83,7 @@ namespace function {
         \throw Error
     */
     virtual double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits) {
-      throw exception::Error("Member function incremental_eval not implemented for this class derived from class Function");
+      throw exception::Error("Function::incremental_eval: This function does not provide incremental evaluation");
     }
 
     /** Safely evaluate a bit vector.
@@ -145,6 +118,35 @@ namespace function {
     ///@}
 
   };
+
+  /** Compute the Walsh transform of the function.
+
+      Let \f$f\f$ be a fitness function defined on the hypercube
+      \f$\{0, 1\}^n\f$. Then it can be expressed as \f$\sum_u c_u
+      \chi_u\f$ where \f$c_u = \langle f, \chi_u\rangle\f$,
+      \f$\langle f, g\rangle = \frac1{2^n} \sum_x f(x) g(x)\f$,
+      \f$\chi_u(x) = (-1)^{x\cdot u}\f$, and \f$x\cdot u = \sum_i
+      x_i u_i\f$ (mod 2). In the respective sums, we have \f$x\f$
+      and \f$u\f$ in the hypercube and \f$i\f$ in \f$\{1, \ldots,
+      n\}\f$.
+
+      We have dropped the normalizing constant \f$2^n\f$ since we
+      are mostly interested in ratios \f$|c_u/c_{\max}|\f$, where
+      \f$c_{\max}\f$ is the coefficient with the largest amplitude.
+        
+      \param terms Vector of non zero terms of the Walsh transform
+
+      \warning The time complexity is exponential in the dimension
+      n. The computation is done with two nested loops over the
+      hypercube. It requires \f$2^n\f$ function evaluations and
+      \f$2^{2n}\f$ dot products and additions.
+
+      \warning The size of the Walsh transform is potentially
+      exponential in the dimension n. For example, if n = 10 then
+      the number of terms is at most 1024.
+
+  */
+  void compute_walsh_transform(function::Function *function, std::vector<function::WalshTerm>& terms);
 
   /// Check whether a bit vector is locally maximal
   bool bv_is_locally_maximal(const bit_vector_t& bv, Function& fn, hnco::neighborhood::NeighborhoodIterator& it);

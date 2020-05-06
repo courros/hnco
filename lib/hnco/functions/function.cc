@@ -28,9 +28,9 @@ using namespace hnco;
 
 
 void
-Function::compute_walsh_transform(std::vector<function::WalshTerm>& terms)
+hnco::function::compute_walsh_transform(function::Function *fn, std::vector<function::WalshTerm>& terms)
 {
-  const int n = get_bv_size();
+  const int n = fn->get_bv_size();
 
   std::vector<double> coefficients(1 << n, 0.0);
 
@@ -40,7 +40,7 @@ Function::compute_walsh_transform(std::vector<function::WalshTerm>& terms)
   bv_it.init();
   while (bv_it.has_next()) {
     const bit_vector_t& x = bv_it.next();
-    double value = eval(x);
+    double value = fn->eval(x);
 
     features_it.init();
     while (features_it.has_next()) {

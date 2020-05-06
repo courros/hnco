@@ -35,19 +35,23 @@ int main(int argc, char *argv[])
   std::uniform_int_distribution<int> bv_size_dist(1, 10); 
 
   for (int i = 0; i < 100; i++) {
-    int bv_size = bv_size_dist(Random::generator);
-    int norm = 1 << bv_size;
+    const int bv_size = bv_size_dist(Random::generator);
+    const int norm = 1 << bv_size;
+
     Plateau source(bv_size);
     std::vector<function::WalshTerm> terms;
-    source.compute_walsh_transform(terms);
+    compute_walsh_transform(&source, terms);
+
     WalshExpansion destination;
     destination.set_terms(terms);
+
     bit_vector_t bv(bv_size);
     for (int t = 0; t < 1000; t++) {
       bv_random(bv);
       if (destination.eval(bv) != source.eval(bv) * norm)
         return 1;
     }
+
   }
 
   return 0;
