@@ -22,6 +22,7 @@ ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_DIST = \
 	Doxyfile \
+	README.md \
 	experiments/autocorrelation/Makefile \
 	experiments/autocorrelation/instances/Makefile \
 	experiments/autocorrelation/instances/ep.100 \
@@ -62,6 +63,10 @@ EXTRA_DIST = \
 	experiments/ecdf/plan.json \
 	experiments/ecdf/report/Makefile \
 	experiments/ecdf/report/report.tex \
+	experiments/function-parameter/Makefile \
+	experiments/function-parameter/plan.json \
+	experiments/function-parameter/report/Makefile \
+	experiments/function-parameter/report/report.tex \
 	experiments/maximum/Makefile \
 	experiments/maximum/instances/Makefile \
 	experiments/maximum/instances/ep.100 \
@@ -95,8 +100,7 @@ EXTRA_DIST = \
 	experiments/walsh-transforms/instances/walsh2.10 \
 	experiments/walsh-transforms/plan.json \
 	experiments/walsh-transforms/report/Makefile \
-	experiments/walsh-transforms/report/report.tex \
-	README.md
+	experiments/walsh-transforms/report/report.tex
 
 #
 # Code management
