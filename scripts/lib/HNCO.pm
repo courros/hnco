@@ -8,7 +8,6 @@ use Exporter qw(import);
 our @EXPORT = qw(
     read_file
     add_missing_names
-    quote
     latex_graphicspath
     latex_section
     latex_begin_center
@@ -41,12 +40,6 @@ sub add_missing_names
             $item->{name} = $item->{id};
         }
     }
-}
-
-sub quote
-{
-    my $str = shift;
-    return qq("$str");
 }
 
 #

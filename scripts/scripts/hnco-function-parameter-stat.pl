@@ -64,7 +64,7 @@ my $graphics            = $obj->{graphics};
 
 my $parameter_id        = $parameter->{id};
 my $parameter_name      = $parameter->{name} || $parameter_id;
-my $xlabel              = quote($parameter_name);
+my $xlabel              = qq("$parameter_name");
 
 my $all_stat = {};
 
@@ -201,7 +201,7 @@ sub generate_gnuplot_candlesticks
     if ($graphics->{candlesticks}->{font_size}) {
         $font = "$font,$graphics->{candlesticks}->{font_size}";
     }
-    $font = quote($font);
+    $font = qq("$font");
     $font = "font $font";
 
     # boxwidth
@@ -211,7 +211,7 @@ sub generate_gnuplot_candlesticks
     }
 
     if ($graphics->{logscale}) {
-        my $fmt = quote("10^{\%T}");
+        my $fmt = qq("10^{\%T}");
         print CANDLESTICKS
             "set logscale x\n",
             "set format x $fmt\n";
@@ -222,7 +222,7 @@ sub generate_gnuplot_candlesticks
         my $function_name = $f->{name};
 
         if ($f->{logscale}) {
-            my $fmt = quote("10^{\%T}");
+            my $fmt = qq("10^{\%T}");
             print CANDLESTICKS
                 "set logscale y 10\n",
                 "set format y $fmt\n";
@@ -241,26 +241,26 @@ sub generate_gnuplot_candlesticks
             my $quoted_string;
 
             if ($graphics->{candlesticks}->{title}) {
-                $quoted_string = quote("$algorithm_name on $function_name");
+                $quoted_string = qq("$algorithm_name on $function_name");
                 print CANDLESTICKS "set title $quoted_string\n";
             }
 
-            $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.pdf");
+            $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.pdf");
             print CANDLESTICKS
                 "$terminal{pdf} $font\n",
                 "set output $quoted_string\n";
-            $quoted_string = quote("$path_results/$function_id/$algorithm_id/quartiles.dat");
+            $quoted_string = qq("$path_results/$function_id/$algorithm_id/quartiles.dat");
             print CANDLESTICKS
                 "plot $quoted_string using 1:3:2:6:5:($boxwidth) with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
                 "     $quoted_string using 1:4:4:4:4:($boxwidth) with candlesticks lw 2 lt 1 notitle\n";
 
-            $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.eps");
+            $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.eps");
             print CANDLESTICKS
                 "$terminal{eps} $font\n",
                 "set output $quoted_string\n",
                 "replot\n";
 
-            $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.png");
+            $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.png");
             print CANDLESTICKS
                 "$terminal{png} $font\n",
                 "set output $quoted_string\n",
@@ -295,11 +295,11 @@ sub generate_gnuplot_mean
     if ($graphics->{mean}->{font_size}) {
         $font = "$font,$graphics->{mean}->{font_size}";
     }
-    $font = quote($font);
+    $font = qq("$font");
     $font = "font $font";
 
     if ($graphics->{logscale}) {
-        my $fmt = quote("10^{\%T}");
+        my $fmt = qq("10^{\%T}");
         print MEAN
             "set logscale x\n",
             "set format x $fmt\n";
@@ -311,10 +311,10 @@ sub generate_gnuplot_mean
 
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
-        my $quoted_string = quote("$function_name: Mean value as a function of $parameter_name");
+        my $quoted_string = qq("$function_name: Mean value as a function of $parameter_name");
         print MEAN "set title $quoted_string\n";
         if ($f->{logscale}) {
-            my $fmt = quote("10^{\%T}");
+            my $fmt = qq("10^{\%T}");
             print MEAN
                 "set logscale y 10\n",
                 "set format y $fmt\n";
@@ -324,7 +324,7 @@ sub generate_gnuplot_mean
                 "set format y\n";
         }
 
-        $quoted_string = quote("$path_graphics/$function_id/mean.pdf");
+        $quoted_string = qq("$path_graphics/$function_id/mean.pdf");
         print MEAN
             "$terminal{pdf} $font\n",
             "set output $quoted_string\n";
@@ -334,19 +334,19 @@ sub generate_gnuplot_mean
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $quoted_title = quote("$algorithm_id");
-                my $quoted_path = quote("$path_results/$function_id/$algorithm_id/mean.dat");
+                my $quoted_title = qq("$algorithm_id");
+                my $quoted_path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
                 "  $quoted_path using 1:2 with l lw 2 title $quoted_title";
              } @$algorithms);
         print MEAN "\n";
 
-        my $quoted_path = quote("$path_graphics/$function_id/mean.eps");
+        my $quoted_path = qq("$path_graphics/$function_id/mean.eps");
         print MEAN
             "$terminal{eps} $font\n",
             "set output $quoted_path\n",
             "replot\n";
 
-        $quoted_path = quote("$path_graphics/$function_id/mean.png");
+        $quoted_path = qq("$path_graphics/$function_id/mean.png");
         print MEAN
             "$terminal{png} $font\n",
             "set output $quoted_path\n",
@@ -380,11 +380,11 @@ sub generate_gnuplot_stddev
     if ($graphics->{stddev}->{font_size}) {
         $font = "$font,$graphics->{stddev}->{font_size}";
     }
-    $font = quote($font);
+    $font = qq("$font");
     $font = "font $font";
 
     if ($graphics->{logscale}) {
-        my $fmt = quote("10^{\%T}");
+        my $fmt = qq("10^{\%T}");
         print STDDEV
             "set logscale x\n",
             "set format x $fmt\n";
@@ -395,7 +395,7 @@ sub generate_gnuplot_stddev
         my $function_name = $f->{name};
 
         if ($f->{logscale}) {
-            my $fmt = quote("10^{\%T}");
+            my $fmt = qq("10^{\%T}");
             print STDDEV
                 "set logscale y 10\n",
                 "set format y $fmt\n";
@@ -407,12 +407,12 @@ sub generate_gnuplot_stddev
 
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
-        my $quoted_string = quote("$path_graphics/$function_id/stddev.pdf");
+        my $quoted_string = qq("$path_graphics/$function_id/stddev.pdf");
         print STDDEV
             "$terminal{pdf} $font\n",
             "set output $quoted_string\n";
 
-        $quoted_string = quote("$function_name: Standard deviation of value as a function of $parameter_name");
+        $quoted_string = qq("$function_name: Standard deviation of value as a function of $parameter_name");
         print STDDEV
             "set title $quoted_string\n";
 
@@ -421,19 +421,19 @@ sub generate_gnuplot_stddev
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $quoted_title = quote("$algorithm_id");
-                my $quoted_path = quote("$path_results/$function_id/$algorithm_id/mean.dat");
+                my $quoted_title = qq("$algorithm_id");
+                my $quoted_path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
                 "  $quoted_path using 1:3 with l lw 2 title $quoted_title";
              } @$algorithms);
         print STDDEV "\n";
 
-        my $quoted_path = quote("$path_graphics/$function_id/stddev.eps");
+        my $quoted_path = qq("$path_graphics/$function_id/stddev.eps");
         print STDDEV
             "$terminal{eps} $font\n",
             "set output $quoted_path\n",
             "replot\n";
 
-        $quoted_path = quote("$path_graphics/$function_id/stddev.png");
+        $quoted_path = qq("$path_graphics/$function_id/stddev.png");
         print STDDEV
             "$terminal{png} $font\n",
             "set output $quoted_path\n",
