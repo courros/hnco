@@ -545,9 +545,3 @@ sub latex_empty_line
 {
     print LATEX "\n";
 }
-
-sub quote
-{
-    my $s = shift;
-    return "\"$s\"";
-}
