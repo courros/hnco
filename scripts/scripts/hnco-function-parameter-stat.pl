@@ -445,7 +445,7 @@ sub generate_gnuplot_stddev
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
-        or die "HNCO::generate_latex: Cannot open $path_report/results.tex\n";
+        or die "hnco-function-parameter-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX latex_graphicspath($path_graphics);
 
