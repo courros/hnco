@@ -9,6 +9,15 @@ our @EXPORT = qw(
     read_file
     add_missing_names
     quote
+    latex_graphicspath
+    latex_section
+    latex_begin_center
+    latex_end_center
+    latex_begin_figure
+    latex_includegraphics
+    latex_caption
+    latex_end_figure
+    latex_newpage
     );
 
 sub read_file
