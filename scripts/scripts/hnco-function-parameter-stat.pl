@@ -201,8 +201,7 @@ sub generate_gnuplot_candlesticks
     if ($graphics->{candlesticks}->{font_size}) {
         $font = "$font,$graphics->{candlesticks}->{font_size}";
     }
-    $font = qq("$font");
-    $font = "font $font";
+    $font = qq(font "$font");
 
     # boxwidth
     my $boxwidth = 10;
@@ -295,8 +294,7 @@ sub generate_gnuplot_mean
     if ($graphics->{mean}->{font_size}) {
         $font = "$font,$graphics->{mean}->{font_size}";
     }
-    $font = qq("$font");
-    $font = "font $font";
+    $font = qq(font "$font");
 
     if ($graphics->{logscale}) {
         my $fmt = qq("10^{\%T}");
@@ -380,8 +378,7 @@ sub generate_gnuplot_stddev
     if ($graphics->{stddev}->{font_size}) {
         $font = "$font,$graphics->{stddev}->{font_size}";
     }
-    $font = qq("$font");
-    $font = "font $font";
+    $font = qq(font "$font");
 
     if ($graphics->{logscale}) {
         my $fmt = qq("10^{\%T}");
