@@ -448,100 +448,34 @@ sub generate_gnuplot_stddev
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
-        or die "hnco-function-parameter-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
+        or die "HNCO::generate_latex: Cannot open $path_report/results.tex\n";
 
-    print LATEX "\\graphicspath{{../$path_graphics/}}\n";
-    latex_empty_line();
+    print LATEX latex_graphicspath($path_graphics);
 
     foreach my $fn (@$functions) {
         my $function_id = $fn->{id};
         my $function_name = $fn->{name};
 
-        latex_section("Function $function_name");
+        print LATEX latex_section("Function $function_name");
 
-        latex_begin_center();
-        latex_includegraphics("$function_id/mean");
-        latex_end_center();
+        print LATEX latex_begin_center();
+        print LATEX latex_includegraphics("$function_id/mean");
+        print LATEX latex_end_center();
 
-        latex_begin_center();
-        latex_includegraphics("$function_id/stddev");
-        latex_end_center();
+        print LATEX latex_begin_center();
+        print LATEX latex_includegraphics("$function_id/stddev");
+        print LATEX latex_end_center();
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
 
-            latex_begin_center();
-            latex_includegraphics("$function_id/$algorithm_id");
-            latex_end_center();
+            print LATEX latex_begin_center();
+            print LATEX latex_includegraphics("$function_id/$algorithm_id");
+            print LATEX latex_end_center();
 
         }
 
     }
 
-}
-
-sub latex_section
-{
-    my ($title) = @_;
-    print LATEX <<EOF;
-\\section{$title}
-EOF
-}
-
-sub latex_begin_center
-{
-    print LATEX <<EOF;
-\\begin{center}
-EOF
-}
-
-sub latex_end_center
-{
-    print LATEX <<EOF;
-\\end{center}
-EOF
-}
-
-sub latex_begin_figure
-{
-    print LATEX <<EOF;
-\\begin{figure}[h]
-\\centering
-EOF
-}
-
-sub latex_includegraphics
-{
-    my ($path) = @_;
-    print LATEX <<EOF
-\\includegraphics[width=0.6\\linewidth]{$path}
-EOF
-}
-
-sub latex_caption
-{
-    my ($caption) = @_;
-    print LATEX <<EOF;
-\\caption{$caption}
-EOF
-}
-
-sub latex_end_figure
-{
-    print LATEX <<EOF;
-\\end{figure}
-EOF
-}
-
-sub latex_newpage
-{
-    print LATEX <<EOF;
-\\newpage
-
-EOF
-}
-
-sub latex_empty_line
-{
-    print LATEX "\n";
+    close(LATEX);
 }
