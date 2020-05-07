@@ -44,17 +44,11 @@ my %terminal = (
 #
 
 my $plan = "plan.json";
-
 if (@ARGV) {
     $plan = shift @ARGV;
 }
 print "Using $plan\n";
-
-open(FILE, $plan) or die "hnco-function-parameter-stat.pl: Cannot open $plan\n";
-my $json = "";
-while (<FILE>) {
-    $json .= $_;
-}
+my $json = read_file($plan);
 
 #
 # Global variables
