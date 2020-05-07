@@ -24,6 +24,8 @@ use JSON;
 use Statistics::Descriptive;
 use List::MoreUtils qw(all);
 
+use HNCO;
+
 #
 # Global constants
 #
@@ -564,16 +566,4 @@ sub quote
 {
     my $s = shift;
     return "\"$s\"";
-}
-
-sub read_file
-{
-    my $path = shift;
-    my $json;
-    {
-        local $/;
-        open my $fh, '<', $path or die "hnco-function-parameter-stat.pl: read_file: Cannot open '$path': $!\n";
-        $json = <$fh>;
-    }
-    return $json;
 }
