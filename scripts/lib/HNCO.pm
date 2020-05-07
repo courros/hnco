@@ -25,7 +25,8 @@ sub read_file
     my $content;
     {
         local $/;
-        open my $fh, '<', $path or die "HNCO::read_file: Cannot open '$path': $!\n";
+        open my $fh, '<', $path
+            or die "HNCO::read_file: Cannot open '$path': $!\n";
         $content = <$fh>;
         close $fh;
     }
