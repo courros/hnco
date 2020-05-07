@@ -16,7 +16,7 @@
 # License along with HNCO. If not, see
 # <http://www.gnu.org/licenses/>.
 
-SUBDIRS = lib app tests scripts examples
+SUBDIRS = lib app tests examples
 
 ACLOCAL_AMFLAGS = -I m4
 
