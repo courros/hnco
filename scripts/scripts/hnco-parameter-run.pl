@@ -25,19 +25,28 @@ use File::Spec;
 use File::HomeDir;
 use Cwd;
 
-my $plan                = "plan.json";
+use HNCO;
+
+#
+# Global constants
+#
+
 my $path_results        = "results";
 
+#
+# Read plan
+#
+
+my $plan = "plan.json";
 if (@ARGV) {
     $plan = shift @ARGV;
 }
 print "Using $plan\n";
+my $json = read_file($plan);
 
-open(FILE, $plan) or die "hnco-parameter-run.pl: Cannot open $plan\n";
-my $json = "";
-while (<FILE>) {
-    $json .= $_;
-}
+#
+# Global variables
+#
 
 my $obj = from_json($json);
 
