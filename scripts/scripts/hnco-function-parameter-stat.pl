@@ -189,7 +189,7 @@ sub generate_gnuplot_candlesticks
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel $xlabel\n",
-        "set ylabel \"Function value\"\n",
+        qq(set ylabel "Function value"\n),
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
@@ -281,7 +281,7 @@ sub generate_gnuplot_mean
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel $xlabel\n",
-        "set ylabel \"Mean value\"\n",
+        qq(set ylabel "Mean value"\n),
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -365,7 +365,7 @@ sub generate_gnuplot_stddev
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set xlabel $xlabel\n",
-        "set ylabel \"Standard deviation of value\"\n",
+        qq(set ylabel "Standard deviation of value"\n),
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
