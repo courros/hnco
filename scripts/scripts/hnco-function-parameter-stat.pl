@@ -96,16 +96,6 @@ generate_gnuplot_mean();
 generate_gnuplot_stddev();
 generate_latex();
 
-sub add_missing_names
-{
-    my $list = shift;
-    foreach my $item (@$list) {
-        if (!exists($item->{name})) {
-            $item->{name} = $item->{id};
-        }
-    }
-}
-
 sub compute_statistics
 {
     foreach my $f (@$functions) {

@@ -5,7 +5,10 @@ use warnings;
 
 use Exporter qw(import);
 
-our @EXPORT = qw(read_file);
+our @EXPORT = qw(
+    read_file
+    add_missing_names
+    );
 
 sub read_file
 {
@@ -18,6 +21,16 @@ sub read_file
         close $fh;
     }
     return $content;
+}
+
+sub add_missing_names
+{
+    my $list = shift;
+    foreach my $item (@$list) {
+        if (!exists($item->{name})) {
+            $item->{name} = $item->{id};
+        }
+    }
 }
 
 1;
