@@ -69,6 +69,7 @@ my @commands = ();
 iterate_functions($path_results, "$obj->{exec} $obj->{opt} -b $budget");
 
 if ($parallel) {
+    write_commands(\@commands);
     gnu_parallel($servers, $path_results, "hnco-parameter-skeleton.pl");
 }
 

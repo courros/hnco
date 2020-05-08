@@ -29,29 +29,31 @@ sub read_file
     return $content;
 }
 
-sub gnu_parallel()
+sub write_commands()
 {
-    my ($servers, $path_results, $skeleton) = @_;
-
-    my $dir = File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
-
-    foreach (@$servers) {
-        system(qq(ssh $_->{hostname} "cd $dir ; $skeleton"\n));
-    }
+    my ($comaands) = @_;
 
     my $path = 'commands.txt';
     my $file = IO::File->new($path, '>')
         or die "HNCO::gnu_parallel: Cannot open '$path': $!\n";
-    $file->print(join("\n", @commands));
+    $file->print(join("\n", @$commands));
     $file->close;
+}
+
+sub gnu_parallel()
+{
+    my ($servers, $path_results, $skeleton) = @_;
 
     if ($servers) {
+        my $dir = File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
+        foreach (@$servers) {
+            system(qq(ssh $_->{hostname} "cd $dir ; $skeleton"\n));
+        }
         my $hostnames = join(',', map { $_->{hostname} } @$servers);
         system("parallel --joblog log.parallel --eta --progress --workdir . -S :,$hostnames :::: commands.txt");
         print "Bringing back the files:\n";
         foreach (@$servers) {
-            my $src = "$_->{hostname}:$dir";
-            system("rsync -avvz $src/$path_results/ $path_results");
+            system("rsync -avvz $_->{hostname}:$dir/$path_results/ $path_results");
         }
     } else {
         system("parallel --joblog log.parallel --eta --progress :::: commands.txt");
