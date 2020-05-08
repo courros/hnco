@@ -25,6 +25,7 @@ use Statistics::Descriptive;
 use List::MoreUtils qw(all);
 
 use HNCO;
+use HNCO::Latex;
 
 #
 # Global constants

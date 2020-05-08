@@ -1,4 +1,4 @@
-package HNCO 1.14;
+package HNCO::Latex;
 
 use strict;
 use warnings;
@@ -6,8 +6,6 @@ use warnings;
 use Exporter qw(import);
 
 our @EXPORT = qw(
-    read_file
-    add_missing_names
     latex_graphicspath
     latex_section
     latex_begin_center
@@ -18,34 +16,6 @@ our @EXPORT = qw(
     latex_end_figure
     latex_newpage
     );
-
-sub read_file
-{
-    my $path = shift;
-    my $content;
-    {
-        local $/;
-        open my $fh, '<', $path
-            or die "HNCO::read_file: Cannot open '$path': $!\n";
-        $content = <$fh>;
-        close $fh;
-    }
-    return $content;
-}
-
-sub add_missing_names
-{
-    my $list = shift;
-    foreach my $item (@$list) {
-        if (!exists($item->{name})) {
-            $item->{name} = $item->{id};
-        }
-    }
-}
-
-#
-# Latex
-#
 
 sub latex_graphicspath
 {
