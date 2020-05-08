@@ -21,6 +21,7 @@ use strict;
 use warnings;
 
 use JSON;
+use File::Slurp qw(read_file write_file);
 
 use HNCO;
 
@@ -69,7 +70,7 @@ my @commands = ();
 iterate_functions($path_results, "$obj->{exec} $obj->{opt} -b $budget");
 
 if ($parallel) {
-    write_commands(\@commands);
+    write_file('commands.txt', @commands);
     gnu_parallel($servers, $path_results, "hnco-parameter-skeleton.pl");
 }
 
