@@ -157,13 +157,13 @@ bool hnco::transvections_are_disjoint(const Transvection& a, const Transvection&
 
 bool hnco::ts_is_valid(const transvection_sequence_t& ts)
 {
-  return std::all_of(ts.begin(), ts.end(), [](transvection_sequence_t& tv){ return tv.is_valid(); });
+  return std::all_of(ts.begin(), ts.end(), [](const Transvection& tv){ return tv.is_valid(); });
 }
 
 
 bool hnco::ts_is_valid(const transvection_sequence_t& ts, int n)
 {
-  return std::all_of(ts.begin(), ts.end(), [n](transvection_sequence_t& tv){ return tv.is_valid(n); });
+  return std::all_of(ts.begin(), ts.end(), [n](const Transvection& tv){ return tv.is_valid(n); });
 }
 
 
