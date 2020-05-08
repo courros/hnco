@@ -3,10 +3,15 @@ package HNCO 1.14;
 use strict;
 use warnings;
 
+use File::Spec;
+use File::HomeDir;
+use Cwd;
+
 use Exporter qw(import);
 
 our @EXPORT = qw(
     read_file
+    gnu_parallel
     add_missing_names
     );
 
@@ -22,6 +27,35 @@ sub read_file
         close $fh;
     }
     return $content;
+}
+
+sub gnu_parallel()
+{
+    my ($servers, $path_results, $skeleton) = @_;
+
+    my $dir = File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
+
+    foreach (@$servers) {
+        system(qq(ssh $_->{hostname} "cd $dir ; $skeleton"\n));
+    }
+
+    my $path = 'commands.txt';
+    my $file = IO::File->new($path, '>')
+        or die "HNCO::gnu_parallel: Cannot open '$path': $!\n";
+    $file->print(join("\n", @commands));
+    $file->close;
+
+    if ($servers) {
+        my $hostnames = join(',', map { $_->{hostname} } @$servers);
+        system("parallel --joblog log.parallel --eta --progress --workdir . -S :,$hostnames :::: commands.txt");
+        print "Bringing back the files:\n";
+        foreach (@$servers) {
+            my $src = "$_->{hostname}:$dir";
+            system("rsync -avvz $src/$path_results/ $path_results");
+        }
+    } else {
+        system("parallel --joblog log.parallel --eta --progress :::: commands.txt");
+    }
 }
 
 sub add_missing_names
