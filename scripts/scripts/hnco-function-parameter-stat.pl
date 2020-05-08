@@ -339,16 +339,16 @@ sub generate_gnuplot_mean
              } @$algorithms);
         print MEAN "\n";
 
-        my $quoted_path = qq("$path_graphics/$function_id/mean.eps");
+        $quoted_string = qq("$path_graphics/$function_id/mean.eps");
         print MEAN
             "$terminal{eps} $font\n",
-            "set output $quoted_path\n",
+            "set output $quoted_string\n",
             "replot\n";
 
-        $quoted_path = qq("$path_graphics/$function_id/mean.png");
+        $quoted_string = qq("$path_graphics/$function_id/mean.png");
         print MEAN
             "$terminal{png} $font\n",
-            "set output $quoted_path\n",
+            "set output $quoted_string\n",
             "replot\n\n";
 
     }
@@ -425,16 +425,16 @@ sub generate_gnuplot_stddev
              } @$algorithms);
         print STDDEV "\n";
 
-        my $quoted_path = qq("$path_graphics/$function_id/stddev.eps");
+        $quoted_string = qq("$path_graphics/$function_id/stddev.eps");
         print STDDEV
             "$terminal{eps} $font\n",
-            "set output $quoted_path\n",
+            "set output $quoted_string\n",
             "replot\n";
 
-        $quoted_path = qq("$path_graphics/$function_id/stddev.png");
+        $quoted_string = qq("$path_graphics/$function_id/stddev.png");
         print STDDEV
             "$terminal{png} $font\n",
-            "set output $quoted_path\n",
+            "set output $quoted_string\n",
             "replot\n\n";
 
     }
