@@ -23,6 +23,7 @@ use warnings;
 use JSON;
 use Statistics::Descriptive;
 use List::MoreUtils qw(all);
+use File::Slurp qw(read_file);
 
 use HNCO;
 use HNCO::Latex;
@@ -49,13 +50,12 @@ if (@ARGV) {
     $plan = shift @ARGV;
 }
 print "Using $plan\n";
-my $json = read_file($plan);
 
 #
 # Global variables
 #
 
-my $obj = from_json($json);
+my $obj = from_json(read_file($plan));
 
 my $algorithms          = $obj->{algorithms};
 my $functions           = $obj->{functions};
