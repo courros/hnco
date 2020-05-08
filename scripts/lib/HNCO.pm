@@ -10,37 +10,11 @@ use Cwd;
 use Exporter qw(import);
 
 our @EXPORT = qw(
-    read_file
     gnu_parallel
     add_missing_names
     );
 
-sub read_file
-{
-    my $path = shift;
-    my $content;
-    {
-        local $/;
-        open my $fh, '<', $path
-            or die "HNCO::read_file: Cannot open '$path': $!\n";
-        $content = <$fh>;
-        close $fh;
-    }
-    return $content;
-}
-
-sub write_commands()
-{
-    my ($comaands) = @_;
-
-    my $path = 'commands.txt';
-    my $file = IO::File->new($path, '>')
-        or die "HNCO::gnu_parallel: Cannot open '$path': $!\n";
-    $file->print(join("\n", @$commands));
-    $file->close;
-}
-
-sub gnu_parallel()
+sub gnu_parallel
 {
     my ($servers, $path_results, $skeleton) = @_;
 
