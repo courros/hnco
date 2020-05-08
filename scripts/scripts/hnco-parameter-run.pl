@@ -40,13 +40,12 @@ if (@ARGV) {
     $plan = shift @ARGV;
 }
 print "Using $plan\n";
-my $json = read_file($plan);
 
 #
 # Global variables
 #
 
-my $obj = from_json($json);
+my $obj = from_json(read_file($plan));
 
 my $algorithms          = $obj->{algorithms};
 my $budget              = $obj->{budget};
@@ -70,7 +69,7 @@ my @commands = ();
 iterate_functions($path_results, "$obj->{exec} $obj->{opt} -b $budget");
 
 if ($parallel) {
-    write_file('commands.txt', @commands);
+    write_file('commands.txt', map { "$_\n" } @commands);
     gnu_parallel($servers, $path_results, "hnco-parameter-skeleton.pl");
 }
 
