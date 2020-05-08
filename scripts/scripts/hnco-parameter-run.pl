@@ -21,9 +21,6 @@ use strict;
 use warnings;
 
 use JSON;
-use File::Spec;
-use File::HomeDir;
-use Cwd;
 
 use HNCO;
 
@@ -67,36 +64,12 @@ if ($parameter->{values_perl}) {
     $values = $parameter->{values};
 }
 
-if ($parallel) {
-    if ($servers) {
-        my $dir = File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
-        foreach (@$servers) {
-            system("ssh $_->{hostname} \"cd $dir ; hnco-parameter-skeleton.pl\"\n");
-        }
-    }
-}
-
 my @commands = ();
 
 iterate_functions($path_results, "$obj->{exec} $obj->{opt} -b $budget");
 
 if ($parallel) {
-    my $path = 'commands.txt';
-    my $file = IO::File->new($path, '>')
-        or die "hnco-parameter-run.pl: Cannot open '$path': $!\n";
-    $file->print(join("\n", @commands));
-    $file->close;
-    if ($servers) {
-        my $hostnames = join(',', map { $_->{hostname} } @$servers);
-        system("parallel --joblog log.parallel --eta --progress --workdir . -S :,$hostnames :::: commands.txt");
-        print "Bringing back the files:\n";
-        foreach (@$servers) {
-            my $src = "$_->{hostname}:" . File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
-            system("rsync -avvz $src/$path_results/ $path_results");
-        }
-    } else {
-        system("parallel --joblog log.parallel --eta --progress :::: commands.txt");
-    }
+    gnu_parallel($servers, $path_results, "hnco-parameter-skeleton.pl");
 }
 
 sub iterate_functions
