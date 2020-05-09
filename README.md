@@ -377,9 +377,10 @@ necessary packages:
 sudo apt-get install build-essential autoconf-archive libboost-serialization-dev
 sudo apt-get install libgmp-dev
 sudo apt-get install parallel
-sudo apt-get install libfile-homedir-perl libjson-perl libstatistics-descriptive-perl
+sudo apt-get install libfile-slurp-perl libfile-homedir-perl libjson-perl libstatistics-descriptive-perl
 sudo apt-get install gnuplot
 sudo apt-get install texlive-base texlive-latex-extra python-pygments python3-pygments
+sudo apt-get install ssh
 ```
 
 ## Building and installing <a name="building"></a>
