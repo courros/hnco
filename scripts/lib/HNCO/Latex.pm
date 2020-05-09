@@ -6,6 +6,7 @@ use warnings;
 use Exporter qw(import);
 
 our @EXPORT = qw(
+    add_missing_names
     latex_graphicspath
     latex_section
     latex_begin_center
@@ -18,6 +19,16 @@ our @EXPORT = qw(
     latex_input_file
     latex_tableofcontents
     );
+
+sub add_missing_names
+{
+    my $list = shift;
+    foreach my $item (@$list) {
+        if (!exists($item->{name})) {
+            $item->{name} = $item->{id};
+        }
+    }
+}
 
 sub latex_graphicspath
 {

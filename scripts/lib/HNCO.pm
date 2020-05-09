@@ -11,7 +11,6 @@ use Exporter qw(import);
 
 our @EXPORT = qw(
     gnu_parallel
-    add_missing_names
     );
 
 sub gnu_parallel
@@ -31,16 +30,6 @@ sub gnu_parallel
         }
     } else {
         system("parallel --joblog log.parallel --eta --progress :::: commands.txt");
-    }
-}
-
-sub add_missing_names
-{
-    my $list = shift;
-    foreach my $item (@$list) {
-        if (!exists($item->{name})) {
-            $item->{name} = $item->{id};
-        }
     }
 }
 
