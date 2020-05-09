@@ -17,32 +17,67 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
+use strict;
+use warnings;
+
 use JSON;
 use Statistics::Descriptive;
 use List::Util qw(min max);
 use List::MoreUtils qw(all);
+use File::Slurp qw(read_file);
 
-my @summary_statistics = qw(min q1 median q3 max);
-my @pref_max = qw(median q1 q3 min max);
-my @pref_min = qw(median q3 q1 max min);
+use HNCO;
+use HNCO::Latex qw(
+    latex_graphicspath
+    latex_section
+    latex_begin_center
+    latex_end_center
+    latex_begin_figure
+    latex_includegraphics
+    latex_caption
+    latex_end_figure
+    latex_newpage
+    latex_input_file
+    latex_tableofcontents
+    );
+
+#
+# Global constants
+#
+
+my $path_results        = "results";
+my $path_graphics       = "graphics";
+my $path_report         = "report";
+
+my @summary_statistics  = qw(min q1 median q3 max);
+my @pref_max            = qw(median q1 q3 min max);
+my @pref_min            = qw(median q3 q1 max min);
+
+my %terminal = (
+    eps => "set term epscairo color enhanced",
+    pdf => "set term pdfcairo color enhanced",
+    png => "set term png enhanced" );
+
+#
+# Read plan
+#
 
 my $plan = "plan.json";
-open(FILE, $plan) or die "hnco-benchmark-stat.pl: Cannot open $plan\n";
-my $json = "";
-while (<FILE>) { $json .= $_; }
+if (@ARGV) {
+    $plan = shift @ARGV;
+}
+print "Using $plan\n";
 
-my $obj = from_json($json);
+my $obj = from_json(read_file($plan));
+
+#
+# Global variables
+#
 
 my $algorithms          = $obj->{algorithms};
 my $functions           = $obj->{functions};
 my $num_runs            = $obj->{num_runs};
 my $graphics            = $obj->{graphics};
-
-my $path_graphics       = "graphics";
-my $path_report         = "report";
-my $path_results        = "results";
-
-unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
 my $ranges = {};
 my $ranking = {};
@@ -54,17 +89,16 @@ my $stat_algorithm_time = {};
 my $stat_value_best = {};
 my $hall_of_fame = {};
 
+#
+# Processing
+#
+
 my $rank_distribution = {};
 foreach my $a (@$algorithms) {
     my $algorithm_id = $a->{id};
     my @counts = (0) x @$algorithms;
     $rank_distribution->{$algorithm_id} = \@counts;
 }
-
-my %terminal = (
-    eps => "set term epscairo color enhanced",
-    pdf => "set term pdfcairo color enhanced",
-    png => "set term png enhanced" );
 
 compute_statistics();
 compute_best_statistics();
@@ -76,12 +110,19 @@ compute_ranges();
 
 generate_function_data();
 generate_function_results();
+
+unless (-d "$path_graphics") { mkdir "$path_graphics"; }
+
 generate_gnuplot_candlesticks();
 generate_gnuplot_scatter();
 generate_table_rank_distribution();
 generate_ranking();
 generate_table_functions();
 generate_latex();
+
+#
+# Local functions
+#
 
 sub compute_statistics
 {
@@ -112,7 +153,8 @@ sub compute_statistics
             my $SD_algorithm_time = Statistics::Descriptive::Full->new();
 
             my $path = "$prefix/$algorithm_id.dat";
-            my $file_data = IO::File->new($path, '>') or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+            my $file_data = IO::File->new($path, '>')
+                or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
             foreach (1 .. $algorithm_num_runs) {
                 my $obj = from_json(read_file("$prefix/$_.out"));
                 $file_data->print("$obj->{num_evaluations} $obj->{value}\n");
@@ -287,7 +329,7 @@ sub generate_function_data
         my $function_id = $f->{id};
         my $path = "$path_results/$function_id/$function_id.dat";
 
-        $file = IO::File->new($path, '>')
+        my $file = IO::File->new($path, '>')
             or die "hnco-benchmark-stat.pl: generate_function_data: Cannot open '$path': $!\n";
 
         my $position = 1;
@@ -318,7 +360,7 @@ sub generate_function_results
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         my $path = "$path_results/$function_id/results.txt";
-        $file = IO::File->new($path, '>')
+        my $file = IO::File->new($path, '>')
             or die "hnco-benchmark-stat.pl: generate_function_results: Cannot open '$path': $!\n";
 
         my @sorted = sort { $b->{value} <=> $a->{value} } @{ $hall_of_fame->{$function_id} };
@@ -358,14 +400,13 @@ sub generate_gnuplot_candlesticks
     if ($graphics->{candlesticks}->{font_size}) {
         $font = "$font,$graphics->{candlesticks}->{font_size}";
     }
-    $font = quote($font);
-    $font = "font $font";
+    $font = qq(font "$font");
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
         if ($f->{logscale}) {
-            my $fmt = quote("10^{\%T}");
+            my $fmt = qq("10^{\%T}");
             print CANDLESTICKS
                 "set logscale y 10\n",
                 "set format y $fmt\n";
@@ -375,22 +416,22 @@ sub generate_gnuplot_candlesticks
                 "set format y\n";
         }
 
-        my $quoted_path = quote("$path_graphics/$function_id.pdf");
+        my $quoted_path = qq("$path_graphics/$function_id.pdf");
         print CANDLESTICKS
             "$terminal{pdf} $font\n",
             "set output $quoted_path\n";
-        $quoted_path = quote("$path_results/$function_id/$function_id.dat");
+        $quoted_path = qq("$path_results/$function_id/$function_id.dat");
         print CANDLESTICKS
             "plot $quoted_path using 1:3:2:6:5:xticlabels(7) with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
             "     $quoted_path using 1:4:4:4:4 with candlesticks lw 3 lt 1 notitle\n";
 
-        $quoted_path = quote("$path_graphics/$function_id.eps");
+        $quoted_path = qq("$path_graphics/$function_id.eps");
         print CANDLESTICKS
             "$terminal{eps} $font\n",
             "set output $quoted_path\n",
             "replot\n";
 
-        $quoted_path = quote("$path_graphics/$function_id.png");
+        $quoted_path = qq("$path_graphics/$function_id.png");
         print CANDLESTICKS
             "$terminal{png} $font\n",
             "set output $quoted_path\n",
@@ -412,7 +453,7 @@ sub generate_gnuplot_scatter
         "set grid\n",
         "set xlabel \"Number of evaluations (x10^3)\"\n",
         "set ylabel \"Function value\"\n",
-        "set format x ", quote("%.0s"), "\n",
+        "set format x ", qq("%.0s"), "\n",
         "set key outside top center box opaque horizontal\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -425,15 +466,14 @@ sub generate_gnuplot_scatter
     if ($graphics->{scatter}->{font_size}) {
         $font = "$font,$graphics->{scatter}->{font_size}";
     }
-    $font = quote($font);
-    $font = "font $font";
+    $font = qq(font "$font");
 
     # One function one file
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
         if ($f->{logscale}) {
-            my $fmt = quote("10^{\%T}");
+            my $fmt = qq("10^{\%T}");
             print SCATTER
                 "set logscale y 10\n",
                 "set format y $fmt\n";
@@ -446,7 +486,7 @@ sub generate_gnuplot_scatter
         my $quoted_path;
         my $quoted_title;
 
-        $quoted_path = quote("$path_graphics/$function_id+all.eps");
+        $quoted_path = qq("$path_graphics/$function_id+all.eps");
         print SCATTER
             "$terminal{eps} $font\n",
             "set output $quoted_path\n";
@@ -457,8 +497,8 @@ sub generate_gnuplot_scatter
             (map {
                 my $algorithm_id = $_->{id};
                 my $value = $stat_value->{$function_id}->{$algorithm_id};
-                $quoted_path = quote("$path_results/$function_id/$algorithm_id/$algorithm_id.dat");
-                $quoted_title = quote("$algorithm_id");
+                $quoted_path = qq("$path_results/$function_id/$algorithm_id/$algorithm_id.dat");
+                $quoted_title = qq("$algorithm_id");
                 $f->{reverse} ?
                     "  $quoted_path using 1:(-\$2) with points title $quoted_title" :
                     "  $quoted_path using 1:2 with points title $quoted_title";
@@ -466,13 +506,13 @@ sub generate_gnuplot_scatter
 
         print SCATTER "\n";
 
-        $quoted_path = quote("$path_graphics/$function_id+all.pdf");
+        $quoted_path = qq("$path_graphics/$function_id+all.pdf");
         print SCATTER
             "$terminal{pdf} $font\n",
             "set output $quoted_path\n",
             "replot\n";
 
-        $quoted_path = quote("$path_graphics/$function_id+all.png");
+        $quoted_path = qq("$path_graphics/$function_id+all.png");
         print SCATTER
             "$terminal{png} $font\n",
             "set output $quoted_path\n",
@@ -484,7 +524,7 @@ sub generate_gnuplot_scatter
         my $function_id = $f->{id};
 
         if ($f->{logscale}) {
-            $fmt = quote("10^{\%T}");
+            my $fmt = qq("10^{\%T}");
             print SCATTER
                 "set logscale y 10\n",
                 "set format y $fmt\n";
@@ -514,25 +554,25 @@ sub generate_gnuplot_scatter
             my $algorithm_id = $a->{id};
             my $value = $stat_value->{$function_id}->{$algorithm_id};
 
-            $quoted_path = quote("$path_graphics/$function_id+$algorithm_id.eps");
+            $quoted_path = qq("$path_graphics/$function_id+$algorithm_id.eps");
             print SCATTER
                 "$terminal{eps} $font\n",
                 "set output $quoted_path\n";
 
-            $quoted_path = quote("$path_results/$function_id/$algorithm_id/$algorithm_id.dat");
+            $quoted_path = qq("$path_results/$function_id/$algorithm_id/$algorithm_id.dat");
             if ($f->{reverse}) {
                 print SCATTER "plot $quoted_path using 1:(-\$2) with points notitle\n";
             } else {
                 print SCATTER "plot $quoted_path using 1:2 with points notitle\n";
             }
 
-            $quoted_path = quote("$path_graphics/$function_id+$algorithm_id.pdf");
+            $quoted_path = qq("$path_graphics/$function_id+$algorithm_id.pdf");
             print SCATTER
                 "$terminal{pdf} $font\n",
                 "set output $quoted_path\n",
                 "replot\n";
 
-            $quoted_path = quote("$path_graphics/$function_id+$algorithm_id.png");
+            $quoted_path = qq("$path_graphics/$function_id+$algorithm_id.png");
             print SCATTER
                 "$terminal{png} $font\n",
                 "set output $quoted_path\n",
@@ -580,7 +620,8 @@ sub generate_table_value
     my $best = $stat_value_best->{$function_id};
 
     my $path = "$path_report/table-value-$function_id.tex";
-    open(LATEX, ">$path") or die "hnco-benchmark-stat.pl: generate_table_value: Cannot open $path\n";
+    open(LATEX, ">$path")
+        or die "hnco-benchmark-stat.pl: generate_table_value: Cannot open $path\n";
 
     latex_table_value_begin(">{{\\nprounddigits{$rounding_value_after}}}N{$rounding_value_before}{$rounding_value_after}");
 
@@ -608,7 +649,8 @@ sub generate_table_time
     my $algorithm_time = $stat_algorithm_time->{$function_id};
 
     my $path = "$path_report/table-time-$function_id.tex";
-    open(LATEX, ">$path") or die "hnco-benchmark-stat.pl: generate_table_time: Cannot open $path\n";
+    open(LATEX, ">$path")
+        or die "hnco-benchmark-stat.pl: generate_table_time: Cannot open $path\n";
 
     latex_table_time_begin(">{{\\nprounddigits{$rounding_time_after}}}N{$rounding_time_before}{$rounding_time_after}");
     foreach my $a (@$algorithms) {
@@ -654,18 +696,15 @@ sub generate_latex
     open(LATEX, ">$path_report/content.tex")
         or die "hnco-benchmark-stat.pl: generate_latex: Cannot open $path_report/content.tex\n";
 
-    print LATEX "\\graphicspath{{../$path_graphics/}}\n";
-    latex_empty_line();
+    print LATEX latex_graphicspath($path_graphics);
 
-    latex_section("Ranking");
-    latex_empty_line();
+    print LATEX latex_section("Ranking");
 
-    latex_begin_center();
-    latex_input_file("table-rank-distribution.tex");
-    latex_end_center();
-    latex_empty_line();
+    print LATEX latex_begin_center();
+    print LATEX latex_input_file("table-rank-distribution.tex");
+    print LATEX latex_end_center();
 
-    latex_input_file("ranking.tex");
+    print LATEX latex_input_file("ranking.tex");
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
@@ -673,68 +712,30 @@ sub generate_latex
         my $best = $stat_value_best->{$function_id};
         my $total_time = $stat_total_time->{$function_id};
 
-        latex_newpage();
+        print LATEX latex_newpage();
 
-        latex_section("Function $function_id");
-        latex_empty_line();
+        print LATEX latex_section("Function $function_id");
 
-        latex_begin_center();
-        latex_input_file("table-value-$function_id.tex");
-        latex_end_center();
-        latex_empty_line();
+        print LATEX latex_begin_center();
+        print LATEX latex_input_file("table-value-$function_id.tex");
+        print LATEX latex_end_center();
 
-        latex_begin_center();
-        latex_input_file("table-time-$function_id.tex");
-        latex_end_center();
-        latex_empty_line();
+        print LATEX latex_begin_center();
+        print LATEX latex_input_file("table-time-$function_id.tex");
+        print LATEX latex_end_center();
 
-        latex_begin_figure();
-        latex_begin_center();
-        latex_includegraphics("$function_id");
-        latex_caption("$function_id");
-        latex_end_center();
-        latex_end_figure();
-        latex_empty_line();
+        print LATEX latex_begin_figure();
+        print LATEX latex_includegraphics("$function_id");
+        print LATEX latex_caption("$function_id");
+        print LATEX latex_end_figure();
 
-        latex_begin_figure();
-        latex_begin_center();
-        latex_includegraphics("$function_id+all");
-        latex_caption("$function_id");
-        latex_end_center();
-        latex_end_figure();
-        latex_empty_line();
+        print LATEX latex_begin_figure();
+        print LATEX latex_includegraphics("$function_id+all");
+        print LATEX latex_caption("$function_id");
+        print LATEX latex_end_figure();
     }
 
     close LATEX;
-}
-
-sub latex_tableofcontents
-{
-    print LATEX <<EOF;
-\\tableofcontents
-EOF
-}
-
-sub latex_section
-{
-    my ($title) = @_;
-    print LATEX <<EOF;
-\\section{$title}
-EOF
-}
-
-sub latex_begin_center
-{
-    print LATEX <<EOF;
-\\begin{center}
-EOF
-}
-
-sub latex_end_center
-{
-    print LATEX <<EOF;
-\\end{center}
-EOF
 }
 
 sub latex_table_value_begin
@@ -800,40 +801,6 @@ sub latex_table_end
 EOF
 }
 
-sub latex_begin_figure
-{
-    print LATEX "\\begin{figure}[h]\n";
-}
-
-sub latex_includegraphics
-{
-    my ($path) = @_;
-    print LATEX <<EOF
-\\includegraphics[width=0.6\\linewidth]{$path}
-EOF
-}
-
-sub latex_caption
-{
-    my ($caption) = @_;
-    print LATEX <<EOF;
-\\caption{$caption}
-EOF
-}
-
-sub latex_end_figure
-{
-    print LATEX "\\end{figure}\n";
-}
-
-sub latex_newpage
-{
-    print LATEX <<EOF;
-\\newpage
-
-EOF
-}
-
 sub latex_table_rank_distribution_begin
 {
     my $num_algo = @$algorithms;
@@ -868,33 +835,4 @@ sub latex_table_rank_distribution_end
     print LATEX
         "\\bottomrule\n",
         "\\end{tabular}\n";
-}
-
-sub latex_empty_line
-{
-    print LATEX "\n";
-}
-
-sub latex_input_file
-{
-    my $path = shift;
-    print LATEX "\\input{$path}\n";
-}
-
-sub quote
-{
-    my $s = shift;
-    return "\"$s\"";
-}
-
-sub read_file
-{
-    my $path = shift;
-    my $json;
-    {
-        local $/;
-        open my $fh, '<', $path or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
-        $json = <$fh>;
-    }
-    return $json;
 }
