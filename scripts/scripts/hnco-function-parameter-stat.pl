@@ -97,6 +97,10 @@ generate_gnuplot_mean();
 generate_gnuplot_stddev();
 generate_latex();
 
+#
+# Local functions
+#
+
 sub compute_statistics
 {
     foreach my $f (@$functions) {

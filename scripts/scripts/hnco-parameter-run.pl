@@ -29,7 +29,7 @@ use HNCO qw(gnu_parallel);
 # Global constants
 #
 
-my $path_results        = "results";
+my $path_results = "results";
 
 #
 # Read plan
@@ -41,11 +41,11 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
+my $obj = from_json(read_file($plan));
+
 #
 # Global variables
 #
-
-my $obj = from_json(read_file($plan));
 
 my $algorithms          = $obj->{algorithms};
 my $budget              = $obj->{budget};
@@ -64,6 +64,10 @@ if ($parameter->{values_perl}) {
     $values = $parameter->{values};
 }
 
+#
+# Processing
+#
+
 my @commands = ();
 
 iterate_functions($path_results, "$obj->{exec} $obj->{opt} -b $budget");
@@ -72,6 +76,10 @@ if ($parallel) {
     write_file('commands.txt', map { "$_\n" } @commands);
     gnu_parallel($servers, $path_results, "hnco-parameter-skeleton.pl");
 }
+
+#
+# Local functions
+#
 
 sub iterate_functions
 {
