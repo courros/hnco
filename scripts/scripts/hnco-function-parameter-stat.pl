@@ -25,8 +25,17 @@ use Statistics::Descriptive;
 use List::MoreUtils qw(all);
 use File::Slurp qw(read_file);
 
-use HNCO;
-use HNCO::Latex;
+use HNCO::Latex qw(
+    add_missing_names
+    latex_graphicspath
+    latex_section
+    latex_begin_center
+    latex_end_center
+    latex_begin_figure
+    latex_includegraphics
+    latex_caption
+    latex_end_figure
+    );
 
 #
 # Global constants
