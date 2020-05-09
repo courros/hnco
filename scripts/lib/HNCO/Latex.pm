@@ -15,6 +15,8 @@ our @EXPORT = qw(
     latex_caption
     latex_end_figure
     latex_newpage
+    latex_input_file
+    latex_tableofcontents
     );
 
 sub latex_graphicspath
@@ -66,6 +68,17 @@ sub latex_end_figure
 sub latex_newpage
 {
     return "\\newpage\n";
+}
+
+sub latex_input_file
+{
+    my $path = shift;
+    return "\\input{$path}\n";
+}
+
+sub latex_tableofcontents
+{
+    return "\\tableofcontents\n";
 }
 
 1;
