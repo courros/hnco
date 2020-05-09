@@ -11,7 +11,7 @@ run:
 doc:
 	hnco-benchmark-stat.pl
 	./candlesticks.gp
-	./clouds.gp
+	./scatter.gp
 	sed '/^$$/d' plan.json > plan-compact.json
 	make -C report
 
@@ -19,7 +19,7 @@ clean:
 	rm -f plan-compact.json
 	rm -f log.defaults log.err log.parallel
 	rm -f commands.txt
-	rm -f candlesticks.gp clouds.gp
+	rm -f candlesticks.gp scatter.gp
 	rm -rf graphics
 	rm -rf results
 
