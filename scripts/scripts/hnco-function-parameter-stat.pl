@@ -51,11 +51,11 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
+my $obj = from_json(read_file($plan));
+
 #
 # Global variables
 #
-
-my $obj = from_json(read_file($plan));
 
 my $algorithms          = $obj->{algorithms};
 my $functions           = $obj->{functions};
