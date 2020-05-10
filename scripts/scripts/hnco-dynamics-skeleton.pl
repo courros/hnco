@@ -17,7 +17,15 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
+use strict;
+use warnings;
+
 use JSON;
+use File::Slurp qw(read_file);
+
+#
+# Read plan
+#
 
 my $plan = "plan.json";
 if (@ARGV) {
@@ -25,25 +33,30 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
-open(FILE, $plan)
-    or die "hnco-dynamics-skeleton.pl: Cannot open $plan\n";
-my $json = "";
-while (<FILE>) {
-    $json .= $_;
-}
+my $obj = from_json(read_file($plan));
 
-my $obj = from_json($json);
+#
+# Global variables
+#
 
 my $functions   = $obj->{functions};
 my $algorithms  = $obj->{algorithms};
+my $path        = $obj->{results};
 
-my $path = $obj->{results};
+#
+# Processing
+#
+
 unless (-d $path) {
     mkdir $path;
     print "Created $path\n";
 }
 
 iterate_functions($path);
+
+#
+# Local functions
+#
 
 sub iterate_functions
 {
