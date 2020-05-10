@@ -2,7 +2,7 @@ use ExtUtils::MakeMaker;
  
 WriteMakefile(
     NAME                => 'HNCO',
-    VERSION_FROM        => 'lib/HNCO.pm',
+    VERSION_FROM        => 'lib/HNCO/Run.pm',
     NO_META             => true,
     NO_MYMETA           => true,
     EXE_FILES           => [

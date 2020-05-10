@@ -26,8 +26,7 @@ use List::Util qw(min max);
 use List::MoreUtils qw(all);
 use File::Slurp qw(read_file);
 
-use HNCO;
-use HNCO::Latex qw(
+use HNCO::Report qw(
     latex_graphicspath
     latex_section
     latex_begin_center

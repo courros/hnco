@@ -23,7 +23,7 @@ use warnings;
 use JSON;
 use File::Slurp qw(read_file write_file);
 
-use HNCO qw(gnu_parallel);
+use HNCO::Run qw(gnu_parallel);
 
 #
 # Global constants

@@ -1,4 +1,4 @@
-package HNCO::Latex;
+package HNCO::Report;
 
 use strict;
 use warnings;

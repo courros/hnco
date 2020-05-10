@@ -1,4 +1,4 @@
-package HNCO 1.14;
+package HNCO::Run 1.14;
 
 use strict;
 use warnings;
