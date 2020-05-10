@@ -17,7 +17,38 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
+use strict;
+use warnings;
+
 use JSON;
+use Statistics::Descriptive;
+use List::MoreUtils qw(all);
+use File::Slurp qw(read_file);
+
+use HNCO::Report qw(
+    add_missing_names
+    latex_graphicspath
+    latex_section
+    latex_begin_center
+    latex_end_center
+    latex_begin_figure
+    latex_includegraphics
+    latex_caption
+    latex_end_figure
+    );
+
+#
+# Global constants
+#
+
+my %terminal = (
+    eps => "set term epscairo color enhanced",
+    pdf => "set term pdfcairo color enhanced",
+    png => "set term png enhanced" );
+
+#
+# Read plan
+#
 
 my $plan = "plan.json";
 if (@ARGV) {
@@ -25,14 +56,11 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
-open(FILE, $plan)
-    or die "hnco-dynamics-stat.pl: Cannot open $plan\n";
-my $json = "";
-while (<FILE>) {
-    $json .= $_;
-}
+my $obj = from_json(read_file($plan));
 
-my $obj = from_json($json);
+#
+# Global variables
+#
 
 my $path_results        = $obj->{results};
 my $path_report         = $obj->{report};
@@ -42,15 +70,18 @@ my $algorithms          = $obj->{algorithms};
 my $xcolumn             = $obj->{xcolumn};
 my $ycolumn             = $obj->{ycolumn};
 
-my %terminal = (
-    eps => "set term epscairo color enhanced",
-    pdf => "set term pdfcairo color enhanced",
-    png => "set term png enhanced" );
+#
+# Processing
+#
 
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
 generate_graphics();
 generate_latex();
+
+#
+# Local functions
+#
 
 sub generate_graphics
 {
@@ -67,7 +98,7 @@ sub generate_graphics
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
 
     if ($obj->{xlogscale}) {
-        my $fmt = quote("10^{\%L}");
+        my $fmt = qq("10^{\%L}");
         print GRAPHICS
             "set logscale x\n",
             "set format x $fmt\n";
@@ -78,7 +109,7 @@ sub generate_graphics
     }
 
     if ($obj->{ylogscale}) {
-        my $fmt = quote("10^{\%L}");
+        my $fmt = qq("10^{\%L}");
         print GRAPHICS
             "set logscale y\n",
             "set format y $fmt\n";
@@ -91,8 +122,8 @@ sub generate_graphics
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
-        my $quoted_title = quote("$function_id");
-        my $quoted_path = quote("$path_graphics/$function_id.eps");
+        my $quoted_title = qq("$function_id");
+        my $quoted_path = qq("$path_graphics/$function_id.eps");
 
         print GRAPHICS
             $terminal{eps}, "\n",
@@ -105,21 +136,21 @@ sub generate_graphics
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                $quoted_path = quote("$path_results/$function_id/$algorithm_id/1.out");
-                $quoted_title = quote("$algorithm_id");
+                $quoted_path = qq("$path_results/$function_id/$algorithm_id/1.out");
+                $quoted_title = qq("$algorithm_id");
                 $position++;
                 "  $quoted_path using $xcolumn:$ycolumn with lines lw 1 title $quoted_title";
              } @$algorithms);
 
         print GRAPHICS "\n";
 
-        $quoted_path = quote("$path_graphics/$function_id.pdf");
+        $quoted_path = qq("$path_graphics/$function_id.pdf");
         print GRAPHICS
             $terminal{pdf}, "\n",
             "set output $quoted_path\n",
             "replot\n";
 
-        $quoted_path = quote("$path_graphics/$function_id.png");
+        $quoted_path = qq("$path_graphics/$function_id.png");
         print GRAPHICS
             $terminal{png}, "\n",
             "set output $quoted_path\n",
@@ -134,50 +165,14 @@ sub generate_latex
     open(LATEX, ">$path_report/results.tex")
         or die "hnco-dynamics-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
-    print LATEX "\\graphicspath{{../$path_graphics/}}\n";
+    print LATEX latex_graphicspath($path_graphics);
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
-        latex_section($function_id);
-        latex_begin_center();
-        latex_includegraphics($function_id);
-        latex_end_center();
+        print LATEX latex_section($function_id);
+        print LATEX latex_begin_center();
+        print LATEX latex_includegraphics($function_id);
+        print LATEX latex_end_center();
     }
-}
-
-sub latex_section
-{
-    my ($title) = @_;
-    print LATEX <<EOF;
-\\section{$title}
-EOF
-}
-
-sub latex_begin_center
-{
-    print LATEX <<EOF;
-\\begin{center}
-EOF
-}
-
-sub latex_end_center
-{
-    print LATEX <<EOF;
-\\end{center}
-EOF
-}
-
-sub latex_includegraphics
-{
-    my $id = shift;
-    print LATEX <<EOF
-\\includegraphics[width=\\linewidth]{$id}
-EOF
-}
-
-sub quote
-{
-    my $s = shift;
-    return "\"$s\"";
 }
