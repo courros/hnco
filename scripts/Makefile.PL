@@ -45,6 +45,7 @@ WriteMakefile(
 	'bin/hnco-runtime2-stat.pl',
 	'bin/hnco-walsh-run.pl',
 	'bin/hnco-walsh-skeleton.pl',
-	'bin/hnco-walsh-stat.pl'
+	'bin/hnco-walsh-stat.pl',
+        'bin/optgen.pl'
     ]
     );
