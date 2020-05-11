@@ -19,21 +19,53 @@
 
 use strict;
 use warnings;
+
 use JSON;
+use Statistics::Descriptive;
 use List::Util qw(min max);
+use List::MoreUtils qw(all);
+use File::Slurp qw(read_file);
+
+use HNCO::Report qw(
+    add_missing_names
+    latex_graphicspath
+    latex_section
+    latex_begin_center
+    latex_end_center
+    latex_begin_figure
+    latex_includegraphics
+    latex_caption
+    latex_end_figure
+    );
+
+#
+# Global constants
+#
+
+my $path_results        = "results";
+my $path_graphics       = "graphics";
+my $path_report         = "report";
 
 my %terminal = (
     eps => "set term epscairo color enhanced",
     pdf => "set term pdfcairo color enhanced",
     png => "set term png enhanced" );
 
-my $plan = "plan.json";
-open(FILE, $plan)
-    or die "hnco-ecdf-stat.pl: Cannot open $plan\n";
-my $json = "";
-while (<FILE>) { $json .= $_; }
+#
+# Read plan
+#
 
-my $obj = from_json($json);
+my $plan = "plan.json";
+if (@ARGV) {
+    $plan = shift @ARGV;
+}
+print "Using $plan\n";
+
+my $obj = from_json(read_file($plan));
+
+#
+# Global variables
+#
 
 my $algorithms          = $obj->{algorithms};
 my $functions           = $obj->{functions};
@@ -41,9 +73,9 @@ my $num_runs            = $obj->{num_runs};
 my $num_targets         = $obj->{num_targets};
 my $budget              = $obj->{budget};
 
-my $path_graphics       = "graphics";
-my $path_report         = "report";
-my $path_results        = "results";
+#
+# Processing
+#
 
 unless (-d "$path_graphics") {
     mkdir "$path_graphics";
@@ -62,6 +94,10 @@ generate_end_of_ecdf();
 generate_graphics();
 generate_graphics_all();
 generate_latex();
+
+#
+# Local functions
+#
 
 sub compute_ranges
 {
@@ -289,7 +325,7 @@ sub generate_graphics
         "set xlabel \"Number of evaluations\"\n",
         "set ylabel \"Proportion of targets\"\n",
         "set key outside top center box opaque horizontal\n",
-        "set format x ", quote("10^{%L}"), "\n",
+        "set format x ", qq("10^{%L}"), "\n",
         "set logscale x\n",
         "set autoscale fix\n\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
@@ -297,8 +333,8 @@ sub generate_graphics
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
-        my $quoted_title = quote("$function_id");
-        my $quoted_path = quote("$path_graphics/$function_id.eps");
+        my $quoted_title = qq("$function_id");
+        my $quoted_path = qq("$path_graphics/$function_id.eps");
 
         print GRAPHICS
             $terminal{eps}, "\n",
@@ -310,19 +346,19 @@ sub generate_graphics
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                $quoted_path = quote("$path_results/$function_id/$algorithm_id/ecdf.txt");
-                $quoted_title = quote("$algorithm_id");
+                $quoted_path = qq("$path_results/$function_id/$algorithm_id/ecdf.txt");
+                $quoted_title = qq("$algorithm_id");
                 "  $quoted_path using 1:2 with lines title $quoted_title";
              } @$algorithms);
         print GRAPHICS "\n";
 
-        $quoted_path = quote("$path_graphics/$function_id.pdf");
+        $quoted_path = qq("$path_graphics/$function_id.pdf");
         print GRAPHICS
             $terminal{pdf}, "\n",
             "set output $quoted_path\n",
             "replot\n";
 
-        $quoted_path = quote("$path_graphics/$function_id.png");
+        $quoted_path = qq("$path_graphics/$function_id.png");
         print GRAPHICS
             $terminal{png}, "\n",
             "set output $quoted_path\n",
@@ -337,7 +373,7 @@ sub generate_graphics_all
     open(GRAPHICS, ">graphics-all.gp")
         or die "hnco-ecdf-stat.pl: generate_graphics_all: cannot open graphics.gp\n";
 
-    my $quoted_title = quote("All functions");
+    my $quoted_title = qq("All functions");
 
     print GRAPHICS
         "#!/usr/bin/gnuplot -persist\n",
@@ -346,11 +382,11 @@ sub generate_graphics_all
         "set ylabel \"Proportion of targets\"\n",
         "set key font \",10\" reverse Left outside right center box vertical title $quoted_title font \",10\"\n",
         "set logscale x\n",
-        "set format x ", quote("10^{%L}"), "\n",
+        "set format x ", qq("10^{%L}"), "\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
-    my $quoted_path = quote("$path_graphics/all.eps");
+    my $quoted_path = qq("$path_graphics/all.eps");
     print GRAPHICS
         $terminal{eps}, "\n",
         "set output $quoted_path\n";
@@ -359,19 +395,19 @@ sub generate_graphics_all
         join ", \\\n",
         (map {
             my $algorithm_id = $_->{algorithm_id};
-            $quoted_path = quote("$path_results/ecdf/$algorithm_id.txt");
-            $quoted_title = quote("$algorithm_id");
+            $quoted_path = qq("$path_results/ecdf/$algorithm_id.txt");
+            $quoted_title = qq("$algorithm_id");
             "  $quoted_path using 1:2 with lines title $quoted_title";
          } reverse(@sorted_levels));
     print GRAPHICS "\n\n";
 
-    $quoted_path = quote("$path_graphics/all.pdf");
+    $quoted_path = qq("$path_graphics/all.pdf");
     print GRAPHICS
         $terminal{pdf}, "\n",
         "set output $quoted_path\n",
         "replot\n\n";
 
-    $quoted_path = quote("$path_graphics/all.png");
+    $quoted_path = qq("$path_graphics/all.png");
     print GRAPHICS
         $terminal{png}, "\n",
         "set output $quoted_path\n",
@@ -385,100 +421,23 @@ sub generate_latex
     open(LATEX, ">$path_report/results.tex")
         or die "hnco-ecdf-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
-    print LATEX "\\graphicspath{{../$path_graphics/}}\n";
-    latex_empty_line();
+    print LATEX latex_graphicspath($path_graphics);
 
-    latex_section("All Functions");
-    latex_empty_line();
-    latex_begin_center();
-    latex_includegraphics("all");
-    latex_end_center();
-    latex_empty_line();
+    print LATEX latex_section("All Functions");
+    print LATEX latex_begin_center();
+    print LATEX latex_includegraphics("all");
+    print LATEX latex_end_center();
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
-        latex_section("Function $function_id");
-        latex_empty_line();
-        latex_begin_center();
-        latex_includegraphics("$function_id");
-        latex_end_center();
-        latex_empty_line();
+        print LATEX latex_section("Function $function_id");
+        print LATEX latex_begin_center();
+        print LATEX latex_includegraphics("$function_id");
+        print LATEX latex_end_center();
 
     }
 
-}
-
-sub latex_section
-{
-    my ($title) = @_;
-    print LATEX <<EOF;
-\\section{$title}
-EOF
-}
-
-sub latex_begin_center
-{
-    print LATEX <<EOF;
-\\begin{center}
-EOF
-}
-
-sub latex_end_center
-{
-    print LATEX <<EOF;
-\\end{center}
-EOF
-}
-
-sub latex_begin_figure
-{
-    print LATEX <<EOF;
-\\begin{figure}[h]
-\\centering
-EOF
-}
-
-sub latex_includegraphics
-{
-    my ($path) = @_;
-    print LATEX <<EOF
-\\includegraphics[width=\\linewidth]{$path}
-EOF
-}
-
-sub latex_caption
-{
-    my ($caption) = @_;
-    print LATEX <<EOF;
-\\caption{$caption}
-EOF
-}
-
-sub latex_end_figure
-{
-    print LATEX <<EOF;
-\\end{figure}
-EOF
-}
-
-sub latex_newpage
-{
-    print LATEX <<EOF;
-\\newpage
-
-EOF
-}
-
-sub latex_empty_line
-{
-    print LATEX "\n";
-}
-
-sub quote
-{
-    my $s = shift;
-    return "\"$s\"";
 }
 
 sub get_value
