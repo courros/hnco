@@ -17,31 +17,61 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
+use strict;
+use warnings;
+
 use JSON;
 use Statistics::Descriptive;
 use List::Util qw(min max);
 use List::MoreUtils qw(all);
+use File::Slurp qw(read_file);
+
+use HNCO::Report qw(
+    %terminal
+    add_missing_names
+    latex_graphicspath
+    latex_section
+    latex_begin_center
+    latex_end_center
+    latex_begin_figure
+    latex_includegraphics
+    latex_caption
+    latex_end_figure
+    latex_newpage
+    latex_input_file
+    );
+
+#
+# Global constants
+#
 
 my @summary_statistics = qw(min q1 median q3 max);
 my @pref_max = qw(median q1 q3 min max);
 my @pref_min = qw(median q3 q1 max min);
 
-my $plan = "plan.json";
-open(FILE, $plan) or die "hnco-benchmark-stat.pl: Cannot open $plan\n";
-my $json = "";
-while (<FILE>) { $json .= $_; }
-
-my $obj = from_json($json);
-
-my $algorithms          = $obj->{algorithms};
-my $functions           = $obj->{functions};
-my $num_runs            = $obj->{num_runs};
-
 my $path_graphics       = "graphics";
 my $path_report         = "report";
 my $path_results        = "results";
 
-unless (-d "$path_graphics") { mkdir "$path_graphics"; }
+#
+# Read plan
+#
+
+my $plan = "plan.json";
+if (@ARGV) {
+    $plan = shift @ARGV;
+}
+print "Using $plan\n";
+
+my $obj = from_json(read_file($plan));
+
+#
+# Global variables
+#
+
+my $algorithms          = $obj->{algorithms};
+my $functions           = $obj->{functions};
+my $num_runs            = $obj->{num_runs};
 
 my $ranking = {};
 my $stat_eval = {};
@@ -51,6 +81,10 @@ my $stat_evaluation_time = {};
 my $stat_algorithm_time = {};
 my $stat_value_best = {};
 
+#
+# Processing
+#
+
 my $rank_distribution = {};
 foreach my $a (@$algorithms) {
     my $algorithm_id = $a->{id};
@@ -58,10 +92,7 @@ foreach my $a (@$algorithms) {
     $rank_distribution->{$algorithm_id} = \@counts;
 }
 
-my %terminal = (
-    eps => "set term epscairo color enhanced",
-    pdf => "set term pdfcairo color enhanced",
-    png => "set term png enhanced" );
+unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
 compute_statistics();
 compute_best_statistics();
@@ -73,6 +104,10 @@ generate_table_rank_distribution();
 generate_ranking();
 generate_table_functions();
 generate_latex();
+
+#
+# Local functions
+#
 
 sub compute_statistics
 {
@@ -224,7 +259,7 @@ sub generate_function_data
         my $function_id = $f->{id};
         my $path = "$path_results/$function_id/$function_id.dat";
 
-        $file = IO::File->new($path, '>')
+        my $file = IO::File->new($path, '>')
             or die "hnco-benchmark-stat.pl: generate_function_data: Cannot open '$path': $!\n";
 
         my $position = 1;
@@ -277,22 +312,22 @@ sub generate_gnuplot_candlesticks
             "unset logscale\n",
             "set format y\n";
 
-        my $quoted_path = quote("$path_graphics/$function_id.pdf");
+        my $quoted_path = qq("$path_graphics/$function_id.pdf");
         print CANDLESTICKS
             $terminal{pdf}, "\n",
             "set output $quoted_path\n";
-        $quoted_path = quote("$path_results/$function_id/$function_id.dat");
+        $quoted_path = qq("$path_results/$function_id/$function_id.dat");
         print CANDLESTICKS
             "plot $quoted_path using 1:3:2:6:5:xticlabels(7) with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
             "     $quoted_path using 1:4:4:4:4 with candlesticks lw 3 lt 1 notitle\n";
 
-        $quoted_path = quote("$path_graphics/$function_id.eps");
+        $quoted_path = qq("$path_graphics/$function_id.eps");
         print CANDLESTICKS
             $terminal{eps}, "\n",
             "set output $quoted_path\n",
             "replot\n";
 
-        $quoted_path = quote("$path_graphics/$function_id.png");
+        $quoted_path = qq("$path_graphics/$function_id.png");
         print CANDLESTICKS
             $terminal{png}, "\n",
             "set output $quoted_path\n",
@@ -381,18 +416,15 @@ sub generate_latex
     open(LATEX, ">$path_report/content.tex")
         or die "hnco-benchmark-stat.pl: generate_latex: Cannot open $path_report/content.tex\n";
 
-    print LATEX "\\graphicspath{{../$path_graphics/}}\n";
-    latex_empty_line();
+    print LATEX latex_graphicspath($path_graphics);
 
-    latex_section("Ranking");
-    latex_empty_line();
+    print LATEX latex_section("Ranking");
 
-    latex_begin_center();
-    latex_input_file("table-rank-distribution.tex");
-    latex_end_center();
-    latex_empty_line();
+    print LATEX latex_begin_center();
+    print LATEX latex_input_file("table-rank-distribution.tex");
+    print LATEX latex_end_center();
 
-    latex_input_file("ranking.tex");
+    print LATEX latex_input_file("ranking.tex");
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
@@ -400,61 +432,28 @@ sub generate_latex
         my $best = $stat_value_best->{$function_id};
         my $total_time = $stat_total_time->{$function_id};
 
-        latex_newpage();
+        print LATEX latex_newpage();
 
-        latex_section("Function $function_id");
-        latex_empty_line();
+        print LATEX latex_section("Function $function_id");
 
-        latex_begin_center();
-        latex_input_file("table-value-$function_id.tex");
-        latex_end_center();
-        latex_empty_line();
+        print LATEX latex_begin_center();
+        print LATEX latex_input_file("table-value-$function_id.tex");
+        print LATEX latex_end_center();
 
-        latex_begin_center();
-        latex_input_file("table-time-$function_id.tex");
-        latex_end_center();
-        latex_empty_line();
+        print LATEX latex_begin_center();
+        print LATEX latex_input_file("table-time-$function_id.tex");
+        print LATEX latex_end_center();
 
-        latex_begin_figure();
-        latex_begin_center();
-        latex_includegraphics("$function_id");
-        latex_caption("$function_id");
-        latex_end_center();
-        latex_end_figure();
-        latex_empty_line();
+        print LATEX latex_begin_figure();
+        print LATEX latex_begin_center();
+        print LATEX latex_includegraphics("$function_id");
+        print LATEX latex_caption("$function_id");
+        print LATEX latex_end_center();
+        print LATEX latex_end_figure();
 
     }
 
     close LATEX;
-}
-
-sub latex_tableofcontents
-{
-    print LATEX <<EOF;
-\\tableofcontents
-EOF
-}
-
-sub latex_section
-{
-    my ($title) = @_;
-    print LATEX <<EOF;
-\\section{$title}
-EOF
-}
-
-sub latex_begin_center
-{
-    print LATEX <<EOF;
-\\begin{center}
-EOF
-}
-
-sub latex_end_center
-{
-    print LATEX <<EOF;
-\\end{center}
-EOF
 }
 
 sub latex_table_value_begin
@@ -487,40 +486,6 @@ sub latex_table_end
     print LATEX <<EOF;
 \\bottomrule
 \\end{tabular}
-EOF
-}
-
-sub latex_begin_figure
-{
-    print LATEX "\\begin{figure}[h]\n";
-}
-
-sub latex_includegraphics
-{
-    my ($path) = @_;
-    print LATEX <<EOF
-\\includegraphics[width=0.6\\linewidth]{$path}
-EOF
-}
-
-sub latex_caption
-{
-    my ($caption) = @_;
-    print LATEX <<EOF;
-\\caption{$caption}
-EOF
-}
-
-sub latex_end_figure
-{
-    print LATEX "\\end{figure}\n";
-}
-
-sub latex_newpage
-{
-    print LATEX <<EOF;
-\\newpage
-
 EOF
 }
 
@@ -558,33 +523,4 @@ sub latex_table_rank_distribution_end
     print LATEX
         "\\bottomrule\n",
         "\\end{tabular}\n";
-}
-
-sub latex_empty_line
-{
-    print LATEX "\n";
-}
-
-sub latex_input_file
-{
-    my $path = shift;
-    print LATEX "\\input{$path}\n";
-}
-
-sub quote
-{
-    my $s = shift;
-    return "\"$s\"";
-}
-
-sub read_file
-{
-    my $path = shift;
-    my $json;
-    {
-        local $/;
-        open my $fh, '<', $path or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
-        $json = <$fh>;
-    }
-    return $json;
 }
