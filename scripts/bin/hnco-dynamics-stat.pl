@@ -26,6 +26,7 @@ use List::MoreUtils qw(all);
 use File::Slurp qw(read_file);
 
 use HNCO::Report qw(
+    %terminal
     add_missing_names
     latex_graphicspath
     latex_section
@@ -36,15 +37,6 @@ use HNCO::Report qw(
     latex_caption
     latex_end_figure
     );
-
-#
-# Global constants
-#
-
-my %terminal = (
-    eps => "set term epscairo color enhanced",
-    pdf => "set term pdfcairo color enhanced",
-    png => "set term png enhanced" );
 
 #
 # Read plan

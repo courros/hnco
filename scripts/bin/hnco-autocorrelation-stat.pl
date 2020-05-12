@@ -26,6 +26,7 @@ use List::MoreUtils qw(all);
 use File::Slurp qw(read_file);
 
 use HNCO::Report qw(
+    %terminal
     latex_graphicspath
     latex_section
     latex_begin_center
@@ -38,15 +39,6 @@ use HNCO::Report qw(
     );
 
 #
-# Global constants
-#
-
-my %terminal = (
-    eps => "set term epscairo color enhanced",
-    pdf => "set term pdfcairo color enhanced",
-    png => "set term png enhanced" );
-
-#
 # Read plan
 #
 
@@ -56,11 +48,11 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
+my $obj = from_json(read_file($plan));
+
 #
 # Global variables
 #
-
-my $obj = from_json(read_file($plan));
 
 my $path_results        = $obj->{results};
 my $path_report         = $obj->{report};
