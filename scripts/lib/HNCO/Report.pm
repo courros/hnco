@@ -6,6 +6,7 @@ use warnings;
 use Exporter qw(import);
 
 our @EXPORT = qw(
+    %terminal
     add_missing_names
     latex_graphicspath
     latex_section
@@ -19,6 +20,19 @@ our @EXPORT = qw(
     latex_input_file
     latex_tableofcontents
     );
+
+#
+# Constants
+#
+
+our %terminal = (
+    eps => "set term epscairo color enhanced",
+    pdf => "set term pdfcairo color enhanced",
+    png => "set term png enhanced" );
+
+#
+# Functions
+#
 
 sub add_missing_names
 {
