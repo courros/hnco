@@ -1,6 +1,6 @@
 {
     "exec": "hnco",
-    "opt": "--map 1 --map-random -s 100 --cache --cache-budget",
+    "opt": "--print-results --map 1 --map-random -s 100 --cache --cache-budget",
     "budget": 300000,
 
     "num_runs": 20,
