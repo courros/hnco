@@ -21,21 +21,29 @@ use strict;
 use warnings;
 
 use JSON;
+use File::Slurp qw(read_file);
 
-my $plan                = "plan.json";
-my $path_results        = "results";
+#
+# Global constants
+#
 
+my $path_results = "results";
+
+#
+# Read plan
+#
+
+my $plan = "plan.json";
 if (@ARGV) {
     $plan = shift @ARGV;
 }
 print "Using $plan\n";
 
-open(FILE, $plan) || die "hnco-parameter-skeleton.pl: Cannot open $plan\n";
-my $json = "";
-while (<FILE>) {
-    $json .= $_;
-}
-my $obj = from_json($json);
+my $obj = from_json(read_file($plan));
+
+#
+# Global variables
+#
 
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
@@ -43,12 +51,20 @@ my $parameter           = $obj->{parameter};
 my $parallel            = $obj->{parallel};
 my $servers             = $obj->{servers};
 
+#
+# Processing
+#
+
 unless (-d $path_results) {
     mkdir $path_results;
     print "Created $path_results\n";
 }
 
 iterate_functions($path_results);
+
+#
+# Local functions
+#
 
 sub iterate_functions
 {
