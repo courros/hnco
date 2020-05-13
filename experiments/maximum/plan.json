@@ -12,119 +12,100 @@
 
         {
             "id": "one-max",
-	    "opt": "-F 0 --stop-on-maximum",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+	    "opt": "-F 0 --stop-on-maximum"
         },
 
         {
             "id": "lin",
-	    "opt": "-F 1 -p instances/lin.100",
-            "col": ">{{\\nprounddigits{2}}}N{2}{2}"
+	    "opt": "-F 1 -p instances/lin.100"
         },
 
         {
             "id": "leading-ones",
-	    "opt": "-F 10 --stop-on-maximum",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+	    "opt": "-F 10 --stop-on-maximum"
         },
 
         {
             "id": "ridge",
-	    "opt": "-F 11 --stop-on-maximum",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+	    "opt": "-F 11 --stop-on-maximum"
         },
 
         {
             "id": "jmp-5",
-	    "opt": "-F 30 --stop-on-maximum -t 5",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+	    "opt": "-F 30 --stop-on-maximum -t 5"
         },
 
         {
             "id": "jmp-10",
-	    "opt": "-F 30 --stop-on-maximum -t 10",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+	    "opt": "-F 30 --stop-on-maximum -t 10"
         },
 
         {
             "id": "djmp-5",
-	    "opt": "-F 31 --stop-on-maximum -t 5",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+	    "opt": "-F 31 --stop-on-maximum -t 5"
         },
 
         {
             "id": "djmp-10",
-	    "opt": "-F 31 --stop-on-maximum -t 10",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+	    "opt": "-F 31 --stop-on-maximum -t 10"
         },
 
         {
             "id": "fp-5",
-	    "opt": "-F 40 --stop-on-maximum -t 5",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+	    "opt": "-F 40 --stop-on-maximum -t 5"
         },
 
         {
             "id": "fp-10",
-	    "opt": "-F 40 --stop-on-maximum -t 10",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+	    "opt": "-F 40 --stop-on-maximum -t 10"
         },
 
         {
             "id": "nk",
-	    "opt": "-F 60 -p instances/nk.100.4",
-            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+	    "opt": "-F 60 -p instances/nk.100.4"
         },
 
         {
             "id": "max-sat",
-	    "opt": "-F 70 -p instances/ms.100.3.1000",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+	    "opt": "-F 70 -p instances/ms.100.3.1000"
         },
 
         {
             "id": "labs",
-	    "opt": "-F 81",
-            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+	    "opt": "-F 81"
         },
 
         {
             "id": "ep",
 	    "opt": "-F 90 -p instances/ep.100",
             "reverse": true,
-            "logscale": true,
-            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+            "logscale": true
         },
 
         {
             "id": "cancel",
 	    "opt": "-F 100 -s 99",
-            "reverse": true,
-            "col": ">{{\\nprounddigits{2}}}N{1}{2}"
+            "reverse": true
         },
 
         {
             "id": "trap",
-	    "opt": "-F 110 --stop-on-maximum --fn-num-traps 10",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+	    "opt": "-F 110 --stop-on-maximum --fn-num-traps 10"
         },
 
         {
             "id": "hiff",
-	    "opt": "-F 120 --stop-on-maximum -s 128",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+	    "opt": "-F 120 --stop-on-maximum -s 128"
         },
 
         {
             "id": "plateau",
-	    "opt": "-F 130 --stop-on-maximum",
-            "col": ">{{\\nprounddigits{0}}}N{3}{0}"
+	    "opt": "-F 130 --stop-on-maximum"
         },
 
         {
             "id": "walsh2",
-	    "opt": "-F 162 -p instances/walsh2.100",
-            "col": ">{{\\nprounddigits{2}}}N{3}{2}"
+	    "opt": "-F 162 -p instances/walsh2.100"
         }
 
     ],
