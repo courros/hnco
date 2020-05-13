@@ -17,9 +17,33 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
+use strict;
+use warnings;
+
 use JSON;
 use Statistics::Descriptive;
 use List::MoreUtils qw(all);
+use File::Slurp qw(read_file);
+
+use HNCO::Report qw(
+    %terminal
+    add_missing_names
+    latex_graphicspath
+    latex_section
+    latex_begin_center
+    latex_end_center
+    latex_begin_figure
+    latex_includegraphics
+    latex_caption
+    latex_end_figure
+    latex_newpage
+    latex_input_file
+    latex_tableofcontents
+    );
+
+#
+# Global constants
+#
 
 my $path_graphics       = "graphics";
 my $path_report         = "report";
@@ -28,10 +52,9 @@ my $path_results        = "results";
 my @summary_statistics = qw(median q1 q3 min max);
 my @summary_statistics_display = qw(min q1 median q3 max);
 
-my %terminal = (
-    eps => "set term epscairo color enhanced",
-    pdf => "set term pdfcairo color enhanced",
-    png => "set term png enhanced" );
+#
+# Read plan
+#
 
 my $plan = "plan.json";
 if (@ARGV) {
@@ -39,14 +62,11 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
-open(FILE, $plan)
-    or die "hnco-parameter-stat.pl: Cannot open $plan\n";
-my $json = "";
-while (<FILE>) {
-    $json .= $_;
-}
+my $obj = from_json(read_file($plan));
 
-my $obj = from_json($json);
+#
+# Global variables
+#
 
 my $algorithms          = $obj->{algorithms};
 my $functions           = $obj->{functions};
@@ -55,7 +75,20 @@ my $parameter           = $obj->{parameter};
 my $graphics            = $obj->{graphics};
 
 my $parameter_id        = $parameter->{id};
+my $parameter_name      = $parameter->{name} || $parameter_id;
 my $boxwidth            = $parameter->{boxwidth};
+
+my $all_stat = {};
+my $all_stat_flat = {};
+my $all_best = {};
+
+my $rankings = {};
+
+my @rankings_flat = ();
+
+#
+# Parameter values
+#
 
 my $values;
 if ($parameter->{values_perl}) {
@@ -65,13 +98,8 @@ if ($parameter->{values_perl}) {
     $values = $parameter->{values};
 }
 
-my $all_stat = {};
-my $all_stat_flat = {};
-my $all_best = {};
-
 my $num_lines = @$algorithms * @$values;
 
-my $rankings = {};
 foreach my $a (@$algorithms) {
     my $algorithm_id = $a->{id};
     foreach my $value (@$values) {
@@ -79,7 +107,10 @@ foreach my $a (@$algorithms) {
         $rankings->{$algorithm_id}->{$value} = \@counts;
     }
 }
-my @rankings_flat = ();
+
+#
+# Processing
+#
 
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
@@ -96,16 +127,6 @@ generate_gnuplot_candlesticks();
 generate_gnuplot_mean();
 generate_gnuplot_stddev();
 generate_latex();
-
-sub add_missing_names
-{
-    my $list = shift;
-    foreach my $item (@$list) {
-        if (!exists($item->{name})) {
-            $item->{name} = $item->{id};
-        }
-    }
-}
 
 sub compute_statistics
 {
@@ -325,8 +346,8 @@ sub generate_gnuplot_candlesticks
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel " . quote($graphics->{candlesticks}->{xlabel} || $parameter_id) . "\n",
-        "set ylabel \"Function value\"\n",
+        qq(set xlabel "$parameter_name"\n),
+        qq(set ylabel "Function value"\n),
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
@@ -338,8 +359,7 @@ sub generate_gnuplot_candlesticks
     if ($graphics->{candlesticks}->{font_size}) {
         $font = "$font,$graphics->{candlesticks}->{font_size}";
     }
-    $font = quote($font);
-    $font = "font $font";
+    $font = qq(font "$font");
 
     # boxwidth
     my $boxwidth = 10;
@@ -348,7 +368,7 @@ sub generate_gnuplot_candlesticks
     }
 
     if ($graphics->{logscale}) {
-        my $fmt = quote("10^{\%T}");
+        my $fmt = qq("10^{\%T}");
         print CANDLESTICKS
             "set logscale x\n",
             "set format x $fmt\n";
@@ -358,7 +378,7 @@ sub generate_gnuplot_candlesticks
         my $function_id = $f->{id};
 
         if ($f->{logscale}) {
-            my $fmt = quote("10^{\%T}");
+            my $fmt = qq("10^{\%T}");
             print CANDLESTICKS
                 "set logscale y 10\n",
                 "set format y $fmt\n";
@@ -376,26 +396,26 @@ sub generate_gnuplot_candlesticks
             my $quoted_string;
 
             if ($graphics->{candlesticks}->{title}) {
-                $quoted_string = quote("$algorithm_id on $function_id");
+                $quoted_string = qq("$algorithm_id on $function_id");
                 print CANDLESTICKS "set title $quoted_string\n";
             }
 
-            $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.pdf");
+            $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.pdf");
             print CANDLESTICKS
                 "$terminal{pdf} $font\n",
                 "set output $quoted_string\n";
-            $quoted_string = quote("$path_results/$function_id/$algorithm_id/quartiles.dat");
+            $quoted_string = qq("$path_results/$function_id/$algorithm_id/quartiles.dat");
             print CANDLESTICKS
                 "plot $quoted_string using 1:3:2:6:5:($boxwidth) with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
                 "     $quoted_string using 1:4:4:4:4:($boxwidth) with candlesticks lw 2 lt 1 notitle\n";
 
-            $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.eps");
+            $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.eps");
             print CANDLESTICKS
                 "$terminal{eps} $font\n",
                 "set output $quoted_string\n",
                 "replot\n";
 
-            $quoted_string = quote("$path_graphics/$function_id/$algorithm_id.png");
+            $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.png");
             print CANDLESTICKS
                 "$terminal{png} $font\n",
                 "set output $quoted_string\n",
@@ -416,8 +436,8 @@ sub generate_gnuplot_mean
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"$parameter_id\"\n",
-        "set ylabel \"Mean value\"\n",
+        qq(set xlabel "$parameter_name"\n),
+        qq(set ylabel "Function value"\n),
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -430,11 +450,10 @@ sub generate_gnuplot_mean
     if ($graphics->{mean}->{font_size}) {
         $font = "$font,$graphics->{mean}->{font_size}";
     }
-    $font = quote($font);
-    $font = "font $font";
+    $font = qq(font "$font");
 
     if ($graphics->{logscale}) {
-        my $fmt = quote("10^{\%T}");
+        my $fmt = qq("10^{\%T}");
         print MEAN
             "set logscale x\n",
             "set format x $fmt\n";
@@ -445,10 +464,10 @@ sub generate_gnuplot_mean
 
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
-        my $quoted_string = quote("$function_id: Mean value as a function of $parameter_id");
+        my $quoted_string = qq("$function_id: Mean value as a function of $parameter_id");
         print MEAN "set title $quoted_string\n";
         if ($f->{logscale}) {
-            my $fmt = quote("10^{\%T}");
+            my $fmt = qq("10^{\%T}");
             print MEAN
                 "set logscale y 10\n",
                 "set format y $fmt\n";
@@ -458,7 +477,7 @@ sub generate_gnuplot_mean
                 "set format y\n";
         }
 
-        $quoted_string = quote("$path_graphics/$function_id/mean.pdf");
+        $quoted_string = qq("$path_graphics/$function_id/mean.pdf");
         print MEAN
             "$terminal{pdf} $font\n",
             "set output $quoted_string\n";
@@ -468,22 +487,22 @@ sub generate_gnuplot_mean
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $quoted_title = quote("$algorithm_id");
-                my $quoted_path = quote("$path_results/$function_id/$algorithm_id/mean.dat");
+                my $quoted_title = qq("$algorithm_id");
+                my $quoted_path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
                 "  $quoted_path using 1:2 with l lw 2 title $quoted_title";
              } @$algorithms);
         print MEAN "\n";
 
-        $quoted_path = quote("$path_graphics/$function_id/mean.eps");
+        $quoted_string = qq("$path_graphics/$function_id/mean.eps");
         print MEAN
             "$terminal{eps} $font\n",
-            "set output $quoted_path\n",
+            "set output $quoted_string\n",
             "replot\n";
 
-        $quoted_path = quote("$path_graphics/$function_id/mean.png");
+        $quoted_string = qq("$path_graphics/$function_id/mean.png");
         print MEAN
             "$terminal{png} $font\n",
-            "set output $quoted_path\n",
+            "set output $quoted_string\n",
             "replot\n\n";
 
     }
@@ -500,8 +519,8 @@ sub generate_gnuplot_stddev
     print STDDEV
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"$parameter_id\"\n",
-        "set ylabel \"Standard deviation of value\"\n",
+        qq(set xlabel "$parameter_name"\n),
+        qq(set ylabel "Function value"\n),
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -514,11 +533,10 @@ sub generate_gnuplot_stddev
     if ($graphics->{stddev}->{font_size}) {
         $font = "$font,$graphics->{stddev}->{font_size}";
     }
-    $font = quote($font);
-    $font = "font $font";
+    $font = qq(font "$font");
 
     if ($graphics->{logscale}) {
-        my $fmt = quote("10^{\%T}");
+        my $fmt = qq("10^{\%T}");
         print STDDEV
             "set logscale x\n",
             "set format x $fmt\n";
@@ -528,7 +546,7 @@ sub generate_gnuplot_stddev
         my $function_id = $f->{id};
 
         if ($f->{logscale}) {
-            my $fmt = quote("10^{\%T}");
+            my $fmt = qq("10^{\%T}");
             print STDDEV
                 "set logscale y 10\n",
                 "set format y $fmt\n";
@@ -540,12 +558,12 @@ sub generate_gnuplot_stddev
 
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
-        my $quoted_string = quote("$path_graphics/$function_id/stddev.pdf");
+        my $quoted_string = qq("$path_graphics/$function_id/stddev.pdf");
         print STDDEV
             "$terminal{pdf} $font\n",
             "set output $quoted_string\n";
 
-        $quoted_string = quote("$function_id: Standard deviation of value as a function of $parameter_id");
+        $quoted_string = qq("$function_id: Standard deviation of value as a function of $parameter_id");
         print STDDEV
             "set title $quoted_string\n";
 
@@ -554,22 +572,22 @@ sub generate_gnuplot_stddev
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $quoted_title = quote("$algorithm_id");
-                my $quoted_path = quote("$path_results/$function_id/$algorithm_id/mean.dat");
+                my $quoted_title = qq("$algorithm_id");
+                my $quoted_path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
                 "  $quoted_path using 1:3 with l lw 2 title $quoted_title";
              } @$algorithms);
         print STDDEV "\n";
 
-        $quoted_path = quote("$path_graphics/$function_id/stddev.eps");
+        $quoted_string = qq("$path_graphics/$function_id/stddev.eps");
         print STDDEV
             "$terminal{eps} $font\n",
-            "set output $quoted_path\n",
+            "set output $quoted_string\n",
             "replot\n";
 
-        $quoted_path = quote("$path_graphics/$function_id/stddev.png");
+        $quoted_string = qq("$path_graphics/$function_id/stddev.png");
         print STDDEV
             "$terminal{png} $font\n",
-            "set output $quoted_path\n",
+            "set output $quoted_string\n",
             "replot\n\n";
 
     }
@@ -583,14 +601,12 @@ sub generate_latex
     open(LATEX, ">$path_report/results.tex")
         or die "hnco-parameter-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
-    print LATEX "\\graphicspath{{../$path_graphics/}}\n";
-    latex_empty_line();
+    print LATEX latex_graphicspath($path_graphics);
 
-    latex_section("Rankings");
-    latex_begin_center();
+    print LATEX latex_section("Rankings");
+    print LATEX latex_begin_center();
     latex_rankings_table();
-    latex_end_center();
-    latex_empty_line();
+    print LATEX latex_end_center();
 
     foreach my $fn (@$functions) {
         my $function_id = $fn->{id};
@@ -601,9 +617,9 @@ sub generate_latex
         my $rounding_time_before = $fn->{rounding}->{time}->{before} || 1;
         my $rounding_time_after = $fn->{rounding}->{time}->{after} || 2;
 
-        latex_section("Function $function_id");
+        print LATEX latex_section("Function $function_id");
 
-        latex_begin_center();
+        print LATEX latex_begin_center();
         latex_function_table_begin(">{{\\nprounddigits{$rounding_value_after}}}N{$rounding_value_before}{$rounding_value_after}");
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
@@ -616,99 +632,27 @@ sub generate_latex
             }
         }
         latex_funtion_table_end();
-        latex_end_center();
+        print LATEX latex_end_center();
 
-        latex_begin_center();
-        latex_includegraphics("$function_id/mean");
-        latex_end_center();
+        print LATEX latex_begin_center();
+        print LATEX latex_includegraphics("$function_id/mean");
+        print LATEX latex_end_center();
 
-        latex_begin_center();
-        latex_includegraphics("$function_id/stddev");
-        latex_end_center();
+        print LATEX latex_begin_center();
+        print LATEX latex_includegraphics("$function_id/stddev");
+        print LATEX latex_end_center();
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
 
-            latex_begin_center();
-            latex_includegraphics("$function_id/$algorithm_id");
-            latex_end_center();
+            print LATEX latex_begin_center();
+            print LATEX latex_includegraphics("$function_id/$algorithm_id");
+            print LATEX latex_end_center();
 
         }
 
     }
 
-}
-
-sub latex_section
-{
-    my ($title) = @_;
-    print LATEX <<EOF;
-\\section{$title}
-EOF
-}
-
-sub latex_begin_center
-{
-    print LATEX <<EOF;
-\\begin{center}
-EOF
-}
-
-sub latex_end_center
-{
-    print LATEX <<EOF;
-\\end{center}
-EOF
-}
-
-sub latex_begin_figure
-{
-    print LATEX <<EOF;
-\\begin{figure}[h]
-\\centering
-EOF
-}
-
-sub latex_includegraphics
-{
-    my ($path) = @_;
-    print LATEX <<EOF
-\\includegraphics[width=0.6\\linewidth]{$path}
-EOF
-}
-
-sub latex_caption
-{
-    my ($caption) = @_;
-    print LATEX <<EOF;
-\\caption{$caption}
-EOF
-}
-
-sub latex_end_figure
-{
-    print LATEX <<EOF;
-\\end{figure}
-EOF
-}
-
-sub latex_newpage
-{
-    print LATEX <<EOF;
-\\newpage
-
-EOF
-}
-
-sub latex_empty_line
-{
-    print LATEX "\n";
-}
-
-sub quote
-{
-    my $s = shift;
-    return "\"$s\"";
 }
 
 sub latex_rankings_table
@@ -763,16 +707,4 @@ sub latex_funtion_table_end
 \\bottomrule
 \\end{tabular}
 EOF
-}
-
-sub read_file
-{
-    my $path = shift;
-    my $json;
-    {
-        local $/;
-        open my $fh, '<', $path or die "hnco-benchmark-stat.pl: compute_statistics: Cannot open '$path': $!\n";
-        $json = <$fh>;
-    }
-    return $json;
 }
