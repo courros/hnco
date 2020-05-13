@@ -70,7 +70,6 @@ my $graphics            = $obj->{graphics};
 
 my $parameter_id        = $parameter->{id};
 my $parameter_name      = $parameter->{name} || $parameter_id;
-my $xlabel              = qq("$parameter_name");
 
 my $all_stat = {};
 
@@ -198,7 +197,7 @@ sub generate_gnuplot_candlesticks
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel $xlabel\n",
+        qq(set xlabel "$parameter_name"\n),
         qq(set ylabel "Function value"\n),
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -290,7 +289,7 @@ sub generate_gnuplot_mean
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel $xlabel\n",
+        qq(set xlabel "$parameter_name"\n),
         qq(set ylabel "Mean value"\n),
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
@@ -374,7 +373,7 @@ sub generate_gnuplot_stddev
     print STDDEV
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel $xlabel\n",
+        qq(set xlabel "$parameter_name"\n),
         qq(set ylabel "Standard deviation of value"\n),
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
