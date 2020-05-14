@@ -19,12 +19,21 @@
 
 use strict;
 use warnings;
-use JSON;
-use File::Spec;
-use File::HomeDir;
-use Cwd;
 
-my $path_results        = "results";
+use JSON;
+use File::Slurp qw(read_file write_file);
+
+use HNCO::Run qw(gnu_parallel);
+
+#
+# Global constants
+#
+
+my $path_results = "results";
+
+#
+# Read plan
+#
 
 my $plan = "plan.json";
 if (@ARGV) {
@@ -32,14 +41,11 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
-open(FILE, $plan)
-    or die "hnco-runtime2-run: Cannot open $plan\n";
-my $json = "";
-while (<FILE>) {
-    $json .= $_;
-}
+my $obj = from_json(read_file($plan));
 
-my $obj = from_json($json);
+#
+# Global variables
+#
 
 my $algorithms          = $obj->{algorithms};
 my $budget              = $obj->{budget};
@@ -48,6 +54,10 @@ my $parameter1          = $obj->{parameter1};
 my $parameter2          = $obj->{parameter2};
 my $servers             = $obj->{servers};
 
+#
+# Parameter values
+#
+
 foreach ($parameter1, $parameter2) {
     if ($_->{values_perl}) {
         my @tmp = eval $_->{values_perl};
@@ -55,37 +65,22 @@ foreach ($parameter1, $parameter2) {
     }
 }
 
-if ($parallel) {
-    if ($servers) {
-        my $dir = File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
-        foreach (@$servers) {
-            system("ssh $_->{hostname} \"cd $dir ; hnco-parameter-skeleton.pl\"\n");
-        }
-    }
-}
+#
+# Processing
+#
 
 my @commands = ();
 
 iterate_algorithms($path_results, "$obj->{exec} $obj->{opt} -b $budget");
 
 if ($parallel) {
-    my $path = 'commands.txt';
-    my $file = IO::File->new($path, '>')
-        or die "hnco-parameter-run.pl: Cannot open '$path': $!\n";
-    $file->print(join("\n", @commands));
-    $file->close;
-    if ($servers) {
-        my $hostnames = join(',', map { $_->{hostname} } @$servers);
-        system("parallel --joblog log.parallel --eta --progress --workdir . -S :,$hostnames :::: commands.txt");
-        print "Bringing back the files:\n";
-        foreach (@$servers) {
-            my $src = "$_->{hostname}:" . File::Spec->abs2rel(getcwd, File::HomeDir->my_home);
-            system("rsync -avvz $src/$path_results/ $path_results");
-        }
-    } else {
-        system("parallel --joblog log.parallel --eta --progress :::: commands.txt");
-    }
+    write_file('commands.txt', map { "$_\n" } @commands);
+    gnu_parallel($servers, $path_results, "hnco-runtime2-skeleton.pl");
 }
+
+#
+# Local functions
+#
 
 sub iterate_algorithms
 {
