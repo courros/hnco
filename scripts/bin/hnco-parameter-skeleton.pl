@@ -51,6 +51,20 @@ my $parameter           = $obj->{parameter};
 my $parallel            = $obj->{parallel};
 my $servers             = $obj->{servers};
 
+my $parameter_id        = $parameter->{id};
+
+#
+# Parameter values
+#
+
+my $values;
+if ($parameter->{values_perl}) {
+    my @tmp = eval $parameter->{values_perl};
+    $values = \@tmp;
+} else {
+    $values = $parameter->{values};
+}
+
 #
 # Processing
 #
@@ -69,6 +83,7 @@ iterate_functions($path_results);
 sub iterate_functions
 {
     my ($prefix) = @_;
+
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         my $path = "$prefix/$function_id";
@@ -83,6 +98,7 @@ sub iterate_functions
 sub iterate_algorithms
 {
     my ($prefix) = @_;
+
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
         my $path = "$prefix/$algorithm_id";
@@ -97,16 +113,6 @@ sub iterate_algorithms
 sub iterate_values
 {
     my ($prefix) = @_;
-
-    my $parameter_id = $parameter->{id};
-
-    my $values;
-    if ($parameter->{values_perl}) {
-        my @tmp = eval $parameter->{values_perl};
-        $values = \@tmp;
-    } else {
-        $values = $parameter->{values};
-    }
 
     foreach my $value (@$values) {
         my $path = "$prefix/$parameter_id-$value";
