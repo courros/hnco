@@ -17,17 +17,37 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
+use strict;
+use warnings;
+
 use JSON;
 use Statistics::Descriptive;
 use List::Util qw(min max);
 use List::MoreUtils qw(all);
+use File::Slurp qw(read_file);
+
+use HNCO::Report qw(
+    %terminal
+    add_missing_names
+    latex_graphicspath
+    latex_section
+    latex_begin_center
+    latex_end_center
+    latex_begin_figure
+    latex_includegraphics
+    latex_caption
+    latex_end_figure
+    );
+
+#
+# Global constants
+#
 
 my @summary_statistics = qw(min q1 median q3 max mean stddev);
 
-my %terminal = (
-    eps => "set term epscairo color enhanced",
-    pdf => "set term pdfcairo color enhanced",
-    png => "set term png enhanced" );
+#
+# Read plan
+#
 
 my $plan = "plan.json";
 if (@ARGV) {
@@ -35,12 +55,11 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
-open(FILE, $plan)
-    or die "hnco-runtime2-stat.pl: Cannot open '$plan': $!\n";
-my $json = "";
-while (<FILE>) { $json .= $_; }
+my $obj = from_json(read_file($plan));
 
-my $obj = from_json($json);
+#
+# Global variables
+#
 
 my $algorithms          = $obj->{algorithms};
 my $budget              = $obj->{budget};
@@ -50,6 +69,17 @@ my $parameter1          = $obj->{parameter1};
 my $parameter2          = $obj->{parameter2};
 my $servers             = $obj->{servers};
 
+my $root_graphics       = "graphics";
+my $root_report         = "report";
+my $root_results        = "results";
+my $root_stats          = "stats";
+
+my $data = {};
+
+#
+# Parameter values
+#
+
 foreach ($parameter1, $parameter2) {
     if ($_->{values_perl}) {
         my @tmp = eval $_->{values_perl};
@@ -57,12 +87,9 @@ foreach ($parameter1, $parameter2) {
     }
 }
 
-my $root_graphics       = "graphics";
-my $root_report         = "report";
-my $root_results        = "results";
-my $root_stats          = "stats";
-
-my $data = {};
+#
+# Processing
+#
 
 add_missing_names($algorithms);
 compute_statistics();
@@ -72,15 +99,9 @@ foreach (@summary_statistics) {
 generate_gnuplot();
 generate_latex();
 
-sub add_missing_names
-{
-    my $list = shift;
-    foreach (@$list) {
-        if (!exists($_->{name})) {
-            $_->{name} = $_->{id};
-        }
-    }
-}
+#
+# Local functions
+#
 
 sub compute_statistics
 {
@@ -179,7 +200,7 @@ sub generate_gnuplot
         "set grid\n",
         "set ylabel \"Runtime\"\n",
         "set logscale y\n",
-        "set format y", quote("10^{\%T}"), "\n",
+        "set format y", qq("10^{\%T}"), "\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
@@ -202,10 +223,10 @@ sub generate_gnuplot_section
     my $prefix_stats = "$root_stats/$algorithm_id";
     my $prefix_graphics = "$root_graphics/$algorithm_id";
 
-    my $quoted_string = quote("$variable->{xlabel}");
+    my $quoted_string = qq("$variable->{xlabel}");
     print GRAPHICS "set xlabel $quoted_string\n";
 
-    $quoted_string = quote("$parameter->{title}");
+    $quoted_string = qq("$parameter->{title}");
     print GRAPHICS
         "set key default\n",
         "set key " . ($parameter->{key} ||
@@ -219,11 +240,10 @@ sub generate_gnuplot_section
     if ($variable->{font_size}) {
         $font = "$font,$variable->{font_size}";
     }
-    $font = quote($font);
-    $font = "font $font";
+    $font = qq(font "$font");
 
     my $path = "$prefix_graphics/$measure-$parameter->{id}";
-    $quoted_string = quote("$path.pdf");
+    $quoted_string = qq("$path.pdf");
     print GRAPHICS
         "$terminal{pdf} $font\n",
         "set output $quoted_string\n";
@@ -232,19 +252,19 @@ sub generate_gnuplot_section
         join ", \\\n",
         (map {
             my $key = "$parameter->{id}-$_";
-            my $path = quote("$prefix_stats/$measure-$key.dat");
-            my $title = quote("$parameter->{entry} = $_");
+            my $path = qq("$prefix_stats/$measure-$key.dat");
+            my $title = qq("$parameter->{entry} = $_");
             "  $path using 1:2 with l lw 2 title $title";
          } reverse(@{ $parameter->{values} }));
     print GRAPHICS "\n";
 
-    $quoted_string = quote("$path.eps");
+    $quoted_string = qq("$path.eps");
     print GRAPHICS
         "$terminal{eps} $font\n",
         "set output $quoted_string\n",
         "replot\n";
 
-    $quoted_string = quote("$path.png");
+    $quoted_string = qq("$path.png");
     print GRAPHICS
         "$terminal{png} $font\n",
         "set output $quoted_string\n",
@@ -256,31 +276,24 @@ sub generate_latex
     open(LATEX, ">$root_report/results.tex")
         or die "hnco-runtime2-stat.pl: generate_latex: Cannot open '$root_report/results.tex': $!\n";
 
-    print LATEX "\\graphicspath{{../$root_graphics/}}\n";
-    latex_empty_line();
+    print LATEX latex_graphicspath($root_graphics);
+
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
-        latex_section("$a->{name}");
+
+        print LATEX latex_section("$a->{name}");
         foreach ($parameter1, $parameter2) {
             latex_subsection("$_->{xlabel}");
             foreach my $measure (@summary_statistics) {
                 latex_subsubsection("$measure");
-                latex_begin_center();
-                latex_includegraphics("$algorithm_id/$measure-$_->{id}");
-                latex_end_center();
+                print LATEX latex_begin_center();
+                print LATEX latex_includegraphics("$algorithm_id/$measure-$_->{id}");
+                print LATEX latex_end_center();
             }
         }
     }
 
     close(LATEX);
-}
-
-sub latex_section
-{
-    my ($title) = @_;
-    print LATEX <<EOF;
-\\section{$title}
-EOF
 }
 
 sub latex_subsection
@@ -297,81 +310,4 @@ sub latex_subsubsection
     print LATEX <<EOF;
 \\subsubsection{$title}
 EOF
-}
-
-sub latex_begin_center
-{
-    print LATEX <<EOF;
-\\begin{center}
-EOF
-}
-
-sub latex_end_center
-{
-    print LATEX <<EOF;
-\\end{center}
-EOF
-}
-
-sub latex_begin_figure
-{
-    print LATEX <<EOF;
-\\begin{figure}[h]
-\\centering
-EOF
-}
-
-sub latex_includegraphics
-{
-    my ($path) = @_;
-    print LATEX <<EOF
-\\includegraphics[width=0.6\\linewidth]{$path}
-EOF
-}
-
-sub latex_caption
-{
-    my ($caption) = @_;
-    print LATEX <<EOF;
-\\caption{$caption}
-EOF
-}
-
-sub latex_end_figure
-{
-    print LATEX <<EOF;
-\\end{figure}
-EOF
-}
-
-sub latex_newpage
-{
-    print LATEX <<EOF;
-\\newpage
-
-EOF
-}
-
-sub latex_empty_line
-{
-    print LATEX "\n";
-}
-
-sub quote
-{
-    my $s = shift;
-    return "\"$s\"";
-}
-
-sub read_file
-{
-    my $path = shift;
-    my $json;
-    {
-        local $/;
-        open my $fh, '<', $path
-            or die "hnco-runtime2-stat.pl: compute_statistics: Cannot open '$path': $!\n";
-        $json = <$fh>;
-    }
-    return $json;
 }
