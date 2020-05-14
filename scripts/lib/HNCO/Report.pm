@@ -10,6 +10,8 @@ our @EXPORT = qw(
     add_missing_names
     latex_graphicspath
     latex_section
+    latex_subsection
+    latex_subsubsection
     latex_begin_center
     latex_end_center
     latex_begin_figure
@@ -54,6 +56,18 @@ sub latex_section
 {
     my ($title) = @_;
     return "\\section{$title}\n";
+}
+
+sub latex_subsection
+{
+    my ($title) = @_;
+    return "\\subsection{$title}\n";
+}
+
+sub latex_subsubsection
+{
+    my ($title) = @_;
+    return "\\subsubsection{$title}\n";
 }
 
 sub latex_begin_center
