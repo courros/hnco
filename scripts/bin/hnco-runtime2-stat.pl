@@ -31,6 +31,8 @@ use HNCO::Report qw(
     add_missing_names
     latex_graphicspath
     latex_section
+    latex_subsection
+    latex_subsubsection
     latex_begin_center
     latex_end_center
     latex_begin_figure
@@ -283,9 +285,9 @@ sub generate_latex
 
         print LATEX latex_section("$a->{name}");
         foreach ($parameter1, $parameter2) {
-            latex_subsection("$_->{xlabel}");
+            print LATEX latex_subsection("$_->{xlabel}");
             foreach my $measure (@summary_statistics) {
-                latex_subsubsection("$measure");
+                print LATEX latex_subsubsection("$measure");
                 print LATEX latex_begin_center();
                 print LATEX latex_includegraphics("$algorithm_id/$measure-$_->{id}");
                 print LATEX latex_end_center();
@@ -294,20 +296,4 @@ sub generate_latex
     }
 
     close(LATEX);
-}
-
-sub latex_subsection
-{
-    my ($title) = @_;
-    print LATEX <<EOF;
-\\subsection{$title}
-EOF
-}
-
-sub latex_subsubsection
-{
-    my ($title) = @_;
-    print LATEX <<EOF;
-\\subsubsection{$title}
-EOF
 }
