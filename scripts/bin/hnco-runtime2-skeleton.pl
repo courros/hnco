@@ -17,7 +17,21 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
+use strict;
+use warnings;
+
 use JSON;
+use File::Slurp qw(read_file);
+
+#
+# Global constants
+#
+
+my $path_results = "results";
+
+#
+# Read plan
+#
 
 my $plan = "plan.json";
 if (@ARGV) {
@@ -25,18 +39,21 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
-open(FILE, $plan) || die "hnco-runtime2-skeleton.pl: Cannot open $plan\n";
-my $json = "";
-while (<FILE>) {
-    $json .= $_;
-}
-my $obj = from_json($json);
+my $obj = from_json(read_file($plan));
+
+#
+# Global variables
+#
 
 my $algorithms          = $obj->{algorithms};
 my $parallel            = $obj->{parallel};
 my $parameter1          = $obj->{parameter1};
 my $parameter2          = $obj->{parameter2};
 my $servers             = $obj->{servers};
+
+#
+# Parameter values
+#
 
 foreach ($parameter1, $parameter2) {
     if ($_->{values_perl}) {
@@ -45,11 +62,15 @@ foreach ($parameter1, $parameter2) {
     }
 }
 
-my $path_results = "results";
+#
+# Processing
+#
+
 unless (-d $path_results) {
     mkdir $path_results;
     print "Created $path_results\n";
 }
+
 results_iterate_algorithms($path_results);
 
 foreach ("stats", "graphics") {
@@ -59,6 +80,10 @@ foreach ("stats", "graphics") {
     }
     iterate_algorithms($_);
 }
+
+#
+# Local functions
+#
 
 sub results_iterate_algorithms
 {
