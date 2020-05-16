@@ -118,4 +118,8 @@ EXTRA_DIST = \
 	examples/walsh-transforms/instances/walsh2.10 \
 	examples/walsh-transforms/plan.json \
 	examples/walsh-transforms/report/Makefile \
-	examples/walsh-transforms/report/report.tex
+	examples/walsh-transforms/report/report.tex \
+	modules/lib/HNCO/Report.pm \
+	modules/lib/HNCO/Run.pm \
+	modules/Makefile.PL \
+	modules/MANIFEST
