@@ -32,7 +32,8 @@ BUILT_SOURCES = \
 EXTRA_DIST = \
 	hnco.sh \
 	ffgen.sh \
-	mapgen.sh
+	mapgen.sh \
+	optgen.pl
 
 AM_CXXFLAGS = $(OPENMP_CXXFLAGS) $(BOOST_SERIALIZATION_LIB)
 
