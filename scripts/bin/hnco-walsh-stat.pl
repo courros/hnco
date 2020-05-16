@@ -17,7 +17,28 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with HNCO. If not, see <http://www.gnu.org/licenses/>.
 
+use strict;
+use warnings;
+
 use JSON;
+use File::Slurp qw(read_file);
+
+use HNCO::Report qw(
+    %terminal
+    add_missing_names
+    latex_graphicspath
+    latex_section
+    latex_begin_center
+    latex_end_center
+    latex_begin_figure
+    latex_includegraphics
+    latex_caption
+    latex_end_figure
+    );
+
+#
+# Read plan
+#
 
 my $plan = "plan.json";
 if (@ARGV) {
@@ -25,24 +46,21 @@ if (@ARGV) {
 }
 print "Using $plan\n";
 
-open(FILE, $plan)
-    or die "hnco-walsh-stat.pl: Cannot open $plan\n";
-my $json = "";
-while (<FILE>) {
-    $json .= $_;
-}
+my $obj = from_json(read_file($plan));
 
-my $obj = from_json($json);
+#
+# Global variables
+#
+
+my $functions           = $obj->{functions};
 
 my $path_results        = $obj->{results};
 my $path_report         = $obj->{report};
 my $path_graphics       = $obj->{graphics};
-my $functions           = $obj->{functions};
 
-my %terminal = (
-    eps => "set term epscairo color enhanced",
-    pdf => "set term pdfcairo color enhanced",
-    png => "set term png enhanced" );
+#
+# Processing
+#
 
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
@@ -50,13 +68,18 @@ generate_spectrum();
 generate_graphics();
 generate_latex();
 
+#
+# Local functions
+#
+
 sub generate_spectrum
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
         my $path = "$path_results/$function_id/1.out";
-        my $file = IO::File->new($path, '<') or die "hnco-walsh-stat.pl: generate_spectrum: Cannot open '$path': $!\n";
+        my $file = IO::File->new($path, '<')
+            or die "hnco-walsh-stat.pl: generate_spectrum: Cannot open '$path': $!\n";
         my @walsh_transform = ();
         while (defined(my $line = $file->getline)) {
             chomp $line;
@@ -81,7 +104,8 @@ sub generate_spectrum
         }
 
         $path = "$path_results/$function_id/spectrum.dat";
-        $file = IO::File->new($path, '>') or die "hnco-walsh-stat.pl: generate_spectrum: Cannot open '$path': $!\n";
+        $file = IO::File->new($path, '>')
+            or die "hnco-walsh-stat.pl: generate_spectrum: Cannot open '$path': $!\n";
         while (my ($order, $energy) = each %spectrum) {
             $file->print("$order $energy\n");
         }
@@ -92,7 +116,8 @@ sub generate_spectrum
 
 sub generate_graphics
 {
-    open(GRAPHICS, ">graphics.gp") or die "hnco-walsh-stat.pl: generate_graphics: cannot open graphics.gp\n";
+    open(GRAPHICS, ">graphics.gp")
+        or die "hnco-walsh-stat.pl: generate_graphics: cannot open graphics.gp\n";
     print GRAPHICS "#!/usr/bin/gnuplot -persist\n";
     generate_graphics_coefficients();
     generate_graphics_spectrum();
@@ -110,7 +135,7 @@ sub generate_graphics_coefficients
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
 
-    my $fmt = quote("10^{\%T}");
+    my $fmt = qq("10^{\%T}");
     print GRAPHICS
         "set logscale y\n",
         "set format y $fmt\n";
@@ -120,23 +145,23 @@ sub generate_graphics_coefficients
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
-        my $quoted_title = quote("$function_id");
+        my $quoted_title = qq("$function_id");
 
-        my $quoted_path = quote("$path_graphics/$function_id-coef.eps");
+        my $quoted_path = qq("$path_graphics/$function_id-coef.eps");
         print GRAPHICS
             $terminal{eps}, "\n",
             "set output $quoted_path\n";
 
-        $quoted_path = quote("$path_results/$function_id/1.out");
+        $quoted_path = qq("$path_results/$function_id/1.out");
         print GRAPHICS "plot $quoted_path using 2 with lines lw 2 title $quoted_title\n";
 
-        $quoted_path = quote("$path_graphics/$function_id-coef.pdf");
+        $quoted_path = qq("$path_graphics/$function_id-coef.pdf");
         print GRAPHICS
             $terminal{pdf}, "\n",
             "set output $quoted_path\n",
             "replot\n";
 
-        $quoted_path = quote("$path_graphics/$function_id-coef.png");
+        $quoted_path = qq("$path_graphics/$function_id-coef.png");
         print GRAPHICS
             $terminal{png}, "\n",
             "set output $quoted_path\n",
@@ -163,7 +188,7 @@ sub generate_group
 
     print GRAPHICS "unset key\n";
 
-    $quoted_path = quote("$path_graphics/$id.eps");
+    my $quoted_path = qq("$path_graphics/$id.eps");
     print GRAPHICS
         $terminal{eps}, "\n",
         "set output $quoted_path\n";
@@ -173,19 +198,19 @@ sub generate_group
         join ", \\\n",
         (map {
             my $function_id = $_->{id};
-            $quoted_path = quote("$path_results/$function_id/1.out");
+            $quoted_path = qq("$path_results/$function_id/1.out");
             "  $quoted_path using 2 with lines lw 1 notitle";
          } @$ref);
 
     print GRAPHICS "\n";
 
-    $quoted_path = quote("$path_graphics/$id.pdf");
+    $quoted_path = qq("$path_graphics/$id.pdf");
     print GRAPHICS
         $terminal{pdf}, "\n",
         "set output $quoted_path\n",
         "replot\n";
 
-    $quoted_path = quote("$path_graphics/$id.png");
+    $quoted_path = qq("$path_graphics/$id.png");
     print GRAPHICS
         $terminal{png}, "\n",
         "set output $quoted_path\n",
@@ -202,7 +227,7 @@ sub generate_graphics_spectrum
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
 
-    my $fmt = quote("10^{\%T}");
+    my $fmt = qq("10^{\%T}");
     print GRAPHICS
         "set logscale y\n",
         "set format y $fmt\n";
@@ -212,24 +237,24 @@ sub generate_graphics_spectrum
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
-        my $quoted_title = quote("$function_id");
+        my $quoted_title = qq("$function_id");
 
-        my $quoted_path = quote("$path_graphics/$function_id-spectrum.eps");
+        my $quoted_path = qq("$path_graphics/$function_id-spectrum.eps");
         print GRAPHICS
             $terminal{eps}, "\n",
             "set output $quoted_path\n";
 
-        $quoted_path = quote("$path_results/$function_id/spectrum.dat");
+        $quoted_path = qq("$path_results/$function_id/spectrum.dat");
         print GRAPHICS
             "plot $quoted_path using 1:2 w impulses lw 2 title $quoted_title\n";
 
-        $quoted_path = quote("$path_graphics/$function_id-spectrum.pdf");
+        $quoted_path = qq("$path_graphics/$function_id-spectrum.pdf");
         print GRAPHICS
             $terminal{pdf}, "\n",
             "set output $quoted_path\n",
             "replot\n";
 
-        $quoted_path = quote("$path_graphics/$function_id-spectrum.png");
+        $quoted_path = qq("$path_graphics/$function_id-spectrum.png");
         print GRAPHICS
             $terminal{png}, "\n",
             "set output $quoted_path\n",
@@ -243,65 +268,29 @@ sub generate_latex
     open(LATEX, ">$path_report/results.tex")
         or die "hnco-walsh-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
-    print LATEX "\\graphicspath{{../$path_graphics/}}\n";
+    print LATEX latex_graphicspath($path_graphics);
 
-    latex_section("All functions");
-    latex_begin_center();
-    latex_includegraphics("all");
-    latex_end_center();
+    print LATEX latex_section("All functions");
+    print LATEX latex_begin_center();
+    print LATEX latex_includegraphics("all");
+    print LATEX latex_end_center();
 
     if ($obj->{groups}) {
         foreach(@{$obj->{groups}}) {
-            latex_section($_->{id});
-            latex_begin_center();
-            latex_includegraphics($_->{id});
-            latex_end_center();
+            print LATEX latex_section($_->{id});
+            print LATEX latex_begin_center();
+            print LATEX latex_includegraphics($_->{id});
+            print LATEX latex_end_center();
         }
     }
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
-        latex_section($function_id);
-        latex_begin_center();
-        latex_includegraphics("$function_id-coef");
-        latex_includegraphics("$function_id-spectrum");
-        latex_end_center();
+        print LATEX latex_section($function_id);
+        print LATEX latex_begin_center();
+        print LATEX latex_includegraphics("$function_id-coef");
+        print LATEX latex_includegraphics("$function_id-spectrum");
+        print LATEX latex_end_center();
     }
-}
-
-sub latex_section
-{
-    my ($title) = @_;
-    print LATEX <<EOF;
-\\section{$title}
-EOF
-}
-
-sub latex_begin_center
-{
-    print LATEX <<EOF;
-\\begin{center}
-EOF
-}
-
-sub latex_end_center
-{
-    print LATEX <<EOF;
-\\end{center}
-EOF
-}
-
-sub latex_includegraphics
-{
-    my $id = shift;
-    print LATEX <<EOF
-\\includegraphics[width=\\linewidth]{$id}
-EOF
-}
-
-sub quote
-{
-    my $s = shift;
-    return "\"$s\"";
 }
