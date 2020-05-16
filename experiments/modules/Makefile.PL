@@ -22,30 +22,5 @@ WriteMakefile(
     AUTHOR              => q{Arnaud Berny},
     VERSION_FROM        => 'lib/HNCO/Run.pm',
     NO_META             => true,
-    NO_MYMETA           => true,
-    EXE_FILES           => [
-	'bin/hnco-autocorrelation-run.pl',
-	'bin/hnco-autocorrelation-stat.pl',
-	'bin/hnco-benchmark-run.pl',
-	'bin/hnco-benchmark-skeleton.pl',
-	'bin/hnco-benchmark-stat.pl',
-	'bin/hnco-dynamics-run.pl',
-	'bin/hnco-dynamics-skeleton.pl',
-	'bin/hnco-dynamics-stat.pl',
-	'bin/hnco-ecdf-stat.pl',
-	'bin/hnco-function-parameter-stat.pl',
-	'bin/hnco-lookup-ratio-stat.pl',
-	'bin/hnco-maximum-stat.pl',
-	'bin/hnco-parameter-run.pl',
-	'bin/hnco-parameter-skeleton.pl',
-	'bin/hnco-parameter-stat.pl',
-	'bin/hnco-runtime-stat.pl',
-	'bin/hnco-runtime2-run.pl',
-	'bin/hnco-runtime2-skeleton.pl',
-	'bin/hnco-runtime2-stat.pl',
-	'bin/hnco-walsh-run.pl',
-	'bin/hnco-walsh-skeleton.pl',
-	'bin/hnco-walsh-stat.pl',
-        'bin/optgen.pl'
-    ]
+    NO_MYMETA           => true
     );
