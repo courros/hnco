@@ -1,4 +1,4 @@
-all: default-parameters run doc
+all: default-parameters run report
 
 default-parameters:
 	hnco --print-defaults > log.defaults
@@ -8,7 +8,7 @@ run:
 	hnco-parameter-skeleton.pl
 	time -a -o log.err hnco-parameter-run.pl
 
-doc:
+report:
 	hnco-parameter-stat.pl
 	./candlesticks.gp
 	./mean.gp

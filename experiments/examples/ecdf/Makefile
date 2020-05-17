@@ -1,4 +1,4 @@
-all: default-parameters run doc
+all: default-parameters run report
 
 default-parameters:
 	hnco --print-defaults > log.defaults
@@ -8,7 +8,7 @@ run:
 	hnco-benchmark-skeleton.pl
 	time -o log.err -a hnco-benchmark-run.pl
 
-doc:
+report:
 	hnco-ecdf-stat.pl
 	./graphics.gp
 	./graphics-all.gp

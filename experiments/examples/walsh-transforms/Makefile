@@ -1,4 +1,4 @@
-all: default-parameters run doc
+all: default-parameters run report
 
 default-parameters:
 	hnco --print-defaults > log.defaults
@@ -8,7 +8,7 @@ run:
 	hnco-walsh-skeleton.pl
 	time -o log.err -a hnco-walsh-run.pl
 
-doc:
+report:
 	hnco-walsh-stat.pl
 	./graphics.gp
 	sed '/^$$/d' plan.json > plan-compact.json
