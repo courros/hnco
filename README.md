@@ -389,9 +389,9 @@ Execute the following commands in the source directory:
     make
     make install
 
-To turn optimization on and install everything under `$HOME/.local`:
+To turn optimization on and install everything under `$HOME/.local/`:
 
-    CXXFLAGS="-Wall -O3 -DNDEBUG" ./configure --prefix=$HOME/.local
+    CXXFLAGS="-Wall -O3 -DNDEBUG" ./configure --prefix=$HOME/.local/
 
 The factorization function is disabled by default. To enable it, add
 the option `--enable-factorization` to `./configure`. Similarly add
@@ -406,18 +406,18 @@ To generate the API documentation:
 
     make doc
 
-Once generated, you will find it under `doc/api`.
+Once generated, you will find it under `doc/api/`.
 
 Installation of Perl scripts is taken care of by autotools. However,
 Perl modules are managed separately by `Makefile.PL`. If you want to
-install them under `$HOME/.local`, do the following:
+install them under `$HOME/.local/`, do the following:
 
     cd experiments/modules
     perl Makefile.PL INSTALL_BASE=$HOME/.local/
     make
     make install
 
-Modules will be installed under `$HOME/.local/lib/perl5`.
+Modules will be installed under `$HOME/.local/lib/perl5/`.
 
 ## Contributing
 
