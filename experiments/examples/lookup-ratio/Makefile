@@ -11,11 +11,11 @@ run:
 report:
 	hnco-lookup-ratio-stat.pl
 	./candlesticks.gp
-	sed '/^$$/d' plan.json > plan-compact.json
+	sed '/^$$/d' plan.json > pretty.json
 	make -C report
 
 clean:
-	rm -f candlesticks.gp clouds.gp plan-compact.json log.defaults log.err
+	rm -f candlesticks.gp clouds.gp pretty.json log.defaults log.err
 	rm -rf results
 	rm -rf graphics
 	rm -rf commands.txt

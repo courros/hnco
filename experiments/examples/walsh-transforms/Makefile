@@ -11,11 +11,11 @@ run:
 report:
 	hnco-walsh-stat.pl
 	./graphics.gp
-	sed '/^$$/d' plan.json > plan-compact.json
+	sed '/^$$/d' plan.json > pretty.json
 	make -C report
 
 clean:
-	rm -f graphics.gp plan-compact.json log.defaults log.err
+	rm -f graphics.gp pretty.json log.defaults log.err
 	rm -rf results
 	rm -rf graphics
 

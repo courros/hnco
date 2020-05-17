@@ -13,11 +13,11 @@ report:
 	./candlesticks.gp
 	./mean.gp
 	./stddev.gp
-	sed '/^$$/d' plan.json > plan-compact.json
+	sed '/^$$/d' plan.json > pretty.json
 	make -C report
 
 clean:
-	rm -f candlesticks.gp plan-compact.json log.defaults log.err mean.gp stddev.gp
+	rm -f candlesticks.gp pretty.json log.defaults log.err mean.gp stddev.gp
 	rm -rf results
 	rm -rf graphics
 

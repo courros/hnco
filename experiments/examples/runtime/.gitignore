@@ -8,7 +8,7 @@ candlesticks.gp
 mean.gp
 stddev.gp
 
-plan-compact.json
+pretty.json
 
 graphics
 results
