@@ -35,6 +35,7 @@ Tests:
 - Added test-bv-from-stream
 
 Scripts:
+- hnco-benchmark-run.pl: take into account fields only_algorithms and skip_algorithms
 - hnco-benchmark-stat.pl: candlesticks, scatter: set font face and size
 - hnco-runtime-stat.pl: update plan.json
 - hnco-runtime-stat.pl: mean, candlesticks: set font face and size
@@ -43,11 +44,19 @@ Scripts:
 - hnco-parameter-stat.pl: candlesticks, mean: set font face and size
 - hnco-parameter-stat.pl: candlesticks: set xlabel and title
 - hnco-runtime2-stat.pl: graphics: set font face, font size, and key
-- hnco-benchmark-run.pl: take into account fields only_algorithms and skip_algorithms
 - Added hnco-function-parameter-stat.pl
+- Renamed scripts/ -> experiments/scripts
+- Scripts use modules HNCO::Run or HNCO::Report
+- optgen.pl moved to app/
+
+Modules:
+- Added experiments/modules
+- Added HNCO::Run
+- Added HNCO::Report
 
 Experiments:
 - Added experiment function-parameter
+- Experiments moved under experiments/examples
 
 
 * Version 0.13 (2020-01-12)
