@@ -36,14 +36,14 @@ Tests:
 
 Scripts:
 - hnco-benchmark-run.pl: take into account fields only_algorithms and skip_algorithms
-- hnco-benchmark-stat.pl: candlesticks, scatter: set font face and size
+- hnco-benchmark-stat.pl: set font face and size (candlesticks, scatter)
 - hnco-runtime-stat.pl: update plan.json
-- hnco-runtime-stat.pl: mean, candlesticks: set font face and size
-- hnco-runtime-stat.pl: mean: set xlabel, title, and key
+- hnco-runtime-stat.pl: set font face and size (mean, candlesticks)
+- hnco-runtime-stat.pl: set xlabel, title, and key (mean)
 - hnco-parameter-stat.pl: update plan.json
-- hnco-parameter-stat.pl: candlesticks, mean: set font face and size
-- hnco-parameter-stat.pl: candlesticks: set xlabel and title
-- hnco-runtime2-stat.pl: graphics: set font face, font size, and key
+- hnco-parameter-stat.pl: set font face and size (candlesticks, mean)
+- hnco-parameter-stat.pl: set xlabel and title (candlesticks)
+- hnco-runtime2-stat.pl: set font face, font size, and key (graphics)
 - Added hnco-function-parameter-stat.pl
 - Renamed scripts/ -> experiments/scripts
 - Scripts use modules HNCO::Run or HNCO::Report
