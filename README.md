@@ -61,8 +61,8 @@ The library is organized around the following base classes:
 
 Classes are documented with Doxygen. You might want to generate the
 html documentation as it is neither version controlled nor
-distributed. However the pdf documentation can be found under
-`doc/api/latex/refman.pdf`.
+distributed. However the pdf documentation `doc/api/latex/refman.pdf`
+is version controlled and distributed.
 
 The source files of the command-line tools in `app/` provide a
 starting point to learn how to use the library, in particular
@@ -258,16 +258,16 @@ loaded by `hnco` and used by different algorithms.
 
 HNCO is distributed with the following experiments:
 
-- `experiments/autocorrelation/`
-- `experiments/benchmark/`
-- `experiments/dynamics/`
-- `experiments/ecdf/`
-- `experiments/function-parameter/`
-- `experiments/lookup-ratio/`
-- `experiments/maximum/`
-- `experiments/parameter/`
-- `experiments/runtime/`
-- `experiments/walsh-transforms/`
+- `experiments/examples/autocorrelation/`
+- `experiments/examples/benchmark/`
+- `experiments/examples/dynamics/`
+- `experiments/examples/ecdf/`
+- `experiments/examples/function-parameter/`
+- `experiments/examples/lookup-ratio/`
+- `experiments/examples/maximum/`
+- `experiments/examples/parameter/`
+- `experiments/examples/runtime/`
+- `experiments/examples/walsh-transforms/`
 
 In each directory, a Makefile runs the simulations and generates the
 report. The experiment itself is described in a json file called
@@ -277,13 +277,11 @@ All experiments can use GNU parallel to run the simulations in
 parallel hence take advantage of multicore architectures. To use GNU
 parallel, simply set the field `parallel` to `true`.
 
-There is also experimental support for remote execution at the moment
-limited to the following experiments: benchmark, maximum, dynamics. A
-list of remote hosts can be specified in `plan.json` under the name
-`servers`. For each server, a hostname (or ip address) and a username
-must be given. The path to the respective working directories must be
-the same. GNU parallel connects to servers with ssh and ssh login must
-not require a password.
+There is also limited support for remote execution. A list of remote
+hosts can be specified in `plan.json` under the name `servers`. For
+each server, a hostname (or ip address) must be given. The relative
+working directories must be the same on each server. GNU parallel
+connects to servers with ssh.
 
 ### Autocorrelation
 
@@ -391,6 +389,10 @@ Execute the following commands in the source directory:
     make
     make install
 
+To turn optimization on and install everything under `$HOME/.local`:
+
+    CXXFLAGS="-Wall -O3 -DNDEBUG" ./configure --prefix=$HOME/.local
+
 The factorization function is disabled by default. To enable it, add
 the option `--enable-factorization` to `./configure`. Similarly add
 the option `--enable-plugin` to enable the plugin function. See
@@ -404,7 +406,18 @@ To generate the API documentation:
 
     make doc
 
-Once generated, you will find it under `doc/api/`.
+Once generated, you will find it under `doc/api`.
+
+Installation of Perl scripts is taken care of by autotools. However,
+Perl modules are managed separately by `Makefile.PL`. If you want to
+install them under `$HOME/.local`, do the following:
+
+    cd experiments/modules
+    perl Makefile.PL INSTALL_BASE=$HOME/.local/
+    make
+    make install
+
+Modules will be installed under `$HOME/.local/lib/perl5`.
 
 ## Contributing
 
