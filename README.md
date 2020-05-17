@@ -417,7 +417,15 @@ install them under `$HOME/.local/`, do the following:
     make
     make install
 
-Modules will be installed under `$HOME/.local/lib/perl5/`.
+Modules will be installed under `$HOME/.local/lib/perl5/`. If you want
+perl to find them, add this line to the appropriate startup file of
+your shell:
+
+    export PERLLIB="$HOME/.local/lib/perl5"
+
+To verify that the path has been added to the search list:
+
+    perl -E 'say for @INC'
 
 ## Contributing
 
