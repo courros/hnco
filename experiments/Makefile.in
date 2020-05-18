@@ -310,9 +310,9 @@ dist_bin_SCRIPTS = \
 	scripts/hnco-function-parameter-stat.pl \
 	scripts/hnco-lookup-ratio-stat.pl \
 	scripts/hnco-maximum-evolution-stat.pl \
-	scripts/hnco-parameter-run.pl \
-	scripts/hnco-parameter-skeleton.pl \
-	scripts/hnco-parameter-stat.pl \
+	scripts/hnco-algorithm-parameter-run.pl \
+	scripts/hnco-algorithm-parameter-skeleton.pl \
+	scripts/hnco-algorithm-parameter-stat.pl \
 	scripts/hnco-runtime-stat.pl \
 	scripts/hnco-runtime2-run.pl \
 	scripts/hnco-runtime2-skeleton.pl \
