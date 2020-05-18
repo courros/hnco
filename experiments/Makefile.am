@@ -28,7 +28,7 @@ dist_bin_SCRIPTS = \
 	scripts/hnco-ecdf-stat.pl \
 	scripts/hnco-function-parameter-stat.pl \
 	scripts/hnco-lookup-ratio-stat.pl \
-	scripts/hnco-maximum-stat.pl \
+	scripts/hnco-maximum-evolution-stat.pl \
 	scripts/hnco-parameter-run.pl \
 	scripts/hnco-parameter-skeleton.pl \
 	scripts/hnco-parameter-stat.pl \

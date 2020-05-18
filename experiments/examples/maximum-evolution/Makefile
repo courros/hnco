@@ -9,7 +9,7 @@ run:
 	time -o log.err -a hnco-observable-evolution-run.pl
 
 report:
-	hnco-maximum-stat.pl
+	hnco-maximum-evolution-stat.pl
 	./graphics.gp
 	sed '/^$$/d' plan.json > pretty.json
 	make -C report
