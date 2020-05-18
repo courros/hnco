@@ -19,4 +19,4 @@ clean:
 	rm -rf results
 	rm -rf graphics
 
-.PHONY: all default-parameters run doc clean
+.PHONY: all default-parameters run report clean
