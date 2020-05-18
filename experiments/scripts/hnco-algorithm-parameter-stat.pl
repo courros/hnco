@@ -196,11 +196,11 @@ sub generate_data
 
             my $path = "$prefix/mean.dat";
             my $mean = IO::File->new($path, '>')
-                or die "hnco-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
+                or die "hnco-algorithm-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
 
             $path = "$prefix/quartiles.dat";
             my $quartiles = IO::File->new($path, '>')
-                or die "hnco-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
+                or die "hnco-algorithm-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
 
             foreach my $value (@$values) {
                 my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
@@ -345,7 +345,7 @@ sub reverse_best_statistics
 sub generate_gnuplot_candlesticks
 {
     open(CANDLESTICKS, ">candlesticks.gp")
-        or die "hnco-parameter-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
+        or die "hnco-algorithm-parameter-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
 
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
@@ -435,7 +435,7 @@ sub generate_gnuplot_candlesticks
 sub generate_gnuplot_mean
 {
     open(MEAN, ">mean.gp")
-        or die "hnco-parameter-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
+        or die "hnco-algorithm-parameter-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
 
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
@@ -518,7 +518,7 @@ sub generate_gnuplot_mean
 sub generate_gnuplot_stddev
 {
     open(STDDEV, ">stddev.gp")
-        or die "hnco-parameter-stat.pl: generate_gnuplot_stddev: Cannot open stddev.gp\n";
+        or die "hnco-algorithm-parameter-stat.pl: generate_gnuplot_stddev: Cannot open stddev.gp\n";
 
     print STDDEV
         "#!/usr/bin/gnuplot -persist\n",
@@ -603,7 +603,7 @@ sub generate_gnuplot_stddev
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
-        or die "hnco-parameter-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
+        or die "hnco-algorithm-parameter-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX latex_graphicspath($path_graphics);
 

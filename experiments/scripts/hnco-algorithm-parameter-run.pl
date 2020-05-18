@@ -78,7 +78,7 @@ iterate_functions($path_results, "$obj->{exec} $obj->{opt} -b $budget");
 
 if ($parallel) {
     write_file('commands.txt', map { "$_\n" } @commands);
-    gnu_parallel($servers, $path_results, "hnco-parameter-skeleton.pl");
+    gnu_parallel($servers, $path_results, "hnco-algorithm-parameter-skeleton.pl");
 }
 
 #
