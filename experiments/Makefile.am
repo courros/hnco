@@ -22,9 +22,9 @@ dist_bin_SCRIPTS = \
 	scripts/hnco-benchmark-run.pl \
 	scripts/hnco-benchmark-skeleton.pl \
 	scripts/hnco-benchmark-stat.pl \
-	scripts/hnco-dynamics-run.pl \
-	scripts/hnco-dynamics-skeleton.pl \
-	scripts/hnco-dynamics-stat.pl \
+	scripts/hnco-observable-evolution-run.pl \
+	scripts/hnco-observable-evolution-skeleton.pl \
+	scripts/hnco-observable-evolution-stat.pl \
 	scripts/hnco-ecdf-stat.pl \
 	scripts/hnco-function-parameter-stat.pl \
 	scripts/hnco-lookup-ratio-stat.pl \
@@ -61,16 +61,16 @@ EXTRA_DIST = \
 	examples/benchmark/plan.json \
 	examples/benchmark/report/Makefile \
 	examples/benchmark/report/report.tex \
-	examples/dynamics/Makefile \
-	examples/dynamics/instances/Makefile \
-	examples/dynamics/instances/ep.100 \
-	examples/dynamics/instances/lin.100 \
-	examples/dynamics/instances/ms.100.3.1000 \
-	examples/dynamics/instances/nk.100.4 \
-	examples/dynamics/instances/walsh2.100 \
-	examples/dynamics/plan.json \
-	examples/dynamics/report/Makefile \
-	examples/dynamics/report/report.tex \
+	examples/observable-evolution/Makefile \
+	examples/observable-evolution/instances/Makefile \
+	examples/observable-evolution/instances/ep.100 \
+	examples/observable-evolution/instances/lin.100 \
+	examples/observable-evolution/instances/ms.100.3.1000 \
+	examples/observable-evolution/instances/nk.100.4 \
+	examples/observable-evolution/instances/walsh2.100 \
+	examples/observable-evolution/plan.json \
+	examples/observable-evolution/report/Makefile \
+	examples/observable-evolution/report/report.tex \
 	examples/ecdf/Makefile \
 	examples/ecdf/instances/Makefile \
 	examples/ecdf/instances/ep.100 \

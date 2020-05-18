@@ -58,7 +58,7 @@ iterate_functions($path_results, "$obj->{exec} $obj->{opt}");
 
 if ($parallel) {
     write_file('commands.txt', map { "$_\n" } @commands);
-    gnu_parallel($servers, $path_results, "hnco-dynamics-skeleton.pl");
+    gnu_parallel($servers, $path_results, "hnco-observable-evolution-skeleton.pl");
 }
 
 #

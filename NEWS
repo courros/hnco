@@ -214,8 +214,8 @@ ffgen:
   NearestNeighborIsingModel1, and NearestNeighborIsingModel2
 
 Scripts:
-- hnco-dynamics-stat.pl: set xlabel, xcolumn, and ycolumn in plot
-  command
+- hnco-observable-evolution-stat.pl: set xlabel, xcolumn, and ycolumn
+  in plot command
 
 Experiments:
 - dynamics: plan.json: added fields for xlabel, xcolumn, and ycolumn

@@ -5,8 +5,8 @@ default-parameters:
 
 run:
 	echo `date` >> log.err
-	hnco-dynamics-skeleton.pl
-	time -o log.err -a hnco-dynamics-run.pl
+	hnco-observable-evolution-skeleton.pl
+	time -o log.err -a hnco-observable-evolution-run.pl
 
 report:
 	hnco-maximum-stat.pl
