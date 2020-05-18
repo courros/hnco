@@ -1,10 +1,12 @@
-pretty.json
+commands.txt
 
 log.defaults
 log.err
-commands.txt
+log.parallel
 
 graphics.gp
+
+pretty.json
 
 graphics
 results
