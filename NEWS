@@ -35,17 +35,20 @@ Tests:
 - Added test-bv-from-stream
 
 Scripts:
+- Renamed hnco-parameter-*.pl -> hnco-algorithm-parameter-*.pl
+- Renamed hnco-maximum-*.pl -> hnco-maximum-evolution-*.pl
+- Renamed hnco-dynamics-*.pl -> hnco-observable-evolution-*.pl
 - hnco-benchmark-run.pl: take into account fields only_algorithms and skip_algorithms
 - hnco-benchmark-stat.pl: set font face and size (candlesticks, scatter)
 - hnco-runtime-stat.pl: update plan.json
 - hnco-runtime-stat.pl: set font face and size (mean, candlesticks)
 - hnco-runtime-stat.pl: set xlabel, title, and key (mean)
-- hnco-parameter-stat.pl: update plan.json
-- hnco-parameter-stat.pl: set font face and size (candlesticks, mean)
-- hnco-parameter-stat.pl: set xlabel and title (candlesticks)
+- hnco-algorithm-parameter-stat.pl: update plan.json
+- hnco-algorithm-parameter-stat.pl: set font face and size (candlesticks, mean)
+- hnco-algorithm-parameter-stat.pl: set xlabel and title (candlesticks)
 - hnco-runtime2-stat.pl: set font face, font size, and key (graphics)
 - Added hnco-function-parameter-stat.pl
-- Renamed scripts/ -> experiments/scripts
+- Renamed scripts/ -> experiments/scripts/
 - Scripts use modules HNCO::Run or HNCO::Report
 - optgen.pl moved to app/
 
@@ -55,8 +58,11 @@ Modules:
 - Added HNCO::Report
 
 Experiments:
+- Experiments moved under experiments/examples/
+- Renamed parameter -> algorithm-parameter
+- Renamed maximum -> maximum-evolution
+- Renamed dynamics -> observable-evolution
 - Added experiment function-parameter
-- Experiments moved under experiments/examples
 
 
 * Version 0.13 (2020-01-12)
