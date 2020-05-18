@@ -258,14 +258,14 @@ loaded by `hnco` and used by different algorithms.
 
 HNCO is distributed with the following experiments:
 
+- `experiments/examples/algorithm-parameter/`
 - `experiments/examples/autocorrelation/`
 - `experiments/examples/benchmark/`
 - `experiments/examples/dynamics/`
 - `experiments/examples/ecdf/`
 - `experiments/examples/function-parameter/`
 - `experiments/examples/lookup-ratio/`
-- `experiments/examples/maximum/`
-- `experiments/examples/parameter/`
+- `experiments/examples/maximum-evolution/`
 - `experiments/examples/runtime/`
 - `experiments/examples/walsh-transforms/`
 
@@ -283,6 +283,13 @@ each server, a hostname (or ip address) must be given. The relative
 working directories must be the same on each server. GNU parallel
 connects to servers with ssh.
 
+### Algorithm parameter
+
+This experiment is similar to the benchmark experiment but the same
+algorithm is run with some parameter taking values in a given set. In
+the example, the influence of the learning rate on the performance of
+PBIL is studied.
+
 ### Autocorrelation
 
 The purpose of this experiment is to visualize empirical
@@ -296,14 +303,6 @@ of algorithms applied to a set of functions with a fixed budget. Each
 algorithm is run 20 times on each function. Algorithms are ranked
 according to their median performance (quartiles are also
 considered). They are ranked first per function then globally.
-
-### Dynamics
-
-The purpose of this experiment is to study the evolution of some
-quantity available through the log function of a given set of
-algorithms. In the example, the evolution of entropy in UMDA and PBIL
-is studied. Each algorithm is run only once on each function. Time is
-expressed in terms of number of iterations.
 
 ### ECDF
 
@@ -326,18 +325,19 @@ budget. It is designed after the benchmark experiment. A high lookup
 ratio indicates that an algorithm often resamples already sampled bit
 vectors.
 
-### Maximum
+### Maximum evolution
 
 The purpose of this experiment is to study the evolution of the
 maximum found so far. Each algorithm is run only once on each
 function. Time is expressed in terms of number of evaluations.
 
-### Parameter
+### Observable evolution
 
-This experiment is similar to the benchmark experiment but the same
-algorithm is run with some parameter taking values in a given set. In
-the example, the influence of the learning rate on the performance of
-PBIL is studied.
+The purpose of this experiment is to study the evolution of some
+quantity available through the log function of a given set of
+algorithms. In the example, the evolution of entropy in UMDA and PBIL
+is studied. Each algorithm is run only once on each function. Time is
+expressed in terms of number of iterations.
 
 ### Runtime
 
