@@ -298,21 +298,21 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 dist_bin_SCRIPTS = \
+	scripts/hnco-algorithm-parameter-run.pl \
+	scripts/hnco-algorithm-parameter-skeleton.pl \
+	scripts/hnco-algorithm-parameter-stat.pl \
 	scripts/hnco-autocorrelation-run.pl \
 	scripts/hnco-autocorrelation-stat.pl \
 	scripts/hnco-benchmark-run.pl \
 	scripts/hnco-benchmark-skeleton.pl \
 	scripts/hnco-benchmark-stat.pl \
-	scripts/hnco-observable-evolution-run.pl \
-	scripts/hnco-observable-evolution-skeleton.pl \
-	scripts/hnco-observable-evolution-stat.pl \
 	scripts/hnco-ecdf-stat.pl \
 	scripts/hnco-function-parameter-stat.pl \
 	scripts/hnco-lookup-ratio-stat.pl \
 	scripts/hnco-maximum-evolution-stat.pl \
-	scripts/hnco-algorithm-parameter-run.pl \
-	scripts/hnco-algorithm-parameter-skeleton.pl \
-	scripts/hnco-algorithm-parameter-stat.pl \
+	scripts/hnco-observable-evolution-run.pl \
+	scripts/hnco-observable-evolution-skeleton.pl \
+	scripts/hnco-observable-evolution-stat.pl \
 	scripts/hnco-runtime-stat.pl \
 	scripts/hnco-runtime2-run.pl \
 	scripts/hnco-runtime2-skeleton.pl \
@@ -322,6 +322,16 @@ dist_bin_SCRIPTS = \
 	scripts/hnco-walsh-stat.pl
 
 EXTRA_DIST = \
+	examples/algorithm-parameter/Makefile \
+	examples/algorithm-parameter/instances/Makefile \
+	examples/algorithm-parameter/instances/ep.100 \
+	examples/algorithm-parameter/instances/lin.100 \
+	examples/algorithm-parameter/instances/ms.100.3.1000 \
+	examples/algorithm-parameter/instances/nk.100.4 \
+	examples/algorithm-parameter/instances/walsh2.100 \
+	examples/algorithm-parameter/plan.json \
+	examples/algorithm-parameter/report/Makefile \
+	examples/algorithm-parameter/report/report.tex \
 	examples/autocorrelation/Makefile \
 	examples/autocorrelation/instances/Makefile \
 	examples/autocorrelation/instances/ep.100 \
@@ -342,16 +352,6 @@ EXTRA_DIST = \
 	examples/benchmark/plan.json \
 	examples/benchmark/report/Makefile \
 	examples/benchmark/report/report.tex \
-	examples/observable-evolution/Makefile \
-	examples/observable-evolution/instances/Makefile \
-	examples/observable-evolution/instances/ep.100 \
-	examples/observable-evolution/instances/lin.100 \
-	examples/observable-evolution/instances/ms.100.3.1000 \
-	examples/observable-evolution/instances/nk.100.4 \
-	examples/observable-evolution/instances/walsh2.100 \
-	examples/observable-evolution/plan.json \
-	examples/observable-evolution/report/Makefile \
-	examples/observable-evolution/report/report.tex \
 	examples/ecdf/Makefile \
 	examples/ecdf/instances/Makefile \
 	examples/ecdf/instances/ep.100 \
@@ -366,26 +366,26 @@ EXTRA_DIST = \
 	examples/function-parameter/plan.json \
 	examples/function-parameter/report/Makefile \
 	examples/function-parameter/report/report.tex \
-	examples/maximum/Makefile \
-	examples/maximum/instances/Makefile \
-	examples/maximum/instances/ep.100 \
-	examples/maximum/instances/lin.100 \
-	examples/maximum/instances/ms.100.3.1000 \
-	examples/maximum/instances/nk.100.4 \
-	examples/maximum/instances/walsh2.100 \
-	examples/maximum/plan.json \
-	examples/maximum/report/Makefile \
-	examples/maximum/report/report.tex \
-	examples/parameter/Makefile \
-	examples/parameter/instances/Makefile \
-	examples/parameter/instances/ep.100 \
-	examples/parameter/instances/lin.100 \
-	examples/parameter/instances/ms.100.3.1000 \
-	examples/parameter/instances/nk.100.4 \
-	examples/parameter/instances/walsh2.100 \
-	examples/parameter/plan.json \
-	examples/parameter/report/Makefile \
-	examples/parameter/report/report.tex \
+	examples/maximum-evolution/Makefile \
+	examples/maximum-evolution/instances/Makefile \
+	examples/maximum-evolution/instances/ep.100 \
+	examples/maximum-evolution/instances/lin.100 \
+	examples/maximum-evolution/instances/ms.100.3.1000 \
+	examples/maximum-evolution/instances/nk.100.4 \
+	examples/maximum-evolution/instances/walsh2.100 \
+	examples/maximum-evolution/plan.json \
+	examples/maximum-evolution/report/Makefile \
+	examples/maximum-evolution/report/report.tex \
+	examples/observable-evolution/Makefile \
+	examples/observable-evolution/instances/Makefile \
+	examples/observable-evolution/instances/ep.100 \
+	examples/observable-evolution/instances/lin.100 \
+	examples/observable-evolution/instances/ms.100.3.1000 \
+	examples/observable-evolution/instances/nk.100.4 \
+	examples/observable-evolution/instances/walsh2.100 \
+	examples/observable-evolution/plan.json \
+	examples/observable-evolution/report/Makefile \
+	examples/observable-evolution/report/report.tex \
 	examples/runtime/Makefile \
 	examples/runtime/plan.json \
 	examples/runtime/report/Makefile \
@@ -400,10 +400,10 @@ EXTRA_DIST = \
 	examples/walsh-transforms/plan.json \
 	examples/walsh-transforms/report/Makefile \
 	examples/walsh-transforms/report/report.tex \
-	modules/lib/HNCO/Report.pm \
-	modules/lib/HNCO/Run.pm \
+	modules/MANIFEST \
 	modules/Makefile.PL \
-	modules/MANIFEST
+	modules/lib/HNCO/Report.pm \
+	modules/lib/HNCO/Run.pm
 
 all: all-am
 
