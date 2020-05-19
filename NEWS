@@ -18,10 +18,15 @@ Library:
 - Moved WalshTerm inside file functions/walsh-term.hh
 - Moved IterativeAlgorithm inside files algorithms/iterative-algorithm.*
 - Moved compute_walsh_transform outside of class Function
+- Added function::Partition
 
 hnco:
 - Added option --map-display
 - make_concrete_algorithm: does not call set_something_to_log
+- Added Partition with number 91
+
+ffgen:
+- Added Partition with number 91
 
 Tests:
 - Renamed test-ts-involution -> test-ts-random-commuting-is-involution
@@ -33,6 +38,7 @@ Tests:
 - Added test-ts-random-disjoint
 - Added test-ts-random-non-commuting
 - Added test-bv-from-stream
+- Added test-serialize-partition
 
 Scripts:
 - Renamed scripts/ -> experiments/scripts/
