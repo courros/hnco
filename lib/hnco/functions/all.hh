@@ -35,6 +35,7 @@
 #include "hnco/functions/max-sat.hh"
 #include "hnco/functions/modifiers/all.hh"
 #include "hnco/functions/nk-landscape.hh"
+#include "hnco/functions/partition.hh"
 #include "hnco/functions/qubo.hh"
 #include "hnco/functions/real/all.hh"
 #include "hnco/functions/theory.hh"

@@ -270,6 +270,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/modifiers/prior-noise.cc \
 	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/nk-landscape.cc hnco/functions/nk-landscape.hh \
+	hnco/functions/partition.cc hnco/functions/partition.hh \
 	hnco/functions/qubo.cc hnco/functions/qubo.hh \
 	hnco/functions/real/all.hh \
 	hnco/functions/real/real-multivariate-function-adapter.cc \
@@ -351,7 +352,8 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/functions/modifiers/function-modifier.lo \
 	hnco/functions/modifiers/parsed-modifier.lo \
 	hnco/functions/modifiers/prior-noise.lo \
-	hnco/functions/nk-landscape.lo hnco/functions/qubo.lo \
+	hnco/functions/nk-landscape.lo hnco/functions/partition.lo \
+	hnco/functions/qubo.lo \
 	hnco/functions/real/real-multivariate-function-adapter.lo \
 	hnco/functions/real/real-multivariate-function.lo \
 	hnco/functions/real/real-representation.lo \
@@ -447,6 +449,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/$(DEPDIR)/long-path.Plo \
 	hnco/functions/$(DEPDIR)/max-sat.Plo \
 	hnco/functions/$(DEPDIR)/nk-landscape.Plo \
+	hnco/functions/$(DEPDIR)/partition.Plo \
 	hnco/functions/$(DEPDIR)/plugin.Plo \
 	hnco/functions/$(DEPDIR)/qubo.Plo \
 	hnco/functions/$(DEPDIR)/theory.Plo \
@@ -567,8 +570,8 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/modifiers/function-modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.hh \
-	hnco/functions/nk-landscape.hh hnco/functions/qubo.hh \
-	hnco/functions/real/all.hh \
+	hnco/functions/nk-landscape.hh hnco/functions/partition.hh \
+	hnco/functions/qubo.hh hnco/functions/real/all.hh \
 	hnco/functions/real/real-multivariate-function-adapter.hh \
 	hnco/functions/real/real-multivariate-function.hh \
 	hnco/functions/real/real-representation.hh \
@@ -842,6 +845,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/modifiers/prior-noise.cc \
 	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/nk-landscape.cc hnco/functions/nk-landscape.hh \
+	hnco/functions/partition.cc hnco/functions/partition.hh \
 	hnco/functions/qubo.cc hnco/functions/qubo.hh \
 	hnco/functions/real/all.hh \
 	hnco/functions/real/real-multivariate-function-adapter.cc \
@@ -928,8 +932,8 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/modifiers/function-modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.hh \
-	hnco/functions/nk-landscape.hh hnco/functions/qubo.hh \
-	hnco/functions/real/all.hh \
+	hnco/functions/nk-landscape.hh hnco/functions/partition.hh \
+	hnco/functions/qubo.hh hnco/functions/real/all.hh \
 	hnco/functions/real/real-multivariate-function-adapter.hh \
 	hnco/functions/real/real-multivariate-function.hh \
 	hnco/functions/real/real-representation.hh \
@@ -1256,6 +1260,8 @@ hnco/functions/modifiers/prior-noise.lo:  \
 	hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/nk-landscape.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/partition.lo: hnco/functions/$(am__dirstamp) \
+	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/qubo.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/real/$(am__dirstamp):
@@ -1431,6 +1437,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/long-path.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/max-sat.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/nk-landscape.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/partition.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/plugin.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/qubo.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/theory.Plo@am__quote@ # am--include-marker
@@ -1782,6 +1789,7 @@ distclean: distclean-am
 	-rm -f hnco/functions/$(DEPDIR)/long-path.Plo
 	-rm -f hnco/functions/$(DEPDIR)/max-sat.Plo
 	-rm -f hnco/functions/$(DEPDIR)/nk-landscape.Plo
+	-rm -f hnco/functions/$(DEPDIR)/partition.Plo
 	-rm -f hnco/functions/$(DEPDIR)/plugin.Plo
 	-rm -f hnco/functions/$(DEPDIR)/qubo.Plo
 	-rm -f hnco/functions/$(DEPDIR)/theory.Plo
@@ -1911,6 +1919,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/$(DEPDIR)/long-path.Plo
 	-rm -f hnco/functions/$(DEPDIR)/max-sat.Plo
 	-rm -f hnco/functions/$(DEPDIR)/nk-landscape.Plo
+	-rm -f hnco/functions/$(DEPDIR)/partition.Plo
 	-rm -f hnco/functions/$(DEPDIR)/plugin.Plo
 	-rm -f hnco/functions/$(DEPDIR)/qubo.Plo
 	-rm -f hnco/functions/$(DEPDIR)/theory.Plo

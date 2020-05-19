@@ -172,6 +172,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/nk-landscape.cc \
 	hnco/functions/nk-landscape.hh \
+	hnco/functions/partition.cc \
+	hnco/functions/partition.hh \
 	hnco/functions/qubo.cc \
 	hnco/functions/qubo.hh \
 	hnco/functions/real/all.hh \
@@ -314,6 +316,7 @@ nobase_include_HEADERS = \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/nk-landscape.hh \
+	hnco/functions/partition.hh \
 	hnco/functions/qubo.hh \
 	hnco/functions/real/all.hh \
 	hnco/functions/real/real-multivariate-function-adapter.hh \
