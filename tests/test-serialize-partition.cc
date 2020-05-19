@@ -21,7 +21,7 @@
 #include <chrono>
 #include <fstream>              // std::ifstream, std::ofstream
 
-#include "hnco/functions/equal-products.hh"
+#include "hnco/functions/partition.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::function;
@@ -34,14 +34,14 @@ int main(int argc, char *argv[])
 {
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  const string path("test-serialize-equal-products.txt");
+  const string path("test-serialize-partition.txt");
 
   for (int i = 0; i < 10; i++) {
 
     uniform_int_distribution<int> dist_n(2, 100);
     int n = dist_n(Random::generator);
 
-    EqualProducts src;
+    Partition src;
     src.random(n);
     {
       std::ofstream ofs(path);
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
       oa << src;
     }
 
-    EqualProducts dest;
+    Partition dest;
     {
       ifstream ifs(path);
       if (!ifs.good())
