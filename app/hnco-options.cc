@@ -969,6 +969,7 @@ void Options::print_help(ostream& stream) const
   stream << "            80: Low autocorrelation binary sequence" << endl;
   stream << "            81: Low autocorrelation binary sequence merit factor" << endl;
   stream << "            90: Equal products" << endl;
+  stream << "            91: Partition" << endl;
   stream << "            100: Summation cancellation" << endl;
   stream << "            101: Summation cancellation with sinus" << endl;
   stream << "            110: Trap" << endl;
@@ -1122,7 +1123,7 @@ void Options::print_help_map(ostream& stream) const
   stream << "            5: Affine" << endl;
   stream << "            6: Affine (transvection sequence)" << endl;
   stream << "      --map-display" << endl;
-  stream << "          Display the map and exit" << endl;
+  stream << "          Display the map" << endl;
   stream << "      --map-input-size (type int, default to 100)" << endl;
   stream << "          Input size of linear and affine maps" << endl;
   stream << "      --map-path (type string, default to \"map.txt\")" << endl;

@@ -155,6 +155,12 @@ make_concrete_function(const Options& options)
     return function;
   }
 
+  case 91: {
+    Partition* function = new Partition;
+    load_function_from_boost_archive<Partition>(function, options);
+    return function;
+  }
+
   case 100:
     return new SummationCancellation
       (options.get_bv_size());
