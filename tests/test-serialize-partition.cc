@@ -38,11 +38,12 @@ int main(int argc, char *argv[])
 
   for (int i = 0; i < 10; i++) {
 
-    uniform_int_distribution<int> dist_n(2, 100);
-    int n = dist_n(Random::generator);
+    uniform_int_distribution<int> distribution(1, 100);
+    int n = distribution(Random::generator);
+    int upper_bound = distribution(Random::generator);
 
     Partition src;
-    src.random(n);
+    src.random(n, upper_bound);
     {
       std::ofstream ofs(path);
       boost::archive::text_oarchive oa(ofs);
