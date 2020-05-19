@@ -18,11 +18,10 @@
 
 */
 
-#include <assert.h>
-#include <math.h>		// fabs
+#include <cstdlib>              // std:abs
 
 #include "hnco/random.hh"
-#include "hnco/functions/equal-products.hh"
+#include "hnco/functions/partition.hh"
 
 
 using namespace hnco::random;
@@ -30,14 +29,16 @@ using namespace hnco::function;
 
 
 double
-EqualProducts::eval(const bit_vector_t& s)
+Partition::eval(const bit_vector_t& s)
 {
-  double p0 = 1;
-  double p1 = 1;
-  for (size_t i = 0; i < _numbers.size(); i++)
+  assert(s.size() == _numbers.size());
+
+  int sum0 = 0;
+  int sum1 = 0;
+  for (size_t i = 0; i < s.size(); i++)
     if (s[i])
-      p1 *= _numbers[i];
+      sum1 += _numbers[i];
     else
-      p0 *= _numbers[i];
-  return -fabs(p1 - p0);
+      sum0 += _numbers[i];
+  return -std::abs(sum1 - sum0);
 }

@@ -18,9 +18,10 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_EQUAL_PRODUCTS_H
-#define HNCO_FUNCTIONS_EQUAL_PRODUCTS_H
+#ifndef HNCO_FUNCTIONS_PARTITION_H
+#define HNCO_FUNCTIONS_PARTITION_H
 
+#include <assert.h>
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -36,29 +37,20 @@ namespace hnco {
 namespace function {
 
 
-  /** Equal products.
+  /** Partition.
 
-      Partition a finite set of positive numbers into two subsets such
-      that the product of numbers in the first subset is the closest
-      to the product of numbers in the second subset. This is
-      equivalent to the partition problem applied to the logarithms of
-      the given numbers.
+      Partition a finite multiset of positive integers into two
+      subsets such that the sum of numbers in the first subset is the
+      closest to the sum of numbers in the second subset.
 
       The function computes the negation of the distance between the
-      product of numbers corresponding to ones in the bit vector and
-      the product of those corresponding to zeros. The negation is a
+      sum of numbers corresponding to ones in the bit vector and the
+      sum of those corresponding to zeros. The negation is a
       consequence of the fact that algorithms in HNCO maximize rather
       than minimize a function.
 
-      Reference:
-
-      S. Baluja and S. Davies. 1997. Using optimal dependency-trees
-      for combinatorial optimization: learning the structure of the
-      search space. Technical Report CMU- CS-97-107. Carnegie-Mellon
-      University.
-
   */
-  class EqualProducts:
+  class Partition:
     public Function {
 
   private:
@@ -72,13 +64,13 @@ namespace function {
       ar & _numbers;
     }
 
-    /// Numbers
-    std::vector<double> _numbers;
+    /// Multiset of positive integers
+    std::vector<int> _numbers;
 
   public:
 
     /// Constructor
-    EqualProducts() {}
+    Partition() {}
 
 
     /** @name Instance generators
@@ -101,14 +93,18 @@ namespace function {
 
     /** Random instance.
 
-        The weights are sampled from the uniform distribution on
-        [0,1).
+        The numbers are sampled from the uniform distribution on
+        [1..bound].
 
         \param n Size of bit vector
+        \param upper_bound Upper bound of positive integers
     */
-    void random(int n) {
+    void random(int n, int bound) {
       assert(n > 0);
+      assert(bound > 0);
 
+      uniform_int_distribution<int> dist(1, bound);
+      auto generator = [dist]() { return dist(Random::generator); };
       generate(n, hnco::random::Random::uniform);
     }
 
