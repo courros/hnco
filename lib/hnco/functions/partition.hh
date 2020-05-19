@@ -103,9 +103,8 @@ namespace function {
       assert(n > 0);
       assert(bound > 0);
 
-      uniform_int_distribution<int> dist(1, bound);
-      auto generator = [dist]() { return dist(Random::generator); };
-      generate(n, hnco::random::Random::uniform);
+      std::uniform_int_distribution<int> dist(1, bound);
+      generate(n, [&dist]() { return dist(hnco::random::Random::generator); });
     }
 
     ///@}
