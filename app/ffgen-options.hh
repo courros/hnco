@@ -21,7 +21,7 @@ class Options {
   double _coupling_constant;
   bool _opt_coupling_constant;
 
-  /// Parameter upper bound
+  /// Upper bound of numbers
   double _ep_upper_bound;
   bool _opt_ep_upper_bound;
 
@@ -60,6 +60,10 @@ class Options {
   /// Number of rows
   int _nn2_num_rows;
   bool _opt_nn2_num_rows;
+
+  /// Upper bound of numbers
+  int _part_upper_bound;
+  bool _opt_part_upper_bound;
 
   /// Path (relative or absolute) of a function file
   std::string _path;
@@ -245,6 +249,18 @@ public:
 
   /// Get set-flag for nn2_num_rows
   bool set_nn2_num_rows() const { return _opt_nn2_num_rows; }
+
+  /// Get part_upper_bound
+  int get_part_upper_bound() const { return _part_upper_bound; }
+
+  /// Set part_upper_bound
+  void set_part_upper_bound(int x) {
+    _part_upper_bound = x;
+    _opt_part_upper_bound = true;
+  }
+
+  /// Get set-flag for part_upper_bound
+  bool set_part_upper_bound() const { return _opt_part_upper_bound; }
 
   /// Get path
   std::string get_path() const { return _path; }

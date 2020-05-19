@@ -38,6 +38,12 @@
         },
 
         {
+            "id": "part",
+            "title": "Partition",
+            "fold": false
+        },
+
+        {
             "id": "walsh",
             "title": "Walsh Expansion",
             "fold": false
@@ -63,7 +69,7 @@
 
     ],
 
-    "order": [ "gen", "param", "nk", "ms", "ep", "walsh", "walsh2", "nn1", "nn2" ],
+    "order": [ "gen", "param", "nk", "ms", "ep", "part", "walsh", "walsh2", "nn1", "nn2" ],
 
     "flags": {
 
@@ -137,6 +143,11 @@
                 {
                     "value": 90,
                     "description": "Equal products"
+                },
+
+                {
+                    "value": 91,
+                    "description": "Partition"
                 },
 
                 {
@@ -220,8 +231,16 @@
         {
             "type": "double",
             "value": 1,
-            "description": "Parameter upper bound",
+            "description": "Upper bound of numbers",
             "section": "ep"
+        },
+
+        "part_upper_bound":
+        {
+            "type": "int",
+            "value": 100,
+            "description": "Upper bound of numbers",
+            "section": "part"
         },
 
         "walsh_num_features":

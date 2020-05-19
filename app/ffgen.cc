@@ -232,6 +232,13 @@ void generate_function(Options& options)
     break;
   }
 
+  case 91: {
+    Partition function;
+    function.random(options.get_bv_size(), options.get_part_upper_bound());
+    save_function_to_boost_archive(function, "Partition", options);
+    break;
+  }
+
   case 160: {
     WalshExpansion function;
     function.generate(options.get_bv_size(), options.get_walsh_num_features(), generator);

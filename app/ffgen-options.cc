@@ -33,6 +33,8 @@ Options::Options(int argc, char *argv[]):
   _opt_nn2_num_columns(false),
   _nn2_num_rows(10),
   _opt_nn2_num_rows(false),
+  _part_upper_bound(100),
+  _opt_part_upper_bound(false),
   _path("function.txt"),
   _opt_path(false),
   _seed(0),
@@ -63,6 +65,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_NN2_GENERATOR,
     OPTION_NN2_NUM_COLUMNS,
     OPTION_NN2_NUM_ROWS,
+    OPTION_PART_UPPER_BOUND,
     OPTION_PATH,
     OPTION_SEED,
     OPTION_STDDEV,
@@ -85,6 +88,7 @@ Options::Options(int argc, char *argv[]):
     {"nn2-generator", required_argument, 0, OPTION_NN2_GENERATOR},
     {"nn2-num-columns", required_argument, 0, OPTION_NN2_NUM_COLUMNS},
     {"nn2-num-rows", required_argument, 0, OPTION_NN2_NUM_ROWS},
+    {"part-upper-bound", required_argument, 0, OPTION_PART_UPPER_BOUND},
     {"path", required_argument, 0, OPTION_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
     {"stddev", required_argument, 0, OPTION_STDDEV},
@@ -153,6 +157,10 @@ Options::Options(int argc, char *argv[]):
       set_nn2_num_rows(atoi(optarg));
       break;
 
+    case OPTION_PART_UPPER_BOUND:
+      set_part_upper_bound(atoi(optarg));
+      break;
+
     case 'p':
     case OPTION_PATH:
       set_path(string(optarg));
@@ -214,6 +222,7 @@ void Options::print_help(ostream& stream) const
   stream << "            60: NK landscape" << endl;
   stream << "            70: Max-SAT" << endl;
   stream << "            90: Equal products" << endl;
+  stream << "            91: Partition" << endl;
   stream << "            160: Walsh expansion" << endl;
   stream << "            161: Walsh expansion of degree 1" << endl;
   stream << "            162: Walsh expansion of degree 2" << endl;
@@ -248,7 +257,11 @@ void Options::print_help(ostream& stream) const
   stream << endl;
   stream << "Equal Products" << endl;
   stream << "      --ep-upper-bound (type double, default to 1)" << endl;
-  stream << "          Parameter upper bound" << endl;
+  stream << "          Upper bound of numbers" << endl;
+  stream << endl;
+  stream << "Partition" << endl;
+  stream << "      --part-upper-bound (type int, default to 100)" << endl;
+  stream << "          Upper bound of numbers" << endl;
   stream << endl;
   stream << "Walsh Expansion" << endl;
   stream << "      --walsh-num-features (type int, default to 100)" << endl;
@@ -303,6 +316,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# nn2_generator = " << options._nn2_generator << endl;
   stream << "# nn2_num_columns = " << options._nn2_num_columns << endl;
   stream << "# nn2_num_rows = " << options._nn2_num_rows << endl;
+  stream << "# part_upper_bound = " << options._part_upper_bound << endl;
   stream << "# path = " << options._path << endl;
   stream << "# seed = " << options._seed << endl;
   stream << "# stddev = " << options._stddev << endl;
