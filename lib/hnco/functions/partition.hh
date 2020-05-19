@@ -37,9 +37,9 @@ namespace hnco {
 namespace function {
 
 
-  /** Partition.
+  /** %Partition.
 
-      Partition a finite multiset of positive integers into two
+      %Partition a finite multiset of positive integers into two
       subsets such that the sum of numbers in the first subset is the
       closest to the sum of numbers in the second subset.
 
