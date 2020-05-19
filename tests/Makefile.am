@@ -69,6 +69,7 @@ check_PROGRAMS = \
 	test-serialize-nk-landscape \
 	test-serialize-nn-ising-1 \
 	test-serialize-nn-ising-2 \
+	test-serialize-partition \
 	test-serialize-permutation \
 	test-serialize-translation \
 	test-serialize-ts-affine-map \
@@ -153,6 +154,7 @@ test_serialize_max_sat_SOURCES = test-serialize-max-sat.cc
 test_serialize_nk_landscape_SOURCES = test-serialize-nk-landscape.cc
 test_serialize_nn_ising_1_SOURCES = test-serialize-nn-ising-1.cc
 test_serialize_nn_ising_2_SOURCES = test-serialize-nn-ising-2.cc
+test_serialize_partition_SOURCES = test-serialize-partition.cc
 test_serialize_permutation_SOURCES = test-serialize-permutation.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
 test_serialize_ts_affine_map_SOURCES = test-serialize-ts-affine-map.cc
@@ -187,6 +189,7 @@ DISTCLEANFILES = \
 	test-serialize-nk-landscape.txt \
 	test-serialize-nn-ising-1.txt \
 	test-serialize-nn-ising-2.txt \
+	test-serialize-partition.txt \
 	test-serialize-permutation.txt \
 	test-serialize-translation.txt \
 	test-serialize-ts-affine-map.txt \
