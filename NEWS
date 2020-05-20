@@ -63,7 +63,7 @@ Scripts:
 - optgen.pl moved to app/
 
 Modules:
-- Added experiments/modules
+- Added experiments/modules/
 - Added HNCO::Run
 - Added HNCO::Report
 
