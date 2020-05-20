@@ -910,6 +910,11 @@
                 },
 
                 {
+                    "value": 30,
+                    "description": "Human"
+                },
+
+                {
                     "value": 100,
                     "description": "Random local search"
                 },
