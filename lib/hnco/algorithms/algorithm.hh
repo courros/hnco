@@ -116,8 +116,8 @@ namespace algorithm {
      */
     ///@{
 
-    /// Initialization
-    virtual void init() { random_solution(); }
+    /// Random initialization
+    virtual void init();
 
     /// Maximize
     virtual void maximize() = 0;

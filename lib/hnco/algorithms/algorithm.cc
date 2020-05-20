@@ -47,6 +47,7 @@ void
 Algorithm::set_solution(const bit_vector_t& x)
 {
   assert(_function);
+
   set_solution(x, _function->eval(x));
 }
 
@@ -70,5 +71,14 @@ void
 Algorithm::update_solution(const bit_vector_t& x)
 {
   assert(_function);
+
   update_solution(x, _function->eval(x));
+}
+
+void
+Algorithm::init()
+{
+  assert(_function);
+
+  random_solution();
 }
