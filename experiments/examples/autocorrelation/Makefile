@@ -5,7 +5,7 @@ default-parameters:
 
 run:
 	echo `date` >> log.err
-	hnco-walsh-skeleton.pl
+	hnco-walsh-transforms-skeleton.pl
 	time -o log.err -a hnco-autocorrelation-run.pl
 
 report:

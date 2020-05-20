@@ -79,7 +79,7 @@ sub generate_spectrum
 
         my $path = "$path_results/$function_id/1.out";
         my $file = IO::File->new($path, '<')
-            or die "hnco-walsh-stat.pl: generate_spectrum: Cannot open '$path': $!\n";
+            or die "hnco-walsh-transforms-stat.pl: generate_spectrum: Cannot open '$path': $!\n";
         my @walsh_transform = ();
         while (defined(my $line = $file->getline)) {
             chomp $line;
@@ -105,7 +105,7 @@ sub generate_spectrum
 
         $path = "$path_results/$function_id/spectrum.dat";
         $file = IO::File->new($path, '>')
-            or die "hnco-walsh-stat.pl: generate_spectrum: Cannot open '$path': $!\n";
+            or die "hnco-walsh-transforms-stat.pl: generate_spectrum: Cannot open '$path': $!\n";
         while (my ($order, $energy) = each %spectrum) {
             $file->print("$order $energy\n");
         }
@@ -117,7 +117,7 @@ sub generate_spectrum
 sub generate_graphics
 {
     open(GRAPHICS, ">graphics.gp")
-        or die "hnco-walsh-stat.pl: generate_graphics: cannot open graphics.gp\n";
+        or die "hnco-walsh-transforms-stat.pl: generate_graphics: cannot open graphics.gp\n";
     print GRAPHICS "#!/usr/bin/gnuplot -persist\n";
     generate_graphics_coefficients();
     generate_graphics_spectrum();
@@ -266,7 +266,7 @@ sub generate_graphics_spectrum
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
-        or die "hnco-walsh-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
+        or die "hnco-walsh-transforms-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX latex_graphicspath($path_graphics);
 

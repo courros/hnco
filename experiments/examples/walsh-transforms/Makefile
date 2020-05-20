@@ -5,11 +5,11 @@ default-parameters:
 
 run:
 	echo `date` >> log.err
-	hnco-walsh-skeleton.pl
-	time -o log.err -a hnco-walsh-run.pl
+	hnco-walsh-transforms-skeleton.pl
+	time -o log.err -a hnco-walsh-transforms-run.pl
 
 report:
-	hnco-walsh-stat.pl
+	hnco-walsh-transforms-stat.pl
 	./graphics.gp
 	sed '/^$$/d' plan.json > pretty.json
 	make -C report
