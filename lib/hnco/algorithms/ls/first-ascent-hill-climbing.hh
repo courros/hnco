@@ -50,7 +50,7 @@ namespace algorithm {
       IterativeAlgorithm(n),
       _neighborhood(neighborhood) {}
 
-    /// Random initialization
+    /// Initialization
     void init();
 
     /// Explicit initialization
