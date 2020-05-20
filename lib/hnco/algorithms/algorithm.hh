@@ -152,10 +152,10 @@ namespace algorithm {
     void set_functions(const std::vector<function::Function *> functions) { _functions = functions; }
 
     /// Output stream
-    void set_stream(std::ostream *x) { _stream = x; }
+    void set_stream(std::ostream *stream) { _stream = stream; }
 
     /// Set log context
-    void set_log_context(LogContext *lc) { _log_context = lc; }
+    void set_log_context(LogContext *log_context) { _log_context = log_context; }
 
     ///@}
     
