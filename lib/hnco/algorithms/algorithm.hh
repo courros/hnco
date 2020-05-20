@@ -132,9 +132,6 @@ namespace algorithm {
     /// Solution
     virtual const point_value_t& get_solution() { return _solution; }
 
-    /// Get bit vector size
-    virtual int get_bv_size() { return _solution.first.size(); }
-
     ///@}
 
 
