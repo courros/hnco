@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_RANDOM_SEARCH_H
-#define HNCO_ALGORITHMS_RANDOM_SEARCH_H
+#ifndef HNCO_ALGORITHMS_HUMAN_H
+#define HNCO_ALGORITHMS_HUMAN_H
 
 #include "hnco/algorithms/iterative-algorithm.hh"
 
@@ -27,8 +27,8 @@
 namespace hnco {
 namespace algorithm {
 
-  /// Random search
-  class RandomSearch:
+  /// Human
+  class Human:
     public IterativeAlgorithm {
 
     /// Candidate
@@ -42,7 +42,7 @@ namespace algorithm {
   public:
 
     /// Constructor
-    RandomSearch(int n):
+    Human(int n):
       IterativeAlgorithm(n),
       _candidate(n) {}
 

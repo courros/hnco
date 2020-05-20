@@ -18,14 +18,14 @@
 
 */
 
-#include "random-search.hh"
+#include "human.hh"
 
 
 using namespace hnco::algorithm;
 
 
 void
-RandomSearch::iterate()
+Human::iterate()
 {
   bv_random(_candidate);
   update_solution(_candidate);

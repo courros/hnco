@@ -96,6 +96,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.cc \
 	hnco/algorithms/hea/spin-moment.hh \
+	hnco/algorithms/human.cc \
+	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/log-context.hh \
@@ -273,6 +275,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.hh \
+	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/log-context.hh \
 	hnco/algorithms/ls/all.hh \

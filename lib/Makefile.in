@@ -214,7 +214,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/hea/spin-herding.cc \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.cc \
-	hnco/algorithms/hea/spin-moment.hh \
+	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/human.cc \
+	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
@@ -327,7 +328,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/hea/bit-herding.lo \
 	hnco/algorithms/hea/bit-moment.lo \
 	hnco/algorithms/hea/spin-herding.lo \
-	hnco/algorithms/hea/spin-moment.lo \
+	hnco/algorithms/hea/spin-moment.lo hnco/algorithms/human.lo \
 	hnco/algorithms/iterative-algorithm.lo \
 	hnco/algorithms/ls/first-ascent-hill-climbing.lo \
 	hnco/algorithms/ls/random-local-search.lo \
@@ -406,6 +407,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/$(DEPDIR)/transvection.Plo \
 	hnco/algorithms/$(DEPDIR)/algorithm.Plo \
 	hnco/algorithms/$(DEPDIR)/complete-search.Plo \
+	hnco/algorithms/$(DEPDIR)/human.Plo \
 	hnco/algorithms/$(DEPDIR)/iterative-algorithm.Plo \
 	hnco/algorithms/$(DEPDIR)/population.Plo \
 	hnco/algorithms/$(DEPDIR)/random-search.Plo \
@@ -540,7 +542,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.hh \
-	hnco/algorithms/hea/spin-moment.hh \
+	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
@@ -789,7 +791,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/hea/spin-herding.cc \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.cc \
-	hnco/algorithms/hea/spin-moment.hh \
+	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/human.cc \
+	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
@@ -902,7 +905,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.hh \
-	hnco/algorithms/hea/spin-moment.hh \
+	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
@@ -1139,6 +1142,8 @@ hnco/algorithms/hea/spin-herding.lo:  \
 hnco/algorithms/hea/spin-moment.lo:  \
 	hnco/algorithms/hea/$(am__dirstamp) \
 	hnco/algorithms/hea/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/human.lo: hnco/algorithms/$(am__dirstamp) \
+	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/iterative-algorithm.lo:  \
 	hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
@@ -1394,6 +1399,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/transvection.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/algorithm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/complete-search.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/human.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/iterative-algorithm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/population.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/random-search.Plo@am__quote@ # am--include-marker
@@ -1746,6 +1752,7 @@ distclean: distclean-am
 	-rm -f hnco/$(DEPDIR)/transvection.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/algorithm.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/complete-search.Plo
+	-rm -f hnco/algorithms/$(DEPDIR)/human.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/iterative-algorithm.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/population.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/random-search.Plo
@@ -1876,6 +1883,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/$(DEPDIR)/transvection.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/algorithm.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/complete-search.Plo
+	-rm -f hnco/algorithms/$(DEPDIR)/human.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/iterative-algorithm.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/population.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/random-search.Plo
