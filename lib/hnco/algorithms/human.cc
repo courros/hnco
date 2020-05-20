@@ -31,18 +31,6 @@ using namespace hnco::exception;
 
 
 void
-bv_from_string(bit_vector_t& x, const std::string& str)
-{
-  x.clear();
-  for (auto c : str)
-    if (c == '0')
-      x.push_back(0);
-    else
-      x.push_back(1);
-}
-
-
-void
 Human::parse_bit_vector()
 {
   bool again = true;
