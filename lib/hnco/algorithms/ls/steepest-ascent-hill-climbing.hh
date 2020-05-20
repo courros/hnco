@@ -58,7 +58,7 @@ namespace algorithm {
       _candidates(n, bit_vector_t(n)),
       _neighborhood(neighborhood) {}
 
-    /// Random initialization
+    /// Initialization
     void init();
 
     /// Explicit initialization
