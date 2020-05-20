@@ -20,7 +20,7 @@
 
 #include <assert.h>
 
-#include <string>
+#include <string>               // std::getline
 
 #include "bit-vector.hh"
 
@@ -194,7 +194,6 @@ hnco::bv_from_size_type(bit_vector_t& x, std::size_t index)
   }
 }
 
-
 void
 hnco::bv_from_string(bit_vector_t& x, const std::string& str)
 {
@@ -206,11 +205,10 @@ hnco::bv_from_string(bit_vector_t& x, const std::string& str)
       x.push_back(1);
 }
 
-
 void
 hnco::bv_from_stream(bit_vector_t& x, std::istream& stream)
 {
   std::string line;
-  if (getline(stream, line))
+  if (std::getline(stream, line))
     bv_from_string(x, line);
 }
