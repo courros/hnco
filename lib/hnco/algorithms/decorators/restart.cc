@@ -31,10 +31,11 @@ void
 Restart::iterate()
 {
   _algorithm->init();
-
-  try { _algorithm->maximize(); }
-
+  try {
+    _algorithm->maximize();
+  }
   catch (LocalMaximum) {}
+  _algorithm->finalize();
 
   if (_iteration == 0)
     _solution = _algorithm->get_solution();
