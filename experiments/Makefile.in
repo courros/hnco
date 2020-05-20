@@ -317,9 +317,9 @@ dist_bin_SCRIPTS = \
 	scripts/hnco-runtime2-run.pl \
 	scripts/hnco-runtime2-skeleton.pl \
 	scripts/hnco-runtime2-stat.pl \
-	scripts/hnco-walsh-run.pl \
-	scripts/hnco-walsh-skeleton.pl \
-	scripts/hnco-walsh-stat.pl
+	scripts/hnco-walsh-transforms-run.pl \
+	scripts/hnco-walsh-transforms-skeleton.pl \
+	scripts/hnco-walsh-transforms-stat.pl
 
 EXTRA_DIST = \
 	examples/algorithm-parameter/Makefile \
