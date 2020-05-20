@@ -35,7 +35,7 @@ namespace modifier {
 
   /// Prior noise
   class PriorNoise:
-    public FunctionModifier {
+    public Modifier {
 
     /// Neighborhood
     neighborhood::Neighborhood *_neighborhood;
@@ -47,7 +47,7 @@ namespace modifier {
 
     /// Constructor
     PriorNoise(Function *fn, neighborhood::Neighborhood *nh):
-      FunctionModifier(fn),
+      Modifier(fn),
       _neighborhood(nh)
     {
       assert(fn);

@@ -29,7 +29,7 @@ using namespace hnco::function::modifier;
 
 
 ParsedModifier::ParsedModifier(Function *function, std::string expression):
-  FunctionModifier(function)
+  Modifier(function)
 {
   int result = _fparser.Parse(expression, "x");
   if (result != -1) {

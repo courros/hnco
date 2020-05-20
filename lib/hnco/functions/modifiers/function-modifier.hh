@@ -36,13 +36,13 @@ namespace modifier {
 
 
   /// Function modifier
-  class FunctionModifier:
+  class Modifier:
     public Decorator {
 
   public:
 
     /// Constructor
-    FunctionModifier(Function *function):
+    Modifier(Function *function):
       Decorator(function) {}
 
   };
@@ -58,13 +58,13 @@ namespace modifier {
 
   */
   class Negation:
-    public FunctionModifier {
+    public Modifier {
 
   public:
 
     /// Constructor
     Negation(Function *function):
-      FunctionModifier(function) {}
+      Modifier(function) {}
 
     /** @name Information about the function
      */
@@ -98,7 +98,7 @@ namespace modifier {
 
   /// Composition of a function and a map
   class FunctionMapComposition:
-    public FunctionModifier {
+    public Modifier {
 
     /// Map
     Map *_map;
@@ -113,7 +113,7 @@ namespace modifier {
         \throw Error
     */
     FunctionMapComposition(Function *function, Map *map):
-      FunctionModifier(function),
+      Modifier(function),
       _map(map)
     {
       assert(map);
@@ -168,7 +168,7 @@ namespace modifier {
 
   /// Additive Gaussian Noise
   class AdditiveGaussianNoise:
-    public FunctionModifier {
+    public Modifier {
 
     /// Normal distribution
     std::normal_distribution<double> _dist;
@@ -177,7 +177,7 @@ namespace modifier {
 
     /// Constructor
     AdditiveGaussianNoise(Function *function, double stddev):
-      FunctionModifier(function),
+      Modifier(function),
       _dist(0, stddev) {}
 
     /** @name Information about the function

@@ -38,7 +38,7 @@ namespace modifier {
       by an expression \f$g(x)\f$ provided as a string.
   */
   class ParsedModifier:
-    public FunctionModifier {
+    public Modifier {
 
     /// Function parser
     FunctionParser _fparser;
