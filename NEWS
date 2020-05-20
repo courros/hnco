@@ -19,14 +19,17 @@ Library:
 - Moved IterativeAlgorithm inside files algorithms/iterative-algorithm.*
 - Moved compute_walsh_transform outside of class Function
 - Added function::Partition
+- Added algorithm::Human
+- Added bv_from_string
 
 hnco:
 - Added option --map-display
 - make_concrete_algorithm: does not call set_something_to_log
-- Added Partition with number 91
+- Added function::Partition with number 91
+- Added algorithm::Human with number 30
 
 ffgen:
-- Added Partition with number 91
+- Added function::Partition with number 91
 
 Tests:
 - Renamed test-ts-involution -> test-ts-random-commuting-is-involution

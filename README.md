@@ -21,7 +21,7 @@ vectors. It aims at being flexible, fast, simple, and robust.
 
 Library features:
 
-- 28 concrete functions
+- 29 concrete functions
 - 25 concrete algorithms
 - 74 unit tests
 - Maps from bit vectors to bit vectors (affine maps)
@@ -79,6 +79,7 @@ Here is the list of currently available algorithms:
 - Complete search
 - Random search
 - Random walk
+- Human
 - Random local search (strict and non strict)
 - Steepest ascent hill climbing
 - First ascent hill climbing
