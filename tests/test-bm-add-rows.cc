@@ -29,7 +29,7 @@
 
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
+
 
 bool check_bm_add_rows()
 {

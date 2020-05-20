@@ -27,13 +27,12 @@
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])
 {
-  const string path("test-serialize-walsh-expansion.txt");
-  uniform_int_distribution<int> dist_n(1, 100);
+  const std::string path("test-serialize-walsh-expansion.txt");
+  std::uniform_int_distribution<int> dist_n(1, 100);
 
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
@@ -52,7 +51,7 @@ int main(int argc, char *argv[])
 
     WalshExpansion dest;
     {
-      ifstream ifs(path);
+      std::ifstream ifs(path);
       if (!ifs.good())
         return 1;
       boost::archive::text_iarchive ia(ifs);

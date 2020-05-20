@@ -26,18 +26,17 @@
 
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])
 {
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  const string path("test-serialize-permutation.txt");
+  const std::string path("test-serialize-permutation.txt");
 
   for (int i = 0; i < 10; i++) {
 
-    uniform_int_distribution<int> dist_n(2, 100);
+    std::uniform_int_distribution<int> dist_n(2, 100);
     int n = dist_n(Random::generator);
 
     Permutation src;
@@ -50,7 +49,7 @@ int main(int argc, char *argv[])
 
     Permutation dest;
     {
-      ifstream ifs(path);
+      std::ifstream ifs(path);
       if (!ifs.good())
         exit(1);
       boost::archive::text_iarchive ia(ifs);

@@ -26,19 +26,18 @@
 
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])
 {
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  const string path("test-serialize-ts-affine-map.txt");
+  const std::string path("test-serialize-ts-affine-map.txt");
 
   for (int i = 0; i < 10; i++) {
 
-    uniform_int_distribution<int> dist_n(2, 100);
-    uniform_int_distribution<int> dist_t(1, 100);
+    std::uniform_int_distribution<int> dist_n(2, 100);
+    std::uniform_int_distribution<int> dist_t(1, 100);
     int n = dist_n(Random::generator);
     int t = dist_t(Random::generator);
 
@@ -52,7 +51,7 @@ int main(int argc, char *argv[])
 
     TsAffineMap dest;
     {
-      ifstream ifs(path);
+      std::ifstream ifs(path);
       if (!ifs.good())
         return 1;
       boost::archive::text_iarchive ia(ifs);

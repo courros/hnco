@@ -27,12 +27,12 @@
 
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
+
 
 bool check_ts_multiply()
 {
-  uniform_int_distribution<int> dimension_dist(2, 10);
-  uniform_int_distribution<int> length_dist(0, 10);
+  std::uniform_int_distribution<int> dimension_dist(2, 10);
+  std::uniform_int_distribution<int> length_dist(0, 10);
 
   for (int i = 0; i < 10; i++) {
     const int n = dimension_dist(Random::generator);

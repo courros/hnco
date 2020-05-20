@@ -32,7 +32,6 @@ using namespace hnco::function;
 using namespace hnco::function::modifier;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])

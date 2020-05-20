@@ -26,7 +26,6 @@
 
 using namespace hnco;
 using namespace hnco::random;
-using namespace std;
 
 
 int main(int argc, char *argv[])

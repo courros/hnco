@@ -35,11 +35,11 @@
 
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
+
 
 bool check_involution()
 {
-  uniform_int_distribution<int> dist(2, 200);
+  std::uniform_int_distribution<int> dist(2, 200);
 
   for (int i = 0; i < 10; i++) {
     const int n = dist(Random::generator);

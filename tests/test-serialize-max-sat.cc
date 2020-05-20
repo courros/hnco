@@ -29,16 +29,15 @@ using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
 
 
 int main(int argc, char *argv[])
 {
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
-  const string path("test-serialize-max-sat.txt");
+  const std::string path("test-serialize-max-sat.txt");
 
-  uniform_int_distribution<int> dist_n(3, 100);
+  std::uniform_int_distribution<int> dist_n(3, 100);
 
   for (int i = 0; i < 10; i++) {
 
@@ -53,12 +52,12 @@ int main(int argc, char *argv[])
 
     MaxSat dest;
     {
-      ifstream ifs(path);
+      std::ifstream ifs(path);
       if (!ifs.good())
         exit(1);
       try { dest.load(ifs); }
       catch (Error& e) {
-        cerr << "Error: " << e.what() << endl;
+        std::cerr << "Error: " << e.what() << std::endl;
         exit(1);
       }
     }

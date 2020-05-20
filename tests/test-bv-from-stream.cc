@@ -35,13 +35,13 @@
 
 using namespace hnco::random;
 using namespace hnco;
-using namespace std;
+
 
 bool check()
 {
-  const string path("test-bv-from-stream.txt");
+  const std::string path("test-bv-from-stream.txt");
 
-  uniform_int_distribution<int> dist(0, 1000);
+  std::uniform_int_distribution<int> dist(0, 1000);
 
   for (int i = 0; i < 100; i++) {
     const int n = dist(Random::generator);
