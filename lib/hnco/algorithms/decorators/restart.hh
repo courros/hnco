@@ -55,20 +55,9 @@ namespace algorithm {
     }
 
     /// Initialization
-    void init() {}
-
-    /// Set function
-    void set_function(function::Function *function) {
-      assert(function);
-      _function = function;
-      _algorithm->set_function(function);
-    }
-
-    /// Set functions
-    void set_functions(const std::vector<function::Function *> functions) {
-      assert(functions.size() > 0);
-      _functions = functions;
-      _algorithm->set_functions(functions);
+    void init() {
+      _algorithm->set_function(_function);
+      _algorithm->set_functions(_functions);
     }
 
   };
