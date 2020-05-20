@@ -116,7 +116,13 @@ namespace algorithm {
      */
     ///@{
 
-    /// Random initialization
+    /** Initialization.
+
+        Samples a random bit vector, evaluates it, and sets it as the
+        solution.
+
+        \warning Evaluates the function once.
+    */
     virtual void init();
 
     /// Maximize
