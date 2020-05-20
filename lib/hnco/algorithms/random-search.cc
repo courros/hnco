@@ -25,6 +25,15 @@ using namespace hnco::algorithm;
 
 
 void
+RandomSearch::init()
+{
+  assert(_function);
+
+  random_solution();
+}
+
+
+void
 RandomSearch::iterate()
 {
   bv_random(_candidate);

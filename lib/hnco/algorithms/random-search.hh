@@ -46,6 +46,9 @@ namespace algorithm {
       IterativeAlgorithm(n),
       _candidate(n) {}
 
+    /// Initialization
+    void init();
+
   };
 
 } // end of namespace algorithm
