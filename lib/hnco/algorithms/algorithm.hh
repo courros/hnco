@@ -118,15 +118,18 @@ namespace algorithm {
 
     /** Initialization.
 
-        Samples a random bit vector, evaluates it, and sets it as the
-        solution.
-
-        \warning Evaluates the function once.
+        Does nothing.
     */
-    virtual void init();
+    virtual void init() {}
 
     /// Maximize
     virtual void maximize() = 0;
+
+    /** Finalize.
+
+        Does nothing.
+    */
+    virtual void finalize() {}
 
     ///@}
 
@@ -135,8 +138,8 @@ namespace algorithm {
      */
     ///@{
 
-    /// Solution
-    virtual const point_value_t& get_solution() { return _solution; }
+    /// Get the solution
+    const point_value_t& get_solution() { return _solution; }
 
     ///@}
 
@@ -145,16 +148,16 @@ namespace algorithm {
      */
     ///@{
 
-    /// Set function
+    /// Set the function
     void set_function(function::Function *function) { _function = function; }
 
     /// Set functions
     void set_functions(const std::vector<function::Function *> functions) { _functions = functions; }
 
-    /// Output stream
+    /// Set the output stream
     void set_stream(std::ostream *stream) { _stream = stream; }
 
-    /// Set log context
+    /// Set the log context
     void set_log_context(LogContext *log_context) { _log_context = log_context; }
 
     ///@}

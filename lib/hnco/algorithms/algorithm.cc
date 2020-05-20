@@ -74,11 +74,3 @@ Algorithm::update_solution(const bit_vector_t& x)
 
   update_solution(x, _function->eval(x));
 }
-
-void
-Algorithm::init()
-{
-  assert(_function);
-
-  random_solution();
-}
