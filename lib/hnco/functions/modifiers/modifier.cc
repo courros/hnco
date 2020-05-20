@@ -20,7 +20,7 @@
 
 #include "hnco/random.hh"
 
-#include "function-modifier.hh"
+#include "modifier.hh"
 
 
 using namespace hnco::exception;

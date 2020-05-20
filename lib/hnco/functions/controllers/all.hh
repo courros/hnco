@@ -21,6 +21,6 @@
 #ifndef HNCO_FUNCTIONS_CONTROLLERS_ALL_H
 #define HNCO_FUNCTIONS_CONTROLLERS_ALL_H
 
-#include "function-controller.hh"
+#include "controller.hh"
 
 #endif

@@ -25,7 +25,7 @@
 
 #include "hnco/neighborhoods/neighborhood.hh"
 
-#include "function-modifier.hh"
+#include "modifier.hh"
 
 
 namespace hnco {

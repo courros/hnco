@@ -25,7 +25,7 @@
 
 #include "fparser/fparser.hh"
 
-#include "function-modifier.hh"
+#include "modifier.hh"
 
 namespace hnco {
 namespace function {

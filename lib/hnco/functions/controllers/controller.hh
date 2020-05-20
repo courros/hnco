@@ -27,7 +27,7 @@
 #include <unordered_map>
 
 #include "hnco/stop-watch.hh"
-#include "hnco/functions/function-decorator.hh"
+#include "hnco/functions/decorator.hh"
 
 
 namespace hnco {

@@ -141,13 +141,13 @@ libhnco_la_SOURCES = \
 	hnco/functions/cancellation.cc \
 	hnco/functions/cancellation.hh \
 	hnco/functions/controllers/all.hh \
-	hnco/functions/controllers/function-controller.cc \
-	hnco/functions/controllers/function-controller.hh \
+	hnco/functions/controllers/controller.cc \
+	hnco/functions/controllers/controller.hh \
+	hnco/functions/decorator.hh \
 	hnco/functions/equal-products.cc \
 	hnco/functions/equal-products.hh \
 	hnco/functions/four-peaks.cc \
 	hnco/functions/four-peaks.hh \
-	hnco/functions/function-decorator.hh \
 	hnco/functions/function.cc \
 	hnco/functions/function.hh \
 	hnco/functions/ising/all.hh \
@@ -166,8 +166,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/max-sat.cc \
 	hnco/functions/max-sat.hh \
 	hnco/functions/modifiers/all.hh \
-	hnco/functions/modifiers/function-modifier.cc \
-	hnco/functions/modifiers/function-modifier.hh \
+	hnco/functions/modifiers/modifier.cc \
+	hnco/functions/modifiers/modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.cc \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.cc \
@@ -301,10 +301,10 @@ nobase_include_HEADERS = \
 	hnco/functions/all.hh \
 	hnco/functions/cancellation.hh \
 	hnco/functions/controllers/all.hh \
-	hnco/functions/controllers/function-controller.hh \
+	hnco/functions/controllers/controller.hh \
+	hnco/functions/decorator.hh \
 	hnco/functions/equal-products.hh \
 	hnco/functions/four-peaks.hh \
-	hnco/functions/function-decorator.hh \
 	hnco/functions/function.hh \
 	hnco/functions/ising/all.hh \
 	hnco/functions/ising/nearest-neighbor-ising-model-1.hh \
@@ -315,7 +315,7 @@ nobase_include_HEADERS = \
 	hnco/functions/long-path.hh \
 	hnco/functions/max-sat.hh \
 	hnco/functions/modifiers/all.hh \
-	hnco/functions/modifiers/function-modifier.hh \
+	hnco/functions/modifiers/modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/nk-landscape.hh \

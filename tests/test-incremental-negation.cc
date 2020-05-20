@@ -22,7 +22,7 @@
 #include <random>
 
 #include "hnco/neighborhoods/neighborhood.hh"
-#include "hnco/functions/modifiers/function-modifier.hh"
+#include "hnco/functions/modifiers/modifier.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/random.hh"
 

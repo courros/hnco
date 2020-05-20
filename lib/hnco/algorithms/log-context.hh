@@ -21,7 +21,7 @@
 #ifndef HNCO_ALGORITHMS_LOG_CONTEXT_H
 #define HNCO_ALGORITHMS_LOG_CONTEXT_H
 
-#include "hnco/functions/controllers/function-controller.hh"
+#include "hnco/functions/controllers/controller.hh"
 
 
 namespace hnco {
