@@ -83,16 +83,11 @@ namespace algorithm {
       _rls(n, &_neighborhood),
       _mutation_probability(1 / double(n)) {}
 
-    /// Set function
-    void set_function(function::Function *function) {
-      assert(function);
-      _rls.set_function(function);
-    }
-
     /// Initialization
     void init() {
       _neighborhood.set_probability(_mutation_probability);
       _neighborhood.set_allow_stay(_allow_stay);
+      _rls.set_function(_function);
       _rls.set_num_iterations(_num_iterations);
       _rls.set_incremental_evaluation(_incremental_evaluation);
       _rls.set_patience(0);
