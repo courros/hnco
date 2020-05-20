@@ -38,13 +38,13 @@ namespace controller {
 
   /// Function controller
   class FunctionController:
-    public FunctionDecorator {
+    public Decorator {
 
   public:
 
     /// Constructor
     FunctionController(Function *function):
-      FunctionDecorator(function) {}
+      Decorator(function) {}
 
     /** @name Information about the function
      */

@@ -30,7 +30,7 @@ namespace hnco {
 namespace function {
 
   /// Function decorator
-  class FunctionDecorator:
+  class Decorator:
     public Function {
 
   protected:
@@ -41,7 +41,7 @@ namespace function {
   public:
 
     /// Constructor
-    FunctionDecorator(Function *function):
+    Decorator(Function *function):
       _function(function) {}
 
 

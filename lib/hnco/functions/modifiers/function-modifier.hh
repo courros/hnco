@@ -37,13 +37,13 @@ namespace modifier {
 
   /// Function modifier
   class FunctionModifier:
-    public FunctionDecorator {
+    public Decorator {
 
   public:
 
     /// Constructor
     FunctionModifier(Function *function):
-      FunctionDecorator(function) {}
+      Decorator(function) {}
 
   };
 
