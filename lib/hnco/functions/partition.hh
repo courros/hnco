@@ -94,16 +94,16 @@ namespace function {
     /** Random instance.
 
         The numbers are sampled from the uniform distribution on
-        [1..bound].
+        [1..upper_bound].
 
         \param n Size of bit vector
         \param upper_bound Upper bound of positive integers
     */
-    void random(int n, int bound) {
+    void random(int n, int upper_bound) {
       assert(n > 0);
-      assert(bound > 0);
+      assert(upper_bound > 0);
 
-      std::uniform_int_distribution<int> dist(1, bound);
+      std::uniform_int_distribution<int> dist(1, upper_bound);
       generate(n, [&dist]() { return dist(hnco::random::Random::generator); });
     }
 

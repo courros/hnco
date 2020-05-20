@@ -20,11 +20,9 @@
 
 #include <cstdlib>              // std:abs
 
-#include "hnco/random.hh"
-#include "hnco/functions/partition.hh"
+#include "partition.hh"
 
 
-using namespace hnco::random;
 using namespace hnco::function;
 
 
