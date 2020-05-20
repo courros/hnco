@@ -1021,7 +1021,7 @@ void Options::print_help(ostream& stream) const
   stream << "            0: Complete search" << endl;
   stream << "            10: Random search" << endl;
   stream << "            20: Random walk" << endl;
-  stream << "            30: Human" << endl;
+  stream << "            30: Human, so you can try by yourself" << endl;
   stream << "            100: Random local search" << endl;
   stream << "            150: Steepest ascent hill climbing" << endl;
   stream << "            160: First ascent hill climbing" << endl;
