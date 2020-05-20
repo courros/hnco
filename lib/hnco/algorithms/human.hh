@@ -34,6 +34,9 @@ namespace algorithm {
     /// Candidate
     bit_vector_t _candidate;
 
+    /// Parse bit vector
+    void parse_bit_vector();
+
   protected:
 
     /// Single iteration
@@ -45,6 +48,9 @@ namespace algorithm {
     Human(int n):
       IterativeAlgorithm(n),
       _candidate(n) {}
+
+    /// Initialization
+    void init();
 
   };
 

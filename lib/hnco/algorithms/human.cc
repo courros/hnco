@@ -18,15 +18,71 @@
 
 */
 
+#include <string>
+
+#include "hnco/exception.hh"
+
 #include "human.hh"
 
 
+using namespace hnco;
 using namespace hnco::algorithm;
+using namespace hnco::exception;
+
+
+void
+bv_from_string(bit_vector_t& x, const std::string& str)
+{
+  x.clear();
+  for (auto c : str)
+    if (c == '0')
+      x.push_back(0);
+    else
+      x.push_back(1);
+}
+
+
+void
+Human::parse_bit_vector()
+{
+  bool again = true;
+  do {
+    std::string str;
+    std::cout << "bv? ";
+    std::cin >> str;
+    if (str == "quit")
+      throw LastEvaluation();
+    bv_from_string(_candidate, str);
+    if (_candidate.size() < _solution.first.size())
+      std::cout << "Warning: bit vector is too short" << std::endl;
+    else {
+      again = false;
+      if (_candidate.size() > _solution.first.size()) {
+        _candidate.resize(_solution.first.size());
+        std::cout << "Warning: bit vector has been shortned" << std::endl;
+      }
+    }
+  } while (again);
+}
+
+
+void
+Human::init()
+{
+  assert(_function);
+
+  parse_bit_vector();
+  double value = _function->eval(_candidate);
+  std::cout << "value: " << value << std::endl;
+  set_solution(_candidate, value);
+}
 
 
 void
 Human::iterate()
 {
-  bv_random(_candidate);
-  update_solution(_candidate);
+  parse_bit_vector();
+  double value = _function->eval(_candidate);
+  std::cout << "value: " << value << std::endl;
+  update_solution(_candidate, value);
 }
