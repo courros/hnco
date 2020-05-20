@@ -130,6 +130,9 @@ namespace hnco {
   /// Convert a size_t to a bit vector
   void bv_from_size_type(bit_vector_t& x, std::size_t index);
 
+  /// Read a bit vector from a string
+  void bv_from_string(bit_vector_t& x, const std::string& str);
+
   /// Read a bit vector from a stream
   void bv_from_stream(bit_vector_t& x, std::istream& stream);
 

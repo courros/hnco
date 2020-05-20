@@ -194,16 +194,23 @@ hnco::bv_from_size_type(bit_vector_t& x, std::size_t index)
   }
 }
 
+
+void
+hnco::bv_from_string(bit_vector_t& x, const std::string& str)
+{
+  x.clear();
+  for (auto c : str)
+    if (c == '0')
+      x.push_back(0);
+    else
+      x.push_back(1);
+}
+
+
 void
 hnco::bv_from_stream(bit_vector_t& x, std::istream& stream)
 {
-  x.clear();
   std::string line;
-  if (getline(stream, line)) {
-    for (auto c : line)
-      if (c == '0')
-        x.push_back(0);
-      else
-        x.push_back(1);
-  }
+  if (getline(stream, line))
+    bv_from_string(x, line);
 }
