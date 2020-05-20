@@ -146,16 +146,10 @@ namespace algorithm {
     ///@{
 
     /// Set function
-    virtual void set_function(function::Function *function) {
-      assert(function);
-      _function = function;
-    }
+    void set_function(function::Function *function) { _function = function; }
 
     /// Set functions
-    virtual void set_functions(const std::vector<function::Function *> functions) {
-      assert(functions.size() > 0);
-      _functions = functions;
-    }
+    void set_functions(const std::vector<function::Function *> functions) { _functions = functions; }
 
     /// Output stream
     void set_stream(std::ostream *x) { _stream = x; }
