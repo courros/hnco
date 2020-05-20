@@ -21,6 +21,9 @@ Library:
 - Added function::Partition
 - Added algorithm::Human
 - Added bv_from_string
+- Renamed function::FunctionDecorator -> function::Decorator
+- Renamed function::controller::FunctionController -> function::controller::Controller
+- Renamed function::modifier::FunctionModifier -> function::modifier::Modifier
 
 hnco:
 - Added option --map-display
