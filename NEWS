@@ -48,6 +48,7 @@ Scripts:
 - Renamed hnco-parameter-*.pl -> hnco-algorithm-parameter-*.pl
 - Renamed hnco-maximum-*.pl -> hnco-maximum-evolution-*.pl
 - Renamed hnco-dynamics-*.pl -> hnco-observable-evolution-*.pl
+- Rename hnco-walsh-*.pl -> hnco-walsh-transforms-*.pl
 - Scripts use modules HNCO::Run or HNCO::Report
 - hnco-benchmark-run.pl: take into account fields only_algorithms and skip_algorithms
 - hnco-benchmark-stat.pl: set font face and size (candlesticks, scatter)
