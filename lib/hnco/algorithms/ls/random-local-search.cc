@@ -60,13 +60,13 @@ RandomLocalSearch::init(const bit_vector_t& x, double value)
 }
 
 
-const point_value_t&
-RandomLocalSearch::get_solution()
+void
+RandomLocalSearch::finalize()
 {
   assert(_neighborhood);
 
   _solution.first = _neighborhood->get_origin();
-  return _solution;
+  // _solution.second has been taken care of
 }
 
 

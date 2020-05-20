@@ -78,7 +78,7 @@ namespace algorithm {
       IterativeAlgorithm(n),
       _neighborhood(neighborhood) {}
 
-    /// Random initialization
+    /// Initialization
     void init();
 
     /// Explicit initialization
@@ -87,8 +87,8 @@ namespace algorithm {
     /// Explicit initialization
     void init(const bit_vector_t& x, double value);
 
-    /// Solution
-    const point_value_t& get_solution();
+    /// Finalize
+    void finalize();
 
     /** @name Setters
      */
