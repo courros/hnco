@@ -106,6 +106,14 @@ make_concrete_algorithm(const Options& options)
     return algo;
   }
 
+  case 30: {
+    auto algo = new Human(options.get_bv_size());
+
+    algo->set_num_iterations(options.get_num_iterations());
+
+    return algo;
+  }
+
   case 100: {
     auto neighborhood = make_neighborhood(options);
     assert(neighborhood);
