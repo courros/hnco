@@ -95,10 +95,15 @@ namespace algorithm {
     }
 
     /// Maximize
-    void maximize() { _rls.maximize(); }
+    void maximize() {
+      _rls.maximize();
+    }
 
-    /// Solution
-    const point_value_t& get_solution() { return _rls.get_solution(); }
+    /// Finalize
+    void finalize()  {
+      _rls.finalize();
+      _solution = _rls.get_solution();
+    }
 
     /** @name Setters
      */
