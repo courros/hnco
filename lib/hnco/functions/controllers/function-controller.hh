@@ -37,13 +37,13 @@ namespace controller {
 
 
   /// Function controller
-  class FunctionController:
+  class Controller:
     public Decorator {
 
   public:
 
     /// Constructor
-    FunctionController(Function *function):
+    Controller(Function *function):
       Decorator(function) {}
 
     /** @name Information about the function
@@ -89,7 +89,7 @@ namespace controller {
       integer (floating point) function values.
   */
   class StopOnMaximum:
-    public FunctionController {
+    public Controller {
 
   public:
 
@@ -97,7 +97,7 @@ namespace controller {
         \param function Decorated function
         \pre function->has_known_maximum() */
     StopOnMaximum(Function *function):
-      FunctionController(function)
+      Controller(function)
     {
       assert(function->has_known_maximum());
     }
@@ -133,7 +133,7 @@ namespace controller {
       non integer (floating point) function values.
   */
   class StopOnTarget:
-    public FunctionController {
+    public Controller {
 
     /// Target
     double _target;
@@ -146,7 +146,7 @@ namespace controller {
         \param target Target
     */
     StopOnTarget(Function *function, double target):
-      FunctionController(function),
+      Controller(function),
       _target(target) {}
 
     /** @name Evaluation
@@ -172,7 +172,7 @@ namespace controller {
 
   /// Call counter
   class CallCounter:
-    public FunctionController {
+    public Controller {
 
   protected:
 
@@ -183,7 +183,7 @@ namespace controller {
 
     /// Constructor
     CallCounter(Function *function):
-      FunctionController(function),
+      Controller(function),
       _num_calls(0) {}
 
     /** @name Evaluation
@@ -361,7 +361,7 @@ namespace controller {
       checking its existence in the map.
   */
   class Cache:
-    public FunctionController {
+    public Controller {
 
     /// Cache
     std::unordered_map<std::vector<bool>, double> _cache;
@@ -380,7 +380,7 @@ namespace controller {
     /** Constructor.
         \param function Decorated function */
     Cache(Function *function):
-      FunctionController(function),
+      Controller(function),
       _key(function->get_bv_size()),
       _num_evaluations(0),
       _num_lookups(0) {}
