@@ -63,6 +63,10 @@ namespace algorithm {
       Algorithm(n),
       _something_to_log(false) {}
 
+    /** @name Optimization
+     */
+    ///@{
+
     /** Maximize.
 
         Inside the loop:
@@ -73,6 +77,8 @@ namespace algorithm {
         iterate(), log() will not be called. However, hnco reports the
         maximum at the end of the search. */
     void maximize();
+
+    ///@}
 
     /** @name Setters
      */
