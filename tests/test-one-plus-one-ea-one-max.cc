@@ -42,27 +42,27 @@ int main(int argc, char *argv[])
 
   std::uniform_int_distribution<int> bv_size_dist(1, 100);
 
-  // Solution
-  point_value_t solution;
-
   for (int i = 0; i < 100; i++) {
+
     int bv_size = bv_size_dist(Random::generator);
 
     OneMax f0(bv_size);
-
     Translation map;
     map.random(bv_size);
     FunctionMapComposition f1(&f0, &map);
-
     StopOnMaximum f2(&f1);
 
     OnePlusOneEa algorithm(bv_size);
     algorithm.set_function(&f2);
+
+    point_value_t solution;
+
     try {
       algorithm.init();
       algorithm.maximize();
     }
     catch (const MaximumReached& e) {
+      // finalize not necessary
       solution = e.get_point_value();
     }
     catch (...) {
