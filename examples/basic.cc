@@ -40,10 +40,13 @@ int main()
   OnePlusOneEa ea(bv_size);
   ea.set_num_iterations(100);
   ea.set_function(&fn);
+
   ea.init();
   ea.maximize();
+  ea.finalize();
 
   point_value_t solution = ea.get_solution();
+
   bv_display(solution.first, std::cout);
   std::cout << std::endl;
   std::cout << solution.second << std::endl;
