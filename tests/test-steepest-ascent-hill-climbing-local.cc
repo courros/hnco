@@ -43,14 +43,17 @@ int main(int argc, char *argv[])
     SteepestAscentHillClimbing algorithm(bv_size, &it);
 
     algorithm.set_function(&fn);
-    algorithm.init();
 
-    try { algorithm.maximize(); }
+    try {
+      algorithm.init();
+      algorithm.maximize();
+    }
     catch (LocalMaximum) {}
     catch (...) {
       return 1;
     }
 
+    // finalize not necessary
     if (!bv_is_locally_maximal(algorithm.get_solution().first, fn, it)) {
       return 1;
     }
