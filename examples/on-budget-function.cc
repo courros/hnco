@@ -45,12 +45,16 @@ int main()
 
   MuPlusLambdaEa ea(bv_size, 10, 1);
   ea.set_function(&fn);
-  ea.init();
 
-  try { ea.maximize(); }
+  try {
+    ea.init();
+    ea.maximize();
+  }
   catch (LastEvaluation) {}
 
+  // finalize not necessary
   point_value_t solution = ea.get_solution();
+
   bv_display(solution.first, std::cout);
   std::cout << std::endl;
   std::cout << solution.second << std::endl;
