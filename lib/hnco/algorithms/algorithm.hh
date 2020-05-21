@@ -119,6 +119,9 @@ namespace algorithm {
     /** Initialization.
 
         Does nothing.
+
+        It is usually overridden by classes derived from
+        IterativeAlgorithm.
     */
     virtual void init() {}
 
@@ -128,6 +131,12 @@ namespace algorithm {
     /** Finalize.
 
         Does nothing.
+
+        It is usually overridden by algorithms which do not keep
+        _solution up-to-date. In case _function throws a
+        LastEvaluation exception, the algorithm might leave _solution
+        in an undefined state. This can be fixed in this member
+        function.
     */
     virtual void finalize() {}
 
