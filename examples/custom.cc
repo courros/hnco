@@ -44,10 +44,10 @@ public:
   int get_bv_size() { return _bv_size; }
 
   double eval(const bit_vector_t& x) {
-    double result = 0;
+    int result = 0;
     for (int i = 0; i < _bv_size; i++)
       if (x[i])
-        result += 1;
+        result++;
     return result;
   }
 
@@ -73,6 +73,8 @@ public:
     IterativeAlgorithm(n),
     _candidate(n) {}
 
+  void init() { random_solution(); }
+
 };
 
 
@@ -81,16 +83,18 @@ int main()
   Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
 
   const int bv_size = 50;
-
   MyFunction fn(bv_size);
 
   MyAlgorithm rs(bv_size);
   rs.set_num_iterations(100);
   rs.set_function(&fn);
+
   rs.init();
   rs.maximize();
+  // finalize not necessary
 
   point_value_t solution = rs.get_solution();
+
   bv_display(solution.first, std::cout);
   std::cout << std::endl;
   std::cout << solution.second << std::endl;
