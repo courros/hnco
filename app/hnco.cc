@@ -252,6 +252,7 @@ int main(int argc, char *argv[])
     algorithm->init();
     initialized = true;
     algorithm->maximize();
+    algorithm->finalize();
     solution = algorithm->get_solution();
   }
   catch (const LocalMaximum& e) {
@@ -266,6 +267,7 @@ int main(int argc, char *argv[])
     target_reached = true;
   }
   catch (LastEvaluation) {
+    algorithm->finalize();
     solution = algorithm->get_solution();
   }
   catch (const Error& e) {
