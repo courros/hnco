@@ -43,14 +43,17 @@ int main(int argc, char *argv[])
     FirstAscentHillClimbing algorithm(bv_size, &iterator);
 
     algorithm.set_function(&function);
-    algorithm.init();
 
-    try { algorithm.maximize(); }
+    try {
+      algorithm.init();
+      algorithm.maximize();
+    }
     catch (LocalMaximum) {}
     catch (...) {
       return 1;
     }
 
+    // finalize not necessary
     if (!bv_is_globally_maximal(algorithm.get_solution().first, function)) {
       return 1;
     }
