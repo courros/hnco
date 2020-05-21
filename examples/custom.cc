@@ -85,15 +85,15 @@ int main()
   const int bv_size = 50;
   MyFunction fn(bv_size);
 
-  MyAlgorithm rs(bv_size);
-  rs.set_num_iterations(100);
-  rs.set_function(&fn);
+  MyAlgorithm algo(bv_size);
+  algo.set_num_iterations(100);
+  algo.set_function(&fn);
 
-  rs.init();
-  rs.maximize();
+  algo.init();
+  algo.maximize();
+
   // finalize not necessary
-
-  point_value_t solution = rs.get_solution();
+  point_value_t solution = algo.get_solution();
 
   bv_display(solution.first, std::cout);
   std::cout << std::endl;
