@@ -45,9 +45,12 @@ int main()
 
   OnePlusOneEa ea(bv_size);
   ea.set_function(&fn);
-  ea.init();
 
-  try { ea.maximize(); }
+  try {
+    ea.init();
+    ea.maximize();
+    // finalize not necessary
+  }
   catch (const MaximumReached& e) {
     bv_display(e.get_point_value().first, std::cout);
     std::cout << std::endl;
