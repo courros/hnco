@@ -33,9 +33,9 @@ namespace algorithm {
   /** (1+1) EA.
 
       (1+1) EA is implemented as a RandomLocalSearch with a
-      BernoulliProcess neighborhood and infinite patience. Thus it
-      does derive from IterativeAlgorithm. It should be noted that
-      member Algorithm::_solution is not used by OnePlusOneEa.
+      BernoulliProcess neighborhood and infinite patience. Thus the
+      class OnePlusOneEa is derived from Algorithm instead of
+      IterativeAlgorithm.
 
       Reference:
 
