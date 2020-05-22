@@ -201,12 +201,14 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.cc \
 	hnco/algorithms/ea/tournament-selection.hh \
-	hnco/algorithms/eda/all.hh hnco/algorithms/eda/hboa.cc \
-	hnco/algorithms/eda/hboa.hh \
-	hnco/algorithms/eda/hnco-evaluator.hh \
-	hnco/algorithms/eda/ltga.cc hnco/algorithms/eda/ltga.hh \
-	hnco/algorithms/mimic.cc hnco/algorithms/mimic.hh \
-	hnco/algorithms/eda/p3.cc hnco/algorithms/eda/p3.hh \
+	hnco/algorithms/fast-efficient-p3/all.hh \
+	hnco/algorithms/fast-efficient-p3/hboa.cc \
+	hnco/algorithms/fast-efficient-p3/hboa.hh \
+	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
+	hnco/algorithms/fast-efficient-p3/ltga.cc \
+	hnco/algorithms/fast-efficient-p3/ltga.hh \
+	hnco/algorithms/fast-efficient-p3/p3.cc \
+	hnco/algorithms/fast-efficient-p3/p3.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.cc \
 	hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.cc \
@@ -229,7 +231,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
-	hnco/algorithms/matrix.hh hnco/algorithms/population.cc \
+	hnco/algorithms/matrix.hh hnco/algorithms/mimic.cc \
+	hnco/algorithms/mimic.hh hnco/algorithms/population.cc \
 	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
 	hnco/algorithms/pv/compact-ga.cc \
 	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.cc \
@@ -321,8 +324,9 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/ea/mu-plus-lambda-ea.lo \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.lo \
 	hnco/algorithms/ea/tournament-selection.lo \
-	hnco/algorithms/eda/hboa.lo hnco/algorithms/eda/ltga.lo \
-	hnco/algorithms/mimic.lo hnco/algorithms/eda/p3.lo \
+	hnco/algorithms/fast-efficient-p3/hboa.lo \
+	hnco/algorithms/fast-efficient-p3/ltga.lo \
+	hnco/algorithms/fast-efficient-p3/p3.lo \
 	hnco/algorithms/hea/bit-herding.lo \
 	hnco/algorithms/hea/bit-moment.lo \
 	hnco/algorithms/hea/spin-herding.lo \
@@ -333,9 +337,9 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/ls/random-walk.lo \
 	hnco/algorithms/ls/simulated-annealing.lo \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.lo \
-	hnco/algorithms/population.lo hnco/algorithms/pv/compact-ga.lo \
-	hnco/algorithms/pv/mmas.lo hnco/algorithms/pv/nps-pbil.lo \
-	hnco/algorithms/pv/pbil.lo \
+	hnco/algorithms/mimic.lo hnco/algorithms/population.lo \
+	hnco/algorithms/pv/compact-ga.lo hnco/algorithms/pv/mmas.lo \
+	hnco/algorithms/pv/nps-pbil.lo hnco/algorithms/pv/pbil.lo \
 	hnco/algorithms/pv/probability-vector.lo \
 	hnco/algorithms/pv/pv-algorithm.lo hnco/algorithms/pv/umda.lo \
 	hnco/algorithms/random-search.lo hnco/bit-matrix.lo \
@@ -418,9 +422,9 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/tournament-selection.Plo \
-	hnco/algorithms/eda/$(DEPDIR)/hboa.Plo \
-	hnco/algorithms/eda/$(DEPDIR)/ltga.Plo \
-	hnco/algorithms/eda/$(DEPDIR)/p3.Plo \
+	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo \
+	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo \
+	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo \
 	hnco/algorithms/hea/$(DEPDIR)/bit-herding.Plo \
 	hnco/algorithms/hea/$(DEPDIR)/bit-moment.Plo \
 	hnco/algorithms/hea/$(DEPDIR)/spin-herding.Plo \
@@ -533,10 +537,12 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.hh \
-	hnco/algorithms/eda/all.hh hnco/algorithms/eda/hboa.hh \
-	hnco/algorithms/eda/hnco-evaluator.hh \
-	hnco/algorithms/eda/ltga.hh hnco/algorithms/mimic.hh \
-	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
+	hnco/algorithms/fast-efficient-p3/all.hh \
+	hnco/algorithms/fast-efficient-p3/hboa.hh \
+	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
+	hnco/algorithms/fast-efficient-p3/ltga.hh \
+	hnco/algorithms/mimic.hh hnco/algorithms/hea/all.hh \
+	hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/human.hh \
@@ -775,12 +781,14 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.cc \
 	hnco/algorithms/ea/tournament-selection.hh \
-	hnco/algorithms/eda/all.hh hnco/algorithms/eda/hboa.cc \
-	hnco/algorithms/eda/hboa.hh \
-	hnco/algorithms/eda/hnco-evaluator.hh \
-	hnco/algorithms/eda/ltga.cc hnco/algorithms/eda/ltga.hh \
-	hnco/algorithms/mimic.cc hnco/algorithms/mimic.hh \
-	hnco/algorithms/eda/p3.cc hnco/algorithms/eda/p3.hh \
+	hnco/algorithms/fast-efficient-p3/all.hh \
+	hnco/algorithms/fast-efficient-p3/hboa.cc \
+	hnco/algorithms/fast-efficient-p3/hboa.hh \
+	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
+	hnco/algorithms/fast-efficient-p3/ltga.cc \
+	hnco/algorithms/fast-efficient-p3/ltga.hh \
+	hnco/algorithms/fast-efficient-p3/p3.cc \
+	hnco/algorithms/fast-efficient-p3/p3.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.cc \
 	hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.cc \
@@ -803,7 +811,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
-	hnco/algorithms/matrix.hh hnco/algorithms/population.cc \
+	hnco/algorithms/matrix.hh hnco/algorithms/mimic.cc \
+	hnco/algorithms/mimic.hh hnco/algorithms/population.cc \
 	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
 	hnco/algorithms/pv/compact-ga.cc \
 	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.cc \
@@ -894,10 +903,12 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/tournament-selection.hh \
-	hnco/algorithms/eda/all.hh hnco/algorithms/eda/hboa.hh \
-	hnco/algorithms/eda/hnco-evaluator.hh \
-	hnco/algorithms/eda/ltga.hh hnco/algorithms/mimic.hh \
-	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
+	hnco/algorithms/fast-efficient-p3/all.hh \
+	hnco/algorithms/fast-efficient-p3/hboa.hh \
+	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
+	hnco/algorithms/fast-efficient-p3/ltga.hh \
+	hnco/algorithms/mimic.hh hnco/algorithms/hea/all.hh \
+	hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/human.hh \
@@ -1105,20 +1116,21 @@ hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.lo:  \
 hnco/algorithms/ea/tournament-selection.lo:  \
 	hnco/algorithms/ea/$(am__dirstamp) \
 	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/eda/$(am__dirstamp):
-	@$(MKDIR_P) hnco/algorithms/eda
-	@: > hnco/algorithms/eda/$(am__dirstamp)
-hnco/algorithms/eda/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) hnco/algorithms/eda/$(DEPDIR)
-	@: > hnco/algorithms/eda/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/eda/hboa.lo: hnco/algorithms/eda/$(am__dirstamp) \
-	hnco/algorithms/eda/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/eda/ltga.lo: hnco/algorithms/eda/$(am__dirstamp) \
-	hnco/algorithms/eda/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/mimic.lo: hnco/algorithms/$(am__dirstamp) \
-	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/eda/p3.lo: hnco/algorithms/eda/$(am__dirstamp) \
-	hnco/algorithms/eda/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/fast-efficient-p3
+	@: > hnco/algorithms/fast-efficient-p3/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/fast-efficient-p3/$(DEPDIR)
+	@: > hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/hboa.lo:  \
+	hnco/algorithms/fast-efficient-p3/$(am__dirstamp) \
+	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/ltga.lo:  \
+	hnco/algorithms/fast-efficient-p3/$(am__dirstamp) \
+	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/fast-efficient-p3/p3.lo:  \
+	hnco/algorithms/fast-efficient-p3/$(am__dirstamp) \
+	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/hea/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/hea
 	@: > hnco/algorithms/hea/$(am__dirstamp)
@@ -1162,6 +1174,8 @@ hnco/algorithms/ls/simulated-annealing.lo:  \
 hnco/algorithms/ls/steepest-ascent-hill-climbing.lo:  \
 	hnco/algorithms/ls/$(am__dirstamp) \
 	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/mimic.lo: hnco/algorithms/$(am__dirstamp) \
+	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/population.lo: hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/pv/$(am__dirstamp):
@@ -1345,8 +1359,8 @@ mostlyclean-compile:
 	-rm -f hnco/algorithms/decorators/*.lo
 	-rm -f hnco/algorithms/ea/*.$(OBJEXT)
 	-rm -f hnco/algorithms/ea/*.lo
-	-rm -f hnco/algorithms/eda/*.$(OBJEXT)
-	-rm -f hnco/algorithms/eda/*.lo
+	-rm -f hnco/algorithms/fast-efficient-p3/*.$(OBJEXT)
+	-rm -f hnco/algorithms/fast-efficient-p3/*.lo
 	-rm -f hnco/algorithms/hea/*.$(OBJEXT)
 	-rm -f hnco/algorithms/hea/*.lo
 	-rm -f hnco/algorithms/ls/*.$(OBJEXT)
@@ -1408,9 +1422,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/tournament-selection.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/eda/$(DEPDIR)/hboa.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/eda/$(DEPDIR)/ltga.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/eda/$(DEPDIR)/p3.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/bit-herding.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/bit-moment.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/spin-herding.Plo@am__quote@ # am--include-marker
@@ -1524,7 +1538,7 @@ clean-libtool:
 	-rm -rf hnco/algorithms/bm-pbil/.libs hnco/algorithms/bm-pbil/_libs
 	-rm -rf hnco/algorithms/decorators/.libs hnco/algorithms/decorators/_libs
 	-rm -rf hnco/algorithms/ea/.libs hnco/algorithms/ea/_libs
-	-rm -rf hnco/algorithms/eda/.libs hnco/algorithms/eda/_libs
+	-rm -rf hnco/algorithms/fast-efficient-p3/.libs hnco/algorithms/fast-efficient-p3/_libs
 	-rm -rf hnco/algorithms/hea/.libs hnco/algorithms/hea/_libs
 	-rm -rf hnco/algorithms/ls/.libs hnco/algorithms/ls/_libs
 	-rm -rf hnco/algorithms/pv/.libs hnco/algorithms/pv/_libs
@@ -1692,8 +1706,8 @@ distclean-generic:
 	-rm -f hnco/algorithms/decorators/$(am__dirstamp)
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/algorithms/ea/$(am__dirstamp)
-	-rm -f hnco/algorithms/eda/$(DEPDIR)/$(am__dirstamp)
-	-rm -f hnco/algorithms/eda/$(am__dirstamp)
+	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/algorithms/fast-efficient-p3/$(am__dirstamp)
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/algorithms/hea/$(am__dirstamp)
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
@@ -1761,9 +1775,9 @@ distclean: distclean-am
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/tournament-selection.Plo
-	-rm -f hnco/algorithms/eda/$(DEPDIR)/hboa.Plo
-	-rm -f hnco/algorithms/eda/$(DEPDIR)/ltga.Plo
-	-rm -f hnco/algorithms/eda/$(DEPDIR)/p3.Plo
+	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo
+	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo
+	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/bit-herding.Plo
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/bit-moment.Plo
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/spin-herding.Plo
@@ -1892,9 +1906,9 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/tournament-selection.Plo
-	-rm -f hnco/algorithms/eda/$(DEPDIR)/hboa.Plo
-	-rm -f hnco/algorithms/eda/$(DEPDIR)/ltga.Plo
-	-rm -f hnco/algorithms/eda/$(DEPDIR)/p3.Plo
+	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo
+	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo
+	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/bit-herding.Plo
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/bit-moment.Plo
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/spin-herding.Plo

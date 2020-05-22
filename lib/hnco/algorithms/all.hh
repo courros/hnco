@@ -26,7 +26,7 @@
 #include "complete-search.hh"
 #include "decorators/all.hh"
 #include "ea/all.hh"
-#include "eda/all.hh"
+#include "fast-efficient-p3/all.hh"
 #include "hea/all.hh"
 #include "human.hh"
 #include "iterative-algorithm.hh"
