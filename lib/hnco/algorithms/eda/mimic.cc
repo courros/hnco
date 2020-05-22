@@ -28,7 +28,7 @@
 #include "mimic.hh"
 
 
-using namespace hnco::algorithm::fast_efficient_p3;
+using namespace hnco::algorithm;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;

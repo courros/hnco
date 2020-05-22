@@ -33,7 +33,6 @@
 
 namespace hnco {
 namespace algorithm {
-namespace fast_efficient_p3 {
 
   /** Mutual information maximizing input clustering.
 
@@ -145,7 +144,6 @@ namespace fast_efficient_p3 {
 
   };
 
-} // end of namespace eda
 } // end of namespace algorithm
 } // end of namespace hnco
 

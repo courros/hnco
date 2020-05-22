@@ -409,7 +409,7 @@ make_concrete_algorithm(const Options& options)
   }
 
   case 1100: {
-    auto algo = new hnco::algorithm::fast_efficient_p3::Mimic
+    auto algo = new hnco::algorithm::Mimic
       (options.get_bv_size(),
        options.get_population_size());
     algo->set_num_iterations(options.get_num_iterations());
