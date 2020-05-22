@@ -31,6 +31,8 @@ namespace algorithm {
 /// Algorithms from the FastEfficientP3 library
 namespace fast_efficient_p3 {
 
+  struct Implementation;
+
   /** Parameter-less %Population Pyramid.
 
       Implemention of the Parameter-less %Population Pyramid (P3 for
@@ -48,9 +50,6 @@ namespace fast_efficient_p3 {
   */
   class ParameterLessPopulationPyramid:
     public Algorithm {
-
-    /// Implementation structure
-    struct Implementation;
 
     /// Pointer to implementation
     std::unique_ptr<Implementation> _pimpl;;

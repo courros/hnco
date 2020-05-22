@@ -25,18 +25,12 @@
 #include "fast-efficient-p3/Pyramid.h"
 
 #include "hnco-evaluator.hh"
+#include "implementation.hh"
 #include "p3.hh"
 
 using namespace hnco::algorithm::fast_efficient_p3;
 using namespace hnco::algorithm;
 using namespace hnco;
-
-
-struct ParameterLessPopulationPyramid::Implementation  {
-  Configuration configuration;
-  std::shared_ptr<HncoEvaluator> evaluator;
-  std::shared_ptr<Middle_Layer> middle_layer;
-};
 
 
 ParameterLessPopulationPyramid::ParameterLessPopulationPyramid(int n):
