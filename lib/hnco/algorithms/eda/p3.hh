@@ -71,7 +71,7 @@ namespace fast_efficient_p3 {
 
   };
 
-} // end of namespace eda
+} // end of namespace fast_efficient_p3
 } // end of namespace algorithm
 } // end of namespace hnco
 
