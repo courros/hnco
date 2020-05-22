@@ -30,6 +30,8 @@ namespace hnco {
 namespace algorithm {
 namespace fast_efficient_p3 {
 
+  struct Implementation;
+
   /** Linkage Tree Genetic %Algorithm.
 
       Implementation of the Linkage Tree Genetic %Algorithm Designed to
@@ -43,9 +45,6 @@ namespace fast_efficient_p3 {
   */
   class Ltga:
     public Algorithm {
-
-    /// Implementation structure
-    struct Implementation;
 
     /// Pointer to implementation
     std::unique_ptr<Implementation> _pimpl;;

@@ -24,19 +24,13 @@
 #include "fast-efficient-p3/MiddleLayer.h"
 #include "fast-efficient-p3/LTGA.h"
 
-#include "ltga.hh"
 #include "hnco-evaluator.hh"
+#include "implementation.hh"
+#include "ltga.hh"
 
 using namespace hnco::algorithm::fast_efficient_p3;
 using namespace hnco::algorithm;
 using namespace hnco;
-
-
-struct Ltga::Implementation  {
-  Configuration configuration;
-  std::shared_ptr<HncoEvaluator> evaluator;
-  std::shared_ptr<Middle_Layer> middle_layer;
-};
 
 
 Ltga::Ltga(int n):
