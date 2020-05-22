@@ -18,57 +18,25 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_P3_H
-#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_P3_H
+#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_IMPLEMENTATION_H
+#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_IMPLEMENTATION_H
 
 #include <memory>               // std::shared_ptr
 
-#include "hnco/algorithms/algorithm.hh"
+#include "fast-efficient-p3/Configuration.h"
+#include "fast-efficient-p3/MiddleLayer.h"
+
+#include "hnco-evaluator.hh"
 
 
 namespace hnco {
 namespace algorithm {
-/// Algorithms from the FastEfficientP3 library
 namespace fast_efficient_p3 {
 
-  /** Parameter-less %Population Pyramid.
-
-      Implemention of the Parameter-less %Population Pyramid (P3 for
-      short).
-
-      Author: Brian W. Goldman
-
-      Reference:
-
-      "Fast and Efficient Black Box Optimization using the
-      Parameter-less Population Pyramid" by B. W. Goldman and
-      W. F. Punch
-
-      Integrated into HNCO by Arnaud Berny
-  */
-  class ParameterLessPopulationPyramid:
-    public Algorithm {
-
-    /// Implementation structure
-    struct Implementation;
-
-    /// Pointer to implementation
-    std::unique_ptr<Implementation> _pimpl;;
-
-  public:
-
-    /// Constructor
-    ParameterLessPopulationPyramid(int n);
-
-    /// Initialization
-    void init();
-
-    /// Maximize
-    void maximize();
-
-    /// Finalize
-    void finalize();
-
+  struct Implementation  {
+    Configuration configuration;
+    std::shared_ptr<HncoEvaluator> evaluator;
+    std::shared_ptr<Middle_Layer> middle_layer;
   };
 
 } // end of namespace fast_efficient_p3
