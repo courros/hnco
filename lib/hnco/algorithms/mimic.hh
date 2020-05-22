@@ -18,11 +18,10 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_EDA_MIMIC_H
-#define HNCO_ALGORITHMS_EDA_MIMIC_H
+#ifndef HNCO_ALGORITHMS_MIMIC_H
+#define HNCO_ALGORITHMS_MIMIC_H
 
 #include <array>
-#include <utility>              // std::pair
 #include <vector>
 
 #include "hnco/algorithms/iterative-algorithm.hh"
