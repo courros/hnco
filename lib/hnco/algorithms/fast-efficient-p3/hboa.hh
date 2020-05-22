@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_EDA_HBOA_H
-#define HNCO_ALGORITHMS_EDA_HBOA_H
+#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_HBOA_H
+#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_HBOA_H
 
 #include <memory>               // std::shared_ptr
 
@@ -46,7 +46,6 @@ namespace fast_efficient_p3 {
   class Hboa:
     public Algorithm {
 
-    /// Implementation structure
     struct Implementation;
 
     /// Pointer to implementation

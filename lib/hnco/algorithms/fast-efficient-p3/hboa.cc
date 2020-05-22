@@ -32,9 +32,16 @@ using namespace hnco::algorithm;
 using namespace hnco;
 
 
+/// Implementation structure
 struct Hboa::Implementation  {
+
+  /// Configuration
   Configuration configuration;
+
+  /// Evaluator
   std::shared_ptr<HncoEvaluator> evaluator;
+
+  /// Middle layer
   std::shared_ptr<Middle_Layer> middle_layer;
 };
 

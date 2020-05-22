@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_EDA_LTGA_H
-#define HNCO_ALGORITHMS_EDA_LTGA_H
+#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_LTGA_H
+#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_LTGA_H
 
 #include <memory>               // std::shared_ptr
 
