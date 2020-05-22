@@ -33,10 +33,18 @@ namespace hnco {
 namespace algorithm {
 namespace fast_efficient_p3 {
 
+  /// Implementation
   struct Implementation  {
+
+    /// Configuration
     Configuration configuration;
+
+    /// Evaluator
     std::shared_ptr<HncoEvaluator> evaluator;
+
+    /// Middle layer
     std::shared_ptr<Middle_Layer> middle_layer;
+
   };
 
 } // end of namespace fast_efficient_p3
