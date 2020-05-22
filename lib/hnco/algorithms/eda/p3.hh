@@ -28,7 +28,7 @@
 
 namespace hnco {
 namespace algorithm {
-namespace eda {
+namespace fast_efficient_p3 {
 
   /** Parameter-less %Population Pyramid.
 

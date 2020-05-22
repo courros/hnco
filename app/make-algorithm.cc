@@ -409,7 +409,7 @@ make_concrete_algorithm(const Options& options)
   }
 
   case 1100: {
-    auto algo = new hnco::algorithm::eda::Mimic
+    auto algo = new hnco::algorithm::fast_efficient_p3::Mimic
       (options.get_bv_size(),
        options.get_population_size());
     algo->set_num_iterations(options.get_num_iterations());
@@ -418,19 +418,19 @@ make_concrete_algorithm(const Options& options)
   }
 
   case 1110: {
-    auto algo = new hnco::algorithm::eda::Hboa(options.get_bv_size());
+    auto algo = new hnco::algorithm::fast_efficient_p3::Hboa(options.get_bv_size());
     algo->set_population_size(options.get_population_size());
     return algo;
   }
 
   case 1200: {
-    auto algo = new hnco::algorithm::eda::Ltga(options.get_bv_size());
+    auto algo = new hnco::algorithm::fast_efficient_p3::Ltga(options.get_bv_size());
     algo->set_population_size(options.get_population_size());
     return algo;
   }
 
   case 1300:
-    return new hnco::algorithm::eda::ParameterLessPopulationPyramid(options.get_bv_size());
+    return new hnco::algorithm::fast_efficient_p3::ParameterLessPopulationPyramid(options.get_bv_size());
 
   default:
     std::ostringstream stream;

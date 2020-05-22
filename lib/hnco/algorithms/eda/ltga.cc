@@ -27,7 +27,7 @@
 #include "ltga.hh"
 #include "hnco-evaluator.hh"
 
-using namespace hnco::algorithm::eda;
+using namespace hnco::algorithm::fast_efficient_p3;
 using namespace hnco::algorithm;
 using namespace hnco;
 
