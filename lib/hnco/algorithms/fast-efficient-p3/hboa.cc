@@ -24,9 +24,9 @@
 #include "fast-efficient-p3/MiddleLayer.h"
 #include "fast-efficient-p3/HBOA.h"
 
-#include "hboa.hh"
 #include "hnco-evaluator.hh"
 #include "implementation.hh"
+#include "hboa.hh"
 
 using namespace hnco::algorithm::fast_efficient_p3;
 using namespace hnco::algorithm;
