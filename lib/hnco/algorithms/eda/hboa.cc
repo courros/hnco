@@ -18,8 +18,6 @@
 
 */
 
-#include <memory>               // std::shared_ptr
-
 #include "hnco/random.hh"
 
 #include "fast-efficient-p3/Configuration.h"
@@ -34,26 +32,49 @@ using namespace hnco::algorithm;
 using namespace hnco;
 
 
+struct Hboa::Implementation  {
+  Configuration configuration;
+  std::shared_ptr<HncoEvaluator> evaluator;
+  std::shared_ptr<Middle_Layer> middle_layer;
+};
+
+
+Hboa::Hboa(int n):
+  Algorithm(n),
+  _pimpl(std::make_unique<Implementation>())
+{
+
+}
+
+
+void
+Hboa::init()
+{
+  _pimpl->configuration.set("verbosity", 0);
+  _pimpl->configuration.set("solution_file", std::string("hboa-solution.txt"));
+  _pimpl->configuration.set("disable_solution_outfile", 1);
+  _pimpl->configuration.set("length", _solution.first.size());
+  _pimpl->configuration.set("pop_size", _population_size);
+  _pimpl->configuration.set("hill_climber", std::string("no_action"));
+  _pimpl->evaluator = std::make_shared<HncoEvaluator>(_function);
+  _pimpl->middle_layer = std::make_shared<Middle_Layer>(_pimpl->configuration,
+                                                        _pimpl->evaluator);
+}
+
+
 void
 Hboa::maximize()
 {
-  Configuration configuration;
-
-  configuration.set("verbosity", 0);
-  configuration.set("solution_file", std::string("hboa-solution.txt"));
-  configuration.set("disable_solution_outfile", 1);
-
-  configuration.set("length", _solution.first.size());
-  configuration.set("pop_size", _population_size);
-  configuration.set("hill_climber", std::string("no_action"));
-
-  std::shared_ptr<HncoEvaluator> evaluator(new HncoEvaluator(_function));
-  std::shared_ptr<Middle_Layer> middle_layer(new Middle_Layer(configuration, evaluator));
-
-  HBOA hboa(hnco::random::Random::generator, middle_layer, configuration);
-
+  HBOA hboa(hnco::random::Random::generator,
+            _pimpl->middle_layer,
+            _pimpl->configuration);
   while (hboa.iterate()) {}
+}
 
-  bv_from_vector_bool(_solution.first, middle_layer->best_solution);
-  _solution.second = middle_layer->best_fitness;
+
+void
+Hboa::finalize()
+{
+  bv_from_vector_bool(_solution.first, _pimpl->middle_layer->best_solution);
+  _solution.second = _pimpl->middle_layer->best_fitness;
 }
