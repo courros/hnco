@@ -82,8 +82,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/eda/hnco-evaluator.hh \
 	hnco/algorithms/eda/ltga.cc \
 	hnco/algorithms/eda/ltga.hh \
-	hnco/algorithms/eda/mimic.cc \
-	hnco/algorithms/eda/mimic.hh \
+	hnco/algorithms/mimic.cc \
+	hnco/algorithms/mimic.hh \
 	hnco/algorithms/eda/p3.cc \
 	hnco/algorithms/eda/p3.hh \
 	hnco/algorithms/hea/all.hh \
@@ -268,7 +268,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/eda/hboa.hh \
 	hnco/algorithms/eda/hnco-evaluator.hh \
 	hnco/algorithms/eda/ltga.hh \
-	hnco/algorithms/eda/mimic.hh \
+	hnco/algorithms/mimic.hh \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh \

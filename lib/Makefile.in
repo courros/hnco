@@ -205,7 +205,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/eda/hboa.hh \
 	hnco/algorithms/eda/hnco-evaluator.hh \
 	hnco/algorithms/eda/ltga.cc hnco/algorithms/eda/ltga.hh \
-	hnco/algorithms/eda/mimic.cc hnco/algorithms/eda/mimic.hh \
+	hnco/algorithms/mimic.cc hnco/algorithms/mimic.hh \
 	hnco/algorithms/eda/p3.cc hnco/algorithms/eda/p3.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.cc \
 	hnco/algorithms/hea/bit-herding.hh \
@@ -322,7 +322,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.lo \
 	hnco/algorithms/ea/tournament-selection.lo \
 	hnco/algorithms/eda/hboa.lo hnco/algorithms/eda/ltga.lo \
-	hnco/algorithms/eda/mimic.lo hnco/algorithms/eda/p3.lo \
+	hnco/algorithms/mimic.lo hnco/algorithms/eda/p3.lo \
 	hnco/algorithms/hea/bit-herding.lo \
 	hnco/algorithms/hea/bit-moment.lo \
 	hnco/algorithms/hea/spin-herding.lo \
@@ -406,6 +406,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/algorithms/$(DEPDIR)/complete-search.Plo \
 	hnco/algorithms/$(DEPDIR)/human.Plo \
 	hnco/algorithms/$(DEPDIR)/iterative-algorithm.Plo \
+	hnco/algorithms/$(DEPDIR)/mimic.Plo \
 	hnco/algorithms/$(DEPDIR)/population.Plo \
 	hnco/algorithms/$(DEPDIR)/random-search.Plo \
 	hnco/algorithms/bm-pbil/$(DEPDIR)/bm-pbil.Plo \
@@ -419,7 +420,6 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/tournament-selection.Plo \
 	hnco/algorithms/eda/$(DEPDIR)/hboa.Plo \
 	hnco/algorithms/eda/$(DEPDIR)/ltga.Plo \
-	hnco/algorithms/eda/$(DEPDIR)/mimic.Plo \
 	hnco/algorithms/eda/$(DEPDIR)/p3.Plo \
 	hnco/algorithms/hea/$(DEPDIR)/bit-herding.Plo \
 	hnco/algorithms/hea/$(DEPDIR)/bit-moment.Plo \
@@ -535,7 +535,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/eda/all.hh hnco/algorithms/eda/hboa.hh \
 	hnco/algorithms/eda/hnco-evaluator.hh \
-	hnco/algorithms/eda/ltga.hh hnco/algorithms/eda/mimic.hh \
+	hnco/algorithms/eda/ltga.hh hnco/algorithms/mimic.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.hh \
@@ -779,7 +779,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/eda/hboa.hh \
 	hnco/algorithms/eda/hnco-evaluator.hh \
 	hnco/algorithms/eda/ltga.cc hnco/algorithms/eda/ltga.hh \
-	hnco/algorithms/eda/mimic.cc hnco/algorithms/eda/mimic.hh \
+	hnco/algorithms/mimic.cc hnco/algorithms/mimic.hh \
 	hnco/algorithms/eda/p3.cc hnco/algorithms/eda/p3.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.cc \
 	hnco/algorithms/hea/bit-herding.hh \
@@ -896,7 +896,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/eda/all.hh hnco/algorithms/eda/hboa.hh \
 	hnco/algorithms/eda/hnco-evaluator.hh \
-	hnco/algorithms/eda/ltga.hh hnco/algorithms/eda/mimic.hh \
+	hnco/algorithms/eda/ltga.hh hnco/algorithms/mimic.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.hh \
@@ -1115,8 +1115,8 @@ hnco/algorithms/eda/hboa.lo: hnco/algorithms/eda/$(am__dirstamp) \
 	hnco/algorithms/eda/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/eda/ltga.lo: hnco/algorithms/eda/$(am__dirstamp) \
 	hnco/algorithms/eda/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/eda/mimic.lo: hnco/algorithms/eda/$(am__dirstamp) \
-	hnco/algorithms/eda/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/mimic.lo: hnco/algorithms/$(am__dirstamp) \
+	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/eda/p3.lo: hnco/algorithms/eda/$(am__dirstamp) \
 	hnco/algorithms/eda/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/hea/$(am__dirstamp):
@@ -1396,6 +1396,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/complete-search.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/human.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/iterative-algorithm.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/mimic.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/population.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/random-search.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/bm-pbil/$(DEPDIR)/bm-pbil.Plo@am__quote@ # am--include-marker
@@ -1409,7 +1410,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/tournament-selection.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/eda/$(DEPDIR)/hboa.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/eda/$(DEPDIR)/ltga.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/eda/$(DEPDIR)/mimic.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/eda/$(DEPDIR)/p3.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/bit-herding.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/bit-moment.Plo@am__quote@ # am--include-marker
@@ -1749,6 +1749,7 @@ distclean: distclean-am
 	-rm -f hnco/algorithms/$(DEPDIR)/complete-search.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/human.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/iterative-algorithm.Plo
+	-rm -f hnco/algorithms/$(DEPDIR)/mimic.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/population.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/random-search.Plo
 	-rm -f hnco/algorithms/bm-pbil/$(DEPDIR)/bm-pbil.Plo
@@ -1762,7 +1763,6 @@ distclean: distclean-am
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/tournament-selection.Plo
 	-rm -f hnco/algorithms/eda/$(DEPDIR)/hboa.Plo
 	-rm -f hnco/algorithms/eda/$(DEPDIR)/ltga.Plo
-	-rm -f hnco/algorithms/eda/$(DEPDIR)/mimic.Plo
 	-rm -f hnco/algorithms/eda/$(DEPDIR)/p3.Plo
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/bit-herding.Plo
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/bit-moment.Plo
@@ -1880,6 +1880,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/algorithms/$(DEPDIR)/complete-search.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/human.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/iterative-algorithm.Plo
+	-rm -f hnco/algorithms/$(DEPDIR)/mimic.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/population.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/random-search.Plo
 	-rm -f hnco/algorithms/bm-pbil/$(DEPDIR)/bm-pbil.Plo
@@ -1893,7 +1894,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/tournament-selection.Plo
 	-rm -f hnco/algorithms/eda/$(DEPDIR)/hboa.Plo
 	-rm -f hnco/algorithms/eda/$(DEPDIR)/ltga.Plo
-	-rm -f hnco/algorithms/eda/$(DEPDIR)/mimic.Plo
 	-rm -f hnco/algorithms/eda/$(DEPDIR)/p3.Plo
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/bit-herding.Plo
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/bit-moment.Plo

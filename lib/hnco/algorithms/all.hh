@@ -21,17 +21,18 @@
 #ifndef HNCO_ALGORITHMS_ALL_H
 #define HNCO_ALGORITHMS_ALL_H
 
-#include "hnco/algorithms/algorithm.hh"
-#include "hnco/algorithms/bm-pbil/bm-pbil.hh"
-#include "hnco/algorithms/complete-search.hh"
-#include "hnco/algorithms/decorators/all.hh"
-#include "hnco/algorithms/ea/all.hh"
-#include "hnco/algorithms/eda/all.hh"
-#include "hnco/algorithms/hea/all.hh"
-#include "hnco/algorithms/human.hh"
-#include "hnco/algorithms/iterative-algorithm.hh"
-#include "hnco/algorithms/ls/all.hh"
-#include "hnco/algorithms/pv/all.hh"
-#include "hnco/algorithms/random-search.hh"
+#include "algorithm.hh"
+#include "bm-pbil/bm-pbil.hh"
+#include "complete-search.hh"
+#include "decorators/all.hh"
+#include "ea/all.hh"
+#include "eda/all.hh"
+#include "hea/all.hh"
+#include "human.hh"
+#include "iterative-algorithm.hh"
+#include "ls/all.hh"
+#include "mimic.hh"
+#include "pv/all.hh"
+#include "random-search.hh"
 
 #endif

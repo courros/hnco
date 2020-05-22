@@ -23,7 +23,6 @@
 
 #include "hboa.hh"
 #include "ltga.hh"
-#include "mimic.hh"
 #include "p3.hh"
 
 #endif
