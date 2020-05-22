@@ -18,8 +18,6 @@
 
 */
 
-#include <memory>               // std::shared_ptr
-
 #include "hnco/random.hh"
 
 #include "fast-efficient-p3/Configuration.h"
@@ -34,33 +32,56 @@ using namespace hnco::algorithm;
 using namespace hnco;
 
 
+struct Ltga::Implementation  {
+  Configuration configuration;
+  std::shared_ptr<HncoEvaluator> evaluator;
+  std::shared_ptr<Middle_Layer> middle_layer;
+};
+
+
+Ltga::Ltga(int n):
+  Algorithm(n),
+  _pimpl(std::make_unique<Implementation>())
+{
+
+}
+
+
+void
+Ltga::init()
+{
+  _pimpl->configuration.set("binary_insert", 1);
+  _pimpl->configuration.set("cluster_ordering", std::string("least_linked_first"));
+  _pimpl->configuration.set("disable_solution_outfile", 1);
+  _pimpl->configuration.set("donate_until_different", 0);
+  _pimpl->configuration.set("hill_climber", std::string("no_action"));
+  _pimpl->configuration.set("keep_zeros", 0);
+  _pimpl->configuration.set("no_singles", 0);
+  _pimpl->configuration.set("precision", 65536);
+  _pimpl->configuration.set("restrict_cluster_size", 0);
+  _pimpl->configuration.set("solution_file", std::string("ltga-solution.txt"));
+  _pimpl->configuration.set("verbosity", 0);
+  _pimpl->configuration.set("length", _solution.first.size());
+  _pimpl->configuration.set("pop_size", _population_size);
+  _pimpl->evaluator = std::make_shared<HncoEvaluator>(_function);
+  _pimpl->middle_layer = std::make_shared<Middle_Layer>(_pimpl->configuration,
+                                                        _pimpl->evaluator);
+}
+
+
 void
 Ltga::maximize()
 {
-  Configuration configuration;
-
-  configuration.set("binary_insert", 1);
-  configuration.set("cluster_ordering", std::string("least_linked_first"));
-  configuration.set("disable_solution_outfile", 1);
-  configuration.set("donate_until_different", 0);
-  configuration.set("hill_climber", std::string("no_action"));
-  configuration.set("keep_zeros", 0);
-  configuration.set("no_singles", 0);
-  configuration.set("precision", 65536);
-  configuration.set("restrict_cluster_size", 0);
-  configuration.set("solution_file", std::string("hboa-solution.txt"));
-  configuration.set("verbosity", 0);
-
-  configuration.set("length", _solution.first.size());
-  configuration.set("pop_size", _population_size);
-
-  std::shared_ptr<HncoEvaluator> evaluator(new HncoEvaluator(_function));
-  std::shared_ptr<Middle_Layer> middle_layer(new Middle_Layer(configuration, evaluator));
-
-  LTGA ltga(hnco::random::Random::generator, middle_layer, configuration);
-
+  LTGA ltga(hnco::random::Random::generator,
+            _pimpl->middle_layer,
+            _pimpl->configuration);
   while (ltga.iterate()) {}
+}
 
-  bv_from_vector_bool(_solution.first, middle_layer->best_solution);
-  _solution.second = middle_layer->best_fitness;
+
+void
+Ltga::finalize()
+{
+  bv_from_vector_bool(_solution.first, _pimpl->middle_layer->best_solution);
+  _solution.second = _pimpl->middle_layer->best_fitness;
 }

@@ -21,6 +21,8 @@
 #ifndef HNCO_ALGORITHMS_EDA_LTGA_H
 #define HNCO_ALGORITHMS_EDA_LTGA_H
 
+#include <memory>               // std::shared_ptr
+
 #include "hnco/algorithms/algorithm.hh"
 
 
@@ -42,17 +44,28 @@ namespace eda {
   class Ltga:
     public Algorithm {
 
+    /// Implementation structure
+    struct Implementation;
+
+    /// Pointer to implementation
+    std::unique_ptr<Implementation> _pimpl;;
+
     /// Population size
     int _population_size = 10;
 
   public:
 
     /// Constructor
-    Ltga(int n):
-      Algorithm(n) {}
+    Ltga(int n);
+
+    /// Initialization
+    void init();
 
     /// Maximize
     void maximize();
+
+    /// Finalize
+    void finalize();
 
     /// Set population size
     void set_population_size(int n) { _population_size = n; }
