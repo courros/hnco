@@ -21,7 +21,7 @@
 #ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_P3_H
 #define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_P3_H
 
-#include <memory>               // std::shared_ptr
+#include <memory>               // std::unique_ptr
 
 #include "hnco/algorithms/algorithm.hh"
 
