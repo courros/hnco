@@ -26,24 +26,11 @@
 
 #include "hboa.hh"
 #include "hnco-evaluator.hh"
+#include "implementation.hh"
 
 using namespace hnco::algorithm::fast_efficient_p3;
 using namespace hnco::algorithm;
 using namespace hnco;
-
-
-/// Implementation structure
-struct Hboa::Implementation  {
-
-  /// Configuration
-  Configuration configuration;
-
-  /// Evaluator
-  std::shared_ptr<HncoEvaluator> evaluator;
-
-  /// Middle layer
-  std::shared_ptr<Middle_Layer> middle_layer;
-};
 
 
 Hboa::Hboa(int n):

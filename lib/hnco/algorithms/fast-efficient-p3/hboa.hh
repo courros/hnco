@@ -21,7 +21,7 @@
 #ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_HBOA_H
 #define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_HBOA_H
 
-#include <memory>               // std::shared_ptr
+#include <memory>               // std::unique_ptr
 
 #include "hnco/algorithms/algorithm.hh"
 
@@ -29,6 +29,8 @@
 namespace hnco {
 namespace algorithm {
 namespace fast_efficient_p3 {
+
+  struct Implementation;
 
   /** Hierarchical Bayesian Optimization %Algorithm.
 
@@ -45,8 +47,6 @@ namespace fast_efficient_p3 {
   */
   class Hboa:
     public Algorithm {
-
-    struct Implementation;
 
     /// Pointer to implementation
     std::unique_ptr<Implementation> _pimpl;;
