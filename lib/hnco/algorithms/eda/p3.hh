@@ -21,6 +21,8 @@
 #ifndef HNCO_ALGORITHMS_EDA_P3_H
 #define HNCO_ALGORITHMS_EDA_P3_H
 
+#include <memory>               // std::shared_ptr
+
 #include "hnco/algorithms/algorithm.hh"
 
 
@@ -46,14 +48,25 @@ namespace eda {
   class ParameterLessPopulationPyramid:
     public Algorithm {
 
+    /// Implementation structure
+    struct Implementation;
+
+    /// Pointer to implementation
+    std::unique_ptr<Implementation> _pimpl;;
+
   public:
 
     /// Constructor
-    ParameterLessPopulationPyramid(int n):
-      Algorithm(n) {}
+    ParameterLessPopulationPyramid(int n);
+
+    /// Initialization
+    void init();
 
     /// Maximize
     void maximize();
+
+    /// Finalize
+    void finalize();
 
   };
 
