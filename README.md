@@ -263,11 +263,11 @@ HNCO is distributed with the following experiments:
 - `experiments/examples/algorithm-parameter/`
 - `experiments/examples/autocorrelation/`
 - `experiments/examples/benchmark/`
-- `experiments/examples/dynamics/`
 - `experiments/examples/ecdf/`
 - `experiments/examples/function-parameter/`
 - `experiments/examples/lookup-ratio/`
 - `experiments/examples/maximum-evolution/`
+- `experiments/examples/observable-evolution/`
 - `experiments/examples/runtime/`
 - `experiments/examples/walsh-transforms/`
 
