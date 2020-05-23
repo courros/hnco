@@ -147,6 +147,9 @@ namespace algorithm {
      */
     ///@{
 
+    /// Get bit vector size
+    int get_bv_size() { return _solution.first.size(); }
+
     /// Get the solution
     const point_value_t& get_solution() { return _solution; }
 
