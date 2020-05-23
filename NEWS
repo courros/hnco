@@ -1,6 +1,18 @@
 * Version 0.14 (unreleased)
 
-The library and applications require a C++14 compiler.
+The library and applications now require a C++14 compiler.
+
+Highlight:
+- More consistent Algorithm API (init, maximize, finalize)
+- Improved namespaces
+- Improved file layout
+- Fixed Hboa, Ltga, and ParameterLessPopulationPyramid (with finalize)
+- Fixed CompleteSearch (without random initialization)
+- New function Partition
+- New algorithm Human
+- New tests (9)
+- New experiment function-parameter
+- Perl code factorization through modules
 
 Library:
 - Added Map::display
