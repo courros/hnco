@@ -46,6 +46,7 @@ Library:
 - Removed directory algorithms/eda/
 - Mimic: moved in namespace algorithm
 - Mimic: files moved under algorithms/
+- Function: updated virtual member function describe to do nothing
 
 hnco:
 - Added option --map-display
