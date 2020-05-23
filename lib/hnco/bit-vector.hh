@@ -64,9 +64,6 @@ namespace hnco {
   /// Bit vector
   typedef std::vector<bit_t> bit_vector_t;
 
-  /// Type to represent point value pairs
-  typedef std::pair<bit_vector_t, double> point_value_t;
-
   /// Display bit vector
   void bv_display(const bit_vector_t& v, std::ostream& stream);
 

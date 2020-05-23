@@ -26,6 +26,7 @@
 #include <string>
 
 #include "bit-vector.hh"
+#include "algorithms/solution.hh"
 
 
 namespace hnco {
@@ -40,13 +41,13 @@ namespace exception {
     public Exception {
   protected:
     /// Point-value
-    point_value_t _pv;
+    algorithm::point_value_t _pv;
   public:
     /// Constructor
-    PointValueException(const point_value_t& pv):
+    PointValueException(const algorithm::point_value_t& pv):
       _pv(pv) {}
     /// Get point-value
-    const point_value_t& get_point_value() const { return _pv; }
+    const algorithm::point_value_t& get_point_value() const { return _pv; }
   };
 
   /// Maximum reached
@@ -54,7 +55,7 @@ namespace exception {
     public PointValueException {
   public:
     /// Constructor
-    MaximumReached(const point_value_t& pv):
+    MaximumReached(const algorithm::point_value_t& pv):
       PointValueException(pv) {}
   };
 
@@ -63,7 +64,7 @@ namespace exception {
     public PointValueException {
   public:
     /// Constructor
-    TargetReached(const point_value_t& pv):
+    TargetReached(const algorithm::point_value_t& pv):
       PointValueException(pv) {}
   };
 
@@ -72,7 +73,7 @@ namespace exception {
     public PointValueException {
   public:
     /// Const
-    LocalMaximum(const point_value_t& pv):
+    LocalMaximum(const algorithm::point_value_t& pv):
       PointValueException(pv) {}
   };
 

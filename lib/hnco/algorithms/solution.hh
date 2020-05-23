@@ -25,6 +25,9 @@
 namespace hnco {
 namespace algorithm {
 
+  /// Type to represent point value pairs
+  typedef std::pair<bit_vector_t, double> point_value_t;
+
 } // end of namespace algorithm
 } // end of namespace hnco
 
