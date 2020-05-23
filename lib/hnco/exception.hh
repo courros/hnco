@@ -21,7 +21,6 @@
 #ifndef HNCO_EXCEPTION_H
 #define HNCO_EXCEPTION_H
 
-#include <fstream>
 #include <sstream>
 #include <string>
 

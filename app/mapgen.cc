@@ -22,6 +22,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <fstream>
 
 #include "hnco/exception.hh"
 #include "hnco/map.hh"
