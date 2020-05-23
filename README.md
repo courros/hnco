@@ -15,7 +15,7 @@
 
 ## Introduction
 
-HNCO is a C++11 library, a set of command-line tools, and a set of
+HNCO is a C++ library, a set of command-line tools, and a set of
 scripts for the optimization of black box functions defined on bit
 vectors. It aims at being flexible, fast, simple, and robust.
 
@@ -384,6 +384,8 @@ sudo apt-get install ssh
 ```
 
 ## Building and installing <a name="building"></a>
+
+The library and applications require a C++14 compiler.
 
 Execute the following commands in the source directory:
 
