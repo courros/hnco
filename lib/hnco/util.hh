@@ -21,7 +21,10 @@
 #ifndef HNCO_UTIL_H
 #define HNCO_UTIL_H
 
-#include <math.h>               // exp
+#include <math.h>               // std::exp
+
+#include <string>               // std::string
+#include <sstream>              // std::ostringstream
 
 
 namespace hnco {
@@ -34,11 +37,23 @@ namespace hnco {
   inline double logistic(double x)
   {
     if (x > 0)
-      return 1 / (1 + exp(-x));
+      return 1 / (1 + std::exp(-x));
     else {
-      double tmp = exp(x);
+      double tmp = std::exp(x);
       return tmp / (1 + tmp);
     }
+  }
+
+  /// Convert to string and join elements of a container (from SO)
+  template <typename Iter>
+  std::string join(Iter begin, Iter end, std::string const& separator)
+  {
+    std::ostringstream result;
+    if (begin != end)
+      result << *begin++;
+    while (begin != end)
+      result << separator << *begin++;
+    return result.str();
   }
 
 } // end of namespace hnco
