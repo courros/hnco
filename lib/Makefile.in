@@ -244,9 +244,9 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/pv/pv-algorithm.cc \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.cc \
 	hnco/algorithms/pv/umda.hh hnco/algorithms/random-search.cc \
-	hnco/algorithms/random-search.hh hnco/bit-matrix.cc \
-	hnco/bit-matrix.hh hnco/bit-vector.cc hnco/bit-vector.hh \
-	hnco/exception.hh hnco/functions/all.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
+	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
+	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/controller.cc \
@@ -541,8 +541,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
-	hnco/algorithms/mimic.hh hnco/algorithms/hea/all.hh \
-	hnco/algorithms/hea/bit-herding.hh \
+	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/human.hh \
@@ -553,15 +552,15 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/ls/random-walk.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
-	hnco/algorithms/matrix.hh hnco/algorithms/population.hh \
-	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
-	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
-	hnco/algorithms/pv/pbil.hh \
+	hnco/algorithms/matrix.hh hnco/algorithms/mimic.hh \
+	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
+	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.hh \
+	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.hh \
 	hnco/algorithms/pv/probability-vector.hh \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
-	hnco/algorithms/random-search.hh hnco/bit-matrix.hh \
-	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
-	hnco/functions/cancellation.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
+	hnco/bit-matrix.hh hnco/bit-vector.hh hnco/exception.hh \
+	hnco/functions/all.hh hnco/functions/cancellation.hh \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/controller.hh \
 	hnco/functions/decorator.hh hnco/functions/equal-products.hh \
@@ -824,9 +823,9 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/pv/pv-algorithm.cc \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.cc \
 	hnco/algorithms/pv/umda.hh hnco/algorithms/random-search.cc \
-	hnco/algorithms/random-search.hh hnco/bit-matrix.cc \
-	hnco/bit-matrix.hh hnco/bit-vector.cc hnco/bit-vector.hh \
-	hnco/exception.hh hnco/functions/all.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
+	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
+	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/cancellation.cc hnco/functions/cancellation.hh \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/controller.cc \
@@ -907,8 +906,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
-	hnco/algorithms/mimic.hh hnco/algorithms/hea/all.hh \
-	hnco/algorithms/hea/bit-herding.hh \
+	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/human.hh \
@@ -919,15 +917,15 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/ls/random-walk.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
-	hnco/algorithms/matrix.hh hnco/algorithms/population.hh \
-	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
-	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
-	hnco/algorithms/pv/pbil.hh \
+	hnco/algorithms/matrix.hh hnco/algorithms/mimic.hh \
+	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
+	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.hh \
+	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.hh \
 	hnco/algorithms/pv/probability-vector.hh \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
-	hnco/algorithms/random-search.hh hnco/bit-matrix.hh \
-	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
-	hnco/functions/cancellation.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
+	hnco/bit-matrix.hh hnco/bit-vector.hh hnco/exception.hh \
+	hnco/functions/all.hh hnco/functions/cancellation.hh \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/controller.hh \
 	hnco/functions/decorator.hh hnco/functions/equal-products.hh \

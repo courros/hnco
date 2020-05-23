@@ -132,6 +132,7 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.cc \
 	hnco/algorithms/random-search.hh \
+	hnco/algorithms/solution.hh \
 	hnco/bit-matrix.cc \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.cc \
@@ -268,7 +269,6 @@ nobase_include_HEADERS = \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
-	hnco/algorithms/mimic.hh \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh \
@@ -285,6 +285,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh \
+	hnco/algorithms/mimic.hh \
 	hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh \
 	hnco/algorithms/pv/compact-ga.hh \
@@ -295,6 +296,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/pv/pv-algorithm.hh \
 	hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.hh \
+	hnco/algorithms/solution.hh \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.hh \
 	hnco/exception.hh \
