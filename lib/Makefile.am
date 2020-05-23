@@ -80,6 +80,7 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
+	hnco/algorithms/fast-efficient-p3/implementation.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.cc \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.cc \
@@ -268,6 +269,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
+	hnco/algorithms/fast-efficient-p3/implementation.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/bit-herding.hh \

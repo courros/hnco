@@ -205,6 +205,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
+	hnco/algorithms/fast-efficient-p3/implementation.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.cc \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.cc \
@@ -540,6 +541,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
+	hnco/algorithms/fast-efficient-p3/implementation.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
@@ -784,6 +786,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
+	hnco/algorithms/fast-efficient-p3/implementation.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.cc \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.cc \
@@ -905,6 +908,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
+	hnco/algorithms/fast-efficient-p3/implementation.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/hea/all.hh hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh hnco/algorithms/hea/hea.hh \
