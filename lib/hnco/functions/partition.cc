@@ -20,6 +20,8 @@
 
 #include <cstdlib>              // std:abs
 
+#include "hnco/util.hh"              // hnco::join
+
 #include "partition.hh"
 
 
@@ -39,4 +41,38 @@ Partition::eval(const bit_vector_t& s)
     else
       sum0 += _numbers[i];
   return -std::abs(sum1 - sum0);
+}
+
+
+void
+Partition::display(std::ostream& stream)
+{
+  std::vector<int> S = _numbers;
+  stream
+    << "Partition the multiset S = {"
+    << join(begin(S), end(S), ", ")
+    << "}\n";
+}
+
+
+void
+Partition::describe(const bit_vector_t& x, std::ostream& stream)
+{
+  assert(int(x.size()) == get_bv_size());
+
+  display(stream);
+  std::vector<int> A, B;
+  for (size_t i = 0; i < x.size(); i++)
+    if (x[i])
+      A.push_back(_numbers[i]);
+    else
+      B.push_back(_numbers[i]);
+  stream
+    << "A = {"
+    << join(begin(A), end(A), ", ")
+    << "}\n";
+  stream
+    << "B = {"
+    << join(begin(B), end(B), ", ")
+    << "}\n";
 }

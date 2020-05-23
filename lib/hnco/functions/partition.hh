@@ -116,6 +116,19 @@ namespace function {
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
 
+
+    /** @name Display
+     */
+    ///@{
+
+    /// Display
+    void display(std::ostream& stream);
+
+    /// Describe a bit vector
+    void describe(const bit_vector_t& x, std::ostream& stream);
+
+    ///@}
+
   };
 
 
