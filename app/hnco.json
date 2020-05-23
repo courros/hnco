@@ -3,7 +3,7 @@
 
     "description": "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors",
 
-    "version": "0.14",
+    "version": "0.15",
 
     "sections": [
 

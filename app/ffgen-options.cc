@@ -8,7 +8,7 @@ using namespace std;
 
 Options::Options(int argc, char *argv[]):
   _exec_name(argv[0]),
-  _version("0.14"),
+  _version("0.15"),
   _bv_size(100),
   _opt_bv_size(false),
   _coupling_constant(1),

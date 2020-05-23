@@ -1,3 +1,6 @@
+* Version 0.15 (unreleased)
+
+
 * Version 0.14 (2020-05-23)
 
 The library and applications now require a C++14 compiler.
