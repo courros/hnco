@@ -1,11 +1,13 @@
 * Version 0.14 (unreleased)
 
+The library and applications require a C++14 compiler.
+
 Library:
 - Added Map::display
 - Added TsAffineMap::display
 - Fixed Transvection::random_non_commuting
 - BmPbil: added setters for logging
-- BmPbil, PvAlgorithm: member function set_something_to_log is private
+- BmPbil, PvAlgorithm: declared private member function set_something_to_log
 - BmPbil, PvAlgorithm: member function init calls set_something_to_log
 - Translation: added member function set_bv
 - Added namespace hnco::function::controller
@@ -14,22 +16,43 @@ Library:
 - Moved modifiers under functions/modifiers/
 - Moved function-decorator.hh under functions/
 - Renamed WalshTransformTerm -> WalshTerm
-- Moved WalshTerm inside namespace hnco::function
-- Moved WalshTerm inside file functions/walsh-term.hh
-- Moved IterativeAlgorithm inside files algorithms/iterative-algorithm.*
-- Moved compute_walsh_transform outside of class Function
+- Moved WalshTerm in namespace hnco::function
+- Moved WalshTerm in file functions/walsh-term.hh
+- Moved IterativeAlgorithm in files algorithms/iterative-algorithm.*
+- Moved compute_walsh_transform out of class Function
 - Added function::Partition
 - Added algorithm::Human
 - Added bv_from_string
 - Renamed function::FunctionDecorator -> function::Decorator
 - Renamed function::controller::FunctionController -> function::controller::Controller
 - Renamed function::modifier::FunctionModifier -> function::modifier::Modifier
+- Algorithm: declared non virtual member functions set_function and set_functions
+- Algorithm: added virtual member function finalize
+- Algorithm: updated virtual member function init to do nothing
+- Restart: removed member functions set_function and set_functions
+- OnePlusOneEa: removed member function set_function
+- OnePlusOneEa: removed member function get_solution
+- OnePlusOneEa: reimplements member function finalize
+- RandomSearch: reimplements member function init
+- RandomLocalSearch: removed member function get_solution
+- RandomLocalSearch: reimplements member function finalize
+- Hboa, Ltga, ParameterLessPopulationPyramid: use pointer to implementation technique
+- Hboa, Ltga, ParameterLessPopulationPyramid: reimplements member function finalize
+- Added namespace hnco::algorithm::fast_efficient_p3
+- Hboa, Ltga, ParameterLessPopulationPyramid: moved in namespace hnco::algorithm::fast_efficient_p3
+- Added directory algorithms/fast-efficient-p3/
+- Hboa, Ltga, ParameterLessPopulationPyramid: filed moved under algorithms/fast-efficient-p3/
+- Removed namespace hnco::algorithm::eda
+- Removed directory algorithms/eda/
+- Mimic: moved in namespace algorithm
+- Mimic: files moved under algorithms/
 
 hnco:
 - Added option --map-display
 - make_concrete_algorithm: does not call set_something_to_log
 - Added function::Partition with number 91
 - Added algorithm::Human with number 30
+- Added call to finalize
 
 ffgen:
 - Added function::Partition with number 91
@@ -45,6 +68,10 @@ Tests:
 - Added test-ts-random-non-commuting
 - Added test-bv-from-stream
 - Added test-serialize-partition
+- Put init and maximize in the same try block
+
+Examples:
+- Updated examples
 
 Scripts:
 - Renamed scripts/ -> experiments/scripts/
