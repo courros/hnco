@@ -52,7 +52,7 @@ namespace algorithm {
     std::vector<function::Function *> _functions;
 
     /// Solution
-    point_value_t _solution;
+    solution_t _solution;
 
     /// Log context
     LogContext *_log_context = nullptr;
@@ -88,7 +88,7 @@ namespace algorithm {
     void update_solution(const bit_vector_t& x, double value);
 
     /// Update solution (strict)
-    void update_solution(const point_value_t& pv);
+    void update_solution(const solution_t& pv);
 
     /** Update solution (strict).
 
@@ -151,7 +151,7 @@ namespace algorithm {
     int get_bv_size() { return _solution.first.size(); }
 
     /// Get the solution
-    const point_value_t& get_solution() { return _solution; }
+    const solution_t& get_solution() { return _solution; }
 
     ///@}
 

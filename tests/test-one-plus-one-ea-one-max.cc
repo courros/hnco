@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
     OnePlusOneEa algorithm(bv_size);
     algorithm.set_function(&f2);
 
-    point_value_t solution;
+    solution_t solution;
 
     try {
       algorithm.init();

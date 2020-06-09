@@ -239,7 +239,7 @@ int main(int argc, char *argv[])
   // Maximize
   //
 
-  point_value_t solution;
+  solution_t solution;
 
   bool maximum_reached = false;
   bool target_reached = false;

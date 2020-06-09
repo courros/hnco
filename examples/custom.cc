@@ -93,7 +93,7 @@ int main()
   algo.maximize();
 
   // finalize not necessary
-  point_value_t solution = algo.get_solution();
+  solution_t solution = algo.get_solution();
 
   bv_display(solution.first, std::cout);
   std::cout << std::endl;

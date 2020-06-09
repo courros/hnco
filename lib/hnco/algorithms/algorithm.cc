@@ -61,7 +61,7 @@ Algorithm::update_solution(const bit_vector_t& x, double value)
 }
 
 void
-Algorithm::update_solution(const point_value_t& pv)
+Algorithm::update_solution(const solution_t& pv)
 {
   if (pv.second > _solution.second)
     _solution = pv;

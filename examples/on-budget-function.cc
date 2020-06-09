@@ -53,7 +53,7 @@ int main()
   catch (LastEvaluation) {}
 
   // finalize not necessary
-  point_value_t solution = ea.get_solution();
+  solution_t solution = ea.get_solution();
 
   bv_display(solution.first, std::cout);
   std::cout << std::endl;
