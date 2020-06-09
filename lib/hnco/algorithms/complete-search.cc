@@ -30,7 +30,7 @@ using namespace hnco;
 void
 CompleteSearch::maximize()
 {
-  HypercubeIterator iterator(_solution.first.size());
+  HypercubeIterator iterator(get_bv_size());
 
   if (!iterator.has_next())
     throw exception::Error("CompleteSearch::maximize: empty hypercube");

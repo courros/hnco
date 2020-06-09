@@ -57,7 +57,7 @@ ParameterLessPopulationPyramid::init()
   _pimpl->configuration.set("verbosity", 0);
   _pimpl->configuration.set("wait_until_k_modeled", 0);
   _pimpl->configuration.set("prevent_duplicates", 1);
-  _pimpl->configuration.set("length", _solution.first.size());
+  _pimpl->configuration.set("length", get_bv_size());
   _pimpl->evaluator = std::make_shared<HncoEvaluator>(_function);
   _pimpl->middle_layer = std::make_shared<Middle_Layer>(_pimpl->configuration,
                                                         _pimpl->evaluator);

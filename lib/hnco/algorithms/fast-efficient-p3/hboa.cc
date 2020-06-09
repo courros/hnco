@@ -47,7 +47,7 @@ Hboa::init()
   _pimpl->configuration.set("verbosity", 0);
   _pimpl->configuration.set("solution_file", std::string("hboa-solution.txt"));
   _pimpl->configuration.set("disable_solution_outfile", 1);
-  _pimpl->configuration.set("length", _solution.first.size());
+  _pimpl->configuration.set("length", get_bv_size());
   _pimpl->configuration.set("pop_size", _population_size);
   _pimpl->configuration.set("hill_climber", std::string("no_action"));
   _pimpl->evaluator = std::make_shared<HncoEvaluator>(_function);

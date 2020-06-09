@@ -55,7 +55,7 @@ Ltga::init()
   _pimpl->configuration.set("restrict_cluster_size", 0);
   _pimpl->configuration.set("solution_file", std::string("ltga-solution.txt"));
   _pimpl->configuration.set("verbosity", 0);
-  _pimpl->configuration.set("length", _solution.first.size());
+  _pimpl->configuration.set("length", get_bv_size());
   _pimpl->configuration.set("pop_size", _population_size);
   _pimpl->evaluator = std::make_shared<HncoEvaluator>(_function);
   _pimpl->middle_layer = std::make_shared<Middle_Layer>(_pimpl->configuration,

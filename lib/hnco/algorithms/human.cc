@@ -41,13 +41,13 @@ Human::parse_bit_vector()
     if (str == "quit")
       throw LastEvaluation();
     bv_from_string(_candidate, str);
-    if (_candidate.size() < _solution.first.size())
+    if (int(_candidate.size()) < get_bv_size())
       std::cout << "Warning: bit vector is too short" << std::endl;
     else {
       again = false;
-      if (_candidate.size() > _solution.first.size()) {
-        _candidate.resize(_solution.first.size());
-        std::cout << "Warning: bit vector has been shortned" << std::endl;
+      if (int(_candidate.size()) > get_bv_size()) {
+        _candidate.resize(get_bv_size());
+        std::cout << "Warning: bit vector has been shortened" << std::endl;
       }
     }
   } while (again);
