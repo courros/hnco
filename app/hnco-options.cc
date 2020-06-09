@@ -1124,7 +1124,7 @@ void Options::print_help_map(ostream& stream) const
   stream << "            5: Affine" << endl;
   stream << "            6: Affine (transvection sequence)" << endl;
   stream << "      --map-display" << endl;
-  stream << "          Display the map" << endl;
+  stream << "          Display the map and exit" << endl;
   stream << "      --map-input-size (type int, default to 100)" << endl;
   stream << "          Input size of linear and affine maps" << endl;
   stream << "      --map-path (type string, default to \"map.txt\")" << endl;

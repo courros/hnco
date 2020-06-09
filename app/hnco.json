@@ -272,7 +272,7 @@
 
         "map_display":
         {
-            "description": "Display the map",
+            "description": "Display the map and exit",
             "section": "map"
         },
 

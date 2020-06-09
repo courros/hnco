@@ -313,7 +313,7 @@ class Options {
   /// Log improvement
   bool _log_improvement;
 
-  /// Display the map
+  /// Display the map and exit
   bool _map_display;
 
   /// Sample a random map
