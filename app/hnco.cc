@@ -198,8 +198,9 @@ int main(int argc, char *argv[])
   if (options.with_map_display()) {
     hnco::Map *map = function_factory.get_map();
     if (map) {
-      map->display(std::cerr);
+      map->display(std::cout);
     }
+    return 0;
   }
 
   //
