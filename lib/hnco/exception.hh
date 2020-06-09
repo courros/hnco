@@ -35,45 +35,45 @@ namespace exception {
   /// Basic exception
   class Exception {};
 
-  /// Point-value exception
-  class PointValueException:
+  /// Solution exception
+  class SolutionException:
     public Exception {
   protected:
-    /// Point-value
-    algorithm::solution_t _pv;
+    /// Solution
+    algorithm::solution_t _solution;
   public:
     /// Constructor
-    PointValueException(const algorithm::solution_t& pv):
-      _pv(pv) {}
-    /// Get point-value
-    const algorithm::solution_t& get_solution() const { return _pv; }
+    SolutionException(const algorithm::solution_t& solution):
+      _solution(solution) {}
+    /// Get solution
+    const algorithm::solution_t& get_solution() const { return _solution; }
   };
 
   /// Maximum reached
   class MaximumReached:
-    public PointValueException {
+    public SolutionException {
   public:
     /// Constructor
-    MaximumReached(const algorithm::solution_t& pv):
-      PointValueException(pv) {}
+    MaximumReached(const algorithm::solution_t& solution):
+      SolutionException(solution) {}
   };
 
-  /// target reached
+  /// Target reached
   class TargetReached:
-    public PointValueException {
+    public SolutionException {
   public:
     /// Constructor
-    TargetReached(const algorithm::solution_t& pv):
-      PointValueException(pv) {}
+    TargetReached(const algorithm::solution_t& solution):
+      SolutionException(solution) {}
   };
 
   /// Local maximum
   class LocalMaximum:
-    public PointValueException {
+    public SolutionException {
   public:
-    /// Const
-    LocalMaximum(const algorithm::solution_t& pv):
-      PointValueException(pv) {}
+    /// Constructor
+    LocalMaximum(const algorithm::solution_t& solution):
+      SolutionException(solution) {}
   };
 
   /// Last evaluation
