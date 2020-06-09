@@ -46,7 +46,7 @@ namespace exception {
     PointValueException(const algorithm::solution_t& pv):
       _pv(pv) {}
     /// Get point-value
-    const algorithm::solution_t& get_point_value() const { return _pv; }
+    const algorithm::solution_t& get_solution() const { return _pv; }
   };
 
   /// Maximum reached

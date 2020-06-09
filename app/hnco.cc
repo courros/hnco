@@ -256,14 +256,14 @@ int main(int argc, char *argv[])
     solution = algorithm->get_solution();
   }
   catch (const LocalMaximum& e) {
-    solution = e.get_point_value();
+    solution = e.get_solution();
   }
   catch (const MaximumReached& e) {
-    solution = e.get_point_value();
+    solution = e.get_solution();
     maximum_reached = true;
   }
   catch (const TargetReached& e) {
-    solution = e.get_point_value();
+    solution = e.get_solution();
     target_reached = true;
   }
   catch (LastEvaluation) {

@@ -52,7 +52,7 @@ int main()
     // finalize not necessary
   }
   catch (const MaximumReached& e) {
-    bv_display(e.get_point_value().first, std::cout);
+    bv_display(e.get_solution().first, std::cout);
     std::cout << std::endl;
   }
 

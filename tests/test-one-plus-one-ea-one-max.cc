@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     }
     catch (const MaximumReached& e) {
       // finalize not necessary
-      solution = e.get_point_value();
+      solution = e.get_solution();
     }
     catch (...) {
       return 1;
