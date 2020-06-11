@@ -56,11 +56,10 @@ int main(int argc, char *argv[])
   // Seed random number generator
   //
 
-  if (!options.set_seed()) {
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    options.set_seed(seed);
-  }
-  Random::generator.seed(options.get_seed());
+  if (options.set_seed())
+    Generator::set_seed(options.get_seed());
+  else
+    Generator::set_seed();
 
   //
   // OpenMP
@@ -81,7 +80,7 @@ int main(int argc, char *argv[])
   FunctionFactory function_factory;
   std::vector<function::Function *> fns(num_threads);
   for (int i = 0; i < num_threads; i++) {
-    Random::generator.seed(options.get_seed());
+    Generator::reset();
     try {
       fns[i] = function_factory.make_function(options);
     }

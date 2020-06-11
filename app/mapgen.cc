@@ -40,12 +40,14 @@ int main(int argc, char *argv[])
 {
   Options options(argc, argv);
 
-  // Initialize random number generator
-  if (!options.set_seed()) {
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    options.set_seed(seed);
-  }
-  Random::generator.seed(options.get_seed());
+  //
+  // Seed random number generator
+  //
+
+  if (options.set_seed())
+    Generator::set_seed(options.get_seed());
+  else
+    Generator::set_seed();
 
   switch(options.get_map()) {
 
