@@ -18,40 +18,36 @@
 
 */
 
-#ifndef HNCO_RANDOM_NUMBER_H
-#define HNCO_RANDOM_NUMBER_H
+#ifndef HNCO_RANDOM_H
+#define HNCO_RANDOM_H
 
 #include <random>
 
 
 namespace hnco {
-/// Pseudo random numbers
+/// Random numbers
 namespace random {
 
 
-  /// Random numbers
+  /// Random number generator
   struct Random {
 
-    /// Mersenne Twister 19937 generator
+    /// Mersenne Twister engine
     static std::mt19937 generator;
 
-    /// Next uniformly distributed sample
-    static double uniform() {
-      std::uniform_real_distribution<double> dist;
-      return dist(generator);
-    }
+    static unsigned seed;
+    static void set_seed(unsigned n);
+    static void set_seed();
+    static void reset();
 
-    /// Next normally distributed sample
-    static double normal() {
-      std::normal_distribution<double> dist;
-      return dist(generator);
-    }
+    /// Sample random number with uniform distribution
+    static double uniform();
 
-    /// Next random bit
-    static bool bernoulli() {
-      std::bernoulli_distribution dist;
-      return dist(generator);
-    }
+    /// Sample random number with normal distribution
+    static double normal();
+
+    /// Sample random number with Bernoulli distribution
+    static bool bernoulli();
 
   };
 

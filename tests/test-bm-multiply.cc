@@ -56,7 +56,7 @@ bool check_bm_multiply()
 
 int main(int argc, char *argv[])
 {
-  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::set_seed();
 
   if (check_bm_multiply())
     exit(0);

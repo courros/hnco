@@ -36,7 +36,7 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::set_seed();
 
   std::uniform_int_distribution<int> bv_size_dist(1, 20);
   std::uniform_int_distribution<int> coefficient_dist(-100, 100);

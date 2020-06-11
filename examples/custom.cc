@@ -80,7 +80,7 @@ public:
 
 int main()
 {
-  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::set_seed();
 
   const int bv_size = 50;
   MyFunction fn(bv_size);

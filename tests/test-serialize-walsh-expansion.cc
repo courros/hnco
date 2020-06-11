@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
   const std::string path("test-serialize-walsh-expansion.txt");
   std::uniform_int_distribution<int> dist_n(1, 100);
 
-  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::set_seed();
 
   for (int i = 0; i < 10; i++) {
 

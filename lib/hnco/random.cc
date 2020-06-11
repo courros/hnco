@@ -18,6 +18,49 @@
 
 */
 
+#include <chrono>               // std::chrono::system_clock
+
 #include "random.hh"
 
-std::mt19937 hnco::random::Random::generator;
+using namespace hnco::random;
+
+
+std::mt19937 Random::generator;
+
+unsigned Random::seed;
+
+
+void Random::set_seed(unsigned n)
+{
+  seed = n;
+  generator.seed(seed);
+}
+
+void Random::set_seed()
+{
+  seed = std::chrono::system_clock::now().time_since_epoch().count();
+  generator.seed(seed);
+}
+
+void Random::reset()
+{
+  generator.seed(seed);
+}
+
+double Random::uniform()
+{
+  std::uniform_real_distribution<double> dist;
+  return dist(generator);
+}
+
+double Random::normal()
+{
+  std::normal_distribution<double> dist;
+  return dist(generator);
+}
+
+bool Random::bernoulli()
+{
+  std::bernoulli_distribution dist;
+  return dist(generator);
+}

@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
   const int num_runs            = 100;
   const int num_iterations      = 100;
 
-  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::set_seed();
 
   std::uniform_int_distribution<int> bv_size_dist(1, 100);
   std::uniform_int_distribution<int> coefficient_dist(-100, 100);

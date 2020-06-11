@@ -30,7 +30,7 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::set_seed();
 
   std::uniform_int_distribution<int> radius_dist(1, 5); 
   std::uniform_int_distribution<int> delta_dist(0, 5); 

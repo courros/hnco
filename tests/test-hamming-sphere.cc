@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 
   std::uniform_int_distribution<int> dist(1, bv_size_max);
 
-  Random::generator.seed(std::chrono::system_clock::now().time_since_epoch().count());
+  Random::set_seed();
 
   for (int i = 0 ; i < num_iterations; i++) {
 
