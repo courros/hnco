@@ -27,7 +27,7 @@ using namespace hnco::random;
 
 std::mt19937 Generator::engine;
 
-unsigned Generator::seed;
+unsigned Generator::seed = std::mt19937::default_seed;
 
 
 void Generator::set_seed(unsigned n)
