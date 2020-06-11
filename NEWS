@@ -4,6 +4,9 @@ Library:
 - Renamed point_value_t -> solution_t
 - Renamed PointValueException::get_point_value -> get_solution
 - Renamed PointValueException -> SolutionException
+- Renamed Random -> Generator
+- Generator: added static member functions set_seed and reset
+- Generator: added static member seed
 
 
 * Version 0.14 (2020-05-23)
