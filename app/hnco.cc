@@ -22,7 +22,6 @@
 #include <omp.h>                // omp_set_num_threads
 
 #include <algorithm>            // sort
-#include <chrono>               // system_clock::now
 #include <iostream>
 
 #include "hnco/exception.hh"

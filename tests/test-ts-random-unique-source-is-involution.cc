@@ -26,7 +26,6 @@
     ts_random_unique_source is an involution.
 */
 
-#include <chrono>
 #include <iostream>
 #include <iterator>
 

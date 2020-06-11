@@ -18,7 +18,6 @@
 
 */
 
-#include <chrono>
 #include <fstream>              // std::ifstream, std::ofstream
 
 #include "hnco/functions/walsh/walsh-expansion-1.hh"

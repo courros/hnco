@@ -18,7 +18,6 @@
 
 */
 
-#include <chrono>
 #include <random>
 
 #include "hnco/neighborhoods/neighborhood.hh"

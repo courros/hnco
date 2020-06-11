@@ -18,7 +18,6 @@
 
 */
 
-#include <chrono>
 #include <iostream>
 
 #include <hnco/algorithms/ea/mu-plus-lambda-ea.hh>

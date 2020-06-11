@@ -18,8 +18,6 @@
 
 */
 
-#include <chrono>
-
 #include "hnco/random.hh"
 #include "hnco/sparse-bit-vector.hh"
 #include "hnco/sparse-bit-matrix.hh"

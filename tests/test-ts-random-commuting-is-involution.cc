@@ -26,7 +26,6 @@
     ts_random_commuting is an involution.
 */
 
-#include <chrono>
 #include <iostream>
 #include <iterator>
 

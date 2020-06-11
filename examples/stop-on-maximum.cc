@@ -18,7 +18,6 @@
 
 */
 
-#include <chrono>
 #include <iostream>
 
 #include "hnco/algorithms/ea/one-plus-one-ea.hh"

@@ -19,7 +19,6 @@
 */
 
 #include <algorithm>            // all_of
-#include <chrono>
 
 #include "hnco/random.hh"
 #include "hnco/bit-vector.hh"

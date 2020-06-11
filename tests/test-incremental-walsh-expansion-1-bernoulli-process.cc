@@ -18,7 +18,6 @@
 
 */
 
-#include <chrono>
 #include <random>
 
 #include "hnco/functions/walsh/walsh-expansion-1.hh"
