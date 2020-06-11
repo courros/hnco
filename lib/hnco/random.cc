@@ -25,42 +25,42 @@
 using namespace hnco::random;
 
 
-std::mt19937 Random::generator;
+std::mt19937 Generator::engine;
 
-unsigned Random::seed;
+unsigned Generator::seed;
 
 
-void Random::set_seed(unsigned n)
+void Generator::set_seed(unsigned n)
 {
   seed = n;
-  generator.seed(seed);
+  engine.seed(seed);
 }
 
-void Random::set_seed()
+void Generator::set_seed()
 {
   seed = std::chrono::system_clock::now().time_since_epoch().count();
-  generator.seed(seed);
+  engine.seed(seed);
 }
 
-void Random::reset()
+void Generator::reset()
 {
-  generator.seed(seed);
+  engine.seed(seed);
 }
 
-double Random::uniform()
+double Generator::uniform()
 {
   std::uniform_real_distribution<double> dist;
-  return dist(generator);
+  return dist(engine);
 }
 
-double Random::normal()
+double Generator::normal()
 {
   std::normal_distribution<double> dist;
-  return dist(generator);
+  return dist(engine);
 }
 
-bool Random::bernoulli()
+bool Generator::bernoulli()
 {
   std::bernoulli_distribution dist;
-  return dist(generator);
+  return dist(engine);
 }

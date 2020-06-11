@@ -110,7 +110,7 @@ namespace function {
       assert(n > 0);
       assert(k > 0);
 
-      generate(n, k, hnco::random::Random::normal);
+      generate(n, k, hnco::random::Generator::normal);
     }
 
     ///@}

@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 
   for (int i = 0; i < 1000; i++) {
 
-    int bv_size = bv_size_dist(random::Random::generator);
+    int bv_size = bv_size_dist(random::Generator::engine);
 
     OneMax function(bv_size);
     SingleBitFlipIterator iterator(bv_size);

@@ -36,15 +36,15 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   std::uniform_int_distribution<int> dist_a(2, 15);
   std::uniform_int_distribution<int> dist_b(2, 15);
 
   for (int i = 0; i < 10; i++) {
 
-    int a = dist_a(Random::generator);
-    int b = dist_b(Random::generator);
+    int a = dist_a(Generator::engine);
+    int b = dist_b(Generator::engine);
     int c = a * b;
 
     std::ostringstream stream;

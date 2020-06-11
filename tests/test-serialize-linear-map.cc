@@ -30,15 +30,15 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   const std::string path("test-serialize-linear-map.txt");
 
   for (int i = 0; i < 10; i++) {
 
     std::uniform_int_distribution<int> dist_n(2, 100);
-    int n = dist_n(Random::generator);
-    int m = dist_n(Random::generator);
+    int n = dist_n(Generator::engine);
+    int m = dist_n(Generator::engine);
 
     LinearMap src;
     src.random(n, m, false);

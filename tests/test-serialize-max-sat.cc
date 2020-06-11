@@ -33,7 +33,7 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   const std::string path("test-serialize-max-sat.txt");
 
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 
   for (int i = 0; i < 10; i++) {
 
-    int n = dist_n(Random::generator);
+    int n = dist_n(Generator::engine);
 
     MaxSat src;
     {

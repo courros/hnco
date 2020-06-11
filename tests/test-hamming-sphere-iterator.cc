@@ -30,15 +30,15 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   std::uniform_int_distribution<int> radius_dist(1, 5); 
   std::uniform_int_distribution<int> delta_dist(0, 5); 
 
   for (int i = 0; i < 1000; i++) {
 
-    int radius = radius_dist(Random::generator);
-    int bv_size = radius + delta_dist(Random::generator);
+    int radius = radius_dist(Generator::engine);
+    int bv_size = radius + delta_dist(Generator::engine);
 
     bit_vector_t bv(bv_size);
     bv_random(bv);

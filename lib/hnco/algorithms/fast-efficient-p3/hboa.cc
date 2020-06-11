@@ -59,7 +59,7 @@ Hboa::init()
 void
 Hboa::maximize()
 {
-  HBOA hboa(hnco::random::Random::generator,
+  HBOA hboa(hnco::random::Generator::engine,
             _pimpl->middle_layer,
             _pimpl->configuration);
   while (hboa.iterate()) {}

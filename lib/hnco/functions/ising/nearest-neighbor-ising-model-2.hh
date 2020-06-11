@@ -155,7 +155,7 @@ namespace function {
       assert(num_rows > 0);
       assert(num_columns > 0);
 
-      generate(num_rows, num_columns, hnco::random::Random::normal, hnco::random::Random::normal);
+      generate(num_rows, num_columns, hnco::random::Generator::normal, hnco::random::Generator::normal);
     }
 
     ///@}

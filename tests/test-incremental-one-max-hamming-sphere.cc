@@ -38,12 +38,12 @@ int main(int argc, char *argv[])
 
   std::uniform_int_distribution<int> dist_bv_size(1, 100);
 
-  Random::set_seed();
+  Generator::set_seed();
 
   for (int i = 0; i < num_runs; i++) {
-    int bv_size = dist_bv_size(Random::generator);
+    int bv_size = dist_bv_size(Generator::engine);
     std::uniform_int_distribution<int> dist_radius(1, bv_size);
-    int radius = dist_radius(Random::generator);
+    int radius = dist_radius(Generator::engine);
 
     OneMax function(bv_size);
     HammingSphere neighborhood(bv_size, radius);

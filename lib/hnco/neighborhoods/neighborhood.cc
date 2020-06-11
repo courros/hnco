@@ -38,7 +38,7 @@ MultiBitFlip::bernoulli_trials(int k)
   _flipped_bits.clear();
   for (size_t i = 0; i < _candidate.size(); i++) {
     double p = double(k) / double(n);
-    if (Random::uniform() < p) {
+    if (Generator::uniform() < p) {
       _flipped_bits.push_back(i);
       k--;
     }
@@ -55,7 +55,7 @@ MultiBitFlip::reservoir_sampling(int k)
   for (int i = 0; i < k; i++) {
     int index;
     do {
-      index = _index_dist(Random::generator);
+      index = _index_dist(Generator::engine);
     } while (find(begin(_flipped_bits),
                   end(_flipped_bits), index) != _flipped_bits.end());
     _flipped_bits.push_back(index);
@@ -70,11 +70,11 @@ BernoulliProcess::sample_bits()
   if (_reservoir_sampling) {
     int k;
     if (_allow_stay)
-      k = _binomial_dist(Random::generator);
+      k = _binomial_dist(Generator::engine);
     else {
       k = 0;
       while (k == 0)
-        k = _binomial_dist(Random::generator);
+        k = _binomial_dist(Generator::engine);
       assert(k > 0);
     }
     reservoir_sampling(k);
@@ -90,7 +90,7 @@ BernoulliProcess::bernoulli_process()
   bool again = true;
   do {
     for (size_t i = 0; i < _candidate.size(); i++)
-      if (_bernoulli_dist(Random::generator)) {
+      if (_bernoulli_dist(Generator::engine)) {
         _flipped_bits.push_back(i);
         again = false;
       }
@@ -102,7 +102,7 @@ void
 HammingBall::sample_bits()
 {
   const int n = _candidate.size();
-  const int k = _choose_k(Random::generator);
+  const int k = _choose_k(Generator::engine);
   assert(k > 0);
   assert(k <= n);
 

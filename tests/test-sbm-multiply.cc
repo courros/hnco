@@ -30,7 +30,7 @@ using namespace hnco::random;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   const int rows = 100;
   const int cols = 200;

@@ -52,7 +52,7 @@ namespace hnco {
   inline bit_t bit_flip(bit_t b) { return b ? 0 : 1; }
 
   /// Sample a random bit
-  inline bit_t bit_random(double p) { return (random::Random::uniform() < p) ? 1 : 0; }
+  inline bit_t bit_random(double p) { return (random::Generator::uniform() < p) ? 1 : 0; }
 
   ///@}
 
@@ -98,7 +98,7 @@ namespace hnco {
   void bv_flip(bit_vector_t& x, const bit_vector_t& mask);
 
   /// Sample a random bit vector
-  inline void bv_random(bit_vector_t& x) { generate(x.begin(), x.end(), []() { return random::Random::bernoulli(); }); }
+  inline void bv_random(bit_vector_t& x) { generate(x.begin(), x.end(), []() { return random::Generator::bernoulli(); }); }
 
   /// Sample a random bit vector with given Hamming weight
   void bv_random(bit_vector_t& x, int k);

@@ -30,13 +30,13 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   for (int i = 0; i < 1000; i++) {
 
     std::uniform_int_distribution<int> input_size_dist(1, 100);
 
-    int input_size = input_size_dist(Random::generator);
+    int input_size = input_size_dist(Generator::engine);
 
     Translation translation;
 

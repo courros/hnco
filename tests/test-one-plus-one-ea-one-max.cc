@@ -38,13 +38,13 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   std::uniform_int_distribution<int> bv_size_dist(1, 100);
 
   for (int i = 0; i < 100; i++) {
 
-    int bv_size = bv_size_dist(Random::generator);
+    int bv_size = bv_size_dist(Generator::engine);
 
     OneMax f0(bv_size);
     Translation map;

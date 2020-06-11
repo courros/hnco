@@ -35,7 +35,7 @@ bool check_bm_add_rows()
 {
   std::uniform_int_distribution<int> dimension_dist(2, 100);
   for (size_t t = 0; t < 1000; t++) {
-    int dimension = dimension_dist(Random::generator);
+    int dimension = dimension_dist(Generator::engine);
     bit_matrix_t M(dimension, bit_vector_t(dimension));
     for (size_t i = 0; i < M.size(); i++)
       bv_random(M[i]);
@@ -43,8 +43,8 @@ bool check_bm_add_rows()
     std::uniform_int_distribution<int> index_dist(0, dimension - 1);
     int i, j;
     do {
-      i = index_dist(Random::generator);
-      j = index_dist(Random::generator);
+      i = index_dist(Generator::engine);
+      j = index_dist(Generator::engine);
     } while (i == j);
     assert(i != j);
     bm_add_rows(M, i, j);
@@ -57,7 +57,7 @@ bool check_bm_add_rows()
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   if (check_bm_add_rows())
     exit(0);

@@ -36,16 +36,16 @@ int main(int argc, char *argv[])
   const int num_runs            = 100;
   const int num_iterations      = 100;
 
-  Random::set_seed();
+  Generator::set_seed();
 
   std::uniform_int_distribution<int> bv_size_dist(1, 100);
   std::uniform_int_distribution<int> coefficient_dist(-100, 100);
 
   auto fn = [coefficient_dist]() mutable
-    { return coefficient_dist(Random::generator); };
+    { return coefficient_dist(Generator::engine); };
 
   for (int i = 0; i < num_runs; i++) {
-    int bv_size = bv_size_dist(Random::generator);
+    int bv_size = bv_size_dist(Generator::engine);
 
     WalshExpansion1 function;
     function.generate(bv_size, fn);

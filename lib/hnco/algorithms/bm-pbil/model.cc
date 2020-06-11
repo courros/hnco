@@ -163,7 +163,7 @@ Model::gibbs_sampler(int i)
   }
   delta *= -2;
 
-  if (Random::uniform() < logistic(delta))
+  if (Generator::uniform() < logistic(delta))
     _state[i] = 1;
   else
     _state[i] = 0;

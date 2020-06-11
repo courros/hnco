@@ -203,7 +203,7 @@ MaxSat::random(int n, int k, int c)
     int count = 0;
     for (size_t j = 0; j < x.size(); j++) {
       if (x[j]) {
-        if (Random::bernoulli())
+        if (Generator::bernoulli())
           _expression[i][count++] = j + 1;
         else
           _expression[i][count++] = -(j + 1);
@@ -230,7 +230,7 @@ MaxSat::random(const bit_vector_t& solution, int k, int c)
     int count = 0;
     for (size_t j = 0; j < x.size(); j++) {
       if (x[j]) {
-        if (Random::bernoulli())
+        if (Generator::bernoulli())
           _expression[i][count++] = j + 1;
         else
           _expression[i][count++] = -int(j + 1);
@@ -249,7 +249,7 @@ MaxSat::random(const bit_vector_t& solution, int k, int c)
     }
     if (!ok) {
       std::uniform_int_distribution<int> dist(0, _expression[i].size() - 1);
-      int index = dist(Random::generator);
+      int index = dist(Generator::engine);
       _expression[i][index] = -_expression[i][index];
     }
   }

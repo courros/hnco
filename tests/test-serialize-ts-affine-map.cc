@@ -30,7 +30,7 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   const std::string path("test-serialize-ts-affine-map.txt");
 
@@ -38,8 +38,8 @@ int main(int argc, char *argv[])
 
     std::uniform_int_distribution<int> dist_n(2, 100);
     std::uniform_int_distribution<int> dist_t(1, 100);
-    int n = dist_n(Random::generator);
-    int t = dist_t(Random::generator);
+    int n = dist_n(Generator::engine);
+    int t = dist_t(Generator::engine);
 
     TsAffineMap src;
     src.random(n, t, TsAffineMap::Unconstrained);

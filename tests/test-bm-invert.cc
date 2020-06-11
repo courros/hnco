@@ -33,7 +33,7 @@ bool check_bm_invert()
 {
   std::uniform_int_distribution<int> dimension_dist(1, 100);
   for (size_t t = 0; t < 100; t++) {
-    int dimension = dimension_dist(Random::generator);
+    int dimension = dimension_dist(Generator::engine);
     bit_matrix_t M(dimension, bit_vector_t(dimension));
     bit_matrix_t N, P;
     N = M;
@@ -51,7 +51,7 @@ bool check_bm_invert()
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   if (check_bm_invert())
     exit(0);

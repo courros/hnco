@@ -31,17 +31,17 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   const std::string path("test-serialize-nk-landscape.txt");
 
   for (int i = 0; i < 10; i++) {
 
     std::uniform_int_distribution<int> dist_n(2, 100);
-    int n = dist_n(Random::generator);
+    int n = dist_n(Generator::engine);
 
     std::uniform_int_distribution<int> dist_k(1, std::min(n - 1, 10));
-    int k = dist_k(Random::generator);
+    int k = dist_k(Generator::engine);
 
     NkLandscape src;
     src.random(n, k);

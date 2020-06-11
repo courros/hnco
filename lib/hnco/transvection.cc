@@ -63,8 +63,8 @@ Transvection::random(int n)
   std::uniform_int_distribution<int> index_dist(0, n - 1);
   int i, j;
   do {
-    i = index_dist(Random::generator);
-    j = index_dist(Random::generator);
+    i = index_dist(Generator::engine);
+    j = index_dist(Generator::engine);
   } while (i == j);
   row_index = i;
   column_index = j;
@@ -78,18 +78,18 @@ Transvection::random_non_commuting(int n, const Transvection& a)
 
   std::uniform_int_distribution<int> index_dist(0, n - 1);
 
-  if (Random::bernoulli()) {
+  if (Generator::bernoulli()) {
     row_index = a.column_index;
     int i;
     do {
-      i = index_dist(Random::generator);
+      i = index_dist(Generator::engine);
     } while (i == row_index);
     column_index = i;
   } else {
     column_index = a.row_index;
     int i;
     do {
-      i = index_dist(Random::generator);
+      i = index_dist(Generator::engine);
     } while (i == column_index);
     row_index = i;
   }
@@ -211,7 +211,7 @@ void hnco::ts_random_commuting(transvection_sequence_t& ts, int n, int t)
   std::vector<int> variables(n);
   for (size_t i = 0; i < variables.size(); i++)
     variables[i] = i;
-  std::shuffle(variables.begin(), variables.end(), random::Random::generator);
+  std::shuffle(variables.begin(), variables.end(), random::Generator::engine);
 
   double M = std::sqrt(double(n * n) / 4.0 - t);
 
@@ -219,16 +219,16 @@ void hnco::ts_random_commuting(transvection_sequence_t& ts, int n, int t)
   if (n % 2 == 0) {
     int bound = std::min(k - 1, int(M));
     std::uniform_int_distribution<int> dist(0, bound);
-    int r = dist(Random::generator);
-    if (Random::bernoulli())
+    int r = dist(Generator::engine);
+    if (Generator::bernoulli())
       split = k + r;
     else
       split = k - r;
   } else {
     int bound = std::min(k, int(M + 0.5));
     std::uniform_int_distribution<int> dist(1, bound);
-    int r = dist(Random::generator);
-    if (Random::bernoulli())
+    int r = dist(Generator::engine);
+    if (Generator::bernoulli())
       split = k + r;
     else
       split = k + 1 - r;
@@ -243,7 +243,7 @@ void hnco::ts_random_commuting(transvection_sequence_t& ts, int n, int t)
     }
   }
 
-  std::shuffle(ts.begin(), ts.end(), random::Random::generator);
+  std::shuffle(ts.begin(), ts.end(), random::Generator::engine);
 
   if (t < int(ts.size()))
     ts.resize(t);
@@ -267,19 +267,19 @@ void hnco::ts_random_unique_source(transvection_sequence_t& ts, int n, int t)
   std::vector<int> variables(n);
   for (size_t i = 0; i < variables.size(); i++)
     variables[i] = i;
-  std::shuffle(variables.begin(), variables.end(), random::Random::generator);
+  std::shuffle(variables.begin(), variables.end(), random::Generator::engine);
 
   std::uniform_int_distribution<int> dist(t, n - 1);
 
   for (int i = 0; i < t; i++) {
     Transvection tv;
     tv.row_index = variables[i];
-    tv.column_index = variables[dist(Random::generator)];
+    tv.column_index = variables[dist(Generator::engine)];
     ts.push_back(tv);
   }
   assert(t == int(ts.size()));
 
-  std::shuffle(ts.begin(), ts.end(), random::Random::generator);
+  std::shuffle(ts.begin(), ts.end(), random::Generator::engine);
 }
 
 
@@ -300,19 +300,19 @@ void hnco::ts_random_unique_destination(transvection_sequence_t& ts, int n, int 
   std::vector<int> variables(n);
   for (size_t i = 0; i < variables.size(); i++)
     variables[i] = i;
-  std::shuffle(variables.begin(), variables.end(), random::Random::generator);
+  std::shuffle(variables.begin(), variables.end(), random::Generator::engine);
 
   std::uniform_int_distribution<int> dist(t, n - 1);
 
   for (int j = 0; j < t; j++) {
     Transvection tv;
-    tv.row_index = variables[dist(Random::generator)];
+    tv.row_index = variables[dist(Generator::engine)];
     tv.column_index = variables[j];
     ts.push_back(tv);
   }
   assert(t == int(ts.size()));
 
-  std::shuffle(ts.begin(), ts.end(), random::Random::generator);
+  std::shuffle(ts.begin(), ts.end(), random::Generator::engine);
 }
 
 
@@ -326,7 +326,7 @@ void hnco::ts_random_disjoint(transvection_sequence_t& ts, int n, int t)
   std::vector<int> variables(n);
   for (size_t i = 0; i < variables.size(); i++)
     variables[i] = i;
-  std::shuffle(variables.begin(), variables.end(), random::Random::generator);
+  std::shuffle(variables.begin(), variables.end(), random::Generator::engine);
 
   if (2 * t > n) {
     std::cerr << "Warning: ts_random_disjoint: requested sequence length too large (" << t << "), set to ";

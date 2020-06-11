@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
   const int num_runs            = 100;
   const int num_iterations      = 100;
 
-  Random::set_seed();
+  Generator::set_seed();
 
   std::uniform_int_distribution<int> dist_num_rows(1, 20);
   std::uniform_int_distribution<int> dist_num_columns(1, 20);
@@ -44,17 +44,17 @@ int main(int argc, char *argv[])
 
   auto generator = [dist_coefficient]() mutable
     {
-      return dist_coefficient(Random::generator);
+      return dist_coefficient(Generator::engine);
     };
 
   for (int i = 0; i < num_runs; i++) {
-    int num_rows = dist_num_rows(Random::generator);
-    int num_columns = dist_num_columns(Random::generator);
+    int num_rows = dist_num_rows(Generator::engine);
+    int num_columns = dist_num_columns(Generator::engine);
     int bv_size = num_rows * num_columns;
 
     NearestNeighborIsingModel2 function;
     function.generate(num_rows, num_columns, generator, generator);
-    if (Random::bernoulli())
+    if (Generator::bernoulli())
       function.set_periodic_boundary_conditions(true);
 
     BernoulliProcess neighborhood(bv_size);

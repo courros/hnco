@@ -40,10 +40,10 @@ int main(int argc, char *argv[])
 
   std::uniform_int_distribution<int> dist(1, 100);
 
-  Random::set_seed();
+  Generator::set_seed();
 
   for (int i = 0; i < num_runs; i++) {
-    int bv_size = dist(Random::generator);
+    int bv_size = dist(Generator::engine);
     OneMax f0(bv_size);
     Negation function(&f0);
 

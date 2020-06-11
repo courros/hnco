@@ -61,7 +61,7 @@ void save_function_to_boost_archive(const T& function, const std::string name, c
 void generate_walsh_expansion_2(Options& options)
 {
   double stddev = options.get_stddev();
-  auto generator = [stddev]() { return stddev * Random::normal(); };
+  auto generator = [stddev]() { return stddev * Generator::normal(); };
 
   WalshExpansion2 function;
   switch (options.get_walsh2_generator()) {
@@ -87,7 +87,7 @@ void generate_walsh_expansion_2(Options& options)
 
 void generate_nearest_neighbor_ising_model_1(Options& options)
 {
-  auto generator = [&options]() { return options.get_stddev() * Random::normal(); };
+  auto generator = [&options]() { return options.get_stddev() * Generator::normal(); };
 
   NearestNeighborIsingModel1 function;
 
@@ -131,7 +131,7 @@ void generate_nearest_neighbor_ising_model_1(Options& options)
 
 void generate_nearest_neighbor_ising_model_2(Options& options)
 {
-  auto generator = [&options]() { return options.get_stddev() * Random::normal(); };
+  auto generator = [&options]() { return options.get_stddev() * Generator::normal(); };
 
   NearestNeighborIsingModel2 function;
 
@@ -186,7 +186,7 @@ void generate_function(Options& options)
 {
   double stddev = options.get_stddev();
 
-  auto generator = [stddev]() { return stddev * Random::normal(); };
+  auto generator = [stddev]() { return stddev * Generator::normal(); };
 
   switch(options.get_function()) {
 
@@ -227,7 +227,7 @@ void generate_function(Options& options)
   case 90: {
     EqualProducts function;
     double upper_bound = options.get_ep_upper_bound();
-    function.generate(options.get_bv_size(), [upper_bound]() { return upper_bound * Random::uniform(); });
+    function.generate(options.get_bv_size(), [upper_bound]() { return upper_bound * Generator::uniform(); });
     save_function_to_boost_archive(function, "EqualProducts", options);
     break;
   }
@@ -279,12 +279,14 @@ int main(int argc, char *argv[])
 {
   Options options(argc, argv);
 
-  // Initialize random number generator
-  if (!options.set_seed()) {
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    options.set_seed(seed);
-  }
-  Random::generator.seed(options.get_seed());
+  //
+  // Seed random number generator
+  //
+
+  if (options.set_seed())
+    Generator::set_seed(options.get_seed());
+  else
+    Generator::set_seed();
 
   try {
     generate_function(options);

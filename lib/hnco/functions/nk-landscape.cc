@@ -54,7 +54,7 @@ NkLandscape::random_structure(int n, int k)
       double p = double(a) / double(b);
       assert(0 <= p);
       assert(p <= 1);
-      if (Random::uniform() < p) {
+      if (Generator::uniform() < p) {
 	a--;
 	_neighbors[i][a] = j;
       }

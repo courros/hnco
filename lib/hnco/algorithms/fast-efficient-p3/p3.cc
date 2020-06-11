@@ -67,7 +67,7 @@ ParameterLessPopulationPyramid::init()
 void
 ParameterLessPopulationPyramid::maximize()
 {
-  Pyramid pyramid(hnco::random::Random::generator,
+  Pyramid pyramid(hnco::random::Generator::engine,
                   _pimpl->middle_layer,
                   _pimpl->configuration);
   while (pyramid.iterate()) {}

@@ -176,7 +176,7 @@ namespace algorithm {
     }
 
     /// Shuffle the lookup table
-    void shuffle() { std::shuffle(_lookup.begin(), _lookup.end(), hnco::random::Random::generator); }
+    void shuffle() { std::shuffle(_lookup.begin(), _lookup.end(), hnco::random::Generator::engine); }
 
     ///@}
 

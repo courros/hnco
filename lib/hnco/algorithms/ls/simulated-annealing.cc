@@ -91,7 +91,7 @@ SimulatedAnnealing::iterate()
     // _transitions++;
 
   } else {
-    if (Random::uniform() < exp((value - _current_value) * _beta)) {
+    if (Generator::uniform() < exp((value - _current_value) * _beta)) {
       _neighborhood->keep();
       _current_value = value;
 

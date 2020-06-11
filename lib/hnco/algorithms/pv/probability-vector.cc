@@ -46,7 +46,7 @@ void hnco::algorithm::pv_sample(const pv_t& pv, bit_vector_t& x)
   assert(x.size() == pv.size());
 
   for (size_t i = 0; i < x.size(); i++) {
-    if (Random::uniform() < pv[i])
+    if (Generator::uniform() < pv[i])
       x[i] = 1;
     else
       x[i] = 0;

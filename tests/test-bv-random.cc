@@ -30,14 +30,14 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   std::uniform_int_distribution<int> bv_size_dist(1, 1000);
 
   for (int i = 0; i < 1000; i++) {
-    int bv_size = bv_size_dist(Random::generator);
+    int bv_size = bv_size_dist(Generator::engine);
     std::uniform_int_distribution<int> k_dist(1, bv_size);
-    int k = k_dist(Random::generator);
+    int k = k_dist(Generator::engine);
     bit_vector_t bv(bv_size);
     bv_random(bv, k);
     if (bv_hamming_weight(bv) != k)

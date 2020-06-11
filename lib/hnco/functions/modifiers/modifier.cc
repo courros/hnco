@@ -62,5 +62,5 @@ FunctionMapComposition::describe(const bit_vector_t& x, std::ostream& stream)
 double
 AdditiveGaussianNoise::eval(const bit_vector_t& x)
 {
-  return _function->eval(x) + _dist(random::Random::generator);
+  return _function->eval(x) + _dist(random::Generator::engine);
 }

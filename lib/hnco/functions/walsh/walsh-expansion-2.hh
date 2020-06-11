@@ -117,7 +117,7 @@ namespace function {
     void random(int n) {
       assert(n > 0);
 
-      generate(n, hnco::random::Random::normal, hnco::random::Random::normal);
+      generate(n, hnco::random::Generator::normal, hnco::random::Generator::normal);
     }
 
     /** Generate one dimensional Ising model with long range

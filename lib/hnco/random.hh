@@ -30,10 +30,10 @@ namespace random {
 
 
   /// Random number generator
-  struct Random {
+  struct Generator {
 
     /// Mersenne Twister engine
-    static std::mt19937 generator;
+    static std::mt19937 engine;
 
     static unsigned seed;
     static void set_seed(unsigned n);

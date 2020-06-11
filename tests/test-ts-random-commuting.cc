@@ -51,7 +51,7 @@ bool check()
   std::uniform_int_distribution<int> dist(2, 200);
 
   for (int i = 0; i < 10; i++) {
-    const int n = dist(Random::generator);
+    const int n = dist(Generator::engine);
     const int k = n / 2;
     const int t = (n % 2 == 0) ? k * k : k * (k + 1);
 
@@ -66,7 +66,7 @@ bool check()
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   if (check())
     return 0;

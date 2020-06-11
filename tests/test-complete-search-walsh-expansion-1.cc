@@ -36,16 +36,16 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   std::uniform_int_distribution<int> bv_size_dist(1, 20);
   std::uniform_int_distribution<int> coefficient_dist(-100, 100);
 
   auto fn = [coefficient_dist]() mutable
-    { return coefficient_dist(Random::generator); };
+    { return coefficient_dist(Generator::engine); };
 
   for (int i = 0; i < 10; i++) {
-    int bv_size = bv_size_dist(Random::generator);
+    int bv_size = bv_size_dist(Generator::engine);
 
     WalshExpansion1 function0;
     function0.generate(bv_size, fn);

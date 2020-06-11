@@ -32,15 +32,15 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   for (int i = 0; i < 1000; i++) {
 
     std::uniform_int_distribution<int> input_size_dist(1, 100);
     std::uniform_int_distribution<int> delta_size_dist(0, 100);
 
-    int input_size = input_size_dist(Random::generator);
-    int delta_size = delta_size_dist(Random::generator);
+    int input_size = input_size_dist(Generator::engine);
+    int delta_size = delta_size_dist(Generator::engine);
     int output_size = input_size + delta_size;
 
     permutation_t permutation(output_size);

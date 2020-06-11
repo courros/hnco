@@ -108,7 +108,7 @@ hnco::bv_random(bit_vector_t& x, int k)
     if (k > 0) {
       assert(n > 0);
       double p = double(k) / double(n);
-      if (random::Random::uniform() < p) {
+      if (random::Generator::uniform() < p) {
         x[i] = 1;
         k--;
       } else

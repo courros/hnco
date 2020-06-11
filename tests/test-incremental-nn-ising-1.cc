@@ -36,22 +36,22 @@ int main(int argc, char *argv[])
   const int num_runs            = 100;
   const int num_iterations      = 100;
 
-  Random::set_seed();
+  Generator::set_seed();
 
   std::uniform_int_distribution<int> dist_bv_size(1, 100);
   std::uniform_int_distribution<int> dist_coefficient(-100, 100);
 
   auto generator = [dist_coefficient]() mutable
     {
-      return dist_coefficient(Random::generator);
+      return dist_coefficient(Generator::engine);
     };
 
   for (int i = 0; i < num_runs; i++) {
-    int bv_size = dist_bv_size(Random::generator);
+    int bv_size = dist_bv_size(Generator::engine);
 
     NearestNeighborIsingModel1 function;
     function.generate(bv_size, generator, generator);
-    if (Random::bernoulli())
+    if (Generator::bernoulli())
       function.set_periodic_boundary_conditions(true);
 
     BernoulliProcess neighborhood(bv_size);

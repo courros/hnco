@@ -53,7 +53,7 @@ GeneticAlgorithm::iterate()
     bit_vector_t& offspring = _offsprings.get_bv(i);
 
     // Crossover
-    if (_do_crossover(Random::generator))
+    if (_do_crossover(Generator::engine))
       _crossover.breed(_parents.select(), _parents.select(), offspring);
     else
       offspring = _parents.select();

@@ -114,7 +114,7 @@ namespace function {
       assert(n > 0);
       assert(num_features);
 
-      generate(n, num_features, hnco::random::Random::normal);
+      generate(n, num_features, hnco::random::Generator::normal);
     }
 
     ///@}

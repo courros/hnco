@@ -30,12 +30,12 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   std::uniform_int_distribution<int> bv_size_dist(0, 64);
 
   for (int i = 0; i < 1000; i++) {
-    int bv_size = bv_size_dist(Random::generator);
+    int bv_size = bv_size_dist(Generator::engine);
     bit_vector_t src(bv_size);
     bv_random(src);
     std::size_t index = bv_to_size_type(src);

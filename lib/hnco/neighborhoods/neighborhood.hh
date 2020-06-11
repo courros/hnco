@@ -163,7 +163,7 @@ namespace neighborhood {
     /// Sample bits
     void sample_bits() {
       assert(_flipped_bits.size() == 1);
-      _flipped_bits[0] = _index_dist(random::Random::generator);
+      _flipped_bits[0] = _index_dist(random::Generator::engine);
     }
 
   public:

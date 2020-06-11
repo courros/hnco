@@ -66,7 +66,7 @@ Ltga::init()
 void
 Ltga::maximize()
 {
-  LTGA ltga(hnco::random::Random::generator,
+  LTGA ltga(hnco::random::Generator::engine,
             _pimpl->middle_layer,
             _pimpl->configuration);
   while (ltga.iterate()) {}

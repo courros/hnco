@@ -44,7 +44,7 @@ bool check()
   std::uniform_int_distribution<int> dist(0, 1000);
 
   for (int i = 0; i < 100; i++) {
-    const int n = dist(Random::generator);
+    const int n = dist(Generator::engine);
 
     bit_vector_t x(n);
     bv_random(x);
@@ -68,7 +68,7 @@ bool check()
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   if (check())
     return 0;

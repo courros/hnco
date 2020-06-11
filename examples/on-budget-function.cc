@@ -36,7 +36,7 @@ using namespace hnco::random;
 
 int main()
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   const int bv_size = 50;
 

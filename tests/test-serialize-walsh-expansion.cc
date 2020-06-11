@@ -34,12 +34,12 @@ int main(int argc, char *argv[])
   const std::string path("test-serialize-walsh-expansion.txt");
   std::uniform_int_distribution<int> dist_n(1, 100);
 
-  Random::set_seed();
+  Generator::set_seed();
 
   for (int i = 0; i < 10; i++) {
 
-    const int n = dist_n(Random::generator);
-    const int num_features = dist_n(Random::generator);
+    const int n = dist_n(Generator::engine);
+    const int num_features = dist_n(Generator::engine);
 
     WalshExpansion src;
     src.random(n, num_features);

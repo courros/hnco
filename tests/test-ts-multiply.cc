@@ -35,8 +35,8 @@ bool check_ts_multiply()
   std::uniform_int_distribution<int> length_dist(0, 10);
 
   for (int i = 0; i < 10; i++) {
-    const int n = dimension_dist(Random::generator);
-    const int t = length_dist(Random::generator);
+    const int n = dimension_dist(Generator::engine);
+    const int t = length_dist(Generator::engine);
 
     bit_matrix_t M;
     bm_identity(M, n);
@@ -66,7 +66,7 @@ bool check_ts_multiply()
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   if (check_ts_multiply())
     return 0;

@@ -35,15 +35,15 @@ int main(int argc, char *argv[])
 
   std::uniform_int_distribution<int> dist(1, bv_size_max);
 
-  Random::set_seed();
+  Generator::set_seed();
 
   for (int i = 0 ; i < num_iterations; i++) {
 
     int n, radius;
 
     do {
-      n = dist(Random::generator);
-      radius = dist(Random::generator);
+      n = dist(Generator::engine);
+      radius = dist(Generator::engine);
     } while (radius > n);
 
     assert(radius <= n);

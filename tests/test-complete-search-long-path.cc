@@ -36,15 +36,15 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   std::uniform_int_distribution<int> prefix_length_dist(2, 4);
   std::uniform_int_distribution<int> divisor_dist(2, 5);
 
   for (int i = 0; i < 10; i++) {
 
-    int prefix_length = prefix_length_dist(random::Random::generator);
-    int bv_size = divisor_dist(random::Random::generator) * prefix_length;
+    int prefix_length = prefix_length_dist(random::Generator::engine);
+    int bv_size = divisor_dist(random::Generator::engine) * prefix_length;
 
     Translation map;
     map.random(bv_size);

@@ -32,11 +32,11 @@ using namespace hnco;
 const bit_vector_t&
 TournamentSelection::select()
 {
-  int winner = _choose_individual(Random::generator);
+  int winner = _choose_individual(Generator::engine);
   for (int i = 0; i < _tournament_size; i++) {
     int challenger;
     do {
-      challenger = _choose_individual(Random::generator);
+      challenger = _choose_individual(Generator::engine);
     } while (challenger == winner);
     if (_compare_index_value(_lookup[challenger], _lookup[winner]))
       winner = challenger;

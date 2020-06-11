@@ -50,7 +50,7 @@ bool check()
   std::uniform_int_distribution<int> dist(2, 200);
 
   for (int i = 0; i < 10; i++) {
-    const int n = dist(Random::generator);
+    const int n = dist(Generator::engine);
     const int t = 2 * n;
 
     transvection_sequence_t ts;
@@ -64,7 +64,7 @@ bool check()
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   if (check())
     return 0;

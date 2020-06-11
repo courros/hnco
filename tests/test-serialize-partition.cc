@@ -31,15 +31,15 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   const std::string path("test-serialize-partition.txt");
 
   for (int i = 0; i < 10; i++) {
 
     std::uniform_int_distribution<int> distribution(1, 100);
-    int n = distribution(Random::generator);
-    int upper_bound = distribution(Random::generator);
+    int n = distribution(Generator::engine);
+    int upper_bound = distribution(Generator::engine);
 
     Partition src;
     src.random(n, upper_bound);

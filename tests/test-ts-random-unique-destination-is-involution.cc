@@ -42,7 +42,7 @@ bool check_involution()
   std::uniform_int_distribution<int> dist(2, 1000);
 
   for (int i = 0; i < 10; i++) {
-    const int n = dist(Random::generator);
+    const int n = dist(Generator::engine);
 
     transvection_sequence_t ts;
     ts_random_unique_destination(ts, n, n - 1);
@@ -67,7 +67,7 @@ bool check_involution()
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   if (check_involution())
     return 0;

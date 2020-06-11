@@ -31,7 +31,7 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   const std::string path("test-serialize-nn-ising-2.txt");
 
@@ -40,8 +40,8 @@ int main(int argc, char *argv[])
     std::uniform_int_distribution<int> dist_num_rows(1, 100);
     std::uniform_int_distribution<int> dist_num_columns(1, 100);
 
-    int num_rows = dist_num_rows(Random::generator);
-    int num_columns = dist_num_columns(Random::generator);
+    int num_rows = dist_num_rows(Generator::engine);
+    int num_columns = dist_num_columns(Generator::engine);
 
     NearestNeighborIsingModel2 src;
     src.random(num_rows, num_columns);

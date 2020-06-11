@@ -38,10 +38,10 @@ int main(int argc, char *argv[])
 
   std::uniform_int_distribution<int> dist(1, 100);
 
-  Random::set_seed();
+  Generator::set_seed();
 
   for (int i = 0; i < num_runs; i++) {
-    int bv_size = dist(Random::generator);
+    int bv_size = dist(Generator::engine);
     OneMax function(bv_size);
     SingleBitFlip neighborhood(bv_size);
     bit_vector_t bv(bv_size);

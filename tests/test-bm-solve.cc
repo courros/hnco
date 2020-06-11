@@ -33,7 +33,7 @@ bool check_bm_solve()
 {
   std::uniform_int_distribution<int> dimension_dist(1, 100);
   for (size_t t = 0; t < 100; t++) {
-    int dimension = dimension_dist(Random::generator);
+    int dimension = dimension_dist(Generator::engine);
 
     bit_matrix_t A, B, C;
     bm_resize(A, dimension);
@@ -69,7 +69,7 @@ bool check_bm_solve()
 
 int main(int argc, char *argv[])
 {
-  Random::set_seed();
+  Generator::set_seed();
 
   return check_bm_solve() ? 0 : 1;
 }

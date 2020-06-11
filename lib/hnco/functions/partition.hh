@@ -104,7 +104,7 @@ namespace function {
       assert(upper_bound > 0);
 
       std::uniform_int_distribution<int> dist(1, upper_bound);
-      generate(n, [&dist]() { return dist(hnco::random::Random::generator); });
+      generate(n, [&dist]() { return dist(hnco::random::Generator::engine); });
     }
 
     ///@}

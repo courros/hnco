@@ -37,19 +37,19 @@ int main(int argc, char *argv[])
 {
   const int num_runs = 100;
 
-  Random::set_seed();
+  Generator::set_seed();
 
   for (int i = 0; i < num_runs; i++) {
 
     std::uniform_int_distribution<int> dist_bv_size(1, 15);
 
-    int bv_size = dist_bv_size(Random::generator);
+    int bv_size = dist_bv_size(Generator::engine);
 
     std::uniform_int_distribution<int> dist_k(1, bv_size);
     std::uniform_int_distribution<int> dist_c(1, 100);
 
-    int k = dist_k(Random::generator);
-    int c = dist_c(Random::generator);
+    int k = dist_k(Generator::engine);
+    int c = dist_c(Generator::engine);
 
     bit_vector_t solution(bv_size);
     bv_random(solution);
