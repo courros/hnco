@@ -21,7 +21,7 @@
 #ifndef HNCO_RANDOM_H
 #define HNCO_RANDOM_H
 
-#include <random>
+#include <random>               // std::mt19937
 
 
 namespace hnco {
@@ -35,9 +35,22 @@ namespace random {
     /// Mersenne Twister engine
     static std::mt19937 engine;
 
+    /// Seed
     static unsigned seed;
+
+    /// Set seed
     static void set_seed(unsigned n);
+
+    /** Set seed.
+
+        Uses std::chrono::system_clock.
+    */
     static void set_seed();
+
+    /** Reset engine.
+
+        Using static member seed.
+    */
     static void reset();
 
     /// Sample random number with uniform distribution
