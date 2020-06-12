@@ -61,8 +61,8 @@ void generate_walsh_expansion_2(Options& options)
 {
   double stddev = options.get_stddev();
   auto generator = [stddev]() { return stddev * Generator::normal(); };
-
   WalshExpansion2 function;
+
   switch (options.get_walsh2_generator()) {
 
   case 0:
@@ -87,7 +87,6 @@ void generate_walsh_expansion_2(Options& options)
 void generate_nearest_neighbor_ising_model_1(Options& options)
 {
   auto generator = [&options]() { return options.get_stddev() * Generator::normal(); };
-
   NearestNeighborIsingModel1 function;
 
   switch (options.get_nn1_generator()) {
@@ -131,7 +130,6 @@ void generate_nearest_neighbor_ising_model_1(Options& options)
 void generate_nearest_neighbor_ising_model_2(Options& options)
 {
   auto generator = [&options]() { return options.get_stddev() * Generator::normal(); };
-
   NearestNeighborIsingModel2 function;
 
   switch (options.get_nn2_generator()) {
@@ -184,7 +182,6 @@ void generate_nearest_neighbor_ising_model_2(Options& options)
 void generate_function(Options& options)
 {
   double stddev = options.get_stddev();
-
   auto generator = [stddev]() { return stddev * Generator::normal(); };
 
   switch(options.get_function()) {
