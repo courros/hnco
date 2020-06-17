@@ -61,9 +61,9 @@ WalshExpansion1::eval(const bit_vector_t& s)
 
 
 double
-WalshExpansion1::incremental_eval(const bit_vector_t& x,
-                                  double value,
-                                  const hnco::sparse_bit_vector_t& flipped_bits)
+WalshExpansion1::evaluate_incrementally(const bit_vector_t& x,
+                                        double value,
+                                        const hnco::sparse_bit_vector_t& flipped_bits)
 {
   assert(x.size() == _linear.size());
 

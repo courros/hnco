@@ -171,8 +171,8 @@ namespace function {
     */
     double eval(const bit_vector_t&);
 
-    /// Incremental evaluation
-    double incremental_eval(const bit_vector_t& x, double v, const sparse_bit_vector_t& flipped_bits);
+    /// Incrementally evaluate a bit vector
+    double evaluate_incrementally(const bit_vector_t& x, double v, const sparse_bit_vector_t& flipped_bits);
 
     ///@}
 

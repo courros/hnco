@@ -93,8 +93,9 @@ RandomWalk::iterate_incremental()
   assert(_neighborhood);
 
   _neighborhood->propose();
-  _value = _function->incremental_eval(_neighborhood->get_origin(), _value,
-                                       _neighborhood->get_flipped_bits());
+  _value = _function->evaluate_incrementally(_neighborhood->get_origin(),
+                                             _value,
+                                             _neighborhood->get_flipped_bits());
   _neighborhood->keep();
   update_solution(_neighborhood->get_candidate(), _value);
 }

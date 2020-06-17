@@ -129,9 +129,9 @@ NearestNeighborIsingModel2::eval(const bit_vector_t& s)
 
 
 double
-NearestNeighborIsingModel2::incremental_eval(const bit_vector_t& x,
-                                             double value,
-                                             const hnco::sparse_bit_vector_t& flipped_bits)
+NearestNeighborIsingModel2::evaluate_incrementally(const bit_vector_t& x,
+                                                   double value,
+                                                   const hnco::sparse_bit_vector_t& flipped_bits)
 {
   assert(_field.size() > 0);
   assert(_field[0].size() > 0);

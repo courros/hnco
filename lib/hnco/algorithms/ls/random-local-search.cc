@@ -121,9 +121,9 @@ RandomLocalSearch::iterate_incremental()
 
   _neighborhood->propose();
   double value =
-    _function->incremental_eval(_neighborhood->get_origin(),
-                                _solution.second,
-                                _neighborhood->get_flipped_bits());
+    _function->evaluate_incrementally(_neighborhood->get_origin(),
+                                      _solution.second,
+                                      _neighborhood->get_flipped_bits());
 
   if (_compare(value, _solution.second)) {
     // success

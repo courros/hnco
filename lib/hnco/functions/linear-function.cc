@@ -54,9 +54,9 @@ LinearFunction::eval(const bit_vector_t& x)
 
 
 double
-LinearFunction::incremental_eval(const bit_vector_t& x,
-                                 double value,
-                                 const hnco::sparse_bit_vector_t& flipped_bits)
+LinearFunction::evaluate_incrementally(const bit_vector_t& x,
+                                       double value,
+                                       const hnco::sparse_bit_vector_t& flipped_bits)
 {
   for (auto index : flipped_bits)
     if (x[index])

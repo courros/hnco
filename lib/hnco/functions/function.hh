@@ -78,12 +78,12 @@ namespace function {
     /// Evaluate a bit vector
     virtual double eval(const bit_vector_t&) = 0;
 
-    /** Incremental evaluation.
+    /** Incrementally evaluate a bit vector.
 
         \throw Error
     */
-    virtual double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits) {
-      throw exception::Error("Function::incremental_eval: This function does not provide incremental evaluation");
+    virtual double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits) {
+      throw exception::Error("Function::evaluate_incrementally: This function does not provide incremental evaluation");
     }
 
     /** Safely evaluate a bit vector.

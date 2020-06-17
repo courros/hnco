@@ -38,7 +38,7 @@ OneMax::eval(const bit_vector_t& x)
 }
 
 double
-OneMax::incremental_eval(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits)
+OneMax::evaluate_incrementally(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits)
 {
   double delta = 0;
   for (auto index : flipped_bits)

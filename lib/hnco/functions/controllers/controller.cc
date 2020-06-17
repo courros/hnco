@@ -41,11 +41,11 @@ StopOnMaximum::eval(const bit_vector_t& x)
 
 
 double
-StopOnMaximum::incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+StopOnMaximum::evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
   assert(_function->has_known_maximum());
 
-  double result = _function->incremental_eval(x, value, flipped_bits);
+  double result = _function->evaluate_incrementally(x, value, flipped_bits);
   if (result == _function->get_maximum())
     throw MaximumReached(std::make_pair(x, result));
   return result;
@@ -74,9 +74,9 @@ StopOnTarget::eval(const bit_vector_t& x)
 
 
 double
-StopOnTarget::incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+StopOnTarget::evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
-  double result = _function->incremental_eval(x, value, flipped_bits);
+  double result = _function->evaluate_incrementally(x, value, flipped_bits);
   if (result >= _target)
     throw TargetReached(std::make_pair(x, result));
   return result;
@@ -102,9 +102,9 @@ CallCounter::eval(const bit_vector_t& x)
 
 
 double
-CallCounter::incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+CallCounter::evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
-  double result = _function->incremental_eval(x, value, flipped_bits);
+  double result = _function->evaluate_incrementally(x, value, flipped_bits);
   _num_calls++;
   return result;
 }
@@ -130,11 +130,11 @@ OnBudgetFunction::eval(const bit_vector_t& x)
 
 
 double
-OnBudgetFunction::incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+OnBudgetFunction::evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
   if (_num_calls == _budget)
     throw LastEvaluation();
-  double result = _function->incremental_eval(x, value, flipped_bits);
+  double result = _function->evaluate_incrementally(x, value, flipped_bits);
   _num_calls++;
   return result;
 }
@@ -163,10 +163,10 @@ ProgressTracker::eval(const bit_vector_t& x)
 
 
 double
-ProgressTracker::incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+ProgressTracker::evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
   double result;
-  result = _function->incremental_eval(x, value, flipped_bits);
+  result = _function->evaluate_incrementally(x, value, flipped_bits);
   update_last_improvement(result);
   return result;
 }

@@ -110,9 +110,9 @@ namespace controller {
         \throw MaximumReached */
     double eval(const bit_vector_t&);
 
-    /** Incremental evaluation.
+    /** Incrementally evaluate a bit vector.
         \throw MaximumReached */
-    double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /** Update after a safe evaluation.
         \throw MaximumReached */
@@ -157,9 +157,9 @@ namespace controller {
         \throw TargetReached */
     double eval(const bit_vector_t&);
 
-    /** Incremental evaluation.
+    /** Incrementally evaluate a bit vector.
         \throw TargetReached */
-    double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /** Update after a safe evaluation.
         \throw TargetReached */
@@ -193,8 +193,8 @@ namespace controller {
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
 
-    /// Incremental evaluation
-    double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    /// Incrementally evaluate a bit vector
+    double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /// Update after a safe evaluation
     void update(const bit_vector_t& x, double value);
@@ -269,8 +269,8 @@ namespace controller {
     /// Evaluate a bit vector
     double eval(const bit_vector_t&);
 
-    /// Incremental evaluation
-    double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    /// Incrementally evaluate a bit vector
+    double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /// Update after a safe evaluation
     void update(const bit_vector_t& x, double value);
@@ -336,9 +336,9 @@ namespace controller {
         \throw LastEvaluation */
     double eval(const bit_vector_t&);
 
-    /** Incremental evaluation.
+    /** Incrementally evaluate a bit vector.
         \throw LastEvaluation */
-    double incremental_eval(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
     /** Update after a safe evaluation
         \throw LastEvaluation */
