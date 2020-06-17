@@ -92,7 +92,7 @@ namespace function {
         and updating global states (e.g. maximum) in function
         decorators.
     */
-    virtual double safe_eval(const bit_vector_t& x) { return eval(x); }
+    virtual double evaluate_safely(const bit_vector_t& x) { return eval(x); }
 
     /// Update after a safe evaluation
     virtual void update(const bit_vector_t& x, double value) {}

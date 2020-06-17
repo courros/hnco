@@ -72,7 +72,7 @@ namespace controller {
     ///@{
 
     /// Safely evaluate a bit vector
-    double safe_eval(const bit_vector_t& x) { return _function->safe_eval(x); }
+    double evaluate_safely(const bit_vector_t& x) { return _function->evaluate_safely(x); }
 
     ///@}
 

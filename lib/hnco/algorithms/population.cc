@@ -61,7 +61,7 @@ Population::eval(const std::vector<function::Function *>& fns)
   for (size_t i = 0; i < _bvs.size(); i++) {
     int k = omp_get_thread_num();
     _lookup[i].first = i;
-    _lookup[i].second = fns[k]->safe_eval(_bvs[i]);
+    _lookup[i].second = fns[k]->evaluate_safely(_bvs[i]);
   }
 
   for (size_t i = 0; i < _bvs.size(); i++)
