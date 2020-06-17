@@ -146,9 +146,9 @@ Mimic::iterate()
     sample(_population.get_bv(i));
 
   if (_functions.size() > 1)
-    _population.eval(_functions);
+    _population.evaluate(_functions);
   else
-    _population.eval(_function);
+    _population.evaluate(_function);
 
   _population.sort();
 

@@ -35,7 +35,7 @@ MuPlusLambdaEa::init()
   _mutation.set_allow_stay(_allow_stay);
 
   _parents.random();
-  _parents.eval(_function);
+  _parents.evaluate(_function);
   _parents.sort();
 
   set_solution(_parents.get_best_bv(),
@@ -53,9 +53,9 @@ MuPlusLambdaEa::iterate()
   }
 
   if (_functions.size() > 1)
-    _offsprings.eval(_functions);
+    _offsprings.evaluate(_functions);
   else
-    _offsprings.eval(_function);
+    _offsprings.evaluate(_function);
 
   _offsprings.sort();
   _parents.plus_selection(_offsprings);

@@ -48,9 +48,9 @@ int main(int argc, char *argv[])
     bv_random(bv);
     neighborhood.set_origin(bv);
     for (int j = 0; j < num_iterations; j++) {
-      double value = function.eval(neighborhood.get_origin());
+      double value = function.evaluate(neighborhood.get_origin());
       neighborhood.propose();
-      if (function.eval(neighborhood.get_candidate()) !=
+      if (function.evaluate(neighborhood.get_candidate()) !=
           function.evaluate_incrementally(neighborhood.get_origin(),
                                           value,
                                           neighborhood.get_flipped_bits()))

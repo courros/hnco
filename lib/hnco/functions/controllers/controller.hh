@@ -108,7 +108,7 @@ namespace controller {
 
     /** Evaluate a bit vector.
         \throw MaximumReached */
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
     /** Incrementally evaluate a bit vector.
         \throw MaximumReached */
@@ -155,7 +155,7 @@ namespace controller {
 
     /** Evaluate a bit vector.
         \throw TargetReached */
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
     /** Incrementally evaluate a bit vector.
         \throw TargetReached */
@@ -191,7 +191,7 @@ namespace controller {
     ///@{
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
     /// Incrementally evaluate a bit vector
     double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
@@ -267,7 +267,7 @@ namespace controller {
     ///@{
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
     /// Incrementally evaluate a bit vector
     double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
@@ -334,7 +334,7 @@ namespace controller {
 
     /** Evaluate a bit vector.
         \throw LastEvaluation */
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
     /** Incrementally evaluate a bit vector.
         \throw LastEvaluation */
@@ -395,7 +395,7 @@ namespace controller {
     ///@{
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
     ///@}
 

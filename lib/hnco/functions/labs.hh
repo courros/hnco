@@ -72,7 +72,7 @@ namespace function {
       AbstractLabs(n) {}
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
   };
 
@@ -97,7 +97,7 @@ namespace function {
       AbstractLabs(n) {}
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
   };
 

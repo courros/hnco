@@ -29,7 +29,7 @@ using namespace hnco::function;
 
 
 double
-Partition::eval(const bit_vector_t& s)
+Partition::evaluate(const bit_vector_t& s)
 {
   assert(s.size() == _numbers.size());
 

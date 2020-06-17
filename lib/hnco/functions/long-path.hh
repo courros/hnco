@@ -74,7 +74,7 @@ namespace function {
     LongPath(int bv_size, int prefix_length);
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
     /** @name Information about the function
      */

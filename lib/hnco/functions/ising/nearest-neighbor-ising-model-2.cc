@@ -44,7 +44,7 @@ NearestNeighborIsingModel2::resize(int num_rows, int num_columns)
 
 
 double
-NearestNeighborIsingModel2::eval(const bit_vector_t& s)
+NearestNeighborIsingModel2::evaluate(const bit_vector_t& s)
 {
   assert(_field.size() > 0);
   assert(_field[0].size() > 0);

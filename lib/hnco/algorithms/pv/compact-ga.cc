@@ -43,8 +43,8 @@ CompactGa::iterate()
   pv_sample(_pv, _candidates[0]);
   pv_sample(_pv, _candidates[1]);
 
-  double v0 = _function->eval(_candidates[0]);
-  double v1 = _function->eval(_candidates[1]);
+  double v0 = _function->evaluate(_candidates[0]);
+  double v1 = _function->evaluate(_candidates[1]);
 
   int best = 0;
   int worst = 1;
@@ -55,7 +55,7 @@ CompactGa::iterate()
   } else
     update_solution(_candidates[0], v0);
 
-  assert(_function->eval(_candidates[best]) >= _function->eval(_candidates[worst]));
+  assert(_function->evaluate(_candidates[best]) >= _function->evaluate(_candidates[worst]));
 
   // Update probability vector
   for (size_t i = 0; i < _pv.size(); i++)

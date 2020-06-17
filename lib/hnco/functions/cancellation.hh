@@ -80,7 +80,7 @@ namespace function {
     int get_bv_size() { return _bv_size; }
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t& x);
+    double evaluate(const bit_vector_t& x);
 
     /** Check for a known maximum.
         \return true */
@@ -111,7 +111,7 @@ namespace function {
       SummationCancellation(n) {}
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t& x);
+    double evaluate(const bit_vector_t& x);
 
   };
 

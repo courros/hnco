@@ -46,7 +46,7 @@ OnePlusLambdaCommaLambdaGa::iterate()
     bit_vector_t& offspring = _offsprings.get_bv(i);
     _mutation.map(_solution.first, offspring);
   }
-  _offsprings.eval(_function);
+  _offsprings.evaluate(_function);
   _offsprings.sort();
 
   double value = _offsprings.get_best_value(0);
@@ -60,7 +60,7 @@ OnePlusLambdaCommaLambdaGa::iterate()
   // Crossover
   for (int i = 0; i < _offsprings.size(); i++)
     _crossover.breed(_solution.first, _parent, _offsprings.get_bv(i));
-  _offsprings.eval(_function);
+  _offsprings.evaluate(_function);
   _offsprings.sort();
 
   // Selection

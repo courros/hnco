@@ -43,7 +43,7 @@ WalshExpansion1::get_maximum()
 
 
 double
-WalshExpansion1::eval(const bit_vector_t& s)
+WalshExpansion1::evaluate(const bit_vector_t& s)
 {
   assert(s.size() == _linear.size());
 

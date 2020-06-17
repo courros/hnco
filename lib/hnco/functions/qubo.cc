@@ -135,7 +135,7 @@ Qubo::load(std::istream& stream)
 
 
 double
-Qubo::eval(const bit_vector_t& x)
+Qubo::evaluate(const bit_vector_t& x)
 {
   assert(x.size() == _q.size());
 

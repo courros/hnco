@@ -46,7 +46,7 @@ ParsedRealMultivariateFunction::ParsedRealMultivariateFunction(std::string expre
 
 
 double
-ParsedRealMultivariateFunction::eval(const std::vector<double> x)
+ParsedRealMultivariateFunction::evaluate(const std::vector<double> x)
 {
   return _fparser.Eval(x.data());
 }

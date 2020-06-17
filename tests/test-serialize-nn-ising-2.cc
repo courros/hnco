@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 
     for (int j = 0; j < 1000; j++) {
       bv_random(bv);
-      if (src.eval(bv) != dest.eval(bv))
+      if (src.evaluate(bv) != dest.evaluate(bv))
         return 1;
     }
 

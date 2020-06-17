@@ -41,7 +41,7 @@ NearestNeighborIsingModel1::resize(int n)
 
 
 double
-NearestNeighborIsingModel1::eval(const bit_vector_t& s)
+NearestNeighborIsingModel1::evaluate(const bit_vector_t& s)
 {
   assert(_coupling.size() > 0);
   assert(s.size() == _coupling.size());

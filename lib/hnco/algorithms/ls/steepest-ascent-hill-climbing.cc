@@ -46,7 +46,7 @@ SteepestAscentHillClimbing::init(const bit_vector_t& x)
   assert(_function);
   assert(_neighborhood);
 
-  init(x, _function->eval(x));
+  init(x, _function->evaluate(x));
 }
 
 
@@ -75,14 +75,14 @@ SteepestAscentHillClimbing::iterate()
 
   // First element
   const bit_vector_t& bv = _neighborhood->next();
-  double best_value = _function->eval(bv);
+  double best_value = _function->evaluate(bv);
   size_t index = 0;
   _candidates[index++] = bv;
 
   // Other elements
   while (_neighborhood->has_next()) {
     const bit_vector_t& bv = _neighborhood->next(); // Hides previous bv
-    double value = _function->eval(bv);
+    double value = _function->evaluate(bv);
     if (value > best_value) {
       best_value = value;
       index = 0;

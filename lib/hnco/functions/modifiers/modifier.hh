@@ -86,7 +86,7 @@ namespace modifier {
     ///@{
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
     /// Incrementally evaluate a bit vector
     double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
@@ -151,7 +151,7 @@ namespace modifier {
     ///@}
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
 
     /** @name Display
@@ -191,7 +191,7 @@ namespace modifier {
 
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
   };
 

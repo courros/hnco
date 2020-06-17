@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     bit_vector_t bv(bv_size);
     for (int t = 0; t < 1000; t++) {
       bv_random(bv);
-      if (destination.eval(bv) != source.eval(bv) * norm)
+      if (destination.evaluate(bv) != source.evaluate(bv) * norm)
         return 1;
     }
 

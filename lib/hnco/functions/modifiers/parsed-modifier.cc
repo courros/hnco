@@ -44,8 +44,8 @@ ParsedModifier::ParsedModifier(Function *function, std::string expression):
 
 
 double
-ParsedModifier::eval(const bit_vector_t& x)
+ParsedModifier::evaluate(const bit_vector_t& x)
 {
-  _values[0] = _function->eval(x);
+  _values[0] = _function->evaluate(x);
   return _fparser.Eval(_values);
 }

@@ -32,7 +32,7 @@ using namespace hnco::function;
 
 
 double
-OneMax::eval(const bit_vector_t& x)
+OneMax::evaluate(const bit_vector_t& x)
 {
   return bv_hamming_weight(x);
 }
@@ -50,7 +50,7 @@ OneMax::evaluate_incrementally(const bit_vector_t& x, double v, const hnco::spar
 }
 
 double
-LeadingOnes::eval(const bit_vector_t& x)
+LeadingOnes::evaluate(const bit_vector_t& x)
 {
   size_t i = 0;
   for (;i < x.size(); i++)
@@ -60,7 +60,7 @@ LeadingOnes::eval(const bit_vector_t& x)
 }
 
 double
-Needle::eval(const bit_vector_t& x)
+Needle::evaluate(const bit_vector_t& x)
 {
   for (size_t i = 0; i < x.size(); i++)
     if (x[i] == 0)
@@ -84,7 +84,7 @@ Hiff::Hiff(int bv_size):
 }
 
 double
-Hiff::eval(const bit_vector_t& x)
+Hiff::evaluate(const bit_vector_t& x)
 {
   double result = 0;
   for (int i = 0, num_blocks = _bv_size, block_size = 1; i <= _depth; i++, num_blocks /= 2, block_size *= 2) {
@@ -104,7 +104,7 @@ Hiff::eval(const bit_vector_t& x)
 
 
 double
-Ridge::eval(const bit_vector_t& x)
+Ridge::evaluate(const bit_vector_t& x)
 {
   bit_vector_t::const_iterator it = find(x.begin(), x.end(), 0);
 
@@ -119,7 +119,7 @@ Ridge::eval(const bit_vector_t& x)
 
 
 double
-Plateau::eval(const bit_vector_t& x)
+Plateau::evaluate(const bit_vector_t& x)
 {
   bit_vector_t::const_iterator it = find(x.begin(), x.end(), 0);
 

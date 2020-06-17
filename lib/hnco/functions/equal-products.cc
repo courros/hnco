@@ -30,7 +30,7 @@ using namespace hnco::function;
 
 
 double
-EqualProducts::eval(const bit_vector_t& s)
+EqualProducts::evaluate(const bit_vector_t& s)
 {
   double p0 = 1;
   double p1 = 1;

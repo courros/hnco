@@ -41,7 +41,7 @@ Jump::Jump(int bv_size, int gap):
 
 
 double
-Jump::eval(const bit_vector_t& x)
+Jump::evaluate(const bit_vector_t& x)
 {
   assert(int(x.size()) == _bv_size);
 
@@ -71,7 +71,7 @@ DeceptiveJump::DeceptiveJump(int bv_size, int gap):
 
 
 double
-DeceptiveJump::eval(const bit_vector_t& x)
+DeceptiveJump::evaluate(const bit_vector_t& x)
 {
   assert(int(x.size()) == _bv_size);
 

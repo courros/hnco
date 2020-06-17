@@ -120,7 +120,7 @@ namespace function {
     int get_bv_size() { return _partial_functions.size(); }
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
     /// Display
     void display(std::ostream& stream);

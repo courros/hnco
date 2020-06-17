@@ -41,7 +41,7 @@ LinearFunction::get_maximum()
 
 
 double
-LinearFunction::eval(const bit_vector_t& x)
+LinearFunction::evaluate(const bit_vector_t& x)
 {
   assert(x.size() == _weights.size());
 

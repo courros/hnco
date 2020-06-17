@@ -42,11 +42,11 @@ SimulatedAnnealing::init_beta()
   int count = 0;
   for (int i = 0; i < _num_trials; i++) {
     bv_random(bv);
-    double a = _function->eval(bv);
+    double a = _function->evaluate(bv);
     update_solution(bv, a);
     _neighborhood->set_origin(bv);
     _neighborhood->propose();
-    double b = _function->eval(_neighborhood->get_candidate());
+    double b = _function->evaluate(_neighborhood->get_candidate());
     update_solution(_neighborhood->get_candidate(), b);
     if (b < a) {
       delta += b - a;
@@ -79,7 +79,7 @@ SimulatedAnnealing::iterate()
   assert(_function);
 
   _neighborhood->propose();
-  double value = _function->eval(_neighborhood->get_candidate());
+  double value = _function->evaluate(_neighborhood->get_candidate());
 
   if (value >= _current_value) {
     _neighborhood->keep();

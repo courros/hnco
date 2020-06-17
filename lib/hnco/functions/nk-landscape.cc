@@ -66,7 +66,7 @@ NkLandscape::random_structure(int n, int k)
 
 
 double
-NkLandscape::eval(const bit_vector_t& s)
+NkLandscape::evaluate(const bit_vector_t& s)
 {
   double result = 0;
 

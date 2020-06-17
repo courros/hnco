@@ -43,7 +43,7 @@ namespace real {
     virtual int get_dimension() = 0;
 
     /// Evaluate a real vector
-    virtual double eval(const std::vector<double> x) = 0;
+    virtual double evaluate(const std::vector<double> x) = 0;
 
   };
 
@@ -70,7 +70,7 @@ namespace real {
     int get_dimension() { return _num_variables; }
 
     /// Evaluate a real vector
-    double eval(const std::vector<double> x);
+    double evaluate(const std::vector<double> x);
 
   };
 

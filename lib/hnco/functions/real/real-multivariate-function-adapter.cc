@@ -42,10 +42,10 @@ RealMultivariateFunctionAdapter::convert(const bit_vector_t& x)
 
 
 double
-RealMultivariateFunctionAdapter::eval(const bit_vector_t& x)
+RealMultivariateFunctionAdapter::evaluate(const bit_vector_t& x)
 {
   convert(x);
-  return _function->eval(_rv);
+  return _function->evaluate(_rv);
 }
 
 

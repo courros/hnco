@@ -47,7 +47,7 @@ FirstAscentHillClimbing::init(const bit_vector_t& x)
   assert(_function);
   assert(_neighborhood);
 
-  init(x, _function->eval(x));
+  init(x, _function->evaluate(x));
 }
 
 
@@ -56,7 +56,7 @@ FirstAscentHillClimbing::init(const bit_vector_t& x, double value)
 {
   assert(_function);
   assert(_neighborhood);
-  assert(value == _function->eval(x));
+  assert(value == _function->evaluate(x));
 
   set_solution(x, value);
   _neighborhood->set_origin(_solution.first);
@@ -72,7 +72,7 @@ FirstAscentHillClimbing::iterate()
   _neighborhood->init();
   while (_neighborhood->has_next()) {
     const bit_vector_t& bv = _neighborhood->next();
-    double value = _function->eval(bv);
+    double value = _function->evaluate(bv);
     if (value > _solution.second) {
       _solution.first = bv;
       _solution.second = value;

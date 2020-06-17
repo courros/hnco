@@ -40,7 +40,7 @@ hnco::function::compute_walsh_transform(function::Function *fn, std::vector<func
   bv_it.init();
   while (bv_it.has_next()) {
     const bit_vector_t& x = bv_it.next();
-    double value = fn->eval(x);
+    double value = fn->evaluate(x);
 
     features_it.init();
     while (features_it.has_next()) {
@@ -74,11 +74,11 @@ hnco::function::compute_walsh_transform(function::Function *fn, std::vector<func
 bool
 hnco::function::bv_is_locally_maximal(const bit_vector_t& bv, Function& fn, hnco::neighborhood::NeighborhoodIterator& it)
 {
-  double value = fn.eval(bv);
+  double value = fn.evaluate(bv);
   it.set_origin(bv);
   it.init();
   while (it.has_next()) {
-    if (fn.eval(it.next()) > value)
+    if (fn.evaluate(it.next()) > value)
       return false;
   }
   return true;
@@ -88,5 +88,5 @@ bool
 hnco::function::bv_is_globally_maximal(const bit_vector_t& bv, Function& fn)
 {
   assert(fn.has_known_maximum());
-  return fn.eval(bv) == fn.get_maximum();
+  return fn.evaluate(bv) == fn.get_maximum();
 }

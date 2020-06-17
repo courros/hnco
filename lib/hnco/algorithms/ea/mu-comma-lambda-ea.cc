@@ -53,9 +53,9 @@ MuCommaLambdaEa::iterate()
   }
 
   if (_functions.size() > 1)
-    _offsprings.eval(_functions);
+    _offsprings.evaluate(_functions);
   else
-    _offsprings.eval(_function);
+    _offsprings.evaluate(_function);
 
   _offsprings.shuffle();
   _offsprings.partial_sort(_parents.size());

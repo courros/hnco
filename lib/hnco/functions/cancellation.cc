@@ -69,7 +69,7 @@ SummationCancellation::convert(const bit_vector_t& x)
 
 
 double
-SummationCancellation::eval(const bit_vector_t& x)
+SummationCancellation::evaluate(const bit_vector_t& x)
 {
   convert(x);
   partial_sum(_buffer.begin(), _buffer.end(), _buffer.begin());
@@ -80,7 +80,7 @@ SummationCancellation::eval(const bit_vector_t& x)
 
 
 double
-SinusSummationCancellation::eval(const bit_vector_t& x)
+SinusSummationCancellation::evaluate(const bit_vector_t& x)
 {
   convert(x);
   for (size_t i = 1; i < _buffer.size(); i++)

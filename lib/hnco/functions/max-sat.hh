@@ -109,7 +109,7 @@ namespace function {
     void random(const bit_vector_t& solution, int k, int c);
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
   };
 
@@ -135,7 +135,7 @@ namespace function {
     void load(std::istream& stream);
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
   };
 

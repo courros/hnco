@@ -161,10 +161,10 @@ namespace algorithm {
     ///@{
 
     /// Evaluate the population
-    void eval(function::Function *function);
+    void evaluate(function::Function *function);
 
-    /// Parallel evaluation of the population
-    void eval(const std::vector<function::Function *>& functions);
+    /// Evaluate the population in parallel
+    void evaluate(const std::vector<function::Function *>& functions);
 
     /// Sort the lookup table
     void sort() { std::sort(_lookup.begin(), _lookup.end(), _compare_index_value); }

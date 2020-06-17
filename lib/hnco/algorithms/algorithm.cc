@@ -33,7 +33,7 @@ Algorithm::random_solution()
   assert(_function);
 
   bv_random(_solution.first);
-  _solution.second = _function->eval(_solution.first);
+  _solution.second = _function->evaluate(_solution.first);
 }
 
 void
@@ -48,7 +48,7 @@ Algorithm::set_solution(const bit_vector_t& x)
 {
   assert(_function);
 
-  set_solution(x, _function->eval(x));
+  set_solution(x, _function->evaluate(x));
 }
 
 void
@@ -72,5 +72,5 @@ Algorithm::update_solution(const bit_vector_t& x)
 {
   assert(_function);
 
-  update_solution(x, _function->eval(x));
+  update_solution(x, _function->evaluate(x));
 }

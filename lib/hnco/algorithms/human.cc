@@ -60,7 +60,7 @@ Human::init()
   assert(_function);
 
   parse_bit_vector();
-  double value = _function->eval(_candidate);
+  double value = _function->evaluate(_candidate);
   std::cout << "value: " << value << std::endl;
   set_solution(_candidate, value);
 }
@@ -70,7 +70,7 @@ void
 Human::iterate()
 {
   parse_bit_vector();
-  double value = _function->eval(_candidate);
+  double value = _function->evaluate(_candidate);
   std::cout << "value: " << value << std::endl;
   update_solution(_candidate, value);
 }

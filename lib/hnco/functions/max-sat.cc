@@ -259,7 +259,7 @@ MaxSat::random(const bit_vector_t& solution, int k, int c)
 
 
 double
-MaxSat::eval(const bit_vector_t& x)
+MaxSat::evaluate(const bit_vector_t& x)
 {
   double result = 0;
 
@@ -289,7 +289,7 @@ MaxNae3Sat::load(std::istream& stream)
 
 
 double
-MaxNae3Sat::eval(const bit_vector_t& x)
+MaxNae3Sat::evaluate(const bit_vector_t& x)
 {
   double result = 0;
 

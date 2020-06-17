@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
       return 1;
     }
     if (options.with_print_results())
-      std::cout << fn->eval(x) << std::endl;
+      std::cout << fn->evaluate(x) << std::endl;
     if (options.with_print_description())
       fn->describe(x, std::cout);
     return 0;

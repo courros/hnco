@@ -29,11 +29,11 @@ using namespace hnco::function::controller;
 
 
 double
-StopOnMaximum::eval(const bit_vector_t& x)
+StopOnMaximum::evaluate(const bit_vector_t& x)
 {
   assert(_function->has_known_maximum());
 
-  double result = _function->eval(x);
+  double result = _function->evaluate(x);
   if (result == _function->get_maximum())
     throw MaximumReached(std::make_pair(x, result));
   return result;
@@ -64,9 +64,9 @@ StopOnMaximum::update(const bit_vector_t& x, double value)
 
 
 double
-StopOnTarget::eval(const bit_vector_t& x)
+StopOnTarget::evaluate(const bit_vector_t& x)
 {
-  double result = _function->eval(x);
+  double result = _function->evaluate(x);
   if (result >= _target)
     throw TargetReached(std::make_pair(x, result));
   return result;
@@ -93,9 +93,9 @@ StopOnTarget::update(const bit_vector_t& x, double value)
 
 
 double
-CallCounter::eval(const bit_vector_t& x)
+CallCounter::evaluate(const bit_vector_t& x)
 {
-  double result = _function->eval(x);
+  double result = _function->evaluate(x);
   _num_calls++;
   return result;
 }
@@ -119,11 +119,11 @@ CallCounter::update(const bit_vector_t& x, double value)
 
 
 double
-OnBudgetFunction::eval(const bit_vector_t& x)
+OnBudgetFunction::evaluate(const bit_vector_t& x)
 {
   if (_num_calls == _budget)
     throw LastEvaluation();
-  double result = _function->eval(x);
+  double result = _function->evaluate(x);
   _num_calls++;
   return result;
 }
@@ -151,11 +151,11 @@ OnBudgetFunction::update(const bit_vector_t& x, double value)
 
 
 double
-ProgressTracker::eval(const bit_vector_t& x)
+ProgressTracker::evaluate(const bit_vector_t& x)
 {
   double result;
   _stop_watch.start();
-  result = _function->eval(x);
+  result = _function->evaluate(x);
   _stop_watch.stop();
   update_last_improvement(result);
   return result;
@@ -213,7 +213,7 @@ std::ostream& hnco::function::controller::operator<<(std::ostream& stream, const
 
 
 double
-Cache::eval(const bit_vector_t& x)
+Cache::evaluate(const bit_vector_t& x)
 {
   assert(x.size() == _key.size());
 
@@ -223,7 +223,7 @@ Cache::eval(const bit_vector_t& x)
   auto iter = _cache.find(_key);
 
   if (iter == _cache.end()) {
-    double v = _function->eval(x);
+    double v = _function->evaluate(x);
     auto pair = std::pair<std::vector<bool>, double>(_key, v);
     _cache.insert(pair);
     return v;

@@ -39,20 +39,20 @@ Population::random()
 
 
 void
-Population::eval(Function *function)
+Population::evaluate(Function *function)
 {
   assert(function);
   assert(_bvs.size() == _lookup.size());
 
   for (size_t i = 0; i < _bvs.size(); i++) {
     _lookup[i].first = i;
-    _lookup[i].second = function->eval(_bvs[i]);
+    _lookup[i].second = function->evaluate(_bvs[i]);
   }
 
 }
 
 void
-Population::eval(const std::vector<function::Function *>& fns)
+Population::evaluate(const std::vector<function::Function *>& fns)
 {
   assert(_bvs.size() == _lookup.size());
   assert(fns.size() > 1);

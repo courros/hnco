@@ -178,7 +178,7 @@ namespace function {
     int get_bv_size() { return _quadratic.size(); }
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
   };
 

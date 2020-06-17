@@ -66,7 +66,7 @@ FourPeaks::FourPeaks(int bv_size, int threshold):
   }
 }
 
-double FourPeaks::eval(const bit_vector_t& x)
+double FourPeaks::evaluate(const bit_vector_t& x)
 {
   int h1 = head(x, 1);
   int t0 = tail(x, 0);
@@ -90,7 +90,7 @@ SixPeaks::SixPeaks(int bv_size, int threshold):
   }
 }
 
-double SixPeaks::eval(const bit_vector_t& x)
+double SixPeaks::evaluate(const bit_vector_t& x)
 {
   int h0 = head(x, 0);
   int h1 = head(x, 1);

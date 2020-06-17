@@ -49,7 +49,7 @@ WalshExpansion2::resize(int n)
 
 
 double
-WalshExpansion2::eval(const bit_vector_t& s)
+WalshExpansion2::evaluate(const bit_vector_t& s)
 {
   assert(s.size() == _linear.size());
   assert(s.size() == _quadratic.size());

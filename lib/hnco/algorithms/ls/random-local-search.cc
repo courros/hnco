@@ -44,7 +44,7 @@ RandomLocalSearch::init(const bit_vector_t& x)
   assert(_function);
   assert(_neighborhood);
 
-  init(x, _function->eval(x));
+  init(x, _function->evaluate(x));
 }
 
 
@@ -90,7 +90,7 @@ RandomLocalSearch::iterate_full()
   assert(_neighborhood);
 
   _neighborhood->propose();
-  double value = _function->eval(_neighborhood->get_candidate());
+  double value = _function->evaluate(_neighborhood->get_candidate());
 
   if (_compare(value, _solution.second)) {
     // success

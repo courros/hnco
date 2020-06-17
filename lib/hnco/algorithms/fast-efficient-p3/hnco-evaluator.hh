@@ -58,7 +58,7 @@ namespace fast_efficient_p3 {
       assert(x.size() == _bv.size());
 
       bv_from_vector_bool(_bv, x);
-      return _function->eval(_bv);
+      return _function->evaluate(_bv);
     }
 
   };

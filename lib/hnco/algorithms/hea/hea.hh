@@ -153,9 +153,9 @@ namespace hea {
         _delta_cache = _herding->get_delta().norm_2();
 
       if (_functions.size() > 1)
-        _population.eval(_functions);
+        _population.evaluate(_functions);
       else
-        _population.eval(_function);
+        _population.evaluate(_function);
 
       _population.sort();
 

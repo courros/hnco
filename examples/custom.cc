@@ -43,7 +43,7 @@ public:
 
   int get_bv_size() { return _bv_size; }
 
-  double eval(const bit_vector_t& x) {
+  double evaluate(const bit_vector_t& x) {
     int result = 0;
     for (int i = 0; i < _bv_size; i++)
       if (x[i])

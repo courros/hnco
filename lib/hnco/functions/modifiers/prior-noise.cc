@@ -26,8 +26,8 @@ using namespace hnco::function::modifier;
 
 
 double
-PriorNoise::eval(const bit_vector_t& x)
+PriorNoise::evaluate(const bit_vector_t& x)
 {
   _neighborhood->map(x, _noisy_bv);
-  return _function->eval(_noisy_bv);
+  return _function->evaluate(_noisy_bv);
 }

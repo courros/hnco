@@ -38,7 +38,7 @@ GeneticAlgorithm::init()
   _parents.set_tournament_size(_tournament_size);
 
   _parents.random();
-  _parents.eval(_function);
+  _parents.evaluate(_function);
   _parents.sort();
 
   set_solution(_parents.get_best_bv(),
@@ -63,9 +63,9 @@ GeneticAlgorithm::iterate()
   }
 
   if (_functions.size() > 1)
-    _offsprings.eval(_functions);
+    _offsprings.evaluate(_functions);
   else
-    _offsprings.eval(_function);
+    _offsprings.evaluate(_function);
 
   _offsprings.shuffle();
   _offsprings.partial_sort(_parents.size());

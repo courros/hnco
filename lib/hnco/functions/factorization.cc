@@ -91,7 +91,7 @@ Factorization::convert(const bit_vector_t& x)
 
 
 double
-Factorization::eval(const bit_vector_t& x)
+Factorization::evaluate(const bit_vector_t& x)
 {
   convert(x);
 

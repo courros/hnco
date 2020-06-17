@@ -31,7 +31,7 @@ using namespace hnco::function;
 
 
 double
-WalshExpansion::eval(const bit_vector_t& x)
+WalshExpansion::evaluate(const bit_vector_t& x)
 {
   double result = 0;
   for (size_t i = 0; i < _terms.size(); i++) {

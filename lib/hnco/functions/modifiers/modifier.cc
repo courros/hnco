@@ -29,9 +29,9 @@ using namespace hnco::function::modifier;
 
 
 double
-Negation::eval(const bit_vector_t& x)
+Negation::evaluate(const bit_vector_t& x)
 {
-  return -_function->eval(x);
+  return -_function->evaluate(x);
 }
 
 
@@ -43,10 +43,10 @@ Negation::evaluate_incrementally(const bit_vector_t& x, double value, const hnco
 
 
 double
-FunctionMapComposition::eval(const bit_vector_t& x)
+FunctionMapComposition::evaluate(const bit_vector_t& x)
 {
   _map->map(x, _bv);
-  return _function->eval(_bv);
+  return _function->evaluate(_bv);
 }
 
 void
@@ -60,7 +60,7 @@ FunctionMapComposition::describe(const bit_vector_t& x, std::ostream& stream)
 
 
 double
-AdditiveGaussianNoise::eval(const bit_vector_t& x)
+AdditiveGaussianNoise::evaluate(const bit_vector_t& x)
 {
-  return _function->eval(x) + _dist(random::Generator::engine);
+  return _function->evaluate(x) + _dist(random::Generator::engine);
 }

@@ -51,7 +51,7 @@ AbstractLabs::compute_autocorrelation(const bit_vector_t& x)
 
 
 double
-Labs::eval(const bit_vector_t& x)
+Labs::evaluate(const bit_vector_t& x)
 {
   assert(x.size() == _sequence.size());
 
@@ -59,7 +59,7 @@ Labs::eval(const bit_vector_t& x)
 }
 
 double
-LabsMeritFactor::eval(const bit_vector_t& x)
+LabsMeritFactor::evaluate(const bit_vector_t& x)
 {
   assert(x.size() == _sequence.size());
 

@@ -169,7 +169,7 @@ namespace function {
 
         Complexity: O(n)
     */
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
     /// Incrementally evaluate a bit vector
     double evaluate_incrementally(const bit_vector_t& x, double v, const sparse_bit_vector_t& flipped_bits);

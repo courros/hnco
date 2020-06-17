@@ -86,7 +86,7 @@ namespace modifier {
     ///@{
 
     /// Evaluate a bit vector
-    double eval(const bit_vector_t&);
+    double evaluate(const bit_vector_t&);
 
     ///@}
 
