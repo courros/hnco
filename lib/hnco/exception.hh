@@ -35,15 +35,15 @@ namespace exception {
   /// Basic exception
   class Exception {};
 
-  /// Solution exception
-  class SolutionException:
+  /// Solution found
+  class SolutionFound:
     public Exception {
   protected:
     /// Solution
     algorithm::solution_t _solution;
   public:
     /// Constructor
-    SolutionException(const algorithm::solution_t& solution):
+    SolutionFound(const algorithm::solution_t& solution):
       _solution(solution) {}
     /// Get solution
     const algorithm::solution_t& get_solution() const { return _solution; }
@@ -51,29 +51,29 @@ namespace exception {
 
   /// Maximum reached
   class MaximumReached:
-    public SolutionException {
+    public SolutionFound {
   public:
     /// Constructor
     MaximumReached(const algorithm::solution_t& solution):
-      SolutionException(solution) {}
+      SolutionFound(solution) {}
   };
 
   /// Target reached
   class TargetReached:
-    public SolutionException {
+    public SolutionFound {
   public:
     /// Constructor
     TargetReached(const algorithm::solution_t& solution):
-      SolutionException(solution) {}
+      SolutionFound(solution) {}
   };
 
   /// Local maximum found
   class LocalMaximumFound:
-    public SolutionException {
+    public SolutionFound {
   public:
     /// Constructor
     LocalMaximumFound(const algorithm::solution_t& solution):
-      SolutionException(solution) {}
+      SolutionFound(solution) {}
   };
 
   /// Last evaluation
