@@ -1168,7 +1168,7 @@ void Options::print_help_ls(ostream& stream) const
   stream << "      --radius (type int, default to 2)" << endl;
   stream << "          Radius of Hamming ball or sphere" << endl;
   stream << "      --rls-patience (type int, default to 50)" << endl;
-  stream << "          Number of consecutive rejected moves before throwing LocalMaximum (<= 0 means infinite)" << endl;
+  stream << "          Number of consecutive rejected moves before throwing LocalMaximumFound (<= 0 means infinite)" << endl;
   stream << "      --rls-strict" << endl;
   stream << "          Strict (>) random local search" << endl;
   stream << "      --rw-log-value" << endl;

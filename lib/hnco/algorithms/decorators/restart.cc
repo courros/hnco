@@ -34,7 +34,7 @@ Restart::iterate()
   try {
     _algorithm->maximize();
   }
-  catch (LocalMaximum) {}
+  catch (LocalMaximumFound) {}
   _algorithm->finalize();
 
   if (_iteration == 0)

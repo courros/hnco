@@ -254,7 +254,7 @@ int main(int argc, char *argv[])
     algorithm->finalize();
     solution = algorithm->get_solution();
   }
-  catch (const LocalMaximum& e) {
+  catch (const LocalMaximumFound& e) {
     solution = e.get_solution();
   }
   catch (const MaximumReached& e) {

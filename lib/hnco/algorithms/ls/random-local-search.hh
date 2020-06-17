@@ -100,12 +100,12 @@ namespace algorithm {
     /** Set patience.
 
         Number of consecutive rejected moves before throwing a
-        LocalMaximum exception
+        LocalMaximumFound exception
 
         \param x Patience
 
         If x <= 0 then patience is considered infinite, meaning that
-        the algorithm will never throw any LocalMaximum exception.
+        the algorithm will never throw any LocalMaximumFound exception.
     */
     void set_patience(int x) { _patience = x; }
 

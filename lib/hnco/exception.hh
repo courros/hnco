@@ -67,12 +67,12 @@ namespace exception {
       SolutionException(solution) {}
   };
 
-  /// Local maximum
-  class LocalMaximum:
+  /// Local maximum found
+  class LocalMaximumFound:
     public SolutionException {
   public:
     /// Constructor
-    LocalMaximum(const algorithm::solution_t& solution):
+    LocalMaximumFound(const algorithm::solution_t& solution):
       SolutionException(solution) {}
   };
 

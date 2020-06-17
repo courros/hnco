@@ -69,13 +69,12 @@ namespace algorithm {
 
     /** Maximize.
 
-        Inside the loop:
-        - call iterate()
-        - call log()
+        It is essentially a loop which, at each iteration, calls
+        iterate() then log() only if _something_to_log is true.
 
-        \warning If an exception such as LocalMaximum is thrown by
-        iterate(), log() will not be called. However, hnco reports the
-        maximum at the end of the search. */
+        \warning If an exception such as LocalMaximumFound is thrown
+        by iterate(), log() will not be called.
+    */
     void maximize();
 
     ///@}
