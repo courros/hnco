@@ -20,7 +20,7 @@
 
 #include <assert.h>
 
-#include "random-local-search.hh"
+#include "local-search-algorithm.hh"
 
 
 using namespace hnco::algorithm;
@@ -29,120 +29,14 @@ using namespace hnco;
 
 
 void
-RandomLocalSearch::init()
+LocalSearchAlgorithm::init()
 {
   assert(_function);
   assert(_neighborhood);
 
-  random_solution();
-  _neighborhood->set_origin(_solution.first);
-  _num_failures = 0;
-}
-
-
-void
-RandomLocalSearch::init(const bit_vector_t& x)
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  init(x, _function->evaluate(x));
-}
-
-
-void
-RandomLocalSearch::init(const bit_vector_t& x, double value)
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  set_solution(x, value);
-  _neighborhood->set_origin(_solution.first);
-  _num_failures = 0;
-}
-
-
-void
-RandomLocalSearch::finalize()
-{
-  assert(_neighborhood);
-
-  _solution.first = _neighborhood->get_origin();
-  // _solution.second has been taken care of
-}
-
-
-void
-RandomLocalSearch::iterate()
-{
-  assert(_function);
-
-  if (_incremental_evaluation &&
-      _function->provides_incremental_evaluation())
-    iterate_incremental();
+  if (_randomize_bit_order)
+    random_solution();
   else
-    iterate_full();
-}
-
-
-void
-RandomLocalSearch::iterate_full()
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  _neighborhood->propose();
-  double value = _function->evaluate(_neighborhood->get_candidate());
-
-  if (_compare(value, _solution.second)) {
-    // success
-    _neighborhood->keep();
-    _solution.second = value;
-    _num_failures = 0;
-  } else {
-    // failure
-    _neighborhood->forget();
-    _num_failures++;
-  }
-
-  if (_patience > 0 &&
-      _num_failures == _patience)
-    {
-      _solution.first = _neighborhood->get_origin();
-      throw LocalMaximumFound(_solution);
-    }
-
-}
-
-
-void
-RandomLocalSearch::iterate_incremental()
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  _neighborhood->propose();
-  double value =
-    _function->evaluate_incrementally(_neighborhood->get_origin(),
-                                      _solution.second,
-                                      _neighborhood->get_flipped_bits());
-
-  if (_compare(value, _solution.second)) {
-    // success
-    _neighborhood->keep();
-    _solution.second = value;
-    _num_failures = 0;
-  } else {
-    // failure
-    _neighborhood->forget();
-    _num_failures++;
-  }
-
-  if (_patience > 0 &&
-      _num_failures == _patience)
-    {
-      _solution.first = _neighborhood->get_origin();
-      throw LocalMaximumFound(_solution);
-    }
-
+    set_solution(_starting_point);
+  _neighborhood->set_origin(_solution.first);
 }

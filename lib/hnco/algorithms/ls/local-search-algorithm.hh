@@ -18,14 +18,10 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_LS_RANDOM_LOCAL_SEARCH_H
-#define HNCO_ALGORITHMS_LS_RANDOM_LOCAL_SEARCH_H
-
-#include <functional>           // std::function
+#ifndef HNCO_ALGORITHMS_LS_LOCAL_SEARCH_ALGORITHM_H
+#define HNCO_ALGORITHMS_LS_LOCAL_SEARCH_ALGORITHM_H
 
 #include "hnco/algorithms/iterative-algorithm.hh"
-#include "hnco/exception.hh"
-
 #include "hnco/neighborhoods/neighborhood.hh"
 
 
@@ -33,30 +29,23 @@ namespace hnco {
 namespace algorithm {
 
 
-/// Random local search
-class RandomLocalSearch:
-    public IterativeAlgorithm {
+/// Local search algorithm
+class LocalSearchAlgorithm: public IterativeAlgorithm {
 
 protected:
 
+  /// Starting point
+  bit_vector_t _starting_point;
+
   /// Neighborhood
   neighborhood::Neighborhood *_neighborhood;
-
-  /// Number of failure
-  int _num_failures;
 
   /** @name Parameters
    */
   ///@{
 
-  /// Binary operator for comparing evaluations
-  std::function<bool(double, double)> _compare = std::greater_equal<double>();
-
-  /// Patience
-  int _patience = 50;
-
-  /// Incremental evaluation
-  bool _incremental_evaluation = false;
+  /// Random initialization
+  bool _random_initialization = true;
 
   ///@}
 
@@ -67,54 +56,28 @@ protected:
   /// Initialize
   void init() override;
 
-  /// Single iteration
-  void iterate() override;
-
   ///@}
-
-  /// Single iteration with full evaluation
-  void iterate_full();
-
-  /// Single iteration with incremental evaluation
-  void iterate_incremental();
 
 public:
 
   /// Constructor
-  RandomLocalSearch(int n, neighborhood::Neighborhood *neighborhood):
+  LocalSearchAlgorithm(int n, neighborhood::Neighborhood *neighborhood):
     IterativeAlgorithm(n),
+    _starting_point(n, 0),
     _neighborhood(neighborhood) {}
-
-  /// Explicit initialization
-  void init(const bit_vector_t& x);
-
-  /// Explicit initialization
-  void init(const bit_vector_t& x, double value);
-
-  /// Finalize
-  void finalize();
 
   /** @name Setters
    */
   ///@{
 
-  /// Set the binary operator for comparing evaluations
-  void set_compare(std::function<bool(double, double)> x) { _compare = x; }
+  /// Set random initialization
+  void set_random_initialization(bool random_initialization) { _random_initialization = random_initialization; }
 
-  /** Set patience.
+  /** Set the starting point.
 
-      Number of consecutive rejected moves before throwing a
-      LocalMaximumFound exception
-
-      \param x Patience
-
-      If x <= 0 then patience is considered infinite, meaning that
-      the algorithm will never throw any LocalMaximumFound exception.
+      \warning Evaluates the function once.
   */
-  void set_patience(int x) { _patience = x; }
-
-  /// Set incremental evaluation
-  void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }
+  void set_starting_point(const bit_vector_t& x) { _starting_point = x; }
 
   ///@}
 
