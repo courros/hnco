@@ -18,6 +18,8 @@
 
 */
 
+#include <assert.h>
+
 #include "random-local-search.hh"
 
 
