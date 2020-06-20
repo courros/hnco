@@ -74,7 +74,7 @@ public:
   /// Type for log flags
   typedef std::bitset<LAST_LOG> log_flags_t;
 
-private:
+protected:
 
   /// Moment
   Moment _target;

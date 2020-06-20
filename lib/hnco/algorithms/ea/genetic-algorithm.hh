@@ -51,6 +51,8 @@ namespace algorithm {
 class GeneticAlgorithm:
     public IterativeAlgorithm {
 
+protected:
+
   /// Parents
   TournamentSelection _parents;
 

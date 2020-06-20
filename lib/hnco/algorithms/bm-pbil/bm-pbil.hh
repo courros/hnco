@@ -98,7 +98,7 @@ public:
 
   };
 
-private:
+protected:
 
   /// Population
   Population _population;

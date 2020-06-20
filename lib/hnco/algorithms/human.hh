@@ -31,6 +31,8 @@ namespace algorithm {
 class Human:
     public IterativeAlgorithm {
 
+protected:
+
   /// Candidate
   bit_vector_t _candidate;
 
