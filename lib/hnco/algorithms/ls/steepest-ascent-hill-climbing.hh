@@ -47,8 +47,17 @@ namespace algorithm {
     /// Neighborhood
     neighborhood::NeighborhoodIterator *_neighborhood;
 
-    /// Single iteration
-    void iterate();
+  /** @name Loop
+   */
+  ///@{
+
+  /// Initialize
+  void init() override;
+
+  /// Single iteration
+  void iterate() override;
+
+  ///@}
 
   public:
 
@@ -57,9 +66,6 @@ namespace algorithm {
       IterativeAlgorithm(n),
       _candidates(n, bit_vector_t(n)),
       _neighborhood(neighborhood) {}
-
-    /// Initialization
-    void init();
 
     /// Explicit initialization
     void init(const bit_vector_t& x);
