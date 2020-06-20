@@ -23,6 +23,8 @@
 
 #include <functional>           // std::function
 
+#include "hnco/neighborhoods/neighborhood.hh"
+
 #include "local-search-algorithm.hh"
 
 
@@ -31,7 +33,8 @@ namespace algorithm {
 
 
 /// Random local search
-class RandomLocalSearch: public LocalSearchAlgorithm {
+class RandomLocalSearch:
+    public LocalSearchAlgorithm<neighborhood::Neighborhood> {
 
 protected:
 
@@ -75,7 +78,7 @@ public:
 
   /// Constructor
   RandomLocalSearch(int n, neighborhood::Neighborhood *neighborhood):
-    LocalSearchAlgorithm(n, neighborhood) {}
+    LocalSearchAlgorithm<neighborhood::Neighborhood>(n, neighborhood) {}
 
   /// Finalize
   void finalize();

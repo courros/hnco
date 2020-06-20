@@ -21,6 +21,8 @@
 #ifndef HNCO_ALGORITHMS_LS_RANDOM_WALK_H
 #define HNCO_ALGORITHMS_LS_RANDOM_WALK_H
 
+#include "hnco/neighborhoods/neighborhood.hh"
+
 #include "local-search-algorithm.hh"
 
 
@@ -36,7 +38,8 @@ namespace algorithm {
     optimization takes place as in random search, that is the best
     visited bit vector is remembered.
 */
-class RandomWalk: public LocalSearchAlgorithm {
+class RandomWalk:
+    public LocalSearchAlgorithm<neighborhood::Neighborhood> {
 
 protected:
 
@@ -74,7 +77,7 @@ public:
 
   /// Constructor
   RandomWalk(int n, neighborhood::Neighborhood *neighborhood):
-    LocalSearchAlgorithm(n, neighborhood) {}
+    LocalSearchAlgorithm<neighborhood::Neighborhood>(n, neighborhood) {}
 
   /** @name Setters
    */

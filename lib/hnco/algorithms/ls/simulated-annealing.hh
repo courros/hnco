@@ -21,11 +21,9 @@
 #ifndef HNCO_ALGORITHMS_LS_SIMULATED_ANNEALING_H
 #define HNCO_ALGORITHMS_LS_SIMULATED_ANNEALING_H
 
-#include <assert.h>
-
-#include "hnco/algorithms/iterative-algorithm.hh"
-
 #include "hnco/neighborhoods/neighborhood.hh"
+
+#include "local-search-algorithm.hh"
 
 
 namespace hnco {
@@ -42,12 +40,9 @@ namespace algorithm {
 
 */
 class SimulatedAnnealing:
-    public IterativeAlgorithm {
+    public LocalSearchAlgorithm<neighborhood::Neighborhood> {
 
 protected:
-
-  /// Neighborhood
-  neighborhood::Neighborhood *_neighborhood;
 
   /// Inverse temperature
   double _beta;
@@ -100,11 +95,7 @@ public:
 
   /// Constructor
   SimulatedAnnealing(int n, neighborhood::Neighborhood *neighborhood):
-    IterativeAlgorithm(n),
-    _neighborhood(neighborhood)
-  {
-    assert(neighborhood);
-  }
+    LocalSearchAlgorithm<neighborhood::Neighborhood>(n, neighborhood) {}
 
   /** @name Setters
    */
