@@ -22,7 +22,6 @@
 #define HNCO_ALGORITHMS_LS_RANDOM_WALK_H
 
 #include "hnco/algorithms/iterative-algorithm.hh"
-#include "hnco/exception.hh"
 
 #include "hnco/neighborhoods/neighborhood.hh"
 
@@ -50,6 +49,7 @@ protected:
   /// Value of the last visited bit vector
   double _value;
 
+
   /** @name Parameters
    */
   ///@{
@@ -58,6 +58,7 @@ protected:
   bool _incremental_evaluation = false;
 
   ///@}
+
 
   /** @name Loop
    */
@@ -73,6 +74,7 @@ protected:
   void log() override;
 
   ///@}
+
 
   /// Single iteration with full evaluation
   void iterate_full();
@@ -93,6 +95,7 @@ public:
   /// Explicit initialization
   void init(const bit_vector_t& x, double value);
 
+
   /** @name Setters
    */
   ///@{
@@ -104,6 +107,7 @@ public:
   void set_log_value() { _something_to_log = true; }
 
   ///@}
+
 
 };
 
