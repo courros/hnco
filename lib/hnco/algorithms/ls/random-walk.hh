@@ -21,9 +21,7 @@
 #ifndef HNCO_ALGORITHMS_LS_RANDOM_WALK_H
 #define HNCO_ALGORITHMS_LS_RANDOM_WALK_H
 
-#include "hnco/algorithms/iterative-algorithm.hh"
-
-#include "hnco/neighborhoods/neighborhood.hh"
+#include "local-search-algorithm.hh"
 
 
 namespace hnco {
@@ -38,17 +36,12 @@ namespace algorithm {
     optimization takes place as in random search, that is the best
     visited bit vector is remembered.
 */
-class RandomWalk:
-    public IterativeAlgorithm {
+class RandomWalk: public LocalSearchAlgorithm {
 
 protected:
 
-  /// Neighborhood
-  neighborhood::Neighborhood *_neighborhood;
-
   /// Value of the last visited bit vector
   double _value;
-
 
   /** @name Parameters
    */
@@ -59,13 +52,9 @@ protected:
 
   ///@}
 
-
   /** @name Loop
    */
   ///@{
-
-  /// Initialize
-  void init() override;
 
   /// Single iteration
   void iterate() override;
@@ -74,7 +63,6 @@ protected:
   void log() override;
 
   ///@}
-
 
   /// Single iteration with full evaluation
   void iterate_full();
@@ -86,15 +74,7 @@ public:
 
   /// Constructor
   RandomWalk(int n, neighborhood::Neighborhood *neighborhood):
-    IterativeAlgorithm(n),
-    _neighborhood(neighborhood) {}
-
-  /// Explicit initialization
-  void init(const bit_vector_t& x);
-
-  /// Explicit initialization
-  void init(const bit_vector_t& x, double value);
-
+    LocalSearchAlgorithm(n, neighborhood) {}
 
   /** @name Setters
    */

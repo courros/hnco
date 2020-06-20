@@ -24,40 +24,7 @@
 
 
 using namespace hnco::algorithm;
-using namespace hnco::exception;
 using namespace hnco;
-
-
-void
-RandomWalk::init()
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  random_solution();
-  _neighborhood->set_origin(_solution.first);
-}
-
-
-void
-RandomWalk::init(const bit_vector_t& x)
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  init(x, _function->evaluate(x));
-}
-
-
-void
-RandomWalk::init(const bit_vector_t& x, double value)
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  set_solution(x, value);
-  _neighborhood->set_origin(_solution.first);
-}
 
 
 void
