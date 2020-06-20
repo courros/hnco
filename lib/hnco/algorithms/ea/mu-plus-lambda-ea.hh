@@ -30,79 +30,85 @@
 namespace hnco {
 namespace algorithm {
 
-  /** (mu+lambda) EA.
+/** (mu+lambda) EA.
 
-      Reference:
+    Reference:
 
-      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
+    Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
-  */
-  class MuPlusLambdaEa:
+*/
+class MuPlusLambdaEa:
     public IterativeAlgorithm {
 
-    /// Parents
-    Population _parents;
+  /// Parents
+  Population _parents;
 
-    /// Offsprings
-    Population _offsprings;
+  /// Offsprings
+  Population _offsprings;
 
-    /// Mutation operator
-    neighborhood::BernoulliProcess _mutation;
+  /// Mutation operator
+  neighborhood::BernoulliProcess _mutation;
 
-    /// Select parent
-    std::uniform_int_distribution<int> _select_parent;
+  /// Select parent
+  std::uniform_int_distribution<int> _select_parent;
 
-    /** @name Parameters
-     */
-    ///@{
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Mutation probability
-    double _mutation_probability;
+  /// Mutation probability
+  double _mutation_probability;
 
-    /// Allow stay
-    bool _allow_stay = false;
+  /// Allow stay
+  bool _allow_stay = false;
 
-    ///@}
+  ///@}
 
-    /// Single iteration
-    void iterate();
+  /** @name Loop
+   */
+  ///@{
 
-  public:
+  /// Initialize
+  void init() override;
 
-    /** Constructor.
+  /// Single iteration
+  void iterate() override;
 
-        \param n Size of bit vectors
-        \param mu Parent population size
-        \param lambda Offspring population size
-    */
-    MuPlusLambdaEa(int n, int mu, int lambda):
-      IterativeAlgorithm(n),
-      _parents(mu, n),
-      _offsprings(lambda, n),
-      _mutation(n),
-      _select_parent(0, mu - 1),
-      _mutation_probability(1 / double(n)) {};
+  ///@}
 
-    /// Initialization
-    void init();
+public:
 
-    /** @name Setters
-     */
-    ///@{
+  /** Constructor.
 
-    /// Set the mutation probability
-    void set_mutation_probability(double x) { _mutation_probability = x; }
+      \param n Size of bit vectors
+      \param mu Parent population size
+      \param lambda Offspring population size
+  */
+  MuPlusLambdaEa(int n, int mu, int lambda):
+    IterativeAlgorithm(n),
+    _parents(mu, n),
+    _offsprings(lambda, n),
+    _mutation(n),
+    _select_parent(0, mu - 1),
+    _mutation_probability(1 / double(n)) {};
 
-    /** Set the flag _allow_stay.
+  /** @name Setters
+   */
+  ///@{
 
-        In case no mutation occurs allow the current bit vector to
-        stay unchanged.
-    */
-    void set_allow_stay(bool x) { _allow_stay = x; }
+  /// Set the mutation probability
+  void set_mutation_probability(double x) { _mutation_probability = x; }
 
-    ///@}
+  /** Set the flag _allow_stay.
 
-  };
+      In case no mutation occurs allow the current bit vector to
+      stay unchanged.
+  */
+  void set_allow_stay(bool x) { _allow_stay = x; }
+
+  ///@}
+
+};
 
 
 } // end of namespace algorithm
