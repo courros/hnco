@@ -27,6 +27,7 @@ using namespace hnco::algorithm;
 void
 IterativeAlgorithm::maximize()
 {
+  init();
   if (_num_iterations > 0) {
     for (_iteration = 0; _iteration < _num_iterations; _iteration++) {
       iterate();
