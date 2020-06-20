@@ -35,98 +35,104 @@ namespace hnco {
 namespace algorithm {
 
 
-  /** Genetic algorithm.
+/** Genetic algorithm.
 
-      - Tournament selection for reproduction
-      - Uniform crossover
-      - Mutation
-      - (mu, mu) selection (offspring population replaces parent population)
+    - Tournament selection for reproduction
+    - Uniform crossover
+    - Mutation
+    - (mu, mu) selection (offspring population replaces parent population)
 
-      Reference:
+    Reference:
 
-      J. H. Holland. 1975. Adaptation in natural and artificial
-      systems. University of Michigan Press, Ann Arbor.
+    J. H. Holland. 1975. Adaptation in natural and artificial
+    systems. University of Michigan Press, Ann Arbor.
 
-  */
-  class GeneticAlgorithm:
+*/
+class GeneticAlgorithm:
     public IterativeAlgorithm {
 
-    /// Parents
-    TournamentSelection _parents;
+  /// Parents
+  TournamentSelection _parents;
 
-    /// Offsprings
-    TournamentSelection _offsprings;
+  /// Offsprings
+  TournamentSelection _offsprings;
 
-    /// Mutation operator
-    neighborhood::BernoulliProcess _mutation;
+  /// Mutation operator
+  neighborhood::BernoulliProcess _mutation;
 
-    /// Do crossover
-    std::bernoulli_distribution _do_crossover;
+  /// Do crossover
+  std::bernoulli_distribution _do_crossover;
 
-    /// Uniform crossover
-    UniformCrossover _crossover;
+  /// Uniform crossover
+  UniformCrossover _crossover;
 
-    /** @name Parameters
-     */
-    ///@{
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Mutation probability
-    double _mutation_probability;
+  /// Mutation probability
+  double _mutation_probability;
 
-    /// Crossover probability
-    double _crossover_probability = 0.5;
+  /// Crossover probability
+  double _crossover_probability = 0.5;
 
-    /// Tournament size
-    int _tournament_size = 10;
+  /// Tournament size
+  int _tournament_size = 10;
 
-    /// Allow stay
-    bool _allow_stay = false;
+  /// Allow stay
+  bool _allow_stay = false;
 
-    ///@}
+  ///@}
 
-    /// Single iteration
-    void iterate();
+  /** @name Loop
+   */
+  ///@{
 
-  public:
+  /// Initialize
+  void init() override;
 
-    /** Constructor.
+  /// Single iteration
+  void iterate() override;
 
-        \param n Size of bit vectors
-        \param mu %Population size
-    */
-    GeneticAlgorithm(int n, int mu):
-      IterativeAlgorithm(n),
-      _parents(mu, n),
-      _offsprings(mu, n),
-      _mutation(n),
-      _mutation_probability(1 / double(n)) {}
+  ///@}
 
-    /// Initialization
-    void init();
+public:
 
-    /** @name Setters
-     */
-    ///@{
+  /** Constructor.
 
-    /// Set the mutation probability
-    void set_mutation_probability(double x) { _mutation_probability = x; }
+      \param n Size of bit vectors
+      \param mu %Population size
+  */
+  GeneticAlgorithm(int n, int mu):
+    IterativeAlgorithm(n),
+    _parents(mu, n),
+    _offsprings(mu, n),
+    _mutation(n),
+    _mutation_probability(1 / double(n)) {}
 
-    /// Set the crossover probability
-    void set_crossover_probability(double x) { _crossover_probability = x; }
+  /** @name Setters
+   */
+  ///@{
 
-    /// Set the tournament size
-    void set_tournament_size(int x) { _tournament_size = x; }
+  /// Set the mutation probability
+  void set_mutation_probability(double x) { _mutation_probability = x; }
 
-    /** Set the flag _allow_stay.
+  /// Set the crossover probability
+  void set_crossover_probability(double x) { _crossover_probability = x; }
 
-        In case no mutation occurs allow the current bit vector to
-        stay unchanged.
-    */
-    void set_allow_stay(bool x) { _allow_stay = x; }
+  /// Set the tournament size
+  void set_tournament_size(int x) { _tournament_size = x; }
 
-    ///@}
+  /** Set the flag _allow_stay.
 
-  };
+      In case no mutation occurs allow the current bit vector to
+      stay unchanged.
+  */
+  void set_allow_stay(bool x) { _allow_stay = x; }
+
+  ///@}
+
+};
 
 
 } // end of namespace algorithm
