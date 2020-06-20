@@ -21,8 +21,6 @@
 #ifndef HNCO_ALGORITHMS_PV_COMPACT_GA_H
 #define HNCO_ALGORITHMS_PV_COMPACT_GA_H
 
-#include <vector>
-
 #include "pv-algorithm.hh"
 
 
@@ -30,54 +28,60 @@ namespace hnco {
 namespace algorithm {
 
 
-  /** Compact genetic algorithm.
+/** Compact genetic algorithm.
 
-      Reference:
+    Reference:
 
-      Georges R. Harik, Fernando G. Lobo, and David
-      E. Goldberg. 1999. The Compact Genetic %Algorithm. IEEE
-      Trans. on Evolutionary Computation 3, 4 (November 1999),
-      287–297.
+    Georges R. Harik, Fernando G. Lobo, and David
+    E. Goldberg. 1999. The Compact Genetic %Algorithm. IEEE
+    Trans. on Evolutionary Computation 3, 4 (November 1999),
+    287–297.
 
-  */
-  class CompactGa:
-    public PvAlgorithm {
-  protected:
+*/
+class CompactGa: public PvAlgorithm {
 
-    /// Candidates
-    std::vector<bit_vector_t> _candidates;
+protected:
 
-    /** @name Parameters
-     */
-    ///@{
+  /// Candidates
+  std::vector<bit_vector_t> _candidates;
 
-    /// Learning rate
-    double _learning_rate = 1e-3;
+  /** @name Parameters
+   */
+  ///@{
 
-    ///@}
+  /// Learning rate
+  double _learning_rate = 1e-3;
 
-    /// Single iteration
-    void iterate();
+  ///@}
 
-  public:
-    /// Constructor
-    CompactGa(int n):
-      PvAlgorithm(n),
-      _candidates(2, bit_vector_t(n)) {}
+  /** @name Loop
+   */
+  ///@{
 
-    /// Initialization
-    void init();
+  /// Initialize
+  void init() override;
 
-    /** @name Setters
-     */
-    ///@{
+  /// Single iteration
+  void iterate() override;
 
-    /// Set the learning rate
-    void set_learning_rate(double x) { _learning_rate = x; }
+  ///@}
 
-    ///@}
+public:
+  /// Constructor
+  CompactGa(int n):
+    PvAlgorithm(n),
+    _candidates(2, bit_vector_t(n)) {}
 
-  };
+  /** @name Setters
+   */
+  ///@{
+
+  /// Set the learning rate
+  void set_learning_rate(double x) { _learning_rate = x; }
+
+  ///@}
+
+};
 
 
 } // end of namespace algorithm
