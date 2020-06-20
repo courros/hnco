@@ -37,88 +37,96 @@ namespace hnco {
 namespace algorithm {
 
 
-  /** (1+(lambda, lambda)) genetic algorithm.
+/** (1+(lambda, lambda)) genetic algorithm.
 
-      Reference:
+    Reference:
 
-      Benjamin Doerr, Carola Doerr, and Franziska Ebel. 2015. From
-      black-box complexity to designing new genetic
-      algorithms. Theoretical Computer Science 567 (2015), 87–104.
+    Benjamin Doerr, Carola Doerr, and Franziska Ebel. 2015. From
+    black-box complexity to designing new genetic
+    algorithms. Theoretical Computer Science 567 (2015), 87–104.
 
-  */
-  class OnePlusLambdaCommaLambdaGa:
+*/
+class OnePlusLambdaCommaLambdaGa:
     public IterativeAlgorithm {
 
-    /// Offsprings
-    Population _offsprings;
+protected:
 
-    /// Radius distribution
-    std::binomial_distribution<int> _radius_dist;
+  /// Offsprings
+  Population _offsprings;
 
-    /// Mutation operator
-    neighborhood::HammingSphere _mutation;
+  /// Radius distribution
+  std::binomial_distribution<int> _radius_dist;
 
-    /// Parent
-    bit_vector_t _parent;
+  /// Mutation operator
+  neighborhood::HammingSphere _mutation;
 
-    /// Biased crossover
-    BiasedCrossover _crossover;
+  /// Parent
+  bit_vector_t _parent;
 
-    /** @name Parameters
-     */
-    ///@{
+  /// Biased crossover
+  BiasedCrossover _crossover;
 
-    /// Mutation probability
-    double _mutation_probability;
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Crossover bias
-    double _crossover_bias;
+  /// Mutation probability
+  double _mutation_probability;
 
-    ///@}
+  /// Crossover bias
+  double _crossover_bias;
 
-    /// Single iteration
-    void iterate();
+  ///@}
 
-  public:
+  /** @name Loop
+   */
+  ///@{
 
-    /** Constructor.
+  /// Initialize
+  void init() override;
 
-        By default, _mutation_probability is set to lambda / n and
-        _crossover_bias to 1 / lambda.
+  /// Single iteration
+  void iterate() override;
 
-        \param n Size of bit vectors
-        \param lambda Offspring population size
-    */
-    OnePlusLambdaCommaLambdaGa(int n, int lambda):
-      IterativeAlgorithm(n),
-      _offsprings(lambda, n),
-      _mutation(n, 1),
-      _parent(n)
-    {
-      assert(n > 0);
-      assert(lambda > 0);
-      assert(lambda <= n);
+  ///@}
 
-      _mutation_probability = double(lambda) / double(n);
-      _crossover_bias = 1 / double(lambda);
-    }
+public:
 
-    /// Initialization
-    void init();
+  /** Constructor.
 
-    /** @name Setters
-     */
-    ///@{
+      By default, _mutation_probability is set to lambda / n and
+      _crossover_bias to 1 / lambda.
 
-    /// Set the mutation probability
-    void set_mutation_probability(double x) { _mutation_probability = x; }
+      \param n Size of bit vectors
+      \param lambda Offspring population size
+  */
+  OnePlusLambdaCommaLambdaGa(int n, int lambda):
+    IterativeAlgorithm(n),
+    _offsprings(lambda, n),
+    _mutation(n, 1),
+    _parent(n)
+  {
+    assert(n > 0);
+    assert(lambda > 0);
+    assert(lambda <= n);
 
-    /// Set the crossover bias
-    void set_crossover_bias(double x) { _crossover_bias = x; }
+    _mutation_probability = double(lambda) / double(n);
+    _crossover_bias = 1 / double(lambda);
+  }
 
-    ///@}
+  /** @name Setters
+   */
+  ///@{
 
-  };
+  /// Set the mutation probability
+  void set_mutation_probability(double x) { _mutation_probability = x; }
+
+  /// Set the crossover bias
+  void set_crossover_bias(double x) { _crossover_bias = x; }
+
+  ///@}
+
+};
 
 
 } // end of namespace algorithm
