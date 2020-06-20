@@ -40,9 +40,21 @@ namespace algorithm {
 
     /// Algorithm
     Algorithm *_algorithm;
-      
-    /// Optimize
-    void iterate();
+
+  /** @name Loop
+   */
+  ///@{
+
+    /// Initialize
+    void init() override {
+      _algorithm->set_function(_function);
+      _algorithm->set_functions(_functions);
+    }
+
+  /// Single iteration
+  void iterate() override;
+
+  ///@}
 
   public:
 
@@ -52,12 +64,6 @@ namespace algorithm {
       _algorithm(algorithm)
     {
       assert(algorithm);
-    }
-
-    /// Initialization
-    void init() {
-      _algorithm->set_function(_function);
-      _algorithm->set_functions(_functions);
     }
 
   };
