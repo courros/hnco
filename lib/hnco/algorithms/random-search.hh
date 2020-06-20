@@ -27,29 +27,35 @@
 namespace hnco {
 namespace algorithm {
 
-  /// Random search
-  class RandomSearch:
+/// Random search
+class RandomSearch:
     public IterativeAlgorithm {
 
-    /// Candidate
-    bit_vector_t _candidate;
+protected:
 
-  protected:
+  /// Candidate
+  bit_vector_t _candidate;
 
-    /// Single iteration
-    void iterate();
+  /** @name Loop
+   */
+  ///@{
 
-  public:
+  /// Initialize
+  void init() override;
 
-    /// Constructor
-    RandomSearch(int n):
-      IterativeAlgorithm(n),
-      _candidate(n) {}
+  /// Single iteration
+  void iterate() override;
 
-    /// Initialization
-    void init();
+  ///@}
 
-  };
+public:
+
+  /// Constructor
+  RandomSearch(int n):
+    IterativeAlgorithm(n),
+    _candidate(n) {}
+
+};
 
 } // end of namespace algorithm
 } // end of namespace hnco
