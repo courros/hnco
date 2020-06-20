@@ -31,35 +31,41 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// First ascent hill climbing
-  class FirstAscentHillClimbing:
+/// First ascent hill climbing
+class FirstAscentHillClimbing:
     public IterativeAlgorithm {
 
-  protected:
+protected:
 
-    /// Neighborhood
-    neighborhood::NeighborhoodIterator *_neighborhood;
+  /// Neighborhood
+  neighborhood::NeighborhoodIterator *_neighborhood;
 
-    /// Single iteration
-    void iterate();
+  /** @name Loop
+   */
+  ///@{
 
-  public:
+  /// Initialize
+  void init() override;
 
-    /// Constructor
-    FirstAscentHillClimbing(int n, neighborhood::NeighborhoodIterator *neighborhood):
-      IterativeAlgorithm(n),
-      _neighborhood(neighborhood) {}
+  /// Single iteration
+  void iterate() override;
 
-    /// Initialization
-    void init();
+  ///@}
 
-    /// Explicit initialization
-    void init(const bit_vector_t& x);
+public:
 
-    /// Explicit initialization
-    void init(const bit_vector_t& x, double value);
+  /// Constructor
+  FirstAscentHillClimbing(int n, neighborhood::NeighborhoodIterator *neighborhood):
+    IterativeAlgorithm(n),
+    _neighborhood(neighborhood) {}
 
-  };
+  /// Explicit initialization
+  void init(const bit_vector_t& x);
+
+  /// Explicit initialization
+  void init(const bit_vector_t& x, double value);
+
+};
 
 
 } // end of namespace algorithm
