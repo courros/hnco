@@ -65,8 +65,17 @@ namespace algorithm {
 
     ///@}
 
-    /// Single iteration
-    void iterate();
+  /** @name Loop
+   */
+  ///@{
+
+  /// Initialize
+  void init() override;
+
+  /// Single iteration
+  void iterate() override;
+
+  ///@}
 
   public:
 
@@ -76,9 +85,6 @@ namespace algorithm {
       _population(population_size, n),
       _mean_best(n),
       _mean_worst(n) {}
-
-    /// Initialization
-    void init();
 
     /** @name Setters
      */
