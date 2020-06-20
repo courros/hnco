@@ -27,32 +27,36 @@
 namespace hnco {
 namespace algorithm {
 
-  /// Human
-  class Human:
+/// Human
+class Human:
     public IterativeAlgorithm {
 
-    /// Candidate
-    bit_vector_t _candidate;
+  /// Candidate
+  bit_vector_t _candidate;
 
-    /// Parse bit vector
-    void parse_bit_vector();
+  /// Parse bit vector
+  void parse_bit_vector();
 
-  protected:
+  /** @name Loop
+   */
+  ///@{
 
-    /// Single iteration
-    void iterate();
+  /// Initialize
+  void init() override;
 
-  public:
+  /// Single iteration
+  void iterate() override;
 
-    /// Constructor
-    Human(int n):
-      IterativeAlgorithm(n),
-      _candidate(n) {}
+  ///@}
 
-    /// Initialization
-    void init();
+public:
 
-  };
+  /// Constructor
+  Human(int n):
+    IterativeAlgorithm(n),
+    _candidate(n) {}
+
+};
 
 } // end of namespace algorithm
 } // end of namespace hnco
