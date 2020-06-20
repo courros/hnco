@@ -91,7 +91,6 @@ namespace algorithm {
       _rls.set_num_iterations(_num_iterations);
       _rls.set_incremental_evaluation(_incremental_evaluation);
       _rls.set_patience(0);
-      _rls.init();
       _rls.maximize();
     }
 
