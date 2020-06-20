@@ -64,9 +64,8 @@ SimulatedAnnealing::init_beta()
 void
 SimulatedAnnealing::init()
 {
-  random_solution();
+  LocalSearchAlgorithm::init();
   init_beta();
-  _neighborhood->set_origin(_solution.first);
   _current_value = _solution.second;
   _transitions = 0;
 }
