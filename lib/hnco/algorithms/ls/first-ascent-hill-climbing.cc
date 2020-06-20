@@ -31,39 +31,6 @@ using namespace hnco;
 
 
 void
-FirstAscentHillClimbing::init()
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  random_solution();
-  _neighborhood->set_origin(_solution.first);
-}
-
-
-void
-FirstAscentHillClimbing::init(const bit_vector_t& x)
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  init(x, _function->evaluate(x));
-}
-
-
-void
-FirstAscentHillClimbing::init(const bit_vector_t& x, double value)
-{
-  assert(_function);
-  assert(_neighborhood);
-  assert(value == _function->evaluate(x));
-
-  set_solution(x, value);
-  _neighborhood->set_origin(_solution.first);
-}
-
-
-void
 FirstAscentHillClimbing::iterate()
 {
   assert(_function);

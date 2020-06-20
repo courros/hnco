@@ -18,7 +18,11 @@
 
 */
 
-#include <random>               // uniform_int_distribution
+#include <assert.h>
+
+#include <random>               // std::uniform_int_distribution
+
+#include "hnco/exception.hh"
 
 #include "steepest-ascent-hill-climbing.hh"
 
@@ -27,38 +31,6 @@ using namespace hnco::algorithm;
 using namespace hnco::exception;
 using namespace hnco::random;
 using namespace hnco;
-
-
-void
-SteepestAscentHillClimbing::init()
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  random_solution();
-  _neighborhood->set_origin(_solution.first);
-}
-
-
-void
-SteepestAscentHillClimbing::init(const bit_vector_t& x)
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  init(x, _function->evaluate(x));
-}
-
-
-void
-SteepestAscentHillClimbing::init(const bit_vector_t& x, double value)
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  set_solution(x, value);
-  _neighborhood->set_origin(_solution.first);
-}
 
 
 void
