@@ -40,7 +40,6 @@ int main()
   ea.set_num_iterations(100);
   ea.set_function(&fn);
 
-  ea.init();
   ea.maximize();
   ea.finalize();
 

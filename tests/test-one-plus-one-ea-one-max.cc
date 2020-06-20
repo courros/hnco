@@ -57,7 +57,6 @@ int main(int argc, char *argv[])
     solution_t solution;
 
     try {
-      algorithm.init();
       algorithm.maximize();
     }
     catch (const MaximumReached& e) {

@@ -46,7 +46,6 @@ int main()
   ea.set_function(&fn);
 
   try {
-    ea.init();
     ea.maximize();
     // finalize not necessary
   }

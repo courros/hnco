@@ -48,7 +48,6 @@ int main(int argc, char *argv[])
 
     CompleteSearch algorithm(bv_size);
     algorithm.set_function(&function);
-    algorithm.init();
     try { algorithm.maximize(); }
     catch (...) {
       return 1;
