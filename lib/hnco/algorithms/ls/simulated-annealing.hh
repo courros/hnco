@@ -44,7 +44,7 @@ namespace algorithm {
   class SimulatedAnnealing:
     public IterativeAlgorithm {
 
-  private:
+  protected:
 
     /// Neighborhood
     neighborhood::Neighborhood *_neighborhood;
@@ -76,6 +76,18 @@ namespace algorithm {
 
     ///@}
 
+  /** @name Loop
+   */
+  ///@{
+
+  /// Initialize
+  void init() override;
+
+  /// Single iteration
+  void iterate() override;
+
+  ///@}
+
     /** Initialize beta.
 
         Requires (2 * _num_trials) evaluations. This should be taken
@@ -83,9 +95,6 @@ namespace algorithm {
 
     */
     void init_beta();
-
-    /// Single iteration
-    void iterate();
 
   public:
 
@@ -96,9 +105,6 @@ namespace algorithm {
     {
       assert(neighborhood);
     }
-
-    /// Initialization
-    void init();
 
     /** @name Setters
      */
