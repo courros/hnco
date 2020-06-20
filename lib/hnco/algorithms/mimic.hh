@@ -87,6 +87,7 @@ protected:
 
   ///@}
 
+
   /** @name Loop
    */
   ///@{
@@ -98,6 +99,7 @@ protected:
   void iterate() override;
 
   ///@}
+
 
   /// Sample a bit vector
   void sample(bit_vector_t& bv);
