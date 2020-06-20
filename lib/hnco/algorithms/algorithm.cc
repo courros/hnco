@@ -61,16 +61,16 @@ Algorithm::update_solution(const bit_vector_t& x, double value)
 }
 
 void
-Algorithm::update_solution(const solution_t& pv)
-{
-  if (pv.second > _solution.second)
-    _solution = pv;
-}
-
-void
 Algorithm::update_solution(const bit_vector_t& x)
 {
   assert(_function);
 
   update_solution(x, _function->evaluate(x));
+}
+
+void
+Algorithm::update_solution(const solution_t& pv)
+{
+  if (pv.second > _solution.second)
+    _solution = pv;
 }
