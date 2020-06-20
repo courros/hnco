@@ -133,16 +133,7 @@ public:
   ///@{
 
   /// Set the selection size
-  void set_selection_size(int x) {
-
-    if (!(x > 0))
-      throw hnco::exception::Error("Mimic::set_selection_size: selection size must be positive");
-
-    if (!(x < int(_population.size())))
-      throw hnco::exception::Error("Mimic::set_selection_size: selection size must be lower than population size");
-
-    _selection_size = x;
-  }
+  void set_selection_size(int selection_size) { _selection_size = selection_size; }
 
   ///@}
 
