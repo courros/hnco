@@ -40,6 +40,8 @@ namespace algorithm {
 class MuPlusLambdaEa:
     public IterativeAlgorithm {
 
+protected:
+
   /// Parents
   Population _parents;
 
