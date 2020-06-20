@@ -22,7 +22,6 @@
 #define HNCO_ALGORITHMS_LS_LOCAL_SEARCH_ALGORITHM_H
 
 #include "hnco/algorithms/iterative-algorithm.hh"
-#include "hnco/neighborhoods/neighborhood.hh"
 
 
 namespace hnco {
@@ -30,6 +29,7 @@ namespace algorithm {
 
 
 /// Local search algorithm
+template<class Neighborhood>
 class LocalSearchAlgorithm: public IterativeAlgorithm {
 
 protected:
@@ -38,7 +38,7 @@ protected:
   bit_vector_t _starting_point;
 
   /// Neighborhood
-  neighborhood::Neighborhood *_neighborhood;
+  Neighborhood *_neighborhood;
 
   /** @name Parameters
    */
@@ -54,14 +54,23 @@ protected:
   ///@{
 
   /// Initialize
-  void init() override;
+  void init() override {
+    assert(_function);
+    assert(_neighborhood);
+
+    if (_random_initialization)
+      random_solution();
+    else
+      set_solution(_starting_point);
+    _neighborhood->set_origin(_solution.first);
+  }
 
   ///@}
 
 public:
 
   /// Constructor
-  LocalSearchAlgorithm(int n, neighborhood::Neighborhood *neighborhood):
+  LocalSearchAlgorithm(int n, Neighborhood *neighborhood):
     IterativeAlgorithm(n),
     _starting_point(n, 0),
     _neighborhood(neighborhood) {}
