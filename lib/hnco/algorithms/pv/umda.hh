@@ -55,8 +55,17 @@ namespace algorithm {
 
     ///@}
 
-    /// Single iteration
-    void iterate();
+  /** @name Loop
+   */
+  ///@{
+
+  /// Initialize
+  void init() override;
+
+  /// Single iteration
+  void iterate() override;
+
+  ///@}
 
   public:
 
@@ -64,9 +73,6 @@ namespace algorithm {
     Umda(int n, int population_size):
       PvAlgorithm(n),
       _population(population_size, n) {}
-
-    /// Initialization
-    void init();
 
     /** @name Setters
      */
