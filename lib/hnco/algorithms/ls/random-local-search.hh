@@ -21,8 +21,6 @@
 #ifndef HNCO_ALGORITHMS_LS_RANDOM_LOCAL_SEARCH_H
 #define HNCO_ALGORITHMS_LS_RANDOM_LOCAL_SEARCH_H
 
-#include <assert.h>
-
 #include <functional>           // std::function
 
 #include "hnco/algorithms/iterative-algorithm.hh"
@@ -35,86 +33,92 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// Random local search
-  class RandomLocalSearch:
+/// Random local search
+class RandomLocalSearch:
     public IterativeAlgorithm {
 
-  protected:
+protected:
 
-    /// Neighborhood
-    neighborhood::Neighborhood *_neighborhood;
+  /// Neighborhood
+  neighborhood::Neighborhood *_neighborhood;
 
-    /// Number of failure
-    int _num_failures;
+  /// Number of failure
+  int _num_failures;
 
-    /** @name Parameters
-     */
-    ///@{
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Binary operator for comparing evaluations
-    std::function<bool(double, double)> _compare = std::greater_equal<double>();
+  /// Binary operator for comparing evaluations
+  std::function<bool(double, double)> _compare = std::greater_equal<double>();
 
-    /// Patience
-    int _patience = 50;
+  /// Patience
+  int _patience = 50;
 
-    /// Incremental evaluation
-    bool _incremental_evaluation = false;
+  /// Incremental evaluation
+  bool _incremental_evaluation = false;
 
-    ///@}
+  ///@}
 
-    /// Single iteration
-    void iterate();
+  /** @name Loop
+   */
+  ///@{
 
-    /// Single iteration with full evaluation
-    void iterate_full();
+  /// Initialize
+  void init() override;
 
-    /// Single iteration with incremental evaluation
-    void iterate_incremental();
+  /// Single iteration
+  void iterate() override;
 
-  public:
+  ///@}
 
-    /// Constructor
-    RandomLocalSearch(int n, neighborhood::Neighborhood *neighborhood):
-      IterativeAlgorithm(n),
-      _neighborhood(neighborhood) {}
+  /// Single iteration with full evaluation
+  void iterate_full();
 
-    /// Initialization
-    void init();
+  /// Single iteration with incremental evaluation
+  void iterate_incremental();
 
-    /// Explicit initialization
-    void init(const bit_vector_t& x);
+public:
 
-    /// Explicit initialization
-    void init(const bit_vector_t& x, double value);
+  /// Constructor
+  RandomLocalSearch(int n, neighborhood::Neighborhood *neighborhood):
+    IterativeAlgorithm(n),
+    _neighborhood(neighborhood) {}
 
-    /// Finalize
-    void finalize();
+  /// Explicit initialization
+  void init(const bit_vector_t& x);
 
-    /** @name Setters
-     */
-    ///@{
+  /// Explicit initialization
+  void init(const bit_vector_t& x, double value);
 
-    /// Set the binary operator for comparing evaluations
-    void set_compare(std::function<bool(double, double)> x) { _compare = x; }
+  /// Finalize
+  void finalize();
 
-    /** Set patience.
+  /** @name Setters
+   */
+  ///@{
 
-        Number of consecutive rejected moves before throwing a
-        LocalMaximumFound exception
+  /// Set the binary operator for comparing evaluations
+  void set_compare(std::function<bool(double, double)> x) { _compare = x; }
 
-        \param x Patience
+  /** Set patience.
 
-        If x <= 0 then patience is considered infinite, meaning that
-        the algorithm will never throw any LocalMaximumFound exception.
-    */
-    void set_patience(int x) { _patience = x; }
+      Number of consecutive rejected moves before throwing a
+      LocalMaximumFound exception
 
-    /// Set incremental evaluation
-    void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }
+      \param x Patience
 
-    ///@}
+      If x <= 0 then patience is considered infinite, meaning that
+      the algorithm will never throw any LocalMaximumFound exception.
+  */
+  void set_patience(int x) { _patience = x; }
 
-  };
+  /// Set incremental evaluation
+  void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }
+
+  ///@}
+
+};
 
 
 } // end of namespace algorithm
