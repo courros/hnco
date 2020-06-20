@@ -21,8 +21,6 @@
 #ifndef HNCO_ALGORITHMS_PV_PV_ALGORITHM_H
 #define HNCO_ALGORITHMS_PV_PV_ALGORITHM_H
 
-#include <bitset>
-
 #include "hnco/algorithms/iterative-algorithm.hh"
 
 #include "probability-vector.hh"
@@ -31,67 +29,72 @@
 namespace hnco {
 namespace algorithm {
 
-  /// Probability vector algorithm
-  class PvAlgorithm:
-    public IterativeAlgorithm {
+/// Probability vector algorithm
+class PvAlgorithm: public IterativeAlgorithm {
 
-  protected:
+protected:
 
-    /// Probability vector
-    pv_t _pv;
+  /// Probability vector
+  pv_t _pv;
 
-    /// Lower bound of probability
-    double _lower_bound;
+  /// Lower bound of probability
+  double _lower_bound;
 
-    /// Upper bound of probability
-    double _upper_bound;
+  /// Upper bound of probability
+  double _upper_bound;
 
-    /** @name Logging
-     */
-    ///@{
+  /** @name Logging
+   */
+  ///@{
 
-    /// Log entropy
-    bool _log_entropy = false;
+  /// Log entropy
+  bool _log_entropy = false;
 
-    /// Log probability vector
-    bool _log_pv = false;
+  /// Log probability vector
+  bool _log_pv = false;
 
-    /// Number of probability vector components to log
-    int _log_num_components = 5;
+  /// Number of probability vector components to log
+  int _log_num_components = 5;
 
-    ///@}
+  ///@}
 
-    /// Set flag for something to log
-    void set_something_to_log() { _something_to_log = _log_entropy || _log_pv; }
+  /** @name Loop
+   */
+  ///@{
 
-    /// Log
-    void log();
+  /// Log
+  void log() override;
 
-  public:
+  ///@}
 
-    /// Constructor
-    PvAlgorithm(int n):
-      IterativeAlgorithm(n),
-      _pv(n),
-      _lower_bound(1 / double(n)),
-      _upper_bound(1 - 1 / double(n)) {}
+  /// Set flag for something to log
+  void set_something_to_log() { _something_to_log = _log_entropy || _log_pv; }
 
-    /** @name Setters for logging
-     */
-    ///@{
+public:
 
-    /// Log entropy
-    void set_log_entropy(bool x) { _log_entropy = x; }
+  /// Constructor
+  PvAlgorithm(int n):
+    IterativeAlgorithm(n),
+    _pv(n),
+    _lower_bound(1 / double(n)),
+    _upper_bound(1 - 1 / double(n)) {}
 
-    /// Set the number of probability vector components to log
-    void set_log_num_components(int x) { _log_num_components = x; }
+  /** @name Setters for logging
+   */
+  ///@{
 
-    /// Log probability vector
-    void set_log_pv(bool x) { _log_pv = x; }
+  /// Log entropy
+  void set_log_entropy(bool x) { _log_entropy = x; }
 
-    ///@}
+  /// Set the number of probability vector components to log
+  void set_log_num_components(int x) { _log_num_components = x; }
 
-  };
+  /// Log probability vector
+  void set_log_pv(bool x) { _log_pv = x; }
+
+  ///@}
+
+};
 
 } // end of namespace algorithm
 } // end of namespace hnco
