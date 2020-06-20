@@ -57,9 +57,6 @@ namespace fast_efficient_p3 {
     /// Constructor
     Ltga(int n);
 
-    /// Initialization
-    void init();
-
     /// Maximize
     void maximize();
 

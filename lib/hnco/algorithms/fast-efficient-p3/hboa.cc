@@ -35,14 +35,11 @@ using namespace hnco;
 
 Hboa::Hboa(int n):
   Algorithm(n),
-  _pimpl(std::make_unique<Implementation>())
-{
-
-}
+  _pimpl(std::make_unique<Implementation>()) {}
 
 
 void
-Hboa::init()
+Hboa::maximize()
 {
   _pimpl->configuration.set("verbosity", 0);
   _pimpl->configuration.set("solution_file", std::string("hboa-solution.txt"));
@@ -51,14 +48,7 @@ Hboa::init()
   _pimpl->configuration.set("pop_size", _population_size);
   _pimpl->configuration.set("hill_climber", std::string("no_action"));
   _pimpl->evaluator = std::make_shared<HncoEvaluator>(_function);
-  _pimpl->middle_layer = std::make_shared<Middle_Layer>(_pimpl->configuration,
-                                                        _pimpl->evaluator);
-}
-
-
-void
-Hboa::maximize()
-{
+  _pimpl->middle_layer = std::make_shared<Middle_Layer>(_pimpl->configuration, _pimpl->evaluator);
   HBOA hboa(hnco::random::Generator::engine,
             _pimpl->middle_layer,
             _pimpl->configuration);

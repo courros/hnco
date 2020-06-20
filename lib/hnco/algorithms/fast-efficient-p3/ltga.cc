@@ -35,14 +35,11 @@ using namespace hnco;
 
 Ltga::Ltga(int n):
   Algorithm(n),
-  _pimpl(std::make_unique<Implementation>())
-{
-
-}
+  _pimpl(std::make_unique<Implementation>()) {}
 
 
 void
-Ltga::init()
+Ltga::maximize()
 {
   _pimpl->configuration.set("binary_insert", 1);
   _pimpl->configuration.set("cluster_ordering", std::string("least_linked_first"));
@@ -60,12 +57,6 @@ Ltga::init()
   _pimpl->evaluator = std::make_shared<HncoEvaluator>(_function);
   _pimpl->middle_layer = std::make_shared<Middle_Layer>(_pimpl->configuration,
                                                         _pimpl->evaluator);
-}
-
-
-void
-Ltga::maximize()
-{
   LTGA ltga(hnco::random::Generator::engine,
             _pimpl->middle_layer,
             _pimpl->configuration);

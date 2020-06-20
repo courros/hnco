@@ -35,14 +35,11 @@ using namespace hnco;
 
 ParameterLessPopulationPyramid::ParameterLessPopulationPyramid(int n):
   Algorithm(n),
-  _pimpl(std::make_unique<Implementation>())
-{
-
-}
+  _pimpl(std::make_unique<Implementation>()) {}
 
 
 void
-ParameterLessPopulationPyramid::init()
+ParameterLessPopulationPyramid::maximize()
 {
   _pimpl->configuration.set("cluster_ordering", std::string("least_linked_first"));
   _pimpl->configuration.set("disable_solution_outfile", 1);
@@ -61,12 +58,6 @@ ParameterLessPopulationPyramid::init()
   _pimpl->evaluator = std::make_shared<HncoEvaluator>(_function);
   _pimpl->middle_layer = std::make_shared<Middle_Layer>(_pimpl->configuration,
                                                         _pimpl->evaluator);
-}
-
-
-void
-ParameterLessPopulationPyramid::maximize()
-{
   Pyramid pyramid(hnco::random::Generator::engine,
                   _pimpl->middle_layer,
                   _pimpl->configuration);
