@@ -29,65 +29,72 @@
 namespace hnco {
 namespace algorithm {
 
-  /** Population-based incremental learning.
 
-      Reference:
+/** Population-based incremental learning.
 
-      S. Baluja and R. Caruana. 1995. Removing the genetics from the
-      standard genetic algorithm. In Proceedings of the 12th Annual
-      Conference on Machine Learning.  38–46.
+    Reference:
 
-  */
-  class Pbil:
-    public PvAlgorithm {
+    S. Baluja and R. Caruana. 1995. Removing the genetics from the
+    standard genetic algorithm. In Proceedings of the 12th Annual
+    Conference on Machine Learning.  38–46.
 
-  protected:
+*/
+class Pbil: public PvAlgorithm {
 
-    /// Population
-    Population _population;
+protected:
 
-    /// Mean of selected bit vectors
-    pv_t _mean;
+  /// Population
+  Population _population;
 
-    /** @name Parameters
-     */
-    ///@{
+  /// Mean of selected bit vectors
+  pv_t _mean;
 
-    /// Selection size
-    int _selection_size = 1;
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Learning rate
-    double _learning_rate = 1e-3;
+  /// Selection size
+  int _selection_size = 1;
 
-    ///@}
+  /// Learning rate
+  double _learning_rate = 1e-3;
 
-    /// Single iteration
-    void iterate();
+  ///@}
 
-  public:
+  /** @name Loop
+   */
+  ///@{
 
-    /// Constructor
-    Pbil(int n, int population_size):
-      PvAlgorithm(n),
-      _population(population_size, n),
-      _mean(n) {}
+  /// Initialize
+  void init() override;
 
-    /// Initialization
-    void init();
+  /// Single iteration
+  void iterate() override;
 
-    /** @name Setters
-     */
-    ///@{
+  ///@}
 
-    /// Set the selection size
-    void set_selection_size(int x) { _selection_size = x; }
+public:
 
-    /// Set the learning rate
-    void set_learning_rate(double x) { _learning_rate = x; }
+  /// Constructor
+  Pbil(int n, int population_size):
+    PvAlgorithm(n),
+    _population(population_size, n),
+    _mean(n) {}
 
-    ///@}
+  /** @name Setters
+   */
+  ///@{
 
-  };
+  /// Set the selection size
+  void set_selection_size(int x) { _selection_size = x; }
+
+  /// Set the learning rate
+  void set_learning_rate(double x) { _learning_rate = x; }
+
+  ///@}
+
+};
+
 
 } // end of namespace algorithm
 } // end of namespace hnco
