@@ -21,11 +21,9 @@
 #ifndef HNCO_ALGORITHMS_LS_STEEPEST_ASCENT_LOCAL_SEARCH_H
 #define HNCO_ALGORITHMS_LS_STEEPEST_ASCENT_LOCAL_SEARCH_H
 
-#include <assert.h>
-
-#include "hnco/exception.hh"
-#include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/neighborhoods/neighborhood-iterator.hh"
+
+#include "local-search-algorithm.hh"
 
 
 namespace hnco {
@@ -34,41 +32,22 @@ namespace algorithm {
 
 /// Steepest ascent hill climbing
 class SteepestAscentHillClimbing:
-    public IterativeAlgorithm {
+    public LocalSearchAlgorithm<neighborhood::NeighborhoodIterator> {
 
 protected:
 
   /// Potential candidate
   std::vector<bit_vector_t> _candidates;
 
-  /// Neighborhood
-  neighborhood::NeighborhoodIterator *_neighborhood;
-
-  /** @name Loop
-   */
-  ///@{
-
-  /// Initialize
-  void init() override;
-
   /// Single iteration
   void iterate() override;
-
-  ///@}
 
 public:
 
   /// Constructor
   SteepestAscentHillClimbing(int n, neighborhood::NeighborhoodIterator *neighborhood):
-    IterativeAlgorithm(n),
-    _candidates(n, bit_vector_t(n)),
-    _neighborhood(neighborhood) {}
-
-  /// Explicit initialization
-  void init(const bit_vector_t& x);
-
-  /// Explicit initialization
-  void init(const bit_vector_t& x, double value);
+    LocalSearchAlgorithm<neighborhood::NeighborhoodIterator>(n, neighborhood),
+    _candidates(n, bit_vector_t(n, 0)) {}
 
 };
 

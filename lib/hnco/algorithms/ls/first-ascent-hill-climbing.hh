@@ -21,10 +21,9 @@
 #ifndef HNCO_ALGORITHMS_LS_FIRST_ASCENT_HILL_CLIMBING_H
 #define HNCO_ALGORITHMS_LS_FIRST_ASCENT_HILL_CLIMBING_H
 
-#include <functional>           // std::function
-
-#include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/neighborhoods/neighborhood-iterator.hh"
+
+#include "local-search-algorithm.hh"
 
 
 namespace hnco {
@@ -33,37 +32,18 @@ namespace algorithm {
 
 /// First ascent hill climbing
 class FirstAscentHillClimbing:
-    public IterativeAlgorithm {
+    public LocalSearchAlgorithm<neighborhood::NeighborhoodIterator> {
 
 protected:
 
-  /// Neighborhood
-  neighborhood::NeighborhoodIterator *_neighborhood;
-
-  /** @name Loop
-   */
-  ///@{
-
-  /// Initialize
-  void init() override;
-
   /// Single iteration
   void iterate() override;
-
-  ///@}
 
 public:
 
   /// Constructor
   FirstAscentHillClimbing(int n, neighborhood::NeighborhoodIterator *neighborhood):
-    IterativeAlgorithm(n),
-    _neighborhood(neighborhood) {}
-
-  /// Explicit initialization
-  void init(const bit_vector_t& x);
-
-  /// Explicit initialization
-  void init(const bit_vector_t& x, double value);
+    LocalSearchAlgorithm<neighborhood::NeighborhoodIterator>(n, neighborhood) {}
 
 };
 
