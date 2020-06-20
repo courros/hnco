@@ -30,43 +30,45 @@ namespace hnco {
 namespace algorithm {
 
 
-  /** Restart.
+/** Restart.
 
-      Restart an Algorithm an indefinite number of times. Should be
-      used in conjonction with OnBudgetFunction or StopOnMaximum.
-  */
-  class Restart:
+    Restart an Algorithm an indefinite number of times. Should be
+    used in conjonction with OnBudgetFunction or StopOnMaximum.
+*/
+class Restart:
     public IterativeAlgorithm {
 
-    /// Algorithm
-    Algorithm *_algorithm;
+protected:
+
+  /// Algorithm
+  Algorithm *_algorithm;
 
   /** @name Loop
    */
   ///@{
 
-    /// Initialize
-    void init() override {
-      _algorithm->set_function(_function);
-      _algorithm->set_functions(_functions);
-    }
+  /// Initialize
+  void init() override {
+    _algorithm->set_function(_function);
+    _algorithm->set_functions(_functions);
+  }
 
   /// Single iteration
   void iterate() override;
 
   ///@}
 
-  public:
+public:
 
-    /// Constructor
-    Restart(int n, Algorithm *algorithm):
-      IterativeAlgorithm(n),
-      _algorithm(algorithm)
-    {
-      assert(algorithm);
-    }
+  /// Constructor
+  Restart(int n, Algorithm *algorithm):
+    IterativeAlgorithm(n),
+    _algorithm(algorithm)
+  {
+    assert(algorithm);
+  }
 
-  };
+};
 
 
 } // end of namespace algorithm
