@@ -31,33 +31,33 @@ namespace hnco {
 namespace algorithm {
 
 
-  /** Random walk.
+/** Random walk.
 
-      The algorithm simply performs a random walk on the graph
-      implicitly given by the neighborhood. At each iteration, the
-      chosen neighbor does not depend on its evaluation. However
-      optimization takes place as in random search, that is the best
-      visited bit vector is remembered.
-  */
-  class RandomWalk:
+    The algorithm simply performs a random walk on the graph
+    implicitly given by the neighborhood. At each iteration, the
+    chosen neighbor does not depend on its evaluation. However
+    optimization takes place as in random search, that is the best
+    visited bit vector is remembered.
+*/
+class RandomWalk:
     public IterativeAlgorithm {
 
-  protected:
+protected:
 
-    /// Neighborhood
-    neighborhood::Neighborhood *_neighborhood;
+  /// Neighborhood
+  neighborhood::Neighborhood *_neighborhood;
 
-    /// Value of the last visited bit vector
-    double _value;
+  /// Value of the last visited bit vector
+  double _value;
 
-    /** @name Parameters
-     */
-    ///@{
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Incremental evaluation
-    bool _incremental_evaluation = false;
+  /// Incremental evaluation
+  bool _incremental_evaluation = false;
 
-    ///@}
+  ///@}
 
   /** @name Loop
    */
@@ -69,43 +69,43 @@ namespace algorithm {
   /// Single iteration
   void iterate() override;
 
-    /// Log
-    void log() override;
+  /// Log
+  void log() override;
 
   ///@}
 
-    /// Single iteration with full evaluation
-    void iterate_full();
+  /// Single iteration with full evaluation
+  void iterate_full();
 
-    /// Single iteration with incremental evaluation
-    void iterate_incremental();
+  /// Single iteration with incremental evaluation
+  void iterate_incremental();
 
-  public:
+public:
 
-    /// Constructor
-    RandomWalk(int n, neighborhood::Neighborhood *neighborhood):
-      IterativeAlgorithm(n),
-      _neighborhood(neighborhood) {}
+  /// Constructor
+  RandomWalk(int n, neighborhood::Neighborhood *neighborhood):
+    IterativeAlgorithm(n),
+    _neighborhood(neighborhood) {}
 
-    /// Explicit initialization
-    void init(const bit_vector_t& x);
+  /// Explicit initialization
+  void init(const bit_vector_t& x);
 
-    /// Explicit initialization
-    void init(const bit_vector_t& x, double value);
+  /// Explicit initialization
+  void init(const bit_vector_t& x, double value);
 
-    /** @name Setters
-     */
-    ///@{
+  /** @name Setters
+   */
+  ///@{
 
-    /// Set incremental evaluation
-    void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }
+  /// Set incremental evaluation
+  void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }
 
-    /// Set log
-    void set_log_value() { _something_to_log = true; }
+  /// Set log
+  void set_log_value() { _something_to_log = true; }
 
-    ///@}
+  ///@}
 
-  };
+};
 
 
 } // end of namespace algorithm
