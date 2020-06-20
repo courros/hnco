@@ -38,7 +38,6 @@ int main()
   Generator::set_seed();
 
   const int bv_size = 50;
-
   OneMax one_max(bv_size);
   StopOnMaximum fn(&one_max);
 

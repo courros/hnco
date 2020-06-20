@@ -33,7 +33,6 @@ int main()
   Generator::set_seed();
 
   const int bv_size = 50;
-
   OneMax fn(bv_size);
 
   OnePlusOneEa ea(bv_size);
@@ -42,8 +41,7 @@ int main()
 
   ea.maximize();
   ea.finalize();
-
-  solution_t solution = ea.get_solution();
+  auto solution = ea.get_solution();
 
   bv_display(solution.first, std::cout);
   std::cout << std::endl;

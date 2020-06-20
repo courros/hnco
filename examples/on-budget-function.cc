@@ -38,7 +38,6 @@ int main()
   Generator::set_seed();
 
   const int bv_size = 50;
-
   OneMax one_max(bv_size);
   OnBudgetFunction fn(&one_max, 1000);
 
@@ -49,9 +48,8 @@ int main()
     ea.maximize();
   }
   catch (LastEvaluation) {}
-
   // finalize not necessary
-  solution_t solution = ea.get_solution();
+  auto solution = ea.get_solution();
 
   bv_display(solution.first, std::cout);
   std::cout << std::endl;

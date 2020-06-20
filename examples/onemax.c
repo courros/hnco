@@ -22,10 +22,10 @@
 
 double onemax(const char *data, size_t len)
 {
-  double result = 0;
+  int result = 0;
   size_t i;
   for (i = 0; i < len; i++)
     if (data[i])
-      result += 1;
+      result++;
   return result;
 }

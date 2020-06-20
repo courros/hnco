@@ -58,11 +58,13 @@ public:
 class MyAlgorithm:
   public IterativeAlgorithm {
 
-  bit_vector_t _candidate;
-
 protected:
 
-  void iterate() {
+  bit_vector_t _candidate;
+
+  void init() override { random_solution(); }
+
+  void iterate() override {
     bv_random(_candidate);
     update_solution(_candidate);
   }
@@ -72,8 +74,6 @@ public:
   MyAlgorithm(int n):
     IterativeAlgorithm(n),
     _candidate(n) {}
-
-  void init() { random_solution(); }
 
 };
 
@@ -89,11 +89,9 @@ int main()
   algo.set_num_iterations(100);
   algo.set_function(&fn);
 
-  algo.init();
   algo.maximize();
-
   // finalize not necessary
-  solution_t solution = algo.get_solution();
+  auto solution = algo.get_solution();
 
   bv_display(solution.first, std::cout);
   std::cout << std::endl;
