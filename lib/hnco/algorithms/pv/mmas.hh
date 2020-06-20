@@ -59,8 +59,17 @@ namespace algorithm {
 
     ///@}
 
-    /// Single iteration
-    void iterate();
+  /** @name Loop
+   */
+  ///@{
+
+  /// Initialize
+  void init() override;
+
+  /// Single iteration
+  void iterate() override;
+
+  ///@}
 
   public:
 
@@ -68,9 +77,6 @@ namespace algorithm {
     Mmas(int n):
       PvAlgorithm(n),
       _x(n) {}
-
-    /// Initialization
-    void init();
 
     /** @name Setters
      */
