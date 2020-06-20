@@ -30,45 +30,45 @@ namespace hnco {
 namespace algorithm {
 namespace fast_efficient_p3 {
 
-  struct Implementation;
+struct Implementation;
 
-  /** Hierarchical Bayesian Optimization %Algorithm.
+/** Hierarchical Bayesian Optimization %Algorithm.
 
-      Implementation of the Hierarchical Bayesian Optimization
-      %Algorithm and helper classes based on the publication: Pelikan,
-      M. and Goldberg, D. (2006). Hierarchical bayesian optimization
-      algorithm. In Scalable Optimization via Probabilistic Modeling,
-      volume 33 of Studies in Computational Intelligence, pages
-      63–90. Springer Berlin Heidelberg.
+    Implementation of the Hierarchical Bayesian Optimization
+    %Algorithm and helper classes based on the publication: Pelikan,
+    M. and Goldberg, D. (2006). Hierarchical bayesian optimization
+    algorithm. In Scalable Optimization via Probabilistic Modeling,
+    volume 33 of Studies in Computational Intelligence, pages
+    63–90. Springer Berlin Heidelberg.
 
-      Author: Brian W. Goldman
+    Author: Brian W. Goldman
 
-      Integrated into HNCO by Arnaud Berny
-  */
-  class Hboa:
+    Integrated into HNCO by Arnaud Berny
+*/
+class Hboa:
     public Algorithm {
 
-    /// Pointer to implementation
-    std::unique_ptr<Implementation> _pimpl;;
+  /// Pointer to implementation
+  std::unique_ptr<Implementation> _pimpl;;
 
-    /// Population size
-    int _population_size = 10;
+  /// Population size
+  int _population_size = 10;
 
-  public:
+public:
 
-    /// Constructor
-    Hboa(int n);
+  /// Constructor
+  Hboa(int n);
 
-    /// Maximize
-    void maximize();
+  /// Maximize
+  void maximize();
 
-    /// Finalize
-    void finalize();
+  /// Finalize
+  void finalize();
 
-    /// Set population size
-    void set_population_size(int n) { _population_size = n; }
+  /// Set population size
+  void set_population_size(int n) { _population_size = n; }
 
-  };
+};
 
 } // end of namespace fast_efficient_p3
 } // end of namespace algorithm

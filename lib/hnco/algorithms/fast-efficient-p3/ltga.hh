@@ -30,43 +30,43 @@ namespace hnco {
 namespace algorithm {
 namespace fast_efficient_p3 {
 
-  struct Implementation;
+struct Implementation;
 
-  /** Linkage Tree Genetic %Algorithm.
+/** Linkage Tree Genetic %Algorithm.
 
-      Implementation of the Linkage Tree Genetic %Algorithm Designed to
-      match the variant in the paper: "Hierarchical problem solving
-      with the linkage tree genetic algorithm" by D. Thierens and
-      P. A. N. Bosman
+    Implementation of the Linkage Tree Genetic %Algorithm Designed to
+    match the variant in the paper: "Hierarchical problem solving
+    with the linkage tree genetic algorithm" by D. Thierens and
+    P. A. N. Bosman
 
-      Author: Brian W. Goldman
+    Author: Brian W. Goldman
 
-      Integrated into HNCO by Arnaud Berny
-  */
-  class Ltga:
+    Integrated into HNCO by Arnaud Berny
+*/
+class Ltga:
     public Algorithm {
 
-    /// Pointer to implementation
-    std::unique_ptr<Implementation> _pimpl;;
+  /// Pointer to implementation
+  std::unique_ptr<Implementation> _pimpl;;
 
-    /// Population size
-    int _population_size = 10;
+  /// Population size
+  int _population_size = 10;
 
-  public:
+public:
 
-    /// Constructor
-    Ltga(int n);
+  /// Constructor
+  Ltga(int n);
 
-    /// Maximize
-    void maximize();
+  /// Maximize
+  void maximize();
 
-    /// Finalize
-    void finalize();
+  /// Finalize
+  void finalize();
 
-    /// Set population size
-    void set_population_size(int n) { _population_size = n; }
+  /// Set population size
+  void set_population_size(int n) { _population_size = n; }
 
-  };
+};
 
 } // end of namespace fast_efficient_p3
 } // end of namespace algorithm

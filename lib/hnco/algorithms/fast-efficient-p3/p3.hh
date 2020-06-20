@@ -31,41 +31,41 @@ namespace algorithm {
 /// Algorithms from the FastEfficientP3 library
 namespace fast_efficient_p3 {
 
-  struct Implementation;
+struct Implementation;
 
-  /** Parameter-less %Population Pyramid.
+/** Parameter-less %Population Pyramid.
 
-      Implemention of the Parameter-less %Population Pyramid (P3 for
-      short).
+    Implemention of the Parameter-less %Population Pyramid (P3 for
+    short).
 
-      Author: Brian W. Goldman
+    Author: Brian W. Goldman
 
-      Reference:
+    Reference:
 
-      "Fast and Efficient Black Box Optimization using the
-      Parameter-less Population Pyramid" by B. W. Goldman and
-      W. F. Punch
+    "Fast and Efficient Black Box Optimization using the
+    Parameter-less Population Pyramid" by B. W. Goldman and
+    W. F. Punch
 
-      Integrated into HNCO by Arnaud Berny
-  */
-  class ParameterLessPopulationPyramid:
+    Integrated into HNCO by Arnaud Berny
+*/
+class ParameterLessPopulationPyramid:
     public Algorithm {
 
-    /// Pointer to implementation
-    std::unique_ptr<Implementation> _pimpl;;
+  /// Pointer to implementation
+  std::unique_ptr<Implementation> _pimpl;;
 
-  public:
+public:
 
-    /// Constructor
-    ParameterLessPopulationPyramid(int n);
+  /// Constructor
+  ParameterLessPopulationPyramid(int n);
 
-    /// Maximize
-    void maximize();
+  /// Maximize
+  void maximize();
 
-    /// Finalize
-    void finalize();
+  /// Finalize
+  void finalize();
 
-  };
+};
 
 } // end of namespace fast_efficient_p3
 } // end of namespace algorithm

@@ -32,36 +32,36 @@ namespace hnco {
 namespace algorithm {
 namespace fast_efficient_p3 {
 
-  /// Evaluator for HNCO functions
-  class HncoEvaluator:
+/// Evaluator for HNCO functions
+class HncoEvaluator:
     public Evaluator {
 
-    /// HNCO function
-    hnco::function::Function *_function;
+  /// HNCO function
+  hnco::function::Function *_function;
 
-    /// Argument of HNCO function
-    hnco::bit_vector_t _bv;
+  /// Argument of HNCO function
+  hnco::bit_vector_t _bv;
 
-  public:
+public:
 
-    /// Constructor
-    HncoEvaluator(hnco::function::Function *function):
-      _function(function)
-    {
-      assert(function);
+  /// Constructor
+  HncoEvaluator(hnco::function::Function *function):
+    _function(function)
+  {
+    assert(function);
 
-      _bv = bit_vector_t(_function->get_bv_size());
-    }
+    _bv = bit_vector_t(_function->get_bv_size());
+  }
 
-    /// Evaluate a bit vector
-    float evaluate(const std::vector<bool> & x) {
-      assert(x.size() == _bv.size());
+  /// Evaluate a bit vector
+  float evaluate(const std::vector<bool> & x) {
+    assert(x.size() == _bv.size());
 
-      bv_from_vector_bool(_bv, x);
-      return _function->evaluate(_bv);
-    }
+    bv_from_vector_bool(_bv, x);
+    return _function->evaluate(_bv);
+  }
 
-  };
+};
 
 } // end of namespace fast_efficient_p3
 } // end of namespace algorithm
