@@ -30,7 +30,6 @@ using namespace hnco::exception;
 void
 Restart::iterate()
 {
-  _algorithm->init();
   try {
     _algorithm->maximize();
   }

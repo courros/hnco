@@ -242,14 +242,11 @@ int main(int argc, char *argv[])
 
   bool maximum_reached = false;
   bool target_reached = false;
-  bool initialized = false;
 
   StopWatch stop_watch;
   stop_watch.start();
 
   try {
-    algorithm->init();
-    initialized = true;
     algorithm->maximize();
     algorithm->finalize();
     solution = algorithm->get_solution();
@@ -276,9 +273,6 @@ int main(int argc, char *argv[])
 
   stop_watch.stop();
   double total_time = stop_watch.get_total_time();
-
-  if (!initialized)
-    std::cerr << "Warning: Initialization has not been completed" << std::endl;
 
   //
   // Results
