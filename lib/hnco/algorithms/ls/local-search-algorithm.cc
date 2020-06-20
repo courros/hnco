@@ -25,17 +25,3 @@
 
 using namespace hnco::algorithm;
 using namespace hnco;
-
-
-void
-LocalSearchAlgorithm::init()
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  if (_random_initialization)
-    random_solution();
-  else
-    set_solution(_starting_point);
-  _neighborhood->set_origin(_solution.first);
-}
