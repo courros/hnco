@@ -28,71 +28,77 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// Iterative search
-  class IterativeAlgorithm:
-    public Algorithm {
+/// Iterative search
+class IterativeAlgorithm: public Algorithm {
 
-  protected:
+protected:
 
-    /// Current iteration
-    int _iteration;
+  /// Current iteration
+  int _iteration;
 
-    /// Something to log
-    bool _something_to_log;
+  /// Something to log
+  bool _something_to_log = false;
 
-    /** @name Parameters
-     */
-    ///@{
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Number of iterations
-    int _num_iterations = 0;
+  /// Number of iterations
+  int _num_iterations = 0;
 
-    ///@}
+  ///@}
 
-    /// Single iteration
-    virtual void iterate() = 0;
+  /** @name Loop
+   */
+  ///@{
 
-    /// Log
-    virtual void log() {}
+  /// Initialize
+  virtual void init() = 0;
 
-  public:
+  /// Single iteration
+  virtual void iterate() = 0;
 
-    /** Constructor.
-        \param n Size of bit vectors */
-    IterativeAlgorithm(int n):
-      Algorithm(n),
-      _something_to_log(false) {}
+  /// Log
+  virtual void log() {}
 
-    /** @name Optimization
-     */
-    ///@{
+  ///@}
 
-    /** Maximize.
+public:
 
-        It is essentially a loop which, at each iteration, calls
-        iterate() then log() only if _something_to_log is true.
+  /** Constructor.
+      \param n Size of bit vectors */
+  IterativeAlgorithm(int n): Algorithm(n) {}
 
-        \warning If an exception such as LocalMaximumFound is thrown
-        by iterate(), log() will not be called.
-    */
-    void maximize();
+  /** @name Optimization
+   */
+  ///@{
 
-    ///@}
+  /** Maximize.
 
-    /** @name Setters
-     */
-    ///@{
+      It is essentially a loop which, at each iteration, calls
+      iterate() then log() only if _something_to_log is true.
 
-    /** Set the number of iterations.
+      \warning If an exception such as LocalMaximumFound is thrown
+      by iterate(), log() will not be called.
+  */
+  void maximize();
 
-        \param x Number of iterations
+  ///@}
 
-        x <= 0 means indefinite */
-    void set_num_iterations(int x) { _num_iterations = x; }
+  /** @name Setters
+   */
+  ///@{
 
-    ///@}
+  /** Set the number of iterations.
 
-  };
+      \param x Number of iterations
+
+      x <= 0 means indefinite */
+  void set_num_iterations(int x) { _num_iterations = x; }
+
+  ///@}
+
+};
 
 
 } // end of namespace algorithm
