@@ -59,8 +59,20 @@ namespace algorithm {
 
     ///@}
 
-    /// Single iteration
-    void iterate();
+  /** @name Loop
+   */
+  ///@{
+
+  /// Initialize
+  void init() override;
+
+  /// Single iteration
+  void iterate() override;
+
+    /// Log
+    void log() override;
+
+  ///@}
 
     /// Single iteration with full evaluation
     void iterate_full();
@@ -75,17 +87,11 @@ namespace algorithm {
       IterativeAlgorithm(n),
       _neighborhood(neighborhood) {}
 
-    /// Initialization
-    void init();
-
     /// Explicit initialization
     void init(const bit_vector_t& x);
 
     /// Explicit initialization
     void init(const bit_vector_t& x, double value);
-
-    /// Log
-    void log();
 
     /** @name Setters
      */
