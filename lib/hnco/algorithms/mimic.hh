@@ -33,115 +33,120 @@
 namespace hnco {
 namespace algorithm {
 
-  /** Mutual information maximizing input clustering.
+/** Mutual information maximizing input clustering.
 
-      This implementation differs from the algorithm described in the
-      reference below in that it constrains all probabilities
-      (marginal and conditional) to stay away from the values 0 and 1
-      by a fixed margin equal to 1 / n, as usually done in algorithms
-      such as Pbil or Umda.
+    This implementation differs from the algorithm described in the
+    reference below in that it constrains all probabilities
+    (marginal and conditional) to stay away from the values 0 and 1
+    by a fixed margin equal to 1 / n, as usually done in algorithms
+    such as Pbil or Umda.
 
-      Reference:
+    Reference:
 
-      Jeremy S. De Bonet and Charles L. Isbell and Jr. and Paul Viola,
-      MIMIC: Finding Optima by Estimating Probability Densities, in
-      Advances in Neural Information Processing Systems, 1996, MIT
-      Press.
+    Jeremy S. De Bonet and Charles L. Isbell and Jr. and Paul Viola,
+    MIMIC: Finding Optima by Estimating Probability Densities, in
+    Advances in Neural Information Processing Systems, 1996, MIT
+    Press.
 
-  */
-  class Mimic:
-    public IterativeAlgorithm {
+*/
+class Mimic: public IterativeAlgorithm {
 
-  protected:
+protected:
 
-    /// Population
-    Population _population;
+  /// Population
+  Population _population;
 
-    /// Permutation
-    permutation_t _permutation;
+  /// Permutation
+  permutation_t _permutation;
 
-    /// Model parameters
-    std::array<pv_t, 2> _parameters;
+  /// Model parameters
+  std::array<pv_t, 2> _parameters;
 
-    /// Mean of selected bit vectors
-    pv_t _mean;
+  /// Mean of selected bit vectors
+  pv_t _mean;
 
-    /// Conditional entropies
-    std::vector<double> _entropies;
+  /// Conditional entropies
+  std::vector<double> _entropies;
 
-    /// Contingency table
-    std::array<std::array<int, 2>, 2> _table;
+  /// Contingency table
+  std::array<std::array<int, 2>, 2> _table;
 
-    /// Lower bound of probability
-    double _lower_bound;
+  /// Lower bound of probability
+  double _lower_bound;
 
-    /// Upper bound of probability
-    double _upper_bound;
+  /// Upper bound of probability
+  double _upper_bound;
 
-    ///
-    /** @name Parameters
-     */
-    ///@{
+  ///
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Selection size
-    int _selection_size;
+  /// Selection size
+  int _selection_size;
 
-    ///@}
+  ///@}
 
-    /// Single iteration
-    void iterate();
+  /** @name Loop
+   */
+  ///@{
 
-    /// Sample a bit vector
-    void sample(bit_vector_t& bv);
+  /// Initialize
+  void init() override;
 
-    /// Compute conditional entropy
-    void compute_conditional_entropy(int index);
+  /// Single iteration
+  void iterate() override;
 
-    /// Update model
-    void update_model();
+  ///@}
 
-  public:
+  /// Sample a bit vector
+  void sample(bit_vector_t& bv);
 
-    /// Constructor
-    Mimic(int n, int population_size):
-      IterativeAlgorithm(n),
-      _population(population_size, n),
-      _permutation(n),
-      _mean(n),
-      _entropies(n),
-      _lower_bound(1 / double(n)),
-      _upper_bound(1 - 1 / double(n)),
-      _selection_size(population_size / 2)
-    {
-      if (!(population_size > 1))
-        throw hnco::exception::Error("Mimic::Mimic: population size must be > 1");
+  /// Compute conditional entropy
+  void compute_conditional_entropy(int index);
 
-      for (auto& p: _parameters)
-        p = pv_t(n);
-    }
+  /// Update model
+  void update_model();
 
-    /// Initialization
-    void init();
+public:
 
-    /** @name Setters
-     */
-    ///@{
+  /// Constructor
+  Mimic(int n, int population_size):
+    IterativeAlgorithm(n),
+    _population(population_size, n),
+    _permutation(n),
+    _mean(n),
+    _entropies(n),
+    _lower_bound(1 / double(n)),
+    _upper_bound(1 - 1 / double(n)),
+    _selection_size(population_size / 2)
+  {
+    if (!(population_size > 1))
+      throw hnco::exception::Error("Mimic::Mimic: population size must be > 1");
 
-    /// Set the selection size
-    void set_selection_size(int x) {
+    for (auto& p: _parameters)
+      p = pv_t(n);
+  }
 
-      if (!(x > 0))
-        throw hnco::exception::Error("Mimic::set_selection_size: selection size must be positive");
+  /** @name Setters
+   */
+  ///@{
 
-      if (!(x < int(_population.size())))
-        throw hnco::exception::Error("Mimic::set_selection_size: selection size must be lower than population size");
+  /// Set the selection size
+  void set_selection_size(int x) {
 
-      _selection_size = x;
-    }
+    if (!(x > 0))
+      throw hnco::exception::Error("Mimic::set_selection_size: selection size must be positive");
 
-    ///@}
+    if (!(x < int(_population.size())))
+      throw hnco::exception::Error("Mimic::set_selection_size: selection size must be lower than population size");
 
-  };
+    _selection_size = x;
+  }
+
+  ///@}
+
+};
 
 } // end of namespace algorithm
 } // end of namespace hnco
