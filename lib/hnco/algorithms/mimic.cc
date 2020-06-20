@@ -18,9 +18,10 @@
 
 */
 
-#include <algorithm>            // std::fill, std::min, std::swap, std::min_element, std::all_of
-
+#include <assert.h>
 #include <math.h>               // std::log
+
+#include <algorithm>            // std::fill, std::min, std::swap, std::min_element, std::all_of
 
 #include "hnco/algorithms/pv/probability-vector.hh"
 #include "hnco/random.hh"
@@ -37,6 +38,9 @@ using namespace hnco;
 void
 Mimic::init()
 {
+  assert(_selection_size > 0);
+  assert(_selection_size < int(_population.size()));
+
   random_solution();
   perm_random(_permutation);
   for (auto& p: _parameters)
