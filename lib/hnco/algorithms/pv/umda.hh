@@ -29,31 +29,31 @@
 namespace hnco {
 namespace algorithm {
 
-  /** Univariate marginal distribution algorithm.
+/** Univariate marginal distribution algorithm.
 
-      Reference:
+    Reference:
 
-      H. Mühlenbein. 1997. The equation for response to selection and
-      its use for prediction. Evolutionary Computation 5, 3 (1997),
-      303–346.
+    H. Mühlenbein. 1997. The equation for response to selection and
+    its use for prediction. Evolutionary Computation 5, 3 (1997),
+    303–346.
 
-  */
-  class Umda:
+*/
+class Umda:
     public PvAlgorithm {
 
-  protected:
+protected:
 
-    /// Population
-    Population _population;
+  /// Population
+  Population _population;
 
-    /** @name Parameters
-     */
-    ///@{
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Selection size
-    int _selection_size = 1;
+  /// Selection size
+  int _selection_size = 1;
 
-    ///@}
+  ///@}
 
   /** @name Loop
    */
@@ -67,23 +67,23 @@ namespace algorithm {
 
   ///@}
 
-  public:
+public:
 
-    /// Constructor
-    Umda(int n, int population_size):
-      PvAlgorithm(n),
-      _population(population_size, n) {}
+  /// Constructor
+  Umda(int n, int population_size):
+    PvAlgorithm(n),
+    _population(population_size, n) {}
 
-    /** @name Setters
-     */
-    ///@{
+  /** @name Setters
+   */
+  ///@{
 
-    /// Set the selection size
-    void set_selection_size(int x) { _selection_size = x; }
+  /// Set the selection size
+  void set_selection_size(int x) { _selection_size = x; }
 
-    ///@}
+  ///@}
 
-  };
+};
 
 } // end of namespace algorithm
 } // end of namespace hnco
