@@ -32,49 +32,49 @@ namespace hnco {
 namespace algorithm {
 
 
-  /** Simulated annealing.
+/** Simulated annealing.
 
-      Reference:
+    Reference:
 
-      S. Kirkpatrick, C. D. Gelatt, and
-      M. P. Vecchi. 1983. Optimization by simulated annealing. Science
-      220, 4598 (May 1983), 671–680.
+    S. Kirkpatrick, C. D. Gelatt, and
+    M. P. Vecchi. 1983. Optimization by simulated annealing. Science
+    220, 4598 (May 1983), 671–680.
 
-  */
-  class SimulatedAnnealing:
+*/
+class SimulatedAnnealing:
     public IterativeAlgorithm {
 
-  protected:
+protected:
 
-    /// Neighborhood
-    neighborhood::Neighborhood *_neighborhood;
+  /// Neighborhood
+  neighborhood::Neighborhood *_neighborhood;
 
-    /// Inverse temperature
-    double _beta;
+  /// Inverse temperature
+  double _beta;
 
-    /// Current value
-    double _current_value;
+  /// Current value
+  double _current_value;
 
-    /// Number of accepted transitions
-    int _transitions;
+  /// Number of accepted transitions
+  int _transitions;
 
-    /** @name Parameters
-     */
-    ///@{
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Number of accepted transitions before annealing
-    int _num_transitions = 50;
+  /// Number of accepted transitions before annealing
+  int _num_transitions = 50;
 
-    /// Number of trials
-    int _num_trials = 100;
+  /// Number of trials
+  int _num_trials = 100;
 
-    /// Initial acceptance probability
-    double _initial_acceptance_probability = 0.6;
+  /// Initial acceptance probability
+  double _initial_acceptance_probability = 0.6;
 
-    /// Ratio for beta
-    double _beta_ratio = 1.2;
+  /// Ratio for beta
+  double _beta_ratio = 1.2;
 
-    ///@}
+  ///@}
 
   /** @name Loop
    */
@@ -88,43 +88,43 @@ namespace algorithm {
 
   ///@}
 
-    /** Initialize beta.
+  /** Initialize beta.
 
-        Requires (2 * _num_trials) evaluations. This should be taken
-        into account when using OnBudgetFunction.
+      Requires (2 * _num_trials) evaluations. This should be taken
+      into account when using OnBudgetFunction.
 
-    */
-    void init_beta();
+  */
+  void init_beta();
 
-  public:
+public:
 
-    /// Constructor
-    SimulatedAnnealing(int n, neighborhood::Neighborhood *neighborhood):
-      IterativeAlgorithm(n),
-      _neighborhood(neighborhood)
-    {
-      assert(neighborhood);
-    }
+  /// Constructor
+  SimulatedAnnealing(int n, neighborhood::Neighborhood *neighborhood):
+    IterativeAlgorithm(n),
+    _neighborhood(neighborhood)
+  {
+    assert(neighborhood);
+  }
 
-    /** @name Setters
-     */
-    ///@{
+  /** @name Setters
+   */
+  ///@{
 
-    /// Set the number of accepted transitions before annealing
-    void set_num_transitions(int x) { _num_transitions = x; }
+  /// Set the number of accepted transitions before annealing
+  void set_num_transitions(int x) { _num_transitions = x; }
 
-    /// Set the Number of trials
-    void set_num_trials(int x) { _num_trials = x; }
+  /// Set the Number of trials
+  void set_num_trials(int x) { _num_trials = x; }
 
-    /// Set the initial acceptance probability
-    void set_initial_acceptance_probability(double x) { _initial_acceptance_probability = x; }
+  /// Set the initial acceptance probability
+  void set_initial_acceptance_probability(double x) { _initial_acceptance_probability = x; }
 
-    /// Set ratio for beta
-    void set_beta_ratio(double x) { _beta_ratio = x; }
+  /// Set ratio for beta
+  void set_beta_ratio(double x) { _beta_ratio = x; }
 
-    ///@}
+  ///@}
 
-  };
+};
 
 
 } // end of namespace algorithm
