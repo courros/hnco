@@ -23,11 +23,8 @@
 
 #include <assert.h>
 
-#include <vector>
-
-#include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/exception.hh"
-
+#include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/neighborhoods/neighborhood-iterator.hh"
 
 
@@ -35,17 +32,17 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// Steepest ascent hill climbing
-  class SteepestAscentHillClimbing:
+/// Steepest ascent hill climbing
+class SteepestAscentHillClimbing:
     public IterativeAlgorithm {
 
-  protected:
+protected:
 
-    /// Potential candidate
-    std::vector<bit_vector_t> _candidates;
+  /// Potential candidate
+  std::vector<bit_vector_t> _candidates;
 
-    /// Neighborhood
-    neighborhood::NeighborhoodIterator *_neighborhood;
+  /// Neighborhood
+  neighborhood::NeighborhoodIterator *_neighborhood;
 
   /** @name Loop
    */
@@ -59,21 +56,21 @@ namespace algorithm {
 
   ///@}
 
-  public:
+public:
 
-    /// Constructor
-    SteepestAscentHillClimbing(int n, neighborhood::NeighborhoodIterator *neighborhood):
-      IterativeAlgorithm(n),
-      _candidates(n, bit_vector_t(n)),
-      _neighborhood(neighborhood) {}
+  /// Constructor
+  SteepestAscentHillClimbing(int n, neighborhood::NeighborhoodIterator *neighborhood):
+    IterativeAlgorithm(n),
+    _candidates(n, bit_vector_t(n)),
+    _neighborhood(neighborhood) {}
 
-    /// Explicit initialization
-    void init(const bit_vector_t& x);
+  /// Explicit initialization
+  void init(const bit_vector_t& x);
 
-    /// Explicit initialization
-    void init(const bit_vector_t& x, double value);
+  /// Explicit initialization
+  void init(const bit_vector_t& x, double value);
 
-  };
+};
 
 
 } // end of namespace algorithm
