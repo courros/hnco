@@ -24,7 +24,6 @@
 
 
 using namespace hnco::algorithm;
-using namespace hnco::exception;
 using namespace hnco;
 
 
@@ -34,7 +33,7 @@ LocalSearchAlgorithm::init()
   assert(_function);
   assert(_neighborhood);
 
-  if (_randomize_bit_order)
+  if (_random_initialization)
     random_solution();
   else
     set_solution(_starting_point);
