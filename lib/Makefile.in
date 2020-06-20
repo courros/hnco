@@ -224,6 +224,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
+	hnco/algorithms/ls/local-search-algorithm.cc \
+	hnco/algorithms/ls/local-search-algorithm.hh \
 	hnco/algorithms/ls/random-local-search.cc \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/random-walk.cc \
@@ -334,6 +336,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/hea/spin-moment.lo hnco/algorithms/human.lo \
 	hnco/algorithms/iterative-algorithm.lo \
 	hnco/algorithms/ls/first-ascent-hill-climbing.lo \
+	hnco/algorithms/ls/local-search-algorithm.lo \
 	hnco/algorithms/ls/random-local-search.lo \
 	hnco/algorithms/ls/random-walk.lo \
 	hnco/algorithms/ls/simulated-annealing.lo \
@@ -431,6 +434,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/algorithms/hea/$(DEPDIR)/spin-herding.Plo \
 	hnco/algorithms/hea/$(DEPDIR)/spin-moment.Plo \
 	hnco/algorithms/ls/$(DEPDIR)/first-ascent-hill-climbing.Plo \
+	hnco/algorithms/ls/$(DEPDIR)/local-search-algorithm.Plo \
 	hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo \
 	hnco/algorithms/ls/$(DEPDIR)/random-walk.Plo \
 	hnco/algorithms/ls/$(DEPDIR)/simulated-annealing.Plo \
@@ -550,6 +554,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
+	hnco/algorithms/ls/local-search-algorithm.hh \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/random-walk.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
@@ -805,6 +810,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
+	hnco/algorithms/ls/local-search-algorithm.cc \
+	hnco/algorithms/ls/local-search-algorithm.hh \
 	hnco/algorithms/ls/random-local-search.cc \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/random-walk.cc \
@@ -917,6 +924,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
+	hnco/algorithms/ls/local-search-algorithm.hh \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/random-walk.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
@@ -1163,6 +1171,9 @@ hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/ls/$(DEPDIR)
 	@: > hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/ls/first-ascent-hill-climbing.lo:  \
+	hnco/algorithms/ls/$(am__dirstamp) \
+	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/ls/local-search-algorithm.lo:  \
 	hnco/algorithms/ls/$(am__dirstamp) \
 	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/ls/random-local-search.lo:  \
@@ -1432,6 +1443,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/spin-herding.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/hea/$(DEPDIR)/spin-moment.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/first-ascent-hill-climbing.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/local-search-algorithm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/random-walk.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/simulated-annealing.Plo@am__quote@ # am--include-marker
@@ -1785,6 +1797,7 @@ distclean: distclean-am
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/spin-herding.Plo
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/spin-moment.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/first-ascent-hill-climbing.Plo
+	-rm -f hnco/algorithms/ls/$(DEPDIR)/local-search-algorithm.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/random-walk.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/simulated-annealing.Plo
@@ -1916,6 +1929,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/spin-herding.Plo
 	-rm -f hnco/algorithms/hea/$(DEPDIR)/spin-moment.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/first-ascent-hill-climbing.Plo
+	-rm -f hnco/algorithms/ls/$(DEPDIR)/local-search-algorithm.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/random-walk.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/simulated-annealing.Plo

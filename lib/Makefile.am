@@ -103,6 +103,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
+	hnco/algorithms/ls/local-search-algorithm.cc \
+	hnco/algorithms/ls/local-search-algorithm.hh \
 	hnco/algorithms/ls/random-local-search.cc \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/random-walk.cc \
@@ -282,6 +284,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/log-context.hh \
 	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
+	hnco/algorithms/ls/local-search-algorithm.hh \
 	hnco/algorithms/ls/random-local-search.hh \
 	hnco/algorithms/ls/random-walk.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
