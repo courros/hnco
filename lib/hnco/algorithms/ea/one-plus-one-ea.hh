@@ -83,8 +83,8 @@ namespace algorithm {
       _rls(n, &_neighborhood),
       _mutation_probability(1 / double(n)) {}
 
-    /// Initialization
-    void init() {
+    /// Maximize
+    void maximize() override {
       _neighborhood.set_probability(_mutation_probability);
       _neighborhood.set_allow_stay(_allow_stay);
       _rls.set_function(_function);
@@ -92,15 +92,11 @@ namespace algorithm {
       _rls.set_incremental_evaluation(_incremental_evaluation);
       _rls.set_patience(0);
       _rls.init();
-    }
-
-    /// Maximize
-    void maximize() {
       _rls.maximize();
     }
 
     /// Finalize
-    void finalize()  {
+    void finalize() override {
       _rls.finalize();
       _solution = _rls.get_solution();
     }
