@@ -23,10 +23,7 @@
 
 #include <functional>           // std::function
 
-#include "hnco/algorithms/iterative-algorithm.hh"
-#include "hnco/exception.hh"
-
-#include "hnco/neighborhoods/neighborhood.hh"
+#include "local-search-algorithm.hh"
 
 
 namespace hnco {
@@ -34,13 +31,9 @@ namespace algorithm {
 
 
 /// Random local search
-class RandomLocalSearch:
-    public IterativeAlgorithm {
+class RandomLocalSearch: public LocalSearchAlgorithm {
 
 protected:
-
-  /// Neighborhood
-  neighborhood::Neighborhood *_neighborhood;
 
   /// Number of failure
   int _num_failures;
@@ -82,14 +75,7 @@ public:
 
   /// Constructor
   RandomLocalSearch(int n, neighborhood::Neighborhood *neighborhood):
-    IterativeAlgorithm(n),
-    _neighborhood(neighborhood) {}
-
-  /// Explicit initialization
-  void init(const bit_vector_t& x);
-
-  /// Explicit initialization
-  void init(const bit_vector_t& x, double value);
+    LocalSearchAlgorithm(n, neighborhood) {}
 
   /// Finalize
   void finalize();

@@ -20,6 +20,8 @@
 
 #include <assert.h>
 
+#include "hnco/exception.hh"
+
 #include "random-local-search.hh"
 
 
@@ -31,33 +33,7 @@ using namespace hnco;
 void
 RandomLocalSearch::init()
 {
-  assert(_function);
-  assert(_neighborhood);
-
-  random_solution();
-  _neighborhood->set_origin(_solution.first);
-  _num_failures = 0;
-}
-
-
-void
-RandomLocalSearch::init(const bit_vector_t& x)
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  init(x, _function->evaluate(x));
-}
-
-
-void
-RandomLocalSearch::init(const bit_vector_t& x, double value)
-{
-  assert(_function);
-  assert(_neighborhood);
-
-  set_solution(x, value);
-  _neighborhood->set_origin(_solution.first);
+  LocalSearchAlgorithm::init();
   _num_failures = 0;
 }
 
