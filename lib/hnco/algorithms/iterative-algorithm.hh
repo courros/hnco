@@ -39,6 +39,7 @@ protected:
   /// Something to log
   bool _something_to_log = false;
 
+
   /** @name Parameters
    */
   ///@{
@@ -47,6 +48,7 @@ protected:
   int _num_iterations = 0;
 
   ///@}
+
 
   /** @name Loop
    */
@@ -62,6 +64,7 @@ protected:
   virtual void log() {}
 
   ///@}
+
 
 public:
 
