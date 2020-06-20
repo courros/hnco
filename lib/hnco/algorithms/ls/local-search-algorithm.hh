@@ -71,12 +71,9 @@ public:
   ///@{
 
   /// Set random initialization
-  void set_random_initialization(bool random_initialization) { _random_initialization = random_initialization; }
+  void set_random_initialization(bool b) { _random_initialization = b; }
 
-  /** Set the starting point.
-
-      \warning Evaluates the function once.
-  */
+  /// Set the starting point
   void set_starting_point(const bit_vector_t& x) { _starting_point = x; }
 
   ///@}
