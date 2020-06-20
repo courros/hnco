@@ -33,148 +33,140 @@ namespace hnco {
 /// Algorithms
 namespace algorithm {
 
-  /** Abstract search algorithm.
 
-      All algorithms maximize some given function, sometimes called a
-      fitness function or an objective function.
+/** Abstract search algorithm.
+
+    All algorithms maximize some given function, sometimes called a
+    fitness function or an objective function.
+*/
+class Algorithm {
+
+protected:
+
+  /// Function
+  function::Function *_function;
+
+  /** Functions.
+
+      Each thread has its own function.
   */
-  class Algorithm {
+  std::vector<function::Function *> _functions;
 
-  protected:
+  /// Solution
+  solution_t _solution;
 
-    /// Function
-    function::Function *_function;
-
-    /** Functions.
-
-        Each thread has its own function.
-    */
-    std::vector<function::Function *> _functions;
-
-    /// Solution
-    solution_t _solution;
-
-    /// Log context
-    LogContext *_log_context = nullptr;
+  /// Log context
+  LogContext *_log_context = nullptr;
 
 
-    /** @name Parameters
-     */
-    ///@{
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Output stream
-    std::ostream *_stream = &std::cout;
+  /// Output stream
+  std::ostream *_stream = &std::cout;
 
-    ///@}
-
-
-    /** @name Managing solution
-     */
-    ///@{
-
-    /// Random solution
-    void random_solution();
-
-    /// Set solution
-    void set_solution(const bit_vector_t& x, double value);
-
-    /** Set solution.
-
-        \warning Evaluates the function once.
-    */
-    void set_solution(const bit_vector_t& x);
-
-    /// Update solution (strict)
-    void update_solution(const bit_vector_t& x, double value);
-
-    /// Update solution (strict)
-    void update_solution(const solution_t& pv);
-
-    /** Update solution (strict).
-
-        \warning Evaluates the function once.
-    */
-    void update_solution(const bit_vector_t& x);
-
-    ///@}
-
-  public:
-
-    /// Constructor
-    Algorithm(int n):
-      _solution(bit_vector_t(n), 0.0)
-    {
-      if (!(n > 0))
-        throw hnco::exception::Error("Algorithm::Algorithm: bit vector size must be positive");
-    }
-
-    /// Destructor
-    virtual ~Algorithm() {}
+  ///@}
 
 
-    /** @name Optimization
-     */
-    ///@{
+  /** @name Managing solution
+   */
+  ///@{
 
-    /** Initialization.
+  /// Random solution
+  void random_solution();
 
-        Does nothing.
+  /// Set solution
+  void set_solution(const bit_vector_t& x, double value);
 
-        It is usually overridden by classes derived from
-        IterativeAlgorithm.
-    */
-    virtual void init() {}
+  /** Set solution.
 
-    /// Maximize
-    virtual void maximize() = 0;
+      \warning Evaluates the function once.
+  */
+  void set_solution(const bit_vector_t& x);
 
-    /** Finalize.
+  /// Update solution (strict)
+  void update_solution(const bit_vector_t& x, double value);
 
-        Does nothing.
+  /** Update solution (strict).
 
-        It is usually overridden by algorithms which do not keep
-        _solution up-to-date. In case _function throws a
-        LastEvaluation exception, the algorithm might leave _solution
-        in an undefined state. This can be fixed in this member
-        function.
-    */
-    virtual void finalize() {}
+      \warning Evaluates the function once.
+  */
+  void update_solution(const bit_vector_t& x);
 
-    ///@}
+  /// Update solution (strict)
+  void update_solution(const solution_t& pv);
 
+  ///@}
 
-    /** @name Getters
-     */
-    ///@{
+public:
 
-    /// Get bit vector size
-    int get_bv_size() { return _solution.first.size(); }
+  /// Constructor
+  Algorithm(int n):
+    _solution(bit_vector_t(n), 0.0)
+  {
+    if (!(n > 0))
+      throw hnco::exception::Error("Algorithm::Algorithm: bit vector size must be positive");
+  }
 
-    /// Get the solution
-    const solution_t& get_solution() { return _solution; }
-
-    ///@}
+  /// Destructor
+  virtual ~Algorithm() {}
 
 
-    /** @name Setters
-     */
-    ///@{
+  /** @name Optimization
+   */
+  ///@{
 
-    /// Set the function
-    void set_function(function::Function *function) { _function = function; }
+  /// Maximize
+  virtual void maximize() = 0;
 
-    /// Set functions
-    void set_functions(const std::vector<function::Function *> functions) { _functions = functions; }
+  /** Finalize.
 
-    /// Set the output stream
-    void set_stream(std::ostream *stream) { _stream = stream; }
+      Does nothing.
 
-    /// Set the log context
-    void set_log_context(LogContext *log_context) { _log_context = log_context; }
+      It is usually overridden by algorithms which do not keep
+      _solution up-to-date. In case _function throws a
+      LastEvaluation exception, the algorithm might leave _solution
+      in an undefined state. This can be fixed in this member
+      function.
+  */
+  virtual void finalize() {}
 
-    ///@}
+  ///@}
+
+
+  /** @name Getters
+   */
+  ///@{
+
+  /// Get bit vector size
+  int get_bv_size() { return _solution.first.size(); }
+
+  /// Get the solution
+  const solution_t& get_solution() { return _solution; }
+
+  ///@}
+
+
+  /** @name Setters
+   */
+  ///@{
+
+  /// Set the function
+  void set_function(function::Function *function) { _function = function; }
+
+  /// Set functions
+  void set_functions(const std::vector<function::Function *> functions) { _functions = functions; }
+
+  /// Set the output stream
+  void set_stream(std::ostream *stream) { _stream = stream; }
+
+  /// Set the log context
+  void set_log_context(LogContext *log_context) { _log_context = log_context; }
+
+  ///@}
     
-  };
+};
 
 
 } // end of namespace algorithm
