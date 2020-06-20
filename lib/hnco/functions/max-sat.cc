@@ -254,7 +254,7 @@ MaxSat::random(const bit_vector_t& solution, int k, int c)
     }
   }
 
-  assert(eval(solution) == double(_expression.size()));
+  assert(evaluate(solution) == double(_expression.size()));
 }
 
 
