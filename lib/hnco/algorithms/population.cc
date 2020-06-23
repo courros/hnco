@@ -51,8 +51,9 @@ Population::evaluate(Function *function)
 
 }
 
+
 void
-Population::evaluate(const std::vector<function::Function *>& fns)
+Population::evaluate_in_parallel(const std::vector<function::Function *>& fns)
 {
   assert(_bvs.size() == _lookup.size());
   assert(fns.size() > 1);

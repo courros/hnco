@@ -63,7 +63,7 @@ GeneticAlgorithm::iterate()
   }
 
   if (_functions.size() > 1)
-    _offsprings.evaluate(_functions);
+    _offsprings.evaluate_in_parallel(_functions);
   else
     _offsprings.evaluate(_function);
 

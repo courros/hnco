@@ -150,7 +150,7 @@ Mimic::iterate()
     sample(_population.get_bv(i));
 
   if (_functions.size() > 1)
-    _population.evaluate(_functions);
+    _population.evaluate_in_parallel(_functions);
   else
     _population.evaluate(_function);
 
