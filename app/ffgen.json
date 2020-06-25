@@ -20,6 +20,12 @@
         },
 
         {
+            "id": "lin",
+            "title": "Linear function",
+            "fold": false
+        },
+
+        {
             "id": "nk",
             "title": "NK Landscape",
             "fold": false
@@ -69,7 +75,7 @@
 
     ],
 
-    "order": [ "gen", "param", "nk", "ms", "ep", "part", "walsh", "walsh2", "nn1", "nn2" ],
+    "order": [ "gen", "param", "lin", "nk", "ms", "ep", "part", "walsh", "walsh2", "nn1", "nn2" ],
 
     "flags": {
 
@@ -201,6 +207,58 @@
             "value": 1,
             "description": "Field constant",
             "section": "param"
+        },
+
+        "lin_generator":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Type of LinearFunction generator",
+            "section": "lin",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Random coefficients"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Arithmetic progression"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Geometric progression"
+                }
+
+            ]
+
+        },
+
+        "lin_initial_weight":
+        {
+            "type": "double",
+            "value": 1,
+            "description": "Initial weight",
+            "section": "lin"
+        },
+
+        "lin_distance":
+        {
+            "type": "double",
+            "value": 1,
+            "description": "Common distance of arithmetic progression",
+            "section": "lin"
+        },
+
+        "lin_ratio":
+        {
+            "type": "double",
+            "value": 2,
+            "description": "Common ratio of geometric progression",
+            "section": "lin"
         },
 
         "nk_k":

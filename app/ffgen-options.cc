@@ -19,6 +19,14 @@ Options::Options(int argc, char *argv[]):
   _opt_field_constant(false),
   _function(1),
   _opt_function(false),
+  _lin_distance(1),
+  _opt_lin_distance(false),
+  _lin_generator(0),
+  _opt_lin_generator(false),
+  _lin_initial_weight(1),
+  _opt_lin_initial_weight(false),
+  _lin_ratio(2),
+  _opt_lin_ratio(false),
   _ms_num_clauses(100),
   _opt_ms_num_clauses(false),
   _ms_num_literals_per_clause(3),
@@ -58,6 +66,10 @@ Options::Options(int argc, char *argv[]):
     OPTION_EP_UPPER_BOUND,
     OPTION_FIELD_CONSTANT,
     OPTION_FUNCTION,
+    OPTION_LIN_DISTANCE,
+    OPTION_LIN_GENERATOR,
+    OPTION_LIN_INITIAL_WEIGHT,
+    OPTION_LIN_RATIO,
     OPTION_MS_NUM_CLAUSES,
     OPTION_MS_NUM_LITERALS_PER_CLAUSE,
     OPTION_NK_K,
@@ -81,6 +93,10 @@ Options::Options(int argc, char *argv[]):
     {"ep-upper-bound", required_argument, 0, OPTION_EP_UPPER_BOUND},
     {"field-constant", required_argument, 0, OPTION_FIELD_CONSTANT},
     {"function", required_argument, 0, OPTION_FUNCTION},
+    {"lin-distance", required_argument, 0, OPTION_LIN_DISTANCE},
+    {"lin-generator", required_argument, 0, OPTION_LIN_GENERATOR},
+    {"lin-initial-weight", required_argument, 0, OPTION_LIN_INITIAL_WEIGHT},
+    {"lin-ratio", required_argument, 0, OPTION_LIN_RATIO},
     {"ms-num-clauses", required_argument, 0, OPTION_MS_NUM_CLAUSES},
     {"ms-num-literals-per-clause", required_argument, 0, OPTION_MS_NUM_LITERALS_PER_CLAUSE},
     {"nk-k", required_argument, 0, OPTION_NK_K},
@@ -127,6 +143,22 @@ Options::Options(int argc, char *argv[]):
     case 'F':
     case OPTION_FUNCTION:
       set_function(atoi(optarg));
+      break;
+
+    case OPTION_LIN_DISTANCE:
+      set_lin_distance(atof(optarg));
+      break;
+
+    case OPTION_LIN_GENERATOR:
+      set_lin_generator(atoi(optarg));
+      break;
+
+    case OPTION_LIN_INITIAL_WEIGHT:
+      set_lin_initial_weight(atof(optarg));
+      break;
+
+    case OPTION_LIN_RATIO:
+      set_lin_ratio(atof(optarg));
       break;
 
     case OPTION_MS_NUM_CLAUSES:
@@ -243,6 +275,19 @@ void Options::print_help(ostream& stream) const
   stream << "      --stddev (type double, default to 1)" << endl;
   stream << "          Standard deviation" << endl;
   stream << endl;
+  stream << "Linear function" << endl;
+  stream << "      --lin-distance (type double, default to 1)" << endl;
+  stream << "          Common distance of arithmetic progression" << endl;
+  stream << "      --lin-generator (type int, default to 0)" << endl;
+  stream << "          Type of LinearFunction generator" << endl;
+  stream << "            0: Random coefficients" << endl;
+  stream << "            1: Arithmetic progression" << endl;
+  stream << "            2: Geometric progression" << endl;
+  stream << "      --lin-initial-weight (type double, default to 1)" << endl;
+  stream << "          Initial weight" << endl;
+  stream << "      --lin-ratio (type double, default to 2)" << endl;
+  stream << "          Common ratio of geometric progression" << endl;
+  stream << endl;
   stream << "NK Landscape" << endl;
   stream << "      --nk-k (type int, default to 3)" << endl;
   stream << "          Each bit is connected to k other bits" << endl;
@@ -309,6 +354,10 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# ep_upper_bound = " << options._ep_upper_bound << endl;
   stream << "# field_constant = " << options._field_constant << endl;
   stream << "# function = " << options._function << endl;
+  stream << "# lin_distance = " << options._lin_distance << endl;
+  stream << "# lin_generator = " << options._lin_generator << endl;
+  stream << "# lin_initial_weight = " << options._lin_initial_weight << endl;
+  stream << "# lin_ratio = " << options._lin_ratio << endl;
   stream << "# ms_num_clauses = " << options._ms_num_clauses << endl;
   stream << "# ms_num_literals_per_clause = " << options._ms_num_literals_per_clause << endl;
   stream << "# nk_k = " << options._nk_k << endl;

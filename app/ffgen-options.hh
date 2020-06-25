@@ -33,6 +33,22 @@ class Options {
   int _function;
   bool _opt_function;
 
+  /// Common distance of arithmetic progression
+  double _lin_distance;
+  bool _opt_lin_distance;
+
+  /// Type of LinearFunction generator
+  int _lin_generator;
+  bool _opt_lin_generator;
+
+  /// Initial weight
+  double _lin_initial_weight;
+  bool _opt_lin_initial_weight;
+
+  /// Common ratio of geometric progression
+  double _lin_ratio;
+  bool _opt_lin_ratio;
+
   /// Number of clauses
   int _ms_num_clauses;
   bool _opt_ms_num_clauses;
@@ -165,6 +181,54 @@ public:
 
   /// Get set-flag for function
   bool set_function() const { return _opt_function; }
+
+  /// Get lin_distance
+  double get_lin_distance() const { return _lin_distance; }
+
+  /// Set lin_distance
+  void set_lin_distance(double x) {
+    _lin_distance = x;
+    _opt_lin_distance = true;
+  }
+
+  /// Get set-flag for lin_distance
+  bool set_lin_distance() const { return _opt_lin_distance; }
+
+  /// Get lin_generator
+  int get_lin_generator() const { return _lin_generator; }
+
+  /// Set lin_generator
+  void set_lin_generator(int x) {
+    _lin_generator = x;
+    _opt_lin_generator = true;
+  }
+
+  /// Get set-flag for lin_generator
+  bool set_lin_generator() const { return _opt_lin_generator; }
+
+  /// Get lin_initial_weight
+  double get_lin_initial_weight() const { return _lin_initial_weight; }
+
+  /// Set lin_initial_weight
+  void set_lin_initial_weight(double x) {
+    _lin_initial_weight = x;
+    _opt_lin_initial_weight = true;
+  }
+
+  /// Get set-flag for lin_initial_weight
+  bool set_lin_initial_weight() const { return _opt_lin_initial_weight; }
+
+  /// Get lin_ratio
+  double get_lin_ratio() const { return _lin_ratio; }
+
+  /// Set lin_ratio
+  void set_lin_ratio(double x) {
+    _lin_ratio = x;
+    _opt_lin_ratio = true;
+  }
+
+  /// Get set-flag for lin_ratio
+  bool set_lin_ratio() const { return _opt_lin_ratio; }
 
   /// Get ms_num_clauses
   int get_ms_num_clauses() const { return _ms_num_clauses; }
