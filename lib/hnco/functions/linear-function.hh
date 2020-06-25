@@ -25,6 +25,8 @@
 #include <vector>
 #include <fstream>
 
+#include <algorithm>            // std::generate
+
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/vector.hpp>
@@ -70,10 +72,8 @@ public:
   template<class Generator>
   void generate(int n, Generator generator) {
     assert(n > 0);
-
     _weights.resize(n);
-    for (size_t i = 0; i < _weights.size(); i++)
-      _weights[i] = generator();
+    std::generate(begin(_weights), end(_weights), generator);
   }
 
   /** Random instance.
@@ -84,7 +84,6 @@ public:
   */
   void random(int n) {
     assert(n > 0);
-
     generate(n, hnco::random::Generator::normal);
   }
 
