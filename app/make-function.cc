@@ -85,6 +85,12 @@ make_concrete_function(const Options& options)
     return function;
   }
 
+  case 5: {
+    LinearFunction* function = new LinearFunction;
+    function->generate(options.get_bv_size(), [w = 1] () mutable { double result = w; w *= 2; return result; });
+    return function;
+  }
+
   case 10:
     return new LeadingOnes
       (options.get_bv_size());

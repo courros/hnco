@@ -450,6 +450,11 @@
                 },
 
                 {
+                    "value": 5,
+                    "description": "BinVal (linear function with weights in geometric progression 1, 2, 4...)"
+                },
+
+                {
                     "value": 10,
                     "description": "Leading ones"
                 },

@@ -955,6 +955,7 @@ void Options::print_help(ostream& stream) const
   stream << "          Type of function" << endl;
   stream << "            0: OneMax" << endl;
   stream << "            1: Linear function" << endl;
+  stream << "            5: BinVal (linear function with weights in geometric progression 1, 2, 4...)" << endl;
   stream << "            10: Leading ones" << endl;
   stream << "            11: Ridge" << endl;
   stream << "            20: Needle" << endl;
