@@ -20,44 +20,41 @@
 
 /** \file
 
-    Check ts_random_commuting.
+    Check Population::evaluate_in_parallel=.
 
-    Check that all transvections in the sequence are pairwise
-    commuting.
 */
 
 #include <iostream>
-#include <iterator>
 
-#include "hnco/transvection.hh"
+#include "hnco/algorithms/population.hh"
+#include "hnco/functions/theory.hh"
 
 
 using namespace hnco::random;
+using namespace hnco::algorithm;
 using namespace hnco;
-
-
-bool check_ts(const transvection_sequence_t& ts)
-{
-  for (size_t i = 0; i < ts.size(); i++)
-    for (size_t j = i + 1; j < ts.size(); j++)
-      if (!transvections_commute(ts[i], ts[j]))
-        return false;
-  return true;
-}
 
 bool check()
 {
-  std::uniform_int_distribution<int> dist(2, 200);
+  std::uniform_int_distribution<int> dist_population_size(2, 10);
+  std::uniform_int_distribution<int> dist_n(2, 10);
+  std::uniform_int_distribution<int> dist_num_threads(1, 5);
 
   for (int i = 0; i < 10; i++) {
-    const int n = dist(Generator::engine);
-    const int k = n / 2;
-    const int t = (n % 2 == 0) ? k * k : k * (k + 1);
+    const int population_size   = dist_population_size  (Generator::engine);
+    const int n                 = dist_n                (Generator::engine);
+    const int num_threads       = dist_num_threads      (Generator::engine);
 
-    transvection_sequence_t ts;
-    ts_random_commuting(ts, n, t);
-    if (!check_ts(ts))
-      return false;
+    Population population_seq(population_size, n);
+    population_seq.random();
+
+    Population population_par(population_seq);
+
+    function::OneMax fn(n);
+    std::vector<function::Function *> fns(num_threads, &fn);
+
+    population_seq.evaluate(&fn);
+    population_par.evaluate_in_parallel(fns);
   }
 
   return true;
@@ -66,10 +63,8 @@ bool check()
 int main(int argc, char *argv[])
 {
   Generator::set_seed();
-
   if (check())
     return 0;
   else
     return 1;
-
 }
