@@ -59,6 +59,7 @@ check_PROGRAMS = \
 	test-incremental-walsh-expansion-1-bernoulli-process \
 	test-injection-projection \
 	test-one-plus-one-ea-one-max \
+	test-population-evaluate-in-parallel \
 	test-sbm-multiply \
 	test-serialize-affine-map \
 	test-serialize-equal-products \
@@ -164,6 +165,7 @@ test_serialize_walsh_expansion_SOURCES = test-serialize-walsh-expansion.cc
 test_single_bit_flip_iterator_SOURCES = test-single-bit-flip-iterator.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 test_steepest_ascent_hill_climbing_local_SOURCES = test-steepest-ascent-hill-climbing-local.cc
+test_population_evaluate_in_parallel_SOURCES = test-population-evaluate-in-parallel.cc
 test_translation_SOURCES = test-translation.cc
 test_transvection_is_involution_SOURCES = test-transvection-is-involution.cc
 test_ts_multiply_SOURCES = test-ts-multiply.cc

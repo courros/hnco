@@ -142,6 +142,7 @@ check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-incremental-walsh-expansion-1-bernoulli-process$(EXEEXT) \
 	test-injection-projection$(EXEEXT) \
 	test-one-plus-one-ea-one-max$(EXEEXT) \
+	test-population-evaluate-in-parallel$(EXEEXT) \
 	test-sbm-multiply$(EXEEXT) test-serialize-affine-map$(EXEEXT) \
 	test-serialize-equal-products$(EXEEXT) \
 	test-serialize-linear-function$(EXEEXT) \
@@ -431,6 +432,12 @@ test_one_plus_one_ea_one_max_OBJECTS =  \
 	$(am_test_one_plus_one_ea_one_max_OBJECTS)
 test_one_plus_one_ea_one_max_LDADD = $(LDADD)
 test_one_plus_one_ea_one_max_DEPENDENCIES = ../lib/libhnco.la
+am_test_population_evaluate_in_parallel_OBJECTS =  \
+	test-population-evaluate-in-parallel.$(OBJEXT)
+test_population_evaluate_in_parallel_OBJECTS =  \
+	$(am_test_population_evaluate_in_parallel_OBJECTS)
+test_population_evaluate_in_parallel_LDADD = $(LDADD)
+test_population_evaluate_in_parallel_DEPENDENCIES = ../lib/libhnco.la
 am_test_sbm_multiply_OBJECTS = test-sbm-multiply.$(OBJEXT)
 test_sbm_multiply_OBJECTS = $(am_test_sbm_multiply_OBJECTS)
 test_sbm_multiply_LDADD = $(LDADD)
@@ -667,6 +674,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-incremental-walsh-expansion-1-bernoulli-process.Po \
 	./$(DEPDIR)/test-injection-projection.Po \
 	./$(DEPDIR)/test-one-plus-one-ea-one-max.Po \
+	./$(DEPDIR)/test-population-evaluate-in-parallel.Po \
 	./$(DEPDIR)/test-sbm-multiply.Po \
 	./$(DEPDIR)/test-serialize-affine-map.Po \
 	./$(DEPDIR)/test-serialize-equal-products.Po \
@@ -755,6 +763,7 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_incremental_walsh_expansion_1_bernoulli_process_SOURCES) \
 	$(test_injection_projection_SOURCES) \
 	$(test_one_plus_one_ea_one_max_SOURCES) \
+	$(test_population_evaluate_in_parallel_SOURCES) \
 	$(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
@@ -824,6 +833,7 @@ DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_incremental_walsh_expansion_1_bernoulli_process_SOURCES) \
 	$(test_injection_projection_SOURCES) \
 	$(test_one_plus_one_ea_one_max_SOURCES) \
+	$(test_population_evaluate_in_parallel_SOURCES) \
 	$(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
@@ -1278,6 +1288,7 @@ test_serialize_walsh_expansion_SOURCES = test-serialize-walsh-expansion.cc
 test_single_bit_flip_iterator_SOURCES = test-single-bit-flip-iterator.cc
 test_steepest_ascent_hill_climbing_SOURCES = test-steepest-ascent-hill-climbing.cc
 test_steepest_ascent_hill_climbing_local_SOURCES = test-steepest-ascent-hill-climbing-local.cc
+test_population_evaluate_in_parallel_SOURCES = test-population-evaluate-in-parallel.cc
 test_translation_SOURCES = test-translation.cc
 test_transvection_is_involution_SOURCES = test-transvection-is-involution.cc
 test_ts_multiply_SOURCES = test-ts-multiply.cc
@@ -1524,6 +1535,10 @@ test-one-plus-one-ea-one-max$(EXEEXT): $(test_one_plus_one_ea_one_max_OBJECTS) $
 	@rm -f test-one-plus-one-ea-one-max$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_one_plus_one_ea_one_max_OBJECTS) $(test_one_plus_one_ea_one_max_LDADD) $(LIBS)
 
+test-population-evaluate-in-parallel$(EXEEXT): $(test_population_evaluate_in_parallel_OBJECTS) $(test_population_evaluate_in_parallel_DEPENDENCIES) $(EXTRA_test_population_evaluate_in_parallel_DEPENDENCIES) 
+	@rm -f test-population-evaluate-in-parallel$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_population_evaluate_in_parallel_OBJECTS) $(test_population_evaluate_in_parallel_LDADD) $(LIBS)
+
 test-sbm-multiply$(EXEEXT): $(test_sbm_multiply_OBJECTS) $(test_sbm_multiply_DEPENDENCIES) $(EXTRA_test_sbm_multiply_DEPENDENCIES) 
 	@rm -f test-sbm-multiply$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_sbm_multiply_OBJECTS) $(test_sbm_multiply_LDADD) $(LIBS)
@@ -1697,6 +1712,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-walsh-expansion-1-bernoulli-process.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-injection-projection.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-one-plus-one-ea-one-max.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-population-evaluate-in-parallel.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-sbm-multiply.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-affine-map.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-equal-products.Po@am__quote@ # am--include-marker
@@ -2252,6 +2268,13 @@ test-one-plus-one-ea-one-max.log: test-one-plus-one-ea-one-max$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-population-evaluate-in-parallel.log: test-population-evaluate-in-parallel$(EXEEXT)
+	@p='test-population-evaluate-in-parallel$(EXEEXT)'; \
+	b='test-population-evaluate-in-parallel'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-sbm-multiply.log: test-sbm-multiply$(EXEEXT)
 	@p='test-sbm-multiply$(EXEEXT)'; \
 	b='test-sbm-multiply'; \
@@ -2613,6 +2636,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-incremental-walsh-expansion-1-bernoulli-process.Po
 	-rm -f ./$(DEPDIR)/test-injection-projection.Po
 	-rm -f ./$(DEPDIR)/test-one-plus-one-ea-one-max.Po
+	-rm -f ./$(DEPDIR)/test-population-evaluate-in-parallel.Po
 	-rm -f ./$(DEPDIR)/test-sbm-multiply.Po
 	-rm -f ./$(DEPDIR)/test-serialize-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-equal-products.Po
@@ -2732,6 +2756,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-incremental-walsh-expansion-1-bernoulli-process.Po
 	-rm -f ./$(DEPDIR)/test-injection-projection.Po
 	-rm -f ./$(DEPDIR)/test-one-plus-one-ea-one-max.Po
+	-rm -f ./$(DEPDIR)/test-population-evaluate-in-parallel.Po
 	-rm -f ./$(DEPDIR)/test-sbm-multiply.Po
 	-rm -f ./$(DEPDIR)/test-serialize-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-equal-products.Po
