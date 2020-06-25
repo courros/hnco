@@ -57,6 +57,44 @@ void save_function_to_boost_archive(const T& function, const std::string name, c
 }
 
 
+void generate_linear_function(Options& options)
+{
+  LinearFunction function;
+
+  switch (options.get_lin_generator()) {
+
+  case 0: {
+    double stddev = options.get_stddev();
+    auto generator = [stddev]() { return stddev * Generator::normal(); };
+    function.generate(options.get_bv_size(), generator);
+    break;
+  }
+
+  case 1: {
+    double w = options.get_lin_initial_weight();
+    double d = options.get_lin_distance();
+    function.generate(options.get_bv_size(), [w, d] () mutable { double result = w; w += d; return result; });
+    break;
+  }
+
+  case 2: {
+    double w = options.get_lin_initial_weight();
+    double r = options.get_lin_ratio();
+    function.generate(options.get_bv_size(), [w, r] () mutable { double result = w; w *= r; return result; });
+    break;
+  }
+
+  default:
+    std::ostringstream stream;
+    stream << "generate_linear_function: unknown generator: " << options.get_lin_generator();
+    throw Error(stream.str());
+
+  }
+
+  save_function_to_boost_archive(function, "LinearFunction", options);
+}
+
+
 void generate_walsh_expansion_2(Options& options)
 {
   double stddev = options.get_stddev();
@@ -186,12 +224,9 @@ void generate_function(Options& options)
 
   switch(options.get_function()) {
 
-  case 1: {
-    LinearFunction function;
-    function.generate(options.get_bv_size(), generator);
-    save_function_to_boost_archive(function, "LinearFunction", options);
+  case 1:
+    generate_linear_function(options);
     break;
-  }
 
   case 60: {
     NkLandscape function;
