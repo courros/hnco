@@ -35,12 +35,10 @@ namespace algorithm {
   /// Population
   class Population {
 
-  public:
+  protected:
 
     /// Index-value type
     typedef std::pair<int, double> index_value_t;
-
-  protected:
 
     /// Bit vectors
     std::vector<bit_vector_t> _bvs;
@@ -176,7 +174,7 @@ namespace algorithm {
     }
 
     /// Shuffle the lookup table
-    void shuffle() { std::shuffle(_lookup.begin(), _lookup.end(), hnco::random::Generator::engine); }
+    void shuffle() { std::shuffle(_lookup.begin(), _lookup.end(), random::Generator::engine); }
 
     ///@}
 
