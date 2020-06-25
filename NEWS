@@ -7,6 +7,21 @@ Library:
 - Renamed Random -> Generator
 - Generator: added static member functions set_seed and reset
 - Generator: added static member seed
+- Renamed LocalMaximum -> LocalMaximumFound
+- Renamed Function::eval -> evaluate
+- Renamed Function::safe_eval -> evaluate_safely
+- Renamed Function::incremental_eval -> evaluate_incrementally
+- Renamed Population::evaluate -> evaluate_in_parallel (no overloading)
+- Removed Algorithm::init
+- Added IterativeAlgorithm::init
+- IterativeAlgorithm::maximize calls init
+- Added template class LocalSearchAlgorithm
+- RandomLocalSearch, RandomWalk, SteepestAscentHillClimbing,
+  SimulatedAnnealing, FirstAscentHillClimbing derive from
+  LocalSearchAlgorithm
+
+Tests:
+- Added test-population-evaluate-in-parallel
 
 
 * Version 0.14 (2020-05-23)
