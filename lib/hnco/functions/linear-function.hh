@@ -36,96 +36,95 @@ namespace hnco {
 namespace function {
 
 
-  /// Linear function
-  class LinearFunction:
-    public Function {
+/// Linear function
+class LinearFunction: public Function {
 
-  private:
+private:
 
-    friend class boost::serialization::access;
+  friend class boost::serialization::access;
 
-    /// Serialize
-    template<class Archive>
-    void serialize(Archive& ar, const unsigned int version)
-    {
-      ar & _weights;
-    }
+  /// Serialize
+  template<class Archive>
+  void serialize(Archive& ar, const unsigned int version)
+  {
+    ar & _weights;
+  }
 
-    /// Weights
-    std::vector<double> _weights;
+  /// Weights
+  std::vector<double> _weights;
 
-  public:
+public:
 
-    /// Constructor
-    LinearFunction() {}
+  /// Constructor
+  LinearFunction() {}
 
-    /** @name Instance generators
-     */
-    ///@{
+  /** @name Instance generators
+   */
+  ///@{
 
-    /** Instance generator.
+  /** Instance generator.
 
-        \param n Size of bit vectors
-        \param generator Weight generator
-    */
-    template<class Generator>
-    void generate(int n, Generator generator) {
-      assert(n > 0);
+      \param n Size of bit vectors
+      \param generator Weight generator
+  */
+  template<class Generator>
+  void generate(int n, Generator generator) {
+    assert(n > 0);
 
-      _weights.resize(n);
-      for (size_t i = 0; i < _weights.size(); i++)
-        _weights[i] = generator();
-    }
+    _weights.resize(n);
+    for (size_t i = 0; i < _weights.size(); i++)
+      _weights[i] = generator();
+  }
 
-    /** Random instance.
+  /** Random instance.
 
-        The weights are sampled from the normal distribution.
+      The weights are sampled from the normal distribution.
 
-        \param n Size of bit vectors
-    */
-    void random(int n) {
-      assert(n > 0);
+      \param n Size of bit vectors
+  */
+  void random(int n) {
+    assert(n > 0);
 
-      generate(n, hnco::random::Generator::normal);
-    }
+    generate(n, hnco::random::Generator::normal);
+  }
 
-    ///@}
+  ///@}
 
 
-    /** @name Evaluation
-     */
-    ///@{
+  /** @name Evaluation
+   */
+  ///@{
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
 
-    /// Incrementally evaluate a bit vector
-    double evaluate_incrementally(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits);
+  /// Incrementally evaluate a bit vector
+  double evaluate_incrementally(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits);
 
-    ///@}
+  ///@}
 
-    /** @name Information about the function
-     */
-    ///@{
+  /** @name Information about the function
+   */
+  ///@{
 
-    /// Get bit vector size
-    int get_bv_size() { return _weights.size(); }
+  /// Get bit vector size
+  int get_bv_size() { return _weights.size(); }
 
-    /// Get the global maximum
-    double get_maximum();
+  /// Get the global maximum
+  double get_maximum();
 
-    /** Check for a known maximum.
-        \return true */
-    bool has_known_maximum() { return true; }
+  /** Check for a known maximum.
+      \return true */
+  bool has_known_maximum() { return true; }
 
-    /** Check whether the function provides incremental evaluation.
-        \return true
-    */
-    bool provides_incremental_evaluation() { return true; }
+  /** Check whether the function provides incremental evaluation.
+      \return true
+  */
+  bool provides_incremental_evaluation() { return true; }
 
-    ///@}
+  ///@}
 
-  };
+};
 
 
 } // end of namespace function
