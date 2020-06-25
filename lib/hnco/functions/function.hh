@@ -36,6 +36,7 @@
 
 
 namespace hnco {
+
 /// Functions defined on bit vectors
 namespace function {
 
@@ -76,7 +77,15 @@ public:
    */
   ///@{
 
-  /// Evaluate a bit vector
+  /** Evaluate a bit vector.
+
+      This member function is not declared const and is not supposed
+      to be thread-safe. In particular, in order to evaluate a bit
+      vector, it might require some data member to store temporary
+      results. In case of parallel evaluation, there should be a copy
+      of the function per thread, as is done in
+      Population::evaluate_in_parallel.
+  */
   virtual double evaluate(const bit_vector_t&) = 0;
 
   /** Incrementally evaluate a bit vector.
@@ -84,20 +93,25 @@ public:
       \throw Error
   */
   virtual double evaluate_incrementally(const bit_vector_t& x, double value,
-                                        const hnco::sparse_bit_vector_t& flipped_bits)
+                                        const sparse_bit_vector_t& flipped_bits)
   {
     throw exception::Error("Function::evaluate_incrementally: This function does not provide incremental evaluation");
   }
 
   /** Safely evaluate a bit vector.
 
-      Must be thread-safe, that is must avoid throwing exceptions
-      and updating global states (e.g. maximum) in function
-      decorators.
+      Must neither throw any exception nor update global states (e.g.
+      maximum) in function controllers. It is used in
+      Population::evaluate_in_parallel inside a OMP parallel for loop.
+
+      By default, calls evaluate.
   */
   virtual double evaluate_safely(const bit_vector_t& x) { return evaluate(x); }
 
-  /// Update after a safe evaluation
+  /** Update states after a safe evaluation.
+
+      By default, does nothing.
+  */
   virtual void update(const bit_vector_t& x, double value) {}
 
   ///@}
@@ -149,7 +163,7 @@ void compute_walsh_transform(function::Function *function,
 
 /// Check whether a bit vector is locally maximal
 bool bv_is_locally_maximal(const bit_vector_t& bv, Function& fn,
-                           hnco::neighborhood::NeighborhoodIterator& it);
+                           neighborhood::NeighborhoodIterator& it);
 
 /// Check whether a bit vector is globally maximal
 bool bv_is_globally_maximal(const bit_vector_t& bv, Function& fn);
