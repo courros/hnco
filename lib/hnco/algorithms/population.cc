@@ -43,8 +43,8 @@ Population::random()
 void
 Population::evaluate(Function *function)
 {
+  assert(have_same_size(_bvs, _lookup));
   assert(function);
-  assert(_bvs.size() == _lookup.size());
 
   for (size_t i = 0; i < _bvs.size(); i++) {
     _lookup[i].first = i;
@@ -57,13 +57,14 @@ Population::evaluate(Function *function)
 void
 Population::evaluate_in_parallel(const std::vector<Function *>& fns)
 {
-  assert(_bvs.size() == _lookup.size());
-  assert(fns.size() >= 1);
+  assert(have_same_size(_bvs, _lookup));
+  assert(!fns.empty());
 
 #pragma omp parallel for
   for (size_t i = 0; i < _bvs.size(); i++) {
     int k = omp_get_thread_num();
     assert(is_in_range(k, int(fns.size())));
+    assert(fns[k]);
     _lookup[i].first = i;
     _lookup[i].second = fns[k]->evaluate_safely(_bvs[i]);
   }
