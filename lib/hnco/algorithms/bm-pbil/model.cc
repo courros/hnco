@@ -24,7 +24,7 @@
 
 #include "hnco/algorithms/matrix.hh" // hnco::algorithm::matrix_is_symmetric
 #include "hnco/random.hh"
-#include "hnco/util.hh"         // hnco::logistic
+#include "hnco/util.hh"         // hnco::logistic, hnco::is_in_range
 
 #include "model.hh"
 

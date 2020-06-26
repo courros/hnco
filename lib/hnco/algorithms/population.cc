@@ -21,6 +21,8 @@
 #include <assert.h>
 #include <omp.h>                // omp_get_thread_num
 
+#include "hnco/util.hh"         // hnco::is_in_range
+
 #include "population.hh"
 
 
