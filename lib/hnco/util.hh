@@ -30,59 +30,60 @@
 namespace hnco {
 
 
-  /** @name Range checking
-   */
-  ///@{
+/** @name Range checking
+ */
+///@{
 
-  /** Check whether an index is in a given range.
+/** Check whether an index is in a given range.
 
-      The lower bound is implicit and is equal to 0.
+    \param i Index
+    \param a Lower bound
+    \param b Upper bound (excluded)
 
-      \param i Index
-      \param n Upper bound
+    \return true if i >= a and i < b
+*/
+inline bool is_in_range(int i, int a, int b) { return i >= a && i < b; }
 
-      \return true if i >= 0 and i < n
-  */
-  inline bool is_in_range(int i, int n) { return i >= 0 && i < n; }
+/** Check whether an index is in a given range.
 
-  /** Check whether an index is in a given range.
+    The lower bound is implicit and is equal to 0.
 
-      \param i Index
-      \param a Lower bound
-      \param b Upper bound
+    \param i Index
+    \param n Upper bound (excluded)
 
-      \return true if i >= a and i < b
-  */
-  inline bool is_in_range(int i, int a, int b) { return i >= a && i < b; }
+    \return true if i >= 0 and i < n
+*/
+inline bool is_in_range(int i, int n) { return is_in_range(i, 0, n); }
 
-  ///@}
+///@}
 
-  /// Generic square function
-  template<class T>
-  T square(T x) { return x * x; }
+/// Generic square function
+template<class T>
+T square(T x) { return x * x; }
 
-  /// Logistic function (sigmoid)
-  inline double logistic(double x)
-  {
-    if (x > 0)
-      return 1 / (1 + std::exp(-x));
-    else {
-      double tmp = std::exp(x);
-      return tmp / (1 + tmp);
-    }
+/// Logistic function (sigmoid)
+inline double logistic(double x)
+{
+  if (x > 0)
+    return 1 / (1 + std::exp(-x));
+  else {
+    double tmp = std::exp(x);
+    return tmp / (1 + tmp);
   }
+}
 
-  /// Convert to string and join elements of a container (from SO)
-  template <typename Iter>
-  std::string join(Iter begin, Iter end, std::string const& separator)
-  {
-    std::ostringstream result;
-    if (begin != end)
-      result << *begin++;
-    while (begin != end)
-      result << separator << *begin++;
-    return result.str();
-  }
+/// Convert to string and join elements of a container (from SO)
+template <typename Iter>
+std::string join(Iter begin, Iter end, std::string const& separator)
+{
+  std::ostringstream result;
+  if (begin != end)
+    result << *begin++;
+  while (begin != end)
+    result << separator << *begin++;
+  return result.str();
+}
+
 
 } // end of namespace hnco
 
