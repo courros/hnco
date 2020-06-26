@@ -28,157 +28,159 @@
 
 namespace hnco {
 
-  /** @name Types and functions related to bit matrices
-   */
-  ///@{
 
-  /// Bit matrix
-  typedef std::vector<bit_vector_t> bit_matrix_t;
+/** @name Types and functions related to bit matrices
+ */
+///@{
 
-  /// Display bit matrix
-  void bm_display(const bit_matrix_t& M, std::ostream& stream);
+/// Bit matrix
+typedef std::vector<bit_vector_t> bit_matrix_t;
 
-  /// Check whether a bit matrix is valid
-  bool bm_is_valid(const bit_matrix_t& M);
+/// Display bit matrix
+void bm_display(const bit_matrix_t& M, std::ostream& stream);
 
-  /// Number of rows
-  inline int bm_num_rows(const bit_matrix_t& M) { return M.size(); }
+/// Check whether a bit matrix is valid
+bool bm_is_valid(const bit_matrix_t& M);
 
-  /// Number of columns
-  inline int bm_num_columns(const bit_matrix_t& M) { return M[0].size(); }
+/// Number of rows
+inline int bm_num_rows(const bit_matrix_t& M) { return M.size(); }
 
-  /// Check whether the matrix is a square matrix
-  inline bool bm_is_square(const bit_matrix_t& M) { return bm_num_rows(M) == bm_num_columns(M); }
+/// Number of columns
+inline int bm_num_columns(const bit_matrix_t& M) { return M[0].size(); }
 
-  /// Check whether the matrix is the identity matrix
-  bool bm_is_identity(const bit_matrix_t& M);
+/// Check whether the matrix is a square matrix
+inline bool bm_is_square(const bit_matrix_t& M) { return bm_num_rows(M) == bm_num_columns(M); }
 
-  /// Check whether the matrix is upper triangular
-  bool bm_is_upper_triangular(const bit_matrix_t& M);
+/// Check whether the matrix is the identity matrix
+bool bm_is_identity(const bit_matrix_t& M);
 
-  /// Resize a bit matrix
-  void bm_resize(bit_matrix_t& M, int num_rows, int num_columns);
+/// Check whether the matrix is upper triangular
+bool bm_is_upper_triangular(const bit_matrix_t& M);
 
-  /// Resize a bit matrix and make it a square matrix
-  inline void bm_resize(bit_matrix_t& M, int num_rows) { bm_resize(M, num_rows, num_rows); }
+/// Resize a bit matrix
+void bm_resize(bit_matrix_t& M, int num_rows, int num_columns);
 
-  /// Clear bit matrix
-  inline void bm_clear(bit_matrix_t& M) { std::for_each(M.begin(), M.end(), [](bit_vector_t& row){ bv_clear(row); }); }
+/// Resize a bit matrix and make it a square matrix
+inline void bm_resize(bit_matrix_t& M, int num_rows) { bm_resize(M, num_rows, num_rows); }
 
-  /** Set the matrix to the identity matrix.
+/// Clear bit matrix
+inline void bm_clear(bit_matrix_t& M) { std::for_each(M.begin(), M.end(), [](bit_vector_t& row){ bv_clear(row); }); }
 
-      \pre bm_is_square(M)
-  */
-  void bm_identity(bit_matrix_t& M);
+/** Set the matrix to the identity matrix.
 
-  /** Set the matrix to the identity matrix.
+    \pre bm_is_square(M)
+*/
+void bm_identity(bit_matrix_t& M);
 
-      \param M Bit matrix
-      \param n Dimension
-  */
-  void bm_identity(bit_matrix_t& M, int n);
+/** Set the matrix to the identity matrix.
 
-  /// Sample a random bit matrix
-  void bm_random(bit_matrix_t& M);
+    \param M Bit matrix
+    \param n Dimension
+*/
+void bm_identity(bit_matrix_t& M, int n);
 
-  /// Swap two rows
-  void bm_swap_rows(bit_matrix_t& M, int i, int j);
+/// Sample a random bit matrix
+void bm_random(bit_matrix_t& M);
 
-  /** Add two rows.
+/// Swap two rows
+void bm_swap_rows(bit_matrix_t& M, int i, int j);
 
-      Row i is added to row j.
-  */
-  void bm_add_rows(bit_matrix_t& M, int i, int j);
+/** Add two rows.
 
-  /** Add two columns.
+    Row i is added to row j.
+*/
+void bm_add_rows(bit_matrix_t& M, int i, int j);
 
-      Column src is added to column dest.
+/** Add two columns.
 
-      \param M Bit matrix
-      \param src Source column
-      \param dest Destination column
+    Column src is added to column dest.
 
-      \warning M is modified by the function.
-  */
-  void bm_add_columns(bit_matrix_t& M, int src, int dest);
+    \param M Bit matrix
+    \param src Source column
+    \param dest Destination column
 
-  /** Compute a row echelon form of a matrix.
+    \warning M is modified by the function.
+*/
+void bm_add_columns(bit_matrix_t& M, int src, int dest);
 
-      \warning A is modified by the function.
-  */
-  void bm_row_echelon_form(bit_matrix_t& A);
+/** Compute a row echelon form of a matrix.
 
-  /** Compute the rank of a matrix.
+    \warning A is modified by the function.
+*/
+void bm_row_echelon_form(bit_matrix_t& A);
 
-      \pre A must be in row echelon form.
-  */
-  int bm_rank(const bit_matrix_t& A);
+/** Compute the rank of a matrix.
 
-  /** Solve a linear system.
+    \pre A must be in row echelon form.
+*/
+int bm_rank(const bit_matrix_t& A);
 
-      Solve the linear equation Ax = b.
+/** Solve a linear system.
 
-      \param A Matrix
-      \param b Right hand side
+    Solve the linear equation Ax = b.
 
-      \pre bm_is_square(A)
-      \pre bm_num_rows(A) == b.size()
+    \param A Matrix
+    \param b Right hand side
 
-      \return true if the system has a unique solution
+    \pre bm_is_square(A)
+    \pre bm_num_rows(A) == b.size()
 
-      \warning Both A and b are modified by the function. Provided
-      that A is invertible, after returning from the function, A is
-      the identity matrix and b is the unique solution to the linear
-      equation.
-  */
-  bool bm_solve(bit_matrix_t& A, bit_vector_t& b);
+    \return true if the system has a unique solution
 
-  /** Solve a linear system in upper triangular form.
+    \warning Both A and b are modified by the function. Provided
+    that A is invertible, after returning from the function, A is
+    the identity matrix and b is the unique solution to the linear
+    equation.
+*/
+bool bm_solve(bit_matrix_t& A, bit_vector_t& b);
 
-      Solve the linear equation Ax = b.
+/** Solve a linear system in upper triangular form.
 
-      \param A Upper triangular matrix
-      \param b Right hand side
+    Solve the linear equation Ax = b.
 
-      \pre bm_is_square(A)
-      \pre bm_num_rows(A) == b.size()
-      \pre bm_is_upper_triangular(A)
+    \param A Upper triangular matrix
+    \param b Right hand side
 
-      \return true if the system has a unique solution
+    \pre bm_is_square(A)
+    \pre bm_num_rows(A) == b.size()
+    \pre bm_is_upper_triangular(A)
 
-      \warning Both A and b are modified by the function. Provided
-      that A is invertible, after returning from the function, A is
-      the identity matrix and b is the unique solution to the linear
-      equation.
-  */
-  bool bm_solve_upper_triangular(bit_matrix_t& A, bit_vector_t& b);
+    \return true if the system has a unique solution
 
-  /** Invert a bit matrix.
+    \warning Both A and b are modified by the function. Provided
+    that A is invertible, after returning from the function, A is
+    the identity matrix and b is the unique solution to the linear
+    equation.
+*/
+bool bm_solve_upper_triangular(bit_matrix_t& A, bit_vector_t& b);
 
-      \param M input matrix
-      \param N inverse matrix
+/** Invert a bit matrix.
 
-      \pre bm_is_square(M)
-      \pre bm_is_square(N)
+    \param M input matrix
+    \param N inverse matrix
 
-      \return true if M is invertible
+    \pre bm_is_square(M)
+    \pre bm_is_square(N)
 
-      \warning M is modified by the function. Provided that M is
-      invertible, after returning from the function, M is the identity
-      matrix and N is the computed inverse matrix.
-  */
-  bool bm_invert(bit_matrix_t& M, bit_matrix_t& N);
+    \return true if M is invertible
 
-  /** Multiply a bit matrix and a bit vector.
+    \warning M is modified by the function. Provided that M is
+    invertible, after returning from the function, M is the identity
+    matrix and N is the computed inverse matrix.
+*/
+bool bm_invert(bit_matrix_t& M, bit_matrix_t& N);
 
-      The result is y = Mx.
-  */
-  void bm_multiply(const bit_matrix_t& M, const bit_vector_t& x, bit_vector_t& y);
+/** Multiply a bit matrix and a bit vector.
 
-  /// Transpose
-  void bm_transpose(const bit_matrix_t& M, bit_matrix_t& N);
+    The result is y = Mx.
+*/
+void bm_multiply(const bit_matrix_t& M, const bit_vector_t& x, bit_vector_t& y);
 
-  ///@}
+/// Transpose
+void bm_transpose(const bit_matrix_t& M, bit_matrix_t& N);
+
+///@}
+
 
 } // end of namespace hnco
 
