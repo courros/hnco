@@ -39,16 +39,6 @@ RandomLocalSearch::init()
 
 
 void
-RandomLocalSearch::finalize()
-{
-  assert(_neighborhood);
-
-  _solution.first = _neighborhood->get_origin();
-  // _solution.second has been taken care of
-}
-
-
-void
 RandomLocalSearch::iterate()
 {
   assert(_function);
@@ -121,4 +111,14 @@ RandomLocalSearch::iterate_incremental()
       throw LocalMaximumFound(_solution);
     }
 
+}
+
+
+void
+RandomLocalSearch::finalize()
+{
+  assert(_neighborhood);
+
+  _solution.first = _neighborhood->get_origin();
+  // _solution.second has been taken care of
 }
