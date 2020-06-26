@@ -20,6 +20,8 @@
 
 #include <assert.h>
 
+#include "hnco/util.hh"         // hnco::is_in_range
+
 #include "bit-matrix.hh"
 
 
