@@ -29,6 +29,34 @@
 
 namespace hnco {
 
+
+  /** @name Range checking
+   */
+  ///@{
+
+  /** Check whether an index is in a given range.
+
+      The lower bound is implicit and is equal to 0.
+
+      \param i Index
+      \param n Upper bound
+
+      \return true if i >= 0 and i < n
+  */
+  inline bool is_in_range(int i, int n) { return i >= 0 && i < n; }
+
+  /** Check whether an index is in a given range.
+
+      \param i Index
+      \param a Lower bound
+      \param b Upper bound
+
+      \return true if i >= a and i < b
+  */
+  inline bool is_in_range(int i, int a, int b) { return i >= a && i < b; }
+
+  ///@}
+
   /// Generic square function
   template<class T>
   T square(T x) { return x * x; }
