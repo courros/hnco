@@ -18,8 +18,6 @@
 
 */
 
-#include <assert.h>
-
 #include "algorithm.hh"
 
 
