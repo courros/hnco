@@ -42,23 +42,21 @@ int main(int argc, char *argv[])
 
   for (int i = 0; i < 10; i++) {
 
-    int a = dist_a(Generator::engine);
-    int b = dist_b(Generator::engine);
-    int c = a * b;
+    const int a = dist_a(Generator::engine);
+    const int b = dist_b(Generator::engine);
+    const int c = a * b;
 
     std::ostringstream stream;
     stream << c;
 
     Factorization function0(stream.str());
-
     Translation map;
     map.random(function0.get_bv_size());
-
     FunctionMapComposition function(&function0, &map);
 
     CompleteSearch algorithm(function0.get_bv_size());
-    algorithm.set_function(&function);
-    try { algorithm.maximize(); }
+
+    try { algorithm.maximize({&function}); }
     catch (...) {
       return 1;
     }

@@ -44,19 +44,18 @@ int main(int argc, char *argv[])
     { return coefficient_dist(Generator::engine); };
 
   for (int i = 0; i < 10; i++) {
-    int bv_size = bv_size_dist(Generator::engine);
+
+    const int bv_size = bv_size_dist(Generator::engine);
 
     WalshExpansion1 function0;
     function0.generate(bv_size, fn);
-
     Translation map;
     map.random(bv_size);
-
     FunctionMapComposition function(&function0, &map);
 
     CompleteSearch algorithm(bv_size);
-    algorithm.set_function(&function);
-    try { algorithm.maximize(); }
+
+    try { algorithm.maximize({&function}); }
     catch (...) {
       return 1;
     }

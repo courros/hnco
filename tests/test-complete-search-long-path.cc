@@ -42,18 +42,17 @@ int main(int argc, char *argv[])
 
   for (int i = 0; i < 10; i++) {
 
-    int prefix_length = prefix_length_dist(random::Generator::engine);
-    int bv_size = divisor_dist(random::Generator::engine) * prefix_length;
-
-    Translation map;
-    map.random(bv_size);
+    const int prefix_length = prefix_length_dist(random::Generator::engine);
+    const int bv_size = divisor_dist(random::Generator::engine) * prefix_length;
 
     LongPath function0(bv_size, prefix_length);
+    Translation map;
+    map.random(bv_size);
     FunctionMapComposition function(&function0, &map);
 
     CompleteSearch algorithm(bv_size);
-    algorithm.set_function(&function);
-    try { algorithm.maximize(); }
+
+    try { algorithm.maximize({&function}); }
     catch (...) {
       return 1;
     }

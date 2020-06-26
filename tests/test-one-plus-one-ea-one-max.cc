@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
   for (int i = 0; i < 100; i++) {
 
-    int bv_size = bv_size_dist(Generator::engine);
+    const int bv_size = bv_size_dist(Generator::engine);
 
     OneMax f0(bv_size);
     Translation map;
@@ -52,12 +52,11 @@ int main(int argc, char *argv[])
     StopOnMaximum f2(&f1);
 
     OnePlusOneEa algorithm(bv_size);
-    algorithm.set_function(&f2);
 
     solution_t solution;
 
     try {
-      algorithm.maximize();
+      algorithm.maximize({&f2});
     }
     catch (const MaximumReached& e) {
       // finalize not necessary

@@ -41,15 +41,15 @@ int main(int argc, char *argv[])
   Generator::set_seed();
 
   for (int i = 0; i < 10; i++) {
-    Translation map;
-    map.random(bv_size);
 
     Trap function0(bv_size, num_traps);
+    Translation map;
+    map.random(bv_size);
     FunctionMapComposition function(&function0, &map);
 
     CompleteSearch algorithm(bv_size);
-    algorithm.set_function(&function);
-    try { algorithm.maximize(); }
+
+    try { algorithm.maximize({&function}); }
     catch (...) {
       return 1;
     }

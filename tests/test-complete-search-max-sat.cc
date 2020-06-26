@@ -38,28 +38,27 @@ int main(int argc, char *argv[])
 
   Generator::set_seed();
 
+  std::uniform_int_distribution<int> dist_bv_size(1, 15);
+  std::uniform_int_distribution<int> dist_c(1, 100);
+
   for (int i = 0; i < num_runs; i++) {
 
-    std::uniform_int_distribution<int> dist_bv_size(1, 15);
-
-    int bv_size = dist_bv_size(Generator::engine);
+    const int bv_size = dist_bv_size(Generator::engine);
 
     std::uniform_int_distribution<int> dist_k(1, bv_size);
-    std::uniform_int_distribution<int> dist_c(1, 100);
 
-    int k = dist_k(Generator::engine);
-    int c = dist_c(Generator::engine);
+    const int k = dist_k(Generator::engine);
+    const int c = dist_c(Generator::engine);
 
     bit_vector_t solution(bv_size);
     bv_random(solution);
-
     MaxSat function;
     function.random(solution, k, c);
 
     CompleteSearch algorithm(bv_size);
-    algorithm.set_function(&function);
+
     try {
-      algorithm.maximize();
+      algorithm.maximize({&function});
     }
     catch (...) {
       return 1;

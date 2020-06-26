@@ -32,20 +32,21 @@ using namespace hnco;
 
 int main(int argc, char *argv[])
 {
+  Generator::set_seed();
+
   std::uniform_int_distribution<int> bv_size_dist(1, 100);
 
   for (int i = 0; i < 1000; i++) {
 
-    int bv_size = bv_size_dist(random::Generator::engine);
+    const int bv_size = bv_size_dist(random::Generator::engine);
 
     Labs fn(bv_size);
+
     SingleBitFlipIterator it(bv_size);
     SteepestAscentHillClimbing algorithm(bv_size, &it);
 
-    algorithm.set_function(&fn);
-
     try {
-      algorithm.maximize();
+      algorithm.maximize({&fn});
     }
     catch (LocalMaximumFound) {}
     catch (...) {
