@@ -47,12 +47,6 @@ protected:
    */
   ///@{
 
-  /// Initialize
-  void init() override {
-    _algorithm->set_function(_function);
-    _algorithm->set_functions(_functions);
-  }
-
   /// Single iteration
   void iterate() override;
 

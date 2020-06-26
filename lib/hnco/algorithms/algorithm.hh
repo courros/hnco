@@ -21,6 +21,8 @@
 #ifndef HNCO_ALGORITHMS_ALGORITHM_H
 #define HNCO_ALGORITHMS_ALGORITHM_H
 
+#include <assert.h>
+
 #include <iostream>
 
 #include "hnco/exception.hh"
@@ -30,6 +32,7 @@
 
 
 namespace hnco {
+
 /// Algorithms
 namespace algorithm {
 
@@ -55,9 +58,6 @@ protected:
   /// Solution
   solution_t _solution;
 
-  /// Log context
-  LogContext *_log_context = nullptr;
-
 
   /** @name Parameters
    */
@@ -65,6 +65,9 @@ protected:
 
   /// Output stream
   std::ostream *_stream = &std::cout;
+
+  /// Log context
+  LogContext *_log_context = nullptr;
 
   ///@}
 
@@ -99,6 +102,15 @@ protected:
 
   ///@}
 
+  /// Set functions
+  void set_functions(const std::vector<function::Function *>& functions) {
+    assert(!functions.empty());
+    assert(functions[0]);
+
+    _functions = functions;
+    _function = functions[0];
+  }
+
 public:
 
   /// Constructor
@@ -118,7 +130,7 @@ public:
   ///@{
 
   /// Maximize
-  virtual void maximize() = 0;
+  virtual void maximize(const std::vector<function::Function *>& functions) = 0;
 
   /** Finalize.
 
@@ -151,12 +163,6 @@ public:
   /** @name Setters
    */
   ///@{
-
-  /// Set the function
-  void set_function(function::Function *function) { _function = function; }
-
-  /// Set functions
-  void set_functions(const std::vector<function::Function *> functions) { _functions = functions; }
 
   /// Set the output stream
   void set_stream(std::ostream *stream) { _stream = stream; }

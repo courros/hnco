@@ -39,8 +39,10 @@ Hboa::Hboa(int n):
 
 
 void
-Hboa::maximize()
+Hboa::maximize(const std::vector<function::Function *>& functions)
 {
+  set_functions(functions);
+
   _pimpl->configuration.set("verbosity", 0);
   _pimpl->configuration.set("solution_file", std::string("hboa-solution.txt"));
   _pimpl->configuration.set("disable_solution_outfile", 1);

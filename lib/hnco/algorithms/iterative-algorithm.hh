@@ -55,13 +55,16 @@ protected:
   ///@{
 
   /// Initialize
-  virtual void init() = 0;
+  virtual void init() {}
 
   /// Single iteration
   virtual void iterate() = 0;
 
   /// Log
   virtual void log() {}
+
+  /// Loop
+  virtual void loop();
 
   ///@}
 
@@ -84,7 +87,7 @@ public:
       \warning If an exception such as LocalMaximumFound is thrown
       by iterate(), log() will not be called.
   */
-  void maximize();
+  void maximize(const std::vector<function::Function *>& functions);
 
   ///@}
 

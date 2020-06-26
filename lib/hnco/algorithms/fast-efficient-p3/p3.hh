@@ -28,8 +28,10 @@
 
 namespace hnco {
 namespace algorithm {
+
 /// Algorithms from the FastEfficientP3 library
 namespace fast_efficient_p3 {
+
 
 struct Implementation;
 
@@ -60,12 +62,13 @@ public:
   ParameterLessPopulationPyramid(int n);
 
   /// Maximize
-  void maximize();
+  void maximize(const std::vector<function::Function *>& functions);
 
   /// Finalize
   void finalize();
 
 };
+
 
 } // end of namespace fast_efficient_p3
 } // end of namespace algorithm

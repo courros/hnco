@@ -25,7 +25,7 @@ using namespace hnco::algorithm;
 
 
 void
-IterativeAlgorithm::maximize()
+IterativeAlgorithm::loop()
 {
   init();
   if (_num_iterations > 0) {
@@ -41,4 +41,12 @@ IterativeAlgorithm::maximize()
         log();
     }
   }
+}
+
+
+void
+IterativeAlgorithm::maximize(const std::vector<function::Function *>& functions)
+{
+  set_functions(functions);
+  loop();
 }

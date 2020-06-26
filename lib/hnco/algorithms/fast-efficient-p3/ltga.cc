@@ -39,8 +39,10 @@ Ltga::Ltga(int n):
 
 
 void
-Ltga::maximize()
+Ltga::maximize(const std::vector<function::Function *>& functions)
 {
+  set_functions(functions);
+
   _pimpl->configuration.set("binary_insert", 1);
   _pimpl->configuration.set("cluster_ordering", std::string("least_linked_first"));
   _pimpl->configuration.set("disable_solution_outfile", 1);

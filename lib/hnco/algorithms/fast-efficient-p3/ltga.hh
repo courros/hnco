@@ -30,6 +30,7 @@ namespace hnco {
 namespace algorithm {
 namespace fast_efficient_p3 {
 
+
 struct Implementation;
 
 /** Linkage Tree Genetic %Algorithm.
@@ -43,8 +44,7 @@ struct Implementation;
 
     Integrated into HNCO by Arnaud Berny
 */
-class Ltga:
-    public Algorithm {
+class Ltga: public Algorithm {
 
   /// Pointer to implementation
   std::unique_ptr<Implementation> _pimpl;;
@@ -58,7 +58,7 @@ public:
   Ltga(int n);
 
   /// Maximize
-  void maximize();
+  void maximize(const std::vector<function::Function *>& functions);
 
   /// Finalize
   void finalize();
@@ -67,6 +67,7 @@ public:
   void set_population_size(int n) { _population_size = n; }
 
 };
+
 
 } // end of namespace fast_efficient_p3
 } // end of namespace algorithm

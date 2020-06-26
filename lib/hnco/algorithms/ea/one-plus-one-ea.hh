@@ -84,14 +84,13 @@ namespace algorithm {
       _mutation_probability(1 / double(n)) {}
 
     /// Maximize
-    void maximize() override {
+    void maximize(const std::vector<function::Function *>& functions) override {
       _neighborhood.set_probability(_mutation_probability);
       _neighborhood.set_allow_stay(_allow_stay);
-      _rls.set_function(_function);
       _rls.set_num_iterations(_num_iterations);
       _rls.set_incremental_evaluation(_incremental_evaluation);
       _rls.set_patience(0);
-      _rls.maximize();
+      _rls.maximize(functions);
     }
 
     /// Finalize

@@ -60,7 +60,7 @@ public:
   Hboa(int n);
 
   /// Maximize
-  void maximize();
+  void maximize(const std::vector<function::Function *>& functions);
 
   /// Finalize
   void finalize();

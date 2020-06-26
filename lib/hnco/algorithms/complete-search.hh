@@ -41,7 +41,7 @@ namespace algorithm {
       Algorithm(n) {}
 
     /// Maximize
-    void maximize();
+    void maximize(const std::vector<function::Function *>& functions);
 
   };
 

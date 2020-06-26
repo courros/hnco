@@ -28,8 +28,10 @@ using namespace hnco;
 
 
 void
-CompleteSearch::maximize()
+CompleteSearch::maximize(const std::vector<function::Function *>& functions)
 {
+  set_functions(functions);
+
   HypercubeIterator iterator(get_bv_size());
 
   if (!iterator.has_next())
