@@ -57,6 +57,12 @@ inline bool is_in_range(int i, int n) { return is_in_range(i, 0, n); }
 
 ///@}
 
+
+/// Check whether two containers have the same size
+template<class A, class B>
+bool have_same_size(const A& a, const B& b) { return a.size() == b.size(); }
+
+
 /// Generic square function
 template<class T>
 T square(T x) { return x * x; }
