@@ -219,10 +219,6 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  // Connect algorithm to functions
-  algorithm->set_function(fn);
-  algorithm->set_functions(fns);
-
   // Connect algorithm to log context
   ProgressTrackerContext log_context(tracker);
   algorithm->set_log_context(&log_context);
@@ -247,7 +243,7 @@ int main(int argc, char *argv[])
   stop_watch.start();
 
   try {
-    algorithm->maximize();
+    algorithm->maximize(fns);
     algorithm->finalize();
     solution = algorithm->get_solution();
   }
