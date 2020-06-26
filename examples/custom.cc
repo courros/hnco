@@ -87,9 +87,8 @@ int main()
 
   MyAlgorithm algo(bv_size);
   algo.set_num_iterations(100);
-  algo.set_function(&fn);
 
-  algo.maximize();
+  algo.maximize({&fn});
   // finalize not necessary
   auto solution = algo.get_solution();
 

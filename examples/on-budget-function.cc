@@ -42,10 +42,9 @@ int main()
   OnBudgetFunction fn(&one_max, 1000);
 
   MuPlusLambdaEa ea(bv_size, 10, 1);
-  ea.set_function(&fn);
 
   try {
-    ea.maximize();
+    ea.maximize({&fn});
   }
   catch (LastEvaluation) {}
   // finalize not necessary

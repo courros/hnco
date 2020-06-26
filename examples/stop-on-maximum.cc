@@ -42,10 +42,9 @@ int main()
   StopOnMaximum fn(&one_max);
 
   OnePlusOneEa ea(bv_size);
-  ea.set_function(&fn);
 
   try {
-    ea.maximize();
+    ea.maximize({&fn});
     // finalize not necessary
   }
   catch (const MaximumReached& e) {

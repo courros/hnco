@@ -37,9 +37,8 @@ int main()
 
   OnePlusOneEa ea(bv_size);
   ea.set_num_iterations(100);
-  ea.set_function(&fn);
 
-  ea.maximize();
+  ea.maximize({&fn});
   ea.finalize();
   auto solution = ea.get_solution();
 
