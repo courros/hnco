@@ -25,44 +25,45 @@
 
 
 namespace hnco {
+
 /// Random numbers
 namespace random {
 
 
-  /// Random number generator
-  struct Generator {
+/// Random number generator
+struct Generator {
 
-    /// Mersenne Twister engine
-    static std::mt19937 engine;
+  /// Mersenne Twister engine
+  static std::mt19937 engine;
 
-    /// Seed
-    static unsigned seed;
+  /// Seed
+  static unsigned seed;
 
-    /// Set seed
-    static void set_seed(unsigned n);
+  /// Set seed
+  static void set_seed(unsigned n);
 
-    /** Set seed.
+  /** Set seed.
 
-        Uses std::chrono::system_clock.
-    */
-    static void set_seed();
+      Uses std::chrono::system_clock.
+  */
+  static void set_seed();
 
-    /** Reset engine.
+  /** Reset engine.
 
-        Using static member seed.
-    */
-    static void reset();
+      Using static member seed.
+  */
+  static void reset();
 
-    /// Sample random number with uniform distribution
-    static double uniform();
+  /// Sample random number with uniform distribution
+  static double uniform();
 
-    /// Sample random number with normal distribution
-    static double normal();
+  /// Sample random number with normal distribution
+  static double normal();
 
-    /// Sample random number with Bernoulli distribution
-    static bool bernoulli();
+  /// Sample random number with Bernoulli distribution
+  static bool bernoulli();
 
-  };
+};
 
 
 } // end of namespace random
