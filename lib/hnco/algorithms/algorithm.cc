@@ -70,5 +70,5 @@ void
 Algorithm::update_solution(const solution_t& s)
 {
   if (s.second > _solution.second)
-    _solution = pv;
+    _solution = s;
 }
