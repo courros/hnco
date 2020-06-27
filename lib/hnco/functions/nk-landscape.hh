@@ -36,97 +36,97 @@ namespace hnco {
 namespace function {
 
 
-  /** NK landscape.
+/** NK landscape.
 
-      Reference:
+    Reference:
 
-      S. A. Kauffman. 1993. The origins of order: self-organisation
-      and selection in evolution. Oxford University Press.
+    S. A. Kauffman. 1993. The origins of order: self-organisation
+    and selection in evolution. Oxford University Press.
 
-  */
-  class NkLandscape:
+*/
+class NkLandscape:
     public Function {
 
-  private:
+private:
 
-    friend class boost::serialization::access;
+  friend class boost::serialization::access;
 
-    /// Serialize
-    template<class Archive>
-    void serialize(Archive& ar, const unsigned int version)
-    {
-      ar & _neighbors;
-      ar & _partial_functions;
-    }
+  /// Serialize
+  template<class Archive>
+  void serialize(Archive& ar, const unsigned int version)
+  {
+    ar & _neighbors;
+    ar & _partial_functions;
+  }
 
-    /// Bit neighbors
-    std::vector<std::vector<int> > _neighbors;
+  /// Bit neighbors
+  std::vector<std::vector<int> > _neighbors;
 
-    /// Partial functions
-    std::vector<std::vector<double> > _partial_functions;
+  /// Partial functions
+  std::vector<std::vector<double> > _partial_functions;
 
-    /** Random structue.
+  /** Random structue.
 
-        \param n Size of bit vector
-        \param k Number of neighbors of each bit
-    */
-    void random_structure(int n, int k);
+      \param n Size of bit vector
+      \param k Number of neighbors of each bit
+  */
+  void random_structure(int n, int k);
 
-  public:
+public:
 
-    /// Default constructor
-    NkLandscape() {}
-
-
-    /** @name Instance generators
-     */
-    ///@{
-
-    /** Instance generator.
-
-        \param n Size of bit vector
-        \param k Number of neighbors of each bit
-        \param generator Generator for partial function values
-    */
-    template<class Generator>
-    void generate(int n, int k, Generator generator) {
-      assert(n > 0);
-      assert(k > 0);
-
-      random_structure(n, k);
-      for (size_t i = 0; i < _partial_functions.size(); i++)
-        for (size_t j = 0; j < _partial_functions[i].size(); j++)
-          _partial_functions[i][j] = generator();
-    }
-
-    /** Random instance.
-
-        Partial function values are sampled from the normal
-        distribution.
-
-        \param n Size of bit vector
-        \param k Number of neighbors of each bit
-    */
-    void random(int n, int k) {
-      assert(n > 0);
-      assert(k > 0);
-
-      generate(n, k, hnco::random::Generator::normal);
-    }
-
-    ///@}
+  /// Default constructor
+  NkLandscape() {}
 
 
-    /// Get bit vector size
-    int get_bv_size() { return _partial_functions.size(); }
+  /** @name Instance generators
+   */
+  ///@{
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+  /** Instance generator.
 
-    /// Display
-    void display(std::ostream& stream);
+      \param n Size of bit vector
+      \param k Number of neighbors of each bit
+      \param generator Generator for partial function values
+  */
+  template<class Generator>
+  void generate(int n, int k, Generator generator) {
+    assert(n > 0);
+    assert(k > 0);
 
-  };
+    random_structure(n, k);
+    for (size_t i = 0; i < _partial_functions.size(); i++)
+      for (size_t j = 0; j < _partial_functions[i].size(); j++)
+        _partial_functions[i][j] = generator();
+  }
+
+  /** Random instance.
+
+      Partial function values are sampled from the normal
+      distribution.
+
+      \param n Size of bit vector
+      \param k Number of neighbors of each bit
+  */
+  void random(int n, int k) {
+    assert(n > 0);
+    assert(k > 0);
+
+    generate(n, k, hnco::random::Generator::normal);
+  }
+
+  ///@}
+
+
+  /// Get bit vector size
+  int get_bv_size() { return _partial_functions.size(); }
+
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
+
+  /// Display
+  void display(std::ostream& stream);
+
+};
 
 
 } // end of namespace function
