@@ -19,7 +19,9 @@
 */
 
 #include <assert.h>
-#include <math.h>		// log
+#include <math.h>		// std::log
+
+#include <algorithm>            // std::min, std::max
 
 #include "hnco/random.hh"
 
@@ -36,7 +38,7 @@ double hnco::algorithm::pv_entropy(const pv_t& pv)
     if (p == 0 ||
 	p == 1)
       continue;
-    s += p * log(p) + (1 - p) * log(1 - p);
+    s += p * std::log(p) + (1 - p) * std::log(1 - p);
   }
   return -s;
 }
