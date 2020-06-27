@@ -40,8 +40,8 @@ CompactGa::init()
 void
 CompactGa::iterate()
 {
-  pv_sample(_pv, _candidates[0]);
-  pv_sample(_pv, _candidates[1]);
+  pv_sample(_candidates[0], _pv);
+  pv_sample(_candidates[1], _pv);
 
   double v0 = _function->evaluate(_candidates[0]);
   double v1 = _function->evaluate(_candidates[1]);

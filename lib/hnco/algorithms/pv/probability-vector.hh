@@ -41,7 +41,7 @@ namespace algorithm {
   double pv_entropy(const pv_t& pv);
 
   /// Sample a bit vector
-  void pv_sample(const pv_t& pv, bit_vector_t& x);
+void pv_sample(bit_vector_t& x, const pv_t& pv);
 
   /// Probability vector of the uniform distribution
   inline void pv_uniform(pv_t& pv) { fill(pv.begin(), pv.end(), 0.5); }

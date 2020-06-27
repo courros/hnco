@@ -190,5 +190,5 @@ Model::gibbs_sampler_synchronous()
 
     _pv[i] = logistic(delta);
   }
-  pv_sample(_pv, _state);
+  pv_sample(_state, _pv);
 }

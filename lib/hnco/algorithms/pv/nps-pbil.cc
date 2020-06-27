@@ -39,7 +39,7 @@ void
 NpsPbil::iterate()
 {
   for (int i = 0; i < _population.size(); i++)
-    pv_sample(_pv, _population.get_bv(i));
+    pv_sample(_population.get_bv(i), _pv);
 
   if (_functions.size() > 1)
     _population.evaluate_in_parallel(_functions);

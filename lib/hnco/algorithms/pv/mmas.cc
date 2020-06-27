@@ -41,7 +41,7 @@ Mmas::init()
 void
 Mmas::iterate()
 {
-  pv_sample(_pv, _x);
+  pv_sample(_x, _pv);
   double value = _function->evaluate(_x);
   if (_compare(value, _solution.second)) {
     _solution.first = _x;

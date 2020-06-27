@@ -41,7 +41,7 @@ double hnco::algorithm::pv_entropy(const pv_t& pv)
   return -s;
 }
 
-void hnco::algorithm::pv_sample(const pv_t& pv, bit_vector_t& x)
+void hnco::algorithm::pv_sample(bit_vector_t& x, const pv_t& pv)
 {
   assert(x.size() == pv.size());
 
