@@ -11,10 +11,10 @@ Library:
 - Renamed Function::eval -> evaluate
 - Renamed Function::safe_eval -> evaluate_safely
 - Renamed Function::incremental_eval -> evaluate_incrementally
-- Renamed Population::evaluate -> evaluate_in_parallel (no overloading)
+- Renamed Population::evaluate(const vector<function::Function *>&) -> evaluate_in_parallel
 - Removed Algorithm::init
-- Added IterativeAlgorithm::init
-- IterativeAlgorithm::maximize calls init
+- Added IterativeAlgorithm::loop (called by maximize)
+- Added IterativeAlgorithm::init (called by loop)
 - Added template class LocalSearchAlgorithm
 - RandomLocalSearch, RandomWalk, SteepestAscentHillClimbing,
   SimulatedAnnealing, FirstAscentHillClimbing derive from
