@@ -18,11 +18,11 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_PV_PV_H
-#define HNCO_ALGORITHMS_PV_PV_H
+#ifndef HNCO_ALGORITHMS_PV_PROBABILITY_VECTOR_H
+#define HNCO_ALGORITHMS_PV_PROBABILITY_VECTOR_H
 
 #include <vector>
-#include <algorithm>            // fill
+#include <algorithm>            // std::fill
 
 #include "hnco/bit-vector.hh"
 
@@ -30,47 +30,49 @@
 namespace hnco {
 namespace algorithm {
 
-  /** @name Type and functions related to probability vectors
-   */
-  ///@{
 
-  /// Probability vector type
-  typedef std::vector<double> pv_t;
+/** @name Type and functions related to probability vectors
+ */
+///@{
 
-  /// Entropy of a probability vector
-  double pv_entropy(const pv_t& pv);
+/// Probability vector type
+typedef std::vector<double> pv_t;
 
-  /// Sample a bit vector
+/// Entropy of a probability vector
+double pv_entropy(const pv_t& pv);
+
+/// Sample a bit vector
 void pv_sample(bit_vector_t& x, const pv_t& pv);
 
-  /// Probability vector of the uniform distribution
-  inline void pv_uniform(pv_t& pv) { fill(pv.begin(), pv.end(), 0.5); }
+/// Probability vector of the uniform distribution
+inline void pv_uniform(pv_t& pv) { std::fill(pv.begin(), pv.end(), 0.5); }
 
-  /// Initialize
-  inline void pv_init(pv_t& pv) { fill(pv.begin(), pv.end(), 0.0); }
+/// Initialize
+inline void pv_init(pv_t& pv) { std::fill(pv.begin(), pv.end(), 0.0); }
 
-  /// Accumulate a bit vector
-  void pv_add(pv_t& pv, const bit_vector_t& x);
+/// Accumulate a bit vector
+void pv_add(pv_t& pv, const bit_vector_t& x);
 
-  /// Accumulate a bit vector
-  void pv_add(pv_t& pv, const bit_vector_t& x, double weight);
+/// Accumulate a bit vector
+void pv_add(pv_t& pv, const bit_vector_t& x, double weight);
 
-  /// Average
-  void pv_average(pv_t& pv, int count);
+/// Average
+void pv_average(pv_t& pv, int count);
 
-  /// Update a probability vector toward a bit vector
-  void pv_update(pv_t& pv, double rate, const bit_vector_t& x);
+/// Update a probability vector toward a bit vector
+void pv_update(pv_t& pv, double rate, const bit_vector_t& x);
 
-  /// Update a probability vector toward a probability vector
-  void pv_update(pv_t& pv, double rate, const std::vector<double>& x);
+/// Update a probability vector toward a probability vector
+void pv_update(pv_t& pv, double rate, const std::vector<double>& x);
 
-  /// Update a probability vector toward a probability vector and away from another one
-  void pv_update(pv_t& pv, double rate, const std::vector<double>& x, const std::vector<double>& y);
+/// Update a probability vector toward a probability vector and away from another one
+void pv_update(pv_t& pv, double rate, const std::vector<double>& x, const std::vector<double>& y);
 
-  /// Bound the components of a probability vector
-  void pv_bound(pv_t& pv, double lower_bound, double upper_bound);
+/// Bound the components of a probability vector
+void pv_bound(pv_t& pv, double lower_bound, double upper_bound);
 
-  ///@}
+///@}
+
 
 } // end of namespace algorithm
 } // end of namespace hnco
