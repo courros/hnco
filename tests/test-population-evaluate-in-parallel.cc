@@ -46,20 +46,25 @@ bool check()
   std::uniform_int_distribution<int> dist_num_threads(1, 100);
 
   for (int i = 0; i < 10; i++) {
+
     const int population_size   = dist_population_size  (Generator::engine);
     const int n                 = dist_n                (Generator::engine);
     const int num_threads       = dist_num_threads      (Generator::engine);
 
     omp_set_num_threads(num_threads);
 
-    OneMax fn(n);
-
-    Translation translation;
-    translation.random(n);
-
+    std::vector<Function *> oms(num_threads);
+    std::vector<Map *> trs(num_threads);
     std::vector<Function *> fns(num_threads);
-    for (auto& composition : fns) {
-      composition = new FunctionMapComposition(&fn, &translation);
+
+    // Simulate how functions are created in hnco.cc
+    for (int k = 0; k < num_threads; k++) {
+      Generator::reset();
+      oms[k] = new OneMax(n);
+      auto tr = new Translation();
+      tr->random(n);
+      trs[k] = tr;
+      fns[k] = new FunctionMapComposition(oms[k], trs[k]);
     }
 
     Population population_seq(population_size, n);
@@ -80,8 +85,10 @@ bool check()
         return false;
     }
 
-    for (auto composition : fns) {
-      delete composition;
+    for (int k = 0; k < num_threads; k++) {
+      delete fns[k];
+      delete trs[k];
+      delete oms[k];
     }
 
   }
