@@ -98,7 +98,7 @@ protected:
   void update_solution(const bit_vector_t& x);
 
   /// Update solution (strict)
-  void update_solution(const solution_t& pv);
+  void update_solution(const solution_t& s);
 
   ///@}
 
