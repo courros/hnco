@@ -25,8 +25,10 @@
 namespace hnco {
 namespace algorithm {
 
-  /// Type of a solution
-  typedef std::pair<bit_vector_t, double> solution_t;
+
+/// Type of a solution
+typedef std::pair<bit_vector_t, double> solution_t;
+
 
 } // end of namespace algorithm
 } // end of namespace hnco
