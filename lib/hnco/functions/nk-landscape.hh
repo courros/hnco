@@ -105,6 +105,7 @@ namespace function {
         distribution.
 
         \param n Size of bit vector
+        \param k Number of neighbors of each bit
     */
     void random(int n, int k) {
       assert(n > 0);

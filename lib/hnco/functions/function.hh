@@ -146,6 +146,7 @@ public:
     are mostly interested in ratios \f$|c_u/c_{\max}|\f$, where
     \f$c_{\max}\f$ is the coefficient with the largest amplitude.
         
+    \param function Function the Walsh transform of which to compute
     \param terms Vector of non zero terms of the Walsh transform
 
     \warning The time complexity is exponential in the dimension
