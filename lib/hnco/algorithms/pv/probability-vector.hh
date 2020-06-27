@@ -63,10 +63,10 @@ void pv_average(pv_t& pv, int count);
 void pv_update(pv_t& pv, double rate, const bit_vector_t& x);
 
 /// Update a probability vector toward a probability vector
-void pv_update(pv_t& pv, double rate, const std::vector<double>& x);
+void pv_update(pv_t& pv, double rate, const pv_t& x);
 
 /// Update a probability vector toward a probability vector and away from another one
-void pv_update(pv_t& pv, double rate, const std::vector<double>& x, const std::vector<double>& y);
+void pv_update(pv_t& pv, double rate, const pv_t& x, const pv_t& y);
 
 /// Bound the components of a probability vector
 void pv_bound(pv_t& pv, double lower_bound, double upper_bound);
