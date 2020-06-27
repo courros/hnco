@@ -2,23 +2,27 @@
 
 Library:
 - Renamed point_value_t -> solution_t
-- Renamed PointValueException::get_point_value -> get_solution
 - Renamed PointValueException -> SolutionFound
+- SolutionFound: renamed get_point_value -> get_solution
 - Renamed Random -> Generator
-- Generator: added static member functions set_seed and reset
 - Generator: added static member seed
+- Generator: added static member functions set_seed and reset
 - Renamed LocalMaximum -> LocalMaximumFound
-- Renamed Function::eval -> evaluate
-- Renamed Function::safe_eval -> evaluate_safely
-- Renamed Function::incremental_eval -> evaluate_incrementally
-- Renamed Population::evaluate(const vector<function::Function *>&) -> evaluate_in_parallel
-- Removed Algorithm::init
-- Added IterativeAlgorithm::loop (called by maximize)
-- Added IterativeAlgorithm::init (called by loop)
+- Function: renamed eval -> evaluate
+- Function: renamed safe_eval -> evaluate_safely
+- Function: renamed incremental_eval -> evaluate_incrementally
+- Population: renamed evaluate(const vector<Function *>&) -> evaluate_in_parallel
+- Algorithm: removed init
+- IterativeAlgorithm: added init
+- IterativeAlgorithm: added loop
 - Added template class LocalSearchAlgorithm
 - RandomLocalSearch, RandomWalk, SteepestAscentHillClimbing,
   SimulatedAnnealing, FirstAscentHillClimbing derive from
   LocalSearchAlgorithm
+- Algorithm: removed set_function
+- Algorithm: declared set_functions protected
+- Algorithm: changed prototype of set_functions(const vector<Function *>&)
+- Algorithm: changed prototype of maximize(const vector<Function *>&)
 
 Tests:
 - Added test-population-evaluate-in-parallel
