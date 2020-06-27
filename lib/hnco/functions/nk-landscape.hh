@@ -68,7 +68,7 @@ private:
   /** Random structue.
 
       \param n Size of bit vector
-      \param k Number of neighbors of each bit
+      \param k Number of neighbors per bit
   */
   void random_structure(int n, int k);
 
@@ -85,7 +85,7 @@ public:
   /** Instance generator.
 
       \param n Size of bit vector
-      \param k Number of neighbors of each bit
+      \param k Number of neighbors per bit
       \param generator Generator for partial function values
   */
   template<class Generator>
@@ -105,7 +105,7 @@ public:
       distribution.
 
       \param n Size of bit vector
-      \param k Number of neighbors of each bit
+      \param k Number of neighbors per bit
   */
   void random(int n, int k) {
     assert(n > 0);
