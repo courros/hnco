@@ -129,7 +129,7 @@ hnco::bv_add(bit_vector_t& dest, const bit_vector_t& src)
 }
 
 void
-hnco::bv_add(const bit_vector_t& x, const bit_vector_t& y, bit_vector_t& dest)
+hnco::bv_add(bit_vector_t& dest, const bit_vector_t& x, const bit_vector_t& y)
 {
   assert(dest.size() == x.size());
   assert(dest.size() == y.size());

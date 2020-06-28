@@ -107,7 +107,7 @@ void bv_random(bit_vector_t& x, int k);
 void bv_add(bit_vector_t& dest, const bit_vector_t& src);
 
 /// Add two bit vectors
-void bv_add(const bit_vector_t& x, const bit_vector_t& y, bit_vector_t& dest);
+void bv_add(bit_vector_t& dest, const bit_vector_t& x, const bit_vector_t& y);
 
 /** Convert a bit vector to a bool vector.
 
