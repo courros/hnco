@@ -121,16 +121,6 @@ Transvection::multiply(bit_matrix_t& M) const
 }
 
 
-void
-Transvection::multiply_right(bit_matrix_t& M) const
-{
-  assert(is_valid());
-  assert(is_valid(bm_num_rows(M)));
-
-  bm_add_columns(M, column_index, row_index);
-}
-
-
 bool hnco::transvections_commute(const Transvection& a, const Transvection& b)
 {
   if (a.row_index == b.column_index)

@@ -132,17 +132,6 @@ namespace hnco {
     */
     void multiply(bit_matrix_t& M) const;
 
-    /** Multiply a bit matrix from the right.
-
-        \param M Bit matrix
-
-        \pre is_valid()
-        \pre is_valid(bm_num_rows(M))
-
-        \warning This function modifies the given bit vector.
-    */
-    void multiply_right(bit_matrix_t& M) const;
-
   };
 
   /// Check whether two transvections commute
