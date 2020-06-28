@@ -45,7 +45,7 @@ hnco::sbm_from_bm(sparse_bit_matrix_t& sbm, const bit_matrix_t& bm)
 }
 
 void
-hnco::sbm_multiply(const sparse_bit_matrix_t& M, const bit_vector_t& x, bit_vector_t& y)
+hnco::sbm_multiply(bit_vector_t& y, const sparse_bit_matrix_t& M, const bit_vector_t& x)
 {
   assert(y.size() == M.size());
 

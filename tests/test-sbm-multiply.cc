@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 
     sparse_bit_matrix_t sbm(rows);
     sbm_from_bm(sbm, bm);
-    sbm_multiply(sbm, x, z);
+    sbm_multiply(z, sbm, x);
 
     if (z != y)
       exit(1);

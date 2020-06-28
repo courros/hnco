@@ -54,7 +54,7 @@ void sbm_from_bm(sparse_bit_matrix_t& sbm, const bit_matrix_t& bm);
 
       The result is y = Mx.
   */
-  void sbm_multiply(const sparse_bit_matrix_t& M, const bit_vector_t& x, bit_vector_t& y);
+void sbm_multiply(bit_vector_t& y, const sparse_bit_matrix_t& M, const bit_vector_t& x);
 
   ///@}
 
