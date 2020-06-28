@@ -27,7 +27,7 @@ using namespace hnco;
 
 
 void
-hnco::bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv)
+hnco::sbv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv)
 {
   for (auto index : sbv) {
     assert(index < int(x.size()));

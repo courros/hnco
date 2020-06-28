@@ -45,7 +45,7 @@ namespace hnco {
   typedef std::vector<int> sparse_bit_vector_t;
 
   /// Flip many bits
-  void bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv);
+  void sbv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv);
 
   /// Display sparse bit vector
   void sbv_display(const sparse_bit_vector_t& v, std::ostream& stream);

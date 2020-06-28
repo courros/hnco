@@ -87,7 +87,7 @@ NearestNeighborIsingModel1::evaluate_incrementally(const bit_vector_t& x,
   const int last = n - 1;
 
   assert(bv_is_zero(_flipped_bits));
-  bv_flip(_flipped_bits, flipped_bits);
+  sbv_flip(_flipped_bits, flipped_bits);
 
   // Interactions with sites on the right
   for (auto index : flipped_bits) {
@@ -130,7 +130,7 @@ NearestNeighborIsingModel1::evaluate_incrementally(const bit_vector_t& x,
       value += 2 * _coupling[neighbor];
   }
 
-  bv_flip(_flipped_bits, flipped_bits);
+  sbv_flip(_flipped_bits, flipped_bits);
   assert(bv_is_zero(_flipped_bits));
 
   // External field
