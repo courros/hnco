@@ -86,7 +86,7 @@ namespace function {
     template<class Generator>
     void generate(int n, int num_features, Generator generator) {
       assert(n > 0);
-      assert(num_features);
+      assert(num_features > 0);
 
       bit_vector_t bv(n);
       std::vector<bool> feature(n);
@@ -96,7 +96,7 @@ namespace function {
       for (size_t i = 0; i < _terms.size(); i++) {
         WalshTerm& t = _terms[i];
         bv_random(bv);
-        bv_to_vector_bool(bv, feature);
+        bv_to_vector_bool(feature, bv);
         t.feature = feature;
         t.coefficient = generator();
       }
@@ -112,7 +112,7 @@ namespace function {
     */
     void random(int n, int num_features) {
       assert(n > 0);
-      assert(num_features);
+      assert(num_features > 0);
 
       generate(n, num_features, hnco::random::Generator::normal);
     }

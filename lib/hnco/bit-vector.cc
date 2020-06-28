@@ -139,7 +139,7 @@ hnco::bv_add(bit_vector_t& dest, const bit_vector_t& x, const bit_vector_t& y)
 }
 
 void
-hnco::bv_to_vector_bool(const bit_vector_t& x, std::vector<bool>& y)
+hnco::bv_to_vector_bool(std::vector<bool>& y, const bit_vector_t& x)
 {
   assert(y.size() == x.size());
 

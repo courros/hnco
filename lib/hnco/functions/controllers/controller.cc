@@ -219,7 +219,7 @@ Cache::evaluate(const bit_vector_t& x)
 
   _num_evaluations++;
 
-  bv_to_vector_bool(x, _key);
+  bv_to_vector_bool(_key, x);
   auto iter = _cache.find(_key);
 
   if (iter == _cache.end()) {
