@@ -49,7 +49,7 @@ bool check_ts_multiply()
       bit_vector_t y(n);
       bv_random(x);
       bv_random(y);
-      bm_multiply(M, x, y);
+      bm_multiply(y, M, x);
 
       bit_vector_t z(x);
       ts_multiply(seq, z);

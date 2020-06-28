@@ -45,8 +45,8 @@ bool check_bm_multiply()
     bit_vector_t y(dimension);
     bit_vector_t z(dimension);
     bv_random(x);
-    bm_multiply(M, x, y);
-    bm_multiply(N, y, z);
+    bm_multiply(y, M, x);
+    bm_multiply(z, N, y);
     if (x != z)
       return false;
   }

@@ -25,6 +25,7 @@ Library:
 - Algorithm: changed prototype of maximize(const vector<Function *>&)
 - Reordered parameters of pv_sample
 - Reordered parameters of bv_add, bv_to_vector_bool
+- Reordered parameters of bm_multiply
 
 Tests:
 - Added test-population-evaluate-in-parallel

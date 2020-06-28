@@ -58,7 +58,7 @@ bool check_bm_solve()
     bm_solve(C, c);
 
     // d = inv(A) b
-    bm_multiply(B, b, d);
+    bm_multiply(d, B, b);
 
     if (c != d)
       return false;

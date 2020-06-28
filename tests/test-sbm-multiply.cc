@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
   for (int i = 0; i < 100; i++) {
     bm_random(bm);
     bv_random(x);
-    bm_multiply(bm, x, y);
+    bm_multiply(y, bm, x);
     sparse_bit_matrix_t sbm;
     bm_to_sbm(bm, sbm);
     sbm_multiply(sbm, x, z);
