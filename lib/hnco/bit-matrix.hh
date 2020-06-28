@@ -101,7 +101,7 @@ void bm_add_rows(bit_matrix_t& M, int dest, int src);
 
     \warning M is modified by the function.
 */
-void bm_add_columns(bit_matrix_t& M, int src, int dest);
+void bm_add_columns(bit_matrix_t& M, int dest, int src);
 
 /** Compute a row echelon form of a matrix.
 

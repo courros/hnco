@@ -127,7 +127,7 @@ Transvection::multiply_right(bit_matrix_t& M) const
   assert(is_valid());
   assert(is_valid(bm_num_rows(M)));
 
-  bm_add_columns(M, row_index, column_index);
+  bm_add_columns(M, column_index, row_index);
 }
 
 

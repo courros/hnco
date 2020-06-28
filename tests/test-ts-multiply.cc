@@ -18,9 +18,6 @@
 
 */
 
-#include <iostream>
-#include <iterator>
-
 #include "hnco/transvection.hh"
 
 
@@ -30,18 +27,19 @@ using namespace hnco;
 
 bool check_ts_multiply()
 {
-  std::uniform_int_distribution<int> dimension_dist(2, 10);
-  std::uniform_int_distribution<int> length_dist(0, 10);
+  std::uniform_int_distribution<int> dist_dimension(2, 10);
+  std::uniform_int_distribution<int> dist_length(0, 10);
 
   for (int i = 0; i < 10; i++) {
-    const int n = dimension_dist(Generator::engine);
-    const int t = length_dist(Generator::engine);
 
-    bit_matrix_t M;
-    bm_identity(M, n);
+    const int n = dist_dimension(Generator::engine);
+    const int t = dist_length(Generator::engine);
 
     transvection_sequence_t seq;
     ts_random(seq, n, t);
+
+    bit_matrix_t M;
+    bm_identity(M, n);
     ts_multiply(seq, M);
 
     for (int j = 0; j < 10; j++) {
@@ -71,5 +69,4 @@ int main(int argc, char *argv[])
     return 0;
   else
     return 1;
-
 }

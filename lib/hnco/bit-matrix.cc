@@ -149,10 +149,10 @@ void hnco::bm_add_rows(bit_matrix_t& M, int dest, int src)
   bv_add(M[dest], M[src]);
 }
 
-void hnco::bm_add_columns(bit_matrix_t& M, int src, int dest)
+void hnco::bm_add_columns(bit_matrix_t& M, int dest, int src)
 {
-  assert(is_in_range(src, bm_num_columns(M)));
   assert(is_in_range(dest, bm_num_columns(M)));
+  assert(is_in_range(src, bm_num_columns(M)));
   assert(src != dest);
 
   const int nrows = bm_num_rows(M);

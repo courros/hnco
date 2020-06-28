@@ -25,7 +25,7 @@ Library:
 - Algorithm: changed prototype of maximize(const vector<Function *>&)
 - Reordered parameters of pv_sample
 - Reordered parameters of bv_add, bv_to_vector_bool
-- Reordered parameters of bm_multiply, bm_transpose, bm_add_rows
+- Reordered parameters of bm_multiply, bm_transpose, bm_add_rows, bm_add_columns
 
 Tests:
 - Added test-population-evaluate-in-parallel
@@ -177,7 +177,7 @@ Library:
 - Added struct Transvection
 - Added type transvection_sequence_t and its functions
 - Added class TsAffineMap
-- Added bm_add_columns,
+- Added bm_add_columns
 - Added resizing bm_identity
 - Added is_in_range
 
