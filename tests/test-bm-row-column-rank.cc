@@ -18,9 +18,6 @@
 
 */
 
-#include <iostream>
-#include <iterator>
-
 #include "hnco/bit-matrix.hh"
 
 
@@ -30,9 +27,11 @@ using namespace hnco;
 
 bool check_bm_row_column_rank()
 {
-  std::uniform_int_distribution<size_t> dimension_dist(1, 100);
-  for (size_t t = 0; t < 100; t++) {
-    size_t dimension = dimension_dist(Generator::engine);
+  std::uniform_int_distribution<int> dist_dimension(1, 100);
+
+  for (int t = 0; t < 100; t++) {
+
+    const int dimension = dist_dimension(Generator::engine);
 
     bit_matrix_t M;
     bm_resize(M, dimension);
@@ -40,15 +39,16 @@ bool check_bm_row_column_rank()
 
     bit_matrix_t N = M;
     bm_row_echelon_form(N);
-    size_t row_rank = bm_rank(N);
+    int row_rank = bm_rank(N);
 
-    bm_transpose(M, N);
+    bm_transpose(N, M);
     bm_row_echelon_form(N);
-    size_t column_rank = bm_rank(N);
+    int column_rank = bm_rank(N);
 
     if (column_rank != row_rank)
       return false;
   }
+
   return true;
 }
 
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
   Generator::set_seed();
 
   if (check_bm_row_column_rank())
-    exit(0);
+    return 0;
   else
-    exit(1);
+    return 1;
 }

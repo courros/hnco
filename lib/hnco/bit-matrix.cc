@@ -321,7 +321,7 @@ void hnco::bm_multiply(bit_vector_t& y, const bit_matrix_t& M, const bit_vector_
     y[i] = bv_dot_product(M[i], x);
 }
 
-void hnco::bm_transpose(const bit_matrix_t& M, bit_matrix_t& N)
+void hnco::bm_transpose(bit_matrix_t& N, const bit_matrix_t& M)
 {
   assert(bm_is_valid(M));
 
