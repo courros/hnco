@@ -52,8 +52,8 @@ bool check_involution()
 
       bv_random(x);
       y = x;
-      ts_multiply(ts, y);
-      ts_multiply(ts, y);
+      ts_multiply(y, ts);
+      ts_multiply(y, ts);
 
       if (y != x)
         return false;

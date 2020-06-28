@@ -231,7 +231,7 @@ TsAffineMap::map(const bit_vector_t& input, bit_vector_t& output)
   assert(output.size() == _bv.size());
 
   output = input;
-  ts_multiply(_ts, output);
+  ts_multiply(output, _ts);
   bv_flip(output, _bv);
 }
 

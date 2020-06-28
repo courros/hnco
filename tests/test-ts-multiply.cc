@@ -40,17 +40,18 @@ bool check_ts_multiply()
 
     bit_matrix_t M;
     bm_identity(M, n);
-    ts_multiply(seq, M);
+    ts_multiply(M, seq);
 
     for (int j = 0; j < 10; j++) {
+
       bit_vector_t x(n);
-      bit_vector_t y(n);
       bv_random(x);
-      bv_random(y);
+
+      bit_vector_t y(n);
       bm_multiply(y, M, x);
 
       bit_vector_t z(x);
-      ts_multiply(seq, z);
+      ts_multiply(z, seq);
 
       if (z != y)
         return false;

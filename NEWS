@@ -31,8 +31,8 @@ Library:
 - Reordered parameters of sbv_from_bv
 - Renamed bv_flip -> sbv_flip
 - Renamed bm_to_sbm -> sbm_from_bm
-- Reordered parameters of sbm_from_bm
-- Reordered parameters of sbm_multiply
+- Reordered parameters of sbm_from_bm, sbm_multiply
+- Reordered parameters of ts_multiply
 
 Tests:
 - Added test-population-evaluate-in-parallel

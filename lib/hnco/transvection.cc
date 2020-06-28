@@ -351,7 +351,7 @@ void hnco::ts_random_non_commuting(transvection_sequence_t& ts, int n, int t)
 }
 
 
-void hnco::ts_multiply(const transvection_sequence_t& ts, bit_vector_t& x)
+void hnco::ts_multiply(bit_vector_t& x, const transvection_sequence_t& ts)
 {
   assert(ts_is_valid(ts));
   assert(ts_is_valid(ts, x.size()));
@@ -361,7 +361,7 @@ void hnco::ts_multiply(const transvection_sequence_t& ts, bit_vector_t& x)
 }
 
 
-void hnco::ts_multiply(const transvection_sequence_t& ts, bit_matrix_t& M)
+void hnco::ts_multiply(bit_matrix_t& M, const transvection_sequence_t& ts)
 {
   assert(ts_is_valid(ts));
   assert(ts_is_valid(ts, bm_num_rows(M)));

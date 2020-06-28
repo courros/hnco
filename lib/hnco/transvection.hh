@@ -273,7 +273,7 @@ namespace hnco {
 
       \warning This function modifies the given bit vector.
   */
-  void ts_multiply(const transvection_sequence_t& ts, bit_vector_t& x);
+void ts_multiply(bit_vector_t& x, const transvection_sequence_t& ts);
 
 
   /** Multiply a matrix by a transvection sequence from the left.
@@ -286,7 +286,7 @@ namespace hnco {
 
       \warning This function modifies the given bit vector.
   */
-  void ts_multiply(const transvection_sequence_t& ts, bit_matrix_t& M);
+void ts_multiply(bit_matrix_t& M, const transvection_sequence_t& ts);
 
   ///@}
 
