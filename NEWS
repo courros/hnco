@@ -36,6 +36,7 @@ Library:
 
 Tests:
 - Added test-population-evaluate-in-parallel
+- Added test-bm-add-columns
 
 hnco:
 - Added BinVal
