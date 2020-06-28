@@ -120,7 +120,7 @@ hnco::bv_random(bit_vector_t& x, int k)
 }
 
 void
-hnco::bv_add(const bit_vector_t& src, bit_vector_t& dest)
+hnco::bv_add(bit_vector_t& dest, const bit_vector_t& src)
 {
   assert(dest.size() == src.size());
 

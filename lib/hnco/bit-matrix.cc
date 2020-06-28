@@ -140,13 +140,13 @@ void hnco::bm_swap_rows(bit_matrix_t& M, int i, int j)
     std::swap(M[i][k], M[j][k]);
 }
 
-void hnco::bm_add_rows(bit_matrix_t& M, int i, int j)
+void hnco::bm_add_rows(bit_matrix_t& M, int src, int dest)
 {
-  assert(is_in_range(i, bm_num_rows(M)));
-  assert(is_in_range(j, bm_num_rows(M)));
-  assert(i != j);
+  assert(is_in_range(src, bm_num_rows(M)));
+  assert(is_in_range(dest, bm_num_rows(M)));
+  assert(src != dest);
 
-  bv_add(M[i], M[j]);
+  bv_add(M[dest], M[src]);
 }
 
 void hnco::bm_add_columns(bit_matrix_t& M, int src, int dest)

@@ -104,7 +104,7 @@ inline void bv_random(bit_vector_t& x) { generate(x.begin(), x.end(), []() { ret
 void bv_random(bit_vector_t& x, int k);
 
 /// Add two bit vectors
-void bv_add(const bit_vector_t& src, bit_vector_t& dest);
+void bv_add(bit_vector_t& dest, const bit_vector_t& src);
 
 /// Add two bit vectors
 void bv_add(const bit_vector_t& x, const bit_vector_t& y, bit_vector_t& dest);
