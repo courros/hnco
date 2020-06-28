@@ -20,6 +20,7 @@
 
 #include <assert.h>
 
+#include "util.hh"              // hnco::have_same_size
 #include "sparse-bit-matrix.hh"
 
 
