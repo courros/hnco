@@ -22,41 +22,38 @@
 #define HNCO_SPARSE_BIT_MATRIX_H
 
 #include <iostream>
-#include <vector>
 
-#include "bit-vector.hh"
 #include "bit-matrix.hh"
 #include "sparse-bit-vector.hh"
 
 
-/// top-level HNCO namespace
 namespace hnco {
 
 
-  /** @name Types and functions related to sparse bit matrices
-   */
-  ///@{
+/** @name Types and functions related to sparse bit matrices
+ */
+///@{
 
-  /** Sparse bit matrix.
+/** Sparse bit matrix.
 
-      A sparse bit matrix is represented as an array of sparse bit
-      vectors. It knows its number of row, not its number of columns.
-  */
-  typedef std::vector<sparse_bit_vector_t> sparse_bit_matrix_t;
+    A sparse bit matrix is represented as an array of sparse bit
+    vectors. It knows its number of row, not its number of columns.
+*/
+typedef std::vector<sparse_bit_vector_t> sparse_bit_matrix_t;
 
-  /// Display sparse bit matrix
-  void sbm_display(const sparse_bit_matrix_t& sbm, std::ostream& stream);
+/// Display sparse bit matrix
+void sbm_display(const sparse_bit_matrix_t& sbm, std::ostream& stream);
 
-  /// Convert a bit matrix to a sparse bit matrix
+/// Convert a bit matrix to a sparse bit matrix
 void sbm_from_bm(sparse_bit_matrix_t& sbm, const bit_matrix_t& bm);
 
-  /** Multiply a sparse bit matrix and a bit vector.
+/** Multiply a sparse bit matrix and a bit vector.
 
-      The result is y = Mx.
-  */
+    The result is y = Mx.
+*/
 void sbm_multiply(bit_vector_t& y, const sparse_bit_matrix_t& M, const bit_vector_t& x);
 
-  ///@}
+///@}
 
 
 } // end of namespace hnco
