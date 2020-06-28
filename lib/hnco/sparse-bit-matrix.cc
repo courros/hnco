@@ -36,9 +36,10 @@ hnco::sbm_display(const sparse_bit_matrix_t& sbm, std::ostream& stream)
 }
 
 void
-hnco::bm_to_sbm(const bit_matrix_t& bm, sparse_bit_matrix_t& sbm)
+hnco::sbm_from_bm(sparse_bit_matrix_t& sbm, const bit_matrix_t& bm)
 {
-  sbm = sparse_bit_matrix_t(bm.size());
+  assert(have_same_size(sbm, bm));
+
   for (size_t i = 0; i < sbm.size(); i++)
     sbm[i] = sbv_from_bv(bm[i]);
 }

@@ -33,18 +33,24 @@ int main(int argc, char *argv[])
   const int rows = 100;
   const int cols = 200;
 
-  bit_matrix_t bm(rows, bit_vector_t(cols));
+  bit_matrix_t bm;
+  bm_resize(bm, rows, cols);
+
   bit_vector_t x(cols);
   bit_vector_t y(rows);
   bit_vector_t z(rows);
 
   for (int i = 0; i < 100; i++) {
-    bm_random(bm);
+
     bv_random(x);
+
+    bm_random(bm);
     bm_multiply(y, bm, x);
-    sparse_bit_matrix_t sbm;
-    bm_to_sbm(bm, sbm);
+
+    sparse_bit_matrix_t sbm(rows);
+    sbm_from_bm(sbm, bm);
     sbm_multiply(sbm, x, z);
+
     if (z != y)
       exit(1);
   }

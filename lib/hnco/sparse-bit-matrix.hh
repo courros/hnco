@@ -48,7 +48,7 @@ namespace hnco {
   void sbm_display(const sparse_bit_matrix_t& sbm, std::ostream& stream);
 
   /// Convert a bit matrix to a sparse bit matrix
-  void bm_to_sbm(const bit_matrix_t& bm, sparse_bit_matrix_t& sbm);
+void sbm_from_bm(sparse_bit_matrix_t& sbm, const bit_matrix_t& bm);
 
   /** Multiply a sparse bit matrix and a bit vector.
 
