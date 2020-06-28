@@ -311,7 +311,7 @@ bool hnco::bm_invert(bit_matrix_t& M, bit_matrix_t& N)
   return true;
 }
 
-void hnco::bm_multiply(const bit_matrix_t& M, const bit_vector_t& x, bit_vector_t& y)
+void hnco::bm_multiply(bit_vector_t& y, const bit_matrix_t& M, const bit_vector_t& x)
 {
   assert(bm_is_valid(M));
   assert(int(x.size()) == bm_num_columns(M));

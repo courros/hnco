@@ -82,7 +82,7 @@ LinearMap::map(const bit_vector_t& input, bit_vector_t& output)
 {
   assert(output.size() == _bm.size());
 
-  bm_multiply(_bm, input, output);
+  bm_multiply(output, _bm, input);
 }
 
 
@@ -125,7 +125,7 @@ AffineMap::map(const bit_vector_t& input, bit_vector_t& output)
 {
   assert(output.size() == _bm.size());
 
-  bm_multiply(_bm, input, output);
+  bm_multiply(output, _bm, input);
   for (size_t i = 0; i < output.size(); i++)
     if (_bv[i])
       bv_flip(output, i);

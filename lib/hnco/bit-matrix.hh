@@ -174,7 +174,7 @@ bool bm_invert(bit_matrix_t& M, bit_matrix_t& N);
 
     The result is y = Mx.
 */
-void bm_multiply(const bit_matrix_t& M, const bit_vector_t& x, bit_vector_t& y);
+void bm_multiply(bit_vector_t& y, const bit_matrix_t& M, const bit_vector_t& x);
 
 /// Transpose
 void bm_transpose(const bit_matrix_t& M, bit_matrix_t& N);
