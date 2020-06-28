@@ -29,6 +29,7 @@ Library:
 - Transvection: removed multiply_right
 - Renamed bv_to_sbv -> sbv_from_bv
 - Reordered parameters of sbv_from_bv
+- Renamed bv_flip -> sbv_flip
 
 Tests:
 - Added test-population-evaluate-in-parallel
