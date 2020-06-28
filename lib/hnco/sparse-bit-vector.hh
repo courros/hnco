@@ -29,31 +29,31 @@
 namespace hnco {
 
 
-  /** @name Types and functions related to sparse bit vectors
-   */
-  ///@{
+/** @name Types and functions related to sparse bit vectors
+ */
+///@{
 
-  /** Sparse bit vector.
+/** Sparse bit vector.
 
-      A sparse bit vector is represented as an array containing the
-      indices of its non-zero components. The indices must be sorted
-      in ascending order.
+    A sparse bit vector is represented as an array containing the
+    indices of its non-zero components. The indices must be sorted
+    in ascending order.
 
-      A sparse bit vector does not know the dimension of the space it
-      belongs to.
-  */
-  typedef std::vector<int> sparse_bit_vector_t;
+    A sparse bit vector does not know the dimension of the space it
+    belongs to.
+*/
+typedef std::vector<int> sparse_bit_vector_t;
 
-  /// Flip many bits
-  void sbv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv);
+/// Flip many bits
+void sbv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv);
 
-  /// Display sparse bit vector
-  void sbv_display(const sparse_bit_vector_t& v, std::ostream& stream);
+/// Display sparse bit vector
+void sbv_display(const sparse_bit_vector_t& v, std::ostream& stream);
 
-  /// Convert a bit vector to a sparse bit vector
+/// Convert a bit vector to a sparse bit vector
 sparse_bit_vector_t sbv_from_bv(const bit_vector_t& bv);
 
-  ///@}
+///@}
 
 
 } // end of namespace hnco
