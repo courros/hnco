@@ -40,7 +40,7 @@ hnco::bm_to_sbm(const bit_matrix_t& bm, sparse_bit_matrix_t& sbm)
 {
   sbm = sparse_bit_matrix_t(bm.size());
   for (size_t i = 0; i < sbm.size(); i++)
-    bv_to_sbv(bm[i], sbm[i]);
+    sbm[i] = sbv_from_bv(bm[i]);
 }
 
 void

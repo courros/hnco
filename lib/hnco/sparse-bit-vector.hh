@@ -21,13 +21,11 @@
 #ifndef HNCO_SPARSE_BIT_VECTOR_H
 #define HNCO_SPARSE_BIT_VECTOR_H
 
-#include <vector>
 #include <iostream>
 
 #include "bit-vector.hh"
 
 
-/// top-level HNCO namespace
 namespace hnco {
 
 
@@ -53,7 +51,7 @@ namespace hnco {
   void sbv_display(const sparse_bit_vector_t& v, std::ostream& stream);
 
   /// Convert a bit vector to a sparse bit vector
-  void bv_to_sbv(const bit_vector_t& bv, sparse_bit_vector_t& sbv);
+sparse_bit_vector_t sbv_from_bv(const bit_vector_t& bv);
 
   ///@}
 

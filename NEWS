@@ -27,6 +27,8 @@ Library:
 - Reordered parameters of bv_add, bv_to_vector_bool
 - Reordered parameters of bm_multiply, bm_transpose, bm_add_rows, bm_add_columns
 - Transvection: removed multiply_right
+- Renamed bv_to_sbv -> sbv_from_bv
+- Reordered parameters of sbv_from_bv
 
 Tests:
 - Added test-population-evaluate-in-parallel

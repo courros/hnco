@@ -43,13 +43,17 @@ hnco::sbv_display(const sparse_bit_vector_t& v, std::ostream& stream)
     stream << c << " ";
 }
 
-void
-hnco::bv_to_sbv(const bit_vector_t& bv, sparse_bit_vector_t& sbv)
+sparse_bit_vector_t
+hnco::sbv_from_bv(const bit_vector_t& bv)
 {
-  sbv = sparse_bit_vector_t(bv_hamming_weight(bv));
-  size_t index = 0;
+  sparse_bit_vector_t result;
+  result.reserve(bv_hamming_weight(bv));
+
   for (size_t i = 0; i < bv.size(); i++)
     if (bv[i])
-      sbv[index++] = i;
-  assert(index == sbv.size());
+      result.push_back(i);
+
+  assert(int(result.size()) == bv_hamming_weight(bv));
+
+  return result;
 }
