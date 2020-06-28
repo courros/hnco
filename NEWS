@@ -23,6 +23,7 @@ Library:
 - Algorithm: declared set_functions protected
 - Algorithm: changed prototype of set_functions(const vector<Function *>&)
 - Algorithm: changed prototype of maximize(const vector<Function *>&)
+- Reordered parameters of pv_sample
 
 Tests:
 - Added test-population-evaluate-in-parallel
