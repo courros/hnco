@@ -140,7 +140,7 @@ void hnco::bm_swap_rows(bit_matrix_t& M, int i, int j)
     std::swap(M[i][k], M[j][k]);
 }
 
-void hnco::bm_add_rows(bit_matrix_t& M, int src, int dest)
+void hnco::bm_add_rows(bit_matrix_t& M, int dest, int src)
 {
   assert(is_in_range(src, bm_num_rows(M)));
   assert(is_in_range(dest, bm_num_rows(M)));
@@ -186,7 +186,7 @@ void hnco::bm_row_echelon_form(bit_matrix_t& A)
       }
       for (int i = r + 1; i < rows; i++)
         if (A[i][j]) {
-          bm_add_rows(A, r, i);
+          bm_add_rows(A, i, r);
         }
       r++;
       if (r == rows)
@@ -237,7 +237,7 @@ bool hnco::bm_solve(bit_matrix_t& A, bit_vector_t& b)
     }
     for (int j = i + 1; j < rows; j++)
       if (A[j][i]) {
-        bm_add_rows(A, i, j);
+        bm_add_rows(A, j, i);
         b[j] = (b[i] + b[j]) % 2;
       }
   }
@@ -258,7 +258,7 @@ bool hnco::bm_solve_upper_triangular(bit_matrix_t& A, bit_vector_t& b)
     int i = rows - 1 - k;
     for (int j = 0; j < i; j++)
       if (A[j][i]) {
-        bm_add_rows(A, i, j);
+        bm_add_rows(A, j, i);
         b[j] = (b[i] + b[j]) % 2;
       }
   }
@@ -293,8 +293,8 @@ bool hnco::bm_invert(bit_matrix_t& M, bit_matrix_t& N)
     }
     for (int j = i + 1; j < rows; j++)
       if (M[j][i]) {
-        bm_add_rows(M, i, j);
-        bm_add_rows(N, i, j);
+        bm_add_rows(M, j, i);
+        bm_add_rows(N, j, i);
       }
   }
   assert(bm_is_upper_triangular(M));
@@ -303,8 +303,8 @@ bool hnco::bm_invert(bit_matrix_t& M, bit_matrix_t& N)
     int i = rows - 1 - k;
     for (int j = 0; j < i; j++)
       if (M[j][i]) {
-        bm_add_rows(M, i, j);
-        bm_add_rows(N, i, j);
+        bm_add_rows(M, j, i);
+        bm_add_rows(N, j, i);
       }
   }
   assert(bm_is_identity(M));

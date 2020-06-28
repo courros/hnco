@@ -89,7 +89,7 @@ void bm_swap_rows(bit_matrix_t& M, int i, int j);
 
     Row i is added to row j.
 */
-void bm_add_rows(bit_matrix_t& M, int src, int dest);
+void bm_add_rows(bit_matrix_t& M, int dest, int src);
 
 /** Add two columns.
 
