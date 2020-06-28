@@ -17,6 +17,7 @@
 # <http://www.gnu.org/licenses/>.
 
 check_PROGRAMS = \
+	test-bm-add-columns \
 	test-bm-add-rows \
 	test-bm-identity \
 	test-bm-invert \
@@ -103,6 +104,7 @@ AM_CPPFLAGS = -I $(top_srcdir)/lib
 LDADD = ../lib/libhnco.la -ldl -lboost_serialization
 
 test_bm_add_rows_SOURCES = test-bm-add-rows.cc
+test_bm_add_columns_SOURCES = test-bm-add-columns.cc
 test_bm_identity_SOURCES = test-bm-identity.cc
 test_bm_invert_SOURCES = test-bm-invert.cc
 test_bm_multiply_SOURCES = test-bm-multiply.cc

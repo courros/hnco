@@ -105,7 +105,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-check_PROGRAMS = test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
+check_PROGRAMS = test-bm-add-columns$(EXEEXT) \
+	test-bm-add-rows$(EXEEXT) test-bm-identity$(EXEEXT) \
 	test-bm-invert$(EXEEXT) test-bm-multiply$(EXEEXT) \
 	test-bm-rank$(EXEEXT) test-bm-row-column-rank$(EXEEXT) \
 	test-bm-solve$(EXEEXT) test-bm-swap-rows$(EXEEXT) \
@@ -187,14 +188,18 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 @ENABLE_FACTORIZATION_TRUE@am__EXEEXT_1 = test-complete-search-factorization$(EXEEXT)
-am_test_bm_add_rows_OBJECTS = test-bm-add-rows.$(OBJEXT)
-test_bm_add_rows_OBJECTS = $(am_test_bm_add_rows_OBJECTS)
-test_bm_add_rows_LDADD = $(LDADD)
-test_bm_add_rows_DEPENDENCIES = ../lib/libhnco.la
+am_test_bm_add_columns_OBJECTS = test-bm-add-columns.$(OBJEXT)
+test_bm_add_columns_OBJECTS = $(am_test_bm_add_columns_OBJECTS)
+test_bm_add_columns_LDADD = $(LDADD)
+test_bm_add_columns_DEPENDENCIES = ../lib/libhnco.la
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+am_test_bm_add_rows_OBJECTS = test-bm-add-rows.$(OBJEXT)
+test_bm_add_rows_OBJECTS = $(am_test_bm_add_rows_OBJECTS)
+test_bm_add_rows_LDADD = $(LDADD)
+test_bm_add_rows_DEPENDENCIES = ../lib/libhnco.la
 am_test_bm_identity_OBJECTS = test-bm-identity.$(OBJEXT)
 test_bm_identity_OBJECTS = $(am_test_bm_identity_OBJECTS)
 test_bm_identity_LDADD = $(LDADD)
@@ -634,7 +639,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/test-bm-add-rows.Po \
+am__depfiles_remade = ./$(DEPDIR)/test-bm-add-columns.Po \
+	./$(DEPDIR)/test-bm-add-rows.Po \
 	./$(DEPDIR)/test-bm-identity.Po ./$(DEPDIR)/test-bm-invert.Po \
 	./$(DEPDIR)/test-bm-multiply.Po ./$(DEPDIR)/test-bm-rank.Po \
 	./$(DEPDIR)/test-bm-row-column-rank.Po \
@@ -725,12 +731,12 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
-	$(test_bm_invert_SOURCES) $(test_bm_multiply_SOURCES) \
-	$(test_bm_rank_SOURCES) $(test_bm_row_column_rank_SOURCES) \
-	$(test_bm_solve_SOURCES) $(test_bm_swap_rows_SOURCES) \
-	$(test_bv_from_stream_SOURCES) $(test_bv_random_SOURCES) \
-	$(test_bv_to_size_type_SOURCES) \
+SOURCES = $(test_bm_add_columns_SOURCES) $(test_bm_add_rows_SOURCES) \
+	$(test_bm_identity_SOURCES) $(test_bm_invert_SOURCES) \
+	$(test_bm_multiply_SOURCES) $(test_bm_rank_SOURCES) \
+	$(test_bm_row_column_rank_SOURCES) $(test_bm_solve_SOURCES) \
+	$(test_bm_swap_rows_SOURCES) $(test_bv_from_stream_SOURCES) \
+	$(test_bv_random_SOURCES) $(test_bv_to_size_type_SOURCES) \
 	$(test_complete_search_deceptive_jump_SOURCES) \
 	$(test_complete_search_factorization_SOURCES) \
 	$(test_complete_search_four_peaks_SOURCES) \
@@ -795,7 +801,8 @@ SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_ts_random_unique_destination_is_involution_SOURCES) \
 	$(test_ts_random_unique_source_is_involution_SOURCES) \
 	$(test_walsh_transform_SOURCES)
-DIST_SOURCES = $(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
+DIST_SOURCES = $(test_bm_add_columns_SOURCES) \
+	$(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
 	$(test_bm_invert_SOURCES) $(test_bm_multiply_SOURCES) \
 	$(test_bm_rank_SOURCES) $(test_bm_row_column_rank_SOURCES) \
 	$(test_bm_solve_SOURCES) $(test_bm_swap_rows_SOURCES) \
@@ -1226,6 +1233,7 @@ AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
 AM_CPPFLAGS = -I $(top_srcdir)/lib
 LDADD = ../lib/libhnco.la -ldl -lboost_serialization
 test_bm_add_rows_SOURCES = test-bm-add-rows.cc
+test_bm_add_columns_SOURCES = test-bm-add-columns.cc
 test_bm_identity_SOURCES = test-bm-identity.cc
 test_bm_invert_SOURCES = test-bm-invert.cc
 test_bm_multiply_SOURCES = test-bm-multiply.cc
@@ -1362,6 +1370,10 @@ clean-checkPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
+
+test-bm-add-columns$(EXEEXT): $(test_bm_add_columns_OBJECTS) $(test_bm_add_columns_DEPENDENCIES) $(EXTRA_test_bm_add_columns_DEPENDENCIES) 
+	@rm -f test-bm-add-columns$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_bm_add_columns_OBJECTS) $(test_bm_add_columns_LDADD) $(LIBS)
 
 test-bm-add-rows$(EXEEXT): $(test_bm_add_rows_OBJECTS) $(test_bm_add_rows_DEPENDENCIES) $(EXTRA_test_bm_add_rows_DEPENDENCIES) 
 	@rm -f test-bm-add-rows$(EXEEXT)
@@ -1669,6 +1681,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bm-add-columns.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bm-add-rows.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bm-identity.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-bm-invert.Po@am__quote@ # am--include-marker
@@ -1974,6 +1987,13 @@ recheck: all $(check_PROGRAMS)
 	        am__force_recheck=am--force-recheck \
 	        TEST_LOGS="$$log_list"; \
 	exit $$?
+test-bm-add-columns.log: test-bm-add-columns$(EXEEXT)
+	@p='test-bm-add-columns$(EXEEXT)'; \
+	b='test-bm-add-columns'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-bm-add-rows.log: test-bm-add-rows$(EXEEXT)
 	@p='test-bm-add-rows$(EXEEXT)'; \
 	b='test-bm-add-rows'; \
@@ -2593,7 +2613,8 @@ clean-am: clean-checkPROGRAMS clean-generic clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/test-bm-add-rows.Po
+		-rm -f ./$(DEPDIR)/test-bm-add-columns.Po
+	-rm -f ./$(DEPDIR)/test-bm-add-rows.Po
 	-rm -f ./$(DEPDIR)/test-bm-identity.Po
 	-rm -f ./$(DEPDIR)/test-bm-invert.Po
 	-rm -f ./$(DEPDIR)/test-bm-multiply.Po
@@ -2713,7 +2734,8 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/test-bm-add-rows.Po
+		-rm -f ./$(DEPDIR)/test-bm-add-columns.Po
+	-rm -f ./$(DEPDIR)/test-bm-add-rows.Po
 	-rm -f ./$(DEPDIR)/test-bm-identity.Po
 	-rm -f ./$(DEPDIR)/test-bm-invert.Po
 	-rm -f ./$(DEPDIR)/test-bm-multiply.Po

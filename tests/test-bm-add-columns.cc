@@ -50,8 +50,8 @@ bool check_bm_add_rows()
     } while (i == j);
     assert(i != j);
 
-    bm_add_rows(M, i, j);
-    bm_add_rows(M, i, j);
+    bm_add_columns(M, i, j);
+    bm_add_columns(M, i, j);
 
     if (M != N)
       return false;
