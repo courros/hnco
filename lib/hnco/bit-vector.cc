@@ -22,6 +22,7 @@
 
 #include <string>               // std::getline
 
+#include "util.hh"              // hnco::have_same_size
 #include "bit-vector.hh"
 
 
@@ -194,21 +195,29 @@ hnco::bv_from_size_type(bit_vector_t& x, std::size_t index)
   }
 }
 
-void
-hnco::bv_from_string(bit_vector_t& x, const std::string& str)
+bit_vector_t
+hnco::bv_from_string(const std::string& str)
 {
-  x.clear();
+  bit_vector_t result;
+
+  result.reserve(str.size());
   for (auto c : str)
     if (c == '0')
-      x.push_back(0);
+      result.push_back(0);
     else
-      x.push_back(1);
+      result.push_back(1);
+  assert(have_same_size(result, str));
+
+  return result;
 }
 
-void
-hnco::bv_from_stream(bit_vector_t& x, std::istream& stream)
+bit_vector_t
+hnco::bv_from_stream(std::istream& stream)
 {
   std::string line;
+
   if (std::getline(stream, line))
-    bv_from_string(x, line);
+    return bv_from_string(line);
+  else
+    return bit_vector_t();
 }

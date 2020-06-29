@@ -110,8 +110,7 @@ int main(int argc, char *argv[])
       std::cerr << "Error: Cannot open " << options.get_solution_path() << std::endl;
       return 1;
     }
-    bit_vector_t x;
-    bv_from_stream(x, stream);
+    bit_vector_t x = bv_from_stream(stream);
     if (int(x.size()) != fn->get_bv_size()) {
       std::cerr << "Error: Solution size and function bv_size must be equal" << std::endl;
       return 1;

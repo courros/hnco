@@ -40,7 +40,7 @@ Human::parse_bit_vector()
     std::cin >> str;
     if (str == "quit")
       throw LastEvaluation();
-    bv_from_string(_candidate, str);
+    _candidate = bv_from_string(str);
     if (int(_candidate.size()) < get_bv_size())
       std::cout << "Warning: bit vector is too short" << std::endl;
     else {

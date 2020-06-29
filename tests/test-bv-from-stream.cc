@@ -55,7 +55,7 @@ bool check()
     bit_vector_t y(n);
     {
       std::ifstream stream(path);
-      bv_from_stream(y, stream);
+      y = bv_from_stream(stream);
     }
 
     if (y != x)

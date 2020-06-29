@@ -25,13 +25,14 @@ Library:
 - Algorithm: changed prototype of maximize(const vector<Function *>&)
 - Reordered parameters of pv_sample
 - Reordered parameters of bv_add, bv_to_vector_bool
+- bv_from_string, bv_from_stream return a bit_vector_t
 - Reordered parameters of bm_multiply, bm_transpose, bm_add_rows, bm_add_columns
-- Transvection: removed multiply_right
 - Renamed bv_to_sbv -> sbv_from_bv
-- Reordered parameters of sbv_from_bv
+- sbv_from_bv returns a sparse_bit_vector_t
 - Renamed bv_flip -> sbv_flip
 - Renamed bm_to_sbm -> sbm_from_bm
 - Reordered parameters of sbm_from_bm, sbm_multiply
+- Transvection: removed multiply_right
 - Reordered parameters of ts_multiply
 
 Tests:

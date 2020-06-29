@@ -128,10 +128,10 @@ std::size_t bv_to_size_type(const bit_vector_t& x);
 void bv_from_size_type(bit_vector_t& x, std::size_t index);
 
 /// Read a bit vector from a string
-void bv_from_string(bit_vector_t& x, const std::string& str);
+bit_vector_t bv_from_string(const std::string& str);
 
 /// Read a bit vector from a stream
-void bv_from_stream(bit_vector_t& x, std::istream& stream);
+bit_vector_t bv_from_stream(std::istream& stream);
 
 ///@}
 
