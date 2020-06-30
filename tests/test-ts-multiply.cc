@@ -38,8 +38,7 @@ bool check_ts_multiply()
     transvection_sequence_t seq;
     ts_random(seq, n, t);
 
-    bit_matrix_t M;
-    bm_identity(M, n);
+    bit_matrix_t M = bm_identity(n);
     ts_multiply(M, seq);
 
     for (int j = 0; j < 10; j++) {

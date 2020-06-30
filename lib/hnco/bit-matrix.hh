@@ -30,11 +30,40 @@ namespace hnco {
 
 
 /** @name Types and functions related to bit matrices
- */
+
+    Output and input-output function parameters appear at the
+    beginning of the parameter list.
+
+    Output and input-output bit_matrix_t parameters are passed by
+    reference and must have the right size for the considered
+    function.
+*/
 ///@{
 
 /// Bit matrix
 typedef std::vector<bit_vector_t> bit_matrix_t;
+
+
+/// Make a rectangular bit matrix
+bit_matrix_t bm_rectangular(int nrows, int ncols);
+
+/// Make a square bit matrix
+inline bit_matrix_t bm_square(int n) { return bm_rectangular(n, n); }
+
+/** Make an identity bit matrix.
+
+    \param n Dimension
+    \return An order n identity matrix
+*/
+bit_matrix_t bm_identity(int n);
+
+/** Transpose.
+
+    \param M Bit matrix
+    \return Transposed bit matrix
+*/
+bit_matrix_t bm_transpose(const bit_matrix_t& M);
+
 
 /// Display bit matrix
 void bm_display(const bit_matrix_t& M, std::ostream& stream);
@@ -57,6 +86,7 @@ bool bm_is_identity(const bit_matrix_t& M);
 /// Check whether the matrix is upper triangular
 bool bm_is_upper_triangular(const bit_matrix_t& M);
 
+
 /// Resize a bit matrix
 void bm_resize(bit_matrix_t& M, int num_rows, int num_columns);
 
@@ -72,13 +102,6 @@ inline void bm_clear(bit_matrix_t& M) { std::for_each(M.begin(), M.end(), [](bit
 */
 void bm_identity(bit_matrix_t& M);
 
-/** Set the matrix to the identity matrix.
-
-    \param M Bit matrix
-    \param n Dimension
-*/
-void bm_identity(bit_matrix_t& M, int n);
-
 /// Sample a random bit matrix
 void bm_random(bit_matrix_t& M);
 
@@ -87,21 +110,26 @@ void bm_swap_rows(bit_matrix_t& M, int i, int j);
 
 /** Add two rows.
 
-    Row i is added to row j.
+    Equivalent to dest = dest + src.
+
+    \param M Bit matrix
+    \param dest Destination row
+    \param src Source row
 */
 void bm_add_rows(bit_matrix_t& M, int dest, int src);
 
 /** Add two columns.
 
-    Column src is added to column dest.
+    Equivalent to dest = dest + src.
 
     \param M Bit matrix
-    \param src Source column
     \param dest Destination column
+    \param src Source column
 
     \warning M is modified by the function.
 */
 void bm_add_columns(bit_matrix_t& M, int dest, int src);
+
 
 /** Compute a row echelon form of a matrix.
 
@@ -156,11 +184,12 @@ bool bm_solve_upper_triangular(bit_matrix_t& A, bit_vector_t& b);
 
 /** Invert a bit matrix.
 
-    \param M input matrix
-    \param N inverse matrix
+    \param M Bit matrix
+    \param N Inverse bit matrix
 
     \pre bm_is_square(M)
     \pre bm_is_square(N)
+    \pre bm_num_rows(M) == bm_num_rows(N)
 
     \return true if M is invertible
 
@@ -172,12 +201,13 @@ bool bm_invert(bit_matrix_t& M, bit_matrix_t& N);
 
 /** Multiply a bit matrix and a bit vector.
 
-    The result is y = Mx.
+    Computes y = Mx.
+
+    \param y Output bit vector
+    \param M Bit matrix
+    \param x Bit vector
 */
 void bm_multiply(bit_vector_t& y, const bit_matrix_t& M, const bit_vector_t& x);
-
-/// Transpose
-void bm_transpose(bit_matrix_t& N, const bit_matrix_t& M);
 
 ///@}
 

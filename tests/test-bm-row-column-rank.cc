@@ -41,7 +41,7 @@ bool check_bm_row_column_rank()
     bm_row_echelon_form(N);
     int row_rank = bm_rank(N);
 
-    bm_transpose(N, M);
+    N = bm_transpose(M);
     bm_row_echelon_form(N);
     int column_rank = bm_rank(N);
 
