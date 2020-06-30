@@ -126,11 +126,11 @@ bool hnco::bm_is_identity(const bit_matrix_t& M)
 
 bool hnco::bm_is_upper_triangular(const bit_matrix_t& M)
 {
-  const int rows = bm_num_rows(M);
-  const int cols = bm_num_columns(M);
+  const int nrows = bm_num_rows(M);
+  const int ncols = bm_num_columns(M);
 
-  for (int i = 0; i < rows; i++)
-    for (int j = 0; j < std::min(i, cols); j++) {
+  for (int i = 0; i < nrows; i++)
+    for (int j = 0; j < std::min(i, ncols); j++) {
       if (M[i][j] != 0)
         return false;
     }
@@ -190,15 +190,15 @@ void hnco::bm_add_columns(bit_matrix_t& M, int dest, int src)
 
 void hnco::bm_row_echelon_form(bit_matrix_t& A)
 {
-  const int rows = bm_num_rows(A);
-  const int cols = bm_num_columns(A);
+  const int nrows = bm_num_rows(A);
+  const int ncols = bm_num_columns(A);
 
   int r = 0;
 
-  for (int j = 0; j < cols; j++) {
+  for (int j = 0; j < ncols; j++) {
     bool found = false;
     int pivot;
-    for (int i = r; i < rows; i++)
+    for (int i = r; i < nrows; i++)
       if (A[i][j]) {
         pivot = i;
         found = true;
@@ -208,12 +208,12 @@ void hnco::bm_row_echelon_form(bit_matrix_t& A)
       if (pivot != r) {
         bm_swap_rows(A, pivot, r);
       }
-      for (int i = r + 1; i < rows; i++)
+      for (int i = r + 1; i < nrows; i++)
         if (A[i][j]) {
           bm_add_rows(A, i, r);
         }
       r++;
-      if (r == rows)
+      if (r == nrows)
         break;
     }
   }
@@ -221,17 +221,17 @@ void hnco::bm_row_echelon_form(bit_matrix_t& A)
 
 int hnco::bm_rank(const bit_matrix_t& A)
 {
-  const int rows = bm_num_rows(A);
+  const int nrows = bm_num_rows(A);
 
   int rank = 0;
 
-  for (int i = 0; i < rows; i++)
+  for (int i = 0; i < nrows; i++)
     if (bv_is_zero(A[i]))
       break;
     else
       rank++;
 
-  assert(rank <= rows);
+  assert(rank <= nrows);
   assert(rank <= bm_num_columns(A));
 
   return rank;
@@ -242,12 +242,12 @@ bool hnco::bm_solve(bit_matrix_t& A, bit_vector_t& b)
   assert(bm_is_square(A));
   assert(bm_num_rows(A) == int(b.size()));
 
-  const int rows = bm_num_rows(A);
+  const int nrows = bm_num_rows(A);
 
-  for (int i = 0; i < rows; i++) {
+  for (int i = 0; i < nrows; i++) {
     bool found = false;
     int pivot;
-    for (int j = i; j < rows; j++)
+    for (int j = i; j < nrows; j++)
       if (A[j][i]) {
         pivot = j;
         found = true;
@@ -259,7 +259,7 @@ bool hnco::bm_solve(bit_matrix_t& A, bit_vector_t& b)
       bm_swap_rows(A, i, pivot);
       std::swap(b[i], b[pivot]);
     }
-    for (int j = i + 1; j < rows; j++)
+    for (int j = i + 1; j < nrows; j++)
       if (A[j][i]) {
         bm_add_rows(A, j, i);
         b[j] = (b[i] + b[j]) % 2;
@@ -276,10 +276,10 @@ bool hnco::bm_solve_upper_triangular(bit_matrix_t& A, bit_vector_t& b)
   assert(bm_num_rows(A) == int(b.size()));
   assert(bm_is_upper_triangular(A));
 
-  const int rows = bm_num_rows(A);
+  const int nrows = bm_num_rows(A);
 
-  for (int k = 0; k < rows; k++) {
-    int i = rows - 1 - k;
+  for (int k = 0; k < nrows; k++) {
+    int i = nrows - 1 - k;
     for (int j = 0; j < i; j++)
       if (A[j][i]) {
         bm_add_rows(A, j, i);
@@ -297,13 +297,13 @@ bool hnco::bm_invert(bit_matrix_t& M, bit_matrix_t& N)
   assert(bm_is_square(N));
   assert(bm_num_rows(M) == bm_num_rows(N));
 
-  const int rows = bm_num_rows(M);
+  const int nrows = bm_num_rows(M);
 
   bm_identity(N);
-  for (int i = 0; i < rows; i++) {
+  for (int i = 0; i < nrows; i++) {
     bool found = false;
     int pivot;
-    for (int j = i; j < rows; j++)
+    for (int j = i; j < nrows; j++)
       if (M[j][i]) {
         pivot = j;
         found = true;
@@ -315,7 +315,7 @@ bool hnco::bm_invert(bit_matrix_t& M, bit_matrix_t& N)
       bm_swap_rows(M, i, pivot);
       bm_swap_rows(N, i, pivot);
     }
-    for (int j = i + 1; j < rows; j++)
+    for (int j = i + 1; j < nrows; j++)
       if (M[j][i]) {
         bm_add_rows(M, j, i);
         bm_add_rows(N, j, i);
@@ -323,8 +323,8 @@ bool hnco::bm_invert(bit_matrix_t& M, bit_matrix_t& N)
   }
   assert(bm_is_upper_triangular(M));
 
-  for (int k = 0; k < rows; k++) {
-    int i = rows - 1 - k;
+  for (int k = 0; k < nrows; k++) {
+    int i = nrows - 1 - k;
     for (int j = 0; j < i; j++)
       if (M[j][i]) {
         bm_add_rows(M, j, i);
