@@ -116,7 +116,7 @@ void bv_random(bit_vector_t& x, int k);
 
     Equivalent to dest = dest + src.
 
-    \param dest Destination bit vectot
+    \param dest Destination bit vector
     \param src Source bit vector
 
     \warning Vectors must be of the same size.
@@ -127,7 +127,7 @@ void bv_add(bit_vector_t& dest, const bit_vector_t& src);
 
     Equivalent to dest = x + y.
 
-    \param dest Destination bit vectot
+    \param dest Destination bit vector
     \param x First operand
     \param y Second operand
 
