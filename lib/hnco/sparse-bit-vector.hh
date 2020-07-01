@@ -34,8 +34,7 @@ namespace hnco {
     Output and input-output function parameters appear at the
     beginning of the parameter list.
 
-    Input sparse_bit_vector_t parameters are passed by const
-    reference.
+    Input object parameters are passed by const reference.
 */
 ///@{
 
@@ -50,12 +49,29 @@ namespace hnco {
 */
 typedef std::vector<int> sparse_bit_vector_t;
 
+/** Check that a sparse bit vector is valid.
+
+    A sparse bit vector is valid if:
+    - Its elements are non negative.
+    - Its elements are sorted in non-descending order.
+*/
 bool sbv_is_valid(const sparse_bit_vector_t& sbv);
+
+/** Check that a sparse bit vector is valid.
+
+    A sparse bit vector is valid if:
+    - Its elements are non negative.
+    - Its elements are sorted in non-descending order.
+    - Its elements are valid indices w.r.t. the given dimension.
+
+    \param sbv Input sparse bit vector
+    \param n Dimension
+*/
 bool sbv_is_valid(const sparse_bit_vector_t& sbv, int n);
 
 /** Flip many bits of a bit vector.
 
-    \param x Bit vector to update
+    \param x Input-output bit vector
     \param sbv Bits to flip
 */
 void sbv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv);

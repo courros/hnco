@@ -38,7 +38,7 @@ namespace hnco {
     reference and must have the right size for the considered
     function.
 
-    Input bit_matrix_t parameters are passed by const reference.
+    Input object parameters are passed by const reference.
 */
 ///@{
 
