@@ -64,15 +64,6 @@ void hnco::algorithm::pv_add(pv_t& pv, const bit_vector_t& x)
       pv[i]++;
 }
 
-void hnco::algorithm::pv_add(pv_t& pv, const bit_vector_t& x, double weight)
-{
-  assert(x.size() == pv.size());
-
-  for (size_t i = 0; i < pv.size(); i++)
-    if (x[i] == 1)
-      pv[i] += weight;
-}
-
 void hnco::algorithm::pv_average(pv_t& pv, int count)
 {
   for (size_t i = 0; i < pv.size(); i++)
@@ -87,7 +78,7 @@ void hnco::algorithm::pv_update(pv_t& pv, double rate, const bit_vector_t& x)
     pv[i] += rate * (x[i] - pv[i]);
 }
 
-void hnco::algorithm::pv_update(pv_t& pv, double rate, const std::vector<double>& x)
+void hnco::algorithm::pv_update(pv_t& pv, double rate, const pv_t& x)
 {
   assert(x.size() == pv.size());
 
@@ -95,7 +86,7 @@ void hnco::algorithm::pv_update(pv_t& pv, double rate, const std::vector<double>
     pv[i] += rate * (x[i] - pv[i]);
 }
 
-void hnco::algorithm::pv_update(pv_t& pv, double rate, const std::vector<double>& x, const std::vector<double>& y)
+void hnco::algorithm::pv_update(pv_t& pv, double rate, const pv_t& x, const pv_t& y)
 {
   assert(x.size() == pv.size());
   assert(y.size() == pv.size());
