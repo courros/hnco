@@ -53,13 +53,13 @@ double pv_entropy(const pv_t& pv);
 /** Sample a bit vector.
 
     \param x Sampled bit vector
-    \param pv Input probability vector
+    \param pv Probability vector
 */
 void pv_sample(bit_vector_t& x, const pv_t& pv);
 
 /** Probability vector of the uniform distribution.
 
-    All elements of the probability vector are set to 1/2.
+    All the elements of the probability vector are set to 1/2.
 
     \param pv Probability vector
 */
@@ -67,7 +67,7 @@ inline void pv_uniform(pv_t& pv) { std::fill(pv.begin(), pv.end(), 0.5); }
 
 /** Initialize.
 
-    All elements of the probability vector are set to 0.
+    All the elements of the probability vector are set to 0.
 
     \param pv Probability vector
 */
@@ -84,7 +84,7 @@ void pv_add(pv_t& pv, const bit_vector_t& x);
 
 /** Average.
 
-    Equivalent to pv pv / count.
+    Equivalent to pv = pv / count.
 
     \param pv Probability vector
     \param count Number of accumulated bit vectors
@@ -119,7 +119,7 @@ void pv_update(pv_t& pv, double rate, const T& x)
 */
 void pv_update(pv_t& pv, double rate, const pv_t& x, const pv_t& y);
 
-/** Bound the components of a probability vector.
+/** Bound the elements of a probability vector.
 
     \param pv Probability vector
     \param lower_bound Lower bound
