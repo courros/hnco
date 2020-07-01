@@ -65,8 +65,7 @@ inline bit_t bit_random(double p) { return (random::Generator::uniform() < p) ? 
     reference and must have the right size for the considered
     function.
 
-    In case the size of an output bit_vector_t cannot be known in
-    advance, it is returned by value.
+    Input bit_vector_t parameters are passed by const reference.
 */
 ///@{
 
