@@ -20,20 +20,43 @@
 
 #include <assert.h>
 
+#include <algorithm>            // std::is_sorted
+
 #include "sparse-bit-vector.hh"
 
 
 using namespace hnco;
 
 
+bool
+hnco::sbv_is_valid(const sparse_bit_vector_t& sbv)
+{
+  if (!std::is_sorted(begin(sbv), end(sbv)))
+    return false;
+  for (auto index : sbv)
+    if(index < 0)
+      return false;
+  return true;
+}
+
+bool
+hnco::sbv_is_valid(const sparse_bit_vector_t& sbv, int n)
+{
+  if (!sbv_is_valid(sbv))
+    return false;
+  for (auto index : sbv)
+    if(!(index < n))
+      return false;
+  return true;
+}
+
 void
 hnco::sbv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv)
 {
-  for (auto index : sbv) {
-    assert(index < int(x.size()));
-    assert(index >= 0);
+  assert(sbv_is_valid(sbv, x.size()));
+
+  for (auto index : sbv)
     bv_flip(x, index);
-  }
 }
 
 void
