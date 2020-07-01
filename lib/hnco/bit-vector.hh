@@ -146,11 +146,29 @@ void bv_to_vector_bool(std::vector<bool>& y, const bit_vector_t& x);
 */
 void bv_from_vector_bool(bit_vector_t& x, const std::vector<bool>& y);
 
-/// Convert a bit vector to a size_t
+/** Convert a small bit vector to a size_t.
+
+    \param x Input bit vector
+
+    \return An unsigned integer representing x
+
+    \pre x.size() <= 8 * sizeof(std::size_t)
+*/
 std::size_t bv_to_size_type(const bit_vector_t& x);
 
-/// Convert a size_t to a bit vector
-void bv_from_size_type(bit_vector_t& x, std::size_t index);
+/** Convert a size_t to a small bit vector.
+
+    \param x Output bit vector
+    \param u Unsigned integer representing a bit vector
+
+    \pre x.size() <= 8 * sizeof(std::size_t)
+
+    \warning Depending on the size of the output bit vector, some bits
+    might be lost. The original bit vector can be reconstructed only
+    if it is small and the unsigned integer u is the result of
+    bv_to_size_type.
+*/
+void bv_from_size_type(bit_vector_t& x, std::size_t u);
 
 /** Read a bit vector from a string.
 

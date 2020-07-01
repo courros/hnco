@@ -181,13 +181,13 @@ hnco::bv_to_size_type(const bit_vector_t& x)
 }
 
 void
-hnco::bv_from_size_type(bit_vector_t& x, std::size_t index)
+hnco::bv_from_size_type(bit_vector_t& x, std::size_t u)
 {
   assert(x.size() <= 8 * sizeof(std::size_t));
 
   std::size_t mask = 1;
   for (size_t i = 0; i < x.size(); i++) {
-    if (index & mask)
+    if (u & mask)
       x[i] = 1;
     else
       x[i] = 0;
