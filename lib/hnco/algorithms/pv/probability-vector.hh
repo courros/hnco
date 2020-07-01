@@ -99,17 +99,14 @@ void pv_average(pv_t& pv, int count);
     \param rate Rate
     \param x Attractor bit vector
 */
-void pv_update(pv_t& pv, double rate, const bit_vector_t& x);
+template<class T>
+void pv_update(pv_t& pv, double rate, const T& x)
+{
+  assert(x.size() == pv.size());
 
-/** Update a probability vector.
-
-    Equivalent to pv += rate * (x - pv)
-
-    \param pv Probability vector
-    \param rate Rate
-    \param x Attractor probability vector
-*/
-void pv_update(pv_t& pv, double rate, const pv_t& x);
+  for (size_t i = 0; i < pv.size(); i++)
+    pv[i] += rate * (x[i] - pv[i]);
+}
 
 /** Update a probability vector.
 

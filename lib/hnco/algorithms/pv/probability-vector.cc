@@ -70,22 +70,6 @@ void hnco::algorithm::pv_average(pv_t& pv, int count)
     pv[i] /= count;
 }
 
-void hnco::algorithm::pv_update(pv_t& pv, double rate, const bit_vector_t& x)
-{
-  assert(x.size() == pv.size());
-
-  for (size_t i = 0; i < pv.size(); i++)
-    pv[i] += rate * (x[i] - pv[i]);
-}
-
-void hnco::algorithm::pv_update(pv_t& pv, double rate, const pv_t& x)
-{
-  assert(x.size() == pv.size());
-
-  for (size_t i = 0; i < pv.size(); i++)
-    pv[i] += rate * (x[i] - pv[i]);
-}
-
 void hnco::algorithm::pv_update(pv_t& pv, double rate, const pv_t& x, const pv_t& y)
 {
   assert(x.size() == pv.size());
