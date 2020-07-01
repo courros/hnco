@@ -18,8 +18,6 @@
 
 */
 
-#include <random>
-
 #include "hnco/bit-vector.hh"
 #include "hnco/random.hh"
 
@@ -34,12 +32,16 @@ int main(int argc, char *argv[])
   std::uniform_int_distribution<int> bv_size_dist(0, 64);
 
   for (int i = 0; i < 1000; i++) {
-    int bv_size = bv_size_dist(Generator::engine);
+
+    const int bv_size = bv_size_dist(Generator::engine);
+
     bit_vector_t src(bv_size);
     bv_random(src);
     std::size_t index = bv_to_size_type(src);
+
     bit_vector_t dest(bv_size);
     bv_from_size_type(dest, index);
+
     if (dest != src)
       return 1;
   }
