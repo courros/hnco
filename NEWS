@@ -23,17 +23,16 @@ Library:
 - Algorithm: declared set_functions protected
 - Algorithm: changed prototype of set_functions(const vector<Function *>&)
 - Algorithm: changed prototype of maximize(const vector<Function *>&)
-- Reordered parameters of pv_sample
-- Reordered parameters of bv_add, bv_to_vector_bool
-- bv_from_string, bv_from_stream return a bit_vector_t
-- Reordered parameters of bm_multiply, bm_transpose, bm_add_rows, bm_add_columns
+- Reordered parameters of functions (bv, sbv, bm, sbm, ts, pv): output parameters first
 - Renamed bv_to_sbv -> sbv_from_bv
-- sbv_from_bv returns a sparse_bit_vector_t
 - Renamed bv_flip -> sbv_flip
+- bv_from_string, bv_from_stream return a bit_vector_t
+- sbv_from_bv returns a sparse_bit_vector_t
+- Added sbv_is_valid
+- Overloaded bm_identity and bm_transpose
+- Added bm_square and bm_rectangular
 - Renamed bm_to_sbm -> sbm_from_bm
-- Reordered parameters of sbm_from_bm, sbm_multiply
 - Transvection: removed multiply_right
-- Reordered parameters of ts_multiply
 
 Tests:
 - Added test-population-evaluate-in-parallel
