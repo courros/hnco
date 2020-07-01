@@ -50,6 +50,12 @@ bit_matrix_t bm_rectangular(int nrows, int ncols);
 /// Make a square bit matrix
 inline bit_matrix_t bm_square(int n) { return bm_rectangular(n, n); }
 
+/** Set a matrix to the identity matrix.
+
+    \pre bm_is_square(M)
+*/
+void bm_identity(bit_matrix_t& M);
+
 /** Make an identity bit matrix.
 
     \param n Dimension
@@ -57,7 +63,14 @@ inline bit_matrix_t bm_square(int n) { return bm_rectangular(n, n); }
 */
 bit_matrix_t bm_identity(int n);
 
-/** Transpose.
+/** Transpose a bit matrix.
+
+    \pre bm_num_columns(N) == bm_num_rows(M)
+    \pre bm_num_rows(N) == bm_num_columns(M)
+*/
+void bm_transpose(bit_matrix_t& N, const bit_matrix_t& M);
+
+/** Transpose a bit matrix.
 
     \param M Bit matrix
     \return Transposed bit matrix
@@ -95,12 +108,6 @@ inline void bm_resize(bit_matrix_t& M, int nrows) { bm_resize(M, nrows, nrows); 
 
 /// Clear bit matrix
 inline void bm_clear(bit_matrix_t& M) { std::for_each(M.begin(), M.end(), [](bit_vector_t& row){ bv_clear(row); }); }
-
-/** Set the matrix to the identity matrix.
-
-    \pre bm_is_square(M)
-*/
-void bm_identity(bit_matrix_t& M);
 
 /// Sample a random bit matrix
 void bm_random(bit_matrix_t& M);

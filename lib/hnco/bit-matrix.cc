@@ -36,6 +36,17 @@ bit_matrix_t hnco::bm_rectangular(int nrows, int ncols)
   return bit_matrix_t(nrows, bit_vector_t(ncols));
 }
 
+void hnco::bm_identity(bit_matrix_t& M)
+{
+  assert(bm_is_valid(M));
+  assert(bm_is_square(M));
+
+  bm_clear(M);
+  const int nrows = bm_num_rows(M);
+  for (int i = 0; i < nrows; i++)
+    M[i][i] = 1;
+}
+
 bit_matrix_t hnco::bm_identity(int n)
 {
   assert(n > 0);
@@ -43,6 +54,20 @@ bit_matrix_t hnco::bm_identity(int n)
   bit_matrix_t result = bm_square(n);
   bm_identity(result);
   return result;
+}
+
+void hnco::bm_transpose(bit_matrix_t& N, const bit_matrix_t& M)
+{
+  assert(bm_is_valid(M));
+  assert(bm_num_columns(N) == bm_num_rows(M));
+  assert(bm_num_rows(N) == bm_num_columns(M));
+
+  const int nrows = bm_num_rows(M);
+  const int ncols = bm_num_columns(M);
+
+  for (int i = 0; i < ncols; i++)
+    for (int j = 0; j < nrows; j++)
+      N[i][j] = M[j][i];
 }
 
 bit_matrix_t hnco::bm_transpose(const bit_matrix_t& M)
@@ -53,12 +78,9 @@ bit_matrix_t hnco::bm_transpose(const bit_matrix_t& M)
   const int ncols = bm_num_columns(M);
 
   bit_matrix_t result = bm_rectangular(ncols, nrows);
-  for (int i = 0; i < ncols; i++)
-    for (int j = 0; j < nrows; j++)
-      result[i][j] = M[j][i];
+  bm_transpose(result, M);
   return result;
 }
-
 
 void hnco::bm_display(const bit_matrix_t& M, std::ostream& stream)
 {
@@ -85,17 +107,6 @@ bool hnco::bm_is_valid(const bit_matrix_t& M)
     return false;
 
   return true;
-}
-
-void hnco::bm_identity(bit_matrix_t& M)
-{
-  assert(bm_is_valid(M));
-  assert(bm_is_square(M));
-
-  bm_clear(M);
-  const int nrows = bm_num_rows(M);
-  for (int i = 0; i < nrows; i++)
-    M[i][i] = 1;
 }
 
 bool hnco::bm_is_identity(const bit_matrix_t& M)
