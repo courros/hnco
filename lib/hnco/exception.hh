@@ -21,89 +21,103 @@
 #ifndef HNCO_EXCEPTION_H
 #define HNCO_EXCEPTION_H
 
-#include <sstream>
 #include <string>
+#include <sstream>
 
 #include "bit-vector.hh"
 #include "algorithms/solution.hh"
 
 
 namespace hnco {
+
 /// Exceptions
 namespace exception {
 
-  /// Basic exception
-  class Exception {};
 
-  /// Solution found
-  class SolutionFound:
-    public Exception {
-  protected:
-    /// Solution
-    algorithm::solution_t _solution;
-  public:
-    /// Constructor
-    SolutionFound(const algorithm::solution_t& solution):
-      _solution(solution) {}
-    /// Get solution
-    const algorithm::solution_t& get_solution() const { return _solution; }
-  };
+/// Basic exception
+class Exception {};
 
-  /// Maximum reached
-  class MaximumReached:
-    public SolutionFound {
-  public:
-    /// Constructor
-    MaximumReached(const algorithm::solution_t& solution):
-      SolutionFound(solution) {}
-  };
 
-  /// Target reached
-  class TargetReached:
-    public SolutionFound {
-  public:
-    /// Constructor
-    TargetReached(const algorithm::solution_t& solution):
-      SolutionFound(solution) {}
-  };
+/// Solution found
+class SolutionFound: public Exception {
 
-  /// Local maximum found
-  class LocalMaximumReached:
-    public SolutionFound {
-  public:
-    /// Constructor
-    LocalMaximumReached(const algorithm::solution_t& solution):
-      SolutionFound(solution) {}
-  };
+protected:
 
-  /// Last evaluation
-  class LastEvaluation:
-    public Exception {};
+  /// Solution
+  algorithm::solution_t _solution;
 
-  /// Error
-  class Error:
-    public Exception {
+public:
 
-  protected:
+  /// Constructor
+  SolutionFound(const algorithm::solution_t& solution):
+    _solution(solution) {}
 
-    /// Message
-    std::string _what;
+  /// Get solution
+  const algorithm::solution_t& get_solution() const { return _solution; }
+};
 
-  public:
 
-    /// Constructor
-    Error(): _what("Unknown error") {}
+/// Maximum reached
+class MaximumReached: public SolutionFound {
 
-    /// Constructor
-    Error(const std::string& s): _what(s) {}
+public:
 
-    /// Destructor
-    virtual ~Error() {}
+  /// Constructor
+  MaximumReached(const algorithm::solution_t& solution):
+    SolutionFound(solution) {}
+};
 
-    /// Get message
-    virtual const char* what() const { return _what.c_str(); }
 
-  };
+/// Target reached
+class TargetReached: public SolutionFound {
+
+public:
+
+  /// Constructor
+  TargetReached(const algorithm::solution_t& solution):
+    SolutionFound(solution) {}
+};
+
+
+/// Local maximum found
+class LocalMaximumReached: public SolutionFound {
+
+public:
+
+  /// Constructor
+  LocalMaximumReached(const algorithm::solution_t& solution):
+    SolutionFound(solution) {}
+};
+
+
+/// Last evaluation
+class LastEvaluation: public Exception {};
+
+
+/// Error
+class Error: public Exception {
+
+protected:
+
+  /// Message
+  std::string _what;
+
+public:
+
+  /// Constructor
+  Error(): _what("Unknown error") {}
+
+  /// Constructor
+  Error(const std::string& s): _what(s) {}
+
+  /// Destructor
+  virtual ~Error() {}
+
+  /// Get message
+  virtual const char* what() const { return _what.c_str(); }
+
+};
+
 
 } // end of namespace exception
 } // end of namespace hnco
