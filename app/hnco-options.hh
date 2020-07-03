@@ -205,7 +205,7 @@ class Options {
   std::string _results_path;
   bool _opt_results_path;
 
-  /// Number of consecutive rejected moves before throwing LocalMaximumFound (<= 0 means infinite)
+  /// Number of consecutive rejected moves before throwing LocalMaximumReached (<= 0 means infinite)
   int _rls_patience;
   bool _opt_rls_patience;
 

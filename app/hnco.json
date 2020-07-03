@@ -1107,7 +1107,7 @@
         {
             "type": "int",
             "value": 50,
-            "description": "Number of consecutive rejected moves before throwing LocalMaximumFound (<= 0 means infinite)",
+            "description": "Number of consecutive rejected moves before throwing LocalMaximumReached (<= 0 means infinite)",
             "section": "ls"
         },
 

@@ -47,5 +47,5 @@ FirstAscentHillClimbing::iterate()
     }
   }
 
-  throw LocalMaximumFound(_solution);      
+  throw LocalMaximumReached(_solution);
 }

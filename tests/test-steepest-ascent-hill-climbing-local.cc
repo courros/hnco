@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     try {
       algorithm.maximize({&fn});
     }
-    catch (LocalMaximumFound) {}
+    catch (LocalMaximumReached) {}
     catch (...) {
       return 1;
     }

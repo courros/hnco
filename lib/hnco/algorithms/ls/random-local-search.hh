@@ -93,12 +93,12 @@ public:
   /** Set patience.
 
       Number of consecutive rejected moves before throwing a
-      LocalMaximumFound exception
+      LocalMaximumReached exception
 
       \param x Patience
 
       If x <= 0 then patience is considered infinite, meaning that
-      the algorithm will never throw any LocalMaximumFound exception.
+      the algorithm will never throw any LocalMaximumReached exception.
   */
   void set_patience(int x) { _patience = x; }
 

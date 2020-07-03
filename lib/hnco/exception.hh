@@ -68,11 +68,11 @@ namespace exception {
   };
 
   /// Local maximum found
-  class LocalMaximumFound:
+  class LocalMaximumReached:
     public SolutionFound {
   public:
     /// Constructor
-    LocalMaximumFound(const algorithm::solution_t& solution):
+    LocalMaximumReached(const algorithm::solution_t& solution):
       SolutionFound(solution) {}
   };
 

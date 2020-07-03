@@ -7,7 +7,7 @@ Library:
 - Renamed Random -> Generator
 - Generator: added static member seed
 - Generator: added static member functions set_seed and reset
-- Renamed LocalMaximum -> LocalMaximumFound
+- Renamed LocalMaximum -> LocalMaximumReached
 - Function: renamed eval -> evaluate
 - Function: renamed safe_eval -> evaluate_safely
 - Function: renamed incremental_eval -> evaluate_incrementally

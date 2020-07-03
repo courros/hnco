@@ -75,7 +75,7 @@ RandomLocalSearch::iterate_full()
       _num_failures == _patience)
     {
       _solution.first = _neighborhood->get_origin();
-      throw LocalMaximumFound(_solution);
+      throw LocalMaximumReached(_solution);
     }
 
 }
@@ -108,7 +108,7 @@ RandomLocalSearch::iterate_incremental()
       _num_failures == _patience)
     {
       _solution.first = _neighborhood->get_origin();
-      throw LocalMaximumFound(_solution);
+      throw LocalMaximumReached(_solution);
     }
 
 }
