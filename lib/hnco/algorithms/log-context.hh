@@ -40,7 +40,7 @@ namespace log {
   public:
 
     /// Get context
-    virtual std::string get_context() = 0;
+    virtual std::string to_string() = 0;
   };
 
 
@@ -58,7 +58,7 @@ namespace log {
       _pt(pt) {}
 
     /// Get context
-    std::string get_context() {
+    std::string to_string() {
       assert(_pt);
 
       std::ostringstream stream;

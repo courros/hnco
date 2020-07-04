@@ -32,7 +32,7 @@ PvAlgorithm::log()
   assert(_something_to_log);
 
   if (_log_context)
-    (*_stream) << _log_context->get_context() << " ";
+    (*_stream) << _log_context->to_string() << " ";
 
   if (_log_entropy)
     (*_stream) << pv_entropy(_pv) << " ";

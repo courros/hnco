@@ -203,6 +203,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.cc \
 	hnco/iterator.hh \
+	hnco/log/logger.cc \
+	hnco/log/logger.hh \
 	hnco/map.cc \
 	hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
@@ -339,6 +341,7 @@ nobase_include_HEADERS = \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.hh \
+	hnco/log/logger.hh \
 	hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh \

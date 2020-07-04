@@ -292,7 +292,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.cc \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.cc \
-	hnco/iterator.hh hnco/map.cc hnco/map.hh \
+	hnco/iterator.hh hnco/log/logger.cc hnco/log/logger.hh \
+	hnco/map.cc hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -365,7 +366,8 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/functions/walsh/walsh-expansion-1.lo \
 	hnco/functions/walsh/walsh-expansion-2.lo \
 	hnco/functions/walsh/walsh-expansion.lo hnco/iterator.lo \
-	hnco/map.lo hnco/neighborhoods/neighborhood-iterator.lo \
+	hnco/log/logger.lo hnco/map.lo \
+	hnco/neighborhoods/neighborhood-iterator.lo \
 	hnco/neighborhoods/neighborhood.lo hnco/permutation.lo \
 	hnco/random.lo hnco/sparse-bit-matrix.lo \
 	hnco/sparse-bit-vector.lo hnco/transvection.lo \
@@ -471,6 +473,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo \
 	hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo \
 	hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo \
+	hnco/log/$(DEPDIR)/logger.Plo \
 	hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo \
 	hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
 am__mv = mv -f
@@ -588,7 +591,8 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
-	hnco/map.hh hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/log/logger.hh hnco/map.hh \
+	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.hh hnco/stop-watch.hh \
@@ -876,7 +880,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.cc \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.cc \
-	hnco/iterator.hh hnco/map.cc hnco/map.hh \
+	hnco/iterator.hh hnco/log/logger.cc hnco/log/logger.hh \
+	hnco/map.cc hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -957,7 +962,8 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
-	hnco/map.hh hnco/neighborhoods/neighborhood-iterator.hh \
+	hnco/log/logger.hh hnco/map.hh \
+	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.hh hnco/stop-watch.hh \
@@ -1319,6 +1325,14 @@ hnco/functions/walsh/walsh-expansion.lo:  \
 	hnco/functions/walsh/$(am__dirstamp) \
 	hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp)
 hnco/iterator.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
+hnco/log/$(am__dirstamp):
+	@$(MKDIR_P) hnco/log
+	@: > hnco/log/$(am__dirstamp)
+hnco/log/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/log/$(DEPDIR)
+	@: > hnco/log/$(DEPDIR)/$(am__dirstamp)
+hnco/log/logger.lo: hnco/log/$(am__dirstamp) \
+	hnco/log/$(DEPDIR)/$(am__dirstamp)
 hnco/map.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/neighborhoods/$(am__dirstamp):
 	@$(MKDIR_P) hnco/neighborhoods
@@ -1385,6 +1399,8 @@ mostlyclean-compile:
 	-rm -f hnco/functions/real/*.lo
 	-rm -f hnco/functions/walsh/*.$(OBJEXT)
 	-rm -f hnco/functions/walsh/*.lo
+	-rm -f hnco/log/*.$(OBJEXT)
+	-rm -f hnco/log/*.lo
 	-rm -f hnco/neighborhoods/*.$(OBJEXT)
 	-rm -f hnco/neighborhoods/*.lo
 
@@ -1475,6 +1491,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/log/$(DEPDIR)/logger.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo@am__quote@ # am--include-marker
 
@@ -1554,6 +1571,7 @@ clean-libtool:
 	-rm -rf hnco/functions/modifiers/.libs hnco/functions/modifiers/_libs
 	-rm -rf hnco/functions/real/.libs hnco/functions/real/_libs
 	-rm -rf hnco/functions/walsh/.libs hnco/functions/walsh/_libs
+	-rm -rf hnco/log/.libs hnco/log/_libs
 	-rm -rf hnco/neighborhoods/.libs hnco/neighborhoods/_libs
 install-nobase_includeHEADERS: $(nobase_include_HEADERS)
 	@$(NORMAL_INSTALL)
@@ -1732,6 +1750,8 @@ distclean-generic:
 	-rm -f hnco/functions/real/$(am__dirstamp)
 	-rm -f hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/walsh/$(am__dirstamp)
+	-rm -f hnco/log/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/log/$(am__dirstamp)
 	-rm -f hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/neighborhoods/$(am__dirstamp)
 
@@ -1828,6 +1848,7 @@ distclean: distclean-am
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo
+	-rm -f hnco/log/$(DEPDIR)/logger.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
 	-rm -f Makefile
@@ -1959,6 +1980,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo
+	-rm -f hnco/log/$(DEPDIR)/logger.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
 	-rm -f Makefile
