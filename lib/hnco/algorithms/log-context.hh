@@ -25,7 +25,7 @@
 
 
 namespace hnco {
-namespace algorithm {
+namespace log {
 
 
   /** Log context.

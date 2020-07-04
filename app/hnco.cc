@@ -219,7 +219,7 @@ int main(int argc, char *argv[])
   }
 
   // Connect algorithm to log context
-  ProgressTrackerContext log_context(tracker);
+  log::ProgressTrackerContext log_context(tracker);
   algorithm->set_log_context(&log_context);
 
   //
