@@ -18,6 +18,8 @@
 
 */
 
+#include "hnco/log/logger.hh"
+
 #include "pv-algorithm.hh"
 
 
@@ -31,17 +33,15 @@ PvAlgorithm::log()
 {
   assert(_something_to_log);
 
-  if (_log_context)
-    (*_stream) << _log_context->to_string() << " ";
+  log::Logger l(_log_context);
 
   if (_log_entropy)
-    (*_stream) << pv_entropy(_pv) << " ";
+    l.line() << pv_entropy(_pv) << " ";
 
   if (_log_pv) {
     int upper_bound = std::min(_log_num_components, int(_pv.size()));
     for (int i = 0; i < upper_bound; i++)
-      (*_stream) << _pv[i] << " ";
+      l.line() << _pv[i] << " ";
   }
 
-  (*_stream) << std::endl;
 }
