@@ -18,6 +18,7 @@
 
 */
 
+#include "hnco/log/logger.hh"
 #include "hnco/random.hh"
 
 #include "controller.hh"
@@ -191,7 +192,7 @@ ProgressTracker::update_last_improvement(double value)
     _last_improvement.value = value;
 
     if (_log_improvement)
-      (*_stream) << _last_improvement << std::endl;
+      HNCO_LOG() << _last_improvement;
 
   } else if (value > _last_improvement.value) {
     assert(_num_calls > 1);
@@ -200,7 +201,7 @@ ProgressTracker::update_last_improvement(double value)
     _last_improvement.value = value;
 
     if (_log_improvement)
-      (*_stream) << _last_improvement << std::endl;
+      HNCO_LOG() << _last_improvement;
   }
 }
 
