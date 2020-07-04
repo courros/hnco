@@ -19,6 +19,7 @@
 */
 
 #include "hnco/exception.hh"
+#include "hnco/log/logger.hh"
 
 #include "bm-pbil.hh"
 
@@ -141,12 +142,12 @@ BmPbil::log()
 {
   assert(_something_to_log);
 
+  log::Logger l(_log_context);
+
   if (_log_norm_infinite)
-    (*_stream) << _model.norm_infinite() << " ";
+    l.line() << _model.norm_infinite() << " ";
 
   if (_log_norm_l1)
-    (*_stream) << _model.norm_l1() << " ";
-
-  (*_stream) << std::endl;
+    l.line() << _model.norm_l1() << " ";
 
 }
