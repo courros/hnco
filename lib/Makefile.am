@@ -99,7 +99,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
 	hnco/algorithms/iterative-algorithm.hh \
-	hnco/algorithms/log-context.hh \
 	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
@@ -203,6 +202,7 @@ libhnco_la_SOURCES = \
 	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.cc \
 	hnco/iterator.hh \
+	hnco/log/log-context.hh \
 	hnco/log/logger.cc \
 	hnco/log/logger.hh \
 	hnco/map.cc \
@@ -282,7 +282,6 @@ nobase_include_HEADERS = \
 	hnco/algorithms/hea/spin-moment.hh \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
-	hnco/algorithms/log-context.hh \
 	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/local-search-algorithm.hh \
@@ -341,6 +340,7 @@ nobase_include_HEADERS = \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.hh \
+	hnco/log/log-context.hh \
 	hnco/log/logger.hh \
 	hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \

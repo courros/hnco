@@ -25,7 +25,7 @@
 #include <string>
 #include <sstream>              // std::ostringstream
 
-#include "hnco/algorithms/log-context.hh"
+#include "hnco/log/log-context.hh"
 
 
 namespace hnco {

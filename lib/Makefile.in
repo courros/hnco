@@ -221,7 +221,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
 	hnco/algorithms/iterative-algorithm.hh \
-	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/local-search-algorithm.hh \
@@ -292,8 +292,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.cc \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.cc \
-	hnco/iterator.hh hnco/log/logger.cc hnco/log/logger.hh \
-	hnco/map.cc hnco/map.hh \
+	hnco/iterator.hh hnco/log/log-context.hh hnco/log/logger.cc \
+	hnco/log/logger.hh hnco/map.cc hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -552,7 +552,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
-	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/local-search-algorithm.hh \
 	hnco/algorithms/ls/random-local-search.hh \
@@ -591,7 +591,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
-	hnco/log/logger.hh hnco/map.hh \
+	hnco/log/log-context.hh hnco/log/logger.hh hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
@@ -808,7 +808,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
 	hnco/algorithms/iterative-algorithm.hh \
-	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/local-search-algorithm.hh \
@@ -880,8 +880,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.cc \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.cc \
-	hnco/iterator.hh hnco/log/logger.cc hnco/log/logger.hh \
-	hnco/map.cc hnco/map.hh \
+	hnco/iterator.hh hnco/log/log-context.hh hnco/log/logger.cc \
+	hnco/log/logger.hh hnco/map.cc hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -923,7 +923,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.hh hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
-	hnco/algorithms/log-context.hh hnco/algorithms/ls/all.hh \
+	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
 	hnco/algorithms/ls/local-search-algorithm.hh \
 	hnco/algorithms/ls/random-local-search.hh \
@@ -962,7 +962,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/walsh/walsh-expansion-1.hh \
 	hnco/functions/walsh/walsh-expansion-2.hh \
 	hnco/functions/walsh/walsh-expansion.hh hnco/iterator.hh \
-	hnco/log/logger.hh hnco/map.hh \
+	hnco/log/log-context.hh hnco/log/logger.hh hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
