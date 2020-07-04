@@ -245,9 +245,6 @@ namespace controller {
     /// Log improvement
     bool _log_improvement = false;
 
-    /// Output stream
-    std::ostream *_stream = &std::cout;
-
     ///@}
 
     /// Update last improvement
@@ -301,9 +298,6 @@ namespace controller {
 
     /// Log improvement
     void set_log_improvement(bool x) { _log_improvement = x; }
-
-    /// Output stream
-    void set_stream(std::ostream *x) { _stream = x; }
 
     ///@}
 
