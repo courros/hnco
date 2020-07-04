@@ -22,7 +22,6 @@
 #define HNCO_EXCEPTION_H
 
 #include <string>
-#include <sstream>
 
 #include "bit-vector.hh"
 #include "algorithms/solution.hh"
