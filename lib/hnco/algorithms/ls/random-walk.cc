@@ -20,6 +20,8 @@
 
 #include <assert.h>
 
+#include "hnco/log/logger.hh"
+
 #include "random-walk.hh"
 
 
@@ -71,5 +73,7 @@ RandomWalk::iterate_incremental()
 void
 RandomWalk::log()
 {
-  (*_stream) << _value << std::endl;
+  assert(_something_to_log);
+
+  HNCO_LOG() << _value;
 }
