@@ -62,9 +62,6 @@ protected:
    */
   ///@{
 
-  /// Output stream
-  std::ostream *_stream = &std::cout;
-
   /// Log context
   log::LogContext *_log_context = nullptr;
 
@@ -162,9 +159,6 @@ public:
   /** @name Setters
    */
   ///@{
-
-  /// Set the output stream
-  void set_stream(std::ostream *stream) { _stream = stream; }
 
   /// Set the log context
   void set_log_context(log::LogContext *log_context) { _log_context = log_context; }
