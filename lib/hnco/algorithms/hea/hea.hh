@@ -28,6 +28,7 @@
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/algorithms/population.hh"
 #include "hnco/exception.hh"
+#include "hnco/log/logger.hh"
 
 
 namespace hnco {
@@ -192,25 +193,26 @@ protected:
   void log() override {
     assert(_log_flags.any());
 
+    log::Logger l(_log_context);
+
     if (_log_flags[LOG_MOMENT_MATRIX]) {
-      _target.display(*_stream);
+      _target.display(log::Logger::stream());
       return;
     }
 
     // Single line
     if (_log_flags[LOG_ERROR])
-      (*_stream) << _error_cache << " ";
+      l.line() << _error_cache << " ";
 
     if (_log_flags[LOG_DTU])
-      (*_stream) << _dtu_cache << " ";
+      l.line() << _dtu_cache << " ";
 
     if (_log_flags[LOG_DELTA])
-      (*_stream) << _delta_cache << " ";
+      l.line() << _delta_cache << " ";
 
     if (_log_flags[LOG_SELECTION])
-      (*_stream) << _selection_cache << " ";
+      l.line() << _selection_cache << " ";
 
-    (*_stream) << std::endl;
   }
 
   ///@}
