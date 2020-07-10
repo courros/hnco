@@ -33,6 +33,14 @@ Library:
 - Added bm_square and bm_rectangular
 - Renamed bm_to_sbm -> sbm_from_bm
 - Transvection: removed multiply_right
+- Added namespace hnco::log
+- Moved LogContext in namespace hnco::log
+- Moved files log-context.* under log/
+- Added class Logger and macro HNCO_LOG
+- ProgressTracker, PvAlgorithm, BmPbil, Hea use Logger
+- RandomWalk uses HNCO_LOG
+- ProgressTracker, Algorithm: removed data member _stream
+- ProgressTracker, Algorithm: removed member function set_stream
 
 Tests:
 - Added test-population-evaluate-in-parallel
