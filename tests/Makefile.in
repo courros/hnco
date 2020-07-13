@@ -128,7 +128,7 @@ check_PROGRAMS = test-bm-add-columns$(EXEEXT) \
 	test-complete-search-trap$(EXEEXT) \
 	test-complete-search-walsh-expansion-1$(EXEEXT) \
 	test-dyadic-integer-representation$(EXEEXT) \
-	test-dyadic-double-representation$(EXEEXT) \
+	test-dyadic-real-representation$(EXEEXT) \
 	test-first-ascent-hill-climbing$(EXEEXT) \
 	test-first-ascent-hill-climbing-local$(EXEEXT) \
 	test-hamming-sphere$(EXEEXT) \
@@ -341,18 +341,18 @@ test_complete_search_walsh_expansion_1_OBJECTS =  \
 test_complete_search_walsh_expansion_1_LDADD = $(LDADD)
 test_complete_search_walsh_expansion_1_DEPENDENCIES =  \
 	../lib/libhnco.la
-am_test_dyadic_double_representation_OBJECTS =  \
-	test-dyadic-double-representation.$(OBJEXT)
-test_dyadic_double_representation_OBJECTS =  \
-	$(am_test_dyadic_double_representation_OBJECTS)
-test_dyadic_double_representation_LDADD = $(LDADD)
-test_dyadic_double_representation_DEPENDENCIES = ../lib/libhnco.la
 am_test_dyadic_integer_representation_OBJECTS =  \
 	test-dyadic-integer-representation.$(OBJEXT)
 test_dyadic_integer_representation_OBJECTS =  \
 	$(am_test_dyadic_integer_representation_OBJECTS)
 test_dyadic_integer_representation_LDADD = $(LDADD)
 test_dyadic_integer_representation_DEPENDENCIES = ../lib/libhnco.la
+am_test_dyadic_real_representation_OBJECTS =  \
+	test-dyadic-double-representation.$(OBJEXT)
+test_dyadic_real_representation_OBJECTS =  \
+	$(am_test_dyadic_real_representation_OBJECTS)
+test_dyadic_real_representation_LDADD = $(LDADD)
+test_dyadic_real_representation_DEPENDENCIES = ../lib/libhnco.la
 am_test_first_ascent_hill_climbing_OBJECTS =  \
 	test-first-ascent-hill-climbing.$(OBJEXT)
 test_first_ascent_hill_climbing_OBJECTS =  \
@@ -769,8 +769,8 @@ SOURCES = $(test_bm_add_columns_SOURCES) $(test_bm_add_rows_SOURCES) \
 	$(test_complete_search_six_peaks_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
 	$(test_complete_search_walsh_expansion_1_SOURCES) \
-	$(test_dyadic_double_representation_SOURCES) \
 	$(test_dyadic_integer_representation_SOURCES) \
+	$(test_dyadic_real_representation_SOURCES) \
 	$(test_first_ascent_hill_climbing_SOURCES) \
 	$(test_first_ascent_hill_climbing_local_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
@@ -842,8 +842,8 @@ DIST_SOURCES = $(test_bm_add_columns_SOURCES) \
 	$(test_complete_search_six_peaks_SOURCES) \
 	$(test_complete_search_trap_SOURCES) \
 	$(test_complete_search_walsh_expansion_1_SOURCES) \
-	$(test_dyadic_double_representation_SOURCES) \
 	$(test_dyadic_integer_representation_SOURCES) \
+	$(test_dyadic_real_representation_SOURCES) \
 	$(test_first_ascent_hill_climbing_SOURCES) \
 	$(test_first_ascent_hill_climbing_local_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
@@ -1281,7 +1281,7 @@ test_complete_search_six_peaks_SOURCES = test-complete-search-six-peaks.cc
 test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_complete_search_walsh_expansion_1_SOURCES = test-complete-search-walsh-expansion-1.cc
 test_dyadic_integer_representation_SOURCES = test-dyadic-integer-representation.cc
-test_dyadic_double_representation_SOURCES = test-dyadic-double-representation.cc
+test_dyadic_real_representation_SOURCES = test-dyadic-double-representation.cc
 test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-local.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
@@ -1505,13 +1505,13 @@ test-complete-search-walsh-expansion-1$(EXEEXT): $(test_complete_search_walsh_ex
 	@rm -f test-complete-search-walsh-expansion-1$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_complete_search_walsh_expansion_1_OBJECTS) $(test_complete_search_walsh_expansion_1_LDADD) $(LIBS)
 
-test-dyadic-double-representation$(EXEEXT): $(test_dyadic_double_representation_OBJECTS) $(test_dyadic_double_representation_DEPENDENCIES) $(EXTRA_test_dyadic_double_representation_DEPENDENCIES) 
-	@rm -f test-dyadic-double-representation$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(test_dyadic_double_representation_OBJECTS) $(test_dyadic_double_representation_LDADD) $(LIBS)
-
 test-dyadic-integer-representation$(EXEEXT): $(test_dyadic_integer_representation_OBJECTS) $(test_dyadic_integer_representation_DEPENDENCIES) $(EXTRA_test_dyadic_integer_representation_DEPENDENCIES) 
 	@rm -f test-dyadic-integer-representation$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_dyadic_integer_representation_OBJECTS) $(test_dyadic_integer_representation_LDADD) $(LIBS)
+
+test-dyadic-real-representation$(EXEEXT): $(test_dyadic_real_representation_OBJECTS) $(test_dyadic_real_representation_DEPENDENCIES) $(EXTRA_test_dyadic_real_representation_DEPENDENCIES) 
+	@rm -f test-dyadic-real-representation$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_dyadic_real_representation_OBJECTS) $(test_dyadic_real_representation_LDADD) $(LIBS)
 
 test-first-ascent-hill-climbing$(EXEEXT): $(test_first_ascent_hill_climbing_OBJECTS) $(test_first_ascent_hill_climbing_DEPENDENCIES) $(EXTRA_test_first_ascent_hill_climbing_DEPENDENCIES) 
 	@rm -f test-first-ascent-hill-climbing$(EXEEXT)
@@ -2215,9 +2215,9 @@ test-dyadic-integer-representation.log: test-dyadic-integer-representation$(EXEE
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-test-dyadic-double-representation.log: test-dyadic-double-representation$(EXEEXT)
-	@p='test-dyadic-double-representation$(EXEEXT)'; \
-	b='test-dyadic-double-representation'; \
+test-dyadic-real-representation.log: test-dyadic-real-representation$(EXEEXT)
+	@p='test-dyadic-real-representation$(EXEEXT)'; \
+	b='test-dyadic-real-representation'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
