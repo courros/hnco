@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_REAL_REAL_MULTIVARIATE_FUNCTION_ADAPTER_H
-#define HNCO_FUNCTIONS_REAL_REAL_MULTIVARIATE_FUNCTION_ADAPTER_H
+#ifndef HNCO_FUNCTIONS_REPRESENTATIONS_MULTIVARIATE_FUNCTION_ADAPTER_H
+#define HNCO_FUNCTIONS_REPRESENTATIONS_MULTIVARIATE_FUNCTION_ADAPTER_H
 
 #include <assert.h>
 
@@ -27,8 +27,8 @@
 
 #include "hnco/functions/function.hh"
 
-#include "real-representation.hh"
-#include "real-multivariate-function.hh"
+#include "representation.hh"
+#include "multivariate-function.hh"
 
 
 namespace hnco {

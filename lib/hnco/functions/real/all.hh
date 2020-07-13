@@ -18,11 +18,11 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_REAL_ALL_H
-#define HNCO_FUNCTIONS_REAL_ALL_H
+#ifndef HNCO_FUNCTIONS_REPRESENTATIONS_ALL_H
+#define HNCO_FUNCTIONS_REPRESENTATIONS_ALL_H
 
-#include "real-representation.hh"
-#include "real-multivariate-function.hh"
-#include "real-multivariate-function-adapter.hh"
+#include "representation.hh"
+#include "multivariate-function.hh"
+#include "multivariate-function-adapter.hh"
 
 #endif
