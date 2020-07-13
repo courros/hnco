@@ -34,7 +34,7 @@
 
 namespace hnco {
 namespace function {
-namespace real {
+namespace representation {
 
 
 /// Dyadic float representation
@@ -291,7 +291,7 @@ public:
 };
 
 
-} // end of namespace real
+} // end of namespace representation
 } // end of namespace function
 } // end of namespace hnco
 

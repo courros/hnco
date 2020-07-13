@@ -35,7 +35,7 @@ namespace hnco {
 namespace function {
 
 /// Representations
-namespace real {
+namespace representation {
 
 
 template<class Fn, class Rep>
@@ -134,7 +134,7 @@ public:
 };
 
 
-} // end of namespace real
+} // end of namespace representation
 } // end of namespace function
 } // end of namespace hnco
 

@@ -232,7 +232,7 @@ make_concrete_function(const Options& options)
   }
 
   case 180: {
-    using namespace hnco::function::real;
+    using namespace hnco::function::representation;
     using Rep = DyadicFloatRepresentation<double>;
     using Fn = ParsedMultivariateFunction<FunctionParser, Rep::value_type>;
     auto fn = new Fn(options.get_real_expression());
@@ -245,7 +245,7 @@ make_concrete_function(const Options& options)
   }
 
   case 181: {
-    using namespace hnco::function::real;
+    using namespace hnco::function::representation;
     using Rep = DyadicIntegerRepresentation<long>;
     using Fn = ParsedMultivariateFunction<FunctionParser_li, Rep::value_type>;
     auto fn = new Fn(options.get_real_expression());
@@ -258,7 +258,7 @@ make_concrete_function(const Options& options)
   }
 
   case 182: {
-    using namespace hnco::function::real;
+    using namespace hnco::function::representation;
     using Rep = DyadicComplexRepresentation<double>;
     using Fn = ParsedMultivariateFunction<FunctionParser_cd, Rep::value_type>;
     auto fn = new Fn(options.get_real_expression());

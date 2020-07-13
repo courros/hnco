@@ -25,7 +25,7 @@
 
 using namespace hnco::random;
 using namespace hnco;
-using namespace hnco::function::real;
+using namespace hnco::function::representation;
 
 
 inline bool property(double x, double a, double b)
