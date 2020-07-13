@@ -1086,7 +1086,7 @@ void Options::print_help_fp(ostream& stream) const
   stream << "      --fp-num-bits (type int, default to 8)" << endl;
   stream << "          Number of bits in the dyadic representation of a number" << endl;
   stream << "      --fp-upper-bound (type double, default to 2)" << endl;
-  stream << "          upper bound" << endl;
+  stream << "          Upper bound" << endl;
   stream << endl;
 }
 

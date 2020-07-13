@@ -677,7 +677,7 @@
         {
             "type": "double",
             "value": 2,
-            "description": "upper bound",
+            "description": "Upper bound",
             "section": "fp"
         },
 

@@ -85,7 +85,7 @@ class Options {
   int _fp_num_bits;
   bool _opt_fp_num_bits;
 
-  /// upper bound
+  /// Upper bound
   double _fp_upper_bound;
   bool _opt_fp_upper_bound;
 
