@@ -23,7 +23,7 @@ Library features:
 
 - 29 concrete functions
 - 25 concrete algorithms
-- 76 unit tests
+- 78 unit tests
 - Maps from bit vectors to bit vectors (affine maps)
 - Function decorators to control evaluation (budget)
 - Function decorators to modify functions (noise)
