@@ -348,7 +348,7 @@ test_dyadic_integer_representation_OBJECTS =  \
 test_dyadic_integer_representation_LDADD = $(LDADD)
 test_dyadic_integer_representation_DEPENDENCIES = ../lib/libhnco.la
 am_test_dyadic_real_representation_OBJECTS =  \
-	test-dyadic-double-representation.$(OBJEXT)
+	test-dyadic-real-representation.$(OBJEXT)
 test_dyadic_real_representation_OBJECTS =  \
 	$(am_test_dyadic_real_representation_OBJECTS)
 test_dyadic_real_representation_LDADD = $(LDADD)
@@ -678,8 +678,8 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-columns.Po \
 	./$(DEPDIR)/test-complete-search-six-peaks.Po \
 	./$(DEPDIR)/test-complete-search-trap.Po \
 	./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po \
-	./$(DEPDIR)/test-dyadic-double-representation.Po \
 	./$(DEPDIR)/test-dyadic-integer-representation.Po \
+	./$(DEPDIR)/test-dyadic-real-representation.Po \
 	./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po \
 	./$(DEPDIR)/test-first-ascent-hill-climbing.Po \
 	./$(DEPDIR)/test-hamming-sphere-iterator.Po \
@@ -1281,7 +1281,7 @@ test_complete_search_six_peaks_SOURCES = test-complete-search-six-peaks.cc
 test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_complete_search_walsh_expansion_1_SOURCES = test-complete-search-walsh-expansion-1.cc
 test_dyadic_integer_representation_SOURCES = test-dyadic-integer-representation.cc
-test_dyadic_real_representation_SOURCES = test-dyadic-double-representation.cc
+test_dyadic_real_representation_SOURCES = test-dyadic-real-representation.cc
 test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-local.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
@@ -1739,8 +1739,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-six-peaks.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-trap.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-dyadic-double-representation.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-dyadic-integer-representation.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-dyadic-real-representation.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-first-ascent-hill-climbing.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere-iterator.Po@am__quote@ # am--include-marker
@@ -2687,8 +2687,8 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-complete-search-six-peaks.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-trap.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po
-	-rm -f ./$(DEPDIR)/test-dyadic-double-representation.Po
 	-rm -f ./$(DEPDIR)/test-dyadic-integer-representation.Po
+	-rm -f ./$(DEPDIR)/test-dyadic-real-representation.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
@@ -2810,8 +2810,8 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-complete-search-six-peaks.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-trap.Po
 	-rm -f ./$(DEPDIR)/test-complete-search-walsh-expansion-1.Po
-	-rm -f ./$(DEPDIR)/test-dyadic-double-representation.Po
 	-rm -f ./$(DEPDIR)/test-dyadic-integer-representation.Po
+	-rm -f ./$(DEPDIR)/test-dyadic-real-representation.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing-local.Po
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
