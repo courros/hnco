@@ -39,6 +39,14 @@ Options::Options(int argc, char *argv[]):
   _opt_fn_prefix_length(false),
   _fn_threshold(10),
   _opt_fn_threshold(false),
+  _fp_expression("(1-x)^2+100*(y-x^2)^2"),
+  _opt_fp_expression(false),
+  _fp_lower_bound(-2),
+  _opt_fp_lower_bound(false),
+  _fp_num_bits(8),
+  _opt_fp_num_bits(false),
+  _fp_upper_bound(2),
+  _opt_fp_upper_bound(false),
   _function(0),
   _opt_function(false),
   _ga_crossover_bias(0.5),
@@ -95,14 +103,6 @@ Options::Options(int argc, char *argv[]):
   _opt_pv_log_num_components(false),
   _radius(2),
   _opt_radius(false),
-  _real_expression("(1-x)^2+100*(y-x^2)^2"),
-  _opt_real_expression(false),
-  _real_lower_bound(-2),
-  _opt_real_lower_bound(false),
-  _real_num_bits(8),
-  _opt_real_num_bits(false),
-  _real_upper_bound(2),
-  _opt_real_upper_bound(false),
   _results_path("results.json"),
   _opt_results_path(false),
   _rls_patience(50),
@@ -176,11 +176,11 @@ Options::Options(int argc, char *argv[]):
     OPTION_HELP_BM,
     OPTION_HELP_EA,
     OPTION_HELP_EDA,
+    OPTION_HELP_FP,
     OPTION_HELP_HEA,
     OPTION_HELP_LS,
     OPTION_HELP_MAP,
     OPTION_HELP_PN,
-    OPTION_HELP_REAL,
     OPTION_HELP_SA,
     OPTION_VERSION,
     OPTION_ALGORITHM,
@@ -198,6 +198,10 @@ Options::Options(int argc, char *argv[]):
     OPTION_FN_NUM_TRAPS,
     OPTION_FN_PREFIX_LENGTH,
     OPTION_FN_THRESHOLD,
+    OPTION_FP_EXPRESSION,
+    OPTION_FP_LOWER_BOUND,
+    OPTION_FP_NUM_BITS,
+    OPTION_FP_UPPER_BOUND,
     OPTION_FUNCTION,
     OPTION_GA_CROSSOVER_BIAS,
     OPTION_GA_CROSSOVER_PROBABILITY,
@@ -226,10 +230,6 @@ Options::Options(int argc, char *argv[]):
     OPTION_POPULATION_SIZE,
     OPTION_PV_LOG_NUM_COMPONENTS,
     OPTION_RADIUS,
-    OPTION_REAL_EXPRESSION,
-    OPTION_REAL_LOWER_BOUND,
-    OPTION_REAL_NUM_BITS,
-    OPTION_REAL_UPPER_BOUND,
     OPTION_RESULTS_PATH,
     OPTION_RLS_PATIENCE,
     OPTION_SA_BETA_RATIO,
@@ -304,6 +304,10 @@ Options::Options(int argc, char *argv[]):
     {"fn-num-traps", required_argument, 0, OPTION_FN_NUM_TRAPS},
     {"fn-prefix-length", required_argument, 0, OPTION_FN_PREFIX_LENGTH},
     {"fn-threshold", required_argument, 0, OPTION_FN_THRESHOLD},
+    {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
+    {"fp-lower-bound", required_argument, 0, OPTION_FP_LOWER_BOUND},
+    {"fp-num-bits", required_argument, 0, OPTION_FP_NUM_BITS},
+    {"fp-upper-bound", required_argument, 0, OPTION_FP_UPPER_BOUND},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"ga-crossover-bias", required_argument, 0, OPTION_GA_CROSSOVER_BIAS},
     {"ga-crossover-probability", required_argument, 0, OPTION_GA_CROSSOVER_PROBABILITY},
@@ -332,10 +336,6 @@ Options::Options(int argc, char *argv[]):
     {"population-size", required_argument, 0, OPTION_POPULATION_SIZE},
     {"pv-log-num-components", required_argument, 0, OPTION_PV_LOG_NUM_COMPONENTS},
     {"radius", required_argument, 0, OPTION_RADIUS},
-    {"real-expression", required_argument, 0, OPTION_REAL_EXPRESSION},
-    {"real-lower-bound", required_argument, 0, OPTION_REAL_LOWER_BOUND},
-    {"real-num-bits", required_argument, 0, OPTION_REAL_NUM_BITS},
-    {"real-upper-bound", required_argument, 0, OPTION_REAL_UPPER_BOUND},
     {"results-path", required_argument, 0, OPTION_RESULTS_PATH},
     {"rls-patience", required_argument, 0, OPTION_RLS_PATIENCE},
     {"sa-beta-ratio", required_argument, 0, OPTION_SA_BETA_RATIO},
@@ -395,7 +395,7 @@ Options::Options(int argc, char *argv[]):
     {"stop-on-target", no_argument, 0, OPTION_STOP_ON_TARGET},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
-    {"help-real", no_argument, 0, OPTION_HELP_REAL},
+    {"help-fp", no_argument, 0, OPTION_HELP_FP},
     {"help-pn", no_argument, 0, OPTION_HELP_PN},
     {"help-map", no_argument, 0, OPTION_HELP_MAP},
     {"help-ls", no_argument, 0, OPTION_HELP_LS},
@@ -474,6 +474,22 @@ Options::Options(int argc, char *argv[]):
     case 't':
     case OPTION_FN_THRESHOLD:
       set_fn_threshold(atoi(optarg));
+      break;
+
+    case OPTION_FP_EXPRESSION:
+      set_fp_expression(string(optarg));
+      break;
+
+    case OPTION_FP_LOWER_BOUND:
+      set_fp_lower_bound(atof(optarg));
+      break;
+
+    case OPTION_FP_NUM_BITS:
+      set_fp_num_bits(atoi(optarg));
+      break;
+
+    case OPTION_FP_UPPER_BOUND:
+      set_fp_upper_bound(atof(optarg));
       break;
 
     case 'F':
@@ -594,22 +610,6 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_RADIUS:
       set_radius(atoi(optarg));
-      break;
-
-    case OPTION_REAL_EXPRESSION:
-      set_real_expression(string(optarg));
-      break;
-
-    case OPTION_REAL_LOWER_BOUND:
-      set_real_lower_bound(atof(optarg));
-      break;
-
-    case OPTION_REAL_NUM_BITS:
-      set_real_num_bits(atoi(optarg));
-      break;
-
-    case OPTION_REAL_UPPER_BOUND:
-      set_real_upper_bound(atof(optarg));
       break;
 
     case OPTION_RESULTS_PATH:
@@ -845,8 +845,8 @@ Options::Options(int argc, char *argv[]):
       print_help(cerr);
       exit(0);
 
-    case OPTION_HELP_REAL:
-      print_help_real(cerr);
+    case OPTION_HELP_FP:
+      print_help_fp(cerr);
       exit(0);
 
     case OPTION_HELP_PN:
@@ -1054,8 +1054,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Restart any algorithm an indefinite number of times" << endl;
   stream << endl;
   stream  << "Additional Sections" << endl;
-  stream << "      --help-real" << endl;
-  stream << "          Real multivariate function" << endl;
+  stream << "      --help-fp" << endl;
+  stream << "          Function parser" << endl;
   stream << "      --help-pn" << endl;
   stream << "          Prior Noise" << endl;
   stream << "      --help-map" << endl;
@@ -1074,18 +1074,18 @@ void Options::print_help(ostream& stream) const
   stream << "          Boltzmann Machine PBIL" << endl;
 }
 
-void Options::print_help_real(ostream& stream) const
+void Options::print_help_fp(ostream& stream) const
 {
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
-  stream << "Real multivariate function" << endl;
-  stream << "      --real-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << endl;
-  stream << "          Expression" << endl;
-  stream << "      --real-lower-bound (type double, default to -2)" << endl;
+  stream << "Function parser" << endl;
+  stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << endl;
+  stream << "          Expression to parse" << endl;
+  stream << "      --fp-lower-bound (type double, default to -2)" << endl;
   stream << "          Lower bound" << endl;
-  stream << "      --real-num-bits (type int, default to 8)" << endl;
-  stream << "          Number of bits in the dyadic representation of a real number" << endl;
-  stream << "      --real-upper-bound (type double, default to 2)" << endl;
+  stream << "      --fp-num-bits (type int, default to 8)" << endl;
+  stream << "          Number of bits in the dyadic representation of a number" << endl;
+  stream << "      --fp-upper-bound (type double, default to 2)" << endl;
   stream << "          upper bound" << endl;
   stream << endl;
 }
@@ -1322,6 +1322,10 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# fn_num_traps = " << options._fn_num_traps << endl;
   stream << "# fn_prefix_length = " << options._fn_prefix_length << endl;
   stream << "# fn_threshold = " << options._fn_threshold << endl;
+  stream << "# fp_expression = " << options._fp_expression << endl;
+  stream << "# fp_lower_bound = " << options._fp_lower_bound << endl;
+  stream << "# fp_num_bits = " << options._fp_num_bits << endl;
+  stream << "# fp_upper_bound = " << options._fp_upper_bound << endl;
   stream << "# function = " << options._function << endl;
   stream << "# ga_crossover_bias = " << options._ga_crossover_bias << endl;
   stream << "# ga_crossover_probability = " << options._ga_crossover_probability << endl;
@@ -1350,10 +1354,6 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# population_size = " << options._population_size << endl;
   stream << "# pv_log_num_components = " << options._pv_log_num_components << endl;
   stream << "# radius = " << options._radius << endl;
-  stream << "# real_expression = " << options._real_expression << endl;
-  stream << "# real_lower_bound = " << options._real_lower_bound << endl;
-  stream << "# real_num_bits = " << options._real_num_bits << endl;
-  stream << "# real_upper_bound = " << options._real_upper_bound << endl;
   stream << "# results_path = " << options._results_path << endl;
   stream << "# rls_patience = " << options._rls_patience << endl;
   stream << "# sa_beta_ratio = " << options._sa_beta_ratio << endl;

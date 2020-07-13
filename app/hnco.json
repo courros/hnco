@@ -20,8 +20,8 @@
         },
 
         {
-            "id": "real",
-            "title": "Real multivariate function",
+            "id": "fp",
+            "title": "Function parser",
             "fold": true
         },
 
@@ -665,36 +665,36 @@
         },
 
 
-        "real_lower_bound":
+        "fp_lower_bound":
         {
             "type": "double",
             "value": -2,
             "description": "Lower bound",
-            "section": "real"
+            "section": "fp"
         },
 
-        "real_upper_bound":
+        "fp_upper_bound":
         {
             "type": "double",
             "value": 2,
             "description": "upper bound",
-            "section": "real"
+            "section": "fp"
         },
 
-        "real_expression":
+        "fp_expression":
         {
             "type": "string",
             "value": "(1-x)^2+100*(y-x^2)^2",
-            "description": "Expression",
-            "section": "real"
+            "description": "Expression to parse",
+            "section": "fp"
         },
 
-        "real_num_bits":
+        "fp_num_bits":
         {
             "type": "int",
             "value": "8",
-            "description": "Number of bits in the dyadic representation of a real number",
-            "section": "real"
+            "description": "Number of bits in the dyadic representation of a number",
+            "section": "fp"
         },
 
 

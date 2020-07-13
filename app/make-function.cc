@@ -235,12 +235,12 @@ make_concrete_function(const Options& options)
     using namespace hnco::function::representation;
     using Rep = DyadicRealRepresentation<double>;
     using Fn = ParsedMultivariateFunction<FunctionParser, Rep::value_type>;
-    auto fn = new Fn(options.get_real_expression());
+    auto fn = new Fn(options.get_fp_expression());
     auto reps = std::vector<Rep>
       (fn->get_num_variables(),
-       Rep(options.get_real_num_bits(),
-           options.get_real_lower_bound(),
-           options.get_real_upper_bound()));
+       Rep(options.get_fp_num_bits(),
+           options.get_fp_lower_bound(),
+           options.get_fp_upper_bound()));
     return new MultivariateFunctionAdapter<Fn, Rep>(fn, reps);
   }
 
@@ -248,12 +248,12 @@ make_concrete_function(const Options& options)
     using namespace hnco::function::representation;
     using Rep = DyadicIntegerRepresentation<long>;
     using Fn = ParsedMultivariateFunction<FunctionParser_li, Rep::value_type>;
-    auto fn = new Fn(options.get_real_expression());
+    auto fn = new Fn(options.get_fp_expression());
     auto reps = std::vector<Rep>
       (fn->get_num_variables(),
-       Rep(options.get_real_num_bits(),
-           options.get_real_lower_bound(),
-           options.get_real_upper_bound()));
+       Rep(options.get_fp_num_bits(),
+           options.get_fp_lower_bound(),
+           options.get_fp_upper_bound()));
     return new MultivariateFunctionAdapter<Fn, Rep>(fn, reps);
   }
 
@@ -261,12 +261,12 @@ make_concrete_function(const Options& options)
     using namespace hnco::function::representation;
     using Rep = DyadicComplexRepresentation<double>;
     using Fn = ParsedMultivariateFunction<FunctionParser_cd, Rep::value_type>;
-    auto fn = new Fn(options.get_real_expression());
+    auto fn = new Fn(options.get_fp_expression());
     auto reps = std::vector<Rep>
       (fn->get_num_variables(),
-       Rep(options.get_real_num_bits(),
-           options.get_real_lower_bound(),
-           options.get_real_upper_bound()));
+       Rep(options.get_fp_num_bits(),
+           options.get_fp_lower_bound(),
+           options.get_fp_upper_bound()));
     return new MultivariateFunctionAdapter<Fn, Rep>(fn, reps);
   }
 

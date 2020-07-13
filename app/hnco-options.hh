@@ -73,6 +73,22 @@ class Options {
   int _fn_threshold;
   bool _opt_fn_threshold;
 
+  /// Expression to parse
+  std::string _fp_expression;
+  bool _opt_fp_expression;
+
+  /// Lower bound
+  double _fp_lower_bound;
+  bool _opt_fp_lower_bound;
+
+  /// Number of bits in the dyadic representation of a number
+  int _fp_num_bits;
+  bool _opt_fp_num_bits;
+
+  /// upper bound
+  double _fp_upper_bound;
+  bool _opt_fp_upper_bound;
+
   /// Type of function
   int _function;
   bool _opt_function;
@@ -184,22 +200,6 @@ class Options {
   /// Radius of Hamming ball or sphere
   int _radius;
   bool _opt_radius;
-
-  /// Expression
-  std::string _real_expression;
-  bool _opt_real_expression;
-
-  /// Lower bound
-  double _real_lower_bound;
-  bool _opt_real_lower_bound;
-
-  /// Number of bits in the dyadic representation of a real number
-  int _real_num_bits;
-  bool _opt_real_num_bits;
-
-  /// upper bound
-  double _real_upper_bound;
-  bool _opt_real_upper_bound;
 
   /// Path of the results file
   std::string _results_path;
@@ -385,8 +385,8 @@ class Options {
   /// Print help message
   void print_help(std::ostream& stream) const;
 
-  /// Print help message for section real
-  void print_help_real(std::ostream& stream) const;
+  /// Print help message for section fp
+  void print_help_fp(std::ostream& stream) const;
 
   /// Print help message for section pn
   void print_help_pn(std::ostream& stream) const;
@@ -599,6 +599,54 @@ public:
 
   /// Get set-flag for fn_threshold
   bool set_fn_threshold() const { return _opt_fn_threshold; }
+
+  /// Get fp_expression
+  std::string get_fp_expression() const { return _fp_expression; }
+
+  /// Set fp_expression
+  void set_fp_expression(std::string x) {
+    _fp_expression = x;
+    _opt_fp_expression = true;
+  }
+
+  /// Get set-flag for fp_expression
+  bool set_fp_expression() const { return _opt_fp_expression; }
+
+  /// Get fp_lower_bound
+  double get_fp_lower_bound() const { return _fp_lower_bound; }
+
+  /// Set fp_lower_bound
+  void set_fp_lower_bound(double x) {
+    _fp_lower_bound = x;
+    _opt_fp_lower_bound = true;
+  }
+
+  /// Get set-flag for fp_lower_bound
+  bool set_fp_lower_bound() const { return _opt_fp_lower_bound; }
+
+  /// Get fp_num_bits
+  int get_fp_num_bits() const { return _fp_num_bits; }
+
+  /// Set fp_num_bits
+  void set_fp_num_bits(int x) {
+    _fp_num_bits = x;
+    _opt_fp_num_bits = true;
+  }
+
+  /// Get set-flag for fp_num_bits
+  bool set_fp_num_bits() const { return _opt_fp_num_bits; }
+
+  /// Get fp_upper_bound
+  double get_fp_upper_bound() const { return _fp_upper_bound; }
+
+  /// Set fp_upper_bound
+  void set_fp_upper_bound(double x) {
+    _fp_upper_bound = x;
+    _opt_fp_upper_bound = true;
+  }
+
+  /// Get set-flag for fp_upper_bound
+  bool set_fp_upper_bound() const { return _opt_fp_upper_bound; }
 
   /// Get function
   int get_function() const { return _function; }
@@ -935,54 +983,6 @@ public:
 
   /// Get set-flag for radius
   bool set_radius() const { return _opt_radius; }
-
-  /// Get real_expression
-  std::string get_real_expression() const { return _real_expression; }
-
-  /// Set real_expression
-  void set_real_expression(std::string x) {
-    _real_expression = x;
-    _opt_real_expression = true;
-  }
-
-  /// Get set-flag for real_expression
-  bool set_real_expression() const { return _opt_real_expression; }
-
-  /// Get real_lower_bound
-  double get_real_lower_bound() const { return _real_lower_bound; }
-
-  /// Set real_lower_bound
-  void set_real_lower_bound(double x) {
-    _real_lower_bound = x;
-    _opt_real_lower_bound = true;
-  }
-
-  /// Get set-flag for real_lower_bound
-  bool set_real_lower_bound() const { return _opt_real_lower_bound; }
-
-  /// Get real_num_bits
-  int get_real_num_bits() const { return _real_num_bits; }
-
-  /// Set real_num_bits
-  void set_real_num_bits(int x) {
-    _real_num_bits = x;
-    _opt_real_num_bits = true;
-  }
-
-  /// Get set-flag for real_num_bits
-  bool set_real_num_bits() const { return _opt_real_num_bits; }
-
-  /// Get real_upper_bound
-  double get_real_upper_bound() const { return _real_upper_bound; }
-
-  /// Set real_upper_bound
-  void set_real_upper_bound(double x) {
-    _real_upper_bound = x;
-    _opt_real_upper_bound = true;
-  }
-
-  /// Get set-flag for real_upper_bound
-  bool set_real_upper_bound() const { return _opt_real_upper_bound; }
 
   /// Get results_path
   std::string get_results_path() const { return _results_path; }
