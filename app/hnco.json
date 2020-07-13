@@ -595,6 +595,16 @@
                 },
 
                 {
+                    "value": 181,
+                    "description": "Integer multivariate function"
+                },
+
+                {
+                    "value": 182,
+                    "description": "Complex multivariate function (squared magnitude of)"
+                },
+
+                {
                     "value": 1000,
                     "description": "Plugin"
                 }

@@ -232,13 +232,42 @@ make_concrete_function(const Options& options)
   }
 
   case 180: {
-    auto rep = new hnco::function::real::DyadicRealRepresentation
-      (options.get_real_lower_bound(),
-       options.get_real_upper_bound(),
-       options.get_real_num_bits());
-    auto fn = new hnco::function::real::ParsedRealMultivariateFunction
-      (options.get_real_expression());
-    return new hnco::function::real::RealMultivariateFunctionAdapter(rep, fn);
+    using namespace hnco::function::real;
+    using Rep = DyadicFloatRepresentation<double>;
+    using Fn = ParsedMultivariateFunction<FunctionParser, Rep::value_type>;
+    auto fn = new Fn(options.get_real_expression());
+    auto reps = std::vector<Rep>
+      (fn->get_num_variables(),
+       Rep(options.get_real_num_bits(),
+           options.get_real_lower_bound(),
+           options.get_real_upper_bound()));
+    return new MultivariateFunctionAdapter<Fn, Rep>(fn, reps);
+  }
+
+  case 181: {
+    using namespace hnco::function::real;
+    using Rep = DyadicIntegerRepresentation<long>;
+    using Fn = ParsedMultivariateFunction<FunctionParser_li, Rep::value_type>;
+    auto fn = new Fn(options.get_real_expression());
+    auto reps = std::vector<Rep>
+      (fn->get_num_variables(),
+       Rep(options.get_real_num_bits(),
+           options.get_real_lower_bound(),
+           options.get_real_upper_bound()));
+    return new MultivariateFunctionAdapter<Fn, Rep>(fn, reps);
+  }
+
+  case 182: {
+    using namespace hnco::function::real;
+    using Rep = DyadicComplexRepresentation<double>;
+    using Fn = ParsedMultivariateFunction<FunctionParser_cd, Rep::value_type>;
+    auto fn = new Fn(options.get_real_expression());
+    auto reps = std::vector<Rep>
+      (fn->get_num_variables(),
+       Rep(options.get_real_num_bits(),
+           options.get_real_lower_bound(),
+           options.get_real_upper_bound()));
+    return new MultivariateFunctionAdapter<Fn, Rep>(fn, reps);
   }
 
 #ifdef ENABLE_PLUGIN
