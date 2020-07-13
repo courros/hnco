@@ -46,7 +46,7 @@ bool check_representation()
   const double lower_bound = scale * Generator::normal();
   const double upper_bound = lower_bound + scale * (1 + Generator::uniform());
 
-  using Rep = DyadicFloatRepresentation<double>;
+  using Rep = DyadicRealRepresentation<double>;
 
   std::vector<Rep> reps(num_variables, Rep(num_bits, lower_bound, upper_bound));
   std::vector<double> variables(num_variables);

@@ -233,7 +233,7 @@ make_concrete_function(const Options& options)
 
   case 180: {
     using namespace hnco::function::representation;
-    using Rep = DyadicFloatRepresentation<double>;
+    using Rep = DyadicRealRepresentation<double>;
     using Fn = ParsedMultivariateFunction<FunctionParser, Rep::value_type>;
     auto fn = new Fn(options.get_real_expression());
     auto reps = std::vector<Rep>

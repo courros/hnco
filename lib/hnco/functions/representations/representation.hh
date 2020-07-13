@@ -37,9 +37,9 @@ namespace function {
 namespace representation {
 
 
-/// Dyadic float representation
+/// Dyadic real representation
 template<class T>
-class DyadicFloatRepresentation {
+class DyadicRealRepresentation {
 
   /// Lengths of dyadic intervals
   std::vector<T> _lengths;
@@ -58,7 +58,7 @@ public:
   /// Type of represented value
   typedef T value_type;
 
-  /// Convert a T value to a double
+  /// Cast a T value to a double
   static double to_double(T x) { return x; };
 
   /** Constructor.
@@ -67,7 +67,7 @@ public:
       \param lower_bound Lower bound of the search interval
       \param upper_bound Upper bound of the search interval
   */
-  DyadicFloatRepresentation(int num_bits, T lower_bound, T upper_bound)
+  DyadicRealRepresentation(int num_bits, T lower_bound, T upper_bound)
     : _lower_bound(lower_bound)
     , _length(upper_bound - lower_bound)
   {
@@ -117,17 +117,21 @@ template<class T>
 class DyadicComplexRepresentation {
 
   /// Representation of the real part
-  DyadicFloatRepresentation<T> _real_part;
+  DyadicRealRepresentation<T> _real_part;
 
   /// Representation of the imaginary part
-  DyadicFloatRepresentation<T> _imaginary_part;
+  DyadicRealRepresentation<T> _imaginary_part;
 
 public:
 
   /// Type of represented value
   typedef std::complex<T> value_type;
 
-  /// Convert a T value to a double
+  /** Cast a complex value to a double.
+
+      \param z Complex number
+      \return the squared magnitude of z
+  */
   static double to_double(value_type z) { return std::norm(z); };
 
   /** Constructor.
@@ -229,7 +233,7 @@ public:
   /// Type of represented value
   typedef T value_type;
 
-  /// Convert a T value to a double
+  /// Cast a T value to a double
   static double to_double(T x) { return x; };
 
   /** Constructor.
