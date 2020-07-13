@@ -18,7 +18,11 @@
 
 */
 
+#include <assert.h>
+
 #include <cmath>                // std::abs
+#include <limits>               // std::numeric_limits
+#include <utility>              // std::swap
 
 #include "hnco/bit-vector.hh"
 #include "hnco/functions/real/real-representation.hh"
@@ -30,33 +34,38 @@ using namespace hnco::function::real;
 
 inline bool property(double x, double a, double b)
 {
-  return (a <= x + 1e-12) && (x < b + 1e-12);
+  return (a <= x) && (x <= b);
 }
 
 bool check_representation()
 {
   std::uniform_int_distribution<int> dist_num_variables(1, 100);
-  std::uniform_int_distribution<int> dist_num_bits(1, 100);
+  std::uniform_int_distribution<long> dist_bound(std::numeric_limits<long>::min(),
+                                                 std::numeric_limits<long>::max());
 
   const int num_variables = dist_num_variables(Generator::engine);
-  const int num_bits = dist_num_bits(Generator::engine);
-  const int n = num_variables * num_bits;
-  const double scale = 1 + 10 * std::abs(Generator::normal());
-  const double lower_bound = scale * Generator::normal();
-  const double upper_bound = lower_bound + scale * (1 + Generator::uniform());
 
-  using Rep = DyadicDoubleRepresentation;
+  long a;
+  long b;
+  do {
+    a = dist_bound(Generator::engine);
+    b = dist_bound(Generator::engine);
+  } while (!((a < b) && difference_is_safe(a, b)));
 
-  std::vector<Rep> reps(num_variables, Rep(num_bits, lower_bound, upper_bound));
+  using Rep = DyadicIntegerRepresentation<long>;
+
+  std::vector<Rep> reps(num_variables, Rep(a, b));
   std::vector<double> variables(num_variables);
 
-  bit_vector_t bv(n);
+  const int num_bits = reps[0].size();
+
+  bit_vector_t bv(num_variables * num_bits);
   bv_random(bv);
 
   int start = 0;
   for (int i = 0; i < num_variables; i++) {
     variables[i] = reps[i].unpack(bv, start);
-    if (!property(variables[i], lower_bound, upper_bound))
+    if (!property(variables[i], a, b))
       return false;
     start += reps[i].size();
   }

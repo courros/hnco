@@ -18,54 +18,66 @@
 
 */
 
-#include "hnco/transvection.hh"
+#include <cmath>                // std::abs
 
+#include "hnco/bit-vector.hh"
+#include "hnco/functions/real/real-representation.hh"
 
 using namespace hnco::random;
 using namespace hnco;
+using namespace hnco::function::real;
 
 
-bool check_ts_multiply()
+inline bool property(double x, double a, double b)
 {
-  std::uniform_int_distribution<int> dist_dimension(2, 10);
-  std::uniform_int_distribution<int> dist_length(0, 10);
+  return (a <= x) && (x < b);
+}
 
-  for (int i = 0; i < 10; i++) {
+bool check_representation()
+{
+  std::uniform_int_distribution<int> dist_num_variables(1, 100);
+  std::uniform_int_distribution<int> dist_num_bits(1, 100);
 
-    const int n = dist_dimension(Generator::engine);
-    const int t = dist_length(Generator::engine);
+  const int num_variables = dist_num_variables(Generator::engine);
+  const int num_bits = dist_num_bits(Generator::engine);
+  const int n = num_variables * num_bits;
 
-    transvection_sequence_t seq;
-    ts_random(seq, n, t);
+  const double scale = 1 + 10 * std::abs(Generator::normal());
+  const double lower_bound = scale * Generator::normal();
+  const double upper_bound = lower_bound + scale * (1 + Generator::uniform());
 
-    bit_matrix_t M = bm_identity(n);
-    ts_multiply(M, seq);
+  using Rep = DyadicFloatRepresentation<double>;
 
-    for (int j = 0; j < 10; j++) {
+  std::vector<Rep> reps(num_variables, Rep(num_bits, lower_bound, upper_bound));
+  std::vector<double> variables(num_variables);
 
-      bit_vector_t x(n);
-      bv_random(x);
+  bit_vector_t bv(n);
+  bv_random(bv);
 
-      bit_vector_t y(n);
-      bm_multiply(y, M, x);
-
-      bit_vector_t z(x);
-      ts_multiply(z, seq);
-
-      if (z != y)
-        return false;
-    }
-
+  int start = 0;
+  for (int i = 0; i < num_variables; i++) {
+    variables[i] = reps[i].unpack(bv, start);
+    if (!property(variables[i], lower_bound, upper_bound))
+      return false;
+    start += reps[i].size();
   }
 
+  return true;
+}
+
+
+bool check()
+{
+  for (int i = 0; i < 100; i++)
+    if (!check_representation())
+      return false;
   return true;
 }
 
 int main(int argc, char *argv[])
 {
   Generator::set_seed();
-
-  if (check_ts_multiply())
+  if (check())
     return 0;
   else
     return 1;
