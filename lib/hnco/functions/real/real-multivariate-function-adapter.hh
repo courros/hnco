@@ -21,6 +21,10 @@
 #ifndef HNCO_FUNCTIONS_REAL_REAL_MULTIVARIATE_FUNCTION_ADAPTER_H
 #define HNCO_FUNCTIONS_REAL_REAL_MULTIVARIATE_FUNCTION_ADAPTER_H
 
+#include <assert.h>
+
+#include <type_traits>          // std::is_same
+
 #include "hnco/functions/function.hh"
 
 #include "real-representation.hh"
@@ -29,74 +33,105 @@
 
 namespace hnco {
 namespace function {
-/// Real multivariate functions
+
+/// Representations
 namespace real {
 
 
-  /// Real multivariate function adapter
-  class RealMultivariateFunctionAdapter:
-    public hnco::function::Function {
+template<class Fn, class Rep>
+class MultivariateFunctionAdapter: public Function {
+  static_assert(std::is_same<
+                typename Fn::value_type,
+                typename Rep::value_type
+                >::value,
+                "MultivariateFunctionAdapter: types do not match");
 
-    /// Real representation
-    RealRepresentation *_representation;
+  /// Multivariate function
+  Fn *_function;
 
-    /// Real multivariate function
-    RealMultivariateFunction *_function;
+  /// Representations
+  std::vector<Rep> _representations;
 
-    /// Real vector
-    std::vector<double> _rv;
+  /// Variables
+  std::vector<typename Rep::value_type> _variables;
 
-    /// Convert a bit vector
-    void convert(const bit_vector_t& x);
-
-  public:
-
-    /** Constructor.
-
-        \param rep Real representation
-        \param fn Real multivariate function
-    */
-    RealMultivariateFunctionAdapter(RealRepresentation *rep,
-                                    RealMultivariateFunction *fn):
-      _representation(rep),
-      _function(fn)
-    {
-      assert(rep);
-      assert(fn);
-
-      _rv = std::vector<double>(fn->get_dimension());
+  /// Unpack a bit vector into values
+  void unpack(const bit_vector_t& bv) {
+    int start = 0;
+    for (size_t i = 0; i < _variables.size(); i++) {
+      _variables[i] = _representations[i].unpack(bv, start);
+      start += _representations[i].size();
     }
+  }
 
-    /** @name Information about the function
-     */
-    ///@{
+public:
 
-    /// Get bit vector size
-    int get_bv_size() { return _function->get_dimension() * _representation->size(); }
+  /** Constructor.
 
-    ///@}
+      \param fn Multivariate function
+      \param reps Representations
+  */
+  MultivariateFunctionAdapter(Fn *fn, std::vector<Rep> reps)
+    : _function(fn)
+    , _representations(reps)
+    , _variables(reps.size())
+  {
+    assert(fn);
+    assert(fn->get_num_variables() == int(reps.size()));
+  }
+
+  /** @name Information about the function
+   */
+  ///@{
+
+  /// Get bit vector size
+  int get_bv_size() override {
+    int result = 0;
+    for (auto& rep : _representations)
+      result += rep.size();
+    return result;
+  }
+
+  ///@}
 
 
-    /** @name Evaluation
-     */
-    ///@{
+  /** @name Evaluation
+   */
+  ///@{
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t& x);
+  /// Evaluate
+  double evaluate(const bit_vector_t& bv) override {
+    assert(get_bv_size() == int(bv.size()));
+    unpack(bv);
+    return Rep::to_double(_function->evaluate(_variables));
+  }
 
-    ///@}
+  ///@}
 
 
-    /** @name Display
-     */
-    ///@{
+  /** @name Display
+   */
+  ///@{
 
-    /// Describe a bit vector
-    void describe(const bit_vector_t& x, std::ostream& stream);
+  /// Display
+  void display(std::ostream& stream) override {
+    stream << get_bv_size() << " bits" << std::endl;
+    stream << _function->get_num_variables() << " variables:" << std::endl;
+    for (auto& rep : _representations)
+      rep.display(stream);
+  }
 
-    ///@}
+  /// Describe a bit vector
+  void describe(const bit_vector_t& bv, std::ostream& stream) override {
+    unpack(bv);
+    for (size_t i = 0; i < _variables.size(); i++)
+      stream << _variables[i] << " ";
+    stream << std::endl;
+  }
 
-  };
+  ///@}
+
+};
 
 
 } // end of namespace real

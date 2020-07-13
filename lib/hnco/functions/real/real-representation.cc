@@ -18,7 +18,11 @@
 
 */
 
-#include <assert.h>
+
+#include <cmath>                // std::log, std::ceil
+#include <utility>              // std::swap
+
+#include "hnco/util.hh"         // hnco::is_in_range
 
 #include "real-representation.hh"
 
@@ -26,31 +30,3 @@
 using namespace hnco;
 using namespace hnco::function;
 using namespace hnco::function::real;
-
-
-DyadicRealRepresentation::DyadicRealRepresentation(double lower_bound, double upper_bound, int num_bits):
-  _lower_bound(lower_bound),
-  _length(upper_bound - lower_bound)
-{
-  assert(lower_bound < upper_bound);
-  assert(num_bits > 0);
-
-  _lengths = std::vector<double>(num_bits);
-  double x = 0.5;
-  for (size_t i = 0; i < _lengths.size(); i++) {
-    _lengths[i] = x;
-    x /= 2;
-  }
-}
-
-
-double
-DyadicRealRepresentation::convert(hnco::bit_vector_t::const_iterator first, hnco::bit_vector_t::const_iterator last)
-{
-  double result = 0;
-  for (hnco::bit_vector_t::const_iterator iter = first; iter != last; iter++) {
-    if (*iter)
-      result += _lengths[iter - first];
-  }
-  return affine_transformation(result);
-}

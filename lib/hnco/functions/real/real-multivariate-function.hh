@@ -22,6 +22,9 @@
 #define HNCO_FUNCTIONS_REAL_REAL_MULTIVARIATE_FUNCTION_H
 
 #include <vector>
+#include <iostream>
+#include <sstream>
+#include <string>
 
 #include "fparser/fparser.hh"
 
@@ -31,48 +34,63 @@ namespace function {
 namespace real {
 
 
-  /// Real multivariate function
-  class RealMultivariateFunction {
-
-  public:
-
-    /// Destructor
-    virtual ~RealMultivariateFunction() {}
-
-    /// Get the dimension of vectors
-    virtual int get_dimension() = 0;
-
-    /// Evaluate a real vector
-    virtual double evaluate(const std::vector<double> x) = 0;
-
-  };
+/// Multivariate function
+template<class T>
+class MultivariateFunction {
+public:
+  typedef T value_type;
+  virtual ~MultivariateFunction() {}
+  virtual int get_num_variables() = 0;
+  virtual T evaluate(const std::vector<value_type>& x) = 0;
+};
 
 
-  /// Parsed real multivariate function
-  class ParsedRealMultivariateFunction:
-    public RealMultivariateFunction {
+/** Parsed multivariate function.
 
-    /// Function parser
-    FunctionParser _fparser;
+    Uses the C++ library "Function Parser" (fparser):
 
-    /// Number of variables
-    int _num_variables = 0;
+    http://warp.povusers.org/FunctionParser/fparser.html
 
-  public:
+    \warning The function string syntax depends on the chosen parser.
 
-    /** Constructor.
+*/
+template<class Parser, class T>
+class ParsedMultivariateFunction:
+    public MultivariateFunction<T> {
 
-        \param expression Expression to parse
-    */
-    ParsedRealMultivariateFunction(std::string expression);
+  /// Function parser
+  Parser _fparser;
 
-    /// Get the dimension of vectors
-    int get_dimension() { return _num_variables; }
+  /// Number of variables
+  int _num_variables = 0;
 
-    /// Evaluate a real vector
-    double evaluate(const std::vector<double> x);
+public:
 
-  };
+  /** Constructor.
+
+      \param expression Expression to parse
+  */
+  ParsedMultivariateFunction(std::string expression)
+  {
+    int position = _fparser.ParseAndDeduceVariables(expression, &_num_variables);
+    if (position != -1) {
+      std::ostringstream stream;
+      stream
+        << "ParsedMultivariateFunction::ParsedMultivariateFunction: " << _fparser.ErrorMsg()
+        << " at position: " << position
+        << " in expression: " << expression;
+      throw exception::Error(stream.str());
+    }
+    _fparser.Optimize();
+  }
+
+  /// Get the number of variables
+  int get_num_variables() { return _num_variables; }
+
+  /// Evaluate
+  T evaluate(const std::vector<T>& x) { return _fparser.Eval(x.data()); }
+
+};
 
 
 } // end of namespace real
