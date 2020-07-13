@@ -37,7 +37,7 @@
 #include "hnco/functions/nk-landscape.hh"
 #include "hnco/functions/partition.hh"
 #include "hnco/functions/qubo.hh"
-#include "hnco/functions/real/all.hh"
+#include "hnco/functions/representations/all.hh"
 #include "hnco/functions/theory.hh"
 #include "hnco/functions/trap.hh"
 #include "hnco/functions/walsh/all.hh"

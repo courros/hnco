@@ -180,10 +180,10 @@ libhnco_la_SOURCES = \
 	hnco/functions/partition.hh \
 	hnco/functions/qubo.cc \
 	hnco/functions/qubo.hh \
-	hnco/functions/real/all.hh \
-	hnco/functions/real/multivariate-function-adapter.hh \
-	hnco/functions/real/multivariate-function.hh \
-	hnco/functions/real/representation.hh \
+	hnco/functions/representations/all.hh \
+	hnco/functions/representations/multivariate-function-adapter.hh \
+	hnco/functions/representations/multivariate-function.hh \
+	hnco/functions/representations/representation.hh \
 	hnco/functions/theory.cc \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.cc \
@@ -324,10 +324,10 @@ nobase_include_HEADERS = \
 	hnco/functions/nk-landscape.hh \
 	hnco/functions/partition.hh \
 	hnco/functions/qubo.hh \
-	hnco/functions/real/all.hh \
-	hnco/functions/real/multivariate-function-adapter.hh \
-	hnco/functions/real/multivariate-function.hh \
-	hnco/functions/real/representation.hh \
+	hnco/functions/representations/all.hh \
+	hnco/functions/representations/multivariate-function-adapter.hh \
+	hnco/functions/representations/multivariate-function.hh \
+	hnco/functions/representations/representation.hh \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.hh \
 	hnco/functions/walsh-term.hh \
