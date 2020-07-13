@@ -171,11 +171,28 @@ hnco::bv_to_size_type(const bit_vector_t& x)
   assert(x.size() <= 8 * sizeof(std::size_t));
 
   std::size_t result = 0;
-  std::size_t power = 1;
+  std::size_t mask = 1;
   for (size_t i = 0; i < x.size(); i++) {
     if (x[i])
-      result |= power;
-    power <<= 1;
+      result |= mask;
+    mask <<= 1;
+  }
+  return result;
+}
+
+std::size_t
+hnco::bv_to_size_type(const bit_vector_t& x, int start, int stop)
+{
+  assert(hnco::is_in_range(start, x.size()));
+  assert(hnco::is_in_range(stop, start + 1, x.size() + 1));
+  assert((stop - start) <= int(8 * sizeof(std::size_t)));
+
+  std::size_t result = 0;
+  std::size_t mask = 1;
+  for (int i = start; i < stop; i++) {
+    if (x[i])
+      result |= mask;
+    mask <<= 1;
   }
   return result;
 }

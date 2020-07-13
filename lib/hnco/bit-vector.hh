@@ -148,6 +148,8 @@ void bv_from_vector_bool(bit_vector_t& x, const std::vector<bool>& y);
 
 /** Convert a small bit vector to a size_t.
 
+    x[0] is the least significant bit.
+
     \param x Input bit vector
 
     \return An unsigned integer representing x
@@ -155,6 +157,24 @@ void bv_from_vector_bool(bit_vector_t& x, const std::vector<bool>& y);
     \pre x.size() <= 8 * sizeof(std::size_t)
 */
 std::size_t bv_to_size_type(const bit_vector_t& x);
+
+/** Convert a slice of a small bit vector to a size_t.
+
+    x[start] is the least significant bit.
+
+    x[stop-1] is the most significant bit.
+
+    \param x Input bit vector
+    \param start Start bit
+    \param stop Stop bit
+
+    \return An unsigned integer representing x[start], ..., x[stop-1]
+
+    \pre start in [0, x.size())
+    \pre stop in [start+1, x.size()]
+    \pre (stop - start) <= 8 * sizeof(std::size_t)
+*/
+std::size_t bv_to_size_type(const bit_vector_t& x, int start, int stop);
 
 /** Convert a size_t to a small bit vector.
 
