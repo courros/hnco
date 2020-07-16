@@ -21,8 +21,6 @@
 #include "config.h"
 
 #include "hnco/functions/all.hh"
-#include "hnco/functions/controllers/all.hh"
-#include "hnco/functions/modifiers/all.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 
 #include "make-function.hh"
