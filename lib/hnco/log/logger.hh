@@ -31,7 +31,7 @@
 namespace hnco {
 
 /// Logging
-namespace log {
+namespace logging {
 
 
 /** Logger.
@@ -84,7 +84,7 @@ public:
 
 
 /// Helper logging macro
-#define HNCO_LOG(context) hnco::log::Logger(context).line()
+#define HNCO_LOG(context) hnco::logging::Logger(context).line()
 
 
 } // end of namespace log

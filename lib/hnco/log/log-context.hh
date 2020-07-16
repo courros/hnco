@@ -25,7 +25,7 @@
 
 
 namespace hnco {
-namespace log {
+namespace logging {
 
 
   /** Log context.

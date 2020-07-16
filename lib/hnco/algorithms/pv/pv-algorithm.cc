@@ -33,7 +33,7 @@ PvAlgorithm::log()
 {
   assert(_something_to_log);
 
-  log::Logger l(_log_context);
+  logging::Logger l(_log_context);
 
   if (_log_entropy)
     l.line() << pv_entropy(_pv) << " ";

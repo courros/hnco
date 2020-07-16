@@ -193,10 +193,10 @@ protected:
   void log() override {
     assert(_log_flags.any());
 
-    log::Logger l(_log_context);
+    logging::Logger l(_log_context);
 
     if (_log_flags[LOG_MOMENT_MATRIX]) {
-      _target.display(log::Logger::stream());
+      _target.display(logging::Logger::stream());
       return;
     }
 

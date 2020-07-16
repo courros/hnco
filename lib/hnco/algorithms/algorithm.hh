@@ -63,7 +63,7 @@ protected:
   ///@{
 
   /// Log context
-  log::LogContext *_log_context = nullptr;
+  logging::LogContext *_log_context = nullptr;
 
   ///@}
 
@@ -161,7 +161,7 @@ public:
   ///@{
 
   /// Set the log context
-  void set_log_context(log::LogContext *log_context) { _log_context = log_context; }
+  void set_log_context(logging::LogContext *log_context) { _log_context = log_context; }
 
   ///@}
     

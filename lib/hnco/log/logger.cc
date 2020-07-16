@@ -22,7 +22,7 @@
 
 
 using namespace hnco;
-using namespace hnco::log;
+using namespace hnco::logging;
 
 
 std::ostream *Logger::_stream = &std::cout;

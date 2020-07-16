@@ -142,7 +142,7 @@ BmPbil::log()
 {
   assert(_something_to_log);
 
-  log::Logger l(_log_context);
+  logging::Logger l(_log_context);
 
   if (_log_norm_infinite)
     l.line() << _model.norm_infinite() << " ";
