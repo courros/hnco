@@ -33,21 +33,35 @@ Library:
 - Added bm_square and bm_rectangular
 - Renamed bm_to_sbm -> sbm_from_bm
 - Transvection: removed multiply_right
-- Added namespace hnco::log
-- Moved LogContext in namespace hnco::log
-- Moved files log-context.* under log/
+- Added namespace hnco::logging
+- Moved LogContext in namespace hnco::logging
+- Moved files log-context.* under logging/
 - Added class Logger and macro HNCO_LOG
 - ProgressTracker, PvAlgorithm, BmPbil, Hea use Logger
 - RandomWalk uses HNCO_LOG
 - ProgressTracker, Algorithm: removed data member _stream
 - ProgressTracker, Algorithm: removed member function set_stream
+- Added bv_to_size_type from a slice of bit vector
+- Refactoring of representations
+- Renamed namespace hnco::function::real -> hnco::function::representation
+- Renamed directory functions/real/ -> functions/representations/
+- Representation template classes: DyadicRealRepresentation,
+  DyadicIntegerRepresentation, DyadicComplexRepresentation
+- Removed ParsedRealMultivariateFunction
+- Added template class ParsedMultivariateFunction
+- Removed RealMultivariateFunctionAdapter
+- Added template class MultivariateFunctionAdapter
 
 Tests:
 - Added test-population-evaluate-in-parallel
 - Added test-bm-add-columns
+- Added test-dyadic-integer-representation
+- Added test-dyadic-real-representation
 
 hnco:
-- Added BinVal
+- Added BinVal with number 5
+- Added integer multivariate function with number 181
+- Added complex multivariate function with number 182
 
 ffgen:
 - Added arithmetic and geometric progressions for LinearFunction
