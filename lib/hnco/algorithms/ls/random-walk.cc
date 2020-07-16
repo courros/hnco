@@ -20,7 +20,7 @@
 
 #include <assert.h>
 
-#include "hnco/log/logger.hh"
+#include "hnco/logging/logger.hh"
 
 #include "random-walk.hh"
 

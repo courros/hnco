@@ -27,7 +27,7 @@
 
 #include "hnco/exception.hh"
 #include "hnco/functions/function.hh"
-#include "hnco/log/log-context.hh"
+#include "hnco/logging/log-context.hh"
 
 
 namespace hnco {

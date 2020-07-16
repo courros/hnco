@@ -28,7 +28,7 @@
 #include "hnco/algorithms/algorithm.hh"
 #include "hnco/algorithms/population.hh"
 #include "hnco/exception.hh"
-#include "hnco/log/logger.hh"
+#include "hnco/logging/logger.hh"
 
 
 namespace hnco {

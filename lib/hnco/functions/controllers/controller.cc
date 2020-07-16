@@ -18,7 +18,7 @@
 
 */
 
-#include "hnco/log/logger.hh"
+#include "hnco/logging/logger.hh"
 #include "hnco/random.hh"
 
 #include "controller.hh"

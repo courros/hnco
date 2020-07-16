@@ -19,7 +19,7 @@
 */
 
 #include "hnco/exception.hh"
-#include "hnco/log/logger.hh"
+#include "hnco/logging/logger.hh"
 
 #include "bm-pbil.hh"
 
