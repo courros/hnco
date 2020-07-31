@@ -486,6 +486,7 @@ FunctionFactory::make_function_controller(Function *function, const Options& opt
 
   _tracker = new ProgressTracker(function);
   _tracker->set_log_improvement(options.with_log_improvement());
+  _tracker->set_record_evaluation_time(options.with_record_evaluation_time());
 
   function = _tracker;
 

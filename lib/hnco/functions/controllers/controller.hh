@@ -245,6 +245,9 @@ namespace controller {
     /// Log improvement
     bool _log_improvement = false;
 
+    /// Record evaluation time
+    bool _record_evaluation_time = false;
+
     ///@}
 
     /// Update last improvement
@@ -298,6 +301,9 @@ namespace controller {
 
     /// Log improvement
     void set_log_improvement(bool x) { _log_improvement = x; }
+
+    /// Record evaluation time
+    void set_record_evaluation_time(bool b) { _record_evaluation_time = b; }
 
     ///@}
 

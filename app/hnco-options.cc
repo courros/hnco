@@ -162,6 +162,7 @@ Options::Options(int argc, char *argv[]):
   _prior_noise(false),
   _pv_log_entropy(false),
   _pv_log_pv(false),
+  _record_evaluation_time(false),
   _restart(false),
   _rls_strict(false),
   _rw_log_value(false),
@@ -279,6 +280,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_PRIOR_NOISE,
     OPTION_PV_LOG_ENTROPY,
     OPTION_PV_LOG_PV,
+    OPTION_RECORD_EVALUATION_TIME,
     OPTION_RESTART,
     OPTION_RLS_STRICT,
     OPTION_RW_LOG_VALUE,
@@ -385,6 +387,7 @@ Options::Options(int argc, char *argv[]):
     {"prior-noise", no_argument, 0, OPTION_PRIOR_NOISE},
     {"pv-log-entropy", no_argument, 0, OPTION_PV_LOG_ENTROPY},
     {"pv-log-pv", no_argument, 0, OPTION_PV_LOG_PV},
+    {"record-evaluation-time", no_argument, 0, OPTION_RECORD_EVALUATION_TIME},
     {"restart", no_argument, 0, OPTION_RESTART},
     {"rls-strict", no_argument, 0, OPTION_RLS_STRICT},
     {"rw-log-value", no_argument, 0, OPTION_RW_LOG_VALUE},
@@ -809,6 +812,10 @@ Options::Options(int argc, char *argv[]):
       _pv_log_pv = true;
       break;
 
+    case OPTION_RECORD_EVALUATION_TIME:
+      _record_evaluation_time = true;
+      break;
+
     case OPTION_RESTART:
       _restart = true;
       break;
@@ -1011,6 +1018,8 @@ void Options::print_help(ostream& stream) const
   stream << "          Set cache on budget" << endl;
   stream << "      --log-improvement" << endl;
   stream << "          Log improvement" << endl;
+  stream << "      --record-evaluation-time" << endl;
+  stream << "          Record evaluation time" << endl;
   stream << "      --stop-on-maximum" << endl;
   stream << "          Stop on maximum" << endl;
   stream << "      --stop-on-target" << endl;
@@ -1442,6 +1451,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# pv_log_entropy" << endl;
   if (options._pv_log_pv)
     stream << "# pv_log_pv" << endl;
+  if (options._record_evaluation_time)
+    stream << "# record_evaluation_time" << endl;
   if (options._restart)
     stream << "# restart" << endl;
   if (options._rls_strict)

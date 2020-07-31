@@ -155,9 +155,13 @@ double
 ProgressTracker::evaluate(const bit_vector_t& x)
 {
   double result;
-  // _stop_watch.start();
-  result = _function->evaluate(x);
-  // _stop_watch.stop();
+  if (_record_evaluation_time) {
+    _stop_watch.start();
+    result = _function->evaluate(x);
+    _stop_watch.stop();
+  } else {
+    result = _function->evaluate(x);
+  }
   update_last_improvement(result);
   return result;
 }

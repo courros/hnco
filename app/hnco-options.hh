@@ -358,6 +358,9 @@ class Options {
   /// Log probability vector
   bool _pv_log_pv;
 
+  /// Record evaluation time
+  bool _record_evaluation_time;
+
   /// Restart any algorithm an indefinite number of times
   bool _restart;
 
@@ -1337,6 +1340,12 @@ public:
 
   /// Set pv_log_pv
   void set_pv_log_pv() { _pv_log_pv = true; }
+ 
+  /// Get record_evaluation_time
+  bool with_record_evaluation_time() const { return _record_evaluation_time; }
+
+  /// Set record_evaluation_time
+  void set_record_evaluation_time() { _record_evaluation_time = true; }
  
   /// Get restart
   bool with_restart() const { return _restart; }

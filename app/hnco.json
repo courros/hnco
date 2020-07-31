@@ -201,6 +201,12 @@
             "section": "ctrl"
         },
 
+        "record_evaluation_time":
+        {
+            "description": "Record evaluation time",
+            "section": "ctrl"
+        },
+
         "stop_on_maximum":
         {
             "description": "Stop on maximum",
