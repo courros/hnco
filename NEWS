@@ -51,6 +51,7 @@ Library:
 - Added template class ParsedMultivariateFunction
 - Removed RealMultivariateFunctionAdapter
 - Added template class MultivariateFunctionAdapter
+- ProgressTracker: added flag _record_evaluation_time
 
 Tests:
 - Added test-population-evaluate-in-parallel
@@ -62,6 +63,7 @@ hnco:
 - Added BinVal with number 5
 - Added integer multivariate function with number 181
 - Added complex multivariate function with number 182
+- Added option --record-evaluation-time
 
 ffgen:
 - Added arithmetic and geometric progressions for LinearFunction
