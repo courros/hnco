@@ -32,377 +32,378 @@
 
 namespace hnco {
 namespace function {
+
 /// Controllers
 namespace controller {
 
 
-  /// Function controller
-  class Controller:
+/// Function controller
+class Controller:
     public Decorator {
 
-  public:
+public:
 
-    /// Constructor
-    Controller(Function *function):
-      Decorator(function) {}
+  /// Constructor
+  Controller(Function *function):
+    Decorator(function) {}
 
-    /** @name Information about the function
-     */
-    ///@{
+  /** @name Information about the function
+   */
+  ///@{
 
-    /// Get bit vector size
-    int get_bv_size() { return _function->get_bv_size(); }
+  /// Get bit vector size
+  int get_bv_size() { return _function->get_bv_size(); }
 
-    /// Get the global maximum
-    double get_maximum() { return _function->get_maximum(); }
+  /// Get the global maximum
+  double get_maximum() { return _function->get_maximum(); }
 
-    /// Check for a known maximum
-    bool has_known_maximum() { return _function->has_known_maximum(); }
+  /// Check for a known maximum
+  bool has_known_maximum() { return _function->has_known_maximum(); }
 
-    /** Check whether the function provides incremental evaluation.
-        \return true if the decorated function does
-    */
-    bool provides_incremental_evaluation() { return _function->provides_incremental_evaluation(); }
-
-    ///@}
-
-
-    /** @name Evaluation
-     */
-    ///@{
-
-    /// Safely evaluate a bit vector
-    double evaluate_safely(const bit_vector_t& x) { return _function->evaluate_safely(x); }
-
-    ///@}
-
-  };
-
-
-  /** Stop on maximum.
-
-      The member function eval throws an exception MaximumReached when
-      its argument maximizes the decorated function.
-
-      \warning The maximum is detected using the equality operator
-      hence the result should be taken with care in case of non
-      integer (floating point) function values.
+  /** Check whether the function provides incremental evaluation.
+      \return true if the decorated function does
   */
-  class StopOnMaximum:
+  bool provides_incremental_evaluation() { return _function->provides_incremental_evaluation(); }
+
+  ///@}
+
+
+  /** @name Evaluation
+   */
+  ///@{
+
+  /// Safely evaluate a bit vector
+  double evaluate_safely(const bit_vector_t& x) { return _function->evaluate_safely(x); }
+
+  ///@}
+
+};
+
+
+/** Stop on maximum.
+
+    The member function eval throws an exception MaximumReached when
+    its argument maximizes the decorated function.
+
+    \warning The maximum is detected using the equality operator
+    hence the result should be taken with care in case of non
+    integer (floating point) function values.
+*/
+class StopOnMaximum:
     public Controller {
 
-  public:
+public:
 
-    /** Constructor.
-        \param function Decorated function
-        \pre function->has_known_maximum() */
-    StopOnMaximum(Function *function):
-      Controller(function)
-    {
-      assert(function->has_known_maximum());
-    }
+  /** Constructor.
+      \param function Decorated function
+      \pre function->has_known_maximum() */
+  StopOnMaximum(Function *function):
+    Controller(function)
+  {
+    assert(function->has_known_maximum());
+  }
 
-    /** @name Evaluation
-     */
-    ///@{
+  /** @name Evaluation
+   */
+  ///@{
 
-    /** Evaluate a bit vector.
-        \throw MaximumReached */
-    double evaluate(const bit_vector_t&);
+  /** Evaluate a bit vector.
+      \throw MaximumReached */
+  double evaluate(const bit_vector_t&);
 
-    /** Incrementally evaluate a bit vector.
-        \throw MaximumReached */
-    double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+  /** Incrementally evaluate a bit vector.
+      \throw MaximumReached */
+  double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
-    /** Update after a safe evaluation.
-        \throw MaximumReached */
-    void update(const bit_vector_t& x, double value);
+  /** Update after a safe evaluation.
+      \throw MaximumReached */
+  void update(const bit_vector_t& x, double value);
 
-    ///@}
+  ///@}
 
-  };
+};
 
 
-  /** Stop on target.
+/** Stop on target.
 
-      The member function eval throws an exception TargetReached when
-      the value of its decorated function reaches a given target.
+    The member function eval throws an exception TargetReached when
+    the value of its decorated function reaches a given target.
 
-      \warning The target is detected using the greater or equal
-      operator hence the result should be taken with care in case of
-      non integer (floating point) function values.
+    \warning The target is detected using the greater or equal
+    operator hence the result should be taken with care in case of
+    non integer (floating point) function values.
+*/
+class StopOnTarget:
+    public Controller {
+
+  /// Target
+  double _target;
+
+public:
+
+  /** Constructor.
+
+      \param function Decorated function
+      \param target Target
   */
-  class StopOnTarget:
+  StopOnTarget(Function *function, double target):
+    Controller(function),
+    _target(target) {}
+
+  /** @name Evaluation
+   */
+  ///@{
+
+  /** Evaluate a bit vector.
+      \throw TargetReached */
+  double evaluate(const bit_vector_t&);
+
+  /** Incrementally evaluate a bit vector.
+      \throw TargetReached */
+  double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+
+  /** Update after a safe evaluation.
+      \throw TargetReached */
+  void update(const bit_vector_t& x, double value);
+
+  ///@}
+
+};
+
+
+/// Call counter
+class CallCounter:
     public Controller {
 
-    /// Target
-    double _target;
+protected:
 
-  public:
+  /// Number of calls
+  int _num_calls;
 
-    /** Constructor.
+public:
 
-        \param function Decorated function
-        \param target Target
-    */
-    StopOnTarget(Function *function, double target):
-      Controller(function),
-      _target(target) {}
+  /// Constructor
+  CallCounter(Function *function):
+    Controller(function),
+    _num_calls(0) {}
 
-    /** @name Evaluation
-     */
-    ///@{
+  /** @name Evaluation
+   */
+  ///@{
 
-    /** Evaluate a bit vector.
-        \throw TargetReached */
-    double evaluate(const bit_vector_t&);
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
 
-    /** Incrementally evaluate a bit vector.
-        \throw TargetReached */
-    double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+  /// Incrementally evaluate a bit vector
+  double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
-    /** Update after a safe evaluation.
-        \throw TargetReached */
-    void update(const bit_vector_t& x, double value);
+  /// Update after a safe evaluation
+  void update(const bit_vector_t& x, double value);
 
-    ///@}
-
-  };
+  ///@}
 
 
-  /// Call counter
-  class CallCounter:
-    public Controller {
+  /// Get the number of calls
+  int get_num_calls() { return _num_calls; }
 
-  protected:
-
-    /// Number of calls
-    int _num_calls;
-
-  public:
-
-    /// Constructor
-    CallCounter(Function *function):
-      Controller(function),
-      _num_calls(0) {}
-
-    /** @name Evaluation
-     */
-    ///@{
-
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
-
-    /// Incrementally evaluate a bit vector
-    double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
-
-    /// Update after a safe evaluation
-    void update(const bit_vector_t& x, double value);
-
-    ///@}
+};
 
 
-    /// Get the number of calls
-    int get_num_calls() { return _num_calls; }
+/** ProgressTracker.
 
-  };
-
-
-  /** ProgressTracker.
-
-      A ProgressTracker is a CallCounter which keeps track the last
-      improvement, that is its value and the number of evaluations
-      needed to reach it.
-  */    
-  class ProgressTracker:
+    A ProgressTracker is a CallCounter which keeps track the last
+    improvement, that is its value and the number of evaluations
+    needed to reach it.
+*/    
+class ProgressTracker:
     public CallCounter {
 
-  public:
+public:
 
-    /// Event
-    struct Event {
+  /// Event
+  struct Event {
 
-      /// Number of evaluations
-      int num_evaluations;
+    /// Number of evaluations
+    int num_evaluations;
 
-      /// Value
-      double value;
-
-    };
-
-  protected:
-
-    /// Last improvement
-    Event _last_improvement;
-
-    /// Stop watch
-    StopWatch _stop_watch;
-
-    /** @name Parameters
-     */
-    ///@{
-
-    /// Log improvement
-    bool _log_improvement = false;
-
-    /// Record evaluation time
-    bool _record_evaluation_time = false;
-
-    ///@}
-
-    /// Update last improvement
-    void update_last_improvement(double value);
-
-  public:
-
-    /// Constructor
-    ProgressTracker(Function *function):
-      CallCounter(function)
-    {
-      _last_improvement.num_evaluations = 0;
-    }
-
-    /** @name Evaluation
-     */
-    ///@{
-
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
-
-    /// Incrementally evaluate a bit vector
-    double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
-
-    /// Update after a safe evaluation
-    void update(const bit_vector_t& x, double value);
-
-    ///@}
-
-
-    /** @name Get information
-     */
-    ///@{
-
-    /** Get the last improvement.
-
-        \warning If _last_improvement.num_evaluations is zero then
-        _function has never been called. The Event returned by
-        get_last_improvement has therefore no meaning.
-    */
-    const Event& get_last_improvement() { return _last_improvement; }
-
-    /// Get evaluation time
-    double get_evaluation_time() { return _stop_watch.get_total_time(); }
-
-    ///@}
-
-    /** @name Setters
-     */
-    ///@{
-
-    /// Log improvement
-    void set_log_improvement(bool x) { _log_improvement = x; }
-
-    /// Record evaluation time
-    void set_record_evaluation_time(bool b) { _record_evaluation_time = b; }
-
-    ///@}
+    /// Value
+    double value;
 
   };
 
+protected:
 
-  /// Insert formatted output
-  std::ostream& operator<<(std::ostream& stream, const ProgressTracker::Event& event);
+  /// Last improvement
+  Event _last_improvement;
+
+  /// Stop watch
+  StopWatch _stop_watch;
+
+  /** @name Parameters
+   */
+  ///@{
+
+  /// Log improvement
+  bool _log_improvement = false;
+
+  /// Record evaluation time
+  bool _record_evaluation_time = false;
+
+  ///@}
+
+  /// Update last improvement
+  void update_last_improvement(double value);
+
+public:
+
+  /// Constructor
+  ProgressTracker(Function *function):
+    CallCounter(function)
+  {
+    _last_improvement.num_evaluations = 0;
+  }
+
+  /** @name Evaluation
+   */
+  ///@{
+
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
+
+  /// Incrementally evaluate a bit vector
+  double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+
+  /// Update after a safe evaluation
+  void update(const bit_vector_t& x, double value);
+
+  ///@}
 
 
-  /// CallCounter with a limited number of evaluations
-  class OnBudgetFunction:
+  /** @name Get information
+   */
+  ///@{
+
+  /** Get the last improvement.
+
+      \warning If _last_improvement.num_evaluations is zero then
+      _function has never been called. The Event returned by
+      get_last_improvement has therefore no meaning.
+  */
+  const Event& get_last_improvement() { return _last_improvement; }
+
+  /// Get evaluation time
+  double get_evaluation_time() { return _stop_watch.get_total_time(); }
+
+  ///@}
+
+  /** @name Setters
+   */
+  ///@{
+
+  /// Log improvement
+  void set_log_improvement(bool x) { _log_improvement = x; }
+
+  /// Record evaluation time
+  void set_record_evaluation_time(bool b) { _record_evaluation_time = b; }
+
+  ///@}
+
+};
+
+
+/// Insert formatted output
+std::ostream& operator<<(std::ostream& stream, const ProgressTracker::Event& event);
+
+
+/// CallCounter with a limited number of evaluations
+class OnBudgetFunction:
     public CallCounter {
 
-    /// Budget
-    int _budget;
+  /// Budget
+  int _budget;
 
-  public:
+public:
 
-    /// Constructor
-    OnBudgetFunction(Function *function, int budget):
-      CallCounter(function),
-      _budget(budget) {}
+  /// Constructor
+  OnBudgetFunction(Function *function, int budget):
+    CallCounter(function),
+    _budget(budget) {}
 
-    /** @name Evaluation
-     */
-    ///@{
+  /** @name Evaluation
+   */
+  ///@{
 
-    /** Evaluate a bit vector.
-        \throw LastEvaluation */
-    double evaluate(const bit_vector_t&);
+  /** Evaluate a bit vector.
+      \throw LastEvaluation */
+  double evaluate(const bit_vector_t&);
 
-    /** Incrementally evaluate a bit vector.
-        \throw LastEvaluation */
-    double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+  /** Incrementally evaluate a bit vector.
+      \throw LastEvaluation */
+  double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
-    /** Update after a safe evaluation
-        \throw LastEvaluation */
-    void update(const bit_vector_t& x, double value);
+  /** Update after a safe evaluation
+      \throw LastEvaluation */
+  void update(const bit_vector_t& x, double value);
 
-    ///@}
+  ///@}
 
-  };
+};
 
 
-  /** Cache.
+/** Cache.
 
-      This is a naive approach, in particular with respect to time
-      complexity. Moreover, there is no control on the size of the
-      database.
+    This is a naive approach, in particular with respect to time
+    complexity. Moreover, there is no control on the size of the
+    database.
 
-      There is no default hash function for std::vector<char> hence
-      the need to first copy a bit_vector_t into a std::vector<bool>,
-      for which such a function exists, before inserting it or
-      checking its existence in the map.
-  */
-  class Cache:
+    There is no default hash function for std::vector<char> hence
+    the need to first copy a bit_vector_t into a std::vector<bool>,
+    for which such a function exists, before inserting it or
+    checking its existence in the map.
+*/
+class Cache:
     public Controller {
 
-    /// Cache
-    std::unordered_map<std::vector<bool>, double> _cache;
+  /// Cache
+  std::unordered_map<std::vector<bool>, double> _cache;
 
-    /// Key
-    std::vector<bool> _key;
+  /// Key
+  std::vector<bool> _key;
 
-    /// Evaluation counter
-    int _num_evaluations;
+  /// Evaluation counter
+  int _num_evaluations;
 
-    /// Lookup counter
-    int _num_lookups;
+  /// Lookup counter
+  int _num_lookups;
 
-  public:
+public:
 
-    /** Constructor.
-        \param function Decorated function */
-    Cache(Function *function):
-      Controller(function),
-      _key(function->get_bv_size()),
-      _num_evaluations(0),
-      _num_lookups(0) {}
+  /** Constructor.
+      \param function Decorated function */
+  Cache(Function *function):
+    Controller(function),
+    _key(function->get_bv_size()),
+    _num_evaluations(0),
+    _num_lookups(0) {}
 
-    /** Check whether the function provides incremental evaluation.
-        \return false
-    */
-    bool provides_incremental_evaluation() { return false; }
+  /** Check whether the function provides incremental evaluation.
+      \return false
+  */
+  bool provides_incremental_evaluation() { return false; }
 
-    /** @name Evaluation
-     */
-    ///@{
+  /** @name Evaluation
+   */
+  ///@{
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
 
-    ///@}
+  ///@}
 
-    /// Get lookup ratio
-    double get_lookup_ratio() { return double(_num_lookups) / double(_num_evaluations); }
+  /// Get lookup ratio
+  double get_lookup_ratio() { return double(_num_lookups) / double(_num_evaluations); }
 
-  };
+};
 
 
 } // end of namespace controller
