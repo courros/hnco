@@ -33,7 +33,7 @@ namespace hnco {
 namespace algorithm {
 namespace fast_efficient_p3 {
 
-  /// Implementation
+  /// %Implementation
   struct Implementation  {
 
     /// Configuration

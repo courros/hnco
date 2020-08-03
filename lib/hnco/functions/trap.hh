@@ -30,7 +30,7 @@ namespace hnco {
 namespace function {
 
 
-  /** Trap.
+  /** %Trap.
 
       Reference:
 

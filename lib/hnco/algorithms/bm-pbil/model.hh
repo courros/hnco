@@ -98,7 +98,7 @@ namespace bm_pbil {
   };
 
 
-  /// Model of a Boltzmann machine
+  /// %Model of a Boltzmann machine
   class Model
   {
     /// Model parameters

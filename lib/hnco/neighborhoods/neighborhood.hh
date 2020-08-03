@@ -31,7 +31,7 @@
 
 namespace hnco {
 
-/** Neighborhoods for local search.
+/** %Neighborhoods for local search.
 
     There are two unrelated kinds of neighborhoods, those for random
     local search and those for exhaustive local search.
@@ -39,7 +39,7 @@ namespace hnco {
 namespace neighborhood {
 
 
-  /** Neighborhood.
+  /** %Neighborhood.
 
       A neighborhood maintains two points, _origin and
       _candidate. They are initialized in the same state by

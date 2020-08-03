@@ -41,7 +41,7 @@ namespace hnco {
 namespace function {
 
 
-/// Function
+/// %Function
 class Function {
 
 public:

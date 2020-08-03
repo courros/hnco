@@ -27,7 +27,7 @@
 namespace hnco {
 namespace function {
 
-  /** OneMax.
+  /** %OneMax.
 
       References:
 
@@ -124,7 +124,7 @@ namespace function {
   };
 
 
-  /** Needle in a haystack.
+  /** %Needle in a haystack.
 
       Reference:
 
@@ -198,7 +198,7 @@ namespace function {
   };
 
 
-  /** Ridge.
+  /** %Ridge.
 
       Reference:
 
@@ -234,7 +234,7 @@ namespace function {
   };
 
 
-  /** Plateau.
+  /** %Plateau.
 
       Reference:
 

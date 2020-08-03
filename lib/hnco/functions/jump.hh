@@ -28,7 +28,7 @@ namespace hnco {
 namespace function {
 
 
-  /** Jump.
+  /** %Jump.
 
       Reference:
 

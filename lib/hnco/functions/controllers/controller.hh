@@ -220,7 +220,7 @@ class ProgressTracker:
 
 public:
 
-  /// Event
+  /// %Event
   struct Event {
 
     /// Number of evaluations

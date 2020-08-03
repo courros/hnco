@@ -31,7 +31,7 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// Crossover
+  /// %Crossover
   class Crossover {
 
   public:

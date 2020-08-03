@@ -32,7 +32,7 @@ namespace hnco {
 namespace algorithm {
 
 
-/// Population
+/// %Population
 class Population {
 
 protected:

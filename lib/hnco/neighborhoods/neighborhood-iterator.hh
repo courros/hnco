@@ -31,7 +31,7 @@ namespace hnco {
 namespace neighborhood {
 
 
-  /// Neighborhood iterator
+  /// %Neighborhood iterator
   class NeighborhoodIterator:
     public Iterator {
 

@@ -34,7 +34,7 @@ namespace hnco {
 namespace logging {
 
 
-/** Logger.
+/** %Logger.
 
     Simple logger inspired by the Log class published in Dr. Dobb's:
 

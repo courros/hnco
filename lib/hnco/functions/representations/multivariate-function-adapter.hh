@@ -38,6 +38,7 @@ namespace function {
 namespace representation {
 
 
+/// Multivariate function adapter
 template<class Fn, class Rep>
 class MultivariateFunctionAdapter: public Function {
   static_assert(std::is_same<

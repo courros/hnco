@@ -14,7 +14,7 @@ namespace hnco {
 namespace function {
 
 
-  /** Factorization.
+  /** %Factorization.
 
       Reference:
 

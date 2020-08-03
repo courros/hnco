@@ -78,7 +78,7 @@ public:
 };
 
 
-/// Local maximum found
+/// Local maximum reached
 class LocalMaximumReached: public SolutionFound {
 
 public:
@@ -93,7 +93,7 @@ public:
 class LastEvaluation: public Exception {};
 
 
-/// Error
+/// %Error
 class Error: public Exception {
 
 protected:

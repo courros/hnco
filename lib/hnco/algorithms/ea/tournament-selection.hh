@@ -30,7 +30,7 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// Population with tournament selection
+  /// %Population with tournament selection
   class TournamentSelection:
     public Population
   {

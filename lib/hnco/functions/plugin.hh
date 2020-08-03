@@ -30,7 +30,7 @@ namespace hnco {
 namespace function {
 
 
-  /// Function plugin
+  /// %Function plugin
   class FunctionPlugin:
     public Function {
 

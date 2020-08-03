@@ -29,7 +29,7 @@
 namespace hnco {
 namespace function {
 
-  /// Function decorator
+  /// %Function decorator
   class Decorator:
     public Function {
 
