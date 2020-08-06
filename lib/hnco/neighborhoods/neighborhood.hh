@@ -39,330 +39,330 @@ namespace hnco {
 namespace neighborhood {
 
 
-  /** %Neighborhood.
+/** %Neighborhood.
 
-      A neighborhood maintains two points, _origin and
-      _candidate. They are initialized in the same state by
-      set_origin. A Neighborhood class must implement the member
-      function sample_bits which samples the bits to flip in _origin
-      to get a _candidate. The following member functions take care of
-      the modifications:
+    A neighborhood maintains two points, _origin and
+    _candidate. They are initialized in the same state by
+    set_origin. A Neighborhood class must implement the member
+    function sample_bits which samples the bits to flip in _origin
+    to get a _candidate. The following member functions take care of
+    the modifications:
 
-      - propose: flip _candidate
-      - keep: flip _origin
-      - forget flip _candidate
+    - propose: flip _candidate
+    - keep: flip _origin
+    - forget flip _candidate
 
-      After keep or forget, _origin and _candidate are in the same
-      state again.
+    After keep or forget, _origin and _candidate are in the same
+    state again.
 
-      A Neighborhood class can also behave as a mutation operator
-      through the member functions mutate and map.
+    A Neighborhood class can also behave as a mutation operator
+    through the member functions mutate and map.
+*/
+class Neighborhood {
+
+protected:
+
+  /// Origin of the neighborhood
+  bit_vector_t _origin;
+
+  /// candidate bit vector
+  bit_vector_t _candidate;
+
+  /// Index distribution
+  std::uniform_int_distribution<int> _index_dist;
+
+  /// Flipped bits
+  sparse_bit_vector_t _flipped_bits;
+
+  /// Sample bits
+  virtual void sample_bits() = 0;
+
+public:
+
+  /** Constructor.
+
+      \param n Size of bit vectors
   */
-  class Neighborhood {
+  Neighborhood(int n):
+    _origin(n),
+    _candidate(n),
+    _index_dist(0, n - 1) {}
 
-  protected:
+  /// Destructor
+  virtual ~Neighborhood() {}
 
-    /// Origin of the neighborhood
-    bit_vector_t _origin;
+  /// Set the origin
+  virtual void set_origin(const bit_vector_t& x) {
+    _origin = x;
+    _candidate = x;
+  }
 
-    /// candidate bit vector
-    bit_vector_t _candidate;
+  /// Get the origin
+  virtual const bit_vector_t& get_origin() { return _origin; }
 
-    /// Index distribution
-    std::uniform_int_distribution<int> _index_dist;
+  /// Get the candidate bit vector
+  virtual const bit_vector_t& get_candidate() { return _candidate; }
 
-    /// Flipped bits
-    sparse_bit_vector_t _flipped_bits;
+  /// Get flipped bits
+  virtual const sparse_bit_vector_t& get_flipped_bits() { return _flipped_bits; }
 
-    /// Sample bits
-    virtual void sample_bits() = 0;
+  /// Propose a candidate bit vector
+  virtual void propose() {
+    assert(_candidate == _origin);
+    sample_bits();
+    sbv_flip(_candidate, _flipped_bits);
+  }
 
-  public:
+  /// Keep the candidate bit vector
+  virtual void keep() {
+    sbv_flip(_origin, _flipped_bits);
+    assert(_candidate == _origin);
+  }
 
-    /** Constructor.
+  /// Forget the candidate bit vector
+  virtual void forget() {
+    sbv_flip(_candidate, _flipped_bits);
+    assert(_candidate == _origin);
+  }
 
-        \param n Size of bit vectors
-    */
-    Neighborhood(int n):
-      _origin(n),
-      _candidate(n),
-      _index_dist(0, n - 1) {}
+  /** Mutate.
 
-    /// Destructor
-    virtual ~Neighborhood() {}
+      In-place mutation of the bit vector.
 
-    /// Set the origin
-    virtual void set_origin(const bit_vector_t& x) {
-      _origin = x;
-      _candidate = x;
-    }
+      \param bv Bit vector to mutate
+  */
+  virtual void mutate(bit_vector_t& bv) {
+    assert(bv.size() == _origin.size());
+    sample_bits();
+    sbv_flip(bv, _flipped_bits);
+  }
 
-    /// Get the origin
-    virtual const bit_vector_t& get_origin() { return _origin; }
+  /** %Map.
 
-    /// Get the candidate bit vector
-    virtual const bit_vector_t& get_candidate() { return _candidate; }
+      The output bit vector is a mutated version of the input bit
+      vector.
 
-    /// Get flipped bits
-    virtual const sparse_bit_vector_t& get_flipped_bits() { return _flipped_bits; }
+      \param input Input bit vector
+      \param output Output bit vector
+  */
+  virtual void map(const bit_vector_t& input, bit_vector_t& output) {
+    assert(input.size() == _origin.size());
+    assert(output.size() == _origin.size());
+    copy(input.begin(), input.end(), output.begin());
+    sample_bits();
+    sbv_flip(output, _flipped_bits);
+  }
 
-    /// Propose a candidate bit vector
-    virtual void propose() {
-      assert(_candidate == _origin);
-      sample_bits();
-      sbv_flip(_candidate, _flipped_bits);
-    }
-
-    /// Keep the candidate bit vector
-    virtual void keep() {
-      sbv_flip(_origin, _flipped_bits);
-      assert(_candidate == _origin);
-    }
-
-    /// Forget the candidate bit vector
-    virtual void forget() {
-      sbv_flip(_candidate, _flipped_bits);
-      assert(_candidate == _origin);
-    }
-
-    /** Mutate.
-
-        In-place mutation of the bit vector.
-
-        \param bv Bit vector to mutate
-    */
-    virtual void mutate(bit_vector_t& bv) {
-      assert(bv.size() == _origin.size());
-      sample_bits();
-      sbv_flip(bv, _flipped_bits);
-    }
-
-    /** %Map.
-
-        The output bit vector is a mutated version of the input bit
-        vector.
-
-        \param input Input bit vector
-        \param output Output bit vector
-    */
-    virtual void map(const bit_vector_t& input, bit_vector_t& output) {
-      assert(input.size() == _origin.size());
-      assert(output.size() == _origin.size());
-      copy(input.begin(), input.end(), output.begin());
-      sample_bits();
-      sbv_flip(output, _flipped_bits);
-    }
-
-  };
+};
 
 
-  /// One bit neighborhood
-  class SingleBitFlip:
+/// One bit neighborhood
+class SingleBitFlip:
     public Neighborhood {
 
-    /// Sample bits
-    void sample_bits() {
-      assert(_flipped_bits.size() == 1);
-      _flipped_bits[0] = _index_dist(random::Generator::engine);
-    }
+  /// Sample bits
+  void sample_bits() {
+    assert(_flipped_bits.size() == 1);
+    _flipped_bits[0] = _index_dist(random::Generator::engine);
+  }
 
-  public:
+public:
 
-    /// Constructor
-    SingleBitFlip(int n):
-      Neighborhood(n)
-    {
-      assert(n > 0);
-      _flipped_bits.resize(1);
-    }
+  /// Constructor
+  SingleBitFlip(int n):
+    Neighborhood(n)
+  {
+    assert(n > 0);
+    _flipped_bits.resize(1);
+  }
 
-  };
+};
 
 
-  /// Multi bit flip
-  class MultiBitFlip:
+/// Multi bit flip
+class MultiBitFlip:
     public Neighborhood {
 
-  protected:
+protected:
 
-    /** Sample a given number of bits using Bernoulli trials.
+  /** Sample a given number of bits using Bernoulli trials.
 
-        \param k Number of bits to sample
-    */
-    void bernoulli_trials(int k);
-
-    /** Sample a given number of bits using resevoir sampling.
-
-        \param k Number of bits to sample
-    */
-    void reservoir_sampling(int k);
-
-  public:
-
-    /** Constructor.
-
-        \param n Size of bit vectors
-    */
-    MultiBitFlip(int n):
-      Neighborhood(n) {}
-
-  };
-
-
-  /** Bernoulli process.
-
-      Each component of the origin bit vector is flipped with some
-      fixed probability. If no component has been flipped at the end,
-      the process is started all over again. Thus the number of
-      flipped bits follows a pseudo binomial law.
-
+      \param k Number of bits to sample
   */
-  class BernoulliProcess:
+  void bernoulli_trials(int k);
+
+  /** Sample a given number of bits using resevoir sampling.
+
+      \param k Number of bits to sample
+  */
+  void reservoir_sampling(int k);
+
+public:
+
+  /** Constructor.
+
+      \param n Size of bit vectors
+  */
+  MultiBitFlip(int n):
+    Neighborhood(n) {}
+
+};
+
+
+/** Bernoulli process.
+
+    Each component of the origin bit vector is flipped with some
+    fixed probability. If no component has been flipped at the end,
+    the process is started all over again. Thus the number of
+    flipped bits follows a pseudo binomial law.
+
+*/
+class BernoulliProcess:
     public MultiBitFlip {
 
-    /// Bernoulli distribution (biased coin)
-    std::bernoulli_distribution _bernoulli_dist;
+  /// Bernoulli distribution (biased coin)
+  std::bernoulli_distribution _bernoulli_dist;
 
-    /// Binomial distribution
-    std::binomial_distribution<int> _binomial_dist;
+  /// Binomial distribution
+  std::binomial_distribution<int> _binomial_dist;
 
-    /// Reservoir sampling
-    bool _reservoir_sampling = false;
+  /// Reservoir sampling
+  bool _reservoir_sampling = false;
 
-    /** @name Parameters
-     */
-    ///@{
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Allow stay
-    bool _allow_stay = false;
+  /// Allow stay
+  bool _allow_stay = false;
 
-    ///@}
+  ///@}
 
-    /// Sample bits
-    void sample_bits();
+  /// Sample bits
+  void sample_bits();
 
-    /// Bernoulli process
-    void bernoulli_process();
+  /// Bernoulli process
+  void bernoulli_process();
 
-  public:
+public:
 
-    /** Constructor.
+  /** Constructor.
 
-        \param n Size of bit vectors
+      \param n Size of bit vectors
 
-        The Bernoulli probability is set to 1 / n.
-    */
-    BernoulliProcess(int n):
-      MultiBitFlip(n),
-      _bernoulli_dist(1 / double(n)),
-      _binomial_dist(n, 1 / double(n)) {}
-
-    /** Constructor.
-
-        \param n Size of bit vectors
-        \param p Bernoulli probability
-    */
-    BernoulliProcess(int n, double p):
-      MultiBitFlip(n),
-      _bernoulli_dist(p),
-      _binomial_dist(n, p) {}
-
-    /** Set probability.
-
-        Sets _reservoir_sampling to true if E(X) < sqrt(n), where X is
-        a random variable with a binomial distribution B(n, p), that
-        is if np < sqrt(n) or p < 1 / sqrt(n).
-    */
-    void set_probability(double p) {
-      _bernoulli_dist = std::bernoulli_distribution(p);
-      _binomial_dist = std::binomial_distribution<int>(_origin.size(), p);
-      if (p < 1 / std::sqrt(_origin.size()))
-        _reservoir_sampling = true;
-    }
-
-    /** @name Parameters
-     */
-    ///@{
-
-    /** Set the flag _allow_stay.
-
-        In case no mutation occurs allow the current bit vector to
-        stay unchanged.
-    */
-    void set_allow_stay(bool x) { _allow_stay = x; }
-
-    ///@}
-
-  };
-
-
-  /** Hamming ball.
-
-      Choose k uniformly on [1..r], where r is the radius of the ball,
-      choose k bits uniformly among n and flip them.
+      The Bernoulli probability is set to 1 / n.
   */
-  class HammingBall:
+  BernoulliProcess(int n):
+    MultiBitFlip(n),
+    _bernoulli_dist(1 / double(n)),
+    _binomial_dist(n, 1 / double(n)) {}
+
+  /** Constructor.
+
+      \param n Size of bit vectors
+      \param p Bernoulli probability
+  */
+  BernoulliProcess(int n, double p):
+    MultiBitFlip(n),
+    _bernoulli_dist(p),
+    _binomial_dist(n, p) {}
+
+  /** Set probability.
+
+      Sets _reservoir_sampling to true if E(X) < sqrt(n), where X is
+      a random variable with a binomial distribution B(n, p), that
+      is if np < sqrt(n) or p < 1 / sqrt(n).
+  */
+  void set_probability(double p) {
+    _bernoulli_dist = std::bernoulli_distribution(p);
+    _binomial_dist = std::binomial_distribution<int>(_origin.size(), p);
+    if (p < 1 / std::sqrt(_origin.size()))
+      _reservoir_sampling = true;
+  }
+
+  /** @name Parameters
+   */
+  ///@{
+
+  /** Set the flag _allow_stay.
+
+      In case no mutation occurs allow the current bit vector to
+      stay unchanged.
+  */
+  void set_allow_stay(bool x) { _allow_stay = x; }
+
+  ///@}
+
+};
+
+
+/** Hamming ball.
+
+    Choose k uniformly on [1..r], where r is the radius of the ball,
+    choose k bits uniformly among n and flip them.
+*/
+class HammingBall:
     public MultiBitFlip {
 
-    /// Choose the distance to the center
-    std::uniform_int_distribution<int> _choose_k;
+  /// Choose the distance to the center
+  std::uniform_int_distribution<int> _choose_k;
 
-    /// Sample bits
-    void sample_bits();
+  /// Sample bits
+  void sample_bits();
 
-  public:
+public:
 
-    /** Constructor.
+  /** Constructor.
 
-        \param n Size of bit vectors
-        \param r Radius of the ball
-    */
-    HammingBall(int n, int r):
-      MultiBitFlip(n),
-      _choose_k(1, r)
-    {
-      assert(n > 0);
-      assert(r > 0);
-      assert(r <= n);
-    }
-
-  };
-
-
-  /** Hamming sphere.
-
-      Uniformly choose r bits among n and flip them, where r is the
-      radius of the sphere.
+      \param n Size of bit vectors
+      \param r Radius of the ball
   */
-  class HammingSphere:
+  HammingBall(int n, int r):
+    MultiBitFlip(n),
+    _choose_k(1, r)
+  {
+    assert(n > 0);
+    assert(r > 0);
+    assert(r <= n);
+  }
+
+};
+
+
+/** Hamming sphere.
+
+    Uniformly choose r bits among n and flip them, where r is the
+    radius of the sphere.
+*/
+class HammingSphere:
     public MultiBitFlip {
 
-    /// Radius of the sphere
-    int _radius;
+  /// Radius of the sphere
+  int _radius;
 
-    /// Sample bits
-    void sample_bits();
+  /// Sample bits
+  void sample_bits();
 
-  public:
+public:
 
-    /** Constructor.
+  /** Constructor.
 
-        \param n Size of bit vectors
-        \param r Radius of the sphere
-    */
-    HammingSphere(int n, int r):
-      MultiBitFlip(n),
-      _radius(r)
-    {
-      assert(n > 0);
-      assert(r > 0);
-      assert(r <= n);
-    }
+      \param n Size of bit vectors
+      \param r Radius of the sphere
+  */
+  HammingSphere(int n, int r):
+    MultiBitFlip(n),
+    _radius(r)
+  {
+    assert(n > 0);
+    assert(r > 0);
+    assert(r <= n);
+  }
 
-    /// Set radius
-    void set_radius(int r) { _radius = r; }
+  /// Set radius
+  void set_radius(int r) { _radius = r; }
 
-  };
+};
 
 
 } // end of namespace neighborhood
