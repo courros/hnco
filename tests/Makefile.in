@@ -134,15 +134,15 @@ check_PROGRAMS = test-bm-add-columns$(EXEEXT) \
 	test-hamming-sphere$(EXEEXT) \
 	test-hamming-sphere-iterator$(EXEEXT) \
 	test-hypercube-iterator$(EXEEXT) \
-	test-incremental-linear-function-bernoulli-process$(EXEEXT) \
+	test-incremental-linear-function$(EXEEXT) \
 	test-incremental-negation$(EXEEXT) \
 	test-incremental-nn-ising-1$(EXEEXT) \
 	test-incremental-nn-ising-2$(EXEEXT) \
-	test-incremental-one-max-bernoulli-process$(EXEEXT) \
+	test-incremental-one-max$(EXEEXT) \
 	test-incremental-one-max-hamming-ball$(EXEEXT) \
 	test-incremental-one-max-hamming-sphere$(EXEEXT) \
 	test-incremental-one-max-single-bit-flip$(EXEEXT) \
-	test-incremental-walsh-expansion-1-bernoulli-process$(EXEEXT) \
+	test-incremental-walsh-expansion-1$(EXEEXT) \
 	test-injection-projection$(EXEEXT) \
 	test-one-plus-one-ea-one-max$(EXEEXT) \
 	test-population-evaluate-in-parallel$(EXEEXT) \
@@ -382,12 +382,12 @@ test_hypercube_iterator_OBJECTS =  \
 	$(am_test_hypercube_iterator_OBJECTS)
 test_hypercube_iterator_LDADD = $(LDADD)
 test_hypercube_iterator_DEPENDENCIES = ../lib/libhnco.la
-am_test_incremental_linear_function_bernoulli_process_OBJECTS =  \
-	test-incremental-linear-function-bernoulli-process.$(OBJEXT)
-test_incremental_linear_function_bernoulli_process_OBJECTS = $(am_test_incremental_linear_function_bernoulli_process_OBJECTS)
-test_incremental_linear_function_bernoulli_process_LDADD = $(LDADD)
-test_incremental_linear_function_bernoulli_process_DEPENDENCIES =  \
-	../lib/libhnco.la
+am_test_incremental_linear_function_OBJECTS =  \
+	test-incremental-linear-function.$(OBJEXT)
+test_incremental_linear_function_OBJECTS =  \
+	$(am_test_incremental_linear_function_OBJECTS)
+test_incremental_linear_function_LDADD = $(LDADD)
+test_incremental_linear_function_DEPENDENCIES = ../lib/libhnco.la
 am_test_incremental_negation_OBJECTS =  \
 	test-incremental-negation.$(OBJEXT)
 test_incremental_negation_OBJECTS =  \
@@ -406,13 +406,12 @@ test_incremental_nn_ising_2_OBJECTS =  \
 	$(am_test_incremental_nn_ising_2_OBJECTS)
 test_incremental_nn_ising_2_LDADD = $(LDADD)
 test_incremental_nn_ising_2_DEPENDENCIES = ../lib/libhnco.la
-am_test_incremental_one_max_bernoulli_process_OBJECTS =  \
-	test-incremental-one-max-bernoulli-process.$(OBJEXT)
-test_incremental_one_max_bernoulli_process_OBJECTS =  \
-	$(am_test_incremental_one_max_bernoulli_process_OBJECTS)
-test_incremental_one_max_bernoulli_process_LDADD = $(LDADD)
-test_incremental_one_max_bernoulli_process_DEPENDENCIES =  \
-	../lib/libhnco.la
+am_test_incremental_one_max_OBJECTS =  \
+	test-incremental-one-max.$(OBJEXT)
+test_incremental_one_max_OBJECTS =  \
+	$(am_test_incremental_one_max_OBJECTS)
+test_incremental_one_max_LDADD = $(LDADD)
+test_incremental_one_max_DEPENDENCIES = ../lib/libhnco.la
 am_test_incremental_one_max_hamming_ball_OBJECTS =  \
 	test-incremental-one-max-hamming-ball.$(OBJEXT)
 test_incremental_one_max_hamming_ball_OBJECTS =  \
@@ -434,11 +433,12 @@ test_incremental_one_max_single_bit_flip_OBJECTS =  \
 test_incremental_one_max_single_bit_flip_LDADD = $(LDADD)
 test_incremental_one_max_single_bit_flip_DEPENDENCIES =  \
 	../lib/libhnco.la
-am_test_incremental_walsh_expansion_1_bernoulli_process_OBJECTS = test-incremental-walsh-expansion-1-bernoulli-process.$(OBJEXT)
-test_incremental_walsh_expansion_1_bernoulli_process_OBJECTS = $(am_test_incremental_walsh_expansion_1_bernoulli_process_OBJECTS)
-test_incremental_walsh_expansion_1_bernoulli_process_LDADD = $(LDADD)
-test_incremental_walsh_expansion_1_bernoulli_process_DEPENDENCIES =  \
-	../lib/libhnco.la
+am_test_incremental_walsh_expansion_1_OBJECTS =  \
+	test-incremental-walsh-expansion-1.$(OBJEXT)
+test_incremental_walsh_expansion_1_OBJECTS =  \
+	$(am_test_incremental_walsh_expansion_1_OBJECTS)
+test_incremental_walsh_expansion_1_LDADD = $(LDADD)
+test_incremental_walsh_expansion_1_DEPENDENCIES = ../lib/libhnco.la
 am_test_injection_projection_OBJECTS =  \
 	test-injection-projection.$(OBJEXT)
 test_injection_projection_OBJECTS =  \
@@ -685,15 +685,15 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-columns.Po \
 	./$(DEPDIR)/test-hamming-sphere-iterator.Po \
 	./$(DEPDIR)/test-hamming-sphere.Po \
 	./$(DEPDIR)/test-hypercube-iterator.Po \
-	./$(DEPDIR)/test-incremental-linear-function-bernoulli-process.Po \
+	./$(DEPDIR)/test-incremental-linear-function.Po \
 	./$(DEPDIR)/test-incremental-negation.Po \
 	./$(DEPDIR)/test-incremental-nn-ising-1.Po \
 	./$(DEPDIR)/test-incremental-nn-ising-2.Po \
-	./$(DEPDIR)/test-incremental-one-max-bernoulli-process.Po \
 	./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po \
 	./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po \
 	./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po \
-	./$(DEPDIR)/test-incremental-walsh-expansion-1-bernoulli-process.Po \
+	./$(DEPDIR)/test-incremental-one-max.Po \
+	./$(DEPDIR)/test-incremental-walsh-expansion-1.Po \
 	./$(DEPDIR)/test-injection-projection.Po \
 	./$(DEPDIR)/test-one-plus-one-ea-one-max.Po \
 	./$(DEPDIR)/test-population-evaluate-in-parallel.Po \
@@ -776,15 +776,15 @@ SOURCES = $(test_bm_add_columns_SOURCES) $(test_bm_add_rows_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
 	$(test_hamming_sphere_iterator_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
-	$(test_incremental_linear_function_bernoulli_process_SOURCES) \
+	$(test_incremental_linear_function_SOURCES) \
 	$(test_incremental_negation_SOURCES) \
 	$(test_incremental_nn_ising_1_SOURCES) \
 	$(test_incremental_nn_ising_2_SOURCES) \
-	$(test_incremental_one_max_bernoulli_process_SOURCES) \
+	$(test_incremental_one_max_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
 	$(test_incremental_one_max_hamming_sphere_SOURCES) \
 	$(test_incremental_one_max_single_bit_flip_SOURCES) \
-	$(test_incremental_walsh_expansion_1_bernoulli_process_SOURCES) \
+	$(test_incremental_walsh_expansion_1_SOURCES) \
 	$(test_injection_projection_SOURCES) \
 	$(test_one_plus_one_ea_one_max_SOURCES) \
 	$(test_population_evaluate_in_parallel_SOURCES) \
@@ -849,15 +849,15 @@ DIST_SOURCES = $(test_bm_add_columns_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
 	$(test_hamming_sphere_iterator_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
-	$(test_incremental_linear_function_bernoulli_process_SOURCES) \
+	$(test_incremental_linear_function_SOURCES) \
 	$(test_incremental_negation_SOURCES) \
 	$(test_incremental_nn_ising_1_SOURCES) \
 	$(test_incremental_nn_ising_2_SOURCES) \
-	$(test_incremental_one_max_bernoulli_process_SOURCES) \
+	$(test_incremental_one_max_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
 	$(test_incremental_one_max_hamming_sphere_SOURCES) \
 	$(test_incremental_one_max_single_bit_flip_SOURCES) \
-	$(test_incremental_walsh_expansion_1_bernoulli_process_SOURCES) \
+	$(test_incremental_walsh_expansion_1_SOURCES) \
 	$(test_injection_projection_SOURCES) \
 	$(test_one_plus_one_ea_one_max_SOURCES) \
 	$(test_population_evaluate_in_parallel_SOURCES) \
@@ -1287,15 +1287,15 @@ test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
-test_incremental_linear_function_bernoulli_process_SOURCES = test-incremental-linear-function-bernoulli-process.cc
+test_incremental_linear_function_SOURCES = test-incremental-linear-function.cc
 test_incremental_negation_SOURCES = test-incremental-negation.cc
 test_incremental_nn_ising_1_SOURCES = test-incremental-nn-ising-1.cc
 test_incremental_nn_ising_2_SOURCES = test-incremental-nn-ising-2.cc
-test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-bernoulli-process.cc
+test_incremental_one_max_SOURCES = test-incremental-one-max.cc
 test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
 test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
-test_incremental_walsh_expansion_1_bernoulli_process_SOURCES = test-incremental-walsh-expansion-1-bernoulli-process.cc
+test_incremental_walsh_expansion_1_SOURCES = test-incremental-walsh-expansion-1.cc
 test_injection_projection_SOURCES = test-injection-projection.cc
 test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_population_evaluate_in_parallel_SOURCES = test-population-evaluate-in-parallel.cc
@@ -1533,9 +1533,9 @@ test-hypercube-iterator$(EXEEXT): $(test_hypercube_iterator_OBJECTS) $(test_hype
 	@rm -f test-hypercube-iterator$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_hypercube_iterator_OBJECTS) $(test_hypercube_iterator_LDADD) $(LIBS)
 
-test-incremental-linear-function-bernoulli-process$(EXEEXT): $(test_incremental_linear_function_bernoulli_process_OBJECTS) $(test_incremental_linear_function_bernoulli_process_DEPENDENCIES) $(EXTRA_test_incremental_linear_function_bernoulli_process_DEPENDENCIES) 
-	@rm -f test-incremental-linear-function-bernoulli-process$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_linear_function_bernoulli_process_OBJECTS) $(test_incremental_linear_function_bernoulli_process_LDADD) $(LIBS)
+test-incremental-linear-function$(EXEEXT): $(test_incremental_linear_function_OBJECTS) $(test_incremental_linear_function_DEPENDENCIES) $(EXTRA_test_incremental_linear_function_DEPENDENCIES) 
+	@rm -f test-incremental-linear-function$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_linear_function_OBJECTS) $(test_incremental_linear_function_LDADD) $(LIBS)
 
 test-incremental-negation$(EXEEXT): $(test_incremental_negation_OBJECTS) $(test_incremental_negation_DEPENDENCIES) $(EXTRA_test_incremental_negation_DEPENDENCIES) 
 	@rm -f test-incremental-negation$(EXEEXT)
@@ -1549,9 +1549,9 @@ test-incremental-nn-ising-2$(EXEEXT): $(test_incremental_nn_ising_2_OBJECTS) $(t
 	@rm -f test-incremental-nn-ising-2$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_nn_ising_2_OBJECTS) $(test_incremental_nn_ising_2_LDADD) $(LIBS)
 
-test-incremental-one-max-bernoulli-process$(EXEEXT): $(test_incremental_one_max_bernoulli_process_OBJECTS) $(test_incremental_one_max_bernoulli_process_DEPENDENCIES) $(EXTRA_test_incremental_one_max_bernoulli_process_DEPENDENCIES) 
-	@rm -f test-incremental-one-max-bernoulli-process$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_one_max_bernoulli_process_OBJECTS) $(test_incremental_one_max_bernoulli_process_LDADD) $(LIBS)
+test-incremental-one-max$(EXEEXT): $(test_incremental_one_max_OBJECTS) $(test_incremental_one_max_DEPENDENCIES) $(EXTRA_test_incremental_one_max_DEPENDENCIES) 
+	@rm -f test-incremental-one-max$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_one_max_OBJECTS) $(test_incremental_one_max_LDADD) $(LIBS)
 
 test-incremental-one-max-hamming-ball$(EXEEXT): $(test_incremental_one_max_hamming_ball_OBJECTS) $(test_incremental_one_max_hamming_ball_DEPENDENCIES) $(EXTRA_test_incremental_one_max_hamming_ball_DEPENDENCIES) 
 	@rm -f test-incremental-one-max-hamming-ball$(EXEEXT)
@@ -1565,9 +1565,9 @@ test-incremental-one-max-single-bit-flip$(EXEEXT): $(test_incremental_one_max_si
 	@rm -f test-incremental-one-max-single-bit-flip$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_one_max_single_bit_flip_OBJECTS) $(test_incremental_one_max_single_bit_flip_LDADD) $(LIBS)
 
-test-incremental-walsh-expansion-1-bernoulli-process$(EXEEXT): $(test_incremental_walsh_expansion_1_bernoulli_process_OBJECTS) $(test_incremental_walsh_expansion_1_bernoulli_process_DEPENDENCIES) $(EXTRA_test_incremental_walsh_expansion_1_bernoulli_process_DEPENDENCIES) 
-	@rm -f test-incremental-walsh-expansion-1-bernoulli-process$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_walsh_expansion_1_bernoulli_process_OBJECTS) $(test_incremental_walsh_expansion_1_bernoulli_process_LDADD) $(LIBS)
+test-incremental-walsh-expansion-1$(EXEEXT): $(test_incremental_walsh_expansion_1_OBJECTS) $(test_incremental_walsh_expansion_1_DEPENDENCIES) $(EXTRA_test_incremental_walsh_expansion_1_DEPENDENCIES) 
+	@rm -f test-incremental-walsh-expansion-1$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_walsh_expansion_1_OBJECTS) $(test_incremental_walsh_expansion_1_LDADD) $(LIBS)
 
 test-injection-projection$(EXEEXT): $(test_injection_projection_OBJECTS) $(test_injection_projection_DEPENDENCIES) $(EXTRA_test_injection_projection_DEPENDENCIES) 
 	@rm -f test-injection-projection$(EXEEXT)
@@ -1746,15 +1746,15 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere-iterator.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hypercube-iterator.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-linear-function-bernoulli-process.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-linear-function.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-negation.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-nn-ising-1.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-nn-ising-2.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-bernoulli-process.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-walsh-expansion-1-bernoulli-process.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-walsh-expansion-1.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-injection-projection.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-one-plus-one-ea-one-max.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-population-evaluate-in-parallel.Po@am__quote@ # am--include-marker
@@ -2257,9 +2257,9 @@ test-hypercube-iterator.log: test-hypercube-iterator$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-test-incremental-linear-function-bernoulli-process.log: test-incremental-linear-function-bernoulli-process$(EXEEXT)
-	@p='test-incremental-linear-function-bernoulli-process$(EXEEXT)'; \
-	b='test-incremental-linear-function-bernoulli-process'; \
+test-incremental-linear-function.log: test-incremental-linear-function$(EXEEXT)
+	@p='test-incremental-linear-function$(EXEEXT)'; \
+	b='test-incremental-linear-function'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -2285,9 +2285,9 @@ test-incremental-nn-ising-2.log: test-incremental-nn-ising-2$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-test-incremental-one-max-bernoulli-process.log: test-incremental-one-max-bernoulli-process$(EXEEXT)
-	@p='test-incremental-one-max-bernoulli-process$(EXEEXT)'; \
-	b='test-incremental-one-max-bernoulli-process'; \
+test-incremental-one-max.log: test-incremental-one-max$(EXEEXT)
+	@p='test-incremental-one-max$(EXEEXT)'; \
+	b='test-incremental-one-max'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -2313,9 +2313,9 @@ test-incremental-one-max-single-bit-flip.log: test-incremental-one-max-single-bi
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-test-incremental-walsh-expansion-1-bernoulli-process.log: test-incremental-walsh-expansion-1-bernoulli-process$(EXEEXT)
-	@p='test-incremental-walsh-expansion-1-bernoulli-process$(EXEEXT)'; \
-	b='test-incremental-walsh-expansion-1-bernoulli-process'; \
+test-incremental-walsh-expansion-1.log: test-incremental-walsh-expansion-1$(EXEEXT)
+	@p='test-incremental-walsh-expansion-1$(EXEEXT)'; \
+	b='test-incremental-walsh-expansion-1'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -2694,15 +2694,15 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-hypercube-iterator.Po
-	-rm -f ./$(DEPDIR)/test-incremental-linear-function-bernoulli-process.Po
+	-rm -f ./$(DEPDIR)/test-incremental-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-incremental-negation.Po
 	-rm -f ./$(DEPDIR)/test-incremental-nn-ising-1.Po
 	-rm -f ./$(DEPDIR)/test-incremental-nn-ising-2.Po
-	-rm -f ./$(DEPDIR)/test-incremental-one-max-bernoulli-process.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po
-	-rm -f ./$(DEPDIR)/test-incremental-walsh-expansion-1-bernoulli-process.Po
+	-rm -f ./$(DEPDIR)/test-incremental-one-max.Po
+	-rm -f ./$(DEPDIR)/test-incremental-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-injection-projection.Po
 	-rm -f ./$(DEPDIR)/test-one-plus-one-ea-one-max.Po
 	-rm -f ./$(DEPDIR)/test-population-evaluate-in-parallel.Po
@@ -2817,15 +2817,15 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-hypercube-iterator.Po
-	-rm -f ./$(DEPDIR)/test-incremental-linear-function-bernoulli-process.Po
+	-rm -f ./$(DEPDIR)/test-incremental-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-incremental-negation.Po
 	-rm -f ./$(DEPDIR)/test-incremental-nn-ising-1.Po
 	-rm -f ./$(DEPDIR)/test-incremental-nn-ising-2.Po
-	-rm -f ./$(DEPDIR)/test-incremental-one-max-bernoulli-process.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po
-	-rm -f ./$(DEPDIR)/test-incremental-walsh-expansion-1-bernoulli-process.Po
+	-rm -f ./$(DEPDIR)/test-incremental-one-max.Po
+	-rm -f ./$(DEPDIR)/test-incremental-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-injection-projection.Po
 	-rm -f ./$(DEPDIR)/test-one-plus-one-ea-one-max.Po
 	-rm -f ./$(DEPDIR)/test-population-evaluate-in-parallel.Po

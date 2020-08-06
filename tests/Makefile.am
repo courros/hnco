@@ -51,15 +51,15 @@ check_PROGRAMS = \
 	test-hamming-sphere \
 	test-hamming-sphere-iterator \
 	test-hypercube-iterator \
-	test-incremental-linear-function-bernoulli-process \
+	test-incremental-linear-function \
 	test-incremental-negation \
 	test-incremental-nn-ising-1 \
 	test-incremental-nn-ising-2 \
-	test-incremental-one-max-bernoulli-process \
+	test-incremental-one-max \
 	test-incremental-one-max-hamming-ball \
 	test-incremental-one-max-hamming-sphere \
 	test-incremental-one-max-single-bit-flip \
-	test-incremental-walsh-expansion-1-bernoulli-process \
+	test-incremental-walsh-expansion-1 \
 	test-injection-projection \
 	test-one-plus-one-ea-one-max \
 	test-population-evaluate-in-parallel \
@@ -140,15 +140,15 @@ test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
-test_incremental_linear_function_bernoulli_process_SOURCES = test-incremental-linear-function-bernoulli-process.cc
+test_incremental_linear_function_SOURCES = test-incremental-linear-function.cc
 test_incremental_negation_SOURCES = test-incremental-negation.cc
 test_incremental_nn_ising_1_SOURCES = test-incremental-nn-ising-1.cc
 test_incremental_nn_ising_2_SOURCES = test-incremental-nn-ising-2.cc
-test_incremental_one_max_bernoulli_process_SOURCES = test-incremental-one-max-bernoulli-process.cc
+test_incremental_one_max_SOURCES = test-incremental-one-max.cc
 test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
 test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
-test_incremental_walsh_expansion_1_bernoulli_process_SOURCES = test-incremental-walsh-expansion-1-bernoulli-process.cc
+test_incremental_walsh_expansion_1_SOURCES = test-incremental-walsh-expansion-1.cc
 test_injection_projection_SOURCES = test-injection-projection.cc
 test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_population_evaluate_in_parallel_SOURCES = test-population-evaluate-in-parallel.cc
