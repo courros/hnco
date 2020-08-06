@@ -257,9 +257,9 @@
             "section": "pn"
         },
 
-        "pn_allow_stay":
+        "pn_allow_no_mutation":
         {
-            "description": "In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)",
+            "description": "Allow no mutation with standard bit mutation",
             "section": "pn"
         },
 
@@ -288,6 +288,12 @@
             "section": "alg"
         },
 
+        "allow_no_mutation":
+        {
+            "description": "Allow no mutation with standard bit mutation",
+            "section": "alg"
+        },
+
         "incremental_evaluation":
         {
             "description": "Incremental evaluation",
@@ -297,12 +303,6 @@
         "rls_strict":
         {
             "description": "Strict (>) random local search",
-            "section": "ls"
-        },
-
-        "allow_stay":
-        {
-            "description": "In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)",
             "section": "ls"
         },
 
@@ -743,7 +743,7 @@
         {
             "type": "double",
             "value": 1.0,
-            "description": "Expected number of flipped bits (bv_size times mutation probability)",
+            "description": "Mutation probability relative to bv_size",
             "section": "pn"
         },
 
@@ -771,7 +771,7 @@
 
                 {
                     "value": 1,
-                    "description": "Bernoulli process"
+                    "description": "Standard bit mutation"
                 },
 
                 {
@@ -1058,7 +1058,7 @@
             "optchar": "m",
             "type": "double",
             "value": 1.0,
-            "description": "Expected number of flipped bits (bv_size times mutation probability)",
+            "description": "Mutation probability relative to bv_size",
             "section": "alg"
         },
 
@@ -1079,7 +1079,7 @@
 
                 {
                     "value": 1,
-                    "description": "Bernoulli process"
+                    "description": "Standard bit mutation"
                 },
 
                 {

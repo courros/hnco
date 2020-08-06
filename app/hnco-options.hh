@@ -149,7 +149,7 @@ class Options {
   int _map_ts_sampling_mode;
   bool _opt_map_ts_sampling_mode;
 
-  /// Expected number of flipped bits (bv_size times mutation probability)
+  /// Mutation probability relative to bv_size
   double _mutation_probability;
   bool _opt_mutation_probability;
 
@@ -177,7 +177,7 @@ class Options {
   std::string _path;
   bool _opt_path;
 
-  /// Expected number of flipped bits (bv_size times mutation probability)
+  /// Mutation probability relative to bv_size
   double _pn_mutation_probability;
   bool _opt_pn_mutation_probability;
 
@@ -244,8 +244,8 @@ class Options {
   /// Additive Gaussian noise
   bool _additive_gaussian_noise;
 
-  /// In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)
-  bool _allow_stay;
+  /// Allow no mutation with standard bit mutation
+  bool _allow_no_mutation;
 
   /// Log infinite norm of the parameters
   bool _bm_log_norm_infinite;
@@ -331,8 +331,8 @@ class Options {
   /// Parsed modifier
   bool _parsed_modifier;
 
-  /// In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)
-  bool _pn_allow_stay;
+  /// Allow no mutation with standard bit mutation
+  bool _pn_allow_no_mutation;
 
   /// Print the default parameters and exit
   bool _print_defaults;
@@ -1113,11 +1113,11 @@ public:
   /// Set additive_gaussian_noise
   void set_additive_gaussian_noise() { _additive_gaussian_noise = true; }
  
-  /// Get allow_stay
-  bool with_allow_stay() const { return _allow_stay; }
+  /// Get allow_no_mutation
+  bool with_allow_no_mutation() const { return _allow_no_mutation; }
 
-  /// Set allow_stay
-  void set_allow_stay() { _allow_stay = true; }
+  /// Set allow_no_mutation
+  void set_allow_no_mutation() { _allow_no_mutation = true; }
  
   /// Get bm_log_norm_infinite
   bool with_bm_log_norm_infinite() const { return _bm_log_norm_infinite; }
@@ -1287,11 +1287,11 @@ public:
   /// Set parsed_modifier
   void set_parsed_modifier() { _parsed_modifier = true; }
  
-  /// Get pn_allow_stay
-  bool with_pn_allow_stay() const { return _pn_allow_stay; }
+  /// Get pn_allow_no_mutation
+  bool with_pn_allow_no_mutation() const { return _pn_allow_no_mutation; }
 
-  /// Set pn_allow_stay
-  void set_pn_allow_stay() { _pn_allow_stay = true; }
+  /// Set pn_allow_no_mutation
+  void set_pn_allow_no_mutation() { _pn_allow_no_mutation = true; }
  
   /// Get print_defaults
   bool with_print_defaults() const { return _print_defaults; }

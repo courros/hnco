@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     if (Generator::bernoulli())
       function.set_periodic_boundary_conditions(true);
 
-    BernoulliProcess neighborhood(bv_size);
+    StandardBitMutation neighborhood(bv_size);
     bit_vector_t bv(bv_size);
     bv_random(bv);
     neighborhood.set_origin(bv);

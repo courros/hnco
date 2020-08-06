@@ -33,7 +33,7 @@ namespace algorithm {
   /** (1+1) EA.
 
       (1+1) EA is implemented as a RandomLocalSearch with a
-      BernoulliProcess neighborhood and infinite patience. Thus the
+      StandardBitMutation neighborhood and infinite patience. Thus the
       class OnePlusOneEa is derived from Algorithm instead of
       IterativeAlgorithm.
 
@@ -46,7 +46,7 @@ namespace algorithm {
     public Algorithm {
 
     /// Neighborhood
-    neighborhood::BernoulliProcess _neighborhood;
+    neighborhood::StandardBitMutation _neighborhood;
 
     /// Random local search
     RandomLocalSearch _rls;
@@ -61,8 +61,8 @@ namespace algorithm {
     /// Mutation probability
     double _mutation_probability;
 
-    /// Allow stay
-    bool _allow_stay = false;
+    /// Allow no mutation
+    bool _allow_no_mutation = false;
 
     /// Incremental evaluation
     bool _incremental_evaluation = false;
@@ -86,7 +86,7 @@ namespace algorithm {
     /// Maximize
     void maximize(const std::vector<function::Function *>& functions) override {
       _neighborhood.set_probability(_mutation_probability);
-      _neighborhood.set_allow_stay(_allow_stay);
+      _neighborhood.set_allow_no_mutation(_allow_no_mutation);
       _rls.set_num_iterations(_num_iterations);
       _rls.set_incremental_evaluation(_incremental_evaluation);
       _rls.set_patience(0);
@@ -113,12 +113,8 @@ namespace algorithm {
     /// Set the mutation probability
     void set_mutation_probability(double x) { _mutation_probability = x; }
 
-    /** Set the flag _allow_stay.
-
-        In case no mutation occurs allow the current bit vector to
-        stay unchanged.
-    */
-    void set_allow_stay(bool x) { _allow_stay = x; }
+    /// Set the flag _allow_no_mutation
+    void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }
 
     /// Set incremental evaluation
     void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }

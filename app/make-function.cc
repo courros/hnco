@@ -410,10 +410,10 @@ make_prior_noise_neighborhood(const Options& options)
       (options.get_bv_size());
 
   case 1: {
-    auto nh = new BernoulliProcess
+    auto nh = new StandardBitMutation
       (options.get_bv_size(),
        options.get_pn_mutation_probability() / options.get_bv_size());
-    nh->set_allow_stay(options.with_pn_allow_stay());
+    nh->set_allow_no_mutation(options.with_pn_allow_no_mutation());
     return nh;
   }
 

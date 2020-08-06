@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     WalshExpansion1 function;
     function.generate(bv_size, fn);
 
-    BernoulliProcess neighborhood(bv_size);
+    StandardBitMutation neighborhood(bv_size);
     bit_vector_t bv(bv_size);
     bv_random(bv);
     neighborhood.set_origin(bv);

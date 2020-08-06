@@ -124,7 +124,7 @@ Options::Options(int argc, char *argv[]):
   _target(100),
   _opt_target(false),
   _additive_gaussian_noise(false),
-  _allow_stay(false),
+  _allow_no_mutation(false),
   _bm_log_norm_infinite(false),
   _bm_log_norm_l1(false),
   _bm_negative_positive_selection(false),
@@ -153,7 +153,7 @@ Options::Options(int argc, char *argv[]):
   _mmas_strict(false),
   _negation(false),
   _parsed_modifier(false),
-  _pn_allow_stay(false),
+  _pn_allow_no_mutation(false),
   _print_defaults(false),
   _print_description(false),
   _print_header(false),
@@ -242,7 +242,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_SOLUTION_PATH,
     OPTION_TARGET,
     OPTION_ADDITIVE_GAUSSIAN_NOISE,
-    OPTION_ALLOW_STAY,
+    OPTION_ALLOW_NO_MUTATION,
     OPTION_BM_LOG_NORM_INFINITE,
     OPTION_BM_LOG_NORM_L1,
     OPTION_BM_NEGATIVE_POSITIVE_SELECTION,
@@ -271,7 +271,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_MMAS_STRICT,
     OPTION_NEGATION,
     OPTION_PARSED_MODIFIER,
-    OPTION_PN_ALLOW_STAY,
+    OPTION_PN_ALLOW_NO_MUTATION,
     OPTION_PRINT_DEFAULTS,
     OPTION_PRINT_DESCRIPTION,
     OPTION_PRINT_HEADER,
@@ -349,7 +349,7 @@ Options::Options(int argc, char *argv[]):
     {"solution-path", required_argument, 0, OPTION_SOLUTION_PATH},
     {"target", required_argument, 0, OPTION_TARGET},
     {"additive-gaussian-noise", no_argument, 0, OPTION_ADDITIVE_GAUSSIAN_NOISE},
-    {"allow-stay", no_argument, 0, OPTION_ALLOW_STAY},
+    {"allow-no-mutation", no_argument, 0, OPTION_ALLOW_NO_MUTATION},
     {"bm-log-norm-infinite", no_argument, 0, OPTION_BM_LOG_NORM_INFINITE},
     {"bm-log-norm-l1", no_argument, 0, OPTION_BM_LOG_NORM_L1},
     {"bm-negative-positive-selection", no_argument, 0, OPTION_BM_NEGATIVE_POSITIVE_SELECTION},
@@ -378,7 +378,7 @@ Options::Options(int argc, char *argv[]):
     {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
     {"negation", no_argument, 0, OPTION_NEGATION},
     {"parsed-modifier", no_argument, 0, OPTION_PARSED_MODIFIER},
-    {"pn-allow-stay", no_argument, 0, OPTION_PN_ALLOW_STAY},
+    {"pn-allow-no-mutation", no_argument, 0, OPTION_PN_ALLOW_NO_MUTATION},
     {"print-defaults", no_argument, 0, OPTION_PRINT_DEFAULTS},
     {"print-description", no_argument, 0, OPTION_PRINT_DESCRIPTION},
     {"print-header", no_argument, 0, OPTION_PRINT_HEADER},
@@ -660,8 +660,8 @@ Options::Options(int argc, char *argv[]):
       _additive_gaussian_noise = true;
       break;
 
-    case OPTION_ALLOW_STAY:
-      _allow_stay = true;
+    case OPTION_ALLOW_NO_MUTATION:
+      _allow_no_mutation = true;
       break;
 
     case OPTION_BM_LOG_NORM_INFINITE:
@@ -776,8 +776,8 @@ Options::Options(int argc, char *argv[]):
       _parsed_modifier = true;
       break;
 
-    case OPTION_PN_ALLOW_STAY:
-      _pn_allow_stay = true;
+    case OPTION_PN_ALLOW_NO_MUTATION:
+      _pn_allow_no_mutation = true;
       break;
 
     case OPTION_PRINT_DEFAULTS:
@@ -1055,8 +1055,10 @@ void Options::print_help(ostream& stream) const
   stream << "            1110: Hierarchical Bayesian optimization algorithm (hBOA)" << endl;
   stream << "            1200: Linkage tree genetic algorithm (LTGA)" << endl;
   stream << "            1300: Parameter-less population pyramid (P3)" << endl;
+  stream << "      --allow-no-mutation" << endl;
+  stream << "          Allow no mutation with standard bit mutation" << endl;
   stream << "  -m, --mutation-probability (type double, default to 1)" << endl;
-  stream << "          Expected number of flipped bits (bv_size times mutation probability)" << endl;
+  stream << "          Mutation probability relative to bv_size" << endl;
   stream << "  -i, --num-iterations (type int, default to 0)" << endl;
   stream << "          Number of iterations (<= 0 means indefinite)" << endl;
   stream << "      --restart" << endl;
@@ -1104,14 +1106,14 @@ void Options::print_help_pn(ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
   stream << "Prior Noise" << endl;
-  stream << "      --pn-allow-stay" << endl;
-  stream << "          In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)" << endl;
+  stream << "      --pn-allow-no-mutation" << endl;
+  stream << "          Allow no mutation with standard bit mutation" << endl;
   stream << "      --pn-mutation-probability (type double, default to 1)" << endl;
-  stream << "          Expected number of flipped bits (bv_size times mutation probability)" << endl;
+  stream << "          Mutation probability relative to bv_size" << endl;
   stream << "      --pn-neighborhood (type int, default to 0)" << endl;
   stream << "          Type of neighborhood" << endl;
   stream << "            0: Single bit flip" << endl;
-  stream << "            1: Bernoulli process" << endl;
+  stream << "            1: Standard bit mutation" << endl;
   stream << "            2: Hamming ball" << endl;
   stream << "            3: Hamming sphere" << endl;
   stream << "      --pn-radius (type int, default to 2)" << endl;
@@ -1163,14 +1165,12 @@ void Options::print_help_ls(ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
   stream << "Local Search" << endl;
-  stream << "      --allow-stay" << endl;
-  stream << "          In case no mutation occurs allow the current bit vector to stay unchanged (Bernoulli process)" << endl;
   stream << "      --incremental-evaluation" << endl;
   stream << "          Incremental evaluation" << endl;
   stream << "  -N, --neighborhood (type int, default to 0)" << endl;
   stream << "          Type of neighborhood" << endl;
   stream << "            0: Single bit flip" << endl;
-  stream << "            1: Bernoulli process" << endl;
+  stream << "            1: Standard bit mutation" << endl;
   stream << "            2: Hamming ball" << endl;
   stream << "            3: Hamming sphere" << endl;
   stream << "      --neighborhood-iterator (type int, default to 0)" << endl;
@@ -1375,8 +1375,8 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# target = " << options._target << endl;
   if (options._additive_gaussian_noise)
     stream << "# additive_gaussian_noise" << endl;
-  if (options._allow_stay)
-    stream << "# allow_stay" << endl;
+  if (options._allow_no_mutation)
+    stream << "# allow_no_mutation" << endl;
   if (options._bm_log_norm_infinite)
     stream << "# bm_log_norm_infinite" << endl;
   if (options._bm_log_norm_l1)
@@ -1433,8 +1433,8 @@ ostream& operator<<(ostream& stream, const Options& options)
     stream << "# negation" << endl;
   if (options._parsed_modifier)
     stream << "# parsed_modifier" << endl;
-  if (options._pn_allow_stay)
-    stream << "# pn_allow_stay" << endl;
+  if (options._pn_allow_no_mutation)
+    stream << "# pn_allow_no_mutation" << endl;
   if (options._print_defaults)
     stream << "# print_defaults" << endl;
   if (options._print_description)

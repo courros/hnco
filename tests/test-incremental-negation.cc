@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     OneMax f0(bv_size);
     Negation function(&f0);
 
-    BernoulliProcess neighborhood(bv_size);
+    StandardBitMutation neighborhood(bv_size);
     bit_vector_t bv(bv_size);
 
     bv_random(bv);

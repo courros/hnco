@@ -52,6 +52,8 @@ Library:
 - Removed RealMultivariateFunctionAdapter
 - Added template class MultivariateFunctionAdapter
 - ProgressTracker: added flag _record_evaluation_time
+- Renamed BernoulliProcess -> StandardBitMutation
+- Renamed _allow_stay -> _allow_no_mutation
 
 Tests:
 - Added test-population-evaluate-in-parallel
@@ -64,6 +66,8 @@ hnco:
 - Added integer multivariate function with number 181
 - Added complex multivariate function with number 182
 - Added option --record-evaluation-time
+- Renamed option --allow-stay -> --allow-no-mutation
+- Renamed option --pn-allow-stay -> --pn-allow-no-mutation
 
 ffgen:
 - Added arithmetic and geometric progressions for LinearFunction

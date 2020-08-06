@@ -209,15 +209,15 @@ public:
 };
 
 
-/** Bernoulli process.
+/** Standard bit mutation.
 
-    Each component of the origin bit vector is flipped with some
-    fixed probability. If no component has been flipped at the end,
-    the process is started all over again. Thus the number of
-    flipped bits follows a pseudo binomial law.
+    Each component of the origin bit vector is flipped with some fixed
+    probability. Unless stated otherwise, if no component has been
+    flipped at the end, the process is started all over again. Thus
+    the number of flipped bits follows a pseudo binomial law.
 
 */
-class BernoulliProcess:
+class StandardBitMutation:
     public MultiBitFlip {
 
   /// Bernoulli distribution (biased coin)
@@ -233,8 +233,8 @@ class BernoulliProcess:
    */
   ///@{
 
-  /// Allow stay
-  bool _allow_stay = false;
+  /// Allow no mutation
+  bool _allow_no_mutation = false;
 
   ///@}
 
@@ -252,7 +252,7 @@ public:
 
       The Bernoulli probability is set to 1 / n.
   */
-  BernoulliProcess(int n):
+  StandardBitMutation(int n):
     MultiBitFlip(n),
     _bernoulli_dist(1 / double(n)),
     _binomial_dist(n, 1 / double(n)) {}
@@ -262,7 +262,7 @@ public:
       \param n Size of bit vectors
       \param p Bernoulli probability
   */
-  BernoulliProcess(int n, double p):
+  StandardBitMutation(int n, double p):
     MultiBitFlip(n),
     _bernoulli_dist(p),
     _binomial_dist(n, p) {}
@@ -284,12 +284,8 @@ public:
    */
   ///@{
 
-  /** Set the flag _allow_stay.
-
-      In case no mutation occurs allow the current bit vector to
-      stay unchanged.
-  */
-  void set_allow_stay(bool x) { _allow_stay = x; }
+  /// Set the flag _allow_no_mutation
+  void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }
 
   ///@}
 

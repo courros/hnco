@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
   for (int i = 0; i < num_runs; i++) {
     int bv_size = dist(Generator::engine);
     OneMax function(bv_size);
-    BernoulliProcess neighborhood(bv_size);
+    StandardBitMutation neighborhood(bv_size);
     bit_vector_t bv(bv_size);
 
     bv_random(bv);

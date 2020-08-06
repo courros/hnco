@@ -60,7 +60,7 @@ protected:
   TournamentSelection _offsprings;
 
   /// Mutation operator
-  neighborhood::BernoulliProcess _mutation;
+  neighborhood::StandardBitMutation _mutation;
 
   /// Do crossover
   std::bernoulli_distribution _do_crossover;
@@ -81,8 +81,8 @@ protected:
   /// Tournament size
   int _tournament_size = 10;
 
-  /// Allow stay
-  bool _allow_stay = false;
+  /// Allow no mutation
+  bool _allow_no_mutation = false;
 
   ///@}
 
@@ -125,12 +125,8 @@ public:
   /// Set the tournament size
   void set_tournament_size(int x) { _tournament_size = x; }
 
-  /** Set the flag _allow_stay.
-
-      In case no mutation occurs allow the current bit vector to
-      stay unchanged.
-  */
-  void set_allow_stay(bool x) { _allow_stay = x; }
+  /// Set the flag _allow_no_mutation
+  void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }
 
   ///@}
 

@@ -49,7 +49,7 @@ protected:
   Population _offsprings;
 
   /// Mutation operator
-  neighborhood::BernoulliProcess _mutation;
+  neighborhood::StandardBitMutation _mutation;
 
   /// Select parent
   std::uniform_int_distribution<int> _select_parent;
@@ -61,8 +61,8 @@ protected:
   /// Mutation probability
   double _mutation_probability;
 
-  /// Allow stay
-  bool _allow_stay = false;
+  /// Allow no mutation
+  bool _allow_no_mutation = false;
 
   ///@}
 
@@ -101,12 +101,8 @@ public:
   /// Set the mutation probability
   void set_mutation_probability(double x) { _mutation_probability = x; }
 
-  /** Set the flag _allow_stay.
-
-      In case no mutation occurs allow the current bit vector to
-      stay unchanged.
-  */
-  void set_allow_stay(bool x) { _allow_stay = x; }
+  /// Set the flag _allow_no_mutation
+  void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }
 
   ///@}
 

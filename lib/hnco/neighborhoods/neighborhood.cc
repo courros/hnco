@@ -65,11 +65,11 @@ MultiBitFlip::reservoir_sampling(int k)
 
 
 void
-BernoulliProcess::sample_bits()
+StandardBitMutation::sample_bits()
 {
   if (_reservoir_sampling) {
     int k;
-    if (_allow_stay)
+    if (_allow_no_mutation)
       k = _binomial_dist(Generator::engine);
     else {
       k = 0;
@@ -84,7 +84,7 @@ BernoulliProcess::sample_bits()
 
 
 void
-BernoulliProcess::bernoulli_process()
+StandardBitMutation::bernoulli_process()
 {
   _flipped_bits.clear();
   bool again = true;
