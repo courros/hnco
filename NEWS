@@ -71,6 +71,7 @@ hnco:
 - Renamed option --allow-stay -> --allow-no-mutation
 - Renamed option --pn-allow-stay -> --pn-allow-no-mutation
 - Renamed option --mutation-probability -> --mutation-rate
+- Renamed option -r -> -l (learning rate)
 
 ffgen:
 - Added arithmetic and geometric progressions for LinearFunction

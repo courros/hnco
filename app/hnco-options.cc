@@ -409,7 +409,7 @@ Options::Options(int argc, char *argv[]):
     {"help-bm", no_argument, 0, OPTION_HELP_BM},
     {0, no_argument, 0, 0}
   };
-  const char *short_options = "A:b:s:t:F:r:M:m:N:i:p:x:y:";
+  const char *short_options = "A:b:s:t:F:l:M:m:N:i:p:x:y:";
   while (true) {
     int option = getopt_long(argc, argv, short_options, long_options, 0);
     if (option < 0)
@@ -532,7 +532,7 @@ Options::Options(int argc, char *argv[]):
       set_hea_weight(atof(optarg));
       break;
 
-    case 'r':
+    case 'l':
     case OPTION_LEARNING_RATE:
       set_learning_rate(atof(optarg));
       break;
@@ -1227,7 +1227,7 @@ void Options::print_help_eda(ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
   stream << "Estimation of Distribution Algorithms" << endl;
-  stream << "  -r, --learning-rate (type double, default to 0.001)" << endl;
+  stream << "  -l, --learning-rate (type double, default to 0.001)" << endl;
   stream << "          Learning rate" << endl;
   stream << "      --mmas-strict" << endl;
   stream << "          Strict (>) max-min ant system" << endl;

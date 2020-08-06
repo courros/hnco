@@ -71,7 +71,7 @@
         {
             "id": "pbil",
             "name": "PBIL",
-	    "opt": "-A 500 -r 5e-3"
+	    "opt": "-A 500 -l 5e-3"
         },
 
         {

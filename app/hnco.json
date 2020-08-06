@@ -1227,7 +1227,7 @@
 
         "learning_rate":
         {
-            "optchar": "r",
+            "optchar": "l",
             "type": "double",
             "value": 1e-3,
             "description": "Learning rate",
