@@ -54,6 +54,8 @@ Library:
 - ProgressTracker: added flag _record_evaluation_time
 - Renamed BernoulliProcess -> StandardBitMutation
 - Renamed _allow_stay -> _allow_no_mutation
+- Renamed members _mutation_probability -> _mutation_rate
+- Renamed member functions set_mutation_probability -> set_mutation_rate
 
 Tests:
 - Added test-population-evaluate-in-parallel
@@ -68,6 +70,7 @@ hnco:
 - Added option --record-evaluation-time
 - Renamed option --allow-stay -> --allow-no-mutation
 - Renamed option --pn-allow-stay -> --pn-allow-no-mutation
+- Renamed option --mutation-probability -> --mutation-rate
 
 ffgen:
 - Added arithmetic and geometric progressions for LinearFunction
