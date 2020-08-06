@@ -77,8 +77,8 @@ Options::Options(int argc, char *argv[]):
   _opt_map_ts_length(false),
   _map_ts_sampling_mode(0),
   _opt_map_ts_sampling_mode(false),
-  _mutation_probability(1),
-  _opt_mutation_probability(false),
+  _mutation_rate(1),
+  _opt_mutation_rate(false),
   _neighborhood(0),
   _opt_neighborhood(false),
   _neighborhood_iterator(0),
@@ -91,8 +91,8 @@ Options::Options(int argc, char *argv[]):
   _opt_num_threads(false),
   _path("function.txt"),
   _opt_path(false),
-  _pn_mutation_probability(1),
-  _opt_pn_mutation_probability(false),
+  _pn_mutation_rate(1),
+  _opt_pn_mutation_rate(false),
   _pn_neighborhood(0),
   _opt_pn_neighborhood(false),
   _pn_radius(2),
@@ -218,14 +218,14 @@ Options::Options(int argc, char *argv[]):
     OPTION_MAP_PATH,
     OPTION_MAP_TS_LENGTH,
     OPTION_MAP_TS_SAMPLING_MODE,
-    OPTION_MUTATION_PROBABILITY,
+    OPTION_MUTATION_RATE,
     OPTION_NEIGHBORHOOD,
     OPTION_NEIGHBORHOOD_ITERATOR,
     OPTION_NOISE_STDDEV,
     OPTION_NUM_ITERATIONS,
     OPTION_NUM_THREADS,
     OPTION_PATH,
-    OPTION_PN_MUTATION_PROBABILITY,
+    OPTION_PN_MUTATION_RATE,
     OPTION_PN_NEIGHBORHOOD,
     OPTION_PN_RADIUS,
     OPTION_POPULATION_SIZE,
@@ -325,14 +325,14 @@ Options::Options(int argc, char *argv[]):
     {"map-path", required_argument, 0, OPTION_MAP_PATH},
     {"map-ts-length", required_argument, 0, OPTION_MAP_TS_LENGTH},
     {"map-ts-sampling-mode", required_argument, 0, OPTION_MAP_TS_SAMPLING_MODE},
-    {"mutation-probability", required_argument, 0, OPTION_MUTATION_PROBABILITY},
+    {"mutation-rate", required_argument, 0, OPTION_MUTATION_RATE},
     {"neighborhood", required_argument, 0, OPTION_NEIGHBORHOOD},
     {"neighborhood-iterator", required_argument, 0, OPTION_NEIGHBORHOOD_ITERATOR},
     {"noise-stddev", required_argument, 0, OPTION_NOISE_STDDEV},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
     {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
     {"path", required_argument, 0, OPTION_PATH},
-    {"pn-mutation-probability", required_argument, 0, OPTION_PN_MUTATION_PROBABILITY},
+    {"pn-mutation-rate", required_argument, 0, OPTION_PN_MUTATION_RATE},
     {"pn-neighborhood", required_argument, 0, OPTION_PN_NEIGHBORHOOD},
     {"pn-radius", required_argument, 0, OPTION_PN_RADIUS},
     {"population-size", required_argument, 0, OPTION_POPULATION_SIZE},
@@ -559,8 +559,8 @@ Options::Options(int argc, char *argv[]):
       break;
 
     case 'm':
-    case OPTION_MUTATION_PROBABILITY:
-      set_mutation_probability(atof(optarg));
+    case OPTION_MUTATION_RATE:
+      set_mutation_rate(atof(optarg));
       break;
 
     case 'N':
@@ -590,8 +590,8 @@ Options::Options(int argc, char *argv[]):
       set_path(string(optarg));
       break;
 
-    case OPTION_PN_MUTATION_PROBABILITY:
-      set_pn_mutation_probability(atof(optarg));
+    case OPTION_PN_MUTATION_RATE:
+      set_pn_mutation_rate(atof(optarg));
       break;
 
     case OPTION_PN_NEIGHBORHOOD:
@@ -1057,8 +1057,8 @@ void Options::print_help(ostream& stream) const
   stream << "            1300: Parameter-less population pyramid (P3)" << endl;
   stream << "      --allow-no-mutation" << endl;
   stream << "          Allow no mutation with standard bit mutation" << endl;
-  stream << "  -m, --mutation-probability (type double, default to 1)" << endl;
-  stream << "          Mutation probability relative to bv_size" << endl;
+  stream << "  -m, --mutation-rate (type double, default to 1)" << endl;
+  stream << "          Mutation rate relative to bv_size" << endl;
   stream << "  -i, --num-iterations (type int, default to 0)" << endl;
   stream << "          Number of iterations (<= 0 means indefinite)" << endl;
   stream << "      --restart" << endl;
@@ -1108,8 +1108,8 @@ void Options::print_help_pn(ostream& stream) const
   stream << "Prior Noise" << endl;
   stream << "      --pn-allow-no-mutation" << endl;
   stream << "          Allow no mutation with standard bit mutation" << endl;
-  stream << "      --pn-mutation-probability (type double, default to 1)" << endl;
-  stream << "          Mutation probability relative to bv_size" << endl;
+  stream << "      --pn-mutation-rate (type double, default to 1)" << endl;
+  stream << "          Mutation rate relative to bv_size" << endl;
   stream << "      --pn-neighborhood (type int, default to 0)" << endl;
   stream << "          Type of neighborhood" << endl;
   stream << "            0: Single bit flip" << endl;
@@ -1350,14 +1350,14 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# map_path = " << options._map_path << endl;
   stream << "# map_ts_length = " << options._map_ts_length << endl;
   stream << "# map_ts_sampling_mode = " << options._map_ts_sampling_mode << endl;
-  stream << "# mutation_probability = " << options._mutation_probability << endl;
+  stream << "# mutation_rate = " << options._mutation_rate << endl;
   stream << "# neighborhood = " << options._neighborhood << endl;
   stream << "# neighborhood_iterator = " << options._neighborhood_iterator << endl;
   stream << "# noise_stddev = " << options._noise_stddev << endl;
   stream << "# num_iterations = " << options._num_iterations << endl;
   stream << "# num_threads = " << options._num_threads << endl;
   stream << "# path = " << options._path << endl;
-  stream << "# pn_mutation_probability = " << options._pn_mutation_probability << endl;
+  stream << "# pn_mutation_rate = " << options._pn_mutation_rate << endl;
   stream << "# pn_neighborhood = " << options._pn_neighborhood << endl;
   stream << "# pn_radius = " << options._pn_radius << endl;
   stream << "# population_size = " << options._population_size << endl;

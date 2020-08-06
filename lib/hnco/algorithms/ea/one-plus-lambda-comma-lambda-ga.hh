@@ -70,8 +70,8 @@ protected:
    */
   ///@{
 
-  /// Mutation probability
-  double _mutation_probability;
+  /// Mutation rate
+  double _mutation_rate;
 
   /// Crossover bias
   double _crossover_bias;
@@ -94,7 +94,7 @@ public:
 
   /** Constructor.
 
-      By default, _mutation_probability is set to lambda / n and
+      By default, _mutation_rate is set to lambda / n and
       _crossover_bias to 1 / lambda.
 
       \param n Size of bit vectors
@@ -110,7 +110,7 @@ public:
     assert(lambda > 0);
     assert(lambda <= n);
 
-    _mutation_probability = double(lambda) / double(n);
+    _mutation_rate = double(lambda) / double(n);
     _crossover_bias = 1 / double(lambda);
   }
 
@@ -118,8 +118,8 @@ public:
    */
   ///@{
 
-  /// Set the mutation probability
-  void set_mutation_probability(double x) { _mutation_probability = x; }
+  /// Set the mutation rate
+  void set_mutation_rate(double p) { _mutation_rate = p; }
 
   /// Set the crossover bias
   void set_crossover_bias(double x) { _crossover_bias = x; }

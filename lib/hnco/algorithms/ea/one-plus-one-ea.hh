@@ -58,8 +58,8 @@ namespace algorithm {
     /// Number of iterations
     int _num_iterations = 0;
 
-    /// Mutation probability
-    double _mutation_probability;
+    /// Mutation rate
+    double _mutation_rate;
 
     /// Allow no mutation
     bool _allow_no_mutation = false;
@@ -75,17 +75,17 @@ namespace algorithm {
 
         \param n Size of bit vectors
 
-        _mutation_probability is initialized to 1 / n.
+        _mutation_rate is initialized to 1 / n.
     */
     OnePlusOneEa(int n):
       Algorithm(n),
       _neighborhood(n),
       _rls(n, &_neighborhood),
-      _mutation_probability(1 / double(n)) {}
+      _mutation_rate(1 / double(n)) {}
 
     /// Maximize
     void maximize(const std::vector<function::Function *>& functions) override {
-      _neighborhood.set_probability(_mutation_probability);
+      _neighborhood.set_mutation_rate(_mutation_rate);
       _neighborhood.set_allow_no_mutation(_allow_no_mutation);
       _rls.set_num_iterations(_num_iterations);
       _rls.set_incremental_evaluation(_incremental_evaluation);
@@ -110,8 +110,8 @@ namespace algorithm {
         x <= 0 means indefinite */
     void set_num_iterations(int x) { _num_iterations = x; }
 
-    /// Set the mutation probability
-    void set_mutation_probability(double x) { _mutation_probability = x; }
+    /// Set the mutation rate
+    void set_mutation_rate(double p) { _mutation_rate = p; }
 
     /// Set the flag _allow_no_mutation
     void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }

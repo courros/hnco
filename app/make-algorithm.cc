@@ -42,7 +42,7 @@ make_neighborhood(const Options& options)
   case 1: {
     auto neighborhood = new StandardBitMutation
       (options.get_bv_size(),
-       options.get_mutation_probability() / options.get_bv_size());
+       options.get_mutation_rate() / options.get_bv_size());
     neighborhood->set_allow_no_mutation(options.with_allow_no_mutation());
     return neighborhood;
   }
@@ -177,7 +177,7 @@ make_concrete_algorithm(const Options& options)
     auto algo = new OnePlusOneEa(options.get_bv_size());
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
+    algo->set_mutation_rate(options.get_mutation_rate() / options.get_bv_size());
     algo->set_incremental_evaluation(options.with_incremental_evaluation());
     algo->set_allow_no_mutation(options.with_allow_no_mutation());
 
@@ -191,7 +191,7 @@ make_concrete_algorithm(const Options& options)
        options.get_ea_lambda());
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
+    algo->set_mutation_rate(options.get_mutation_rate() / options.get_bv_size());
     algo->set_allow_no_mutation(options.with_allow_no_mutation());
 
     return algo;
@@ -204,7 +204,7 @@ make_concrete_algorithm(const Options& options)
        options.get_ea_lambda());
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
+    algo->set_mutation_rate(options.get_mutation_rate() / options.get_bv_size());
     algo->set_allow_no_mutation(options.with_allow_no_mutation());
 
     return algo;
@@ -216,7 +216,7 @@ make_concrete_algorithm(const Options& options)
        options.get_ea_mu());
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
+    algo->set_mutation_rate(options.get_mutation_rate() / options.get_bv_size());
     algo->set_crossover_probability(options.get_ga_crossover_probability());
     algo->set_tournament_size(options.get_ga_tournament_size());
     algo->set_allow_no_mutation(options.with_allow_no_mutation());
@@ -230,7 +230,7 @@ make_concrete_algorithm(const Options& options)
        options.get_ea_mu());
 
     algo->set_num_iterations(options.get_num_iterations());
-    algo->set_mutation_probability(options.get_mutation_probability() / options.get_bv_size());
+    algo->set_mutation_rate(options.get_mutation_rate() / options.get_bv_size());
     algo->set_crossover_bias(options.get_ga_crossover_bias());
 
     return algo;

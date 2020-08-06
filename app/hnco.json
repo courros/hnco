@@ -739,11 +739,11 @@
         },
 
 
-        "pn_mutation_probability":
+        "pn_mutation_rate":
         {
             "type": "double",
             "value": 1.0,
-            "description": "Mutation probability relative to bv_size",
+            "description": "Mutation rate relative to bv_size",
             "section": "pn"
         },
 
@@ -1053,12 +1053,12 @@
             "section": "alg"
         },
 
-        "mutation_probability":
+        "mutation_rate":
         {
             "optchar": "m",
             "type": "double",
             "value": 1.0,
-            "description": "Mutation probability relative to bv_size",
+            "description": "Mutation rate relative to bv_size",
             "section": "alg"
         },
 

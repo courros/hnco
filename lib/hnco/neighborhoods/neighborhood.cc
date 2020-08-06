@@ -20,7 +20,7 @@
 
 #include <assert.h>
 
-#include <algorithm>            // find, is_sorted
+#include <algorithm>            // std::find
 
 #include "neighborhood.hh"
 
@@ -49,15 +49,14 @@ MultiBitFlip::bernoulli_trials(int k)
 
 
 void
-MultiBitFlip::reservoir_sampling(int k)
+MultiBitFlip::rejection_sampling(int k)
 {
   _flipped_bits.clear();
   for (int i = 0; i < k; i++) {
     int index;
     do {
       index = _index_dist(Generator::engine);
-    } while (find(begin(_flipped_bits),
-                  end(_flipped_bits), index) != _flipped_bits.end());
+    } while (std::find(begin(_flipped_bits), end(_flipped_bits), index) != _flipped_bits.end());
     _flipped_bits.push_back(index);
   }
   std::sort(begin(_flipped_bits), end(_flipped_bits));
@@ -67,7 +66,7 @@ MultiBitFlip::reservoir_sampling(int k)
 void
 StandardBitMutation::sample_bits()
 {
-  if (_reservoir_sampling) {
+  if (_rejection_sampling) {
     int k;
     if (_allow_no_mutation)
       k = _binomial_dist(Generator::engine);
@@ -77,7 +76,7 @@ StandardBitMutation::sample_bits()
         k = _binomial_dist(Generator::engine);
       assert(k > 0);
     }
-    reservoir_sampling(k);
+    rejection_sampling(k);
   } else
     bernoulli_process();
 }
@@ -107,7 +106,7 @@ HammingBall::sample_bits()
   assert(k <= n);
 
   if (k < std::sqrt(n))
-    reservoir_sampling(k);
+    rejection_sampling(k);
   else
     bernoulli_trials(k);
 }
@@ -117,7 +116,7 @@ void
 HammingSphere::sample_bits()
 {
   if (_radius < std::sqrt(_candidate.size()))
-    reservoir_sampling(_radius);
+    rejection_sampling(_radius);
   else
     bernoulli_trials(_radius);
 }

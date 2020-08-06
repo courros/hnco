@@ -191,11 +191,11 @@ protected:
   */
   void bernoulli_trials(int k);
 
-  /** Sample a given number of bits using resevoir sampling.
+  /** Sample a given number of bits using rejection sampling.
 
       \param k Number of bits to sample
   */
-  void reservoir_sampling(int k);
+  void rejection_sampling(int k);
 
 public:
 
@@ -226,8 +226,8 @@ class StandardBitMutation:
   /// Binomial distribution
   std::binomial_distribution<int> _binomial_dist;
 
-  /// Reservoir sampling
-  bool _reservoir_sampling = false;
+  /// Rejection sampling
+  bool _rejection_sampling = false;
 
   /** @name Parameters
    */
@@ -267,20 +267,20 @@ public:
     _bernoulli_dist(p),
     _binomial_dist(n, p) {}
 
-  /** Set probability.
+  /** Set mutation rate.
 
-      Sets _reservoir_sampling to true if E(X) < sqrt(n), where X is
+      Sets _rejection_sampling to true if E(X) < sqrt(n), where X is
       a random variable with a binomial distribution B(n, p), that
       is if np < sqrt(n) or p < 1 / sqrt(n).
   */
-  void set_probability(double p) {
+  void set_mutation_rate(double p) {
     _bernoulli_dist = std::bernoulli_distribution(p);
     _binomial_dist = std::binomial_distribution<int>(_origin.size(), p);
     if (p < 1 / std::sqrt(_origin.size()))
-      _reservoir_sampling = true;
+      _rejection_sampling = true;
   }
 
-  /** @name Parameters
+  /** @name Setters
    */
   ///@{
 

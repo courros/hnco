@@ -30,7 +30,7 @@ using namespace hnco;
 void
 GeneticAlgorithm::init()
 {
-  _mutation.set_probability(_mutation_probability);
+  _mutation.set_mutation_rate(_mutation_rate);
   _mutation.set_allow_no_mutation(_allow_no_mutation);
 
   _do_crossover = std::bernoulli_distribution(_crossover_probability);

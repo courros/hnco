@@ -58,8 +58,8 @@ protected:
    */
   ///@{
 
-  /// Mutation probability
-  double _mutation_probability;
+  /// Mutation rate
+  double _mutation_rate;
 
   /// Allow no mutation
   bool _allow_no_mutation = false;
@@ -92,14 +92,14 @@ public:
     _offsprings(lambda, n),
     _mutation(n),
     _select_parent(0, mu - 1),
-    _mutation_probability(1 / double(n)) {};
+    _mutation_rate(1 / double(n)) {};
 
   /** @name Setters
    */
   ///@{
 
-  /// Set the mutation probability
-  void set_mutation_probability(double x) { _mutation_probability = x; }
+  /// Set the mutation rate
+  void set_mutation_rate(double p) { _mutation_rate = p; }
 
   /// Set the flag _allow_no_mutation
   void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }

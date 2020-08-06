@@ -149,9 +149,9 @@ class Options {
   int _map_ts_sampling_mode;
   bool _opt_map_ts_sampling_mode;
 
-  /// Mutation probability relative to bv_size
-  double _mutation_probability;
-  bool _opt_mutation_probability;
+  /// Mutation rate relative to bv_size
+  double _mutation_rate;
+  bool _opt_mutation_rate;
 
   /// Type of neighborhood
   int _neighborhood;
@@ -177,9 +177,9 @@ class Options {
   std::string _path;
   bool _opt_path;
 
-  /// Mutation probability relative to bv_size
-  double _pn_mutation_probability;
-  bool _opt_pn_mutation_probability;
+  /// Mutation rate relative to bv_size
+  double _pn_mutation_rate;
+  bool _opt_pn_mutation_rate;
 
   /// Type of neighborhood
   int _pn_neighborhood;
@@ -831,17 +831,17 @@ public:
   /// Get set-flag for map_ts_sampling_mode
   bool set_map_ts_sampling_mode() const { return _opt_map_ts_sampling_mode; }
 
-  /// Get mutation_probability
-  double get_mutation_probability() const { return _mutation_probability; }
+  /// Get mutation_rate
+  double get_mutation_rate() const { return _mutation_rate; }
 
-  /// Set mutation_probability
-  void set_mutation_probability(double x) {
-    _mutation_probability = x;
-    _opt_mutation_probability = true;
+  /// Set mutation_rate
+  void set_mutation_rate(double x) {
+    _mutation_rate = x;
+    _opt_mutation_rate = true;
   }
 
-  /// Get set-flag for mutation_probability
-  bool set_mutation_probability() const { return _opt_mutation_probability; }
+  /// Get set-flag for mutation_rate
+  bool set_mutation_rate() const { return _opt_mutation_rate; }
 
   /// Get neighborhood
   int get_neighborhood() const { return _neighborhood; }
@@ -915,17 +915,17 @@ public:
   /// Get set-flag for path
   bool set_path() const { return _opt_path; }
 
-  /// Get pn_mutation_probability
-  double get_pn_mutation_probability() const { return _pn_mutation_probability; }
+  /// Get pn_mutation_rate
+  double get_pn_mutation_rate() const { return _pn_mutation_rate; }
 
-  /// Set pn_mutation_probability
-  void set_pn_mutation_probability(double x) {
-    _pn_mutation_probability = x;
-    _opt_pn_mutation_probability = true;
+  /// Set pn_mutation_rate
+  void set_pn_mutation_rate(double x) {
+    _pn_mutation_rate = x;
+    _opt_pn_mutation_rate = true;
   }
 
-  /// Get set-flag for pn_mutation_probability
-  bool set_pn_mutation_probability() const { return _opt_pn_mutation_probability; }
+  /// Get set-flag for pn_mutation_rate
+  bool set_pn_mutation_rate() const { return _opt_pn_mutation_rate; }
 
   /// Get pn_neighborhood
   int get_pn_neighborhood() const { return _pn_neighborhood; }

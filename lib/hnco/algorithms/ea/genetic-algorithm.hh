@@ -72,8 +72,8 @@ protected:
    */
   ///@{
 
-  /// Mutation probability
-  double _mutation_probability;
+  /// Mutation rate
+  double _mutation_rate;
 
   /// Crossover probability
   double _crossover_probability = 0.5;
@@ -110,14 +110,14 @@ public:
     _parents(mu, n),
     _offsprings(mu, n),
     _mutation(n),
-    _mutation_probability(1 / double(n)) {}
+    _mutation_rate(1 / double(n)) {}
 
   /** @name Setters
    */
   ///@{
 
-  /// Set the mutation probability
-  void set_mutation_probability(double x) { _mutation_probability = x; }
+  /// Set the mutation rate
+  void set_mutation_rate(double p) { _mutation_rate = p; }
 
   /// Set the crossover probability
   void set_crossover_probability(double x) { _crossover_probability = x; }
