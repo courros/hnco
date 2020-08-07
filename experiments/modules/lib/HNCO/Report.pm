@@ -89,8 +89,9 @@ sub latex_begin_figure
 
 sub latex_includegraphics
 {
-    my ($path) = @_;
-    return "\\includegraphics[width=\\linewidth]{$path}\n";
+    my ($path, $width) = @_;
+    $width //= 1;
+    return "\\includegraphics[width=$width\\linewidth]{$path}\n";
 }
 
 sub latex_caption
