@@ -719,15 +719,13 @@ sub generate_latex
         print LATEX latex_input_file("table-time-$function_id.tex");
         print LATEX latex_end_center();
 
-        print LATEX latex_begin_figure();
-        print LATEX latex_includegraphics("$function_id");
-        print LATEX latex_caption("$function_id");
-        print LATEX latex_end_figure();
+        print LATEX latex_begin_center();
+        print LATEX latex_includegraphics("$function_id", 0.6);
+        print LATEX latex_end_center();
 
-        print LATEX latex_begin_figure();
-        print LATEX latex_includegraphics("$function_id+all");
-        print LATEX latex_caption("$function_id");
-        print LATEX latex_end_figure();
+        print LATEX latex_begin_center();
+        print LATEX latex_includegraphics("$function_id+all", 0.6);
+        print LATEX latex_end_center();
     }
 
     close LATEX;

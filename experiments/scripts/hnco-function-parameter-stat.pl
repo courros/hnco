@@ -476,7 +476,7 @@ sub generate_latex
             my $algorithm_id = $a->{id};
 
             print LATEX latex_begin_center();
-            print LATEX latex_includegraphics("$function_id/$algorithm_id");
+            print LATEX latex_includegraphics("$function_id/$algorithm_id", 0.6);
             print LATEX latex_end_center();
 
         }

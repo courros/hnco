@@ -433,7 +433,6 @@ sub generate_latex
         my $total_time = $stat_total_time->{$function_id};
 
         print LATEX latex_newpage();
-
         print LATEX latex_section("Function $function_id");
 
         print LATEX latex_begin_center();
@@ -441,15 +440,8 @@ sub generate_latex
         print LATEX latex_end_center();
 
         print LATEX latex_begin_center();
-        print LATEX latex_input_file("table-time-$function_id.tex");
+        print LATEX latex_includegraphics("$function_id", 0.8);
         print LATEX latex_end_center();
-
-        print LATEX latex_begin_figure();
-        print LATEX latex_begin_center();
-        print LATEX latex_includegraphics("$function_id");
-        print LATEX latex_caption("$function_id");
-        print LATEX latex_end_center();
-        print LATEX latex_end_figure();
 
     }
 

@@ -639,18 +639,18 @@ sub generate_latex
         print LATEX latex_end_center();
 
         print LATEX latex_begin_center();
-        print LATEX latex_includegraphics("$function_id/mean");
+        print LATEX latex_includegraphics("$function_id/mean", 0.6);
         print LATEX latex_end_center();
 
         print LATEX latex_begin_center();
-        print LATEX latex_includegraphics("$function_id/stddev");
+        print LATEX latex_includegraphics("$function_id/stddev", 0.6);
         print LATEX latex_end_center();
 
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
 
             print LATEX latex_begin_center();
-            print LATEX latex_includegraphics("$function_id/$algorithm_id");
+            print LATEX latex_includegraphics("$function_id/$algorithm_id", 0.6);
             print LATEX latex_end_center();
 
         }
