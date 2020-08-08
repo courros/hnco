@@ -1,4 +1,11 @@
-* Version 0.15 (unreleased)
+* Version 0.15 (2020-08-08)
+
+Highlight:
+- Better names
+- Simpler interface for Algorithm
+- More consistent function interfaces
+- New functions: integer and complex multivariate functions
+- New tests (4)
 
 Library:
 - Renamed point_value_t -> solution_t
