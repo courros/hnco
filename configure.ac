@@ -17,7 +17,7 @@
 # <http://www.gnu.org/licenses/>.
 
 # Prelude.
-AC_INIT([hnco], [0.15])
+AC_INIT([hnco], [0.16])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([app/hnco.cc])
 
