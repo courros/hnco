@@ -292,6 +292,7 @@ sub generate_gnuplot_mean
         qq(set xlabel "$parameter_name"\n),
         qq(set ylabel "Mean value"\n),
         "set key bottom right box opaque\n",
+        qq(set key font ",10" reverse Left outside right center box vertical\n),
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
@@ -318,8 +319,7 @@ sub generate_gnuplot_mean
 
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
-        my $quoted_string = qq("$function_name: Mean value as a function of $parameter_name");
-        print MEAN "set title $quoted_string\n";
+        print MEAN qq(set title "$function_name: Mean value as a function of $parameter_name"\n);
         if ($f->{logscale}) {
             my $fmt = qq("10^{\%T}");
             print MEAN
@@ -331,32 +331,29 @@ sub generate_gnuplot_mean
                 "set format y\n";
         }
 
-        $quoted_string = qq("$path_graphics/$function_id/mean.pdf");
         print MEAN
             "$terminal{pdf} $font\n",
-            "set output $quoted_string\n";
+            qq(set output "$path_graphics/$function_id/mean.pdf"\n);
 
         print MEAN "plot \\\n";
         print MEAN
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $quoted_title = qq("$algorithm_id");
-                my $quoted_path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
-                "  $quoted_path using 1:2 with l lw 2 title $quoted_title";
+                my $title = qq("$algorithm_id");
+                my $path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
+                "  $path using 1:2 with lp ps 0.5 title $title";
              } @$algorithms);
         print MEAN "\n";
 
-        $quoted_string = qq("$path_graphics/$function_id/mean.eps");
         print MEAN
             "$terminal{eps} $font\n",
-            "set output $quoted_string\n",
+            qq(set output "$path_graphics/$function_id/mean.eps"\n),
             "replot\n";
 
-        $quoted_string = qq("$path_graphics/$function_id/mean.png");
         print MEAN
             "$terminal{png} $font\n",
-            "set output $quoted_string\n",
+            qq(set output "$path_graphics/$function_id/mean.png"\n),
             "replot\n\n";
 
     }
