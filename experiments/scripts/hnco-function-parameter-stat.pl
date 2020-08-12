@@ -291,7 +291,6 @@ sub generate_gnuplot_mean
         "set grid\n",
         qq(set xlabel "$parameter_name"\n),
         qq(set ylabel "Mean value"\n),
-        "set key bottom right box opaque\n",
         qq(set key font ",10" reverse Left outside right center box vertical\n),
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -375,7 +374,6 @@ sub generate_gnuplot_stddev
         "set grid\n",
         qq(set xlabel "$parameter_name"\n),
         qq(set ylabel "Standard deviation"\n),
-        "set key bottom right box opaque\n",
         qq(set key font ",10" reverse Left outside right center box vertical\n),
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
