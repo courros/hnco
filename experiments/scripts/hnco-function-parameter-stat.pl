@@ -319,7 +319,10 @@ sub generate_gnuplot_mean
 
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
-        print MEAN qq(set title "$function_name: Mean value as a function of $parameter_name"\n);
+        if ($graphics->{mean}->{title}) {
+            print MEAN qq(set title "$function_name: Mean value as a function of $parameter_name"\n);
+        }
+
         if ($f->{logscale}) {
             my $fmt = qq("10^{\%T}");
             print MEAN
@@ -371,8 +374,9 @@ sub generate_gnuplot_stddev
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         qq(set xlabel "$parameter_name"\n),
-        qq(set ylabel "Standard deviation of value"\n),
+        qq(set ylabel "Standard deviation"\n),
         "set key bottom right box opaque\n",
+        qq(set key font ",10" reverse Left outside right center box vertical\n),
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
@@ -397,6 +401,13 @@ sub generate_gnuplot_stddev
         my $function_id = $f->{id};
         my $function_name = $f->{name};
 
+        unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
+
+
+        if ($graphics->{stddev}->{title}) {
+            print STDDEV qq(set title "$function_name: standard deviation value as a function of $parameter_name"\n);
+        }
+
         if ($f->{logscale}) {
             my $fmt = qq("10^{\%T}");
             print STDDEV
@@ -408,38 +419,29 @@ sub generate_gnuplot_stddev
                 "set format y\n";
         }
 
-        unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
-
-        my $quoted_string = qq("$path_graphics/$function_id/stddev.pdf");
         print STDDEV
             "$terminal{pdf} $font\n",
-            "set output $quoted_string\n";
-
-        $quoted_string = qq("$function_name: Standard deviation of value as a function of $parameter_name");
-        print STDDEV
-            "set title $quoted_string\n";
+            qq(set output "$path_graphics/$function_id/stddev.pdf"\n);
 
         print STDDEV "plot \\\n";
         print STDDEV
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $quoted_title = qq("$algorithm_id");
-                my $quoted_path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
-                "  $quoted_path using 1:3 with l lw 2 title $quoted_title";
+                my $title = qq("$algorithm_id");
+                my $path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
+                "  $path using 1:3 with lp ps 0.5 title $title";
              } @$algorithms);
         print STDDEV "\n";
 
-        $quoted_string = qq("$path_graphics/$function_id/stddev.eps");
         print STDDEV
             "$terminal{eps} $font\n",
-            "set output $quoted_string\n",
+            qq(set output "$path_graphics/$function_id/stddev.eps"\n),
             "replot\n";
 
-        $quoted_string = qq("$path_graphics/$function_id/stddev.png");
         print STDDEV
             "$terminal{png} $font\n",
-            "set output $quoted_string\n",
+            qq(set output "$path_graphics/$function_id/stddev.png"\n),
             "replot\n\n";
 
     }
