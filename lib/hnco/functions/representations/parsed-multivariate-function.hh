@@ -28,8 +28,9 @@
 #include <sstream>
 #include <string>
 
-#include "fparser/fparser.hh"
+#include "hnco/util.hh"
 
+#include "fparser/fparser.hh"
 
 namespace hnco {
 namespace function {
@@ -54,7 +55,11 @@ class ParsedMultivariateFunction
   /// Variable names
   std::vector<std::string> _variable_names;
 
+  /// Expression
+  std::string _expression;
+
 public:
+
   /// Domain type
   typedef T domain_type;
 
@@ -66,24 +71,24 @@ public:
       \param expression Expression to parse
   */
   ParsedMultivariateFunction(std::string expression)
+    : _expression(expression)
   {
-    int position = _fparser.ParseAndDeduceVariables(expression, _variable_names);
+    int position = _fparser.ParseAndDeduceVariables(_expression, _variable_names);
     if (position != -1) {
       std::ostringstream stream;
       stream
         << "ParsedMultivariateFunction::ParsedMultivariateFunction: " << _fparser.ErrorMsg()
         << " at position: " << position
-        << " in expression: " << expression;
+        << " in _expression: " << _expression;
       throw exception::Error(stream.str());
     }
     _fparser.Optimize();
   }
 
-  /// Get the number of variables
-  int get_num_variables() { return _variable_names.size(); }
-
-  /// Get the variable names
-  const std::vector<std::string> get_variable_names() { return _variable_names; }
+  /// Display the problem
+  void display(std::ostream& stream) {
+    stream << "Expression: f(" << join(begin(_variable_names), end(_variable_names), ", ") << ") = " << _expression << std::endl;
+  }
 
   /// Evaluate
   T evaluate(const std::vector<T>& x) { return _fparser.Eval(x.data()); }
@@ -94,6 +99,9 @@ public:
     for (std::size_t i = 0; i < x.size(); i++)
       stream << _variable_names[i] << " = " << x[i] << std::endl;
   }
+
+  /// Get the number of variables
+  int get_num_variables() { return _variable_names.size(); }
 
 };
 
