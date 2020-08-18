@@ -307,6 +307,9 @@ class LinearCodeCategoricalRepresentation {
 
 public:
 
+  /// Domain type
+  typedef std::size_t domain_type;
+
   /** Constructor.
 
       \param num_categories Number of categories
@@ -361,7 +364,7 @@ public:
   int size() { return _ncols; }
 
   /// Unpack bit vector into a category
-  std::size_t unpack(const bit_vector_t& bv, int start) {
+  domain_type unpack(const bit_vector_t& bv, int start) {
     assert(hnco::is_in_range(start, bv.size()));
     const int stop = start + size();
     assert(hnco::is_in_range(stop, start + 1, bv.size() + 1));
