@@ -139,6 +139,18 @@ void bm_add_rows(bit_matrix_t& M, int dest, int src);
 */
 void bm_add_columns(bit_matrix_t& M, int dest, int src);
 
+/** Set column.
+
+    Set a column to a given bit vector.
+
+    \param M Bit matrix
+    \param j Column index
+    \param bv Bit vector
+
+    \pre bm_num_rows(M) == bv.size()
+*/
+void bm_set_column(bit_matrix_t& M, int j, const bit_vector_t& bv);
+
 
 /** Compute a row echelon form of a matrix.
 
