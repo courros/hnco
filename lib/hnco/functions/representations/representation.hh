@@ -27,9 +27,12 @@
 #include <iostream>             // std::ostream
 #include <cmath>                // std::log, std::ceil
 #include <complex>              // std::complex
+#include <bitset>               // std::bitset
 
 #include "hnco/util.hh"         // hnco::is_in_range
 #include "hnco/bit-vector.hh"
+#include "hnco/bit-matrix.hh"
+#include "hnco/iterator.hh"
 
 
 namespace hnco {
@@ -294,6 +297,100 @@ public:
 
 };
 
+/// Linear code categorical representation
+class LinearCodeCategoricalRepresentation {
+
+  /// Number of categories
+  int _num_categories;
+
+  /// Number of rows
+  int _nrows;
+
+  /// Number of columns
+  int _ncols;
+
+  /// Linear code as a bit matrix
+  bit_matrix_t _A;
+
+  /// Output category
+  bit_vector_t _y;
+
+  /// Input bit vector
+  bit_vector_t _x;
+
+public:
+
+  /** Constructor.
+
+      \param num_categories Number of categories
+  */
+  LinearCodeCategoricalRepresentation(int num_categories)
+    : _num_categories(num_categories)
+  {
+    assert(num_categories > 0);
+    std::bitset<8 * sizeof(unsigned)> b(num_categories);
+
+    // Most significant bit
+    size_t index = b.size();
+    while (index > 0) {
+      index--;
+      if (b.test(index))
+        break;
+    }
+    assert(index < b.size());
+
+    // Not a power of 2
+    if (b.count() != 1) {
+      index++;
+      assert(index < b.size());
+      b.reset();
+      b.set(index);
+    }
+
+    // Set the dimensions of matrix _A, vector _x, and vector _y
+    _nrows = index;
+    _ncols = b.to_ulong();
+    _ncols--;
+    assert(_ncols > 0);
+    _A = bm_rectangular(_nrows, _ncols);
+    _x = bit_vector_t(_ncols);
+    _y = bit_vector_t(_nrows);
+
+    // Fill matrix _A
+    HypercubeIterator iterator(_nrows);
+    assert(iterator.has_next());
+    _y = iterator.next();
+    assert(bv_is_zero(_y));
+    int j = 0;
+    while (iterator.has_next()) {
+      _y = iterator.next();
+      assert(j < _ncols);
+      bm_set_column(_A, j, _y);
+      j++;
+    }
+  }
+
+  /// Size of the representation
+  int size() { return _ncols; }
+
+  /// Unpack bit vector into a category
+  std::size_t unpack(const bit_vector_t& bv, int start) {
+    assert(hnco::is_in_range(start, bv.size()));
+    const int stop = start + size();
+    assert(hnco::is_in_range(stop, start + 1, bv.size() + 1));
+    for (int src = start, dest = 0; src < stop; src++, dest++)
+      _x[dest] = bv[src];
+    bm_multiply(_y, _A, _x);
+    assert(_num_categories > 0);
+    return bv_to_size_type(_y) % std::size_t(_num_categories);
+  }
+
+  /// Display
+  void display(std::ostream& stream) {
+    bm_display(_A, stream);
+  }
+
+};
 
 } // end of namespace representation
 } // end of namespace function
