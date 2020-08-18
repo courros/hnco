@@ -279,7 +279,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/multivariate-function.hh \
+	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/theory.cc hnco/functions/theory.hh \
 	hnco/functions/trap.cc hnco/functions/trap.hh \
@@ -577,7 +577,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/qubo.hh hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/multivariate-function.hh \
+	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/theory.hh hnco/functions/trap.hh \
 	hnco/functions/walsh-term.hh hnco/functions/walsh/all.hh \
@@ -859,7 +859,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/multivariate-function.hh \
+	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/theory.cc hnco/functions/theory.hh \
 	hnco/functions/trap.cc hnco/functions/trap.hh \
@@ -946,7 +946,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/qubo.hh hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/multivariate-function.hh \
+	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/theory.hh hnco/functions/trap.hh \
 	hnco/functions/walsh-term.hh hnco/functions/walsh/all.hh \
