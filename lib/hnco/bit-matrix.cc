@@ -207,7 +207,7 @@ void hnco::bm_set_column(bit_matrix_t& M, int j, const bit_vector_t& bv)
   const int nrows = bm_num_rows(M);
 
   for (int i = 0; i < nrows; i++)
-    M[i][j] = bv[j];
+    M[i][j] = bv[i];
 }
 
 void hnco::bm_row_echelon_form(bit_matrix_t& A)
