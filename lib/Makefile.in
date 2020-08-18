@@ -281,6 +281,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/representations/multivariate-function-adapter.hh \
 	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
+	hnco/functions/representations/sudoku.cc \
+	hnco/functions/representations/sudoku.hh \
 	hnco/functions/theory.cc hnco/functions/theory.hh \
 	hnco/functions/trap.cc hnco/functions/trap.hh \
 	hnco/functions/walsh-term.hh hnco/functions/walsh/all.hh \
@@ -356,8 +358,9 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/functions/modifiers/parsed-modifier.lo \
 	hnco/functions/modifiers/prior-noise.lo \
 	hnco/functions/nk-landscape.lo hnco/functions/partition.lo \
-	hnco/functions/qubo.lo hnco/functions/theory.lo \
-	hnco/functions/trap.lo \
+	hnco/functions/qubo.lo \
+	hnco/functions/representations/sudoku.lo \
+	hnco/functions/theory.lo hnco/functions/trap.lo \
 	hnco/functions/walsh/walsh-expansion-1.lo \
 	hnco/functions/walsh/walsh-expansion-2.lo \
 	hnco/functions/walsh/walsh-expansion.lo hnco/iterator.lo \
@@ -462,6 +465,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/modifier.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo \
+	hnco/functions/representations/$(DEPDIR)/sudoku.Plo \
 	hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo \
 	hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo \
 	hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo \
@@ -579,6 +583,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/representations/multivariate-function-adapter.hh \
 	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
+	hnco/functions/representations/sudoku.hh \
 	hnco/functions/theory.hh hnco/functions/trap.hh \
 	hnco/functions/walsh-term.hh hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
@@ -861,6 +866,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/representations/multivariate-function-adapter.hh \
 	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
+	hnco/functions/representations/sudoku.cc \
+	hnco/functions/representations/sudoku.hh \
 	hnco/functions/theory.cc hnco/functions/theory.hh \
 	hnco/functions/trap.cc hnco/functions/trap.hh \
 	hnco/functions/walsh-term.hh hnco/functions/walsh/all.hh \
@@ -948,6 +955,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/representations/multivariate-function-adapter.hh \
 	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
+	hnco/functions/representations/sudoku.hh \
 	hnco/functions/theory.hh hnco/functions/trap.hh \
 	hnco/functions/walsh-term.hh hnco/functions/walsh/all.hh \
 	hnco/functions/walsh/walsh-expansion-1.hh \
@@ -1281,6 +1289,15 @@ hnco/functions/partition.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/qubo.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/representations/$(am__dirstamp):
+	@$(MKDIR_P) hnco/functions/representations
+	@: > hnco/functions/representations/$(am__dirstamp)
+hnco/functions/representations/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/functions/representations/$(DEPDIR)
+	@: > hnco/functions/representations/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/representations/sudoku.lo:  \
+	hnco/functions/representations/$(am__dirstamp) \
+	hnco/functions/representations/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/theory.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/trap.lo: hnco/functions/$(am__dirstamp) \
@@ -1371,6 +1388,8 @@ mostlyclean-compile:
 	-rm -f hnco/functions/ising/*.lo
 	-rm -f hnco/functions/modifiers/*.$(OBJEXT)
 	-rm -f hnco/functions/modifiers/*.lo
+	-rm -f hnco/functions/representations/*.$(OBJEXT)
+	-rm -f hnco/functions/representations/*.lo
 	-rm -f hnco/functions/walsh/*.$(OBJEXT)
 	-rm -f hnco/functions/walsh/*.lo
 	-rm -f hnco/logging/*.$(OBJEXT)
@@ -1459,6 +1478,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/modifier.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/representations/$(DEPDIR)/sudoku.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo@am__quote@ # am--include-marker
@@ -1540,6 +1560,7 @@ clean-libtool:
 	-rm -rf hnco/functions/controllers/.libs hnco/functions/controllers/_libs
 	-rm -rf hnco/functions/ising/.libs hnco/functions/ising/_libs
 	-rm -rf hnco/functions/modifiers/.libs hnco/functions/modifiers/_libs
+	-rm -rf hnco/functions/representations/.libs hnco/functions/representations/_libs
 	-rm -rf hnco/functions/walsh/.libs hnco/functions/walsh/_libs
 	-rm -rf hnco/logging/.libs hnco/logging/_libs
 	-rm -rf hnco/neighborhoods/.libs hnco/neighborhoods/_libs
@@ -1716,6 +1737,8 @@ distclean-generic:
 	-rm -f hnco/functions/ising/$(am__dirstamp)
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/modifiers/$(am__dirstamp)
+	-rm -f hnco/functions/representations/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/functions/representations/$(am__dirstamp)
 	-rm -f hnco/functions/walsh/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/walsh/$(am__dirstamp)
 	-rm -f hnco/logging/$(DEPDIR)/$(am__dirstamp)
@@ -1810,6 +1833,7 @@ distclean: distclean-am
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo
+	-rm -f hnco/functions/representations/$(DEPDIR)/sudoku.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo
@@ -1939,6 +1963,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo
+	-rm -f hnco/functions/representations/$(DEPDIR)/sudoku.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-1.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion-2.Plo
 	-rm -f hnco/functions/walsh/$(DEPDIR)/walsh-expansion.Plo
