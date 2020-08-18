@@ -140,9 +140,7 @@ public:
   /// Describe a bit vector
   void describe(const bit_vector_t& bv, std::ostream& stream) override {
     unpack(bv);
-    for (size_t i = 0; i < _variables.size(); i++)
-      stream << _variables[i] << " ";
-    stream << std::endl;
+    _function->describe(_variables, stream);
   }
 
   ///@}
