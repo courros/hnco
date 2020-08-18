@@ -33,26 +33,6 @@ namespace hnco {
 namespace function {
 namespace representation {
 
-
-/// Multivariate function
-template<class T>
-class MultivariateFunction {
-public:
-
-  /// Type of value
-  typedef T value_type;
-
-  /// Destructor
-  virtual ~MultivariateFunction() {}
-
-  /// Get the number of variables
-  virtual int get_num_variables() = 0;
-
-  /// Evaluate
-  virtual T evaluate(const std::vector<value_type>& x) = 0;
-};
-
-
 /** Parsed multivariate function.
 
     Uses the C++ library "Function Parser" (fparser):
@@ -63,8 +43,8 @@ public:
 
 */
 template<class Parser, class T>
-class ParsedMultivariateFunction:
-    public MultivariateFunction<T> {
+class ParsedMultivariateFunction
+{
 
   /// Function parser
   Parser _fparser;
@@ -73,6 +53,11 @@ class ParsedMultivariateFunction:
   int _num_variables = 0;
 
 public:
+  /// Domain type
+  typedef T domain_type;
+
+  /// Codomain type
+  typedef T codomain_type;
 
   /** Constructor.
 

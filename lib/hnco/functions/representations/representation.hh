@@ -55,11 +55,8 @@ class DyadicRealRepresentation {
 
 public:
 
-  /// Type of represented value
-  typedef T value_type;
-
-  /// Cast a T value to a double
-  static double to_double(T x) { return x; };
+  /// Domain type
+  typedef T domain_type;
 
   /** Constructor.
 
@@ -86,7 +83,7 @@ public:
   int size() { return _lengths.size(); }
 
   /// Unpack bit vector into a value
-  value_type unpack(const bit_vector_t& bv, int start) {
+  domain_type unpack(const bit_vector_t& bv, int start) {
     assert(hnco::is_in_range(start, bv.size()));
 
     int stop = start + size();
@@ -124,15 +121,8 @@ class DyadicComplexRepresentation {
 
 public:
 
-  /// Type of represented value
-  typedef std::complex<T> value_type;
-
-  /** Cast a complex value to a double.
-
-      \param z Complex number
-      \return the squared magnitude of z
-  */
-  static double to_double(value_type z) { return std::norm(z); };
+  /// Domain type
+  typedef std::complex<T> domain_type;
 
   /** Constructor.
 
@@ -152,7 +142,7 @@ public:
   int size() { return _real_part.size() + _imaginary_part.size(); }
 
   /// Unpack bit vector into a value
-  value_type unpack(const bit_vector_t& bv, int start) {
+  domain_type unpack(const bit_vector_t& bv, int start) {
     assert(hnco::is_in_range(start, bv.size()));
     T re = _real_part.unpack(bv, start);
     start += _real_part.size();
@@ -230,11 +220,8 @@ class DyadicIntegerRepresentation {
 
 public:
 
-  /// Type of represented value
-  typedef T value_type;
-
-  /// Cast a T value to a double
-  static double to_double(T x) { return x; };
+  /// Domain type
+  typedef T domain_type;
 
   /** Constructor.
 
@@ -273,7 +260,7 @@ public:
   int size() { return _num_bits; }
 
   /// Unpack bit vector into a value
-  value_type unpack(const bit_vector_t& bv, int start) {
+  domain_type unpack(const bit_vector_t& bv, int start) {
     std::size_t u = bv_to_size_type(bv, start, start + size());
     if (_num_bits < _num_bits_complete)
       u <<= (_num_bits_complete - _num_bits);

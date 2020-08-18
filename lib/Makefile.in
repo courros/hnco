@@ -277,6 +277,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/partition.cc hnco/functions/partition.hh \
 	hnco/functions/qubo.cc hnco/functions/qubo.hh \
 	hnco/functions/representations/all.hh \
+	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
 	hnco/functions/representations/multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
@@ -574,6 +575,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/nk-landscape.hh hnco/functions/partition.hh \
 	hnco/functions/qubo.hh hnco/functions/representations/all.hh \
+	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
 	hnco/functions/representations/multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
@@ -855,6 +857,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/partition.cc hnco/functions/partition.hh \
 	hnco/functions/qubo.cc hnco/functions/qubo.hh \
 	hnco/functions/representations/all.hh \
+	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
 	hnco/functions/representations/multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
@@ -941,6 +944,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/nk-landscape.hh hnco/functions/partition.hh \
 	hnco/functions/qubo.hh hnco/functions/representations/all.hh \
+	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
 	hnco/functions/representations/multivariate-function.hh \
 	hnco/functions/representations/representation.hh \

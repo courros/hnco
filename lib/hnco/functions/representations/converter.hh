@@ -18,12 +18,43 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_REPRESENTATIONS_ALL_H
-#define HNCO_FUNCTIONS_REPRESENTATIONS_ALL_H
+#ifndef HNCO_FUNCTIONS_REPRESENTATIONS_CONVERTER_H
+#define HNCO_FUNCTIONS_REPRESENTATIONS_CONVERTER_H
 
-#include "converter.hh"
-#include "multivariate-function-adapter.hh"
-#include "multivariate-function.hh"
-#include "representation.hh"
+#include <complex>              // std::complex
+
+
+namespace hnco {
+namespace function {
+namespace representation {
+
+/// Convert a scalar to a double
+template<class T>
+struct ScalarToDouble {
+
+  /// Codomain type
+  typedef T codomain_type;
+
+  /// Convert to double
+  double operator()(T x) { return x; }
+
+};
+
+/// Convert a complex to a double
+template<class T>
+struct ComplexToDouble {
+
+  /// Codomain type
+  typedef std::complex<T> codomain_type;
+
+  /// Convert to double
+  double operator()(std::complex<T> z) { return std::norm(z); }
+
+};
+
+} // end of namespace representation
+} // end of namespace function
+} // end of namespace hnco
+
 
 #endif
