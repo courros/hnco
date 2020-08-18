@@ -131,10 +131,11 @@ public:
 
   /// Display
   void display(std::ostream& stream) override {
-    stream << get_bv_size() << " bits" << std::endl;
+    _function->display(stream);
     stream << _function->get_num_variables() << " variables:" << std::endl;
     for (auto& rep : _representations)
       rep.display(stream);
+    stream << get_bv_size() << " bits" << std::endl;
   }
 
   /// Describe a bit vector

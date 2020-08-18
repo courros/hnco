@@ -377,7 +377,10 @@ public:
 
   /// Display
   void display(std::ostream& stream) {
-    bm_display(_A, stream);
+    stream << "Categorical values (" << _num_categories
+           << "), input = " << _ncols
+           << " bits, output = " << _nrows
+           << " bits" << std::endl;
   }
 
 };
