@@ -75,8 +75,6 @@ Sudoku::display(std::ostream& stream)
       stream << _problem_instance[i][j];
     stream << std::endl;
   }
-  stream << std::endl;
-  stream << _num_variables << " variables" << std::endl;
 }
 
 void
@@ -86,7 +84,7 @@ Sudoku::write_variables(const std::vector<domain_type>& x)
   for (int i = 0; i < 9; i++)
     for (int j = 0; j < 9; j++)
       if (_problem_instance[i][j] == '.')
-        _candidate[i][j] = x[index++];
+        _candidate[i][j] = x[index++] + 1;
   assert(index == int(x.size()));
 }
 
