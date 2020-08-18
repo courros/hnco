@@ -199,7 +199,7 @@ void hnco::bm_add_columns(bit_matrix_t& M, int dest, int src)
   }
 }
 
-void bm_set_column(bit_matrix_t& M, int j, const bit_vector_t& bv)
+void hnco::bm_set_column(bit_matrix_t& M, int j, const bit_vector_t& bv)
 {
   assert(is_in_range(j, bm_num_columns(M)));
   assert(int(bv.size()) == bm_num_rows(M));
