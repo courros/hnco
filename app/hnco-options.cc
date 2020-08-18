@@ -993,6 +993,7 @@ void Options::print_help(ostream& stream) const
   stream << "            180: Real multivariate function" << endl;
   stream << "            181: Integer multivariate function" << endl;
   stream << "            182: Complex multivariate function (squared magnitude of)" << endl;
+  stream << "            190: Sudoku" << endl;
   stream << "            1000: Plugin" << endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << endl;
   stream << "          Path of a function file" << endl;

@@ -271,6 +271,19 @@ make_concrete_function(const Options& options)
     return new MultivariateFunctionAdapter<Fn, Rep, Conv>(fn, reps);
   }
 
+  case 190: {
+    using namespace hnco::function::representation;
+    using Rep = LinearCodeCategoricalRepresentation;
+    using Fn = Sudoku;
+    using Conv = ScalarToDouble<double>;
+    auto fn = new Fn();
+    load_function_from_file<Sudoku>(fn, options);
+    auto reps = std::vector<Rep>
+      (fn->get_num_variables(),
+       Rep(9));
+    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(fn, reps);
+  }
+
 #ifdef ENABLE_PLUGIN
   case 1000:
     return new FunctionPlugin

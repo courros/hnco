@@ -611,6 +611,11 @@
                 },
 
                 {
+                    "value": 190,
+                    "description": "Sudoku"
+                },
+
+                {
                     "value": 1000,
                     "description": "Plugin"
                 }
