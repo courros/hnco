@@ -232,40 +232,43 @@ make_concrete_function(const Options& options)
   case 180: {
     using namespace hnco::function::representation;
     using Rep = DyadicRealRepresentation<double>;
-    using Fn = ParsedMultivariateFunction<FunctionParser, Rep::value_type>;
+    using Fn = ParsedMultivariateFunction<FunctionParser, Rep::domain_type>;
+    using Conv = ScalarToDouble<double>;
     auto fn = new Fn(options.get_fp_expression());
     auto reps = std::vector<Rep>
       (fn->get_num_variables(),
        Rep(options.get_fp_num_bits(),
            options.get_fp_lower_bound(),
            options.get_fp_upper_bound()));
-    return new MultivariateFunctionAdapter<Fn, Rep>(fn, reps);
+    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(fn, reps);
   }
 
   case 181: {
     using namespace hnco::function::representation;
     using Rep = DyadicIntegerRepresentation<long>;
-    using Fn = ParsedMultivariateFunction<FunctionParser_li, Rep::value_type>;
+    using Fn = ParsedMultivariateFunction<FunctionParser_li, Rep::domain_type>;
+    using Conv = ScalarToDouble<long>;
     auto fn = new Fn(options.get_fp_expression());
     auto reps = std::vector<Rep>
       (fn->get_num_variables(),
        Rep(options.get_fp_num_bits(),
            options.get_fp_lower_bound(),
            options.get_fp_upper_bound()));
-    return new MultivariateFunctionAdapter<Fn, Rep>(fn, reps);
+    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(fn, reps);
   }
 
   case 182: {
     using namespace hnco::function::representation;
     using Rep = DyadicComplexRepresentation<double>;
-    using Fn = ParsedMultivariateFunction<FunctionParser_cd, Rep::value_type>;
+    using Fn = ParsedMultivariateFunction<FunctionParser_cd, Rep::domain_type>;
+    using Conv = ComplexToDouble<double>;
     auto fn = new Fn(options.get_fp_expression());
     auto reps = std::vector<Rep>
       (fn->get_num_variables(),
        Rep(options.get_fp_num_bits(),
            options.get_fp_lower_bound(),
            options.get_fp_upper_bound()));
-    return new MultivariateFunctionAdapter<Fn, Rep>(fn, reps);
+    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(fn, reps);
   }
 
 #ifdef ENABLE_PLUGIN

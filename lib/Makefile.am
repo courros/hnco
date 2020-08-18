@@ -181,8 +181,9 @@ libhnco_la_SOURCES = \
 	hnco/functions/qubo.cc \
 	hnco/functions/qubo.hh \
 	hnco/functions/representations/all.hh \
+	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/multivariate-function.hh \
+	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/theory.cc \
 	hnco/functions/theory.hh \
@@ -325,8 +326,9 @@ nobase_include_HEADERS = \
 	hnco/functions/partition.hh \
 	hnco/functions/qubo.hh \
 	hnco/functions/representations/all.hh \
+	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/multivariate-function.hh \
+	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/theory.hh \
 	hnco/functions/trap.hh \

@@ -28,7 +28,7 @@
 #include "hnco/functions/function.hh"
 
 #include "representation.hh"
-#include "multivariate-function.hh"
+#include "parsed-multivariate-function.hh"
 
 
 namespace hnco {
@@ -37,15 +37,27 @@ namespace function {
 /// Representations
 namespace representation {
 
+/** Multivariate function adapter.
 
-/// Multivariate function adapter
-template<class Fn, class Rep>
+    The purpose of this class is to build a regular hnco function from
+    an arbitrary multivariate function. This is achieved using a
+    composition:
+    - Representations (Rep): hypercube -> domain
+    - Multivariate function (Fn): product of domains -> codomain
+    - Converter (Conv): codomain -> double
+*/
+template<class Fn, class Rep, class Conv>
 class MultivariateFunctionAdapter: public Function {
   static_assert(std::is_same<
-                typename Fn::value_type,
-                typename Rep::value_type
+                typename Fn::domain_type,
+                typename Rep::domain_type
                 >::value,
-                "MultivariateFunctionAdapter: types do not match");
+                "MultivariateFunctionAdapter: domain types do not match");
+  static_assert(std::is_same<
+                typename Fn::codomain_type,
+                typename Conv::codomain_type
+                >::value,
+                "MultivariateFunctionAdapter: codomain types do not match");
 
   /// Multivariate function
   Fn *_function;
@@ -54,7 +66,10 @@ class MultivariateFunctionAdapter: public Function {
   std::vector<Rep> _representations;
 
   /// Variables
-  std::vector<typename Rep::value_type> _variables;
+  std::vector<typename Rep::domain_type> _variables;
+
+  /// Converter from codomain to double
+  Conv _converter;
 
   /// Unpack a bit vector into values
   void unpack(const bit_vector_t& bv) {
@@ -104,7 +119,7 @@ public:
   double evaluate(const bit_vector_t& bv) override {
     assert(get_bv_size() == int(bv.size()));
     unpack(bv);
-    return Rep::to_double(_function->evaluate(_variables));
+    return _converter(_function->evaluate(_variables));
   }
 
   ///@}
@@ -125,9 +140,7 @@ public:
   /// Describe a bit vector
   void describe(const bit_vector_t& bv, std::ostream& stream) override {
     unpack(bv);
-    for (size_t i = 0; i < _variables.size(); i++)
-      stream << _variables[i] << " ";
-    stream << std::endl;
+    _function->describe(_variables, stream);
   }
 
   ///@}

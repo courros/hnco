@@ -18,8 +18,10 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_REPRESENTATIONS_MULTIVARIATE_FUNCTION_H
-#define HNCO_FUNCTIONS_REPRESENTATIONS_MULTIVARIATE_FUNCTION_H
+#ifndef HNCO_FUNCTIONS_REPRESENTATIONS_PARSED_MULTIVARIATE_FUNCTION_H
+#define HNCO_FUNCTIONS_REPRESENTATIONS_PARSED_MULTIVARIATE_FUNCTION_H
+
+#include <assert.h>
 
 #include <vector>
 #include <iostream>
@@ -33,26 +35,6 @@ namespace hnco {
 namespace function {
 namespace representation {
 
-
-/// Multivariate function
-template<class T>
-class MultivariateFunction {
-public:
-
-  /// Type of value
-  typedef T value_type;
-
-  /// Destructor
-  virtual ~MultivariateFunction() {}
-
-  /// Get the number of variables
-  virtual int get_num_variables() = 0;
-
-  /// Evaluate
-  virtual T evaluate(const std::vector<value_type>& x) = 0;
-};
-
-
 /** Parsed multivariate function.
 
     Uses the C++ library "Function Parser" (fparser):
@@ -63,16 +45,21 @@ public:
 
 */
 template<class Parser, class T>
-class ParsedMultivariateFunction:
-    public MultivariateFunction<T> {
+class ParsedMultivariateFunction
+{
 
   /// Function parser
   Parser _fparser;
 
-  /// Number of variables
-  int _num_variables = 0;
+  /// Variable names
+  std::vector<std::string> _variable_names;
 
 public:
+  /// Domain type
+  typedef T domain_type;
+
+  /// Codomain type
+  typedef T codomain_type;
 
   /** Constructor.
 
@@ -80,7 +67,7 @@ public:
   */
   ParsedMultivariateFunction(std::string expression)
   {
-    int position = _fparser.ParseAndDeduceVariables(expression, &_num_variables);
+    int position = _fparser.ParseAndDeduceVariables(expression, _variable_names);
     if (position != -1) {
       std::ostringstream stream;
       stream
@@ -93,10 +80,20 @@ public:
   }
 
   /// Get the number of variables
-  int get_num_variables() { return _num_variables; }
+  int get_num_variables() { return _variable_names.size(); }
+
+  /// Get the variable names
+  const std::vector<std::string> get_variable_names() { return _variable_names; }
 
   /// Evaluate
   T evaluate(const std::vector<T>& x) { return _fparser.Eval(x.data()); }
+
+  /// Describe a solution
+  void describe(const std::vector<T>& x, std::ostream& stream) {
+    assert(x.size() == _variable_names.size());
+    for (std::size_t i = 0; i < x.size(); i++)
+      stream << _variable_names[i] << " = " << x[i] << std::endl;
+  }
 
 };
 
