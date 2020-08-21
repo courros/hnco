@@ -232,7 +232,7 @@ make_concrete_function(const Options& options)
   case 180: {
     using namespace hnco::function::representation;
     using Rep = DyadicRealRepresentation<double>;
-    using Fn = ParsedMultivariateFunction<FunctionParser, Rep::domain_type>;
+    using Fn = ParsedMultivariateFunction<FunctionParser>;
     using Conv = ScalarToDouble<double>;
     auto fn = new Fn(options.get_fp_expression());
     auto reps = std::vector<Rep>
@@ -246,7 +246,7 @@ make_concrete_function(const Options& options)
   case 181: {
     using namespace hnco::function::representation;
     using Rep = DyadicIntegerRepresentation<long>;
-    using Fn = ParsedMultivariateFunction<FunctionParser_li, Rep::domain_type>;
+    using Fn = ParsedMultivariateFunction<FunctionParser_li>;
     using Conv = ScalarToDouble<long>;
     auto fn = new Fn(options.get_fp_expression());
     auto reps = std::vector<Rep>
@@ -260,7 +260,7 @@ make_concrete_function(const Options& options)
   case 182: {
     using namespace hnco::function::representation;
     using Rep = DyadicComplexRepresentation<double>;
-    using Fn = ParsedMultivariateFunction<FunctionParser_cd, Rep::domain_type>;
+    using Fn = ParsedMultivariateFunction<FunctionParser_cd>;
     using Conv = ComplexToDouble<double>;
     auto fn = new Fn(options.get_fp_expression());
     auto reps = std::vector<Rep>

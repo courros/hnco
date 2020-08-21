@@ -45,7 +45,7 @@ namespace representation {
     \warning The function string syntax depends on the chosen parser.
 
 */
-template<class Parser, class T>
+template<class Parser>
 class ParsedMultivariateFunction
 {
 
@@ -61,10 +61,10 @@ class ParsedMultivariateFunction
 public:
 
   /// Domain type
-  typedef T domain_type;
+  typedef typename Parser::value_type domain_type;
 
   /// Codomain type
-  typedef T codomain_type;
+  typedef typename Parser::value_type codomain_type;
 
   /** Constructor.
 
@@ -91,10 +91,10 @@ public:
   }
 
   /// Evaluate
-  T evaluate(const std::vector<T>& x) { return _fparser.Eval(x.data()); }
+  codomain_type evaluate(const std::vector<domain_type>& x) { return _fparser.Eval(x.data()); }
 
   /// Describe a solution
-  void describe(const std::vector<T>& x, std::ostream& stream) {
+  void describe(const std::vector<domain_type>& x, std::ostream& stream) {
     assert(x.size() == _variable_names.size());
     for (std::size_t i = 0; i < x.size(); i++)
       stream << _variable_names[i] << " = " << x[i] << std::endl;
