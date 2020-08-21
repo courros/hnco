@@ -1,3 +1,17 @@
+* Version 0.16 (unreleased)
+
+Library:
+- Added bm_set_column
+- Added LinearCodeCategoricalRepresentation
+- Added Sudoku
+- Renamed file multivariate-function.hh -> parsed-multivariate-function.hh
+- Added member function ParsedRealMultivariateFunction::describe
+- ParsedRealMultivariateFunction deduces domain and codomain types from parser
+
+hnco:
+- Added sudoku function with number 190
+
+
 * Version 0.15 (2020-08-08)
 
 Highlight:
