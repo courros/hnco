@@ -284,8 +284,8 @@ public:
 
 };
 
-/// Linear code categorical representation
-class LinearCodeCategoricalRepresentation {
+/// Linear categorical representation
+class LinearCategoricalRepresentation {
 
   /// Number of categories
   int _num_categories;
@@ -314,7 +314,7 @@ public:
 
       \param num_categories Number of categories
   */
-  LinearCodeCategoricalRepresentation(int num_categories)
+  LinearCategoricalRepresentation(int num_categories)
     : _num_categories(num_categories)
   {
     assert(num_categories > 0);

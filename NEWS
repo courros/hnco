@@ -2,7 +2,7 @@
 
 Library:
 - Added bm_set_column
-- Added LinearCodeCategoricalRepresentation
+- Added LinearCategoricalRepresentation
 - Added Sudoku
 - Renamed file multivariate-function.hh -> parsed-multivariate-function.hh
 - Added member function ParsedRealMultivariateFunction::describe

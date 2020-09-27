@@ -273,7 +273,7 @@ make_concrete_function(const Options& options)
 
   case 190: {
     using namespace hnco::function::representation;
-    using Rep = LinearCodeCategoricalRepresentation;
+    using Rep = LinearCategoricalRepresentation;
     using Fn = Sudoku;
     using Conv = ScalarToDouble<double>;
     auto fn = new Fn();
