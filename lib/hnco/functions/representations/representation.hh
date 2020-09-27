@@ -385,6 +385,66 @@ public:
 
 };
 
+/// Integer categorical representation
+class IntegerCategoricalRepresentation {
+
+  /// Number of categories
+  int _num_categories;
+
+  /// Number of bits
+  int _num_bits;
+
+public:
+
+  /// Domain type
+  typedef std::size_t domain_type;
+
+  /** Constructor.
+   *
+   * \param num_categories Number of categories
+   */
+  IntegerCategoricalRepresentation(int num_categories)
+    : _num_categories(num_categories)
+  {
+    assert(num_categories > 0);
+    std::bitset<8 * sizeof(std::size_t)> b(num_categories);
+    // Most significant bit
+    size_t index = b.size();
+    while (index > 0) {
+      index--;
+      if (b.test(index))
+        break;
+    }
+    assert(index < b.size());
+    // Not a power of 2
+    if (b.count() != 1) {
+      index++;
+      assert(index < b.size());
+      b.reset();
+      b.set(index);
+    }
+    _num_bits = b.to_ulong();
+  }
+
+  /// Size of the representation
+  int size() { return _num_bits; }
+
+  /// Unpack bit vector into a category
+  domain_type unpack(const bit_vector_t& bv, int start) {
+    const int stop = start + size();
+    assert(hnco::is_in_range(start, bv.size()));
+    assert(hnco::is_in_range(stop, start + 1, bv.size() + 1));
+    assert(_num_categories > 0);
+    return bv_to_size_type(bv, start, stop) % std::size_t(_num_categories);
+  }
+
+  /// Display
+  void display(std::ostream& stream) {
+    stream << "Categorical values (" << _num_categories
+           << ") represented by " << _num_bits << " bits" << std::endl;
+  }
+};
+
 } // end of namespace representation
 } // end of namespace function
 } // end of namespace hnco
