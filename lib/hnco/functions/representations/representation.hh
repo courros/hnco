@@ -408,7 +408,7 @@ public:
   {
     assert(num_categories > 0);
     std::bitset<8 * sizeof(std::size_t)> b(num_categories);
-    // Most significant bit
+    // Look for most significant bit
     size_t index = b.size();
     while (index > 0) {
       index--;
@@ -417,13 +417,9 @@ public:
     }
     assert(index < b.size());
     // Not a power of 2
-    if (b.count() != 1) {
+    if (b.count() != 1)
       index++;
-      assert(index < b.size());
-      b.reset();
-      b.set(index);
-    }
-    _num_bits = b.to_ulong();
+    _num_bits = index;
   }
 
   /// Size of the representation
