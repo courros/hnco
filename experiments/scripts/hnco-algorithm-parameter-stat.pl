@@ -468,7 +468,7 @@ sub generate_gnuplot_mean
 
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
-        my $quoted_string = qq("$function_id: Mean value as a function of $parameter_id");
+        my $quoted_string = qq("$function_id: Mean value as a function of $parameter_name");
         print MEAN "set title $quoted_string\n";
         if ($f->{logscale}) {
             my $fmt = qq("10^{\%T}");
@@ -567,7 +567,7 @@ sub generate_gnuplot_stddev
             "$terminal{pdf} $font\n",
             "set output $quoted_string\n";
 
-        $quoted_string = qq("$function_id: Standard deviation of value as a function of $parameter_id");
+        $quoted_string = qq("$function_id: Standard deviation of value as a function of $parameter_name");
         print STDDEV
             "set title $quoted_string\n";
 
@@ -664,7 +664,7 @@ sub latex_rankings_table
     print LATEX
         "\\begin{tabular}{\@{}ll*{$num_lines}{r}\@{}}\n",
         "\\toprule\n",
-        "algorithm & $parameter_id & \\multicolumn{$num_lines}{l}{{rank distribution}}\\\\\n",
+        "algorithm & $parameter_name & \\multicolumn{$num_lines}{l}{{rank distribution}}\\\\\n",
         "\\midrule\n",
         "&& ", join(" & ", 1 .. $num_lines), "\\\\\n",
         "\\midrule\n";
@@ -685,7 +685,7 @@ sub latex_function_table_begin
     print LATEX
         "\\begin{tabular}{\@{}ll*{5}{$col}>{{\\nprounddigits{0}}}N{2}{0}\@{}}\n",
         "\\toprule\n",
-        "{algorithm} & {$parameter_id} & \\multicolumn{6}{l}{{function value}} \\\\\n",
+        "{algorithm} & {$parameter_name} & \\multicolumn{6}{l}{{function value}} \\\\\n",
         "\\midrule\n",
         "& & {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} \\\\\n",
         "\\midrule\n";
