@@ -55,18 +55,7 @@ my $parameter           = $obj->{parameter};
 my $servers             = $obj->{servers};
 
 my $parameter_id        = $parameter->{id};
-
-#
-# Parameter values
-#
-
-my $values;
-if ($parameter->{values_perl}) {
-    my @tmp = eval $parameter->{values_perl};
-    $values = \@tmp;
-} else {
-    $values = $parameter->{values};
-}
+my $categories          = $parameter->{categories};
 
 #
 # Processing
@@ -101,12 +90,12 @@ sub iterate_algorithms
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
         print "$algorithm_id\n\n";
-        iterate_values("$prefix/$algorithm_id", "$cmd $a->{opt}", $a);
+        iterate_categories("$prefix/$algorithm_id", "$cmd $a->{opt}", $a);
         print "\n";
     }
 }
 
-sub iterate_values
+sub iterate_categories
 {
     my ($prefix, $cmd, $a) = @_;
 
@@ -115,16 +104,10 @@ sub iterate_values
         $num_runs = 1;
     }
 
-    foreach my $value (@$values) {
+    foreach my $category (@$categories) {
+        my $value = $category->{value};
         print "$parameter_id = $value: ";
-        my $dep = "";
-        if (exists($a->{opt_perl})) {
-            foreach (@{ $a->{opt_perl} }) {
-                my $value = eval $_->{value};
-                $dep = "$dep $_->{opt} $value";
-            }
-        }
-        iterate_runs("$prefix/$parameter_id-$value", "$cmd --$parameter_id $value $dep", $num_runs);
+        iterate_runs("$prefix/$parameter_id-$value", "$cmd --$parameter_id $value", $num_runs);
         print "\n";
     }
 }
