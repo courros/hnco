@@ -76,6 +76,7 @@ my $graphics            = $obj->{graphics};
 
 my $parameter_id        = $parameter->{id};
 my $parameter_name      = $parameter->{name} || $parameter_id;
+my $parameter_shortname = $parameter->{shortname} || $parameter_name;
 my $boxwidth            = $parameter->{boxwidth};
 
 my $all_stat = {};
@@ -664,7 +665,7 @@ sub latex_rankings_table
     print LATEX
         "\\begin{tabular}{\@{}ll*{$num_lines}{r}\@{}}\n",
         "\\toprule\n",
-        "algorithm & $parameter_name & \\multicolumn{$num_lines}{l}{{rank distribution}}\\\\\n",
+        "algorithm & $parameter_shortname & \\multicolumn{$num_lines}{l}{{rank distribution}}\\\\\n",
         "\\midrule\n",
         "&& ", join(" & ", 1 .. $num_lines), "\\\\\n",
         "\\midrule\n";
@@ -685,7 +686,7 @@ sub latex_function_table_begin
     print LATEX
         "\\begin{tabular}{\@{}ll*{5}{$col}>{{\\nprounddigits{0}}}N{2}{0}\@{}}\n",
         "\\toprule\n",
-        "{algorithm} & {$parameter_name} & \\multicolumn{6}{l}{{function value}} \\\\\n",
+        "{algorithm} & {$parameter_shortname} & \\multicolumn{6}{l}{{function value}} \\\\\n",
         "\\midrule\n",
         "& & {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} \\\\\n",
         "\\midrule\n";
