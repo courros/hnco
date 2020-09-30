@@ -48,22 +48,9 @@ my $obj = from_json(read_file($plan));
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
 my $parameter           = $obj->{parameter};
-my $parallel            = $obj->{parallel};
-my $servers             = $obj->{servers};
 
 my $parameter_id        = $parameter->{id};
-
-#
-# Parameter values
-#
-
-my $values;
-if ($parameter->{values_perl}) {
-    my @tmp = eval $parameter->{values_perl};
-    $values = \@tmp;
-} else {
-    $values = $parameter->{values};
-}
+my $categories          = $parameter->{categories};
 
 #
 # Processing
@@ -106,15 +93,16 @@ sub iterate_algorithms
             mkdir "$path";
             print "Created $path\n";
         }
-        iterate_values($path);
+        iterate_categories($path);
     }
 }
 
-sub iterate_values
+sub iterate_categories
 {
     my ($prefix) = @_;
 
-    foreach my $value (@$values) {
+    foreach my $category (@$categories) {
+        my $value = $category->{value};
         my $path = "$prefix/$parameter_id-$value";
         unless (-d $path) {
             mkdir "$path";
