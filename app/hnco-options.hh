@@ -201,6 +201,10 @@ class Options {
   int _radius;
   bool _opt_radius;
 
+  /// Categorical representation
+  int _rep_categorical_representation;
+  bool _opt_rep_categorical_representation;
+
   /// Path of the results file
   std::string _results_path;
   bool _opt_results_path;
@@ -390,6 +394,9 @@ class Options {
 
   /// Print help message for section fp
   void print_help_fp(std::ostream& stream) const;
+
+  /// Print help message for section rep
+  void print_help_rep(std::ostream& stream) const;
 
   /// Print help message for section pn
   void print_help_pn(std::ostream& stream) const;
@@ -986,6 +993,18 @@ public:
 
   /// Get set-flag for radius
   bool set_radius() const { return _opt_radius; }
+
+  /// Get rep_categorical_representation
+  int get_rep_categorical_representation() const { return _rep_categorical_representation; }
+
+  /// Set rep_categorical_representation
+  void set_rep_categorical_representation(int x) {
+    _rep_categorical_representation = x;
+    _opt_rep_categorical_representation = true;
+  }
+
+  /// Get set-flag for rep_categorical_representation
+  bool set_rep_categorical_representation() const { return _opt_rep_categorical_representation; }
 
   /// Get results_path
   std::string get_results_path() const { return _results_path; }

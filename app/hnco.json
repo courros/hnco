@@ -26,6 +26,12 @@
         },
 
         {
+            "id": "rep",
+            "title": "Representations",
+            "fold": true
+        },
+
+        {
             "id": "mod",
             "title": "Function Modifiers",
             "fold": false
@@ -93,7 +99,7 @@
 
     ],
 
-    "order": [ "gen", "fn", "mod", "ctrl", "pn", "map", "alg", "ls", "sa", "ea", "eda", "hea", "bm" ],
+    "order": [ "gen", "fn", "fp", "rep", "mod", "ctrl", "pn", "map", "alg", "ls", "sa", "ea", "eda", "hea", "bm" ],
 
     "flags": {
 
@@ -708,6 +714,28 @@
             "section": "fp"
         },
 
+        "rep_categorical_representation":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Categorical representation",
+            "section": "rep",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Integer"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Linear"
+                }
+
+            ]
+
+        },
 
         "budget":
         {

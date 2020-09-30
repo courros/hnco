@@ -103,6 +103,8 @@ Options::Options(int argc, char *argv[]):
   _opt_pv_log_num_components(false),
   _radius(2),
   _opt_radius(false),
+  _rep_categorical_representation(0),
+  _opt_rep_categorical_representation(false),
   _results_path("results.json"),
   _opt_results_path(false),
   _rls_patience(50),
@@ -182,6 +184,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_HELP_LS,
     OPTION_HELP_MAP,
     OPTION_HELP_PN,
+    OPTION_HELP_REP,
     OPTION_HELP_SA,
     OPTION_VERSION,
     OPTION_ALGORITHM,
@@ -231,6 +234,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_POPULATION_SIZE,
     OPTION_PV_LOG_NUM_COMPONENTS,
     OPTION_RADIUS,
+    OPTION_REP_CATEGORICAL_REPRESENTATION,
     OPTION_RESULTS_PATH,
     OPTION_RLS_PATIENCE,
     OPTION_SA_BETA_RATIO,
@@ -338,6 +342,7 @@ Options::Options(int argc, char *argv[]):
     {"population-size", required_argument, 0, OPTION_POPULATION_SIZE},
     {"pv-log-num-components", required_argument, 0, OPTION_PV_LOG_NUM_COMPONENTS},
     {"radius", required_argument, 0, OPTION_RADIUS},
+    {"rep-categorical-representation", required_argument, 0, OPTION_REP_CATEGORICAL_REPRESENTATION},
     {"results-path", required_argument, 0, OPTION_RESULTS_PATH},
     {"rls-patience", required_argument, 0, OPTION_RLS_PATIENCE},
     {"sa-beta-ratio", required_argument, 0, OPTION_SA_BETA_RATIO},
@@ -399,6 +404,7 @@ Options::Options(int argc, char *argv[]):
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
     {"help-fp", no_argument, 0, OPTION_HELP_FP},
+    {"help-rep", no_argument, 0, OPTION_HELP_REP},
     {"help-pn", no_argument, 0, OPTION_HELP_PN},
     {"help-map", no_argument, 0, OPTION_HELP_MAP},
     {"help-ls", no_argument, 0, OPTION_HELP_LS},
@@ -613,6 +619,10 @@ Options::Options(int argc, char *argv[]):
 
     case OPTION_RADIUS:
       set_radius(atoi(optarg));
+      break;
+
+    case OPTION_REP_CATEGORICAL_REPRESENTATION:
+      set_rep_categorical_representation(atoi(optarg));
       break;
 
     case OPTION_RESULTS_PATH:
@@ -856,6 +866,10 @@ Options::Options(int argc, char *argv[]):
       print_help_fp(cerr);
       exit(0);
 
+    case OPTION_HELP_REP:
+      print_help_rep(cerr);
+      exit(0);
+
     case OPTION_HELP_PN:
       print_help_pn(cerr);
       exit(0);
@@ -1068,6 +1082,8 @@ void Options::print_help(ostream& stream) const
   stream  << "Additional Sections" << endl;
   stream << "      --help-fp" << endl;
   stream << "          Function parser" << endl;
+  stream << "      --help-rep" << endl;
+  stream << "          Representations" << endl;
   stream << "      --help-pn" << endl;
   stream << "          Prior Noise" << endl;
   stream << "      --help-map" << endl;
@@ -1099,6 +1115,18 @@ void Options::print_help_fp(ostream& stream) const
   stream << "          Number of bits in the dyadic representation of a number" << endl;
   stream << "      --fp-upper-bound (type double, default to 2)" << endl;
   stream << "          Upper bound" << endl;
+  stream << endl;
+}
+
+void Options::print_help_rep(ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << endl << endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
+  stream << "Representations" << endl;
+  stream << "      --rep-categorical-representation (type int, default to 0)" << endl;
+  stream << "          Categorical representation" << endl;
+  stream << "            0: Integer" << endl;
+  stream << "            1: Linear" << endl;
   stream << endl;
 }
 
@@ -1364,6 +1392,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# population_size = " << options._population_size << endl;
   stream << "# pv_log_num_components = " << options._pv_log_num_components << endl;
   stream << "# radius = " << options._radius << endl;
+  stream << "# rep_categorical_representation = " << options._rep_categorical_representation << endl;
   stream << "# results_path = " << options._results_path << endl;
   stream << "# rls_patience = " << options._rls_patience << endl;
   stream << "# sa_beta_ratio = " << options._sa_beta_ratio << endl;
