@@ -57,11 +57,11 @@ my $servers             = $obj->{servers};
 my $parameter_id        = $parameter->{id};
 my $categories          = $parameter->{categories};
 
+my @commands = ();
+
 #
 # Processing
 #
-
-my @commands = ();
 
 iterate_functions($path_results, "$obj->{exec} $obj->{opt} -b $budget");
 
@@ -77,6 +77,7 @@ if ($parallel) {
 sub iterate_functions
 {
     my ($prefix, $cmd) = @_;
+
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         print "$function_id\n\n";
@@ -87,22 +88,19 @@ sub iterate_functions
 sub iterate_algorithms
 {
     my ($prefix, $cmd) = @_;
+
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
         print "$algorithm_id\n\n";
-        iterate_categories("$prefix/$algorithm_id", "$cmd $a->{opt}", $a);
+        my $num_runs = $a->{deterministic} ? 1 : $obj->{num_runs};
+        iterate_categories("$prefix/$algorithm_id", "$cmd $a->{opt}", $num_runs);
         print "\n";
     }
 }
 
 sub iterate_categories
 {
-    my ($prefix, $cmd, $a) = @_;
-
-    my $num_runs = $obj->{num_runs};
-    if ($a->{deterministic}) {
-        $num_runs = 1;
-    }
+    my ($prefix, $cmd, $num_runs) = @_;
 
     foreach my $category (@$categories) {
         my $value = $category->{value};
@@ -115,6 +113,7 @@ sub iterate_categories
 sub iterate_runs
 {
     my ($prefix, $cmd, $num_runs) = @_;
+
     if ($parallel) {
         foreach (1 .. $num_runs) {
             push @commands, "$cmd > $prefix/$_.out 2> $prefix/$_.err";
