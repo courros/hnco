@@ -78,6 +78,7 @@ my $parameter_id        = $parameter->{id};
 my $parameter_name      = $parameter->{name} || $parameter_id;
 my $parameter_shortname = $parameter->{shortname} || $parameter_name;
 my $boxwidth            = $parameter->{boxwidth};
+my $categories          = $parameter->{categories};
 
 my $all_stat = {};
 my $all_stat_flat = {};
@@ -91,19 +92,12 @@ my @rankings_flat = ();
 # Parameter values
 #
 
-my $values;
-if ($parameter->{values_perl}) {
-    my @tmp = eval $parameter->{values_perl};
-    $values = \@tmp;
-} else {
-    $values = $parameter->{values};
-}
-
-my $num_lines = @$algorithms * @$values;
+my $num_lines = @$algorithms * @$categories;
 
 foreach my $a (@$algorithms) {
     my $algorithm_id = $a->{id};
-    foreach my $value (@$values) {
+    foreach my $category (@$categories) {
+        my $value = $category->{value};
         my @counts = (0) x ($num_lines); # Array of size $num_lines initialized to 0
         $rankings->{$algorithm_id}->{$value} = \@counts;
     }
@@ -148,7 +142,8 @@ sub compute_statistics
                 $algorithm_num_runs = 1;
             }
 
-            foreach my $value (@$values) {
+            foreach my $category (@$categories) {
+                my $value = $category->{value};
                 my $prefix = "$path_results/$function_id/$algorithm_id/$parameter_id-$value";
                 my $SD_value = Statistics::Descriptive::Full->new();
 
@@ -203,7 +198,8 @@ sub generate_data
             my $quartiles = IO::File->new($path, '>')
                 or die "hnco-algorithm-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
 
-            foreach my $value (@$values) {
+            foreach my $category (@$categories) {
+                my $value = $category->{value};
                 my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
                 $quartiles->printf("%e %e %e %e %e %e\n",
                                    $value,
@@ -271,7 +267,8 @@ sub compute_rankings_flat
     @rankings_flat = ();
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
-        foreach my $value (@$values) {
+        foreach my $category (@$categories) {
+            my $value = $category->{value};
             my $item = {
                 algorithm       => $algorithm_id,
                 value           => $value,
@@ -314,7 +311,8 @@ sub reverse_values
     foreach my $f (@$functions) {
         if ($f->{reverse}) {
             foreach my $a (@$algorithms) {
-                foreach my $value (@$values) {
+                foreach my $category (@$categories) {
+                    my $value = $category->{value};
                     my $stat = $all_stat->{$f->{id}}->{$a->{id}}->{$value};
                     ($stat->{min}, $stat->{max}) = ($stat->{max}, $stat->{min});
                     ($stat->{q1}, $stat->{q3}) = ($stat->{q3}, $stat->{q1});
@@ -628,7 +626,8 @@ sub generate_latex
         latex_function_table_begin(">{{\\nprounddigits{$rounding_value_after}}}N{$rounding_value_before}{$rounding_value_after}");
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-            foreach my $value (@$values) {
+            foreach my $category (@$categories) {
+                my $value = $category->{value};
                 latex_function_table_add_line($algorithm_id,
                                               $value,
                                               $all_stat->{$function_id}->{$algorithm_id}->{$value},
