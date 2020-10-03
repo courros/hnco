@@ -121,7 +121,6 @@ generate_data();
 generate_data_histogram();
 generate_gnuplot_candlesticks();
 generate_gnuplot_histogram();
-generate_gnuplot_stddev();
 generate_latex();
 
 #
@@ -525,91 +524,6 @@ sub generate_gnuplot_histogram
     }
 
     system("chmod a+x histogram.gp");
-}
-
-sub generate_gnuplot_stddev
-{
-    open(STDDEV, ">stddev.gp")
-        or die "hnco-algorithm-category-stat.pl: generate_gnuplot_stddev: Cannot open stddev.gp\n";
-
-    print STDDEV
-        "#!/usr/bin/gnuplot -persist\n",
-        "set grid\n",
-        qq(set xlabel "$parameter_name"\n),
-        qq(set ylabel "Function value"\n),
-        "set key bottom right box opaque\n",
-        "set autoscale fix\n",
-        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
-
-    # Font face and size
-    my $font = "";
-    if ($graphics->{stddev}->{font_face}) {
-        $font = $graphics->{stddev}->{font_face};
-    }
-    if ($graphics->{stddev}->{font_size}) {
-        $font = "$font,$graphics->{stddev}->{font_size}";
-    }
-    $font = qq(font "$font");
-
-    if ($graphics->{logscale}) {
-        my $fmt = qq("10^{\%T}");
-        print STDDEV
-            "set logscale x\n",
-            "set format x $fmt\n";
-    }
-
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-
-        if ($f->{logscale}) {
-            my $fmt = qq("10^{\%T}");
-            print STDDEV
-                "set logscale y 10\n",
-                "set format y $fmt\n";
-        } else {
-            print STDDEV
-                "unset logscale y\n",
-                "set format y\n";
-        }
-
-        unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
-
-        my $quoted_string = qq("$path_graphics/$function_id/stddev.pdf");
-        print STDDEV
-            "$terminal{pdf} $font\n",
-            "set output $quoted_string\n";
-
-        $quoted_string = qq("$function_id: Standard deviation of value as a function of $parameter_name");
-        print STDDEV
-            "set title $quoted_string\n";
-
-        print STDDEV "plot \\\n";
-        print STDDEV
-            join ", \\\n",
-            (map {
-                my $algorithm_id = $_->{id};
-                my $quoted_title = qq("$algorithm_id");
-                my $quoted_path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
-                "  $quoted_path using 1:3 with l lw 2 title $quoted_title";
-             } @$algorithms);
-        print STDDEV "\n";
-
-        $quoted_string = qq("$path_graphics/$function_id/stddev.eps");
-        print STDDEV
-            "$terminal{eps} $font\n",
-            "set output $quoted_string\n",
-            "replot\n";
-
-        $quoted_string = qq("$path_graphics/$function_id/stddev.png");
-        print STDDEV
-            "$terminal{png} $font\n",
-            "set output $quoted_string\n",
-            "replot\n\n";
-
-    }
-
-    system("chmod a+x stddev.gp");
-
 }
 
 sub generate_latex
