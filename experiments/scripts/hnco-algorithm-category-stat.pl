@@ -120,7 +120,7 @@ reverse_best_statistics();
 generate_data();
 generate_data_histogram();
 generate_gnuplot_candlesticks();
-generate_gnuplot_mean();
+generate_gnuplot_histogram();
 generate_gnuplot_stddev();
 generate_latex();
 
@@ -460,36 +460,29 @@ sub generate_gnuplot_candlesticks
 
 }
 
-sub generate_gnuplot_mean
+sub generate_gnuplot_histogram
 {
-    open(MEAN, ">mean.gp")
-        or die "hnco-algorithm-category-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
+    open(HISTOGRAM, ">histogram.gp")
+        or die "hnco-algorithm-category-stat.pl: generate_gnuplot_histogram: Cannot open histogram.gp\n";
 
-    print MEAN
+    print HISTOGRAM
         "#!/usr/bin/gnuplot -persist\n",
-        "set grid\n",
-        qq(set xlabel "$parameter_name"\n),
-        qq(set ylabel "Function value"\n),
-        "set key bottom right box opaque\n",
-        "set autoscale fix\n",
-        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
+        "set style data histograms\n",
+        "set style histogram clustered\n",
+        "set style fill solid 1.00 border lt -1\n",
+        "set xtic rotate by -45 scale 0\n",
+        "set boxwidth 0.8 relative\n",
+        qq(set key font ",10" outside right top box vertical title "Algorithms" font ",10"\n);
 
     # Font face and size
     my $font = "";
-    if ($graphics->{mean}->{font_face}) {
-        $font = $graphics->{mean}->{font_face};
+    if ($graphics->{histogram}->{font_face}) {
+        $font = $graphics->{histogram}->{font_face};
     }
-    if ($graphics->{mean}->{font_size}) {
-        $font = "$font,$graphics->{mean}->{font_size}";
+    if ($graphics->{histogram}->{font_size}) {
+        $font = "$font,$graphics->{histogram}->{font_size}";
     }
     $font = qq(font "$font");
-
-    if ($graphics->{logscale}) {
-        my $fmt = qq("10^{\%T}");
-        print MEAN
-            "set logscale x\n",
-            "set format x $fmt\n";
-    }
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
@@ -497,50 +490,41 @@ sub generate_gnuplot_mean
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
         my $quoted_string = qq("$function_id: Mean value as a function of $parameter_name");
-        print MEAN "set title $quoted_string\n";
+        print HISTOGRAM "set title $quoted_string\n";
         if ($f->{logscale}) {
             my $fmt = qq("10^{\%T}");
-            print MEAN
+            print HISTOGRAM
                 "set logscale y 10\n",
                 "set format y $fmt\n";
         } else {
-            print MEAN
+            print HISTOGRAM
                 "unset logscale y\n",
                 "set format y\n";
         }
 
-        $quoted_string = qq("$path_graphics/$function_id/mean.pdf");
-        print MEAN
+        $quoted_string = qq("$path_graphics/$function_id/histogram-by-category.pdf");
+        print HISTOGRAM
             "$terminal{pdf} $font\n",
             "set output $quoted_string\n";
 
-        print MEAN "plot \\\n";
-        print MEAN
-            join ", \\\n",
-            (map {
-                my $algorithm_id = $_->{id};
-                my $quoted_title = qq("$algorithm_id");
-                my $quoted_path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
-                "  $quoted_path using 1:2 with l lw 2 title $quoted_title";
-             } @$algorithms);
-        print MEAN "\n";
+        $quoted_string = qq("$path_results/$function_id/by-category.dat");
+        print HISTOGRAM "plot for [COL=2:10] $quoted_string using COL:xticlabels(1) title columnhead\n";
 
-        $quoted_string = qq("$path_graphics/$function_id/mean.eps");
-        print MEAN
+        $quoted_string = qq("$path_graphics/$function_id/histogram-by-category.eps");
+        print HISTOGRAM
             "$terminal{eps} $font\n",
             "set output $quoted_string\n",
             "replot\n";
 
-        $quoted_string = qq("$path_graphics/$function_id/mean.png");
-        print MEAN
+        $quoted_string = qq("$path_graphics/$function_id/histogram-by-category.png");
+        print HISTOGRAM
             "$terminal{png} $font\n",
             "set output $quoted_string\n",
             "replot\n\n";
 
     }
 
-    system("chmod a+x mean.gp");
-
+    system("chmod a+x histogram.gp");
 }
 
 sub generate_gnuplot_stddev
@@ -668,11 +652,7 @@ sub generate_latex
         print LATEX latex_end_center();
 
         print LATEX latex_begin_center();
-        print LATEX latex_includegraphics("$function_id/mean", 0.6);
-        print LATEX latex_end_center();
-
-        print LATEX latex_begin_center();
-        print LATEX latex_includegraphics("$function_id/stddev", 0.6);
+        print LATEX latex_includegraphics("$function_id/histogram-by-category", 0.6);
         print LATEX latex_end_center();
 
         foreach my $a (@$algorithms) {
