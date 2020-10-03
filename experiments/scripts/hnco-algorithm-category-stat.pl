@@ -118,6 +118,7 @@ compute_best_statistics();
 reverse_values();
 reverse_best_statistics();
 generate_data();
+generate_data_histogram();
 generate_gnuplot_candlesticks();
 generate_gnuplot_mean();
 generate_gnuplot_stddev();
@@ -192,11 +193,11 @@ sub generate_data
 
             my $path = "$prefix/mean.dat";
             my $mean = IO::File->new($path, '>')
-                or die "hnco-algorithm-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
+                or die "hnco-algorithm-category-stat.pl: generate_data: Cannot open '$path': $!\n";
 
             $path = "$prefix/quartiles.dat";
             my $quartiles = IO::File->new($path, '>')
-                or die "hnco-algorithm-parameter-stat.pl: generate_data: Cannot open '$path': $!\n";
+                or die "hnco-algorithm-category-stat.pl: generate_data: Cannot open '$path': $!\n";
 
             foreach my $category (@$categories) {
                 my $value = $category->{value};
@@ -221,6 +222,34 @@ sub generate_data
 
     }
 
+}
+
+sub generate_data_histogram
+{
+    foreach my $f (@$functions) {
+        my $function_id = $f->{id};
+        my $path = "$path_results/$function_id/by-category.dat";
+        open(DATA, ">$path")
+            or die "hnco-algorithm-category-stat.pl: generate_data_histogram: Cannot open '$path': $!\n";
+        print DATA "Algorithm ";
+        foreach my $a (@$algorithms) {
+            my $algorithm_id = $a->{id};
+            print DATA "$algorithm_id ";
+        }
+        print DATA "\n";
+        foreach my $category (@$categories) {
+            my $value = $category->{value};
+            my $name = $category->{name};
+            print DATA "$name ";
+            foreach my $a (@$algorithms) {
+                my $algorithm_id = $a->{id};
+                my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
+                print DATA "$stat->{mean} ";
+            }
+            print DATA "\n";
+        }
+        close(DATA);
+    }
 }
 
 sub compute_rankings
@@ -344,7 +373,7 @@ sub reverse_best_statistics
 sub generate_gnuplot_candlesticks
 {
     open(CANDLESTICKS, ">candlesticks.gp")
-        or die "hnco-algorithm-parameter-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
+        or die "hnco-algorithm-category-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
 
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
@@ -434,7 +463,7 @@ sub generate_gnuplot_candlesticks
 sub generate_gnuplot_mean
 {
     open(MEAN, ">mean.gp")
-        or die "hnco-algorithm-parameter-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
+        or die "hnco-algorithm-category-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
 
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
@@ -517,7 +546,7 @@ sub generate_gnuplot_mean
 sub generate_gnuplot_stddev
 {
     open(STDDEV, ">stddev.gp")
-        or die "hnco-algorithm-parameter-stat.pl: generate_gnuplot_stddev: Cannot open stddev.gp\n";
+        or die "hnco-algorithm-category-stat.pl: generate_gnuplot_stddev: Cannot open stddev.gp\n";
 
     print STDDEV
         "#!/usr/bin/gnuplot -persist\n",
@@ -602,7 +631,7 @@ sub generate_gnuplot_stddev
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
-        or die "hnco-algorithm-parameter-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
+        or die "hnco-algorithm-category-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX latex_graphicspath($path_graphics);
 
