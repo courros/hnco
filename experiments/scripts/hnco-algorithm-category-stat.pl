@@ -398,13 +398,6 @@ sub generate_gnuplot_candlesticks
         $boxwidth = $graphics->{candlesticks}->{boxwidth};
     }
 
-    if ($graphics->{logscale}) {
-        my $fmt = qq("10^{\%T}");
-        print CANDLESTICKS
-            "set logscale x\n",
-            "set format x $fmt\n";
-    }
-
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
