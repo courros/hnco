@@ -118,7 +118,8 @@ compute_best_statistics();
 reverse_values();
 reverse_best_statistics();
 generate_data();
-generate_data_histogram();
+generate_data_histogram_by_category();
+generate_data_histogram_by_algorithm();
 generate_gnuplot_candlesticks();
 generate_gnuplot_histogram();
 generate_latex();
@@ -223,13 +224,13 @@ sub generate_data
 
 }
 
-sub generate_data_histogram
+sub generate_data_histogram_by_category
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         my $path = "$path_results/$function_id/by-category.dat";
         open(DATA, ">$path")
-            or die "hnco-algorithm-category-stat.pl: generate_data_histogram: Cannot open '$path': $!\n";
+            or die "hnco-algorithm-category-stat.pl: generate_data_histogram_by_category: Cannot open '$path': $!\n";
         print DATA "Algorithm ";
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
@@ -242,6 +243,36 @@ sub generate_data_histogram
             print DATA "$name ";
             foreach my $a (@$algorithms) {
                 my $algorithm_id = $a->{id};
+                my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
+                print DATA "$stat->{mean} ";
+            }
+            print DATA "\n";
+        }
+        close(DATA);
+    }
+}
+
+sub generate_data_histogram_by_algorithm
+{
+    foreach my $f (@$functions) {
+        my $function_id = $f->{id};
+        my $path = "$path_results/$function_id/by-algorithm.dat";
+        open(DATA, ">$path")
+            or die "hnco-algorithm-category-stat.pl: generate_data_histogram_by_algorithm: Cannot open '$path': $!\n";
+        print DATA qq("$parameter_name");
+        print DATA " ";
+        foreach my $category (@$categories) {
+            my $value = $category->{value};
+            my $name = $category->{name};
+            print DATA "$name ";
+        }
+        print DATA "\n";
+        foreach my $a (@$algorithms) {
+            my $algorithm_id = $a->{id};
+            print DATA "$algorithm_id ";
+            foreach my $category (@$categories) {
+                my $value = $category->{value};
+                my $name = $category->{name};
                 my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
                 print DATA "$stat->{mean} ";
             }
@@ -464,7 +495,8 @@ sub generate_gnuplot_histogram
         "set style fill solid 1.00 border lt -1\n",
         "set xtic rotate by -45 scale 0\n",
         "set boxwidth 0.8 relative\n",
-        qq(set key font ",10" outside right top box vertical title "Algorithms" font ",10"\n);
+        qq(set key font ",10" outside right top box vertical title "Algorithms" font ",10"\n),
+        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
     # Font face and size
     my $font = "";
