@@ -231,7 +231,7 @@ sub generate_data_histogram_by_category
         my $path = "$path_results/$function_id/by-category.dat";
         open(DATA, ">$path")
             or die "hnco-algorithm-category-stat.pl: generate_data_histogram_by_category: Cannot open '$path': $!\n";
-        print DATA "Algorithm ";
+        print DATA "algorithm ";
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
             print DATA "$algorithm_id ";
@@ -495,7 +495,6 @@ sub generate_gnuplot_histogram
         "set style fill solid 1.00 border lt -1\n",
         "set xtic rotate by -45 scale 0\n",
         "set boxwidth 0.8 relative\n",
-        qq(set key font ",10" outside right top box vertical title "Algorithms" font ",10"\n),
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
     # Font face and size
@@ -526,13 +525,15 @@ sub generate_gnuplot_histogram
                 "set format y\n";
         }
 
+        # By category
         $quoted_string = qq("$path_graphics/$function_id/histogram-by-category.pdf");
         print HISTOGRAM
             "$terminal{pdf} $font\n",
             "set output $quoted_string\n";
 
         $quoted_string = qq("$path_results/$function_id/by-category.dat");
-        print HISTOGRAM "plot for [COL=2:10] $quoted_string using COL:xticlabels(1) title columnhead\n";
+        print HISTOGRAM qq(set key font ",10" outside right top box vertical title "algorithm" font ",10"\n);
+        print HISTOGRAM "plot for [COL=2:*] $quoted_string using COL:xticlabels(1) title columnhead\n";
 
         $quoted_string = qq("$path_graphics/$function_id/histogram-by-category.eps");
         print HISTOGRAM
@@ -541,6 +542,28 @@ sub generate_gnuplot_histogram
             "replot\n";
 
         $quoted_string = qq("$path_graphics/$function_id/histogram-by-category.png");
+        print HISTOGRAM
+            "$terminal{png} $font\n",
+            "set output $quoted_string\n",
+            "replot\n\n";
+
+        # By algorithm
+        $quoted_string = qq("$path_graphics/$function_id/histogram-by-algorithm.pdf");
+        print HISTOGRAM
+            "$terminal{pdf} $font\n",
+            "set output $quoted_string\n";
+
+        $quoted_string = qq("$path_results/$function_id/by-algorithm.dat");
+        print HISTOGRAM qq(set key font ",10" outside right top box vertical title "$parameter_name" font ",10"\n);
+        print HISTOGRAM "plot for [COL=2:*] $quoted_string using COL:xticlabels(1) title columnhead\n";
+
+        $quoted_string = qq("$path_graphics/$function_id/histogram-by-algorithm.eps");
+        print HISTOGRAM
+            "$terminal{eps} $font\n",
+            "set output $quoted_string\n",
+            "replot\n";
+
+        $quoted_string = qq("$path_graphics/$function_id/histogram-by-algorithm.png");
         print HISTOGRAM
             "$terminal{png} $font\n",
             "set output $quoted_string\n",
@@ -592,6 +615,10 @@ sub generate_latex
 
         print LATEX latex_begin_center();
         print LATEX latex_includegraphics("$function_id/histogram-by-category", 0.6);
+        print LATEX latex_end_center();
+
+        print LATEX latex_begin_center();
+        print LATEX latex_includegraphics("$function_id/histogram-by-algorithm", 0.6);
         print LATEX latex_end_center();
 
         foreach my $a (@$algorithms) {
