@@ -121,7 +121,8 @@ generate_data();
 generate_data_histogram_by_category();
 generate_data_histogram_by_algorithm();
 generate_gnuplot_candlesticks();
-generate_gnuplot_histogram();
+generate_gnuplot_histogram("category", "algorithm");
+generate_gnuplot_histogram("algorithm", $parameter_name);
 generate_latex();
 
 #
@@ -485,35 +486,46 @@ sub generate_gnuplot_candlesticks
 
 sub generate_gnuplot_histogram
 {
-    open(HISTOGRAM, ">histogram.gp")
-        or die "hnco-algorithm-category-stat.pl: generate_gnuplot_histogram: Cannot open histogram.gp\n";
+    my ($type, $title) = @_;
+
+    my $context = $graphics->{"histogram_by_$type"};
+
+    # Orientation of labels
+    my $angle = "-45";
+    if (exists($context->{angle})) {
+        $angle = $context->{angle};
+    }
+
+    # Font face and size
+    my $font = "";
+    if ($context->{font_face}) {
+        $font = $context->{font_face};
+    }
+    if ($context->{font_size}) {
+        $font = "$font,$context->{font_size}";
+    }
+    $font = qq(font "$font");
+
+    open(HISTOGRAM, ">histogram-by-$type.gp")
+        or die "hnco-algorithm-category-stat.pl: generate_gnuplot_histogram: Cannot open histogram-by-$type.gp\n";
 
     print HISTOGRAM
         "#!/usr/bin/gnuplot -persist\n",
         "set style data histograms\n",
-        "set style histogram clustered\n",
+        "set style histogram clustered gap 1\n",
         "set style fill solid 1.00 border lt -1\n",
-        "set xtic rotate by -45 scale 0\n",
-        "set boxwidth 0.8 relative\n",
-        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
-
-    # Font face and size
-    my $font = "";
-    if ($graphics->{histogram}->{font_face}) {
-        $font = $graphics->{histogram}->{font_face};
-    }
-    if ($graphics->{histogram}->{font_size}) {
-        $font = "$font,$graphics->{histogram}->{font_size}";
-    }
-    $font = qq(font "$font");
+        "set xtic rotate by $angle scale 0\n",
+        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n",
+        qq(set key font ",12" right top box vertical title "$title" font ",12"\n\n);
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
-        my $quoted_string = qq("$function_id: Mean value as a function of $parameter_name");
-        print HISTOGRAM "set title $quoted_string\n";
+        if ($context->{title}) {
+            print HISTOGRAM qq(set title "$function_id: Mean value as a function of $parameter_name"\n);
+        }
         if ($f->{logscale}) {
             my $fmt = qq("10^{\%T}");
             print HISTOGRAM
@@ -524,54 +536,30 @@ sub generate_gnuplot_histogram
                 "unset logscale y\n",
                 "set format y\n";
         }
+        print HISTOGRAM "\n";
 
-        # By category
-        $quoted_string = qq("$path_graphics/$function_id/histogram-by-category.pdf");
+        my $quoted_string = qq("$path_graphics/$function_id/histogram-by-$type.pdf");
         print HISTOGRAM
             "$terminal{pdf} $font\n",
             "set output $quoted_string\n";
 
-        $quoted_string = qq("$path_results/$function_id/by-category.dat");
-        print HISTOGRAM qq(set key font ",10" outside right top box vertical title "algorithm" font ",10"\n);
+        $quoted_string = qq("$path_results/$function_id/by-$type.dat");
         print HISTOGRAM "plot for [COL=2:*] $quoted_string using COL:xticlabels(1) title columnhead\n";
 
-        $quoted_string = qq("$path_graphics/$function_id/histogram-by-category.eps");
+        $quoted_string = qq("$path_graphics/$function_id/histogram-by-$type.eps");
         print HISTOGRAM
             "$terminal{eps} $font\n",
             "set output $quoted_string\n",
             "replot\n";
 
-        $quoted_string = qq("$path_graphics/$function_id/histogram-by-category.png");
+        $quoted_string = qq("$path_graphics/$function_id/histogram-by-$type.png");
         print HISTOGRAM
             "$terminal{png} $font\n",
             "set output $quoted_string\n",
             "replot\n\n";
-
-        # By algorithm
-        $quoted_string = qq("$path_graphics/$function_id/histogram-by-algorithm.pdf");
-        print HISTOGRAM
-            "$terminal{pdf} $font\n",
-            "set output $quoted_string\n";
-
-        $quoted_string = qq("$path_results/$function_id/by-algorithm.dat");
-        print HISTOGRAM qq(set key font ",10" outside right top box vertical title "$parameter_name" font ",10"\n);
-        print HISTOGRAM "plot for [COL=2:*] $quoted_string using COL:xticlabels(1) title columnhead\n";
-
-        $quoted_string = qq("$path_graphics/$function_id/histogram-by-algorithm.eps");
-        print HISTOGRAM
-            "$terminal{eps} $font\n",
-            "set output $quoted_string\n",
-            "replot\n";
-
-        $quoted_string = qq("$path_graphics/$function_id/histogram-by-algorithm.png");
-        print HISTOGRAM
-            "$terminal{png} $font\n",
-            "set output $quoted_string\n",
-            "replot\n\n";
-
     }
 
-    system("chmod a+x histogram.gp");
+    system("chmod a+x histogram-by-$type.gp");
 }
 
 sub generate_latex
