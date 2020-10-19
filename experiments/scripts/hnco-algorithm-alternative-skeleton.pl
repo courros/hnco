@@ -50,7 +50,7 @@ my $algorithms          = $obj->{algorithms};
 my $parameter           = $obj->{parameter};
 
 my $parameter_id        = $parameter->{id};
-my $categories          = $parameter->{categories};
+my $alternatives        = $parameter->{alternatives};
 
 #
 # Processing
@@ -93,16 +93,16 @@ sub iterate_algorithms
             mkdir "$path";
             print "Created $path\n";
         }
-        iterate_categories($path);
+        iterate_alternatives($path);
     }
 }
 
-sub iterate_categories
+sub iterate_alternatives
 {
     my ($prefix) = @_;
 
-    foreach my $category (@$categories) {
-        my $value = $category->{value};
+    foreach my $alternative (@$alternatives) {
+        my $value = $alternative->{value};
         my $path = "$prefix/$parameter_id-$value";
         unless (-d $path) {
             mkdir "$path";

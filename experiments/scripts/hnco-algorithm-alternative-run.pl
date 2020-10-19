@@ -55,7 +55,7 @@ my $parameter           = $obj->{parameter};
 my $servers             = $obj->{servers};
 
 my $parameter_id        = $parameter->{id};
-my $categories          = $parameter->{categories};
+my $alternatives        = $parameter->{alternatives};
 
 my @commands = ();
 
@@ -93,17 +93,17 @@ sub iterate_algorithms
         my $algorithm_id = $a->{id};
         print "$algorithm_id\n\n";
         my $num_runs = $a->{deterministic} ? 1 : $obj->{num_runs};
-        iterate_categories("$prefix/$algorithm_id", "$cmd $a->{opt}", $num_runs);
+        iterate_alternatives("$prefix/$algorithm_id", "$cmd $a->{opt}", $num_runs);
         print "\n";
     }
 }
 
-sub iterate_categories
+sub iterate_alternatives
 {
     my ($prefix, $cmd, $num_runs) = @_;
 
-    foreach my $category (@$categories) {
-        my $value = $category->{value};
+    foreach my $alternative (@$alternatives) {
+        my $value = $alternative->{value};
         print "$parameter_id = $value: ";
         iterate_runs("$prefix/$parameter_id-$value", "$cmd --$parameter_id $value", $num_runs);
         print "\n";

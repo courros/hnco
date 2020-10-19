@@ -78,7 +78,7 @@ my $parameter_id        = $parameter->{id};
 my $parameter_name      = $parameter->{name} || $parameter_id;
 my $parameter_shortname = $parameter->{shortname} || $parameter_name;
 my $boxwidth            = $parameter->{boxwidth};
-my $categories          = $parameter->{categories};
+my $alternatives        = $parameter->{alternatives};
 
 my $all_stat = {};
 my $all_stat_flat = {};
@@ -92,12 +92,12 @@ my @rankings_flat = ();
 # Parameter values
 #
 
-my $num_lines = @$algorithms * @$categories;
+my $num_lines = @$algorithms * @$alternatives;
 
 foreach my $a (@$algorithms) {
     my $algorithm_id = $a->{id};
-    foreach my $category (@$categories) {
-        my $value = $category->{value};
+    foreach my $alternative (@$alternatives) {
+        my $value = $alternative->{value};
         my @counts = (0) x ($num_lines); # Array of size $num_lines initialized to 0
         $rankings->{$algorithm_id}->{$value} = \@counts;
     }
@@ -118,10 +118,10 @@ compute_best_statistics();
 reverse_values();
 reverse_best_statistics();
 generate_data();
-generate_data_histogram_by_category();
+generate_data_histogram_by_alternative();
 generate_data_histogram_by_algorithm();
 generate_gnuplot_candlesticks();
-generate_gnuplot_histogram("category", "algorithm");
+generate_gnuplot_histogram("alternative", "algorithm");
 generate_gnuplot_histogram("algorithm", $parameter_name);
 generate_latex();
 
@@ -144,8 +144,8 @@ sub compute_statistics
                 $algorithm_num_runs = 1;
             }
 
-            foreach my $category (@$categories) {
-                my $value = $category->{value};
+            foreach my $alternative (@$alternatives) {
+                my $value = $alternative->{value};
                 my $prefix = "$path_results/$function_id/$algorithm_id/$parameter_id-$value";
                 my $SD_value = Statistics::Descriptive::Full->new();
 
@@ -194,14 +194,14 @@ sub generate_data
 
             my $path = "$prefix/mean.dat";
             my $mean = IO::File->new($path, '>')
-                or die "hnco-algorithm-category-stat.pl: generate_data: Cannot open '$path': $!\n";
+                or die "hnco-algorithm-alternative-stat.pl: generate_data: Cannot open '$path': $!\n";
 
             $path = "$prefix/quartiles.dat";
             my $quartiles = IO::File->new($path, '>')
-                or die "hnco-algorithm-category-stat.pl: generate_data: Cannot open '$path': $!\n";
+                or die "hnco-algorithm-alternative-stat.pl: generate_data: Cannot open '$path': $!\n";
 
-            foreach my $category (@$categories) {
-                my $value = $category->{value};
+            foreach my $alternative (@$alternatives) {
+                my $value = $alternative->{value};
                 my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
                 $quartiles->printf("%e %e %e %e %e %e\n",
                                    $value,
@@ -225,22 +225,22 @@ sub generate_data
 
 }
 
-sub generate_data_histogram_by_category
+sub generate_data_histogram_by_alternative
 {
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $path = "$path_results/$function_id/by-category.dat";
+        my $path = "$path_results/$function_id/by-alternative.dat";
         open(DATA, ">$path")
-            or die "hnco-algorithm-category-stat.pl: generate_data_histogram_by_category: Cannot open '$path': $!\n";
+            or die "hnco-algorithm-alternative-stat.pl: generate_data_histogram_by_alternative: Cannot open '$path': $!\n";
         print DATA "algorithm ";
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
             print DATA "$algorithm_id ";
         }
         print DATA "\n";
-        foreach my $category (@$categories) {
-            my $value = $category->{value};
-            my $name = $category->{name};
+        foreach my $alternative (@$alternatives) {
+            my $value = $alternative->{value};
+            my $name = $alternative->{name};
             print DATA "$name ";
             foreach my $a (@$algorithms) {
                 my $algorithm_id = $a->{id};
@@ -259,21 +259,21 @@ sub generate_data_histogram_by_algorithm
         my $function_id = $f->{id};
         my $path = "$path_results/$function_id/by-algorithm.dat";
         open(DATA, ">$path")
-            or die "hnco-algorithm-category-stat.pl: generate_data_histogram_by_algorithm: Cannot open '$path': $!\n";
+            or die "hnco-algorithm-alternative-stat.pl: generate_data_histogram_by_algorithm: Cannot open '$path': $!\n";
         print DATA qq("$parameter_name");
         print DATA " ";
-        foreach my $category (@$categories) {
-            my $value = $category->{value};
-            my $name = $category->{name};
+        foreach my $alternative (@$alternatives) {
+            my $value = $alternative->{value};
+            my $name = $alternative->{name};
             print DATA "$name ";
         }
         print DATA "\n";
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
             print DATA "$algorithm_id ";
-            foreach my $category (@$categories) {
-                my $value = $category->{value};
-                my $name = $category->{name};
+            foreach my $alternative (@$alternatives) {
+                my $value = $alternative->{value};
+                my $name = $alternative->{name};
                 my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
                 print DATA "$stat->{mean} ";
             }
@@ -327,8 +327,8 @@ sub compute_rankings_flat
     @rankings_flat = ();
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
-        foreach my $category (@$categories) {
-            my $value = $category->{value};
+        foreach my $alternative (@$alternatives) {
+            my $value = $alternative->{value};
             my $item = {
                 algorithm       => $algorithm_id,
                 value           => $value,
@@ -371,8 +371,8 @@ sub reverse_values
     foreach my $f (@$functions) {
         if ($f->{reverse}) {
             foreach my $a (@$algorithms) {
-                foreach my $category (@$categories) {
-                    my $value = $category->{value};
+                foreach my $alternative (@$alternatives) {
+                    my $value = $alternative->{value};
                     my $stat = $all_stat->{$f->{id}}->{$a->{id}}->{$value};
                     ($stat->{min}, $stat->{max}) = ($stat->{max}, $stat->{min});
                     ($stat->{q1}, $stat->{q3}) = ($stat->{q3}, $stat->{q1});
@@ -404,7 +404,7 @@ sub reverse_best_statistics
 sub generate_gnuplot_candlesticks
 {
     open(CANDLESTICKS, ">candlesticks.gp")
-        or die "hnco-algorithm-category-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
+        or die "hnco-algorithm-alternative-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
 
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
@@ -507,7 +507,7 @@ sub generate_gnuplot_histogram
     $font = qq(font "$font");
 
     open(HISTOGRAM, ">histogram-by-$type.gp")
-        or die "hnco-algorithm-category-stat.pl: generate_gnuplot_histogram: Cannot open histogram-by-$type.gp\n";
+        or die "hnco-algorithm-alternative-stat.pl: generate_gnuplot_histogram: Cannot open histogram-by-$type.gp\n";
 
     print HISTOGRAM
         "#!/usr/bin/gnuplot -persist\n",
@@ -565,7 +565,7 @@ sub generate_gnuplot_histogram
 sub generate_latex
 {
     open(LATEX, ">$path_report/results.tex")
-        or die "hnco-algorithm-category-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
+        or die "hnco-algorithm-alternative-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
 
     print LATEX latex_graphicspath($path_graphics);
 
@@ -589,8 +589,8 @@ sub generate_latex
         latex_function_table_begin(">{{\\nprounddigits{$rounding_value_after}}}N{$rounding_value_before}{$rounding_value_after}");
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-            foreach my $category (@$categories) {
-                my $value = $category->{value};
+            foreach my $alternative (@$alternatives) {
+                my $value = $alternative->{value};
                 latex_function_table_add_line($algorithm_id,
                                               $value,
                                               $all_stat->{$function_id}->{$algorithm_id}->{$value},
@@ -602,7 +602,7 @@ sub generate_latex
         print LATEX latex_end_center();
 
         print LATEX latex_begin_center();
-        print LATEX latex_includegraphics("$function_id/histogram-by-category", 0.6);
+        print LATEX latex_includegraphics("$function_id/histogram-by-alternative", 0.6);
         print LATEX latex_end_center();
 
         print LATEX latex_begin_center();
