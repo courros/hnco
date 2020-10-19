@@ -17,9 +17,9 @@
 # <http://www.gnu.org/licenses/>.
 
 dist_bin_SCRIPTS = \
-	scripts/hnco-algorithm-category-run.pl \
-	scripts/hnco-algorithm-category-skeleton.pl \
-	scripts/hnco-algorithm-category-stat.pl \
+	scripts/hnco-algorithm-alternative-run.pl \
+	scripts/hnco-algorithm-alternative-skeleton.pl \
+	scripts/hnco-algorithm-alternative-stat.pl \
 	scripts/hnco-algorithm-parameter-run.pl \
 	scripts/hnco-algorithm-parameter-skeleton.pl \
 	scripts/hnco-algorithm-parameter-stat.pl \
