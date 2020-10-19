@@ -202,18 +202,21 @@ sub generate_data
 
             foreach my $alternative (@$alternatives) {
                 my $value = $alternative->{value};
+                my $name = $alternative->{name};
                 my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
-                $quartiles->printf("%e %e %e %e %e %e\n",
+                $quartiles->printf("%d %e %e %e %e %e %s\n",
                                    $value,
                                    $stat->{min},
                                    $stat->{q1},
                                    $stat->{median},
                                    $stat->{q3},
-                                   $stat->{max});
-                $mean->printf("%e %e %e\n",
+                                   $stat->{max},
+                                   $name);
+                $mean->printf("%d %e %e %s\n",
                               $value,
                               $stat->{mean},
-                              $stat->{stddev});
+                              $stat->{stddev},
+                              $name);
             }
 
             $quartiles->close();
@@ -329,9 +332,11 @@ sub compute_rankings_flat
         my $algorithm_id = $a->{id};
         foreach my $alternative (@$alternatives) {
             my $value = $alternative->{value};
+            my $name = $alternative->{name};
             my $item = {
                 algorithm       => $algorithm_id,
                 value           => $value,
+                name            => $name,
                 rank_counts     => $rankings->{$algorithm_id}->{$value}
             };
             push @rankings_flat, $item;
@@ -591,8 +596,9 @@ sub generate_latex
             my $algorithm_id = $a->{id};
             foreach my $alternative (@$alternatives) {
                 my $value = $alternative->{value};
+                my $name = $alternative->{name};
                 latex_function_table_add_line($algorithm_id,
-                                              $value,
+                                              $name,
                                               $all_stat->{$function_id}->{$algorithm_id}->{$value},
                                               $function_best,
                                               $fn->{logscale});
@@ -633,7 +639,7 @@ sub latex_rankings_table
         "\\midrule\n";
 
     foreach (@rankings_flat) {
-        print LATEX "$_->{algorithm} & $_->{value} & ", join(" & ", @{ $_->{rank_counts} }), "\\\\\n";
+        print LATEX "$_->{algorithm} & $_->{name} & ", join(" & ", @{ $_->{rank_counts} }), "\\\\\n";
     }
 
     print LATEX
@@ -656,13 +662,13 @@ sub latex_function_table_begin
 
 sub latex_function_table_add_line
 {
-    my ($algo, $value, $stat, $best, $logscale) = @_;
+    my ($algo, $name, $stat, $best, $logscale) = @_;
 
     my $conversion = $logscale ? "%e" : "%f";
     my $format = join " & ",
         map { $stat->{$_} == $best->{$_} ? "{\\color{blue}} $conversion" : "$conversion" } @summary_statistics_display;
 
-    printf LATEX "$algo & $value & ";
+    printf LATEX "$algo & $name & ";
     printf LATEX ($format, $stat->{min}, $stat->{q1}, $stat->{median}, $stat->{q3}, $stat->{max});
     printf LATEX (" & %d \\\\\n", $stat->{rank} + 1);
 
