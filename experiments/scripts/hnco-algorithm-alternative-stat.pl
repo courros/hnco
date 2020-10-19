@@ -413,11 +413,11 @@ sub generate_gnuplot_candlesticks
 
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
-        "set grid\n",
+        "set grid y\n",
         qq(set xlabel "$parameter_name"\n),
         qq(set ylabel "Function value"\n),
         "set autoscale fix\n",
-        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
+        "set offsets 1, 1, graph 0.05, graph 0.05\n\n";
 
     # Font face and size
     my $font = "";
@@ -467,7 +467,7 @@ sub generate_gnuplot_candlesticks
                 "set output $quoted_string\n";
             $quoted_string = qq("$path_results/$function_id/$algorithm_id/quartiles.dat");
             print CANDLESTICKS
-                "plot $quoted_string using 1:3:2:6:5:($boxwidth) with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
+                "plot $quoted_string using 1:3:2:6:5:($boxwidth):xtic(7) with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
                 "     $quoted_string using 1:4:4:4:4:($boxwidth) with candlesticks lw 2 lt 1 notitle\n";
 
             $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.eps");
