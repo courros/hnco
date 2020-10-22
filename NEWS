@@ -11,6 +11,11 @@ Library:
 hnco:
 - Added sudoku function with number 190
 
+Scripts:
+- Added hnco-algorithm-alternative-skeleton.pl
+- Added hnco-algorithm-alternative-run.pl
+- Added hnco-algorithm-alternative-stat.pl
+
 
 * Version 0.15 (2020-08-08)
 
