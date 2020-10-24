@@ -275,15 +275,20 @@ int main(int argc, char *argv[])
 
   std::ostringstream results;
 
-  results << "{\n";
-
   ProgressTracker::Event last_improvement = tracker->get_last_improvement();
 
-  results << "  \"value\": "                    << last_improvement.value << ",\n";
-  results << "  \"num_evaluations\": "          << last_improvement.num_evaluations << ",\n";
-  results << "  \"total_num_evaluations\": "    << tracker->get_num_calls() << ",\n";
-  results << "  \"total_time\": "               << total_time << ",\n";
-  results << "  \"evaluation_time\": "          << tracker->get_evaluation_time();
+  results << "{\n  \"value\": "                    << last_improvement.value;
+  results << ",\n  \"num_evaluations\": "          << last_improvement.num_evaluations;
+  results << ",\n  \"total_num_evaluations\": "    << tracker->get_num_calls();
+  results << ",\n  \"total_time\": "               << total_time;
+  results << ",\n  \"evaluation_time\": "          << tracker->get_evaluation_time();
+
+  if (options.with_stop_on_maximum() || options.with_stop_on_target()) {
+    if (maximum_reached || target_reached)
+      results << ",\n  \"success\": true";
+    else
+      results << ",\n  \"success\": false";
+  }
 
   hnco::function::controller::Cache *cache = function_factory.get_cache();
 
