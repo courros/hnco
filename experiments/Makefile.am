@@ -29,6 +29,8 @@ dist_bin_SCRIPTS = \
 	scripts/hnco-benchmark-skeleton.pl \
 	scripts/hnco-benchmark-stat.pl \
 	scripts/hnco-ecdf-stat.pl \
+	scripts/hnco-fixed-target-run.pl \
+	scripts/hnco-fixed-target-stat.pl \
 	scripts/hnco-function-parameter-stat.pl \
 	scripts/hnco-lookup-ratio-stat.pl \
 	scripts/hnco-maximum-evolution-stat.pl \
@@ -84,6 +86,10 @@ EXTRA_DIST = \
 	examples/ecdf/plan.json \
 	examples/ecdf/report/Makefile \
 	examples/ecdf/report/report.tex \
+	examples/fixed-target/Makefile \
+	examples/fixed-target/plan.json \
+	examples/fixed-target/report/Makefile \
+	examples/fixed-target/report/report.tex \
 	examples/function-parameter/Makefile \
 	examples/function-parameter/plan.json \
 	examples/function-parameter/report/Makefile \
