@@ -415,6 +415,9 @@ sub latex_table_rank_distributions_begin
 sub latex_table_rank_distributions_body
 {
     my @order = sort {
+        if ($global_statistics->{$a} != $global_statistics->{$b}) {
+            return $global_statistics->{$b} <=> $global_statistics->{$a};
+        }
         foreach (0 .. @$algorithms - 1) {
             if (${ $rank_distributions->{$b} }[$_] != ${ $rank_distributions->{$a} }[$_]) {
                 return ${ $rank_distributions->{$b} }[$_] <=> ${ $rank_distributions->{$a} }[$_];
