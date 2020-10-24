@@ -10,11 +10,17 @@ Library:
 
 hnco:
 - Added sudoku function with number 190
+- Add field success to the results in json
 
 Scripts:
 - Added hnco-algorithm-alternative-skeleton.pl
 - Added hnco-algorithm-alternative-run.pl
 - Added hnco-algorithm-alternative-stat.pl
+- Added hnco-algorithm-fixed-target-run.pl
+- Added hnco-algorithm-fixed-target-stat.pl
+
+Experiments:
+- Added experiment fixed-target
 
 
 * Version 0.15 (2020-08-08)
