@@ -1,0 +1,7 @@
+_minted-report/
+auto/
+*~
+*.aux
+*.log
+*.out
+*.toc
