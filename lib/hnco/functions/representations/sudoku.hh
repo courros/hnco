@@ -69,7 +69,10 @@ public:
 
   /** Load an instance.
       \throw Error */
-  void load(std::istream& stream);
+  virtual void load(std::istream& stream);
+
+  /// Save an instance
+  virtual void save(std::ostream& stream);
 
   /// Display the problem
   void display(std::ostream& stream);

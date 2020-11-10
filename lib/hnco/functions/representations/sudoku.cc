@@ -33,6 +33,25 @@ using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::function::representation;
 
+template<class T>
+void print_board(const std::vector<std::vector<T>>& board, std::ostream& stream, bool pretty)
+{
+  for (int i = 0; i < 9; i++) {
+    for (int j = 0; j < 9; j++) {
+      stream << board[i][j];
+      if (pretty) {
+        if (j == 2 || j == 5)
+          stream << "|";
+      }
+    }
+    stream << std::endl;
+    if (pretty) {
+      if (i == 2 || i == 5)
+        stream << "---+---+---" << std::endl;
+    }
+  }
+}
+
 void
 Sudoku::load(std::istream& stream)
 {
@@ -66,25 +85,16 @@ Sudoku::load(std::istream& stream)
     throw Error("Sudoku::load: at least 9 lines are needed");
 }
 
-template<class T>
-void print_board(const std::vector<std::vector<T>>& board, std::ostream& stream)
+void
+Sudoku::save(std::ostream& stream)
 {
-  for (int i = 0; i < 9; i++) {
-    for (int j = 0; j < 9; j++) {
-      stream << board[i][j];
-      if (j == 2 || j == 5)
-        stream << "|";
-    }
-    stream << std::endl;
-    if (i == 2 || i == 5)
-      stream << "---+---+---" << std::endl;
-  }
+  print_board(_problem_instance, stream, false);
 }
 
 void
 Sudoku::display(std::ostream& stream)
 {
-  print_board(_problem_instance, stream);
+  print_board(_problem_instance, stream, true);
 }
 
 void
@@ -160,5 +170,5 @@ void
 Sudoku::describe(const std::vector<domain_type>& x, std::ostream& stream)
 {
   write_variables(x);
-  print_board(_candidate, stream);
+  print_board(_candidate, stream, true);
 }
