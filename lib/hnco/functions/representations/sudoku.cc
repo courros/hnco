@@ -26,6 +26,7 @@
 #include <sstream>
 
 #include "hnco/exception.hh"
+#include "hnco/permutation.hh"
 
 #include "sudoku.hh"
 
@@ -34,18 +35,18 @@ using namespace hnco::function;
 using namespace hnco::function::representation;
 
 template<class T>
-void print_board(const std::vector<std::vector<T>>& board, std::ostream& stream, bool pretty)
+void print_board(const std::vector<std::vector<T>>& board, std::ostream& stream, bool pretty_print)
 {
   for (int i = 0; i < 9; i++) {
     for (int j = 0; j < 9; j++) {
       stream << board[i][j];
-      if (pretty) {
+      if (pretty_print) {
         if (j == 2 || j == 5)
           stream << "|";
       }
     }
     stream << std::endl;
-    if (pretty) {
+    if (pretty_print) {
       if (i == 2 || i == 5)
         stream << "---+---+---" << std::endl;
     }
@@ -86,9 +87,40 @@ Sudoku::load(std::istream& stream)
 }
 
 void
-Sudoku::save(std::ostream& stream)
+Sudoku::save(std::ostream& stream) const
 {
   print_board(_problem_instance, stream, false);
+}
+
+void
+Sudoku::random(int c)
+{
+  assert(c > 0);
+
+  permutation_t permutation(9);
+  perm_random(permutation);
+  // First row
+  for (int j = 0; j < 9; j++)
+    _problem_instance[0][j] = '1' + char(permutation[j]);
+  // Second and third rows
+  for (int i = 1; i < 3; i++)
+    for (int j = 0; j < 9; j++)
+      _problem_instance[i][j] = _problem_instance[i-1][(j + 3) % 9];
+  // Copy block above and cycle columns
+  for (int bi = 1; bi < 3; bi++)
+    for (int bj = 0; bj < 3; bj++)
+      for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+          _problem_instance[3 * bi + i][3 * bj + j] = _problem_instance[3 * (bi - 1) + i][3 * bj + (j + 1) % 3];
+  // Digits to erase
+  bit_vector_t erase(81);
+  bv_random(erase, c);
+  for (int i = 0; i < 9; i++) {
+    for (int j = 0; j < 9; j++) {
+      if (erase[i + 9 * j])
+        _problem_instance[i][j] = '.';
+    }
+  }
 }
 
 void

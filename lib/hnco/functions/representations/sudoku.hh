@@ -69,10 +69,16 @@ public:
 
   /** Load an instance.
       \throw Error */
-  virtual void load(std::istream& stream);
+  void load(std::istream& stream);
 
   /// Save an instance
-  virtual void save(std::ostream& stream);
+  void save(std::ostream& stream) const;
+
+  /** Random instance.
+
+      \param c Number of empty cells
+  */
+  void random(int c);
 
   /// Display the problem
   void display(std::ostream& stream);
