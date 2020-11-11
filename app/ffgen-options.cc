@@ -49,6 +49,8 @@ Options::Options(int argc, char *argv[]):
   _opt_seed(false),
   _stddev(1),
   _opt_stddev(false),
+  _sudoku_num_empty_cells(10),
+  _opt_sudoku_num_empty_cells(false),
   _walsh2_generator(0),
   _opt_walsh2_generator(false),
   _walsh2_ising_alpha(2),
@@ -81,6 +83,7 @@ Options::Options(int argc, char *argv[]):
     OPTION_PATH,
     OPTION_SEED,
     OPTION_STDDEV,
+    OPTION_SUDOKU_NUM_EMPTY_CELLS,
     OPTION_WALSH2_GENERATOR,
     OPTION_WALSH2_ISING_ALPHA,
     OPTION_WALSH_NUM_FEATURES,
@@ -108,6 +111,7 @@ Options::Options(int argc, char *argv[]):
     {"path", required_argument, 0, OPTION_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
     {"stddev", required_argument, 0, OPTION_STDDEV},
+    {"sudoku-num-empty-cells", required_argument, 0, OPTION_SUDOKU_NUM_EMPTY_CELLS},
     {"walsh2-generator", required_argument, 0, OPTION_WALSH2_GENERATOR},
     {"walsh2-ising-alpha", required_argument, 0, OPTION_WALSH2_ISING_ALPHA},
     {"walsh-num-features", required_argument, 0, OPTION_WALSH_NUM_FEATURES},
@@ -206,6 +210,10 @@ Options::Options(int argc, char *argv[]):
       set_stddev(atof(optarg));
       break;
 
+    case OPTION_SUDOKU_NUM_EMPTY_CELLS:
+      set_sudoku_num_empty_cells(atoi(optarg));
+      break;
+
     case OPTION_WALSH2_GENERATOR:
       set_walsh2_generator(atoi(optarg));
       break;
@@ -260,6 +268,7 @@ void Options::print_help(ostream& stream) const
   stream << "            162: Walsh expansion of degree 2" << endl;
   stream << "            171: Nearest neighbor Ising model in one dimension" << endl;
   stream << "            172: Nearest neighbor Ising model in two dimensions" << endl;
+  stream << "            190: Sudoku" << endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << endl;
   stream << "          Path (relative or absolute) of a function file" << endl;
   stream << "      --seed (type int, default to 0)" << endl;
@@ -340,6 +349,10 @@ void Options::print_help(ostream& stream) const
   stream << "      --nn2-num-rows (type int, default to 10)" << endl;
   stream << "          Number of rows" << endl;
   stream << endl;
+  stream << "Sudoku" << endl;
+  stream << "      --sudoku-num-empty-cells (type int, default to 10)" << endl;
+  stream << "          Number of empty cells" << endl;
+  stream << endl;
 }
 
 void Options::print_version(ostream& stream) const
@@ -369,6 +382,7 @@ ostream& operator<<(ostream& stream, const Options& options)
   stream << "# path = " << options._path << endl;
   stream << "# seed = " << options._seed << endl;
   stream << "# stddev = " << options._stddev << endl;
+  stream << "# sudoku_num_empty_cells = " << options._sudoku_num_empty_cells << endl;
   stream << "# walsh2_generator = " << options._walsh2_generator << endl;
   stream << "# walsh2_ising_alpha = " << options._walsh2_ising_alpha << endl;
   stream << "# walsh_num_features = " << options._walsh_num_features << endl;

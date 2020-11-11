@@ -93,6 +93,10 @@ class Options {
   double _stddev;
   bool _opt_stddev;
 
+  /// Number of empty cells
+  int _sudoku_num_empty_cells;
+  bool _opt_sudoku_num_empty_cells;
+
   /// Type of WalshExpansion2 generator
   int _walsh2_generator;
   bool _opt_walsh2_generator;
@@ -361,6 +365,18 @@ public:
 
   /// Get set-flag for stddev
   bool set_stddev() const { return _opt_stddev; }
+
+  /// Get sudoku_num_empty_cells
+  int get_sudoku_num_empty_cells() const { return _sudoku_num_empty_cells; }
+
+  /// Set sudoku_num_empty_cells
+  void set_sudoku_num_empty_cells(int x) {
+    _sudoku_num_empty_cells = x;
+    _opt_sudoku_num_empty_cells = true;
+  }
+
+  /// Get set-flag for sudoku_num_empty_cells
+  bool set_sudoku_num_empty_cells() const { return _opt_sudoku_num_empty_cells; }
 
   /// Get walsh2_generator
   int get_walsh2_generator() const { return _walsh2_generator; }

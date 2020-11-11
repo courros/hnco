@@ -37,13 +37,27 @@ using namespace hnco;
 
 
 template<class T>
-void save_function_to_boost_archive(const T& function, const std::string name, const Options& options)
+void save_function(const T& function, const std::string class_name, const std::string path)
 {
-  std::cout << "Writing " << name << " to " << options.get_path() << " ... ";
-  std::ofstream ofs(options.get_path());
+  std::cout << "Writing " << class_name << " to " << path << " ... ";
+  std::ofstream ofs(path);
   if (!ofs.good()) {
     std::ostringstream stream;
-    stream << "save_function_to_boost_archive: Cannot open " << options.get_path();
+    stream << "save_function: Cannot open " << path;
+    throw Error(stream.str());
+  }
+  function.save(ofs);
+  std::cout << "done" << std::endl;
+}
+
+template<class T>
+void save_function_to_boost_archive(const T& function, const std::string name, const std::string path)
+{
+  std::cout << "Writing " << name << " to " << path << " ... ";
+  std::ofstream ofs(path);
+  if (!ofs.good()) {
+    std::ostringstream stream;
+    stream << "save_function_to_boost_archive: Cannot open " << path;
     throw Error(stream.str());
   }
   try {
@@ -55,7 +69,6 @@ void save_function_to_boost_archive(const T& function, const std::string name, c
   }
   std::cout << "done" << std::endl;
 }
-
 
 void generate_linear_function(Options& options)
 {
@@ -91,7 +104,7 @@ void generate_linear_function(Options& options)
 
   }
 
-  save_function_to_boost_archive(function, "LinearFunction", options);
+  save_function_to_boost_archive(function, "LinearFunction", options.get_path());
 }
 
 
@@ -118,7 +131,7 @@ void generate_walsh_expansion_2(Options& options)
 
   }
 
-  save_function_to_boost_archive(function, "WalshExpansion2", options);
+  save_function_to_boost_archive(function, "WalshExpansion2", options.get_path());
 }
 
 
@@ -161,7 +174,7 @@ void generate_nearest_neighbor_ising_model_1(Options& options)
   }
 
   function.set_periodic_boundary_conditions(options.with_periodic_boundary_conditions());
-  save_function_to_boost_archive(function, "NearestNeighborIsingModel1", options);
+  save_function_to_boost_archive(function, "NearestNeighborIsingModel1", options.get_path());
 }
 
 
@@ -213,7 +226,7 @@ void generate_nearest_neighbor_ising_model_2(Options& options)
       << " to " << function.get_bv_size() << std::endl;
 
   function.set_periodic_boundary_conditions(options.with_periodic_boundary_conditions());
-  save_function_to_boost_archive(function, "NearestNeighborIsingModel2", options);
+  save_function_to_boost_archive(function, "NearestNeighborIsingModel2", options.get_path());
 }
 
 
@@ -231,7 +244,7 @@ void generate_function(Options& options)
   case 60: {
     NkLandscape function;
     function.generate(options.get_bv_size(), options.get_nk_k(), generator);
-    save_function_to_boost_archive(function, "NkLandscape", options);
+    save_function_to_boost_archive(function, "NkLandscape", options.get_path());
     break;
   }
 
@@ -248,10 +261,7 @@ void generate_function(Options& options)
                       options.get_ms_num_literals_per_clause(),
                       options.get_ms_num_clauses());
     }
-    std::cout << "Writing MaxSat to " << options.get_path() << " ... ";
-    std::ofstream ofs(options.get_path());
-    function.save(ofs);
-    std::cout << "done" << std::endl;
+    save_function(function, "MaxSat", options.get_path());
     break;
   }
 
@@ -259,28 +269,28 @@ void generate_function(Options& options)
     EqualProducts function;
     double upper_bound = options.get_ep_upper_bound();
     function.generate(options.get_bv_size(), [upper_bound]() { return upper_bound * Generator::uniform(); });
-    save_function_to_boost_archive(function, "EqualProducts", options);
+    save_function_to_boost_archive(function, "EqualProducts", options.get_path());
     break;
   }
 
   case 91: {
     Partition function;
     function.random(options.get_bv_size(), options.get_part_upper_bound());
-    save_function_to_boost_archive(function, "Partition", options);
+    save_function_to_boost_archive(function, "Partition", options.get_path());
     break;
   }
 
   case 160: {
     WalshExpansion function;
     function.generate(options.get_bv_size(), options.get_walsh_num_features(), generator);
-    save_function_to_boost_archive(function, "WalshExpansion", options);
+    save_function_to_boost_archive(function, "WalshExpansion", options.get_path());
     break;
   }
 
   case 161: {
     WalshExpansion1 function;
     function.generate(options.get_bv_size(), generator);
-    save_function_to_boost_archive(function, "WalshExpansion1", options);
+    save_function_to_boost_archive(function, "WalshExpansion1", options.get_path());
     break;
   }
 
@@ -295,6 +305,13 @@ void generate_function(Options& options)
   case 172:
     generate_nearest_neighbor_ising_model_2(options);
     break;
+
+  case 190: {
+    representation::Sudoku function;
+    function.random(options.get_sudoku_num_empty_cells());
+    save_function(function, "Sudoku", options.get_path());
+    break;
+  }
 
   default:
     std::ostringstream stream;

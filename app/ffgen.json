@@ -71,11 +71,17 @@
             "id": "nn2",
             "title": "Nearest neighbor Ising model in two dimensions",
             "fold": false
+        },
+
+        {
+            "id": "sudoku",
+            "title": "Sudoku",
+            "fold": false
         }
 
     ],
 
-    "order": [ "gen", "param", "lin", "nk", "ms", "ep", "part", "walsh", "walsh2", "nn1", "nn2" ],
+    "order": [ "gen", "param", "lin", "nk", "ms", "ep", "part", "walsh", "walsh2", "nn1", "nn2", "sudoku" ],
 
     "flags": {
 
@@ -179,6 +185,11 @@
                 {
                     "value": 172,
                     "description": "Nearest neighbor Ising model in two dimensions"
+                },
+
+                {
+                    "value": 190,
+                    "description": "Sudoku"
                 }
 
             ]
@@ -420,6 +431,14 @@
             "value": 10,
             "description": "Number of columns",
             "section": "nn2"
+        },
+
+        "sudoku_num_empty_cells":
+        {
+            "type": "int",
+            "value": 10,
+            "description": "Number of empty cells",
+            "section": "sudoku"
         }
 
     }
