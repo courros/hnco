@@ -66,7 +66,7 @@ namespace function {
     virtual void load(std::istream& stream);
 
     /// Save an instance
-    virtual void save(std::ostream& stream);
+    virtual void save(std::ostream& stream) const;
 
   };
 

@@ -150,7 +150,7 @@ AbstractMaxSat::load(std::istream& stream)
 
 
 void
-AbstractMaxSat::save(std::ostream& stream)
+AbstractMaxSat::save(std::ostream& stream) const
 {
   stream
     << "c HNCO AbstractMaxSat::save" << std::endl
