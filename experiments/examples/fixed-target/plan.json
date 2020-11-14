@@ -1,7 +1,7 @@
 {
     "exec": "hnco",
     "opt": "--print-results --map 1 --map-random -s 100",
-    "budget": 100000,
+    "budget": 200000,
 
     "num_runs": 10,
     "parallel": true,
