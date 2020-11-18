@@ -584,7 +584,8 @@ sub generate_latex
                  latex_end_center());
     foreach my $f (@$functions) {
         my $id = $f->{id};
-        $file->print(latex_section("Function $id"),
+        $file->print(latex_newpage(),
+                     latex_section("Function $id"),
                      latex_begin_center(),
                      latex_input_file("table.value.$id.tex"),
                      latex_end_center(),
