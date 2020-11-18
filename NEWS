@@ -21,6 +21,9 @@ Scripts:
 - Added hnco-algorithm-alternative-stat.pl
 - Added hnco-algorithm-fixed-target-run.pl
 - Added hnco-algorithm-fixed-target-stat.pl
+- hnco-benchmark-stat.pl: uses IO::File everywhere
+- hnco-benchmark-stat.pl: write tables in separate files
+- hnco-benchmark-stat.pl: produces rank statistics
 
 Experiments:
 - Added experiment fixed-target
