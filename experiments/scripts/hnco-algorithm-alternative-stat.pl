@@ -82,19 +82,20 @@ my $parameter   = $obj->{parameter};
 my $parameter_id        = $parameter->{id};
 my $parameter_name      = $parameter->{name} || $parameter_id;
 my $parameter_shortname = $parameter->{shortname} || $parameter_name;
-my $boxwidth            = $parameter->{boxwidth};
 my $alternatives        = $parameter->{alternatives};
 
 my @results = ();
 my @value_statistics = ();
-my @time_statistics = ();
 my @rank_statistics = ();
 
 # hash indexed by function
 my $best_value_statistics = {};
 
-# hash indexed by algorithm then by alternative
+# hash indexed by algorithm, alternative
 my $rank_data = {};
+
+# hash indexed by function, algorithm, alternative
+my $mean_data = {};
 
 #
 # Processing
@@ -121,10 +122,6 @@ generate_latex();
 #
 
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
-foreach (@$functions) {
-    my $path = "$path_graphics/$_->{id}";
-    unless (-d "$path") { mkdir "$path"; }
-}
 
 #
 # Local functions
@@ -138,14 +135,12 @@ sub load_results
             my $algorithm_id = $a->{id};
             foreach my $alternative (@$alternatives) {
                 my $alternative_value = $alternative->{value};
-                my $alternative_name = $alternative->{name};
                 my $prefix = "$path_results/$function_id/$algorithm_id/$parameter_id-$alternative_value";
                 foreach (1 .. $num_runs) {
                     my $obj = from_json(read_file("$prefix/$_.out"));
                     push @results, { function           => $function_id,
                                      algorithm          => $algorithm_id,
                                      alternative_value  => $alternative_value,
-                                     alternative_name   => $alternative_name,
                                      run                => $_,
                                      value              => $obj->{value},
                                      num_evaluations    => $obj->{num_evaluations},
@@ -168,7 +163,6 @@ sub compute_statistics
             my @rows2 = grep { $_->{algorithm} eq $algorithm_id } @rows1;
             foreach my $alternative (@$alternatives) {
                 my $alternative_value = $alternative->{value};
-                my $alternative_name = $alternative->{name};
                 my @rows3 = grep { $_->{alternative_value} eq $alternative_value } @rows2;
                 my @values = map { $_->{value} } @rows3;
                 my $sd = Statistics::Descriptive::Full->new();
@@ -176,38 +170,13 @@ sub compute_statistics
                 push @value_statistics, { function => $function_id,
                                           algorithm => $algorithm_id,
                                           alternative_value => $alternative_value,
-                                          alternative_name => $alternative_name,
+                                          alternative_name => $alternative->{name},
                                           min => $sd->min(),
                                           q1 => $sd->quantile(1),
                                           median => $sd->median(),
                                           q3 => $sd->quantile(3),
-                                          max => $sd->max(),
-                                          mean => $sd->mean() };
-
-                my $item = { function => $function_id,
-                             algorithm => $algorithm_id,
-                             alternative_value => $alternative_value,
-                             alternative_name => $alternative_name };
-
-                @values = map { $_->{total_time} } @rows3;
-                $sd->clear();
-                $sd->add_data(@values);
-                $item->{total_time_mean} = $sd->mean();
-                $item->{total_time_stddev} = $sd->standard_deviation();
-
-                @values = map { $_->{evaluation_time} } @rows3;
-                $sd->clear();
-                $sd->add_data(@values);
-                $item->{evaluation_time_mean} = $sd->mean();
-                $item->{evaluation_time_stddev} = $sd->standard_deviation();
-
-                @values = map { $_->{algorithm_time} } @rows3;
-                $sd->clear();
-                $sd->add_data(@values);
-                $item->{algorithm_time_mean} = $sd->mean();
-                $item->{algorithm_time_stddev} = $sd->standard_deviation();
-
-                push @time_statistics, $item;
+                                          max => $sd->max() };
+                $mean_data->{$function_id}->{$algorithm_id}->{$alternative_value} = $sd->mean();
             }
         }
     }
@@ -278,19 +247,16 @@ sub compute_rank_statistics
     foreach my $algorithm (@$algorithms) {
         my $algorithm_id = $algorithm->{id};
         foreach my $alternative (@$alternatives) {
-            my $alternative_name = $alternative->{name};
             my $alternative_value = $alternative->{value};
             my $sd = Statistics::Descriptive::Full->new();
             $sd->add_data(@{ $rank_data->{$algorithm_id}->{$alternative_value} });
-            my $row = { algorithm => $algorithm_id,
-                        alternative_value => $alternative_value,
-                        alternative_name => $alternative_name,
-                        min => $sd->min(),
-                        q1 => $sd->quantile(1),
-                        median => $sd->median(),
-                        q3 => $sd->quantile(3),
-                        max => $sd->max() };
-            push @rank_statistics, $row;
+            push @rank_statistics, { algorithm => $algorithm_id,
+                                     alternative_name => $alternative->{name},
+                                     min => $sd->min(),
+                                     q1 => $sd->quantile(1),
+                                     median => $sd->median(),
+                                     q3 => $sd->quantile(3),
+                                     max => $sd->max() };
         }
     }
 }
@@ -299,7 +265,6 @@ sub generate_histogram_data
 {
     foreach my $fn (@$functions) {
         my $function_id = $fn->{id};
-        my @rows1 = grep { $_->{function} eq $function_id } @value_statistics;
         my $path = "$path_results/$function_id/histogram.dat";
         my $file = IO::File->new($path, '>')
             or die "hnco-algorithm-alternative-stat.pl: generate_histogram_data: Cannot open $path\n";
@@ -308,13 +273,10 @@ sub generate_histogram_data
         $file->print("\n");
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-            my @rows2 = grep { $_->{algorithm} eq $algorithm_id } @rows1;
             $file->print("$algorithm_id ");
             foreach my $alternative (@$alternatives) {
                 my $alternative_value = $alternative->{value};
-                my $alternative_name = $alternative->{name};
-                my ($row) = grep { $_->{alternative_value} eq $alternative_value } @rows2;
-                my $mean = $row->{mean};
+                my $mean = $mean_data->{$function_id}->{$algorithm_id}->{$alternative_value};
                 if ($fn->{reverse}) {
                     $mean = -$mean;
                 }
