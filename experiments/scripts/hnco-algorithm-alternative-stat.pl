@@ -22,8 +22,10 @@ use warnings;
 
 use JSON;
 use Statistics::Descriptive;
+use List::Util qw(min max);
 use List::MoreUtils qw(all);
 use File::Slurp qw(read_file);
+use POSIX;
 
 use HNCO::Report qw(
     %terminal
@@ -45,12 +47,15 @@ use HNCO::Report qw(
 # Global constants
 #
 
+my $path_results        = "results";
 my $path_graphics       = "graphics";
 my $path_report         = "report";
-my $path_results        = "results";
 
-my @summary_statistics = qw(median q1 q3 min max);
-my @summary_statistics_display = qw(min q1 median q3 max);
+my @summary_statistics = qw(min q1 median q3 max);
+my @summary_statistics_reverse = reverse @summary_statistics;
+
+my @preference_max = qw(median q3 q1 max min);
+my @preference_min = qw(median q1 q3 min max);
 
 #
 # Read plan
@@ -68,11 +73,11 @@ my $obj = from_json(read_file($plan));
 # Global variables
 #
 
-my $algorithms          = $obj->{algorithms};
-my $functions           = $obj->{functions};
-my $num_runs            = $obj->{num_runs};
-my $parameter           = $obj->{parameter};
-my $graphics            = $obj->{graphics};
+my $algorithms  = $obj->{algorithms};
+my $functions   = $obj->{functions};
+my $num_runs    = $obj->{num_runs};
+my $graphics    = $obj->{graphics};
+my $parameter   = $obj->{parameter};
 
 my $parameter_id        = $parameter->{id};
 my $parameter_name      = $parameter->{name} || $parameter_id;
@@ -80,427 +85,259 @@ my $parameter_shortname = $parameter->{shortname} || $parameter_name;
 my $boxwidth            = $parameter->{boxwidth};
 my $alternatives        = $parameter->{alternatives};
 
-my $all_stat = {};
-my $all_stat_flat = {};
-my $all_best = {};
+my @results = ();
+my @value_statistics = ();
+my @time_statistics = ();
+my @rank_statistics = ();
 
-my $rankings = {};
+# hash indexed by function
+my $best_value_statistics = {};
 
-my @rankings_flat = ();
-
-#
-# Parameter values
-#
-
-my $num_lines = @$algorithms * @$alternatives;
-
-foreach my $a (@$algorithms) {
-    my $algorithm_id = $a->{id};
-    foreach my $alternative (@$alternatives) {
-        my $value = $alternative->{value};
-        my @counts = (0) x ($num_lines); # Array of size $num_lines initialized to 0
-        $rankings->{$algorithm_id}->{$value} = \@counts;
-    }
-}
+# hash indexed by algorithm then by alternative
+my $rank_data = {};
 
 #
 # Processing
 #
 
-unless (-d "$path_graphics") { mkdir "$path_graphics"; }
-
 add_missing_names($functions);
 add_missing_names($algorithms);
+
+load_results();
+
 compute_statistics();
-compute_rankings();
-compute_rankings_flat();
-compute_best_statistics();
-reverse_values();
-reverse_best_statistics();
-generate_data();
-generate_data_histogram_by_alternative();
-generate_data_histogram_by_algorithm();
-generate_gnuplot_candlesticks();
-generate_gnuplot_histogram("alternative", "algorithm");
-generate_gnuplot_histogram("algorithm", $parameter_name);
+compute_best_value_statistics();
+compute_rank_data();
+compute_rank_statistics();
+
+generate_table_rank();
+generate_table_value();
+generate_histogram_data();
+generate_histogram_gnuplot();
 generate_latex();
+
+#
+# Make directories
+#
+
+unless (-d "$path_graphics") { mkdir "$path_graphics"; }
+foreach (@$functions) {
+    my $path = "$path_graphics/$_->{id}";
+    unless (-d "$path") { mkdir "$path"; }
+}
 
 #
 # Local functions
 #
 
+sub load_results
+{
+    foreach my $fn (@$functions) {
+        my $function_id = $fn->{id};
+        foreach my $a (@$algorithms) {
+            my $algorithm_id = $a->{id};
+            foreach my $alternative (@$alternatives) {
+                my $alternative_value = $alternative->{value};
+                my $alternative_name = $alternative->{name};
+                my $prefix = "$path_results/$function_id/$algorithm_id/$parameter_id-$alternative_value";
+                foreach (1 .. $num_runs) {
+                    my $obj = from_json(read_file("$prefix/$_.out"));
+                    push @results, { function           => $function_id,
+                                     algorithm          => $algorithm_id,
+                                     alternative_value  => $alternative_value,
+                                     alternative_name   => $alternative_name,
+                                     run                => $_,
+                                     value              => $obj->{value},
+                                     num_evaluations    => $obj->{num_evaluations},
+                                     total_time         => $obj->{total_time},
+                                     evaluation_time    => $obj->{evaluation_time},
+                                     algorithm_time     => $obj->{total_time} - $obj->{evaluation_time} };
+                }
+            }
+        }
+    }
+}
+
 sub compute_statistics
 {
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        my $function_stat = {};
-        my @items = ();
-
+    foreach my $fn (@$functions) {
+        my $function_id = $fn->{id};
+        my @rows1 = grep { $_->{function} eq $function_id } @results;
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-            my $algorithm_stat = {};
-            my $algorithm_num_runs = $num_runs;
-            if ($a->{deterministic}) {
-                $algorithm_num_runs = 1;
-            }
-
+            my @rows2 = grep { $_->{algorithm} eq $algorithm_id } @rows1;
             foreach my $alternative (@$alternatives) {
-                my $value = $alternative->{value};
-                my $prefix = "$path_results/$function_id/$algorithm_id/$parameter_id-$value";
-                my $SD_value = Statistics::Descriptive::Full->new();
+                my $alternative_value = $alternative->{value};
+                my $alternative_name = $alternative->{name};
+                my @rows3 = grep { $_->{alternative_value} eq $alternative_value } @rows2;
+                my @values = map { $_->{value} } @rows3;
+                my $sd = Statistics::Descriptive::Full->new();
+                $sd->add_data(@values);
+                push @value_statistics, { function => $function_id,
+                                          algorithm => $algorithm_id,
+                                          alternative_value => $alternative_value,
+                                          alternative_name => $alternative_name,
+                                          min => $sd->min(),
+                                          q1 => $sd->quantile(1),
+                                          median => $sd->median(),
+                                          q3 => $sd->quantile(3),
+                                          max => $sd->max(),
+                                          mean => $sd->mean() };
 
-                foreach (1 .. $algorithm_num_runs) {
-                    my $obj = from_json(read_file("$prefix/$_.out"));
-                    $SD_value->add_data($obj->{value});
-                }
+                my $item = { function => $function_id,
+                             algorithm => $algorithm_id,
+                             alternative_value => $alternative_value,
+                             alternative_name => $alternative_name };
 
-                $algorithm_stat->{$value} = { min         => $SD_value->min(),
-                                              q1          => $SD_value->quantile(1),
-                                              median      => $SD_value->median(),
-                                              q3          => $SD_value->quantile(3),
-                                              max         => $SD_value->max(),
-                                              mean        => $SD_value->mean(),
-                                              stddev      => $SD_value->standard_deviation() };
+                @values = map { $_->{total_time} } @rows3;
+                $sd->clear();
+                $sd->add_data(@values);
+                $item->{total_time_mean} = $sd->mean();
+                $item->{total_time_stddev} = $sd->standard_deviation();
 
-                my $item = { algorithm  => $algorithm_id,
-                             value      => $value,
-                             min        => $SD_value->min(),
-                             q1         => $SD_value->quantile(1),
-                             median     => $SD_value->median(),
-                             q3         => $SD_value->quantile(3),
-                             max        => $SD_value->max() };
-                push @items, $item;
+                @values = map { $_->{evaluation_time} } @rows3;
+                $sd->clear();
+                $sd->add_data(@values);
+                $item->{evaluation_time_mean} = $sd->mean();
+                $item->{evaluation_time_stddev} = $sd->standard_deviation();
 
+                @values = map { $_->{algorithm_time} } @rows3;
+                $sd->clear();
+                $sd->add_data(@values);
+                $item->{algorithm_time_mean} = $sd->mean();
+                $item->{algorithm_time_stddev} = $sd->standard_deviation();
+
+                push @time_statistics, $item;
             }
-
-            $function_stat->{$algorithm_id} = $algorithm_stat;
-
         }
-
-        $all_stat->{$function_id} = $function_stat;
-        $all_stat_flat->{$function_id} = \@items;
     }
-
 }
 
-sub generate_data
+sub compute_best_value_statistics
 {
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-
-        foreach my $a (@$algorithms) {
-            my $algorithm_id = $a->{id};
-            my $prefix = "$path_results/$function_id/$algorithm_id";
-
-            my $path = "$prefix/mean.dat";
-            my $mean = IO::File->new($path, '>')
-                or die "hnco-algorithm-alternative-stat.pl: generate_data: Cannot open '$path': $!\n";
-
-            $path = "$prefix/quartiles.dat";
-            my $quartiles = IO::File->new($path, '>')
-                or die "hnco-algorithm-alternative-stat.pl: generate_data: Cannot open '$path': $!\n";
-
-            foreach my $alternative (@$alternatives) {
-                my $value = $alternative->{value};
-                my $name = $alternative->{name};
-                my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
-                $quartiles->printf("%d %e %e %e %e %e %s\n",
-                                   $value,
-                                   $stat->{min},
-                                   $stat->{q1},
-                                   $stat->{median},
-                                   $stat->{q3},
-                                   $stat->{max},
-                                   $name);
-                $mean->printf("%d %e %e %s\n",
-                              $value,
-                              $stat->{mean},
-                              $stat->{stddev},
-                              $name);
-            }
-
-            $quartiles->close();
-            $mean->close();
-
+    foreach my $fn (@$functions) {
+        my $id = $fn->{id};
+        my $best = {};
+        my @rows = grep { $_->{function} eq $id } @value_statistics;
+        foreach my $summary (@summary_statistics) {
+            $best->{$summary} = max (map { $_->{$summary} } @rows);
         }
-
+        $best_value_statistics->{$id} = $best;
     }
-
 }
 
-sub generate_data_histogram_by_alternative
+sub compute_rank_data
 {
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        my $path = "$path_results/$function_id/by-alternative.dat";
-        open(DATA, ">$path")
-            or die "hnco-algorithm-alternative-stat.pl: generate_data_histogram_by_alternative: Cannot open '$path': $!\n";
-        print DATA "algorithm ";
-        foreach my $a (@$algorithms) {
-            my $algorithm_id = $a->{id};
-            print DATA "$algorithm_id ";
-        }
-        print DATA "\n";
+    foreach my $algorithm (@$algorithms) {
+        my $algorithm_id = $algorithm->{id};
         foreach my $alternative (@$alternatives) {
-            my $value = $alternative->{value};
-            my $name = $alternative->{name};
-            print DATA "$name ";
-            foreach my $a (@$algorithms) {
-                my $algorithm_id = $a->{id};
-                my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
-                print DATA "$stat->{mean} ";
-            }
-            print DATA "\n";
+            my $alternative_value = $alternative->{value};
+            $rank_data->{$algorithm_id}->{$alternative_value} = [];
         }
-        close(DATA);
     }
-}
 
-sub generate_data_histogram_by_algorithm
-{
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        my $path = "$path_results/$function_id/by-algorithm.dat";
-        open(DATA, ">$path")
-            or die "hnco-algorithm-alternative-stat.pl: generate_data_histogram_by_algorithm: Cannot open '$path': $!\n";
-        print DATA qq("$parameter_name");
-        print DATA " ";
-        foreach my $alternative (@$alternatives) {
-            my $value = $alternative->{value};
-            my $name = $alternative->{name};
-            print DATA "$name ";
-        }
-        print DATA "\n";
-        foreach my $a (@$algorithms) {
-            my $algorithm_id = $a->{id};
-            print DATA "$algorithm_id ";
-            foreach my $alternative (@$alternatives) {
-                my $value = $alternative->{value};
-                my $name = $alternative->{name};
-                my $stat = $all_stat->{$function_id}->{$algorithm_id}->{$value};
-                print DATA "$stat->{mean} ";
-            }
-            print DATA "\n";
-        }
-        close(DATA);
-    }
-}
+    foreach my $fn (@$functions) {
+        my $function_id = $fn->{id};
 
-sub compute_rankings
-{
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-
-        # Sort results
+        # Sort algorithms by decreasing value
+        my @rows = grep { $_->{function} eq $function_id } @value_statistics;
         my @sorted = sort {
-            foreach (@summary_statistics) {
-                # Decreasing order
-                if ($b->{$_} != $a->{$_}) {
+            foreach (@preference_max) {
+                if ($a->{$_} != $b->{$_}) {
                     return $b->{$_} <=> $a->{$_};
                 }
             }
             return 0;
-        } @{ $all_stat_flat->{$function_id} };
-        $all_stat_flat->{$function_id} = \@sorted;
+        } @rows;
 
-        # Set ranks
+        # Set rank
         for (my $i = 0; $i < @sorted; $i++) {
-            $sorted[$i]->{rank} = $i;
+            $sorted[$i]->{rank} = $i + 1;
         }
 
         # Handle ex-aequo
         for (my $i = 1; $i < @sorted; $i++) {
-            if (all { $sorted[$i]->{$_} == $sorted[$i - 1]->{$_} } @summary_statistics) {
-                $sorted[$i]->{rank} = $sorted[$i - 1]->{rank};
+            my $current = $sorted[$i];
+            my $previous = $sorted[$i - 1];
+            if (all { $current->{$_} == $previous->{$_} } @summary_statistics) {
+                $current->{rank} = $previous->{rank};
             }
         }
 
-        # Update rank_counts and store rank
+        # Update ranks
         foreach (@sorted) {
-            ${ $rankings->{$_->{algorithm}}->{$_->{value}} }[$_->{rank}]++;
-            $all_stat->{$function_id}->{$_->{algorithm}}->{$_->{value}}->{rank} = $_->{rank};
+            my $algorithm_id = $_->{algorithm};
+            my $alternative_value = $_->{alternative_value};
+            push @{ $rank_data->{$algorithm_id}->{$alternative_value} }, $_->{rank};
         }
-
     }
-
 }
 
-sub compute_rankings_flat
+sub compute_rank_statistics
 {
-    @rankings_flat = ();
-    foreach my $a (@$algorithms) {
-        my $algorithm_id = $a->{id};
+    foreach my $algorithm (@$algorithms) {
+        my $algorithm_id = $algorithm->{id};
         foreach my $alternative (@$alternatives) {
-            my $value = $alternative->{value};
-            my $name = $alternative->{name};
-            my $item = {
-                algorithm       => $algorithm_id,
-                value           => $value,
-                name            => $name,
-                rank_counts     => $rankings->{$algorithm_id}->{$value}
-            };
-            push @rankings_flat, $item;
-        }
-    }
-
-    my @sorted = sort {
-        foreach (0 .. $num_lines - 1) {
-            if (${ $b->{rank_counts} }[$_] != ${ $a->{rank_counts} }[$_]) {
-                return ${ $b->{rank_counts} }[$_] <=> ${ $a->{rank_counts} }[$_];
-            }
-        }
-        return 0;
-    } @rankings_flat;
-
-    @rankings_flat = @sorted;
-}
-
-sub compute_best_statistics
-{
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        my $function_best = {};
-
-        foreach (@summary_statistics) {
-            my @sorted = sort { $b->{$_} <=> $a->{$_} } @{ $all_stat_flat->{$function_id} };
-            $function_best->{$_} = $sorted[0]->{$_};
-        }
-        $all_best->{$function_id} = $function_best;
-
-    }
-
-}
-
-sub reverse_values
-{
-    foreach my $f (@$functions) {
-        if ($f->{reverse}) {
-            foreach my $a (@$algorithms) {
-                foreach my $alternative (@$alternatives) {
-                    my $value = $alternative->{value};
-                    my $stat = $all_stat->{$f->{id}}->{$a->{id}}->{$value};
-                    ($stat->{min}, $stat->{max}) = ($stat->{max}, $stat->{min});
-                    ($stat->{q1}, $stat->{q3}) = ($stat->{q3}, $stat->{q1});
-                    foreach (@summary_statistics) {
-                        $stat->{$_} = -$stat->{$_};
-                    }
-                    $stat->{mean} = -$stat->{mean};
-                }
-            }
+            my $alternative_name = $alternative->{name};
+            my $alternative_value = $alternative->{value};
+            my $sd = Statistics::Descriptive::Full->new();
+            $sd->add_data(@{ $rank_data->{$algorithm_id}->{$alternative_value} });
+            my $row = { algorithm => $algorithm_id,
+                        alternative_value => $alternative_value,
+                        alternative_name => $alternative_name,
+                        min => $sd->min(),
+                        q1 => $sd->quantile(1),
+                        median => $sd->median(),
+                        q3 => $sd->quantile(3),
+                        max => $sd->max() };
+            push @rank_statistics, $row;
         }
     }
 }
 
-sub reverse_best_statistics
+sub generate_histogram_data
 {
-    foreach my $f (@$functions) {
-        if ($f->{reverse}) {
-            my $function_id = $f->{id};
-            my $function_best = $all_best->{$function_id};
-            ($function_best->{min}, $function_best->{max}) = ($function_best->{max}, $function_best->{min});
-            ($function_best->{q1}, $function_best->{q3}) = ($function_best->{q3}, $function_best->{q1});
-            foreach (@summary_statistics) {
-                $function_best->{$_} = -$function_best->{$_};
-            }
-        }
-    }
-}
-
-sub generate_gnuplot_candlesticks
-{
-    open(CANDLESTICKS, ">candlesticks.gp")
-        or die "hnco-algorithm-alternative-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
-
-    print CANDLESTICKS
-        "#!/usr/bin/gnuplot -persist\n",
-        "set grid y\n",
-        qq(set xlabel "$parameter_name"\n),
-        qq(set ylabel "Function value"\n),
-        "set autoscale fix\n",
-        "set offsets 1, 1, graph 0.05, graph 0.05\n\n";
-
-    # Font face and size
-    my $font = "";
-    if ($graphics->{candlesticks}->{font_face}) {
-        $font = $graphics->{candlesticks}->{font_face};
-    }
-    if ($graphics->{candlesticks}->{font_size}) {
-        $font = "$font,$graphics->{candlesticks}->{font_size}";
-    }
-    $font = qq(font "$font");
-
-    # boxwidth
-    my $boxwidth = 10;
-    if ($graphics->{candlesticks}->{boxwidth}) {
-        $boxwidth = $graphics->{candlesticks}->{boxwidth};
-    }
-
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-
-        if ($f->{logscale}) {
-            my $fmt = qq("10^{\%T}");
-            print CANDLESTICKS
-                "set logscale y 10\n",
-                "set format y $fmt\n";
-        } else {
-            print CANDLESTICKS
-                "unset logscale y\n",
-                "set format y\n";
-        }
-
-        unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
-
+    foreach my $fn (@$functions) {
+        my $function_id = $fn->{id};
+        my @rows1 = grep { $_->{function} eq $function_id } @value_statistics;
+        my $path = "$path_results/$function_id/histogram.dat";
+        my $file = IO::File->new($path, '>')
+            or die "hnco-algorithm-alternative-stat.pl: generate_histogram_data: Cannot open $path\n";
+        $file->print(qq("$parameter_name"), " ");
+        $file->print(join " ", map { $_->{name} } @$alternatives);
+        $file->print("\n");
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
-
-            my $quoted_string;
-
-            if ($graphics->{candlesticks}->{title}) {
-                $quoted_string = qq("$algorithm_id on $function_id");
-                print CANDLESTICKS "set title $quoted_string\n";
+            my @rows2 = grep { $_->{algorithm} eq $algorithm_id } @rows1;
+            $file->print("$algorithm_id ");
+            foreach my $alternative (@$alternatives) {
+                my $alternative_value = $alternative->{value};
+                my $alternative_name = $alternative->{name};
+                my ($row) = grep { $_->{alternative_value} eq $alternative_value } @rows2;
+                my $mean = $row->{mean};
+                if ($fn->{reverse}) {
+                    $mean = -$mean;
+                }
+                $file->print("$mean ");
             }
-
-            $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.pdf");
-            print CANDLESTICKS
-                "$terminal{pdf} $font\n",
-                "set output $quoted_string\n";
-            $quoted_string = qq("$path_results/$function_id/$algorithm_id/quartiles.dat");
-            print CANDLESTICKS
-                "plot $quoted_string using 1:3:2:6:5:($boxwidth):xtic(7) with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
-                "     $quoted_string using 1:4:4:4:4:($boxwidth) with candlesticks lw 2 lt 1 notitle\n";
-
-            $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.eps");
-            print CANDLESTICKS
-                "$terminal{eps} $font\n",
-                "set output $quoted_string\n",
-                "replot\n";
-
-            $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.png");
-            print CANDLESTICKS
-                "$terminal{png} $font\n",
-                "set output $quoted_string\n",
-                "replot\n\n";
-
+            $file->print("\n");
         }
+        $file->close();
     }
-
-    system("chmod a+x candlesticks.gp");
-
 }
 
-sub generate_gnuplot_histogram
+sub generate_histogram_gnuplot
 {
-    my ($type, $title) = @_;
+    my $path = "histogram.gp";
+    my $file = IO::File->new($path, '>')
+        or die "hnco-algorithm-alternative-stat.pl: generate_histogram_gnuplot: Cannot open histogram.gp\n";
 
-    my $context = $graphics->{"histogram_by_$type"};
-
+    my $context = $graphics->{histogram};
     # Orientation of labels
     my $angle = "-45";
     if (exists($context->{angle})) {
         $angle = $context->{angle};
     }
-
     # Font face and size
     my $font = "";
     if ($context->{font_face}) {
@@ -511,173 +348,171 @@ sub generate_gnuplot_histogram
     }
     $font = qq(font "$font");
 
-    open(HISTOGRAM, ">histogram-by-$type.gp")
-        or die "hnco-algorithm-alternative-stat.pl: generate_gnuplot_histogram: Cannot open histogram-by-$type.gp\n";
+    $file->print("#!/usr/bin/gnuplot -persist\n",
+                 "set style data histograms\n",
+                 "set style histogram clustered gap 1\n",
+                 "set style fill solid 1.00 border lt -1\n",
+                 "set xtic rotate by $angle scale 0\n",
+                 "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n",
+                 qq(set key font ",12" right top box vertical title "$parameter_name" font ",12"\n\n));
 
-    print HISTOGRAM
-        "#!/usr/bin/gnuplot -persist\n",
-        "set style data histograms\n",
-        "set style histogram clustered gap 1\n",
-        "set style fill solid 1.00 border lt -1\n",
-        "set xtic rotate by $angle scale 0\n",
-        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n",
-        qq(set key font ",12" right top box vertical title "$title" font ",12"\n\n);
-
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-
-        unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
+    foreach my $fn (@$functions) {
+        my $function_id = $fn->{id};
 
         if ($context->{title}) {
-            print HISTOGRAM qq(set title "$function_id: Mean value as a function of $parameter_name"\n);
+            $file->print(qq(set title "$function_id: Mean value as a function of $parameter_name"\n));
         }
-        if ($f->{logscale}) {
+        if ($fn->{logscale}) {
             my $fmt = qq("10^{\%T}");
-            print HISTOGRAM
-                "set logscale y 10\n",
-                "set format y $fmt\n";
+            $file->print("set logscale y 10\n",
+                         "set format y $fmt\n");
         } else {
-            print HISTOGRAM
-                "unset logscale y\n",
-                "set format y\n";
+            $file->print("unset logscale y\n",
+                         "set format y\n");
         }
-        print HISTOGRAM "\n";
+        $file->print("\n");
 
-        my $quoted_string = qq("$path_graphics/$function_id/histogram-by-$type.pdf");
-        print HISTOGRAM
-            "$terminal{pdf} $font\n",
-            "set output $quoted_string\n";
+        my $quoted_string = qq("$path_graphics/histogram.$function_id.pdf");
+        $file->print("$terminal{pdf} $font\n",
+                     "set output $quoted_string\n");
 
-        $quoted_string = qq("$path_results/$function_id/by-$type.dat");
-        print HISTOGRAM "plot for [COL=2:*] $quoted_string using COL:xticlabels(1) title columnhead\n";
+        $quoted_string = qq("$path_results/$function_id/histogram.dat");
+        $file->print("plot for [COL=2:*] $quoted_string using COL:xticlabels(1) title columnhead\n");
 
-        $quoted_string = qq("$path_graphics/$function_id/histogram-by-$type.eps");
-        print HISTOGRAM
-            "$terminal{eps} $font\n",
-            "set output $quoted_string\n",
-            "replot\n";
+        $quoted_string = qq("$path_graphics/histogram.$function_id.eps");
+        $file->print("$terminal{eps} $font\n",
+                     "set output $quoted_string\n",
+                     "replot\n");
 
-        $quoted_string = qq("$path_graphics/$function_id/histogram-by-$type.png");
-        print HISTOGRAM
-            "$terminal{png} $font\n",
-            "set output $quoted_string\n",
-            "replot\n\n";
+        $quoted_string = qq("$path_graphics/histogram.$function_id.png");
+        $file->print("$terminal{png} $font\n",
+                     "set output $quoted_string\n",
+                     "replot\n\n");
+    }
+    $file->close();
+    system("chmod a+x histogram.gp");
+}
+
+sub generate_table_rank
+{
+    my $path = "$path_report/table.rank.tex";
+    my $file = IO::File->new($path, '>')
+        or die "hnco-algorithm-alternative-stat.pl: generate_table_rank: Cannot open $path\n";
+
+    # Header
+    my $width = int(ceil(log(1 + @{ $algorithms } * @{ $alternatives }) / log(10)));
+    $file->print("\\begin{tabular}{\@{} ll *{5}{>{{\\nprounddigits{0}}}n{$width}{0}} \@{}}\n",
+                 "\\toprule\n",
+                 "{Algorithm} & {$parameter_shortname} & \\multicolumn{5}{l}{{Rank}} \\\\\n",
+                 "\\midrule\n",
+                 "&& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} \\\\\n",
+                 "\\midrule\n");
+
+    # Sort algorithms by increasing rank
+    my @sorted = sort {
+        foreach (@preference_min) {
+            if ($a->{$_} != $b->{$_}) {
+                return $a->{$_} <=> $b->{$_};
+            }
+        }
+        return 0;
+    } @rank_statistics;
+    my $format = join " & ", map { "%d" } @summary_statistics;
+    foreach my $row (@sorted) {
+        $file->print("$row->{algorithm} & $row->{alternative_name} & ");
+        $file->printf($format, $row->{min}, $row->{q1}, $row->{median}, $row->{q3}, $row->{max});
+        $file->print(" \\\\\n");
     }
 
-    system("chmod a+x histogram-by-$type.gp");
+    $file->print(latex_table_end());
+    $file->close();
+}
+
+sub generate_table_value
+{
+    foreach my $fn (@$functions) {
+        my $id = $fn->{id};
+        my $path = "$path_report/table.value.$id.tex";
+        my $file = IO::File->new($path, '>')
+            or die "hnco-algorithm-alternative-stat.pl: generate_table_value: Cannot open $path\n";
+
+        # Header
+        my $before = $fn->{rounding}->{value}->{before} || 3;
+        my $after = $fn->{rounding}->{value}->{after} || 0;
+        $file->print("\\begin{tabular}{\@{} ll *{5}{>{{\\nprounddigits{$after}}}n{$before}{$after}} \@{}}\n",
+                     "\\toprule\n",
+                     "{Algorithm} & {$parameter_shortname} & \\multicolumn{5}{l}{{Value}} \\\\\n",
+                     "\\midrule\n",
+                     "&& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} \\\\\n",
+                     "\\midrule\n");
+
+        # Sort algorithms by decreasing value
+        my @rows = grep { $_->{function} eq $id } @value_statistics;
+        my @sorted = sort {
+            foreach (@preference_max) {
+                if ($a->{$_} != $b->{$_}) {
+                    return $b->{$_} <=> $a->{$_};
+                }
+            }
+            return 0;
+        } @rows;
+        my $conversion = $fn->{logscale} ? "%e" : "%f";
+        my $best = $best_value_statistics->{$id};
+        foreach my $row (@sorted) {
+            $file->print("$row->{algorithm} & $row->{alternative_name} & ");
+            if ($fn->{reverse}) {
+                my $format = join " & ",
+                    map { $row->{$_} == $best->{$_} ? "{\\npboldmath} $conversion" : "$conversion" } @summary_statistics_reverse;
+                $file->printf($format,
+                              -$row->{max},
+                              -$row->{q3},
+                              -$row->{median},
+                              -$row->{q1},
+                              -$row->{min});
+            } else {
+                my $format = join " & ",
+                    map { $row->{$_} == $best->{$_} ? "{\\npboldmath} $conversion" : "$conversion" } @summary_statistics;
+                $file->printf($format,
+                              $row->{min},
+                              $row->{q1},
+                              $row->{median},
+                              $row->{q3},
+                              $row->{max});
+            }
+            $file->print(" \\\\\n");
+        }
+        $file->print(latex_table_end());
+        $file->close();
+    }
+}
+
+sub latex_table_end
+{
+    return
+        "\\bottomrule\n" .
+        "\\end{tabular}\n";
 }
 
 sub generate_latex
 {
-    open(LATEX, ">$path_report/results.tex")
-        or die "hnco-algorithm-alternative-stat.pl: generate_latex: Cannot open $path_report/results.tex\n";
-
-    print LATEX latex_graphicspath($path_graphics);
-
-    print LATEX latex_section("Rankings");
-    print LATEX latex_begin_center();
-    latex_rankings_table();
-    print LATEX latex_end_center();
-
-    foreach my $fn (@$functions) {
-        my $function_id = $fn->{id};
-        my $function_best = $all_best->{$function_id};
-
-        my $rounding_value_before = $fn->{rounding}->{value}->{before} || 3;
-        my $rounding_value_after = $fn->{rounding}->{value}->{after} || 0;
-        my $rounding_time_before = $fn->{rounding}->{time}->{before} || 1;
-        my $rounding_time_after = $fn->{rounding}->{time}->{after} || 2;
-
-        print LATEX latex_section("Function $function_id");
-
-        print LATEX latex_begin_center();
-        latex_function_table_begin(">{{\\nprounddigits{$rounding_value_after}}}N{$rounding_value_before}{$rounding_value_after}");
-        foreach my $a (@$algorithms) {
-            my $algorithm_id = $a->{id};
-            foreach my $alternative (@$alternatives) {
-                my $value = $alternative->{value};
-                my $name = $alternative->{name};
-                latex_function_table_add_line($algorithm_id,
-                                              $name,
-                                              $all_stat->{$function_id}->{$algorithm_id}->{$value},
-                                              $function_best,
-                                              $fn->{logscale});
-            }
-        }
-        latex_funtion_table_end();
-        print LATEX latex_end_center();
-
-        print LATEX latex_begin_center();
-        print LATEX latex_includegraphics("$function_id/histogram-by-alternative", 0.6);
-        print LATEX latex_end_center();
-
-        print LATEX latex_begin_center();
-        print LATEX latex_includegraphics("$function_id/histogram-by-algorithm", 0.6);
-        print LATEX latex_end_center();
-
-        foreach my $a (@$algorithms) {
-            my $algorithm_id = $a->{id};
-
-            print LATEX latex_begin_center();
-            print LATEX latex_includegraphics("$function_id/$algorithm_id", 0.6);
-            print LATEX latex_end_center();
-
-        }
-
+    my $path = "$path_report/content.tex";
+    my $file = IO::File->new($path, '>')
+        or die "hnco-algorithm-alternative-stat.pl: generate_latex: Cannot open $path_report/content.tex\n";
+    $file->print(latex_graphicspath($path_graphics),
+                 latex_section("Global results"),
+                 latex_begin_center(),
+                 latex_input_file("table.rank.tex"),
+                 latex_end_center());
+    foreach my $f (@$functions) {
+        my $id = $f->{id};
+        $file->print(latex_newpage(),
+                     latex_section("Function $id"),
+                     latex_begin_center(),
+                     latex_input_file("table.value.$id.tex"),
+                     latex_end_center(),
+                     latex_begin_center(),
+                     latex_includegraphics("histogram.$id", 0.6),
+                     latex_end_center());
     }
-
-}
-
-sub latex_rankings_table
-{
-    print LATEX
-        "\\begin{tabular}{\@{}ll*{$num_lines}{r}\@{}}\n",
-        "\\toprule\n",
-        "algorithm & $parameter_shortname & \\multicolumn{$num_lines}{l}{{rank distribution}}\\\\\n",
-        "\\midrule\n",
-        "&& ", join(" & ", 1 .. $num_lines), "\\\\\n",
-        "\\midrule\n";
-
-    foreach (@rankings_flat) {
-        print LATEX "$_->{algorithm} & $_->{name} & ", join(" & ", @{ $_->{rank_counts} }), "\\\\\n";
-    }
-
-    print LATEX
-        "\\bottomrule\n",
-        "\\end{tabular}\n";
-}
-
-sub latex_function_table_begin
-{
-    my $col = shift;
-
-    print LATEX
-        "\\begin{tabular}{\@{}ll*{5}{$col}>{{\\nprounddigits{0}}}N{2}{0}\@{}}\n",
-        "\\toprule\n",
-        "{algorithm} & {$parameter_shortname} & \\multicolumn{6}{l}{{function value}} \\\\\n",
-        "\\midrule\n",
-        "& & {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} & {rk} \\\\\n",
-        "\\midrule\n";
-}
-
-sub latex_function_table_add_line
-{
-    my ($algo, $name, $stat, $best, $logscale) = @_;
-
-    my $conversion = $logscale ? "%e" : "%f";
-    my $format = join " & ",
-        map { $stat->{$_} == $best->{$_} ? "{\\color{blue}} $conversion" : "$conversion" } @summary_statistics_display;
-
-    printf LATEX "$algo & $name & ";
-    printf LATEX ($format, $stat->{min}, $stat->{q1}, $stat->{median}, $stat->{q3}, $stat->{max});
-    printf LATEX (" & %d \\\\\n", $stat->{rank} + 1);
-
-}
-
-sub latex_funtion_table_end
-{
-    print LATEX <<EOF;
-\\bottomrule
-\\end{tabular}
-EOF
+    $file->close();
 }
