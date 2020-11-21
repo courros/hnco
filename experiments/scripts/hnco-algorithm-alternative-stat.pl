@@ -365,7 +365,7 @@ sub generate_table_rank
     my $width = int(ceil(log(1 + @{ $algorithms } * @{ $alternatives }) / log(10)));
     $file->print("\\begin{tabular}{\@{} ll *{5}{>{{\\nprounddigits{0}}}n{$width}{0}} \@{}}\n",
                  "\\toprule\n",
-                 "{Algorithm} & {$parameter_shortname} & \\multicolumn{5}{l}{{Rank}} \\\\\n",
+                 "{Algo.} & {$parameter_shortname} & \\multicolumn{5}{l}{{Rank}} \\\\\n",
                  "\\midrule\n",
                  "&& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} \\\\\n",
                  "\\midrule\n");
@@ -403,7 +403,7 @@ sub generate_table_value
         my $after = $fn->{rounding}->{value}->{after} || 0;
         $file->print("\\begin{tabular}{\@{} ll *{5}{>{{\\nprounddigits{$after}}}n{$before}{$after}} \@{}}\n",
                      "\\toprule\n",
-                     "{Algorithm} & {$parameter_shortname} & \\multicolumn{5}{l}{{Value}} \\\\\n",
+                     "{Algo.} & {$parameter_shortname} & \\multicolumn{5}{l}{{Value}} \\\\\n",
                      "\\midrule\n",
                      "&& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} \\\\\n",
                      "\\midrule\n");
