@@ -10,8 +10,10 @@ run:
 
 report:
 	hnco-ecdf-stat.pl
-	./graphics.gp
-	./graphics-all.gp
+	./global-all.gp
+	./global-groups.gp
+	./function-all.gp
+	./function-groups.gp
 	sed '/^$$/d' plan.json > pretty.json
 	make -C report
 
@@ -19,7 +21,7 @@ clean:
 	rm -f pretty.json
 	rm -f log.defaults log.err log.parallel
 	rm -f commands.txt
-	rm -f graphics.gp graphics-all.gp
+	rm -f function-all.gp function-groups.gp global-all.gp global-groups.gp
 	rm -rf graphics
 	rm -rf results
 
