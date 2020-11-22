@@ -5,8 +5,8 @@ Library:
 - Added LinearCategoricalRepresentation
 - Added Sudoku
 - Renamed file multivariate-function.hh -> parsed-multivariate-function.hh
-- Added member function ParsedRealMultivariateFunction::describe
-- ParsedRealMultivariateFunction deduces domain and codomain types from parser
+- Added member function ParsedMultivariateFunction::describe
+- ParsedMultivariateFunction deduces domain and codomain types from parser
 
 hnco:
 - Added sudoku function with number 190
