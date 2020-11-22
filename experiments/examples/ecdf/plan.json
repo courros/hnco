@@ -7,6 +7,36 @@
     "num_targets": 50,
     "parallel": true,
 
+    "graphics": {
+        "global": {
+            "all": {
+                "helper": true
+            },
+            "groups": {
+                "helper": true
+            }
+        },
+        "function": {
+            "all": {
+                "helper": true
+            },
+            "groups": {
+                "helper": true
+            }
+        }
+    },
+
+    "groups": [
+        {
+            "id": "ec",
+            "algorithms": [ "ea-1p1", "ea-1p10", "ea-10p1", "ea-1c10", "ga" ]
+        },
+        {
+            "id": "eda",
+            "algorithms": [ "pbil", "umda" ]
+        }
+    ],
+
     "functions": [
 
         {
