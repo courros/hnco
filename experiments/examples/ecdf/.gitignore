@@ -6,8 +6,10 @@ log.parallel
 
 commands.txt
 
-graphics.gp
-graphics-all.gp
+function-all.gp
+function-groups.gp
+global-all.gp
+global-groups.gp
 
 graphics
 results
