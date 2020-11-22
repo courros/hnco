@@ -24,6 +24,10 @@ Scripts:
 - hnco-benchmark-stat.pl: uses IO::File everywhere
 - hnco-benchmark-stat.pl: write tables in separate files
 - hnco-benchmark-stat.pl: produces rank statistics
+- hnco-ecdf-stat.pl: added groups
+- hnco-ecdf-stat.pl: uses IO::File everywhere
+- hnco-ecdf-stat.pl: display helper lines if required
+- hnco-ecdf-stat.pl: sort algorithms in the key
 
 Experiments:
 - Added experiment fixed-target
