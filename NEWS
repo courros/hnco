@@ -30,6 +30,7 @@ Scripts:
 - hnco-ecdf-stat.pl: sort algorithms in the key
 
 Experiments:
+- Added experiment algorithm-alternative
 - Added experiment fixed-target
 
 
