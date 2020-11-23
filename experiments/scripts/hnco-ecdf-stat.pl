@@ -50,6 +50,9 @@ my $path_results        = "results";
 my $path_graphics       = "graphics";
 my $path_report         = "report";
 
+my $key_with_helper     = qq(set key font ",10" reverse Left outside right center box opaque vertical title "Algorithms"\n);
+my $key_without_helper  = qq(set key font ",10" noreverse Right inside top left nobox opaque vertical notitle\n);
+
 #
 # Read plan
 #
@@ -71,8 +74,8 @@ my $functions           = $obj->{functions};
 my $num_runs            = $obj->{num_runs};
 my $num_targets         = $obj->{num_targets};
 my $budget              = $obj->{budget};
-my $groups              = $obj->{groups};
 my $graphics            = $obj->{graphics};
+my $groups              = $graphics->{groups};
 
 #
 # Make directories
@@ -112,21 +115,16 @@ foreach (@$functions) {
     compute_ranges($_);
     compute_targets($_);
     generate_ecdf_function_raw($_);
-    if ($graphics->{function}->{all}->{helper}) {
+    if ($graphics->{all}->{helper}) {
         generate_ecdf_function_all($_->{id});
     }
-    if ($graphics->{function}->{groups}->{helper}) {
-        generate_ecdf_function_groups($_->{id});
-    }
+    generate_ecdf_function_groups($_->{id});
 }
-
 generate_ecdf_global_raw();
-if ($graphics->{global}->{all}->{helper}) {
+if ($graphics->{all}->{helper}) {
     generate_ecdf_function_all("global");
 }
-if ($graphics->{global}->{groups}->{helper}) {
-    generate_ecdf_function_groups("global");
-}
+generate_ecdf_function_groups("global");
 
 generate_gnuplot_global_all();
 generate_gnuplot_global_groups();
@@ -306,16 +304,17 @@ sub generate_ecdf_function_all
 {
     my $function_id = shift;
     my @ids = map { $_->{id} } @$algorithms;
-    my @sorted = reverse(sort_algorithms("$path_results/ecdf/$function_id/raw", \@ids));
-    my ($low, $high) = compute_ecdf_ranges("$path_results/ecdf/$function_id/raw", \@ids);
+    my $prefix = "$path_results/ecdf/$function_id";
+    my @sorted = reverse(sort_algorithms("$prefix/raw", \@ids));
+    my ($low, $high) = compute_ecdf_ranges("$prefix/raw", \@ids);
     my $i = 0;
     foreach (@sorted) {
-        my $path = "$path_results/ecdf/$function_id/raw/$_.dat";
+        my $path = "$prefix/raw/$_.dat";
         my $file = IO::File->new($path, '<')
             or die "hnco-ecdf-stat.pl: generate_ecdf_function_all: Cannot open '$path': $!\n";
         my @lines = $file->getlines();
         $file->close();
-        $path = "$path_results/ecdf/$function_id/all/$_.dat";
+        $path = "$prefix/all/$_.dat";
         $file = IO::File->new($path, '>')
             or die "hnco-ecdf-stat.pl: generate_ecdf_function_all: Cannot open '$path': $!\n";
         $file->print(@lines);
@@ -331,6 +330,7 @@ sub generate_ecdf_function_groups
     my $function_id = shift;
     my $prefix = "$path_results/ecdf/$function_id";
     foreach my $group (@$groups) {
+        next unless ($group->{helper});
         my $group_id = $group->{id};
         my @sorted = reverse(sort_algorithms("$prefix/raw", $group->{algorithms}));
         my ($low, $high) = compute_ecdf_ranges("$prefix/raw", $group->{algorithms});
@@ -362,7 +362,8 @@ sub generate_gnuplot_global_all
                  "set grid\n",
                  "set xlabel \"Number of evaluations\"\n",
                  "set ylabel \"Proportion of targets\"\n",
-                 qq(set key font ",10" reverse Left outside right center box vertical title "Algorithms"\n),
+                 "unset key\n",
+                 $graphics->{all}->{helper} ? $key_with_helper : $key_without_helper,
                  "set format x ", qq("10^{%L}"), "\n",
                  "set logscale x\n",
                  "set autoscale fix\n",
@@ -371,7 +372,7 @@ sub generate_gnuplot_global_all
     $file->print("$terminal{eps}\n",
                  "set output $quoted_path\n");
     my @ids = map { $_->{id} } @$algorithms;
-    my $type = $graphics->{global}->{all}->{helper} ? "all" : "raw";
+    my $type = $graphics->{all}->{helper} ? "all" : "raw";
     $file->print("plot \\\n",
                  join ", \\\n",
                  (map { qq(  "$path_results/ecdf/global/$type/$_.dat" using 1:2 with lines title "$_"); }
@@ -393,22 +394,23 @@ sub generate_gnuplot_global_groups
 {
     my $path = "global-groups.gp";
     my $file = IO::File->new($path, '>')
-        or die "hnco-ecdf-stat.pl: generate_gnuplot_function_all: cannot open $path\n";
+        or die "hnco-ecdf-stat.pl: generate_gnuplot_global_groups: cannot open $path\n";
     $file->print("#!/usr/bin/gnuplot -persist\n",
                  "set grid\n",
                  "set xlabel \"Number of evaluations\"\n",
                  "set ylabel \"Proportion of targets\"\n",
-                 qq(set key font ",10" reverse Left outside right center box vertical title "Algorithms"\n),
                  "set format x ", qq("10^{%L}"), "\n",
                  "set logscale x\n",
                  "set autoscale fix\n",
                  "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n");
     foreach my $group (@$groups) {
         my $group_id = $group->{id};
+        $file->print("unset key\n",
+                     $group->{helper} ? $key_with_helper : $key_without_helper);
         my $quoted_path = qq("$path_graphics/global-$group_id.eps");
         $file->print("$terminal{eps}\n",
                      "set output $quoted_path\n");
-        my $type = $graphics->{global}->{groups}->{helper} ? "groups/$group_id" : "raw";
+        my $type = $group->{helper} ? "groups/$group_id" : "raw";
         $file->print("plot \\\n",
                      join ", \\\n",
                      (map { qq(  "$path_results/ecdf/global/$type/$_.dat" using 1:2 with lines title "$_"); }
@@ -436,7 +438,8 @@ sub generate_gnuplot_function_all
                  "set grid\n",
                  "set xlabel \"Number of evaluations\"\n",
                  "set ylabel \"Proportion of targets\"\n",
-                 qq(set key font ",10" reverse Left outside right center box vertical title "Algorithms"\n),
+                 "unset key\n",
+                 $graphics->{all}->{helper} ? $key_with_helper : $key_without_helper,
                  "set format x ", qq("10^{%L}"), "\n",
                  "set logscale x\n",
                  "set autoscale fix\n",
@@ -447,7 +450,7 @@ sub generate_gnuplot_function_all
         $file->print("$terminal{eps}\n",
                      "set output $quoted\n");
         my @ids = map { $_->{id} } @$algorithms;
-        my $type = $graphics->{function}->{all}->{helper} ? "all" : "raw";
+        my $type = $graphics->{all}->{helper} ? "all" : "raw";
         $file->print("plot \\\n",
                      join ", \\\n", (map { qq(  "$path_results/ecdf/$function_id/$type/$_.dat" using 1:2 with lines title "$_"); }
                                      sort_algorithms("$path_results/ecdf/$function_id/raw", \@ids)));
@@ -469,12 +472,11 @@ sub generate_gnuplot_function_groups
 {
     my $path = "function-groups.gp";
     my $file = IO::File->new($path, '>')
-        or die "hnco-ecdf-stat.pl: generate_gnuplot_function_all: cannot open graphics.gp\n";
+        or die "hnco-ecdf-stat.pl: generate_gnuplot_function_groups: cannot open graphics.gp\n";
     $file->print("#!/usr/bin/gnuplot -persist\n",
                  "set grid\n",
                  "set xlabel \"Number of evaluations\"\n",
                  "set ylabel \"Proportion of targets\"\n",
-                 qq(set key font ",10" reverse Left outside right center box vertical title "Algorithms"\n),
                  "set format x ", qq("10^{%L}"), "\n",
                  "set logscale x\n",
                  "set autoscale fix\n",
@@ -483,10 +485,12 @@ sub generate_gnuplot_function_groups
         my $function_id = $f->{id};
         foreach my $group (@$groups) {
             my $group_id = $group->{id};
+            $file->print("unset key\n",
+                         $group->{helper} ? $key_with_helper : $key_without_helper);
             my $quoted_path = qq("$path_graphics/$function_id-$group_id.eps");
             $file->print("$terminal{eps}\n",
                          "set output $quoted_path\n");
-            my $type = $graphics->{function}->{groups}->{helper} ? "groups/$group_id" : "raw";
+            my $type = $group->{helper} ? "groups/$group_id" : "raw";
             $file->print("plot \\\n",
                          join ", \\\n", (map { qq(  "$path_results/ecdf/$function_id/$type/$_.dat" using 1:2 with lines title "$_"); }
                                          sort_algorithms("$path_results/ecdf/$function_id/raw", $group->{algorithms})));
