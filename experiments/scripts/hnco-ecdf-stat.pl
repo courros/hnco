@@ -50,9 +50,6 @@ my $path_results        = "results";
 my $path_graphics       = "graphics";
 my $path_report         = "report";
 
-my $key_with_helper     = qq(set key font ",10" reverse Left outside right center box opaque vertical title "Algorithms"\n);
-my $key_without_helper  = qq(set key font ",10" noreverse Right inside top left nobox opaque vertical notitle\n);
-
 #
 # Read plan
 #
