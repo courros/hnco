@@ -358,18 +358,38 @@ sub generate_gnuplot_global_all
     my $path = "global-all.gp";
     my $file = IO::File->new($path, '>')
         or die "hnco-ecdf-stat.pl: generate_gnuplot_function_all: cannot open $path\n";
+
+    # Font face and size
+    my $font = "";
+    if ($graphics->{all}->{font_face}) {
+        $font = $graphics->{all}->{font_face};
+    }
+    if ($graphics->{all}->{font_size}) {
+        $font = "$font,$graphics->{all}->{font_size}";
+    }
+    $font = qq("$font");
+
+    my $key = qq(font $font notitle);
+    if ($graphics->{all}->{key}) {
+        $key = "$key $graphics->{all}->{key}";
+    } else {
+        # opaque vertical reverse Left outside right center box
+        $key = "$key opaque vertical noreverse Right top inside left box";
+    }
+
     $file->print("#!/usr/bin/gnuplot -persist\n",
                  "set grid\n",
                  "set xlabel \"Number of evaluations\"\n",
                  "set ylabel \"Proportion of targets\"\n",
                  "unset key\n",
-                 $graphics->{all}->{helper} ? $key_with_helper : $key_without_helper,
+                 "set key $key\n",
                  "set format x ", qq("10^{%L}"), "\n",
                  "set logscale x\n",
                  "set autoscale fix\n",
                  "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n");
+
     my $quoted_path = qq("$path_graphics/global.eps");
-    $file->print("$terminal{eps}\n",
+    $file->print("$terminal{eps} font $font\n",
                  "set output $quoted_path\n");
     my @ids = map { $_->{id} } @$algorithms;
     my $type = $graphics->{all}->{helper} ? "all" : "raw";
@@ -379,11 +399,11 @@ sub generate_gnuplot_global_all
                   sort_algorithms("$path_results/ecdf/global/raw", \@ids)));
     $file->print("\n");
     $quoted_path = qq("$path_graphics/global.pdf");
-    $file->print("$terminal{pdf}\n",
+    $file->print("$terminal{pdf} font $font\n",
                  "set output $quoted_path\n",
                  "replot\n");
     $quoted_path = qq("$path_graphics/global.png");
-    $file->print("$terminal{png}\n",
+    $file->print("$terminal{png} font $font\n",
                  "set output $quoted_path\n",
                  "replot\n");
     $file->close();
@@ -395,6 +415,7 @@ sub generate_gnuplot_global_groups
     my $path = "global-groups.gp";
     my $file = IO::File->new($path, '>')
         or die "hnco-ecdf-stat.pl: generate_gnuplot_global_groups: cannot open $path\n";
+
     $file->print("#!/usr/bin/gnuplot -persist\n",
                  "set grid\n",
                  "set xlabel \"Number of evaluations\"\n",
@@ -403,12 +424,33 @@ sub generate_gnuplot_global_groups
                  "set logscale x\n",
                  "set autoscale fix\n",
                  "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n");
+
     foreach my $group (@$groups) {
         my $group_id = $group->{id};
+
+        # Font face and size
+        my $font = "";
+        if ($group->{font_face}) {
+            $font = $group->{font_face};
+        }
+        if ($group->{font_size}) {
+            $font = "$font,$group->{font_size}";
+        }
+        $font = qq("$font");
+
+        my $key = qq(font $font notitle);
+        if ($group->{key}) {
+            $key = "$key $group->{key}";
+        } else {
+            # opaque vertical reverse Left outside right center box
+            $key = "$key opaque vertical noreverse Right top inside left box";
+        }
+
         $file->print("unset key\n",
-                     $group->{helper} ? $key_with_helper : $key_without_helper);
+                     "set key $key\n");
+
         my $quoted_path = qq("$path_graphics/global-$group_id.eps");
-        $file->print("$terminal{eps}\n",
+        $file->print("$terminal{eps} font $font\n",
                      "set output $quoted_path\n");
         my $type = $group->{helper} ? "groups/$group_id" : "raw";
         $file->print("plot \\\n",
@@ -417,11 +459,11 @@ sub generate_gnuplot_global_groups
                       sort_algorithms("$path_results/ecdf/global/raw", $group->{algorithms})));
         $file->print("\n");
         $quoted_path = qq("$path_graphics/global-$group_id.pdf");
-        $file->print("$terminal{pdf}\n",
+        $file->print("$terminal{pdf} font $font\n",
                      "set output $quoted_path\n",
                      "replot\n");
         $quoted_path = qq("$path_graphics/global-$group_id.png");
-        $file->print("$terminal{png}\n",
+        $file->print("$terminal{png} font $font\n",
                      "set output $quoted_path\n",
                      "replot\n\n");
     }
@@ -434,20 +476,40 @@ sub generate_gnuplot_function_all
     my $path = "function-all.gp";
     my $file = IO::File->new($path, '>')
         or die "hnco-ecdf-stat.pl: generate_gnuplot_function_all: cannot open graphics.gp\n";
+
+    # Font face and size
+    my $font = "";
+    if ($graphics->{all}->{font_face}) {
+        $font = $graphics->{all}->{font_face};
+    }
+    if ($graphics->{all}->{font_size}) {
+        $font = "$font,$graphics->{all}->{font_size}";
+    }
+    $font = qq("$font");
+
+    my $key = qq(font $font notitle);
+    if ($graphics->{all}->{key}) {
+        $key = "$key $graphics->{all}->{key}";
+    } else {
+        # opaque vertical reverse Left outside right center box
+        $key = "$key opaque vertical noreverse Right top inside left box";
+    }
+
     $file->print("#!/usr/bin/gnuplot -persist\n",
                  "set grid\n",
                  "set xlabel \"Number of evaluations\"\n",
                  "set ylabel \"Proportion of targets\"\n",
                  "unset key\n",
-                 $graphics->{all}->{helper} ? $key_with_helper : $key_without_helper,
+                 "set key $key\n",
                  "set format x ", qq("10^{%L}"), "\n",
                  "set logscale x\n",
                  "set autoscale fix\n",
                  "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n");
+
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         my $quoted = qq("$path_graphics/$function_id.eps");
-        $file->print("$terminal{eps}\n",
+        $file->print("$terminal{eps} font $font\n",
                      "set output $quoted\n");
         my @ids = map { $_->{id} } @$algorithms;
         my $type = $graphics->{all}->{helper} ? "all" : "raw";
@@ -456,14 +518,15 @@ sub generate_gnuplot_function_all
                                      sort_algorithms("$path_results/ecdf/$function_id/raw", \@ids)));
         $file->print("\n");
         $quoted = qq("$path_graphics/$function_id.pdf");
-        $file->print("$terminal{pdf}\n",
+        $file->print("$terminal{pdf} font $font\n",
                      "set output $quoted\n",
                      "replot\n");
         $quoted = qq("$path_graphics/$function_id.png");
-        $file->print("$terminal{png}\n",
+        $file->print("$terminal{png} font $font\n",
                      "set output $quoted\n",
                      "replot\n\n");
     }
+
     $file->close();
     system("chmod a+x function-all.gp");
 }
@@ -485,10 +548,30 @@ sub generate_gnuplot_function_groups
         my $function_id = $f->{id};
         foreach my $group (@$groups) {
             my $group_id = $group->{id};
+
+            # Font face and size
+            my $font = "";
+            if ($group->{font_face}) {
+                $font = $group->{font_face};
+            }
+            if ($group->{font_size}) {
+                $font = "$font,$group->{font_size}";
+            }
+            $font = qq("$font");
+
+            my $key = qq(font $font notitle);
+            if ($group->{key}) {
+                $key = "$key $group->{key}";
+            } else {
+                # opaque vertical reverse Left outside right center box
+                $key = "$key opaque vertical noreverse Right top inside left box";
+            }
+
             $file->print("unset key\n",
-                         $group->{helper} ? $key_with_helper : $key_without_helper);
+                         "set key $key\n");
+
             my $quoted_path = qq("$path_graphics/$function_id-$group_id.eps");
-            $file->print("$terminal{eps}\n",
+            $file->print("$terminal{eps} font $font\n",
                          "set output $quoted_path\n");
             my $type = $group->{helper} ? "groups/$group_id" : "raw";
             $file->print("plot \\\n",
@@ -496,11 +579,11 @@ sub generate_gnuplot_function_groups
                                          sort_algorithms("$path_results/ecdf/$function_id/raw", $group->{algorithms})));
             $file->print("\n");
             $quoted_path = qq("$path_graphics/$function_id-$group_id.pdf");
-            $file->print("$terminal{pdf}\n",
+            $file->print("$terminal{pdf} font $font\n",
                          "set output $quoted_path\n",
                          "replot\n");
             $quoted_path = qq("$path_graphics/$function_id-$group_id.png");
-            $file->print("$terminal{png}\n",
+            $file->print("$terminal{png} font $font\n",
                          "set output $quoted_path\n",
                          "replot\n\n");
         }
