@@ -9,18 +9,21 @@
 
     "graphics": {
         "all": {
-            "helper": true
+            "helper": true,
+            "font_size": 14
         },
         "groups": [
             {
                 "id": "ec",
                 "algorithms": [ "ea-1p1", "ea-1p10", "ea-10p1", "ea-1c10", "ga" ],
-                "helper": true
+                "helper": true,
+                "font_size": 14
             },
             {
                 "id": "eda",
                 "algorithms": [ "pbil", "umda" ],
-                "helper": false
+                "helper": false,
+                "font_size": 14
             }
         ]
     },
