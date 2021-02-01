@@ -286,15 +286,6 @@ sub generate_gnuplot_mean
     open(MEAN, ">mean.gp")
         or die "hnco-function-parameter-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
 
-    print MEAN
-        "#!/usr/bin/gnuplot -persist\n",
-        "set grid\n",
-        qq(set xlabel "$parameter_name"\n),
-        qq(set ylabel "Mean value"\n),
-        qq(set key font ",10" reverse Left outside right center box vertical\n),
-        "set autoscale fix\n",
-        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
-
     # Font face and size
     my $font = "";
     if ($graphics->{mean}->{font_face}) {
@@ -303,7 +294,25 @@ sub generate_gnuplot_mean
     if ($graphics->{mean}->{font_size}) {
         $font = "$font,$graphics->{mean}->{font_size}";
     }
-    $font = qq(font "$font");
+    $font = qq("$font");
+
+    my $key = qq(font $font notitle);
+    if ($graphics->{mean}->{key}) {
+        $key = "$key $graphics->{mean}->{key}";
+    } else {
+        # opaque vertical reverse Left outside right center box
+        $key = "$key reverse Left outside right center box vertical";
+    }
+
+    print MEAN
+        "#!/usr/bin/gnuplot -persist\n",
+        "set grid\n",
+        qq(set xlabel "$parameter_name"\n),
+        qq(set ylabel "Mean value"\n),
+        "unset key\n",
+        "set key $key\n",
+        "set autoscale fix\n",
+        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
     if ($graphics->{logscale}) {
         my $fmt = qq("10^{\%T}");
@@ -334,7 +343,7 @@ sub generate_gnuplot_mean
         }
 
         print MEAN
-            "$terminal{pdf} $font\n",
+            "$terminal{pdf} font $font\n",
             qq(set output "$path_graphics/$function_id/mean.pdf"\n);
 
         print MEAN "plot \\\n";
@@ -349,12 +358,12 @@ sub generate_gnuplot_mean
         print MEAN "\n";
 
         print MEAN
-            "$terminal{eps} $font\n",
+            "$terminal{eps} font $font\n",
             qq(set output "$path_graphics/$function_id/mean.eps"\n),
             "replot\n";
 
         print MEAN
-            "$terminal{png} $font\n",
+            "$terminal{png} font $font\n",
             qq(set output "$path_graphics/$function_id/mean.png"\n),
             "replot\n\n";
 
