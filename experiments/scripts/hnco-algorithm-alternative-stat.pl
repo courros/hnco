@@ -88,9 +88,6 @@ my @results = ();
 my @value_statistics = ();
 my @rank_statistics = ();
 
-# hash indexed by function
-my $best_value_statistics = {};
-
 # hash indexed by algorithm, alternative
 my $rank_data = {};
 
@@ -107,7 +104,6 @@ add_missing_names($algorithms);
 load_results();
 
 compute_statistics();
-compute_best_value_statistics();
 compute_rank_data();
 compute_rank_statistics();
 
@@ -179,19 +175,6 @@ sub compute_statistics
                 $mean_data->{$function_id}->{$algorithm_id}->{$alternative_value} = $sd->mean();
             }
         }
-    }
-}
-
-sub compute_best_value_statistics
-{
-    foreach my $fn (@$functions) {
-        my $id = $fn->{id};
-        my $best = {};
-        my @rows = grep { $_->{function} eq $id } @value_statistics;
-        foreach my $summary (@summary_statistics) {
-            $best->{$summary} = max (map { $_->{$summary} } @rows);
-        }
-        $best_value_statistics->{$id} = $best;
     }
 }
 
@@ -428,7 +411,6 @@ sub generate_table_value
             return 0;
         } @rows;
         my $conversion = $fn->{logscale} ? "%e" : "%f";
-        my $best = $best_value_statistics->{$id};
         foreach my $row (@sorted) {
             $file->print("$row->{algorithm} & $row->{alternative_name} & ");
             if ($fn->{reverse}) {
