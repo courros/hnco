@@ -24,12 +24,12 @@ Library features:
 - 29 concrete functions
 - 25 concrete algorithms
 - 78 unit tests
-- Maps from bit vectors to bit vectors (affine maps)
-- Function decorators to control evaluation (budget)
-- Function decorators to modify functions (noise)
+- Maps from bit vectors to bit vectors
+- Function decorators to control evaluation
+- Function decorators to modify functions
 - Maps and functions can be serialized to text files
 - Neighborhoods and neighborhood iterators for local search
-- Population with parallel evaluation (OpenMP)
+- Population with parallel evaluation
 - Support for incremental evaluation
 
 Purposes:
