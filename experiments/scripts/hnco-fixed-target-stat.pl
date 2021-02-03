@@ -79,7 +79,6 @@ my @time_statistics = ();
 my @rank_statistics = ();
 
 # hash indexed by function
-my $time_best_statistics = {};
 my $longest_run = {};
 
 # hash indexed by algorithm
@@ -92,7 +91,6 @@ my $rank_data = {};
 load_results();
 
 compute_time_statistics();
-compute_time_best_statistics();
 compute_longest_run();
 compute_rank_data();
 compute_rank_statistics();
@@ -151,19 +149,6 @@ sub compute_time_statistics
                                      success_count   => $sd_success->sum(),
                                      success_rate    => $sd_success->mean() };
         }
-    }
-}
-
-sub compute_time_best_statistics
-{
-    foreach my $fn (@$functions) {
-        my $id = $fn->{id};
-        my $best = {};
-        my @rows = grep { ($_->{function} eq $id) && ($_->{success_count} == $num_runs) } @time_statistics;
-        foreach my $summary (@summary_statistics) {
-            $best->{$summary} = min (map { $_->{$summary} } @rows);
-        }
-        $time_best_statistics->{$id} = $best;
     }
 }
 
@@ -375,7 +360,6 @@ sub generate_table_function
                      "\\midrule\n");
 
         # Rows
-        my $best = $time_best_statistics->{$id};
         my @rows = grep { $_->{function} eq $id } @time_statistics;
         my @sorted = sort {
             if ($a->{success_rate} != $b->{success_rate}) {
@@ -389,7 +373,7 @@ sub generate_table_function
             return 0;
         } @rows;
         foreach my $row (@sorted) {
-            my $format = join " & ", map { (defined($best->{$_}) && $row->{$_} == $best->{$_}) ? "{\\npboldmath} %d" : "%d" } @summary_statistics;
+            my $format = join " & ", map { "%d" } @summary_statistics;
             $file->print("$row->{algorithm} & ");
             $file->printf($format, $row->{min}, $row->{q1}, $row->{median}, $row->{q3}, $row->{max});
             $file->printf(" & %d\\\\\n", 100 * $row->{success_rate});
