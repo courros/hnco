@@ -400,8 +400,17 @@ sub generate_table_value
 
         # Header
         my $before = $fn->{rounding}->{value}->{before} || 3;
+
+        # Precision for min/max
         my $after = $fn->{rounding}->{value}->{after} || 0;
-        $file->print("\\begin{tabular}{\@{} ll *{5}{>{{\\nprounddigits{$after}}}n{$before}{$after}} \@{}}\n",
+
+        # Precision for quantiles
+        my $after_quantiles = 1;
+        if ($fn->{rounding}->{value}->{after}) {
+            $after_quantiles = $fn->{rounding}->{value}->{after} + 1;
+        }
+
+        $file->print("\\begin{tabular}{\@{} ll >{{\\nprounddigits{$after}}}n{$before}{$after} *{3}{>{{\\nprounddigits{$after_quantiles}}}n{$before}{$after_quantiles}} >{{\\nprounddigits{$after}}}n{$before}{$after} \@{}}\n",
                      "\\toprule\n",
                      "{Algo.} & {$parameter_shortname} & \\multicolumn{5}{l}{{Value}} \\\\\n",
                      "\\midrule\n",
@@ -423,8 +432,7 @@ sub generate_table_value
         foreach my $row (@sorted) {
             $file->print("$row->{algorithm} & $row->{alternative_name} & ");
             if ($fn->{reverse}) {
-                my $format = join " & ",
-                    map { $row->{$_} == $best->{$_} ? "{\\npboldmath} $conversion" : "$conversion" } @summary_statistics_reverse;
+                my $format = join " & ", map { "$conversion" } @summary_statistics_reverse;
                 $file->printf($format,
                               -$row->{max},
                               -$row->{q3},
@@ -432,8 +440,7 @@ sub generate_table_value
                               -$row->{q1},
                               -$row->{min});
             } else {
-                my $format = join " & ",
-                    map { $row->{$_} == $best->{$_} ? "{\\npboldmath} $conversion" : "$conversion" } @summary_statistics;
+                my $format = join " & ", map { "$conversion" } @summary_statistics;
                 $file->printf($format,
                               $row->{min},
                               $row->{q1},
