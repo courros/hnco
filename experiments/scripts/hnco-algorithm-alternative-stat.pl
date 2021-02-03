@@ -346,7 +346,14 @@ sub generate_table_rank
 
     # Header
     my $width = int(ceil(log(1 + @{ $algorithms } * @{ $alternatives }) / log(10)));
-    $file->print("\\begin{tabular}{\@{} ll >{{\\nprounddigits{0}}}n{$width}{0} *{3}{>{{\\nprounddigits{1}}}n{$width}{1}} >{{\\nprounddigits{0}}}n{$width}{0} \@{}}\n",
+    my $quantiles = "";
+    $quantiles .= ">{{\\nprounddigits{0}}}n{$width}{0}";
+    $quantiles .= ">{{\\nprounddigits{2}}}n{$width}{2}";
+    $quantiles .= ">{{\\nprounddigits{1}}}n{$width}{1}";
+    $quantiles .= ">{{\\nprounddigits{2}}}n{$width}{2}";
+    $quantiles .= ">{{\\nprounddigits{0}}}n{$width}{0}";
+
+    $file->print("\\begin{tabular}{\@{} ll $quantiles \@{}}\n",
                  "\\toprule\n",
                  "{Algo.} & {$parameter_shortname} & \\multicolumn{5}{l}{{Rank}} \\\\\n",
                  "\\midrule\n",
@@ -362,7 +369,7 @@ sub generate_table_rank
         }
         return 0;
     } @rank_statistics;
-    my $format = join " & ", map { "%d" } @summary_statistics;
+    my $format = join " & ", map { "%f" } @summary_statistics;
     foreach my $row (@sorted) {
         $file->print("$row->{algorithm} & $row->{alternative_name} & ");
         $file->printf($format, $row->{min}, $row->{q1}, $row->{median}, $row->{q3}, $row->{max});
@@ -385,15 +392,28 @@ sub generate_table_value
         my $before = $fn->{rounding}->{value}->{before} || 3;
 
         # Precision for min/max
-        my $after = $fn->{rounding}->{value}->{after} || 0;
+        my $after_min_max = $fn->{rounding}->{value}->{after} || 0;
 
-        # Precision for quantiles
-        my $after_quantiles = 1;
+        # Precision for median
+        my $after_median = 1;
         if ($fn->{rounding}->{value}->{after}) {
-            $after_quantiles = $fn->{rounding}->{value}->{after} + 1;
+            $after_median = $fn->{rounding}->{value}->{after} + 1;
         }
 
-        $file->print("\\begin{tabular}{\@{} ll >{{\\nprounddigits{$after}}}n{$before}{$after} *{3}{>{{\\nprounddigits{$after_quantiles}}}n{$before}{$after_quantiles}} >{{\\nprounddigits{$after}}}n{$before}{$after} \@{}}\n",
+        # Precision for quantiles
+        my $after_quantiles = 2;
+        if ($fn->{rounding}->{value}->{after}) {
+            $after_quantiles = $fn->{rounding}->{value}->{after} + 2;
+        }
+
+        my $quantiles = "";
+        $quantiles .= ">{{\\nprounddigits{$after_min_max}}}n{$before}{0}";
+        $quantiles .= ">{{\\nprounddigits{$after_quantiles}}}n{$before}{$after_quantiles}";
+        $quantiles .= ">{{\\nprounddigits{$after_median}}}n{$before}{$after_median}";
+        $quantiles .= ">{{\\nprounddigits{$after_quantiles}}}n{$before}{$after_quantiles}";
+        $quantiles .= ">{{\\nprounddigits{$after_min_max}}}n{$before}{0}";
+
+        $file->print("\\begin{tabular}{\@{} ll $quantiles \@{}}\n",
                      "\\toprule\n",
                      "{Algo.} & {$parameter_shortname} & \\multicolumn{5}{l}{{Value}} \\\\\n",
                      "\\midrule\n",
