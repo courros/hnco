@@ -47,7 +47,7 @@ use HNCO::Report qw(
 #
 
 my @summary_statistics = qw(min q1 median q3 max);
-my @preference = qw(median q3 q1 max min);
+my @preference = qw(median q1 q3 min max);
 
 my $path_results        = "results";
 my $path_graphics       = "graphics";
@@ -194,7 +194,7 @@ sub compute_rank_data
         for (my $i = 1; $i < @sorted; $i++) {
             my $current = $sorted[$i];
             my $previous = $sorted[$i - 1];
-            if (all { $current->{$_} == $previous->{$_} } @summary_statistics) {
+            if ((all { $current->{$_} == $previous->{$_} } @summary_statistics) and ($current->{success_rate} == $previous->{success_rate})) {
                 $current->{rank} = $previous->{rank};
             }
         }
@@ -312,7 +312,14 @@ sub generate_table_rank
 
     # Header
     my $width = int(ceil(log(@{ $algorithms }) / log(10)));
-    $file->print("\\begin{tabular}{\@{} l >{{\\nprounddigits{0}}}n{$width}{0} *{3}{>{{\\nprounddigits{1}}}n{$width}{1}} >{{\\nprounddigits{0}}}n{$width}{0} >{{\\nprounddigits{1} \\npunit{\\%}}}n{3}{1} \@{}}\n",
+    my $quantiles = "";
+    $quantiles .= ">{{\\nprounddigits{0}}}n{$width}{0}";
+    $quantiles .= ">{{\\nprounddigits{2}}}n{$width}{2}";
+    $quantiles .= ">{{\\nprounddigits{1}}}n{$width}{1}";
+    $quantiles .= ">{{\\nprounddigits{2}}}n{$width}{2}";
+    $quantiles .= ">{{\\nprounddigits{0}}}n{$width}{0}";
+
+    $file->print("\\begin{tabular}{\@{} l $quantiles >{{\\nprounddigits{1} \\npunit{\\%}}}n{3}{1} \@{}}\n",
                  "\\toprule\n",
                  "{Algorithm} & \\multicolumn{5}{l}{{Rank}} & {Success} \\\\\n",
                  "\\midrule\n",
@@ -331,7 +338,7 @@ sub generate_table_rank
         }
         return 0;
     } @rank_statistics;
-    my $format = join " & ", map { "%d" } @summary_statistics;
+    my $format = join " & ", map { "%f" } @summary_statistics;
     foreach my $row (@sorted) {
         $file->print("$row->{algorithm} & ");
         $file->printf($format, $row->{min}, $row->{q1}, $row->{median}, $row->{q3}, $row->{max});
@@ -352,7 +359,14 @@ sub generate_table_function
 
         # Header
         my $width = int(ceil(log($longest_run->{$id}) / log(10)));
-        $file->print("\\begin{tabular}{\@{} l >{{\\nprounddigits{0}}}n{$width}{0} *{3}{>{{\\nprounddigits{1}}}n{$width}{1}} >{{\\nprounddigits{0}}}n{$width}{0} >{{\\nprounddigits{1} \\npunit{\\%}}}n{3}{1} \@{}}\n",
+        my $quantiles = "";
+        $quantiles .= ">{{\\nprounddigits{0}}}n{$width}{0}";
+        $quantiles .= ">{{\\nprounddigits{2}}}n{$width}{2}";
+        $quantiles .= ">{{\\nprounddigits{1}}}n{$width}{1}";
+        $quantiles .= ">{{\\nprounddigits{2}}}n{$width}{2}";
+        $quantiles .= ">{{\\nprounddigits{0}}}n{$width}{0}";
+
+        $file->print("\\begin{tabular}{\@{} l $quantiles >{{\\nprounddigits{1} \\npunit{\\%}}}n{3}{1} \@{}}\n",
                      "\\toprule\n",
                      "{Algorithm} & \\multicolumn{5}{l}{{Number of evaluations}} & {Success} \\\\\n",
                      "\\midrule\n",
@@ -373,7 +387,7 @@ sub generate_table_function
             return 0;
         } @rows;
         foreach my $row (@sorted) {
-            my $format = join " & ", map { "%d" } @summary_statistics;
+            my $format = join " & ", map { "%f" } @summary_statistics;
             $file->print("$row->{algorithm} & ");
             $file->printf($format, $row->{min}, $row->{q1}, $row->{median}, $row->{q3}, $row->{max});
             $file->printf(" & %d\\\\\n", 100 * $row->{success_rate});
