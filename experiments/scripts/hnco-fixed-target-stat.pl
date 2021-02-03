@@ -312,7 +312,7 @@ sub generate_table_rank
 
     # Header
     my $width = int(ceil(log(@{ $algorithms }) / log(10)));
-    $file->print("\\begin{tabular}{\@{} l *{5}{>{{\\nprounddigits{0}}}n{$width}{0}} >{{\\nprounddigits{1} \\npunit{\\%}}}n{3}{1} \@{}}\n",
+    $file->print("\\begin{tabular}{\@{} l >{{\\nprounddigits{0}}}n{$width}{0} *{3}{>{{\\nprounddigits{1}}}n{$width}{1}} >{{\\nprounddigits{0}}}n{$width}{0} >{{\\nprounddigits{1} \\npunit{\\%}}}n{3}{1} \@{}}\n",
                  "\\toprule\n",
                  "{Algorithm} & \\multicolumn{5}{l}{{Rank}} & {Success} \\\\\n",
                  "\\midrule\n",
@@ -352,7 +352,7 @@ sub generate_table_function
 
         # Header
         my $width = int(ceil(log($longest_run->{$id}) / log(10)));
-        $file->print("\\begin{tabular}{\@{} l *{5}{>{{\\nprounddigits{0}}}n{$width}{0}} >{{\\nprounddigits{1} \\npunit{\\%}}}n{3}{1} \@{}}\n",
+        $file->print("\\begin{tabular}{\@{} l >{{\\nprounddigits{0}}}n{$width}{0} *{3}{>{{\\nprounddigits{1}}}n{$width}{1}} >{{\\nprounddigits{0}}}n{$width}{0} >{{\\nprounddigits{1} \\npunit{\\%}}}n{3}{1} \@{}}\n",
                      "\\toprule\n",
                      "{Algorithm} & \\multicolumn{5}{l}{{Number of evaluations}} & {Success} \\\\\n",
                      "\\midrule\n",
