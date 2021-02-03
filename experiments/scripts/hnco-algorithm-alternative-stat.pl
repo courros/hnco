@@ -346,7 +346,7 @@ sub generate_table_rank
 
     # Header
     my $width = int(ceil(log(1 + @{ $algorithms } * @{ $alternatives }) / log(10)));
-    $file->print("\\begin{tabular}{\@{} ll *{5}{>{{\\nprounddigits{0}}}n{$width}{0}} \@{}}\n",
+    $file->print("\\begin{tabular}{\@{} ll >{{\\nprounddigits{0}}}n{$width}{0} *{3}{>{{\\nprounddigits{1}}}n{$width}{1}} >{{\\nprounddigits{0}}}n{$width}{0} \@{}}\n",
                  "\\toprule\n",
                  "{Algo.} & {$parameter_shortname} & \\multicolumn{5}{l}{{Rank}} \\\\\n",
                  "\\midrule\n",
