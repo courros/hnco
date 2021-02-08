@@ -40,11 +40,12 @@ using namespace hnco::function;
 using namespace hnco::function::controller;
 using namespace hnco::random;
 using namespace hnco;
+using namespace hnco::cli;
 
 
 int main(int argc, char *argv[])
 {
-  Options options(argc, argv);
+  HncoOptions options(argc, argv);
 
   if (options.with_print_defaults()) {
     std::cout << options;

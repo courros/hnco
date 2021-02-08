@@ -19,6 +19,7 @@
 
 use strict;
 use JSON;
+use File::Slurp qw(read_file);
 
 my %type_conversion = (
     int         => "int",
@@ -43,15 +44,21 @@ sub quote_in_quote
 # Spec parsing
 #
 
-my $file = $ARGV[0];
-open(FILE, $file) || die "Cannot open $file\n";
+my $json = $ARGV[0];
 
-my $json = "";
-while (<FILE>) {
-    $json .= $_;
-}
+my $obj = from_json(read_file($json));
 
-my $obj = from_json($json);
+#
+# Global variables
+#
+
+my $header = $obj->{files}->{header};
+my $source = $obj->{files}->{source};
+my $exec = $obj->{files}->{exec};
+my $cppdefine = $obj->{code}->{cppdefine};
+my $namespace = join "::", @{ $obj->{code}->{namespace} };
+my $classname = $obj->{code}->{classname};
+my $version = $obj->{version};
 
 my $parameters = $obj->{parameters};
 my $flags = $obj->{flags};
@@ -94,59 +101,55 @@ generate_completion();
 
 sub generate_header
 {
-    my $name = $obj->{name};
+    my $file = IO::File->new($header, '>')
+        or die "optgen.pl: generate_header: Cannot open $header\n";
 
-    my $header = join "-", @$name;
-    $header .=  "-options.hh";
-
-    open(HEADER, ">$header");
-
-    my $symbol = uc(join "_", @$name);
-    $symbol .= "_OPTIONS_H";
-
-    print HEADER
-	"#ifndef $symbol\n",
-	"#define $symbol\n\n",
+    $file->print(
+	"#ifndef $cppdefine\n",
+	"#define $cppdefine\n\n",
 	"#include <iostream>\n",
 	"#include <string>\n\n",
+        "namespace $namespace {\n\n");
+
+    $file->print(
 	"/// Command line options\n",
-	"class Options {\n\n",
+	"class $classname {\n\n",
         "  /// Name of the executable\n",
         "  std::string _exec_name;\n\n",
         "  /// Name Version\n",
-        "  std::string _version;\n\n";
+        "  std::string _version;\n\n");
 
     foreach (sort(keys(%$parameters))) {
 	my $parameter = $parameters->{$_};
-        print HEADER
+        $file->print(
             "  /// ", $parameter->{description}, "\n",
             "  ", $type_conversion{$parameter->{type}}, " _$_;\n",
-            "  bool _opt_$_;\n\n";
+            "  bool _opt_$_;\n\n");
     }
 
     foreach (sort(keys(%$flags))) {
 	my $flag = $flags->{$_};
-        print HEADER
+        $file->print(
             "  /// $flag->{description}\n",
-            "  bool _$_;\n\n";
+            "  bool _$_;\n\n");
     }
 
-    print HEADER
+    $file->print(
         "  /// Print help message\n",
-        "  void print_help(std::ostream& stream) const;\n\n";
+        "  void print_help(std::ostream& stream) const;\n\n");
 
     foreach (@folded_sections) {
-        print HEADER
+        $file->print(
             "  /// Print help message for section $_\n",
-            "  void print_help_$_(std::ostream& stream) const;\n\n";
+            "  void print_help_$_(std::ostream& stream) const;\n\n");
     }
 
-    print HEADER
+    $file->print(
         "  /// Print version\n",
         "  void print_version(std::ostream& stream) const;\n\n",
         "public:\n\n",
         "  /// Constructor\n",
-        "  Options(int argc, char *argv[]);\n\n";
+        "  $classname(int argc, char *argv[]);\n\n");
 
     #
     # Access
@@ -155,7 +158,7 @@ sub generate_header
     foreach (sort(keys(%$parameters))) {
 	my $parameter = $parameters->{$_};
 	my $type = $parameter->{type};
-        print HEADER
+        $file->print(
             "  /// Get $_\n",
             "  ", $type_conversion{$type}, " get_$_() const { return _$_; }\n\n",
             "  /// Set $_\n",
@@ -164,29 +167,26 @@ sub generate_header
             "    _opt_$_ = true;\n",
             "  }\n\n",
             "  /// Get set-flag for $_\n",
-            "  bool set_$_() const { return _opt_$_; }\n\n";
+            "  bool set_$_() const { return _opt_$_; }\n\n");
     }
 
     foreach (sort(keys(%$flags))) {
-	print HEADER <<EOF;
-  /// Get $_
-  bool with_$_() const { return _$_; }
-
-  /// Set $_
-  void set_$_() { _$_ = true; }
- 
-EOF
+        $file->print(
+            "  /// Get $_\n",
+            "  bool with_$_() const { return _$_; }\n\n",
+            "  /// Set $_\n",
+            "  void set_$_() { _$_ = true; }\n\n");
     }
 
-    print HEADER <<EOF;
-  /// Print a header containing the parameter values
-  friend std::ostream& operator<<(std::ostream&, const Options&);
-};
+    $file->print(
+        "  friend std::ostream& operator<<(std::ostream&, const $classname&);\n",
+        "};\n\n",
+        "/// Print a header containing the parameter values\n",
+        "std::ostream& operator<<(std::ostream& stream, const $classname& options);\n\n",
+        "}\n\n",
+        "#endif\n");
 
-
-#endif
-EOF
-    close(HEADER);
+    $file->close();
 }
 
 #
@@ -195,11 +195,6 @@ EOF
 
 sub generate_source
 {
-    my $name = $obj->{name};
-    my $prefix = join "-", @$name;
-    my $header = $prefix . "-options.hh";
-    my $source = $prefix . "-options.cc";
-
     open(SRC, ">$source");
 
     print SRC
@@ -207,7 +202,7 @@ sub generate_source
 	"#include <stdlib.h>\n",
 	"#include <getopt.h>\n\n",
 	"#include \"$header\"\n\n",
-        "using namespace std;\n\n";
+        "using namespace $namespace;\n\n";
 
     generate_source_cons();
     generate_source_help();
@@ -220,10 +215,8 @@ sub generate_source
 
 sub generate_source_cons()
 {
-    my $version = $obj->{version};
-
     print SRC
-	"Options\:\:Options(int argc, char *argv[]):\n",
+	"$classname\:\:$classname(int argc, char *argv[]):\n",
 	"  _exec_name(argv[0]),\n",
         "  _version(\"$version\"),\n";
 
@@ -326,7 +319,7 @@ sub generate_source_cons()
 	} elsif ($type eq "double") {
 	    print SRC "atof(optarg));\n";
 	} elsif ($type eq "string") {
-	    print SRC "string(optarg));\n";
+	    print SRC "std::string(optarg));\n";
 	} else {
 	    die "$type: unknown type\n";
 	}
@@ -349,22 +342,22 @@ sub generate_source_cons()
 
     print SRC
 	"    case OPTION_HELP:\n",
-	"      print_help(cerr);\n",
+	"      print_help(std::cerr);\n",
 	"      exit(0);\n\n";
 
     foreach (@folded_sections) {
         print SRC
             "    case OPTION_HELP_", uc($_), ":\n",
-            "      print_help_$_(cerr);\n",
+            "      print_help_$_(std::cerr);\n",
             "      exit(0);\n\n";
     }
 
     print SRC
 	"    case OPTION_VERSION:\n",
-	"      print_version(cerr);\n",
+	"      print_version(std::cerr);\n",
 	"      exit(0);\n\n",
 	"    default:\n",
-        "      cerr << \"For more information, please enter: \" << _exec_name << \" --help\" << endl;\n",
+        "      std::cerr << \"For more information, please enter: \" << _exec_name << \" --help\" << std::endl;\n",
 	"      exit(1);\n",
 	"    }\n",
 	"  }\n",
@@ -388,18 +381,18 @@ sub generate_source_help_par
 
     if (exists($par->{optchar})) {
 	my $optchar = $par->{optchar};
-	print SRC "  stream << \"  -$optchar, --$hyphen (type $type, default to $value)\" << endl;\n";
+	print SRC "  stream << \"  -$optchar, --$hyphen (type $type, default to $value)\" << std::endl;\n";
     } else {
-	print SRC "  stream << \"      --$hyphen (type $type, default to $value)\" << endl;\n";
+	print SRC "  stream << \"      --$hyphen (type $type, default to $value)\" << std::endl;\n";
     }
-    print SRC "  stream << \"          $desc\" << endl;\n";
+    print SRC "  stream << \"          $desc\" << std::endl;\n";
 
     if (exists($par->{alternatives})) {
 	my $alternatives = $par->{alternatives};
 	foreach (@$alternatives) {
 	    my $v = $_->{value};
 	    my $d = $_->{description};
-	    print SRC "  stream << \"            $v: $d\" << endl;\n";
+	    print SRC "  stream << \"            $v: $d\" << std::endl;\n";
 	}
     }
 }
@@ -415,11 +408,11 @@ sub generate_source_help_flag
 
     if (exists($flag->{optchar})) {
 	my $optchar = $flag->{optchar};
-	print SRC "  stream << \"  -$optchar, --$hyphen\" << endl;\n";
+	print SRC "  stream << \"  -$optchar, --$hyphen\" << std::endl;\n";
     } else {
-	print SRC "  stream << \"      --$hyphen\" << endl;\n";
+	print SRC "  stream << \"      --$hyphen\" << std::endl;\n";
     }
-    print SRC "  stream << \"          $desc\" << endl;\n";
+    print SRC "  stream << \"          $desc\" << std::endl;\n";
 }
 
 sub generate_source_help_folded_section
@@ -428,17 +421,19 @@ sub generate_source_help_folded_section
     my $hyphen = "help-$id";
     $hyphen =~ s/_/-/g;
 
-    print SRC "  stream << ", quote("      --$hyphen"), " << endl;\n";
-    print SRC "  stream << ", quote("          $section_hash{$id}->{title}"), " << endl;\n";
+    print SRC "  stream << ", quote("      --$hyphen"), " << std::endl;\n";
+    print SRC "  stream << ", quote("          $section_hash{$id}->{title}"), " << std::endl;\n";
 }
 
 sub generate_source_help()
 {
+    my $classname = $obj->{code}->{classname};
+
     print SRC
-	"void Options\:\:print_help(ostream& stream) const\n",
+	"void $classname\:\:print_help(std::ostream& stream) const\n",
 	"{\n",
-        "  stream << ", quote($obj->{description}), " << endl << endl;\n",
-        "  stream << ", quote("usage: "), " << _exec_name << ", quote(" [--help] [--version] [options]"), " << endl << endl;\n";
+        "  stream << ", quote($obj->{description}), " << std::endl << std::endl;\n",
+        "  stream << ", quote("usage: "), " << _exec_name << ", quote(" [--help] [--version] [options]"), " << std::endl << std::endl;\n";
 
     if (not $obj->{sections}) {
 	my @list = (keys(%$parameters), keys(%$flags));
@@ -453,7 +448,7 @@ sub generate_source_help()
 	foreach (@$order) {
             if (not $section_hash{$_}->{fold}) {
                 my $title = $section_hash{$_}->{title};
-                print SRC "  stream << ", quote($title), " << endl;\n";
+                print SRC "  stream << ", quote($title), " << std::endl;\n";
                 my @list = @{ $options{$_} };
                 foreach (sort(@list)) {
                     if (exists($parameters->{$_})) {
@@ -462,11 +457,11 @@ sub generate_source_help()
                         generate_source_help_flag $_;
                     }
                 }
-                print SRC "  stream << endl;\n";
+                print SRC "  stream << std::endl;\n";
             }
 	}
         if (@folded_sections) {
-            print SRC "  stream  << ", quote("Additional Sections"), " << endl;\n";
+            print SRC "  stream  << ", quote("Additional Sections"), " << std::endl;\n";
             foreach (@folded_sections) {
                 generate_source_help_folded_section($_);
             }
@@ -480,12 +475,12 @@ sub generate_source_additional_section_help()
 {
     foreach (@folded_sections) {
         print SRC
-            "void Options\:\:print_help_$_(ostream& stream) const\n",
+            "void $classname\:\:print_help_$_(std::ostream& stream) const\n",
             "{\n",
-            "  stream << ", quote($obj->{description}), " << endl << endl;\n",
-            "  stream << ", quote("usage: "), " << _exec_name << ", quote(" [--help] [--version] [options]"), " << endl << endl;\n";
+            "  stream << ", quote($obj->{description}), " << std::endl << std::endl;\n",
+            "  stream << ", quote("usage: "), " << _exec_name << ", quote(" [--help] [--version] [options]"), " << std::endl << std::endl;\n";
         my $title = $section_hash{$_}->{title};
-        print SRC "  stream << ", quote($title), " << endl;\n";
+        print SRC "  stream << ", quote($title), " << std::endl;\n";
         foreach (sort(@{ $options{$_} })) {
             if (exists($parameters->{$_})) {
                 generate_source_help_par $_;
@@ -493,7 +488,7 @@ sub generate_source_additional_section_help()
                 generate_source_help_flag $_;
             }
         }
-        print SRC "  stream << endl;\n";
+        print SRC "  stream << std::endl;\n";
         print SRC "}\n\n";
     }
 }
@@ -501,35 +496,35 @@ sub generate_source_additional_section_help()
 sub generate_source_version()
 {
     print SRC
-	"void Options\:\:print_version(ostream& stream) const\n",
+	"void $classname\:\:print_version(std::ostream& stream) const\n",
 	"{\n",
-        "  stream << _version << endl;\n",
+        "  stream << _version << std::endl;\n",
         "}\n\n";
 }
 
 sub generate_source_stream() {
     print SRC <<EOF;
-ostream& operator<<(ostream& stream, const Options& options)
+std::ostream& $namespace\:\:operator<<(std::ostream& stream, const $classname& options)
 {
 EOF
     foreach(sort(keys(%$parameters))) {
 	my $parameter = $parameters->{$_};
-	print SRC "  stream << \"# $_ = \" << options._$_ << endl;\n";
+	print SRC "  stream << \"# $_ = \" << options._$_ << std::endl;\n";
     }
 
     foreach(sort(keys(%$flags))) {
 	my $flag = $flags->{$_};
 	print SRC <<EOF;
   if (options._$_)
-    stream << \"# $_\" << endl;
+    stream << \"# $_\" << std::endl;
 EOF
     }
 
     print SRC <<EOF;
-  stream << \"# last_parameter\" << endl;
-  stream << \"# exec_name = \" << options._exec_name << endl;
-  stream << \"# version = \" << options._version << endl;
-  stream << \"# Generated from $file\" << endl;
+  stream << \"# last_parameter\" << std::endl;
+  stream << \"# exec_name = \" << options._exec_name << std::endl;
+  stream << \"# version = \" << options._version << std::endl;
+  stream << \"# Generated from $json\" << std::endl;
   return stream;
 }
 EOF
@@ -542,11 +537,7 @@ EOF
 
 sub generate_completion
 {
-    my $name = $obj->{name};
-    my $exec_name = join "-", @$name;
-    my $function_name = join "_", @$name;
-
-    open(COMP, ">$exec_name.sh") || die "Cannot open $exec_name.sh\n";;
+    open(COMP, ">$exec.sh") || die "Cannot open $exec.sh\n";;
 
     my @list = map {
 	my $hyphen = $_;
@@ -557,7 +548,7 @@ sub generate_completion
     my $options = join " ", @list;
 
     print COMP <<EOF;
-_$function_name() 
+_$exec() 
 {
     local cur prev opts
     COMPREPLY=()
@@ -570,7 +561,7 @@ _$function_name()
         return 0
     fi
 }
-complete -F _$function_name $exec_name
+complete -F _$exec $exec
 EOF
 
     close(COMP);

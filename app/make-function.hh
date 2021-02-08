@@ -40,15 +40,15 @@ class FunctionFactory
   hnco::function::controller::ProgressTracker *_tracker = 0;
 
   /// Make a function modifier
-  hnco::function::Function *make_function_modifier(hnco::function::Function *function, Options& options);
+  hnco::function::Function *make_function_modifier(hnco::function::Function *function, hnco::cli::HncoOptions& options);
 
 public:
 
   /// Make a function
-  hnco::function::Function *make_function(Options& options);
+  hnco::function::Function *make_function(hnco::cli::HncoOptions& options);
 
   /// Make a function controller
-  hnco::function::Function *make_function_controller(hnco::function::Function *function, const Options& options);
+  hnco::function::Function *make_function_controller(hnco::function::Function *function, const hnco::cli::HncoOptions& options);
 
   /// Get map
   hnco::Map *get_map() { return _map; }

@@ -31,10 +31,11 @@ using namespace hnco::function::controller;
 using namespace hnco::function::modifier;
 using namespace hnco::neighborhood;
 using namespace hnco;
+using namespace hnco::cli;
 
 
 template<class T>
-void load_function_from_boost_archive(T *fn, const Options& options)
+void load_function_from_boost_archive(T *fn, const HncoOptions& options)
 {
   std::ifstream ifs(options.get_path());
   if (!ifs.good()) {
@@ -53,7 +54,7 @@ void load_function_from_boost_archive(T *fn, const Options& options)
 
 
 template<class T>
-void load_function_from_file(T *fn, const Options& options)
+void load_function_from_file(T *fn, const HncoOptions& options)
 {
   std::ifstream ifs(options.get_path());
   if (!ifs.good()) {
@@ -66,7 +67,7 @@ void load_function_from_file(T *fn, const Options& options)
 
 
 Function *
-make_concrete_function(const Options& options)
+make_concrete_function(const HncoOptions& options)
 {
   if (options.get_bv_size() <= 0)
     throw Error("make_concrete_function: bv_size must be positive");
@@ -313,7 +314,7 @@ make_concrete_function(const Options& options)
 
 
 template<class T>
-void load_map(T *map, const Options& options)
+void load_map(T *map, const HncoOptions& options)
 {
   std::ifstream ifs(options.get_map_path());
   if (!ifs.good()) {
@@ -332,7 +333,7 @@ void load_map(T *map, const Options& options)
 
 
 Map *
-make_map(const Options& options)
+make_map(const HncoOptions& options)
 {
   assert(options.get_map() > 0);
   assert(options.get_bv_size() > 0);
@@ -428,7 +429,7 @@ make_map(const Options& options)
 
 
 Neighborhood *
-make_prior_noise_neighborhood(const Options& options)
+make_prior_noise_neighborhood(const HncoOptions& options)
 {
   switch(options.get_pn_neighborhood()) {
 
@@ -464,7 +465,7 @@ make_prior_noise_neighborhood(const Options& options)
 
 
 Function *
-FunctionFactory::make_function_modifier(Function *function, Options& options)
+FunctionFactory::make_function_modifier(Function *function, HncoOptions& options)
 {
   assert(function);
 
@@ -507,7 +508,7 @@ FunctionFactory::make_function_modifier(Function *function, Options& options)
 
 
 Function *
-FunctionFactory::make_function_controller(Function *function, const Options& options)
+FunctionFactory::make_function_controller(Function *function, const HncoOptions& options)
 {
   assert(function);
 
@@ -565,7 +566,7 @@ FunctionFactory::make_function_controller(Function *function, const Options& opt
 
 
 Function *
-FunctionFactory::make_function(Options& options)
+FunctionFactory::make_function(HncoOptions& options)
 {
   if (options.get_bv_size() <= 0)
     throw Error("make_function: bv_size must be positive");

@@ -1,11 +1,13 @@
-#ifndef HNCO_OPTIONS_H
-#define HNCO_OPTIONS_H
+#ifndef HNCO_OPTION_H
+#define HNCO_OPTION_H
 
 #include <iostream>
 #include <string>
 
+namespace hnco::cli {
+
 /// Command line options
-class Options {
+class HncoOptions {
 
   /// Name of the executable
   std::string _exec_name;
@@ -428,7 +430,7 @@ class Options {
 public:
 
   /// Constructor
-  Options(int argc, char *argv[]);
+  HncoOptions(int argc, char *argv[]);
 
   /// Get algorithm
   int get_algorithm() const { return _algorithm; }
@@ -1131,292 +1133,295 @@ public:
 
   /// Set additive_gaussian_noise
   void set_additive_gaussian_noise() { _additive_gaussian_noise = true; }
- 
+
   /// Get allow_no_mutation
   bool with_allow_no_mutation() const { return _allow_no_mutation; }
 
   /// Set allow_no_mutation
   void set_allow_no_mutation() { _allow_no_mutation = true; }
- 
+
   /// Get bm_log_norm_infinite
   bool with_bm_log_norm_infinite() const { return _bm_log_norm_infinite; }
 
   /// Set bm_log_norm_infinite
   void set_bm_log_norm_infinite() { _bm_log_norm_infinite = true; }
- 
+
   /// Get bm_log_norm_l1
   bool with_bm_log_norm_l1() const { return _bm_log_norm_l1; }
 
   /// Set bm_log_norm_l1
   void set_bm_log_norm_l1() { _bm_log_norm_l1 = true; }
- 
+
   /// Get bm_negative_positive_selection
   bool with_bm_negative_positive_selection() const { return _bm_negative_positive_selection; }
 
   /// Set bm_negative_positive_selection
   void set_bm_negative_positive_selection() { _bm_negative_positive_selection = true; }
- 
+
   /// Get cache
   bool with_cache() const { return _cache; }
 
   /// Set cache
   void set_cache() { _cache = true; }
- 
+
   /// Get cache_budget
   bool with_cache_budget() const { return _cache_budget; }
 
   /// Set cache_budget
   void set_cache_budget() { _cache_budget = true; }
- 
+
   /// Get concrete_solution
   bool with_concrete_solution() const { return _concrete_solution; }
 
   /// Set concrete_solution
   void set_concrete_solution() { _concrete_solution = true; }
- 
+
   /// Get fn_display
   bool with_fn_display() const { return _fn_display; }
 
   /// Set fn_display
   void set_fn_display() { _fn_display = true; }
- 
+
   /// Get fn_get_bv_size
   bool with_fn_get_bv_size() const { return _fn_get_bv_size; }
 
   /// Set fn_get_bv_size
   void set_fn_get_bv_size() { _fn_get_bv_size = true; }
- 
+
   /// Get fn_get_maximum
   bool with_fn_get_maximum() const { return _fn_get_maximum; }
 
   /// Set fn_get_maximum
   void set_fn_get_maximum() { _fn_get_maximum = true; }
- 
+
   /// Get fn_has_known_maximum
   bool with_fn_has_known_maximum() const { return _fn_has_known_maximum; }
 
   /// Set fn_has_known_maximum
   void set_fn_has_known_maximum() { _fn_has_known_maximum = true; }
- 
+
   /// Get fn_provides_incremental_evaluation
   bool with_fn_provides_incremental_evaluation() const { return _fn_provides_incremental_evaluation; }
 
   /// Set fn_provides_incremental_evaluation
   void set_fn_provides_incremental_evaluation() { _fn_provides_incremental_evaluation = true; }
- 
+
   /// Get fn_walsh_transform
   bool with_fn_walsh_transform() const { return _fn_walsh_transform; }
 
   /// Set fn_walsh_transform
   void set_fn_walsh_transform() { _fn_walsh_transform = true; }
- 
+
   /// Get hea_bound_moment
   bool with_hea_bound_moment() const { return _hea_bound_moment; }
 
   /// Set hea_bound_moment
   void set_hea_bound_moment() { _hea_bound_moment = true; }
- 
+
   /// Get hea_log_delta
   bool with_hea_log_delta() const { return _hea_log_delta; }
 
   /// Set hea_log_delta
   void set_hea_log_delta() { _hea_log_delta = true; }
- 
+
   /// Get hea_log_dtu
   bool with_hea_log_dtu() const { return _hea_log_dtu; }
 
   /// Set hea_log_dtu
   void set_hea_log_dtu() { _hea_log_dtu = true; }
- 
+
   /// Get hea_log_error
   bool with_hea_log_error() const { return _hea_log_error; }
 
   /// Set hea_log_error
   void set_hea_log_error() { _hea_log_error = true; }
- 
+
   /// Get hea_log_moment_matrix
   bool with_hea_log_moment_matrix() const { return _hea_log_moment_matrix; }
 
   /// Set hea_log_moment_matrix
   void set_hea_log_moment_matrix() { _hea_log_moment_matrix = true; }
- 
+
   /// Get hea_log_selection
   bool with_hea_log_selection() const { return _hea_log_selection; }
 
   /// Set hea_log_selection
   void set_hea_log_selection() { _hea_log_selection = true; }
- 
+
   /// Get hea_randomize_bit_order
   bool with_hea_randomize_bit_order() const { return _hea_randomize_bit_order; }
 
   /// Set hea_randomize_bit_order
   void set_hea_randomize_bit_order() { _hea_randomize_bit_order = true; }
- 
+
   /// Get incremental_evaluation
   bool with_incremental_evaluation() const { return _incremental_evaluation; }
 
   /// Set incremental_evaluation
   void set_incremental_evaluation() { _incremental_evaluation = true; }
- 
+
   /// Get load_solution
   bool with_load_solution() const { return _load_solution; }
 
   /// Set load_solution
   void set_load_solution() { _load_solution = true; }
- 
+
   /// Get log_improvement
   bool with_log_improvement() const { return _log_improvement; }
 
   /// Set log_improvement
   void set_log_improvement() { _log_improvement = true; }
- 
+
   /// Get map_display
   bool with_map_display() const { return _map_display; }
 
   /// Set map_display
   void set_map_display() { _map_display = true; }
- 
+
   /// Get map_random
   bool with_map_random() const { return _map_random; }
 
   /// Set map_random
   void set_map_random() { _map_random = true; }
- 
+
   /// Get map_surjective
   bool with_map_surjective() const { return _map_surjective; }
 
   /// Set map_surjective
   void set_map_surjective() { _map_surjective = true; }
- 
+
   /// Get mmas_strict
   bool with_mmas_strict() const { return _mmas_strict; }
 
   /// Set mmas_strict
   void set_mmas_strict() { _mmas_strict = true; }
- 
+
   /// Get negation
   bool with_negation() const { return _negation; }
 
   /// Set negation
   void set_negation() { _negation = true; }
- 
+
   /// Get parsed_modifier
   bool with_parsed_modifier() const { return _parsed_modifier; }
 
   /// Set parsed_modifier
   void set_parsed_modifier() { _parsed_modifier = true; }
- 
+
   /// Get pn_allow_no_mutation
   bool with_pn_allow_no_mutation() const { return _pn_allow_no_mutation; }
 
   /// Set pn_allow_no_mutation
   void set_pn_allow_no_mutation() { _pn_allow_no_mutation = true; }
- 
+
   /// Get print_defaults
   bool with_print_defaults() const { return _print_defaults; }
 
   /// Set print_defaults
   void set_print_defaults() { _print_defaults = true; }
- 
+
   /// Get print_description
   bool with_print_description() const { return _print_description; }
 
   /// Set print_description
   void set_print_description() { _print_description = true; }
- 
+
   /// Get print_header
   bool with_print_header() const { return _print_header; }
 
   /// Set print_header
   void set_print_header() { _print_header = true; }
- 
+
   /// Get print_results
   bool with_print_results() const { return _print_results; }
 
   /// Set print_results
   void set_print_results() { _print_results = true; }
- 
+
   /// Get print_solution
   bool with_print_solution() const { return _print_solution; }
 
   /// Set print_solution
   void set_print_solution() { _print_solution = true; }
- 
+
   /// Get prior_noise
   bool with_prior_noise() const { return _prior_noise; }
 
   /// Set prior_noise
   void set_prior_noise() { _prior_noise = true; }
- 
+
   /// Get pv_log_entropy
   bool with_pv_log_entropy() const { return _pv_log_entropy; }
 
   /// Set pv_log_entropy
   void set_pv_log_entropy() { _pv_log_entropy = true; }
- 
+
   /// Get pv_log_pv
   bool with_pv_log_pv() const { return _pv_log_pv; }
 
   /// Set pv_log_pv
   void set_pv_log_pv() { _pv_log_pv = true; }
- 
+
   /// Get record_evaluation_time
   bool with_record_evaluation_time() const { return _record_evaluation_time; }
 
   /// Set record_evaluation_time
   void set_record_evaluation_time() { _record_evaluation_time = true; }
- 
+
   /// Get restart
   bool with_restart() const { return _restart; }
 
   /// Set restart
   void set_restart() { _restart = true; }
- 
+
   /// Get rls_strict
   bool with_rls_strict() const { return _rls_strict; }
 
   /// Set rls_strict
   void set_rls_strict() { _rls_strict = true; }
- 
+
   /// Get rw_log_value
   bool with_rw_log_value() const { return _rw_log_value; }
 
   /// Set rw_log_value
   void set_rw_log_value() { _rw_log_value = true; }
- 
+
   /// Get save_description
   bool with_save_description() const { return _save_description; }
 
   /// Set save_description
   void set_save_description() { _save_description = true; }
- 
+
   /// Get save_results
   bool with_save_results() const { return _save_results; }
 
   /// Set save_results
   void set_save_results() { _save_results = true; }
- 
+
   /// Get save_solution
   bool with_save_solution() const { return _save_solution; }
 
   /// Set save_solution
   void set_save_solution() { _save_solution = true; }
- 
+
   /// Get stop_on_maximum
   bool with_stop_on_maximum() const { return _stop_on_maximum; }
 
   /// Set stop_on_maximum
   void set_stop_on_maximum() { _stop_on_maximum = true; }
- 
+
   /// Get stop_on_target
   bool with_stop_on_target() const { return _stop_on_target; }
 
   /// Set stop_on_target
   void set_stop_on_target() { _stop_on_target = true; }
- 
-  /// Print a header containing the parameter values
-  friend std::ostream& operator<<(std::ostream&, const Options&);
+
+  friend std::ostream& operator<<(std::ostream&, const HncoOptions&);
 };
 
+/// Print a header containing the parameter values
+std::ostream& operator<<(std::ostream& stream, const HncoOptions& options);
+
+}
 
 #endif

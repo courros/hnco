@@ -1,5 +1,15 @@
 {
-    "name": [ "hnco" ],
+    "files": {
+        "header": "hnco-options.hh",
+        "source": "hnco-options.cc",
+        "exec": "hnco"
+    },
+
+    "code": {
+        "cppdefine": "HNCO_OPTION_H",
+        "namespace": [ "hnco", "cli" ],
+        "classname": "HncoOptions"
+    },
 
     "description": "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors",
 
