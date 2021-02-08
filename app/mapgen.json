@@ -1,5 +1,15 @@
 {
-    "name": [ "mapgen" ],
+    "files": {
+        "header": "mapgen-options.hh",
+        "source": "mapgen-options.cc",
+        "exec": "mapgen"
+    },
+
+    "code": {
+        "cppdefine": "MAPGEN_OPTION_H",
+        "namespace": [ "hnco", "cli" ],
+        "classname": "MapgenOptions"
+    },
 
     "description": "Map generator for HNCO",
 

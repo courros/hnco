@@ -4,9 +4,9 @@
 
 #include "mapgen-options.hh"
 
-using namespace std;
+using namespace hnco::cli;
 
-Options::Options(int argc, char *argv[]):
+MapgenOptions::MapgenOptions(int argc, char *argv[]):
   _exec_name(argv[0]),
   _version("0.17"),
   _input_size(100),
@@ -73,7 +73,7 @@ Options::Options(int argc, char *argv[]):
 
     case 'p':
     case OPTION_PATH:
-      set_path(string(optarg));
+      set_path(std::string(optarg));
       break;
 
     case OPTION_SEED:
@@ -93,73 +93,73 @@ Options::Options(int argc, char *argv[]):
       break;
 
     case OPTION_HELP:
-      print_help(cerr);
+      print_help(std::cerr);
       exit(0);
 
     case OPTION_VERSION:
-      print_version(cerr);
+      print_version(std::cerr);
       exit(0);
 
     default:
-      cerr << "For more information, please enter: " << _exec_name << " --help" << endl;
+      std::cerr << "For more information, please enter: " << _exec_name << " --help" << std::endl;
       exit(1);
     }
   }
 }
 
-void Options::print_help(ostream& stream) const
+void MapgenOptions::print_help(std::ostream& stream) const
 {
-  stream << "Map generator for HNCO" << endl << endl;
-  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << endl << endl;
-  stream << "  -x, --input-size (type int, default to 100)" << endl;
-  stream << "          Input bit vector size" << endl;
-  stream << "  -M, --map (type int, default to 1)" << endl;
-  stream << "          Type of map" << endl;
-  stream << "            1: Translation" << endl;
-  stream << "            2: Permutation" << endl;
-  stream << "            3: Composition of permutation and translation" << endl;
-  stream << "            4: Linear" << endl;
-  stream << "            5: Affine" << endl;
-  stream << "            6: Affine (transvection sequence)" << endl;
-  stream << "  -y, --output-size (type int, default to 100)" << endl;
-  stream << "          Output bit vector size" << endl;
-  stream << "  -p, --path (type string, default to \"map.txt\")" << endl;
-  stream << "          Path (relative or absolute) of a map file" << endl;
-  stream << "      --seed (type int, default to 0)" << endl;
-  stream << "          Seed for the random number generator" << endl;
-  stream << "      --surjective" << endl;
-  stream << "          Ensure that the sampled linear or affine map is surjective" << endl;
-  stream << "      --ts-length (type int, default to 10)" << endl;
-  stream << "          Transvection sequence length" << endl;
-  stream << "      --ts-sampling-mode (type int, default to 0)" << endl;
-  stream << "          Transvection sequence sampling mode" << endl;
-  stream << "            0: Unconstrained" << endl;
-  stream << "            1: Commuting transvections" << endl;
-  stream << "            2: Unique source" << endl;
-  stream << "            3: Unique destination" << endl;
-  stream << "            4: Disjoint transvections" << endl;
-  stream << "            5: Non commuting transvections" << endl;
+  stream << "Map generator for HNCO" << std::endl << std::endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
+  stream << "  -x, --input-size (type int, default to 100)" << std::endl;
+  stream << "          Input bit vector size" << std::endl;
+  stream << "  -M, --map (type int, default to 1)" << std::endl;
+  stream << "          Type of map" << std::endl;
+  stream << "            1: Translation" << std::endl;
+  stream << "            2: Permutation" << std::endl;
+  stream << "            3: Composition of permutation and translation" << std::endl;
+  stream << "            4: Linear" << std::endl;
+  stream << "            5: Affine" << std::endl;
+  stream << "            6: Affine (transvection sequence)" << std::endl;
+  stream << "  -y, --output-size (type int, default to 100)" << std::endl;
+  stream << "          Output bit vector size" << std::endl;
+  stream << "  -p, --path (type string, default to \"map.txt\")" << std::endl;
+  stream << "          Path (relative or absolute) of a map file" << std::endl;
+  stream << "      --seed (type int, default to 0)" << std::endl;
+  stream << "          Seed for the random number generator" << std::endl;
+  stream << "      --surjective" << std::endl;
+  stream << "          Ensure that the sampled linear or affine map is surjective" << std::endl;
+  stream << "      --ts-length (type int, default to 10)" << std::endl;
+  stream << "          Transvection sequence length" << std::endl;
+  stream << "      --ts-sampling-mode (type int, default to 0)" << std::endl;
+  stream << "          Transvection sequence sampling mode" << std::endl;
+  stream << "            0: Unconstrained" << std::endl;
+  stream << "            1: Commuting transvections" << std::endl;
+  stream << "            2: Unique source" << std::endl;
+  stream << "            3: Unique destination" << std::endl;
+  stream << "            4: Disjoint transvections" << std::endl;
+  stream << "            5: Non commuting transvections" << std::endl;
 }
 
-void Options::print_version(ostream& stream) const
+void MapgenOptions::print_version(std::ostream& stream) const
 {
-  stream << _version << endl;
+  stream << _version << std::endl;
 }
 
-ostream& operator<<(ostream& stream, const Options& options)
+std::ostream& hnco::cli::operator<<(std::ostream& stream, const MapgenOptions& options)
 {
-  stream << "# input_size = " << options._input_size << endl;
-  stream << "# map = " << options._map << endl;
-  stream << "# output_size = " << options._output_size << endl;
-  stream << "# path = " << options._path << endl;
-  stream << "# seed = " << options._seed << endl;
-  stream << "# ts_length = " << options._ts_length << endl;
-  stream << "# ts_sampling_mode = " << options._ts_sampling_mode << endl;
+  stream << "# input_size = " << options._input_size << std::endl;
+  stream << "# map = " << options._map << std::endl;
+  stream << "# output_size = " << options._output_size << std::endl;
+  stream << "# path = " << options._path << std::endl;
+  stream << "# seed = " << options._seed << std::endl;
+  stream << "# ts_length = " << options._ts_length << std::endl;
+  stream << "# ts_sampling_mode = " << options._ts_sampling_mode << std::endl;
   if (options._surjective)
-    stream << "# surjective" << endl;
-  stream << "# last_parameter" << endl;
-  stream << "# exec_name = " << options._exec_name << endl;
-  stream << "# version = " << options._version << endl;
-  stream << "# Generated from mapgen.json" << endl;
+    stream << "# surjective" << std::endl;
+  stream << "# last_parameter" << std::endl;
+  stream << "# exec_name = " << options._exec_name << std::endl;
+  stream << "# version = " << options._version << std::endl;
+  stream << "# Generated from mapgen.json" << std::endl;
   return stream;
 }

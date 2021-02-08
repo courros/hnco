@@ -1,11 +1,13 @@
-#ifndef MAPGEN_OPTIONS_H
-#define MAPGEN_OPTIONS_H
+#ifndef MAPGEN_OPTION_H
+#define MAPGEN_OPTION_H
 
 #include <iostream>
 #include <string>
 
+namespace hnco::cli {
+
 /// Command line options
-class Options {
+class MapgenOptions {
 
   /// Name of the executable
   std::string _exec_name;
@@ -53,7 +55,7 @@ class Options {
 public:
 
   /// Constructor
-  Options(int argc, char *argv[]);
+  MapgenOptions(int argc, char *argv[]);
 
   /// Get input_size
   int get_input_size() const { return _input_size; }
@@ -144,10 +146,13 @@ public:
 
   /// Set surjective
   void set_surjective() { _surjective = true; }
- 
-  /// Print a header containing the parameter values
-  friend std::ostream& operator<<(std::ostream&, const Options&);
+
+  friend std::ostream& operator<<(std::ostream&, const MapgenOptions&);
 };
 
+/// Print a header containing the parameter values
+std::ostream& operator<<(std::ostream& stream, const MapgenOptions& options);
+
+}
 
 #endif
