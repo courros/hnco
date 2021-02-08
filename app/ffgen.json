@@ -1,5 +1,15 @@
 {
-    "name": [ "ffgen" ],
+    "files": {
+        "header": "ffgen-options.hh",
+        "source": "ffgen-options.cc",
+        "exec": "ffgen"
+    },
+
+    "code": {
+        "cppdefine": "FFGEN_OPTION_H",
+        "namespace": [ "hnco", "cli" ],
+        "classname": "FfgenOptions"
+    },
 
     "description": "Fitness function generator for HNCO",
 

@@ -1,11 +1,13 @@
-#ifndef FFGEN_OPTIONS_H
-#define FFGEN_OPTIONS_H
+#ifndef FFGEN_OPTION_H
+#define FFGEN_OPTION_H
 
 #include <iostream>
 #include <string>
 
+namespace hnco::cli {
+
 /// Command line options
-class Options {
+class FfgenOptions {
 
   /// Name of the executable
   std::string _exec_name;
@@ -124,7 +126,7 @@ class Options {
 public:
 
   /// Constructor
-  Options(int argc, char *argv[]);
+  FfgenOptions(int argc, char *argv[]);
 
   /// Get bv_size
   int get_bv_size() const { return _bv_size; }
@@ -419,16 +421,19 @@ public:
 
   /// Set ms_planted_solution
   void set_ms_planted_solution() { _ms_planted_solution = true; }
- 
+
   /// Get periodic_boundary_conditions
   bool with_periodic_boundary_conditions() const { return _periodic_boundary_conditions; }
 
   /// Set periodic_boundary_conditions
   void set_periodic_boundary_conditions() { _periodic_boundary_conditions = true; }
- 
-  /// Print a header containing the parameter values
-  friend std::ostream& operator<<(std::ostream&, const Options&);
+
+  friend std::ostream& operator<<(std::ostream&, const FfgenOptions&);
 };
 
+/// Print a header containing the parameter values
+std::ostream& operator<<(std::ostream& stream, const FfgenOptions& options);
+
+}
 
 #endif

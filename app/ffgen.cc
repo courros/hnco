@@ -34,6 +34,7 @@ using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
+using namespace hnco::cli;
 
 
 template<class T>
@@ -70,7 +71,7 @@ void save_function_to_boost_archive(const T& function, const std::string name, c
   std::cout << "done" << std::endl;
 }
 
-void generate_linear_function(Options& options)
+void generate_linear_function(FfgenOptions& options)
 {
   LinearFunction function;
 
@@ -108,7 +109,7 @@ void generate_linear_function(Options& options)
 }
 
 
-void generate_walsh_expansion_2(Options& options)
+void generate_walsh_expansion_2(FfgenOptions& options)
 {
   double stddev = options.get_stddev();
   auto generator = [stddev]() { return stddev * Generator::normal(); };
@@ -135,7 +136,7 @@ void generate_walsh_expansion_2(Options& options)
 }
 
 
-void generate_nearest_neighbor_ising_model_1(Options& options)
+void generate_nearest_neighbor_ising_model_1(FfgenOptions& options)
 {
   auto generator = [&options]() { return options.get_stddev() * Generator::normal(); };
   NearestNeighborIsingModel1 function;
@@ -178,7 +179,7 @@ void generate_nearest_neighbor_ising_model_1(Options& options)
 }
 
 
-void generate_nearest_neighbor_ising_model_2(Options& options)
+void generate_nearest_neighbor_ising_model_2(FfgenOptions& options)
 {
   auto generator = [&options]() { return options.get_stddev() * Generator::normal(); };
   NearestNeighborIsingModel2 function;
@@ -230,7 +231,7 @@ void generate_nearest_neighbor_ising_model_2(Options& options)
 }
 
 
-void generate_function(Options& options)
+void generate_function(FfgenOptions& options)
 {
   double stddev = options.get_stddev();
   auto generator = [stddev]() { return stddev * Generator::normal(); };
@@ -325,7 +326,7 @@ void generate_function(Options& options)
 
 int main(int argc, char *argv[])
 {
-  Options options(argc, argv);
+  FfgenOptions options(argc, argv);
 
   //
   // Seed random number generator
