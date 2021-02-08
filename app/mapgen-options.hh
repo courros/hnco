@@ -6,7 +6,7 @@
 
 namespace hnco::cli {
 
-/// Command line options
+/// Command line options for mapgen
 class MapgenOptions {
 
   /// Name of the executable

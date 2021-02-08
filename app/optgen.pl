@@ -112,7 +112,7 @@ sub generate_header
         "namespace $namespace {\n\n");
 
     $file->print(
-	"/// Command line options\n",
+	"/// Command line options for $exec\n",
 	"class $classname {\n\n",
         "  /// Name of the executable\n",
         "  std::string _exec_name;\n\n",

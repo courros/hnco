@@ -6,7 +6,7 @@
 
 namespace hnco::cli {
 
-/// Command line options
+/// Command line options for ffgen
 class FfgenOptions {
 
   /// Name of the executable

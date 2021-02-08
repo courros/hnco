@@ -6,7 +6,7 @@
 
 namespace hnco::cli {
 
-/// Command line options
+/// Command line options for hnco
 class HncoOptions {
 
   /// Name of the executable
