@@ -1,5 +1,19 @@
 * Version 0.17 (unreleased)
 
+Build:
+- optgen.pl: changed json file structure: added objects "files" and "code"
+- optgen.pl: put application options in namespace
+
+hnco:
+- Updated hnco.json
+
+ffgen:
+- Updated ffgen.json
+
+mapgen:
+- Updated mapgen.json
+
+
 * Version 0.16 (2021-02-03)
 
 Library:
