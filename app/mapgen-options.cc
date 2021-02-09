@@ -4,7 +4,7 @@
 
 #include "mapgen-options.hh"
 
-using namespace hnco::cli;
+using namespace hnco::app;
 
 MapgenOptions::MapgenOptions(int argc, char *argv[]):
   _exec_name(argv[0]),
@@ -146,7 +146,7 @@ void MapgenOptions::print_version(std::ostream& stream) const
   stream << _version << std::endl;
 }
 
-std::ostream& hnco::cli::operator<<(std::ostream& stream, const MapgenOptions& options)
+std::ostream& hnco::app::operator<<(std::ostream& stream, const MapgenOptions& options)
 {
   stream << "# input_size = " << options._input_size << std::endl;
   stream << "# map = " << options._map << std::endl;

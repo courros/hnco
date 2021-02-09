@@ -33,7 +33,7 @@
 using namespace hnco::exception;
 using namespace hnco::random;
 using namespace hnco;
-using namespace hnco::cli;
+using namespace hnco::app;
 
 
 int main(int argc, char *argv[])

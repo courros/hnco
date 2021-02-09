@@ -7,7 +7,7 @@
 
     "code": {
         "cppdefine": "FFGEN_OPTION_H",
-        "namespace": [ "hnco", "cli" ],
+        "namespace": [ "hnco", "app" ],
         "classname": "FfgenOptions"
     },
 

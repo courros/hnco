@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-namespace hnco::cli {
+namespace hnco::app {
 
 /// Command line options for mapgen
 class MapgenOptions {

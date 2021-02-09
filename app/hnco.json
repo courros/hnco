@@ -7,7 +7,7 @@
 
     "code": {
         "cppdefine": "HNCO_OPTION_H",
-        "namespace": [ "hnco", "cli" ],
+        "namespace": [ "hnco", "app" ],
         "classname": "HncoOptions"
     },
 

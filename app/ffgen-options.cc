@@ -4,7 +4,7 @@
 
 #include "ffgen-options.hh"
 
-using namespace hnco::cli;
+using namespace hnco::app;
 
 FfgenOptions::FfgenOptions(int argc, char *argv[]):
   _exec_name(argv[0]),
@@ -360,7 +360,7 @@ void FfgenOptions::print_version(std::ostream& stream) const
   stream << _version << std::endl;
 }
 
-std::ostream& hnco::cli::operator<<(std::ostream& stream, const FfgenOptions& options)
+std::ostream& hnco::app::operator<<(std::ostream& stream, const FfgenOptions& options)
 {
   stream << "# bv_size = " << options._bv_size << std::endl;
   stream << "# coupling_constant = " << options._coupling_constant << std::endl;

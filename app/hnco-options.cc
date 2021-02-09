@@ -4,7 +4,7 @@
 
 #include "hnco-options.hh"
 
-using namespace hnco::cli;
+using namespace hnco::app;
 
 HncoOptions::HncoOptions(int argc, char *argv[]):
   _exec_name(argv[0]),
@@ -1343,7 +1343,7 @@ void HncoOptions::print_version(std::ostream& stream) const
   stream << _version << std::endl;
 }
 
-std::ostream& hnco::cli::operator<<(std::ostream& stream, const HncoOptions& options)
+std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& options)
 {
   stream << "# algorithm = " << options._algorithm << std::endl;
   stream << "# bm_mc_reset_strategy = " << options._bm_mc_reset_strategy << std::endl;

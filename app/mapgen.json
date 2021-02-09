@@ -7,7 +7,7 @@
 
     "code": {
         "cppdefine": "MAPGEN_OPTION_H",
-        "namespace": [ "hnco", "cli" ],
+        "namespace": [ "hnco", "app" ],
         "classname": "MapgenOptions"
     },
 

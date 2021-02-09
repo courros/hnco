@@ -26,6 +26,6 @@
 #include "hnco-options.hh"
 
 /// Make an algorithm
-hnco::algorithm::Algorithm *make_algorithm(const hnco::cli::HncoOptions& options);
+hnco::algorithm::Algorithm *make_algorithm(const hnco::app::HncoOptions& options);
 
 #endif

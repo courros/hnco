@@ -31,7 +31,7 @@ using namespace hnco::function::controller;
 using namespace hnco::function::modifier;
 using namespace hnco::neighborhood;
 using namespace hnco;
-using namespace hnco::cli;
+using namespace hnco::app;
 
 
 template<class T>

@@ -34,7 +34,7 @@ using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
-using namespace hnco::cli;
+using namespace hnco::app;
 
 
 template<class T>
