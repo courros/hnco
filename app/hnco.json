@@ -6,7 +6,7 @@
     },
 
     "code": {
-        "cppdefine": "HNCO_OPTION_H",
+        "cppdefine": "HNCO_OPTIONS_H",
         "namespace": [ "hnco", "app" ],
         "classname": "HncoOptions"
     },

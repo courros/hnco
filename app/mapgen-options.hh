@@ -1,5 +1,5 @@
-#ifndef MAPGEN_OPTION_H
-#define MAPGEN_OPTION_H
+#ifndef MAPGEN_OPTIONS_H
+#define MAPGEN_OPTIONS_H
 
 #include <iostream>
 #include <string>

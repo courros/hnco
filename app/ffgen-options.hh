@@ -1,5 +1,5 @@
-#ifndef FFGEN_OPTION_H
-#define FFGEN_OPTION_H
+#ifndef FFGEN_OPTIONS_H
+#define FFGEN_OPTIONS_H
 
 #include <iostream>
 #include <string>

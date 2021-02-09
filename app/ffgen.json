@@ -6,7 +6,7 @@
     },
 
     "code": {
-        "cppdefine": "FFGEN_OPTION_H",
+        "cppdefine": "FFGEN_OPTIONS_H",
         "namespace": [ "hnco", "app" ],
         "classname": "FfgenOptions"
     },
