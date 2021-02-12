@@ -17,6 +17,7 @@
 # <http://www.gnu.org/licenses/>.
 
 bin_PROGRAMS = \
+	hncoapp \
 	hnco \
 	ffgen \
 	mapgen
@@ -44,6 +45,20 @@ LDADD = ../lib/libhnco.la
 #
 # hnco program
 #
+
+hncoapp_SOURCES = \
+	hnco.json \
+	hnco-options.cc \
+	hnco-options.hh \
+	application.hh \
+	application.cc \
+	hncoapp.cc \
+	algorithm-factory.cc \
+	algorithm-factory.hh \
+	function-factory.cc \
+	function-factory.hh \
+	decorated-function-factory.cc \
+	decorated-function-factory.hh
 
 hnco_SOURCES = \
 	hnco.json \

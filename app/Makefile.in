@@ -106,7 +106,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = hnco$(EXEEXT) ffgen$(EXEEXT) mapgen$(EXEEXT)
+bin_PROGRAMS = hncoapp$(EXEEXT) hnco$(EXEEXT) ffgen$(EXEEXT) \
+	mapgen$(EXEEXT)
 subdir = app
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -135,6 +136,13 @@ am_hnco_OBJECTS = hnco-options.$(OBJEXT) hnco.$(OBJEXT) \
 hnco_OBJECTS = $(am_hnco_OBJECTS)
 hnco_LDADD = $(LDADD)
 hnco_DEPENDENCIES = ../lib/libhnco.la
+am_hncoapp_OBJECTS = hnco-options.$(OBJEXT) application.$(OBJEXT) \
+	hncoapp.$(OBJEXT) algorithm-factory.$(OBJEXT) \
+	function-factory.$(OBJEXT) \
+	decorated-function-factory.$(OBJEXT)
+hncoapp_OBJECTS = $(am_hncoapp_OBJECTS)
+hncoapp_LDADD = $(LDADD)
+hncoapp_DEPENDENCIES = ../lib/libhnco.la
 am_mapgen_OBJECTS = mapgen-options.$(OBJEXT) mapgen.$(OBJEXT)
 mapgen_OBJECTS = $(am_mapgen_OBJECTS)
 mapgen_LDADD = $(LDADD)
@@ -154,11 +162,14 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/ffgen-options.Po \
-	./$(DEPDIR)/ffgen.Po ./$(DEPDIR)/hnco-options.Po \
-	./$(DEPDIR)/hnco.Po ./$(DEPDIR)/make-algorithm.Po \
-	./$(DEPDIR)/make-function.Po ./$(DEPDIR)/mapgen-options.Po \
-	./$(DEPDIR)/mapgen.Po
+am__depfiles_remade = ./$(DEPDIR)/algorithm-factory.Po \
+	./$(DEPDIR)/application.Po \
+	./$(DEPDIR)/decorated-function-factory.Po \
+	./$(DEPDIR)/ffgen-options.Po ./$(DEPDIR)/ffgen.Po \
+	./$(DEPDIR)/function-factory.Po ./$(DEPDIR)/hnco-options.Po \
+	./$(DEPDIR)/hnco.Po ./$(DEPDIR)/hncoapp.Po \
+	./$(DEPDIR)/make-algorithm.Po ./$(DEPDIR)/make-function.Po \
+	./$(DEPDIR)/mapgen-options.Po ./$(DEPDIR)/mapgen.Po
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
@@ -196,8 +207,10 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(ffgen_SOURCES) $(hnco_SOURCES) $(mapgen_SOURCES)
-DIST_SOURCES = $(ffgen_SOURCES) $(hnco_SOURCES) $(mapgen_SOURCES)
+SOURCES = $(ffgen_SOURCES) $(hnco_SOURCES) $(hncoapp_SOURCES) \
+	$(mapgen_SOURCES)
+DIST_SOURCES = $(ffgen_SOURCES) $(hnco_SOURCES) $(hncoapp_SOURCES) \
+	$(mapgen_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -371,6 +384,20 @@ LDADD = ../lib/libhnco.la
 #
 # hnco program
 #
+hncoapp_SOURCES = \
+	hnco.json \
+	hnco-options.cc \
+	hnco-options.hh \
+	application.hh \
+	application.cc \
+	hncoapp.cc \
+	algorithm-factory.cc \
+	algorithm-factory.hh \
+	function-factory.cc \
+	function-factory.hh \
+	decorated-function-factory.cc \
+	decorated-function-factory.hh
+
 hnco_SOURCES = \
 	hnco.json \
 	hnco-options.cc \
@@ -493,6 +520,10 @@ hnco$(EXEEXT): $(hnco_OBJECTS) $(hnco_DEPENDENCIES) $(EXTRA_hnco_DEPENDENCIES)
 	@rm -f hnco$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(hnco_OBJECTS) $(hnco_LDADD) $(LIBS)
 
+hncoapp$(EXEEXT): $(hncoapp_OBJECTS) $(hncoapp_DEPENDENCIES) $(EXTRA_hncoapp_DEPENDENCIES) 
+	@rm -f hncoapp$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(hncoapp_OBJECTS) $(hncoapp_LDADD) $(LIBS)
+
 mapgen$(EXEEXT): $(mapgen_OBJECTS) $(mapgen_DEPENDENCIES) $(EXTRA_mapgen_DEPENDENCIES) 
 	@rm -f mapgen$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mapgen_OBJECTS) $(mapgen_LDADD) $(LIBS)
@@ -503,10 +534,15 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/algorithm-factory.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/application.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decorated-function-factory.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ffgen-options.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ffgen.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/function-factory.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hnco-options.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hnco.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hncoapp.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/make-algorithm.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/make-function.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mapgen-options.Po@am__quote@ # am--include-marker
@@ -678,10 +714,15 @@ clean: clean-am
 clean-am: clean-binPROGRAMS clean-generic clean-libtool mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/ffgen-options.Po
+		-rm -f ./$(DEPDIR)/algorithm-factory.Po
+	-rm -f ./$(DEPDIR)/application.Po
+	-rm -f ./$(DEPDIR)/decorated-function-factory.Po
+	-rm -f ./$(DEPDIR)/ffgen-options.Po
 	-rm -f ./$(DEPDIR)/ffgen.Po
+	-rm -f ./$(DEPDIR)/function-factory.Po
 	-rm -f ./$(DEPDIR)/hnco-options.Po
 	-rm -f ./$(DEPDIR)/hnco.Po
+	-rm -f ./$(DEPDIR)/hncoapp.Po
 	-rm -f ./$(DEPDIR)/make-algorithm.Po
 	-rm -f ./$(DEPDIR)/make-function.Po
 	-rm -f ./$(DEPDIR)/mapgen-options.Po
@@ -731,10 +772,15 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/ffgen-options.Po
+		-rm -f ./$(DEPDIR)/algorithm-factory.Po
+	-rm -f ./$(DEPDIR)/application.Po
+	-rm -f ./$(DEPDIR)/decorated-function-factory.Po
+	-rm -f ./$(DEPDIR)/ffgen-options.Po
 	-rm -f ./$(DEPDIR)/ffgen.Po
+	-rm -f ./$(DEPDIR)/function-factory.Po
 	-rm -f ./$(DEPDIR)/hnco-options.Po
 	-rm -f ./$(DEPDIR)/hnco.Po
+	-rm -f ./$(DEPDIR)/hncoapp.Po
 	-rm -f ./$(DEPDIR)/make-algorithm.Po
 	-rm -f ./$(DEPDIR)/make-function.Po
 	-rm -f ./$(DEPDIR)/mapgen-options.Po
