@@ -59,17 +59,18 @@ CommandLineApplication::init()
     Generator::set_seed();
 
   // OpenMP
-  _num_threads = _options.get_num_threads();
-  if (_num_threads < 1)
+  int num_threads = _options.get_num_threads();
+  if (num_threads < 1)
     throw Error("CommandLineApplication::init: At least one thread is required");
-  assert(_num_threads >= 1);
-  omp_set_num_threads(_num_threads);
+  assert(num_threads >= 1);
+  omp_set_num_threads(num_threads);
+
+  _fns = std::vector<function::Function *>(num_threads);
 }
 
 void
 CommandLineApplication::make_functions()
 {
-  _fns = std::vector<function::Function *>(_num_threads);
   for (size_t i = 0; i < _fns.size(); i++) {
     Generator::reset();
     _fns[i] = _decorated_function_factory.make_function_modifier();
@@ -179,13 +180,13 @@ CommandLineApplication::make_algorithm()
 {
   _algorithm = _algorithm_factory.make(_fn->get_bv_size());
 
-  _log_context = new logging::ProgressTrackerContext(_decorated_function_factory.get_tracker());
-  _algorithm->set_log_context(_log_context);
-
   /// In hnco, this happened before set_log_context.
   if (_options.with_restart()) {
     _algorithm = new Restart(_options.get_bv_size(), _algorithm);
   }
+
+  _log_context = new logging::ProgressTrackerContext(_decorated_function_factory.get_tracker());
+  _algorithm->set_log_context(_log_context);
 
 }
 

@@ -41,9 +41,6 @@ class CommandLineApplication {
   /// Algorithm factory
   AlgorithmFactory& _algorithm_factory;
 
-  /// Number of threads
-  int _num_threads;
-
   /// All functions
   std::vector<function::Function *> _fns;
 
