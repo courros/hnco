@@ -1,5 +1,5 @@
-#ifndef HNCO_OPTIONS_H
-#define HNCO_OPTIONS_H
+#ifndef HNCO_APP_HNCO_OPTIONS_H
+#define HNCO_APP_HNCO_OPTIONS_H
 
 #include <iostream>
 #include <string>
