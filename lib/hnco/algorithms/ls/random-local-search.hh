@@ -81,7 +81,7 @@ public:
     LocalSearchAlgorithm<neighborhood::Neighborhood>(n, neighborhood) {}
 
   /// Finalize
-  void finalize();
+  void finalize() override;
 
   /** @name Setters
    */
