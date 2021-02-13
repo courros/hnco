@@ -108,8 +108,12 @@ sub generate_header
 	"#ifndef $cppdefine\n",
 	"#define $cppdefine\n\n",
 	"#include <iostream>\n",
-	"#include <string>\n\n",
-        "namespace $namespace {\n\n");
+	"#include <string>\n\n");
+
+    foreach (@{ $obj->{code}->{namespace} }) {
+        $file->print("namespace $_ {\n");
+    }
+    $file->print("\n");
 
     $file->print(
 	"/// Command line options for $exec\n",
@@ -182,9 +186,12 @@ sub generate_header
         "  friend std::ostream& operator<<(std::ostream&, const $classname&);\n",
         "};\n\n",
         "/// Print a header containing the parameter values\n",
-        "std::ostream& operator<<(std::ostream& stream, const $classname& options);\n\n",
-        "}\n\n",
-        "#endif\n");
+        "std::ostream& operator<<(std::ostream& stream, const $classname& options);\n\n");
+
+    foreach (@{ $obj->{code}->{namespace} }) {
+        $file->print("}\n");
+    }
+    $file->print("\n#endif\n");
 
     $file->close();
 }
