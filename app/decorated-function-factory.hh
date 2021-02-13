@@ -28,7 +28,8 @@
 #include "hnco-options.hh"
 #include "function-factory.hh"
 
-namespace hnco::app {
+namespace hnco {
+namespace app {
 
 /// Decorated function factory
 class DecoratedFunctionFactory {
@@ -80,5 +81,6 @@ public:
 };
 
 } // end of namespace hnco::app
+} // end of namespace hnco
 
 #endif

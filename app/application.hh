@@ -27,7 +27,8 @@
 #include "decorated-function-factory.hh"
 #include "algorithm-factory.hh"
 
-namespace hnco::app {
+namespace hnco {
+namespace app {
 
 /// Command line application
 class CommandLineApplication {
@@ -96,6 +97,7 @@ public:
   void run();
 };
 
+}
 }
 
 #endif

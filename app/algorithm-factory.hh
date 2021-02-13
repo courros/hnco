@@ -25,7 +25,8 @@
 
 #include "hnco-options.hh"
 
-namespace hnco::app {
+namespace hnco {
+namespace app {
 
 /// Algorithm factory
 class AlgorithmFactory {
@@ -53,6 +54,7 @@ public:
   hnco::algorithm::Algorithm *make(int bv_size);
 };
 
+}
 }
 
 #endif

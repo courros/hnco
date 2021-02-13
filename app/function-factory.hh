@@ -25,8 +25,9 @@
 
 #include "hnco-options.hh"
 
+namespace hnco {
 /// Classes for applications
-namespace hnco::app {
+namespace app {
 
 /// Function factory
 class FunctionFactory {
@@ -48,6 +49,7 @@ public:
   hnco::function::Function *make();
 };
 
+}
 }
 
 #endif
