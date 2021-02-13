@@ -4,7 +4,8 @@
 #include <iostream>
 #include <string>
 
-namespace hnco::app {
+namespace hnco {
+namespace app {
 
 /// Command line options for ffgen
 class FfgenOptions {
@@ -434,6 +435,7 @@ public:
 /// Print a header containing the parameter values
 std::ostream& operator<<(std::ostream& stream, const FfgenOptions& options);
 
+}
 }
 
 #endif

@@ -4,7 +4,8 @@
 #include <iostream>
 #include <string>
 
-namespace hnco::app {
+namespace hnco {
+namespace app {
 
 /// Command line options for hnco
 class HncoOptions {
@@ -1422,6 +1423,7 @@ public:
 /// Print a header containing the parameter values
 std::ostream& operator<<(std::ostream& stream, const HncoOptions& options);
 
+}
 }
 
 #endif

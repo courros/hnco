@@ -4,7 +4,8 @@
 #include <iostream>
 #include <string>
 
-namespace hnco::app {
+namespace hnco {
+namespace app {
 
 /// Command line options for mapgen
 class MapgenOptions {
@@ -153,6 +154,7 @@ public:
 /// Print a header containing the parameter values
 std::ostream& operator<<(std::ostream& stream, const MapgenOptions& options);
 
+}
 }
 
 #endif
