@@ -996,11 +996,16 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/sparse-bit-vector.hh hnco/stop-watch.hh \
 	hnco/transvection.hh hnco/util.hh $(am__append_3) \
 	$(am__append_4)
+BUILT_SOURCES = \
+	hnco/app/hnco-options.cc \
+	hnco/app/hnco-options.hh
+
 EXTRA_DIST = \
 	fast-efficient-p3/LICENSE.txt \
 	hnco/app/hnco.sh
 
-all: all-am
+all: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) all-am
 
 .SUFFIXES:
 .SUFFIXES: .cc .cpp .lo .o .obj
@@ -1730,13 +1735,15 @@ distdir-am: $(DISTFILES)
 	  fi; \
 	done
 check-am: all-am
-check: check-am
+check: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) check-am
 all-am: Makefile $(LTLIBRARIES) $(HEADERS)
 installdirs:
 	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: install-am
+install: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) install-am
 install-exec: install-exec-am
 install-data: install-data-am
 uninstall: uninstall-am
@@ -1806,6 +1813,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
 clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
@@ -2055,7 +2063,7 @@ ps-am:
 
 uninstall-am: uninstall-libLTLIBRARIES uninstall-nobase_includeHEADERS
 
-.MAKE: install-am install-strip
+.MAKE: all check install install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am am--depfiles check check-am clean \
 	clean-generic clean-libLTLIBRARIES clean-libtool cscopelist-am \

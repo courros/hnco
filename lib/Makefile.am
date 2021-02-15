@@ -378,6 +378,10 @@ if ENABLE_PLUGIN
 nobase_include_HEADERS += hnco/functions/plugin.hh
 endif
 
+BUILT_SOURCES = \
+	hnco/app/hnco-options.cc \
+	hnco/app/hnco-options.hh
+
 hnco/app/hnco-options.hh hnco/app/hnco-options.cc: hnco/app/hnco.json
 	cd $(top_srcdir)/lib/hnco/app && $(top_srcdir)/tools/optgen.pl hnco.json
 
