@@ -17,61 +17,31 @@
 # <http://www.gnu.org/licenses/>.
 
 bin_PROGRAMS = \
-	hncoapp \
 	hnco \
 	ffgen \
 	mapgen
 
 BUILT_SOURCES = \
-	hnco-options.cc \
-	hnco-options.hh \
 	ffgen-options.cc \
 	ffgen-options.hh \
 	mapgen-options.cc \
 	mapgen-options.hh
 
 EXTRA_DIST = \
-	hnco.sh \
 	ffgen.sh \
-	mapgen.sh \
-	optgen.pl
-
-AM_CXXFLAGS = $(OPENMP_CXXFLAGS) $(BOOST_SERIALIZATION_LIB)
+	mapgen.sh
 
 AM_CPPFLAGS = -I $(top_srcdir)/lib
 
-LDADD = ../lib/libhnco.la
+AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
+
+LDADD = ../lib/libhnco.la $(BOOST_SERIALIZATION_LIB)
 
 #
 # hnco program
 #
 
-hncoapp_SOURCES = \
-	hnco.json \
-	hnco-options.cc \
-	hnco-options.hh \
-	application.hh \
-	application.cc \
-	hncoapp.cc \
-	algorithm-factory.cc \
-	algorithm-factory.hh \
-	function-factory.cc \
-	function-factory.hh \
-	decorated-function-factory.cc \
-	decorated-function-factory.hh
-
-hnco_SOURCES = \
-	hnco.json \
-	hnco-options.cc \
-	hnco-options.hh \
-	hnco.cc \
-	make-algorithm.cc \
-	make-algorithm.hh \
-	make-function.cc \
-	make-function.hh
-
-hnco-options.hh hnco-options.cc: hnco.json
-	cd $(top_srcdir)/app && $(top_srcdir)/app/optgen.pl hnco.json
+hnco_SOURCES = hnco.cc
 
 #
 # ffgen program

@@ -22,7 +22,8 @@ ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_DIST = \
 	Doxyfile \
-	README.md
+	README.md \
+	tools/optgen.pl
 
 #
 # Code management

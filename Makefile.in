@@ -353,7 +353,8 @@ SUBDIRS = lib app tests examples experiments
 ACLOCAL_AMFLAGS = -I m4
 EXTRA_DIST = \
 	Doxyfile \
-	README.md
+	README.md \
+	tools/optgen.pl
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive

@@ -134,6 +134,17 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/random-search.cc \
 	hnco/algorithms/random-search.hh \
 	hnco/algorithms/solution.hh \
+	hnco/app/algorithm-factory.cc \
+	hnco/app/algorithm-factory.hh \
+	hnco/app/application.cc \
+	hnco/app/application.hh \
+	hnco/app/decorated-function-factory.cc \
+	hnco/app/decorated-function-factory.hh \
+	hnco/app/function-factory.cc \
+	hnco/app/function-factory.hh \
+	hnco/app/hnco-options.cc \
+	hnco/app/hnco-options.hh \
+	hnco/app/hnco.json \
 	hnco/bit-matrix.cc \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.cc \
@@ -301,6 +312,11 @@ nobase_include_HEADERS = \
 	hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.hh \
 	hnco/algorithms/solution.hh \
+	hnco/app/algorithm-factory.hh \
+	hnco/app/application.hh \
+	hnco/app/decorated-function-factory.hh \
+	hnco/app/function-factory.hh \
+	hnco/app/hnco-options.hh \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.hh \
 	hnco/exception.hh \
@@ -362,7 +378,12 @@ if ENABLE_PLUGIN
 nobase_include_HEADERS += hnco/functions/plugin.hh
 endif
 
-EXTRA_DIST = fast-efficient-p3/LICENSE.txt
+hnco/app/hnco-options.hh hnco/app/hnco-options.cc: hnco/app/hnco.json
+	cd $(top_srcdir)/lib/hnco/app && $(top_srcdir)/tools/optgen.pl hnco.json
+
+EXTRA_DIST = \
+	fast-efficient-p3/LICENSE.txt \
+	hnco/app/hnco.sh
 
 #
 # Code management
