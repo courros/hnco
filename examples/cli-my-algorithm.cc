@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 {
   HncoOptions options(argc, argv);
   CommandLineFunctionFactory function_factory(options);
-  CommandLineAlgorithmFactory algorithm_factory(options);
+  MyAlgorithmFactory algorithm_factory;
   CommandLineApplication application(options, function_factory, algorithm_factory);
   try {
     application.run();
