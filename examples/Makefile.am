@@ -18,6 +18,7 @@
 
 noinst_PROGRAMS = \
 	basic \
+	cli-my-algorithm \
 	cli-my-function \
 	stop-on-maximum \
 	on-budget-function \
@@ -30,6 +31,7 @@ AM_CPPFLAGS = -I $(top_srcdir)/lib
 LDADD = ../lib/libhnco.la -ldl -lboost_serialization
 
 basic_SOURCES = basic.cc
+cli_my_algorithm_SOURCES = cli-my-algorithm.cc
 cli_my_function_SOURCES = cli-my-function.cc
 stop_on_maximum_SOURCES = stop-on-maximum.cc
 on_budget_function_SOURCES = on-budget-function.cc
