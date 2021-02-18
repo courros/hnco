@@ -69,7 +69,7 @@ Function *
 CommandLineFunctionFactory::make()
 {
   if (_options.get_bv_size() <= 0)
-    throw Error("make_concrete_function: bv_size must be positive");
+    throw Error("CommandLineFunctionFactory::make: bv_size must be positive");
 
   switch(_options.get_function()) {
 
@@ -290,7 +290,7 @@ CommandLineFunctionFactory::make()
     }
     default:
       std::ostringstream stream;
-      stream << "make_concrete_function: Unknown categorical representation type: " << _options.get_rep_categorical_representation();
+      stream << "CommandLineFunctionFactory::make: Unknown categorical representation type: " << _options.get_rep_categorical_representation();
       throw Error(stream.str());
     }
   }
@@ -305,7 +305,7 @@ CommandLineFunctionFactory::make()
 
   default:
     std::ostringstream stream;
-    stream << "make_concrete_function: Unknown function type: " << _options.get_function();
+    stream << "CommandLineFunctionFactory::make: Unknown function type: " << _options.get_function();
     throw Error(stream.str());
   }
 
