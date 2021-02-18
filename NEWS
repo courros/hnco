@@ -1,11 +1,20 @@
 * Version 0.17 (unreleased)
 
+Library:
+- Added directory app/
+- Added namespace hnco::app
+- Added classes FunctionFactory, CommandLineFunctionFactory,
+  DecoratedFunctionFactory
+- Added classes AlgorithmFactory, CommandLineAlgorithmFactory
+- Added class CommandLineApplication
+
 Build:
-- optgen.pl: changed json file structure: added objects "files" and "code"
-- optgen.pl: put application options in namespace
+- optgen.pl: changed json object structure: added fields files and code
+- optgen.pl: put class Options in given namespace
 
 hnco:
 - Updated hnco.json
+- hnco uses classes in namespace hnco::app
 
 ffgen:
 - Updated ffgen.json
