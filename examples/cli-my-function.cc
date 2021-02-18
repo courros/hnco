@@ -18,6 +18,7 @@
 
 */
 
+#include "hnco/bit-vector.hh"
 #include "hnco/app/hnco-options.hh"
 #include "hnco/app/algorithm-factory.hh"
 #include "hnco/app/function-factory.hh"
@@ -25,12 +26,33 @@
 
 using namespace hnco::app;
 using namespace hnco::exception;
+using namespace hnco::function;
+using namespace hnco;
 
+// OneMax in dimension 8
+class MyFunction:
+  public Function {
+public:
+  int get_bv_size() { return 8; }
+  double evaluate(const bit_vector_t& x) {
+    int result = 0;
+    for (int i = 0; i < 8; i++)
+      if (x[i])
+        result++;
+    return result;
+  }
+};
+
+class MyFunctionFactory:
+  public FunctionFactory {
+public:
+  Function *make() { return new MyFunction(); }
+};
 
 int main(int argc, char *argv[])
 {
   HncoOptions options(argc, argv);
-  CommandLineFunctionFactory function_factory(options);
+  MyFunctionFactory function_factory;
   CommandLineAlgorithmFactory algorithm_factory(options);
   CommandLineApplication application(options, function_factory, algorithm_factory);
   try {
