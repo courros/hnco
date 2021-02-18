@@ -22,6 +22,10 @@ ffgen:
 mapgen:
 - Updated mapgen.json
 
+Examples:
+- Added cli-my-function.cc
+- Added cli-my-algorithm.cc
+
 
 * Version 0.16 (2021-02-03)
 
