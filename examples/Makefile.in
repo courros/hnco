@@ -106,8 +106,9 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-noinst_PROGRAMS = basic$(EXEEXT) stop-on-maximum$(EXEEXT) \
-	on-budget-function$(EXEEXT) custom$(EXEEXT)
+noinst_PROGRAMS = basic$(EXEEXT) cli-my-function$(EXEEXT) \
+	stop-on-maximum$(EXEEXT) on-budget-function$(EXEEXT) \
+	custom$(EXEEXT)
 subdir = examples
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -130,6 +131,10 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+am_cli_my_function_OBJECTS = cli-my-function.$(OBJEXT)
+cli_my_function_OBJECTS = $(am_cli_my_function_OBJECTS)
+cli_my_function_LDADD = $(LDADD)
+cli_my_function_DEPENDENCIES = ../lib/libhnco.la
 am_custom_OBJECTS = custom.$(OBJEXT)
 custom_OBJECTS = $(am_custom_OBJECTS)
 custom_LDADD = $(LDADD)
@@ -157,7 +162,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/basic.Po ./$(DEPDIR)/custom.Po \
+am__depfiles_remade = ./$(DEPDIR)/basic.Po \
+	./$(DEPDIR)/cli-my-function.Po ./$(DEPDIR)/custom.Po \
 	./$(DEPDIR)/on-budget-function.Po \
 	./$(DEPDIR)/stop-on-maximum.Po
 am__mv = mv -f
@@ -179,10 +185,12 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(basic_SOURCES) $(custom_SOURCES) \
-	$(on_budget_function_SOURCES) $(stop_on_maximum_SOURCES)
-DIST_SOURCES = $(basic_SOURCES) $(custom_SOURCES) \
-	$(on_budget_function_SOURCES) $(stop_on_maximum_SOURCES)
+SOURCES = $(basic_SOURCES) $(cli_my_function_SOURCES) \
+	$(custom_SOURCES) $(on_budget_function_SOURCES) \
+	$(stop_on_maximum_SOURCES)
+DIST_SOURCES = $(basic_SOURCES) $(cli_my_function_SOURCES) \
+	$(custom_SOURCES) $(on_budget_function_SOURCES) \
+	$(stop_on_maximum_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -339,6 +347,7 @@ AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
 AM_CPPFLAGS = -I $(top_srcdir)/lib
 LDADD = ../lib/libhnco.la -ldl -lboost_serialization
 basic_SOURCES = basic.cc
+cli_my_function_SOURCES = cli-my-function.cc
 stop_on_maximum_SOURCES = stop-on-maximum.cc
 on_budget_function_SOURCES = on-budget-function.cc
 custom_SOURCES = custom.cc
@@ -389,6 +398,10 @@ basic$(EXEEXT): $(basic_OBJECTS) $(basic_DEPENDENCIES) $(EXTRA_basic_DEPENDENCIE
 	@rm -f basic$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(basic_OBJECTS) $(basic_LDADD) $(LIBS)
 
+cli-my-function$(EXEEXT): $(cli_my_function_OBJECTS) $(cli_my_function_DEPENDENCIES) $(EXTRA_cli_my_function_DEPENDENCIES) 
+	@rm -f cli-my-function$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(cli_my_function_OBJECTS) $(cli_my_function_LDADD) $(LIBS)
+
 custom$(EXEEXT): $(custom_OBJECTS) $(custom_DEPENDENCIES) $(EXTRA_custom_DEPENDENCIES) 
 	@rm -f custom$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(custom_OBJECTS) $(custom_LDADD) $(LIBS)
@@ -408,6 +421,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/basic.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cli-my-function.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/custom.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/on-budget-function.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stop-on-maximum.Po@am__quote@ # am--include-marker
@@ -574,6 +588,7 @@ clean-am: clean-generic clean-libtool clean-noinstPROGRAMS \
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/basic.Po
+	-rm -f ./$(DEPDIR)/cli-my-function.Po
 	-rm -f ./$(DEPDIR)/custom.Po
 	-rm -f ./$(DEPDIR)/on-budget-function.Po
 	-rm -f ./$(DEPDIR)/stop-on-maximum.Po
@@ -623,6 +638,7 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/basic.Po
+	-rm -f ./$(DEPDIR)/cli-my-function.Po
 	-rm -f ./$(DEPDIR)/custom.Po
 	-rm -f ./$(DEPDIR)/on-budget-function.Po
 	-rm -f ./$(DEPDIR)/stop-on-maximum.Po
