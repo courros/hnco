@@ -180,7 +180,7 @@ CommandLineApplication::make_algorithm()
 {
   _algorithm = _algorithm_factory.make(_fn->get_bv_size());
 
-  /// In hnco, this happened before set_log_context.
+  // In hnco, this happened before set_log_context.
   if (_options.with_restart()) {
     _algorithm = new Restart(_options.get_bv_size(), _algorithm);
   }
