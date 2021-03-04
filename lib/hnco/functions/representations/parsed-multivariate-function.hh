@@ -34,7 +34,6 @@
 
 namespace hnco {
 namespace function {
-namespace representation {
 
 /** Parsed multivariate function.
 
@@ -106,7 +105,6 @@ public:
 };
 
 
-} // end of namespace representation
 } // end of namespace function
 } // end of namespace hnco
 
