@@ -32,7 +32,6 @@
 
 using namespace hnco::exception;
 using namespace hnco::function;
-using namespace hnco::function::representation;
 
 template<class T>
 void print_board(const std::vector<std::vector<T>>& board, std::ostream& stream, bool pretty_print)

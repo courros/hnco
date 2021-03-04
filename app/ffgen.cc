@@ -308,7 +308,7 @@ void generate_function(FfgenOptions& options)
     break;
 
   case 190: {
-    representation::Sudoku function;
+    Sudoku function;
     function.random(options.get_sudoku_num_empty_cells());
     save_function(function, "Sudoku", options.get_path());
     break;
