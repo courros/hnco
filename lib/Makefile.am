@@ -175,10 +175,13 @@ libhnco_la_SOURCES = \
 	hnco/functions/collection/max-sat.hh \
 	hnco/functions/collection/nk-landscape.cc \
 	hnco/functions/collection/nk-landscape.hh \
+	hnco/functions/collection/parsed-multivariate-function.hh \
 	hnco/functions/collection/partition.cc \
 	hnco/functions/collection/partition.hh \
 	hnco/functions/collection/qubo.cc \
 	hnco/functions/collection/qubo.hh \
+	hnco/functions/collection/sudoku.cc \
+	hnco/functions/collection/sudoku.hh \
 	hnco/functions/collection/theory.cc \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.cc \
@@ -206,10 +209,7 @@ libhnco_la_SOURCES = \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
-	hnco/functions/representations/sudoku.cc \
-	hnco/functions/representations/sudoku.hh \
 	hnco/functions/walsh-term.hh \
 	hnco/iterator.cc \
 	hnco/iterator.hh \
@@ -335,8 +335,10 @@ nobase_include_HEADERS = \
 	hnco/functions/collection/long-path.hh \
 	hnco/functions/collection/max-sat.hh \
 	hnco/functions/collection/nk-landscape.hh \
+	hnco/functions/collection/parsed-multivariate-function.hh \
 	hnco/functions/collection/partition.hh \
 	hnco/functions/collection/qubo.hh \
+	hnco/functions/collection/sudoku.hh \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.hh \
 	hnco/functions/collection/walsh/all.hh \
@@ -354,9 +356,7 @@ nobase_include_HEADERS = \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
-	hnco/functions/representations/sudoku.hh \
 	hnco/functions/walsh-term.hh \
 	hnco/iterator.hh \
 	hnco/logging/log-context.hh \

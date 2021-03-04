@@ -23,8 +23,6 @@
 
 #include "converter.hh"
 #include "multivariate-function-adapter.hh"
-#include "parsed-multivariate-function.hh"
 #include "representation.hh"
-#include "sudoku.hh"
 
 #endif

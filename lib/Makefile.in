@@ -279,10 +279,13 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/collection/max-sat.hh \
 	hnco/functions/collection/nk-landscape.cc \
 	hnco/functions/collection/nk-landscape.hh \
+	hnco/functions/collection/parsed-multivariate-function.hh \
 	hnco/functions/collection/partition.cc \
 	hnco/functions/collection/partition.hh \
 	hnco/functions/collection/qubo.cc \
 	hnco/functions/collection/qubo.hh \
+	hnco/functions/collection/sudoku.cc \
+	hnco/functions/collection/sudoku.hh \
 	hnco/functions/collection/theory.cc \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.cc \
@@ -308,10 +311,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
-	hnco/functions/representations/sudoku.cc \
-	hnco/functions/representations/sudoku.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.cc \
 	hnco/logging/logger.hh hnco/map.cc hnco/map.hh \
@@ -384,6 +384,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/functions/collection/nk-landscape.lo \
 	hnco/functions/collection/partition.lo \
 	hnco/functions/collection/qubo.lo \
+	hnco/functions/collection/sudoku.lo \
 	hnco/functions/collection/theory.lo \
 	hnco/functions/collection/trap.lo \
 	hnco/functions/collection/walsh/walsh-expansion-1.lo \
@@ -393,8 +394,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/functions/function.lo \
 	hnco/functions/modifiers/modifier.lo \
 	hnco/functions/modifiers/parsed-modifier.lo \
-	hnco/functions/modifiers/prior-noise.lo \
-	hnco/functions/representations/sudoku.lo hnco/iterator.lo \
+	hnco/functions/modifiers/prior-noise.lo hnco/iterator.lo \
 	hnco/logging/logger.lo hnco/map.lo \
 	hnco/neighborhoods/neighborhood-iterator.lo \
 	hnco/neighborhoods/neighborhood.lo hnco/permutation.lo \
@@ -493,6 +493,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/collection/$(DEPDIR)/partition.Plo \
 	hnco/functions/collection/$(DEPDIR)/plugin.Plo \
 	hnco/functions/collection/$(DEPDIR)/qubo.Plo \
+	hnco/functions/collection/$(DEPDIR)/sudoku.Plo \
 	hnco/functions/collection/$(DEPDIR)/theory.Plo \
 	hnco/functions/collection/$(DEPDIR)/trap.Plo \
 	hnco/functions/collection/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo \
@@ -504,7 +505,6 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/modifier.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo \
-	hnco/functions/representations/$(DEPDIR)/sudoku.Plo \
 	hnco/logging/$(DEPDIR)/logger.Plo \
 	hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo \
 	hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
@@ -615,8 +615,10 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/collection/long-path.hh \
 	hnco/functions/collection/max-sat.hh \
 	hnco/functions/collection/nk-landscape.hh \
+	hnco/functions/collection/parsed-multivariate-function.hh \
 	hnco/functions/collection/partition.hh \
 	hnco/functions/collection/qubo.hh \
+	hnco/functions/collection/sudoku.hh \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.hh \
 	hnco/functions/collection/walsh/all.hh \
@@ -633,9 +635,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
-	hnco/functions/representations/sudoku.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.hh hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
@@ -913,10 +913,13 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/collection/max-sat.hh \
 	hnco/functions/collection/nk-landscape.cc \
 	hnco/functions/collection/nk-landscape.hh \
+	hnco/functions/collection/parsed-multivariate-function.hh \
 	hnco/functions/collection/partition.cc \
 	hnco/functions/collection/partition.hh \
 	hnco/functions/collection/qubo.cc \
 	hnco/functions/collection/qubo.hh \
+	hnco/functions/collection/sudoku.cc \
+	hnco/functions/collection/sudoku.hh \
 	hnco/functions/collection/theory.cc \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.cc \
@@ -942,10 +945,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
-	hnco/functions/representations/sudoku.cc \
-	hnco/functions/representations/sudoku.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.cc \
 	hnco/logging/logger.hh hnco/map.cc hnco/map.hh \
@@ -1021,8 +1021,10 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/collection/long-path.hh \
 	hnco/functions/collection/max-sat.hh \
 	hnco/functions/collection/nk-landscape.hh \
+	hnco/functions/collection/parsed-multivariate-function.hh \
 	hnco/functions/collection/partition.hh \
 	hnco/functions/collection/qubo.hh \
+	hnco/functions/collection/sudoku.hh \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.hh \
 	hnco/functions/collection/walsh/all.hh \
@@ -1039,9 +1041,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
-	hnco/functions/representations/sudoku.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.hh hnco/map.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
@@ -1380,6 +1380,9 @@ hnco/functions/collection/partition.lo:  \
 hnco/functions/collection/qubo.lo:  \
 	hnco/functions/collection/$(am__dirstamp) \
 	hnco/functions/collection/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/collection/sudoku.lo:  \
+	hnco/functions/collection/$(am__dirstamp) \
+	hnco/functions/collection/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/collection/theory.lo:  \
 	hnco/functions/collection/$(am__dirstamp) \
 	hnco/functions/collection/$(DEPDIR)/$(am__dirstamp)
@@ -1433,15 +1436,6 @@ hnco/functions/modifiers/parsed-modifier.lo:  \
 hnco/functions/modifiers/prior-noise.lo:  \
 	hnco/functions/modifiers/$(am__dirstamp) \
 	hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/representations/$(am__dirstamp):
-	@$(MKDIR_P) hnco/functions/representations
-	@: > hnco/functions/representations/$(am__dirstamp)
-hnco/functions/representations/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) hnco/functions/representations/$(DEPDIR)
-	@: > hnco/functions/representations/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/representations/sudoku.lo:  \
-	hnco/functions/representations/$(am__dirstamp) \
-	hnco/functions/representations/$(DEPDIR)/$(am__dirstamp)
 hnco/iterator.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/logging/$(am__dirstamp):
 	@$(MKDIR_P) hnco/logging
@@ -1521,8 +1515,6 @@ mostlyclean-compile:
 	-rm -f hnco/functions/controllers/*.lo
 	-rm -f hnco/functions/modifiers/*.$(OBJEXT)
 	-rm -f hnco/functions/modifiers/*.lo
-	-rm -f hnco/functions/representations/*.$(OBJEXT)
-	-rm -f hnco/functions/representations/*.lo
 	-rm -f hnco/logging/*.$(OBJEXT)
 	-rm -f hnco/logging/*.lo
 	-rm -f hnco/neighborhoods/*.$(OBJEXT)
@@ -1606,6 +1598,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/partition.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/plugin.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/qubo.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/sudoku.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/theory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/trap.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo@am__quote@ # am--include-marker
@@ -1617,7 +1610,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/modifier.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/representations/$(DEPDIR)/sudoku.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/logging/$(DEPDIR)/logger.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo@am__quote@ # am--include-marker
@@ -1699,7 +1691,6 @@ clean-libtool:
 	-rm -rf hnco/functions/collection/walsh/.libs hnco/functions/collection/walsh/_libs
 	-rm -rf hnco/functions/controllers/.libs hnco/functions/controllers/_libs
 	-rm -rf hnco/functions/modifiers/.libs hnco/functions/modifiers/_libs
-	-rm -rf hnco/functions/representations/.libs hnco/functions/representations/_libs
 	-rm -rf hnco/logging/.libs hnco/logging/_libs
 	-rm -rf hnco/neighborhoods/.libs hnco/neighborhoods/_libs
 install-nobase_includeHEADERS: $(nobase_include_HEADERS)
@@ -1883,8 +1874,6 @@ distclean-generic:
 	-rm -f hnco/functions/controllers/$(am__dirstamp)
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/modifiers/$(am__dirstamp)
-	-rm -f hnco/functions/representations/$(DEPDIR)/$(am__dirstamp)
-	-rm -f hnco/functions/representations/$(am__dirstamp)
 	-rm -f hnco/logging/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/logging/$(am__dirstamp)
 	-rm -f hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp)
@@ -1975,6 +1964,7 @@ distclean: distclean-am
 	-rm -f hnco/functions/collection/$(DEPDIR)/partition.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/plugin.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/qubo.Plo
+	-rm -f hnco/functions/collection/$(DEPDIR)/sudoku.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/theory.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/trap.Plo
 	-rm -f hnco/functions/collection/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo
@@ -1986,7 +1976,6 @@ distclean: distclean-am
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo
-	-rm -f hnco/functions/representations/$(DEPDIR)/sudoku.Plo
 	-rm -f hnco/logging/$(DEPDIR)/logger.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
@@ -2110,6 +2099,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/collection/$(DEPDIR)/partition.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/plugin.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/qubo.Plo
+	-rm -f hnco/functions/collection/$(DEPDIR)/sudoku.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/theory.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/trap.Plo
 	-rm -f hnco/functions/collection/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo
@@ -2121,7 +2111,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo
-	-rm -f hnco/functions/representations/$(DEPDIR)/sudoku.Plo
 	-rm -f hnco/logging/$(DEPDIR)/logger.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo

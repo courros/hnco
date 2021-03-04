@@ -28,7 +28,6 @@
 #include "hnco/functions/function.hh"
 
 #include "representation.hh"
-#include "parsed-multivariate-function.hh"
 
 
 namespace hnco {
