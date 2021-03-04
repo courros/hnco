@@ -22,7 +22,7 @@
 
 #include "hnco/algorithms/ea/one-plus-one-ea.hh"
 #include "hnco/functions/controllers/controller.hh"
-#include "hnco/functions/theory.hh"
+#include "hnco/functions/collection/theory.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::algorithm;

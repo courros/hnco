@@ -26,7 +26,7 @@
 #include "decorator.hh"
 #include "function.hh"
 #include "modifiers/all.hh"
-#include "representation/all.hh"
+#include "representations/all.hh"
 #include "walsh-term.hh"
 
 #endif

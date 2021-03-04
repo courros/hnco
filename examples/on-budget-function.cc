@@ -22,7 +22,7 @@
 
 #include <hnco/algorithms/ea/mu-plus-lambda-ea.hh>
 #include "hnco/functions/controllers/controller.hh"
-#include "hnco/functions/theory.hh"
+#include "hnco/functions/collection/theory.hh"
 #include "hnco/random.hh"
 
 using namespace hnco;

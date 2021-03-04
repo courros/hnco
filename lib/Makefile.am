@@ -150,6 +150,7 @@ libhnco_la_SOURCES = \
 	hnco/bit-vector.cc \
 	hnco/bit-vector.hh \
 	hnco/exception.hh \
+	hnco/functions/all.hh \
 	hnco/functions/collection/all.hh \
 	hnco/functions/collection/cancellation.cc \
 	hnco/functions/collection/cancellation.hh \
@@ -320,6 +321,7 @@ nobase_include_HEADERS = \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.hh \
 	hnco/exception.hh \
+	hnco/functions/all.hh \
 	hnco/functions/collection/all.hh \
 	hnco/functions/collection/cancellation.hh \
 	hnco/functions/collection/equal-products.hh \
