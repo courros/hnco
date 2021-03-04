@@ -20,7 +20,7 @@
 
 #include <fstream>              // std::ifstream, std::ofstream
 
-#include "hnco/functions/equal-products.hh"
+#include "hnco/functions/collection/equal-products.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::function;

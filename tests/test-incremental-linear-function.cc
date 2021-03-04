@@ -21,7 +21,7 @@
 #include <random>
 
 #include "hnco/neighborhoods/neighborhood.hh"
-#include "hnco/functions/linear-function.hh"
+#include "hnco/functions/collection/linear-function.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::neighborhood;

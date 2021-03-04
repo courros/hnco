@@ -19,7 +19,7 @@
 */
 
 #include "hnco/algorithms/ls/first-ascent-hill-climbing.hh"
-#include "hnco/functions/theory.hh"
+#include "hnco/functions/collection/theory.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::algorithm;

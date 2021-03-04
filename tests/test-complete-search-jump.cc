@@ -21,7 +21,7 @@
 #include <random>
 
 #include "hnco/algorithms/complete-search.hh"
-#include "hnco/functions/jump.hh"
+#include "hnco/functions/collection/jump.hh"
 #include "hnco/functions/modifiers/modifier.hh"
 #include "hnco/random.hh"
 

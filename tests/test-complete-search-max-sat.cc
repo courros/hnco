@@ -22,7 +22,7 @@
 
 #include "hnco/algorithms/complete-search.hh"
 #include "hnco/exception.hh"
-#include "hnco/functions/max-sat.hh"
+#include "hnco/functions/collection/max-sat.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::algorithm;

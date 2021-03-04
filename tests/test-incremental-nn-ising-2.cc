@@ -21,7 +21,7 @@
 #include <random>
 
 #include "hnco/neighborhoods/neighborhood.hh"
-#include "hnco/functions/ising/nearest-neighbor-ising-model-2.hh"
+#include "hnco/functions/collection/ising/nearest-neighbor-ising-model-2.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::neighborhood;

@@ -21,7 +21,7 @@
 #include <fstream>              // std::ifstream, std::ofstream
 
 #include "hnco/exception.hh"
-#include "hnco/functions/max-sat.hh"
+#include "hnco/functions/collection/max-sat.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::exception;

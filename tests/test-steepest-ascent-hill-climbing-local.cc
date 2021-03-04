@@ -19,7 +19,7 @@
 */
 
 #include "hnco/algorithms/ls/steepest-ascent-hill-climbing.hh"
-#include "hnco/functions/labs.hh"
+#include "hnco/functions/collection/labs.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::algorithm;

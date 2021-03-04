@@ -20,7 +20,7 @@
 
 #include <fstream>              // std::ifstream, std::ofstream
 
-#include "hnco/functions/nk-landscape.hh"
+#include "hnco/functions/collection/nk-landscape.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::function;

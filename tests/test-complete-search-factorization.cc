@@ -22,7 +22,7 @@
 
 #include "hnco/algorithms/complete-search.hh"
 #include "hnco/functions/modifiers/modifier.hh"
-#include "hnco/functions/factorization.hh"
+#include "hnco/functions/collection/factorization.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::algorithm;

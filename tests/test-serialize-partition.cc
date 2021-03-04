@@ -20,7 +20,7 @@
 
 #include <fstream>              // std::ifstream, std::ofstream
 
-#include "hnco/functions/partition.hh"
+#include "hnco/functions/collection/partition.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::function;

@@ -20,7 +20,7 @@
 
 #include <random>
 
-#include "hnco/functions/walsh/walsh-expansion-1.hh"
+#include "hnco/functions/collection/walsh/walsh-expansion-1.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/random.hh"
 

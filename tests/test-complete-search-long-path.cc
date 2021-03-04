@@ -21,8 +21,8 @@
 #include <random>
 
 #include "hnco/algorithms/complete-search.hh"
+#include "hnco/functions/collection/long-path.hh"
 #include "hnco/functions/modifiers/modifier.hh"
-#include "hnco/functions/long-path.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::algorithm;

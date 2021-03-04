@@ -20,7 +20,7 @@
 
 #include <fstream>              // std::ifstream, std::ofstream
 
-#include "hnco/functions/walsh/walsh-expansion-1.hh"
+#include "hnco/functions/collection/walsh/walsh-expansion-1.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::function;
