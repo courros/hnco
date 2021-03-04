@@ -18,14 +18,14 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_QUBO_H
-#define HNCO_FUNCTIONS_QUBO_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_QUBO_H
+#define HNCO_FUNCTIONS_COLLECTION_QUBO_H
 
 #include <iostream>
 #include <vector>
 #include <fstream>
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {

@@ -150,34 +150,51 @@ libhnco_la_SOURCES = \
 	hnco/bit-vector.cc \
 	hnco/bit-vector.hh \
 	hnco/exception.hh \
-	hnco/functions/all.hh \
-	hnco/functions/cancellation.cc \
-	hnco/functions/cancellation.hh \
+	hnco/functions/collection/all.hh \
+	hnco/functions/collection/cancellation.cc \
+	hnco/functions/collection/cancellation.hh \
+	hnco/functions/collection/equal-products.cc \
+	hnco/functions/collection/equal-products.hh \
+	hnco/functions/collection/four-peaks.cc \
+	hnco/functions/collection/four-peaks.hh \
+	hnco/functions/collection/ising/all.hh \
+	hnco/functions/collection/ising/nearest-neighbor-ising-model-1.cc \
+	hnco/functions/collection/ising/nearest-neighbor-ising-model-1.hh \
+	hnco/functions/collection/ising/nearest-neighbor-ising-model-2.cc \
+	hnco/functions/collection/ising/nearest-neighbor-ising-model-2.hh \
+	hnco/functions/collection/jump.cc \
+	hnco/functions/collection/jump.hh \
+	hnco/functions/collection/labs.cc \
+	hnco/functions/collection/labs.hh \
+	hnco/functions/collection/linear-function.cc \
+	hnco/functions/collection/linear-function.hh \
+	hnco/functions/collection/long-path.cc \
+	hnco/functions/collection/long-path.hh \
+	hnco/functions/collection/max-sat.cc \
+	hnco/functions/collection/max-sat.hh \
+	hnco/functions/collection/nk-landscape.cc \
+	hnco/functions/collection/nk-landscape.hh \
+	hnco/functions/collection/partition.cc \
+	hnco/functions/collection/partition.hh \
+	hnco/functions/collection/qubo.cc \
+	hnco/functions/collection/qubo.hh \
+	hnco/functions/collection/theory.cc \
+	hnco/functions/collection/theory.hh \
+	hnco/functions/collection/trap.cc \
+	hnco/functions/collection/trap.hh \
+	hnco/functions/collection/walsh/all.hh \
+	hnco/functions/collection/walsh/walsh-expansion-1.cc \
+	hnco/functions/collection/walsh/walsh-expansion-1.hh \
+	hnco/functions/collection/walsh/walsh-expansion-2.cc \
+	hnco/functions/collection/walsh/walsh-expansion-2.hh \
+	hnco/functions/collection/walsh/walsh-expansion.cc \
+	hnco/functions/collection/walsh/walsh-expansion.hh \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/controller.cc \
 	hnco/functions/controllers/controller.hh \
 	hnco/functions/decorator.hh \
-	hnco/functions/equal-products.cc \
-	hnco/functions/equal-products.hh \
-	hnco/functions/four-peaks.cc \
-	hnco/functions/four-peaks.hh \
 	hnco/functions/function.cc \
 	hnco/functions/function.hh \
-	hnco/functions/ising/all.hh \
-	hnco/functions/ising/nearest-neighbor-ising-model-1.cc \
-	hnco/functions/ising/nearest-neighbor-ising-model-1.hh \
-	hnco/functions/ising/nearest-neighbor-ising-model-2.cc \
-	hnco/functions/ising/nearest-neighbor-ising-model-2.hh \
-	hnco/functions/jump.cc \
-	hnco/functions/jump.hh \
-	hnco/functions/labs.cc \
-	hnco/functions/labs.hh \
-	hnco/functions/linear-function.cc \
-	hnco/functions/linear-function.hh \
-	hnco/functions/long-path.cc \
-	hnco/functions/long-path.hh \
-	hnco/functions/max-sat.cc \
-	hnco/functions/max-sat.hh \
 	hnco/functions/modifiers/all.hh \
 	hnco/functions/modifiers/modifier.cc \
 	hnco/functions/modifiers/modifier.hh \
@@ -185,12 +202,6 @@ libhnco_la_SOURCES = \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.cc \
 	hnco/functions/modifiers/prior-noise.hh \
-	hnco/functions/nk-landscape.cc \
-	hnco/functions/nk-landscape.hh \
-	hnco/functions/partition.cc \
-	hnco/functions/partition.hh \
-	hnco/functions/qubo.cc \
-	hnco/functions/qubo.hh \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
@@ -198,18 +209,7 @@ libhnco_la_SOURCES = \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/representations/sudoku.cc \
 	hnco/functions/representations/sudoku.hh \
-	hnco/functions/theory.cc \
-	hnco/functions/theory.hh \
-	hnco/functions/trap.cc \
-	hnco/functions/trap.hh \
 	hnco/functions/walsh-term.hh \
-	hnco/functions/walsh/all.hh \
-	hnco/functions/walsh/walsh-expansion-1.cc \
-	hnco/functions/walsh/walsh-expansion-1.hh \
-	hnco/functions/walsh/walsh-expansion-2.cc \
-	hnco/functions/walsh/walsh-expansion-2.hh \
-	hnco/functions/walsh/walsh-expansion.cc \
-	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.cc \
 	hnco/iterator.hh \
 	hnco/logging/log-context.hh \
@@ -236,14 +236,14 @@ libhnco_la_SOURCES = \
 
 if ENABLE_FACTORIZATION
 libhnco_la_SOURCES += \
-	hnco/functions/factorization.cc \
-	hnco/functions/factorization.hh
+	hnco/functions/collection/factorization.cc \
+	hnco/functions/collection/factorization.hh
 endif
 
 if ENABLE_PLUGIN
 libhnco_la_SOURCES += \
-	hnco/functions/plugin.cc \
-	hnco/functions/plugin.hh
+	hnco/functions/collection/plugin.cc \
+	hnco/functions/collection/plugin.hh
 endif
 
 nobase_include_HEADERS = \
@@ -320,42 +320,42 @@ nobase_include_HEADERS = \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.hh \
 	hnco/exception.hh \
-	hnco/functions/all.hh \
-	hnco/functions/cancellation.hh \
+	hnco/functions/collection/all.hh \
+	hnco/functions/collection/cancellation.hh \
+	hnco/functions/collection/equal-products.hh \
+	hnco/functions/collection/four-peaks.hh \
+	hnco/functions/collection/ising/all.hh \
+	hnco/functions/collection/ising/nearest-neighbor-ising-model-1.hh \
+	hnco/functions/collection/ising/nearest-neighbor-ising-model-2.hh \
+	hnco/functions/collection/jump.hh \
+	hnco/functions/collection/labs.hh \
+	hnco/functions/collection/linear-function.hh \
+	hnco/functions/collection/long-path.hh \
+	hnco/functions/collection/max-sat.hh \
+	hnco/functions/collection/nk-landscape.hh \
+	hnco/functions/collection/partition.hh \
+	hnco/functions/collection/qubo.hh \
+	hnco/functions/collection/theory.hh \
+	hnco/functions/collection/trap.hh \
+	hnco/functions/collection/walsh/all.hh \
+	hnco/functions/collection/walsh/walsh-expansion-1.hh \
+	hnco/functions/collection/walsh/walsh-expansion-2.hh \
+	hnco/functions/collection/walsh/walsh-expansion.hh \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/controller.hh \
 	hnco/functions/decorator.hh \
-	hnco/functions/equal-products.hh \
-	hnco/functions/four-peaks.hh \
 	hnco/functions/function.hh \
-	hnco/functions/ising/all.hh \
-	hnco/functions/ising/nearest-neighbor-ising-model-1.hh \
-	hnco/functions/ising/nearest-neighbor-ising-model-2.hh \
-	hnco/functions/jump.hh \
-	hnco/functions/labs.hh \
-	hnco/functions/linear-function.hh \
-	hnco/functions/long-path.hh \
-	hnco/functions/max-sat.hh \
 	hnco/functions/modifiers/all.hh \
 	hnco/functions/modifiers/modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.hh \
-	hnco/functions/nk-landscape.hh \
-	hnco/functions/partition.hh \
-	hnco/functions/qubo.hh \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
 	hnco/functions/representations/parsed-multivariate-function.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/representations/sudoku.hh \
-	hnco/functions/theory.hh \
-	hnco/functions/trap.hh \
 	hnco/functions/walsh-term.hh \
-	hnco/functions/walsh/all.hh \
-	hnco/functions/walsh/walsh-expansion-1.hh \
-	hnco/functions/walsh/walsh-expansion-2.hh \
-	hnco/functions/walsh/walsh-expansion.hh \
 	hnco/iterator.hh \
 	hnco/logging/log-context.hh \
 	hnco/logging/logger.hh \
@@ -371,11 +371,11 @@ nobase_include_HEADERS = \
 	hnco/util.hh
 
 if ENABLE_FACTORIZATION
-nobase_include_HEADERS += hnco/functions/factorization.hh
+nobase_include_HEADERS += hnco/functions/collection/factorization.hh
 endif
 
 if ENABLE_PLUGIN
-nobase_include_HEADERS += hnco/functions/plugin.hh
+nobase_include_HEADERS += hnco/functions/collection/plugin.hh
 endif
 
 BUILT_SOURCES = \

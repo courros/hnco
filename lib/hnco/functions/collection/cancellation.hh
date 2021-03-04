@@ -18,14 +18,14 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_CANCELLATION_H
-#define HNCO_FUNCTIONS_CANCELLATION_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_CANCELLATION_H
+#define HNCO_FUNCTIONS_COLLECTION_CANCELLATION_H
 
 #include <vector>
 
 #include "hnco/exception.hh"
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {

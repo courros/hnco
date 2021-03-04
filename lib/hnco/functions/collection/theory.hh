@@ -18,10 +18,10 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_THEORY_H
-#define HNCO_FUNCTIONS_THEORY_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_THEORY_H
+#define HNCO_FUNCTIONS_COLLECTION_THEORY_H
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {

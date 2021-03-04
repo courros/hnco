@@ -18,12 +18,12 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_PLUGIN_H
-#define HNCO_FUNCTIONS_PLUGIN_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_PLUGIN_H
+#define HNCO_FUNCTIONS_COLLECTION_PLUGIN_H
 
 #include <string>
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {

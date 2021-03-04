@@ -18,10 +18,10 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_FOUR_PEAKS_H
-#define HNCO_FUNCTIONS_FOUR_PEAKS_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_FOUR_PEAKS_H
+#define HNCO_FUNCTIONS_COLLECTION_FOUR_PEAKS_H
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {

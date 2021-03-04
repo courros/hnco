@@ -18,36 +18,31 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_ALL_H
-#define HNCO_FUNCTIONS_ALL_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_ALL_H
+#define HNCO_FUNCTIONS_COLLECTION_ALL_H
 
-#include "hnco/functions/cancellation.hh"
-#include "hnco/functions/controllers/all.hh"
-#include "hnco/functions/equal-products.hh"
-#include "hnco/functions/four-peaks.hh"
-#include "hnco/functions/decorator.hh"
-#include "hnco/functions/function.hh"
-#include "hnco/functions/ising/all.hh"
-#include "hnco/functions/jump.hh"
-#include "hnco/functions/labs.hh"
-#include "hnco/functions/linear-function.hh"
-#include "hnco/functions/long-path.hh"
-#include "hnco/functions/max-sat.hh"
-#include "hnco/functions/modifiers/all.hh"
-#include "hnco/functions/nk-landscape.hh"
-#include "hnco/functions/partition.hh"
-#include "hnco/functions/qubo.hh"
-#include "hnco/functions/representations/all.hh"
-#include "hnco/functions/theory.hh"
-#include "hnco/functions/trap.hh"
-#include "hnco/functions/walsh/all.hh"
+#include "cancellation.hh"
+#include "equal-products.hh"
+#include "four-peaks.hh"
+#include "ising/all.hh"
+#include "jump.hh"
+#include "labs.hh"
+#include "linear-function.hh"
+#include "long-path.hh"
+#include "max-sat.hh"
+#include "nk-landscape.hh"
+#include "partition.hh"
+#include "qubo.hh"
+#include "theory.hh"
+#include "trap.hh"
+#include "walsh/all.hh"
 
 #ifdef ENABLE_FACTORIZATION
-#include "hnco/functions/factorization.hh"
+#include "factorization.hh"
 #endif
 
 #ifdef ENABLE_PLUGIN
-#include "hnco/functions/plugin.hh"
+#include "plugin.hh"
 #endif
 
 #endif

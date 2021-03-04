@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_EQUAL_PRODUCTS_H
-#define HNCO_FUNCTIONS_EQUAL_PRODUCTS_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_EQUAL_PRODUCTS_H
+#define HNCO_FUNCTIONS_COLLECTION_EQUAL_PRODUCTS_H
 
 #include <iostream>
 #include <vector>
@@ -29,7 +29,7 @@
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/vector.hpp>
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {

@@ -18,10 +18,10 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_LABS_H
-#define HNCO_FUNCTIONS_LABS_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_LABS_H
+#define HNCO_FUNCTIONS_COLLECTION_LABS_H
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {

@@ -18,12 +18,12 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_TRAP_H
-#define HNCO_FUNCTIONS_TRAP_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_TRAP_H
+#define HNCO_FUNCTIONS_COLLECTION_TRAP_H
 
 #include "hnco/exception.hh"
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {

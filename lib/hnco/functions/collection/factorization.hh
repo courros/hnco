@@ -1,5 +1,5 @@
-#ifndef HNCO_FUNCTIONS_FACTORIZATION_H
-#define HNCO_FUNCTIONS_FACTORIZATION_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_FACTORIZATION_H
+#define HNCO_FUNCTIONS_COLLECTION_FACTORIZATION_H
 
 #include <gmp.h>
 #include <gmpxx.h>
@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {

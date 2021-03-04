@@ -18,13 +18,13 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_MAXSAT_H
-#define HNCO_FUNCTIONS_MAXSAT_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_MAXSAT_H
+#define HNCO_FUNCTIONS_COLLECTION_MAXSAT_H
 
 #include <iostream>
 #include <vector>
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {

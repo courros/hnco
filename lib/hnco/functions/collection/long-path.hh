@@ -18,10 +18,10 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_LONG_PATH_H
-#define HNCO_FUNCTIONS_LONG_PATH_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_LONG_PATH_H
+#define HNCO_FUNCTIONS_COLLECTION_LONG_PATH_H
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {

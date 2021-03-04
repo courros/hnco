@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_PARTITION_H
-#define HNCO_FUNCTIONS_PARTITION_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_PARTITION_H
+#define HNCO_FUNCTIONS_COLLECTION_PARTITION_H
 
 #include <assert.h>
 #include <iostream>
@@ -30,7 +30,7 @@
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/vector.hpp>
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {

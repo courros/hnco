@@ -18,10 +18,10 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_JUMP_H
-#define HNCO_FUNCTIONS_JUMP_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_JUMP_H
+#define HNCO_FUNCTIONS_COLLECTION_JUMP_H
 
-#include "function.hh"
+#include "hnco/functions/function.hh"
 
 
 namespace hnco {
