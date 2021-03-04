@@ -20,8 +20,9 @@
 
 #include <assert.h>
 
-#include "hnco/functions/labs.hh"
 #include "hnco/util.hh"         // square
+
+#include "labs.hh"
 
 
 using namespace hnco::function;

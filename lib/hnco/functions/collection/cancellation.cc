@@ -24,7 +24,7 @@
 #include <algorithm>		// transform
 #include <numeric>		// accumulate, partial_sum
 
-#include "hnco/functions/cancellation.hh"
+#include "cancellation.hh"
 
 
 using namespace hnco::function;

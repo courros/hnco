@@ -22,7 +22,8 @@
 #include <math.h>		// fabs
 
 #include "hnco/random.hh"
-#include "hnco/functions/equal-products.hh"
+
+#include "equal-products.hh"
 
 
 using namespace hnco::random;
