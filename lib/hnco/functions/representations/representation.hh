@@ -63,11 +63,11 @@ public:
 
   /** Constructor.
 
-      \param num_bits Number of bits per real
       \param lower_bound Lower bound of the search interval
       \param upper_bound Upper bound of the search interval
+      \param num_bits Number of bits per real number
   */
-  DyadicRealRepresentation(int num_bits, T lower_bound, T upper_bound)
+  DyadicRealRepresentation(T lower_bound, T upper_bound, int num_bits)
     : _lower_bound(lower_bound)
     , _length(upper_bound - lower_bound)
   {
@@ -129,7 +129,7 @@ public:
 
   /** Constructor.
 
-      \param num_bits Number of bits per real
+      \param num_bits Number of bits per real number
       \param lower_bound Lower bound of the search interval
       \param upper_bound Upper bound of the search interval
   */
