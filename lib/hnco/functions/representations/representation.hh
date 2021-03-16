@@ -129,13 +129,13 @@ public:
 
   /** Constructor.
 
-      \param num_bits Number of bits per real number
       \param lower_bound Lower bound of the search interval
       \param upper_bound Upper bound of the search interval
+      \param num_bits Number of bits per real number
   */
-  DyadicComplexRepresentation(int num_bits, T lower_bound, T upper_bound)
-    : _real_part(num_bits, lower_bound, upper_bound)
-    , _imaginary_part(num_bits, lower_bound, upper_bound)
+  DyadicComplexRepresentation(T lower_bound, T upper_bound, int num_bits)
+    : _real_part(lower_bound, upper_bound, num_bits)
+    , _imaginary_part(lower_bound, upper_bound, num_bits)
   {
     assert(num_bits > 0);
     assert(lower_bound < upper_bound);
