@@ -7,6 +7,9 @@ Library:
   DecoratedFunctionFactory
 - Added classes AlgorithmFactory, CommandLineAlgorithmFactory
 - Added class CommandLineApplication
+- Moved concrete functions in hnco/functions/collection/
+- Moved Sudoku files in hnco/functions/collection/
+- Moved ParsedMultivariateFunction files in hnco/functions/collection/
 
 Build:
 - optgen.pl: changed json object structure: added fields files and code
