@@ -4,6 +4,8 @@
 
 namespace py = pybind11;
 
+using namespace hnco::function;
+
 PYBIND11_MODULE(hnco, m) {
   py::class_<OneMax>(m, "OneMax")
     .def(py::init<int>())
