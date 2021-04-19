@@ -266,9 +266,11 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = -I $(top_srcdir)/lib
-AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
-LDADD = ../lib/libhnco.la $(BOOST_SERIALIZATION_LIB)
+AM_CPPFLAGS = -I $(top_srcdir)/lib $(BOOST_CPPFLAGS) $(shell python3 -m pybind11 --includes)
+AM_CXXFLAGS = $(CXXFLAGS) $(OPENMP_CXXFLAGS)
+AM_LDFLAGS = $(BOOST_LDFLAGS)
+AM_LIBS = ../lib/.libs/libhnco.so $(LIBS) $(BOOST_SERIALIZATION_LIB)
+MODULE_NAME = hnco$(shell python3-config --extension-suffix)
 all: all-am
 
 .SUFFIXES:
@@ -470,8 +472,10 @@ uninstall-am:
 
 .PHONY: module
 
+all: module
+
 module:
-	$(CXX) $(CXXFLAGS) -shared -fPIC $(python3 -m pybind11 --includes) hnco.cc -o hnco$(python3-config --extension-suffix) $(CPPFLAGS) -L ~/.local/lib/ -lhnco -ldl -lboost_serialization -lgmpxx -lgmp
+	$(CXX) $(AM_CPPFLAGS) $(AM_CXXFLAGS) -shared -fPIC $(top_srcdir)/bindings/hnco.cc -o $(MODULE_NAME) $(AM_LDFLAGS) $(AM_LIBS)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
