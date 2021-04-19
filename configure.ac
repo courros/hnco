@@ -63,5 +63,5 @@ AM_CONDITIONAL([ENABLE_PLUGIN], [test "x$enable_plugin" = "xyes"])
 
 # Output files.
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile lib/Makefile app/Makefile tests/Makefile examples/Makefile experiments/Makefile])
+AC_CONFIG_FILES([Makefile lib/Makefile app/Makefile tests/Makefile examples/Makefile experiments/Makefile bindings/Makefile])
 AC_OUTPUT
