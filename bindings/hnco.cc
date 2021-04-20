@@ -19,7 +19,7 @@ public:
 
 PYBIND11_MODULE(hnco, m) {
 
-  py::bind_vector<bit_vector_t>(m, "bit_vector_t");
+  py::bind_vector<bit_vector_t>(m, "BitVector");
 
   py::class_<Function, PyFunction>(m, "Function")
     .def("get_bv_size", &Function::get_bv_size)
