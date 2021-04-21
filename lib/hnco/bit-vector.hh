@@ -25,6 +25,7 @@
 #include <iostream>
 #include <numeric>              // std::accumulate
 #include <vector>
+#include <cstdint>              // std::uint8_t
 
 #include "random.hh"
 
@@ -41,11 +42,8 @@ namespace hnco {
  */
 ///@{
 
-/** Bit.
-
-    A single bit is represented by a char.
-*/
-typedef char bit_t;
+/// Bit
+typedef std::uint8_t bit_t;
 
 /// Flip bit
 inline bit_t bit_flip(bit_t b) { return b ? 0 : 1; }
