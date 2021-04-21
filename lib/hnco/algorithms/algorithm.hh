@@ -29,6 +29,8 @@
 #include "hnco/functions/function.hh"
 #include "hnco/logging/log-context.hh"
 
+#include "solution.hh"          // hnco::algorithm::solution_t
+
 
 namespace hnco {
 
