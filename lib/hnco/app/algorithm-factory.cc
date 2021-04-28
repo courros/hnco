@@ -55,9 +55,7 @@ make_neighborhood(const HncoOptions& options)
     return new HammingSphere(options.get_bv_size(), options.get_radius());
 
   default:
-    std::ostringstream stream;
-    stream << options.get_neighborhood();
-    throw Error("make_neighborhood: Unknown neighborhood type: " + stream.str());
+    throw Error("make_neighborhood: Unknown neighborhood type: " + options.get_neighborhood());
   }
 }
 
@@ -74,9 +72,7 @@ make_neighborhood_iterator(const HncoOptions& options)
     return new HammingSphereIterator(options.get_bv_size(), options.get_radius());
 
   default:
-    std::ostringstream stream;
-    stream << options.get_neighborhood_iterator();
-    throw Error("make_neighborhood_iterator: Unknown neighborhood iterator type: " + stream.str());
+    throw Error("make_neighborhood_iterator: Unknown neighborhood iterator type: " + options.get_neighborhood_iterator());
   }
 }
 
@@ -434,8 +430,6 @@ CommandLineAlgorithmFactory::make(int bv_size)
     return new hnco::algorithm::fast_efficient_p3::ParameterLessPopulationPyramid(bv_size);
 
   default:
-    std::ostringstream stream;
-    stream << _options.get_algorithm();
-    throw Error("make_algorithm: Unknown algorithm type: " + stream.str());
+    throw Error("make_algorithm: Unknown algorithm type: " + _options.get_algorithm());
   }
 }

@@ -18,7 +18,7 @@
 
 */
 
-#include <fstream>              // std::ifstream, std::ofstream
+#include <fstream>              // std::ifstream
 
 #include "hnco/neighborhoods/neighborhood.hh"
 
@@ -40,9 +40,7 @@ void load_map(T *map, const HncoOptions& options)
 {
   std::ifstream ifs(options.get_map_path());
   if (!ifs.good()) {
-    std::ostringstream stream;
-    stream << "load_map: Cannot open " << options.get_map_path();
-    throw Error(stream.str());
+    throw Error("load_map: Cannot open " + options.get_map_path());
   }
   try {
     boost::archive::text_iarchive archive(ifs);
@@ -95,9 +93,7 @@ make_map(const HncoOptions& options, int bv_size)
     } else {
       std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
-        std::ostringstream stream;
-        stream << "make_map (Composition of permutation and translation): Cannot open " << options.get_map_path();
-        throw Error(stream.str());
+        throw Error("make_map (Composition of permutation and translation): Cannot open " + options.get_map_path());
       }
       try {
         boost::archive::text_iarchive ia(ifs);
@@ -146,9 +142,7 @@ make_map(const HncoOptions& options, int bv_size)
   }
 
   default: {
-    std::ostringstream stream;
-    stream << "make_map: Unknown map type: " << options.get_map();
-    throw Error(stream.str());
+    throw Error("make_map: Unknown map type: " + options.get_map());
   }
 
   }
@@ -184,9 +178,7 @@ make_prior_noise_neighborhood(const HncoOptions& options, int bv_size)
        options.get_pn_radius());
 
   default:
-    std::ostringstream stream;
-    stream << "make_prior_noise_neighborhood: Unknown neighborhood type: " << options.get_neighborhood();
-    throw Error(stream.str());
+    throw Error("make_prior_noise_neighborhood: Unknown neighborhood type: " + options.get_neighborhood());
   }
 
 }
@@ -299,9 +291,7 @@ DecoratedFunctionFactory::make_function_controller(Function *function)
     if (function->has_known_maximum()) {
       function = new StopOnMaximum(function);
     } else {
-      std::ostringstream stream;
-      stream << "DecoratedFunctionFactory::make_function_controller (StopOnMaximum): Unknown maximum";
-      throw Error(stream.str());
+      throw Error("DecoratedFunctionFactory::make_function_controller (StopOnMaximum): Unknown maximum");
     }
 
   }

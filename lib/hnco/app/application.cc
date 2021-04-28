@@ -26,7 +26,6 @@
 #include <iostream>
 #include <fstream>              // std::ifstream, std::ofstream
 
-
 #include "hnco/algorithms/decorators/restart.hh"
 #include "hnco/exception.hh"
 #include "hnco/random.hh"
@@ -85,9 +84,7 @@ CommandLineApplication::load_solution()
   if (_options.with_load_solution()) {
     std::ifstream stream(_options.get_solution_path());
     if (!stream.good()) {
-      std::ostringstream stream;
-      stream << "CommandLineApplication::load_solution: Cannot open " << _options.get_solution_path();
-      throw Error(stream.str());
+      throw Error("CommandLineApplication::load_solution: Cannot open " + _options.get_solution_path());
     }
     bit_vector_t x = bv_from_stream(stream);
     if (int(x.size()) != _fn->get_bv_size())
