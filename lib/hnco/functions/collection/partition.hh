@@ -37,99 +37,141 @@ namespace hnco {
 namespace function {
 
 
-  /** %Partition.
+/** %Partition.
 
-      %Partition a finite multiset of positive integers into two
-      subsets such that the sum of numbers in the first subset is the
-      closest to the sum of numbers in the second subset.
+    %Partition a finite multiset of positive integers into two
+    subsets such that the sum of numbers in the first subset is the
+    closest to the sum of numbers in the second subset.
 
-      The function computes the negation of the distance between the
-      sum of numbers corresponding to ones in the bit vector and the
-      sum of those corresponding to zeros. The negation is a
-      consequence of the fact that algorithms in HNCO maximize rather
-      than minimize a function.
+    The function computes the negation of the distance between the
+    sum of numbers corresponding to ones in the bit vector and the
+    sum of those corresponding to zeros. The negation is a
+    consequence of the fact that algorithms in HNCO maximize rather
+    than minimize a function.
 
+*/
+class Partition: public Function {
+
+private:
+
+  friend class boost::serialization::access;
+
+  /// Serialize
+  template<class Archive>
+  void serialize(Archive& ar, const unsigned int version)
+  {
+    ar & _numbers;
+  }
+
+  /// Multiset of positive integers
+  std::vector<int> _numbers;
+
+public:
+
+  /// Constructor
+  Partition() {}
+
+
+  /** @name Instance generators
+   */
+  ///@{
+
+  /** Instance generator.
+
+      \param n Size of bit vectors
+      \param generator Number generator
   */
-  class Partition:
-    public Function {
+  template<class Generator>
+  void generate(int n, Generator generator) {
+    assert(n > 0);
 
-  private:
+    _numbers.resize(n);
+    for (size_t i = 0; i < _numbers.size(); i++)
+      _numbers[i] = generator();
+  }
 
-    friend class boost::serialization::access;
+  /** Random instance.
 
-    /// Serialize
-    template<class Archive>
-    void serialize(Archive& ar, const unsigned int version)
-    {
-      ar & _numbers;
+      The numbers are sampled from the uniform distribution on
+      [1..upper_bound].
+
+      \param n Size of bit vector
+      \param upper_bound Upper bound of positive integers
+  */
+  void random(int n, int upper_bound) {
+    assert(n > 0);
+    assert(upper_bound > 0);
+
+    std::uniform_int_distribution<int> dist(1, upper_bound);
+    generate(n, [&dist]() { return dist(hnco::random::Generator::engine); });
+  }
+
+  ///@}
+
+
+  /** @name Load and save instance
+   */
+  ///@{
+
+  /** Load instance.
+
+      \param path Path of the instance to load
+      \throw Error
+  */
+  void load(std::string path) {
+    std::ifstream stream(path);
+    if (!stream.good())
+      throw exception::Error("Partition::load: Cannot open " + path);
+    try {
+      boost::archive::text_iarchive archive(stream);
+      archive >> (*this);
     }
-
-    /// Multiset of positive integers
-    std::vector<int> _numbers;
-
-  public:
-
-    /// Constructor
-    Partition() {}
-
-
-    /** @name Instance generators
-     */
-    ///@{
-
-    /** Instance generator.
-
-        \param n Size of bit vectors
-        \param generator Number generator
-    */
-    template<class Generator>
-    void generate(int n, Generator generator) {
-      assert(n > 0);
-
-      _numbers.resize(n);
-      for (size_t i = 0; i < _numbers.size(); i++)
-        _numbers[i] = generator();
+    catch (boost::archive::archive_exception& e) {
+      throw exception::Error("Partition::load: " + std::string(e.what()));
     }
+  }
 
-    /** Random instance.
+  /** Save instance.
 
-        The numbers are sampled from the uniform distribution on
-        [1..upper_bound].
-
-        \param n Size of bit vector
-        \param upper_bound Upper bound of positive integers
-    */
-    void random(int n, int upper_bound) {
-      assert(n > 0);
-      assert(upper_bound > 0);
-
-      std::uniform_int_distribution<int> dist(1, upper_bound);
-      generate(n, [&dist]() { return dist(hnco::random::Generator::engine); });
+      \param path Path of the instance to save
+      \throw Error
+  */
+  void save(std::string path) const {
+    std::ofstream stream(path);
+    if (!stream.good())
+      throw exception::Error("Partition::save: Cannot open " + path);
+    try {
+      boost::archive::text_oarchive archive(stream);
+      archive << (*this);
     }
+    catch (boost::archive::archive_exception& e) {
+      throw exception::Error("Partition::save: " + std::string(e.what()));
+    }
+  }
 
-    ///@}
-
-
-    /// Get bit vector size
-    int get_bv_size() { return _numbers.size(); }
-
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+  ///@}
 
 
-    /** @name Display
-     */
-    ///@{
+  /// Get bit vector size
+  int get_bv_size() override { return _numbers.size(); }
 
-    /// Display
-    void display(std::ostream& stream);
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&) override;
 
-    /// Describe a bit vector
-    void describe(const bit_vector_t& x, std::ostream& stream);
 
-    ///@}
+  /** @name Display
+   */
+  ///@{
 
-  };
+  /// Display
+  void display(std::ostream& stream) override;
+
+  /// Describe a bit vector
+  void describe(const bit_vector_t& x, std::ostream& stream) override;
+
+  ///@}
+
+};
 
 
 } // end of namespace function

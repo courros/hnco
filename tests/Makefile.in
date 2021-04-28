@@ -146,6 +146,7 @@ check_PROGRAMS = test-bm-add-columns$(EXEEXT) \
 	test-injection-projection$(EXEEXT) \
 	test-one-plus-one-ea-one-max$(EXEEXT) \
 	test-population-evaluate-in-parallel$(EXEEXT) \
+	test-save-load-linear-function$(EXEEXT) \
 	test-sbm-multiply$(EXEEXT) test-serialize-affine-map$(EXEEXT) \
 	test-serialize-equal-products$(EXEEXT) \
 	test-serialize-linear-function$(EXEEXT) \
@@ -457,6 +458,12 @@ test_population_evaluate_in_parallel_OBJECTS =  \
 	$(am_test_population_evaluate_in_parallel_OBJECTS)
 test_population_evaluate_in_parallel_LDADD = $(LDADD)
 test_population_evaluate_in_parallel_DEPENDENCIES = ../lib/libhnco.la
+am_test_save_load_linear_function_OBJECTS =  \
+	test-save-load-linear-function.$(OBJEXT)
+test_save_load_linear_function_OBJECTS =  \
+	$(am_test_save_load_linear_function_OBJECTS)
+test_save_load_linear_function_LDADD = $(LDADD)
+test_save_load_linear_function_DEPENDENCIES = ../lib/libhnco.la
 am_test_sbm_multiply_OBJECTS = test-sbm-multiply.$(OBJEXT)
 test_sbm_multiply_OBJECTS = $(am_test_sbm_multiply_OBJECTS)
 test_sbm_multiply_LDADD = $(LDADD)
@@ -697,6 +704,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-columns.Po \
 	./$(DEPDIR)/test-injection-projection.Po \
 	./$(DEPDIR)/test-one-plus-one-ea-one-max.Po \
 	./$(DEPDIR)/test-population-evaluate-in-parallel.Po \
+	./$(DEPDIR)/test-save-load-linear-function.Po \
 	./$(DEPDIR)/test-sbm-multiply.Po \
 	./$(DEPDIR)/test-serialize-affine-map.Po \
 	./$(DEPDIR)/test-serialize-equal-products.Po \
@@ -788,6 +796,7 @@ SOURCES = $(test_bm_add_columns_SOURCES) $(test_bm_add_rows_SOURCES) \
 	$(test_injection_projection_SOURCES) \
 	$(test_one_plus_one_ea_one_max_SOURCES) \
 	$(test_population_evaluate_in_parallel_SOURCES) \
+	$(test_save_load_linear_function_SOURCES) \
 	$(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
@@ -861,6 +870,7 @@ DIST_SOURCES = $(test_bm_add_columns_SOURCES) \
 	$(test_injection_projection_SOURCES) \
 	$(test_one_plus_one_ea_one_max_SOURCES) \
 	$(test_population_evaluate_in_parallel_SOURCES) \
+	$(test_save_load_linear_function_SOURCES) \
 	$(test_sbm_multiply_SOURCES) \
 	$(test_serialize_affine_map_SOURCES) \
 	$(test_serialize_equal_products_SOURCES) \
@@ -1299,6 +1309,7 @@ test_incremental_walsh_expansion_1_SOURCES = test-incremental-walsh-expansion-1.
 test_injection_projection_SOURCES = test-injection-projection.cc
 test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_population_evaluate_in_parallel_SOURCES = test-population-evaluate-in-parallel.cc
+test_save_load_linear_function_SOURCES = test-save-load-linear-function.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
 test_serialize_equal_products_SOURCES = test-serialize-equal-products.cc
@@ -1333,6 +1344,7 @@ test_walsh_transform_SOURCES = test-walsh-transform.cc
 TESTS = $(check_PROGRAMS)
 DISTCLEANFILES = \
 	test-bv-from-stream.txt \
+	test-save-load-linear-function.txt \
 	test-serialize-affine-map.txt \
 	test-serialize-equal-products.txt \
 	test-serialize-linear-function.txt \
@@ -1581,6 +1593,10 @@ test-population-evaluate-in-parallel$(EXEEXT): $(test_population_evaluate_in_par
 	@rm -f test-population-evaluate-in-parallel$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_population_evaluate_in_parallel_OBJECTS) $(test_population_evaluate_in_parallel_LDADD) $(LIBS)
 
+test-save-load-linear-function$(EXEEXT): $(test_save_load_linear_function_OBJECTS) $(test_save_load_linear_function_DEPENDENCIES) $(EXTRA_test_save_load_linear_function_DEPENDENCIES) 
+	@rm -f test-save-load-linear-function$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_save_load_linear_function_OBJECTS) $(test_save_load_linear_function_LDADD) $(LIBS)
+
 test-sbm-multiply$(EXEEXT): $(test_sbm_multiply_OBJECTS) $(test_sbm_multiply_DEPENDENCIES) $(EXTRA_test_sbm_multiply_DEPENDENCIES) 
 	@rm -f test-sbm-multiply$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_sbm_multiply_OBJECTS) $(test_sbm_multiply_LDADD) $(LIBS)
@@ -1758,6 +1774,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-injection-projection.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-one-plus-one-ea-one-max.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-population-evaluate-in-parallel.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-save-load-linear-function.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-sbm-multiply.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-affine-map.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-equal-products.Po@am__quote@ # am--include-marker
@@ -2341,6 +2358,13 @@ test-population-evaluate-in-parallel.log: test-population-evaluate-in-parallel$(
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-save-load-linear-function.log: test-save-load-linear-function$(EXEEXT)
+	@p='test-save-load-linear-function$(EXEEXT)'; \
+	b='test-save-load-linear-function'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-sbm-multiply.log: test-sbm-multiply$(EXEEXT)
 	@p='test-sbm-multiply$(EXEEXT)'; \
 	b='test-sbm-multiply'; \
@@ -2706,6 +2730,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-injection-projection.Po
 	-rm -f ./$(DEPDIR)/test-one-plus-one-ea-one-max.Po
 	-rm -f ./$(DEPDIR)/test-population-evaluate-in-parallel.Po
+	-rm -f ./$(DEPDIR)/test-save-load-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-sbm-multiply.Po
 	-rm -f ./$(DEPDIR)/test-serialize-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-equal-products.Po
@@ -2829,6 +2854,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-injection-projection.Po
 	-rm -f ./$(DEPDIR)/test-one-plus-one-ea-one-max.Po
 	-rm -f ./$(DEPDIR)/test-population-evaluate-in-parallel.Po
+	-rm -f ./$(DEPDIR)/test-save-load-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-sbm-multiply.Po
 	-rm -f ./$(DEPDIR)/test-serialize-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-equal-products.Po

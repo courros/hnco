@@ -39,103 +39,145 @@ namespace hnco {
 namespace function {
 
 
-  /** Walsh expansion.
+/** Walsh expansion.
 
-      Its expression is of the form
+    Its expression is of the form
 
-      \f$ f(x) = \sum_u a_u (-1)^{x \cdot u} \f$
+    \f$ f(x) = \sum_u a_u (-1)^{x \cdot u} \f$
 
-      where the sum is over a subset of \f$ \{0, 1\}^n \f$ and \f$ x
-      \cdot u = \sum_i x_i u_i \f$ is mod 2. The real numbers \f$ a_u
-      \f$ are the coefficients of the expansion and the bit vectors
-      \f$ u \f$ are its feature vectors.
+    where the sum is over a subset of \f$ \{0, 1\}^n \f$ and \f$ x
+    \cdot u = \sum_i x_i u_i \f$ is mod 2. The real numbers \f$ a_u
+    \f$ are the coefficients of the expansion and the bit vectors
+    \f$ u \f$ are its feature vectors.
+*/
+class WalshExpansion: public Function {
+
+private:
+
+  friend class boost::serialization::access;
+
+  /// Save
+  template<class Archive>
+  void serialize(Archive& ar, const unsigned int version)
+  {
+    ar & _terms;
+  }
+
+  /// Terms
+  std::vector<function::WalshTerm> _terms;
+
+public:
+
+  /// Constructor
+  WalshExpansion() {}
+
+
+  /** @name Instance generators
+   */
+  ///@{
+
+  /** Instance generator.
+
+      \param n Size of bit vectors
+      \param num_features Number of feature vectors
+      \param generator Coefficient generator
   */
-  class WalshExpansion:
-    public Function {
+  template<class Generator>
+  void generate(int n, int num_features, Generator generator) {
+    assert(n > 0);
+    assert(num_features > 0);
 
-  private:
+    bit_vector_t bv(n);
+    std::vector<bool> feature(n);
 
-    friend class boost::serialization::access;
+    _terms.resize(num_features);
 
-    /// Save
-    template<class Archive>
-    void serialize(Archive& ar, const unsigned int version)
-    {
-      ar & _terms;
+    for (size_t i = 0; i < _terms.size(); i++) {
+      WalshTerm& t = _terms[i];
+      bv_random(bv);
+      bv_to_vector_bool(feature, bv);
+      t.feature = feature;
+      t.coefficient = generator();
     }
 
-    /// Terms
-    std::vector<function::WalshTerm> _terms;
+  }
 
-  public:
+  /** Random instance.
 
-    /// Constructor
-    WalshExpansion() {}
+      The coefficients are sampled from the normal distribution.
+
+      \param n Size of bit vector
+      \param num_features Number of feature vectors
+  */
+  void random(int n, int num_features) {
+    assert(n > 0);
+    assert(num_features > 0);
+
+    generate(n, num_features, hnco::random::Generator::normal);
+  }
+
+  ///@}
 
 
-    /** @name Instance generators
-     */
-    ///@{
+  /** @name Load and save instance
+   */
+  ///@{
 
-    /** Instance generator.
+  /** Load instance.
 
-        \param n Size of bit vectors
-        \param num_features Number of feature vectors
-        \param generator Coefficient generator
-    */
-    template<class Generator>
-    void generate(int n, int num_features, Generator generator) {
-      assert(n > 0);
-      assert(num_features > 0);
-
-      bit_vector_t bv(n);
-      std::vector<bool> feature(n);
-
-      _terms.resize(num_features);
-
-      for (size_t i = 0; i < _terms.size(); i++) {
-        WalshTerm& t = _terms[i];
-        bv_random(bv);
-        bv_to_vector_bool(feature, bv);
-        t.feature = feature;
-        t.coefficient = generator();
-      }
-
+      \param path Path of the instance to load
+      \throw Error
+  */
+  void load(std::string path) {
+    std::ifstream stream(path);
+    if (!stream.good())
+      throw exception::Error("WalshExpansion::load: Cannot open " + path);
+    try {
+      boost::archive::text_iarchive archive(stream);
+      archive >> (*this);
     }
-
-    /** Random instance.
-
-        The coefficients are sampled from the normal distribution.
-
-        \param n Size of bit vector
-        \param num_features Number of feature vectors
-    */
-    void random(int n, int num_features) {
-      assert(n > 0);
-      assert(num_features > 0);
-
-      generate(n, num_features, hnco::random::Generator::normal);
+    catch (boost::archive::archive_exception& e) {
+      throw exception::Error("WalshExpansion::load: " + std::string(e.what()));
     }
+  }
 
-    ///@}
+  /** Save instance.
 
-
-    /// Get bit vector size
-    int get_bv_size() {
-      assert(_terms.size() > 0);
-      return _terms[0].feature.size();
+      \param path Path of the instance to save
+      \throw Error
+  */
+  void save(std::string path) const {
+    std::ofstream stream(path);
+    if (!stream.good())
+      throw exception::Error("WalshExpansion::save: Cannot open " + path);
+    try {
+      boost::archive::text_oarchive archive(stream);
+      archive << (*this);
     }
+    catch (boost::archive::archive_exception& e) {
+      throw exception::Error("WalshExpansion::save: " + std::string(e.what()));
+    }
+  }
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+  ///@}
 
-    /// Display
-    void display(std::ostream& stream);
 
-    /// Set terms
-    void set_terms(const std::vector<function::WalshTerm> terms) { _terms = terms; }
+  /// Get bit vector size
+  int get_bv_size() override {
+    assert(_terms.size() > 0);
+    return _terms[0].feature.size();
+  }
 
-  };
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&) override;
+
+  /// Display
+  void display(std::ostream& stream) override;
+
+  /// Set terms
+  void set_terms(const std::vector<function::WalshTerm> terms) { _terms = terms; }
+
+};
 
 
 } // end of namespace function

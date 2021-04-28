@@ -122,10 +122,19 @@ public:
   ///@{
 
   /// Display
-  virtual void display(std::ostream& stream) {}
+  virtual void display(std::ostream& stream) { stream << "Function" << std::endl; }
+
+  /// Display to standard output
+  virtual void display() { display(std::cout); }
 
   /// Describe a bit vector
-  virtual void describe(const bit_vector_t& x, std::ostream& stream) {}
+  virtual void describe(const bit_vector_t& x, std::ostream& stream) {
+    bv_display(x, stream);
+    stream << std::endl;
+  }
+
+  /// Describe a bit vector to standard output
+  virtual void describe(const bit_vector_t& x) { describe(x, std::cout); }
 
   ///@}
 

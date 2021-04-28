@@ -58,7 +58,7 @@ has_next_variable(std::istringstream& stream)
 
 
 void
-AbstractMaxSat::load(std::istream& stream)
+AbstractMaxSat::load_(std::istream& stream)
 {
   _expression.clear();
   _num_variables = 0;
@@ -150,7 +150,7 @@ AbstractMaxSat::load(std::istream& stream)
 
 
 void
-AbstractMaxSat::save(std::ostream& stream) const
+AbstractMaxSat::save_(std::ostream& stream) const
 {
   stream
     << "c HNCO AbstractMaxSat::save" << std::endl
@@ -275,16 +275,6 @@ MaxSat::evaluate(const bit_vector_t& x)
   }
 
   return result;
-}
-
-
-void
-MaxNae3Sat::load(std::istream& stream)
-{
-  AbstractMaxSat::load(stream);
-  for (auto& clause: _expression)
-    if (clause.size() != 3)
-      throw Error("MaxNae3Sat::load: All clauses must have exactly 3 literals");
 }
 
 

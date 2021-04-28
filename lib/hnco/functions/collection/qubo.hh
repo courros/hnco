@@ -22,8 +22,8 @@
 #define HNCO_FUNCTIONS_COLLECTION_QUBO_H
 
 #include <iostream>
-#include <vector>
 #include <fstream>
+#include <vector>
 
 #include "hnco/functions/function.hh"
 
@@ -32,72 +32,92 @@ namespace hnco {
 namespace function {
 
 
-  /** Quadratic unconstrained binary optimization.
+/** Quadratic unconstrained binary optimization.
 
-      Its expression is of the form \f$ f(x) = \sum_i Q_{ii} x_i +
-      \sum_{i < j} Q_{ij} x_i x_j = x^TQx\f$, where Q is an n x n
-      upper-triangular matrix.
+    Its expression is of the form \f$ f(x) = \sum_i Q_{ii} x_i +
+    \sum_{i < j} Q_{ij} x_i x_j = x^TQx\f$, where Q is an n x n
+    upper-triangular matrix.
 
-      Qubo is the problem addressed by qbsolv. Here is its description
-      as given on github:
+    Qubo is the problem addressed by qbsolv. Here is its description
+    as given on github:
 
-      Qbsolv, a decomposing solver, finds a minimum value of a large
-      quadratic unconstrained binary optimization (QUBO) problem by
-      splitting it into pieces solved either via a D-Wave system or a
-      classical tabu solver.
+    Qbsolv, a decomposing solver, finds a minimum value of a large
+    quadratic unconstrained binary optimization (QUBO) problem by
+    splitting it into pieces solved either via a D-Wave system or a
+    classical tabu solver.
 
-      There are some differences between WalshExpansion2 and Qubo:
+    There are some differences between WalshExpansion2 and Qubo:
 
-      - WalshExpansion2 maps 0/1 variables into -1/1 variables
-        whereas Qubo directly deals with binary variables.
+    - WalshExpansion2 maps 0/1 variables into -1/1 variables
+    whereas Qubo directly deals with binary variables.
 
-      - Hence, there is a separate linear part in WalshExpansion2
-        whereas the linear part in Qubo stems from the diagonal
-        elements of the given matrix.
+    - Hence, there is a separate linear part in WalshExpansion2
+    whereas the linear part in Qubo stems from the diagonal
+    elements of the given matrix.
 
-      qbsolv aims at minimizing quadratic functions whereas hnco
-      algorithms aim at maximizing them. Hence Qubo::load negates all
-      elements so that maximizing the resulting function is equivalent
-      to minimizing the original Qubo.
+    qbsolv aims at minimizing quadratic functions whereas hnco
+    algorithms aim at maximizing them. Hence Qubo::load negates all
+    elements so that maximizing the resulting function is equivalent
+    to minimizing the original Qubo.
 
-      References:
+    References:
 
-      Michael Booth, Steven P. Reinhardt, and Aidan
-      Roy. 2017. Partitioning Optimization Problems for Hybrid
-      Classical/Quantum Execution. Technical Report.  D-Wave.
+    Michael Booth, Steven P. Reinhardt, and Aidan
+    Roy. 2017. Partitioning Optimization Problems for Hybrid
+    Classical/Quantum Execution. Technical Report.  D-Wave.
 
-      https://github.com/dwavesystems/qbsolv
+    https://github.com/dwavesystems/qbsolv
 
-      http://people.brunel.ac.uk/~mastjjb/jeb/orlib/bqpinfo.html
+    http://people.brunel.ac.uk/~mastjjb/jeb/orlib/bqpinfo.html
 
+*/
+class Qubo: public Function {
+
+private:
+
+  /** Matrix.
+
+      n x n upper triangular matrix.
   */
-  class Qubo:
-    public Function {
+  std::vector<std::vector<double> > _q;
 
-  private:
+  /** Load an instance.
 
-    /** Matrix.
+      \throw Error
+  */
+  void load(std::istream& stream);
 
-        n x n upper triangular matrix.
-    */
-    std::vector<std::vector<double> > _q;
+public:
 
-  public:
+  /// Constructor
+  Qubo() {}
 
-    /// Constructor
-    Qubo() {}
 
-    /** Load an instance.
-        \throw Error */
-    void load(std::istream& stream);
+  /** @name Load and save instance
+   */
+  ///@{
 
-    /// Get bit vector size
-    int get_bv_size() { return _q.size(); }
+  /** Load instance.
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+      \param path Path of the instance to load
+      \throw Error
+  */
+  void load(std::string path) {
+    std::ifstream stream(path);
+    if (!stream.good())
+      throw exception::Error("Qubo::load: Cannot open " + path);
+    load(stream);
+  }
 
-  };
+  ///@}
+
+  /// Get bit vector size
+  int get_bv_size() override { return _q.size(); }
+
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&) override;
+
+};
 
 
 } // end of namespace function

@@ -36,154 +36,198 @@ namespace hnco {
 namespace function {
 
 
-  /** Nearest neighbor Ising model in one dimension.
+/** Nearest neighbor Ising model in one dimension.
 
-      Its expression is of the form
+    Its expression is of the form
 
-      \f$ f(x) = \sum_i J_{i,i+1} (1 - 2x_i)(1 - 2x_{i+1}) + \sum_i h_i (1 - 2x_i)\f$
+    \f$ f(x) = \sum_i J_{i,i+1} (1 - 2x_i)(1 - 2x_{i+1}) + \sum_i h_i (1 - 2x_i)\f$
 
-      or equivalently
+    or equivalently
 
-      \f$ f(x) = \sum_i J_{i,i+1} (-1)^{x_i + x_{i+1}} + \sum_i h_i
-      (-1)^{x_i}\f$
+    \f$ f(x) = \sum_i J_{i,i+1} (-1)^{x_i + x_{i+1}} + \sum_i h_i
+    (-1)^{x_i}\f$
 
-      where \f$J_{i,i+1}\f$ is the interaction between adjacent sites
-      i and i+1 and \f$h_i\f$ is the external magnetic field
-      interacting with site i.
+    where \f$J_{i,i+1}\f$ is the interaction between adjacent sites
+    i and i+1 and \f$h_i\f$ is the external magnetic field
+    interacting with site i.
 
-      In the case of periodic boundary conditions, the sum \f$i+1\f$
-      is mod n.
+    In the case of periodic boundary conditions, the sum \f$i+1\f$
+    is mod n.
 
-      Since we are maximizing f or minimizing -f, the expression of f
-      is compatible with what can be found in physics textbooks.
+    Since we are maximizing f or minimizing -f, the expression of f
+    is compatible with what can be found in physics textbooks.
 
-      It should be noted that such an Ising model can be represented
-      by a Walsh expansion of degree 2, that is WalshExpansion2.
+    It should be noted that such an Ising model can be represented
+    by a Walsh expansion of degree 2, that is WalshExpansion2.
 
-      Reference: https://en.wikipedia.org/wiki/Ising_model
-  */
-  class NearestNeighborIsingModel1:
+    Reference: https://en.wikipedia.org/wiki/Ising_model
+*/
+class NearestNeighborIsingModel1:
     public Function {
 
-  private:
+private:
 
-    friend class boost::serialization::access;
+  friend class boost::serialization::access;
 
-    /// Save
-    template<class Archive>
-    void save(Archive& ar, const unsigned int version) const
-    {
-      ar & _coupling;
-      ar & _field;
-      ar & _periodic_boundary_conditions;
+  /// Save
+  template<class Archive>
+  void save(Archive& ar, const unsigned int version) const
+  {
+    ar & _coupling;
+    ar & _field;
+    ar & _periodic_boundary_conditions;
+  }
+
+  /// Load
+  template<class Archive>
+  void load(Archive& ar, const unsigned int version)
+  {
+    ar & _coupling;
+    ar & _field;
+    ar & _periodic_boundary_conditions;
+
+    _flipped_bits = bit_vector_t(get_bv_size(), 0);
+  }
+
+  BOOST_SERIALIZATION_SPLIT_MEMBER()
+
+  /// Coupling with nearest neighbor to the right
+  std::vector<double> _coupling;
+
+  /// External field
+  std::vector<double> _field;
+
+  /// Flipped bits
+  bit_vector_t _flipped_bits;
+
+  /// Periodic boundary conditions
+  bool _periodic_boundary_conditions = false;
+
+  /// Resize data structures
+  void resize(int n);
+
+public:
+
+  /// Constructor
+  NearestNeighborIsingModel1() {}
+
+
+  /** @name Instance generators
+   */
+  ///@{
+
+  /** Instance generator.
+
+      \param n Size of bit vectors
+      \param coupling_gen Coupling generator
+      \param field_gen External field generator
+  */
+  template<class CouplingGen, class FieldGen>
+  void generate(int n, CouplingGen coupling_gen, FieldGen field_gen) {
+    assert(n > 0);
+
+    resize(n);
+    for (size_t i = 0; i < _coupling.size(); i++) {
+      _coupling[i] = coupling_gen();
+      _field[i] = field_gen();
     }
+  }
 
-    /// Load
-    template<class Archive>
-    void load(Archive& ar, const unsigned int version)
-    {
-      ar & _coupling;
-      ar & _field;
-      ar & _periodic_boundary_conditions;
+  /** Random instance.
 
-      _flipped_bits = bit_vector_t(get_bv_size(), 0);
+      The weights are sampled from the normal distribution.
+
+      \param n Size of bit vector
+  */
+  void random(int n) {
+    assert(n > 0);
+
+    generate(n, hnco::random::Generator::normal, hnco::random::Generator::normal);
+  }
+
+  ///@}
+
+
+  /** @name Load and save instance
+   */
+  ///@{
+
+  /** Load instance.
+
+      \param path Path of the instance to load
+      \throw Error
+  */
+  void load(std::string path) {
+    std::ifstream stream(path);
+    if (!stream.good())
+      throw exception::Error("NearestNeighborIsingModel1::load: Cannot open " + path);
+    try {
+      boost::archive::text_iarchive archive(stream);
+      archive >> (*this);
     }
-
-    BOOST_SERIALIZATION_SPLIT_MEMBER()
-
-    /// Coupling with nearest neighbor to the right
-    std::vector<double> _coupling;
-
-    /// External field
-    std::vector<double> _field;
-
-    /// Flipped bits
-    bit_vector_t _flipped_bits;
-
-    /// Periodic boundary conditions
-    bool _periodic_boundary_conditions = false;
-
-    /// Resize data structures
-    void resize(int n);
-
-  public:
-
-    /// Constructor
-    NearestNeighborIsingModel1() {}
-
-
-    /** @name Instance generators
-     */
-    ///@{
-
-    /** Instance generator.
-
-        \param n Size of bit vectors
-        \param coupling_gen Coupling generator
-        \param field_gen External field generator
-    */
-    template<class CouplingGen, class FieldGen>
-    void generate(int n, CouplingGen coupling_gen, FieldGen field_gen) {
-      assert(n > 0);
-
-      resize(n);
-      for (size_t i = 0; i < _coupling.size(); i++) {
-        _coupling[i] = coupling_gen();
-        _field[i] = field_gen();
-      }
+    catch (boost::archive::archive_exception& e) {
+      throw exception::Error("NearestNeighborIsingModel1::load: " + std::string(e.what()));
     }
+  }
 
-    /** Random instance.
+  /** Save instance.
 
-        The weights are sampled from the normal distribution.
-
-        \param n Size of bit vector
-    */
-    void random(int n) {
-      assert(n > 0);
-
-      generate(n, hnco::random::Generator::normal, hnco::random::Generator::normal);
+      \param path Path of the instance to save
+      \throw Error
+  */
+  void save(std::string path) const {
+    std::ofstream stream(path);
+    if (!stream.good())
+      throw exception::Error("NearestNeighborIsingModel1::save: Cannot open " + path);
+    try {
+      boost::archive::text_oarchive archive(stream);
+      archive << (*this);
     }
+    catch (boost::archive::archive_exception& e) {
+      throw exception::Error("NearestNeighborIsingModel1::save: " + std::string(e.what()));
+    }
+  }
 
-    ///@}
+  ///@}
 
 
-    /** @name Evaluation
-     */
-    ///@{
+  /// Set periodic boundary conditions
+  void set_periodic_boundary_conditions(bool x) { _periodic_boundary_conditions = x; }
 
-    /** Evaluate a bit vector.
 
-        Complexity: O(n)
-    */
-    double evaluate(const bit_vector_t&);
+  /** @name Evaluation
+   */
+  ///@{
 
-    /// Incrementally evaluate a bit vector
-    double evaluate_incrementally(const bit_vector_t& x, double v, const sparse_bit_vector_t& flipped_bits);
+  /** Evaluate a bit vector.
 
-    ///@}
+      Complexity: O(n)
+  */
+  double evaluate(const bit_vector_t&) override;
 
-    /** @name Information about the function
-     */
-    ///@{
+  /// Incrementally evaluate a bit vector
+  double evaluate_incrementally(const bit_vector_t& x, double v, const sparse_bit_vector_t& flipped_bits) override;
 
-    /// Get bit vector size
-    int get_bv_size() { return _coupling.size(); }
+  ///@}
 
-    /** Check whether the function provides incremental evaluation.
-        \return true
-    */
-    bool provides_incremental_evaluation() { return true; }
+  /** @name Information about the function
+   */
+  ///@{
 
-    ///@}
+  /// Get bit vector size
+  int get_bv_size() override { return _coupling.size(); }
 
-    /// Set periodic boundary conditions
-    void set_periodic_boundary_conditions(bool x) { _periodic_boundary_conditions = x; }
+  /** Check whether the function provides incremental evaluation.
+      \return true
+  */
+  bool provides_incremental_evaluation() override { return true; }
 
-    /// Display
-    void display(std::ostream& stream);
+  /// Display
+  void display(std::ostream& stream) override;
 
-  };
+  ///@}
+
+};
 
 
 } // end of namespace function

@@ -22,6 +22,7 @@
 #define HNCO_FUNCTIONS_COLLECTION_SUDOKU_H
 
 #include <iostream>
+#include <fstream>              // std:ifstream, std::ofstream
 #include <vector>
 
 
@@ -57,6 +58,21 @@ private:
   /// Write variables
   void write_variables(const std::vector<domain_type>& x);
 
+  /** @name Load and save instance
+   */
+  ///@{
+
+  /** Load an instance.
+
+      \throw Error
+  */
+  void load_(std::istream& stream);
+
+  /// Save an instance
+  void save_(std::ostream& stream) const;
+
+  ///@}
+
 public:
 
   /// Default constructor
@@ -66,30 +82,53 @@ public:
     , _counts(10)
   {}
 
-  /** Load an instance.
-      \throw Error */
-  void load(std::istream& stream);
-
-  /// Save an instance
-  void save(std::ostream& stream) const;
-
   /** Random instance.
 
       \param c Number of empty cells
   */
   void random(int c);
 
+  /** @name Load and save instance
+   */
+  ///@{
+
+  /** Load instance.
+
+      \param path Path of the instance to load
+      \throw Error
+  */
+  void load(std::string path) {
+    std::ifstream stream(path);
+    if (!stream.good())
+      throw exception::Error("Sudoku::load: Cannot open " + path);
+    load_(stream);
+  }
+
+  /** Save instance.
+
+      \param path Path of the instance to save
+      \throw Error
+  */
+  void save(std::string path) const {
+    std::ofstream stream(path);
+    if (!stream.good())
+      throw exception::Error("Sudoku::save: Cannot open " + path);
+    save_(stream);
+  }
+
+  ///@}
+
+  /// Get the number of variables
+  int get_num_variables() { return _num_variables; }
+
   /// Display the problem
   void display(std::ostream& stream);
-
-  /// Evaluate a solution
-  double evaluate(const std::vector<domain_type>& x);
 
   /// Describe a solution
   void describe(const std::vector<domain_type>& x, std::ostream& stream);
 
-  /// Get the number of variables
-  int get_num_variables() { return _num_variables; }
+  /// Evaluate a solution
+  double evaluate(const std::vector<domain_type>& x);
 
 };
 

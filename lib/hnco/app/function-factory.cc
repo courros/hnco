@@ -19,7 +19,6 @@
 */
 
 #include <iostream>
-#include <fstream>              // std::ifstream, std::ofstream
 
 #include "config.h"
 
@@ -31,38 +30,6 @@ using namespace hnco::app;
 using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco;
-
-
-template<class T>
-void load_function_from_boost_archive(T *fn, const HncoOptions& options)
-{
-  std::ifstream ifs(options.get_path());
-  if (!ifs.good()) {
-    std::ostringstream stream;
-    stream << "load_function_from_boost_archive: Cannot open " << options.get_path();
-    throw Error(stream.str());
-  }
-  try {
-    boost::archive::text_iarchive archive(ifs);
-    archive >> (*fn);
-  }
-  catch (boost::archive::archive_exception& e) {
-    throw Error(e.what());
-  }
-}
-
-
-template<class T>
-void load_function_from_file(T *fn, const HncoOptions& options)
-{
-  std::ifstream ifs(options.get_path());
-  if (!ifs.good()) {
-    std::ostringstream stream;
-    stream << "load_function_from_file: Cannot open " << options.get_path();
-    throw Error(stream.str());
-  }
-  fn->load(ifs);
-}
 
 
 Function *
@@ -78,15 +45,15 @@ CommandLineFunctionFactory::make()
       (_options.get_bv_size());
 
   case 1: {
-    LinearFunction* function = new LinearFunction;
-    load_function_from_boost_archive<LinearFunction>(function, _options);
-    return function;
+    LinearFunction* instance = new LinearFunction;
+    instance->load(_options.get_path());
+    return instance;
   }
 
   case 5: {
-    LinearFunction* function = new LinearFunction;
-    function->generate(_options.get_bv_size(), [w = 1] () mutable { double result = w; w *= 2; return result; });
-    return function;
+    LinearFunction* instance = new LinearFunction;
+    instance->generate(_options.get_bv_size(), [w = 1] () mutable { double result = w; w *= 2; return result; });
+    return instance;
   }
 
   case 10:
@@ -122,27 +89,27 @@ CommandLineFunctionFactory::make()
        _options.get_fn_threshold());
 
   case 50: {
-    Qubo* function = new Qubo;
-    load_function_from_file<Qubo>(function, _options);
-    return function;
+    Qubo* instance = new Qubo;
+    instance->load(_options.get_path());
+    return instance;
   }
 
   case 60: {
-    NkLandscape* function = new NkLandscape;
-    load_function_from_boost_archive<NkLandscape>(function, _options);
-    return function;
+    NkLandscape* instance = new NkLandscape;
+    instance->load(_options.get_path());
+    return instance;
   }
 
   case 70: {
-    MaxSat *function = new MaxSat;
-    load_function_from_file<MaxSat>(function, _options);
-    return function;
+    MaxSat *instance = new MaxSat;
+    instance->load(_options.get_path());
+    return instance;
   }
 
   case 71: {
-    MaxNae3Sat *function = new MaxNae3Sat;
-    load_function_from_file<MaxNae3Sat>(function, _options);
-    return function;
+    MaxNae3Sat *instance = new MaxNae3Sat;
+    instance->load(_options.get_path());
+    return instance;
   }
 
   case 80:
@@ -154,15 +121,15 @@ CommandLineFunctionFactory::make()
       (_options.get_bv_size());
 
   case 90: {
-    EqualProducts* function = new EqualProducts;
-    load_function_from_boost_archive<EqualProducts>(function, _options);
-    return function;
+    EqualProducts* instance = new EqualProducts;
+    instance->load(_options.get_path());
+    return instance;
   }
 
   case 91: {
-    Partition* function = new Partition;
-    load_function_from_boost_archive<Partition>(function, _options);
-    return function;
+    Partition* instance = new Partition;
+    instance->load(_options.get_path());
+    return instance;
   }
 
   case 100:
@@ -193,40 +160,40 @@ CommandLineFunctionFactory::make()
 
 #ifdef ENABLE_FACTORIZATION
   case 150: {
-    Factorization *function = new Factorization;
-    load_function_from_file<Factorization>(function, _options);
-    return function;
+    Factorization *instance = new Factorization;
+    instance->load(_options.get_path());
+    return instance;
   }
 #endif
 
   case 160: {
-    WalshExpansion* function = new WalshExpansion;
-    load_function_from_boost_archive<WalshExpansion>(function, _options);
-    return function;
+    WalshExpansion* instance = new WalshExpansion;
+    instance->load(_options.get_path());
+    return instance;
   }
 
   case 161: {
-    WalshExpansion1* function = new WalshExpansion1;
-    load_function_from_boost_archive<WalshExpansion1>(function, _options);
-    return function;
+    WalshExpansion1* instance = new WalshExpansion1;
+    instance->load(_options.get_path());
+    return instance;
   }
 
   case 162: {
-    WalshExpansion2* function = new WalshExpansion2;
-    load_function_from_boost_archive<WalshExpansion2>(function, _options);
-    return function;
+    WalshExpansion2* instance = new WalshExpansion2;
+    instance->load(_options.get_path());
+    return instance;
   }
 
   case 171: {
-    NearestNeighborIsingModel1* function = new NearestNeighborIsingModel1;
-    load_function_from_boost_archive<NearestNeighborIsingModel1>(function, _options);
-    return function;
+    NearestNeighborIsingModel1* instance = new NearestNeighborIsingModel1;
+    instance->load(_options.get_path());
+    return instance;
   }
 
   case 172: {
-    NearestNeighborIsingModel2* function = new NearestNeighborIsingModel2;
-    load_function_from_boost_archive<NearestNeighborIsingModel2>(function, _options);
-    return function;
+    NearestNeighborIsingModel2* instance = new NearestNeighborIsingModel2;
+    instance->load(_options.get_path());
+    return instance;
   }
 
   case 180: {
@@ -234,13 +201,13 @@ CommandLineFunctionFactory::make()
     using Rep = DyadicRealRepresentation<double>;
     using Fn = ParsedMultivariateFunction<FunctionParser>;
     using Conv = ScalarToDouble<double>;
-    auto fn = new Fn(_options.get_fp_expression());
+    auto instance = new Fn(_options.get_fp_expression());
     auto reps = std::vector<Rep>
-      (fn->get_num_variables(),
+      (instance->get_num_variables(),
        Rep(_options.get_fp_num_bits(),
            _options.get_fp_lower_bound(),
            _options.get_fp_upper_bound()));
-    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(fn, reps);
+    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
   }
 
   case 181: {
@@ -248,13 +215,13 @@ CommandLineFunctionFactory::make()
     using Rep = DyadicIntegerRepresentation<long>;
     using Fn = ParsedMultivariateFunction<FunctionParser_li>;
     using Conv = ScalarToDouble<long>;
-    auto fn = new Fn(_options.get_fp_expression());
+    auto instance = new Fn(_options.get_fp_expression());
     auto reps = std::vector<Rep>
-      (fn->get_num_variables(),
+      (instance->get_num_variables(),
        Rep(_options.get_fp_num_bits(),
            _options.get_fp_lower_bound(),
            _options.get_fp_upper_bound()));
-    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(fn, reps);
+    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
   }
 
   case 182: {
@@ -262,36 +229,34 @@ CommandLineFunctionFactory::make()
     using Rep = DyadicComplexRepresentation<double>;
     using Fn = ParsedMultivariateFunction<FunctionParser_cd>;
     using Conv = ComplexToDouble<double>;
-    auto fn = new Fn(_options.get_fp_expression());
+    auto instance = new Fn(_options.get_fp_expression());
     auto reps = std::vector<Rep>
-      (fn->get_num_variables(),
+      (instance->get_num_variables(),
        Rep(_options.get_fp_num_bits(),
            _options.get_fp_lower_bound(),
            _options.get_fp_upper_bound()));
-    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(fn, reps);
+    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
   }
 
   case 190: {
     using namespace hnco::function::representation;
     using Fn = Sudoku;
     using Conv = ScalarToDouble<double>;
-    auto fn = new Fn();
-    load_function_from_file<Sudoku>(fn, _options);
+    auto instance = new Fn();
+    instance->load(_options.get_path());
     switch (_options.get_rep_categorical_representation()) {
     case 0: {
       using Rep = IntegerCategoricalRepresentation;
-      auto reps = std::vector<Rep>(fn->get_num_variables(), Rep(9));
-      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(fn, reps);
+      auto reps = std::vector<Rep>(instance->get_num_variables(), Rep(9));
+      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
     }
     case 1: {
       using Rep = LinearCategoricalRepresentation;
-      auto reps = std::vector<Rep>(fn->get_num_variables(), Rep(9));
-      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(fn, reps);
+      auto reps = std::vector<Rep>(instance->get_num_variables(), Rep(9));
+      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
     }
     default:
-      std::ostringstream stream;
-      stream << "CommandLineFunctionFactory::make: Unknown categorical representation type: " << _options.get_rep_categorical_representation();
-      throw Error(stream.str());
+      throw Error("CommandLineFunctionFactory::make: Unknown categorical representation type: " + _options.get_rep_categorical_representation());
     }
   }
 
@@ -304,9 +269,7 @@ CommandLineFunctionFactory::make()
 #endif
 
   default:
-    std::ostringstream stream;
-    stream << "CommandLineFunctionFactory::make: Unknown function type: " << _options.get_function();
-    throw Error(stream.str());
+    throw Error("CommandLineFunctionFactory::make: Unknown function type: " + _options.get_function());
   }
 
 }

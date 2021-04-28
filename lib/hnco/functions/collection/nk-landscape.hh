@@ -44,8 +44,7 @@ namespace function {
     and selection in evolution. Oxford University Press.
 
 */
-class NkLandscape:
-    public Function {
+class NkLandscape: public Function {
 
 private:
 
@@ -117,14 +116,58 @@ public:
   ///@}
 
 
+  /** @name Load and save instance
+   */
+  ///@{
+
+  /** Load instance.
+
+      \param path Path of the instance to load
+      \throw Error
+  */
+  void load(std::string path) {
+    std::ifstream stream(path);
+    if (!stream.good())
+      throw exception::Error("NkLandscape::load: Cannot open " + path);
+    try {
+      boost::archive::text_iarchive archive(stream);
+      archive >> (*this);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw exception::Error("NkLandscape::load: " + std::string(e.what()));
+    }
+  }
+
+  /** Save instance.
+
+      \param path Path of the instance to save
+      \throw Error
+  */
+  void save(std::string path) const {
+    std::ofstream stream(path);
+    if (!stream.good())
+      throw exception::Error("NkLandscape::save: Cannot open " + path);
+    try {
+      boost::archive::text_oarchive archive(stream);
+      archive << (*this);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw exception::Error("NkLandscape::save: " + std::string(e.what()));
+    }
+  }
+
+  ///@}
+
+
+
   /// Get bit vector size
-  int get_bv_size() { return _partial_functions.size(); }
+  int get_bv_size() override { return _partial_functions.size(); }
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&);
+  double evaluate(const bit_vector_t&) override;
 
   /// Display
-  void display(std::ostream& stream);
+  void display(std::ostream& stream) override;
 
 };
 

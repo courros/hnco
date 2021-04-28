@@ -63,6 +63,7 @@ check_PROGRAMS = \
 	test-injection-projection \
 	test-one-plus-one-ea-one-max \
 	test-population-evaluate-in-parallel \
+	test-save-load-linear-function \
 	test-sbm-multiply \
 	test-serialize-affine-map \
 	test-serialize-equal-products \
@@ -152,6 +153,7 @@ test_incremental_walsh_expansion_1_SOURCES = test-incremental-walsh-expansion-1.
 test_injection_projection_SOURCES = test-injection-projection.cc
 test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_population_evaluate_in_parallel_SOURCES = test-population-evaluate-in-parallel.cc
+test_save_load_linear_function_SOURCES = test-save-load-linear-function.cc
 test_sbm_multiply_SOURCES = test-sbm-multiply.cc
 test_serialize_affine_map_SOURCES = test-serialize-affine-map.cc
 test_serialize_equal_products_SOURCES = test-serialize-equal-products.cc
@@ -188,6 +190,7 @@ TESTS = $(check_PROGRAMS)
 
 DISTCLEANFILES = \
 	test-bv-from-stream.txt \
+	test-save-load-linear-function.txt \
 	test-serialize-affine-map.txt \
 	test-serialize-equal-products.txt \
 	test-serialize-linear-function.txt \

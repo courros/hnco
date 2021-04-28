@@ -18,13 +18,9 @@
 
 */
 
-#include <fstream>              // std::ifstream, std::ofstream
-
-#include "hnco/exception.hh"
-#include "hnco/functions/collection/max-sat.hh"
+#include "hnco/functions/collection/linear-function.hh"
 #include "hnco/random.hh"
 
-using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
@@ -34,28 +30,19 @@ int main(int argc, char *argv[])
 {
   Generator::set_seed();
 
-  const std::string path("test-serialize-max-sat.txt");
-
-  std::uniform_int_distribution<int> dist_n(3, 100);
+  const std::string path("test-load-save-linear-function.txt");
 
   for (int i = 0; i < 10; i++) {
 
+    std::uniform_int_distribution<int> dist_n(2, 100);
     int n = dist_n(Generator::engine);
 
-    MaxSat src;
-    {
-      src.random(n, 3, 100);
-      src.save(path);
-    }
+    LinearFunction src;
+    src.random(n);
+    src.save(path);
 
-    MaxSat dest;
-    {
-      try { dest.load(path); }
-      catch (Error& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        exit(1);
-      }
-    }
+    LinearFunction dest;
+    dest.load(path);
 
     bit_vector_t bv(n);
 

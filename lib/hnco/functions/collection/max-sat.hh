@@ -22,6 +22,7 @@
 #define HNCO_FUNCTIONS_COLLECTION_MAXSAT_H
 
 #include <iostream>
+#include <fstream>              // std:ifstream, std::ofstream
 #include <vector>
 
 #include "hnco/functions/function.hh"
@@ -31,113 +32,156 @@ namespace hnco {
 namespace function {
 
 
-  /// Abstract class for MaxSat-like functions
-  class AbstractMaxSat:
-    public Function {
+/// Abstract class for MaxSat-like functions
+class AbstractMaxSat: public Function {
 
-  protected:
+protected:
 
-    /** Expression.
+  /** Expression.
 
-        An expression is represented by a vector of clauses. A clause
-        is represented by a vector of literals. A literal is
-        represented by a non null integer; if the integer is positive
-        then the literal is a variable; if it is negative then it is
-        the logical negation of a variable. */
-    std::vector<std::vector<int> > _expression;
+      An expression is represented by a vector of clauses. A clause
+      is represented by a vector of literals. A literal is
+      represented by a non null integer; if the integer is positive
+      then the literal is a variable; if it is negative then it is
+      the logical negation of a variable. */
+  std::vector<std::vector<int> > _expression;
 
-    /// Number of variables
-    int _num_variables;
+  /// Number of variables
+  int _num_variables;
 
-  public:
+  /** Load an instance.
 
-    /// Default constructor
-    AbstractMaxSat():
-      _num_variables(0) {}
-
-    /// Get bit vector size
-    int get_bv_size() { return _num_variables; }
-
-    /// Display the expression
-    void display(std::ostream& stream);
-
-    /** Load an instance.
-        \throw Error */
-    virtual void load(std::istream& stream);
-
-    /// Save an instance
-    virtual void save(std::ostream& stream) const;
-
-  };
-
-  /** MAX-SAT.
-
-      Reference:
-
-      Christos M. Papadimitriou. 1994. Computational
-      complexity. Addison-Wesley, Reading, Massachusetts.
-
+      \param stream Input stream
+      \throw Error
   */
-  class MaxSat:
-    public AbstractMaxSat {
+  void load_(std::istream& stream);
 
-  public:
+  /** Save an instance.
 
-    /// Default constructor
-    MaxSat() {}
+      \param stream Outputstream
+  */
+  void save_(std::ostream& stream) const;
 
-    /** Random instance.
+public:
 
-        \param n Size of bit vectors
-        \param k Number of literals per clause
-        \param c Number of clauses
-    */
-    void random(int n, int k, int c);
+  /// Default constructor
+  AbstractMaxSat():
+    _num_variables(0) {}
 
-    /** Random instance with satisfiable expression.
+  /// Get bit vector size
+  int get_bv_size() override { return _num_variables; }
 
-        \warning Since the expression is satisfiable, the maximum of
-        the function is equal to the number of clauses in the
-        expression. However, this information is lost in the save and
-        load cycle as the archive format only manages the expression
-        itself.
-
-        \param solution Solution
-        \param k Number of literals per clause
-        \param c Number of clauses
-    */
-    void random(const bit_vector_t& solution, int k, int c);
-
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
-
-  };
+  /// Display the expression
+  void display(std::ostream& stream) override;
 
 
-  /** Max not-all-equal 3SAT.
-
-      Reference:
-
-      Christos M. Papadimitriou. 1994. Computational
-      complexity. Addison-Wesley, Reading, Massachusetts.
-
+  /** @name Load and save instance
    */
-  class MaxNae3Sat:
-    public AbstractMaxSat {
+  ///@{
 
-  public:
+  /** Load instance.
 
-    /// Default constructor
-    MaxNae3Sat() {}
+      \param path Path of the instance to load
+      \throw Error
+  */
+  void load(std::string path) {
+    std::ifstream stream(path);
+    if (!stream.good())
+      throw exception::Error("AbstractMaxSat::load: Cannot open " + path);
+    load_(stream);
+  }
 
-    /** Load an instance.
-        \throw Error */
-    void load(std::istream& stream);
+  /** Save instance.
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+      \param path Path of the instance to save
+      \throw Error
+  */
+  void save(std::string path) const {
+    std::ofstream stream(path);
+    if (!stream.good())
+      throw exception::Error("LinearFunction::save: Cannot open " + path);
+    save_(stream);
+  }
 
-  };
+  ///@}
+
+};
+
+
+/** MAX-SAT.
+
+    Reference:
+
+    Christos M. Papadimitriou. 1994. Computational
+    complexity. Addison-Wesley, Reading, Massachusetts.
+
+*/
+class MaxSat: public AbstractMaxSat {
+
+public:
+
+  /// Default constructor
+  MaxSat() {}
+
+  /** Random instance.
+
+      \param n Size of bit vectors
+      \param k Number of literals per clause
+      \param c Number of clauses
+  */
+  void random(int n, int k, int c);
+
+  /** Random instance with satisfiable expression.
+
+      \warning Since the expression is satisfiable, the maximum of
+      the function is equal to the number of clauses in the
+      expression. However, this information is lost in the save and
+      load cycle as the archive format only manages the expression
+      itself.
+
+      \param solution Solution
+      \param k Number of literals per clause
+      \param c Number of clauses
+  */
+  void random(const bit_vector_t& solution, int k, int c);
+
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&) override;
+
+};
+
+
+/** Max not-all-equal 3SAT.
+
+    Reference:
+
+    Christos M. Papadimitriou. 1994. Computational
+    complexity. Addison-Wesley, Reading, Massachusetts.
+
+*/
+class MaxNae3Sat: public AbstractMaxSat {
+
+public:
+
+  /// Default constructor
+  MaxNae3Sat() {}
+
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&) override;
+
+  /** Load instance.
+
+      \param path Path of the instance to load
+      \throw Error
+  */
+  void load(std::string path) {
+    AbstractMaxSat::load(path);
+    for (auto& clause: _expression)
+      if (clause.size() != 3)
+        throw exception::Error("MaxNae3Sat::load: All clauses must have exactly 3 literals");
+  }
+
+};
 
 
 } // end of namespace function

@@ -34,15 +34,6 @@ Factorization::clear()
 
 
 void
-Factorization::load(std::istream& stream)
-{
-  std::string number;
-  stream >> number;
-  set_number(number);
-}
-
-
-void
 Factorization::set_number(const std::string number)
 {
   if (mpz_set_str(_number, number.c_str(), 10) != 0) {

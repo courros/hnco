@@ -53,7 +53,7 @@ void print_board(const std::vector<std::vector<T>>& board, std::ostream& stream,
 }
 
 void
-Sudoku::load(std::istream& stream)
+Sudoku::load_(std::istream& stream)
 {
   _num_variables = 0;
   int i = 0;
@@ -86,7 +86,7 @@ Sudoku::load(std::istream& stream)
 }
 
 void
-Sudoku::save(std::ostream& stream) const
+Sudoku::save_(std::ostream& stream) const
 {
   print_board(_problem_instance, stream, false);
 }

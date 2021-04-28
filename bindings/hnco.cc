@@ -1,6 +1,9 @@
+#include <iostream>
+
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11/stl_bind.h>
+#include <pybind11/iostream.h>
 
 #include "hnco/functions/all.hh"
 #include "hnco/algorithms/all.hh"
@@ -12,9 +15,6 @@ using namespace hnco::algorithm;
 using namespace hnco;
 
 
-PYBIND11_MAKE_OPAQUE(bit_vector_t);
-
-
 class PyFunction : public Function {
 public:
   using Function::Function;
@@ -23,9 +23,6 @@ public:
   double get_maximum()                          override { PYBIND11_OVERLOAD(double, Function, get_maximum, ); }
   bool has_known_maximum()                      override { PYBIND11_OVERLOAD(bool, Function, has_known_maximum, ); }
   bool provides_incremental_evaluation()        override { PYBIND11_OVERLOAD(bool, Function, provides_incremental_evaluation, ); }
-  void display(std::ostream& stream)            override { PYBIND11_OVERLOAD(void, Function, display, stream); }
-  void describe(const bit_vector_t& x, std::ostream& stream)
-                                                override { PYBIND11_OVERLOAD(void, Function, describe, x, stream); }
 };
 
 
@@ -44,9 +41,8 @@ public:
   void iterate()                                override { PYBIND11_OVERLOAD_PURE(void, IterativeAlgorithm, iterate, ); }
 };
 
-
 PYBIND11_MODULE(hnco, m) {
-
+ 
   py::bind_vector<bit_vector_t>(m, "BitVector");
 
   py::class_<Function, PyFunction>(m, "Function")
@@ -55,9 +51,7 @@ PYBIND11_MODULE(hnco, m) {
     .def("get_maximum", &Function::get_maximum)
     .def("has_known_maximum", &Function::has_known_maximum)
     .def("provides_incremental_evaluation", &Function::provides_incremental_evaluation)
-    .def("evaluate", &Function::evaluate)
-    .def("display", &Function::display)
-    .def("describe", &Function::describe);
+    .def("evaluate", &Function::evaluate);
 
   py::class_<OneMax, Function>(m, "OneMax")
     .def(py::init<int>());
