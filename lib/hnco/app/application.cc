@@ -282,9 +282,6 @@ CommandLineApplication::maximize()
     _algorithm->finalize();
     solution = _algorithm->get_solution();
   }
-  catch (const LocalMaximumReached& e) {
-    solution = e.get_solution();
-  }
   catch (const MaximumReached& e) {
     solution = e.get_solution();
     maximum_reached = true;

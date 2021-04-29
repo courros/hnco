@@ -48,7 +48,10 @@ protected:
   /// Binary operator for comparing evaluations
   std::function<bool(double, double)> _compare = std::greater_equal<double>();
 
-  /// Patience
+  /** Patience.
+
+      Number of consecutive rejected moves before ending the search.
+  */
   int _patience = 50;
 
   /// Incremental evaluation
@@ -92,13 +95,11 @@ public:
 
   /** Set patience.
 
-      Number of consecutive rejected moves before throwing a
-      LocalMaximumReached exception
+      Number of consecutive rejected moves before ending the search.
 
       \param x Patience
 
-      If x <= 0 then patience is considered infinite, meaning that
-      the algorithm will never throw any LocalMaximumReached exception.
+      If x <= 0 then patience is considered infinite.
   */
   void set_patience(int x) { _patience = x; }
 

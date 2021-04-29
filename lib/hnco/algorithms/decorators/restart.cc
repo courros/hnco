@@ -30,10 +30,7 @@ using namespace hnco::exception;
 void
 Restart::iterate()
 {
-  try {
-    _algorithm->maximize(_functions);
-  }
-  catch (LocalMaximumReached) {}
+  _algorithm->maximize(_functions);
   _algorithm->finalize();
 
   if (_iteration == 0)

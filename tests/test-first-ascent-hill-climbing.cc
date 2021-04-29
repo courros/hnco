@@ -45,15 +45,7 @@ int main(int argc, char *argv[])
     SingleBitFlipIterator iterator(bv_size);
     FirstAscentHillClimbing algorithm(bv_size, &iterator);
 
-    try {
-      algorithm.maximize({&function});
-    }
-    catch (LocalMaximumReached) {}
-    catch (...) {
-      return 1;
-    }
-
-    // finalize not necessary
+    algorithm.maximize({&function}); // finalize not necessary
     if (!bv_is_globally_maximal(algorithm.get_solution().first, function)) {
       return 1;
     }

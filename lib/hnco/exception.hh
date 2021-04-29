@@ -36,6 +36,9 @@ namespace exception {
 /// Basic exception
 class Exception {};
 
+/// Last evaluation
+class LastEvaluation: public Exception {};
+
 
 /// Solution found
 class SolutionFound: public Exception {
@@ -76,21 +79,6 @@ public:
   TargetReached(const algorithm::solution_t& solution):
     SolutionFound(solution) {}
 };
-
-
-/// Local maximum reached
-class LocalMaximumReached: public SolutionFound {
-
-public:
-
-  /// Constructor
-  LocalMaximumReached(const algorithm::solution_t& solution):
-    SolutionFound(solution) {}
-};
-
-
-/// Last evaluation
-class LastEvaluation: public Exception {};
 
 
 /// %Error

@@ -1209,7 +1209,7 @@ void HncoOptions::print_help_ls(std::ostream& stream) const
   stream << "      --radius (type int, default to 2)" << std::endl;
   stream << "          Radius of Hamming ball or sphere" << std::endl;
   stream << "      --rls-patience (type int, default to 50)" << std::endl;
-  stream << "          Number of consecutive rejected moves before throwing LocalMaximumReached (<= 0 means infinite)" << std::endl;
+  stream << "          Number of consecutive rejected moves before ending the search (<= 0 means infinite)" << std::endl;
   stream << "      --rls-strict" << std::endl;
   stream << "          Strict (>) random local search" << std::endl;
   stream << "      --rw-log-value" << std::endl;

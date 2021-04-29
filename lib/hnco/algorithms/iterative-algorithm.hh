@@ -85,9 +85,6 @@ public:
 
       It is essentially a loop which, at each iteration, calls
       iterate() then log() only if _something_to_log is true.
-
-      \warning If an exception such as LocalMaximumReached is thrown
-      by iterate(), log() will not be called.
   */
   void maximize(const std::vector<function::Function *>& functions);
 

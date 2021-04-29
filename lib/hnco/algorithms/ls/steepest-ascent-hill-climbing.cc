@@ -40,10 +40,7 @@ SteepestAscentHillClimbing::iterate()
   assert(_neighborhood);
 
   _neighborhood->init();
-
-  if (!_neighborhood->has_next())
-    throw exception::Error("SteepestAscentHillClimbing::iterate: empty neighborhood");
-  // Or throw LocalMaximumReached
+  assert(_neighborhood->has_next());
 
   // First element
   const bit_vector_t& bv = _neighborhood->next();
@@ -73,6 +70,7 @@ SteepestAscentHillClimbing::iterate()
     _solution.first = _candidates[candidate_dist(random::Generator::engine)];
     _solution.second = best_value;
     _neighborhood->set_origin(_solution.first);
-  } else
-    throw LocalMaximumReached(_solution);
+  } else {
+    _last_iteration = true;
+  }
 }

@@ -45,14 +45,7 @@ int main(int argc, char *argv[])
     SingleBitFlipIterator it(bv_size);
     SteepestAscentHillClimbing algorithm(bv_size, &it);
 
-    try {
-      algorithm.maximize({&fn});
-    }
-    catch (LocalMaximumReached) {}
-    catch (...) {
-      return 1;
-    }
-
+    algorithm.maximize({&fn});
     // finalize not necessary
     if (!bv_is_locally_maximal(algorithm.get_solution().first, fn, it)) {
       return 1;
