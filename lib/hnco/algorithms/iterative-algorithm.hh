@@ -39,6 +39,8 @@ protected:
   /// Something to log
   bool _something_to_log = false;
 
+  /// Last iteration
+  bool _last_iteration = false;
 
   /** @name Parameters
    */
@@ -48,7 +50,6 @@ protected:
   int _num_iterations = 0;
 
   ///@}
-
 
   /** @name Loop
    */
@@ -73,7 +74,8 @@ public:
 
   /** Constructor.
       \param n Size of bit vectors */
-  IterativeAlgorithm(int n): Algorithm(n) {}
+  IterativeAlgorithm(int n):
+    Algorithm(n) {}
 
   /** @name Optimization
    */
