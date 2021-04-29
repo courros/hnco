@@ -470,11 +470,11 @@ uninstall-am:
 # Python module
 #
 
-.PHONY: module
+.PHONY: modules
 
-all: module
+all: modules
 
-module:
+modules:
 	$(CXX) $(AM_CPPFLAGS) $(AM_CXXFLAGS) -shared -fPIC $(top_srcdir)/bindings/hnco.cc -o $(MODULE_NAME) $(AM_LDFLAGS) $(AM_LIBS)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

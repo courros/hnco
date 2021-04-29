@@ -30,9 +30,9 @@ MODULE_NAME = hnco$(shell python3-config --extension-suffix)
 # Python module
 #
 
-.PHONY: module
+.PHONY: modules
 
-all: module
+all: modules
 
-module:
+modules:
 	$(CXX) $(AM_CPPFLAGS) $(AM_CXXFLAGS) -shared -fPIC $(top_srcdir)/bindings/hnco.cc -o $(MODULE_NAME) $(AM_LDFLAGS) $(AM_LIBS)
