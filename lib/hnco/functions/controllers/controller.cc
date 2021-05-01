@@ -35,8 +35,11 @@ StopOnMaximum::evaluate(const bit_vector_t& x)
   assert(_function->has_known_maximum());
 
   double result = _function->evaluate(x);
-  if (result == _function->get_maximum())
-    throw MaximumReached(std::make_pair(x, result));
+  if (result == _function->get_maximum()) {
+    _trigger.first = x;
+    _trigger.second = _function->get_maximum();
+    throw MaximumReached();
+  }
   return result;
 }
 
@@ -47,8 +50,12 @@ StopOnMaximum::evaluate_incrementally(const bit_vector_t& x, double value, const
   assert(_function->has_known_maximum());
 
   double result = _function->evaluate_incrementally(x, value, flipped_bits);
-  if (result == _function->get_maximum())
-    throw MaximumReached(std::make_pair(x, result));
+  if (result == _function->get_maximum()) {
+    _trigger.first = x;
+    _trigger.second = _function->get_maximum();
+    sbv_flip(_trigger.first, flipped_bits);
+    throw MaximumReached();
+  }
   return result;
 }
 
@@ -59,8 +66,11 @@ StopOnMaximum::update(const bit_vector_t& x, double value)
   assert(_function->has_known_maximum());
 
   _function->update(x, value);
-  if (value == _function->get_maximum())
-    throw MaximumReached(std::make_pair(x, value));
+  if (value == _function->get_maximum()) {
+    _trigger.first = x;
+    _trigger.second = _function->get_maximum();
+    throw MaximumReached();
+  }
 }
 
 

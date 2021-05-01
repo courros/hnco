@@ -39,6 +39,9 @@ class Exception {};
 /// Last evaluation
 class LastEvaluation: public Exception {};
 
+/// Maximum reached
+class MaximumReached: public Exception {};
+
 
 /// Solution found
 class SolutionFound: public Exception {
@@ -56,17 +59,6 @@ public:
 
   /// Get solution
   const algorithm::solution_t& get_solution() const { return _solution; }
-};
-
-
-/// Maximum reached
-class MaximumReached: public SolutionFound {
-
-public:
-
-  /// Constructor
-  MaximumReached(const algorithm::solution_t& solution):
-    SolutionFound(solution) {}
 };
 
 

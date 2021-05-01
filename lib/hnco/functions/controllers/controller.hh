@@ -28,6 +28,7 @@
 
 #include "hnco/stop-watch.hh"
 #include "hnco/functions/decorator.hh"
+#include "hnco/algorithms/solution.hh"
 
 
 namespace hnco {
@@ -38,8 +39,7 @@ namespace controller {
 
 
 /// Function controller
-class Controller:
-    public Decorator {
+class Controller: public Decorator {
 
 public:
 
@@ -89,14 +89,18 @@ public:
     hence the result should be taken with care in case of non
     integer (floating point) function values.
 */
-class StopOnMaximum:
-    public Controller {
+class StopOnMaximum: public Controller {
+
+  /// Trigger
+  algorithm::solution_t _trigger;
 
 public:
 
   /** Constructor.
+
       \param function Decorated function
-      \pre function->has_known_maximum() */
+      \pre function->has_known_maximum()
+  */
   StopOnMaximum(Function *function):
     Controller(function)
   {
@@ -120,6 +124,9 @@ public:
   void update(const bit_vector_t& x, double value);
 
   ///@}
+
+  /// Get trigger
+  const algorithm::solution_t& get_trigger() { return _trigger; }
 
 };
 

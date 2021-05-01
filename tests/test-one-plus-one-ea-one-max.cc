@@ -18,8 +18,6 @@
 
 */
 
-#include <random>
-
 #include "hnco/algorithms/ea/one-plus-one-ea.hh"
 #include "hnco/functions/controllers/controller.hh"
 #include "hnco/functions/modifiers/modifier.hh"
@@ -42,32 +40,28 @@ int main(int argc, char *argv[])
   std::uniform_int_distribution<int> bv_size_dist(1, 100);
 
   for (int i = 0; i < 100; i++) {
-
     const int bv_size = bv_size_dist(Generator::engine);
 
-    OneMax f0(bv_size);
     Translation map;
     map.random(bv_size);
+
+    OneMax f0(bv_size);
     FunctionMapComposition f1(&f0, &map);
     StopOnMaximum f2(&f1);
 
     OnePlusOneEa algorithm(bv_size);
 
-    solution_t solution;
-
     try {
-      algorithm.maximize({&f2});
+      algorithm.maximize({&f2}); // finalize not necessary
     }
-    catch (const MaximumReached& e) {
-      // finalize not necessary
-      solution = e.get_solution();
-    }
-    catch (...) {
-      return 1;
+    catch (MaximumReached) {
+      solution_t solution = f2.get_trigger();
+      if (f1.evaluate(solution.first) != f1.get_maximum())
+        return 1;
+      continue;
     }
 
-    if (solution.second != f2.get_maximum())
-      return 1;
+    return 1;
   }
 
   return 0;

@@ -43,11 +43,17 @@ class DecoratedFunctionFactory {
   /// Map
   hnco::Map *_map = nullptr;
 
-  /// Cache
+  /// Tracker controller
+  hnco::function::controller::ProgressTracker *_tracker = nullptr;
+
+  /// Cache controller
   hnco::function::controller::Cache *_cache = nullptr;
 
-  /// Tracker
-  hnco::function::controller::ProgressTracker *_tracker = nullptr;
+  /// StopOnMaximum controller
+  hnco::function::controller::StopOnMaximum *_stop_on_maximum = nullptr;
+
+  /// StopOnTarget controller
+  hnco::function::controller::StopOnTarget *_stop_on_target = nullptr;
 
   /// Make a function
   hnco::function::Function *make_function();
@@ -72,11 +78,17 @@ public:
   /// Get map
   hnco::Map *get_map() { return _map; }
 
-  /// Get cache
+  /// Get tracker controller
+  hnco::function::controller::ProgressTracker *get_tracker() { return _tracker; }
+
+  /// Get Cache controller
   hnco::function::controller::Cache *get_cache() { return _cache; }
 
-  /// Get tracker
-  hnco::function::controller::ProgressTracker *get_tracker() { return _tracker; }
+  /// Get StopOnMaximum controller
+  hnco::function::controller::StopOnMaximum *get_stop_on_maximum() { return _stop_on_maximum; }
+
+  /// Get StopOnTarget controller
+  hnco::function::controller::StopOnTarget *get_stop_on_target() { return _stop_on_target; }
 
 };
 

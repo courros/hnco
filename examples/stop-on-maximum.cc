@@ -39,16 +39,16 @@ int main()
 
   const int bv_size = 50;
   OneMax one_max(bv_size);
-  StopOnMaximum fn(&one_max);
+  StopOnMaximum controller(&one_max);
 
   OnePlusOneEa ea(bv_size);
 
   try {
-    ea.maximize({&fn});
-    // finalize not necessary
+    ea.maximize({&controller}); // finalize not necessary
   }
-  catch (const MaximumReached& e) {
-    bv_display(e.get_solution().first, std::cout);
+  catch (MaximumReached) {
+    solution_t solution = controller.get_trigger();
+    bv_display(solution.first, std::cout);
     std::cout << std::endl;
   }
 
