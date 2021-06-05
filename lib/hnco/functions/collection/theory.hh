@@ -27,247 +27,244 @@
 namespace hnco {
 namespace function {
 
-  /** %OneMax.
+/** %OneMax.
 
-      References:
+    References:
 
-      Heinz Mühlenbein, "How genetic algorithms really work:
-      I. mutation and hillclimbing", in Proc. 2nd Int. Conf. on
-      Parallel Problem Solving from Nature, 1992
+    Heinz Mühlenbein, "How genetic algorithms really work:
+    I. mutation and hillclimbing", in Proc. 2nd Int. Conf. on
+    Parallel Problem Solving from Nature, 1992
 
-      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
+    Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
+*/
+class OneMax: public Function {
+
+  /// Bit vector size
+  int _bv_size;
+
+public:
+
+  /// Constructor
+  OneMax(int bv_size):
+    _bv_size(bv_size) {}
+
+  /** @name Information about the function
+   */
+  ///@{
+
+  /// Get bit vector size
+  int get_bv_size() override { return _bv_size; }
+
+  /** Get the global maximum.
+      \return _bv_size */
+  double get_maximum() override { return _bv_size; }
+
+  /** Check for a known maximum.
+      \return true */
+  bool has_known_maximum() override { return true; }
+
+  /** Check whether the function provides incremental evaluation.
+      \return true
   */
-  class OneMax:
-    public Function {
+  bool provides_incremental_evaluation() override { return true; }
 
-    /// Bit vector size
-    int _bv_size;
+  /// Display
+  void display(std::ostream& stream) override { stream << "OneMax" << std::endl; }
 
-  public:
+  ///@}
 
-    /// Constructor
-    OneMax(int bv_size):
-      _bv_size(bv_size) {}
 
-    /** @name Information about the function
-     */
-    ///@{
+  /** @name Evaluation
+   */
+  ///@{
 
-    /// Get bit vector size
-    int get_bv_size() { return _bv_size; }
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
 
-    /** Get the global maximum.
-        \return _bv_size */
-    double get_maximum() { return _bv_size; }
+  /// Incrementally evaluate a bit vector
+  double evaluate_incrementally(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits);
 
-    /** Check for a known maximum.
-        \return true */
-    bool has_known_maximum() { return true; }
+  ///@}
 
-    /** Check whether the function provides incremental evaluation.
-        \return true
-    */
-    bool provides_incremental_evaluation() { return true; }
+};
 
-    ///@}
 
+/** Leading ones.
 
-    /** @name Evaluation
-     */
-    ///@{
+    Reference:
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
-    /// Incrementally evaluate a bit vector
-    double evaluate_incrementally(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits);
+*/
+class LeadingOnes: public Function {
 
-    ///@}
+  /// Bit vector size
+  int _bv_size;
 
-  };
+public:
 
+  /// Constructor
+  LeadingOnes(int bv_size):
+    _bv_size(bv_size) {}
 
-  /** Leading ones.
+  /// Get bit vector size
+  int get_bv_size() override { return _bv_size; }
 
-      Reference:
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
 
-      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
+  /** Check for a known maximum.
+      \return true */
+  bool has_known_maximum() override { return true; }
 
-  */
-  class LeadingOnes:
-    public Function {
+  /** Get the global maximum.
+      \return _bv_size */
+  double get_maximum() override { return _bv_size; }
 
-    /// Bit vector size
-    int _bv_size;
+};
 
-  public:
 
-    /// Constructor
-    LeadingOnes(int bv_size):
-      _bv_size(bv_size) {}
+/** %Needle in a haystack.
 
-    /// Get bit vector size
-    int get_bv_size() { return _bv_size; }
+    Reference:
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
-    /** Check for a known maximum.
-        \return true */
-    bool has_known_maximum() { return true; }
+*/
+class Needle: public Function {
 
-    /** Get the global maximum.
-        \return _bv_size */
-    double get_maximum() { return _bv_size; }
+  /// Bit vector size
+  int _bv_size;
 
-  };
+public:
 
+  /// Constructor
+  Needle(int bv_size):
+    _bv_size(bv_size) {}
 
-  /** %Needle in a haystack.
+  /// Get bit vector size
+  int get_bv_size() override { return _bv_size; }
 
-      Reference:
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
 
-      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
+  /** Check for a known maximum.
+      \return true */
+  bool has_known_maximum() override { return true; }
 
-  */
-  class Needle:
-    public Function {
+  /** Get the global maximum.
+      \return 1 */
+  double get_maximum() override { return 1; }
 
-    /// Bit vector size
-    int _bv_size;
+};
 
-  public:
 
-    /// Constructor
-    Needle(int bv_size):
-      _bv_size(bv_size) {}
+/** Hierarchical if and only if.
 
-    /// Get bit vector size
-    int get_bv_size() { return _bv_size; }
+    Reference:
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
-    /** Check for a known maximum.
-        \return true */
-    bool has_known_maximum() { return true; }
+*/
+class Hiff: public Function {
 
-    /** Get the global maximum.
-        \return 1 */
-    double get_maximum() { return 1; }
+  /// Bit vector size
+  int _bv_size;
 
-  };
+  /// Tree depth
+  int _depth;
 
+public:
 
-  /** Hierarchical if and only if.
+  /// Constructor
+  Hiff(int bv_size);
 
-      Reference:
+  /// Get bit vector size
+  int get_bv_size() override { return _bv_size; }
 
-      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
 
-  */
-  class Hiff:
-    public Function {
+  /** Check for a known maximum.
+      \return true */
+  bool has_known_maximum() override { return true; }
 
-    /// Bit vector size
-    int _bv_size;
+  /** Get the global maximum.
+      \return (i + 1) * 2^i where 2^i = _bv_size */
+  double get_maximum() override { return (_depth + 1) * _bv_size; }
 
-    /// Tree depth
-    int _depth;
+};
 
-  public:
 
-    /// Constructor
-    Hiff(int bv_size);
+/** %Ridge.
 
-    /// Get bit vector size
-    int get_bv_size() { return _bv_size; }
+    Reference:
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
-    /** Check for a known maximum.
-        \return true */
-    bool has_known_maximum() { return true; }
+*/
+class Ridge: public Function {
 
-    /** Get the global maximum.
-        \return (i + 1) * 2^i where 2^i = _bv_size */
-    double get_maximum() { return (_depth + 1) * _bv_size; }
+  /// Bit vector size
+  int _bv_size;
 
-  };
+public:
 
+  /// Constructor
+  Ridge(int bv_size):
+    _bv_size(bv_size) {}
 
-  /** %Ridge.
+  /// Get bit vector size
+  int get_bv_size() override { return _bv_size; }
 
-      Reference:
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
 
-      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
+  /** Check for a known maximum.
+      \return true */
+  bool has_known_maximum() override { return true; }
 
-  */
-  class Ridge:
-    public Function {
+  /** Get the global maximum.
+      \return 2 * _bv_size */
+  double get_maximum() override { return 2 * _bv_size; }
 
-    /// Bit vector size
-    int _bv_size;
+};
 
-  public:
 
-    /// Constructor
-    Ridge(int bv_size):
-      _bv_size(bv_size) {}
+/** %Plateau.
 
-    /// Get bit vector size
-    int get_bv_size() { return _bv_size; }
+    Reference:
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
-    /** Check for a known maximum.
-        \return true */
-    bool has_known_maximum() { return true; }
+*/
+class Plateau: public Function {
 
-    /** Get the global maximum.
-        \return 2 * _bv_size */
-    double get_maximum() { return 2 * _bv_size; }
+  /// Bit vector size
+  int _bv_size;
 
-  };
+public:
 
+  /// Constructor
+  Plateau(int bv_size):
+    _bv_size(bv_size) {}
 
-  /** %Plateau.
+  /// Get bit vector size
+  int get_bv_size() override { return _bv_size; }
 
-      Reference:
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
 
-      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
+  /** Check for a known maximum.
+      \return true */
+  bool has_known_maximum() override { return true; }
 
-  */
-  class Plateau:
-    public Function {
+  /** Get the global maximum.
+      \return _bv_size + 2 */
+  double get_maximum() override { return _bv_size + 2; }
 
-    /// Bit vector size
-    int _bv_size;
-
-  public:
-
-    /// Constructor
-    Plateau(int bv_size):
-      _bv_size(bv_size) {}
-
-    /// Get bit vector size
-    int get_bv_size() { return _bv_size; }
-
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
-
-    /** Check for a known maximum.
-        \return true */
-    bool has_known_maximum() { return true; }
-
-    /** Get the global maximum.
-        \return _bv_size + 2 */
-    double get_maximum() { return _bv_size + 2; }
-
-  };
+};
 
 
 } // end of namespace function

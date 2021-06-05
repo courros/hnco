@@ -21,6 +21,7 @@
 #ifndef HNCO_EXCEPTION_H
 #define HNCO_EXCEPTION_H
 
+#include <stdexcept>
 #include <string>
 
 #include "bit-vector.hh"
@@ -40,8 +41,10 @@ class Exception {};
 class LastEvaluation: public Exception {};
 
 /// Maximum reached
-class MaximumReached: public Exception {};
-
+class MaximumReached: public std::runtime_error {
+public:
+  MaximumReached(): std::runtime_error("Maximum reacheed") {}
+};
 
 /// Solution found
 class SolutionFound: public Exception {

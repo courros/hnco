@@ -46,7 +46,7 @@ int main()
   try {
     ea.maximize({&controller}); // finalize not necessary
   }
-  catch (MaximumReached) {
+  catch (MaximumReached&) {
     solution_t solution = controller.get_trigger();
     bv_display(solution.first, std::cout);
     std::cout << std::endl;

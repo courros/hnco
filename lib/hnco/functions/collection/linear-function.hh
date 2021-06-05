@@ -165,11 +165,14 @@ public:
 
   /// Display
   void display(std::ostream& stream) override {
-    stream << "LinearFunction: ";
-    int bound = std::min(int(_weights.size()), 5);
+    const int length = 5;
+    stream << "LinearFunction(" << _weights.size() << "): ";
+    int bound = std::min(length, int(_weights.size()));
     for (int i = 0; i < bound; i++)
       stream << _weights[i] << " ";
-    stream << "..." << std::endl;
+    if (length < int(_weights.size()))
+      stream << "...";
+    stream << std::endl;
   }
 
   ///@}

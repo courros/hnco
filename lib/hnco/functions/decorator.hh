@@ -29,35 +29,37 @@
 namespace hnco {
 namespace function {
 
-  /// %Function decorator
-  class Decorator:
-    public Function {
 
-  protected:
+/// %Function decorator
+class Decorator: public Function {
 
-    /// Decorated function
-    Function *_function;
+protected:
 
-  public:
+  /// Decorated function
+  Function *_function;
 
-    /// Constructor
-    Decorator(Function *function):
-      _function(function) {}
+public:
+
+  /// Constructor
+  Decorator(Function *function):
+    _function(function)
+  {}
 
 
-    /** @name Display
-     */
-    ///@{
+  /** @name Display
+   */
+  ///@{
 
-    /// Display
-    void display(std::ostream& stream) { _function->display(stream); }
+  /// Display
+  void display(std::ostream& stream) override { _function->display(stream); }
 
-    /// Describe a bit vector
-    void describe(const bit_vector_t& x, std::ostream& stream) { _function->describe(x, stream); }
+  /// Describe a bit vector
+  void describe(const bit_vector_t& x, std::ostream& stream) override { _function->describe(x, stream); }
 
-    ///@}
+  ///@}
 
-  };
+};
+
 
 } // end of namespace function
 } // end of namespace hnco

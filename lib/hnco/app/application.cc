@@ -282,7 +282,7 @@ CommandLineApplication::maximize()
     _algorithm->finalize();
     solution = _algorithm->get_solution();
   }
-  catch (MaximumReached) {
+  catch (MaximumReached&) {
     auto controller = _decorated_function_factory.get_stop_on_maximum();
     solution = controller->get_trigger();
     maximum_reached = true;
