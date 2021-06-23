@@ -43,7 +43,8 @@ class LastEvaluation: public Exception {};
 /// Maximum reached
 class MaximumReached: public std::runtime_error {
 public:
-  MaximumReached(): std::runtime_error("Maximum reacheed") {}
+  MaximumReached():
+    std::runtime_error("Maximum reached") {}
 };
 
 /// Solution found

@@ -77,7 +77,7 @@ PYBIND11_MAKE_OPAQUE(bit_vector_t);
 PYBIND11_MODULE(hnco, module_hnco) {
  
   py::bind_vector<bit_vector_t>(module_hnco, "BitVector")
-    .def("__repr__",
+    .def("__str__",
          [](const bit_vector_t& bv) {
            std::ostringstream stream;
            bv_display(bv, stream);
