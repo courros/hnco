@@ -165,6 +165,23 @@ PYBIND11_MODULE(hnco, module_hnco) {
   }
 
   //
+  // Modifiers
+  //
+
+  py::module module_hnco_function_modifier = module_hnco_function.def_submodule("modifier", "Modifiers");
+
+  {
+    using namespace function::modifier;
+
+    py::class_<Modifier, function::Decorator>(module_hnco_function_modifier, "Modifier");
+
+    py::class_<FunctionMapComposition, Modifier>(module_hnco_function_modifier, "FunctionMapComposition")
+      .def(py::init<function::Function *, Map *>())
+      ;
+
+  }
+
+  //
   // Algorithms
   //
 
