@@ -30,6 +30,7 @@
 #include "hnco/algorithms/all.hh"
 #include "hnco/exception.hh"
 #include "hnco/map.hh"
+#include "hnco/random.hh"
 
 namespace py = pybind11;
 
@@ -84,6 +85,24 @@ PYBIND11_MODULE(hnco, module_hnco) {
            return stream.str();
          })
     ;
+
+  //
+  // Random numbers
+  //
+
+  py::module module_random = module_hnco.def_submodule("random", "Random numbers");
+
+  {
+    using namespace random;
+
+    py::class_<Generator>(module_random, "Generator")
+      .def_static("set_seed", static_cast<void (*)()>(&Generator::set_seed))
+      .def_static("set_seed", static_cast<void (*)(unsigned)>(&Generator::set_seed))
+      .def_static("reset", static_cast<void (*)()>(&Generator::reset))
+      .def_static("uniform", static_cast<double (*)()>(&Generator::uniform))
+      ;
+
+  }
 
   //
   // Maps
