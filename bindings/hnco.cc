@@ -116,12 +116,12 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Functions
   //
 
-  py::module module_hnco_function = module_hnco.def_submodule("function", "Functions");
+  py::module module_function = module_hnco.def_submodule("function", "Functions");
 
   {
     using namespace hnco::function;
 
-    py::class_<Function, PyFunction>(module_hnco_function, "Function")
+    py::class_<Function, PyFunction>(module_function, "Function")
       .def(py::init<>())
       .def("display", static_cast<void (Function::*)()>(&Function::display)) // Since Function::display is overloaded
       .def("get_bv_size", &Function::get_bv_size)
@@ -131,18 +131,18 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("evaluate", &Function::evaluate)
       ;
 
-    py::class_<OneMax, Function>(module_hnco_function, "OneMax")
+    py::class_<OneMax, Function>(module_function, "OneMax")
       .def(py::init<int>())
       ;
 
-    py::class_<LinearFunction, Function>(module_hnco_function, "LinearFunction")
+    py::class_<LinearFunction, Function>(module_function, "LinearFunction")
       .def(py::init<>())
       .def("random", &LinearFunction::random)
       .def("load", &LinearFunction::load)
       .def("save", &LinearFunction::save)
       ;
 
-    py::class_<Decorator, Function>(module_hnco_function, "Decorator");
+    py::class_<Decorator, Function>(module_function, "Decorator");
 
   }
 
@@ -150,14 +150,14 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Controllers
   //
 
-  py::module module_hnco_function_controller = module_hnco_function.def_submodule("controller", "Controllers");
+  py::module module_controller = module_function.def_submodule("controller", "Controllers");
 
   {
     using namespace function::controller;
 
-    py::class_<Controller, function::Decorator>(module_hnco_function_controller, "Controller");
+    py::class_<Controller, function::Decorator>(module_controller, "Controller");
 
-    py::class_<StopOnMaximum, Controller>(module_hnco_function_controller, "StopOnMaximum")
+    py::class_<StopOnMaximum, Controller>(module_controller, "StopOnMaximum")
       .def(py::init<function::Function *>())
       .def("get_trigger", &StopOnMaximum::get_trigger)
       ;
@@ -168,14 +168,14 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Modifiers
   //
 
-  py::module module_hnco_function_modifier = module_hnco_function.def_submodule("modifier", "Modifiers");
+  py::module module_modifier = module_function.def_submodule("modifier", "Modifiers");
 
   {
     using namespace function::modifier;
 
-    py::class_<Modifier, function::Decorator>(module_hnco_function_modifier, "Modifier");
+    py::class_<Modifier, function::Decorator>(module_modifier, "Modifier");
 
-    py::class_<FunctionMapComposition, Modifier>(module_hnco_function_modifier, "FunctionMapComposition")
+    py::class_<FunctionMapComposition, Modifier>(module_modifier, "FunctionMapComposition")
       .def(py::init<function::Function *, Map *>())
       ;
 
@@ -185,12 +185,12 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Algorithms
   //
 
-  py::module module_hnco_algorithm = module_hnco.def_submodule("algorithm", "Algorithms");
+  py::module module_algorithm = module_hnco.def_submodule("algorithm", "Algorithms");
 
   {
     using namespace hnco::algorithm;
 
-    py::class_<Algorithm, PyAlgorithm>(module_hnco_algorithm, "Algorithm")
+    py::class_<Algorithm, PyAlgorithm>(module_algorithm, "Algorithm")
       .def(py::init<int>())
       .def("get_bv_size", &Algorithm::get_bv_size)
       .def("get_solution", &Algorithm::get_solution)
@@ -198,12 +198,12 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("finalize", &Algorithm::finalize)
       ;
 
-    py::class_<IterativeAlgorithm, Algorithm, PyIterativeAlgorithm>(module_hnco_algorithm, "IterativeAlgorithm")
+    py::class_<IterativeAlgorithm, Algorithm, PyIterativeAlgorithm>(module_algorithm, "IterativeAlgorithm")
       .def(py::init<int>())
       .def("set_num_iterations", &IterativeAlgorithm::set_num_iterations)
       ;
 
-    py::class_<RandomSearch, IterativeAlgorithm>(module_hnco_algorithm, "RandomSearch")
+    py::class_<RandomSearch, IterativeAlgorithm>(module_algorithm, "RandomSearch")
       .def(py::init<int>())
       ;
   }
