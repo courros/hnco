@@ -291,7 +291,7 @@ CommandLineApplication::maximize()
     solution = e.get_solution();
     target_reached = true;
   }
-  catch (LastEvaluation) {
+  catch (const LastEvaluation&) {
     _algorithm->finalize();
     solution = _algorithm->get_solution();
   }

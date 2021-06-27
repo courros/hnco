@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     try {
       algorithm.maximize({&f2}); // finalize not necessary
     }
-    catch (MaximumReached) {
+    catch (const MaximumReached&) {
       solution_t solution = f2.get_trigger();
       if (f1.evaluate(solution.first) != f1.get_maximum())
         return 1;

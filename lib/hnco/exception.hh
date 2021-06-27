@@ -38,7 +38,11 @@ namespace exception {
 class Exception {};
 
 /// Last evaluation
-class LastEvaluation: public Exception {};
+class LastEvaluation: public std::runtime_error {
+public:
+  LastEvaluation():
+    std::runtime_error("Last evaluation") {}
+};
 
 /// Maximum reached
 class MaximumReached: public std::runtime_error {

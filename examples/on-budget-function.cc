@@ -46,7 +46,7 @@ int main()
   try {
     ea.maximize({&fn});
   }
-  catch (LastEvaluation) {}
+  catch (const LastEvaluation&) {}
   // finalize not necessary
   auto solution = ea.get_solution();
 
