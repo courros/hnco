@@ -19,8 +19,6 @@
 */
 
 #include <iostream>
-#include <sstream>
-#include <string>
 #include <fstream>
 
 #include "hnco/exception.hh"
@@ -36,6 +34,91 @@ using namespace hnco;
 using namespace hnco::app;
 
 
+void generate_map(MapgenOptions& options)
+{
+  switch(options.get_map()) {
+
+  case 1: {
+    Translation map;
+    map.random(options.get_output_size());
+    std::ofstream stream(options.get_path());
+    boost::archive::text_oarchive archive(stream);
+    std::cout << "Writing translation to " << options.get_path() << " ... ";
+    archive << map;
+    std::cout << "done" << std::endl;
+    break;
+  }
+
+  case 2: {
+    Permutation map;
+    map.random(options.get_output_size());
+    std::ofstream stream(options.get_path());
+    boost::archive::text_oarchive archive(stream);
+    std::cout << "Writing permutation to " << options.get_path() << " ... ";
+    archive << map;
+    std::cout << "done" << std::endl;
+    break;
+  }
+
+  case 3: {
+    Permutation permutation;
+    Translation translation;
+    permutation.random(options.get_output_size());
+    translation.random(options.get_output_size());
+    std::ofstream stream(options.get_path());
+    boost::archive::text_oarchive archive(stream);
+    std::cout << "Writing permutation and translation to " << options.get_path() << " ... ";
+    archive << permutation << translation;
+    std::cout << "done" << std::endl;
+    break;
+  }
+
+  case 4: {
+    LinearMap map;
+    map.random(options.get_output_size(), options.get_input_size(), options.with_surjective());
+    std::ofstream stream(options.get_path());
+    boost::archive::text_oarchive archive(stream);
+    std::cout << "Writing linear map to " << options.get_path() << " ... ";
+    archive << map;
+    std::cout << "done" << std::endl;
+    break;
+  }
+
+  case 5: {
+    AffineMap map;
+    map.random(options.get_output_size(), options.get_input_size(), options.with_surjective());
+    std::ofstream stream(options.get_path());
+    boost::archive::text_oarchive archive(stream);
+    std::cout << "Writing affine map to " << options.get_path() << " ... ";
+    archive << map;
+    std::cout << "done" << std::endl;
+    break;
+  }
+
+  case 6: {
+    TsAffineMap map;
+    if (options.get_input_size() != options.get_output_size())
+      std::cerr << "Only input size is taken into account" << std::endl;
+    map.random(options.get_input_size(),
+               options.get_ts_length(),
+               static_cast<TsAffineMap::SamplingMode>(options.get_ts_sampling_mode()));
+    std::ofstream stream(options.get_path());
+    boost::archive::text_oarchive archive(stream);
+    std::cout << "Writing affine map (transvection sequence) to " << options.get_path() << " ... ";
+    archive << map;
+    std::cout << "done" << std::endl;
+    break;
+  }
+
+  default: {
+    std::cerr << "Cannot create any map of type " << options.get_map() << std::endl;
+    exit(1);
+  }
+
+  }
+}
+
+
 int main(int argc, char *argv[])
 {
   MapgenOptions options(argc, argv);
@@ -49,85 +132,12 @@ int main(int argc, char *argv[])
   else
     Generator::set_seed();
 
-  switch(options.get_map()) {
-
-  case 1: {
-    Translation map;
-    map.random(options.get_output_size());
-    std::ofstream ofs(options.get_path());
-    boost::archive::text_oarchive oa(ofs);
-    std::cout << "Writing translation to " << options.get_path() << " ... ";
-    oa << map;
-    std::cout << "done" << std::endl;
-    break;
+  try {
+    generate_map(options);
   }
-
-  case 2: {
-    Permutation map;
-    map.random(options.get_output_size());
-    std::ofstream ofs(options.get_path());
-    boost::archive::text_oarchive oa(ofs);
-    std::cout << "Writing permutation to " << options.get_path() << " ... ";
-    oa << map;
-    std::cout << "done" << std::endl;
-    break;
-  }
-
-  case 3: {
-    Permutation permutation;
-    Translation translation;
-    permutation.random(options.get_output_size());
-    translation.random(options.get_output_size());
-    std::ofstream ofs(options.get_path());
-    boost::archive::text_oarchive oa(ofs);
-    std::cout << "Writing permutation and translation to " << options.get_path() << " ... ";
-    oa << permutation << translation;
-    std::cout << "done" << std::endl;
-    break;
-  }
-
-  case 4: {
-    LinearMap map;
-    map.random(options.get_output_size(), options.get_input_size(), options.with_surjective());
-    std::ofstream ofs(options.get_path());
-    boost::archive::text_oarchive oa(ofs);
-    std::cout << "Writing linear map to " << options.get_path() << " ... ";
-    oa << map;
-    std::cout << "done" << std::endl;
-    break;
-  }
-
-  case 5: {
-    AffineMap map;
-    map.random(options.get_output_size(), options.get_input_size(), options.with_surjective());
-    std::ofstream ofs(options.get_path());
-    boost::archive::text_oarchive oa(ofs);
-    std::cout << "Writing affine map to " << options.get_path() << " ... ";
-    oa << map;
-    std::cout << "done" << std::endl;
-    break;
-  }
-
-  case 6: {
-    TsAffineMap map;
-    if (options.get_input_size() != options.get_output_size())
-      std::cerr << "Only input size is taken into account" << std::endl;
-    map.random(options.get_input_size(),
-               options.get_ts_length(),
-               static_cast<TsAffineMap::SamplingMode>(options.get_ts_sampling_mode()));
-    std::ofstream ofs(options.get_path());
-    boost::archive::text_oarchive oa(ofs);
-    std::cout << "Writing affine map (transvection sequence) to " << options.get_path() << " ... ";
-    oa << map;
-    std::cout << "done" << std::endl;
-    break;
-  }
-
-  default: {
-    std::cerr << "Cannot create any map of type " << options.get_map() << std::endl;
-    exit(1);
-  }
-
+  catch (const std::runtime_error& e) {
+    std::cerr << "main: std::runtime_error: " << e.what() << std::endl;
+    return 1;
   }
 
   return 0;
