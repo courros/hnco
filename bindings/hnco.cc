@@ -127,7 +127,8 @@ PYBIND11_MODULE(hnco, module_hnco) {
   {
     using namespace hnco::exception;
 
-    py::register_exception<MaximumReached>(module_hnco, "MaximumReached");
+    py::register_exception<TargetReached>(module_hnco, "TargetReached");
+    py::register_exception<LastEvaluation>(module_hnco, "LastEvaluation");
 
   }
 
@@ -176,9 +177,13 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     py::class_<Controller, function::Decorator>(module_controller, "Controller");
 
-    py::class_<StopOnMaximum, Controller>(module_controller, "StopOnMaximum")
+    py::class_<StopOnTarget, Controller>(module_controller, "StopOnTarget")
+      .def(py::init<function::Function *, double>())
+      .def("get_trigger", &StopOnTarget::get_trigger)
+      ;
+
+    py::class_<StopOnMaximum, StopOnTarget>(module_controller, "StopOnMaximum")
       .def(py::init<function::Function *>())
-      .def("get_trigger", &StopOnMaximum::get_trigger)
       ;
 
   }
