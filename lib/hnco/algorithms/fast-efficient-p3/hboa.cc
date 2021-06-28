@@ -34,8 +34,16 @@ using namespace hnco;
 
 
 Hboa::Hboa(int n):
-  Algorithm(n),
-  _pimpl(std::make_unique<Implementation>()) {}
+  Algorithm(n)
+{
+  _pimpl = new Implementation();
+}
+
+
+Hboa::~Hboa()
+{
+  delete _pimpl;
+}
 
 
 void

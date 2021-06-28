@@ -34,8 +34,16 @@ using namespace hnco;
 
 
 Ltga::Ltga(int n):
-  Algorithm(n),
-  _pimpl(std::make_unique<Implementation>()) {}
+  Algorithm(n)
+{
+  _pimpl = new Implementation();
+}
+
+
+Ltga::~Ltga()
+{
+  delete _pimpl;
+}
 
 
 void

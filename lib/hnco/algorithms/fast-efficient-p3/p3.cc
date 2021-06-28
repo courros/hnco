@@ -33,9 +33,18 @@ using namespace hnco::algorithm;
 using namespace hnco;
 
 
+
 ParameterLessPopulationPyramid::ParameterLessPopulationPyramid(int n):
-  Algorithm(n),
-  _pimpl(std::make_unique<Implementation>()) {}
+  Algorithm(n)
+{
+  _pimpl = new Implementation();
+}
+
+
+ParameterLessPopulationPyramid::~ParameterLessPopulationPyramid()
+{
+  delete _pimpl;
+}
 
 
 void

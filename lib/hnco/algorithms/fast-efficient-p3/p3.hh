@@ -53,13 +53,23 @@ struct Implementation;
 class ParameterLessPopulationPyramid:
     public Algorithm {
 
-  /// Pointer to implementation
-  std::unique_ptr<Implementation> _pimpl;;
+  /** Pointer to implementation.
+
+      The main motivation for this pattern is to avoid including
+      declarations from fast_efficient_p3 into the global namespace.
+
+      A raw pointer is used instead of a unique_ptr because the latter
+      will not compile with pybind11.
+  */
+  Implementation *_pimpl;;
 
 public:
 
   /// Constructor
   ParameterLessPopulationPyramid(int n);
+
+  /// Destructor
+  ~ParameterLessPopulationPyramid();
 
   /// Maximize
   void maximize(const std::vector<function::Function *>& functions);
