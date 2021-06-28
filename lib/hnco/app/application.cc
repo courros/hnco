@@ -188,7 +188,7 @@ CommandLineApplication::make_algorithm()
 }
 
 void
-CommandLineApplication::print_results(double total_time, bool maximum_reached, bool target_reached)
+CommandLineApplication::print_results(double total_time, bool target_reached)
 {
   std::ostringstream results;
 
@@ -202,7 +202,7 @@ CommandLineApplication::print_results(double total_time, bool maximum_reached, b
   results << ",\n  \"evaluation_time\": "          << tracker->get_evaluation_time();
 
   if (_options.with_stop_on_maximum() || _options.with_stop_on_target()) {
-    if (maximum_reached || target_reached)
+    if (target_reached)
       results << ",\n  \"success\": true";
     else
       results << ",\n  \"success\": false";
@@ -271,7 +271,6 @@ CommandLineApplication::maximize()
 
   solution_t solution;
 
-  bool maximum_reached = false;
   bool target_reached = false;
 
   StopWatch stop_watch;
@@ -282,26 +281,24 @@ CommandLineApplication::maximize()
     _algorithm->finalize();
     solution = _algorithm->get_solution();
   }
-  catch (MaximumReached&) {
-    auto controller = _decorated_function_factory.get_stop_on_maximum();
-    solution = controller->get_trigger();
-    maximum_reached = true;
-  }
   catch (const TargetReached& e) {
-    solution = e.get_solution();
+    std::cerr << "Warning: CommandLineApplication::maximize: " << e.what() << std::endl;
+    auto controller = _decorated_function_factory.get_stop_on_target();
+    solution = controller->get_trigger();
     target_reached = true;
   }
-  catch (const LastEvaluation&) {
+  catch (const LastEvaluation& e) {
+    std::cerr << "Warning: CommandLineApplication::maximize: " << e.what() << std::endl;
     _algorithm->finalize();
     solution = _algorithm->get_solution();
   }
 
   stop_watch.stop();
 
-  print_results(stop_watch.get_total_time(), maximum_reached, target_reached);
+  print_results(stop_watch.get_total_time(), target_reached);
   manage_solution(solution.first);
 
-  if (_options.with_stop_on_maximum() && !maximum_reached)
+  if (_options.with_stop_on_maximum() && !target_reached)
     exit(2);
 
   if (_options.with_stop_on_target() && !target_reached)

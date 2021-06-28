@@ -73,7 +73,7 @@ class CommandLineApplication {
   void maximize();
 
   /// Print results
-  void print_results(double total_time, bool maximum_reached, bool target_reached);
+  void print_results(double total_time, bool target_reached);
 
   /// Manage solution
   void manage_solution(const bit_vector_t& bv);
