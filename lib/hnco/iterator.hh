@@ -30,58 +30,58 @@
 namespace hnco {
 
 
-  /// %Iterator over bit vectors
-  class Iterator {
+/// %Iterator over bit vectors
+class Iterator {
 
-  protected:
+protected:
 
-    /// Current bit vector
-    bit_vector_t _current;
+  /// Current bit vector
+  bit_vector_t _current;
 
-    /// Flag for initial state
-    bool _initial_state = true;
+  /// Flag for initial state
+  bool _initial_state = true;
 
-  public:
+public:
 
-    /// Constructor
-    Iterator(int n):
-      _current(n) { assert(n >= 0); }
+  /// Constructor
+  Iterator(int n):
+    _current(n) { assert(n >= 0); }
 
-    /// Destructor
-    virtual ~Iterator() {}
+  /// Destructor
+  virtual ~Iterator() {}
 
-    /// Initialization
-    virtual void init() { _initial_state = true; }
+  /// Initialization
+  virtual void init() { _initial_state = true; }
 
-    /// Has next bit vector
-    virtual bool has_next() = 0;
+  /// Has next bit vector
+  virtual bool has_next() = 0;
 
-    /// Next bit vector
-    virtual const bit_vector_t& next() = 0;
+  /// Next bit vector
+  virtual const bit_vector_t& next() = 0;
 
-  };
+};
 
 
-  /** Hypercube iterator.
+/** Hypercube iterator.
 
-      Implemented as a simple binary adder.
-  */
-  class HypercubeIterator:
+    Implemented as a simple binary adder.
+*/
+class HypercubeIterator:
     public Iterator {
 
-  public:
+public:
 
-    /// Constructor
-    HypercubeIterator(int n):
-      Iterator(n) {}
+  /// Constructor
+  HypercubeIterator(int n):
+    Iterator(n) {}
 
-    /// Has next bit vector
-    bool has_next();
+  /// Has next bit vector
+  bool has_next() override;
 
-    /// Next bit vector
-    const bit_vector_t& next();
+  /// Next bit vector
+  const bit_vector_t& next() override;
 
-  };
+};
 
 
 } // end of namespace hnco

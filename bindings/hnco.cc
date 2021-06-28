@@ -26,15 +26,48 @@
 #include <pybind11/stl_bind.h>
 #include <pybind11/iostream.h>
 
-#include "hnco/functions/all.hh"
 #include "hnco/algorithms/all.hh"
 #include "hnco/exception.hh"
+#include "hnco/functions/all.hh"
+#include "hnco/iterator.hh"
 #include "hnco/map.hh"
 #include "hnco/random.hh"
 
 namespace py = pybind11;
 
 using namespace hnco;
+
+PYBIND11_MAKE_OPAQUE(bit_vector_t);
+PYBIND11_MAKE_OPAQUE(algorithm::solution_t);
+
+//
+// Iterators
+//
+
+// For derived classes in pytonh
+class PyIterator: public Iterator {
+public:
+  void init()                                   override { PYBIND11_OVERLOAD(void, Iterator, init, ); }
+  bool has_next()                               override { PYBIND11_OVERLOAD_PURE(bool, Iterator, has_next, ); }
+  const bit_vector_t& next()                    override { PYBIND11_OVERLOAD_PURE(const bit_vector_t&, Iterator, next, ); }
+};
+
+class HncoIterator
+{
+  Iterator& _iterator;
+public:
+  HncoIterator(Iterator& iterator)
+    : _iterator(iterator)
+  {
+    _iterator.init();
+  }
+  const bit_vector_t& __next__() {
+    if (_iterator.has_next())
+      return _iterator.next();
+    else
+      throw py::stop_iteration();
+  }
+};
 
 //
 // Functions
@@ -69,8 +102,6 @@ public:
   void iterate()                                override { PYBIND11_OVERLOAD_PURE(void, algorithm::IterativeAlgorithm, iterate, ); }
 };
 
-PYBIND11_MAKE_OPAQUE(bit_vector_t);
-
 //
 // Modules
 //
@@ -84,6 +115,41 @@ PYBIND11_MODULE(hnco, module_hnco) {
            bv_display(bv, stream);
            return stream.str();
          })
+    ;
+ 
+  py::class_<algorithm::solution_t>(module_hnco, "Solution")
+    .def("__str__",
+         [](const algorithm::solution_t& s) {
+           std::ostringstream stream;
+           bv_display(s.first, stream);
+           stream << " -> " << s.second;
+           return stream.str();
+         })
+    .def_readwrite("first", &algorithm::solution_t::first)
+    .def_readwrite("second", &algorithm::solution_t::second)
+    ;
+
+  //
+  // Iterators
+  //
+
+  py::class_<HncoIterator>(module_hnco, "HncoIterator")
+    .def(py::init<Iterator&>())
+    .def("__next__", &HncoIterator::__next__)
+    ;
+
+  py::class_<Iterator, PyIterator>(module_hnco, "Iterator")
+    .def("init", &Iterator::init)
+    .def("has_next", &Iterator::has_next)
+    .def("next", &Iterator::next)
+    .def("__iter__",
+         [](Iterator& iterator) {
+           return HncoIterator(iterator);
+         }, py::keep_alive<0, 1>())
+    ;
+
+  py::class_<HypercubeIterator, Iterator>(module_hnco, "HypercubeIterator")
+    .def(py::init<int>())
     ;
 
   //
