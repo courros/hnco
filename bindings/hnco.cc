@@ -222,6 +222,32 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("finalize", &Algorithm::finalize)
       ;
 
+    py::class_<CompleteSearch, Algorithm>(module_algorithm, "CompleteSearch")
+      .def(py::init<int>())
+      ;
+
+    py::class_<OnePlusOneEa, Algorithm>(module_algorithm, "OnePlusOneEa")
+      .def(py::init<int>())
+      .def("set_num_iterations", &OnePlusOneEa::set_num_iterations)
+      .def("set_mutation_rate", &OnePlusOneEa::set_mutation_rate)
+      .def("set_allow_no_mutation", &OnePlusOneEa::set_allow_no_mutation)
+      .def("set_incremental_evaluation", &OnePlusOneEa::set_incremental_evaluation)
+      ;
+
+    py::class_<fast_efficient_p3::Hboa, Algorithm>(module_algorithm, "Hboa")
+      .def(py::init<int>())
+      .def("set_population_size", &fast_efficient_p3::Hboa::set_population_size)
+      ;
+
+    py::class_<fast_efficient_p3::Ltga, Algorithm>(module_algorithm, "Ltga")
+      .def(py::init<int>())
+      .def("set_population_size", &fast_efficient_p3::Ltga::set_population_size)
+      ;
+
+    py::class_<fast_efficient_p3::ParameterLessPopulationPyramid, Algorithm>(module_algorithm, "ParameterLessPopulationPyramid")
+      .def(py::init<int>())
+      ;
+
     py::class_<IterativeAlgorithm, Algorithm, PyIterativeAlgorithm>(module_algorithm, "IterativeAlgorithm")
       .def(py::init<int>())
       .def("set_num_iterations", &IterativeAlgorithm::set_num_iterations)
@@ -230,6 +256,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
     py::class_<RandomSearch, IterativeAlgorithm>(module_algorithm, "RandomSearch")
       .def(py::init<int>())
       ;
+
   }
 
 }
