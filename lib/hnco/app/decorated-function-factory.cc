@@ -284,21 +284,23 @@ DecoratedFunctionFactory::make_function_controller(Function *function)
     }
   }
 
-  // Stop on maximum
-  if (_options.with_stop_on_maximum()) {
+  //
+  // Stop on target
+  //
 
+  if (_options.with_stop_on_maximum()) {
     // Requires known maximum
     if (function->has_known_maximum()) {
-      function = new StopOnMaximum(function);
+      _stop_on_target = new StopOnMaximum(function);
+      function = _stop_on_target;
     } else {
       throw Error("DecoratedFunctionFactory::make_function_controller (StopOnMaximum): Unknown maximum");
     }
-
-  }
-
-  // Stop on target
-  if (_options.with_stop_on_target()) {
-    function = new StopOnTarget(function, _options.get_target());
+  } else {
+    if (_options.with_stop_on_target()) {
+      _stop_on_target = new StopOnTarget(function, _options.get_target());
+      function = _stop_on_target;
+    }
   }
 
   return function;
