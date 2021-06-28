@@ -51,8 +51,8 @@ int main(int argc, char *argv[])
     MaxSat dest;
     {
       try { dest.load(path); }
-      catch (Error& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
+      catch (const std::runtime_error& e) {
+        std::cerr << "main: std::runtime_error: " << e.what() << std::endl;
         exit(1);
       }
     }

@@ -57,9 +57,9 @@ public:
   virtual int get_bv_size() = 0;
 
   /** Get the global maximum.
-      \throw Error */
+      \throw std::runtime_error */
   virtual double get_maximum() {
-    throw exception::Error("Function::get_maximum: Unknown maximum");
+    throw std::runtime_error("Function::get_maximum: Unknown maximum");
   }
 
   /// Check for a known maximum.
@@ -90,12 +90,12 @@ public:
 
   /** Incrementally evaluate a bit vector.
 
-      \throw Error
+      \throw std::runtime_error
   */
   virtual double evaluate_incrementally(const bit_vector_t& x, double value,
                                         const sparse_bit_vector_t& flipped_bits)
   {
-    throw exception::Error("Function::evaluate_incrementally: This function does not provide incremental evaluation");
+    throw std::runtime_error("Function::evaluate_incrementally: This function does not provide incremental evaluation");
   }
 
   /** Safely evaluate a bit vector.

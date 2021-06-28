@@ -67,7 +67,7 @@ LinearMap::random(int rows, int cols, bool surjective)
 
   if (surjective) {
     if (rows > cols)
-      throw Error("LinearMap::random: cols must be greater or equal to rows");
+      throw std::runtime_error("LinearMap::random: cols must be greater or equal to rows");
     do {
       bm_random(_bm);
     } while (!is_surjective());
@@ -105,7 +105,7 @@ AffineMap::random(int rows, int cols, bool surjective)
 
   if (surjective) {
     if (rows > cols)
-      throw Error("AffineMap::random: cols must be greater or equal to rows");
+      throw std::runtime_error("AffineMap::random: cols must be greater or equal to rows");
     do {
       bm_random(_bm);
     } while (!is_surjective());
@@ -146,7 +146,7 @@ Injection::Injection(const std::vector<int>& bit_positions, int output_size):
   _output_size(output_size)
 {
   if (output_size < int(bit_positions.size()))
-    throw Error("Injection::Injection: output size must be greater or equal to input size");
+    throw std::runtime_error("Injection::Injection: output size must be greater or equal to input size");
 }
 
 
@@ -166,7 +166,7 @@ Projection::Projection(const std::vector<int>& bit_positions, int input_size):
   _input_size(input_size)
 {
   if (input_size < int(bit_positions.size()))
-    throw Error("Projection::Projection: input size must be greater or equal to output size");
+    throw std::runtime_error("Projection::Projection: input size must be greater or equal to output size");
 }
 
 
@@ -219,7 +219,7 @@ TsAffineMap::random(int n, int t, SamplingMode mode)
   default:
     std::ostringstream stream;
     stream << mode;
-    throw Error("TsAffineMap::random: Unknown sampling mode: " + stream.str());
+    throw std::runtime_error("TsAffineMap::random: Unknown sampling mode: " + stream.str());
   }
 }
 

@@ -153,36 +153,36 @@ public:
   /** Load map.
 
       \param path Path of the map to load
-      \throw Error
+      \throw std::runtime_error
   */
   void load(std::string path) {
     std::ifstream stream(path);
     if (!stream.good())
-      throw exception::Error("Translation::load: Cannot open " + path);
+      throw std::runtime_error("Translation::load: Cannot open " + path);
     try {
       boost::archive::text_iarchive archive(stream);
       archive >> (*this);
     }
     catch (boost::archive::archive_exception& e) {
-      throw exception::Error("Translation::load: " + std::string(e.what()));
+      throw std::runtime_error("Translation::load: " + std::string(e.what()));
     }
   }
 
   /** Save map.
 
       \param path Path of the map to save
-      \throw Error
+      \throw std::runtime_error
   */
   void save(std::string path) const {
     std::ofstream stream(path);
     if (!stream.good())
-      throw exception::Error("Translation::save: Cannot open " + path);
+      throw std::runtime_error("Translation::save: Cannot open " + path);
     try {
       boost::archive::text_oarchive archive(stream);
       archive << (*this);
     }
     catch (boost::archive::archive_exception& e) {
-      throw exception::Error("Translation::save: " + std::string(e.what()));
+      throw std::runtime_error("Translation::save: " + std::string(e.what()));
     }
   }
 
@@ -294,7 +294,7 @@ public:
       \param cols Number of columns
       \param surjective Flag to ensure a surjective map
 
-      \throw Error
+      \throw std::runtime_error
   */
   void random(int rows, int cols, bool surjective);
 
@@ -365,7 +365,7 @@ public:
       \param cols Number of columns
       \param surjective Flag to ensure a surjective map
 
-      \throw Error
+      \throw std::runtime_error
   */
   void random(int rows, int cols, bool surjective);
 

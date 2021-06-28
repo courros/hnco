@@ -39,7 +39,7 @@ Factorization::set_number(const std::string number)
   if (mpz_set_str(_number, number.c_str(), 10) != 0) {
     std::ostringstream oss;
     oss << "Factorization::Factorization: mpz_set_str failed";
-    throw Error(oss.str());
+    throw std::runtime_error(oss.str());
   }
 
   _number_size = mpz_sizeinbase(_number, 2);

@@ -36,7 +36,7 @@ Jump::Jump(int bv_size, int gap):
   assert(bv_size > 0);
 
   if (_gap < 1)
-    throw Error("Jump::Jump: _gap must be >= 1");
+    throw std::runtime_error("Jump::Jump: _gap must be >= 1");
 }
 
 
@@ -66,7 +66,7 @@ DeceptiveJump::DeceptiveJump(int bv_size, int gap):
   assert(bv_size > 0);
 
   if (_gap < 1)
-    throw Error("Jump::Jump: _gap must be >= 1");
+    throw std::runtime_error("Jump::Jump: _gap must be >= 1");
 }
 
 

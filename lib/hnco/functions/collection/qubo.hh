@@ -83,7 +83,7 @@ private:
 
   /** Load an instance.
 
-      \throw Error
+      \throw std::runtime_error
   */
   void load(std::istream& stream);
 
@@ -100,12 +100,12 @@ public:
   /** Load instance.
 
       \param path Path of the instance to load
-      \throw Error
+      \throw std::runtime_error
   */
   void load(std::string path) {
     std::ifstream stream(path);
     if (!stream.good())
-      throw exception::Error("Qubo::load: Cannot open " + path);
+      throw std::runtime_error("Qubo::load: Cannot open " + path);
     load(stream);
   }
 

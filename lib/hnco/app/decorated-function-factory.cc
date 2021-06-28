@@ -40,14 +40,14 @@ void load_map(T *map, const HncoOptions& options)
 {
   std::ifstream ifs(options.get_map_path());
   if (!ifs.good()) {
-    throw Error("load_map: Cannot open " + options.get_map_path());
+    throw std::runtime_error("load_map: Cannot open " + options.get_map_path());
   }
   try {
     boost::archive::text_iarchive archive(ifs);
     archive >> (*map);
   }
   catch (boost::archive::archive_exception& e) {
-    throw Error(e.what());
+    throw std::runtime_error(e.what());
   }
 }
 
@@ -93,14 +93,14 @@ make_map(const HncoOptions& options, int bv_size)
     } else {
       std::ifstream ifs(options.get_map_path());
       if (!ifs.good()) {
-        throw Error("make_map (Composition of permutation and translation): Cannot open " + options.get_map_path());
+        throw std::runtime_error("make_map (Composition of permutation and translation): Cannot open " + options.get_map_path());
       }
       try {
         boost::archive::text_iarchive ia(ifs);
         ia >> (*permutation) >> (*translation);
       }
       catch (boost::archive::archive_exception& e) {
-        throw Error(e.what());
+        throw std::runtime_error(e.what());
       }
     }
     return new MapComposition(permutation, translation);
@@ -110,7 +110,7 @@ make_map(const HncoOptions& options, int bv_size)
     LinearMap *map = new LinearMap;
     if (options.with_map_random()) {
       if (options.get_map_input_size() <= 0)
-        throw Error("make_map: map_input_size must be positive");
+        throw std::runtime_error("make_map: map_input_size must be positive");
       map->random(bv_size, options.get_map_input_size(), options.with_map_surjective());
     } else
       load_map<LinearMap>(map, options);
@@ -121,7 +121,7 @@ make_map(const HncoOptions& options, int bv_size)
     AffineMap *map = new AffineMap;
     if (options.with_map_random()) {
       if (options.get_map_input_size() <= 0)
-        throw Error("make_map: map_input_size must be positive");
+        throw std::runtime_error("make_map: map_input_size must be positive");
       map->random(bv_size, options.get_map_input_size(), options.with_map_surjective());
     } else
       load_map<AffineMap>(map, options);
@@ -142,7 +142,7 @@ make_map(const HncoOptions& options, int bv_size)
   }
 
   default: {
-    throw Error("make_map: Unknown map type: " + options.get_map());
+    throw std::runtime_error("make_map: Unknown map type: " + options.get_map());
   }
 
   }
@@ -178,7 +178,7 @@ make_prior_noise_neighborhood(const HncoOptions& options, int bv_size)
        options.get_pn_radius());
 
   default:
-    throw Error("make_prior_noise_neighborhood: Unknown neighborhood type: " + options.get_neighborhood());
+    throw std::runtime_error("make_prior_noise_neighborhood: Unknown neighborhood type: " + options.get_neighborhood());
   }
 
 }
@@ -188,7 +188,7 @@ Function *
 DecoratedFunctionFactory::make_function()
 {
   if (_options.get_bv_size() <= 0)
-    throw Error("DecoratedFunctionFactory::make_function: bv_size must be positive");
+    throw std::runtime_error("DecoratedFunctionFactory::make_function: bv_size must be positive");
 
   Function *function = _function_factory.make();
 
@@ -294,7 +294,7 @@ DecoratedFunctionFactory::make_function_controller(Function *function)
       _stop_on_target = new StopOnMaximum(function);
       function = _stop_on_target;
     } else {
-      throw Error("DecoratedFunctionFactory::make_function_controller (StopOnMaximum): Unknown maximum");
+      throw std::runtime_error("DecoratedFunctionFactory::make_function_controller (StopOnMaximum): Unknown maximum");
     }
   } else {
     if (_options.with_stop_on_target()) {

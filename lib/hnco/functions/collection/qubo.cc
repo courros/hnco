@@ -56,7 +56,7 @@ Qubo::load(std::istream& stream)
     if (line[0] == 'p') {
 
       if (spec)
-        throw Error("Qubo::load: More than one p line");
+        throw std::runtime_error("Qubo::load: More than one p line");
 
       std::istringstream iss(line);
       std::string token;
@@ -64,27 +64,27 @@ Qubo::load(std::istream& stream)
 
       iss >> token;
       if (iss.fail() || token != "p")
-        throw Error("Qubo::load: Missing p line");
+        throw std::runtime_error("Qubo::load: Missing p line");
 
       iss >> token;
       if (iss.fail() || token != "qubo")
-        throw Error("Qubo::load: p line: Missing token qubo");
+        throw std::runtime_error("Qubo::load: p line: Missing token qubo");
 
       iss >> n;
       if (iss.fail() || n != 0)
-        throw Error("Qubo::load: p line: Missing constant 0");
+        throw std::runtime_error("Qubo::load: p line: Missing constant 0");
 
       iss >> dimension;
       if (iss.fail() || dimension <= 0)
-        throw Error("Qubo::load: p line: Bad dimension");
+        throw std::runtime_error("Qubo::load: p line: Bad dimension");
 
       iss >> num_diagonal_elements;
       if (iss.fail() || num_diagonal_elements < 0)
-        throw Error("Qubo::load: p line: Bad num_diagonal_elements");
+        throw std::runtime_error("Qubo::load: p line: Bad num_diagonal_elements");
 
       iss >> num_other_elements;
       if (iss.fail() || num_other_elements < 0)
-        throw Error("Qubo::load: p line: Bad num_other_elements");
+        throw std::runtime_error("Qubo::load: p line: Bad num_other_elements");
 
       _q = std::vector<std::vector<double> >(dimension, std::vector<double>(dimension, 0.0));
 
@@ -94,7 +94,7 @@ Qubo::load(std::istream& stream)
     // Element
     else {
       if (!spec)
-        throw Error("Qubo::load: No p line yet");
+        throw std::runtime_error("Qubo::load: No p line yet");
 
       assert(dimension > 0);
 
@@ -104,18 +104,18 @@ Qubo::load(std::istream& stream)
 
       iss >> i;
       if (iss.fail() || i < 0 || !(i < dimension))
-        throw Error("Qubo::load: Bad line index");
+        throw std::runtime_error("Qubo::load: Bad line index");
 
       iss >> j;
       if (iss.fail() || j < 0 || !(j < dimension))
-        throw Error("Qubo::load: Bad column index");
+        throw std::runtime_error("Qubo::load: Bad column index");
 
       if (i > j)
-        throw Error("Qubo::load: matrix must be upper triangular");
+        throw std::runtime_error("Qubo::load: matrix must be upper triangular");
 
       iss >> value;
       if (iss.fail() || (value == 0))
-        throw Error("Qubo::load: Bad element value");
+        throw std::runtime_error("Qubo::load: Bad element value");
 
       _q[i][j] = -value;
 
@@ -127,9 +127,9 @@ Qubo::load(std::istream& stream)
   }
 
   if (count_other_elements != num_other_elements)
-    throw Error("Qubo::load: Not enough off diagonal elements");
+    throw std::runtime_error("Qubo::load: Not enough off diagonal elements");
   if (count_diagonal_elements != num_diagonal_elements)
-    throw Error("Qubo::load: Not enough diagonal elements");
+    throw std::runtime_error("Qubo::load: Not enough diagonal elements");
 
 }
 

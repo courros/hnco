@@ -73,7 +73,7 @@ namespace function {
       _buffer(n / 9)
     {
       if (n % 9 != 0)
-        throw exception::Error("SummationCancellation::SummationCancellation: _bv_size must be a multiple of 9");
+        throw std::runtime_error("SummationCancellation::SummationCancellation: _bv_size must be a multiple of 9");
     }
 
     /// Get bit vector size

@@ -75,7 +75,7 @@ Hiff::Hiff(int bv_size):
 
   std::bitset<8 * sizeof(int)> bs(bv_size);
   if (bs.count() != 1)
-    throw exception::Error("Hiff::Hiff: bv_size must be a power of 2");
+    throw std::runtime_error("Hiff::Hiff: bv_size must be a power of 2");
   for (size_t i = 0; i < bs.size(); i++)
     if (bs.test(i)) {
       _depth = i;

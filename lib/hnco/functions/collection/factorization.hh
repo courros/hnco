@@ -97,12 +97,12 @@ public:
       exactly one natural number written in base 10 without any space
 
       \param path Path of the instance to load
-      \throw Error
+      \throw std::runtime_error
   */
   void load(std::string path) {
     std::ifstream stream(path);
     if (!stream.good())
-      throw exception::Error("Factorization::load: Cannot open " + path);
+      throw std::runtime_error("Factorization::load: Cannot open " + path);
     std::string number;
     stream >> number;
     set_number(number);

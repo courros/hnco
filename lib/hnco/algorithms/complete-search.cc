@@ -35,7 +35,7 @@ CompleteSearch::maximize(const std::vector<function::Function *>& functions)
   HypercubeIterator iterator(get_bv_size());
 
   if (!iterator.has_next())
-    throw exception::Error("CompleteSearch::maximize: empty hypercube");
+    throw std::runtime_error("CompleteSearch::maximize: empty hypercube");
 
   set_solution(iterator.next());
 

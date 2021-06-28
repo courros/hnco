@@ -105,7 +105,7 @@ namespace function {
         length which must divide \f$n\f$. Then the maximum is \f$k
         2^{n/k} - k + 1\f$.
 
-        \throw Error */
+        \throw std::runtime_error */
     double get_maximum();
 
     ///@}

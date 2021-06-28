@@ -62,8 +62,8 @@ int main(int argc, char *argv[])
   try {
     application.run();
   }
-  catch (const Error& e) {
-    std::cerr << "Error: " << e.what() << std::endl;
+  catch (const std::runtime_error& e) {
+    std::cerr << "main: std::runtime_error: " << e.what() << std::endl;
     return 1;
   }
 }

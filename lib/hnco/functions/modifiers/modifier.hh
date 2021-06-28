@@ -110,7 +110,7 @@ namespace modifier {
 
     /** Constructor.
         \pre map->get_output_size() == function->get_bv_size()
-        \throw Error
+        \throw std::runtime_error
     */
     FunctionMapComposition(Function *function, Map *map):
       Modifier(function),
@@ -119,7 +119,7 @@ namespace modifier {
       assert(map);
 
       if (map->get_output_size() != function->get_bv_size())
-        throw exception::Error("FunctionMapComposition::FunctionMapComposition: _function and _map must be compatible");
+        throw std::runtime_error("FunctionMapComposition::FunctionMapComposition: _function and _map must be compatible");
       _bv.resize(function->get_bv_size());
     }
 
@@ -131,12 +131,12 @@ namespace modifier {
     int get_bv_size() { return _map->get_input_size(); }
 
     /** Get the global maximum.
-        \throw Error */
+        \throw std::runtime_error */
     double get_maximum() {
       if (has_known_maximum())
         return _function->get_maximum();
       else
-        throw exception::Error("Unknown maximum");
+        throw std::runtime_error("Unknown maximum");
     }
 
     /** Check for a known maximum.

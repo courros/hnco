@@ -81,29 +81,29 @@ AbstractMaxSat::load_(std::istream& stream)
     if (line[0] == 'p') {
 
       if (spec)
-        throw Error("AbstractMaxSat::load: More than one p line");
+        throw std::runtime_error("AbstractMaxSat::load: More than one p line");
 
       std::istringstream iss(line);
       std::string token;
 
       iss >> token;
       if (iss.fail() || token != "p")
-        throw Error("AbstractMaxSat::load: Bad p line");
+        throw std::runtime_error("AbstractMaxSat::load: Bad p line");
 
       iss >> token;
       if (iss.fail() || token != "cnf")
-        throw Error("AbstractMaxSat::load: Bad p line");
+        throw std::runtime_error("AbstractMaxSat::load: Bad p line");
 
       int n;
 
       iss >> n;
       if (iss.fail() || n <= 0)
-        throw Error("AbstractMaxSat::load: Bad number of variables");
+        throw std::runtime_error("AbstractMaxSat::load: Bad number of variables");
       _num_variables = n;
 
       iss >> n;
       if (iss.fail() || n <= 0)
-        throw Error("AbstractMaxSat::load: Bad number of clauses");
+        throw std::runtime_error("AbstractMaxSat::load: Bad number of clauses");
       num_clauses = n;
 
       spec = true;
@@ -112,7 +112,7 @@ AbstractMaxSat::load_(std::istream& stream)
     // Clause
     else {
       if (!spec)
-        throw Error("AbstractMaxSat::load: No p line");
+        throw std::runtime_error("AbstractMaxSat::load: No p line");
 
       std::istringstream iss(line);
       int n;
@@ -122,20 +122,20 @@ AbstractMaxSat::load_(std::istream& stream)
 
         iss >> n;
         if (iss.fail())
-          throw Error("AbstractMaxSat::load: Bad variable index");
+          throw std::runtime_error("AbstractMaxSat::load: Bad variable index");
 
         if (n == 0)
           break;
 
         int v = (n > 0) ? n : -n;
         if (v > _num_variables)
-          throw Error("AbstractMaxSat::load: Variable index overflow");
+          throw std::runtime_error("AbstractMaxSat::load: Variable index overflow");
 
         clause.push_back(n);
       }
 
       if (n != 0)
-        throw Error("AbstractMaxSat::load: Clause not ended by 0");
+        throw std::runtime_error("AbstractMaxSat::load: Clause not ended by 0");
 
       clause.shrink_to_fit();
       _expression.push_back(clause);
@@ -143,7 +143,7 @@ AbstractMaxSat::load_(std::istream& stream)
   }
 
   if (int(_expression.size()) != num_clauses)
-    throw Error("AbstractMaxSat::load: Incoherent number of clauses");
+    throw std::runtime_error("AbstractMaxSat::load: Incoherent number of clauses");
 
   _expression.shrink_to_fit();
 }

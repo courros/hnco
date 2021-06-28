@@ -79,7 +79,7 @@ public:
         << "ParsedMultivariateFunction::ParsedMultivariateFunction: " << _fparser.ErrorMsg()
         << " at position: " << position
         << " in _expression: " << _expression;
-      throw exception::Error(stream.str());
+      throw std::runtime_error(stream.str());
     }
     _fparser.Optimize();
   }

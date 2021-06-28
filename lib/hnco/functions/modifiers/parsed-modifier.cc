@@ -38,7 +38,7 @@ ParsedModifier::ParsedModifier(Function *function, std::string expression):
       << "ParsedModifier::ParsedModifier: " << _fparser.ErrorMsg()
       << " at position: " << result
       << " in expression: " << expression;
-    throw Error(stream.str());
+    throw std::runtime_error(stream.str());
   }
 }
 

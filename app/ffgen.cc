@@ -64,7 +64,7 @@ void generate_linear_function(FfgenOptions& options)
   }
 
   default:
-    throw Error("generate_linear_function: unknown generator: " + options.get_lin_generator());
+    throw std::runtime_error("generate_linear_function: unknown generator: " + options.get_lin_generator());
   }
 
   std::cout << "Writing LinearFunction to " << options.get_path() << " ... ";
@@ -90,7 +90,7 @@ void generate_walsh_expansion_2(FfgenOptions& options)
     break;
 
   default:
-    throw Error("generate_walsh_expansion_2: unknown generator: " + options.get_walsh2_generator());
+    throw std::runtime_error("generate_walsh_expansion_2: unknown generator: " + options.get_walsh2_generator());
   }
 
   std::cout << "Writing WalshExpansion2 to " << options.get_path() << " ... ";
@@ -131,7 +131,7 @@ void generate_nearest_neighbor_ising_model_1(FfgenOptions& options)
     break;
 
   default:
-    throw Error("generate_nearest_neighbor_ising_model_1: unknown generator: " + options.get_nn1_generator());
+    throw std::runtime_error("generate_nearest_neighbor_ising_model_1: unknown generator: " + options.get_nn1_generator());
   }
 
   instance.set_periodic_boundary_conditions(options.with_periodic_boundary_conditions());
@@ -177,7 +177,7 @@ void generate_nearest_neighbor_ising_model_2(FfgenOptions& options)
     break;
 
   default:
-    throw Error("generate_nearest_neighbor_ising_model_2: unknown generator: " + options.get_nn2_generator());
+    throw std::runtime_error("generate_nearest_neighbor_ising_model_2: unknown generator: " + options.get_nn2_generator());
   }
 
   if (options.get_bv_size() != int(instance.get_bv_size()))
@@ -288,7 +288,7 @@ void generate_function(FfgenOptions& options)
   }
 
   default:
-    throw Error("Cannot create any function of type " + options.get_function());
+    throw std::runtime_error("Cannot create any function of type " + options.get_function());
   }
 
 }
@@ -310,8 +310,8 @@ int main(int argc, char *argv[])
   try {
     generate_function(options);
   }
-  catch (const Error& e) {
-    std::cerr << "Error: " << e.what() << std::endl;
+  catch (const std::runtime_error& e) {
+    std::cerr << "main: std::runtime_error: " << e.what() << std::endl;
     return 1;
   }
 

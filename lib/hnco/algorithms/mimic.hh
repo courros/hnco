@@ -124,7 +124,7 @@ public:
     _selection_size(population_size / 2)
   {
     if (!(population_size > 1))
-      throw hnco::exception::Error("Mimic::Mimic: population size must be > 1");
+      throw std::runtime_error("Mimic::Mimic: population size must be > 1");
 
     for (auto& p: _parameters)
       p = pv_t(n);

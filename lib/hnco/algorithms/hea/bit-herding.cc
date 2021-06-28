@@ -75,7 +75,7 @@ BitHerding::sample(const BitMoment& target, bit_vector_t& x)
   default:
     std::ostringstream stream;
     stream << _dynamics;
-    throw Error("BitHerding::sample: Unknown _dynamics: " + stream.str());
+    throw std::runtime_error("BitHerding::sample: Unknown _dynamics: " + stream.str());
   }
 }
 

@@ -55,7 +55,7 @@ BmPbil::sample(bit_vector_t& x)
   default:
     std::ostringstream stream;
     stream << _sampling;
-    throw Error("BmPbil::sample: Unknown _sampling: " + stream.str());
+    throw std::runtime_error("BmPbil::sample: Unknown _sampling: " + stream.str());
   }
   x = _model.get_state();
 }

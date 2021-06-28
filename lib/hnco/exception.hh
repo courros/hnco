@@ -21,7 +21,7 @@
 #ifndef HNCO_EXCEPTION_H
 #define HNCO_EXCEPTION_H
 
-#include <stdexcept>
+#include <stdexcept>            // std::runtime_error
 
 
 namespace hnco {
@@ -42,34 +42,6 @@ public:
   TargetReached():
     std::runtime_error("Target reached") {}
 };
-
-/// Basic exception
-class Exception {};
-
-/// %Error
-class Error: public Exception {
-
-protected:
-
-  /// Message
-  std::string _what;
-
-public:
-
-  /// Constructor
-  Error(): _what("Unknown error") {}
-
-  /// Constructor
-  Error(const std::string& s): _what(s) {}
-
-  /// Destructor
-  virtual ~Error() {}
-
-  /// Get message
-  virtual const char* what() const { return _what.c_str(); }
-
-};
-
 
 } // end of namespace exception
 } // end of namespace hnco

@@ -60,7 +60,7 @@ CommandLineApplication::init()
   // OpenMP
   int num_threads = _options.get_num_threads();
   if (num_threads < 1)
-    throw Error("CommandLineApplication::init: At least one thread is required");
+    throw std::runtime_error("CommandLineApplication::init: At least one thread is required");
   assert(num_threads >= 1);
   omp_set_num_threads(num_threads);
 
@@ -84,11 +84,11 @@ CommandLineApplication::load_solution()
   if (_options.with_load_solution()) {
     std::ifstream stream(_options.get_solution_path());
     if (!stream.good()) {
-      throw Error("CommandLineApplication::load_solution: Cannot open " + _options.get_solution_path());
+      throw std::runtime_error("CommandLineApplication::load_solution: Cannot open " + _options.get_solution_path());
     }
     bit_vector_t x = bv_from_stream(stream);
     if (int(x.size()) != _fn->get_bv_size())
-      throw Error("CommandLineApplication::load_solution: Solution size and function bv_size must be equal");
+      throw std::runtime_error("CommandLineApplication::load_solution: Solution size and function bv_size must be equal");
     if (_options.with_print_results())
       std::cout << _fn->evaluate(x) << std::endl;
     if (_options.with_print_description())
@@ -113,7 +113,7 @@ CommandLineApplication::print_information()
       std::cout << _fn->get_maximum() << std::endl;
       exit(0);
     } else {
-      throw Error("CommandLineApplication::print_information: Function with unknown maximum");
+      throw std::runtime_error("CommandLineApplication::print_information: Function with unknown maximum");
     }
   }
 

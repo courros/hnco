@@ -155,36 +155,36 @@ public:
   /** Load instance.
 
       \param path Path of the instance to load
-      \throw Error
+      \throw std::runtime_error
   */
   void load(std::string path) {
     std::ifstream stream(path);
     if (!stream.good())
-      throw exception::Error("NearestNeighborIsingModel1::load: Cannot open " + path);
+      throw std::runtime_error("NearestNeighborIsingModel1::load: Cannot open " + path);
     try {
       boost::archive::text_iarchive archive(stream);
       archive >> (*this);
     }
     catch (boost::archive::archive_exception& e) {
-      throw exception::Error("NearestNeighborIsingModel1::load: " + std::string(e.what()));
+      throw std::runtime_error("NearestNeighborIsingModel1::load: " + std::string(e.what()));
     }
   }
 
   /** Save instance.
 
       \param path Path of the instance to save
-      \throw Error
+      \throw std::runtime_error
   */
   void save(std::string path) const {
     std::ofstream stream(path);
     if (!stream.good())
-      throw exception::Error("NearestNeighborIsingModel1::save: Cannot open " + path);
+      throw std::runtime_error("NearestNeighborIsingModel1::save: Cannot open " + path);
     try {
       boost::archive::text_oarchive archive(stream);
       archive << (*this);
     }
     catch (boost::archive::archive_exception& e) {
-      throw exception::Error("NearestNeighborIsingModel1::save: " + std::string(e.what()));
+      throw std::runtime_error("NearestNeighborIsingModel1::save: " + std::string(e.what()));
     }
   }
 

@@ -79,7 +79,7 @@ SpinHerding::sample(const SpinMoment& target, bit_vector_t& x)
   default:
     std::ostringstream stream;
     stream << _sampling_method;
-    throw Error("SpinHerding::sample: Unknown _sampling_method: " + stream.str());
+    throw std::runtime_error("SpinHerding::sample: Unknown _sampling_method: " + stream.str());
   }
 
   _count.add(x);

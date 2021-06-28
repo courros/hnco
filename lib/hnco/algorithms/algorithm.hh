@@ -116,7 +116,7 @@ public:
     _solution(bit_vector_t(n), 0.0)
   {
     if (!(n > 0))
-      throw hnco::exception::Error("Algorithm::Algorithm: bit vector size must be positive");
+      throw std::runtime_error("Algorithm::Algorithm: bit vector size must be positive");
   }
 
   /// Destructor

@@ -38,7 +38,7 @@ FunctionPlugin::FunctionPlugin(int bv_size, std::string path, std::string name):
     std::ostringstream stream;
     stream << "FunctionPlugin::FunctionPlugin: "
            << std::string(dlerror());
-    throw Error(stream.str());
+    throw std::runtime_error(stream.str());
   }
   dlerror();
   _extern_function = (extern_function_t) dlsym(_handle, name.c_str());
@@ -46,7 +46,7 @@ FunctionPlugin::FunctionPlugin(int bv_size, std::string path, std::string name):
   if (error != NULL) {
     std::ostringstream stream;
     stream << "FunctionPlugin::FunctionPlugin: " << std::string(error);
-    throw Error(stream.str());
+    throw std::runtime_error(stream.str());
   }
 }
 

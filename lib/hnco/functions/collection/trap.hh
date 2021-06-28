@@ -67,7 +67,7 @@ namespace function {
     {
       assert(num_traps > 0);
       if (bv_size % num_traps != 0)
-        throw exception::Error("Trap::Trap: _bv_size must be a multiple of _num_traps");
+        throw std::runtime_error("Trap::Trap: _bv_size must be a multiple of _num_traps");
       _trap_size = bv_size / num_traps;
     }
 

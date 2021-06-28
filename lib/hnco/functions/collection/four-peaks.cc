@@ -62,7 +62,7 @@ FourPeaks::FourPeaks(int bv_size, int threshold):
   if (threshold > bv_size / 2 - 1) {
     std::ostringstream stream;
     stream << "FourPeaks::FourPeaks: _threshold must be <= " << bv_size / 2 - 1;
-    throw Error(stream.str());
+    throw std::runtime_error(stream.str());
   }
 }
 
@@ -86,7 +86,7 @@ SixPeaks::SixPeaks(int bv_size, int threshold):
   if (threshold > bv_size / 2 - 1) {
     std::ostringstream stream;
     stream << "SixPeaks::SixPeaks: _threshold must be <= " << bv_size / 2 - 1;
-    throw Error(stream.str());
+    throw std::runtime_error(stream.str());
   }
 }
 

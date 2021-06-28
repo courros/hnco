@@ -64,7 +64,7 @@ private:
 
   /** Load an instance.
 
-      \throw Error
+      \throw std::runtime_error
   */
   void load_(std::istream& stream);
 
@@ -95,24 +95,24 @@ public:
   /** Load instance.
 
       \param path Path of the instance to load
-      \throw Error
+      \throw std::runtime_error
   */
   void load(std::string path) {
     std::ifstream stream(path);
     if (!stream.good())
-      throw exception::Error("Sudoku::load: Cannot open " + path);
+      throw std::runtime_error("Sudoku::load: Cannot open " + path);
     load_(stream);
   }
 
   /** Save instance.
 
       \param path Path of the instance to save
-      \throw Error
+      \throw std::runtime_error
   */
   void save(std::string path) const {
     std::ofstream stream(path);
     if (!stream.good())
-      throw exception::Error("Sudoku::save: Cannot open " + path);
+      throw std::runtime_error("Sudoku::save: Cannot open " + path);
     save_(stream);
   }
 

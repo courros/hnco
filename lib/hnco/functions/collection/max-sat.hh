@@ -52,7 +52,7 @@ protected:
   /** Load an instance.
 
       \param stream Input stream
-      \throw Error
+      \throw std::runtime_error
   */
   void load_(std::istream& stream);
 
@@ -82,24 +82,24 @@ public:
   /** Load instance.
 
       \param path Path of the instance to load
-      \throw Error
+      \throw std::runtime_error
   */
   void load(std::string path) {
     std::ifstream stream(path);
     if (!stream.good())
-      throw exception::Error("AbstractMaxSat::load: Cannot open " + path);
+      throw std::runtime_error("AbstractMaxSat::load: Cannot open " + path);
     load_(stream);
   }
 
   /** Save instance.
 
       \param path Path of the instance to save
-      \throw Error
+      \throw std::runtime_error
   */
   void save(std::string path) const {
     std::ofstream stream(path);
     if (!stream.good())
-      throw exception::Error("LinearFunction::save: Cannot open " + path);
+      throw std::runtime_error("LinearFunction::save: Cannot open " + path);
     save_(stream);
   }
 
@@ -172,13 +172,13 @@ public:
   /** Load instance.
 
       \param path Path of the instance to load
-      \throw Error
+      \throw std::runtime_error
   */
   void load(std::string path) {
     AbstractMaxSat::load(path);
     for (auto& clause: _expression)
       if (clause.size() != 3)
-        throw exception::Error("MaxNae3Sat::load: All clauses must have exactly 3 literals");
+        throw std::runtime_error("MaxNae3Sat::load: All clauses must have exactly 3 literals");
   }
 
 };

@@ -64,12 +64,12 @@ Sudoku::load_(std::istream& stream)
     if (line.size() < 9) {
       std::ostringstream oss;
       oss << "Sudoku::load: line " << i << " too short" << std::endl;
-      throw Error(oss.str());
+      throw std::runtime_error(oss.str());
     }
     for (int j = 0; j < 9; j++) {
       char c = line[j];
       if (!(c == '.' || (isdigit(c) && c != '0')))
-        throw Error("Sudoku::load: all characters must be the dot . or a digit between 1 and 9 (inclusive)");
+        throw std::runtime_error("Sudoku::load: all characters must be the dot . or a digit between 1 and 9 (inclusive)");
       _problem_instance[i][j] = c;
       if (c == '.')
         _num_variables++;
@@ -83,7 +83,7 @@ Sudoku::load_(std::istream& stream)
       break;
   }
   if (i < 9)
-    throw Error("Sudoku::load: at least 9 lines are needed");
+    throw std::runtime_error("Sudoku::load: at least 9 lines are needed");
 }
 
 void

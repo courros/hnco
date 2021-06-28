@@ -41,10 +41,10 @@ LongPath::LongPath(int bv_size, int prefix_length):
   assert(prefix_length > 0);
 
   if (bv_size % prefix_length != 0)
-    throw exception::Error("LongPath::LongPath: _bv_size must be a multiple of _prefix_length");
+    throw std::runtime_error("LongPath::LongPath: _bv_size must be a multiple of _prefix_length");
 
   if (_prefix_length < 2)
-    throw Error("LongPath::LongPath: _prefix_length must be > 1");
+    throw std::runtime_error("LongPath::LongPath: _prefix_length must be > 1");
 }
 
 
@@ -64,7 +64,7 @@ LongPath::get_maximum()
   if (has_known_maximum())
     return _prefix_length * std::pow(2, _bv_size / _prefix_length) - _prefix_length + 1;
   else
-    throw exception::Error("Maximum cannot be computed exactly");
+    throw std::runtime_error("Maximum cannot be computed exactly");
 }
 
 
