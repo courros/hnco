@@ -22,20 +22,12 @@
 #define HNCO_EXCEPTION_H
 
 #include <stdexcept>
-#include <string>
-
-#include "bit-vector.hh"
-#include "algorithms/solution.hh"
 
 
 namespace hnco {
 
 /// Exceptions
 namespace exception {
-
-
-/// Basic exception
-class Exception {};
 
 /// Last evaluation
 class LastEvaluation: public std::runtime_error {
@@ -44,42 +36,15 @@ public:
     std::runtime_error("Last evaluation") {}
 };
 
-/// Maximum reached
-class MaximumReached: public std::runtime_error {
-public:
-  MaximumReached():
-    std::runtime_error("Maximum reached") {}
-};
-
-/// Solution found
-class SolutionFound: public Exception {
-
-protected:
-
-  /// Solution
-  algorithm::solution_t _solution;
-
-public:
-
-  /// Constructor
-  SolutionFound(const algorithm::solution_t& solution):
-    _solution(solution) {}
-
-  /// Get solution
-  const algorithm::solution_t& get_solution() const { return _solution; }
-};
-
-
 /// Target reached
-class TargetReached: public SolutionFound {
-
+class TargetReached: public std::runtime_error {
 public:
-
-  /// Constructor
-  TargetReached(const algorithm::solution_t& solution):
-    SolutionFound(solution) {}
+  TargetReached():
+    std::runtime_error("Target reached") {}
 };
 
+/// Basic exception
+class Exception {};
 
 /// %Error
 class Error: public Exception {
