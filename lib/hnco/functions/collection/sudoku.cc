@@ -25,6 +25,7 @@
 #include <string>
 #include <sstream>
 
+#include "hnco/bit-vector.hh"
 #include "hnco/exception.hh"
 #include "hnco/permutation.hh"
 
