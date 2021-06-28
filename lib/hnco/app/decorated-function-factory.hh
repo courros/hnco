@@ -49,9 +49,6 @@ class DecoratedFunctionFactory {
   /// Cache controller
   hnco::function::controller::Cache *_cache = nullptr;
 
-  /// StopOnMaximum controller
-  hnco::function::controller::StopOnMaximum *_stop_on_maximum = nullptr;
-
   /// StopOnTarget controller
   hnco::function::controller::StopOnTarget *_stop_on_target = nullptr;
 
@@ -83,9 +80,6 @@ public:
 
   /// Get Cache controller
   hnco::function::controller::Cache *get_cache() { return _cache; }
-
-  /// Get StopOnMaximum controller
-  hnco::function::controller::StopOnMaximum *get_stop_on_maximum() { return _stop_on_maximum; }
 
   /// Get StopOnTarget controller
   hnco::function::controller::StopOnTarget *get_stop_on_target() { return _stop_on_target; }
