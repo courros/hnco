@@ -80,57 +80,6 @@ public:
 };
 
 
-/** Stop on maximum.
-
-    The member function eval throws an exception MaximumReached when
-    its argument maximizes the decorated function.
-
-    \warning The maximum is detected using the equality operator
-    hence the result should be taken with care in case of non
-    integer (floating point) function values.
-*/
-class StopOnMaximum: public Controller {
-
-  /// Trigger
-  algorithm::solution_t _trigger;
-
-public:
-
-  /** Constructor.
-
-      \param function Decorated function
-      \pre function->has_known_maximum()
-  */
-  StopOnMaximum(Function *function):
-    Controller(function)
-  {
-    assert(function->has_known_maximum());
-  }
-
-  /** @name Evaluation
-   */
-  ///@{
-
-  /** Evaluate a bit vector.
-      \throw MaximumReached */
-  double evaluate(const bit_vector_t&);
-
-  /** Incrementally evaluate a bit vector.
-      \throw MaximumReached */
-  double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
-
-  /** Update after a safe evaluation.
-      \throw MaximumReached */
-  void update(const bit_vector_t& x, double value);
-
-  ///@}
-
-  /// Get trigger
-  const algorithm::solution_t& get_trigger() { return _trigger; }
-
-};
-
-
 /** Stop on target.
 
     The member function eval throws an exception TargetReached when
@@ -145,6 +94,9 @@ class StopOnTarget:
 
   /// Target
   double _target;
+
+  /// Trigger
+  algorithm::solution_t _trigger;
 
 public:
 
@@ -175,6 +127,16 @@ public:
 
   ///@}
 
+  /// Get trigger
+  const algorithm::solution_t& get_trigger() { return _trigger; }
+
+};
+
+
+class StopOnMaximum: public StopOnTarget {
+public:
+  StopOnMaximum(Function *function):
+    StopOnTarget(function, function->get_maximum()) {}
 };
 
 

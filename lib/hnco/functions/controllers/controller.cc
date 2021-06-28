@@ -30,66 +30,28 @@ using namespace hnco::function::controller;
 
 
 double
-StopOnMaximum::evaluate(const bit_vector_t& x)
-{
-  assert(_function->has_known_maximum());
-
-  double result = _function->evaluate(x);
-  if (result == _function->get_maximum()) {
-    _trigger.first = x;
-    _trigger.second = _function->get_maximum();
-    throw MaximumReached();
-  }
-  return result;
-}
-
-
-double
-StopOnMaximum::evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
-{
-  assert(_function->has_known_maximum());
-
-  double result = _function->evaluate_incrementally(x, value, flipped_bits);
-  if (result == _function->get_maximum()) {
-    _trigger.first = x;
-    _trigger.second = _function->get_maximum();
-    sbv_flip(_trigger.first, flipped_bits);
-    throw MaximumReached();
-  }
-  return result;
-}
-
-
-void
-StopOnMaximum::update(const bit_vector_t& x, double value)
-{
-  assert(_function->has_known_maximum());
-
-  _function->update(x, value);
-  if (value == _function->get_maximum()) {
-    _trigger.first = x;
-    _trigger.second = _function->get_maximum();
-    throw MaximumReached();
-  }
-}
-
-
-double
 StopOnTarget::evaluate(const bit_vector_t& x)
 {
   double result = _function->evaluate(x);
-  if (result >= _target)
-    throw TargetReached(std::make_pair(x, result));
+  if (result >= _target) {
+    _trigger.first = x;
+    _trigger.second = result;
+    throw TargetReached();
+  }
   return result;
 }
 
 
 double
-StopOnTarget::evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+StopOnTarget::evaluate_incrementally(const bit_vector_t& x, double value,
+                                     const hnco::sparse_bit_vector_t& flipped_bits)
 {
   double result = _function->evaluate_incrementally(x, value, flipped_bits);
-  if (result >= _target)
-    throw TargetReached(std::make_pair(x, result));
+  if (result >= _target) {
+    _trigger.first = x;
+    _trigger.second = result;
+    throw TargetReached();
+  }
   return result;
 }
 
@@ -98,8 +60,11 @@ void
 StopOnTarget::update(const bit_vector_t& x, double value)
 {
   _function->update(x, value);
-  if (value >= _target)
-    throw TargetReached(std::make_pair(x, value));
+  if (value >= _target) {
+    _trigger.first = x;
+    _trigger.second = value;
+    throw TargetReached();
+  }
 }
 
 
