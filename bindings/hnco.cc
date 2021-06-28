@@ -125,8 +125,8 @@ PYBIND11_MODULE(hnco, module_hnco) {
            stream << " -> " << s.second;
            return stream.str();
          })
-    .def_readwrite("first", &algorithm::solution_t::first)
-    .def_readwrite("second", &algorithm::solution_t::second)
+    .def_readonly("first", &algorithm::solution_t::first)
+    .def_readonly("second", &algorithm::solution_t::second)
     ;
 
   //
