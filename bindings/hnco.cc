@@ -257,6 +257,26 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("get_num_calls", &CallCounter::get_num_calls)
       ;
 
+    py::class_<OnBudgetFunction, CallCounter>(module_controller, "OnBudgetFunction")
+      .def(py::init<function::Function *, int>())
+      ;
+
+    py::class_<ProgressTracker::Event>(module_controller, "Event")
+      ;
+
+    py::class_<ProgressTracker, CallCounter>(module_controller, "ProgressTracker")
+      .def(py::init<function::Function *>())
+      .def("set_log_improvement", &ProgressTracker::set_log_improvement)
+      .def("set_record_evaluation_time", &ProgressTracker::set_record_evaluation_time)
+      .def("get_evaluation_time", &ProgressTracker::get_evaluation_time)
+      .def("get_last_improvement", &ProgressTracker::get_last_improvement)
+      ;
+
+    py::class_<Cache, Controller>(module_controller, "Cache")
+      .def(py::init<function::Function *>())
+      .def("get_lookup_ratio", &Cache::get_lookup_ratio)
+      ;
+
   }
 
   //
