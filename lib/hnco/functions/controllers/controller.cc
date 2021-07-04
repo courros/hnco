@@ -43,8 +43,7 @@ StopOnTarget::evaluate(const bit_vector_t& x)
 
 
 double
-StopOnTarget::evaluate_incrementally(const bit_vector_t& x, double value,
-                                     const hnco::sparse_bit_vector_t& flipped_bits)
+StopOnTarget::evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
   double result = _function->evaluate_incrementally(x, value, flipped_bits);
   if (result >= _target) {
