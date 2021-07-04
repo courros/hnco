@@ -252,6 +252,11 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def(py::init<function::Function *>())
       ;
 
+    py::class_<CallCounter, Controller>(module_controller, "CallCounter")
+      .def(py::init<function::Function *>())
+      .def("get_num_calls", &CallCounter::get_num_calls)
+      ;
+
   }
 
   //
