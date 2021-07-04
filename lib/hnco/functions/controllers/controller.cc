@@ -97,32 +97,27 @@ CallCounter::update(const bit_vector_t& x, double value)
 double
 OnBudgetFunction::evaluate(const bit_vector_t& x)
 {
-  if (_num_calls == _budget)
+  if (_call_counter.get_num_calls() == _budget)
     throw LastEvaluation();
-  double result = _function->evaluate(x);
-  _num_calls++;
-  return result;
+  return _call_counter.evaluate(x);
 }
 
 
 double
 OnBudgetFunction::evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
-  if (_num_calls == _budget)
+  if (_call_counter.get_num_calls() == _budget)
     throw LastEvaluation();
-  double result = _function->evaluate_incrementally(x, value, flipped_bits);
-  _num_calls++;
-  return result;
+  return _call_counter.evaluate_incrementally(x, value, flipped_bits);
 }
 
 
 void
 OnBudgetFunction::update(const bit_vector_t& x, double value)
 {
-  if (_num_calls == _budget)
+  if (_call_counter.get_num_calls() == _budget)
     throw LastEvaluation();
-  _function->update(x, value);
-  _num_calls++;
+  _call_counter.update(x, value);
 }
 
 

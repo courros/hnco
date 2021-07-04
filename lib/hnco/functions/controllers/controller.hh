@@ -284,9 +284,11 @@ public:
 std::ostream& operator<<(std::ostream& stream, const ProgressTracker::Event& event);
 
 
-/// CallCounter with a limited number of evaluations
-class OnBudgetFunction:
-    public CallCounter {
+/// Function with a limited number of evaluations
+class OnBudgetFunction: public Controller {
+
+  /// Call counter
+  CallCounter _call_counter;
 
   /// Budget
   int _budget;
@@ -294,9 +296,11 @@ class OnBudgetFunction:
 public:
 
   /// Constructor
-  OnBudgetFunction(Function *function, int budget):
-    CallCounter(function),
-    _budget(budget) {}
+  OnBudgetFunction(Function *function, int budget)
+    : Controller(function)
+    , _call_counter(function)
+    , _budget(budget)
+  {}
 
   /** @name Evaluation
    */
