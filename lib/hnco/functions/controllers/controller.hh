@@ -132,8 +132,14 @@ public:
 };
 
 
+/// Stop on maximum
 class StopOnMaximum: public StopOnTarget {
 public:
+
+  /** Constructor.
+
+      \pre function->has_known_maximum()
+  */
   StopOnMaximum(Function *function):
     StopOnTarget(function, function->get_maximum()) {}
 };
@@ -247,7 +253,10 @@ protected:
   /// Log improvement
   bool _log_improvement = false;
 
-  /// Record evaluation time
+  /** Record evaluation time.
+
+      Only relevant for ProgressTracker::evaluate.
+  */
   bool _record_evaluation_time = false;
 
   ///@}
