@@ -89,8 +89,7 @@ public:
     operator hence the result should be taken with care in case of
     non integer (floating point) function values.
 */
-class StopOnTarget:
-    public Controller {
+class StopOnTarget: public Controller {
 
   /// Target
   double _target;
@@ -141,8 +140,7 @@ public:
 
 
 /// Call counter
-class CallCounter:
-    public Controller {
+class CallCounter: public Controller {
 
 protected:
 
@@ -178,14 +176,48 @@ public:
 };
 
 
+/// Function with a limited number of evaluations
+class OnBudgetFunction: public CallCounter {
+
+  /// Budget
+  int _budget;
+
+public:
+
+  /// Constructor
+  OnBudgetFunction(Function *function, int budget)
+    : CallCounter(function)
+    , _budget(budget)
+  {}
+
+  /** @name Evaluation
+   */
+  ///@{
+
+  /** Evaluate a bit vector.
+      \throw LastEvaluation */
+  double evaluate(const bit_vector_t&);
+
+  /** Incrementally evaluate a bit vector.
+      \throw LastEvaluation */
+  double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+
+  /** Update after a safe evaluation
+      \throw LastEvaluation */
+  void update(const bit_vector_t& x, double value);
+
+  ///@}
+
+};
+
+
 /** ProgressTracker.
 
     A ProgressTracker is a CallCounter which keeps track the last
     improvement, that is its value and the number of evaluations
     needed to reach it.
 */    
-class ProgressTracker:
-    public CallCounter {
+class ProgressTracker: public CallCounter {
 
 public:
 
@@ -282,45 +314,6 @@ public:
 
 /// Insert formatted output
 std::ostream& operator<<(std::ostream& stream, const ProgressTracker::Event& event);
-
-
-/// Function with a limited number of evaluations
-class OnBudgetFunction: public Controller {
-
-  /// Call counter
-  CallCounter _call_counter;
-
-  /// Budget
-  int _budget;
-
-public:
-
-  /// Constructor
-  OnBudgetFunction(Function *function, int budget)
-    : Controller(function)
-    , _call_counter(function)
-    , _budget(budget)
-  {}
-
-  /** @name Evaluation
-   */
-  ///@{
-
-  /** Evaluate a bit vector.
-      \throw LastEvaluation */
-  double evaluate(const bit_vector_t&);
-
-  /** Incrementally evaluate a bit vector.
-      \throw LastEvaluation */
-  double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
-
-  /** Update after a safe evaluation
-      \throw LastEvaluation */
-  void update(const bit_vector_t& x, double value);
-
-  ///@}
-
-};
 
 
 /** Cache.

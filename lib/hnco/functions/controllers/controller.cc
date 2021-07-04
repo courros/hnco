@@ -97,27 +97,27 @@ CallCounter::update(const bit_vector_t& x, double value)
 double
 OnBudgetFunction::evaluate(const bit_vector_t& x)
 {
-  if (_call_counter.get_num_calls() == _budget)
+  if (_num_calls == _budget)
     throw LastEvaluation();
-  return _call_counter.evaluate(x);
+  return CallCounter::evaluate(x);
 }
 
 
 double
 OnBudgetFunction::evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
-  if (_call_counter.get_num_calls() == _budget)
+  if (_num_calls == _budget)
     throw LastEvaluation();
-  return _call_counter.evaluate_incrementally(x, value, flipped_bits);
+  return CallCounter::evaluate_incrementally(x, value, flipped_bits);
 }
 
 
 void
 OnBudgetFunction::update(const bit_vector_t& x, double value)
 {
-  if (_call_counter.get_num_calls() == _budget)
+  if (_num_calls == _budget)
     throw LastEvaluation();
-  _call_counter.update(x, value);
+  CallCounter::update(x, value);
 }
 
 
@@ -127,10 +127,10 @@ ProgressTracker::evaluate(const bit_vector_t& x)
   double result;
   if (_record_evaluation_time) {
     _stop_watch.start();
-    result = _function->evaluate(x);
+    result = CallCounter::evaluate(x);
     _stop_watch.stop();
   } else {
-    result = _function->evaluate(x);
+    result = CallCounter::evaluate(x);
   }
   update_last_improvement(result);
   return result;
@@ -140,8 +140,7 @@ ProgressTracker::evaluate(const bit_vector_t& x)
 double
 ProgressTracker::evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
-  double result;
-  result = _function->evaluate_incrementally(x, value, flipped_bits);
+  double result = CallCounter::evaluate_incrementally(x, value, flipped_bits);
   update_last_improvement(result);
   return result;
 }
@@ -150,7 +149,7 @@ ProgressTracker::evaluate_incrementally(const bit_vector_t& x, double value, con
 void
 ProgressTracker::update(const bit_vector_t& x, double value)
 {
-  _function->update(x, value);
+  CallCounter::update(x, value);
   update_last_improvement(value);
 }
 
@@ -158,8 +157,6 @@ ProgressTracker::update(const bit_vector_t& x, double value)
 void
 ProgressTracker::update_last_improvement(double value)
 {
-  _num_calls++;
-
   if (_num_calls == 1) {
 
     _last_improvement.num_evaluations = _num_calls;
