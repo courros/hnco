@@ -61,6 +61,9 @@ then
 fi
 AM_CONDITIONAL([ENABLE_PLUGIN], [test "x$enable_plugin" = "xyes"])
 
+AC_ARG_ENABLE([bindings], AS_HELP_STRING([--enable-bindings], [Enable python bindings]))
+AM_CONDITIONAL([ENABLE_BINDINGS], [test "x$enable_bindings" = "xyes"])
+
 # Output files.
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile lib/Makefile app/Makefile tests/Makefile examples/Makefile experiments/Makefile bindings/Makefile])

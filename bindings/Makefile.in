@@ -105,6 +105,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+@ENABLE_BINDINGS_TRUE@am__append_1 = modules
 subdir = bindings
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -271,6 +272,7 @@ AM_CXXFLAGS = $(CXXFLAGS) $(OPENMP_CXXFLAGS)
 AM_LDFLAGS = $(BOOST_LDFLAGS)
 AM_LIBS = ../lib/.libs/libhnco.so $(LIBS) $(BOOST_SERIALIZATION_LIB)
 MODULE_NAME = hnco$(shell python3-config --extension-suffix)
+ALL_TARGETS = $(am__append_1)
 all: all-am
 
 .SUFFIXES:
@@ -472,9 +474,9 @@ uninstall-am:
 
 .PHONY: modules
 
-all: modules
+all: $(ALL_TARGETS)
 
-modules:
+modules: $(top_srcdir)/bindings/hnco.cc
 	$(CXX) $(AM_CPPFLAGS) $(AM_CXXFLAGS) -shared -fPIC $(top_srcdir)/bindings/hnco.cc -o $(MODULE_NAME) $(AM_LDFLAGS) $(AM_LIBS)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
