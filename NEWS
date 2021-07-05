@@ -10,24 +10,37 @@ Library:
 - Moved concrete functions in hnco/functions/collection/
 - Moved Sudoku files in hnco/functions/collection/
 - Moved ParsedMultivariateFunction files in hnco/functions/collection/
+- EqualProducts, Factorization, NearestNeighborIsingModel1,
+  NearestNeighborIsingModel2, LinearFunction, AbstractMaxSat,
+  NkLandscape, Partition, Qubo, Sudoku, WalshExpansion1,
+  WalshExpansion2, WalshExpansion: added load and/or save member
+  functions
+- IterativeAlgorithm: add _last_iteration flag
+- Removed exceptions Error, SolutionFound, LocalMaximumReached and
+  MaximumReached
+- Exceptions LastEvaluation and TargetReached derive from
+  std::runtime_error
+- StopOnTarget: added _trigger and get_trigger
+- Hboa, Ltga, ParameterLessPopulationPyramid: _pimpl is now a raw
+  pointer to simplify python binding
 
-Build:
-- optgen.pl: changed json object structure: added fields files and code
-- optgen.pl: put class Options in given namespace
+Python:
+- Add python binding with pybind11
 
-hnco:
-- Updated hnco.json
+Applications:
+- hnco: updated hnco.json
 - hnco uses classes in namespace hnco::app
-
-ffgen:
-- Updated ffgen.json
-
-mapgen:
-- Updated mapgen.json
+- ffgen: updated ffgen.json
+- mapgen: updated mapgen.json
+- mapgen, ffgen: catch runtime_error
 
 Examples:
 - Added cli-my-function.cc
 - Added cli-my-algorithm.cc
+
+Build:
+- optgen.pl: changed json object structure: added fields files and code
+- optgen.pl: put class Options in given namespace
 
 
 * Version 0.16 (2021-02-03)
