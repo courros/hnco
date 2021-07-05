@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 {
   Generator::set_seed();
 
-  const std::string path("test-load-save-linear-function.txt");
+  const std::string path("test-save-load-linear-function.txt");
 
   for (int i = 0; i < 10; i++) {
 
