@@ -30,15 +30,13 @@ MODULE_NAME = hnco$(shell python3-config --extension-suffix)
 # Python module
 #
 
-.PHONY: modules
-
 ALL_TARGETS =
 
 if ENABLE_BINDINGS
-    ALL_TARGETS += modules
+    ALL_TARGETS += $(MODULE_NAME)
 endif
 
 all: $(ALL_TARGETS)
 
-modules: $(top_srcdir)/bindings/hnco.cc
+$(MODULE_NAME): $(top_srcdir)/bindings/hnco.cc
 	$(CXX) $(AM_CPPFLAGS) $(AM_CXXFLAGS) -shared -fPIC $(top_srcdir)/bindings/hnco.cc -o $(MODULE_NAME) $(AM_LDFLAGS) $(AM_LIBS)
