@@ -204,9 +204,9 @@ CommandLineFunctionFactory::make()
     auto instance = new Fn(_options.get_fp_expression());
     auto reps = std::vector<Rep>
       (instance->get_num_variables(),
-       Rep(_options.get_fp_num_bits(),
-           _options.get_fp_lower_bound(),
-           _options.get_fp_upper_bound()));
+       Rep(_options.get_fp_lower_bound(),
+           _options.get_fp_upper_bound(),
+           _options.get_fp_num_bits()));
     return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
   }
 
@@ -218,9 +218,9 @@ CommandLineFunctionFactory::make()
     auto instance = new Fn(_options.get_fp_expression());
     auto reps = std::vector<Rep>
       (instance->get_num_variables(),
-       Rep(_options.get_fp_num_bits(),
-           _options.get_fp_lower_bound(),
-           _options.get_fp_upper_bound()));
+       Rep(_options.get_fp_lower_bound(),
+           _options.get_fp_upper_bound(),
+           _options.get_fp_num_bits()));
     return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
   }
 
@@ -232,9 +232,9 @@ CommandLineFunctionFactory::make()
     auto instance = new Fn(_options.get_fp_expression());
     auto reps = std::vector<Rep>
       (instance->get_num_variables(),
-       Rep(_options.get_fp_num_bits(),
-           _options.get_fp_lower_bound(),
-           _options.get_fp_upper_bound()));
+       Rep(_options.get_fp_lower_bound(),
+           _options.get_fp_upper_bound(),
+           _options.get_fp_num_bits()));
     return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
   }
 

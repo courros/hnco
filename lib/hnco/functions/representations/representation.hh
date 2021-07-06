@@ -47,32 +47,22 @@ class DyadicRealRepresentation {
   /// Lengths of dyadic intervals
   std::vector<T> _lengths;
 
-  /// Lower bound of the search interval
+  /// Lower bound of the interval
   T _lower_bound;
 
-  /// Length of the search interval
+  /// Length of the interval
   T _length;
 
   /// Affine transformation
   T affine_transformation(T x) { return _lower_bound + _length * x; }
 
-public:
+  /** Compute lengths.
 
-  /// Domain type
-  typedef T domain_type;
-
-  /** Constructor.
-
-      \param num_bits Number of bits per real
-      \param lower_bound Lower bound of the search interval
-      \param upper_bound Upper bound of the search interval
+      \param num_bits Number of bits per real number
   */
-  DyadicRealRepresentation(int num_bits, T lower_bound, T upper_bound)
-    : _lower_bound(lower_bound)
-    , _length(upper_bound - lower_bound)
+  void compute_lengths(int num_bits)
   {
     assert(num_bits > 0);
-    assert(lower_bound < upper_bound);
 
     _lengths = std::vector<T>(num_bits);
     T x = 0.5;
@@ -81,6 +71,56 @@ public:
       x /= 2;
     }
   }
+
+public:
+
+  /// Domain type
+  typedef T domain_type;
+
+  /** Constructor.
+
+      The represented interval is [lower_bound, upper_bound).
+
+      \param lower_bound Lower bound of the interval
+      \param upper_bound Upper bound of the interval
+      \param num_bits Number of bits per real number
+  */
+  DyadicRealRepresentation(T lower_bound, T upper_bound, int num_bits)
+    : _lower_bound(lower_bound)
+    , _length(upper_bound - lower_bound)
+  {
+    assert(lower_bound < upper_bound);
+    assert(num_bits > 0);
+
+    compute_lengths(num_bits);
+  }
+
+  /** Constructor.
+
+      The represented interval is [lower_bound, upper_bound).
+
+      \param lower_bound Lower bound of the interval
+      \param upper_bound Upper bound of the interval
+      \param precision Precision
+  */
+  DyadicRealRepresentation(T lower_bound, T upper_bound, T precision)
+    : _lower_bound(lower_bound)
+    , _length(upper_bound - lower_bound)
+  {
+    assert(lower_bound < upper_bound);
+    assert(precision > 0);
+
+    int num_bits = std::ceil(std::log(_length / precision) / std::log(2));
+    compute_lengths(num_bits);
+  }
+
+  /** Default constructor.
+
+      The interval [0, 1) is represented with 7 bits.
+  */
+  DyadicRealRepresentation()
+    : DyadicRealRepresentation(0, 1, 7)
+  {}
 
   /// Size of the representation
   int size() { return _lengths.size(); }
@@ -129,17 +169,41 @@ public:
 
   /** Constructor.
 
-      \param num_bits Number of bits per real
-      \param lower_bound Lower bound of the search interval
-      \param upper_bound Upper bound of the search interval
+      \param lower_bound_re Lower bound of the real part
+      \param upper_bound_re Upper bound of the real part
+      \param num_bits_re Number of bits to represent the real part
+      \param lower_bound_im Lower bound of the imaginary part
+      \param upper_bound_im Upper bound of the imaginary part
+      \param num_bits_im Number of bits to represent the imaginary part
   */
-  DyadicComplexRepresentation(int num_bits, T lower_bound, T upper_bound)
-    : _real_part(num_bits, lower_bound, upper_bound)
-    , _imaginary_part(num_bits, lower_bound, upper_bound)
+  DyadicComplexRepresentation(T lower_bound_re, T upper_bound_re, int num_bits_re, T lower_bound_im, T upper_bound_im, int num_bits_im)
+    : _real_part(lower_bound_re, upper_bound_re, num_bits_re)
+    , _imaginary_part(lower_bound_im, upper_bound_im, num_bits_im)
   {
-    assert(num_bits > 0);
-    assert(lower_bound < upper_bound);
+    assert(num_bits_re > 0);
+    assert(lower_bound_re < upper_bound_re);
+    assert(num_bits_im > 0);
+    assert(lower_bound_im < upper_bound_im);
   }
+
+  /** Constructor.
+
+      \param lower_bound Lower bound of both real and imaginary parts
+      \param upper_bound Upper bound of both real and imaginary parts
+      \param num_bits Number of bits to represent both real and imaginary parts
+  */
+  DyadicComplexRepresentation(T lower_bound, T upper_bound, int num_bits)
+    : DyadicComplexRepresentation(lower_bound, upper_bound, num_bits, lower_bound, upper_bound, num_bits)
+  {}
+
+  /** Default constructor.
+
+      Both the real and the imaginary parts take their values in the
+      interval [0, 1) which is prepresented with 7 bits.
+  */
+  DyadicComplexRepresentation()
+    : DyadicComplexRepresentation(0, 1, 7, 0, 1, 7)
+  {}
 
   /// Size of the representation
   int size() { return _real_part.size() + _imaginary_part.size(); }
@@ -205,10 +269,10 @@ class DyadicIntegerRepresentation {
   /// Number of bits for a complete representation
   int _num_bits_complete;
 
-  /// Lower bound of the search interval
+  /// Lower bound of the interval
   T _lower_bound;
 
-  /// Upper bound of the search interval
+  /// Upper bound of the interval
   T _upper_bound;
 
   /// The the number of bits of a complete representation
@@ -228,11 +292,13 @@ public:
 
   /** Constructor.
 
+      The represented interval is [lower_bound..upper_bound].
+
       \param num_bits Number of bits per real
-      \param lower_bound Lower bound of the search interval
-      \param upper_bound Upper bound of the search interval
+      \param lower_bound Lower bound of the interval
+      \param upper_bound Upper bound of the interval
   */
-  DyadicIntegerRepresentation(int num_bits, T lower_bound, T upper_bound)
+  DyadicIntegerRepresentation(T lower_bound, T upper_bound, int num_bits)
     : _num_bits(num_bits)
     , _lower_bound(lower_bound)
     , _upper_bound(upper_bound)
@@ -247,8 +313,10 @@ public:
 
   /** Constructor.
 
-      \param lower_bound Lower bound of the search interval
-      \param upper_bound Upper bound of the search interval
+      The represented interval is [lower_bound..upper_bound].
+
+      \param lower_bound Lower bound of the interval
+      \param upper_bound Upper bound of the interval
   */
   DyadicIntegerRepresentation(T lower_bound, T upper_bound)
     : _lower_bound(lower_bound)
@@ -258,6 +326,14 @@ public:
     set_num_bits_complete(lower_bound, upper_bound);
     _num_bits = _num_bits_complete;
   }
+
+  /** Default Constructor.
+
+      The interval [0..255] is represented with 8 bits.
+  */
+  DyadicIntegerRepresentation()
+    : DyadicIntegerRepresentation(0, 255)
+  {}
 
   /// Size of the representation
   int size() { return _num_bits; }
@@ -283,6 +359,7 @@ public:
   }
 
 };
+
 
 /// Linear categorical representation
 class LinearCategoricalRepresentation {
@@ -385,6 +462,7 @@ public:
 
 };
 
+
 /// Integer categorical representation
 class IntegerCategoricalRepresentation {
 
@@ -440,6 +518,7 @@ public:
            << ") represented by " << _num_bits << " bits" << std::endl;
   }
 };
+
 
 } // end of namespace representation
 } // end of namespace function

@@ -48,7 +48,7 @@ bool check_representation()
 
   using Rep = DyadicRealRepresentation<double>;
 
-  std::vector<Rep> reps(num_variables, Rep(num_bits, lower_bound, upper_bound));
+  std::vector<Rep> reps(num_variables, Rep(lower_bound, upper_bound, num_bits));
   std::vector<double> variables(num_variables);
 
   bit_vector_t bv(n);
