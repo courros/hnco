@@ -114,6 +114,14 @@ public:
     compute_lengths(num_bits);
   }
 
+  /** Default constructor.
+
+      The interval [0, 1) is represented with 7 bits.
+  */
+  DyadicRealRepresentation()
+    : DyadicRealRepresentation(0, 1, 7)
+  {}
+
   /// Size of the representation
   int size() { return _lengths.size(); }
 
@@ -186,6 +194,15 @@ public:
   */
   DyadicComplexRepresentation(T lower_bound, T upper_bound, int num_bits)
     : DyadicComplexRepresentation(lower_bound, upper_bound, num_bits, lower_bound, upper_bound, num_bits)
+  {}
+
+  /** Default constructor.
+
+      Both the real and the imaginary parts take their values in the
+      interval [0, 1) which is prepresented with 7 bits.
+  */
+  DyadicComplexRepresentation()
+    : DyadicComplexRepresentation(0, 1, 7, 0, 1, 7)
   {}
 
   /// Size of the representation
@@ -331,6 +348,7 @@ public:
 
 };
 
+
 /// Linear categorical representation
 class LinearCategoricalRepresentation {
 
@@ -432,6 +450,7 @@ public:
 
 };
 
+
 /// Integer categorical representation
 class IntegerCategoricalRepresentation {
 
@@ -487,6 +506,7 @@ public:
            << ") represented by " << _num_bits << " bits" << std::endl;
   }
 };
+
 
 } // end of namespace representation
 } // end of namespace function
