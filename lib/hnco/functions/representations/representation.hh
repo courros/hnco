@@ -296,7 +296,7 @@ public:
       \param lower_bound Lower bound of the search interval
       \param upper_bound Upper bound of the search interval
   */
-  DyadicIntegerRepresentation(int num_bits, T lower_bound, T upper_bound)
+  DyadicIntegerRepresentation(T lower_bound, T upper_bound, int num_bits)
     : _num_bits(num_bits)
     , _lower_bound(lower_bound)
     , _upper_bound(upper_bound)
