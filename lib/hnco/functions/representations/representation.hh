@@ -56,12 +56,30 @@ class DyadicRealRepresentation {
   /// Affine transformation
   T affine_transformation(T x) { return _lower_bound + _length * x; }
 
+  /** Compute lengths.
+
+      \param num_bits Number of bits per real number
+  */
+  void compute_lengths(int num_bits)
+  {
+    assert(num_bits > 0);
+
+    _lengths = std::vector<T>(num_bits);
+    T x = 0.5;
+    for (size_t i = 0; i < _lengths.size(); i++) {
+      _lengths[i] = x;
+      x /= 2;
+    }
+  }
+
 public:
 
   /// Domain type
   typedef T domain_type;
 
   /** Constructor.
+
+      The represented interval is [lower_bound, upper_bound).
 
       \param lower_bound Lower bound of the search interval
       \param upper_bound Upper bound of the search interval
@@ -71,15 +89,29 @@ public:
     : _lower_bound(lower_bound)
     , _length(upper_bound - lower_bound)
   {
-    assert(num_bits > 0);
     assert(lower_bound < upper_bound);
+    assert(num_bits > 0);
 
-    _lengths = std::vector<T>(num_bits);
-    T x = 0.5;
-    for (size_t i = 0; i < _lengths.size(); i++) {
-      _lengths[i] = x;
-      x /= 2;
-    }
+    compute_lengths(num_bits);
+  }
+
+  /** Constructor.
+
+      The represented interval is [lower_bound, upper_bound).
+
+      \param lower_bound Lower bound of the search interval
+      \param upper_bound Upper bound of the search interval
+      \param precision Precision
+  */
+  DyadicRealRepresentation(T lower_bound, T upper_bound, T precision)
+    : _lower_bound(lower_bound)
+    , _length(upper_bound - lower_bound)
+  {
+    assert(lower_bound < upper_bound);
+    assert(precision > 0);
+
+    int num_bits = std::ceil(std::log(_length / precision) / std::log(2));
+    compute_lengths(num_bits);
   }
 
   /// Size of the representation
