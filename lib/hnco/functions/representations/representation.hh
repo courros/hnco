@@ -161,17 +161,32 @@ public:
 
   /** Constructor.
 
-      \param lower_bound Lower bound of the search interval
-      \param upper_bound Upper bound of the search interval
-      \param num_bits Number of bits per real number
+      \param lower_bound_re Lower bound of the real part
+      \param upper_bound_re Upper bound of the real part
+      \param num_bits_re Number of bits to represent the real part
+      \param lower_bound_im Lower bound of the imaginary part
+      \param upper_bound_im Upper bound of the imaginary part
+      \param num_bits_im Number of bits to represent the imaginary part
+  */
+  DyadicComplexRepresentation(T lower_bound_re, T upper_bound_re, int num_bits_re, T lower_bound_im, T upper_bound_im, int num_bits_im)
+    : _real_part(lower_bound_re, upper_bound_re, num_bits_re)
+    , _imaginary_part(lower_bound_im, upper_bound_im, num_bits_im)
+  {
+    assert(num_bits_re > 0);
+    assert(lower_bound_re < upper_bound_re);
+    assert(num_bits_im > 0);
+    assert(lower_bound_im < upper_bound_im);
+  }
+
+  /** Constructor.
+
+      \param lower_bound Lower bound of both real and imaginary parts
+      \param upper_bound Upper bound of both real and imaginary parts
+      \param num_bits Number of bits to represent both real and imaginary parts
   */
   DyadicComplexRepresentation(T lower_bound, T upper_bound, int num_bits)
-    : _real_part(lower_bound, upper_bound, num_bits)
-    , _imaginary_part(lower_bound, upper_bound, num_bits)
-  {
-    assert(num_bits > 0);
-    assert(lower_bound < upper_bound);
-  }
+    : DyadicComplexRepresentation(lower_bound, upper_bound, num_bits, lower_bound, upper_bound, num_bits)
+  {}
 
   /// Size of the representation
   int size() { return _real_part.size() + _imaginary_part.size(); }
