@@ -724,6 +724,14 @@
             "section": "fp"
         },
 
+        "fp_precision":
+        {
+            "type": "double",
+            "value": "0.01",
+            "description": "Precision of the dyadic representation of a number",
+            "section": "fp"
+        },
+
         "rep_categorical_representation":
         {
             "type": "int",

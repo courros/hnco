@@ -45,6 +45,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_fp_lower_bound(false),
   _fp_num_bits(8),
   _opt_fp_num_bits(false),
+  _fp_precision(0.01),
+  _opt_fp_precision(false),
   _fp_upper_bound(2),
   _opt_fp_upper_bound(false),
   _function(0),
@@ -205,6 +207,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_FP_EXPRESSION,
     OPTION_FP_LOWER_BOUND,
     OPTION_FP_NUM_BITS,
+    OPTION_FP_PRECISION,
     OPTION_FP_UPPER_BOUND,
     OPTION_FUNCTION,
     OPTION_GA_CROSSOVER_BIAS,
@@ -313,6 +316,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
     {"fp-lower-bound", required_argument, 0, OPTION_FP_LOWER_BOUND},
     {"fp-num-bits", required_argument, 0, OPTION_FP_NUM_BITS},
+    {"fp-precision", required_argument, 0, OPTION_FP_PRECISION},
     {"fp-upper-bound", required_argument, 0, OPTION_FP_UPPER_BOUND},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"ga-crossover-bias", required_argument, 0, OPTION_GA_CROSSOVER_BIAS},
@@ -495,6 +499,10 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
 
     case OPTION_FP_NUM_BITS:
       set_fp_num_bits(atoi(optarg));
+      break;
+
+    case OPTION_FP_PRECISION:
+      set_fp_precision(atof(optarg));
       break;
 
     case OPTION_FP_UPPER_BOUND:
@@ -1113,6 +1121,8 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "          Lower bound" << std::endl;
   stream << "      --fp-num-bits (type int, default to 8)" << std::endl;
   stream << "          Number of bits in the dyadic representation of a number" << std::endl;
+  stream << "      --fp-precision (type double, default to 0.01)" << std::endl;
+  stream << "          Precision of the dyadic representation of a number" << std::endl;
   stream << "      --fp-upper-bound (type double, default to 2)" << std::endl;
   stream << "          Upper bound" << std::endl;
   stream << std::endl;
@@ -1363,6 +1373,7 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# fp_expression = " << options._fp_expression << std::endl;
   stream << "# fp_lower_bound = " << options._fp_lower_bound << std::endl;
   stream << "# fp_num_bits = " << options._fp_num_bits << std::endl;
+  stream << "# fp_precision = " << options._fp_precision << std::endl;
   stream << "# fp_upper_bound = " << options._fp_upper_bound << std::endl;
   stream << "# function = " << options._function << std::endl;
   stream << "# ga_crossover_bias = " << options._ga_crossover_bias << std::endl;

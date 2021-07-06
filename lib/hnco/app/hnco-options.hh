@@ -88,6 +88,10 @@ class HncoOptions {
   int _fp_num_bits;
   bool _opt_fp_num_bits;
 
+  /// Precision of the dyadic representation of a number
+  double _fp_precision;
+  bool _opt_fp_precision;
+
   /// Upper bound
   double _fp_upper_bound;
   bool _opt_fp_upper_bound;
@@ -648,6 +652,18 @@ public:
 
   /// Get set-flag for fp_num_bits
   bool set_fp_num_bits() const { return _opt_fp_num_bits; }
+
+  /// Get fp_precision
+  double get_fp_precision() const { return _fp_precision; }
+
+  /// Set fp_precision
+  void set_fp_precision(double x) {
+    _fp_precision = x;
+    _opt_fp_precision = true;
+  }
+
+  /// Get set-flag for fp_precision
+  bool set_fp_precision() const { return _opt_fp_precision; }
 
   /// Get fp_upper_bound
   double get_fp_upper_bound() const { return _fp_upper_bound; }
