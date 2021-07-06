@@ -202,12 +202,21 @@ CommandLineFunctionFactory::make()
     using Fn = ParsedMultivariateFunction<FunctionParser>;
     using Conv = ScalarToDouble<double>;
     auto instance = new Fn(_options.get_fp_expression());
-    auto reps = std::vector<Rep>
-      (instance->get_num_variables(),
-       Rep(_options.get_fp_lower_bound(),
-           _options.get_fp_upper_bound(),
-           _options.get_fp_num_bits()));
-    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
+    if (_options.set_fp_num_bits()) {
+      auto reps = std::vector<Rep>
+        (instance->get_num_variables(),
+         Rep(_options.get_fp_lower_bound(),
+             _options.get_fp_upper_bound(),
+             _options.get_fp_num_bits()));
+      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
+    } else {
+      auto reps = std::vector<Rep>
+        (instance->get_num_variables(),
+         Rep(_options.get_fp_lower_bound(),
+             _options.get_fp_upper_bound(),
+             _options.get_fp_precision()));
+      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
+    }
   }
 
   case 181: {
@@ -219,8 +228,7 @@ CommandLineFunctionFactory::make()
     auto reps = std::vector<Rep>
       (instance->get_num_variables(),
        Rep(_options.get_fp_lower_bound(),
-           _options.get_fp_upper_bound(),
-           _options.get_fp_num_bits()));
+           _options.get_fp_upper_bound()));
     return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
   }
 
@@ -230,12 +238,21 @@ CommandLineFunctionFactory::make()
     using Fn = ParsedMultivariateFunction<FunctionParser_cd>;
     using Conv = ComplexToDouble<double>;
     auto instance = new Fn(_options.get_fp_expression());
-    auto reps = std::vector<Rep>
-      (instance->get_num_variables(),
-       Rep(_options.get_fp_lower_bound(),
-           _options.get_fp_upper_bound(),
-           _options.get_fp_num_bits()));
-    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
+    if (_options.set_fp_num_bits()) {
+      auto reps = std::vector<Rep>
+        (instance->get_num_variables(),
+         Rep(_options.get_fp_lower_bound(),
+             _options.get_fp_upper_bound(),
+             _options.get_fp_num_bits()));
+      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
+    } else {
+      auto reps = std::vector<Rep>
+        (instance->get_num_variables(),
+         Rep(_options.get_fp_lower_bound(),
+             _options.get_fp_upper_bound(),
+             _options.get_fp_precision()));
+      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
+    }
   }
 
   case 190: {
