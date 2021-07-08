@@ -402,6 +402,11 @@ To turn optimization on and install everything under `$HOME/.local/`:
 
     CXXFLAGS="-Wall -O3 -DNDEBUG" ./configure --prefix=$HOME/.local/
 
+If you want to locally install Bash completion scripts, you would
+rather execute:
+
+       bashcompdir=$HOME/.local/share/bash-completion/completions/ CXXFLAGS="-Wall -O3 -DNDEBUG" ./configure --prefix=$HOME/.local/
+
 The factorization function is disabled by default. To enable it, add
 the option `--enable-factorization` to `./configure`. Similarly add
 the option `--enable-plugin` to enable the plugin function. See
