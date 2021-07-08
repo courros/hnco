@@ -42,6 +42,7 @@ Build:
 - optgen.pl: changed json object structure: added fields files and code
 - optgen.pl: put class Options in given namespace
 - Better handle Bash completion scripts
+- Only C++11 is now required
 
 
 * Version 0.16 (2021-02-03)
