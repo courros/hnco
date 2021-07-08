@@ -390,7 +390,7 @@ sudo apt-get install ssh
 
 ## Building and installing <a name="building"></a>
 
-The library and applications require a C++14 compiler.
+The library and applications require a C++11 compiler.
 
 Execute the following commands in the source directory:
 
@@ -407,10 +407,12 @@ rather execute:
 
        bashcompdir=$HOME/.local/share/bash-completion/completions/ CXXFLAGS="-Wall -O3 -DNDEBUG" ./configure --prefix=$HOME/.local/
 
-The factorization function is disabled by default. To enable it, add
-the option `--enable-factorization` to `./configure`. Similarly add
-the option `--enable-plugin` to enable the plugin function. See
-`./configure --help` for other options.
+Some configure options are relative to hnco only:
+- `--enable-factorization` to build the Factorization function (requires libgmp-dev)
+- `--enable-plugin` to build the Plugin function (requires libdl)
+- `--enable-bindings` to build the python module (requires python3 and pybind11)
+
+See `./configure --help` for other options.
 
 To run the tests:
 

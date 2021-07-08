@@ -12,8 +12,8 @@
 /* define if the Boost::Serialization library is available */
 #undef HAVE_BOOST_SERIALIZATION
 
-/* define if the compiler supports basic C++14 syntax */
-#undef HAVE_CXX14
+/* define if the compiler supports basic C++11 syntax */
+#undef HAVE_CXX11
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
