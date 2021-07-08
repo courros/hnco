@@ -71,6 +71,9 @@ inline bit_t bit_random(double p) { return (random::Generator::uniform() < p) ? 
 typedef std::vector<bit_t> bit_vector_t;
 
 /// Display bit vector
+inline std::string bv_domain(const bit_vector_t& x) { return std::string("bit vector (") + std::to_string(x.size()) + std::string(" bits)"); }
+
+/// Display bit vector
 void bv_display(const bit_vector_t& v, std::ostream& stream);
 
 /// Check whether the bit vector is valid
