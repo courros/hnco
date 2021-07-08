@@ -43,7 +43,7 @@ AC_CHECK_HEADERS([dlfcn.h])
 AC_CHECK_HEADERS([omp.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
-AX_CXX_COMPILE_STDCXX_11
+AX_CXX_COMPILE_STDCXX_14
 AC_OPENMP
 
 # Checks for optional features.
