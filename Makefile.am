@@ -42,3 +42,13 @@ count-hnco:
 
 count-all:
 	cloc --no3 --by-file-by-lang $(top_srcdir)/lib $(top_srcdir)/experiments $(top_srcdir)/app $(top_srcdir)/tests $(top_srcdir)/bindings
+
+#
+# Bash completion scripts
+#
+
+bashcompdir = @bashcompdir@
+dist_bashcomp_DATA = \
+	$(top_srcdir)/app/ffgen.bash \
+	$(top_srcdir)/app/mapgen.bash \
+	$(top_srcdir)/lib/hnco/app/hnco.bash
