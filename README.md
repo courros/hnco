@@ -390,7 +390,7 @@ sudo apt-get install ssh
 
 ## Building and installing <a name="building"></a>
 
-The library and applications require a C++11 compiler.
+The library and applications require a C++14 compiler.
 
 Execute the following commands in the source directory:
 
