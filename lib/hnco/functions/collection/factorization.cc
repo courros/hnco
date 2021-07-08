@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
+#include <sstream>              // std::ostringstream
 
 #include "hnco/exception.hh"
 

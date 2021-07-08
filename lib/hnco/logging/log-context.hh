@@ -21,6 +21,8 @@
 #ifndef HNCO_ALGORITHMS_LOG_CONTEXT_H
 #define HNCO_ALGORITHMS_LOG_CONTEXT_H
 
+#include <sstream>              // std::ostringstream
+
 #include "hnco/functions/controllers/controller.hh"
 
 

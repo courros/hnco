@@ -20,6 +20,8 @@
 
 #include <assert.h>
 
+#include <sstream>              // std::ostringstream
+
 #include "hnco/exception.hh"
 #include "hnco/random.hh"
 

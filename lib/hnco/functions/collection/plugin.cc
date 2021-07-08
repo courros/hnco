@@ -21,6 +21,8 @@
 #include <assert.h>
 #include <dlfcn.h>              // dlopen, dlsym, dlclose
 
+#include <sstream>              // std::ostringstream
+
 #include "hnco/exception.hh"
 
 #include "plugin.hh"
