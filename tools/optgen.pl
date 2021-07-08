@@ -544,7 +544,7 @@ EOF
 
 sub generate_completion
 {
-    open(COMP, ">$exec.sh") || die "Cannot open $exec.sh\n";;
+    open(COMP, ">$exec.bash") || die "Cannot open $exec.bash\n";;
 
     my @list = map {
 	my $hyphen = $_;
