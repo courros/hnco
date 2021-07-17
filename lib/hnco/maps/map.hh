@@ -29,11 +29,12 @@
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/serialization/vector.hpp>
 
-#include "bit-matrix.hh"
-#include "bit-vector.hh"
-#include "permutation.hh"
+#include "hnco/bit-matrix.hh"
+#include "hnco/bit-vector.hh"
+#include "hnco/permutation.hh"
+#include "hnco/exception.hh"
+
 #include "transvection.hh"
-#include "exception.hh"
 
 
 namespace hnco {

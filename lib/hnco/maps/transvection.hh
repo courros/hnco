@@ -27,8 +27,8 @@
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/serialization/vector.hpp>
 
-#include "bit-vector.hh"
-#include "bit-matrix.hh"
+#include "hnco/bit-vector.hh"
+#include "hnco/bit-matrix.hh"
 
 
 namespace hnco {

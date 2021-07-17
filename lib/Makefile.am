@@ -216,8 +216,10 @@ libhnco_la_SOURCES = \
 	hnco/logging/log-context.hh \
 	hnco/logging/logger.cc \
 	hnco/logging/logger.hh \
-	hnco/map.cc \
-	hnco/map.hh \
+	hnco/maps/map.cc \
+	hnco/maps/map.hh \
+	hnco/maps/transvection.cc \
+	hnco/maps/transvection.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -231,8 +233,6 @@ libhnco_la_SOURCES = \
 	hnco/sparse-bit-vector.cc \
 	hnco/sparse-bit-vector.hh \
 	hnco/stop-watch.hh \
-	hnco/transvection.cc \
-	hnco/transvection.hh \
 	hnco/util.hh
 
 if ENABLE_FACTORIZATION
@@ -361,7 +361,8 @@ nobase_include_HEADERS = \
 	hnco/iterator.hh \
 	hnco/logging/log-context.hh \
 	hnco/logging/logger.hh \
-	hnco/map.hh \
+	hnco/maps/map.hh \
+	hnco/maps/transvection.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh \
 	hnco/permutation.hh \
@@ -369,7 +370,6 @@ nobase_include_HEADERS = \
 	hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.hh \
 	hnco/stop-watch.hh \
-	hnco/transvection.hh \
 	hnco/util.hh
 
 if ENABLE_FACTORIZATION

@@ -21,7 +21,8 @@
 #include <algorithm>            // std::shuffle
 #include <math.h>               // std::sqrt
 
-#include "random.hh"
+#include "hnco/random.hh"
+
 #include "transvection.hh"
 
 

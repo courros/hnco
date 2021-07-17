@@ -314,7 +314,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.cc \
-	hnco/logging/logger.hh hnco/map.cc hnco/map.hh \
+	hnco/logging/logger.hh hnco/maps/map.cc hnco/maps/map.hh \
+	hnco/maps/transvection.cc hnco/maps/transvection.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -322,8 +323,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
 	hnco/sparse-bit-matrix.cc hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.cc hnco/sparse-bit-vector.hh \
-	hnco/stop-watch.hh hnco/transvection.cc hnco/transvection.hh \
-	hnco/util.hh hnco/functions/collection/factorization.cc \
+	hnco/stop-watch.hh hnco/util.hh \
+	hnco/functions/collection/factorization.cc \
 	hnco/functions/collection/factorization.hh \
 	hnco/functions/collection/plugin.cc \
 	hnco/functions/collection/plugin.hh
@@ -395,12 +396,12 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/functions/modifiers/modifier.lo \
 	hnco/functions/modifiers/parsed-modifier.lo \
 	hnco/functions/modifiers/prior-noise.lo hnco/iterator.lo \
-	hnco/logging/logger.lo hnco/map.lo \
+	hnco/logging/logger.lo hnco/maps/map.lo \
+	hnco/maps/transvection.lo \
 	hnco/neighborhoods/neighborhood-iterator.lo \
 	hnco/neighborhoods/neighborhood.lo hnco/permutation.lo \
 	hnco/random.lo hnco/sparse-bit-matrix.lo \
-	hnco/sparse-bit-vector.lo hnco/transvection.lo \
-	$(am__objects_1) $(am__objects_2)
+	hnco/sparse-bit-vector.lo $(am__objects_1) $(am__objects_2)
 libhnco_la_OBJECTS = $(am_libhnco_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -434,11 +435,9 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	fparser/$(DEPDIR)/fparser.Plo \
 	fparser/$(DEPDIR)/fpoptimizer.Plo \
 	hnco/$(DEPDIR)/bit-matrix.Plo hnco/$(DEPDIR)/bit-vector.Plo \
-	hnco/$(DEPDIR)/iterator.Plo hnco/$(DEPDIR)/map.Plo \
-	hnco/$(DEPDIR)/permutation.Plo hnco/$(DEPDIR)/random.Plo \
-	hnco/$(DEPDIR)/sparse-bit-matrix.Plo \
+	hnco/$(DEPDIR)/iterator.Plo hnco/$(DEPDIR)/permutation.Plo \
+	hnco/$(DEPDIR)/random.Plo hnco/$(DEPDIR)/sparse-bit-matrix.Plo \
 	hnco/$(DEPDIR)/sparse-bit-vector.Plo \
-	hnco/$(DEPDIR)/transvection.Plo \
 	hnco/algorithms/$(DEPDIR)/algorithm.Plo \
 	hnco/algorithms/$(DEPDIR)/complete-search.Plo \
 	hnco/algorithms/$(DEPDIR)/human.Plo \
@@ -505,7 +504,8 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/modifier.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo \
-	hnco/logging/$(DEPDIR)/logger.Plo \
+	hnco/logging/$(DEPDIR)/logger.Plo hnco/maps/$(DEPDIR)/map.Plo \
+	hnco/maps/$(DEPDIR)/transvection.Plo \
 	hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo \
 	hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
 am__mv = mv -f
@@ -637,12 +637,12 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/representations/multivariate-function-adapter.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
-	hnco/logging/log-context.hh hnco/logging/logger.hh hnco/map.hh \
+	hnco/logging/log-context.hh hnco/logging/logger.hh \
+	hnco/maps/map.hh hnco/maps/transvection.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
-	hnco/sparse-bit-vector.hh hnco/stop-watch.hh \
-	hnco/transvection.hh hnco/util.hh \
+	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
 	hnco/functions/collection/factorization.hh \
 	hnco/functions/collection/plugin.hh
 HEADERS = $(nobase_include_HEADERS)
@@ -952,7 +952,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.cc \
-	hnco/logging/logger.hh hnco/map.cc hnco/map.hh \
+	hnco/logging/logger.hh hnco/maps/map.cc hnco/maps/map.hh \
+	hnco/maps/transvection.cc hnco/maps/transvection.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -960,8 +961,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
 	hnco/sparse-bit-matrix.cc hnco/sparse-bit-matrix.hh \
 	hnco/sparse-bit-vector.cc hnco/sparse-bit-vector.hh \
-	hnco/stop-watch.hh hnco/transvection.cc hnco/transvection.hh \
-	hnco/util.hh $(am__append_1) $(am__append_2)
+	hnco/stop-watch.hh hnco/util.hh $(am__append_1) \
+	$(am__append_2)
 nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	fast-efficient-p3/Evaluation.h fast-efficient-p3/HBOA.h \
 	fast-efficient-p3/HillClimb.h fast-efficient-p3/LTGA.h \
@@ -1047,13 +1048,13 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/representations/multivariate-function-adapter.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
-	hnco/logging/log-context.hh hnco/logging/logger.hh hnco/map.hh \
+	hnco/logging/log-context.hh hnco/logging/logger.hh \
+	hnco/maps/map.hh hnco/maps/transvection.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/sparse-bit-matrix.hh \
-	hnco/sparse-bit-vector.hh hnco/stop-watch.hh \
-	hnco/transvection.hh hnco/util.hh $(am__append_3) \
-	$(am__append_4)
+	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
+	$(am__append_3) $(am__append_4)
 BUILT_SOURCES = \
 	hnco/app/hnco-options.cc \
 	hnco/app/hnco-options.hh
@@ -1449,7 +1450,16 @@ hnco/logging/$(DEPDIR)/$(am__dirstamp):
 	@: > hnco/logging/$(DEPDIR)/$(am__dirstamp)
 hnco/logging/logger.lo: hnco/logging/$(am__dirstamp) \
 	hnco/logging/$(DEPDIR)/$(am__dirstamp)
-hnco/map.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
+hnco/maps/$(am__dirstamp):
+	@$(MKDIR_P) hnco/maps
+	@: > hnco/maps/$(am__dirstamp)
+hnco/maps/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/maps/$(DEPDIR)
+	@: > hnco/maps/$(DEPDIR)/$(am__dirstamp)
+hnco/maps/map.lo: hnco/maps/$(am__dirstamp) \
+	hnco/maps/$(DEPDIR)/$(am__dirstamp)
+hnco/maps/transvection.lo: hnco/maps/$(am__dirstamp) \
+	hnco/maps/$(DEPDIR)/$(am__dirstamp)
 hnco/neighborhoods/$(am__dirstamp):
 	@$(MKDIR_P) hnco/neighborhoods
 	@: > hnco/neighborhoods/$(am__dirstamp)
@@ -1468,8 +1478,6 @@ hnco/random.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/sparse-bit-matrix.lo: hnco/$(am__dirstamp) \
 	hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/sparse-bit-vector.lo: hnco/$(am__dirstamp) \
-	hnco/$(DEPDIR)/$(am__dirstamp)
-hnco/transvection.lo: hnco/$(am__dirstamp) \
 	hnco/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/collection/factorization.lo:  \
 	hnco/functions/collection/$(am__dirstamp) \
@@ -1521,6 +1529,8 @@ mostlyclean-compile:
 	-rm -f hnco/functions/modifiers/*.lo
 	-rm -f hnco/logging/*.$(OBJEXT)
 	-rm -f hnco/logging/*.lo
+	-rm -f hnco/maps/*.$(OBJEXT)
+	-rm -f hnco/maps/*.lo
 	-rm -f hnco/neighborhoods/*.$(OBJEXT)
 	-rm -f hnco/neighborhoods/*.lo
 
@@ -1542,12 +1552,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/bit-matrix.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/bit-vector.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/iterator.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/map.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/permutation.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/random.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/sparse-bit-matrix.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/sparse-bit-vector.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/transvection.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/algorithm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/complete-search.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/human.Plo@am__quote@ # am--include-marker
@@ -1615,6 +1623,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/logging/$(DEPDIR)/logger.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/maps/$(DEPDIR)/map.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/maps/$(DEPDIR)/transvection.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo@am__quote@ # am--include-marker
 
@@ -1696,6 +1706,7 @@ clean-libtool:
 	-rm -rf hnco/functions/controllers/.libs hnco/functions/controllers/_libs
 	-rm -rf hnco/functions/modifiers/.libs hnco/functions/modifiers/_libs
 	-rm -rf hnco/logging/.libs hnco/logging/_libs
+	-rm -rf hnco/maps/.libs hnco/maps/_libs
 	-rm -rf hnco/neighborhoods/.libs hnco/neighborhoods/_libs
 install-nobase_includeHEADERS: $(nobase_include_HEADERS)
 	@$(NORMAL_INSTALL)
@@ -1881,6 +1892,8 @@ distclean-generic:
 	-rm -f hnco/functions/modifiers/$(am__dirstamp)
 	-rm -f hnco/logging/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/logging/$(am__dirstamp)
+	-rm -f hnco/maps/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/maps/$(am__dirstamp)
 	-rm -f hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/neighborhoods/$(am__dirstamp)
 
@@ -1909,12 +1922,10 @@ distclean: distclean-am
 	-rm -f hnco/$(DEPDIR)/bit-matrix.Plo
 	-rm -f hnco/$(DEPDIR)/bit-vector.Plo
 	-rm -f hnco/$(DEPDIR)/iterator.Plo
-	-rm -f hnco/$(DEPDIR)/map.Plo
 	-rm -f hnco/$(DEPDIR)/permutation.Plo
 	-rm -f hnco/$(DEPDIR)/random.Plo
 	-rm -f hnco/$(DEPDIR)/sparse-bit-matrix.Plo
 	-rm -f hnco/$(DEPDIR)/sparse-bit-vector.Plo
-	-rm -f hnco/$(DEPDIR)/transvection.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/algorithm.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/complete-search.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/human.Plo
@@ -1982,6 +1993,8 @@ distclean: distclean-am
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo
 	-rm -f hnco/logging/$(DEPDIR)/logger.Plo
+	-rm -f hnco/maps/$(DEPDIR)/map.Plo
+	-rm -f hnco/maps/$(DEPDIR)/transvection.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
 	-rm -f Makefile
@@ -2044,12 +2057,10 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/$(DEPDIR)/bit-matrix.Plo
 	-rm -f hnco/$(DEPDIR)/bit-vector.Plo
 	-rm -f hnco/$(DEPDIR)/iterator.Plo
-	-rm -f hnco/$(DEPDIR)/map.Plo
 	-rm -f hnco/$(DEPDIR)/permutation.Plo
 	-rm -f hnco/$(DEPDIR)/random.Plo
 	-rm -f hnco/$(DEPDIR)/sparse-bit-matrix.Plo
 	-rm -f hnco/$(DEPDIR)/sparse-bit-vector.Plo
-	-rm -f hnco/$(DEPDIR)/transvection.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/algorithm.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/complete-search.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/human.Plo
@@ -2117,6 +2128,8 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo
 	-rm -f hnco/logging/$(DEPDIR)/logger.Plo
+	-rm -f hnco/maps/$(DEPDIR)/map.Plo
+	-rm -f hnco/maps/$(DEPDIR)/transvection.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
 	-rm -f Makefile

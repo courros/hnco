@@ -21,7 +21,7 @@
 #ifndef HNCO_APP_DECORATED_FUNCTION_FACTORY
 #define HNCO_APP_DECORATED_FUNCTION_FACTORY
 
-#include "hnco/map.hh"
+#include "hnco/maps/map.hh"
 #include "hnco/functions/modifiers/all.hh"
 #include "hnco/functions/controllers/all.hh"
 

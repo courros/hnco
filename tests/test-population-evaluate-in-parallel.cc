@@ -29,7 +29,7 @@
 #include <iostream>
 
 #include "hnco/functions/collection/theory.hh"
-#include "hnco/map.hh"
+#include "hnco/maps/map.hh"
 #include "hnco/functions/modifiers/modifier.hh"
 #include "hnco/algorithms/population.hh"
 

@@ -30,7 +30,7 @@
 #include "hnco/exception.hh"
 #include "hnco/functions/all.hh"
 #include "hnco/iterator.hh"
-#include "hnco/map.hh"
+#include "hnco/maps/map.hh"
 #include "hnco/random.hh"
 
 namespace py = pybind11;

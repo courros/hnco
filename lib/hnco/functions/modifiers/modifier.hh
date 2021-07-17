@@ -25,7 +25,7 @@
 
 #include <iostream>
 
-#include "hnco/map.hh"
+#include "hnco/maps/map.hh"
 #include "hnco/functions/decorator.hh"
 
 

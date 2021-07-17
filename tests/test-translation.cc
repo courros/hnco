@@ -20,7 +20,7 @@
 
 #include <random>
 
-#include "hnco/map.hh"
+#include "hnco/maps/map.hh"
 #include "hnco/random.hh"
 
 using namespace hnco::random;

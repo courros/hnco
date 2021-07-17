@@ -22,7 +22,7 @@
 #include <fstream>
 
 #include "hnco/exception.hh"
-#include "hnco/map.hh"
+#include "hnco/maps/map.hh"
 #include "hnco/random.hh"
 
 #include "mapgen-options.hh"

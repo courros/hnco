@@ -18,7 +18,7 @@
 
 */
 
-#include "hnco/transvection.hh"
+#include "hnco/maps/transvection.hh"
 
 
 using namespace hnco::random;

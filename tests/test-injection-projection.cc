@@ -21,7 +21,7 @@
 #include <random>
 
 #include "hnco/bit-vector.hh"
-#include "hnco/map.hh"
+#include "hnco/maps/map.hh"
 #include "hnco/permutation.hh"
 #include "hnco/random.hh"
 
