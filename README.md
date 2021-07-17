@@ -23,10 +23,10 @@ Library features:
 
 - 29 concrete functions
 - 25 concrete algorithms
-- 78 unit tests
+- 79 unit tests
 - Maps from bit vectors to bit vectors
-- Function decorators to control evaluation
-- Function decorators to modify functions
+- Function decorators to control evaluation (budget...)
+- Function decorators to modify functions (noise...)
 - Maps and functions can be serialized to text files
 - Neighborhoods and neighborhood iterators for local search
 - Population with parallel evaluation
@@ -41,19 +41,20 @@ Purposes:
 
 Use cases:
 
-- Apply algorithms in the library to practical problems
+- Solve practical problems
 - Automate simulations
 - Tune algorithms
 - Compare algorithms
-- Make conjectures about runtimes
 - Illustrate theoretical results
+- Make conjectures
 - Generate graphics and tables
 
 ## Library
 
 The library declares the top-level namespace `hnco` and nested
-namespaces `hnco::algorithm`, `hnco::exception`, `hnco::function`,
-`hnco::neighborhood`, and `hnco::random`.
+namespaces `hnco::algorithm`, `hnco::app`, `hnco::exception`,
+`hnco::function`, `hnco::logging`, `hnco::map`, `hnco::neighborhood`,
+and `hnco::random`.
 
 The library is organized around the following base classes:
 `Exception`, `Map`, `Function`, `Algorithm`, `Neighborhood`,
@@ -68,7 +69,7 @@ The source files of the command-line tools in `app/` provide a
 starting point to learn how to use the library, in particular
 `make-function.cc`, `make-algorithm.cc`, and `hnco.cc`.
 
-Bit vectors are implemented as `std::vector<char>`.
+Bit vectors are implemented as `std::vector<uint8_t>`.
 
 The library offers basic support for linear algebra on bit vectors.
 
