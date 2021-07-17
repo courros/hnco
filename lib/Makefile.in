@@ -1056,8 +1056,7 @@ BUILT_SOURCES = \
 	hnco/app/hnco-options.hh
 
 EXTRA_DIST = \
-	fast-efficient-p3/LICENSE.txt \
-	hnco/app/hnco.sh
+	fast-efficient-p3/LICENSE.txt
 
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am

@@ -385,8 +385,7 @@ hnco/app/hnco-options.hh hnco/app/hnco-options.cc: hnco/app/hnco.json
 	cd $(top_srcdir)/lib/hnco/app && $(top_srcdir)/tools/optgen.pl hnco.json
 
 EXTRA_DIST = \
-	fast-efficient-p3/LICENSE.txt \
-	hnco/app/hnco.sh
+	fast-efficient-p3/LICENSE.txt
 
 #
 # Code management
