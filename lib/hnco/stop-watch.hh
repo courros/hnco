@@ -27,34 +27,34 @@
 namespace hnco
 {
 
-  /// Stop watch
-  class StopWatch
-  {
-    /// Total time
-    double _total_time = 0;
+/// Stop watch
+class StopWatch
+{
+  /// Total time
+  double _total_time = 0;
 
-    /// Start time
-    clock_t _start;
+  /// Start time
+  clock_t _start;
 
-  public:
+public:
 
-    /// Start
-    void start() {
-      _start = clock();
-    }
+  /// Start
+  void start() {
+    _start = clock();
+  }
 
-    /// Stop
-    void stop() {
-      _total_time += double(clock() - _start) / CLOCKS_PER_SEC;
-    }
+  /// Stop
+  void stop() {
+    _total_time += double(clock() - _start) / CLOCKS_PER_SEC;
+  }
 
-    /// Get total time
-    double get_total_time() { return _total_time; }
+  /// Get total time
+  double get_total_time() { return _total_time; }
 
-    /// Reset
-    void reset() { _total_time = 0; }
+  /// Reset
+  void reset() { _total_time = 0; }
 
-  };
+};
 
 }
 
