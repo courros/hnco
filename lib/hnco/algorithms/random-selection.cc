@@ -18,8 +18,6 @@
 
 */
 
-#include <assert.h>
-
 #include "random-selection.hh"
 
 
@@ -27,6 +25,13 @@ using namespace hnco::algorithm;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
+
+
+const bit_vector_t&
+UniformSelection::select()
+{
+  return get_best_bv(_choose_individual(Generator::engine));
+}
 
 
 const bit_vector_t&

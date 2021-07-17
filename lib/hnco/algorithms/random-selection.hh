@@ -21,17 +21,65 @@
 #ifndef HNCO_ALGORITHMS_RANDOM_SELECTION_H
 #define HNCO_ALGORITHMS_RANDOM_SELECTION_H
 
+#include "hnco/algorithms/population.hh"
 #include "hnco/functions/function.hh"
 #include "hnco/random.hh"
-#include "hnco/algorithms/population.hh"
 
 
 namespace hnco {
 namespace algorithm {
 
 
-/// %Population with tournament selection
-class TournamentSelection: public Population
+/// Random selection
+class RandomSelection: public Population
+{
+
+public:
+
+  /** Constructor.
+
+      \param population_size %Population size
+      \param n Bit vector size
+  */
+  RandomSelection(int population_size, int n)
+    : Population(population_size, n)
+  {}
+
+  /// Initialize
+  virtual void init() {}
+
+  /// Select an individual in the population
+  virtual const bit_vector_t& select() = 0;
+
+};
+
+
+/// Uniform selection
+class UniformSelection: public RandomSelection
+{
+
+  /// Random index
+  std::uniform_int_distribution<int> _choose_individual;
+
+public:
+
+  /** Constructor.
+
+      \param population_size %Population size
+      \param n Bit vector size
+  */
+  UniformSelection(int population_size, int n):
+    RandomSelection(population_size, n),
+    _choose_individual(0, population_size - 1) {}
+
+  /// Select an individual in the population
+  const bit_vector_t& select() override;
+
+};
+
+
+/// Tournament selection
+class TournamentSelection: public RandomSelection
 {
 
   /// Random index
@@ -48,19 +96,23 @@ class TournamentSelection: public Population
 
 public:
 
-  /// Constructor
-  TournamentSelection(int population_size, int n):
-    Population(population_size, n),
-    _choose_individual(0, population_size - 1) {}
+  /** Constructor.
 
-  /** Selection.
+      \param population_size %Population size
+      \param n Bit vector size
+  */
+  TournamentSelection(int population_size, int n):
+    RandomSelection(population_size, n),
+    _choose_individual(0, population_size - 1) {}
+  
+  /** Select an individual in the population.
 
       The selection only requires that the population be evaluated,
       not necessarily sorted.
 
       \pre The population must be evaluated.
   */
-  const bit_vector_t& select();
+  const bit_vector_t& select() override;
 
   /** @name Setters
    */
