@@ -38,6 +38,7 @@ Library:
 - Added UniformSelection
 - Added StopWatch::reset
 - Removed sparse bit matrix (not used)
+- Added TsAffineMap::inverse
 
 Python:
 - Add python binding with pybind11
