@@ -32,6 +32,7 @@
 #include "hnco/maps/transvection.hh"
 
 
+using namespace hnco::map;
 using namespace hnco::random;
 using namespace hnco;
 

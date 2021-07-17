@@ -28,10 +28,11 @@
 #include "mapgen-options.hh"
 
 
+using namespace hnco::app;
 using namespace hnco::exception;
+using namespace hnco::map;
 using namespace hnco::random;
 using namespace hnco;
-using namespace hnco::app;
 
 
 void generate_map(MapgenOptions& options)

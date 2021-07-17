@@ -101,7 +101,7 @@ namespace modifier {
     public Modifier {
 
     /// Map
-    Map *_map;
+    hnco::map::Map *_map;
 
     /// Image of bit vectors under the map
     bit_vector_t _bv;
@@ -112,7 +112,7 @@ namespace modifier {
         \pre map->get_output_size() == function->get_bv_size()
         \throw std::runtime_error
     */
-    FunctionMapComposition(Function *function, Map *map):
+    FunctionMapComposition(Function *function, hnco::map::Map *map):
       Modifier(function),
       _map(map)
     {

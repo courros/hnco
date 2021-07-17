@@ -27,8 +27,9 @@
 #include "map.hh"
 
 
-using namespace hnco;
 using namespace hnco::exception;
+using namespace hnco::map;
+using namespace hnco;
 
 
 void

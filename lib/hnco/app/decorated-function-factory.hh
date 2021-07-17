@@ -41,7 +41,7 @@ class DecoratedFunctionFactory {
   FunctionFactory& _function_factory;
 
   /// Map
-  hnco::Map *_map = nullptr;
+  hnco::map::Map *_map = nullptr;
 
   /// Tracker controller
   hnco::function::controller::ProgressTracker *_tracker = nullptr;
@@ -73,7 +73,7 @@ public:
   hnco::function::Function *make_function_controller(hnco::function::Function *function);
 
   /// Get map
-  hnco::Map *get_map() { return _map; }
+  hnco::map::Map *get_map() { return _map; }
 
   /// Get tracker controller
   hnco::function::controller::ProgressTracker *get_tracker() { return _tracker; }

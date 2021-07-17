@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_TRANSVECTION_H
-#define HNCO_TRANSVECTION_H
+#ifndef HNCO_MAPS_TRANSVECTION_H
+#define HNCO_MAPS_TRANSVECTION_H
 
 #include <assert.h>
 
@@ -32,6 +32,7 @@
 
 
 namespace hnco {
+namespace map {
 
 
 /** @name Types and functions related to transvections
@@ -299,6 +300,8 @@ void ts_multiply(bit_matrix_t& M, const transvection_sequence_t& ts);
 
 ///@}
 
+
+} // end of namespace map
 } // end of namespace hnco
 
 

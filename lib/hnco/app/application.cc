@@ -39,6 +39,7 @@ using namespace hnco::exception;
 using namespace hnco::function::controller;
 using namespace hnco::function::modifier;
 using namespace hnco::function;
+using namespace hnco::map;
 using namespace hnco::neighborhood;
 using namespace hnco::random;
 using namespace hnco;
@@ -163,7 +164,7 @@ CommandLineApplication::print_information()
 
   // Print information about the map
   if (_options.with_map_display()) {
-    hnco::Map *map = _decorated_function_factory.get_map();
+    Map *map = _decorated_function_factory.get_map();
     if (map) {
       map->display(std::cout);
     }
@@ -231,7 +232,7 @@ CommandLineApplication::manage_solution(const bit_vector_t& bv)
   bit_vector_t concrete_solution = bv;
 
   if (_options.with_concrete_solution()) {
-    hnco::Map *map = _decorated_function_factory.get_map();
+    Map *map = _decorated_function_factory.get_map();
     if (map) {
       concrete_solution.resize(map->get_output_size());
       map->map(bv, concrete_solution);

@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_MAP_H
-#define HNCO_MAP_H
+#ifndef HNCO_MAPS_MAP_H
+#define HNCO_MAPS_MAP_H
 
 #include <iostream>             // std::ostream
 #include <fstream>
@@ -38,6 +38,9 @@
 
 
 namespace hnco {
+
+/// Maps
+namespace map {
 
 /// %Map
 class Map {
@@ -657,6 +660,7 @@ public:
 };
 
 
+} // end of namespace map
 } // end of namespace hnco
 
 #endif

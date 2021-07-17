@@ -33,10 +33,11 @@
 #include "hnco/functions/modifiers/modifier.hh"
 #include "hnco/algorithms/population.hh"
 
-using namespace hnco::random;
 using namespace hnco::algorithm;
-using namespace hnco::function;
 using namespace hnco::function::modifier;
+using namespace hnco::function;
+using namespace hnco::map;
+using namespace hnco::random;
 using namespace hnco;
 
 bool check()

@@ -27,8 +27,9 @@
 
 using namespace hnco::algorithm;
 using namespace hnco::exception;
-using namespace hnco::function;
 using namespace hnco::function::modifier;
+using namespace hnco::function;
+using namespace hnco::map;
 using namespace hnco::random;
 using namespace hnco;
 

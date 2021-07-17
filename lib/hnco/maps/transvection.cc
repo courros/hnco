@@ -26,8 +26,9 @@
 #include "transvection.hh"
 
 
+using namespace hnco::map;
+using namespace hnco::random;
 using namespace hnco;
-using namespace random;
 
 
 bool
@@ -122,7 +123,7 @@ Transvection::multiply(bit_matrix_t& M) const
 }
 
 
-bool hnco::transvections_commute(const Transvection& a, const Transvection& b)
+bool hnco::map::transvections_commute(const Transvection& a, const Transvection& b)
 {
   if (a.row_index == b.column_index)
     return false;
@@ -132,7 +133,7 @@ bool hnco::transvections_commute(const Transvection& a, const Transvection& b)
 }
 
 
-bool hnco::transvections_are_disjoint(const Transvection& a, const Transvection& b)
+bool hnco::map::transvections_are_disjoint(const Transvection& a, const Transvection& b)
 {
   if (a.row_index == b.row_index)
     return false;
@@ -146,19 +147,19 @@ bool hnco::transvections_are_disjoint(const Transvection& a, const Transvection&
 }
 
 
-bool hnco::ts_is_valid(const transvection_sequence_t& ts)
+bool hnco::map::ts_is_valid(const transvection_sequence_t& ts)
 {
   return std::all_of(ts.begin(), ts.end(), [](const Transvection& tv){ return tv.is_valid(); });
 }
 
 
-bool hnco::ts_is_valid(const transvection_sequence_t& ts, int n)
+bool hnco::map::ts_is_valid(const transvection_sequence_t& ts, int n)
 {
   return std::all_of(ts.begin(), ts.end(), [n](const Transvection& tv){ return tv.is_valid(n); });
 }
 
 
-void hnco::ts_display(const transvection_sequence_t& ts, std::ostream& stream)
+void hnco::map::ts_display(const transvection_sequence_t& ts, std::ostream& stream)
 {
   for (auto& tv : ts) {
     tv.display(stream);
@@ -168,7 +169,7 @@ void hnco::ts_display(const transvection_sequence_t& ts, std::ostream& stream)
 }
 
 
-void hnco::ts_random(transvection_sequence_t& ts, int n, int t)
+void hnco::map::ts_random(transvection_sequence_t& ts, int n, int t)
 {
   assert(n > 1);
   assert(t >= 0);
@@ -179,7 +180,7 @@ void hnco::ts_random(transvection_sequence_t& ts, int n, int t)
 }
 
 
-void hnco::ts_random_commuting(transvection_sequence_t& ts, int n, int t)
+void hnco::map::ts_random_commuting(transvection_sequence_t& ts, int n, int t)
 {
   assert(n > 1);
 
@@ -241,7 +242,7 @@ void hnco::ts_random_commuting(transvection_sequence_t& ts, int n, int t)
 }
 
 
-void hnco::ts_random_unique_source(transvection_sequence_t& ts, int n, int t)
+void hnco::map::ts_random_unique_source(transvection_sequence_t& ts, int n, int t)
 {
   assert(n > 1);
 
@@ -274,7 +275,7 @@ void hnco::ts_random_unique_source(transvection_sequence_t& ts, int n, int t)
 }
 
 
-void hnco::ts_random_unique_destination(transvection_sequence_t& ts, int n, int t)
+void hnco::map::ts_random_unique_destination(transvection_sequence_t& ts, int n, int t)
 {
   assert(n > 1);
 
@@ -307,7 +308,7 @@ void hnco::ts_random_unique_destination(transvection_sequence_t& ts, int n, int 
 }
 
 
-void hnco::ts_random_disjoint(transvection_sequence_t& ts, int n, int t)
+void hnco::map::ts_random_disjoint(transvection_sequence_t& ts, int n, int t)
 {
   assert(n > 1);
 
@@ -337,7 +338,7 @@ void hnco::ts_random_disjoint(transvection_sequence_t& ts, int n, int t)
 }
 
 
-void hnco::ts_random_non_commuting(transvection_sequence_t& ts, int n, int t)
+void hnco::map::ts_random_non_commuting(transvection_sequence_t& ts, int n, int t)
 {
   assert(n > 1);
 
@@ -352,7 +353,7 @@ void hnco::ts_random_non_commuting(transvection_sequence_t& ts, int n, int t)
 }
 
 
-void hnco::ts_multiply(bit_vector_t& x, const transvection_sequence_t& ts)
+void hnco::map::ts_multiply(bit_vector_t& x, const transvection_sequence_t& ts)
 {
   assert(ts_is_valid(ts));
   assert(ts_is_valid(ts, x.size()));
@@ -362,7 +363,7 @@ void hnco::ts_multiply(bit_vector_t& x, const transvection_sequence_t& ts)
 }
 
 
-void hnco::ts_multiply(bit_matrix_t& M, const transvection_sequence_t& ts)
+void hnco::map::ts_multiply(bit_matrix_t& M, const transvection_sequence_t& ts)
 {
   assert(ts_is_valid(ts));
   assert(ts_is_valid(ts, bm_num_rows(M)));

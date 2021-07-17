@@ -23,6 +23,7 @@
 #include "hnco/maps/map.hh"
 #include "hnco/random.hh"
 
+using namespace hnco::map;
 using namespace hnco::random;
 using namespace hnco;
 
