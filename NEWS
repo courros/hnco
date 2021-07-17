@@ -39,9 +39,11 @@ Library:
 - Added StopWatch::reset
 - Removed sparse bit matrix (not used)
 - Added TsAffineMap::inverse
+- Maps: added load and save member functions
 
 Python:
-- Add python binding with pybind11
+- Added python bindings with pybind11
+- Added all maps to the bindings
 
 Applications:
 - hnco: updated hnco.json
