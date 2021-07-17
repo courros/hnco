@@ -173,21 +173,25 @@ PYBIND11_MODULE(hnco, module_hnco) {
   //
   // Maps
   //
+  {
+    using namespace hnco::map;
 
-  py::class_<Map>(module_hnco, "Map")
-    .def("map", &Map::map)
-    .def("get_input_size", &Map::get_input_size)
-    .def("get_output_size", &Map::get_output_size)
-    .def("is_surjective", &Map::is_surjective)
-    .def("display", static_cast<void (Map::*)()>(&Map::display))
-    ;
+    py::class_<Map>(module_hnco, "Map")
+      .def("map", &Map::map)
+      .def("get_input_size", &Map::get_input_size)
+      .def("get_output_size", &Map::get_output_size)
+      .def("is_surjective", &Map::is_surjective)
+      .def("display", static_cast<void (Map::*)()>(&Map::display))
+      ;
 
-  py::class_<Translation, Map>(module_hnco, "Translation")
-    .def(py::init<>())
-    .def("random", &Translation::random)
-    .def("load", static_cast<void (Translation::*)(std::string)>(&Translation::load))
-    .def("save", static_cast<void (Translation::*)(std::string) const>(&Translation::save))
-    ;
+    py::class_<Translation, Map>(module_hnco, "Translation")
+      .def(py::init<>())
+      .def("random", &Translation::random)
+      .def("load", static_cast<void (Translation::*)(std::string)>(&Translation::load))
+      .def("save", static_cast<void (Translation::*)(std::string) const>(&Translation::save))
+      ;
+
+  }
 
   // Exceptions
   {
@@ -287,6 +291,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
   {
     using namespace function::modifier;
+    using namespace hnco::map;
 
     py::class_<Modifier, function::Decorator>(module_modifier, "Modifier");
 
