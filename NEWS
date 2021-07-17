@@ -61,6 +61,9 @@ Build:
 - optgen.pl: put class Options in given namespace
 - Improved management of Bash completion scripts
 
+Experiments:
+- Added experiment affine-onemax
+
 
 * Version 0.16 (2021-02-03)
 

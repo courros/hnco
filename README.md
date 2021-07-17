@@ -23,7 +23,7 @@ Library features:
 
 - 29 concrete functions
 - 25 concrete algorithms
-- 79 unit tests
+- 78 unit tests
 - Maps from bit vectors to bit vectors
 - Function decorators to control evaluation (budget...)
 - Function decorators to modify functions (noise...)
@@ -265,6 +265,7 @@ loaded by `hnco` and used by different algorithms.
 
 HNCO is distributed with the following experiments:
 
+- `experiments/examples/affine-onemax/`
 - `experiments/examples/algorithm-parameter/`
 - `experiments/examples/autocorrelation/`
 - `experiments/examples/benchmark/`
@@ -290,6 +291,10 @@ hosts can be specified in `plan.json` under the name `servers`. For
 each server, a hostname (or ip address) must be given. The relative
 working directories must be the same on each server. GNU parallel
 connects to servers with ssh.
+
+### Affine OneMax
+
+This experiment is a stress test for random search heuristics.
 
 ### Algorithm parameter
 
