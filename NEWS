@@ -33,6 +33,9 @@ Library:
 - Moved all map related files in maps/
 - Added namespace hnco::map
 - Moved all map related classes and functions in hnco::map
+- Added RandomSelection
+- TournamentSelection derives from RandomSelection
+- Added UniformSelection
 
 Python:
 - Add python binding with pybind11
