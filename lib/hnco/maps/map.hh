@@ -24,6 +24,7 @@
 #include <iostream>             // std::ostream
 #include <fstream>
 #include <vector>
+#include <algorithm>            // std::reverse
 
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
@@ -656,6 +657,9 @@ public:
 
   /// Display
   void display(std::ostream& stream);
+
+  /// Inverse
+  void inverse() { std::reverse(_ts.begin(), _ts.end()); }
 
 };
 
