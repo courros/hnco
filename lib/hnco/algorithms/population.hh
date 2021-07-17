@@ -57,7 +57,11 @@ protected:
 
 public:
 
-  /// Constructor
+  /** Constructor.
+
+      \param population_size Population size
+      \param n Bit vector size
+  */
   Population(int population_size, int n):
     _bvs(population_size, bit_vector_t(n)),
     _lookup(population_size) {}
