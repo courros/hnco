@@ -194,6 +194,57 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("save", static_cast<void (Translation::*)(std::string) const>(&Translation::save))
       ;
 
+    py::class_<Permutation, Map>(module_map, "Permutation")
+      .def(py::init<>())
+      .def("random", &Permutation::random)
+      .def("load", static_cast<void (Permutation::*)(std::string)>(&Permutation::load))
+      .def("save", static_cast<void (Permutation::*)(std::string) const>(&Permutation::save))
+      ;
+
+    py::class_<LinearMap, Map>(module_map, "LinearMap")
+      .def(py::init<>())
+      .def("random", &LinearMap::random)
+      .def("load", static_cast<void (LinearMap::*)(std::string)>(&LinearMap::load))
+      .def("save", static_cast<void (LinearMap::*)(std::string) const>(&LinearMap::save))
+      ;
+
+    py::class_<AffineMap, Map>(module_map, "AffineMap")
+      .def(py::init<>())
+      .def("random", &AffineMap::random)
+      .def("load", static_cast<void (AffineMap::*)(std::string)>(&AffineMap::load))
+      .def("save", static_cast<void (AffineMap::*)(std::string) const>(&AffineMap::save))
+      ;
+
+    py::class_<MapComposition, Map>(module_map, "MapComposition")
+      .def(py::init<>())
+      .def(py::init<Map *, Map *>())
+      ;
+
+    py::class_<Injection, Map>(module_map, "Injection")
+      .def(py::init<const std::vector<int>&, int>())
+      ;
+
+    py::class_<Projection, Map>(module_map, "Projection")
+      .def(py::init<const std::vector<int>&, int>())
+      ;
+
+    py::class_<TsAffineMap, Map> ts_affine_map(module_map, "TsAffineMap");
+
+    ts_affine_map
+      .def(py::init<>())
+      .def("random", &TsAffineMap::random)
+      .def("load", static_cast<void (TsAffineMap::*)(std::string)>(&TsAffineMap::load))
+      .def("save", static_cast<void (TsAffineMap::*)(std::string) const>(&TsAffineMap::save))
+      ;
+
+    py::enum_<TsAffineMap::SamplingMode>(ts_affine_map, "SamplingMode")
+      .value("Unconstrained", TsAffineMap::SamplingMode::Unconstrained)
+      .value("CommutingTransvections", TsAffineMap::SamplingMode::CommutingTransvections)
+      .value("UniqueSource", TsAffineMap::SamplingMode::UniqueSource)
+      .value("UniqueDestination", TsAffineMap::SamplingMode::UniqueDestination)
+      .value("DisjointTransvections", TsAffineMap::SamplingMode::DisjointTransvections)
+      .value("NonCommutingTransvections", TsAffineMap::SamplingMode::NonCommutingTransvections)
+      .export_values();
   }
 
   //
