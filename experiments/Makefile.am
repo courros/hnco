@@ -46,6 +46,11 @@ dist_bin_SCRIPTS = \
 	scripts/hnco-walsh-transforms-stat.pl
 
 EXTRA_DIST = \
+	examples/affine-onemax/Makefile \
+	examples/affine-onemax/plan.json \
+	examples/affine-onemax/report/Makefile \
+	examples/affine-onemax/report/bibliography.bib \
+	examples/affine-onemax/report/report.tex \
 	examples/algorithm-parameter/Makefile \
 	examples/algorithm-parameter/instances/Makefile \
 	examples/algorithm-parameter/instances/ep.100 \
@@ -85,6 +90,7 @@ EXTRA_DIST = \
 	examples/ecdf/instances/walsh2.100 \
 	examples/ecdf/plan.json \
 	examples/ecdf/report/Makefile \
+	examples/ecdf/report/bibliography.bib \
 	examples/ecdf/report/report.tex \
 	examples/fixed-target/Makefile \
 	examples/fixed-target/plan.json \
