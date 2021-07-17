@@ -30,49 +30,48 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// %Population with tournament selection
-  class TournamentSelection:
-    public Population
-  {
+/// %Population with tournament selection
+class TournamentSelection: public Population
+{
 
-    /// Random index
-    std::uniform_int_distribution<int> _choose_individual;
+  /// Random index
+  std::uniform_int_distribution<int> _choose_individual;
 
-    /** @name Parameters
-     */
-    ///@{
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Tournament size
-    int _tournament_size = 10;
+  /// Tournament size
+  int _tournament_size = 10;
 
-    ///@}
+  ///@}
 
-  public:
+public:
 
-    /// Constructor
-    TournamentSelection(int population_size, int n):
-      Population(population_size, n),
-      _choose_individual(0, population_size - 1) {}
+  /// Constructor
+  TournamentSelection(int population_size, int n):
+    Population(population_size, n),
+    _choose_individual(0, population_size - 1) {}
 
-    /** Selection.
+  /** Selection.
 
-        The selection only requires that the population be evaluated,
-        not necessarily sorted.
+      The selection only requires that the population be evaluated,
+      not necessarily sorted.
 
-        \pre The population must be evaluated.
-    */
-    const bit_vector_t& select();
+      \pre The population must be evaluated.
+  */
+  const bit_vector_t& select();
 
-    /** @name Setters
-     */
-    ///@{
+  /** @name Setters
+   */
+  ///@{
 
-    /// Set the tournament size
-    void set_tournament_size(int x) { _tournament_size = x; }
+  /// Set the tournament size
+  void set_tournament_size(int x) { _tournament_size = x; }
 
-    ///@}
+  ///@}
 
-  };
+};
 
 
 }
