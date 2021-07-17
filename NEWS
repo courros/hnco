@@ -36,6 +36,7 @@ Library:
 - Added RandomSelection
 - TournamentSelection derives from RandomSelection
 - Added UniformSelection
+- Added StopWatch::reset
 
 Python:
 - Add python binding with pybind11
