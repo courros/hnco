@@ -28,8 +28,8 @@ BUILT_SOURCES = \
 	mapgen-options.hh
 
 EXTRA_DIST = \
-	ffgen.sh \
-	mapgen.sh
+	ffgen.bash \
+	mapgen.bash
 
 AM_CPPFLAGS = -I $(top_srcdir)/lib
 
