@@ -58,6 +58,7 @@ protected:
     assert(_function);
     assert(_neighborhood);
 
+    IterativeAlgorithm::init();
     if (_random_initialization)
       random_solution();
     else
