@@ -1,0 +1,9 @@
+*.aux
+*.blg
+*.log
+*.out
+*.toc
+*~
+_minted-report/
+auto/
+results.tex

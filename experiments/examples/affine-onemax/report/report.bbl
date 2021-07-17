@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Berny(2021)]{10.1145/3449726.3459497}
+Arnaud Berny.
+\newblock Affine onemax.
+\newblock In \emph{Proceedings of the Genetic and Evolutionary Computation
+  Conference Companion}, GECCO '21, page 335–336, New York, NY, USA, 2021.
+  Association for Computing Machinery.
+\newblock ISBN 9781450383516.
+\newblock \doi{10.1145/3449726.3459497}.
+\newblock URL \url{https://doi.org/10.1145/3449726.3459497}.
+
+\end{thebibliography}

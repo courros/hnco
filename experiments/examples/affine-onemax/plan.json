@@ -1,0 +1,105 @@
+{
+    "exec": "hnco",
+    "opt": "--print-results -s 100",
+    "budget": 300000,
+
+    "num_runs": 20,
+    "parallel": true,
+
+    "parameter": {
+        "id": "map-ts-length",
+        "name": "Sequence length",
+        "values_perl": "map { 10 * $_ } (0 .. 15)"
+    },
+
+    "graphics": {
+        "logscale": false,
+        "mean": {
+            "key": "opaque vertical noreverse Right inside bottom left box",
+            "font_size": 14,
+            "title": false
+        },
+        "stddev": {
+            "title": true
+        },
+        "candlesticks": {
+            "title": true,
+            "boxwidth": 5
+        }
+    },
+
+    "functions": [
+
+        {
+            "id": "ts-aom",
+            "name": "TS-AOM",
+	    "opt": "-F 0 --stop-on-maximum --map 6 --map-random"
+        }
+
+    ],
+
+    "algorithms": [
+
+        {
+            "id": "rls",
+	    "opt": "-A 100 --restart"
+        },
+
+        {
+            "id": "hc",
+	    "opt": "-A 150 --restart"
+        },
+
+        {
+            "id": "sa",
+	    "opt": "-A 200 --sa-beta-ratio 1.05 --sa-num-trials 10"
+        },
+
+        {
+            "id": "ea-1p1",
+	    "opt": "-A 300"
+        },
+
+        {
+            "id": "ea-10p1",
+	    "opt": "-A 310 --ea-mu 10 --ea-lambda 1"
+        },
+
+        {
+            "id": "ga",
+	    "opt": "-A 400 --ea-mu 100"
+        },
+
+        {
+            "id": "pbil",
+	    "opt": "-A 500 -l 5e-3"
+        },
+
+        {
+            "id": "umda",
+	    "opt": "-A 600 -x 100 -y 10"
+        },
+
+        {
+            "id": "hboa",
+	    "opt": "-A 1110 -x 500"
+        },
+
+        {
+            "id": "ltga",
+	    "opt": "-A 1200 -x 100"
+        },
+
+        {
+            "id": "p3",
+	    "opt": "-A 1300"
+        },
+
+        {
+            "id": "mimic",
+	    "opt": "-A 1100 -x 200 -y 20"
+        }
+
+    ]
+
+}

@@ -1,0 +1,75 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[autolanguage,np]{numprint}
+\usepackage{color}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{natbib}
+
+\geometry{top=1cm,bottom=2cm,left=1cm,right=1cm}
+
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+% Numprint
+\nprounddigits{3}
+%\npproductsign{\times}
+
+%\pagestyle{empty}
+
+\renewcommand{\thesubfigure}{\arabic{subfigure}}
+
+\begin{document}
+
+%\thispagestyle{empty}
+
+\bibliographystyle{plainnat}
+
+\title{HNCO\\
+  Affine OneMax Benchmark}
+\maketitle
+
+\begin{abstract}
+  This benchmark is a stress test for random search heuristics as
+  proposed in \cite{10.1145/3449726.3459497}. Starting with OneMax,
+  the function to maximize is submitted to an increasing number of
+  perturbations called transvections. Resulting functions are called
+  transvection sequence affine OneMax functions (TS-AOM). At some
+  point, most algorithms fail to find the maximum. The sequence length
+  at which a particular algorithm fails is an indicator of its
+  robustness. In this experiment, the dimension of the search space is
+  $n = 100$ and the maximum is always 100.
+\end{abstract}
+
+\tableofcontents
+
+\input{results.tex}
+
+\bibliography{bibliography} 
+
+\appendix
+
+\section{Plan}
+
+\inputminted[breaklines=true]{json}{../pretty.json}
+
+\section{Default parameters}
+
+\inputminted[breaklines=true]{text}{../log.defaults}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% mode: reftex
+%%% mode: auto-fill
+%%% TeX-master: t
+%%% Local IspellDict: "american"
+%%% End: 
