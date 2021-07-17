@@ -51,6 +51,9 @@ namespace hnco
     /// Get total time
     double get_total_time() { return _total_time; }
 
+    /// Reset
+    void reset() { _total_time = 0; }
+
   };
 
 }
