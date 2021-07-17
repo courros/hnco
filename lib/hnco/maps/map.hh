@@ -255,6 +255,48 @@ public:
   */
   bool is_surjective() { return true; }
 
+  /** @name Load and save map
+   */
+  ///@{
+
+  /** Load map.
+
+      \param path Path of the map to load
+      \throw std::runtime_error
+  */
+  void load(std::string path) {
+    std::ifstream stream(path);
+    if (!stream.good())
+      throw std::runtime_error("Permutation::load: Cannot open " + path);
+    try {
+      boost::archive::text_iarchive archive(stream);
+      archive >> (*this);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw std::runtime_error("Permutation::load: " + std::string(e.what()));
+    }
+  }
+
+  /** Save map.
+
+      \param path Path of the map to save
+      \throw std::runtime_error
+  */
+  void save(std::string path) const {
+    std::ofstream stream(path);
+    if (!stream.good())
+      throw std::runtime_error("Permutation::save: Cannot open " + path);
+    try {
+      boost::archive::text_oarchive archive(stream);
+      archive << (*this);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw std::runtime_error("Permutation::save: " + std::string(e.what()));
+    }
+  }
+
+  ///@}
+
 };
 
 
@@ -263,8 +305,7 @@ public:
     A linear map f from \f$F_2^m\f$ to \f$F_2^n\f$ is defined by
     \f$f(x) = Ax\f$, where A is an n x m bit matrix.
 */
-class LinearMap:
-    public Map {
+class LinearMap: public Map {
 
 private:
 
@@ -317,6 +358,48 @@ public:
       \return true if rank(_bm) == bm_num_rows(_bm)
   */
   bool is_surjective();
+
+  /** @name Load and save map
+   */
+  ///@{
+
+  /** Load map.
+
+      \param path Path of the map to load
+      \throw std::runtime_error
+  */
+  void load(std::string path) {
+    std::ifstream stream(path);
+    if (!stream.good())
+      throw std::runtime_error("LinearMap::load: Cannot open " + path);
+    try {
+      boost::archive::text_iarchive archive(stream);
+      archive >> (*this);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw std::runtime_error("LinearMap::load: " + std::string(e.what()));
+    }
+  }
+
+  /** Save map.
+
+      \param path Path of the map to save
+      \throw std::runtime_error
+  */
+  void save(std::string path) const {
+    std::ofstream stream(path);
+    if (!stream.good())
+      throw std::runtime_error("LinearMap::save: Cannot open " + path);
+    try {
+      boost::archive::text_oarchive archive(stream);
+      archive << (*this);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw std::runtime_error("LinearMap::save: " + std::string(e.what()));
+    }
+  }
+
+  ///@}
 
 };
 
@@ -388,6 +471,48 @@ public:
       \return true if rank(_bm) == bm_num_rows(_bm)
   */
   bool is_surjective();
+
+  /** @name Load and save map
+   */
+  ///@{
+
+  /** Load map.
+
+      \param path Path of the map to load
+      \throw std::runtime_error
+  */
+  void load(std::string path) {
+    std::ifstream stream(path);
+    if (!stream.good())
+      throw std::runtime_error("AffineMap::load: Cannot open " + path);
+    try {
+      boost::archive::text_iarchive archive(stream);
+      archive >> (*this);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw std::runtime_error("AffineMap::load: " + std::string(e.what()));
+    }
+  }
+
+  /** Save map.
+
+      \param path Path of the map to save
+      \throw std::runtime_error
+  */
+  void save(std::string path) const {
+    std::ofstream stream(path);
+    if (!stream.good())
+      throw std::runtime_error("AffineMap::save: Cannot open " + path);
+    try {
+      boost::archive::text_oarchive archive(stream);
+      archive << (*this);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw std::runtime_error("AffineMap::save: " + std::string(e.what()));
+    }
+  }
+
+  ///@}
 
 };
 
@@ -660,6 +785,48 @@ public:
 
   /// Inverse
   void inverse() { std::reverse(_ts.begin(), _ts.end()); }
+
+  /** @name Load and save map
+   */
+  ///@{
+
+  /** Load map.
+
+      \param path Path of the map to load
+      \throw std::runtime_error
+  */
+  void load(std::string path) {
+    std::ifstream stream(path);
+    if (!stream.good())
+      throw std::runtime_error("TsAffineMap::load: Cannot open " + path);
+    try {
+      boost::archive::text_iarchive archive(stream);
+      archive >> (*this);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw std::runtime_error("TsAffineMap::load: " + std::string(e.what()));
+    }
+  }
+
+  /** Save map.
+
+      \param path Path of the map to save
+      \throw std::runtime_error
+  */
+  void save(std::string path) const {
+    std::ofstream stream(path);
+    if (!stream.good())
+      throw std::runtime_error("TsAffineMap::save: Cannot open " + path);
+    try {
+      boost::archive::text_oarchive archive(stream);
+      archive << (*this);
+    }
+    catch (boost::archive::archive_exception& e) {
+      throw std::runtime_error("TsAffineMap::save: " + std::string(e.what()));
+    }
+  }
+
+  ///@}
 
 };
 
