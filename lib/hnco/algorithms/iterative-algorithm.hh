@@ -56,7 +56,7 @@ protected:
   ///@{
 
   /// Initialize
-  virtual void init() {}
+  virtual void init() { _last_iteration = false; }
 
   /// Single iteration
   virtual void iterate() = 0;
