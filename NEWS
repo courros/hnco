@@ -37,6 +37,7 @@ Library:
 - TournamentSelection derives from RandomSelection
 - Added UniformSelection
 - Added StopWatch::reset
+- Removed sparse bit matrix (not used)
 
 Python:
 - Add python binding with pybind11
