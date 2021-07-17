@@ -20,7 +20,7 @@
 
 #include <assert.h>
 
-#include "tournament-selection.hh"
+#include "random-selection.hh"
 
 
 using namespace hnco::algorithm;

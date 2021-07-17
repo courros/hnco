@@ -34,5 +34,6 @@
 #include "mimic.hh"
 #include "pv/all.hh"
 #include "random-search.hh"
+#include "random-selection.hh"
 
 #endif

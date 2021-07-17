@@ -74,8 +74,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.cc \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
-	hnco/algorithms/ea/tournament-selection.cc \
-	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
@@ -133,6 +131,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.cc \
 	hnco/algorithms/random-search.hh \
+	hnco/algorithms/random-selection.cc \
+	hnco/algorithms/random-selection.hh \
 	hnco/algorithms/solution.hh \
 	hnco/app/algorithm-factory.cc \
 	hnco/app/algorithm-factory.hh \
@@ -279,7 +279,6 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
-	hnco/algorithms/ea/tournament-selection.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
@@ -312,6 +311,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/pv/pv-algorithm.hh \
 	hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.hh \
+	hnco/algorithms/random-selection.hh \
 	hnco/algorithms/solution.hh \
 	hnco/app/algorithm-factory.hh \
 	hnco/app/application.hh \

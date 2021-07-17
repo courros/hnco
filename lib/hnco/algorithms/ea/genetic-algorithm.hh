@@ -24,10 +24,10 @@
 #include <random>
 
 #include "hnco/algorithms/iterative-algorithm.hh"
+#include "hnco/algorithms/random-selection.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/random.hh"
 
-#include "tournament-selection.hh"
 #include "crossover.hh"
 
 
@@ -39,7 +39,7 @@ namespace algorithm {
 
     - Tournament selection for reproduction
     - Uniform crossover
-    - Mutation
+    - Standard bit mutation
     - (mu, mu) selection (offspring population replaces parent population)
 
     Reference:

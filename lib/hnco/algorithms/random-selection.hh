@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_EA_TOURNAMENT_SELECTION_H
-#define HNCO_ALGORITHMS_EA_TOURNAMENT_SELECTION_H
+#ifndef HNCO_ALGORITHMS_RANDOM_SELECTION_H
+#define HNCO_ALGORITHMS_RANDOM_SELECTION_H
 
 #include "hnco/functions/function.hh"
 #include "hnco/random.hh"
