@@ -173,10 +173,13 @@ PYBIND11_MODULE(hnco, module_hnco) {
   //
   // Maps
   //
+
+  py::module module_map = module_hnco.def_submodule("map", "Maps");
+
   {
     using namespace hnco::map;
 
-    py::class_<Map>(module_hnco, "Map")
+    py::class_<Map>(module_map, "Map")
       .def("map", &Map::map)
       .def("get_input_size", &Map::get_input_size)
       .def("get_output_size", &Map::get_output_size)
@@ -184,7 +187,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("display", static_cast<void (Map::*)()>(&Map::display))
       ;
 
-    py::class_<Translation, Map>(module_hnco, "Translation")
+    py::class_<Translation, Map>(module_map, "Translation")
       .def(py::init<>())
       .def("random", &Translation::random)
       .def("load", static_cast<void (Translation::*)(std::string)>(&Translation::load))
@@ -193,7 +196,10 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
   }
 
+  //
   // Exceptions
+  //
+
   {
     using namespace hnco::exception;
 
