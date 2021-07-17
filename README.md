@@ -56,9 +56,8 @@ namespaces `hnco::algorithm`, `hnco::app`, `hnco::exception`,
 `hnco::function`, `hnco::logging`, `hnco::map`, `hnco::neighborhood`,
 and `hnco::random`.
 
-The library is organized around the following base classes:
-`Exception`, `Map`, `Function`, `Algorithm`, `Neighborhood`,
-`Iterator`, `Population`.
+The library is organized around the following base classes: `Map`,
+`Function`, `Algorithm`, `Neighborhood`, `Iterator`, `Population`.
 
 Classes are documented with Doxygen. You might want to generate the
 html documentation as it is neither version controlled nor
