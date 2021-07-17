@@ -15,7 +15,7 @@ Library:
   NkLandscape, Partition, Qubo, Sudoku, WalshExpansion1,
   WalshExpansion2, WalshExpansion: added load and/or save member
   functions
-- IterativeAlgorithm: add _last_iteration flag
+- IterativeAlgorithm: added boolean member _last_iteration
 - Removed exceptions Error, SolutionFound, LocalMaximumReached and
   MaximumReached
 - Exceptions LastEvaluation and TargetReached derive from
@@ -23,6 +23,16 @@ Library:
 - StopOnTarget: added _trigger and get_trigger
 - Hboa, Ltga, ParameterLessPopulationPyramid: _pimpl is now a raw
   pointer to simplify python binding
+- Changed bit_t from char to uint8_t
+- DyadicRealRepresentation, DyadicComplexRepresentation,
+  DyadicIntegerRepresentation: reordered constructor parameters
+- DyadicRealRepresentation: added constructor with given precision
+- CommandLineFunctionFactory: makes representation with fp_precision
+  or fp_num_bits
+- Added directory maps/
+- Moved all map related files in maps/
+- Added namespace hnco::map
+- Moved all map related classes and functions in hnco::map
 
 Python:
 - Add python binding with pybind11
@@ -30,6 +40,7 @@ Python:
 Applications:
 - hnco: updated hnco.json
 - hnco uses classes in namespace hnco::app
+- hnco: added option fp_precision
 - ffgen: updated ffgen.json
 - mapgen: updated mapgen.json
 - mapgen, ffgen: catch runtime_error
@@ -39,9 +50,10 @@ Examples:
 - Added cli-my-algorithm.cc
 
 Build:
+- Moved optgen.pl in tools/
 - optgen.pl: changed json object structure: added fields files and code
 - optgen.pl: put class Options in given namespace
-- Better handle Bash completion scripts
+- Improved management of Bash completion scripts
 
 
 * Version 0.16 (2021-02-03)
