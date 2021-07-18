@@ -228,6 +228,7 @@ libhnco_la_SOURCES = \
 	hnco/permutation.hh \
 	hnco/random.cc \
 	hnco/random.hh \
+	hnco/serialization.hh \
 	hnco/sparse-bit-vector.cc \
 	hnco/sparse-bit-vector.hh \
 	hnco/stop-watch.hh \
@@ -365,6 +366,7 @@ nobase_include_HEADERS = \
 	hnco/neighborhoods/neighborhood.hh \
 	hnco/permutation.hh \
 	hnco/random.hh \
+	hnco/serialization.hh \
 	hnco/sparse-bit-vector.hh \
 	hnco/stop-watch.hh \
 	hnco/util.hh
