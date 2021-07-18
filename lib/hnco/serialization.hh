@@ -35,7 +35,11 @@ namespace hnco {
  */
 ///@{
 
-/// Load from a boost archive
+/** Load from a boost archive.
+    \param object Object to load
+    \param path Path of the file
+    \param name Class name
+*/
 template<typename T>
 void load_from_archive(T& object, std::string path, std::string name)
 {
@@ -51,7 +55,11 @@ void load_from_archive(T& object, std::string path, std::string name)
   }
 }
 
-/// Save to a boost archive
+/** Save to a boost archive.
+    \param object Object to save
+    \param path Path of the file
+    \param name Class name
+*/
 template<typename T>
 void save_to_archive(const T& object, std::string path, std::string name)
 {
