@@ -21,19 +21,17 @@
 #ifndef HNCO_MAPS_MAP_H
 #define HNCO_MAPS_MAP_H
 
-#include <iostream>             // std::ostream
-#include <fstream>
-#include <vector>
 #include <algorithm>            // std::reverse
+#include <iostream>             // std::ostream
+#include <vector>
 
-#include <boost/archive/text_iarchive.hpp>
-#include <boost/archive/text_oarchive.hpp>
 #include <boost/serialization/vector.hpp>
 
 #include "hnco/bit-matrix.hh"
 #include "hnco/bit-vector.hh"
-#include "hnco/permutation.hh"
 #include "hnco/exception.hh"
+#include "hnco/permutation.hh"
+#include "hnco/serialization.hh"
 
 #include "transvection.hh"
 
@@ -42,6 +40,7 @@ namespace hnco {
 
 /// Maps
 namespace map {
+
 
 /// %Map
 class Map {
@@ -160,36 +159,14 @@ public:
       \param path Path of the map to load
       \throw std::runtime_error
   */
-  void load(std::string path) {
-    std::ifstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("Translation::load: Cannot open " + path);
-    try {
-      boost::archive::text_iarchive archive(stream);
-      archive >> (*this);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw std::runtime_error("Translation::load: " + std::string(e.what()));
-    }
-  }
+  void load(std::string path) { load_from_archive(*this, path, "Translation"); }
 
   /** Save map.
 
       \param path Path of the map to save
       \throw std::runtime_error
   */
-  void save(std::string path) const {
-    std::ofstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("Translation::save: Cannot open " + path);
-    try {
-      boost::archive::text_oarchive archive(stream);
-      archive << (*this);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw std::runtime_error("Translation::save: " + std::string(e.what()));
-    }
-  }
+  void save(std::string path) const { save_to_archive(*this, path, "Translation"); }
 
   ///@}
 
@@ -264,36 +241,14 @@ public:
       \param path Path of the map to load
       \throw std::runtime_error
   */
-  void load(std::string path) {
-    std::ifstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("Permutation::load: Cannot open " + path);
-    try {
-      boost::archive::text_iarchive archive(stream);
-      archive >> (*this);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw std::runtime_error("Permutation::load: " + std::string(e.what()));
-    }
-  }
+  void load(std::string path) { load_from_archive(*this, path, "Permutation"); }
 
   /** Save map.
 
       \param path Path of the map to save
       \throw std::runtime_error
   */
-  void save(std::string path) const {
-    std::ofstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("Permutation::save: Cannot open " + path);
-    try {
-      boost::archive::text_oarchive archive(stream);
-      archive << (*this);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw std::runtime_error("Permutation::save: " + std::string(e.what()));
-    }
-  }
+  void save(std::string path) const { save_to_archive(*this, path, "Permutation"); }
 
   ///@}
 
@@ -368,36 +323,14 @@ public:
       \param path Path of the map to load
       \throw std::runtime_error
   */
-  void load(std::string path) {
-    std::ifstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("LinearMap::load: Cannot open " + path);
-    try {
-      boost::archive::text_iarchive archive(stream);
-      archive >> (*this);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw std::runtime_error("LinearMap::load: " + std::string(e.what()));
-    }
-  }
+  void load(std::string path) { load_from_archive(*this, path, "LinearMap"); }
 
   /** Save map.
 
       \param path Path of the map to save
       \throw std::runtime_error
   */
-  void save(std::string path) const {
-    std::ofstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("LinearMap::save: Cannot open " + path);
-    try {
-      boost::archive::text_oarchive archive(stream);
-      archive << (*this);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw std::runtime_error("LinearMap::save: " + std::string(e.what()));
-    }
-  }
+  void save(std::string path) const { save_to_archive(*this, path, "LinearMap"); }
 
   ///@}
 
@@ -481,36 +414,14 @@ public:
       \param path Path of the map to load
       \throw std::runtime_error
   */
-  void load(std::string path) {
-    std::ifstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("AffineMap::load: Cannot open " + path);
-    try {
-      boost::archive::text_iarchive archive(stream);
-      archive >> (*this);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw std::runtime_error("AffineMap::load: " + std::string(e.what()));
-    }
-  }
+  void load(std::string path) { load_from_archive(*this, path, "AffineMap"); }
 
   /** Save map.
 
       \param path Path of the map to save
       \throw std::runtime_error
   */
-  void save(std::string path) const {
-    std::ofstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("AffineMap::save: Cannot open " + path);
-    try {
-      boost::archive::text_oarchive archive(stream);
-      archive << (*this);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw std::runtime_error("AffineMap::save: " + std::string(e.what()));
-    }
-  }
+  void save(std::string path) const { save_to_archive(*this, path, "AffineMap"); }
 
   ///@}
 
@@ -795,36 +706,14 @@ public:
       \param path Path of the map to load
       \throw std::runtime_error
   */
-  void load(std::string path) {
-    std::ifstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("TsAffineMap::load: Cannot open " + path);
-    try {
-      boost::archive::text_iarchive archive(stream);
-      archive >> (*this);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw std::runtime_error("TsAffineMap::load: " + std::string(e.what()));
-    }
-  }
+  void load(std::string path) { load_from_archive(*this, path, "TsAffineMap"); }
 
   /** Save map.
 
       \param path Path of the map to save
       \throw std::runtime_error
   */
-  void save(std::string path) const {
-    std::ofstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("TsAffineMap::save: Cannot open " + path);
-    try {
-      boost::archive::text_oarchive archive(stream);
-      archive << (*this);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw std::runtime_error("TsAffineMap::save: " + std::string(e.what()));
-    }
-  }
+  void save(std::string path) const { save_to_archive(*this, path, "TsAffineMap"); }
 
   ///@}
 
