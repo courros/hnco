@@ -23,13 +23,11 @@
 
 #include <iostream>
 #include <vector>
-#include <fstream>
 
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/vector.hpp>
 
 #include "hnco/functions/function.hh"
+#include "hnco/serialization.hh"
 
 
 namespace hnco {
@@ -123,36 +121,14 @@ public:
       \param path Path of the instance to load
       \throw std::runtime_error
   */
-  void load(std::string path) {
-    std::ifstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("EqualProducts::load: Cannot open " + path);
-    try {
-      boost::archive::text_iarchive archive(stream);
-      archive >> (*this);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw std::runtime_error("EqualProducts::load: " + std::string(e.what()));
-    }
-  }
+  void load(std::string path) { load_from_archive(*this, path, "EqualProducts"); }
 
   /** Save instance.
 
       \param path Path of the instance to save
       \throw std::runtime_error
   */
-  void save(std::string path) const {
-    std::ofstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("EqualProducts::save: Cannot open " + path);
-    try {
-      boost::archive::text_oarchive archive(stream);
-      archive << (*this);
-    }
-    catch (boost::archive::archive_exception& e) {
-      throw std::runtime_error("EqualProducts::save: " + std::string(e.what()));
-    }
-  }
+  void save(std::string path) const { save_to_archive(*this, path, "EqualProducts"); }
 
   ///@}
 
