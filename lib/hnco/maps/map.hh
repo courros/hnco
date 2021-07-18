@@ -156,14 +156,14 @@ public:
 
   /** Load map.
 
-      \param path Path of the map to load
+      \param path Path of the file
       \throw std::runtime_error
   */
   void load(std::string path) { load_from_archive(*this, path, "Translation"); }
 
   /** Save map.
 
-      \param path Path of the map to save
+      \param path Path of the file
       \throw std::runtime_error
   */
   void save(std::string path) const { save_to_archive(*this, path, "Translation"); }
@@ -238,14 +238,14 @@ public:
 
   /** Load map.
 
-      \param path Path of the map to load
+      \param path Path of the file
       \throw std::runtime_error
   */
   void load(std::string path) { load_from_archive(*this, path, "Permutation"); }
 
   /** Save map.
 
-      \param path Path of the map to save
+      \param path Path of the file
       \throw std::runtime_error
   */
   void save(std::string path) const { save_to_archive(*this, path, "Permutation"); }
@@ -320,14 +320,14 @@ public:
 
   /** Load map.
 
-      \param path Path of the map to load
+      \param path Path of the file
       \throw std::runtime_error
   */
   void load(std::string path) { load_from_archive(*this, path, "LinearMap"); }
 
   /** Save map.
 
-      \param path Path of the map to save
+      \param path Path of the file
       \throw std::runtime_error
   */
   void save(std::string path) const { save_to_archive(*this, path, "LinearMap"); }
@@ -411,14 +411,14 @@ public:
 
   /** Load map.
 
-      \param path Path of the map to load
+      \param path Path of the file
       \throw std::runtime_error
   */
   void load(std::string path) { load_from_archive(*this, path, "AffineMap"); }
 
   /** Save map.
 
-      \param path Path of the map to save
+      \param path Path of the file
       \throw std::runtime_error
   */
   void save(std::string path) const { save_to_archive(*this, path, "AffineMap"); }
@@ -703,14 +703,14 @@ public:
 
   /** Load map.
 
-      \param path Path of the map to load
+      \param path Path of the file
       \throw std::runtime_error
   */
   void load(std::string path) { load_from_archive(*this, path, "TsAffineMap"); }
 
   /** Save map.
 
-      \param path Path of the map to save
+      \param path Path of the file
       \throw std::runtime_error
   */
   void save(std::string path) const { save_to_archive(*this, path, "TsAffineMap"); }
