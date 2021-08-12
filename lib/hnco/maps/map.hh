@@ -125,19 +125,7 @@ public:
   bool is_surjective() override { return true; }
 
   /// Display
-  void display(std::ostream& stream) override {
-    const int length = 5;
-    stream << "Translation(" << _bv.size() << "): ";
-    int bound = std::min(length, int(_bv.size()));
-    for (int i = 0; i < bound; i++)
-      if (_bv[i])
-        stream << 1;
-      else
-        stream << 0;
-    if (length < int(_bv.size()))
-      stream << "...";
-    stream << std::endl;
-  }
+  void display(std::ostream& stream) override;
 
   /// Random instance
   void random(int n) {

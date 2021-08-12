@@ -48,6 +48,23 @@ Translation::map(const bit_vector_t& input, bit_vector_t& output)
 
 
 void
+Translation::display(std::ostream& stream)
+{
+  const int length = 5;
+  stream << "Translation(" << _bv.size() << "): ";
+  int bound = std::min(length, int(_bv.size()));
+  for (int i = 0; i < bound; i++)
+    if (_bv[i])
+      stream << 1;
+    else
+      stream << 0;
+  if (length < int(_bv.size()))
+    stream << "...";
+  stream << std::endl;
+}
+
+
+void
 Permutation::map(const bit_vector_t& input, bit_vector_t& output)
 {
   assert(_permutation.size() == input.size());
