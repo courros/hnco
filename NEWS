@@ -43,6 +43,7 @@ Library:
 - Added load_from_archive and save_to_archive
 - Concrete maps and functions call load_from_archive and
   save_to_archive
+- Added AffineMap::display
 
 Python:
 - Added python bindings with pybind11
