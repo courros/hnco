@@ -59,6 +59,7 @@ Applications:
 Examples:
 - Added cli-my-function.cc
 - Added cli-my-algorithm.cc
+- Added bindings.py, progress-tracker.py, runtime.py
 
 Build:
 - Moved optgen.pl in tools/
