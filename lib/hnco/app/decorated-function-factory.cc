@@ -143,7 +143,7 @@ make_map(const HncoOptions& options, int bv_size)
   }
 
   default: {
-    throw std::runtime_error("make_map: Unknown map type: " + options.get_map());
+    throw std::runtime_error("make_map: Unknown map type: " + std::to_string(options.get_map()));
   }
 
   }
@@ -179,7 +179,7 @@ make_prior_noise_neighborhood(const HncoOptions& options, int bv_size)
        options.get_pn_radius());
 
   default:
-    throw std::runtime_error("make_prior_noise_neighborhood: Unknown neighborhood type: " + options.get_neighborhood());
+    throw std::runtime_error("make_prior_noise_neighborhood: Unknown neighborhood type: " + std::to_string(options.get_neighborhood()));
   }
 
 }

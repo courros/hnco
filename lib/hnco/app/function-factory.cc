@@ -273,7 +273,7 @@ CommandLineFunctionFactory::make()
       return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
     }
     default:
-      throw std::runtime_error("CommandLineFunctionFactory::make: Unknown categorical representation type: " + _options.get_rep_categorical_representation());
+      throw std::runtime_error("CommandLineFunctionFactory::make: Unknown categorical representation type: " + std::to_string(_options.get_rep_categorical_representation()));
     }
   }
 
@@ -286,7 +286,7 @@ CommandLineFunctionFactory::make()
 #endif
 
   default:
-    throw std::runtime_error("CommandLineFunctionFactory::make: Unknown function type: " + _options.get_function());
+    throw std::runtime_error("CommandLineFunctionFactory::make: Unknown function type: " + std::to_string(_options.get_function()));
   }
 
 }
