@@ -393,6 +393,9 @@ public:
   */
   bool is_surjective();
 
+  /// Display
+  void display(std::ostream& stream) override;
+
   /** @name Load and save map
    */
   ///@{
@@ -680,7 +683,7 @@ public:
   bool is_surjective() { return true; }
 
   /// Display
-  void display(std::ostream& stream);
+  void display(std::ostream& stream) override;
 
   /// Inverse
   void inverse() { std::reverse(_ts.begin(), _ts.end()); }

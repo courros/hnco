@@ -161,6 +161,18 @@ AffineMap::is_surjective()
 }
 
 
+void
+AffineMap::display(std::ostream& stream)
+{
+  stream << "AffineMap: " << get_input_size() << " bits -> " << get_output_size() << " bits" << std::endl;
+  stream << "Bit matrix is:" << std::endl;
+  bm_display(_bm, stream);
+  stream << "Bit vector is:" << std::endl;
+  bv_display(_bv, stream);
+  stream << std::endl;
+}
+
+
 Injection::Injection(const std::vector<int>& bit_positions, int output_size):
   _bit_positions(bit_positions),
   _output_size(output_size)
