@@ -63,7 +63,7 @@ my $save_solution       = $obj->{save_solution};
 
 my @commands = ();
 
-iterate_functions($path_results, "$obj->{exec} $obj->{opt} -b $budget");
+iterate_functions($path_results, "$obj->{opt} -b $budget");
 
 if ($parallel) {
     write_file('commands.txt', map { "$_\n" } @commands);
@@ -89,6 +89,11 @@ sub iterate_algorithms
 {
     my ($prefix, $cmd) = @_;
     foreach my $algorithm (@$algorithms) {
+        if ($algorithm->{exec}) {
+            $cmd = "$algorithm->{exec} $cmd";
+        } else {
+            $cmd = "$obj->{exec} $cmd";
+        }
         my $id = $algorithm->{id};
         if ($only_algorithms &&
             none { $_ eq $id } @$only_algorithms) { next; }
