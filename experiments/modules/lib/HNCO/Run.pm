@@ -1,4 +1,4 @@
-package HNCO::Run 1.14;
+package HNCO::Run 1.18;
 
 use strict;
 use warnings;
@@ -23,13 +23,13 @@ sub gnu_parallel
             system(qq(ssh $_->{hostname} "cd $dir ; $skeleton"\n));
         }
         my $hostnames = join(',', map { $_->{hostname} } @$servers);
-        system("parallel --joblog log.parallel --eta --progress --workdir . -S :,$hostnames :::: commands.txt");
+        system("parallel --shuf --joblog log.parallel --eta --progress --workdir . -S :,$hostnames :::: commands.txt");
         print "Bringing back the files:\n";
         foreach (@$servers) {
             system("rsync -avvz $_->{hostname}:$dir/$path_results/ $path_results");
         }
     } else {
-        system("parallel --joblog log.parallel --eta --progress :::: commands.txt");
+        system("parallel --shuf --joblog log.parallel --eta --progress :::: commands.txt");
     }
 }
 
