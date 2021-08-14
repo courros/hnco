@@ -5,6 +5,7 @@ default-parameters:
 
 run:
 	echo `date` >> log.err
+	uname -a >> log.err
 	hnco-benchmark-skeleton.pl
 	time -o log.err -a hnco-benchmark-run.pl
 
@@ -12,11 +13,11 @@ report:
 	hnco-benchmark-stat.pl
 	./candlesticks.gp
 	./scatter.gp
-	sed '/^$$/d' plan.json > pretty.json
+	sed '/^$$/d' plan.json > report/pretty.json
 	make -C report
 
 clean:
-	rm -f pretty.json
+	rm -f report/pretty.json
 	rm -f log.defaults log.err log.parallel
 	rm -f commands.txt
 	rm -f candlesticks.gp scatter.gp
