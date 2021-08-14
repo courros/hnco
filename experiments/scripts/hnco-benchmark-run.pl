@@ -89,10 +89,9 @@ sub iterate_algorithms
 {
     my ($prefix, $cmd) = @_;
     foreach my $algorithm (@$algorithms) {
+        my $algorithm_cmd = "$obj->{exec} $cmd";
         if ($algorithm->{exec}) {
-            $cmd = "$algorithm->{exec} $cmd";
-        } else {
-            $cmd = "$obj->{exec} $cmd";
+            $algorithm_cmd = "$algorithm->{exec} $cmd";
         }
         my $id = $algorithm->{id};
         if ($only_algorithms &&
@@ -101,9 +100,9 @@ sub iterate_algorithms
             any { $_ eq $id } @$skip_algorithms) { next; }
         print "$id: ";
         if ($algorithm->{deterministic}) {
-            iterate_runs("$prefix/$id", "$cmd $algorithm->{opt}", 1);
+            iterate_runs("$prefix/$id", "$algorithm_cmd $algorithm->{opt}", 1);
         } else {
-            iterate_runs("$prefix/$id", "$cmd $algorithm->{opt}", $obj->{num_runs});
+            iterate_runs("$prefix/$id", "$algorithm_cmd $algorithm->{opt}", $obj->{num_runs});
         }
         print "\n";
     }
