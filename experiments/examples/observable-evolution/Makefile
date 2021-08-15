@@ -11,11 +11,13 @@ run:
 report:
 	hnco-observable-evolution-stat.pl
 	./graphics.gp
-	sed '/^$$/d' plan.json > pretty.json
+	sed '/^$$/d' plan.json > report/pretty.json
 	make -C report
 
 clean:
-	rm -f graphics.gp pretty.json log.defaults log.err
+	rm -f log.defaults log.err
+	rm -f report/pretty.json
+	rm -f graphics.gp
 	rm -rf results
 	rm -rf graphics
 
