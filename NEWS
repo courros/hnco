@@ -1,5 +1,12 @@
 * Version 0.18 (unreleased)
 
+Perl modules:
+- HNCO::Run: make GNU parallel shuffle jobs
+
+Perl scripts:
+- hnco-benchmark-run.pl: optional exec name for each algorithm
+
+
 * Version 0.17 (2021-08-12)
 
 Library:
