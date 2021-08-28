@@ -46,10 +46,7 @@ my $obj = from_json(read_file($plan));
 #
 
 my $functions           = $obj->{functions};
-my $algorithms          = $obj->{algorithms};
 my $parameter           = $obj->{parameter};
-my $parallel            = $obj->{parallel};
-my $servers             = $obj->{servers};
 
 my $parameter_id        = $parameter->{id};
 
@@ -89,21 +86,6 @@ sub iterate_functions
         my $path = "$prefix/$function_id";
         unless (-d $path) {
             mkdir $path;
-            print "Created $path\n";
-        }
-        iterate_algorithms($path);
-    }
-}
-
-sub iterate_algorithms
-{
-    my ($prefix) = @_;
-
-    foreach my $a (@$algorithms) {
-        my $algorithm_id = $a->{id};
-        my $path = "$prefix/$algorithm_id";
-        unless (-d $path) {
-            mkdir "$path";
             print "Created $path\n";
         }
         iterate_values($path);
