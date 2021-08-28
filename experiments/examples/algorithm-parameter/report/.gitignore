@@ -1,8 +1,11 @@
-_minted-report/
-auto/
-*~
 *.aux
 *.log
 *.out
 *.toc
+*~
+
+_minted-report/
+auto/
+
+pretty.json
 results.tex
