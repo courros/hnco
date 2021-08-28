@@ -47,9 +47,10 @@ my $obj = from_json(read_file($plan));
 # Global variables
 #
 
-my $algorithms          = $obj->{algorithms};
 my $budget              = $obj->{budget};
 my $functions           = $obj->{functions};
+my $num_runs            = $obj->{num_runs};
+my $opt_perl            = $obj->{opt_perl};
 my $parallel            = $obj->{parallel};
 my $parameter           = $obj->{parameter};
 my $servers             = $obj->{servers};
@@ -88,50 +89,33 @@ if ($parallel) {
 sub iterate_functions
 {
     my ($prefix, $cmd) = @_;
+
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         print "$function_id\n\n";
-        iterate_algorithms("$prefix/$function_id", "$cmd $f->{opt}");
-    }
-}
-
-sub iterate_algorithms
-{
-    my ($prefix, $cmd) = @_;
-    foreach my $a (@$algorithms) {
-        my $algorithm_id = $a->{id};
-        print "$algorithm_id\n\n";
-        iterate_values("$prefix/$algorithm_id", "$cmd $a->{opt}", $a);
-        print "\n";
+        iterate_values("$prefix/$function_id", "$cmd $f->{opt}");
     }
 }
 
 sub iterate_values
 {
-    my ($prefix, $cmd, $a) = @_;
-
-    my $num_runs = $obj->{num_runs};
-    if ($a->{deterministic}) {
-        $num_runs = 1;
-    }
+    my ($prefix, $cmd) = @_;
 
     foreach my $value (@$values) {
         print "$parameter_id = $value: ";
-        my $dep = "";
-        if (exists($a->{opt_perl})) {
-            foreach (@{ $a->{opt_perl} }) {
-                my $value = eval $_->{value};
-                $dep = "$dep $_->{opt} $value";
-            }
-        }
-        iterate_runs("$prefix/$parameter_id-$value", "$cmd --$parameter_id $value $dep", $num_runs);
+        my $dep = join " ", map {
+            my $v = eval $_->{value};
+            "$_->{opt} $v";
+        } @$opt_perl;
+        iterate_runs("$prefix/$parameter_id-$value", "$cmd --$parameter_id $value $dep");
         print "\n";
     }
 }
 
 sub iterate_runs
 {
-    my ($prefix, $cmd, $num_runs) = @_;
+    my ($prefix, $cmd) = @_;
+
     if ($parallel) {
         foreach (1 .. $num_runs) {
             push @commands, "$cmd > $prefix/$_.out 2> $prefix/$_.err";
