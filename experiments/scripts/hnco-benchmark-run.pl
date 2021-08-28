@@ -63,6 +63,7 @@ my $save_solution       = $obj->{save_solution};
 
 my @commands = ();
 
+# exec is added later to the command
 iterate_functions($path_results, "$obj->{opt} -b $budget");
 
 if ($parallel) {
@@ -77,6 +78,7 @@ if ($parallel) {
 sub iterate_functions
 {
     my ($prefix, $cmd) = @_;
+
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
         print "$function_id\n\n";
@@ -88,6 +90,7 @@ sub iterate_functions
 sub iterate_algorithms
 {
     my ($prefix, $cmd) = @_;
+
     foreach my $algorithm (@$algorithms) {
         my $algorithm_cmd = "$obj->{exec} $cmd";
         if ($algorithm->{exec}) {
@@ -111,6 +114,7 @@ sub iterate_algorithms
 sub iterate_runs
 {
     my ($prefix, $cmd, $num_runs) = @_;
+
     if ($parallel) {
         foreach (1 .. $num_runs) {
             if ($save_solution) {
