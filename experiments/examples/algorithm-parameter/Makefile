@@ -12,12 +12,13 @@ report:
 	hnco-algorithm-parameter-stat.pl
 	./candlesticks.gp
 	./mean.gp
+	./scatter.gp
 	./stddev.gp
 	sed '/^$$/d' plan.json > report/pretty.json
 	make -C report
 
 clean:
-	rm -f candlesticks.gp mean.gp stddev.gp
+	rm -f candlesticks.gp mean.gp stddev.gp scatter.gp
 	rm -f report/pretty.json
 	rm -f log.defaults log.err log.parallel
 	rm -rf graphics
