@@ -6,6 +6,7 @@ commands.txt
 
 candlesticks.gp
 mean.gp
+scatter.gp
 stddev.gp
 
 graphics
