@@ -80,6 +80,7 @@ my $graphics            = $obj->{graphics};
 
 my $parameter_id        = $parameter->{id};
 my $parameter_name      = $parameter->{name} || $parameter_id;
+my $parameter_shortname = $parameter->{shortname} || $parameter_name;
 
 my @results = ();
 my @value_statistics = ();
@@ -607,9 +608,16 @@ sub generate_table_rank
 
     # Header
     my $width = int(ceil(log(1 + @{ $values }) / log(10)));
-    $file->print("\\begin{tabular}{\@{} l *{5}{>{{\\nprounddigits{0}}}n{$width}{0}} \@{}}\n",
+    my $quantiles = "";
+    $quantiles .= ">{{\\nprounddigits{0}}}n{$width}{0}";
+    $quantiles .= ">{{\\nprounddigits{2}}}n{$width}{2}";
+    $quantiles .= ">{{\\nprounddigits{1}}}n{$width}{1}";
+    $quantiles .= ">{{\\nprounddigits{2}}}n{$width}{2}";
+    $quantiles .= ">{{\\nprounddigits{0}}}n{$width}{0}";
+
+    $file->print("\\begin{tabular}{\@{} l $quantiles \@{}}\n",
                  "\\toprule\n",
-                 "{$parameter_name} & \\multicolumn{5}{l}{{Rank}} \\\\\n",
+                 "{$parameter_shortname} & \\multicolumn{5}{l}{{Rank}} \\\\\n",
                  "\\midrule\n",
                  "& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} \\\\\n",
                  "\\midrule\n");
@@ -623,7 +631,7 @@ sub generate_table_rank
         }
         return 0;
     } @rank_statistics;
-    my $format = join " & ", map { "%d" } @summary_statistics;
+    my $format = join " & ", map { "%f" } @summary_statistics;
     foreach my $row (@sorted) {
         $file->print("$row->{parameter} & ");
         $file->printf($format, $row->{min}, $row->{q1}, $row->{median}, $row->{q3}, $row->{max});
@@ -644,10 +652,32 @@ sub generate_table_value
 
         # Header
         my $before = $fn->{rounding}->{value}->{before} || 3;
-        my $after = $fn->{rounding}->{value}->{after} || 0;
-        $file->print("\\begin{tabular}{\@{} l *{5}{>{{\\nprounddigits{$after}}}n{$before}{$after}} \@{}}\n",
+
+        # Precision for min/max
+        my $after_min_max = $fn->{rounding}->{value}->{after} || 0;
+
+        # Precision for median
+        my $after_median = 1;
+        if ($fn->{rounding}->{value}->{after}) {
+            $after_median = $fn->{rounding}->{value}->{after} + 1;
+        }
+
+        # Precision for quantiles
+        my $after_quantiles = 2;
+        if ($fn->{rounding}->{value}->{after}) {
+            $after_quantiles = $fn->{rounding}->{value}->{after} + 2;
+        }
+
+        my $quantiles = "";
+        $quantiles .= ">{{\\nprounddigits{$after_min_max}}}n{$before}{0}";
+        $quantiles .= ">{{\\nprounddigits{$after_quantiles}}}n{$before}{$after_quantiles}";
+        $quantiles .= ">{{\\nprounddigits{$after_median}}}n{$before}{$after_median}";
+        $quantiles .= ">{{\\nprounddigits{$after_quantiles}}}n{$before}{$after_quantiles}";
+        $quantiles .= ">{{\\nprounddigits{$after_min_max}}}n{$before}{0}";
+
+        $file->print("\\begin{tabular}{\@{} l $quantiles \@{}}\n",
                      "\\toprule\n",
-                     "{$parameter_name} & \\multicolumn{5}{l}{{Function value}} \\\\\n",
+                     "{$parameter_shortname} & \\multicolumn{5}{l}{{Function value}} \\\\\n",
                      "\\midrule\n",
                      "& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} \\\\\n",
                      "\\midrule\n");
@@ -706,22 +736,28 @@ sub generate_latex
         my $id = $f->{id};
         $file->print(latex_newpage(),
                      latex_section("Function $id"),
+
                      latex_begin_center(),
-                     latex_input_file("table.value.$id.tex"),
+                     latex_includegraphics("$id/scatter", 0.6),
                      latex_end_center(),
-                     latex_begin_center(),
-                     latex_includegraphics("$id/mean", 0.6),
-                     latex_end_center(),
-                     latex_begin_center(),
-                     latex_includegraphics("$id/stddev", 0.6),
-                     latex_end_center(),
+
                      latex_begin_center(),
                      latex_includegraphics("$id/candlesticks", 0.6),
                      latex_end_center(),
+
                      latex_begin_center(),
-                     latex_includegraphics("$id/scatter", 0.6),
+                     latex_input_file("table.value.$id.tex"),
+                     latex_end_center(),
+
+                     latex_begin_center(),
+                     latex_includegraphics("$id/mean", 0.6),
+                     latex_end_center(),
+
+                     latex_begin_center(),
+                     latex_includegraphics("$id/stddev", 0.6),
                      latex_end_center());
-    }
+
+            }
 
     $file->close();
 }
