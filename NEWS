@@ -5,6 +5,7 @@ Perl modules:
 
 Perl scripts:
 - hnco-benchmark-run.pl: optional exec name for each algorithm
+- hnco-algorithm-parameter-stat.pl: produces rank statistics (similar to benchmark)
 
 
 * Version 0.17 (2021-08-12)
