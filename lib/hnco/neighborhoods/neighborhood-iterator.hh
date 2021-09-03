@@ -21,9 +21,8 @@
 #ifndef HNCO_NEIGHBORHOODS_NEIGHBORHOOD_ITERATOR_H
 #define HNCO_NEIGHBORHOODS_NEIGHBORHOOD_ITERATOR_H
 
-#include <assert.h>
-
 #include "hnco/iterator.hh"
+#include "hnco/sparse-bit-vector.hh"
 
 
 namespace hnco {
@@ -66,42 +65,24 @@ namespace neighborhood {
       NeighborhoodIterator(n) {}
 
     /// Has next bit vector
-    bool has_next();
+    bool has_next() override;
 
     /// Next bit vector
-    const bit_vector_t& next();
+    const bit_vector_t& next() override;
 
   };
 
 
   /** Hamming sphere neighborhood iterator.
-
-      This iterator enumerates mutation masks with hamming weight
-      equal to the given radius. Suppose that _mask has a first (from
-      left to right) sequence of ones of length _weight and ending at
-      _index:
-
-      0 ... 0 1 ... 1 0 ...
-
-      Then the next mask is obtained by moving to the left the first
-      _weight - 1 ones and moving to the right the last one.
-
-      1 ... 1 0 ... 0 1 ...
   */
   class HammingSphereIterator:
     public NeighborhoodIterator {
 
-    /// Mutation mask
-    bit_vector_t _mask;
-
     /// Radius of the ball
     int _radius;
 
-    /// Index of the next bit to shift to the right
-    int _index;
-
-    /// Partial Hamming weight
-    int _weight;
+    /// Bit indexes
+    sparse_bit_vector_t _bit_indexes;
 
   public:
 
@@ -110,21 +91,13 @@ namespace neighborhood {
         \param n Size of bit vectors
         \param r Radius of Hamming Ball
     */
-    HammingSphereIterator(int n, int r):
-      NeighborhoodIterator(n),
-      _mask(n),
-      _radius(r)
-    {
-      assert(n >= 0);
-      assert(r >= 0);
-      assert(r <= n);
-    }
+    HammingSphereIterator(int n, int r);
 
     /// Has next bit vector
-    bool has_next();
+    bool has_next() override;
 
     /// Next bit vector
-    const bit_vector_t& next();
+    const bit_vector_t& next() override;
 
   };
 

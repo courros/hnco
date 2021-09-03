@@ -20,9 +20,7 @@
 
 #include <assert.h>
 
-#include <algorithm>            // fill
-
-#include "hnco/exception.hh"
+#include <algorithm>            // std::iota
 
 #include "neighborhood-iterator.hh"
 
@@ -71,24 +69,35 @@ SingleBitFlipIterator::next()
   return _current;
 }
 
+HammingSphereIterator::HammingSphereIterator(int n, int r)
+  : NeighborhoodIterator(n)
+  , _radius(r)
+  , _bit_indexes(r)
+{
+  assert(n >= 0);
+  assert(r >= 0);
+  assert(r <= n);
+}
+
 bool
 HammingSphereIterator::has_next()
 {
   if (_initial_state)
     return _current.size() > 0 && _radius > 0;
 
-  assert(bv_is_valid(_mask));
-  assert(bv_hamming_weight(_mask) == _radius);
+  if (_radius <= 0)
+    return false;
 
-  _weight = 0;
-  for (size_t i = 0; i < _mask.size() - 1; i++)
-    if (_mask[i] == 1) {
-      _weight++;
-      if (_mask[i + 1] == 0) {
-        _index = i;
-        return true;
-      }
-    }
+  // Last index
+  int i = _radius - 1;
+  if (_bit_indexes[i] < int(_current.size()) - 1)
+    return true;
+
+  // Previous indexes
+  for (i--; i >= 0; i--)
+    if (_bit_indexes[i] < _bit_indexes[i + 1] - 1)
+      return true;
+
   return false;
 }
 
@@ -98,29 +107,29 @@ HammingSphereIterator::next()
   assert(has_next());
 
   if (_initial_state) {
-    bv_clear(_mask);
-    fill(_mask.begin(), _mask.begin() + _radius, 1);
-    assert(bv_hamming_weight(_mask) == _radius);
-    bv_flip(_current, _mask);
+    std::iota(_bit_indexes.begin(), _bit_indexes.end(), 0);
     _initial_state = false;
   } else {
-    // restore the current bit vector to its original value
-    bv_flip(_current, _mask);
+    // Restore the current bit vector to its original value
+    sbv_flip(_current, _bit_indexes);
 
-    // update mask
-    assert(_mask[_index] == 1);
-    assert(_mask[_index + 1] == 0);
-
-    _mask[_index + 1] = 1;
-    fill(_mask.begin(), _mask.begin() + _index + 1, 0);
-    fill(_mask.begin(), _mask.begin() + _weight - 1, 1);
-
-    assert(bv_is_valid(_mask));
-    assert(bv_hamming_weight(_mask) == _radius);
-
-    // Flip the current bit vector
-    bv_flip(_current, _mask);
+    // Last index
+    int i = _radius - 1;
+    if (_bit_indexes[i] < int(_current.size()) - 1) {
+      _bit_indexes[i]++;
+    } else {
+      // Previous indexes
+      for (i--; i >= 0; i--)
+        if (_bit_indexes[i] < _bit_indexes[i + 1] - 1) {
+          _bit_indexes[i]++;
+          std::iota(_bit_indexes.begin() + i + 1, _bit_indexes.end(), _bit_indexes[i] + 1);
+          break;
+        }
+    }
   }
+
+  // Flip the current bit vector
+  sbv_flip(_current, _bit_indexes);
 
   return _current;
 }
