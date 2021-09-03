@@ -18,7 +18,7 @@
 
 */
 
-#include <algorithm>            // any_of, fill
+#include <algorithm>            // std::any_of
 
 #include "iterator.hh"
 
@@ -42,7 +42,7 @@ HypercubeIterator::next()
   assert(has_next());
 
   if (_initial_state) {
-    fill(_current.begin(), _current.end(), 0);
+    bv_clear(_current);
     _initial_state = false;
   } else {
     for (size_t i = 0; i < _current.size(); i++) {
