@@ -29,7 +29,12 @@ namespace hnco {
 namespace neighborhood {
 
 
-/// %Neighborhood iterator
+/** %Neighborhood iterator.
+
+    A neighborhood iterator allows to iterate over bit vectors in the
+    neighborhood of a given origin. The origin itself should not
+    belong to the neighborhood.
+*/
 class NeighborhoodIterator:
     public Iterator {
 
@@ -73,7 +78,21 @@ public:
 
 
 /** Hamming sphere neighborhood iterator.
- */
+
+    The Hamming sphere iterator is implemented using an array of
+    indexes which indicate the bits to flip in the given origin.
+
+    For example, in dimension n = 4 and with radius = 2, the sequence
+    of indexes is as follows (assuming indexes start at 1):
+    - 12 (first state, bits 1 and 2 are flipped)
+    - 13
+    - 14
+    - 23 (last index cannot be increased, first index is increased and second index is reset)
+    - 24
+    - 34
+
+    Reference: https://en.wikipedia.org/wiki/Combination#Enumerating_k-combinations
+*/
 class HammingSphereIterator:
     public NeighborhoodIterator {
 
