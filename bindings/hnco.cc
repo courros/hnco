@@ -153,6 +153,25 @@ PYBIND11_MODULE(hnco, module_hnco) {
     ;
 
   //
+  // Neighborhoods
+  //
+
+  py::module module_neighborhood = module_hnco.def_submodule("neighborhood", "Neighborhoods");
+
+  {
+    using namespace neighborhood;
+
+    py::class_<SingleBitFlipIterator, Iterator>(module_neighborhood, "SingleBitFlipIterator")
+      .def(py::init<int>())
+      ;
+
+    py::class_<HammingSphereIterator, Iterator>(module_neighborhood, "HammingSphereIterator")
+      .def(py::init<int, int>())
+      ;
+
+  }
+
+  //
   // Random numbers
   //
 
