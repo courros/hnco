@@ -31,6 +31,7 @@
 #include "hnco/functions/all.hh"
 #include "hnco/iterator.hh"
 #include "hnco/maps/map.hh"
+#include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/random.hh"
 
 namespace py = pybind11;
@@ -67,6 +68,31 @@ public:
     else
       throw py::stop_iteration();
   }
+};
+
+//
+// Neighborhoods
+//
+
+class PyNeighborhoodIterator: public neighborhood::NeighborhoodIterator {
+public:
+  using neighborhood::NeighborhoodIterator::NeighborhoodIterator;
+  void set_origin(const bit_vector_t& x)        override { PYBIND11_OVERLOAD_PURE(void, neighborhood::NeighborhoodIterator, set_origin, ); }
+};
+
+class PyNeighborhood: public neighborhood::Neighborhood {
+public:
+  using neighborhood::Neighborhood::Neighborhood;
+  void set_origin(const bit_vector_t& x)        override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, set_origin, ); }
+  const bit_vector_t& get_origin()              override { PYBIND11_OVERLOAD_PURE(const bit_vector_t&, neighborhood::Neighborhood, get_origin, ); }
+  const bit_vector_t& get_candidate()           override { PYBIND11_OVERLOAD_PURE(const bit_vector_t&, neighborhood::Neighborhood, get_candidate, ); }
+  const sparse_bit_vector_t& get_flipped_bits() override { PYBIND11_OVERLOAD_PURE(const sparse_bit_vector_t&, neighborhood::Neighborhood, get_flipped_bits, ); }
+  void propose()                                override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, propose, ); }
+  void keep()                                   override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, keep, ); }
+  void forget()                                 override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, forget, ); }
+  void mutate(bit_vector_t& bv)                 override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, mutate, ); }
+  void map(const bit_vector_t& input, bit_vector_t& output)
+                                                override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, map, ); }
 };
 
 //
@@ -161,12 +187,44 @@ PYBIND11_MODULE(hnco, module_hnco) {
   {
     using namespace neighborhood;
 
-    py::class_<SingleBitFlipIterator, Iterator>(module_neighborhood, "SingleBitFlipIterator")
+    py::class_<NeighborhoodIterator, Iterator, PyNeighborhoodIterator>(module_neighborhood, "NeighborhoodIterator")
+      .def("set_origin", &NeighborhoodIterator::set_origin)
+      ;
+
+    py::class_<SingleBitFlipIterator, NeighborhoodIterator>(module_neighborhood, "SingleBitFlipIterator")
       .def(py::init<int>())
       ;
 
-    py::class_<HammingSphereIterator, Iterator>(module_neighborhood, "HammingSphereIterator")
+    py::class_<HammingSphereIterator, NeighborhoodIterator>(module_neighborhood, "HammingSphereIterator")
       .def(py::init<int, int>())
+      ;
+
+    py::class_<Neighborhood, PyNeighborhood>(module_neighborhood, "Neighborhood")
+      .def("set_origin", &Neighborhood::set_origin)
+      .def("get_origin", &Neighborhood::get_origin)
+      .def("get_candidate", &Neighborhood::get_candidate)
+      .def("get_flipped_bits", &Neighborhood::get_flipped_bits)
+      .def("propose", &Neighborhood::propose)
+      .def("keep", &Neighborhood::keep)
+      .def("forget", &Neighborhood::forget)
+      .def("map", &Neighborhood::map)
+      .def("mutate", &Neighborhood::mutate)
+      ;
+
+    py::class_<SingleBitFlip, Neighborhood>(module_neighborhood, "SingleBitFlip")
+      .def(py::init<int>())
+      ;
+
+    py::class_<HammingBall, Neighborhood>(module_neighborhood, "HammingBall")
+      .def(py::init<int, int>())
+      ;
+
+    py::class_<HammingSphere, Neighborhood>(module_neighborhood, "HammingSphere")
+      .def(py::init<int, int>())
+      ;
+
+    py::class_<StandardBitMutation, Neighborhood>(module_neighborhood, "StandardBitMutation")
+      .def(py::init<int, double>())
       ;
 
   }
