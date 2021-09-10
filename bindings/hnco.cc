@@ -487,6 +487,79 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def(py::init<int>())
       ;
 
+    py::class_<LocalSearchAlgorithm<neighborhood::Neighborhood>, IterativeAlgorithm>(module_algorithm, "LocalSearchAlgorithm");
+
+    py::class_<RandomLocalSearch, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "RandomLocalSearch")
+      .def(py::init<int, neighborhood::Neighborhood *>())
+      .def("set_patience", &RandomLocalSearch::set_patience)
+      ;
+
+    py::class_<SimulatedAnnealing, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "SimulatedAnnealing")
+      .def(py::init<int, neighborhood::Neighborhood *>())
+      .def("set_num_transitions", &SimulatedAnnealing::set_num_transitions)
+      .def("set_num_trials", &SimulatedAnnealing::set_num_trials)
+      .def("set_initial_acceptance_probability", &SimulatedAnnealing::set_initial_acceptance_probability)
+      .def("set_beta_ratio", &SimulatedAnnealing::set_beta_ratio)
+      ;
+
+    py::class_<GeneticAlgorithm, IterativeAlgorithm>(module_algorithm, "GeneticAlgorithm")
+      .def(py::init<int, int>())
+      .def("set_mutation_rate", &GeneticAlgorithm::set_mutation_rate)
+      .def("set_crossover_probability", &GeneticAlgorithm::set_crossover_probability)
+      .def("set_tournament_size", &GeneticAlgorithm::set_tournament_size)
+      .def("set_allow_no_mutation", &GeneticAlgorithm::set_allow_no_mutation)
+      ;
+
+    py::class_<Mimic, IterativeAlgorithm>(module_algorithm, "Mimic")
+      .def(py::init<int, int>())
+      .def("set_selection_size", &Mimic::set_selection_size)
+      ;
+
+    py::class_<MuCommaLambdaEa, IterativeAlgorithm>(module_algorithm, "MuCommaLambdaEa")
+      .def(py::init<int, int, int>())
+      .def("set_mutation_rate", &MuCommaLambdaEa::set_mutation_rate)
+      .def("set_allow_no_mutation", &MuCommaLambdaEa::set_allow_no_mutation)
+      ;
+
+    py::class_<MuPlusLambdaEa, IterativeAlgorithm>(module_algorithm, "MuPlusLambdaEa")
+      .def(py::init<int, int, int>())
+      .def("set_mutation_rate", &MuPlusLambdaEa::set_mutation_rate)
+      .def("set_allow_no_mutation", &MuPlusLambdaEa::set_allow_no_mutation)
+      ;
+
+    py::class_<OnePlusLambdaCommaLambdaGa, IterativeAlgorithm>(module_algorithm, "OnePlusLambdaCommaLambdaGa")
+      .def(py::init<int, int>())
+      .def("set_mutation_rate", &OnePlusLambdaCommaLambdaGa::set_mutation_rate)
+      .def("set_crossover_bias", &OnePlusLambdaCommaLambdaGa::set_crossover_bias)
+      ;
+
+    {
+      using namespace hnco::algorithm::bm_pbil;
+
+      py::class_<BmPbil, IterativeAlgorithm>(module_algorithm, "BmPbil")
+        .def(py::init<int, int>())
+        .def("set_selection_size", &BmPbil::set_selection_size)
+        .def("set_learning_rate", &BmPbil::set_learning_rate)
+        .def("set_num_gs_steps", &BmPbil::set_num_gs_steps)
+        .def("set_num_gs_cycles", &BmPbil::set_num_gs_cycles)
+        .def("set_negative_positive_selection", &BmPbil::set_negative_positive_selection)
+        .def("set_sampling", &BmPbil::set_sampling)
+        .def("set_mc_reset_strategy", &BmPbil::set_mc_reset_strategy)
+        ;
+
+    }
+
+    {
+      using namespace hnco::algorithm::hea;
+      using Algo = Hea<SpinMoment, SpinHerding>;
+
+      py::class_<Algo, IterativeAlgorithm>(module_algorithm, "Hea")
+        .def(py::init<int, int>())
+        .def("set_herding", &Algo::set_herding)
+        ;
+
+    }
+
   }
 
 }
