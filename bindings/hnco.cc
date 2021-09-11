@@ -479,7 +479,6 @@ PYBIND11_MODULE(hnco, module_hnco) {
       ;
 
     py::class_<IterativeAlgorithm, Algorithm, PyIterativeAlgorithm>(module_algorithm, "IterativeAlgorithm")
-      .def(py::init<int>())
       .def("set_num_iterations", &IterativeAlgorithm::set_num_iterations)
       ;
 
@@ -492,6 +491,10 @@ PYBIND11_MODULE(hnco, module_hnco) {
     py::class_<RandomLocalSearch, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "RandomLocalSearch")
       .def(py::init<int, neighborhood::Neighborhood *>())
       .def("set_patience", &RandomLocalSearch::set_patience)
+      ;
+
+    py::class_<RandomWalk, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "RandomWalk")
+      .def(py::init<int, neighborhood::Neighborhood *>())
       ;
 
     py::class_<SimulatedAnnealing, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "SimulatedAnnealing")
@@ -559,6 +562,36 @@ PYBIND11_MODULE(hnco, module_hnco) {
         ;
 
     }
+
+    py::class_<PvAlgorithm, Algorithm, IterativeAlgorithm>(module_algorithm, "PvAlgorithm")
+      ;
+
+    py::class_<CompactGa, PvAlgorithm>(module_algorithm, "CompactGa")
+      .def(py::init<int>())
+      .def("set_learning_rate", &CompactGa::set_learning_rate)
+      ;
+
+    py::class_<Mmas, PvAlgorithm>(module_algorithm, "Mmas")
+      .def(py::init<int>())
+      .def("set_learning_rate", &Mmas::set_learning_rate)
+      ;
+
+    py::class_<Pbil, PvAlgorithm>(module_algorithm, "Pbil")
+      .def(py::init<int, int>())
+      .def("set_learning_rate", &Pbil::set_learning_rate)
+      .def("set_selection_size", &Pbil::set_selection_size)
+      ;
+
+    py::class_<NpsPbil, PvAlgorithm>(module_algorithm, "NpsPbil")
+      .def(py::init<int, int>())
+      .def("set_learning_rate", &NpsPbil::set_learning_rate)
+      .def("set_selection_size", &NpsPbil::set_selection_size)
+      ;
+
+    py::class_<Umda, PvAlgorithm>(module_algorithm, "Umda")
+      .def(py::init<int, int>())
+      .def("set_selection_size", &Umda::set_selection_size)
+      ;
 
   }
 
