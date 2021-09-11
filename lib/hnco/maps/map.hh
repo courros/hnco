@@ -54,16 +54,16 @@ public:
   virtual void map(const bit_vector_t& input, bit_vector_t& output) = 0;
 
   /// Get input size
-  virtual int get_input_size() = 0;
+  virtual int get_input_size() const = 0;
 
   /// Get output size
-  virtual int get_output_size() = 0;
+  virtual int get_output_size() const = 0;
 
   /** Check for surjective map.
 
       \return false
   */
-  virtual bool is_surjective() { return false; }
+  virtual bool is_surjective() const { return false; }
 
   /// Display
   virtual void display(std::ostream& stream) {}
@@ -113,16 +113,16 @@ public:
   void map(const bit_vector_t& input, bit_vector_t& output) override;
 
   /// Get input size
-  int get_input_size() override { return _bv.size(); }
+  int get_input_size() const override { return _bv.size(); }
 
   /// Get output size
-  int get_output_size() override { return _bv.size(); }
+  int get_output_size() const override { return _bv.size(); }
 
   /** Check for surjective map.
 
       \return true
   */
-  bool is_surjective() override { return true; }
+  bool is_surjective() const override { return true; }
 
   /// Display
   void display(std::ostream& stream) override;
@@ -209,16 +209,16 @@ public:
   void map(const bit_vector_t& input, bit_vector_t& output);
 
   /// Get input size
-  int get_input_size() { return _permutation.size(); }
+  int get_input_size() const override { return _permutation.size(); }
 
   /// Get output size
-  int get_output_size() { return _permutation.size(); }
+  int get_output_size() const override { return _permutation.size(); }
 
   /** Check for surjective map.
 
       \return true
   */
-  bool is_surjective() { return true; }
+  bool is_surjective() const override { return true; }
 
   /** @name Load and save map
    */
@@ -291,16 +291,16 @@ public:
   void map(const bit_vector_t& input, bit_vector_t& output);
 
   /// Get input size
-  int get_input_size() { return bm_num_columns(_bm); }
+  int get_input_size() const override { return bm_num_columns(_bm); }
 
   /// Get output size
-  int get_output_size() { return bm_num_rows(_bm); }
+  int get_output_size() const override { return bm_num_rows(_bm); }
 
   /** Check for surjective map.
 
       \return true if rank(_bm) == bm_num_rows(_bm)
   */
-  bool is_surjective();
+  bool is_surjective() const override;
 
   /** @name Load and save map
    */
@@ -382,16 +382,16 @@ public:
   void map(const bit_vector_t& input, bit_vector_t& output);
 
   /// Get input size
-  int get_input_size() { return bm_num_columns(_bm); }
+  int get_input_size() const override { return bm_num_columns(_bm); }
 
   /// Get output size
-  int get_output_size() { return bm_num_rows(_bm); }
+  int get_output_size() const override { return bm_num_rows(_bm); }
 
   /** Check for surjective map.
 
       \return true if rank(_bm) == bm_num_rows(_bm)
   */
-  bool is_surjective();
+  bool is_surjective() const override;
 
   /// Display
   void display(std::ostream& stream) override;
@@ -463,16 +463,16 @@ public:
   }
 
   /// Get input size
-  int get_input_size() { return _inner->get_input_size(); }
+  int get_input_size() const override { return _inner->get_input_size(); }
 
   /// Get output size
-  int get_output_size() { return _outer->get_output_size(); }
+  int get_output_size() const override { return _outer->get_output_size(); }
 
   /** Check for surjective map.
 
       \return true if both maps are surjective
   */
-  bool is_surjective() { return _outer->is_surjective() && _inner->is_surjective(); }
+  bool is_surjective() const override { return _outer->is_surjective() && _inner->is_surjective(); }
 
 };
 
@@ -522,13 +522,13 @@ public:
   void map(const bit_vector_t& input, bit_vector_t& output);
 
   /// Get input size
-  int get_input_size() { return _bit_positions.size(); }
+  int get_input_size() const override { return _bit_positions.size(); }
 
   /// Get output size
-  int get_output_size() { return _output_size; }
+  int get_output_size() const override { return _output_size; }
 
   /// Check for surjective map
-  bool is_surjective() { return get_output_size() == get_input_size(); }
+  bool is_surjective() const override { return get_output_size() == get_input_size(); }
 
 };
 
@@ -578,16 +578,16 @@ public:
   void map(const bit_vector_t& input, bit_vector_t& output);
 
   /// Get input size
-  int get_input_size() { return _input_size; }
+  int get_input_size() const override { return _input_size; }
 
   /// Get output size
-  int get_output_size() { return _bit_positions.size(); }
+  int get_output_size() const override { return _bit_positions.size(); }
 
   /** Check for surjective map.
 
       \return true
   */
-  bool is_surjective() { return true; }
+  bool is_surjective() const override { return true; }
 
 };
 
@@ -671,16 +671,16 @@ public:
   void map(const bit_vector_t& input, bit_vector_t& output);
 
   /// Get input size
-  int get_input_size() { return _bv.size(); }
+  int get_input_size() const override { return _bv.size(); }
 
   /// Get output size
-  int get_output_size() { return _bv.size(); }
+  int get_output_size() const override { return _bv.size(); }
 
   /** Check for surjective map.
 
       \return true
   */
-  bool is_surjective() { return true; }
+  bool is_surjective() const override { return true; }
 
   /// Display
   void display(std::ostream& stream) override;

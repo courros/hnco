@@ -107,7 +107,7 @@ LinearMap::map(const bit_vector_t& input, bit_vector_t& output)
 
 
 bool
-LinearMap::is_surjective()
+LinearMap::is_surjective() const
 {
   bit_matrix_t M = _bm;
   bm_row_echelon_form(M);
@@ -153,7 +153,7 @@ AffineMap::map(const bit_vector_t& input, bit_vector_t& output)
 
 
 bool
-AffineMap::is_surjective()
+AffineMap::is_surjective() const
 {
   bit_matrix_t M = _bm;
   bm_row_echelon_form(M);
