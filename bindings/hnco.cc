@@ -353,6 +353,12 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("has_known_maximum", &Function::has_known_maximum)
       .def("provides_incremental_evaluation", &Function::provides_incremental_evaluation)
       .def("evaluate", &Function::evaluate)
+      .def("__str__",
+           [](Function& fn) {
+             std::ostringstream stream;
+             fn.display(stream);
+             return stream.str();
+           })
       ;
 
     py::class_<OneMax, Function>(module_function, "OneMax")
@@ -563,7 +569,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     }
 
-    py::class_<PvAlgorithm, Algorithm, IterativeAlgorithm>(module_algorithm, "PvAlgorithm")
+    py::class_<PvAlgorithm, IterativeAlgorithm>(module_algorithm, "PvAlgorithm")
       ;
 
     py::class_<CompactGa, PvAlgorithm>(module_algorithm, "CompactGa")
