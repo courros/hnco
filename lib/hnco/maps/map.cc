@@ -48,7 +48,7 @@ Translation::map(const bit_vector_t& input, bit_vector_t& output)
 
 
 void
-Translation::display(std::ostream& stream)
+Translation::display(std::ostream& stream) const
 {
   const int length = 5;
   stream << "Translation(" << _bv.size() << "): ";
@@ -162,7 +162,7 @@ AffineMap::is_surjective() const
 
 
 void
-AffineMap::display(std::ostream& stream)
+AffineMap::display(std::ostream& stream) const
 {
   stream << "AffineMap: " << get_input_size() << " bits -> " << get_output_size() << " bits" << std::endl;
   stream << "Bit matrix is:" << std::endl;
@@ -269,7 +269,7 @@ TsAffineMap::map(const bit_vector_t& input, bit_vector_t& output)
 
 
 void
-TsAffineMap::display(std::ostream& stream)
+TsAffineMap::display(std::ostream& stream) const
 {
   ts_display(_ts, stream);
 }

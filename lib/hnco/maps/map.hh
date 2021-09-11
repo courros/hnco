@@ -66,10 +66,10 @@ public:
   virtual bool is_surjective() const { return false; }
 
   /// Display
-  virtual void display(std::ostream& stream) {}
+  virtual void display(std::ostream& stream) const {}
 
   /// Display to standard output
-  virtual void display() { display(std::cout); }
+  virtual void display() const { display(std::cout); }
 
 };
 
@@ -125,7 +125,7 @@ public:
   bool is_surjective() const override { return true; }
 
   /// Display
-  void display(std::ostream& stream) override;
+  void display(std::ostream& stream) const override;
 
   /// Random instance
   void random(int n) {
@@ -394,7 +394,7 @@ public:
   bool is_surjective() const override;
 
   /// Display
-  void display(std::ostream& stream) override;
+  void display(std::ostream& stream) const override;
 
   /** @name Load and save map
    */
@@ -683,7 +683,7 @@ public:
   bool is_surjective() const override { return true; }
 
   /// Display
-  void display(std::ostream& stream) override;
+  void display(std::ostream& stream) const override;
 
   /// Inverse
   void inverse() { std::reverse(_ts.begin(), _ts.end()); }
