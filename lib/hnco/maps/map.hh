@@ -68,9 +68,6 @@ public:
   /// Display
   virtual void display(std::ostream& stream) const {}
 
-  /// Display to standard output
-  virtual void display() const { display(std::cout); }
-
 };
 
 

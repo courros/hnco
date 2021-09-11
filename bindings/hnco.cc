@@ -107,7 +107,6 @@ public:
   double get_maximum()                          override { PYBIND11_OVERLOAD(double, function::Function, get_maximum, ); }
   bool has_known_maximum()                      override { PYBIND11_OVERLOAD(bool, function::Function, has_known_maximum, ); }
   bool provides_incremental_evaluation()        override { PYBIND11_OVERLOAD(bool, function::Function, provides_incremental_evaluation, ); }
-  void display()                                override { PYBIND11_OVERLOAD(void, function::Function, display, ); }
 };
 
 //
@@ -261,7 +260,12 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("get_input_size", &Map::get_input_size)
       .def("get_output_size", &Map::get_output_size)
       .def("is_surjective", &Map::is_surjective)
-      .def("display", static_cast<void (Map::*)()>(&Map::display))
+      .def("__str__",
+           [](const Map& m) {
+             std::ostringstream stream;
+             m.display(stream);
+             return stream.str();
+           })
       ;
 
     py::class_<Translation, Map>(module_map, "Translation")
@@ -347,7 +351,6 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     py::class_<Function, PyFunction>(module_function, "Function")
       .def(py::init<>())
-      .def("display", static_cast<void (Function::*)()>(&Function::display)) // Since Function::display is overloaded
       .def("get_bv_size", &Function::get_bv_size)
       .def("get_maximum", &Function::get_maximum)
       .def("has_known_maximum", &Function::has_known_maximum)

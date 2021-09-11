@@ -10,11 +10,11 @@ from hnco.function import modifier as mod
 from hnco.random import Generator
 
 f = fn.OneMax(5)
-f.display()
+print(f)
 
 tr = map.Translation()
 tr.random(5)
-tr.display()
+print(tr)
 
 m = mod.FunctionMapComposition(f, tr)
 

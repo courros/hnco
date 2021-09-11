@@ -124,9 +124,6 @@ public:
   /// Display
   virtual void display(std::ostream& stream) { stream << "Function" << std::endl; }
 
-  /// Display to standard output
-  virtual void display() { display(std::cout); }
-
   /// Describe a bit vector
   virtual void describe(const bit_vector_t& x, std::ostream& stream) {
     bv_display(x, stream);
