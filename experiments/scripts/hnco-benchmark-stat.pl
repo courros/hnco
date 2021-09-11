@@ -586,17 +586,21 @@ sub generate_latex
         my $id = $f->{id};
         $file->print(latex_newpage(),
                      latex_section("Function $id"),
+
                      latex_begin_center(),
                      latex_input_file("table.value.$id.tex"),
                      latex_end_center(),
-                     latex_begin_center(),
-                     latex_input_file("table.time.$id.tex"),
-                     latex_end_center(),
+
                      latex_begin_center(),
                      latex_includegraphics("candlesticks.$id", 0.6),
                      latex_end_center(),
+
                      latex_begin_center(),
                      latex_includegraphics("scatter.$id", 0.6),
+                     latex_end_center(),
+
+                     latex_begin_center(),
+                     latex_input_file("table.time.$id.tex"),
                      latex_end_center());
     }
     $file->close();
