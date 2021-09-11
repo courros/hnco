@@ -1,7 +1,10 @@
 _minted-report/
 auto/
-*~
+
+pretty.json
+
 *.aux
 *.log
 *.out
 *.toc
+*~
