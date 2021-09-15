@@ -45,9 +45,9 @@ WalshExpansion::evaluate(const bit_vector_t& x)
 
 
 void
-WalshExpansion::display(std::ostream& stream)
+WalshExpansion::display(std::ostream& stream) const
 {
-  std::vector<function::WalshTerm>::iterator it =
+  std::vector<function::WalshTerm>::const_iterator it =
     std::max_element(_terms.begin(),
                      _terms.end(),
                      [](const function::WalshTerm& a,

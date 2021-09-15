@@ -137,13 +137,13 @@ public:
 
 
   /// Get bit vector size
-  int get_bv_size() override { return _partial_functions.size(); }
+  int get_bv_size() const override { return _partial_functions.size(); }
 
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t&) override;
 
   /// Display
-  void display(std::ostream& stream) override;
+  void display(std::ostream& stream) const override;
 
 };
 

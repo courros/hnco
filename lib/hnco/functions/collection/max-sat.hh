@@ -69,10 +69,10 @@ public:
     _num_variables(0) {}
 
   /// Get bit vector size
-  int get_bv_size() override { return _num_variables; }
+  int get_bv_size() const override { return _num_variables; }
 
   /// Display the expression
-  void display(std::ostream& stream) override;
+  void display(std::ostream& stream) const override;
 
 
   /** @name Load and save instance

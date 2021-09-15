@@ -191,15 +191,15 @@ public:
   ///@{
 
   /// Get bit vector size
-  int get_bv_size() override { return _coupling.size(); }
+  int get_bv_size() const override { return _coupling.size(); }
 
   /** Check whether the function provides incremental evaluation.
       \return true
   */
-  bool provides_incremental_evaluation() override { return true; }
+  bool provides_incremental_evaluation() const override { return true; }
 
   /// Display
-  void display(std::ostream& stream) override;
+  void display(std::ostream& stream) const override;
 
   ///@}
 

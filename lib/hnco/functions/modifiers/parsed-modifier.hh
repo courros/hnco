@@ -60,7 +60,7 @@ namespace modifier {
     ///@{
 
     /// Get bit vector size
-    int get_bv_size() { return _function->get_bv_size(); }
+    int get_bv_size() const override { return _function->get_bv_size(); }
 
     ///@}
 
@@ -70,7 +70,7 @@ namespace modifier {
     ///@{
 
     /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    double evaluate(const bit_vector_t&) override;
 
     ///@}
 

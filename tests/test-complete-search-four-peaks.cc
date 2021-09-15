@@ -18,6 +18,8 @@
 
 */
 
+#include <assert.h>
+
 #include <random>
 
 #include "hnco/algorithms/complete-search.hh"
@@ -43,9 +45,9 @@ int main(int argc, char *argv[])
 
   for (int i = 0; i < 10; i++) {
 
+    FourPeaks function0(bv_size, gap);
     Translation map;
     map.random(bv_size);
-    FourPeaks function0(bv_size, gap);
     FunctionMapComposition function(&function0, &map);
 
     CompleteSearch algorithm(bv_size);

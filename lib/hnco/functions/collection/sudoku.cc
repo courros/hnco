@@ -124,7 +124,7 @@ Sudoku::random(int c)
 }
 
 void
-Sudoku::display(std::ostream& stream)
+Sudoku::display(std::ostream& stream) const
 {
   print_board(_problem_instance, stream, true);
 }

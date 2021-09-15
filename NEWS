@@ -1,8 +1,12 @@
 * Version 0.18 (unreleased)
 
 Library:
-- Map: get_input_size, get_output_size, is_surjective, display declared const
-- Neighborhoods: get_origin, get_candidate, get_flipped_bits declared const
+- Map: get_input_size, get_output_size, is_surjective, display
+  declared const
+- Neighborhoods: get_origin, get_candidate, get_flipped_bits declared
+  const
+- Function: get_bv_size, get_maximum, has_known_maximum,
+  provides_incremental_evaluation, display declared const
 
 Perl modules:
 - HNCO::Run: make GNU parallel shuffle jobs

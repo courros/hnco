@@ -77,17 +77,17 @@ namespace function {
     }
 
     /// Get bit vector size
-    int get_bv_size() { return _bv_size; }
+    int get_bv_size() const { return _bv_size; }
 
     /// Evaluate a bit vector
     double evaluate(const bit_vector_t& x);
 
     /** Check for a known maximum.
         \return true */
-    bool has_known_maximum() { return true; }
+    bool has_known_maximum() const { return true; }
 
     /// Get the global maximum
-    double get_maximum() { return 0; }
+    double get_maximum() const { return 0; }
 
   };
 

@@ -204,7 +204,7 @@ public:
   ///@{
 
   /// Get bit vector size
-  int get_bv_size() override {
+  int get_bv_size() const override {
     assert(_field.size() > 0);
 
     return _field.size() * _field[0].size();
@@ -213,10 +213,10 @@ public:
   /** Check whether the function provides incremental evaluation.
       \return true
   */
-  bool provides_incremental_evaluation() override { return true; }
+  bool provides_incremental_evaluation() const override { return true; }
 
   /// Display
-  void display(std::ostream& stream) override;
+  void display(std::ostream& stream) const override;
 
   ///@}
 

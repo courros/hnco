@@ -54,21 +54,21 @@ public:
   ///@{
 
   /// Get bit vector size
-  virtual int get_bv_size() = 0;
+  virtual int get_bv_size() const = 0;
 
   /** Get the global maximum.
       \throw std::runtime_error */
-  virtual double get_maximum() {
+  virtual double get_maximum() const {
     throw std::runtime_error("Function::get_maximum: Unknown maximum");
   }
 
   /// Check for a known maximum.
-  virtual bool has_known_maximum() { return false; }
+  virtual bool has_known_maximum() const { return false; }
 
   /** Check whether the function provides incremental evaluation.
       \return false
   */
-  virtual bool provides_incremental_evaluation() { return false; }
+  virtual bool provides_incremental_evaluation() const { return false; }
 
   ///@}
 
@@ -122,16 +122,19 @@ public:
   ///@{
 
   /// Display
-  virtual void display(std::ostream& stream) { stream << "Function" << std::endl; }
+  virtual void display(std::ostream& stream) const { stream << "Function" << std::endl; }
 
-  /// Describe a bit vector
+  /** Describe a bit vector.
+
+      The member function Function::describe is not declared const for
+      the same reason Function::evaluate is not: it might need to
+      decode the given bit vector hence use some pre-allocated memory
+      buffer.
+  */
   virtual void describe(const bit_vector_t& x, std::ostream& stream) {
     bv_display(x, stream);
     stream << std::endl;
   }
-
-  /// Describe a bit vector to standard output
-  virtual void describe(const bit_vector_t& x) { describe(x, std::cout); }
 
   ///@}
 

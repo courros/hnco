@@ -88,7 +88,7 @@ NkLandscape::evaluate(const bit_vector_t& s)
 
 
 void
-NkLandscape::display(std::ostream& stream)
+NkLandscape::display(std::ostream& stream) const
 {
   stream << "NK landscape with N = " << get_bv_size()
          << " and K = " << (_neighbors[0].size() - 1) << std::endl;

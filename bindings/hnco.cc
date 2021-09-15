@@ -84,9 +84,10 @@ class PyNeighborhood: public neighborhood::Neighborhood {
 public:
   using neighborhood::Neighborhood::Neighborhood;
   void set_origin(const bit_vector_t& x)        override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, set_origin, ); }
-  const bit_vector_t& get_origin()              override { PYBIND11_OVERLOAD_PURE(const bit_vector_t&, neighborhood::Neighborhood, get_origin, ); }
-  const bit_vector_t& get_candidate()           override { PYBIND11_OVERLOAD_PURE(const bit_vector_t&, neighborhood::Neighborhood, get_candidate, ); }
-  const sparse_bit_vector_t& get_flipped_bits() override { PYBIND11_OVERLOAD_PURE(const sparse_bit_vector_t&, neighborhood::Neighborhood, get_flipped_bits, ); }
+  const bit_vector_t& get_origin() const        override { PYBIND11_OVERLOAD_PURE(const bit_vector_t&, neighborhood::Neighborhood, get_origin, ); }
+  const bit_vector_t& get_candidate() const     override { PYBIND11_OVERLOAD_PURE(const bit_vector_t&, neighborhood::Neighborhood, get_candidate, ); }
+  const sparse_bit_vector_t& get_flipped_bits() const
+                                                override { PYBIND11_OVERLOAD_PURE(const sparse_bit_vector_t&, neighborhood::Neighborhood, get_flipped_bits, ); }
   void propose()                                override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, propose, ); }
   void keep()                                   override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, keep, ); }
   void forget()                                 override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, forget, ); }
@@ -102,11 +103,11 @@ public:
 class PyFunction: public function::Function {
 public:
   using function::Function::Function;
-  int get_bv_size()                             override { PYBIND11_OVERLOAD_PURE(int, function::Function, get_bv_size, ); }
+  int get_bv_size() const                       override { PYBIND11_OVERLOAD_PURE(int, function::Function, get_bv_size, ); }
   double evaluate(const bit_vector_t& x)        override { PYBIND11_OVERLOAD_PURE(double, function::Function, evaluate, x); }
-  double get_maximum()                          override { PYBIND11_OVERLOAD(double, function::Function, get_maximum, ); }
-  bool has_known_maximum()                      override { PYBIND11_OVERLOAD(bool, function::Function, has_known_maximum, ); }
-  bool provides_incremental_evaluation()        override { PYBIND11_OVERLOAD(bool, function::Function, provides_incremental_evaluation, ); }
+  double get_maximum() const                    override { PYBIND11_OVERLOAD(double, function::Function, get_maximum, ); }
+  bool has_known_maximum() const                override { PYBIND11_OVERLOAD(bool, function::Function, has_known_maximum, ); }
+  bool provides_incremental_evaluation() const  override { PYBIND11_OVERLOAD(bool, function::Function, provides_incremental_evaluation, ); }
 };
 
 //

@@ -140,7 +140,7 @@ public:
 
 
   /// Get bit vector size
-  int get_bv_size() override {
+  int get_bv_size() const override {
     assert(_terms.size() > 0);
     return _terms[0].feature.size();
   }
@@ -149,7 +149,7 @@ public:
   double evaluate(const bit_vector_t&) override;
 
   /// Display
-  void display(std::ostream& stream) override;
+  void display(std::ostream& stream) const override;
 
   /// Set terms
   void set_terms(const std::vector<function::WalshTerm> terms) { _terms = terms; }

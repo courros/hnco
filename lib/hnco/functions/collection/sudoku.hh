@@ -122,7 +122,7 @@ public:
   int get_num_variables() { return _num_variables; }
 
   /// Display the problem
-  void display(std::ostream& stream);
+  void display(std::ostream& stream) const;
 
   /// Describe a solution
   void describe(const std::vector<domain_type>& x, std::ostream& stream);

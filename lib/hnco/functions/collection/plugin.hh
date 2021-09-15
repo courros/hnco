@@ -60,7 +60,7 @@ namespace function {
     ~FunctionPlugin();
 
     /// Get bit vector size
-    int get_bv_size() { return _bv_size; }
+    int get_bv_size() const { return _bv_size; }
 
     /// Evaluate a bit vector
     double evaluate(const bit_vector_t&);

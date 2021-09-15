@@ -45,7 +45,7 @@ Partition::evaluate(const bit_vector_t& s)
 
 
 void
-Partition::display(std::ostream& stream)
+Partition::display(std::ostream& stream) const
 {
   std::vector<int> S = _numbers;
   stream

@@ -51,7 +51,7 @@ public:
   ///@{
 
   /// Display
-  void display(std::ostream& stream) override { _function->display(stream); }
+  void display(std::ostream& stream) const override { _function->display(stream); }
 
   /// Describe a bit vector
   void describe(const bit_vector_t& x, std::ostream& stream) override { _function->describe(x, stream); }

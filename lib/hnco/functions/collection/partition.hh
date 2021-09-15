@@ -130,7 +130,7 @@ public:
 
 
   /// Get bit vector size
-  int get_bv_size() override { return _numbers.size(); }
+  int get_bv_size() const override { return _numbers.size(); }
 
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t&) override;
@@ -141,7 +141,7 @@ public:
   ///@{
 
   /// Display
-  void display(std::ostream& stream) override;
+  void display(std::ostream& stream) const override;
 
   /// Describe a bit vector
   void describe(const bit_vector_t& x, std::ostream& stream) override;

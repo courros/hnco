@@ -81,7 +81,7 @@ namespace function {
     ///@{
 
     /// Get bit vector size
-    int get_bv_size() { return _bv_size; }
+    int get_bv_size() const { return _bv_size; }
 
     /** Check for a known maximum.
 
@@ -97,7 +97,7 @@ namespace function {
         returns false.
 
     */
-    bool has_known_maximum();
+    bool has_known_maximum() const;
 
     /** Get the global maximum.
 
@@ -106,7 +106,7 @@ namespace function {
         2^{n/k} - k + 1\f$.
 
         \throw std::runtime_error */
-    double get_maximum();
+    double get_maximum() const;
 
     ///@}
 

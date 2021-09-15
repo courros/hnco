@@ -60,23 +60,23 @@ namespace modifier {
     ///@{
 
     /// Get bit vector size
-    int get_bv_size() { return _function->get_bv_size(); }
+    int get_bv_size() const override { return _function->get_bv_size(); }
 
     /** Get the global maximum.
 
         Delegation is questionable here.
     */
-    double get_maximum() { return _function->get_maximum(); }
+    double get_maximum() const override { return _function->get_maximum(); }
 
     /** Check for a known maximum.
 
         Delegation is questionable here.
     */
-    bool has_known_maximum() { return _function->has_known_maximum(); }
+    bool has_known_maximum() const override { return _function->has_known_maximum(); }
 
     /** Check whether the function provides incremental evaluation.
         \return false */
-    bool provides_incremental_evaluation() { return false; }
+    bool provides_incremental_evaluation() const override { return false; }
 
     ///@}
 
@@ -86,7 +86,7 @@ namespace modifier {
     ///@{
 
     /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    double evaluate(const bit_vector_t&) override;
 
     ///@}
 

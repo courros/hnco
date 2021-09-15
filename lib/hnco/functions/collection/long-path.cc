@@ -49,7 +49,7 @@ LongPath::LongPath(int bv_size, int prefix_length):
 
 
 bool
-LongPath::has_known_maximum()
+LongPath::has_known_maximum() const
 {
   if (std::log(_prefix_length) / std::log(2) + _bv_size / _prefix_length <= 53)
     return true;
@@ -59,7 +59,7 @@ LongPath::has_known_maximum()
 
 
 double
-LongPath::get_maximum()
+LongPath::get_maximum() const
 {
   if (has_known_maximum())
     return _prefix_length * std::pow(2, _bv_size / _prefix_length) - _prefix_length + 1;

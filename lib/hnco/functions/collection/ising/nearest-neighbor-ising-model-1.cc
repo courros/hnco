@@ -146,7 +146,7 @@ NearestNeighborIsingModel1::evaluate_incrementally(const bit_vector_t& x,
 
 
 void
-NearestNeighborIsingModel1::display(std::ostream& stream)
+NearestNeighborIsingModel1::display(std::ostream& stream) const
 {
   stream << "NearestNeighborIsingModel1" << std::endl;
   stream << "n = " << get_bv_size() << std::endl;

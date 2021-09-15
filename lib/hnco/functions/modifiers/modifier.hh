@@ -71,12 +71,12 @@ namespace modifier {
     ///@{
 
     /// Get bit vector size
-    int get_bv_size() { return _function->get_bv_size(); }
+    int get_bv_size() const override { return _function->get_bv_size(); }
 
     /** Check whether the function provides incremental evaluation.
         \return true
     */
-    bool provides_incremental_evaluation() { return true; }
+    bool provides_incremental_evaluation() const override { return true; }
 
     ///@}
 
@@ -128,11 +128,11 @@ namespace modifier {
     ///@{
 
     /// Get bit vector size
-    int get_bv_size() { return _map->get_input_size(); }
+    int get_bv_size() const override { return _map->get_input_size(); }
 
     /** Get the global maximum.
         \throw std::runtime_error */
-    double get_maximum() {
+    double get_maximum() const override {
       if (has_known_maximum())
         return _function->get_maximum();
       else
@@ -142,7 +142,7 @@ namespace modifier {
     /** Check for a known maximum.
         \return true if the function has a known maximum and the map
         is bijective. */
-    bool has_known_maximum() {
+    bool has_known_maximum() const override {
       return
         _function->has_known_maximum() &&
         _map->is_surjective();
@@ -185,7 +185,7 @@ namespace modifier {
     ///@{
 
     /// Get bit vector size
-    int get_bv_size() { return _function->get_bv_size(); }
+    int get_bv_size() const override { return _function->get_bv_size(); }
 
     ///@}
 

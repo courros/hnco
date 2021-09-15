@@ -53,18 +53,18 @@ namespace function {
     Jump(int bv_size, int gap);
 
     /// Get bit vector size
-    int get_bv_size() { return _bv_size; }
-
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    int get_bv_size() const override { return _bv_size; }
 
     /** Check for a known maximum.
         \return true */
-    bool has_known_maximum() { return true; }
+    bool has_known_maximum() const override { return true; }
 
     /** Get the global maximum.
         \return _bv_size */
-    double get_maximum() { return _bv_size; }
+    double get_maximum() const override { return _bv_size; }
+
+    /// Evaluate a bit vector
+    double evaluate(const bit_vector_t&);
 
   };
 
@@ -97,18 +97,18 @@ namespace function {
     DeceptiveJump(int bv_size, int gap);
 
     /// Get bit vector size
-    int get_bv_size() { return _bv_size; }
-
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    int get_bv_size() const override { return _bv_size; }
 
     /** Check for a known maximum.
         \return true */
-    bool has_known_maximum() { return true; }
+    bool has_known_maximum() const override { return true; }
 
     /** Get the global maximum.
         \return _bv_size + _gap */
-    double get_maximum() { return _bv_size + _gap; }
+    double get_maximum() const override { return _bv_size + _gap; }
+
+    /// Evaluate a bit vector
+    double evaluate(const bit_vector_t&);
 
   };
 

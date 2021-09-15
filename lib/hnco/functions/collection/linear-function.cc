@@ -30,7 +30,7 @@ using namespace hnco::random;
 
 
 double
-LinearFunction::get_maximum()
+LinearFunction::get_maximum() const
 {
   double result = 0;
   for (size_t i = 0; i < _weights.size(); i++)

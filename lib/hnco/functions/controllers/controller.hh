@@ -52,18 +52,18 @@ public:
   ///@{
 
   /// Get bit vector size
-  int get_bv_size() { return _function->get_bv_size(); }
+  int get_bv_size() const { return _function->get_bv_size(); }
 
   /// Get the global maximum
-  double get_maximum() { return _function->get_maximum(); }
+  double get_maximum() const { return _function->get_maximum(); }
 
   /// Check for a known maximum
-  bool has_known_maximum() { return _function->has_known_maximum(); }
+  bool has_known_maximum() const { return _function->has_known_maximum(); }
 
   /** Check whether the function provides incremental evaluation.
       \return true if the decorated function does
   */
-  bool provides_incremental_evaluation() { return _function->provides_incremental_evaluation(); }
+  bool provides_incremental_evaluation() const { return _function->provides_incremental_evaluation(); }
 
   ///@}
 
@@ -364,7 +364,7 @@ public:
   /** Check whether the function provides incremental evaluation.
       \return false
   */
-  bool provides_incremental_evaluation() { return false; }
+  bool provides_incremental_evaluation() const { return false; }
 
   /** @name Evaluation
    */

@@ -30,7 +30,7 @@ using namespace hnco::function;
 
 
 double
-WalshExpansion1::get_maximum()
+WalshExpansion1::get_maximum() const
 {
   double result = 0;
   for (auto w : _linear)

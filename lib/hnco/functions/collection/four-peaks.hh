@@ -75,20 +75,20 @@ namespace function {
     FourPeaks(int bv_size, int threshold);
 
     /// Get bit vector size
-    int get_bv_size() { return _bv_size; }
-
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    int get_bv_size() const override { return _bv_size; }
 
     /** Check for a known maximum.
      *
      * \return true
      */
-    bool has_known_maximum() { return true; }
+    bool has_known_maximum() const override { return true; }
 
     /** Get the global maximum.
         \return 2 * _bv_size - _threshold - 1 */
-    double get_maximum() { return _maximum; }
+    double get_maximum() const override { return _maximum; }
+
+    /// Evaluate a bit vector
+    double evaluate(const bit_vector_t&) override;
 
   };
 
@@ -143,20 +143,20 @@ namespace function {
     SixPeaks(int bv_size, int threshold);
 
     /// Get bit vector size
-    int get_bv_size() { return _bv_size; }
-
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    int get_bv_size() const override { return _bv_size; }
 
     /** Check for a known maximum.
      *
      * \return true
      */
-    bool has_known_maximum() { return true; }
+    bool has_known_maximum() const override { return true; }
 
     /** Get the global maximum.
         \return 2 * _bv_size - _threshold - 1 */
-    double get_maximum() { return _maximum; }
+    double get_maximum() const override { return _maximum; }
+
+    /// Evaluate a bit vector
+    double evaluate(const bit_vector_t&) override;
 
   };
 

@@ -100,9 +100,9 @@ public:
   ///@{
 
   /// Get bit vector size
-  int get_bv_size() override {
+  int get_bv_size() const override {
     int result = 0;
-    for (auto& rep : _representations)
+    for (const auto& rep : _representations)
       result += rep.size();
     return result;
   }
@@ -129,10 +129,10 @@ public:
   ///@{
 
   /// Display
-  void display(std::ostream& stream) override {
+  void display(std::ostream& stream) const override {
     _function->display(stream);
     stream << _function->get_num_variables() << " variables:" << std::endl;
-    for (auto& rep : _representations)
+    for (const auto& rep : _representations)
       rep.display(stream);
     stream << get_bv_size() << " bits" << std::endl;
   }

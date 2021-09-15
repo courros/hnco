@@ -41,7 +41,7 @@ public:
   MyFunction(int bv_size):
     _bv_size(bv_size) {}
 
-  int get_bv_size() { return _bv_size; }
+  int get_bv_size() const { return _bv_size; }
 
   double evaluate(const bit_vector_t& x) {
     int result = 0;

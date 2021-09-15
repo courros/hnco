@@ -33,7 +33,7 @@ using namespace hnco;
 class MyFunction:
   public Function {
 public:
-  int get_bv_size() { return 8; }
+  int get_bv_size() const { return 8; }
   double evaluate(const bit_vector_t& x) {
     int result = 0;
     for (int i = 0; i < 8; i++)

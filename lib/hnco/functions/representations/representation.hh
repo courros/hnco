@@ -123,7 +123,7 @@ public:
   {}
 
   /// Size of the representation
-  int size() { return _lengths.size(); }
+  int size() const { return _lengths.size(); }
 
   /// Unpack bit vector into a value
   domain_type unpack(const bit_vector_t& bv, int start) {
@@ -143,7 +143,7 @@ public:
   }
 
   /// Display
-  void display(std::ostream& stream) {
+  void display(std::ostream& stream) const {
     stream
       << "[" << _lower_bound << ", "
       << (_lower_bound + _length) << "] (" << size() << " bits)" << std::endl;
@@ -206,7 +206,7 @@ public:
   {}
 
   /// Size of the representation
-  int size() { return _real_part.size() + _imaginary_part.size(); }
+  int size() const { return _real_part.size() + _imaginary_part.size(); }
 
   /// Unpack bit vector into a value
   domain_type unpack(const bit_vector_t& bv, int start) {
@@ -218,7 +218,7 @@ public:
   }
 
   /// Display
-  void display(std::ostream& stream) {
+  void display(std::ostream& stream) const {
     _real_part.display(stream);
     _imaginary_part.display(stream);
   }
@@ -336,7 +336,7 @@ public:
   {}
 
   /// Size of the representation
-  int size() { return _num_bits; }
+  int size() const { return _num_bits; }
 
   /// Unpack bit vector into a value
   domain_type unpack(const bit_vector_t& bv, int start) {
@@ -353,7 +353,7 @@ public:
   }
 
   /// Display
-  void display(std::ostream& stream) {
+  void display(std::ostream& stream) const {
     stream
       << "[" << _lower_bound << ", " << _upper_bound << "] (" << size() << " bits)" << std::endl;
   }
@@ -438,7 +438,7 @@ public:
   }
 
   /// Size of the representation
-  int size() { return _ncols; }
+  int size() const { return _ncols; }
 
   /// Unpack bit vector into a category
   domain_type unpack(const bit_vector_t& bv, int start) {
@@ -453,7 +453,7 @@ public:
   }
 
   /// Display
-  void display(std::ostream& stream) {
+  void display(std::ostream& stream) const {
     stream << "Categorical values (" << _num_categories
            << "), input = " << _ncols
            << " bits, output = " << _nrows
@@ -501,7 +501,7 @@ public:
   }
 
   /// Size of the representation
-  int size() { return _num_bits; }
+  int size() const { return _num_bits; }
 
   /// Unpack bit vector into a category
   domain_type unpack(const bit_vector_t& bv, int start) {
@@ -513,7 +513,7 @@ public:
   }
 
   /// Display
-  void display(std::ostream& stream) {
+  void display(std::ostream& stream) const {
     stream << "Categorical values (" << _num_categories
            << ") represented by " << _num_bits << " bits" << std::endl;
   }

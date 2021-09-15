@@ -165,7 +165,7 @@ AbstractMaxSat::save_(std::ostream& stream) const
 
 
 void
-AbstractMaxSat::display(std::ostream& stream)
+AbstractMaxSat::display(std::ostream& stream) const
 {
   for (size_t i = 0; i < _expression.size(); i++) {
     if (i > 0)

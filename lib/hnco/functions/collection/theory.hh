@@ -54,23 +54,23 @@ public:
   ///@{
 
   /// Get bit vector size
-  int get_bv_size() override { return _bv_size; }
+  int get_bv_size() const override { return _bv_size; }
 
   /** Get the global maximum.
       \return _bv_size */
-  double get_maximum() override { return _bv_size; }
+  double get_maximum() const override { return _bv_size; }
 
   /** Check for a known maximum.
       \return true */
-  bool has_known_maximum() override { return true; }
+  bool has_known_maximum() const override { return true; }
 
   /** Check whether the function provides incremental evaluation.
       \return true
   */
-  bool provides_incremental_evaluation() override { return true; }
+  bool provides_incremental_evaluation() const override { return true; }
 
   /// Display
-  void display(std::ostream& stream) override { stream << "OneMax" << std::endl; }
+  void display(std::ostream& stream) const override { stream << "OneMax" << std::endl; }
 
   ///@}
 
@@ -109,18 +109,18 @@ public:
     _bv_size(bv_size) {}
 
   /// Get bit vector size
-  int get_bv_size() override { return _bv_size; }
+  int get_bv_size() const override { return _bv_size; }
 
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t&);
 
   /** Check for a known maximum.
       \return true */
-  bool has_known_maximum() override { return true; }
+  bool has_known_maximum() const override { return true; }
 
   /** Get the global maximum.
       \return _bv_size */
-  double get_maximum() override { return _bv_size; }
+  double get_maximum() const override { return _bv_size; }
 
 };
 
@@ -144,18 +144,18 @@ public:
     _bv_size(bv_size) {}
 
   /// Get bit vector size
-  int get_bv_size() override { return _bv_size; }
+  int get_bv_size() const override { return _bv_size; }
 
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t&);
 
   /** Check for a known maximum.
       \return true */
-  bool has_known_maximum() override { return true; }
+  bool has_known_maximum() const override { return true; }
 
   /** Get the global maximum.
       \return 1 */
-  double get_maximum() override { return 1; }
+  double get_maximum() const override { return 1; }
 
 };
 
@@ -181,18 +181,18 @@ public:
   Hiff(int bv_size);
 
   /// Get bit vector size
-  int get_bv_size() override { return _bv_size; }
+  int get_bv_size() const override { return _bv_size; }
 
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t&);
 
   /** Check for a known maximum.
       \return true */
-  bool has_known_maximum() override { return true; }
+  bool has_known_maximum() const override { return true; }
 
   /** Get the global maximum.
       \return (i + 1) * 2^i where 2^i = _bv_size */
-  double get_maximum() override { return (_depth + 1) * _bv_size; }
+  double get_maximum() const override { return (_depth + 1) * _bv_size; }
 
 };
 
@@ -216,18 +216,18 @@ public:
     _bv_size(bv_size) {}
 
   /// Get bit vector size
-  int get_bv_size() override { return _bv_size; }
+  int get_bv_size() const override { return _bv_size; }
 
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t&);
 
   /** Check for a known maximum.
       \return true */
-  bool has_known_maximum() override { return true; }
+  bool has_known_maximum() const override { return true; }
 
   /** Get the global maximum.
       \return 2 * _bv_size */
-  double get_maximum() override { return 2 * _bv_size; }
+  double get_maximum() const override { return 2 * _bv_size; }
 
 };
 
@@ -251,18 +251,18 @@ public:
     _bv_size(bv_size) {}
 
   /// Get bit vector size
-  int get_bv_size() override { return _bv_size; }
+  int get_bv_size() const override { return _bv_size; }
 
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t&);
 
   /** Check for a known maximum.
       \return true */
-  bool has_known_maximum() override { return true; }
+  bool has_known_maximum() const override { return true; }
 
   /** Get the global maximum.
       \return _bv_size + 2 */
-  double get_maximum() override { return _bv_size + 2; }
+  double get_maximum() const override { return _bv_size + 2; }
 
 };
 

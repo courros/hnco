@@ -115,7 +115,7 @@ Factorization::evaluate(const bit_vector_t& x)
 
 
 void
-Factorization::display(std::ostream& stream)
+Factorization::display(std::ostream& stream) const
 {
   stream << "Factorize " << _number << std::endl;
 }

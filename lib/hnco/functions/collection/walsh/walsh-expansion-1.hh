@@ -139,19 +139,19 @@ public:
   ///@{
 
   /// Get bit vector size
-  int get_bv_size() override { return _linear.size(); }
+  int get_bv_size() const override { return _linear.size(); }
 
   /// Get the global maximum
-  double get_maximum() override;
+  double get_maximum() const override;
 
   /** Check for a known maximum.
       \return true */
-  bool has_known_maximum() override { return true; }
+  bool has_known_maximum() const override { return true; }
 
   /** Check whether the function provides incremental evaluation.
       \return true
   */
-  bool provides_incremental_evaluation() override { return true; }
+  bool provides_incremental_evaluation() const override { return true; }
 
   ///@}
 

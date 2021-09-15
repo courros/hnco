@@ -266,7 +266,7 @@ NearestNeighborIsingModel2::evaluate_incrementally(const bit_vector_t& x,
 
 
 void
-NearestNeighborIsingModel2::display(std::ostream& stream)
+NearestNeighborIsingModel2::display(std::ostream& stream) const
 {
   assert(_field.size() > 0);
 
