@@ -31,89 +31,89 @@
 namespace hnco {
 namespace function {
 
-  /** Summation cancellation.
+/** Summation cancellation.
 
-      Encoding of a signed integer:
-      - bit 0: sign
-      - bits 1 to 8: two's complement representation
+    Encoding of a signed integer:
+    - bit 0: sign
+    - bits 1 to 8: two's complement representation
 
-      Reference:
+    Reference:
 
-      S. Baluja and S. Davies. 1997. Using optimal dependency-trees
-      for combinatorial optimization: learning the structure of the
-      search space. Technical Report CMU- CS-97-107. Carnegie-Mellon
-      University.
+    S. Baluja and S. Davies. 1997. Using optimal dependency-trees
+    for combinatorial optimization: learning the structure of the
+    search space. Technical Report CMU- CS-97-107. Carnegie-Mellon
+    University.
 
-  */
-  class SummationCancellation:
+*/
+class SummationCancellation:
     public Function {
 
-  protected:
+protected:
 
-    /// Bit vector size
-    int _bv_size;
+  /// Bit vector size
+  int _bv_size;
 
-    /// Buffer
-    std::vector<double> _buffer;
+  /// Buffer
+  std::vector<double> _buffer;
 
-    /// Convert a bit vector into a real vector
-    void convert(const bit_vector_t& x);
+  /// Convert a bit vector into a real vector
+  void convert(const bit_vector_t& x);
 
-  public:
+public:
 
-    /** Constructor.
+  /** Constructor.
 
-        The bit vector size n must be a multiple of 9. The size of
-        _buffer is then n / 9.
+      The bit vector size n must be a multiple of 9. The size of
+      _buffer is then n / 9.
 
-        \param n Size of the bit vector
-    */
-    SummationCancellation(int n):
-      _bv_size(n),
-      _buffer(n / 9)
-    {
-      if (n % 9 != 0)
-        throw std::runtime_error("SummationCancellation::SummationCancellation: _bv_size must be a multiple of 9");
-    }
-
-    /// Get bit vector size
-    int get_bv_size() const { return _bv_size; }
-
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t& x);
-
-    /** Check for a known maximum.
-        \return true */
-    bool has_known_maximum() const { return true; }
-
-    /// Get the global maximum
-    double get_maximum() const { return 0; }
-
-  };
-
-
-  /** Summation cancellation with sinus.
-
-      Reference:
-
-      M. Sebag and M. Schoenauer. 1997. A society of hill-climbers. In
-      Proc. IEEE Int.  Conf. on Evolutionary
-      Computation. Indianapolis, 319–324.
-
+      \param n Size of the bit vector
   */
-  class SinusSummationCancellation:
+  SummationCancellation(int n):
+    _bv_size(n),
+    _buffer(n / 9)
+  {
+    if (n % 9 != 0)
+      throw std::runtime_error("SummationCancellation::SummationCancellation: _bv_size must be a multiple of 9");
+  }
+
+  /// Get bit vector size
+  int get_bv_size() const { return _bv_size; }
+
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t& x);
+
+  /** Check for a known maximum.
+      \return true */
+  bool has_known_maximum() const { return true; }
+
+  /// Get the global maximum
+  double get_maximum() const { return 0; }
+
+};
+
+
+/** Summation cancellation with sinus.
+
+    Reference:
+
+    M. Sebag and M. Schoenauer. 1997. A society of hill-climbers. In
+    Proc. IEEE Int.  Conf. on Evolutionary
+    Computation. Indianapolis, 319–324.
+
+*/
+class SinusSummationCancellation:
     public SummationCancellation {
 
-  public:
+public:
 
-    ///Constructor
-    SinusSummationCancellation(int n):
-      SummationCancellation(n) {}
+  ///Constructor
+  SinusSummationCancellation(int n):
+    SummationCancellation(n) {}
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t& x);
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t& x);
 
-  };
+};
 
 } // end of namespace function
 } // end of namespace hnco

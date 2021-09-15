@@ -28,78 +28,78 @@ namespace hnco {
 namespace function {
 
 
-  /// Abstract class for low autocorrelation binary sequences.
-  class AbstractLabs:
+/// Abstract class for low autocorrelation binary sequences.
+class AbstractLabs:
     public Function {
 
-  protected:
+protected:
 
-    /// Binary sequence written using 1 and -1
-    std::vector<int> _sequence;
+  /// Binary sequence written using 1 and -1
+  std::vector<int> _sequence;
 
-  public:
+public:
 
-    /// Constructor
-    AbstractLabs(int n):
-      _sequence(n) {}
+  /// Constructor
+  AbstractLabs(int n):
+    _sequence(n) {}
 
-    /// Get bit vector size
-    int get_bv_size() const { return _sequence.size(); }
+  /// Get bit vector size
+  int get_bv_size() const { return _sequence.size(); }
 
-    /// Compute autocorrelation
-    double compute_autocorrelation(const bit_vector_t&);
+  /// Compute autocorrelation
+  double compute_autocorrelation(const bit_vector_t&);
 
-  };
+};
 
-  /** Low autocorrelation binary sequences.
+/** Low autocorrelation binary sequences.
 
-      Reference:
+    Reference:
 
-      S Mertens. 1996. Exhaustive search for low-autocorrelation
-      binary sequences.  Journal of Physics A: Mathematical and
-      General 29, 18 (1996), L473.
+    S Mertens. 1996. Exhaustive search for low-autocorrelation
+    binary sequences.  Journal of Physics A: Mathematical and
+    General 29, 18 (1996), L473.
 
-      http://stacks.iop.org/0305-4470/29/i=18/a=005
+    http://stacks.iop.org/0305-4470/29/i=18/a=005
 
-  */
-  class Labs:
+*/
+class Labs:
     public AbstractLabs {
 
-  public:
+public:
 
-    /// Constructor
-    Labs(int n):
-      AbstractLabs(n) {}
+  /// Constructor
+  Labs(int n):
+    AbstractLabs(n) {}
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
 
-  };
+};
 
-  /** Low autocorrelation binary sequences merit factor.
+/** Low autocorrelation binary sequences merit factor.
 
-      Reference:
+    Reference:
 
-      S Mertens. 1996. Exhaustive search for low-autocorrelation
-      binary sequences.  Journal of Physics A: Mathematical and
-      General 29, 18 (1996), L473.
+    S Mertens. 1996. Exhaustive search for low-autocorrelation
+    binary sequences.  Journal of Physics A: Mathematical and
+    General 29, 18 (1996), L473.
 
-      http://stacks.iop.org/0305-4470/29/i=18/a=005
+    http://stacks.iop.org/0305-4470/29/i=18/a=005
 
-  */
-  class LabsMeritFactor:
+*/
+class LabsMeritFactor:
     public AbstractLabs {
 
-  public:
+public:
 
-    /// Constructor
-    LabsMeritFactor(int n):
-      AbstractLabs(n) {}
+  /// Constructor
+  LabsMeritFactor(int n):
+    AbstractLabs(n) {}
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
 
-  };
+};
 
 } // end of namespace function
 } // end of namespace hnco

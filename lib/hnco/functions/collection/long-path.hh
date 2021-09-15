@@ -28,89 +28,89 @@ namespace hnco {
 namespace function {
 
 
-  /** Long path.
+/** Long path.
 
-      Long paths have been introduced by Jeffrey Horn, David
-      E. Goldberg, and Kalyanmoy Deb. Here we mostly follow the
-      definition given by Thomas Jansen (see references below).
+    Long paths have been introduced by Jeffrey Horn, David
+    E. Goldberg, and Kalyanmoy Deb. Here we mostly follow the
+    definition given by Thomas Jansen (see references below).
 
-      As an example, here is the 2-long path of dimension 4:
-      - 0000
-      - 0001
-      - 0011
-      - 0111
-      - 1111
-      - 1101
-      - 1100
+    As an example, here is the 2-long path of dimension 4:
+    - 0000
+    - 0001
+    - 0011
+    - 0111
+    - 1111
+    - 1101
+    - 1100
 
-      The fitness is increasing along the path. The fitness on the
-      complementary of the path is defined as a linear function
-      pointing to the beginning of the path.
+    The fitness is increasing along the path. The fitness on the
+    complementary of the path is defined as a linear function
+    pointing to the beginning of the path.
 
-      To help with the detection of maximum, we have dropped the
-      constant \f$n^2\f$ whose sole purpose was to make the function
-      non negative.
+    To help with the detection of maximum, we have dropped the
+    constant \f$n^2\f$ whose sole purpose was to make the function
+    non negative.
 
-      References:
+    References:
 
-      Jeffrey Horn, David E. Goldberg, and Kalyanmoy Deb, "Long Path
-      Problems", PPSN III, 1994.
+    Jeffrey Horn, David E. Goldberg, and Kalyanmoy Deb, "Long Path
+    Problems", PPSN III, 1994.
 
-      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
+    Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
-  */
-  class LongPath:
+*/
+class LongPath:
     public Function {
 
-    /// Bit vector size
-    int _bv_size;
+  /// Bit vector size
+  int _bv_size;
 
-    /// Prefix length
-    int _prefix_length;
+  /// Prefix length
+  int _prefix_length;
 
-  public:
+public:
 
-    /// Constructor
-    LongPath(int bv_size, int prefix_length);
+  /// Constructor
+  LongPath(int bv_size, int prefix_length);
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
 
-    /** @name Information about the function
-     */
-    ///@{
+  /** @name Information about the function
+   */
+  ///@{
 
-    /// Get bit vector size
-    int get_bv_size() const { return _bv_size; }
+  /// Get bit vector size
+  int get_bv_size() const { return _bv_size; }
 
-    /** Check for a known maximum.
+  /** Check for a known maximum.
 
-        Let \f$n\f$ be the bit vector size and \f$k\f$ the prefix
-        length which must divide \f$n\f$.
+      Let \f$n\f$ be the bit vector size and \f$k\f$ the prefix
+      length which must divide \f$n\f$.
 
-        We have to check that the maximum can be represented exactly
-        as a double, that is, it must be lower or equal to
-        \f$2^{53}\f$. We are a little bit more conservative with the
-        following test.
+      We have to check that the maximum can be represented exactly
+      as a double, that is, it must be lower or equal to
+      \f$2^{53}\f$. We are a little bit more conservative with the
+      following test.
 
-        If \f$\log_2(k) + n / k \le 53\f$ then returns true else
-        returns false.
+      If \f$\log_2(k) + n / k \le 53\f$ then returns true else
+      returns false.
 
-    */
-    bool has_known_maximum() const;
+  */
+  bool has_known_maximum() const;
 
-    /** Get the global maximum.
+  /** Get the global maximum.
 
-        Let \f$n\f$ be the bit vector size and \f$k\f$ the prefix
-        length which must divide \f$n\f$. Then the maximum is \f$k
-        2^{n/k} - k + 1\f$.
+      Let \f$n\f$ be the bit vector size and \f$k\f$ the prefix
+      length which must divide \f$n\f$. Then the maximum is \f$k
+      2^{n/k} - k + 1\f$.
 
-        \throw std::runtime_error */
-    double get_maximum() const;
+      \throw std::runtime_error */
+  double get_maximum() const;
 
-    ///@}
+  ///@}
 
-  };
+};
 
 
 } // end of namespace function

@@ -30,42 +30,42 @@ namespace hnco {
 namespace function {
 
 
-  /// %Function plugin
-  class FunctionPlugin:
+/// %Function plugin
+class FunctionPlugin:
     public Function {
 
-    /// Bit vector size
-    int _bv_size;
+  /// Bit vector size
+  int _bv_size;
 
-    /// Handle returned by dlopen
-    void *_handle;
+  /// Handle returned by dlopen
+  void *_handle;
 
-    /// Type of an extern function
-    typedef double (*extern_function_t)(const bit_t *, size_t);
+  /// Type of an extern function
+  typedef double (*extern_function_t)(const bit_t *, size_t);
 
-    /// Extern function
-    extern_function_t _extern_function;
+  /// Extern function
+  extern_function_t _extern_function;
 
-  public:
+public:
 
-    /** Constructor.
+  /** Constructor.
 
-        \param bv_size Size of bit vectors
-        \param path Path to a shared library
-        \param name Name of a function of the shared library
-    */
-    FunctionPlugin(int bv_size, std::string path, std::string name);
+      \param bv_size Size of bit vectors
+      \param path Path to a shared library
+      \param name Name of a function of the shared library
+  */
+  FunctionPlugin(int bv_size, std::string path, std::string name);
 
-    /// Destructor
-    ~FunctionPlugin();
+  /// Destructor
+  ~FunctionPlugin();
 
-    /// Get bit vector size
-    int get_bv_size() const { return _bv_size; }
+  /// Get bit vector size
+  int get_bv_size() const { return _bv_size; }
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&);
 
-  };
+};
 
 
 } // end of namespace function
