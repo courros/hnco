@@ -86,7 +86,10 @@ public:
   Neighborhood(int n):
     _origin(n),
     _candidate(n),
-    _index_dist(0, n - 1) {}
+    _index_dist(0, n - 1)
+  {
+    assert(n > 0);
+  }
 
   /// Destructor
   virtual ~Neighborhood() {}
@@ -98,13 +101,13 @@ public:
   }
 
   /// Get the origin
-  virtual const bit_vector_t& get_origin() { return _origin; }
+  virtual const bit_vector_t& get_origin() const { return _origin; }
 
   /// Get the candidate bit vector
-  virtual const bit_vector_t& get_candidate() { return _candidate; }
+  virtual const bit_vector_t& get_candidate() const { return _candidate; }
 
   /// Get flipped bits
-  virtual const sparse_bit_vector_t& get_flipped_bits() { return _flipped_bits; }
+  virtual const sparse_bit_vector_t& get_flipped_bits() const { return _flipped_bits; }
 
   /// Propose a candidate bit vector
   virtual void propose() {
@@ -172,7 +175,6 @@ public:
   SingleBitFlip(int n):
     Neighborhood(n)
   {
-    assert(n > 0);
     _flipped_bits.resize(1);
   }
 
@@ -317,7 +319,6 @@ public:
     MultiBitFlip(n),
     _choose_k(1, r)
   {
-    assert(n > 0);
     assert(r > 0);
     assert(r <= n);
   }
@@ -350,7 +351,6 @@ public:
     MultiBitFlip(n),
     _radius(r)
   {
-    assert(n > 0);
     assert(r > 0);
     assert(r <= n);
   }
