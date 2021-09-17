@@ -477,6 +477,14 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def(py::init<int, int>())
       ;
 
+    py::class_<SummationCancellation, Function>(module_function, "SummationCancellation")
+      .def(py::init<int>())
+      ;
+
+    py::class_<SinusSummationCancellation, SummationCancellation>(module_function, "SinusSummationCancellation")
+      .def(py::init<int>())
+      ;
+
     py::class_<Trap, Function>(module_function, "Trap")
       .def(py::init<int, int>())
       ;
