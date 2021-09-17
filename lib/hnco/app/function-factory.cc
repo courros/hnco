@@ -116,9 +116,12 @@ CommandLineFunctionFactory::make()
     return new Labs
       (_options.get_bv_size());
 
-  case 81:
-    return new LabsMeritFactor
+  case 81: {
+    Labs *instance = new Labs
       (_options.get_bv_size());
+    instance->set_merit_factor_flag(true);
+    return instance;
+  }
 
   case 90: {
     EqualProducts* instance = new EqualProducts;

@@ -28,29 +28,6 @@ namespace hnco {
 namespace function {
 
 
-/// Abstract class for low autocorrelation binary sequences.
-class AbstractLabs:
-    public Function {
-
-protected:
-
-  /// Binary sequence written using 1 and -1
-  std::vector<int> _sequence;
-
-public:
-
-  /// Constructor
-  AbstractLabs(int n):
-    _sequence(n) {}
-
-  /// Get bit vector size
-  int get_bv_size() const { return _sequence.size(); }
-
-  /// Compute autocorrelation
-  double compute_autocorrelation(const bit_vector_t&);
-
-};
-
 /** Low autocorrelation binary sequences.
 
     Reference:
@@ -61,45 +38,39 @@ public:
 
     http://stacks.iop.org/0305-4470/29/i=18/a=005
 
+    If _merit_factor_flag is true then the function returns n / (2 *
+    autocorrelation) else it returns -autocorrelation.
 */
-class Labs:
-    public AbstractLabs {
+class Labs: public Function {
+
+protected:
+
+  /// Binary sequence written using 1 and -1
+  std::vector<int> _sequence;
+
+  /// Merit factor flag
+  bool _merit_factor_flag = false;
+
+  /// Compute autocorrelation
+  double compute_autocorrelation(const bit_vector_t&);
 
 public:
 
   /// Constructor
   Labs(int n):
-    AbstractLabs(n) {}
+    _sequence(n) {}
+
+  /// Set merit factor flag
+  void set_merit_factor_flag(bool b) { _merit_factor_flag = b; }
+
+  /// Get bit vector size
+  int get_bv_size() const override { return _sequence.size(); }
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&);
+  double evaluate(const bit_vector_t&) override;
 
 };
 
-/** Low autocorrelation binary sequences merit factor.
-
-    Reference:
-
-    S Mertens. 1996. Exhaustive search for low-autocorrelation
-    binary sequences.  Journal of Physics A: Mathematical and
-    General 29, 18 (1996), L473.
-
-    http://stacks.iop.org/0305-4470/29/i=18/a=005
-
-*/
-class LabsMeritFactor:
-    public AbstractLabs {
-
-public:
-
-  /// Constructor
-  LabsMeritFactor(int n):
-    AbstractLabs(n) {}
-
-  /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&);
-
-};
 
 } // end of namespace function
 } // end of namespace hnco

@@ -29,7 +29,7 @@ using namespace hnco::function;
 
 
 double
-AbstractLabs::compute_autocorrelation(const bit_vector_t& x)
+Labs::compute_autocorrelation(const bit_vector_t& x)
 {
   assert(x.size() == _sequence.size());
 
@@ -56,13 +56,8 @@ Labs::evaluate(const bit_vector_t& x)
 {
   assert(x.size() == _sequence.size());
 
-  return -compute_autocorrelation(x);
-}
-
-double
-LabsMeritFactor::evaluate(const bit_vector_t& x)
-{
-  assert(x.size() == _sequence.size());
-
-  return square(x.size()) / (2 * compute_autocorrelation(x));
+  if (_merit_factor_flag)
+    return square(x.size()) / (2 * compute_autocorrelation(x));
+  else
+    return -compute_autocorrelation(x);
 }
