@@ -402,6 +402,11 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def(py::init<int, int>())
       ;
 
+    py::class_<Labs, Function>(module_function, "Labs")
+      .def(py::init<int>())
+      .def("set_merit_factor_flag", &Labs::set_merit_factor_flag)
+      ;
+
     py::class_<LeadingOnes, Function>(module_function, "LeadingOnes")
       .def(py::init<int>())
       ;
