@@ -203,7 +203,7 @@ public:
   }
 
   /// %Map
-  void map(const bit_vector_t& input, bit_vector_t& output);
+  void map(const bit_vector_t& input, bit_vector_t& output) override;
 
   /// Get input size
   int get_input_size() const override { return _permutation.size(); }
@@ -285,7 +285,7 @@ public:
   void random(int rows, int cols, bool surjective);
 
   /// %Map
-  void map(const bit_vector_t& input, bit_vector_t& output);
+  void map(const bit_vector_t& input, bit_vector_t& output) override;
 
   /// Get input size
   int get_input_size() const override { return bm_num_columns(_bm); }
@@ -376,7 +376,7 @@ public:
   void random(int rows, int cols, bool surjective);
 
   /// %Map
-  void map(const bit_vector_t& input, bit_vector_t& output);
+  void map(const bit_vector_t& input, bit_vector_t& output) override;
 
   /// Get input size
   int get_input_size() const override { return bm_num_columns(_bm); }
@@ -454,7 +454,7 @@ public:
   }
 
   /// %Map
-  void map(const bit_vector_t& input, bit_vector_t& output) {
+  void map(const bit_vector_t& input, bit_vector_t& output) override {
     _inner->map(input, _bv);
     _outer->map(_bv, output);
   }
@@ -516,7 +516,7 @@ public:
   Injection(const std::vector<int>& bit_positions, int output_size);
 
   /// %Map
-  void map(const bit_vector_t& input, bit_vector_t& output);
+  void map(const bit_vector_t& input, bit_vector_t& output) override;
 
   /// Get input size
   int get_input_size() const override { return _bit_positions.size(); }
@@ -572,7 +572,7 @@ public:
   Projection(const std::vector<int>& bit_positions, int input_size);
 
   /// %Map
-  void map(const bit_vector_t& input, bit_vector_t& output);
+  void map(const bit_vector_t& input, bit_vector_t& output) override;
 
   /// Get input size
   int get_input_size() const override { return _input_size; }
@@ -665,7 +665,7 @@ public:
   void random(int n, int t, SamplingMode mode);
 
   /// %Map
-  void map(const bit_vector_t& input, bit_vector_t& output);
+  void map(const bit_vector_t& input, bit_vector_t& output) override;
 
   /// Get input size
   int get_input_size() const override { return _bv.size(); }

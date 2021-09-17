@@ -86,10 +86,10 @@ namespace modifier {
     ///@{
 
     /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    double evaluate(const bit_vector_t&) override;
 
     /// Incrementally evaluate a bit vector
-    double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+    double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits) override;
 
     ///@}
 
@@ -151,7 +151,7 @@ namespace modifier {
     ///@}
 
     /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    double evaluate(const bit_vector_t&) override;
 
 
     /** @name Display
@@ -159,7 +159,7 @@ namespace modifier {
     ///@{
 
     /// Describe a bit vector
-    void describe(const bit_vector_t& x, std::ostream& stream);
+    void describe(const bit_vector_t& x, std::ostream& stream) override;
 
     ///@}
 
@@ -191,7 +191,7 @@ namespace modifier {
 
 
     /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&);
+    double evaluate(const bit_vector_t&) override;
 
   };
 

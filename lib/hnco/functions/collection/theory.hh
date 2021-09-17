@@ -80,10 +80,10 @@ public:
   ///@{
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&);
+  double evaluate(const bit_vector_t&) override;
 
   /// Incrementally evaluate a bit vector
-  double evaluate_incrementally(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits);
+  double evaluate_incrementally(const bit_vector_t& x, double v, const hnco::sparse_bit_vector_t& flipped_bits) override;
 
   ///@}
 
@@ -112,7 +112,7 @@ public:
   int get_bv_size() const override { return _bv_size; }
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&);
+  double evaluate(const bit_vector_t&) override;
 
   /** Check for a known maximum.
       \return true */
@@ -147,7 +147,7 @@ public:
   int get_bv_size() const override { return _bv_size; }
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&);
+  double evaluate(const bit_vector_t&) override;
 
   /** Check for a known maximum.
       \return true */
@@ -184,7 +184,7 @@ public:
   int get_bv_size() const override { return _bv_size; }
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&);
+  double evaluate(const bit_vector_t&) override;
 
   /** Check for a known maximum.
       \return true */
@@ -219,7 +219,7 @@ public:
   int get_bv_size() const override { return _bv_size; }
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&);
+  double evaluate(const bit_vector_t&) override;
 
   /** Check for a known maximum.
       \return true */
@@ -254,7 +254,7 @@ public:
   int get_bv_size() const override { return _bv_size; }
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&);
+  double evaluate(const bit_vector_t&) override;
 
   /** Check for a known maximum.
       \return true */

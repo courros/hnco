@@ -64,7 +64,7 @@ public:
   double get_maximum() const override { return _bv_size; }
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&);
+  double evaluate(const bit_vector_t&) override;
 
 };
 
@@ -108,7 +108,7 @@ public:
   double get_maximum() const override { return _bv_size + _gap; }
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&);
+  double evaluate(const bit_vector_t&) override;
 
 };
 
