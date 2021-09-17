@@ -365,7 +365,44 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    py::class_<OneMax, Function>(module_function, "OneMax")
+    py::class_<DeceptiveJump, Function>(module_function, "DeceptiveJump")
+      .def(py::init<int, int>())
+      ;
+
+    py::class_<EqualProducts, Function>(module_function, "EqualProducts")
+      .def(py::init<>())
+      .def("random", &EqualProducts::random)
+      .def("load", &EqualProducts::load)
+      .def("save", &EqualProducts::save)
+      ;
+
+#ifdef ENABLE_FACTORIZATION
+    py::class_<Factorization, Function>(module_function, "Factorization")
+      .def(py::init<>())
+      .def(py::init<const std::string>())
+      .def("load", &Factorization::load)
+      ;
+#endif
+
+    py::class_<FourPeaks, Function>(module_function, "FourPeaks")
+      .def(py::init<int, int>())
+      ;
+
+#ifdef ENABLE_PLUGIN
+    py::class_<FunctionPlugin, Function>(module_function, "FunctionPlugin")
+      .def(py::init<int, std::string, std::string>())
+      ;
+#endif
+
+    py::class_<Hiff, Function>(module_function, "Hiff")
+      .def(py::init<int>())
+      ;
+
+    py::class_<Jump, Function>(module_function, "Jump")
+      .def(py::init<int, int>())
+      ;
+
+    py::class_<LeadingOnes, Function>(module_function, "LeadingOnes")
       .def(py::init<int>())
       ;
 
@@ -374,6 +411,90 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("random", &LinearFunction::random)
       .def("load", &LinearFunction::load)
       .def("save", &LinearFunction::save)
+      ;
+
+    py::class_<LongPath, Function>(module_function, "LongPath")
+      .def(py::init<int, int>())
+      ;
+
+    py::class_<NearestNeighborIsingModel1, Function>(module_function, "NearestNeighborIsingModel1")
+      .def(py::init<>())
+      .def("random", &NearestNeighborIsingModel1::random)
+      .def("load", static_cast<void (NearestNeighborIsingModel1::*)(std::string)>(&NearestNeighborIsingModel1::load))
+      .def("save", static_cast<void (NearestNeighborIsingModel1::*)(std::string) const>(&NearestNeighborIsingModel1::save))
+      .def("set_periodic_boundary_conditions", &NearestNeighborIsingModel1::set_periodic_boundary_conditions)
+      ;
+
+    py::class_<NearestNeighborIsingModel2, Function>(module_function, "NearestNeighborIsingModel2")
+      .def(py::init<>())
+      .def("random", &NearestNeighborIsingModel2::random)
+      .def("load", static_cast<void (NearestNeighborIsingModel2::*)(std::string)>(&NearestNeighborIsingModel2::load))
+      .def("save", static_cast<void (NearestNeighborIsingModel2::*)(std::string) const>(&NearestNeighborIsingModel2::save))
+      .def("set_periodic_boundary_conditions", &NearestNeighborIsingModel2::set_periodic_boundary_conditions)
+      ;
+
+    py::class_<Needle, Function>(module_function, "Needle")
+      .def(py::init<int>())
+      ;
+
+    py::class_<NkLandscape, Function>(module_function, "NkLandscape")
+      .def(py::init<>())
+      .def("random", &NkLandscape::random)
+      .def("load", static_cast<void (NkLandscape::*)(std::string)>(&NkLandscape::load))
+      .def("save", static_cast<void (NkLandscape::*)(std::string) const>(&NkLandscape::save))
+      ;
+
+    py::class_<Partition, Function>(module_function, "Partition")
+      .def(py::init<>())
+      .def("random", &Partition::random)
+      .def("load", static_cast<void (Partition::*)(std::string)>(&Partition::load))
+      .def("save", static_cast<void (Partition::*)(std::string) const>(&Partition::save))
+      ;
+
+    py::class_<OneMax, Function>(module_function, "OneMax")
+      .def(py::init<int>())
+      ;
+
+    py::class_<Plateau, Function>(module_function, "Plateau")
+      .def(py::init<int>())
+      ;
+
+    py::class_<Qubo, Function>(module_function, "Qubo")
+      .def(py::init<>())
+      .def("load", static_cast<void (Qubo::*)(std::string)>(&Qubo::load))
+      ;
+
+    py::class_<Ridge, Function>(module_function, "Ridge")
+      .def(py::init<int>())
+      ;
+
+    py::class_<SixPeaks, Function>(module_function, "SixPeaks")
+      .def(py::init<int, int>())
+      ;
+
+    py::class_<Trap, Function>(module_function, "Trap")
+      .def(py::init<int, int>())
+      ;
+
+    py::class_<WalshExpansion, Function>(module_function, "WalshExpansion")
+      .def(py::init<>())
+      .def("random", &WalshExpansion::random)
+      .def("load", static_cast<void (WalshExpansion::*)(std::string)>(&WalshExpansion::load))
+      .def("save", static_cast<void (WalshExpansion::*)(std::string) const>(&WalshExpansion::save))
+      ;
+
+    py::class_<WalshExpansion1, Function>(module_function, "WalshExpansion1")
+      .def(py::init<>())
+      .def("random", &WalshExpansion1::random)
+      .def("load", static_cast<void (WalshExpansion1::*)(std::string)>(&WalshExpansion1::load))
+      .def("save", static_cast<void (WalshExpansion1::*)(std::string) const>(&WalshExpansion1::save))
+      ;
+
+    py::class_<WalshExpansion2, Function>(module_function, "WalshExpansion2")
+      .def(py::init<>())
+      .def("random", &WalshExpansion2::random)
+      .def("load", static_cast<void (WalshExpansion2::*)(std::string)>(&WalshExpansion2::load))
+      .def("save", static_cast<void (WalshExpansion2::*)(std::string) const>(&WalshExpansion2::save))
       ;
 
     py::class_<Decorator, Function>(module_function, "Decorator");
