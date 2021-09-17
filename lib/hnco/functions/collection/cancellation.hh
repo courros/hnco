@@ -21,8 +21,6 @@
 #ifndef HNCO_FUNCTIONS_COLLECTION_CANCELLATION_H
 #define HNCO_FUNCTIONS_COLLECTION_CANCELLATION_H
 
-#include <vector>
-
 #include "hnco/exception.hh"
 
 #include "hnco/functions/function.hh"
@@ -45,8 +43,7 @@ namespace function {
     University.
 
 */
-class SummationCancellation:
-    public Function {
+class SummationCancellation: public Function {
 
 protected:
 
@@ -68,26 +65,26 @@ public:
 
       \param n Size of the bit vector
   */
-  SummationCancellation(int n):
-    _bv_size(n),
-    _buffer(n / 9)
+  SummationCancellation(int n)
+    : _bv_size(n)
+    , _buffer(n / 9)
   {
     if (n % 9 != 0)
       throw std::runtime_error("SummationCancellation::SummationCancellation: _bv_size must be a multiple of 9");
   }
 
   /// Get bit vector size
-  int get_bv_size() const { return _bv_size; }
-
-  /// Evaluate a bit vector
-  double evaluate(const bit_vector_t& x);
+  int get_bv_size() const override { return _bv_size; }
 
   /** Check for a known maximum.
       \return true */
-  bool has_known_maximum() const { return true; }
+  bool has_known_maximum() const override { return true; }
 
   /// Get the global maximum
-  double get_maximum() const { return 0; }
+  double get_maximum() const override { return 0; }
+
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t& x) override;
 
 };
 
@@ -101,8 +98,7 @@ public:
     Computation. Indianapolis, 319–324.
 
 */
-class SinusSummationCancellation:
-    public SummationCancellation {
+class SinusSummationCancellation: public SummationCancellation {
 
 public:
 
@@ -111,7 +107,7 @@ public:
     SummationCancellation(n) {}
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t& x);
+  double evaluate(const bit_vector_t& x) override;
 
 };
 

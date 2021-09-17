@@ -19,10 +19,10 @@
 */
 
 #include <assert.h>
-#include <math.h>		// fabs, sin
+#include <math.h>		// std::fabs, std::sin
 
-#include <algorithm>		// transform
-#include <numeric>		// accumulate, partial_sum
+#include <algorithm>		// std::transform
+#include <numeric>		// std::accumulate, std::partial_sum
 
 #include "cancellation.hh"
 
@@ -72,10 +72,10 @@ double
 SummationCancellation::evaluate(const bit_vector_t& x)
 {
   convert(x);
-  partial_sum(_buffer.begin(), _buffer.end(), _buffer.begin());
-  transform(_buffer.begin(), _buffer.end(), _buffer.begin(),
-            [](double x){ return fabs(x); });
-  return -accumulate(_buffer.begin(), _buffer.end(), 0.0);
+  std::partial_sum(_buffer.begin(), _buffer.end(), _buffer.begin());
+  std::transform(_buffer.begin(), _buffer.end(), _buffer.begin(),
+                 [](double x){ return fabs(x); });
+  return -std::accumulate(_buffer.begin(), _buffer.end(), 0.0);
 }
 
 
@@ -85,7 +85,7 @@ SinusSummationCancellation::evaluate(const bit_vector_t& x)
   convert(x);
   for (size_t i = 1; i < _buffer.size(); i++)
     _buffer[i] += sin(_buffer[i - 1]);
-  transform(_buffer.begin(), _buffer.end(), _buffer.begin(),
-            [](double x){ return fabs(x); });
-  return -accumulate(_buffer.begin(), _buffer.end(), 0.0);
+  std::transform(_buffer.begin(), _buffer.end(), _buffer.begin(),
+                 [](double x){ return fabs(x); });
+  return -std::accumulate(_buffer.begin(), _buffer.end(), 0.0);
 }
