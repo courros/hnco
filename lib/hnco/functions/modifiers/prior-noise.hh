@@ -33,64 +33,64 @@ namespace function {
 namespace modifier {
 
 
-  /// Prior noise
-  class PriorNoise:
+/// Prior noise
+class PriorNoise:
     public Modifier {
 
-    /// Neighborhood
-    neighborhood::Neighborhood *_neighborhood;
+  /// Neighborhood
+  neighborhood::Neighborhood *_neighborhood;
 
-    /// Noisy bit vector
-    bit_vector_t _noisy_bv;
+  /// Noisy bit vector
+  bit_vector_t _noisy_bv;
 
-  public:
+public:
 
-    /// Constructor
-    PriorNoise(Function *fn, neighborhood::Neighborhood *nh):
-      Modifier(fn),
-      _neighborhood(nh)
-    {
-      assert(fn);
-      assert(nh);
-      _noisy_bv.resize(fn->get_bv_size());
-    }
+  /// Constructor
+  PriorNoise(Function *fn, neighborhood::Neighborhood *nh):
+    Modifier(fn),
+    _neighborhood(nh)
+  {
+    assert(fn);
+    assert(nh);
+    _noisy_bv.resize(fn->get_bv_size());
+  }
 
-    /** @name Information about the function
-     */
-    ///@{
+  /** @name Information about the function
+   */
+  ///@{
 
-    /// Get bit vector size
-    int get_bv_size() const override { return _function->get_bv_size(); }
+  /// Get bit vector size
+  int get_bv_size() const override { return _function->get_bv_size(); }
 
-    /** Get the global maximum.
+  /** Get the global maximum.
 
-        Delegation is questionable here.
-    */
-    double get_maximum() const override { return _function->get_maximum(); }
+      Delegation is questionable here.
+  */
+  double get_maximum() const override { return _function->get_maximum(); }
 
-    /** Check for a known maximum.
+  /** Check for a known maximum.
 
-        Delegation is questionable here.
-    */
-    bool has_known_maximum() const override { return _function->has_known_maximum(); }
+      Delegation is questionable here.
+  */
+  bool has_known_maximum() const override { return _function->has_known_maximum(); }
 
-    /** Check whether the function provides incremental evaluation.
-        \return false */
-    bool provides_incremental_evaluation() const override { return false; }
+  /** Check whether the function provides incremental evaluation.
+      \return false */
+  bool provides_incremental_evaluation() const override { return false; }
 
-    ///@}
+  ///@}
 
 
-    /** @name Evaluation
-     */
-    ///@{
+  /** @name Evaluation
+   */
+  ///@{
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&) override;
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&) override;
 
-    ///@}
+  ///@}
 
-  };
+};
 
 
 } // end of namespace modifier
