@@ -588,8 +588,24 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     py::class_<Modifier, function::Decorator>(module_modifier, "Modifier");
 
+    py::class_<AdditiveGaussianNoise, Modifier>(module_modifier, "AdditiveGaussianNoise")
+      .def(py::init<function::Function *, double>())
+      ;
+
     py::class_<FunctionMapComposition, Modifier>(module_modifier, "FunctionMapComposition")
       .def(py::init<function::Function *, Map *>())
+      ;
+
+    py::class_<Negation, Modifier>(module_modifier, "Negation")
+      .def(py::init<function::Function *>())
+      ;
+
+    py::class_<ParsedModifier, Modifier>(module_modifier, "ParsedModifier")
+      .def(py::init<function::Function *, std::string>())
+      ;
+
+    py::class_<PriorNoise, Modifier>(module_modifier, "PriorNoise")
+      .def(py::init<function::Function *, neighborhood::Neighborhood *>())
       ;
 
   }
