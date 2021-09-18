@@ -31,50 +31,50 @@ namespace hnco {
 namespace function {
 namespace modifier {
 
-  /** Parsed modifier.
+/** Parsed modifier.
 
-      Let f be the original function. Then the modified function is
-      equivalent to \f$g\circ f\f$, where g is a real function defined
-      by an expression \f$g(x)\f$ provided as a string.
-  */
-  class ParsedModifier:
+    Let f be the original function. Then the modified function is
+    equivalent to \f$g\circ f\f$, where g is a real function defined
+    by an expression \f$g(x)\f$ provided as a string.
+*/
+class ParsedModifier:
     public Modifier {
 
-    /// Function parser
-    FunctionParser _fparser;
+  /// Function parser
+  FunctionParser _fparser;
 
-    /// Array of values
-    double _values[1];
+  /// Array of values
+  double _values[1];
 
-  public:
+public:
 
-    /** Constructor.
+  /** Constructor.
 
-        \param function Decorated function
-        \param expression Expression to parse
-    */
-    ParsedModifier(Function *function, std::string expression);
+      \param function Decorated function
+      \param expression Expression to parse
+  */
+  ParsedModifier(Function *function, std::string expression);
 
-    /** @name Information about the function
-     */
-    ///@{
+  /** @name Information about the function
+   */
+  ///@{
 
-    /// Get bit vector size
-    int get_bv_size() const override { return _function->get_bv_size(); }
+  /// Get bit vector size
+  int get_bv_size() const override { return _function->get_bv_size(); }
 
-    ///@}
+  ///@}
 
 
-    /** @name Evaluation
-     */
-    ///@{
+  /** @name Evaluation
+   */
+  ///@{
 
-    /// Evaluate a bit vector
-    double evaluate(const bit_vector_t&) override;
+  /// Evaluate a bit vector
+  double evaluate(const bit_vector_t&) override;
 
-    ///@}
+  ///@}
 
-  };
+};
 
 
 } // end of namespace modifier
