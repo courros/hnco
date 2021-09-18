@@ -283,6 +283,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
 	hnco/algorithms/fast-efficient-p3/implementation.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
+	hnco/algorithms/fast-efficient-p3/p3.hh \
 	hnco/algorithms/hea/all.hh \
 	hnco/algorithms/hea/bit-herding.hh \
 	hnco/algorithms/hea/bit-moment.hh \
