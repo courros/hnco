@@ -18,6 +18,8 @@ Perl scripts:
 Python:
 - Added all neighborhoods to the bindings
 - Added most algorithms to the bindings
+- Added all functions to the bindings
+- Added all modifiers to the bindings
 
 
 * Version 0.17 (2021-08-12)
