@@ -365,6 +365,21 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
+    py::class_<AbstractMaxSat, Function>(module_function, "AbstractMaxSat")
+      .def("load", &AbstractMaxSat::load)
+      .def("save", &AbstractMaxSat::save)
+      ;
+
+    py::class_<MaxSat, AbstractMaxSat>(module_function, "MaxSat")
+      .def(py::init<>())
+      .def("random", static_cast<void (MaxSat::*)(int, int, int)>(&MaxSat::random))
+      .def("random", static_cast<void (MaxSat::*)(const bit_vector_t&, int, int)>(&MaxSat::random))
+      ;
+
+    py::class_<MaxNae3Sat, AbstractMaxSat>(module_function, "MaxNae3Sat")
+      .def(py::init<>())
+      ;
+
     py::class_<DeceptiveJump, Function>(module_function, "DeceptiveJump")
       .def(py::init<int, int>())
       ;
