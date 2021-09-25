@@ -31,7 +31,7 @@ Library features:
 - Neighborhoods and neighborhood iterators for local search
 - Population with parallel evaluation
 - Support for incremental evaluation
-- Python binding
+- Python bindings
 
 Purposes:
 
