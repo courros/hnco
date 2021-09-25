@@ -31,7 +31,7 @@ Library features:
 - Neighborhoods and neighborhood iterators for local search
 - Population with parallel evaluation
 - Support for incremental evaluation
-- Experimental and partial Python binding
+- Python binding
 
 Purposes:
 
@@ -415,7 +415,6 @@ rather execute:
 Some configure options are relative to hnco only:
 - `--enable-factorization` to build the Factorization function (requires libgmp-dev)
 - `--enable-plugin` to build the Plugin function (requires libdl)
-- `--enable-bindings` to build the python module (requires python3 and pybind11)
 
 See `./configure --help` for other options.
 
@@ -428,6 +427,13 @@ To generate the API documentation:
     make doc
 
 Once generated, you will find it under `doc/api/`.
+
+Python bindings are located under bindings/. To build and install the
+python module for hnco, first build and install the library then:
+
+        cd bindings
+        python3 setup.py build
+        python3 setup.py install --prefix '~/.local'
 
 Installation of Perl scripts is taken care of by autotools. However,
 Perl modules are managed separately by `Makefile.PL`. If you want to

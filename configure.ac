@@ -61,9 +61,6 @@ then
 fi
 AM_CONDITIONAL([ENABLE_PLUGIN], [test "x$enable_plugin" = "xyes"])
 
-AC_ARG_ENABLE([bindings], AS_HELP_STRING([--enable-bindings], [Enable python bindings]))
-AM_CONDITIONAL([ENABLE_BINDINGS], [test "x$enable_bindings" = "xyes"])
-
 # Check for Bash completion.
 PKG_CHECK_VAR(bashcompdir, [bash-completion], [completionsdir], ,
   bashcompdir="${sysconfdir}/bash_completion.d")

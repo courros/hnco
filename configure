@@ -637,8 +637,6 @@ bashcompdir
 PKG_CONFIG_LIBDIR
 PKG_CONFIG_PATH
 PKG_CONFIG
-ENABLE_BINDINGS_FALSE
-ENABLE_BINDINGS_TRUE
 ENABLE_PLUGIN_FALSE
 ENABLE_PLUGIN_TRUE
 ENABLE_FACTORIZATION_FALSE
@@ -788,7 +786,6 @@ with_boost_serialization
 enable_openmp
 enable_factorization
 enable_plugin
-enable_bindings
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1451,7 +1448,6 @@ Optional Features:
   --disable-openmp        do not use OpenMP
   --enable-factorization  Enable factorization
   --enable-plugin         Enable plugin
-  --enable-bindings       Enable python bindings
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -17626,20 +17622,6 @@ else
 fi
 
 
-# Check whether --enable-bindings was given.
-if test "${enable_bindings+set}" = set; then :
-  enableval=$enable_bindings;
-fi
-
- if test "x$enable_bindings" = "xyes"; then
-  ENABLE_BINDINGS_TRUE=
-  ENABLE_BINDINGS_FALSE='#'
-else
-  ENABLE_BINDINGS_TRUE='#'
-  ENABLE_BINDINGS_FALSE=
-fi
-
-
 # Check for Bash completion.
 
 
@@ -17934,10 +17916,6 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${ENABLE_PLUGIN_TRUE}" && test -z "${ENABLE_PLUGIN_FALSE}"; then
   as_fn_error $? "conditional \"ENABLE_PLUGIN\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${ENABLE_BINDINGS_TRUE}" && test -z "${ENABLE_BINDINGS_FALSE}"; then
-  as_fn_error $? "conditional \"ENABLE_BINDINGS\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 
