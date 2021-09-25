@@ -84,6 +84,34 @@ public:
 };
 
 
+/** Extended Hypercube iterator.
+
+    Similar to Hypercube. In dimension 0, an HypercubeIterator does
+    not contain any element. However, in dimension 0, an
+    ExtendedHypercubeIterator contains a unique element which is the
+    vector of size 0. An ExtendedHypercubeIterator is helpful when the
+    enumerated vectors are seen as prefixes or suffixes hence can be
+    empty. This is used, in particular, in
+    compute_fast_walsh_transform.
+*/
+class ExtendedHypercubeIterator:
+    public Iterator {
+
+public:
+
+  /// Constructor
+  ExtendedHypercubeIterator(int n):
+    Iterator(n) {}
+
+  /// Has next bit vector
+  bool has_next() override;
+
+  /// Next bit vector
+  const bit_vector_t& next() override;
+
+};
+
+
 } // end of namespace hnco
 
 

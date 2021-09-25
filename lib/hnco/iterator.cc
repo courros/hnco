@@ -57,3 +57,37 @@ HypercubeIterator::next()
 
   return _current;
 }
+
+
+bool
+ExtendedHypercubeIterator::has_next()
+{
+  if (_initial_state)
+    return true;
+  else
+    return any_of(_current.begin(), _current.end(), [](bit_t b){ return b == 0; });
+}
+
+
+const bit_vector_t&
+ExtendedHypercubeIterator::next()
+{
+  assert(has_next());
+
+  if (_initial_state) {
+    if (_current.size() > 0)
+      bv_clear(_current);
+    _initial_state = false;
+  } else {
+    for (size_t i = 0; i < _current.size(); i++) {
+      if (_current[i])
+        _current[i] = 0;
+      else {
+        _current[i] = 1;
+        break;
+      }
+    }
+  }
+
+  return _current;
+}
