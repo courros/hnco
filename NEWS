@@ -7,6 +7,11 @@ Library:
   const
 - Function: get_bv_size, get_maximum, has_known_maximum,
   provides_incremental_evaluation, display declared const
+- Added ExtendedHypercubeIterator
+- Added compute_fast_walsh_transform
+
+Applications:
+- hnco: use compute_fast_walsh_transform instead of compute_walsh_transform
 
 Perl modules:
 - HNCO::Run: make GNU parallel shuffle jobs
