@@ -20,6 +20,7 @@ Python:
 - Added most algorithms to the bindings
 - Added all functions to the bindings
 - Added all modifiers to the bindings
+- Added setup.py for the python module
 
 
 * Version 0.17 (2021-08-12)
