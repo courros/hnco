@@ -2167,15 +2167,6 @@ uninstall-am: uninstall-libLTLIBRARIES uninstall-nobase_includeHEADERS
 hnco/app/hnco-options.hh hnco/app/hnco-options.cc: hnco/app/hnco.json
 	cd $(top_srcdir)/lib/hnco/app && $(top_srcdir)/tools/optgen.pl hnco.json
 
-#
-# Code management
-#
-
-.PHONY: doc
-
-doc: $(SOURCES) $(BUILT_SOURCES)
-	cd $(top_srcdir) && doxygen Doxyfile
-
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
