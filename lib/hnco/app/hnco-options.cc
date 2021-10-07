@@ -8,7 +8,7 @@ using namespace hnco::app;
 
 HncoOptions::HncoOptions(int argc, char *argv[]):
   _exec_name(argv[0]),
-  _version("0.18"),
+  _version("0.19"),
   _algorithm(100),
   _opt_algorithm(false),
   _bm_mc_reset_strategy(1),

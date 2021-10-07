@@ -17,7 +17,7 @@
 # <http://www.gnu.org/licenses/>.
 
 PROJECT_NAME           = "HNCO"
-PROJECT_NUMBER         = 0.18
+PROJECT_NUMBER         = 0.19
 OUTPUT_DIRECTORY       = docs/local
 FULL_PATH_NAMES        = YES
 STRIP_FROM_INC_PATH    = lib app
