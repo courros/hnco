@@ -32,7 +32,7 @@ EXTRA_DIST = \
 .PHONY: doc count count-hnco count-all
 
 doc:
-	cd lib/ && make doc
+	cd $(top_srcdir) && doxygen
 
 count:
 	cd $(top_srcdir) && (find . -name "*.hh" -or -name "*.cc" -or -name "*.h" -or -name "*.cpp" | xargs wc -l)

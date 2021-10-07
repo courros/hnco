@@ -389,12 +389,3 @@ hnco/app/hnco-options.hh hnco/app/hnco-options.cc: hnco/app/hnco.json
 
 EXTRA_DIST = \
 	fast-efficient-p3/LICENSE.txt
-
-#
-# Code management
-#
-
-.PHONY: doc
-
-doc: $(SOURCES) $(BUILT_SOURCES)
-	cd $(top_srcdir) && doxygen Doxyfile
