@@ -1,0 +1,41 @@
+# Copyright (C) 2016, 2017, 2018, 2019, 2020, 2021 Arnaud Berny
+
+# This file is part of HNCO.
+
+# HNCO is free software: you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+
+# HNCO is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+# or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General
+# Public License for more details.
+
+# You should have received a copy of the GNU Lesser General Public
+# License along with HNCO. If not, see
+# <http://www.gnu.org/licenses/>.
+
+PROJECT_NAME           = "HNCO"
+PROJECT_NUMBER         = 0.18
+OUTPUT_DIRECTORY       = _build/html
+HTML_OUTPUT            = doxygen
+FULL_PATH_NAMES        = YES
+STRIP_FROM_INC_PATH    = lib app
+JAVADOC_AUTOBRIEF      = YES
+BUILTIN_STL_SUPPORT    = YES
+EXTRACT_PRIVATE        = YES
+HIDE_SCOPE_NAMES       = YES
+INPUT                  = ../lib/hnco ../app
+FILE_PATTERNS          = *.cc *.hh
+RECURSIVE              = YES
+IGNORE_PREFIX          = _
+SOURCE_BROWSER         = YES
+GENERATE_TREEVIEW      = YES
+SEARCHENGINE           = NO
+GENERATE_LATEX         = NO
+COMPACT_LATEX          = NO
+CLASS_GRAPH            = YES
+COLLABORATION_GRAPH    = NO
+UML_LOOK               = NO
+TEMPLATE_RELATIONS     = YES
