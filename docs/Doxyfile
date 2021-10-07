@@ -18,7 +18,7 @@
 
 PROJECT_NAME           = "HNCO"
 PROJECT_NUMBER         = 0.18
-OUTPUT_DIRECTORY       = _build/html
+OUTPUT_DIRECTORY       = _doxygen
 HTML_OUTPUT            = doxygen
 FULL_PATH_NAMES        = YES
 STRIP_FROM_INC_PATH    = lib app

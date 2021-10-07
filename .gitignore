@@ -1,5 +1,6 @@
-docs/local
-docs/_build
-autom4te.cache
 *~
 TAGS
+autom4te.cache
+docs/_build
+docs/_doxygen
+docs/local

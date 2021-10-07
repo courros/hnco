@@ -56,5 +56,7 @@ html_theme = 'alabaster'
 
 # For Doxygen
 
+html_extra_path = ['_doxygen']
+
 import subprocess
 subprocess.call('doxygen', shell=True)
