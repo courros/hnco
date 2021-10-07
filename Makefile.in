@@ -394,6 +394,16 @@ ACLOCAL_AMFLAGS = -I m4
 EXTRA_DIST = \
 	Doxyfile \
 	README.md \
+	docs/Doxyfile \
+	docs/Makefile \
+	docs/building.rst \
+	docs/commandline.rst \
+	docs/conf.py \
+	docs/experiments.rst \
+	docs/index.rst \
+	docs/introduction.rst \
+	docs/library.rst \
+	docs/python.rst \
 	tools/optgen.pl
 
 dist_bashcomp_DATA = \
