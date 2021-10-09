@@ -23,6 +23,7 @@
 
 #include "converter.hh"
 #include "multivariate-function-adapter.hh"
+#include "permutation-function-adapter.hh"
 #include "permutation-representation.hh"
 #include "representation.hh"
 

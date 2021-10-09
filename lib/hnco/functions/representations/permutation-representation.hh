@@ -83,6 +83,9 @@ public:
     _representation_size = _elements.size() * _num_bits;
   }
 
+  /// Get number of elements
+  int get_num_elements() const { return _elements.size(); }
+
   /// Size of the representation
   int size() const { return _representation_size; }
 

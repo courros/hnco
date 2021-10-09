@@ -32,8 +32,6 @@
 
 namespace hnco {
 namespace function {
-
-/// Representations
 namespace representation {
 
 /** Multivariate function adapter.

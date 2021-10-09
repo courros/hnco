@@ -37,6 +37,7 @@
 
 namespace hnco {
 namespace function {
+/// Representations
 namespace representation {
 
 

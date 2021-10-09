@@ -2,6 +2,7 @@
 
 Library:
 - Added PermutationRepresentation
+- Added PermutationFunctionAdapter
 
 
 * Version 0.18 (2021-10-07)
