@@ -311,6 +311,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
+	hnco/functions/representations/permutation-function-adapter.hh \
+	hnco/functions/representations/permutation-representation.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.cc \
@@ -635,6 +637,8 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
+	hnco/functions/representations/permutation-function-adapter.hh \
+	hnco/functions/representations/permutation-representation.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.hh \
@@ -949,6 +953,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
+	hnco/functions/representations/permutation-function-adapter.hh \
+	hnco/functions/representations/permutation-representation.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.cc \
@@ -1046,6 +1052,8 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/representations/all.hh \
 	hnco/functions/representations/converter.hh \
 	hnco/functions/representations/multivariate-function-adapter.hh \
+	hnco/functions/representations/permutation-function-adapter.hh \
+	hnco/functions/representations/permutation-representation.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.hh \
