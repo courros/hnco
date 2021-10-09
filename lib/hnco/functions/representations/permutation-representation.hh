@@ -47,7 +47,7 @@ public:
     int index;
     /// Value
     int value;
-  }
+  };
 
 private:
 
@@ -92,7 +92,8 @@ public:
     assert(permutation.size() == _elements.size());
 
     for (size_t i = 0; i < _elements.size(); i++) {
-      _elements[i] = {i, bv_to_size_type(bv, start, start + _num_bits)};
+      _elements[i].index = i;
+      _elements[i].value = bv_to_size_type(bv, start, start + _num_bits);
       start += _num_bits;
     }
 
