@@ -290,6 +290,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.cc \
 	hnco/functions/collection/trap.hh \
+	hnco/functions/collection/tsp.cc \
+	hnco/functions/collection/tsp.hh \
 	hnco/functions/collection/walsh/all.hh \
 	hnco/functions/collection/walsh/walsh-expansion-1.cc \
 	hnco/functions/collection/walsh/walsh-expansion-1.hh \
@@ -390,6 +392,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/functions/collection/sudoku.lo \
 	hnco/functions/collection/theory.lo \
 	hnco/functions/collection/trap.lo \
+	hnco/functions/collection/tsp.lo \
 	hnco/functions/collection/walsh/walsh-expansion-1.lo \
 	hnco/functions/collection/walsh/walsh-expansion-2.lo \
 	hnco/functions/collection/walsh/walsh-expansion.lo \
@@ -496,6 +499,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/collection/$(DEPDIR)/sudoku.Plo \
 	hnco/functions/collection/$(DEPDIR)/theory.Plo \
 	hnco/functions/collection/$(DEPDIR)/trap.Plo \
+	hnco/functions/collection/$(DEPDIR)/tsp.Plo \
 	hnco/functions/collection/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo \
 	hnco/functions/collection/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo \
 	hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion-1.Plo \
@@ -623,6 +627,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/collection/sudoku.hh \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.hh \
+	hnco/functions/collection/tsp.hh \
 	hnco/functions/collection/walsh/all.hh \
 	hnco/functions/collection/walsh/walsh-expansion-1.hh \
 	hnco/functions/collection/walsh/walsh-expansion-2.hh \
@@ -932,6 +937,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.cc \
 	hnco/functions/collection/trap.hh \
+	hnco/functions/collection/tsp.cc \
+	hnco/functions/collection/tsp.hh \
 	hnco/functions/collection/walsh/all.hh \
 	hnco/functions/collection/walsh/walsh-expansion-1.cc \
 	hnco/functions/collection/walsh/walsh-expansion-1.hh \
@@ -1038,6 +1045,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/collection/sudoku.hh \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.hh \
+	hnco/functions/collection/tsp.hh \
 	hnco/functions/collection/walsh/all.hh \
 	hnco/functions/collection/walsh/walsh-expansion-1.hh \
 	hnco/functions/collection/walsh/walsh-expansion-2.hh \
@@ -1400,6 +1408,9 @@ hnco/functions/collection/theory.lo:  \
 hnco/functions/collection/trap.lo:  \
 	hnco/functions/collection/$(am__dirstamp) \
 	hnco/functions/collection/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/collection/tsp.lo:  \
+	hnco/functions/collection/$(am__dirstamp) \
+	hnco/functions/collection/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/collection/walsh/$(am__dirstamp):
 	@$(MKDIR_P) hnco/functions/collection/walsh
 	@: > hnco/functions/collection/walsh/$(am__dirstamp)
@@ -1616,6 +1627,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/sudoku.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/theory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/trap.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/tsp.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion-1.Plo@am__quote@ # am--include-marker
@@ -1985,6 +1997,7 @@ distclean: distclean-am
 	-rm -f hnco/functions/collection/$(DEPDIR)/sudoku.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/theory.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/trap.Plo
+	-rm -f hnco/functions/collection/$(DEPDIR)/tsp.Plo
 	-rm -f hnco/functions/collection/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo
 	-rm -f hnco/functions/collection/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo
 	-rm -f hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion-1.Plo
@@ -2119,6 +2132,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/collection/$(DEPDIR)/sudoku.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/theory.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/trap.Plo
+	-rm -f hnco/functions/collection/$(DEPDIR)/tsp.Plo
 	-rm -f hnco/functions/collection/ising/$(DEPDIR)/nearest-neighbor-ising-model-1.Plo
 	-rm -f hnco/functions/collection/ising/$(DEPDIR)/nearest-neighbor-ising-model-2.Plo
 	-rm -f hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion-1.Plo

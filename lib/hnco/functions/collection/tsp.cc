@@ -18,34 +18,32 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_COLLECTION_ALL_H
-#define HNCO_FUNCTIONS_COLLECTION_ALL_H
+#include <assert.h>
 
-#include "cancellation.hh"
-#include "equal-products.hh"
-#include "four-peaks.hh"
-#include "ising/all.hh"
-#include "jump.hh"
-#include "labs.hh"
-#include "linear-function.hh"
-#include "long-path.hh"
-#include "max-sat.hh"
-#include "nk-landscape.hh"
-#include "parsed-multivariate-function.hh"
-#include "partition.hh"
-#include "qubo.hh"
-#include "sudoku.hh"
-#include "theory.hh"
-#include "trap.hh"
+#include "hnco/random.hh"
+
 #include "tsp.hh"
-#include "walsh/all.hh"
 
-#ifdef ENABLE_FACTORIZATION
-#include "factorization.hh"
-#endif
+using namespace hnco::function;
+using namespace hnco::random;
 
-#ifdef ENABLE_PLUGIN
-#include "plugin.hh"
-#endif
 
-#endif
+void
+Tsp::display(std::ostream& stream) const
+{
+}
+
+
+void
+Tsp::describe(const hnco::permutation_t& permutation, std::ostream& stream)
+{
+}
+
+
+double
+Tsp::evaluate(const hnco::permutation_t& permutation)
+{
+  double result = 0;
+
+  return result;
+}

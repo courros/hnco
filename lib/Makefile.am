@@ -186,6 +186,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.cc \
 	hnco/functions/collection/trap.hh \
+	hnco/functions/collection/tsp.cc \
+	hnco/functions/collection/tsp.hh \
 	hnco/functions/collection/walsh/all.hh \
 	hnco/functions/collection/walsh/walsh-expansion-1.cc \
 	hnco/functions/collection/walsh/walsh-expansion-1.hh \
@@ -343,6 +345,7 @@ nobase_include_HEADERS = \
 	hnco/functions/collection/sudoku.hh \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.hh \
+	hnco/functions/collection/tsp.hh \
 	hnco/functions/collection/walsh/all.hh \
 	hnco/functions/collection/walsh/walsh-expansion-1.hh \
 	hnco/functions/collection/walsh/walsh-expansion-2.hh \
