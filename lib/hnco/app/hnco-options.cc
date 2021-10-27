@@ -1016,6 +1016,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            181: Integer multivariate function" << std::endl;
   stream << "            182: Complex multivariate function (squared magnitude of)" << std::endl;
   stream << "            190: Sudoku" << std::endl;
+  stream << "            200: Travelling salesman problem" << std::endl;
   stream << "            1000: Plugin" << std::endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
   stream << "          Path of a function file" << std::endl;

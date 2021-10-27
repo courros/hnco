@@ -280,6 +280,16 @@ CommandLineFunctionFactory::make()
     }
   }
 
+  case 200: {
+    using namespace hnco::function::representation;
+    auto instance = new Tsp();
+    instance->load(_options.get_path());
+    int num_elements = instance->get_num_elements();
+    return new PermutationFunctionAdapter<Tsp>
+      (instance,
+       PermutationRepresentation(num_elements, num_elements + 2));
+  }
+
 #ifdef ENABLE_PLUGIN
   case 1000:
     return new FunctionPlugin

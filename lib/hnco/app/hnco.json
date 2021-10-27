@@ -632,6 +632,11 @@
                 },
 
                 {
+                    "value": 200,
+                    "description": "Travelling salesman problem"
+                },
+
+                {
                     "value": 1000,
                     "description": "Plugin"
                 }
