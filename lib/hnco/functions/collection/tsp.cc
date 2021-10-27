@@ -29,6 +29,33 @@ using namespace hnco::random;
 
 
 void
+Tsp::load_(std::istream& stream)
+{
+  int line_number = 1;
+
+  // Specification part
+  while(!stream.eof()) {
+    std::string line;
+    getline(stream, line);
+    if (line.empty())
+      continue;
+    std::istringstream iss(line);
+    std::string token;
+    iss >> token;
+    if (token == "NAME") {
+      std::cout << "Found NAME!" << std::endl;
+    }
+    line_number++;
+  }
+}
+
+void
+Tsp::save_(std::ostream& stream) const
+{
+}
+
+
+void
 Tsp::display(std::ostream& stream) const
 {
 }
@@ -43,7 +70,11 @@ Tsp::describe(const hnco::permutation_t& permutation, std::ostream& stream)
 double
 Tsp::evaluate(const hnco::permutation_t& permutation)
 {
+  assert(_distances.size() > 0);
   double result = 0;
-
+  int last = _distances.size() - 1;
+  for (int i = 0; i < last; i++)
+    result += _distances[permutation[i]][permutation[i+1]];
+  result += _distances[permutation[last]][permutation[0]];
   return result;
 }

@@ -24,8 +24,6 @@
 #include <iostream>
 #include <vector>
 
-#include <boost/serialization/vector.hpp>
-
 #include "hnco/functions/function.hh"
 #include "hnco/permutation.hh"  // hnco::permutation_t
 #include "hnco/serialization.hh"
@@ -38,21 +36,34 @@ namespace function {
 /** Traveling salesman problem.
 
 */
-class Tsp: public Function {
+class Tsp {
 
 private:
 
-  friend class boost::serialization::access;
-
-  /// Serialize
-  template<class Archive>
-  void serialize(Archive& ar, const unsigned int version)
-  {
-    ar & _distances;
-  }
+  std::vector<double> _x;
+  std::vector<double> _y;
+  enum {
+    ATT,
+    EUC_2D
+  };
 
   /// Distances
   std::vector<std::vector<double>> _distances;
+
+  /** @name Load and save instance
+   */
+  ///@{
+
+  /** Load an instance.
+
+      \throw std::runtime_error
+  */
+  void load_(std::istream& stream);
+
+  /// Save an instance
+  void save_(std::ostream& stream) const;
+
+  ///@}
 
 public:
 
@@ -77,8 +88,9 @@ public:
       _distances[i].resize(n);
     for (int i = 0; i < n; i++)
       for (int j = 0; j < i; j++) {
-        _distances[i][j] = generator();
-        _distances[i][j] = _distances[j][i];
+        double d = generator();
+        _distances[i][j] = d;
+        _distances[j][i] = d;
       }
   }
 
@@ -95,7 +107,6 @@ public:
 
   ///@}
 
-
   /** @name Load and save instance
    */
   ///@{
@@ -105,14 +116,24 @@ public:
       \param path Path of the instance to load
       \throw std::runtime_error
   */
-  void load(std::string path) { load_from_archive(*this, path, "Tsp"); }
+  void load(std::string path) {
+    std::ifstream stream(path);
+    if (!stream.good())
+      throw std::runtime_error("Tsp::load: Cannot open " + path);
+    load_(stream);
+  }
 
   /** Save instance.
 
       \param path Path of the instance to save
       \throw std::runtime_error
   */
-  void save(std::string path) const { save_to_archive(*this, path, "Tsp"); }
+  void save(std::string path) const {
+    std::ofstream stream(path);
+    if (!stream.good())
+      throw std::runtime_error("Tsp::save: Cannot open " + path);
+    save_(stream);
+  }
 
   ///@}
 
