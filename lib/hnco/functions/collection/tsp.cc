@@ -39,14 +39,32 @@ Tsp::load_(std::istream& stream)
     getline(stream, line);
     if (line.empty())
       continue;
-    std::istringstream iss(line);
-    std::string token;
-    iss >> token;
-    if (token == "NAME") {
-      std::cout << "Found NAME!" << std::endl;
+    auto pos = line.find(":");
+    std::string before = line.substr(0, pos);
+    std::istringstream before_stream(before);
+    std::string key, value;
+    before_stream >> key;
+    std::string after = line.substr(pos + 1);
+    std::istringstream after_stream(after);
+    if (key == "NAME") {
+      after_stream >> _name;
+    } else if (key == "COMMENT") {
+      _comment = line.substr(pos + 1);
+      // should eat white at the beginning
+    } else if (key == "TYPE") {
+      after_stream >> value;
+      if (value != "TSP")
+        throw std::runtime_error("Tsp::load_: " + _name + " is not a TSP problem.");
+    } else if (key == "DIMENSION") {
+      after_stream >> _num_cities;
     }
     line_number++;
   }
+
+  std::cout << _name << std::endl;
+  std::cout << _comment << std::endl;
+  std::cout << _num_cities << std::endl;
+
 }
 
 void

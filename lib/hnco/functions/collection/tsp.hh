@@ -40,8 +40,12 @@ class Tsp {
 
 private:
 
+  std::string _name;
+  std::string _comment;
+  int _num_cities;
   std::vector<double> _x;
   std::vector<double> _y;
+
   enum {
     ATT,
     EUC_2D
