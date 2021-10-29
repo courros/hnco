@@ -3,6 +3,7 @@
 Library:
 - Added PermutationRepresentation
 - Added PermutationFunctionAdapter
+- Added Tsp
 
 
 * Version 0.18 (2021-10-07)
