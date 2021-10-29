@@ -35,6 +35,7 @@ namespace function {
 
 /** Traveling salesman problem.
 
+    Source: TSPLIB 95, Gerhard Reinelt
 */
 class Tsp {
 
