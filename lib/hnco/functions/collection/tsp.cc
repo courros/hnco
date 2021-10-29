@@ -67,11 +67,11 @@ Tsp::load_(std::istream& stream)
       else
         throw std::runtime_error("Tsp::load_: Unknown edge weight type: " + value);
     } else if (key == "NODE_COORD_SECTION") {
+      load_coordinates(stream);
+      compute_distances();
       break;
     }
   }
-  load_coordinates(stream);
-  compute_distances();
 }
 
 void
@@ -88,7 +88,6 @@ Tsp::load_coordinates(std::istream& stream)
     assert((index >= 1) && (index <= _num_cities));
     stream >> _x[index - 1];
     stream >> _y[index - 1];
-    std::cout << index << ": " << _x[index - 1] << ", " << _y[index - 1] << std::endl;
   }
 }
 
@@ -127,8 +126,15 @@ Tsp::compute_distances_att()
     for (int j = 0; j < i; j++) {
       float dx = _x[i] - _x[j];
       float dy = _y[i] - _y[j];
-      _distances[i][j] = std::ceil(std::sqrt((dx * dx + dy * dy) / 10.0));
-      _distances[j][i] = _distances[i][j];
+      float rij = std::sqrt((dx * dx + dy * dy) / 10.0);
+      float tij = (int)(rij + 0.5);
+      float dij;
+      if (tij < rij)
+        dij = tij + 1;
+      else
+        dij = tij;
+      _distances[i][j] = dij;
+      _distances[j][i] = dij;
     }
 }
 
@@ -142,8 +148,9 @@ Tsp::compute_distances_euc_2d()
     for (int j = 0; j < i; j++) {
       float dx = _x[i] - _x[j];
       float dy = _y[i] - _y[j];
-      _distances[i][j] = std::rint(sqrt(dx * dx + dy * dy));
-      _distances[j][i] = _distances[i][j];
+      float dij = (int)(std::sqrt(dx * dx + dy * dy) + 0.5);
+      _distances[i][j] = dij;
+      _distances[j][i] = dij;
     }
 }
 
@@ -152,22 +159,21 @@ Tsp::save_(std::ostream& stream) const
 {
 }
 
-
 void
 Tsp::display(std::ostream& stream) const
 {
-  std::cout << _name << std::endl;
-  std::cout << _comment << std::endl;
-  std::cout << _num_cities << std::endl;
-  std::cout << _edge_weight_type << std::endl;
+  stream << "TSP with " << _num_cities << " cities" << std::endl;
+  stream << _name << ": " << _comment << std::endl;
 }
-
 
 void
 Tsp::describe(const hnco::permutation_t& permutation, std::ostream& stream)
 {
+  stream << "Tour is: ";
+  for(auto city : permutation)
+    stream << (city + 1) << ", ";
+  stream << "last" << std::endl;
 }
-
 
 double
 Tsp::evaluate(const hnco::permutation_t& permutation)
@@ -178,5 +184,5 @@ Tsp::evaluate(const hnco::permutation_t& permutation)
   for (int i = 0; i < last; i++)
     result += _distances[permutation[i]][permutation[i+1]];
   result += _distances[permutation[last]][permutation[0]];
-  return result;
+  return -result;
 }
