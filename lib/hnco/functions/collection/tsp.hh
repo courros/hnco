@@ -43,16 +43,16 @@ private:
   std::string _name;
   std::string _comment;
   int _num_cities;
-  std::vector<double> _x;
-  std::vector<double> _y;
-
+  std::vector<float> _x;
+  std::vector<float> _y;
+  int _edge_weight_type = ATT;
   enum {
     ATT,
     EUC_2D
   };
 
   /// Distances
-  std::vector<std::vector<double>> _distances;
+  std::vector<std::vector<float>> _distances;
 
   /** @name Load and save instance
    */
@@ -63,11 +63,16 @@ private:
       \throw std::runtime_error
   */
   void load_(std::istream& stream);
+  void load_coordinates(std::istream& stream);
 
   /// Save an instance
   void save_(std::ostream& stream) const;
 
   ///@}
+
+  void compute_distances();
+  void compute_distances_att();
+  void compute_distances_euc_2d();
 
 public:
 
