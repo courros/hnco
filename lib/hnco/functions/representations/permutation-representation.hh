@@ -64,22 +64,21 @@ public:
 
   /** Constructor.
 
+      Each element is represented by an integer encoded using
+      std::ceil(std::log(num_elements) / std::log(2)) +
+      num_additional_bits.
+
       \param num_elements Number of elements
-      \param num_bits Number of bits per element
+      \param num_additional_bits Number of additional bits per element
   */
-  PermutationRepresentation(int num_elements, int num_bits)
+  PermutationRepresentation(int num_elements, int num_additional_bits)
     : _elements(num_elements)
-    , _num_bits(num_bits)
   {
     assert(num_elements > 0);
-    assert(num_bits > 0);
+    assert(num_additional_bits > 0);
 
     int num_bits_min = std::ceil(std::log(num_elements) / std::log(2));
-    if (num_bits < num_bits_min) {
-      std::cerr << "Warning: PermutationRepresentation::PermutationRepresentation: The number of bits per element is set to " << num_bits_min << std::endl;
-      _num_bits = num_bits_min;
-    }
-
+    _num_bits = num_bits_min + num_additional_bits;
     _representation_size = _elements.size() * _num_bits;
   }
 
