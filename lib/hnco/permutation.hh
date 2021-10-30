@@ -21,45 +21,49 @@
 #ifndef HNCO_PERMUTATION_H
 #define HNCO_PERMUTATION_H
 
-#include <vector>
 #include <algorithm>            // std::shuffle
+#include <iostream>
+#include <vector>
 
 #include "random.hh"
 
 
 namespace hnco {
 
-  /** @name Types and functions related to permutations
-   */
-  ///@{
+/** @name Types and functions related to permutations
+ */
+///@{
 
-  /// %Permutation type
-  typedef std::vector<int> permutation_t;
+/// %Permutation type
+typedef std::vector<int> permutation_t;
 
-  /// Check that a vector represents a permutation
-  bool perm_is_valid(const permutation_t& permutation);
+/// Check that a vector represents a permutation
+bool perm_is_valid(const permutation_t& permutation);
 
-  /** Identity permutation.
+/** Identity permutation.
 
-      \warning This function does not set the size of the permutation.
-  */
-  inline void perm_identity(permutation_t& s)
-  {
-    for (std::size_t i = 0; i < s.size(); i++)
-      s[i] = i;
-  }
+    \warning This function does not set the size of the permutation.
+*/
+inline void perm_identity(permutation_t& s)
+{
+  for (std::size_t i = 0; i < s.size(); i++)
+    s[i] = i;
+}
 
-  /** Sample a random permutation.
+/** Sample a random permutation.
 
-      \warning This function does not set the size of the permutation.
-  */
-  inline void perm_random(permutation_t& s)
-  {
-    perm_identity(s);
-    shuffle(s.begin(), s.end(), random::Generator::engine);
-  }
+    \warning This function does not set the size of the permutation.
+*/
+inline void perm_random(permutation_t& s)
+{
+  perm_identity(s);
+  shuffle(s.begin(), s.end(), random::Generator::engine);
+}
 
-  ///@}
+/// Display a permutation
+void perm_display(const permutation_t& permutation, std::ostream& stream);
+
+///@}
 
 } // end of namespace hnco
 

@@ -24,7 +24,8 @@
 using namespace hnco;
 
 
-bool hnco::perm_is_valid(const permutation_t& permutation)
+bool
+hnco::perm_is_valid(const permutation_t& permutation)
 {
   std::vector<bool> checked(permutation.size(), false);
   for (size_t i = 0; i < permutation.size(); i++) {
@@ -37,4 +38,12 @@ bool hnco::perm_is_valid(const permutation_t& permutation)
     checked[permutation[i]] = true;
   }
   return true;
+}
+
+void
+hnco::perm_display(const permutation_t& permutation, std::ostream& stream)
+{
+  for (auto element : permutation)
+    stream << element << ", ";
+  stream << "last";
 }
