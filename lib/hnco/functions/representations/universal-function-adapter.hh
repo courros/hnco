@@ -27,6 +27,7 @@
 
 #include "hnco/exception.hh"
 #include "hnco/functions/function.hh"
+#include "hnco/permutation.hh"
 
 #include "permutation-representation.hh"
 #include "representation.hh"
@@ -84,16 +85,21 @@ class UniversalFunctionAdapter: public Function {
   }
 
 public:
-  UniversalFunctionAdapter(Fn *fn, int num_boolean_vars,
-                           std::vector<DyadicIntegerRepresentation<int>> integers_reps,
-                           std::vector<DyadicRealRepresentation<double>> real_numbers_reps,
-                           std::vector<DyadicComplexRepresentation<double>> complex_numbers_reps,
+
+  /** Constructor.
+
+   */
+  UniversalFunctionAdapter(Fn *fn,
+                           int num_boolean_vars,
+                           std::vector<DyadicIntegerRepresentation<int>> integer_reps,
+                           std::vector<DyadicRealRepresentation<double>> real_reps,
+                           std::vector<DyadicComplexRepresentation<double>> complex_reps,
                            std::vector<LinearCategoricalRepresentation> categorical_reps,
                            std::vector<PermutationRepresentation> permutation_reps)
     : _function(fn)
-    , _integer_reps(integers_reps)
-    , _real_reps(real_numbers_reps)
-    , _complex_reps(complex_numbers_reps)
+    , _integer_reps(integer_reps)
+    , _real_reps(real_reps)
+    , _complex_reps(complex_reps)
     , _categorical_reps(categorical_reps)
     , _permutation_reps(permutation_reps)
   {
@@ -131,6 +137,32 @@ public:
   }
   void describe(const bit_vector_t& bv, std::ostream& stream) override {
     unpack(bv);
+    stream << "boolean variables:" << std::endl;
+    for (size_t i = 0; i < _boolean_vars.size(); i++)
+      stream << "boolean[" << i << "] = " << int(_boolean_vars[i]) << std::endl; // does not work without explicit casting
+    stream << "--" << std::endl;
+    stream << "integer variables:" << std::endl;
+    for (size_t i = 0; i < _integer_vars.size(); i++)
+      stream << "integer[" << i << "] = " << _integer_vars[i] << std::endl;
+    stream << "--" << std::endl;
+    stream << "real variables:" << std::endl;
+    for (size_t i = 0; i < _real_vars.size(); i++)
+      stream << "real[" << i << "] = " << _real_vars[i] << std::endl;
+    stream << "--" << std::endl;
+    stream << "complex variables:" << std::endl;
+    for (size_t i = 0; i < _complex_vars.size(); i++)
+      stream << "complex[" << i << "] = " << _complex_vars[i] << std::endl;
+    stream << "--" << std::endl;
+    stream << "categorical variables:" << std::endl;
+    for (size_t i = 0; i < _categorical_vars.size(); i++)
+      stream << "categorical[" << i << "] = " << _categorical_vars[i] << std::endl;
+    stream << "--" << std::endl;
+    stream << "permutation variables:" << std::endl;
+    for (size_t i = 0; i < _permutation_vars.size(); i++) {
+      stream << "permutation[" << i << "] = ";
+      perm_display(_permutation_vars[i], stream);
+      stream << std::endl;
+    }
     _function->describe(_boolean_vars, _integer_vars, _real_vars, _complex_vars, _categorical_vars, _permutation_vars, stream);
   }
 };
