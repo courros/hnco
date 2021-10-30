@@ -20,9 +20,10 @@ noinst_PROGRAMS = \
 	basic \
 	cli-my-algorithm \
 	cli-my-function \
-	stop-on-maximum \
+	cli-universal-function \
+	custom \
 	on-budget-function \
-	custom
+	stop-on-maximum
 
 AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
 
@@ -33,6 +34,7 @@ LDADD = ../lib/libhnco.la -ldl -lboost_serialization
 basic_SOURCES = basic.cc
 cli_my_algorithm_SOURCES = cli-my-algorithm.cc
 cli_my_function_SOURCES = cli-my-function.cc
+cli_universal_function_SOURCES = cli-universal-function.cc
 stop_on_maximum_SOURCES = stop-on-maximum.cc
 on_budget_function_SOURCES = on-budget-function.cc
 custom_SOURCES = custom.cc
