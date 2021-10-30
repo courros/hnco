@@ -26,5 +26,6 @@
 #include "permutation-function-adapter.hh"
 #include "permutation-representation.hh"
 #include "representation.hh"
+#include "universal-function-adapter.hh"
 
 #endif

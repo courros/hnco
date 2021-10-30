@@ -29,6 +29,7 @@
 #include "hnco/functions/function.hh"
 
 #include "permutation-representation.hh"
+#include "representation.hh"
 
 
 namespace hnco {
@@ -40,12 +41,12 @@ template<class Fn>
 class UniversalFunctionAdapter: public Function {
   Fn *_function;
 
-  std::vector<DyadicIntegerRepresentation> _integers_reps;
+  std::vector<DyadicIntegerRepresentation<int>> _integers_reps;
 
   bit_vector_t _booleans;
   std::vector<int> _integers;
   std::vector<double> _real_numbers;
-  std::vector<std::complex> _complex_numbers;
+  std::vector<std::complex<double>> _complex_numbers;
   std::vector<int> _categorical_values;
   std::vector<permutation_t> _permutations;
 
@@ -63,7 +64,7 @@ class UniversalFunctionAdapter: public Function {
   }
 
 public:
-  UniversalFunctionAdapter(Fn *fn, int num_booleans, integers_reps)
+  UniversalFunctionAdapter(Fn *fn, int num_booleans, std::vector<DyadicIntegerRepresentation<int>> integers_reps)
     : _function(fn)
     , _integers_reps(integers_reps)
   {
