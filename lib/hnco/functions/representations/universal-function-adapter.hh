@@ -41,73 +41,97 @@ template<class Fn>
 class UniversalFunctionAdapter: public Function {
   Fn *_function;
 
-  std::vector<DyadicIntegerRepresentation<int>> _integers_reps;
-  std::vector<DyadicRealRepresentation<double>> _real_numbers_reps;
-  std::vector<DyadicComplexRepresentation<double>> _complex_numbers_reps;
+  std::vector<DyadicIntegerRepresentation<int>> _integer_reps;
+  std::vector<DyadicRealRepresentation<double>> _real_reps;
+  std::vector<DyadicComplexRepresentation<double>> _complex_reps;
+  std::vector<LinearCategoricalRepresentation> _categorical_reps;
+  std::vector<PermutationRepresentation> _permutation_reps;
 
-  bit_vector_t _booleans;
-  std::vector<int> _integers;
-  std::vector<double> _real_numbers;
-  std::vector<std::complex<double>> _complex_numbers;
-  std::vector<int> _categorical_values;
-  std::vector<permutation_t> _permutations;
+  bit_vector_t _boolean_vars;
+  std::vector<int> _integer_vars;
+  std::vector<double> _real_vars;
+  std::vector<std::complex<double>> _complex_vars;
+  std::vector<int> _categorical_vars;
+  std::vector<permutation_t> _permutation_vars;
 
   int _bv_size;
 
   void unpack(const bit_vector_t& bv) {
     assert(int(bv.size()) == _bv_size);
     int start = 0;
-    std::copy(bv.begin(), bv.begin() + _booleans.size(), _booleans.begin());
-    start += _booleans.size();
-    for (size_t i = 0; i < _integers.size(); i++) {
-      _integers[i] = _integers_reps[i].unpack(bv, start);
-      start += _integers_reps[i].size();
+    std::copy(bv.begin(), bv.begin() + _boolean_vars.size(), _boolean_vars.begin());
+    start += _boolean_vars.size();
+    for (size_t i = 0; i < _integer_vars.size(); i++) {
+      _integer_vars[i] = _integer_reps[i].unpack(bv, start);
+      start += _integer_reps[i].size();
     }
-    for (size_t i = 0; i < _real_numbers_reps.size(); i++) {
-      _real_numbers[i] = _real_numbers_reps[i].unpack(bv, start);
-      start += _real_numbers_reps[i].size();
+    for (size_t i = 0; i < _real_vars.size(); i++) {
+      _real_vars[i] = _real_reps[i].unpack(bv, start);
+      start += _real_reps[i].size();
     }
-    for (size_t i = 0; i < _complex_numbers_reps.size(); i++) {
-      _complex_numbers[i] = _complex_numbers_reps[i].unpack(bv, start);
-      start += _complex_numbers_reps[i].size();
+    for (size_t i = 0; i < _complex_vars.size(); i++) {
+      _complex_vars[i] = _complex_reps[i].unpack(bv, start);
+      start += _complex_reps[i].size();
+    }
+    for (size_t i = 0; i < _categorical_vars.size(); i++) {
+      _categorical_vars[i] = _categorical_reps[i].unpack(bv, start);
+      start += _categorical_reps[i].size();
+    }
+    for (size_t i = 0; i < _permutation_vars.size(); i++) {
+      _permutation_reps[i].unpack(bv, start, _permutation_vars[i]);
+      start += _permutation_reps[i].size();
     }
   }
 
 public:
-  UniversalFunctionAdapter(Fn *fn, int num_booleans,
+  UniversalFunctionAdapter(Fn *fn, int num_boolean_vars,
                            std::vector<DyadicIntegerRepresentation<int>> integers_reps,
                            std::vector<DyadicRealRepresentation<double>> real_numbers_reps,
-                           std::vector<DyadicComplexRepresentation<double>> complex_numbers_reps)
+                           std::vector<DyadicComplexRepresentation<double>> complex_numbers_reps,
+                           std::vector<LinearCategoricalRepresentation> categorical_reps,
+                           std::vector<PermutationRepresentation> permutation_reps)
     : _function(fn)
-    , _integers_reps(integers_reps)
-    , _real_numbers_reps(real_numbers_reps)
-    , _complex_numbers_reps(complex_numbers_reps)
+    , _integer_reps(integers_reps)
+    , _real_reps(real_numbers_reps)
+    , _complex_reps(complex_numbers_reps)
+    , _categorical_reps(categorical_reps)
+    , _permutation_reps(permutation_reps)
   {
-    _booleans.resize(num_booleans);
-    _integers.resize(_integers_reps.size());
-    _real_numbers.resize(_real_numbers_reps.size());
-    _complex_numbers.resize(_complex_numbers_reps.size());
+    _boolean_vars.resize(num_boolean_vars);
+    _integer_vars.resize(_integer_reps.size());
+    _real_vars.resize(_real_reps.size());
+    _complex_vars.resize(_complex_reps.size());
+    _categorical_vars.resize(_categorical_reps.size());
+    _permutation_vars.resize(_permutation_reps.size());
+    for (size_t i = 0; i < _permutation_vars.size(); i++) {
+      _permutation_vars[i].resize(_permutation_reps[i].get_num_elements());
+    }
 
     // Compute _bv_size.
-    _bv_size = _booleans.size();
-    for (auto rep : _integers_reps)
+    _bv_size = _boolean_vars.size();
+    for (auto rep : _integer_reps)
       _bv_size += rep.size();
-    for (auto rep : _real_numbers_reps)
+    for (auto rep : _real_reps)
       _bv_size += rep.size();
-    for (auto rep : _complex_numbers_reps)
+    for (auto rep : _complex_reps)
+      _bv_size += rep.size();
+    for (auto rep : _categorical_reps)
+      _bv_size += rep.size();
+    for (auto rep : _permutation_reps)
       _bv_size += rep.size();
   }
+
   int get_bv_size() const override { return _bv_size; }
   double evaluate(const bit_vector_t& bv) override {
     unpack(bv);
-    return _function->evaluate(_booleans, _integers, _real_numbers, _complex_numbers, _categorical_values, _permutations);
+    return _function->evaluate(_boolean_vars, _integer_vars, _real_vars, _complex_vars, _categorical_vars, _permutation_vars);
   }
   void display(std::ostream& stream) const override {
     _function->display(stream);
   }
   void describe(const bit_vector_t& bv, std::ostream& stream) override {
     unpack(bv);
-    _function->describe(_booleans, _integers, _real_numbers, _complex_numbers, _categorical_values, _permutations, stream);
+    _function->describe(_boolean_vars, _integer_vars, _real_vars, _complex_vars, _categorical_vars, _permutation_vars, stream);
   }
 };
 
