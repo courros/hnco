@@ -42,6 +42,8 @@ class UniversalFunctionAdapter: public Function {
   Fn *_function;
 
   std::vector<DyadicIntegerRepresentation<int>> _integers_reps;
+  std::vector<DyadicRealRepresentation<double>> _real_numbers_reps;
+  std::vector<DyadicComplexRepresentation<double>> _complex_numbers_reps;
 
   bit_vector_t _booleans;
   std::vector<int> _integers;
@@ -61,19 +63,38 @@ class UniversalFunctionAdapter: public Function {
       _integers[i] = _integers_reps[i].unpack(bv, start);
       start += _integers_reps[i].size();
     }
+    for (size_t i = 0; i < _real_numbers_reps.size(); i++) {
+      _real_numbers[i] = _real_numbers_reps[i].unpack(bv, start);
+      start += _real_numbers_reps[i].size();
+    }
+    for (size_t i = 0; i < _complex_numbers_reps.size(); i++) {
+      _complex_numbers[i] = _complex_numbers_reps[i].unpack(bv, start);
+      start += _complex_numbers_reps[i].size();
+    }
   }
 
 public:
-  UniversalFunctionAdapter(Fn *fn, int num_booleans, std::vector<DyadicIntegerRepresentation<int>> integers_reps)
+  UniversalFunctionAdapter(Fn *fn, int num_booleans,
+                           std::vector<DyadicIntegerRepresentation<int>> integers_reps,
+                           std::vector<DyadicRealRepresentation<double>> real_numbers_reps,
+                           std::vector<DyadicComplexRepresentation<double>> complex_numbers_reps)
     : _function(fn)
     , _integers_reps(integers_reps)
+    , _real_numbers_reps(real_numbers_reps)
+    , _complex_numbers_reps(complex_numbers_reps)
   {
     _booleans.resize(num_booleans);
     _integers.resize(_integers_reps.size());
+    _real_numbers.resize(_real_numbers_reps.size());
+    _complex_numbers.resize(_complex_numbers_reps.size());
 
     // Compute _bv_size.
     _bv_size = _booleans.size();
     for (auto rep : _integers_reps)
+      _bv_size += rep.size();
+    for (auto rep : _real_numbers_reps)
+      _bv_size += rep.size();
+    for (auto rep : _complex_numbers_reps)
       _bv_size += rep.size();
   }
   int get_bv_size() const override { return _bv_size; }
