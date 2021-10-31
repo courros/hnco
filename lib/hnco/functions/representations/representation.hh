@@ -115,14 +115,6 @@ public:
     compute_lengths(num_bits);
   }
 
-  /** Default constructor.
-
-      The interval [0, 1) is represented with 7 bits.
-  */
-  DyadicRealRepresentation()
-    : DyadicRealRepresentation(0, 1, 7)
-  {}
-
   /// Size of the representation
   int size() const { return _lengths.size(); }
 
@@ -195,15 +187,6 @@ public:
   */
   DyadicComplexRepresentation(T lower_bound, T upper_bound, int num_bits)
     : DyadicComplexRepresentation(lower_bound, upper_bound, num_bits, lower_bound, upper_bound, num_bits)
-  {}
-
-  /** Default constructor.
-
-      Both the real and the imaginary parts take their values in the
-      interval [0, 1) which is prepresented with 7 bits.
-  */
-  DyadicComplexRepresentation()
-    : DyadicComplexRepresentation(0, 1, 7, 0, 1, 7)
   {}
 
   /// Size of the representation
@@ -327,14 +310,6 @@ public:
     set_num_bits_complete(lower_bound, upper_bound);
     _num_bits = _num_bits_complete;
   }
-
-  /** Default Constructor.
-
-      The interval [0..255] is represented with 8 bits.
-  */
-  DyadicIntegerRepresentation()
-    : DyadicIntegerRepresentation(0, 255)
-  {}
 
   /// Size of the representation
   int size() const { return _num_bits; }
