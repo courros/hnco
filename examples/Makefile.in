@@ -107,9 +107,9 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 noinst_PROGRAMS = basic$(EXEEXT) cli-my-algorithm$(EXEEXT) \
-	cli-my-function$(EXEEXT) cli-universal-function$(EXEEXT) \
-	custom$(EXEEXT) on-budget-function$(EXEEXT) \
-	stop-on-maximum$(EXEEXT)
+	cli-my-function$(EXEEXT) \
+	cli-universal-function-adapter$(EXEEXT) custom$(EXEEXT) \
+	on-budget-function$(EXEEXT) stop-on-maximum$(EXEEXT)
 subdir = examples
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -140,10 +140,12 @@ am_cli_my_function_OBJECTS = cli-my-function.$(OBJEXT)
 cli_my_function_OBJECTS = $(am_cli_my_function_OBJECTS)
 cli_my_function_LDADD = $(LDADD)
 cli_my_function_DEPENDENCIES = ../lib/libhnco.la
-am_cli_universal_function_OBJECTS = cli-universal-function.$(OBJEXT)
-cli_universal_function_OBJECTS = $(am_cli_universal_function_OBJECTS)
-cli_universal_function_LDADD = $(LDADD)
-cli_universal_function_DEPENDENCIES = ../lib/libhnco.la
+am_cli_universal_function_adapter_OBJECTS =  \
+	cli-universal-function-adapter.$(OBJEXT)
+cli_universal_function_adapter_OBJECTS =  \
+	$(am_cli_universal_function_adapter_OBJECTS)
+cli_universal_function_adapter_LDADD = $(LDADD)
+cli_universal_function_adapter_DEPENDENCIES = ../lib/libhnco.la
 am_custom_OBJECTS = custom.$(OBJEXT)
 custom_OBJECTS = $(am_custom_OBJECTS)
 custom_LDADD = $(LDADD)
@@ -173,8 +175,8 @@ depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/basic.Po \
 	./$(DEPDIR)/cli-my-algorithm.Po ./$(DEPDIR)/cli-my-function.Po \
-	./$(DEPDIR)/cli-universal-function.Po ./$(DEPDIR)/custom.Po \
-	./$(DEPDIR)/on-budget-function.Po \
+	./$(DEPDIR)/cli-universal-function-adapter.Po \
+	./$(DEPDIR)/custom.Po ./$(DEPDIR)/on-budget-function.Po \
 	./$(DEPDIR)/stop-on-maximum.Po
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
@@ -196,13 +198,13 @@ am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
 SOURCES = $(basic_SOURCES) $(cli_my_algorithm_SOURCES) \
-	$(cli_my_function_SOURCES) $(cli_universal_function_SOURCES) \
-	$(custom_SOURCES) $(on_budget_function_SOURCES) \
-	$(stop_on_maximum_SOURCES)
+	$(cli_my_function_SOURCES) \
+	$(cli_universal_function_adapter_SOURCES) $(custom_SOURCES) \
+	$(on_budget_function_SOURCES) $(stop_on_maximum_SOURCES)
 DIST_SOURCES = $(basic_SOURCES) $(cli_my_algorithm_SOURCES) \
-	$(cli_my_function_SOURCES) $(cli_universal_function_SOURCES) \
-	$(custom_SOURCES) $(on_budget_function_SOURCES) \
-	$(stop_on_maximum_SOURCES)
+	$(cli_my_function_SOURCES) \
+	$(cli_universal_function_adapter_SOURCES) $(custom_SOURCES) \
+	$(on_budget_function_SOURCES) $(stop_on_maximum_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -367,7 +369,7 @@ LDADD = ../lib/libhnco.la -ldl -lboost_serialization
 basic_SOURCES = basic.cc
 cli_my_algorithm_SOURCES = cli-my-algorithm.cc
 cli_my_function_SOURCES = cli-my-function.cc
-cli_universal_function_SOURCES = cli-universal-function.cc
+cli_universal_function_adapter_SOURCES = cli-universal-function-adapter.cc
 stop_on_maximum_SOURCES = stop-on-maximum.cc
 on_budget_function_SOURCES = on-budget-function.cc
 custom_SOURCES = custom.cc
@@ -426,9 +428,9 @@ cli-my-function$(EXEEXT): $(cli_my_function_OBJECTS) $(cli_my_function_DEPENDENC
 	@rm -f cli-my-function$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(cli_my_function_OBJECTS) $(cli_my_function_LDADD) $(LIBS)
 
-cli-universal-function$(EXEEXT): $(cli_universal_function_OBJECTS) $(cli_universal_function_DEPENDENCIES) $(EXTRA_cli_universal_function_DEPENDENCIES) 
-	@rm -f cli-universal-function$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(cli_universal_function_OBJECTS) $(cli_universal_function_LDADD) $(LIBS)
+cli-universal-function-adapter$(EXEEXT): $(cli_universal_function_adapter_OBJECTS) $(cli_universal_function_adapter_DEPENDENCIES) $(EXTRA_cli_universal_function_adapter_DEPENDENCIES) 
+	@rm -f cli-universal-function-adapter$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(cli_universal_function_adapter_OBJECTS) $(cli_universal_function_adapter_LDADD) $(LIBS)
 
 custom$(EXEEXT): $(custom_OBJECTS) $(custom_DEPENDENCIES) $(EXTRA_custom_DEPENDENCIES) 
 	@rm -f custom$(EXEEXT)
@@ -451,7 +453,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/basic.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cli-my-algorithm.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cli-my-function.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cli-universal-function.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cli-universal-function-adapter.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/custom.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/on-budget-function.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stop-on-maximum.Po@am__quote@ # am--include-marker
@@ -619,7 +621,7 @@ distclean: distclean-am
 		-rm -f ./$(DEPDIR)/basic.Po
 	-rm -f ./$(DEPDIR)/cli-my-algorithm.Po
 	-rm -f ./$(DEPDIR)/cli-my-function.Po
-	-rm -f ./$(DEPDIR)/cli-universal-function.Po
+	-rm -f ./$(DEPDIR)/cli-universal-function-adapter.Po
 	-rm -f ./$(DEPDIR)/custom.Po
 	-rm -f ./$(DEPDIR)/on-budget-function.Po
 	-rm -f ./$(DEPDIR)/stop-on-maximum.Po
@@ -671,7 +673,7 @@ maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/basic.Po
 	-rm -f ./$(DEPDIR)/cli-my-algorithm.Po
 	-rm -f ./$(DEPDIR)/cli-my-function.Po
-	-rm -f ./$(DEPDIR)/cli-universal-function.Po
+	-rm -f ./$(DEPDIR)/cli-universal-function-adapter.Po
 	-rm -f ./$(DEPDIR)/custom.Po
 	-rm -f ./$(DEPDIR)/on-budget-function.Po
 	-rm -f ./$(DEPDIR)/stop-on-maximum.Po

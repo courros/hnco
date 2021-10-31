@@ -20,7 +20,7 @@ noinst_PROGRAMS = \
 	basic \
 	cli-my-algorithm \
 	cli-my-function \
-	cli-universal-function \
+	cli-universal-function-adapter \
 	custom \
 	on-budget-function \
 	stop-on-maximum
@@ -34,7 +34,7 @@ LDADD = ../lib/libhnco.la -ldl -lboost_serialization
 basic_SOURCES = basic.cc
 cli_my_algorithm_SOURCES = cli-my-algorithm.cc
 cli_my_function_SOURCES = cli-my-function.cc
-cli_universal_function_SOURCES = cli-universal-function.cc
+cli_universal_function_adapter_SOURCES = cli-universal-function-adapter.cc
 stop_on_maximum_SOURCES = stop-on-maximum.cc
 on_budget_function_SOURCES = on-budget-function.cc
 custom_SOURCES = custom.cc
