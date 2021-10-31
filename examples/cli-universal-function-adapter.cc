@@ -23,7 +23,6 @@
 #include "hnco/app/algorithm-factory.hh"
 #include "hnco/app/function-factory.hh"
 #include "hnco/app/application.hh"
-
 #include "hnco/functions/representations/all.hh"
 
 using namespace hnco::app;
@@ -41,10 +40,21 @@ public:
                   const std::vector<permutation_t> permutation_vars)
   {
     double result = 0;
+    result += bv_hamming_weight(boolean_vars);
+    result -= std::abs(square(integer_vars[0]) + square(integer_vars[1]) - 25);
+    result -= square(real_vars[0] - 0.5) + square(real_vars[1] - 0.5);
+    result -= std::abs(complex_vars[0] - 0.5) + std::abs(complex_vars[1] - 0.5);
+    result += categorical_vars[0] == 3 ? 1 : 0;
+    result += categorical_vars[1] == 2 ? 1 : 0;
+    result += (permutation_vars[0][0] > permutation_vars[0][1]) ? 1 : 0;
+    result += (permutation_vars[0][1] > permutation_vars[0][2]) ? 1 : 0;
+    result += (permutation_vars[1][0] < permutation_vars[1][1]) ? 1 : 0;
+    result += (permutation_vars[1][1] < permutation_vars[1][2]) ? 1 : 0;
+    result += (permutation_vars[1][2] < permutation_vars[1][3]) ? 1 : 0;
+    result += (permutation_vars[1][3] < permutation_vars[1][4]) ? 1 : 0;
     return result;
   }
-  void display(std::ostream& stream) const {
-  }
+  void display(std::ostream& stream) const {}
   void describe(const bit_vector_t& boolean_vars,
                 const std::vector<int>& integer_vars,
                 const std::vector<double>& real_vars,
@@ -52,12 +62,10 @@ public:
                 const std::vector<int>& categorical_vars,
                 const std::vector<permutation_t> permutation_vars,
                 std::ostream& stream)
-  {
-  }
+  {}
 };
 
-class MyFunctionFactory:
-  public FunctionFactory {
+class MyFunctionFactory: public FunctionFactory {
 public:
   Function *make() {
     using namespace hnco::function::representation;
@@ -71,7 +79,7 @@ public:
     permutation_reps.push_back(PermutationRepresentation(3, 2));
     permutation_reps.push_back(PermutationRepresentation(5, 2));
     return new UniversalFunctionAdapter(new MyFonction, 2, integer_reps, real_reps, complex_reps, categorical_reps, permutation_reps);
-    // Replace reps with {} is there is no corresponding variable as in :
+    // Replace reps with {} if there is no corresponding variable as in:
     // return new UniversalFunctionAdapter(new MyFonction, 2, integer_reps, real_reps, complex_reps, {}, permutation_reps);
   }
 };
