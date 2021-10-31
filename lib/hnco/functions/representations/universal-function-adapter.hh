@@ -38,25 +38,58 @@ namespace function {
 namespace representation {
 
 
+/** Universal function adapter.
+
+    A universal function is a function taking parameters of all types
+    (boolean, integer, real, complex, categorical, permutation) and
+    returning a double.
+
+    A universal function adapter turns such a universal function into
+    a regular hnco function defined on bit vectors.
+*/
 template<class Fn>
 class UniversalFunctionAdapter: public Function {
+
+  /// Universal function
   Fn *_function;
 
+  /// Integer representations
   std::vector<DyadicIntegerRepresentation<int>> _integer_reps;
+
+  /// Real representations
   std::vector<DyadicRealRepresentation<double>> _real_reps;
+
+  /// Complex representations
   std::vector<DyadicComplexRepresentation<double>> _complex_reps;
+
+  /// Categorical representations
   std::vector<LinearCategoricalRepresentation> _categorical_reps;
+
+  /// Permuation representations
   std::vector<PermutationRepresentation> _permutation_reps;
 
+  /// Boolean variables
   bit_vector_t _boolean_vars;
+
+  /// Integer variables
   std::vector<int> _integer_vars;
+
+  /// Real variables
   std::vector<double> _real_vars;
+
+  /// Complex variables
   std::vector<std::complex<double>> _complex_vars;
+
+  /// Categorical variables
   std::vector<int> _categorical_vars;
+
+  /// Permutation variables
   std::vector<permutation_t> _permutation_vars;
 
+  /// Bit vector size
   int _bv_size;
 
+  /// Unpack bit vector into variables
   void unpack(const bit_vector_t& bv) {
     assert(int(bv.size()) == _bv_size);
     int start = 0;
@@ -88,7 +121,14 @@ public:
 
   /** Constructor.
 
-   */
+      \param fn Universal function
+      \param num_boolean_vars Number of boolean variables
+      \param integer_reps Integer representations
+      \param real_reps Real representations
+      \param complex_reps Complex representations
+      \param categorical_reps Categorical representations
+      \param permutation_reps Permutation representations
+  */
   UniversalFunctionAdapter(Fn *fn,
                            int num_boolean_vars,
                            std::vector<DyadicIntegerRepresentation<int>> integer_reps,
@@ -127,14 +167,21 @@ public:
       _bv_size += rep.size();
   }
 
+  /// Get bit vector size
   int get_bv_size() const override { return _bv_size; }
+
+  /// Evaluate a bit vector
   double evaluate(const bit_vector_t& bv) override {
     unpack(bv);
     return _function->evaluate(_boolean_vars, _integer_vars, _real_vars, _complex_vars, _categorical_vars, _permutation_vars);
   }
+
+  /// Display
   void display(std::ostream& stream) const override {
     _function->display(stream);
   }
+
+  /// Describe a bit vector
   void describe(const bit_vector_t& bv, std::ostream& stream) override {
     unpack(bv);
     stream << "boolean variables:" << std::endl;
