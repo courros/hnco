@@ -24,10 +24,10 @@
 #include "hnco/app/function-factory.hh"
 #include "hnco/app/application.hh"
 #include "hnco/functions/representations/all.hh"
-#include "hnco/functions/universal-function.hh"
 
 using namespace hnco::app;
 using namespace hnco::exception;
+using namespace hnco::function::representation;
 using namespace hnco::function;
 using namespace hnco;
 

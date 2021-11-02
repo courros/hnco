@@ -317,7 +317,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/representations/permutation-representation.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/representations/universal-function-adapter.hh \
-	hnco/functions/universal-function.hh \
+	hnco/functions/representations/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.cc \
 	hnco/logging/logger.hh hnco/maps/map.cc hnco/maps/map.hh \
@@ -648,7 +648,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/representations/permutation-representation.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/representations/universal-function-adapter.hh \
-	hnco/functions/universal-function.hh \
+	hnco/functions/representations/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.hh \
 	hnco/maps/map.hh hnco/maps/transvection.hh \
@@ -969,7 +969,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/representations/permutation-representation.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/representations/universal-function-adapter.hh \
-	hnco/functions/universal-function.hh \
+	hnco/functions/representations/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.cc \
 	hnco/logging/logger.hh hnco/maps/map.cc hnco/maps/map.hh \
@@ -1071,7 +1071,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/representations/permutation-representation.hh \
 	hnco/functions/representations/representation.hh \
 	hnco/functions/representations/universal-function-adapter.hh \
-	hnco/functions/universal-function.hh \
+	hnco/functions/representations/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.hh \
 	hnco/maps/map.hh hnco/maps/transvection.hh \

@@ -27,11 +27,11 @@
 
 #include "hnco/exception.hh"
 #include "hnco/functions/function.hh"
-#include "hnco/functions/universal-function.hh"
 #include "hnco/permutation.hh"
 
 #include "permutation-representation.hh"
 #include "representation.hh"
+#include "universal-function.hh"
 
 
 namespace hnco {

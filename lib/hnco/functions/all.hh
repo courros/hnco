@@ -27,7 +27,6 @@
 #include "function.hh"
 #include "modifiers/all.hh"
 #include "representations/all.hh"
-#include "universal-function.hh"
 #include "walsh-term.hh"
 
 #endif
