@@ -24,7 +24,7 @@
 #include <iostream>
 
 #include "hnco/bit-vector.hh"
-#include "hnco/functions/representations/all.hh"
+#include "hnco/permutation.hh"
 
 
 namespace hnco {
@@ -32,11 +32,15 @@ namespace function {
 
 /** Universal function.
 
- */
+    A universal function is a function taking parameters of all types
+    (boolean, integer, real, complex, categorical, permutation) and
+    returning a double.
+
+*/
 class UniversalFunction {
 public:
 
-  /// Evaluate
+  /// Evaluate the function
   virtual double evaluate(const bit_vector_t& boolean_vars,
                           const std::vector<int>& integer_vars,
                           const std::vector<double>& real_vars,
@@ -47,7 +51,7 @@ public:
   /// Display the function
   virtual void display(std::ostream& stream) const {}
 
-  /// Describe
+  /// Describe variables in the context of the function
   virtual void describe(const bit_vector_t& boolean_vars,
                         const std::vector<int>& integer_vars,
                         const std::vector<double>& real_vars,
