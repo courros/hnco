@@ -24,24 +24,25 @@
 #include "hnco/app/function-factory.hh"
 #include "hnco/app/application.hh"
 #include "hnco/functions/representations/all.hh"
+#include "hnco/functions/universal-function.hh"
 
 using namespace hnco::app;
 using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco;
 
-class MyFonction {
+class MyFonction: public UniversalFunction {
 public:
   double evaluate(const bit_vector_t& boolean_vars,
                   const std::vector<int>& integer_vars,
                   const std::vector<double>& real_vars,
                   const std::vector<std::complex<double>>& complex_vars,
                   const std::vector<int>& categorical_vars,
-                  const std::vector<permutation_t> permutation_vars)
+                  const std::vector<permutation_t> permutation_vars) override
   {
     double result = 0;
     result += bv_hamming_weight(boolean_vars);
-    result -= std::abs(square(integer_vars[0]) + square(integer_vars[1]) - 25);
+    result -= std::abs(square(integer_vars[0]) + square(integer_vars[1]) - 2500);
     result -= square(real_vars[0] - 0.5) + square(real_vars[1] - 0.5);
     result -= std::abs(complex_vars[0] - 0.5) + std::abs(complex_vars[1] - 0.5);
     result += categorical_vars[0] == 3 ? 1 : 0;
@@ -54,15 +55,6 @@ public:
     result += (permutation_vars[1][3] < permutation_vars[1][4]) ? 1 : 0;
     return result;
   }
-  void display(std::ostream& stream) const {}
-  void describe(const bit_vector_t& boolean_vars,
-                const std::vector<int>& integer_vars,
-                const std::vector<double>& real_vars,
-                const std::vector<std::complex<double>>& complex_vars,
-                const std::vector<int>& categorical_vars,
-                const std::vector<permutation_t> permutation_vars,
-                std::ostream& stream)
-  {}
 };
 
 class MyFunctionFactory: public FunctionFactory {
@@ -72,8 +64,8 @@ public:
 
     // Integer variables
     std::vector<DyadicIntegerRepresentation<int>> integer_reps;
-    integer_reps.push_back(DyadicIntegerRepresentation<int>(1, 100));
-    integer_reps.push_back(DyadicIntegerRepresentation<int>(1, 100));
+    integer_reps.push_back(DyadicIntegerRepresentation<int>(0, 255));
+    integer_reps.push_back(DyadicIntegerRepresentation<int>(0, 255));
 
     // Real variables
     std::vector<DyadicRealRepresentation<double>> real_reps;
