@@ -125,6 +125,12 @@ public:
       \param complex_reps Complex representations
       \param categorical_reps Categorical representations
       \param permutation_reps Permutation representations
+
+      Replace reps with {} if there is no corresponding variable. For
+      example, if there is no categorical variable,
+
+      UniversalFunctionAdapter(fn, num_boolean_vars, integer_reps, real_reps, complex_reps, {}, permutation_reps)
+
   */
   UniversalFunctionAdapter(UniversalFunction *fn,
                            int num_boolean_vars,
