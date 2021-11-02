@@ -181,6 +181,43 @@ public:
 
   /// Display
   void display(std::ostream& stream) const override {
+    stream << "boolean variables:" << std::endl;
+    stream << bv_domain(_boolean_vars) << std::endl;
+    stream << "--" << std::endl;
+    stream << "integer variables:" << std::endl;
+    for (size_t i = 0; i < _integer_reps.size(); i++) {
+      stream << "integer[" << i << "]: ";
+      _integer_reps[i].display(stream);
+      stream << std::endl;
+    }
+    stream << "--" << std::endl;
+    stream << "real variables:" << std::endl;
+    for (size_t i = 0; i < _real_reps.size(); i++) {
+      stream << "real[" << i << "]: ";
+      _real_reps[i].display(stream);
+      stream << std::endl;
+    }
+    stream << "--" << std::endl;
+    stream << "complex variables:" << std::endl;
+    for (size_t i = 0; i < _complex_reps.size(); i++) {
+      stream << "complex[" << i << "]: ";
+      _complex_reps[i].display(stream);
+      stream << std::endl;
+    }
+    stream << "--" << std::endl;
+    stream << "categorical variables:" << std::endl;
+    for (size_t i = 0; i < _categorical_reps.size(); i++) {
+      stream << "categorical[" << i << "]: ";
+      _categorical_reps[i].display(stream);
+      stream << std::endl;
+    }
+    stream << "--" << std::endl;
+    stream << "permutation variables:" << std::endl;
+    for (size_t i = 0; i < _permutation_reps.size(); i++) {
+      stream << "permutation[" << i << "]: ";
+      _permutation_reps[i].display(stream);
+      stream << std::endl;
+    }
     _function->display(stream);
   }
 
