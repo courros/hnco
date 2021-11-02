@@ -42,6 +42,9 @@ namespace representation {
 class UniversalFunction {
 public:
 
+  /// Destructor
+  virtual ~UniversalFunction() {}
+
   /// Evaluate the function
   virtual double evaluate(const bit_vector_t& boolean_vars,
                           const std::vector<int>& integer_vars,
