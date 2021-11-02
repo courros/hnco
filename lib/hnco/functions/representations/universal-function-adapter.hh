@@ -146,6 +146,7 @@ public:
     , _categorical_reps(categorical_reps)
     , _permutation_reps(permutation_reps)
   {
+    assert(num_boolean_vars >= 0);
     _boolean_vars.resize(num_boolean_vars);
     _integer_vars.resize(_integer_reps.size());
     _real_vars.resize(_real_reps.size());
