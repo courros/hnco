@@ -27,6 +27,7 @@
 
 #include "hnco/exception.hh"
 #include "hnco/functions/function.hh"
+#include "hnco/functions/universal-function.hh"
 #include "hnco/permutation.hh"
 
 #include "permutation-representation.hh"
@@ -40,18 +41,14 @@ namespace representation {
 
 /** Universal function adapter.
 
-    A universal function is a function taking parameters of all types
-    (boolean, integer, real, complex, categorical, permutation) and
-    returning a double.
+    A universal function adapter turns a universal function into a
+    regular hnco function defined on bit vectors.
 
-    A universal function adapter turns such a universal function into
-    a regular hnco function defined on bit vectors.
 */
-template<class Fn>
 class UniversalFunctionAdapter: public Function {
 
   /// Universal function
-  Fn *_function;
+  UniversalFunction *_function;
 
   /// Integer representations
   std::vector<DyadicIntegerRepresentation<int>> _integer_reps;
@@ -129,7 +126,7 @@ public:
       \param categorical_reps Categorical representations
       \param permutation_reps Permutation representations
   */
-  UniversalFunctionAdapter(Fn *fn,
+  UniversalFunctionAdapter(UniversalFunction *fn,
                            int num_boolean_vars,
                            std::vector<DyadicIntegerRepresentation<int>> integer_reps,
                            std::vector<DyadicRealRepresentation<double>> real_reps,
