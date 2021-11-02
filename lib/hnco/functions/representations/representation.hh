@@ -160,31 +160,20 @@ public:
 
   /** Constructor.
 
-      \param lower_bound_re Lower bound of the real part
-      \param upper_bound_re Upper bound of the real part
-      \param num_bits_re Number of bits to represent the real part
-      \param lower_bound_im Lower bound of the imaginary part
-      \param upper_bound_im Upper bound of the imaginary part
-      \param num_bits_im Number of bits to represent the imaginary part
+      \param real_part Representation of real part
+      \param imaginary_part Representation of imaginary part
   */
-  DyadicComplexRepresentation(T lower_bound_re, T upper_bound_re, int num_bits_re, T lower_bound_im, T upper_bound_im, int num_bits_im)
-    : _real_part(lower_bound_re, upper_bound_re, num_bits_re)
-    , _imaginary_part(lower_bound_im, upper_bound_im, num_bits_im)
-  {
-    assert(num_bits_re > 0);
-    assert(lower_bound_re < upper_bound_re);
-    assert(num_bits_im > 0);
-    assert(lower_bound_im < upper_bound_im);
-  }
+  DyadicComplexRepresentation(DyadicRealRepresentation<T> real_part, DyadicRealRepresentation<T> imaginary_part)
+    : _real_part(real_part)
+    , _imaginary_part(imaginary_part)
+  {}
 
   /** Constructor.
 
-      \param lower_bound Lower bound of both real and imaginary parts
-      \param upper_bound Upper bound of both real and imaginary parts
-      \param num_bits Number of bits to represent both real and imaginary parts
+      \param rep Representation of both real and imaginary parts
   */
-  DyadicComplexRepresentation(T lower_bound, T upper_bound, int num_bits)
-    : DyadicComplexRepresentation(lower_bound, upper_bound, num_bits, lower_bound, upper_bound, num_bits)
+  DyadicComplexRepresentation(DyadicRealRepresentation<T> rep)
+    : DyadicComplexRepresentation(rep, rep)
   {}
 
   /// Size of the representation

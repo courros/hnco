@@ -237,23 +237,24 @@ CommandLineFunctionFactory::make()
 
   case 182: {
     using namespace hnco::function::representation;
+    using RealRep = DyadicRealRepresentation<double>;
     using Rep = DyadicComplexRepresentation<double>;
     using Fn = ParsedMultivariateFunction<FunctionParser_cd>;
     using Conv = ComplexToDouble<double>;
     auto instance = new Fn(_options.get_fp_expression());
     if (_options.set_fp_num_bits()) {
-      auto reps = std::vector<Rep>
-        (instance->get_num_variables(),
-         Rep(_options.get_fp_lower_bound(),
-             _options.get_fp_upper_bound(),
-             _options.get_fp_num_bits()));
+      RealRep real_rep(_options.get_fp_lower_bound(),
+                       _options.get_fp_upper_bound(),
+                       _options.get_fp_num_bits());
+      auto reps = std::vector<Rep>(instance->get_num_variables(),
+                                   Rep(real_rep, real_rep));
       return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
     } else {
-      auto reps = std::vector<Rep>
-        (instance->get_num_variables(),
-         Rep(_options.get_fp_lower_bound(),
-             _options.get_fp_upper_bound(),
-             _options.get_fp_precision()));
+      RealRep real_rep(_options.get_fp_lower_bound(),
+                       _options.get_fp_upper_bound(),
+                       _options.get_fp_precision());
+      auto reps = std::vector<Rep>(instance->get_num_variables(),
+                                   Rep(real_rep, real_rep));
       return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
     }
   }

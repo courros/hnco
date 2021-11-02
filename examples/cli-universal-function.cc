@@ -61,35 +61,38 @@ class MyFunctionFactory: public FunctionFactory {
 public:
   Function *make() {
     using namespace hnco::function::representation;
+    using RealRep = DyadicRealRepresentation<double>;
+    using IntegerRep = DyadicIntegerRepresentation<int>;
+    using ComplexRep = DyadicComplexRepresentation<double>;
+    using CategoricalRep = LinearCategoricalRepresentation;
+    using PermutationRep = PermutationRepresentation;
 
     // Integer variables
-    std::vector<DyadicIntegerRepresentation<int>> integer_reps;
-    integer_reps.push_back(DyadicIntegerRepresentation<int>(0, 255));
-    integer_reps.push_back(DyadicIntegerRepresentation<int>(0, 255));
+    std::vector<IntegerRep> integer_reps;
+    integer_reps.push_back(IntegerRep(0, 255));
+    integer_reps.push_back(IntegerRep(0, 255));
 
     // Real variables
-    std::vector<DyadicRealRepresentation<double>> real_reps;
-    real_reps.push_back(DyadicRealRepresentation<double>(0, 1, 7));
-    real_reps.push_back(DyadicRealRepresentation<double>(0, 1, 7));
+    std::vector<RealRep> real_reps;
+    real_reps.push_back(RealRep(0, 1, 7));
+    real_reps.push_back(RealRep(0, 1, 7));
 
     // Complex variables
-    std::vector<DyadicComplexRepresentation<double>> complex_reps;
-    complex_reps.push_back(DyadicComplexRepresentation<double>(0, 1, 7));
-    complex_reps.push_back(DyadicComplexRepresentation<double>(0, 1, 7));
+    std::vector<ComplexRep> complex_reps;
+    complex_reps.push_back(ComplexRep(RealRep(0, 1, 7), RealRep(0, 1, 7)));
+    complex_reps.push_back(ComplexRep(RealRep(0, 1, 7), RealRep(0, 1, 7)));
 
-    // Categoricla variables
-    std::vector<LinearCategoricalRepresentation> categorical_reps;
-    categorical_reps.push_back(LinearCategoricalRepresentation(4));
-    categorical_reps.push_back(LinearCategoricalRepresentation(3));
+    // Categorical variables
+    std::vector<CategoricalRep> categorical_reps;
+    categorical_reps.push_back(CategoricalRep(4));
+    categorical_reps.push_back(CategoricalRep(3));
 
     // Permutation variables
-    std::vector<PermutationRepresentation> permutation_reps;
-    permutation_reps.push_back(PermutationRepresentation(3, 2));
-    permutation_reps.push_back(PermutationRepresentation(5, 2));
+    std::vector<PermutationRep> permutation_reps;
+    permutation_reps.push_back(PermutationRep(3, 2));
+    permutation_reps.push_back(PermutationRep(5, 2));
 
     return new UniversalFunctionAdapter(new MyFonction, 2, integer_reps, real_reps, complex_reps, categorical_reps, permutation_reps);
-    // Replace reps with {} if there is no corresponding variable as in:
-    // return new UniversalFunctionAdapter(new MyFonction, 2, integer_reps, real_reps, complex_reps, {}, permutation_reps);
   }
 };
 
