@@ -110,6 +110,19 @@ public:
   bool provides_incremental_evaluation() const  override { PYBIND11_OVERLOAD(bool, function::Function, provides_incremental_evaluation, ); }
 };
 
+class PyUniversalFunction: public function::UniversalFunction {
+public:
+  using function::UniversalFunction::UniversalFunction;
+  double evaluate(const bit_vector_t& boolean_vars,
+                  const std::vector<int>& integer_vars,
+                  const std::vector<double>& real_vars,
+                  const std::vector<std::complex<double>>& complex_vars,
+                  const std::vector<int>& categorical_vars,
+                  const std::vector<permutation_t> permutation_vars)
+                                                override { PYBIND11_OVERLOAD_PURE(double, function::UniversalFunction, evaluate,
+                                                                                  boolean_vars, integer_vars, real_vars, complex_vars, categorical_vars, permutation_vars); }
+};
+
 //
 // Algorithms
 //
@@ -139,6 +152,15 @@ PYBIND11_MODULE(hnco, module_hnco) {
          [](const bit_vector_t& bv) {
            std::ostringstream stream;
            bv_display(bv, stream);
+           return stream.str();
+         })
+    ;
+
+  py::bind_vector<permutation_t>(module_hnco, "Permutation")
+    .def("__str__",
+         [](const permutation_t& permutation) {
+           std::ostringstream stream;
+           perm_display(permutation, stream);
            return stream.str();
          })
     ;
@@ -606,6 +628,106 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     py::class_<PriorNoise, Modifier>(module_modifier, "PriorNoise")
       .def(py::init<function::Function *, neighborhood::Neighborhood *>())
+      ;
+
+  }
+
+  //
+  // Representations
+  //
+
+  py::module module_representation = module_function.def_submodule("representation", "Representations");
+
+  {
+    using namespace function;
+    using namespace function::representation;
+
+    using IntegerRep = DyadicIntegerRepresentation<int>;
+    using RealRep = DyadicRealRepresentation<double>;
+    using ComplexRep = DyadicComplexRepresentation<double>;
+
+    py::class_<IntegerRep>(module_representation, "DyadicIntegerRepresentation")
+      .def(py::init<int, int, int>())
+      .def(py::init<int, int>())
+      .def("size", &IntegerRep::size)
+      .def("unpack", &IntegerRep::unpack)
+      .def("__str__",
+           [](const IntegerRep& rep) {
+             std::ostringstream stream;
+             rep.display(stream);
+             return stream.str();
+           })
+      ;
+
+    py::class_<RealRep>(module_representation, "DyadicRealRepresentation")
+      .def(py::init<double, double, int>())
+      .def(py::init<double, double, double>())
+      .def("size", &RealRep::size)
+      .def("unpack", &RealRep::unpack)
+      .def("__str__",
+           [](const RealRep& rep) {
+             std::ostringstream stream;
+             rep.display(stream);
+             return stream.str();
+           })
+      ;
+
+    py::class_<ComplexRep>(module_representation, "DyadicComplexRepresentation")
+      .def(py::init<RealRep, RealRep>())
+      .def(py::init<RealRep>())
+      .def("size", &ComplexRep::size)
+      .def("unpack", &ComplexRep::unpack)
+      .def("__str__",
+           [](const ComplexRep& rep) {
+             std::ostringstream stream;
+             rep.display(stream);
+             return stream.str();
+           })
+      ;
+
+    py::class_<LinearCategoricalRepresentation>(module_representation, "LinearCategoricalRepresentation")
+      .def(py::init<int>())
+      .def("size", &LinearCategoricalRepresentation::size)
+      .def("unpack", &LinearCategoricalRepresentation::unpack)
+      .def("__str__",
+           [](const LinearCategoricalRepresentation& rep) {
+             std::ostringstream stream;
+             rep.display(stream);
+             return stream.str();
+           })
+      ;
+
+    py::class_<PermutationRepresentation>(module_representation, "PermutationRepresentation")
+      .def(py::init<int, int>())
+      .def("size", &PermutationRepresentation::size)
+      .def("unpack", &PermutationRepresentation::unpack)
+      .def("__str__",
+           [](const PermutationRepresentation& rep) {
+             std::ostringstream stream;
+             rep.display(stream);
+             return stream.str();
+           })
+      ;
+
+    py::class_<UniversalFunctionAdapter, Function>(module_representation, "UniversalFunctionAdapter")
+      .def(py::init<
+           UniversalFunction *,
+           int,
+           std::vector<IntegerRep>,
+           std::vector<RealRep>,
+           std::vector<ComplexRep>,
+           std::vector<LinearCategoricalRepresentation>,
+           std::vector<PermutationRepresentation>>())
+      ;
+
+    py::class_<UniversalFunction, PyUniversalFunction>(module_representation, "UniversalFunction")
+      .def("evaluate", &UniversalFunction::evaluate)
+      .def("__str__",
+           [](UniversalFunction& fn) {
+             std::ostringstream stream;
+             fn.display(stream);
+             return stream.str();
+           })
       ;
 
   }
