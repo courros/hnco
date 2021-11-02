@@ -137,9 +137,7 @@ public:
 
   /// Display
   void display(std::ostream& stream) const {
-    stream
-      << "[" << _lower_bound << ", "
-      << (_lower_bound + _length) << "] (" << size() << " bits)" << std::endl;
+    stream << "DyadicRealRepresentation " << "[" << _lower_bound << ", " << (_lower_bound + _length) << "] (" << size() << " bits)";
   }
 
 };
@@ -203,7 +201,9 @@ public:
 
   /// Display
   void display(std::ostream& stream) const {
+    stream << "DyadicComplexRepresentation = ";
     _real_part.display(stream);
+    stream << ", ";
     _imaginary_part.display(stream);
   }
 
@@ -330,8 +330,7 @@ public:
 
   /// Display
   void display(std::ostream& stream) const {
-    stream
-      << "[" << _lower_bound << ", " << _upper_bound << "] (" << size() << " bits)" << std::endl;
+    stream << "DyadicIntegerRepresentation " << "[" << _lower_bound << ", " << _upper_bound << "] (" << size() << " bits)";
   }
 
 };
@@ -430,10 +429,7 @@ public:
 
   /// Display
   void display(std::ostream& stream) const {
-    stream << "Categorical values (" << _num_categories
-           << "), input = " << _ncols
-           << " bits, output = " << _nrows
-           << " bits" << std::endl;
+    stream << "LinearCategoricalRepresentation (" << _num_categories << " values) (" << _nrows << " * " << _ncols << " bits)";
   }
 
 };
@@ -490,9 +486,9 @@ public:
 
   /// Display
   void display(std::ostream& stream) const {
-    stream << "Categorical values (" << _num_categories
-           << ") represented by " << _num_bits << " bits" << std::endl;
+    stream << "IntegerCategoricalRepresentation (" << _num_categories << " values) (" << _num_bits << " bits)";
   }
+
 };
 
 

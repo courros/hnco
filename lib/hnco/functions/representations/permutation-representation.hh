@@ -107,10 +107,7 @@ public:
 
   /// Display
   void display(std::ostream& stream) const {
-    stream << "Permutations of "
-           << _elements.size() << " elements represented by "
-           << _elements.size() << " * " << _num_bits << " = "
-           << size() << " bits" << std::endl;
+    stream << "PermutationRepresentation (" << _elements.size() << " elements) (" << _elements.size() << " * " << _num_bits << " bits)";
   }
 
 };
