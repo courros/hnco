@@ -5,9 +5,10 @@ Library:
 - Added PermutationFunctionAdapter
 - Added Tsp
 - Added UniversalFunctionAdapter
+- Added UniversalFunction
 
 Examples:
-- Added cli-universal-function-adapter.cc
+- Added cli-universal-function.cc
 
 
 * Version 0.18 (2021-10-07)
