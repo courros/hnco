@@ -44,7 +44,8 @@ public:
     result += bv_hamming_weight(boolean_vars);
     result -= std::abs(square(integer_vars[0]) + square(integer_vars[1]) - 2500);
     result -= square(real_vars[0] - 0.5) + square(real_vars[1] - 0.5);
-    result -= std::abs(complex_vars[0] - 0.5) + std::abs(complex_vars[1] - 0.5);
+    result -= std::abs(square(complex_vars[0]) + complex_vars[0] + 1.0);
+    result -= std::abs(square(complex_vars[1]) + 1.0);
     result += categorical_vars[0] == 3 ? 1 : 0;
     result += categorical_vars[1] == 2 ? 1 : 0;
     result += (permutation_vars[0][0] > permutation_vars[0][1]) ? 1 : 0;
@@ -72,15 +73,17 @@ public:
     integer_reps.push_back(IntegerRep(0, 255));
     integer_reps.push_back(IntegerRep(0, 255));
 
+    RealRep real_rep(-2, 2, 8);
+
     // Real variables
     std::vector<RealRep> real_reps;
-    real_reps.push_back(RealRep(0, 1, 7));
-    real_reps.push_back(RealRep(0, 1, 7));
+    real_reps.push_back(real_rep);
+    real_reps.push_back(real_rep);
 
     // Complex variables
     std::vector<ComplexRep> complex_reps;
-    complex_reps.push_back(ComplexRep(RealRep(0, 1, 7), RealRep(0, 1, 7)));
-    complex_reps.push_back(ComplexRep(RealRep(0, 1, 7), RealRep(0, 1, 7)));
+    complex_reps.push_back(ComplexRep(real_rep, real_rep));
+    complex_reps.push_back(ComplexRep(real_rep, real_rep));
 
     // Categorical variables
     std::vector<CategoricalRep> categorical_reps;
