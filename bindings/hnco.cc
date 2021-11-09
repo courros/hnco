@@ -111,16 +111,16 @@ public:
   bool provides_incremental_evaluation() const  override { PYBIND11_OVERLOAD(bool, function::Function, provides_incremental_evaluation, ); }
 };
 
-class PyUniversalFunction: public function::representation::UniversalFunction {
+class PyUniversalFunction: public function::UniversalFunction {
 public:
-  using function::representation::UniversalFunction::UniversalFunction;
+  using function::UniversalFunction::UniversalFunction;
   double evaluate(const bit_vector_t& boolean_vars,
                   const std::vector<int>& integer_vars,
                   const std::vector<double>& real_vars,
                   const std::vector<std::complex<double>>& complex_vars,
                   const std::vector<int>& categorical_vars,
                   const std::vector<permutation_t> permutation_vars)
-                                                override { PYBIND11_OVERLOAD_PURE(double, function::representation::UniversalFunction, evaluate,
+                                                override { PYBIND11_OVERLOAD_PURE(double, function::UniversalFunction, evaluate,
                                                                                   boolean_vars, integer_vars, real_vars, complex_vars, categorical_vars, permutation_vars); }
 };
 
@@ -712,7 +712,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    py::class_<UniversalFunctionAdapter, Function>(module_representation, "UniversalFunctionAdapter")
+    py::class_<UniversalFunctionAdapter, Function>(module_function, "UniversalFunctionAdapter")
       .def(py::init<
            UniversalFunction *,
            int,
@@ -723,7 +723,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
            std::vector<PermutationRepresentation>>())
       ;
 
-    py::class_<UniversalFunction, PyUniversalFunction>(module_representation, "UniversalFunction")
+    py::class_<UniversalFunction, PyUniversalFunction>(module_function, "UniversalFunction")
       .def(py::init<>())
       .def("evaluate", &UniversalFunction::evaluate)
       .def("__str__",
