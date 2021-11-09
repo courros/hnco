@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import hnco
 
 from hnco import function as fn
