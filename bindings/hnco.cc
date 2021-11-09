@@ -46,7 +46,6 @@ PYBIND11_MAKE_OPAQUE(algorithm::solution_t);
 // Iterators
 //
 
-// For derived classes in pytonh
 class PyIterator: public Iterator {
 public:
   void init()                                   override { PYBIND11_OVERLOAD(void, Iterator, init, ); }
@@ -639,11 +638,11 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Representations
   //
 
-  py::module module_representation = module_function.def_submodule("representation", "Representations");
+  py::module module_representation = module_hnco.def_submodule("representation", "Representations");
 
   {
     using namespace function;
-    using namespace function::representation;
+    using namespace representation;
 
     using IntegerRep = DyadicIntegerRepresentation<int>;
     using RealRep = DyadicRealRepresentation<double>;
