@@ -29,7 +29,7 @@
 
 using namespace hnco::app;
 using namespace hnco::exception;
-using namespace hnco::function::representation;
+using namespace hnco::representation;
 using namespace hnco::function;
 using namespace hnco;
 
@@ -63,7 +63,7 @@ public:
 class MyFunctionFactory: public FunctionFactory {
 public:
   Function *make() {
-    using namespace hnco::function::representation;
+    using namespace hnco::representation;
     using RealRep = DyadicRealRepresentation<double>;
     using IntegerRep = DyadicIntegerRepresentation<int>;
     using ComplexRep = DyadicComplexRepresentation<double>;

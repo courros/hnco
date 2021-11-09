@@ -32,7 +32,6 @@
 
 
 namespace hnco {
-namespace function {
 namespace representation {
 
 
@@ -114,7 +113,6 @@ public:
 
 
 } // end of namespace representation
-} // end of namespace function
 } // end of namespace hnco
 
 

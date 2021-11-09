@@ -29,7 +29,7 @@
 
 using namespace hnco::random;
 using namespace hnco;
-using namespace hnco::function::representation;
+using namespace hnco::representation;
 
 
 inline bool property(double x, double a, double b)

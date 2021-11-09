@@ -200,7 +200,7 @@ CommandLineFunctionFactory::make()
   }
 
   case 180: {
-    using namespace hnco::function::representation;
+    using namespace hnco::representation;
     using Rep = DyadicRealRepresentation<double>;
     using Fn = ParsedMultivariateFunction<FunctionParser>;
     using Conv = ScalarToDouble<double>;
@@ -223,7 +223,7 @@ CommandLineFunctionFactory::make()
   }
 
   case 181: {
-    using namespace hnco::function::representation;
+    using namespace hnco::representation;
     using Rep = DyadicIntegerRepresentation<long>;
     using Fn = ParsedMultivariateFunction<FunctionParser_li>;
     using Conv = ScalarToDouble<long>;
@@ -236,7 +236,7 @@ CommandLineFunctionFactory::make()
   }
 
   case 182: {
-    using namespace hnco::function::representation;
+    using namespace hnco::representation;
     using RealRep = DyadicRealRepresentation<double>;
     using Rep = DyadicComplexRepresentation<double>;
     using Fn = ParsedMultivariateFunction<FunctionParser_cd>;
@@ -260,7 +260,7 @@ CommandLineFunctionFactory::make()
   }
 
   case 190: {
-    using namespace hnco::function::representation;
+    using namespace hnco::representation;
     using Fn = Sudoku;
     using Conv = ScalarToDouble<double>;
     auto instance = new Fn();
@@ -282,7 +282,7 @@ CommandLineFunctionFactory::make()
   }
 
   case 200: {
-    using namespace hnco::function::representation;
+    using namespace hnco::representation;
     auto instance = new Tsp();
     instance->load(_options.get_path());
     int num_elements = instance->get_num_elements();
