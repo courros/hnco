@@ -18,15 +18,14 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_REPRESENTATIONS_CONVERTER_H
-#define HNCO_FUNCTIONS_REPRESENTATIONS_CONVERTER_H
+#ifndef HNCO_FUNCTIONS_CONVERTER_H
+#define HNCO_FUNCTIONS_CONVERTER_H
 
 #include <complex>              // std::complex
 
 
 namespace hnco {
 namespace function {
-namespace representation {
 
 /// Convert a scalar to a double
 template<class T>
@@ -52,7 +51,6 @@ struct ComplexToDouble {
 
 };
 
-} // end of namespace representation
 } // end of namespace function
 } // end of namespace hnco
 

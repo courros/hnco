@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_REPRESENTATIONS_UNIVERSAL_FUNCTION_H
-#define HNCO_FUNCTIONS_REPRESENTATIONS_UNIVERSAL_FUNCTION_H
+#ifndef HNCO_FUNCTIONS_UNIVERSAL_FUNCTION_H
+#define HNCO_FUNCTIONS_UNIVERSAL_FUNCTION_H
 
 #include <iostream>
 
@@ -29,8 +29,6 @@
 
 namespace hnco {
 namespace function {
-namespace representation {
-
 
 /** Universal function.
 
@@ -68,8 +66,6 @@ public:
 
 };
 
-
-} // end of namespace representation
 } // end of namespace function
 } // end of namespace hnco
 

@@ -18,20 +18,19 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_REPRESENTATIONS_PERMUTATION_FUNCTION_ADAPTER_H
-#define HNCO_FUNCTIONS_REPRESENTATIONS_PERMUTATION_FUNCTION_ADAPTER_H
+#ifndef HNCO_FUNCTIONS_PERMUTATION_FUNCTION_ADAPTER_H
+#define HNCO_FUNCTIONS_PERMUTATION_FUNCTION_ADAPTER_H
 
 #include <assert.h>
 
 #include "hnco/exception.hh"
-#include "hnco/functions/function.hh"
 
-#include "permutation-representation.hh"
+#include "function.hh"
+#include "representations/permutation-representation.hh"
 
 
 namespace hnco {
 namespace function {
-namespace representation {
 
 /** Permutation function adapter.
 
@@ -46,7 +45,7 @@ class PermutationFunctionAdapter: public Function {
   Fn *_function;
 
   /// Permutation representation
-  PermutationRepresentation _representation;
+  representation::PermutationRepresentation _representation;
 
   /// Permutation
   permutation_t _permutation;
@@ -64,7 +63,7 @@ public:
       \param fn Multivariate function
       \param rep Permutation representation
   */
-  PermutationFunctionAdapter(Fn *fn, PermutationRepresentation rep)
+  PermutationFunctionAdapter(Fn *fn, representation::PermutationRepresentation rep)
     : _function(fn)
     , _representation(rep)
   {
@@ -98,8 +97,6 @@ public:
 
 };
 
-
-} // end of namespace representation
 } // end of namespace function
 } // end of namespace hnco
 

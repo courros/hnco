@@ -302,22 +302,22 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/controller.cc \
 	hnco/functions/controllers/controller.hh \
-	hnco/functions/decorator.hh hnco/functions/function.cc \
-	hnco/functions/function.hh hnco/functions/modifiers/all.hh \
+	hnco/functions/converter.hh hnco/functions/decorator.hh \
+	hnco/functions/function.cc hnco/functions/function.hh \
+	hnco/functions/modifiers/all.hh \
 	hnco/functions/modifiers/modifier.cc \
 	hnco/functions/modifiers/modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.cc \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.cc \
 	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/multivariate-function-adapter.hh \
+	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/representations/all.hh \
-	hnco/functions/representations/converter.hh \
-	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/permutation-function-adapter.hh \
 	hnco/functions/representations/permutation-representation.hh \
 	hnco/functions/representations/representation.hh \
-	hnco/functions/representations/universal-function-adapter.hh \
-	hnco/functions/representations/universal-function.hh \
+	hnco/functions/universal-function-adapter.hh \
+	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.cc \
 	hnco/logging/logger.hh hnco/maps/map.cc hnco/maps/map.hh \
@@ -636,19 +636,18 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/collection/walsh/walsh-expansion.hh \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/controller.hh \
-	hnco/functions/decorator.hh hnco/functions/function.hh \
-	hnco/functions/modifiers/all.hh \
+	hnco/functions/converter.hh hnco/functions/decorator.hh \
+	hnco/functions/function.hh hnco/functions/modifiers/all.hh \
 	hnco/functions/modifiers/modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/multivariate-function-adapter.hh \
+	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/representations/all.hh \
-	hnco/functions/representations/converter.hh \
-	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/permutation-function-adapter.hh \
 	hnco/functions/representations/permutation-representation.hh \
 	hnco/functions/representations/representation.hh \
-	hnco/functions/representations/universal-function-adapter.hh \
-	hnco/functions/representations/universal-function.hh \
+	hnco/functions/universal-function-adapter.hh \
+	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.hh \
 	hnco/maps/map.hh hnco/maps/transvection.hh \
@@ -954,22 +953,22 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/controller.cc \
 	hnco/functions/controllers/controller.hh \
-	hnco/functions/decorator.hh hnco/functions/function.cc \
-	hnco/functions/function.hh hnco/functions/modifiers/all.hh \
+	hnco/functions/converter.hh hnco/functions/decorator.hh \
+	hnco/functions/function.cc hnco/functions/function.hh \
+	hnco/functions/modifiers/all.hh \
 	hnco/functions/modifiers/modifier.cc \
 	hnco/functions/modifiers/modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.cc \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.cc \
 	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/multivariate-function-adapter.hh \
+	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/representations/all.hh \
-	hnco/functions/representations/converter.hh \
-	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/permutation-function-adapter.hh \
 	hnco/functions/representations/permutation-representation.hh \
 	hnco/functions/representations/representation.hh \
-	hnco/functions/representations/universal-function-adapter.hh \
-	hnco/functions/representations/universal-function.hh \
+	hnco/functions/universal-function-adapter.hh \
+	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.cc \
 	hnco/logging/logger.hh hnco/maps/map.cc hnco/maps/map.hh \
@@ -1059,19 +1058,18 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/collection/walsh/walsh-expansion.hh \
 	hnco/functions/controllers/all.hh \
 	hnco/functions/controllers/controller.hh \
-	hnco/functions/decorator.hh hnco/functions/function.hh \
-	hnco/functions/modifiers/all.hh \
+	hnco/functions/converter.hh hnco/functions/decorator.hh \
+	hnco/functions/function.hh hnco/functions/modifiers/all.hh \
 	hnco/functions/modifiers/modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/multivariate-function-adapter.hh \
+	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/representations/all.hh \
-	hnco/functions/representations/converter.hh \
-	hnco/functions/representations/multivariate-function-adapter.hh \
-	hnco/functions/representations/permutation-function-adapter.hh \
 	hnco/functions/representations/permutation-representation.hh \
 	hnco/functions/representations/representation.hh \
-	hnco/functions/representations/universal-function-adapter.hh \
-	hnco/functions/representations/universal-function.hh \
+	hnco/functions/universal-function-adapter.hh \
+	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.hh \
 	hnco/maps/map.hh hnco/maps/transvection.hh \

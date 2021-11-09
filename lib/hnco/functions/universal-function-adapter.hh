@@ -18,26 +18,24 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_REPRESENTATIONS_UNVERSAL_FUNCTION_ADAPTER_H
-#define HNCO_FUNCTIONS_REPRESENTATIONS_UNVERSAL_FUNCTION_ADAPTER_H
+#ifndef HNCO_FUNCTIONS_UNVERSAL_FUNCTION_ADAPTER_H
+#define HNCO_FUNCTIONS_UNVERSAL_FUNCTION_ADAPTER_H
 
 #include <assert.h>
 
 #include <algorithm>            // std::copy
 
 #include "hnco/exception.hh"
-#include "hnco/functions/function.hh"
 #include "hnco/permutation.hh"
 
-#include "permutation-representation.hh"
-#include "representation.hh"
+#include "function.hh"
+#include "representations/permutation-representation.hh"
+#include "representations/representation.hh"
 #include "universal-function.hh"
 
 
 namespace hnco {
 namespace function {
-namespace representation {
-
 
 /** Universal function adapter.
 
@@ -51,19 +49,19 @@ class UniversalFunctionAdapter: public Function {
   UniversalFunction *_function;
 
   /// Integer representations
-  std::vector<DyadicIntegerRepresentation<int>> _integer_reps;
+  std::vector<representation::DyadicIntegerRepresentation<int>> _integer_reps;
 
   /// Real representations
-  std::vector<DyadicRealRepresentation<double>> _real_reps;
+  std::vector<representation::DyadicRealRepresentation<double>> _real_reps;
 
   /// Complex representations
-  std::vector<DyadicComplexRepresentation<double>> _complex_reps;
+  std::vector<representation::DyadicComplexRepresentation<double>> _complex_reps;
 
   /// Categorical representations
-  std::vector<LinearCategoricalRepresentation> _categorical_reps;
+  std::vector<representation::LinearCategoricalRepresentation> _categorical_reps;
 
   /// Permuation representations
-  std::vector<PermutationRepresentation> _permutation_reps;
+  std::vector<representation::PermutationRepresentation> _permutation_reps;
 
   /// Boolean variables
   bit_vector_t _boolean_vars;
@@ -134,11 +132,11 @@ public:
   */
   UniversalFunctionAdapter(UniversalFunction *fn,
                            int num_boolean_vars,
-                           std::vector<DyadicIntegerRepresentation<int>> integer_reps,
-                           std::vector<DyadicRealRepresentation<double>> real_reps,
-                           std::vector<DyadicComplexRepresentation<double>> complex_reps,
-                           std::vector<LinearCategoricalRepresentation> categorical_reps,
-                           std::vector<PermutationRepresentation> permutation_reps)
+                           std::vector<representation::DyadicIntegerRepresentation<int>> integer_reps,
+                           std::vector<representation::DyadicRealRepresentation<double>> real_reps,
+                           std::vector<representation::DyadicComplexRepresentation<double>> complex_reps,
+                           std::vector<representation::LinearCategoricalRepresentation> categorical_reps,
+                           std::vector<representation::PermutationRepresentation> permutation_reps)
     : _function(fn)
     , _integer_reps(integer_reps)
     , _real_reps(real_reps)
@@ -255,8 +253,6 @@ public:
   }
 };
 
-
-} // end of namespace representation
 } // end of namespace function
 } // end of namespace hnco
 

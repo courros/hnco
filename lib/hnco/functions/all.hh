@@ -23,10 +23,15 @@
 
 #include "collection/all.hh"
 #include "controllers/all.hh"
+#include "converter.hh"
 #include "decorator.hh"
 #include "function.hh"
 #include "modifiers/all.hh"
+#include "multivariate-function-adapter.hh"
+#include "permutation-function-adapter.hh"
 #include "representations/all.hh"
+#include "universal-function-adapter.hh"
+#include "universal-function.hh"
 #include "walsh-term.hh"
 
 #endif

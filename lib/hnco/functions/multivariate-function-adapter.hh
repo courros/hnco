@@ -18,21 +18,19 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_REPRESENTATIONS_MULTIVARIATE_FUNCTION_ADAPTER_H
-#define HNCO_FUNCTIONS_REPRESENTATIONS_MULTIVARIATE_FUNCTION_ADAPTER_H
+#ifndef HNCO_FUNCTIONS_MULTIVARIATE_FUNCTION_ADAPTER_H
+#define HNCO_FUNCTIONS_MULTIVARIATE_FUNCTION_ADAPTER_H
 
 #include <assert.h>
 
 #include <type_traits>          // std::is_same
 
-#include "hnco/functions/function.hh"
-
-#include "representation.hh"
+#include "function.hh"
+#include "representations/representation.hh"
 
 
 namespace hnco {
 namespace function {
-namespace representation {
 
 /** Multivariate function adapter.
 
@@ -145,8 +143,6 @@ public:
 
 };
 
-
-} // end of namespace representation
 } // end of namespace function
 } // end of namespace hnco
 

@@ -21,12 +21,7 @@
 #ifndef HNCO_FUNCTIONS_REPRESENTATIONS_ALL_H
 #define HNCO_FUNCTIONS_REPRESENTATIONS_ALL_H
 
-#include "converter.hh"
-#include "multivariate-function-adapter.hh"
-#include "permutation-function-adapter.hh"
 #include "permutation-representation.hh"
 #include "representation.hh"
-#include "universal-function-adapter.hh"
-#include "universal-function.hh"
 
 #endif
