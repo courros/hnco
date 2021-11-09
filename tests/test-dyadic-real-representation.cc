@@ -21,11 +21,11 @@
 #include <cmath>                // std::abs
 
 #include "hnco/bit-vector.hh"
-#include "hnco/functions/representations/representation.hh"
+#include "hnco/representations/real.hh"
 
 using namespace hnco::random;
-using namespace hnco;
 using namespace hnco::representation;
+using namespace hnco;
 
 
 inline bool property(double x, double a, double b)
