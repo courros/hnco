@@ -107,6 +107,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_radius(false),
   _rep_categorical_representation(0),
   _opt_rep_categorical_representation(false),
+  _rep_num_additional_bits(2),
+  _opt_rep_num_additional_bits(false),
   _results_path("results.json"),
   _opt_results_path(false),
   _rls_patience(50),
@@ -238,6 +240,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_PV_LOG_NUM_COMPONENTS,
     OPTION_RADIUS,
     OPTION_REP_CATEGORICAL_REPRESENTATION,
+    OPTION_REP_NUM_ADDITIONAL_BITS,
     OPTION_RESULTS_PATH,
     OPTION_RLS_PATIENCE,
     OPTION_SA_BETA_RATIO,
@@ -347,6 +350,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"pv-log-num-components", required_argument, 0, OPTION_PV_LOG_NUM_COMPONENTS},
     {"radius", required_argument, 0, OPTION_RADIUS},
     {"rep-categorical-representation", required_argument, 0, OPTION_REP_CATEGORICAL_REPRESENTATION},
+    {"rep-num-additional-bits", required_argument, 0, OPTION_REP_NUM_ADDITIONAL_BITS},
     {"results-path", required_argument, 0, OPTION_RESULTS_PATH},
     {"rls-patience", required_argument, 0, OPTION_RLS_PATIENCE},
     {"sa-beta-ratio", required_argument, 0, OPTION_SA_BETA_RATIO},
@@ -631,6 +635,10 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
 
     case OPTION_REP_CATEGORICAL_REPRESENTATION:
       set_rep_categorical_representation(atoi(optarg));
+      break;
+
+    case OPTION_REP_NUM_ADDITIONAL_BITS:
+      set_rep_num_additional_bits(atoi(optarg));
       break;
 
     case OPTION_RESULTS_PATH:
@@ -1138,6 +1146,8 @@ void HncoOptions::print_help_rep(std::ostream& stream) const
   stream << "          Categorical representation" << std::endl;
   stream << "            0: Integer" << std::endl;
   stream << "            1: Linear" << std::endl;
+  stream << "      --rep-num-additional-bits (type int, default to 2)" << std::endl;
+  stream << "          Number of additional bits per element for permutation representation" << std::endl;
   stream << std::endl;
 }
 
@@ -1405,6 +1415,7 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# pv_log_num_components = " << options._pv_log_num_components << std::endl;
   stream << "# radius = " << options._radius << std::endl;
   stream << "# rep_categorical_representation = " << options._rep_categorical_representation << std::endl;
+  stream << "# rep_num_additional_bits = " << options._rep_num_additional_bits << std::endl;
   stream << "# results_path = " << options._results_path << std::endl;
   stream << "# rls_patience = " << options._rls_patience << std::endl;
   stream << "# sa_beta_ratio = " << options._sa_beta_ratio << std::endl;

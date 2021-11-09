@@ -212,6 +212,10 @@ class HncoOptions {
   int _rep_categorical_representation;
   bool _opt_rep_categorical_representation;
 
+  /// Number of additional bits per element for permutation representation
+  int _rep_num_additional_bits;
+  bool _opt_rep_num_additional_bits;
+
   /// Path of the results file
   std::string _results_path;
   bool _opt_results_path;
@@ -1024,6 +1028,18 @@ public:
 
   /// Get set-flag for rep_categorical_representation
   bool set_rep_categorical_representation() const { return _opt_rep_categorical_representation; }
+
+  /// Get rep_num_additional_bits
+  int get_rep_num_additional_bits() const { return _rep_num_additional_bits; }
+
+  /// Set rep_num_additional_bits
+  void set_rep_num_additional_bits(int x) {
+    _rep_num_additional_bits = x;
+    _opt_rep_num_additional_bits = true;
+  }
+
+  /// Get set-flag for rep_num_additional_bits
+  bool set_rep_num_additional_bits() const { return _opt_rep_num_additional_bits; }
 
   /// Get results_path
   std::string get_results_path() const { return _results_path; }

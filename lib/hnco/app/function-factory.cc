@@ -288,7 +288,7 @@ CommandLineFunctionFactory::make()
     int num_elements = instance->get_num_elements();
     return new PermutationFunctionAdapter<Tsp>
       (instance,
-       PermutationRepresentation(num_elements, 2));
+       PermutationRepresentation(num_elements, _options.get_rep_num_additional_bits()));
   }
 
 #ifdef ENABLE_PLUGIN

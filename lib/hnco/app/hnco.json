@@ -760,6 +760,14 @@
 
         },
 
+        "rep_num_additional_bits":
+        {
+            "type": "int",
+            "value": 2,
+            "description": "Number of additional bits per element for permutation representation",
+            "section": "rep"
+        },
+
         "budget":
         {
             "optchar": "b",
