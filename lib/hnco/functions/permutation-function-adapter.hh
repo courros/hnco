@@ -26,7 +26,7 @@
 #include "hnco/exception.hh"
 
 #include "function.hh"
-#include "representations/permutation-representation.hh"
+#include "representations/permutation.hh"
 
 
 namespace hnco {

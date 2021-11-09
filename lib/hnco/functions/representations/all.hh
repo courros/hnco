@@ -21,7 +21,10 @@
 #ifndef HNCO_FUNCTIONS_REPRESENTATIONS_ALL_H
 #define HNCO_FUNCTIONS_REPRESENTATIONS_ALL_H
 
-#include "permutation-representation.hh"
-#include "representation.hh"
+#include "categorical.hh"
+#include "complex.hh"
+#include "integer.hh"
+#include "permutation.hh"
+#include "real.hh"
 
 #endif

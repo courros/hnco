@@ -29,8 +29,7 @@
 #include "hnco/permutation.hh"
 
 #include "function.hh"
-#include "representations/permutation-representation.hh"
-#include "representations/representation.hh"
+#include "representations/all.hh"
 #include "universal-function.hh"
 
 

@@ -212,8 +212,11 @@ libhnco_la_SOURCES = \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/representations/all.hh \
-	hnco/functions/representations/permutation-representation.hh \
-	hnco/functions/representations/representation.hh \
+	hnco/functions/representations/categorical.hh \
+	hnco/functions/representations/complex.hh \
+	hnco/functions/representations/integer.hh \
+	hnco/functions/representations/permutation.hh \
+	hnco/functions/representations/real.hh \
 	hnco/functions/universal-function-adapter.hh \
 	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh \
@@ -364,8 +367,11 @@ nobase_include_HEADERS = \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/representations/all.hh \
-	hnco/functions/representations/permutation-representation.hh \
-	hnco/functions/representations/representation.hh \
+	hnco/functions/representations/permutation.hh \
+	hnco/functions/representations/integer.hh \
+	hnco/functions/representations/real.hh \
+	hnco/functions/representations/complex.hh \
+	hnco/functions/representations/categorical.hh \
 	hnco/functions/universal-function-adapter.hh \
 	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh \
