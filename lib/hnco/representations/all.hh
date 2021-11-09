@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_REPRESENTATIONS_ALL_H
-#define HNCO_FUNCTIONS_REPRESENTATIONS_ALL_H
+#ifndef HNCO_REPRESENTATIONS_ALL_H
+#define HNCO_REPRESENTATIONS_ALL_H
 
 #include "categorical.hh"
 #include "complex.hh"
