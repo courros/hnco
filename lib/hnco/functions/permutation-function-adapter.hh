@@ -24,9 +24,9 @@
 #include <assert.h>
 
 #include "hnco/exception.hh"
+#include "hnco/representations/permutation.hh"
 
 #include "function.hh"
-#include "representations/permutation.hh"
 
 
 namespace hnco {

@@ -27,9 +27,9 @@
 
 #include "hnco/exception.hh"
 #include "hnco/permutation.hh"
+#include "hnco/representations/all.hh"
 
 #include "function.hh"
-#include "representations/all.hh"
 #include "universal-function.hh"
 
 

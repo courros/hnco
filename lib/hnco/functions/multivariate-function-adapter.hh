@@ -25,8 +25,9 @@
 
 #include <type_traits>          // std::is_same
 
+#include "hnco/representations/all.hh"
+
 #include "function.hh"
-#include "representations/all.hh"
 
 
 namespace hnco {

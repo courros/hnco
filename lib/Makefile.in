@@ -313,12 +313,6 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
-	hnco/functions/representations/all.hh \
-	hnco/functions/representations/categorical.hh \
-	hnco/functions/representations/complex.hh \
-	hnco/functions/representations/integer.hh \
-	hnco/functions/representations/permutation.hh \
-	hnco/functions/representations/real.hh \
 	hnco/functions/universal-function-adapter.hh \
 	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
@@ -330,8 +324,14 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/neighborhoods/neighborhood.cc \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.cc \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
-	hnco/serialization.hh hnco/sparse-bit-vector.cc \
-	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
+	hnco/representations/all.hh \
+	hnco/representations/categorical.hh \
+	hnco/representations/complex.hh \
+	hnco/representations/integer.hh \
+	hnco/representations/permutation.hh \
+	hnco/representations/real.hh hnco/serialization.hh \
+	hnco/sparse-bit-vector.cc hnco/sparse-bit-vector.hh \
+	hnco/stop-watch.hh hnco/util.hh \
 	hnco/functions/collection/factorization.cc \
 	hnco/functions/collection/factorization.hh \
 	hnco/functions/collection/plugin.cc \
@@ -646,12 +646,6 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
-	hnco/functions/representations/all.hh \
-	hnco/functions/representations/permutation.hh \
-	hnco/functions/representations/integer.hh \
-	hnco/functions/representations/real.hh \
-	hnco/functions/representations/complex.hh \
-	hnco/functions/representations/categorical.hh \
 	hnco/functions/universal-function-adapter.hh \
 	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
@@ -659,8 +653,13 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/maps/map.hh hnco/maps/transvection.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
-	hnco/random.hh hnco/serialization.hh hnco/sparse-bit-vector.hh \
-	hnco/stop-watch.hh hnco/util.hh \
+	hnco/random.hh hnco/representations/all.hh \
+	hnco/representations/categorical.hh \
+	hnco/representations/complex.hh \
+	hnco/representations/integer.hh \
+	hnco/representations/permutation.hh \
+	hnco/representations/real.hh hnco/serialization.hh \
+	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
 	hnco/functions/collection/factorization.hh \
 	hnco/functions/collection/plugin.hh
 HEADERS = $(nobase_include_HEADERS)
@@ -970,12 +969,6 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
-	hnco/functions/representations/all.hh \
-	hnco/functions/representations/categorical.hh \
-	hnco/functions/representations/complex.hh \
-	hnco/functions/representations/integer.hh \
-	hnco/functions/representations/permutation.hh \
-	hnco/functions/representations/real.hh \
 	hnco/functions/universal-function-adapter.hh \
 	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
@@ -987,9 +980,15 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/neighborhoods/neighborhood.cc \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.cc \
 	hnco/permutation.hh hnco/random.cc hnco/random.hh \
-	hnco/serialization.hh hnco/sparse-bit-vector.cc \
-	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
-	$(am__append_1) $(am__append_2)
+	hnco/representations/all.hh \
+	hnco/representations/categorical.hh \
+	hnco/representations/complex.hh \
+	hnco/representations/integer.hh \
+	hnco/representations/permutation.hh \
+	hnco/representations/real.hh hnco/serialization.hh \
+	hnco/sparse-bit-vector.cc hnco/sparse-bit-vector.hh \
+	hnco/stop-watch.hh hnco/util.hh $(am__append_1) \
+	$(am__append_2)
 nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	fast-efficient-p3/Evaluation.h fast-efficient-p3/HBOA.h \
 	fast-efficient-p3/HillClimb.h fast-efficient-p3/LTGA.h \
@@ -1074,12 +1073,6 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
-	hnco/functions/representations/all.hh \
-	hnco/functions/representations/permutation.hh \
-	hnco/functions/representations/integer.hh \
-	hnco/functions/representations/real.hh \
-	hnco/functions/representations/complex.hh \
-	hnco/functions/representations/categorical.hh \
 	hnco/functions/universal-function-adapter.hh \
 	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
@@ -1087,9 +1080,14 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/maps/map.hh hnco/maps/transvection.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
-	hnco/random.hh hnco/serialization.hh hnco/sparse-bit-vector.hh \
-	hnco/stop-watch.hh hnco/util.hh $(am__append_3) \
-	$(am__append_4)
+	hnco/random.hh hnco/representations/all.hh \
+	hnco/representations/categorical.hh \
+	hnco/representations/complex.hh \
+	hnco/representations/integer.hh \
+	hnco/representations/permutation.hh \
+	hnco/representations/real.hh hnco/serialization.hh \
+	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
+	$(am__append_3) $(am__append_4)
 BUILT_SOURCES = \
 	hnco/app/hnco-options.cc \
 	hnco/app/hnco-options.hh

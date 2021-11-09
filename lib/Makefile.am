@@ -211,12 +211,6 @@ libhnco_la_SOURCES = \
 	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
-	hnco/functions/representations/all.hh \
-	hnco/functions/representations/categorical.hh \
-	hnco/functions/representations/complex.hh \
-	hnco/functions/representations/integer.hh \
-	hnco/functions/representations/permutation.hh \
-	hnco/functions/representations/real.hh \
 	hnco/functions/universal-function-adapter.hh \
 	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh \
@@ -237,6 +231,12 @@ libhnco_la_SOURCES = \
 	hnco/permutation.hh \
 	hnco/random.cc \
 	hnco/random.hh \
+	hnco/representations/all.hh \
+	hnco/representations/categorical.hh \
+	hnco/representations/complex.hh \
+	hnco/representations/integer.hh \
+	hnco/representations/permutation.hh \
+	hnco/representations/real.hh \
 	hnco/serialization.hh \
 	hnco/sparse-bit-vector.cc \
 	hnco/sparse-bit-vector.hh \
@@ -366,12 +366,6 @@ nobase_include_HEADERS = \
 	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
-	hnco/functions/representations/all.hh \
-	hnco/functions/representations/permutation.hh \
-	hnco/functions/representations/integer.hh \
-	hnco/functions/representations/real.hh \
-	hnco/functions/representations/complex.hh \
-	hnco/functions/representations/categorical.hh \
 	hnco/functions/universal-function-adapter.hh \
 	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh \
@@ -384,6 +378,12 @@ nobase_include_HEADERS = \
 	hnco/neighborhoods/neighborhood.hh \
 	hnco/permutation.hh \
 	hnco/random.hh \
+	hnco/representations/all.hh \
+	hnco/representations/categorical.hh \
+	hnco/representations/complex.hh \
+	hnco/representations/integer.hh \
+	hnco/representations/permutation.hh \
+	hnco/representations/real.hh \
 	hnco/serialization.hh \
 	hnco/sparse-bit-vector.hh \
 	hnco/stop-watch.hh \

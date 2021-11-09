@@ -29,7 +29,6 @@
 #include "modifiers/all.hh"
 #include "multivariate-function-adapter.hh"
 #include "permutation-function-adapter.hh"
-#include "representations/all.hh"
 #include "universal-function-adapter.hh"
 #include "universal-function.hh"
 #include "walsh-term.hh"
