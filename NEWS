@@ -6,9 +6,19 @@ Library:
 - Added Tsp
 - Added UniversalFunctionAdapter
 - Added UniversalFunction
+- Changed namespace hnco::function::representation -> hnco::representation
+- Renamed directory hnco/functions/representations/ -> hnco/representations/
+- Moved non representation files under hnco/functions/
+- Added perm_display
+- DyadicRealRepresentation, DyadicComplexRepresentation,
+  DyadicIntegerRepresentation: remove default constructor
+
+Python:
+- Changed: representation is a submodule of hnco
 
 Examples:
 - Added cli-universal-function.cc
+- Added universal-function-adapter.py
 
 
 * Version 0.18 (2021-10-07)
