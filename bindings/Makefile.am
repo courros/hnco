@@ -20,5 +20,6 @@ EXTRA_DIST = \
 	examples/bindings.py \
 	examples/progress-tracker.py \
 	examples/runtime.py \
+	examples/universal-function.py \
 	hnco.cc \
 	setup.py
