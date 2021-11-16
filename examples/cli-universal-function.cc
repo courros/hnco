@@ -64,7 +64,7 @@ class MyFunctionFactory: public FunctionFactory {
 public:
   Function *make() {
     using namespace hnco::representation;
-    using RealRep = DyadicRealRepresentation<double>;
+    using FloatRep = DyadicFloatRepresentation<double>;
     using IntegerRep = DyadicIntegerRepresentation<int>;
     using ComplexRep = DyadicComplexRepresentation<double>;
     using CategoricalRep = LinearCategoricalRepresentation;
@@ -75,10 +75,10 @@ public:
     integer_reps.push_back(IntegerRep(0, 255));
     integer_reps.push_back(IntegerRep(0, 255));
 
-    RealRep real_rep(-2, 2, 8);
+    FloatRep real_rep(-2, 2, 8);
 
     // Real variables
-    std::vector<RealRep> real_reps;
+    std::vector<FloatRep> real_reps;
     real_reps.push_back(real_rep);
     real_reps.push_back(real_rep);
 

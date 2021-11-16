@@ -645,7 +645,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
     using namespace representation;
 
     using IntegerRep = DyadicIntegerRepresentation<int>;
-    using RealRep = DyadicRealRepresentation<double>;
+    using FloatRep = DyadicFloatRepresentation<double>;
     using ComplexRep = DyadicComplexRepresentation<double>;
 
     py::class_<IntegerRep>(module_representation, "DyadicIntegerRepresentation")
@@ -661,13 +661,13 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    py::class_<RealRep>(module_representation, "DyadicRealRepresentation")
+    py::class_<FloatRep>(module_representation, "DyadicFloatRepresentation")
       .def(py::init<double, double, int>())
       .def(py::init<double, double, double>())
-      .def("size", &RealRep::size)
-      .def("unpack", &RealRep::unpack)
+      .def("size", &FloatRep::size)
+      .def("unpack", &FloatRep::unpack)
       .def("__str__",
-           [](const RealRep& rep) {
+           [](const FloatRep& rep) {
              std::ostringstream stream;
              rep.display(stream);
              return stream.str();
@@ -675,8 +675,8 @@ PYBIND11_MODULE(hnco, module_hnco) {
       ;
 
     py::class_<ComplexRep>(module_representation, "DyadicComplexRepresentation")
-      .def(py::init<RealRep, RealRep>())
-      .def(py::init<RealRep>())
+      .def(py::init<FloatRep, FloatRep>())
+      .def(py::init<FloatRep>())
       .def("size", &ComplexRep::size)
       .def("unpack", &ComplexRep::unpack)
       .def("__str__",
@@ -716,7 +716,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
            UniversalFunction *,
            int,
            std::vector<IntegerRep>,
-           std::vector<RealRep>,
+           std::vector<FloatRep>,
            std::vector<ComplexRep>,
            std::vector<LinearCategoricalRepresentation>,
            std::vector<PermutationRepresentation>>())

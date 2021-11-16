@@ -10,7 +10,8 @@ Library:
 - Renamed directory hnco/functions/representations/ -> hnco/representations/
 - Moved non representation files under hnco/functions/
 - Added perm_display
-- DyadicRealRepresentation, DyadicComplexRepresentation,
+- Renamed DyadicRealRepresentation -> DyadicFloatRepresentation
+- DyadicFloatRepresentation, DyadicComplexRepresentation,
   DyadicIntegerRepresentation: remove default constructor
 
 Python:

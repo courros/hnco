@@ -34,7 +34,7 @@
 #include "hnco/bit-matrix.hh"
 #include "hnco/iterator.hh"
 
-#include "real.hh"              // hnco::representation::DyadicRealRepresentation
+#include "real.hh"              // hnco::representation::DyadicFloatRepresentation
 
 
 namespace hnco {
@@ -46,10 +46,10 @@ template<class T>
 class DyadicComplexRepresentation {
 
   /// Representation of the real part
-  DyadicRealRepresentation<T> _real_part;
+  DyadicFloatRepresentation<T> _real_part;
 
   /// Representation of the imaginary part
-  DyadicRealRepresentation<T> _imaginary_part;
+  DyadicFloatRepresentation<T> _imaginary_part;
 
 public:
 
@@ -61,7 +61,7 @@ public:
       \param real_part Representation of real part
       \param imaginary_part Representation of imaginary part
   */
-  DyadicComplexRepresentation(DyadicRealRepresentation<T> real_part, DyadicRealRepresentation<T> imaginary_part)
+  DyadicComplexRepresentation(DyadicFloatRepresentation<T> real_part, DyadicFloatRepresentation<T> imaginary_part)
     : _real_part(real_part)
     , _imaginary_part(imaginary_part)
   {}
@@ -70,7 +70,7 @@ public:
 
       \param rep Representation of both real and imaginary parts
   */
-  DyadicComplexRepresentation(DyadicRealRepresentation<T> rep)
+  DyadicComplexRepresentation(DyadicFloatRepresentation<T> rep)
     : DyadicComplexRepresentation(rep, rep)
   {}
 

@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_REPRESENTATIONS_REAL_H
-#define HNCO_REPRESENTATIONS_REAL_H
+#ifndef HNCO_REPRESENTATIONS_FLOAT_H
+#define HNCO_REPRESENTATIONS_FLOAT_H
 
 #include <assert.h>
 
@@ -39,9 +39,9 @@ namespace hnco {
 namespace representation {
 
 
-/// Dyadic real representation
+/// Dyadic float representation
 template<class T>
-class DyadicRealRepresentation {
+class DyadicFloatRepresentation {
 
   /// Lengths of dyadic intervals
   std::vector<T> _lengths;
@@ -57,7 +57,7 @@ class DyadicRealRepresentation {
 
   /** Compute lengths.
 
-      \param num_bits Number of bits per real number
+      \param num_bits Number of bits per float number
   */
   void compute_lengths(int num_bits)
   {
@@ -82,9 +82,9 @@ public:
 
       \param lower_bound Lower bound of the interval
       \param upper_bound Upper bound of the interval
-      \param num_bits Number of bits per real number
+      \param num_bits Number of bits per float number
   */
-  DyadicRealRepresentation(T lower_bound, T upper_bound, int num_bits)
+  DyadicFloatRepresentation(T lower_bound, T upper_bound, int num_bits)
     : _lower_bound(lower_bound)
     , _length(upper_bound - lower_bound)
   {
@@ -102,7 +102,7 @@ public:
       \param upper_bound Upper bound of the interval
       \param precision Precision
   */
-  DyadicRealRepresentation(T lower_bound, T upper_bound, T precision)
+  DyadicFloatRepresentation(T lower_bound, T upper_bound, T precision)
     : _lower_bound(lower_bound)
     , _length(upper_bound - lower_bound)
   {
@@ -135,7 +135,7 @@ public:
 
   /// Display
   void display(std::ostream& stream) const {
-    stream << "DyadicRealRepresentation " << "[" << _lower_bound << ", " << (_lower_bound + _length) << "] (" << size() << " bits)";
+    stream << "DyadicFloatRepresentation " << "[" << _lower_bound << ", " << (_lower_bound + _length) << "] (" << size() << " bits)";
   }
 
 };
