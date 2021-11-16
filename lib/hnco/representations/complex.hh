@@ -34,7 +34,7 @@
 #include "hnco/bit-matrix.hh"
 #include "hnco/iterator.hh"
 
-#include "real.hh"              // hnco::representation::DyadicFloatRepresentation
+#include "float.hh"             // hnco::representation::DyadicFloatRepresentation
 
 
 namespace hnco {

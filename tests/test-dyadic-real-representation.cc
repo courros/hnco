@@ -21,7 +21,7 @@
 #include <cmath>                // std::abs
 
 #include "hnco/bit-vector.hh"
-#include "hnco/representations/real.hh"
+#include "hnco/representations/float.hh"
 
 using namespace hnco::random;
 using namespace hnco::representation;

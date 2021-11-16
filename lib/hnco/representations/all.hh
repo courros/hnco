@@ -23,8 +23,8 @@
 
 #include "categorical.hh"
 #include "complex.hh"
+#include "float.hh"
 #include "integer.hh"
 #include "permutation.hh"
-#include "real.hh"
 
 #endif
