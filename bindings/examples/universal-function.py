@@ -14,11 +14,11 @@ class MyFunction(fn.UniversalFunction):
     def __init__(self):
         super().__init__()
 
-    def evaluate(self, boolean_vars, integer_vars, real_vars, complex_vars, categorical_vars, permutation_vars):
+    def evaluate(self, boolean_vars, integer_vars, float_vars, complex_vars, categorical_vars, permutation_vars):
         result = 0
         result += boolean_vars[0] + boolean_vars[1]
         result -= abs((integer_vars[0])**2 + (integer_vars[1])**2 - 2500)
-        result -= (real_vars[0] - 0.5)**2 + (real_vars[1] - 0.5)**2
+        result -= (float_vars[0] - 0.5)**2 + (float_vars[1] - 0.5)**2
         result -= abs((complex_vars[0])**2 + complex_vars[0] + 1)
         result -= abs((complex_vars[1])**2 + 1)
         if categorical_vars[0] == 3:
@@ -49,13 +49,13 @@ integer_reps.append(rep.DyadicIntegerRepresentation(0, 255))
 
 real_rep = rep.DyadicFloatRepresentation(-2, 2, 8)
 
-real_reps = []
-real_reps.append(real_rep)
-real_reps.append(real_rep)
+float_reps = []
+float_reps.append(float_rep)
+float_reps.append(float_rep)
 
 complex_reps = []
-complex_reps.append(rep.DyadicComplexRepresentation(real_rep, real_rep))
-complex_reps.append(rep.DyadicComplexRepresentation(real_rep, real_rep))
+complex_reps.append(rep.DyadicComplexRepresentation(float_rep, float_rep))
+complex_reps.append(rep.DyadicComplexRepresentation(float_rep, float_rep))
 
 categorical_reps = []
 categorical_reps.append(rep.LinearCategoricalRepresentation(4))
@@ -65,7 +65,7 @@ permutation_reps = []
 permutation_reps.append(rep.PermutationRepresentation(3, 2))
 permutation_reps.append(rep.PermutationRepresentation(5, 2))
 
-f1 = fn.UniversalFunctionAdapter(f0, 2, integer_reps, real_reps, complex_reps, categorical_reps, permutation_reps)
+f1 = fn.UniversalFunctionAdapter(f0, 2, integer_reps, float_reps, complex_reps, categorical_reps, permutation_reps)
 print(f1)
 
 f2 = ctrl.OnBudgetFunction(f1, 1000000)

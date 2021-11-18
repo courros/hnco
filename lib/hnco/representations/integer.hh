@@ -108,7 +108,7 @@ public:
 
       The represented interval is [lower_bound..upper_bound].
 
-      \param num_bits Number of bits per real
+      \param num_bits Number of bits per integer
       \param lower_bound Lower bound of the interval
       \param upper_bound Upper bound of the interval
   */

@@ -37,7 +37,7 @@ class MyFonction: public UniversalFunction {
 public:
   double evaluate(const bit_vector_t& boolean_vars,
                   const std::vector<int>& integer_vars,
-                  const std::vector<double>& real_vars,
+                  const std::vector<double>& float_vars,
                   const std::vector<std::complex<double>>& complex_vars,
                   const std::vector<int>& categorical_vars,
                   const std::vector<permutation_t> permutation_vars) override
@@ -45,7 +45,7 @@ public:
     double result = 0;
     result += bv_hamming_weight(boolean_vars);
     result -= std::abs(square(integer_vars[0]) + square(integer_vars[1]) - 2500);
-    result -= square(real_vars[0] - 0.5) + square(real_vars[1] - 0.5);
+    result -= square(float_vars[0] - 0.5) + square(float_vars[1] - 0.5);
     result -= std::abs(square(complex_vars[0]) + complex_vars[0] + 1.0);
     result -= std::abs(square(complex_vars[1]) + 1.0);
     result += categorical_vars[0] == 3 ? 1 : 0;
@@ -75,17 +75,17 @@ public:
     integer_reps.push_back(IntegerRep(0, 255));
     integer_reps.push_back(IntegerRep(0, 255));
 
-    FloatRep real_rep(-2, 2, 8);
+    FloatRep float_rep(-2, 2, 8);
 
     // Real variables
-    std::vector<FloatRep> real_reps;
-    real_reps.push_back(real_rep);
-    real_reps.push_back(real_rep);
+    std::vector<FloatRep> float_reps;
+    float_reps.push_back(float_rep);
+    float_reps.push_back(float_rep);
 
     // Complex variables
     std::vector<ComplexRep> complex_reps;
-    complex_reps.push_back(ComplexRep(real_rep, real_rep));
-    complex_reps.push_back(ComplexRep(real_rep, real_rep));
+    complex_reps.push_back(ComplexRep(float_rep, float_rep));
+    complex_reps.push_back(ComplexRep(float_rep, float_rep));
 
     // Categorical variables
     std::vector<CategoricalRep> categorical_reps;
@@ -97,7 +97,7 @@ public:
     permutation_reps.push_back(PermutationRep(3, 2));
     permutation_reps.push_back(PermutationRep(5, 2));
 
-    return new UniversalFunctionAdapter(new MyFonction, 2, integer_reps, real_reps, complex_reps, categorical_reps, permutation_reps);
+    return new UniversalFunctionAdapter(new MyFonction, 2, integer_reps, float_reps, complex_reps, categorical_reps, permutation_reps);
   }
 };
 

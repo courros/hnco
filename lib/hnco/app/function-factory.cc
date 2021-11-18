@@ -243,18 +243,18 @@ CommandLineFunctionFactory::make()
     using Conv = ComplexToDouble<double>;
     auto instance = new Fn(_options.get_fp_expression());
     if (_options.set_fp_num_bits()) {
-      FloatRep real_rep(_options.get_fp_lower_bound(),
+      FloatRep float_rep(_options.get_fp_lower_bound(),
                        _options.get_fp_upper_bound(),
                        _options.get_fp_num_bits());
       auto reps = std::vector<Rep>(instance->get_num_variables(),
-                                   Rep(real_rep, real_rep));
+                                   Rep(float_rep, float_rep));
       return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
     } else {
-      FloatRep real_rep(_options.get_fp_lower_bound(),
+      FloatRep float_rep(_options.get_fp_lower_bound(),
                        _options.get_fp_upper_bound(),
                        _options.get_fp_precision());
       auto reps = std::vector<Rep>(instance->get_num_variables(),
-                                   Rep(real_rep, real_rep));
+                                   Rep(float_rep, float_rep));
       return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
     }
   }

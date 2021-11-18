@@ -33,7 +33,7 @@ namespace function {
 /** Universal function.
 
     A universal function is a function taking parameters of all types
-    (boolean, integer, real, complex, categorical, permutation) and
+    (boolean, integer, float, complex, categorical, permutation) and
     returning a double.
 
 */
@@ -46,7 +46,7 @@ public:
   /// Evaluate the function
   virtual double evaluate(const bit_vector_t& boolean_vars,
                           const std::vector<int>& integer_vars,
-                          const std::vector<double>& real_vars,
+                          const std::vector<double>& float_vars,
                           const std::vector<std::complex<double>>& complex_vars,
                           const std::vector<int>& categorical_vars,
                           const std::vector<permutation_t> permutation_vars) = 0;
@@ -57,7 +57,7 @@ public:
   /// Describe variables in the context of the function
   virtual void describe(const bit_vector_t& boolean_vars,
                         const std::vector<int>& integer_vars,
-                        const std::vector<double>& real_vars,
+                        const std::vector<double>& float_vars,
                         const std::vector<std::complex<double>>& complex_vars,
                         const std::vector<int>& categorical_vars,
                         const std::vector<permutation_t> permutation_vars,

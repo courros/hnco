@@ -115,12 +115,12 @@ public:
   using function::UniversalFunction::UniversalFunction;
   double evaluate(const bit_vector_t& boolean_vars,
                   const std::vector<int>& integer_vars,
-                  const std::vector<double>& real_vars,
+                  const std::vector<double>& float_vars,
                   const std::vector<std::complex<double>>& complex_vars,
                   const std::vector<int>& categorical_vars,
                   const std::vector<permutation_t> permutation_vars)
                                                 override { PYBIND11_OVERLOAD_PURE(double, function::UniversalFunction, evaluate,
-                                                                                  boolean_vars, integer_vars, real_vars, complex_vars, categorical_vars, permutation_vars); }
+                                                                                  boolean_vars, integer_vars, float_vars, complex_vars, categorical_vars, permutation_vars); }
 };
 
 //
