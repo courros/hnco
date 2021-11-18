@@ -44,8 +44,8 @@ check_PROGRAMS = \
 	test-complete-search-six-peaks \
 	test-complete-search-trap \
 	test-complete-search-walsh-expansion-1 \
+	test-dyadic-float-representation \
 	test-dyadic-integer-representation \
-	test-dyadic-real-representation \
 	test-first-ascent-hill-climbing \
 	test-first-ascent-hill-climbing-local \
 	test-hamming-sphere \
@@ -133,8 +133,8 @@ test_complete_search_ridge_SOURCES = test-complete-search-ridge.cc
 test_complete_search_six_peaks_SOURCES = test-complete-search-six-peaks.cc
 test_complete_search_trap_SOURCES = test-complete-search-trap.cc
 test_complete_search_walsh_expansion_1_SOURCES = test-complete-search-walsh-expansion-1.cc
+test_dyadic_float_representation_SOURCES = test-dyadic-float-representation.cc
 test_dyadic_integer_representation_SOURCES = test-dyadic-integer-representation.cc
-test_dyadic_real_representation_SOURCES = test-dyadic-real-representation.cc
 test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-local.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
