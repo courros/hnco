@@ -31,34 +31,111 @@ namespace hnco {
 namespace algorithm {
 namespace hea {
 
+/** Lower triangular Walsh moment.
+
+ */
 struct LowerTriangularWalshMoment2
 {
+  /// First moment
   std::vector<double> first_moment;
+
+  /// Second moment
   std::vector<std::vector<double>> second_moment;
 
+  /** Constructor.
+
+      \param n Size of bit vector
+  */
   LowerTriangularWalshMoment2(int n);
 
+  /** Display Walsh moment.
+
+      A LowerTriangularWalshMoment2 is displayed as a full symmetric
+      matix with diagonal entries equal to first moments and
+      off-diagonal entries equal to second moments.
+  */
   void display(std::ostream& stream);
+
+  /// Initialize Walsh moment
   void init();
+
+  /// Add a bit vector to a Walsh moment
   void add(const bit_vector_t& bv);
+
+  /// Average each Walsh moment
   void average(int count);
+
+  /** Update a Walsh moment.
+
+      This member function implements:
+
+      self += rate * (wm1 - self)
+
+      \param wm Target Walsh moment
+      \param rate Learning rate
+
+      \post For all i, is_in_interval(first_moment[i], -1, 1)
+      \post For all j < i, is_in_interval(second_moment[i][j], -1, 1)
+  */
   void update(const LowerTriangularWalshMoment2& wm, double rate);
+
+  /** Update a Walsh moment.
+
+      This member function implements:
+
+      self += rate * (wm1 - wm2)
+
+      The resulting entries are not necessarily those of a Walsh moment, that is
+
+      is_in_interval(first_moment[i], -1, 1) or
+
+      is_in_interval(second_moment[i][j], -1, 1)
+
+      might fail for some i, j.
+
+      \param wm1 Target Walsh moment
+      \param wm2 Walsh moment to move away from
+      \param rate Learning rate
+  */
   void update(const LowerTriangularWalshMoment2& wm1, const LowerTriangularWalshMoment2& wm2, double rate);
-  void bound(double margin);
 
   /** Compute a scaled difference between two moments.
 
-      In pseudo-code, it computes lambda * wm1 - wm2.
+      This member function implements:
+
+      self = lambda * wm1 - wm2
+
+      It is mostly useful in herding (Hea).
+
+      \param lambda Scale
+      \param wm1 First Walsh moment
+      \param wm2 Second Walsh moment
   */
   void scaled_difference(double lambda,
                          const LowerTriangularWalshMoment2& wm1,
                          const LowerTriangularWalshMoment2& wm2);
 
-  double distance(const LowerTriangularWalshMoment2& wm) const;
+  /** Bound Walsh moment.
+
+      Ensure that the distance from each Walsh moment to the -1/1
+      bounds is greater or equal to the given margin.
+
+      \param margin Distance from the -1/1 bounds
+  */
+  void bound(double margin);
+
+  /// 1-norm of the Walsh moment
   double norm_1() const;
+
+  /// 2-norm of the Walsh moment
   double norm_2() const;
+
+  /// infinite-norm of the Walsh moment
   double norm_infinite() const;
-  void uniform() { init(); }
+
+  /// distance of the Walsh moment to another Walsh moment
+  double distance(const LowerTriangularWalshMoment2& wm) const;
+
 };
 
 }

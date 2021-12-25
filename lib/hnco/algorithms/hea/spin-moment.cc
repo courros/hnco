@@ -139,27 +139,6 @@ LowerTriangularWalshMoment2::update(const LowerTriangularWalshMoment2& wm1,
 }
 
 void
-LowerTriangularWalshMoment2::bound(double margin)
-{
-  assert(is_in_interval(margin, 0, 1));
-
-  const double high = 1 - margin;
-  const double low = margin - 1;
-  assert(low < high);
-
-  for (size_t i = 0; i < first_moment.size(); i++) {
-    first_moment[i] = clip_value(first_moment[i], low, high);
-    assert(is_in_interval(first_moment[i], -1, 1));
-
-    std::vector<double>& row = second_moment[i];
-    for (size_t j = 0; j < i; j++) {
-      row[j] = clip_value(row[j], low, high);
-      assert(is_in_interval(row[j], -1, 1));
-    }
-  }
-}
-
-void
 LowerTriangularWalshMoment2::scaled_difference(double lambda,
                                               const LowerTriangularWalshMoment2& wm1,
                                               const LowerTriangularWalshMoment2& wm2)
@@ -178,20 +157,25 @@ LowerTriangularWalshMoment2::scaled_difference(double lambda,
   }
 }
 
-double
-LowerTriangularWalshMoment2::distance(const LowerTriangularWalshMoment2& wm) const
+void
+LowerTriangularWalshMoment2::bound(double margin)
 {
-  assert(have_same_size(wm.first_moment, first_moment));
+  assert(is_in_interval(margin, 0, 1));
 
-  double result = 0;
+  const double high = 1 - margin;
+  const double low = margin - 1;
+  assert(low < high);
+
   for (size_t i = 0; i < first_moment.size(); i++) {
-    result += square(first_moment[i] - wm.first_moment[i]);
-    const std::vector<double>& row = second_moment[i];
-    const std::vector<double>& row2 = wm.second_moment[i];
-    for (size_t j = 0; j < i; j++)
-      result += square(row[j] - row2[j]);
+    first_moment[i] = clip_value(first_moment[i], low, high);
+    assert(is_in_interval(first_moment[i], -1, 1));
+
+    std::vector<double>& row = second_moment[i];
+    for (size_t j = 0; j < i; j++) {
+      row[j] = clip_value(row[j], low, high);
+      assert(is_in_interval(row[j], -1, 1));
+    }
   }
-  return std::sqrt(result);
 }
 
 double
@@ -231,4 +215,20 @@ LowerTriangularWalshMoment2::norm_infinite() const
       result = std::max(result, row[j]);
   }
   return result;
+}
+
+double
+LowerTriangularWalshMoment2::distance(const LowerTriangularWalshMoment2& wm) const
+{
+  assert(have_same_size(wm.first_moment, first_moment));
+
+  double result = 0;
+  for (size_t i = 0; i < first_moment.size(); i++) {
+    result += square(first_moment[i] - wm.first_moment[i]);
+    const std::vector<double>& row = second_moment[i];
+    const std::vector<double>& row2 = wm.second_moment[i];
+    for (size_t j = 0; j < i; j++)
+      result += square(row[j] - row2[j]);
+  }
+  return std::sqrt(result);
 }
