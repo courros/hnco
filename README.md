@@ -22,7 +22,7 @@ vectors. It aims at being flexible, fast, simple, and robust.
 Library features:
 
 - 29 concrete functions
-- 25 concrete algorithms
+- 24 concrete algorithms
 - 78 unit tests
 - Maps from bit vectors to bit vectors
 - Function decorators to control evaluation (budget...)
@@ -94,8 +94,7 @@ Here is the list of currently available algorithms:
 - Univariate marginal distribution algorithm
 - Compact genetic algorithm
 - Max-min ant system (strict and non strict)
-- Herding evolutionary algorithm, herding with binary variables
-- Herding evolutionary algorithm, herding with spin variables
+- Herding evolutionary algorithm
 - Boltzmann machine PBIL
 - Mutual information maximizing input clustering
 - Hierarchical Bayesian Optimization Algorithm

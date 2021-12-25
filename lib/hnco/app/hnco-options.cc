@@ -57,16 +57,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_ga_crossover_probability(false),
   _ga_tournament_size(10),
   _opt_ga_tournament_size(false),
-  _hea_bit_herding(0),
-  _opt_hea_bit_herding(false),
-  _hea_num_seq_updates(100),
-  _opt_hea_num_seq_updates(false),
   _hea_reset_period(0),
   _opt_hea_reset_period(false),
-  _hea_sampling_method(0),
-  _opt_hea_sampling_method(false),
-  _hea_weight(1),
-  _opt_hea_weight(false),
   _learning_rate(0.001),
   _opt_learning_rate(false),
   _map(0),
@@ -148,7 +140,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _hea_log_dtu(false),
   _hea_log_error(false),
   _hea_log_moment_matrix(false),
-  _hea_log_selection(false),
   _hea_randomize_bit_order(false),
   _incremental_evaluation(false),
   _load_solution(false),
@@ -215,11 +206,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_GA_CROSSOVER_BIAS,
     OPTION_GA_CROSSOVER_PROBABILITY,
     OPTION_GA_TOURNAMENT_SIZE,
-    OPTION_HEA_BIT_HERDING,
-    OPTION_HEA_NUM_SEQ_UPDATES,
     OPTION_HEA_RESET_PERIOD,
-    OPTION_HEA_SAMPLING_METHOD,
-    OPTION_HEA_WEIGHT,
     OPTION_LEARNING_RATE,
     OPTION_MAP,
     OPTION_MAP_INPUT_SIZE,
@@ -270,7 +257,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_HEA_LOG_DTU,
     OPTION_HEA_LOG_ERROR,
     OPTION_HEA_LOG_MOMENT_MATRIX,
-    OPTION_HEA_LOG_SELECTION,
     OPTION_HEA_RANDOMIZE_BIT_ORDER,
     OPTION_INCREMENTAL_EVALUATION,
     OPTION_LOAD_SOLUTION,
@@ -325,11 +311,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"ga-crossover-bias", required_argument, 0, OPTION_GA_CROSSOVER_BIAS},
     {"ga-crossover-probability", required_argument, 0, OPTION_GA_CROSSOVER_PROBABILITY},
     {"ga-tournament-size", required_argument, 0, OPTION_GA_TOURNAMENT_SIZE},
-    {"hea-bit-herding", required_argument, 0, OPTION_HEA_BIT_HERDING},
-    {"hea-num-seq-updates", required_argument, 0, OPTION_HEA_NUM_SEQ_UPDATES},
     {"hea-reset-period", required_argument, 0, OPTION_HEA_RESET_PERIOD},
-    {"hea-sampling-method", required_argument, 0, OPTION_HEA_SAMPLING_METHOD},
-    {"hea-weight", required_argument, 0, OPTION_HEA_WEIGHT},
     {"learning-rate", required_argument, 0, OPTION_LEARNING_RATE},
     {"map", required_argument, 0, OPTION_MAP},
     {"map-input-size", required_argument, 0, OPTION_MAP_INPUT_SIZE},
@@ -380,7 +362,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"hea-log-dtu", no_argument, 0, OPTION_HEA_LOG_DTU},
     {"hea-log-error", no_argument, 0, OPTION_HEA_LOG_ERROR},
     {"hea-log-moment-matrix", no_argument, 0, OPTION_HEA_LOG_MOMENT_MATRIX},
-    {"hea-log-selection", no_argument, 0, OPTION_HEA_LOG_SELECTION},
     {"hea-randomize-bit-order", no_argument, 0, OPTION_HEA_RANDOMIZE_BIT_ORDER},
     {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
     {"load-solution", no_argument, 0, OPTION_LOAD_SOLUTION},
@@ -530,24 +511,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       set_ga_tournament_size(atoi(optarg));
       break;
 
-    case OPTION_HEA_BIT_HERDING:
-      set_hea_bit_herding(atoi(optarg));
-      break;
-
-    case OPTION_HEA_NUM_SEQ_UPDATES:
-      set_hea_num_seq_updates(atoi(optarg));
-      break;
-
     case OPTION_HEA_RESET_PERIOD:
       set_hea_reset_period(atoi(optarg));
-      break;
-
-    case OPTION_HEA_SAMPLING_METHOD:
-      set_hea_sampling_method(atoi(optarg));
-      break;
-
-    case OPTION_HEA_WEIGHT:
-      set_hea_weight(atof(optarg));
       break;
 
     case 'l':
@@ -756,10 +721,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
 
     case OPTION_HEA_LOG_MOMENT_MATRIX:
       _hea_log_moment_matrix = true;
-      break;
-
-    case OPTION_HEA_LOG_SELECTION:
-      _hea_log_selection = true;
       break;
 
     case OPTION_HEA_RANDOMIZE_BIT_ORDER:
@@ -1080,8 +1041,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            600: Univariate marginal distribution algorithm (UMDA)" << std::endl;
   stream << "            700: Compact genetic algorithm (cGA)" << std::endl;
   stream << "            800: Max-min ant system (MMAS)" << std::endl;
-  stream << "            900: Herding evolutionary algorithm, herding with bit features (HEA)" << std::endl;
-  stream << "            901: Herding evolutionary algorithm, herding with spin features (HEA)" << std::endl;
+  stream << "            901: Herding evolutionary algorithm (HEA)" << std::endl;
   stream << "            1000: Boltzmann machine PBIL" << std::endl;
   stream << "            1100: Mutual information maximizing input clustering (MIMIC)" << std::endl;
   stream << "            1110: Hierarchical Bayesian optimization algorithm (hBOA)" << std::endl;
@@ -1299,10 +1259,6 @@ void HncoOptions::print_help_hea(std::ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Herding Evolutionary Algorithms" << std::endl;
-  stream << "      --hea-bit-herding (type int, default to 0)" << std::endl;
-  stream << "          Type of bit herding" << std::endl;
-  stream << "            0: Minimize norm" << std::endl;
-  stream << "            1: Maximize inner product" << std::endl;
   stream << "      --hea-bound-moment" << std::endl;
   stream << "          Bound moment after update" << std::endl;
   stream << "      --hea-log-delta" << std::endl;
@@ -1313,21 +1269,10 @@ void HncoOptions::print_help_hea(std::ostream& stream) const
   stream << "          Log error (moment discrepancy)" << std::endl;
   stream << "      --hea-log-moment-matrix" << std::endl;
   stream << "          Log moment matrix" << std::endl;
-  stream << "      --hea-log-selection" << std::endl;
-  stream << "          Log the distance between the target and the selection moment" << std::endl;
-  stream << "      --hea-num-seq-updates (type int, default to 100)" << std::endl;
-  stream << "          Number of sequential updates per sample" << std::endl;
   stream << "      --hea-randomize-bit-order" << std::endl;
   stream << "          Randomize bit order" << std::endl;
   stream << "      --hea-reset-period (type int, default to 0)" << std::endl;
   stream << "          Reset period (<= 0 means no reset)" << std::endl;
-  stream << "      --hea-sampling-method (type int, default to 0)" << std::endl;
-  stream << "          Sampling method for spin features" << std::endl;
-  stream << "            0: Greedy algorithm" << std::endl;
-  stream << "            1: Random local search" << std::endl;
-  stream << "            2: Deterministic local search" << std::endl;
-  stream << "      --hea-weight (type double, default to 1)" << std::endl;
-  stream << "          Weight of second moments" << std::endl;
   stream << std::endl;
 }
 
@@ -1390,11 +1335,7 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# ga_crossover_bias = " << options._ga_crossover_bias << std::endl;
   stream << "# ga_crossover_probability = " << options._ga_crossover_probability << std::endl;
   stream << "# ga_tournament_size = " << options._ga_tournament_size << std::endl;
-  stream << "# hea_bit_herding = " << options._hea_bit_herding << std::endl;
-  stream << "# hea_num_seq_updates = " << options._hea_num_seq_updates << std::endl;
   stream << "# hea_reset_period = " << options._hea_reset_period << std::endl;
-  stream << "# hea_sampling_method = " << options._hea_sampling_method << std::endl;
-  stream << "# hea_weight = " << options._hea_weight << std::endl;
   stream << "# learning_rate = " << options._learning_rate << std::endl;
   stream << "# map = " << options._map << std::endl;
   stream << "# map_input_size = " << options._map_input_size << std::endl;
@@ -1464,8 +1405,6 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# hea_log_error" << std::endl;
   if (options._hea_log_moment_matrix)
     stream << "# hea_log_moment_matrix" << std::endl;
-  if (options._hea_log_selection)
-    stream << "# hea_log_selection" << std::endl;
   if (options._hea_randomize_bit_order)
     stream << "# hea_randomize_bit_order" << std::endl;
   if (options._incremental_evaluation)

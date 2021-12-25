@@ -18,10 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_HEA_MOMENT_SPIN_H
-#define HNCO_ALGORITHMS_HEA_MOMENT_SPIN_H
-
-#include <math.h>		// sqrt
+#ifndef HNCO_ALGORITHMS_HEA_SPIN_MOMENT_H
+#define HNCO_ALGORITHMS_HEA_SPIN_MOMENT_H
 
 #include <vector>
 #include <iostream>
@@ -33,68 +31,32 @@ namespace hnco {
 namespace algorithm {
 namespace hea {
 
+struct LowerTriangularWalshMoment2
+{
+  std::vector<double> first_moment;
+  std::vector<std::vector<double>> second_moment;
 
-  /// Moment for spin variables
-  struct SpinMoment
-  {
+  LowerTriangularWalshMoment2(int n);
 
-    /// First moment
-    std::vector<double> _first;
+  void display(std::ostream& stream);
+  void init();
+  void add(const bit_vector_t& bv);
+  void average(int count);
+  void update(const LowerTriangularWalshMoment2& wm, double rate);
+  void bound(double margin);
 
-    /** Second moment.
+  /** Compute a scaled difference between two moments.
 
-        This is a lower triangular matrix with only zeros on the
-        diagonal. Only entries _second[i][j] with j < i are
-        considered.
-    */
-    std::vector<std::vector<double> > _second;
+      In pseudo-code, it computes lambda * wm1 - wm2.
+  */
+  void scaled_difference(double lambda,
+                         const LowerTriangularWalshMoment2& wm1,
+                         const LowerTriangularWalshMoment2& wm2);
 
-    /// Constructor
-    SpinMoment(int n):
-      _first(n, 0),
-      _second(n, std::vector<double>(n, 0)) {}
-
-    /// Weight of second order moments
-    double _weight = 1;
-
-    /// Set the moment to that of the uniform distribution
-    void uniform() { init(); }
-
-    /// Initialize accumulators
-    void init();
-
-    /// Update accumulators
-    void add(const bit_vector_t& x);
-
-    /// Compute average
-    void average(int count);
-
-    /// Update moment
-    void update(const SpinMoment& p, double rate);
-
-    /// Bound moment
-    void bound(double margin);
-
-    /// Distance
-    double distance(const SpinMoment& p) const;
-
-    /// Compute the norm 2
-    double norm_2() const;
-
-    /// Compute the diameter
-    double diameter() const {
-      int n = _first.size();
-      return 2 * sqrt(n + _weight * (n * (n - 1) / 2));
-    }
-
-    /// Size
-    size_t size() const { return _first.size(); }
-
-    /// Display
-    void display(std::ostream& stream);
-
-  };
-
+  double distance(const LowerTriangularWalshMoment2& wm) const;
+  double norm_2() const;
+  void uniform() { init(); }
+};
 
 }
 }

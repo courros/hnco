@@ -84,10 +84,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/fast-efficient-p3/p3.cc \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
 	hnco/algorithms/hea/all.hh \
-	hnco/algorithms/hea/bit-herding.cc \
-	hnco/algorithms/hea/bit-herding.hh \
-	hnco/algorithms/hea/bit-moment.cc \
-	hnco/algorithms/hea/bit-moment.hh \
 	hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.cc \
 	hnco/algorithms/hea/spin-herding.hh \
@@ -294,8 +290,6 @@ nobase_include_HEADERS = \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
 	hnco/algorithms/hea/all.hh \
-	hnco/algorithms/hea/bit-herding.hh \
-	hnco/algorithms/hea/bit-moment.hh \
 	hnco/algorithms/hea/hea.hh \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.hh \

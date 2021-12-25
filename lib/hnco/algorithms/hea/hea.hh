@@ -21,13 +21,8 @@
 #ifndef HNCO_ALGORITHMS_HEA_HEA_H
 #define HNCO_ALGORITHMS_HEA_HEA_H
 
-#include <math.h>               // std::exp
-
-#include <bitset>
-
-#include "hnco/algorithms/algorithm.hh"
+#include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/algorithms/population.hh"
-#include "hnco/exception.hh"
 #include "hnco/logging/logger.hh"
 
 
@@ -51,32 +46,6 @@ namespace hea {
 template<class Moment, class Herding>
 class Hea: public algorithm::IterativeAlgorithm {
 
-public:
-
-  enum {
-        /// Log error
-        LOG_ERROR,
-
-        /// Log distance to uniform
-        LOG_DTU,
-
-        /// Log delta (moment increment)
-        LOG_DELTA,
-
-        /// Log the distance between the target and the selection moment
-        LOG_SELECTION,
-
-        /// Log the moment matrix
-        LOG_MOMENT_MATRIX,
-
-        LAST_LOG
-  };
-
-  /// Type for log flags
-  typedef std::bitset<LAST_LOG> log_flags_t;
-
-protected:
-
   /// Moment
   Moment _target;
 
@@ -92,10 +61,6 @@ protected:
   /// Herding
   Herding *_herding;
 
-  /** @name Logging
-   */
-  ///@{
-
   /// Error cache
   double _error_cache;
 
@@ -107,11 +72,6 @@ protected:
 
   /// Selection distance cache
   double _selection_cache;
-
-  /// Log flags
-  log_flags_t _log_flags;
-
-  ///@}
 
   /** @name Parameters
    */
@@ -134,6 +94,24 @@ protected:
 
   ///@}
 
+  /** @name Logging
+   */
+  ///@{
+
+  /// Log error
+  bool _log_error = false;
+
+  /// Log distance to uniform
+  bool _log_dtu = false;
+
+  /// Log delta (moment increment)
+  bool _log_delta = false;
+
+  /// Log the moment matrix
+  bool _log_moment = false;
+
+  ///@}
+
   /** @name Loop
    */
   ///@{
@@ -143,6 +121,7 @@ protected:
     random_solution();
     _target.uniform();
     _herding->init();
+    set_something_to_log();
   }
 
   /// Single iteration
@@ -155,22 +134,18 @@ protected:
     for (int i = 0; i < _population.size(); i++)
       _herding->sample(_target, _population.get_bv(i));
 
-    if (_log_flags[LOG_ERROR])
+    if (_log_error)
       _error_cache = _herding->error(_target);
-
-    if (_log_flags[LOG_DTU])
+    if (_log_dtu)
       _dtu_cache = _target.distance(_uniform);
-
-    if (_log_flags[LOG_DELTA])
+    if (_log_delta)
       _delta_cache = _herding->get_delta().norm_2();
 
     if (_functions.size() > 1)
       _population.evaluate_in_parallel(_functions);
     else
       _population.evaluate(_function);
-
     _population.sort();
-
     update_solution(_population.get_best_bv(),
                     _population.get_best_value());
 
@@ -180,38 +155,40 @@ protected:
     if (_selection_size > 1)
       _selection.average(_selection_size);
 
-    if (_log_flags[LOG_SELECTION])
-      _selection_cache = _target.distance(_selection);
-
     _target.update(_selection, _learning_rate);
-
     if (_bound_moment)
       _target.bound(_margin);
   }
 
+  /// Set flag for something to log
+  void set_something_to_log() {
+    _something_to_log =
+      _log_error ||
+      _log_dtu ||
+      _log_delta ||
+      _log_moment;
+  }
+
   /// Log
   void log() override {
-    assert(_log_flags.any());
+    assert(_something_to_log);
 
     logging::Logger l(_log_context);
 
-    if (_log_flags[LOG_MOMENT_MATRIX]) {
+    if (_log_moment) {
       _target.display(logging::Logger::stream());
       return;
     }
 
     // Single line
-    if (_log_flags[LOG_ERROR])
+    if (_log_error)
       l.line() << _error_cache << " ";
 
-    if (_log_flags[LOG_DTU])
+    if (_log_dtu)
       l.line() << _dtu_cache << " ";
 
-    if (_log_flags[LOG_DELTA])
+    if (_log_delta)
       l.line() << _delta_cache << " ";
-
-    if (_log_flags[LOG_SELECTION])
-      l.line() << _selection_cache << " ";
 
   }
 
@@ -271,18 +248,23 @@ public:
   /// Set the bound moment after update
   void set_bound_moment(bool x) { _bound_moment = x; }
 
-  /// Set weight
-  void set_weight(double weight) {
-    _target._weight = weight;
-    _selection._weight = weight;
-    _uniform._weight = weight;
-  }
+  ///@}
 
-  /// Set log flags
-  void set_log_flags(const log_flags_t& lf) {
-    _log_flags = lf;
-    _something_to_log = _log_flags.any();
-  }
+  /** @name Setters for logging
+   */
+  ///@{
+
+  /// Log error
+  void set_log_error(bool b) { _log_error = b; }
+
+  /// Log distance to uniform
+  void set_log_dtu(bool b) { _log_dtu = b; }
+
+  /// Log delta (moment increment)
+  void set_log_delta(bool b) { _log_delta = b; }
+
+  /// Log the moment matrix
+  void set_log_moment(bool b) { _log_moment = b; }
 
   ///@}
 

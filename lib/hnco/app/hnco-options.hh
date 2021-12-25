@@ -112,25 +112,9 @@ class HncoOptions {
   int _ga_tournament_size;
   bool _opt_ga_tournament_size;
 
-  /// Type of bit herding
-  int _hea_bit_herding;
-  bool _opt_hea_bit_herding;
-
-  /// Number of sequential updates per sample
-  int _hea_num_seq_updates;
-  bool _opt_hea_num_seq_updates;
-
   /// Reset period (<= 0 means no reset)
   int _hea_reset_period;
   bool _opt_hea_reset_period;
-
-  /// Sampling method for spin features
-  int _hea_sampling_method;
-  bool _opt_hea_sampling_method;
-
-  /// Weight of second moments
-  double _hea_weight;
-  bool _opt_hea_weight;
 
   /// Learning rate
   double _learning_rate;
@@ -312,9 +296,6 @@ class HncoOptions {
 
   /// Log moment matrix
   bool _hea_log_moment_matrix;
-
-  /// Log the distance between the target and the selection moment
-  bool _hea_log_selection;
 
   /// Randomize bit order
   bool _hea_randomize_bit_order;
@@ -729,30 +710,6 @@ public:
   /// Get set-flag for ga_tournament_size
   bool set_ga_tournament_size() const { return _opt_ga_tournament_size; }
 
-  /// Get hea_bit_herding
-  int get_hea_bit_herding() const { return _hea_bit_herding; }
-
-  /// Set hea_bit_herding
-  void set_hea_bit_herding(int x) {
-    _hea_bit_herding = x;
-    _opt_hea_bit_herding = true;
-  }
-
-  /// Get set-flag for hea_bit_herding
-  bool set_hea_bit_herding() const { return _opt_hea_bit_herding; }
-
-  /// Get hea_num_seq_updates
-  int get_hea_num_seq_updates() const { return _hea_num_seq_updates; }
-
-  /// Set hea_num_seq_updates
-  void set_hea_num_seq_updates(int x) {
-    _hea_num_seq_updates = x;
-    _opt_hea_num_seq_updates = true;
-  }
-
-  /// Get set-flag for hea_num_seq_updates
-  bool set_hea_num_seq_updates() const { return _opt_hea_num_seq_updates; }
-
   /// Get hea_reset_period
   int get_hea_reset_period() const { return _hea_reset_period; }
 
@@ -764,30 +721,6 @@ public:
 
   /// Get set-flag for hea_reset_period
   bool set_hea_reset_period() const { return _opt_hea_reset_period; }
-
-  /// Get hea_sampling_method
-  int get_hea_sampling_method() const { return _hea_sampling_method; }
-
-  /// Set hea_sampling_method
-  void set_hea_sampling_method(int x) {
-    _hea_sampling_method = x;
-    _opt_hea_sampling_method = true;
-  }
-
-  /// Get set-flag for hea_sampling_method
-  bool set_hea_sampling_method() const { return _opt_hea_sampling_method; }
-
-  /// Get hea_weight
-  double get_hea_weight() const { return _hea_weight; }
-
-  /// Set hea_weight
-  void set_hea_weight(double x) {
-    _hea_weight = x;
-    _opt_hea_weight = true;
-  }
-
-  /// Get set-flag for hea_weight
-  bool set_hea_weight() const { return _opt_hea_weight; }
 
   /// Get learning_rate
   double get_learning_rate() const { return _learning_rate; }
@@ -1274,12 +1207,6 @@ public:
 
   /// Set hea_log_moment_matrix
   void set_hea_log_moment_matrix() { _hea_log_moment_matrix = true; }
-
-  /// Get hea_log_selection
-  bool with_hea_log_selection() const { return _hea_log_selection; }
-
-  /// Set hea_log_selection
-  void set_hea_log_selection() { _hea_log_selection = true; }
 
   /// Get hea_randomize_bit_order
   bool with_hea_randomize_bit_order() const { return _hea_randomize_bit_order; }

@@ -13,6 +13,13 @@ Library:
 - Renamed DyadicRealRepresentation -> DyadicFloatRepresentation
 - DyadicFloatRepresentation, DyadicComplexRepresentation,
   DyadicIntegerRepresentation: remove default constructor
+- Removed bit moment and bit herding
+- Renamed SpinMoment -> LowerTriangularWalshMoment2
+- SpinHerding: removed alternative sampling methods
+- SpinHerding: cleaned code
+- Hea: removed _log_flags
+- Hea: added member functions set_log_*
+- Added is_in_interval, clip_value
 
 Python:
 - Changed: representation is a submodule of hnco

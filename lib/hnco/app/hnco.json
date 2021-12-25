@@ -370,12 +370,6 @@
             "section": "hea"
         },
 
-        "hea_log_selection":
-        {
-            "description": "Log the distance between the target and the selection moment",
-            "section": "hea"
-        },
-
         "hea_log_moment_matrix":
         {
             "description": "Log moment matrix",
@@ -1070,13 +1064,8 @@
                 },
 
                 {
-                    "value": 900,
-                    "description": "Herding evolutionary algorithm, herding with bit features (HEA)"
-                },
-
-                {
                     "value": 901,
-                    "description": "Herding evolutionary algorithm, herding with spin features (HEA)"
+                    "description": "Herding evolutionary algorithm (HEA)"
                 },
 
                 {
@@ -1304,72 +1293,6 @@
             "value": 5,
             "description": "Number of probability vector components to log",
             "section": "eda"
-        },
-
-        "hea_sampling_method":
-        {
-            "type": "int",
-            "value": 0,
-            "description": "Sampling method for spin features",
-            "section": "hea",
-            "alternatives":
-            [
-
-                {
-                    "value": 0,
-                    "description": "Greedy algorithm"
-                },
-
-                {
-                    "value": 1,
-                    "description": "Random local search"
-                },
-
-                {
-                    "value": 2,
-                    "description": "Deterministic local search"
-                }
-
-            ]
-        },
-
-        "hea_bit_herding":
-        {
-            "type": "int",
-            "value": 0,
-            "description": "Type of bit herding",
-            "section": "hea",
-            "alternatives":
-            [
-
-                {
-                    "value": 0,
-                    "description": "Minimize norm"
-                },
-
-                {
-                    "value": 1,
-                    "description": "Maximize inner product"
-                }
-
-            ]
-
-        },
-
-        "hea_weight":
-        {
-            "type": "double",
-            "value": 1,
-            "description": "Weight of second moments",
-            "section": "hea"
-        },
-
-        "hea_num_seq_updates":
-        {
-            "type": "int",
-            "value": 100,
-            "description": "Number of sequential updates per sample",
-            "section": "hea"
         },
 
         "hea_reset_period":

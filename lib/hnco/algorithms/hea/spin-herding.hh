@@ -18,8 +18,10 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_HEA_HERDING_SPIN_H
-#define HNCO_ALGORITHMS_HEA_HERDING_SPIN_H
+#ifndef HNCO_ALGORITHMS_HEA_SPIN_HERDING_H
+#define HNCO_ALGORITHMS_HEA_SPIN_HERDING_H
+
+#include "hnco/permutation.hh"
 
 #include "spin-moment.hh"
 
@@ -29,134 +31,79 @@ namespace algorithm {
 namespace hea {
 
 
-  /** Herding with spin variables
+/** Herding with spin variables
 
-      By spin variables, we mean variables taking values 1 or -1,
-      instead of 0 or 1 in the case of binary variables.
+    By spin variables, we mean variables taking values 1 or -1,
+    instead of 0 or 1 in the case of binary variables.
+*/
+class SpinHerding {
+
+protected:
+
+  /// Delta moment
+  LowerTriangularWalshMoment2 _delta;
+
+  /// Counter moment
+  LowerTriangularWalshMoment2 _count;
+
+  /// Error moment
+  LowerTriangularWalshMoment2 _error;
+
+  /// Permutation
+  permutation_t _permutation;
+
+  /// Time
+  int _time;
+
+  /** @name Parameters
+   */
+  ///@{
+
+  /// Randomize bit order
+  bool _randomize_bit_order = false;
+
+  ///@}
+
+public:
+
+  /** Constructor.
+
+      \param n Size of bit vectors
   */
-  class SpinHerding {
+  SpinHerding(int n):
+    _delta(n),
+    _count(n),
+    _error(n),
+    _permutation(n, 0) {}
 
-  protected:
+  /// Initialization
+  void init();
 
-    /// Delta moment
-    SpinMoment _delta;
+  /// Sample a bit vector
+  void sample(const LowerTriangularWalshMoment2& target, bit_vector_t& x);
 
-    /// Counter moment
-    SpinMoment _count;
+  /// Compute the error
+  double error(const LowerTriangularWalshMoment2& target);
 
-    /// Permutation
-    permutation_t _permutation;
+  /** @name Getters
+   */
+  ///@{
 
-    /// Choose bit
-    std::uniform_int_distribution<int> _choose_bit;
+  /// Get delta
+  const LowerTriangularWalshMoment2& get_delta() const { return _delta; }
 
-    /// Time
-    int _time;
+  ///@}
 
-    /** @name Parameters
-     */
-    ///@{
+  /** @name Setters
+   */
+  ///@{
 
-    /// Randomize bit order
-    bool _randomize_bit_order = false;
+  /// Randomize bit order
+  void set_randomize_bit_order(bool x) { _randomize_bit_order = x; }
 
-    /// Sampling method
-    int _sampling_method = SAMPLE_GREEDY;
+  ///@}
 
-    /// Number of sequential updates per sample
-    int _num_seq_updates;
-
-    /// Weight of second order moments
-    double _weight = 1;
-
-    ///@}
-
-    /// Compute delta
-    void compute_delta(const SpinMoment& target);
-
-    /// Sample by means of a greedy algorithm
-    void sample_greedy(bit_vector_t& x);
-
-    /// Derivative of q
-    double q_derivative(const bit_vector_t& x, int i);
-
-    /** Variation of q.
-
-        Up to a positive multiplicative constant. Only the sign of
-        the variation matters to local search. */
-    double q_variation(const bit_vector_t& x, int i);
-
-    /// Sample by means of random local search
-    void sample_rls(bit_vector_t& x);
-
-    /// Sample by means of deterministic local search
-    void sample_dls(bit_vector_t& x);
-
-  public:
-
-    enum {
-      /// Greedy algorithm
-      SAMPLE_GREEDY,
-
-      /// Random local search
-      SAMPLE_RLS,
-
-      /// Deterministic local search
-      SAMPLE_DLS,
-
-      LAST_SAMPLE
-    };
-
-    /** Constructor.
-
-        \param n Size of bit vectors
-
-        _num_seq_updates is initialized to n.
-    */
-    SpinHerding(int n):
-      _delta(n),
-      _count(n),
-      _permutation(n, 0),
-      _choose_bit(0, n - 1),
-      _num_seq_updates(n) {}
-
-    /// Initialization
-    void init();
-
-    /// Sample a bit vector
-    void sample(const SpinMoment& target, bit_vector_t& x);
-
-    /// Compute the error
-    double error(const SpinMoment& target);
-
-    /** @name Getters
-     */
-    ///@{
-
-    /// Get delta
-    const SpinMoment& get_delta() { return _delta; }
-
-    ///@}
-
-    /** @name Setters
-     */
-    ///@{
-
-    /// Randomize bit order
-    void set_randomize_bit_order(bool x) { _randomize_bit_order = x; }
-
-    /// Set the sampling method
-    void set_sampling_method(int x) { _sampling_method = x; }
-
-    /// Set the number of sequential updates per sample
-    void set_num_seq_updates(int x) { _num_seq_updates = x; }
-
-    /// Set the weight of second order moments
-    void set_weight(double x) { _weight = x; }
-
-    ///@}
-
-  };
+};
 
 
 }

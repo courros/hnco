@@ -309,56 +309,16 @@ CommandLineAlgorithmFactory::make(int bv_size)
     return algo;
   }
 
-  case 900: {
-    using namespace hea;
-
-    auto herding = new BitHerding(bv_size);
-
-    herding->set_randomize_bit_order(_options.with_hea_randomize_bit_order());
-    herding->set_dynamics(_options.get_hea_bit_herding());
-    herding->set_weight(_options.get_hea_weight());
-
-    auto algo = new
-      Hea<BitMoment, BitHerding>(bv_size,
-                                 _options.get_population_size());
-
-    algo->set_herding(herding);
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_selection_size(_options.get_selection_size());
-    algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_reset_period(_options.get_hea_reset_period());
-    algo->set_bound_moment(_options.with_hea_bound_moment());
-    algo->set_weight(_options.get_hea_weight());
-
-    Hea<BitMoment, BitHerding>::log_flags_t lf = {};
-    if (_options.with_hea_log_error())
-      lf.set(Hea<BitMoment, BitHerding>::LOG_ERROR);
-    if (_options.with_hea_log_dtu())
-      lf.set(Hea<BitMoment, BitHerding>::LOG_DTU);
-    if (_options.with_hea_log_delta())
-      lf.set(Hea<BitMoment, BitHerding>::LOG_DELTA);
-    if (_options.with_hea_log_selection())
-      lf.set(Hea<BitMoment, BitHerding>::LOG_SELECTION);
-    if (_options.with_hea_log_moment_matrix())
-      lf.set(Hea<BitMoment, BitHerding>::LOG_MOMENT_MATRIX);
-    algo->set_log_flags(lf);
-
-    return algo;
-  }
-
   case 901: {
     using namespace hea;
 
     auto herding = new SpinHerding(bv_size);
 
     herding->set_randomize_bit_order(_options.with_hea_randomize_bit_order());
-    herding->set_weight(_options.get_hea_weight());
-    herding->set_num_seq_updates(_options.get_hea_num_seq_updates());
-    herding->set_sampling_method(_options.get_hea_sampling_method());
 
     auto algo = new
-      Hea<SpinMoment, SpinHerding>(bv_size,
-                                   _options.get_population_size());
+      Hea<LowerTriangularWalshMoment2, SpinHerding>(bv_size,
+                                                    _options.get_population_size());
 
     algo->set_herding(herding);
     algo->set_num_iterations(_options.get_num_iterations());
@@ -366,20 +326,11 @@ CommandLineAlgorithmFactory::make(int bv_size)
     algo->set_learning_rate(_options.get_learning_rate());
     algo->set_reset_period(_options.get_hea_reset_period());
     algo->set_bound_moment(_options.with_hea_bound_moment());
-    algo->set_weight(_options.get_hea_weight());
 
-    Hea<SpinMoment, SpinHerding>::log_flags_t lf = {};
-    if (_options.with_hea_log_error())
-      lf.set(Hea<SpinMoment, SpinHerding>::LOG_ERROR);
-    if (_options.with_hea_log_dtu())
-      lf.set(Hea<SpinMoment, SpinHerding>::LOG_DTU);
-    if (_options.with_hea_log_delta())
-      lf.set(Hea<SpinMoment, SpinHerding>::LOG_DELTA);
-    if (_options.with_hea_log_selection())
-      lf.set(Hea<SpinMoment, SpinHerding>::LOG_SELECTION);
-    if (_options.with_hea_log_moment_matrix())
-      lf.set(Hea<SpinMoment, SpinHerding>::LOG_MOMENT_MATRIX);
-    algo->set_log_flags(lf);
+    algo->set_log_error(_options.with_hea_log_error());
+    algo->set_log_dtu(_options.with_hea_log_dtu());
+    algo->set_log_delta(_options.with_hea_log_delta());
+    algo->set_log_moment(_options.with_hea_log_moment_matrix());
 
     return algo;
   }
