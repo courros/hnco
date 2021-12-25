@@ -32,119 +32,119 @@ namespace algorithm {
 namespace bm_pbil {
 
 
-  /// Parameters of a Boltzmann machine
-  class ModelParameters
-  {
-    /** Weights.
+/// Parameters of a Boltzmann machine
+class ModelParameters
+{
+  /** Weights.
 
-        _weight is a full square matrix of order n, where n is the
-        dimension of the search space.
-    */
-    std::vector<std::vector<double> > _weight;
+      _weight is a full square matrix of order n, where n is the
+      dimension of the search space.
+  */
+  std::vector<std::vector<double> > _weight;
 
-    /// Bias
-    std::vector<double> _bias;
+  /// Bias
+  std::vector<double> _bias;
 
-    friend class Model;
+  friend class Model;
 
-  public:
+public:
 
-    /// Constructor
-    ModelParameters(int n):
-      _weight(n, std::vector<double>(n)),
-      _bias(n) {}
+  /// Constructor
+  ModelParameters(int n):
+    _weight(n, std::vector<double>(n)),
+    _bias(n) {}
 
-    /** Initialize.
+  /** Initialize.
 
-        All entries of _weight are set to 0.
-    */
-    void init();
+      All entries of _weight are set to 0.
+  */
+  void init();
 
-    /** Add a bit vector.
+  /** Add a bit vector.
 
-        Only the upper triangular part of _weight is updated with the
-        equation:
+      Only the upper triangular part of _weight is updated with the
+      equation:
 
-        \f$ w_{ij} = w_{ij} + (-1)^{x_i + x_j} \f$
+      \f$ w_{ij} = w_{ij} + (-1)^{x_i + x_j} \f$
 
-        where i < j.
+      where i < j.
 
-    */
-    void add(const bit_vector_t& x);
+  */
+  void add(const bit_vector_t& x);
 
-    /** Compute averages.
+  /** Compute averages.
 
-        Only the upper triangular part of _weight is averaged.
+      Only the upper triangular part of _weight is averaged.
 
-    */
-    void average(int count);
+  */
+  void average(int count);
 
-    /** Update parameters in the direction of p and away from q.
+  /** Update parameters in the direction of p and away from q.
 
-        First, the upper triangular part of _weight is updated.
+      First, the upper triangular part of _weight is updated.
 
-        Second, _weight is made symmetrical.
+      Second, _weight is made symmetrical.
 
-        \post _weight is symmetrical.
-    */
-    void update(const ModelParameters& p, const ModelParameters& q, double rate);
+      \post _weight is symmetrical.
+  */
+  void update(const ModelParameters& p, const ModelParameters& q, double rate);
 
-    /// Infinite norm of the parameters
-    double norm_infinite();
+  /// Infinite norm of the parameters
+  double norm_infinite();
 
-    /// l1 norm of the parameters
-    double norm_l1();
+  /// l1 norm of the parameters
+  double norm_l1();
 
-  };
+};
 
 
-  /// %Model of a Boltzmann machine
-  class Model
-  {
-    /// Model parameters
-    ModelParameters _model_parameters;
+/// %Model of a Boltzmann machine
+class Model
+{
+  /// Model parameters
+  ModelParameters _model_parameters;
 
-    /// State of the Gibbs sampler
-    bit_vector_t _state;
+  /// State of the Gibbs sampler
+  bit_vector_t _state;
 
-    /// Probability vector for synchronous Gibbs sampling
-    pv_t _pv;
+  /// Probability vector for synchronous Gibbs sampling
+  pv_t _pv;
 
-  public:
+public:
 
-    /// Constructor
-    Model(int n):
-      _model_parameters(n),
-      _state(n),
-      _pv(n) {}
+  /// Constructor
+  Model(int n):
+    _model_parameters(n),
+    _state(n),
+    _pv(n) {}
 
-    /// Initialize
-    void init();
+  /// Initialize
+  void init();
 
-    /// Reset Markov chain
-    void reset_mc();
+  /// Reset Markov chain
+  void reset_mc();
 
-    /// A Gibbs sampler cycle
-    void gibbs_sampler(int i);
+  /// A Gibbs sampler cycle
+  void gibbs_sampler(int i);
 
-    /// A synchronous Gibbs sampler
-    void gibbs_sampler_synchronous();
+  /// A synchronous Gibbs sampler
+  void gibbs_sampler_synchronous();
 
-    /// Get the state of the Gibbs sampler
-    const bit_vector_t& get_state() { return _state; }
+  /// Get the state of the Gibbs sampler
+  const bit_vector_t& get_state() { return _state; }
 
-    /// Update parameters in the direction of p and away from q
-    void update(const ModelParameters& p, const ModelParameters& q, double rate) {
-      _model_parameters.update(p, q, rate);
-    }
+  /// Update parameters in the direction of p and away from q
+  void update(const ModelParameters& p, const ModelParameters& q, double rate) {
+    _model_parameters.update(p, q, rate);
+  }
 
-    /// Infinite norm of the parameters
-    double norm_infinite() { return _model_parameters.norm_infinite(); }
+  /// Infinite norm of the parameters
+  double norm_infinite() { return _model_parameters.norm_infinite(); }
 
-    /// l1 norm of the parameters
-    double norm_l1() { return _model_parameters.norm_l1(); }
+  /// l1 norm of the parameters
+  double norm_l1() { return _model_parameters.norm_l1(); }
 
-  };
+};
 
 
 }

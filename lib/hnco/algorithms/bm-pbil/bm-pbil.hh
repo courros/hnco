@@ -30,9 +30,9 @@
 
 namespace hnco {
 namespace algorithm {
+
 /// Boltzmann machine PBIL
 namespace bm_pbil {
-
 
 /** Boltzmann machine PBIL.
 
@@ -46,55 +46,54 @@ namespace bm_pbil {
     incremental learning. In ECAI 2002. IOS Press, Lyon.
 
 */
-class BmPbil:
-    public IterativeAlgorithm {
+class BmPbil: public IterativeAlgorithm {
 
 public:
 
   enum {
 
-        /** Asynchronous sampling.
+    /** Asynchronous sampling.
 
-            A single component of the internal state is randomly
-            selected then updated by Gibbs sampling. This step is
-            repeated _num_gs_steps times.
-        */
-        SAMPLING_ASYNCHRONOUS,
+        A single component of the internal state is randomly
+        selected then updated by Gibbs sampling. This step is
+        repeated _num_gs_steps times.
+    */
+    SAMPLING_ASYNCHRONOUS,
 
-        /** Asynchronous sampling with full scan.
+    /** Asynchronous sampling with full scan.
 
-            To sample a new bit vector, a random permutation is sampled
-            and all components of the internal state are updated by
-            Gibbs sampling in the order defined by the permutation.
-        */
-        SAMPLING_ASYNCHRONOUS_FULL_SCAN,
+        To sample a new bit vector, a random permutation is sampled
+        and all components of the internal state are updated by
+        Gibbs sampling in the order defined by the permutation.
+    */
+    SAMPLING_ASYNCHRONOUS_FULL_SCAN,
 
-        /** Synchronous sampling.
+    /** Synchronous sampling.
 
-            The full internal state is updated in one step from the
-            probability vector made of the very marginal probabilities
-            used in Gibbs sampling.
-        */
-        SAMPLING_SYNCHRONOUS
+        The full internal state is updated in one step from the
+        probability vector made of the very marginal probabilities
+        used in Gibbs sampling.
+    */
+    SAMPLING_SYNCHRONOUS
 
   };
 
   enum {
 
-        /** No reset.
+    /** No reset.
 
-         */
-        RESET_NO_RESET,
+     */
+    RESET_NO_RESET,
 
-        /** Reset MC at the beginning of each iteration.
+    /** Reset MC at the beginning of each iteration.
 
-         */
-        RESET_ITERATION,
+     */
+    RESET_ITERATION,
 
-        /** Reset MC before sampling each bit vector.
+    /** Reset MC before sampling each bit vector.
 
-         */
-        RESET_BIT_VECTOR
+     */
+    RESET_BIT_VECTOR
 
   };
 
@@ -193,8 +192,7 @@ protected:
 public:
 
   /// Constructor
-  BmPbil(int n,
-         int population_size):
+  BmPbil(int n, int population_size):
     IterativeAlgorithm(n),
     _population(population_size, n),
     _model(n),
