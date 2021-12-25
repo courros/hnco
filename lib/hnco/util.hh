@@ -57,6 +57,28 @@ inline bool is_in_range(int i, int n) { return is_in_range(i, 0, n); }
 
 ///@}
 
+/** @name Intervals
+ */
+///@{
+
+/// Check whether a float value belongs to a given interval
+inline bool is_in_interval(double x, double a, double b) { return x >= a && x <= b; }
+
+/// Clip value between two bounds
+template<typename T>
+T clip_value(T x, T low, T high)
+{
+  assert(low < high);
+
+  if (x > high)
+    return high;
+  else if (x < low)
+    return low;
+  else
+    return x;
+}
+
+///@}
 
 /// Check whether two containers have the same size
 template<class A, class B>
