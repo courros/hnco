@@ -119,7 +119,7 @@ class Hea: public algorithm::IterativeAlgorithm {
   /// Initialization
   void init() override {
     random_solution();
-    _target.uniform();
+    _target.init();
     _herding->init();
     set_something_to_log();
   }
@@ -173,12 +173,12 @@ class Hea: public algorithm::IterativeAlgorithm {
   void log() override {
     assert(_something_to_log);
 
-    logging::Logger l(_log_context);
-
     if (_log_moment) {
       _target.display(logging::Logger::stream());
       return;
     }
+
+    logging::Logger l(_log_context);
 
     // Single line
     if (_log_error)
@@ -211,7 +211,7 @@ public:
     _population(population_size, n),
     _margin(1 / double(n))
   {
-    _uniform.uniform();
+    _uniform.init();
   }
 
   /** @name Setters
