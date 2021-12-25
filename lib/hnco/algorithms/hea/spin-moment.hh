@@ -43,6 +43,7 @@ struct LowerTriangularWalshMoment2
   void add(const bit_vector_t& bv);
   void average(int count);
   void update(const LowerTriangularWalshMoment2& wm, double rate);
+  void update(const LowerTriangularWalshMoment2& wm1, const LowerTriangularWalshMoment2& wm2, double rate);
   void bound(double margin);
 
   /** Compute a scaled difference between two moments.
@@ -54,7 +55,9 @@ struct LowerTriangularWalshMoment2
                          const LowerTriangularWalshMoment2& wm2);
 
   double distance(const LowerTriangularWalshMoment2& wm) const;
+  double norm_1() const;
   double norm_2() const;
+  double norm_infinite() const;
   void uniform() { init(); }
 };
 

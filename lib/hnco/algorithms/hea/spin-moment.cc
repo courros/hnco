@@ -90,7 +90,7 @@ LowerTriangularWalshMoment2::average(int count)
 {
   for (size_t i = 0; i < first_moment.size(); i++) {
     first_moment[i] /= count;
-    assert(first_moment[i] >= -1 && first_moment[i] <= 1);
+    assert(is_in_interval(first_moment[i], -1, 1));
 
     std::vector<double>& row = second_moment[i];
     for (size_t j = 0; j < i; j++) {
@@ -114,6 +114,26 @@ LowerTriangularWalshMoment2::update(const LowerTriangularWalshMoment2& wm, doubl
     for (size_t j = 0; j < i; j++) {
       row[j] += rate * (row2[j] - row[j]);
       assert(is_in_interval(row[j], -1, 1));
+    }
+  }
+}
+
+void
+LowerTriangularWalshMoment2::update(const LowerTriangularWalshMoment2& wm1,
+                                    const LowerTriangularWalshMoment2& wm2,
+                                    double rate)
+{
+  assert(have_same_size(wm1.first_moment, first_moment));
+  assert(have_same_size(wm2.first_moment, first_moment));
+
+  for (size_t i = 0; i < first_moment.size(); i++) {
+    first_moment[i] += rate * (wm1.first_moment[i] - wm2.first_moment[i]);
+
+    std::vector<double>& row = second_moment[i];
+    const std::vector<double>& row1 = wm1.second_moment[i];
+    const std::vector<double>& row2 = wm2.second_moment[i];
+    for (size_t j = 0; j < i; j++) {
+      row[j] += rate * (row1[j] - row2[j]);
     }
   }
 }
@@ -175,6 +195,19 @@ LowerTriangularWalshMoment2::distance(const LowerTriangularWalshMoment2& wm) con
 }
 
 double
+LowerTriangularWalshMoment2::norm_1() const
+{
+  double result = 0;
+  for (size_t i = 0; i < first_moment.size(); i++) {
+    result += std::fabs(first_moment[i]);
+    const std::vector<double>& row = second_moment[i];
+    for (size_t j = 0; j < i; j++)
+      result += std::fabs(row[j]);
+  }
+  return result;
+}
+
+double
 LowerTriangularWalshMoment2::norm_2() const
 {
   double result = 0;
@@ -185,4 +218,17 @@ LowerTriangularWalshMoment2::norm_2() const
       result += square(row[j]);
   }
   return std::sqrt(result);
+}
+
+double
+LowerTriangularWalshMoment2::norm_infinite() const
+{
+  double result = 0;
+  for (size_t i = 0; i < first_moment.size(); i++) {
+    result = std::max(result, first_moment[i]);
+    const std::vector<double>& row = second_moment[i];
+    for (size_t j = 0; j < i; j++)
+      result = std::max(result, row[j]);
+  }
+  return result;
 }
