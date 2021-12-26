@@ -123,8 +123,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_target(false),
   _additive_gaussian_noise(false),
   _allow_no_mutation(false),
+  _bm_log_norm_1(false),
   _bm_log_norm_infinite(false),
-  _bm_log_norm_l1(false),
   _bm_negative_positive_selection(false),
   _cache(false),
   _cache_budget(false),
@@ -240,8 +240,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_TARGET,
     OPTION_ADDITIVE_GAUSSIAN_NOISE,
     OPTION_ALLOW_NO_MUTATION,
+    OPTION_BM_LOG_NORM_1,
     OPTION_BM_LOG_NORM_INFINITE,
-    OPTION_BM_LOG_NORM_L1,
     OPTION_BM_NEGATIVE_POSITIVE_SELECTION,
     OPTION_CACHE,
     OPTION_CACHE_BUDGET,
@@ -345,8 +345,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"target", required_argument, 0, OPTION_TARGET},
     {"additive-gaussian-noise", no_argument, 0, OPTION_ADDITIVE_GAUSSIAN_NOISE},
     {"allow-no-mutation", no_argument, 0, OPTION_ALLOW_NO_MUTATION},
+    {"bm-log-norm-1", no_argument, 0, OPTION_BM_LOG_NORM_1},
     {"bm-log-norm-infinite", no_argument, 0, OPTION_BM_LOG_NORM_INFINITE},
-    {"bm-log-norm-l1", no_argument, 0, OPTION_BM_LOG_NORM_L1},
     {"bm-negative-positive-selection", no_argument, 0, OPTION_BM_NEGATIVE_POSITIVE_SELECTION},
     {"cache", no_argument, 0, OPTION_CACHE},
     {"cache-budget", no_argument, 0, OPTION_CACHE_BUDGET},
@@ -655,12 +655,12 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       _allow_no_mutation = true;
       break;
 
-    case OPTION_BM_LOG_NORM_INFINITE:
-      _bm_log_norm_infinite = true;
+    case OPTION_BM_LOG_NORM_1:
+      _bm_log_norm_1 = true;
       break;
 
-    case OPTION_BM_LOG_NORM_L1:
-      _bm_log_norm_l1 = true;
+    case OPTION_BM_LOG_NORM_INFINITE:
+      _bm_log_norm_infinite = true;
       break;
 
     case OPTION_BM_NEGATIVE_POSITIVE_SELECTION:
@@ -1262,7 +1262,7 @@ void HncoOptions::print_help_hea(std::ostream& stream) const
   stream << "      --hea-bound-moment" << std::endl;
   stream << "          Bound moment after update" << std::endl;
   stream << "      --hea-log-delta" << std::endl;
-  stream << "          Log norm 2 of delta (in moment space)" << std::endl;
+  stream << "          Log 2-norm of delta (in moment space)" << std::endl;
   stream << "      --hea-log-dtu" << std::endl;
   stream << "          Log distance to uniform" << std::endl;
   stream << "      --hea-log-error" << std::endl;
@@ -1281,10 +1281,10 @@ void HncoOptions::print_help_bm(std::ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Boltzmann Machine PBIL" << std::endl;
+  stream << "      --bm-log-norm-1" << std::endl;
+  stream << "          Log 1-norm of the parameters" << std::endl;
   stream << "      --bm-log-norm-infinite" << std::endl;
   stream << "          Log infinite norm of the parameters" << std::endl;
-  stream << "      --bm-log-norm-l1" << std::endl;
-  stream << "          Log L1 norm of the parameters" << std::endl;
   stream << "      --bm-mc-reset-strategy (type int, default to 1)" << std::endl;
   stream << "          Markov chain reset strategy" << std::endl;
   stream << "            0: No reset" << std::endl;
@@ -1371,10 +1371,10 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# additive_gaussian_noise" << std::endl;
   if (options._allow_no_mutation)
     stream << "# allow_no_mutation" << std::endl;
+  if (options._bm_log_norm_1)
+    stream << "# bm_log_norm_1" << std::endl;
   if (options._bm_log_norm_infinite)
     stream << "# bm_log_norm_infinite" << std::endl;
-  if (options._bm_log_norm_l1)
-    stream << "# bm_log_norm_l1" << std::endl;
   if (options._bm_negative_positive_selection)
     stream << "# bm_negative_positive_selection" << std::endl;
   if (options._cache)

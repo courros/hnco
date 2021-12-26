@@ -366,7 +366,7 @@
 
         "hea_log_delta":
         {
-            "description": "Log norm 2 of delta (in moment space)",
+            "description": "Log 2-norm of delta (in moment space)",
             "section": "hea"
         },
 
@@ -394,9 +394,9 @@
             "section": "bm"
         },
 
-        "bm_log_norm_l1":
+        "bm_log_norm_1":
         {
-            "description": "Log L1 norm of the parameters",
+            "description": "Log 1-norm of the parameters",
             "section": "bm"
         }
 

@@ -148,7 +148,7 @@ BmPbil::log()
   if (_log_norm_infinite)
     l.line() << _model_parameters.norm_infinite() << " ";
 
-  if (_log_norm_l1)
+  if (_log_norm_1)
     l.line() << _model_parameters.norm_1() << " ";
 
 }

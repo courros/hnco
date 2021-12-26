@@ -158,7 +158,7 @@ protected:
   bool _log_norm_infinite = false;
 
   /// Log 1-norm of the model parameters
-  bool _log_norm_l1 = false;
+  bool _log_norm_1 = false;
 
   ///@}
 
@@ -178,7 +178,7 @@ protected:
   ///@}
 
   /// Set flag for something to log
-  void set_something_to_log() { _something_to_log = _log_norm_infinite || _log_norm_l1; }
+  void set_something_to_log() { _something_to_log = _log_norm_infinite || _log_norm_1; }
 
   /// Sample a bit vector
   void sample(bit_vector_t& x);
@@ -245,7 +245,7 @@ public:
   void set_log_norm_infinite(bool x) { _log_norm_infinite = x; }
 
   /// Log 1-norm of the model parameters
-  void set_log_norm_l1(bool x) { _log_norm_l1 = x; }
+  void set_log_norm_1(bool x) { _log_norm_1 = x; }
 
   ///@}
 

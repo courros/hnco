@@ -246,11 +246,11 @@ class HncoOptions {
   /// Allow no mutation with standard bit mutation
   bool _allow_no_mutation;
 
+  /// Log 1-norm of the parameters
+  bool _bm_log_norm_1;
+
   /// Log infinite norm of the parameters
   bool _bm_log_norm_infinite;
-
-  /// Log L1 norm of the parameters
-  bool _bm_log_norm_l1;
 
   /// Negative and positive selection
   bool _bm_negative_positive_selection;
@@ -285,7 +285,7 @@ class HncoOptions {
   /// Bound moment after update
   bool _hea_bound_moment;
 
-  /// Log norm 2 of delta (in moment space)
+  /// Log 2-norm of delta (in moment space)
   bool _hea_log_delta;
 
   /// Log distance to uniform
@@ -1106,17 +1106,17 @@ public:
   /// Set allow_no_mutation
   void set_allow_no_mutation() { _allow_no_mutation = true; }
 
+  /// Get bm_log_norm_1
+  bool with_bm_log_norm_1() const { return _bm_log_norm_1; }
+
+  /// Set bm_log_norm_1
+  void set_bm_log_norm_1() { _bm_log_norm_1 = true; }
+
   /// Get bm_log_norm_infinite
   bool with_bm_log_norm_infinite() const { return _bm_log_norm_infinite; }
 
   /// Set bm_log_norm_infinite
   void set_bm_log_norm_infinite() { _bm_log_norm_infinite = true; }
-
-  /// Get bm_log_norm_l1
-  bool with_bm_log_norm_l1() const { return _bm_log_norm_l1; }
-
-  /// Set bm_log_norm_l1
-  void set_bm_log_norm_l1() { _bm_log_norm_l1 = true; }
 
   /// Get bm_negative_positive_selection
   bool with_bm_negative_positive_selection() const { return _bm_negative_positive_selection; }

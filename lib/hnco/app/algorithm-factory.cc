@@ -351,7 +351,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
     algo->set_mc_reset_strategy(_options.get_bm_mc_reset_strategy());
 
     algo->set_log_norm_infinite(_options.with_bm_log_norm_infinite());
-    algo->set_log_norm_l1(_options.with_bm_log_norm_l1());
+    algo->set_log_norm_1(_options.with_bm_log_norm_1());
 
     return algo;
   }
