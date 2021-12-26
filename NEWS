@@ -20,6 +20,12 @@ Library:
 - Hea: removed _log_flags
 - Hea: added member functions set_log_*
 - Added is_in_interval, clip_value
+- LowerTriangularWalshMoment2: added norm_1, norm_infinite
+- LowerTriangularWalshMoment2: removed uniform
+- Renamed bm_pbil::Model -> GibbsSampler
+- GibbsSampler uses LowerTriangularWalshMoment2
+- GibbsSampler: changed type const LowerTriangularWalshMoment2& _model_parameters
+- Removed bm_pbil::ModelParameters
 
 Python:
 - Changed: representation is a submodule of hnco

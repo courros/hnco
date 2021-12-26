@@ -25,6 +25,7 @@
 
 #include "hnco/bit-vector.hh"
 #include "hnco/algorithms/pv/probability-vector.hh"
+#include "hnco/algorithms/hea/spin-moment.hh"
 
 
 namespace hnco {
@@ -32,77 +33,11 @@ namespace algorithm {
 namespace bm_pbil {
 
 
-/// Parameters of a Boltzmann machine
-class ModelParameters
-{
-  /** Weights.
-
-      _weight is a full square matrix of order n, where n is the
-      dimension of the search space.
-  */
-  std::vector<std::vector<double> > _weight;
-
-  /// Bias
-  std::vector<double> _bias;
-
-  friend class Model;
-
-public:
-
-  /// Constructor
-  ModelParameters(int n):
-    _weight(n, std::vector<double>(n)),
-    _bias(n) {}
-
-  /** Initialize.
-
-      All entries of _weight are set to 0.
-  */
-  void init();
-
-  /** Add a bit vector.
-
-      Only the upper triangular part of _weight is updated with the
-      equation:
-
-      \f$ w_{ij} = w_{ij} + (-1)^{x_i + x_j} \f$
-
-      where i < j.
-
-  */
-  void add(const bit_vector_t& x);
-
-  /** Compute averages.
-
-      Only the upper triangular part of _weight is averaged.
-
-  */
-  void average(int count);
-
-  /** Update parameters in the direction of p and away from q.
-
-      First, the upper triangular part of _weight is updated.
-
-      Second, _weight is made symmetrical.
-
-      \post _weight is symmetrical.
-  */
-  void update(const ModelParameters& p, const ModelParameters& q, double rate);
-
-  /// Infinite norm of the parameters
-  double norm_infinite();
-
-  /// l1 norm of the parameters
-  double norm_l1();
-
-};
-
-
-/// %Model of a Boltzmann machine
-class Model
+/// Gibbs sampler
+class GibbsSampler
 {
   /// Model parameters
-  ModelParameters _model_parameters;
+  const hea::LowerTriangularWalshMoment2& _model_parameters;
 
   /// State of the Gibbs sampler
   bit_vector_t _state;
@@ -113,36 +48,22 @@ class Model
 public:
 
   /// Constructor
-  Model(int n):
-    _model_parameters(n),
+  GibbsSampler(int n, const hea::LowerTriangularWalshMoment2& mp):
+    _model_parameters(mp),
     _state(n),
     _pv(n) {}
 
   /// Initialize
   void init();
 
-  /// Reset Markov chain
-  void reset_mc();
+  /// Update state
+  void update(int i);
 
-  /// A Gibbs sampler cycle
-  void gibbs_sampler(int i);
-
-  /// A synchronous Gibbs sampler
-  void gibbs_sampler_synchronous();
+  /// Update state synchronously
+  void update_sync();
 
   /// Get the state of the Gibbs sampler
   const bit_vector_t& get_state() { return _state; }
-
-  /// Update parameters in the direction of p and away from q
-  void update(const ModelParameters& p, const ModelParameters& q, double rate) {
-    _model_parameters.update(p, q, rate);
-  }
-
-  /// Infinite norm of the parameters
-  double norm_infinite() { return _model_parameters.norm_infinite(); }
-
-  /// l1 norm of the parameters
-  double norm_l1() { return _model_parameters.norm_l1(); }
 
 };
 

@@ -102,17 +102,20 @@ protected:
   /// Population
   Population _population;
 
+  /// Model parameters
+  hea::LowerTriangularWalshMoment2 _model_parameters;
+
   /// Model
-  Model _model;
+  GibbsSampler _model;
 
   /// Parameters averaged over all individuals
-  ModelParameters _parameters_all;
+  hea::LowerTriangularWalshMoment2 _parameters_all;
 
   /// Parameters averaged over selected individuals
-  ModelParameters _parameters_best;
+  hea::LowerTriangularWalshMoment2 _parameters_best;
 
   /// Parameters averaged over negatively selected individuals
-  ModelParameters _parameters_worst;
+  hea::LowerTriangularWalshMoment2 _parameters_worst;
 
   /// Uniform distribution on bit_vector_t components
   std::uniform_int_distribution<int> _choose_bit;
@@ -195,7 +198,8 @@ public:
   BmPbil(int n, int population_size):
     IterativeAlgorithm(n),
     _population(population_size, n),
-    _model(n),
+    _model_parameters(n),
+    _model(n, _model_parameters),
     _parameters_all(n),
     _parameters_best(n),
     _parameters_worst(n),

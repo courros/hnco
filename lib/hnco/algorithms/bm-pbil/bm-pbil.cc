@@ -35,6 +35,7 @@ BmPbil::init()
   set_something_to_log();
 
   random_solution();
+  _model_parameters.init();
   _model.init();
 }
 
@@ -65,7 +66,7 @@ void
 BmPbil::sample_asynchronous()
 {
   for (int t = 0; t < _num_gs_steps; t++)
-    _model.gibbs_sampler(_choose_bit(random::Generator::engine));
+    _model.update(_choose_bit(random::Generator::engine));
 }
 
 
@@ -75,7 +76,7 @@ BmPbil::sample_asynchronous_full_scan()
   for (int t = 0; t < _num_gs_cycles; t++) {
     perm_random(_permutation);
     for (size_t i = 0; i < _permutation.size(); i++)
-      _model.gibbs_sampler(_permutation[i]);
+      _model.update(_permutation[i]);
   }
 }
 
@@ -84,7 +85,7 @@ void
 BmPbil::sample_synchronous()
 {
   for (int t = 0; t < _num_gs_cycles; t++)
-    _model.gibbs_sampler_synchronous();
+    _model.update_sync();
 }
 
 
@@ -92,12 +93,12 @@ void
 BmPbil::iterate()
 {
   if (_mc_reset_strategy == RESET_ITERATION)
-    _model.reset_mc();
+    _model.init();
 
   // Sample population
   for (int i = 0; i < _population.size(); i++) {
     if (_mc_reset_strategy == RESET_BIT_VECTOR)
-      _model.reset_mc();
+      _model.init();
     sample(_population.get_bv(i));
   }
 
@@ -124,14 +125,14 @@ BmPbil::iterate()
     for (int i = 0; i < _selection_size; i++)
       _parameters_worst.add(_population.get_worst_bv(i));
     _parameters_worst.average(_selection_size);
-    _model.update(_parameters_best, _parameters_worst, _learning_rate);
+    _model_parameters.update(_parameters_best, _parameters_worst, _learning_rate);
   } else {
     // Average all individuals
     _parameters_all.init();
     for (int i = 0; i < _population.size(); i++)
       _parameters_all.add(_population.get_bv(i));
     _parameters_all.average(_population.size());
-    _model.update(_parameters_best, _parameters_all, _learning_rate);
+    _model_parameters.update(_parameters_best, _parameters_all, _learning_rate);
   }
 
 }
@@ -145,9 +146,9 @@ BmPbil::log()
   logging::Logger l(_log_context);
 
   if (_log_norm_infinite)
-    l.line() << _model.norm_infinite() << " ";
+    l.line() << _model_parameters.norm_infinite() << " ";
 
   if (_log_norm_l1)
-    l.line() << _model.norm_l1() << " ";
+    l.line() << _model_parameters.norm_1() << " ";
 
 }

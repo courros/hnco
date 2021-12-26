@@ -20,7 +20,7 @@
 
 #include <assert.h>
 
-#include <algorithm>            // std::max
+#include <algorithm>            // std::max, std::fill
 
 #include "hnco/algorithms/matrix.hh" // hnco::algorithm::matrix_is_symmetric
 #include "hnco/random.hh"
@@ -33,133 +33,26 @@ using namespace hnco;
 using namespace hnco::random;
 using namespace hnco::algorithm::bm_pbil;
 
-
 void
-ModelParameters::init()
-{
-  fill(_bias.begin(), _bias.end(), 0.0);
-  for (auto& ws : _weight)
-    fill(ws.begin(), ws.end(), 0.0);
-}
-
-
-void
-ModelParameters::add(const bit_vector_t& x)
-{
-  const size_t dimension = x.size();
-  for (size_t i = 0; i < dimension; i++) {
-    std::vector<double>& ws = _weight[i];
-    if (x[i]) {
-      _bias[i] -= 1;
-      for (size_t j = i + 1; j < dimension; j++)
-        if (x[j])
-          ws[j] += 1;
-        else
-          ws[j] -= 1;
-    } else {
-      _bias[i] += 1;
-      for (size_t j = i + 1; j < dimension; j++)
-        if (x[j])
-          ws[j] -= 1;
-        else
-          ws[j] += 1;
-    }
-  }
-}
-
-
-void
-ModelParameters::average(int count)
-{
-  const size_t dimension = _bias.size();
-  for (size_t i = 0; i < dimension; i++) {
-    _bias[i] /= count;
-    for (size_t j = i + 1; j < dimension; j++)
-      _weight[i][j] /= count;
-  }
-}
-
-
-void
-ModelParameters::update(const ModelParameters& p, const ModelParameters& q, double rate)
-{
-  const size_t dimension = _bias.size();
-  for (size_t i = 0; i < dimension; i++) {
-    _bias[i] += rate * (p._bias[i] - q._bias[i]);
-    for (size_t j = i + 1; j < dimension; j++) {
-      _weight[i][j] += rate * (p._weight[i][j] - q._weight[i][j]);
-      _weight[j][i] = _weight[i][j];
-    }
-  }
-
-  assert(matrix_is_symmetric(_weight));
-}
-
-
-double
-ModelParameters::norm_infinite()
-{
-  double norm = 0;
-
-  const size_t dimension = _bias.size();
-  for (size_t i = 0; i < dimension; i++)
-    norm = std::max(norm, fabs(_bias[i]));
-
-  for (size_t i = 0; i < dimension; i++)
-    for (size_t j = i + 1; j < dimension; j++)
-      norm = std::max(norm, fabs(_weight[i][j]));
-
-  return norm;
-}
-
-
-double
-ModelParameters::norm_l1()
-{
-  double norm = 0;
-
-  const size_t dimension = _bias.size();
-  for (size_t i = 0; i < dimension; i++)
-    norm += fabs(_bias[i]);
-
-  for (size_t i = 0; i < dimension; i++)
-    for (size_t j = i + 1; j < dimension; j++)
-      norm += fabs(_weight[i][j]);
-
-  return norm;
-}
-
-
-void
-Model::init()
-{
-  _model_parameters.init();
-  bv_random(_state);
-}
-
-
-void
-Model::reset_mc()
+GibbsSampler::init()
 {
   bv_random(_state);
 }
 
-
 void
-Model::gibbs_sampler(int i)
+GibbsSampler::update(int i)
 {
   assert(is_in_range(i, 0, _state.size()));
-  assert(matrix_is_symmetric(_model_parameters._weight));
 
-  double delta = _model_parameters._bias[i];
-  const std::vector<double>& ws = _model_parameters._weight[i];
+  double delta = _model_parameters.first_moment[i];
+  const std::vector<double>& row = _model_parameters.second_moment[i];
   for (size_t j = 0; j < _state.size(); j++) {
     if (int(j) == i)
       continue;
     if (_state[j])
-      delta -= ws[j];
+      delta -= row[j];
     else
-      delta += ws[j];
+      delta += row[j];
   }
   delta *= -2;
 
@@ -169,22 +62,19 @@ Model::gibbs_sampler(int i)
     _state[i] = 0;
 }
 
-
 void
-Model::gibbs_sampler_synchronous()
+GibbsSampler::update_sync()
 {
-  assert(matrix_is_symmetric(_model_parameters._weight));
-
   for (size_t i = 0; i < _pv.size(); i++) {
-    double delta = _model_parameters._bias[i];
-    const std::vector<double>& ws = _model_parameters._weight[i];
+    double delta = _model_parameters.first_moment[i];
+    const std::vector<double>& row = _model_parameters.second_moment[i];
     for (size_t j = 0; j < _state.size(); j++) {
       if (j == i)
         continue;
       if (_state[j])
-        delta -= ws[j];
+        delta -= row[j];
       else
-        delta += ws[j];
+        delta += row[j];
     }
     delta *= -2;
 
