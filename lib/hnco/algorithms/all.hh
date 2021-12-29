@@ -22,7 +22,6 @@
 #define HNCO_ALGORITHMS_ALL_H
 
 #include "algorithm.hh"
-#include "bm-pbil/bm-pbil.hh"
 #include "complete-search.hh"
 #include "decorators/all.hh"
 #include "ea/all.hh"

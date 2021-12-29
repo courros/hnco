@@ -53,9 +53,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/algorithm.cc \
 	hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh \
-	hnco/algorithms/bm-pbil/bm-pbil.hh \
-	hnco/algorithms/bm-pbil/model.cc \
-	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.cc \
 	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/decorators/all.hh \
@@ -83,7 +80,10 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/fast-efficient-p3/p3.cc \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
 	hnco/algorithms/hea/all.hh \
+	hnco/algorithms/hea/bm-pbil.hh \
 	hnco/algorithms/hea/hea.hh \
+	hnco/algorithms/hea/model.cc \
+	hnco/algorithms/hea/model.hh \
 	hnco/algorithms/hea/spin-herding.cc \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.cc \
@@ -270,8 +270,6 @@ nobase_include_HEADERS = \
 	fparser/fpconfig.hh \
 	hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh \
-	hnco/algorithms/bm-pbil/bm-pbil.hh \
-	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/decorators/all.hh \
 	hnco/algorithms/decorators/restart.hh \
@@ -289,7 +287,9 @@ nobase_include_HEADERS = \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
 	hnco/algorithms/hea/all.hh \
+	hnco/algorithms/hea/bm-pbil.hh \
 	hnco/algorithms/hea/hea.hh \
+	hnco/algorithms/hea/model.hh \
 	hnco/algorithms/hea/spin-herding.hh \
 	hnco/algorithms/hea/spin-moment.hh \
 	hnco/algorithms/human.hh \
