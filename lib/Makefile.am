@@ -79,15 +79,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.cc \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
-	hnco/algorithms/hea/all.hh \
-	hnco/algorithms/hea/bm-pbil.hh \
-	hnco/algorithms/hea/hea.hh \
-	hnco/algorithms/hea/model.cc \
-	hnco/algorithms/hea/model.hh \
-	hnco/algorithms/hea/spin-herding.cc \
-	hnco/algorithms/hea/spin-herding.hh \
-	hnco/algorithms/hea/spin-moment.cc \
-	hnco/algorithms/hea/spin-moment.hh \
 	hnco/algorithms/human.cc \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
@@ -129,6 +120,15 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/random-selection.cc \
 	hnco/algorithms/random-selection.hh \
 	hnco/algorithms/solution.hh \
+	hnco/algorithms/walsh-moments/all.hh \
+	hnco/algorithms/walsh-moments/bm-pbil.hh \
+	hnco/algorithms/walsh-moments/hea.hh \
+	hnco/algorithms/walsh-moments/model.cc \
+	hnco/algorithms/walsh-moments/model.hh \
+	hnco/algorithms/walsh-moments/spin-herding.cc \
+	hnco/algorithms/walsh-moments/spin-herding.hh \
+	hnco/algorithms/walsh-moments/spin-moment.cc \
+	hnco/algorithms/walsh-moments/spin-moment.hh \
 	hnco/app/algorithm-factory.cc \
 	hnco/app/algorithm-factory.hh \
 	hnco/app/application.cc \
@@ -286,12 +286,6 @@ nobase_include_HEADERS = \
 	hnco/algorithms/fast-efficient-p3/implementation.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
-	hnco/algorithms/hea/all.hh \
-	hnco/algorithms/hea/bm-pbil.hh \
-	hnco/algorithms/hea/hea.hh \
-	hnco/algorithms/hea/model.hh \
-	hnco/algorithms/hea/spin-herding.hh \
-	hnco/algorithms/hea/spin-moment.hh \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/ls/all.hh \
@@ -315,6 +309,12 @@ nobase_include_HEADERS = \
 	hnco/algorithms/random-search.hh \
 	hnco/algorithms/random-selection.hh \
 	hnco/algorithms/solution.hh \
+	hnco/algorithms/walsh-moments/all.hh \
+	hnco/algorithms/walsh-moments/bm-pbil.hh \
+	hnco/algorithms/walsh-moments/hea.hh \
+	hnco/algorithms/walsh-moments/model.hh \
+	hnco/algorithms/walsh-moments/spin-herding.hh \
+	hnco/algorithms/walsh-moments/spin-moment.hh \
 	hnco/app/algorithm-factory.hh \
 	hnco/app/application.hh \
 	hnco/app/decorated-function-factory.hh \

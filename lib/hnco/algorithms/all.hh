@@ -26,7 +26,6 @@
 #include "decorators/all.hh"
 #include "ea/all.hh"
 #include "fast-efficient-p3/all.hh"
-#include "hea/all.hh"
 #include "human.hh"
 #include "iterative-algorithm.hh"
 #include "ls/all.hh"
@@ -34,5 +33,6 @@
 #include "pv/all.hh"
 #include "random-search.hh"
 #include "random-selection.hh"
+#include "walsh-moments/all.hh"
 
 #endif
