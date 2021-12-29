@@ -28,70 +28,70 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// Check for symmetric matrix
-  template<class T>
-  bool matrix_is_symmetric(const std::vector<std::vector<T> >& A)
-  {
-    for (std::size_t i = 0; i < A.size(); i++) {
-      for (std::size_t j = 0; j < i; j++) {
-        if (A[i][j] != A[j][i])
-          return false;
-      }
-    }
-    return true;
-  }
-
-  /// Check for strictly lower triangular matrix
-  template<class T>
-  bool matrix_is_strictly_lower_triangular(const std::vector<std::vector<T> >& A)
-  {
-    for (std::size_t i = 0; i < A.size(); i++) {
-      for (std::size_t j = i; j < A.size(); j++) {
-        if (A[i][j] != 0)
-          return false;
-      }
-    }
-    return true;
-  }
-
-  /// Check for diagonal elements
-  template<class T>
-  bool matrix_has_diagonal(const std::vector<std::vector<T> >& A, T x)
-  {
-    for (std::size_t i = 0; i < A.size(); i++) {
-      if (A[i][i] != x)
+/// Check for symmetric matrix
+template<class T>
+bool matrix_is_symmetric(const std::vector<std::vector<T> >& A)
+{
+  for (std::size_t i = 0; i < A.size(); i++) {
+    for (std::size_t j = 0; j < i; j++) {
+      if (A[i][j] != A[j][i])
         return false;
     }
-    return true;
   }
+  return true;
+}
 
-  /// Check for element range
-  template<class T>
-  bool matrix_has_range(const std::vector<std::vector<T> >& A, T inf, T sup)
-  {
-    for (std::size_t i = 0; i < A.size(); i++) {
-      for (std::size_t j = 0; j < i; j++) {
-        if (A[i][j] < inf)
-          return false;
-        if (A[i][j] > sup)
-          return false;
-      }
+/// Check for strictly lower triangular matrix
+template<class T>
+bool matrix_is_strictly_lower_triangular(const std::vector<std::vector<T> >& A)
+{
+  for (std::size_t i = 0; i < A.size(); i++) {
+    for (std::size_t j = i; j < A.size(); j++) {
+      if (A[i][j] != 0)
+        return false;
     }
-    return true;
   }
+  return true;
+}
 
-  /// Check for element range
-  template<class T>
-  bool matrix_has_dominant_diagonal(const std::vector<std::vector<T> >& A)
-  {
-    for (std::size_t i = 0; i < A.size(); i++) {
-      for (std::size_t j = 0; j < i; j++) {
-        if (A[i][j] > A[i][j])
-          return false;
-      }
-    }
-    return true;
+/// Check for diagonal elements
+template<class T>
+bool matrix_has_diagonal(const std::vector<std::vector<T> >& A, T x)
+{
+  for (std::size_t i = 0; i < A.size(); i++) {
+    if (A[i][i] != x)
+      return false;
   }
+  return true;
+}
+
+/// Check for element range
+template<class T>
+bool matrix_has_range(const std::vector<std::vector<T> >& A, T inf, T sup)
+{
+  for (std::size_t i = 0; i < A.size(); i++) {
+    for (std::size_t j = 0; j < i; j++) {
+      if (A[i][j] < inf)
+        return false;
+      if (A[i][j] > sup)
+        return false;
+    }
+  }
+  return true;
+}
+
+/// Check for element range
+template<class T>
+bool matrix_has_dominant_diagonal(const std::vector<std::vector<T> >& A)
+{
+  for (std::size_t i = 0; i < A.size(); i++) {
+    for (std::size_t j = 0; j < i; j++) {
+      if (A[i][j] > A[i][j])
+        return false;
+    }
+  }
+  return true;
+}
 
 
 } // end of namespace algorithm
