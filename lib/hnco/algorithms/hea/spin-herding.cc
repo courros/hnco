@@ -91,14 +91,14 @@ SymmetricWalshMoment2Herding::init()
 }
 
 double
-SymmetricWalshMoment2Herding::error(const LowerTriangularWalshMoment2& target)
+SymmetricWalshMoment2Herding::error(const SymmetricWalshMoment2& target)
 {
   _error.scaled_difference(_time, target, _count);
   return _error.norm_2();
 }
 
 void
-SymmetricWalshMoment2Herding::sample(const LowerTriangularWalshMoment2& target, bit_vector_t& bv)
+SymmetricWalshMoment2Herding::sample(const SymmetricWalshMoment2& target, bit_vector_t& bv)
 {
   assert(have_same_size(bv, _permutation));
 
