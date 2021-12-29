@@ -31,12 +31,10 @@ namespace algorithm {
 namespace hea {
 
 
-/** Herding with spin variables
+/** Herding with lower triangular Walsh moment.
 
-    By spin variables, we mean variables taking values 1 or -1,
-    instead of 0 or 1 in the case of binary variables.
-*/
-class SpinHerding {
+ */
+class LowerTriangularWalshMoment2Herding {
 
 protected:
 
@@ -66,11 +64,14 @@ protected:
 
 public:
 
+  /// Walsh moment type
+  typedef LowerTriangularWalshMoment2 Moment;
+
   /** Constructor.
 
       \param n Size of bit vectors
   */
-  SpinHerding(int n):
+  LowerTriangularWalshMoment2Herding(int n):
     _delta(n),
     _count(n),
     _error(n),
@@ -91,6 +92,81 @@ public:
 
   /// Get delta
   const LowerTriangularWalshMoment2& get_delta() const { return _delta; }
+
+  ///@}
+
+  /** @name Setters
+   */
+  ///@{
+
+  /// Randomize bit order
+  void set_randomize_bit_order(bool x) { _randomize_bit_order = x; }
+
+  ///@}
+
+};
+
+/** Herding with symmetric Walsh moment.
+
+ */
+class SymmetricWalshMoment2Herding {
+
+protected:
+
+  /// Delta moment
+  SymmetricWalshMoment2 _delta;
+
+  /// Counter moment
+  SymmetricWalshMoment2 _count;
+
+  /// Error moment
+  SymmetricWalshMoment2 _error;
+
+  /// Permutation
+  permutation_t _permutation;
+
+  /// Time
+  int _time;
+
+  /** @name Parameters
+   */
+  ///@{
+
+  /// Randomize bit order
+  bool _randomize_bit_order = false;
+
+  ///@}
+
+public:
+
+  /// Walsh moment type
+  typedef SymmetricWalshMoment2 Moment;
+
+  /** Constructor.
+
+      \param n Size of bit vectors
+  */
+  SymmetricWalshMoment2Herding(int n):
+    _delta(n),
+    _count(n),
+    _error(n),
+    _permutation(n, 0) {}
+
+  /// Initialization
+  void init();
+
+  /// Sample a bit vector
+  void sample(const SymmetricWalshMoment2& target, bit_vector_t& x);
+
+  /// Compute the error
+  double error(const SymmetricWalshMoment2& target);
+
+  /** @name Getters
+   */
+  ///@{
+
+  /// Get delta
+  const SymmetricWalshMoment2& get_delta() const { return _delta; }
 
   ///@}
 

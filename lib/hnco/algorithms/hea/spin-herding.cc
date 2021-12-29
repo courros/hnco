@@ -29,7 +29,7 @@ using namespace hnco::algorithm::hea;
 
 
 void
-SpinHerding::init()
+LowerTriangularWalshMoment2Herding::init()
 {
   _time = 0;
   _count.init();
@@ -37,14 +37,14 @@ SpinHerding::init()
 }
 
 double
-SpinHerding::error(const LowerTriangularWalshMoment2& target)
+LowerTriangularWalshMoment2Herding::error(const LowerTriangularWalshMoment2& target)
 {
   _error.scaled_difference(_time, target, _count);
   return _error.norm_2();
 }
 
 void
-SpinHerding::sample(const LowerTriangularWalshMoment2& target, bit_vector_t& bv)
+LowerTriangularWalshMoment2Herding::sample(const LowerTriangularWalshMoment2& target, bit_vector_t& bv)
 {
   assert(have_same_size(bv, _permutation));
 
@@ -72,6 +72,54 @@ SpinHerding::sample(const LowerTriangularWalshMoment2& target, bit_vector_t& bv)
         else
           acc += _delta.second_moment[j][i];
       }
+    }
+    if (_delta.first_moment[i] + acc > 0)
+      bv[i] = 0;
+    else
+      bv[i] = 1;
+  }
+
+  _count.add(bv);
+}
+
+void
+SymmetricWalshMoment2Herding::init()
+{
+  _time = 0;
+  _count.init();
+  perm_identity(_permutation);
+}
+
+double
+SymmetricWalshMoment2Herding::error(const LowerTriangularWalshMoment2& target)
+{
+  _error.scaled_difference(_time, target, _count);
+  return _error.norm_2();
+}
+
+void
+SymmetricWalshMoment2Herding::sample(const LowerTriangularWalshMoment2& target, bit_vector_t& bv)
+{
+  assert(have_same_size(bv, _permutation));
+
+  const int bv_size = _permutation.size();
+
+  if (_randomize_bit_order)
+    perm_random(_permutation);
+
+  _time++;
+  _delta.scaled_difference(_time, target, _count);
+
+  for (int k = 0; k < bv_size; k++) {
+    int i = _randomize_bit_order ? _permutation[k] : k;
+    const auto& row = _delta.second_moment[i];
+    double acc = 0;
+    for (int l = 0; l < k; l++) {
+      int j = _randomize_bit_order ? _permutation[l] : l;
+      if (bv[j])
+        acc -= row[j];
+      else
+        acc += row[j];
     }
     if (_delta.first_moment[i] + acc > 0)
       bv[i] = 0;
