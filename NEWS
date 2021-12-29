@@ -13,18 +13,23 @@ Library:
 - Renamed DyadicRealRepresentation -> DyadicFloatRepresentation
 - DyadicFloatRepresentation, DyadicComplexRepresentation,
   DyadicIntegerRepresentation: remove default constructor
+- Added hnco::is_in_interval, hnco::clip_value
+- Merged directories algorithms/hea/ and algorithms/bm_pbil/ into algorithms/walsh_moment/
+- Merged namespaces algorithm::hea and algorithm::bm_pbil into algorithm::walsh_moment
 - Removed bit moment and bit herding
 - Renamed SpinMoment -> LowerTriangularWalshMoment2
-- SpinHerding: removed alternative sampling methods
-- SpinHerding: cleaned code
+- Added SymmetricWalshMoment2
+- Walsh moments are shared by BmPbil and Hea
+- renamed SpinHerding -> LowerTriangularWalshMoment2Herding
+- Added SymmetricWalshMoment2Herding
+- Herding: removed alternative sampling methods
+- Herding: cleaned code
 - Hea: removed _log_flags
 - Hea: added member functions set_log_*
-- Added is_in_interval, clip_value
-- LowerTriangularWalshMoment2: added norm_1, norm_infinite
-- LowerTriangularWalshMoment2: removed uniform
-- Renamed bm_pbil::Model -> GibbsSampler
-- GibbsSampler uses LowerTriangularWalshMoment2
-- GibbsSampler: changed type const LowerTriangularWalshMoment2& _model_parameters
+- Walsh moment: added norm_1, norm_infinite
+- Walsh moment: removed uniform
+- Renamed bm_pbil::Model -> walsh_moment::LowerTriangularWalshMoment2GibbsSampler
+- Added SymmetricWalshMoment2GibbsSampler
 - Removed bm_pbil::ModelParameters
 
 Python:
