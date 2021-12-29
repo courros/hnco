@@ -839,27 +839,33 @@ PYBIND11_MODULE(hnco, module_hnco) {
     {
       using namespace hnco::algorithm::walsh_moment;
 
-      py::class_<BmPbil, IterativeAlgorithm>(module_algorithm, "BmPbil")
-        .def(py::init<int, int>())
-        .def("set_selection_size", &BmPbil::set_selection_size)
-        .def("set_learning_rate", &BmPbil::set_learning_rate)
-        .def("set_num_gs_steps", &BmPbil::set_num_gs_steps)
-        .def("set_num_gs_cycles", &BmPbil::set_num_gs_cycles)
-        .def("set_negative_positive_selection", &BmPbil::set_negative_positive_selection)
-        .def("set_sampling", &BmPbil::set_sampling)
-        .def("set_mc_reset_strategy", &BmPbil::set_mc_reset_strategy)
-        ;
+      {
+        using Algo = Hea<SymmetricWalshMoment2Herding>;
+        py::class_<Algo, IterativeAlgorithm>(module_algorithm, "Hea")
+          .def(py::init<int, int>())
+          .def("set_bound_moment", &Algo::set_bound_moment)
+          .def("set_learning_rate", &Algo::set_learning_rate)
+          .def("set_num_iterations", &Algo::set_num_iterations)
+          .def("set_randomize_bit_order", &Algo::set_randomize_bit_order)
+          .def("set_reset_period", &Algo::set_reset_period)
+          .def("set_selection_size", &Algo::set_selection_size)
+          ;
+      }
 
-    }
-
-    {
-      using namespace hnco::algorithm::hea;
-      using Algo = Hea<SpinMoment, SpinHerding>;
-
-      py::class_<Algo, IterativeAlgorithm>(module_algorithm, "Hea")
-        .def(py::init<int, int>())
-        .def("set_herding", &Algo::set_herding)
-        ;
+      {
+        using Algo = BmPbil<SymmetricWalshMoment2GibbsSampler>;
+        py::class_<Algo, IterativeAlgorithm>(module_algorithm, "BmPbil")
+          .def(py::init<int, int>())
+          .def("set_learning_rate", &Algo::set_learning_rate)
+          .def("set_mc_reset_strategy", &Algo::set_mc_reset_strategy)
+          .def("set_negative_positive_selection", &Algo::set_negative_positive_selection)
+          .def("set_num_gs_cycles", &Algo::set_num_gs_cycles)
+          .def("set_num_gs_steps", &Algo::set_num_gs_steps)
+          .def("set_num_iterations", &Algo::set_num_iterations)
+          .def("set_sampling", &Algo::set_sampling)
+          .def("set_selection_size", &Algo::set_selection_size)
+          ;
+      }
 
     }
 
