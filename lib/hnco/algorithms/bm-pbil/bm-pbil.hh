@@ -23,6 +23,8 @@
 
 #include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/algorithms/population.hh"
+#include "hnco/exception.hh"
+#include "hnco/logging/logger.hh"
 #include "hnco/permutation.hh"
 
 #include "model.hh"
@@ -46,6 +48,7 @@ namespace bm_pbil {
     incremental learning. In ECAI 2002. IOS Press, Lyon.
 
 */
+template<class GibbsSampler>
 class BmPbil: public IterativeAlgorithm {
 
 public:
@@ -103,19 +106,19 @@ protected:
   Population _population;
 
   /// Model parameters
-  hea::LowerTriangularWalshMoment2 _model_parameters;
+  typename GibbsSampler::Moment _model_parameters;
 
   /// Model
-  GibbsSampler _model;
+  GibbsSampler _gibbs_sampler;
 
   /// Parameters averaged over all individuals
-  hea::LowerTriangularWalshMoment2 _parameters_all;
+  typename GibbsSampler::Moment _walsh_moment_all;
 
   /// Parameters averaged over selected individuals
-  hea::LowerTriangularWalshMoment2 _parameters_best;
+  typename GibbsSampler::Moment _walsh_moment_best;
 
   /// Parameters averaged over negatively selected individuals
-  hea::LowerTriangularWalshMoment2 _parameters_worst;
+  typename GibbsSampler::Moment _walsh_moment_worst;
 
   /// Uniform distribution on bit_vector_t components
   std::uniform_int_distribution<int> _choose_bit;
@@ -167,13 +170,74 @@ protected:
   ///@{
 
   /// Initialize
-  void init() override;
+  void init() override {
+    set_something_to_log();
+
+    random_solution();
+    _model_parameters.init();
+    _gibbs_sampler.init();
+  }
 
   /// Single iteration
-  void iterate() override;
+  void iterate() override {
+    if (_mc_reset_strategy == RESET_ITERATION)
+      _gibbs_sampler.init();
+
+    // Sample population
+    for (int i = 0; i < _population.size(); i++) {
+      if (_mc_reset_strategy == RESET_BIT_VECTOR)
+        _gibbs_sampler.init();
+      sample(_population.get_bv(i));
+    }
+
+    // Evaluate population
+    if (_functions.size() > 1)
+      _population.evaluate_in_parallel(_functions);
+    else
+      _population.evaluate(_function);
+
+    _population.sort();
+
+    update_solution(_population.get_best_bv(),
+                    _population.get_best_value());
+
+    // Average best individuals
+    _walsh_moment_best.init();
+    for (int i = 0; i < _selection_size; i++)
+      _walsh_moment_best.add(_population.get_best_bv(i));
+    _walsh_moment_best.average(_selection_size);
+
+    if (_negative_positive_selection) {
+      // Average worst individuals
+      _walsh_moment_worst.init();
+      for (int i = 0; i < _selection_size; i++)
+        _walsh_moment_worst.add(_population.get_worst_bv(i));
+      _walsh_moment_worst.average(_selection_size);
+      _model_parameters.update(_walsh_moment_best, _walsh_moment_worst, _learning_rate);
+    } else {
+      // Average all individuals
+      _walsh_moment_all.init();
+      for (int i = 0; i < _population.size(); i++)
+        _walsh_moment_all.add(_population.get_bv(i));
+      _walsh_moment_all.average(_population.size());
+      _model_parameters.update(_walsh_moment_best, _walsh_moment_all, _learning_rate);
+    }
+
+  }
 
   /// Log
-  void log() override;
+  void log() override {
+    assert(_something_to_log);
+
+    logging::Logger l(_log_context);
+
+    if (_log_norm_infinite)
+      l.line() << _model_parameters.norm_infinite() << " ";
+
+    if (_log_norm_1)
+      l.line() << _model_parameters.norm_1() << " ";
+
+  }
 
   ///@}
 
@@ -181,16 +245,45 @@ protected:
   void set_something_to_log() { _something_to_log = _log_norm_infinite || _log_norm_1; }
 
   /// Sample a bit vector
-  void sample(bit_vector_t& x);
+  void sample(bit_vector_t& x) {
+    switch (_sampling) {
+    case SAMPLING_ASYNCHRONOUS:
+      sample_asynchronous();
+      break;
+    case SAMPLING_ASYNCHRONOUS_FULL_SCAN:
+      sample_asynchronous_full_scan();
+      break;
+    case SAMPLING_SYNCHRONOUS:
+      sample_synchronous();
+      break;
+    default:
+      std::ostringstream stream;
+      stream << _sampling;
+      throw std::runtime_error("BmPbil::sample: Unknown _sampling: " + stream.str());
+    }
+    x = _gibbs_sampler.get_state();
+  }
 
   /// Asynchronous sampling
-  void sample_asynchronous();
+  void sample_asynchronous() {
+    for (int t = 0; t < _num_gs_steps; t++)
+      _gibbs_sampler.update(_choose_bit(random::Generator::engine));
+  }
 
   /// Asynchronous sampling with full scan
-  void sample_asynchronous_full_scan();
+  void sample_asynchronous_full_scan() {
+    for (int t = 0; t < _num_gs_cycles; t++) {
+      perm_random(_permutation);
+      for (size_t i = 0; i < _permutation.size(); i++)
+        _gibbs_sampler.update(_permutation[i]);
+    }
+  }
 
   /// Synchronous sampling
-  void sample_synchronous();
+  void sample_synchronous() {
+    for (int t = 0; t < _num_gs_cycles; t++)
+      _gibbs_sampler.update_sync();
+  }
 
 public:
 
@@ -199,10 +292,10 @@ public:
     IterativeAlgorithm(n),
     _population(population_size, n),
     _model_parameters(n),
-    _model(n, _model_parameters),
-    _parameters_all(n),
-    _parameters_best(n),
-    _parameters_worst(n),
+    _gibbs_sampler(n, _model_parameters),
+    _walsh_moment_all(n),
+    _walsh_moment_best(n),
+    _walsh_moment_worst(n),
     _choose_bit(0, n - 1),
     _permutation(n) {}
 
