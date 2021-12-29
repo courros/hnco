@@ -1075,7 +1075,12 @@
 
                 {
                     "value": 1000,
-                    "description": "Boltzmann machine PBIL"
+                    "description": "Boltzmann machine PBIL with symmetric Walsh moment"
+                },
+
+                {
+                    "value": 1001,
+                    "description": "Boltzmann machine PBIL with lower triangular Walsh moment"
                 },
 
                 {
