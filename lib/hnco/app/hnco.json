@@ -1064,8 +1064,13 @@
                 },
 
                 {
+                    "value": 900,
+                    "description": "Herding evolutionary algorithm (HEA) with symmetric Walsh moment"
+                },
+
+                {
                     "value": 901,
-                    "description": "Herding evolutionary algorithm (HEA)"
+                    "description": "Herding evolutionary algorithm (HEA) with lower triangular Walsh moment"
                 },
 
                 {

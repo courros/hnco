@@ -309,23 +309,41 @@ CommandLineAlgorithmFactory::make(int bv_size)
     return algo;
   }
 
+  case 900: {
+    using namespace hea;
+
+    auto algo = new
+      Hea<SymmetricWalshMoment2Herding>(bv_size,
+                                        _options.get_population_size());
+
+    algo->set_bound_moment(_options.with_hea_bound_moment());
+    algo->set_learning_rate(_options.get_learning_rate());
+    algo->set_num_iterations(_options.get_num_iterations());
+    algo->set_randomize_bit_order(_options.with_hea_randomize_bit_order());
+    algo->set_reset_period(_options.get_hea_reset_period());
+    algo->set_selection_size(_options.get_selection_size());
+
+    algo->set_log_error(_options.with_hea_log_error());
+    algo->set_log_dtu(_options.with_hea_log_dtu());
+    algo->set_log_delta(_options.with_hea_log_delta());
+    algo->set_log_moment(_options.with_hea_log_moment_matrix());
+
+    return algo;
+  }
+
   case 901: {
     using namespace hea;
 
-    auto herding = new SpinHerding(bv_size);
-
-    herding->set_randomize_bit_order(_options.with_hea_randomize_bit_order());
-
     auto algo = new
-      Hea<LowerTriangularWalshMoment2, SpinHerding>(bv_size,
-                                                    _options.get_population_size());
+      Hea<LowerTriangularWalshMoment2Herding>(bv_size,
+                                              _options.get_population_size());
 
-    algo->set_herding(herding);
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_selection_size(_options.get_selection_size());
-    algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_reset_period(_options.get_hea_reset_period());
     algo->set_bound_moment(_options.with_hea_bound_moment());
+    algo->set_learning_rate(_options.get_learning_rate());
+    algo->set_num_iterations(_options.get_num_iterations());
+    algo->set_randomize_bit_order(_options.with_hea_randomize_bit_order());
+    algo->set_reset_period(_options.get_hea_reset_period());
+    algo->set_selection_size(_options.get_selection_size());
 
     algo->set_log_error(_options.with_hea_log_error());
     algo->set_log_dtu(_options.with_hea_log_dtu());

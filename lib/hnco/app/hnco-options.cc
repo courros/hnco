@@ -1041,7 +1041,8 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            600: Univariate marginal distribution algorithm (UMDA)" << std::endl;
   stream << "            700: Compact genetic algorithm (cGA)" << std::endl;
   stream << "            800: Max-min ant system (MMAS)" << std::endl;
-  stream << "            901: Herding evolutionary algorithm (HEA)" << std::endl;
+  stream << "            900: Herding evolutionary algorithm (HEA) with symmetric Walsh moment" << std::endl;
+  stream << "            901: Herding evolutionary algorithm (HEA) with lower triangular Walsh moment" << std::endl;
   stream << "            1000: Boltzmann machine PBIL" << std::endl;
   stream << "            1100: Mutual information maximizing input clustering (MIMIC)" << std::endl;
   stream << "            1110: Hierarchical Bayesian optimization algorithm (hBOA)" << std::endl;
