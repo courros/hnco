@@ -29,7 +29,7 @@
 
 namespace hnco {
 namespace algorithm {
-namespace hea {
+namespace walsh_moment {
 
 /** Lower triangular Walsh moment.
 

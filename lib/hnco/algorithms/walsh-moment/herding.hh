@@ -28,7 +28,7 @@
 
 namespace hnco {
 namespace algorithm {
-namespace hea {
+namespace walsh_moment {
 
 
 /** Herding with lower triangular Walsh moment.

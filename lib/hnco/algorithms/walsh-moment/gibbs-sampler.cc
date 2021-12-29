@@ -29,7 +29,7 @@
 
 using namespace hnco;
 using namespace hnco::random;
-using namespace hnco::algorithm::bm_pbil;
+using namespace hnco::algorithm::walsh_moment;
 
 void
 LowerTriangularWalshMoment2GibbsSampler::init()

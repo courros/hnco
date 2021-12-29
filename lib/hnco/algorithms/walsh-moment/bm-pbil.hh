@@ -32,9 +32,7 @@
 
 namespace hnco {
 namespace algorithm {
-
-/// Boltzmann machine PBIL
-namespace bm_pbil {
+namespace walsh_moment {
 
 /** Boltzmann machine PBIL.
 
@@ -345,7 +343,7 @@ public:
 };
 
 
-} // end of namespace bm_pbil
+} // end of namespace walsh_moment
 } // end of namespace algorithm
 } // end of namespace hnco
 

@@ -310,7 +310,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
   }
 
   case 900: {
-    using namespace hea;
+    using namespace walsh_moment;
 
     auto algo = new
       Hea<SymmetricWalshMoment2Herding>(bv_size,
@@ -332,7 +332,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
   }
 
   case 901: {
-    using namespace hea;
+    using namespace walsh_moment;
 
     auto algo = new
       Hea<LowerTriangularWalshMoment2Herding>(bv_size,
@@ -354,8 +354,8 @@ CommandLineAlgorithmFactory::make(int bv_size)
   }
 
   case 1000: {
-    using namespace bm_pbil;
-    using namespace hea;
+    using namespace walsh_moment;
+
     auto algo = new BmPbil<SymmetricWalshMoment2GibbsSampler>
       (bv_size,
        _options.get_population_size());
@@ -376,8 +376,8 @@ CommandLineAlgorithmFactory::make(int bv_size)
   }
 
   case 1001: {
-    using namespace bm_pbil;
-    using namespace hea;
+    using namespace walsh_moment;
+
     auto algo = new BmPbil<LowerTriangularWalshMoment2GibbsSampler>
       (bv_size,
        _options.get_population_size());

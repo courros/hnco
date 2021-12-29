@@ -29,8 +29,8 @@
 namespace hnco {
 namespace algorithm {
 
-/// Herding evolutionary algorithm
-namespace hea {
+/// Algorithms using Walsh moments
+namespace walsh_moment {
 
 
 /** Herding evolutionary algorithm.
@@ -275,7 +275,7 @@ public:
 };
 
 
-} // end of namespace hea
+} // end of namespace walsh_moment
 } // end of namespace algorithm
 } // end of namespace hnco
 

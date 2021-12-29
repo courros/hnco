@@ -31,14 +31,14 @@
 
 namespace hnco {
 namespace algorithm {
-namespace bm_pbil {
+namespace walsh_moment {
 
 
 /// Gibbs sampler with lower triangular Walsh moments
 class LowerTriangularWalshMoment2GibbsSampler
 {
   /// Model parameters
-  const hea::LowerTriangularWalshMoment2& _model_parameters;
+  const LowerTriangularWalshMoment2& _model_parameters;
 
   /// State of the Gibbs sampler
   bit_vector_t _state;
@@ -49,10 +49,10 @@ class LowerTriangularWalshMoment2GibbsSampler
 public:
 
   /// Walsh moment type
-  typedef hea::LowerTriangularWalshMoment2 Moment;
+  typedef LowerTriangularWalshMoment2 Moment;
 
   /// Constructor
-  LowerTriangularWalshMoment2GibbsSampler(int n, const hea::LowerTriangularWalshMoment2& mp):
+  LowerTriangularWalshMoment2GibbsSampler(int n, const LowerTriangularWalshMoment2& mp):
     _model_parameters(mp),
     _state(n),
     _pv(n) {}
@@ -75,7 +75,7 @@ public:
 class SymmetricWalshMoment2GibbsSampler
 {
   /// Model parameters
-  const hea::SymmetricWalshMoment2& _model_parameters;
+  const SymmetricWalshMoment2& _model_parameters;
 
   /// State of the Gibbs sampler
   bit_vector_t _state;
@@ -86,10 +86,10 @@ class SymmetricWalshMoment2GibbsSampler
 public:
 
   /// Walsh moment type
-  typedef hea::SymmetricWalshMoment2 Moment;
+  typedef SymmetricWalshMoment2 Moment;
 
   /// Constructor
-  SymmetricWalshMoment2GibbsSampler(int n, const hea::SymmetricWalshMoment2& mp):
+  SymmetricWalshMoment2GibbsSampler(int n, const SymmetricWalshMoment2& mp):
     _model_parameters(mp),
     _state(n),
     _pv(n) {}

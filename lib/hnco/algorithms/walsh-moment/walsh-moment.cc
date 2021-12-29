@@ -26,7 +26,8 @@
 
 #include "walsh-moment.hh"
 
-using namespace hnco::algorithm::hea;
+
+using namespace hnco::algorithm::walsh_moment;
 
 LowerTriangularWalshMoment2::LowerTriangularWalshMoment2(int n)
 {

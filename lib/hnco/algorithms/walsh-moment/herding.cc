@@ -25,7 +25,7 @@
 #include "herding.hh"
 
 
-using namespace hnco::algorithm::hea;
+using namespace hnco::algorithm::walsh_moment;
 
 
 void

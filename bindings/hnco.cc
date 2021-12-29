@@ -837,7 +837,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
       ;
 
     {
-      using namespace hnco::algorithm::bm_pbil;
+      using namespace hnco::algorithm::walsh_moment;
 
       py::class_<BmPbil, IterativeAlgorithm>(module_algorithm, "BmPbil")
         .def(py::init<int, int>())
