@@ -125,8 +125,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/walsh-moments/hea.hh \
 	hnco/algorithms/walsh-moments/model.cc \
 	hnco/algorithms/walsh-moments/model.hh \
-	hnco/algorithms/walsh-moments/spin-herding.cc \
-	hnco/algorithms/walsh-moments/spin-herding.hh \
+	hnco/algorithms/walsh-moments/herding.cc \
+	hnco/algorithms/walsh-moments/herding.hh \
 	hnco/algorithms/walsh-moments/spin-moment.cc \
 	hnco/algorithms/walsh-moments/spin-moment.hh \
 	hnco/app/algorithm-factory.cc \
@@ -313,7 +313,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/walsh-moments/bm-pbil.hh \
 	hnco/algorithms/walsh-moments/hea.hh \
 	hnco/algorithms/walsh-moments/model.hh \
-	hnco/algorithms/walsh-moments/spin-herding.hh \
+	hnco/algorithms/walsh-moments/herding.hh \
 	hnco/algorithms/walsh-moments/spin-moment.hh \
 	hnco/app/algorithm-factory.hh \
 	hnco/app/application.hh \

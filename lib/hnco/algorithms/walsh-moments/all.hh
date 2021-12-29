@@ -23,8 +23,8 @@
 
 #include "bm-pbil.hh"
 #include "hea.hh"
+#include "herding.hh"
 #include "model.hh"
-#include "spin-herding.hh"
 #include "spin-moment.hh"
 
 #endif

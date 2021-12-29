@@ -22,7 +22,7 @@
 
 #include "hnco/util.hh"
 
-#include "spin-herding.hh"
+#include "herding.hh"
 
 
 using namespace hnco::algorithm::hea;
