@@ -33,6 +33,6 @@
 #include "pv/all.hh"
 #include "random-search.hh"
 #include "random-selection.hh"
-#include "walsh-moments/all.hh"
+#include "walsh-moment/all.hh"
 
 #endif

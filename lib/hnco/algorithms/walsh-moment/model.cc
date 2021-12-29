@@ -20,10 +20,8 @@
 
 #include <assert.h>
 
-#include <algorithm>            // std::max, std::fill
-
 #include "hnco/algorithms/matrix.hh" // hnco::algorithm::matrix_is_symmetric
-#include "hnco/random.hh"
+#include "hnco/random.hh"            // hnco::random::Generator
 #include "hnco/util.hh"         // hnco::logistic, hnco::is_in_range
 
 #include "model.hh"

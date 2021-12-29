@@ -18,14 +18,15 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_BM_PBIL_MODEL_H
-#define HNCO_ALGORITHMS_BM_PBIL_MODEL_H
+#ifndef HNCO_ALGORITHMS_WALSH_MOMENT_MODEL_H
+#define HNCO_ALGORITHMS_WALSH_MOMENT_MODEL_H
 
 #include <vector>
 
 #include "hnco/bit-vector.hh"
 #include "hnco/algorithms/pv/probability-vector.hh"
-#include "hnco/algorithms/hea/spin-moment.hh"
+
+#include "spin-moment.hh"
 
 
 namespace hnco {

@@ -236,15 +236,15 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/random-selection.cc \
 	hnco/algorithms/random-selection.hh \
 	hnco/algorithms/solution.hh \
-	hnco/algorithms/walsh-moments/all.hh \
-	hnco/algorithms/walsh-moments/bm-pbil.hh \
-	hnco/algorithms/walsh-moments/hea.hh \
-	hnco/algorithms/walsh-moments/model.cc \
-	hnco/algorithms/walsh-moments/model.hh \
-	hnco/algorithms/walsh-moments/herding.cc \
-	hnco/algorithms/walsh-moments/herding.hh \
-	hnco/algorithms/walsh-moments/spin-moment.cc \
-	hnco/algorithms/walsh-moments/spin-moment.hh \
+	hnco/algorithms/walsh-moment/all.hh \
+	hnco/algorithms/walsh-moment/bm-pbil.hh \
+	hnco/algorithms/walsh-moment/hea.hh \
+	hnco/algorithms/walsh-moment/model.cc \
+	hnco/algorithms/walsh-moment/model.hh \
+	hnco/algorithms/walsh-moment/herding.cc \
+	hnco/algorithms/walsh-moment/herding.hh \
+	hnco/algorithms/walsh-moment/spin-moment.cc \
+	hnco/algorithms/walsh-moment/spin-moment.hh \
 	hnco/app/algorithm-factory.cc hnco/app/algorithm-factory.hh \
 	hnco/app/application.cc hnco/app/application.hh \
 	hnco/app/decorated-function-factory.cc \
@@ -369,9 +369,9 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/pv/pv-algorithm.lo hnco/algorithms/pv/umda.lo \
 	hnco/algorithms/random-search.lo \
 	hnco/algorithms/random-selection.lo \
-	hnco/algorithms/walsh-moments/model.lo \
-	hnco/algorithms/walsh-moments/herding.lo \
-	hnco/algorithms/walsh-moments/spin-moment.lo \
+	hnco/algorithms/walsh-moment/model.lo \
+	hnco/algorithms/walsh-moment/herding.lo \
+	hnco/algorithms/walsh-moment/spin-moment.lo \
 	hnco/app/algorithm-factory.lo hnco/app/application.lo \
 	hnco/app/decorated-function-factory.lo \
 	hnco/app/function-factory.lo hnco/app/hnco-options.lo \
@@ -471,9 +471,9 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/algorithms/pv/$(DEPDIR)/probability-vector.Plo \
 	hnco/algorithms/pv/$(DEPDIR)/pv-algorithm.Plo \
 	hnco/algorithms/pv/$(DEPDIR)/umda.Plo \
-	hnco/algorithms/walsh-moments/$(DEPDIR)/herding.Plo \
-	hnco/algorithms/walsh-moments/$(DEPDIR)/model.Plo \
-	hnco/algorithms/walsh-moments/$(DEPDIR)/spin-moment.Plo \
+	hnco/algorithms/walsh-moment/$(DEPDIR)/herding.Plo \
+	hnco/algorithms/walsh-moment/$(DEPDIR)/model.Plo \
+	hnco/algorithms/walsh-moment/$(DEPDIR)/spin-moment.Plo \
 	hnco/app/$(DEPDIR)/algorithm-factory.Plo \
 	hnco/app/$(DEPDIR)/application.Plo \
 	hnco/app/$(DEPDIR)/decorated-function-factory.Plo \
@@ -597,12 +597,12 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/random-search.hh \
 	hnco/algorithms/random-selection.hh \
 	hnco/algorithms/solution.hh \
-	hnco/algorithms/walsh-moments/all.hh \
-	hnco/algorithms/walsh-moments/bm-pbil.hh \
-	hnco/algorithms/walsh-moments/hea.hh \
-	hnco/algorithms/walsh-moments/model.hh \
-	hnco/algorithms/walsh-moments/herding.hh \
-	hnco/algorithms/walsh-moments/spin-moment.hh \
+	hnco/algorithms/walsh-moment/all.hh \
+	hnco/algorithms/walsh-moment/bm-pbil.hh \
+	hnco/algorithms/walsh-moment/hea.hh \
+	hnco/algorithms/walsh-moment/model.hh \
+	hnco/algorithms/walsh-moment/herding.hh \
+	hnco/algorithms/walsh-moment/spin-moment.hh \
 	hnco/app/algorithm-factory.hh hnco/app/application.hh \
 	hnco/app/decorated-function-factory.hh \
 	hnco/app/function-factory.hh hnco/app/hnco-options.hh \
@@ -885,15 +885,15 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/random-selection.cc \
 	hnco/algorithms/random-selection.hh \
 	hnco/algorithms/solution.hh \
-	hnco/algorithms/walsh-moments/all.hh \
-	hnco/algorithms/walsh-moments/bm-pbil.hh \
-	hnco/algorithms/walsh-moments/hea.hh \
-	hnco/algorithms/walsh-moments/model.cc \
-	hnco/algorithms/walsh-moments/model.hh \
-	hnco/algorithms/walsh-moments/herding.cc \
-	hnco/algorithms/walsh-moments/herding.hh \
-	hnco/algorithms/walsh-moments/spin-moment.cc \
-	hnco/algorithms/walsh-moments/spin-moment.hh \
+	hnco/algorithms/walsh-moment/all.hh \
+	hnco/algorithms/walsh-moment/bm-pbil.hh \
+	hnco/algorithms/walsh-moment/hea.hh \
+	hnco/algorithms/walsh-moment/model.cc \
+	hnco/algorithms/walsh-moment/model.hh \
+	hnco/algorithms/walsh-moment/herding.cc \
+	hnco/algorithms/walsh-moment/herding.hh \
+	hnco/algorithms/walsh-moment/spin-moment.cc \
+	hnco/algorithms/walsh-moment/spin-moment.hh \
 	hnco/app/algorithm-factory.cc hnco/app/algorithm-factory.hh \
 	hnco/app/application.cc hnco/app/application.hh \
 	hnco/app/decorated-function-factory.cc \
@@ -1022,12 +1022,12 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/random-search.hh \
 	hnco/algorithms/random-selection.hh \
 	hnco/algorithms/solution.hh \
-	hnco/algorithms/walsh-moments/all.hh \
-	hnco/algorithms/walsh-moments/bm-pbil.hh \
-	hnco/algorithms/walsh-moments/hea.hh \
-	hnco/algorithms/walsh-moments/model.hh \
-	hnco/algorithms/walsh-moments/herding.hh \
-	hnco/algorithms/walsh-moments/spin-moment.hh \
+	hnco/algorithms/walsh-moment/all.hh \
+	hnco/algorithms/walsh-moment/bm-pbil.hh \
+	hnco/algorithms/walsh-moment/hea.hh \
+	hnco/algorithms/walsh-moment/model.hh \
+	hnco/algorithms/walsh-moment/herding.hh \
+	hnco/algorithms/walsh-moment/spin-moment.hh \
 	hnco/app/algorithm-factory.hh hnco/app/application.hh \
 	hnco/app/decorated-function-factory.hh \
 	hnco/app/function-factory.hh hnco/app/hnco-options.hh \
@@ -1300,21 +1300,21 @@ hnco/algorithms/random-search.lo: hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/random-selection.lo: hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/walsh-moments/$(am__dirstamp):
-	@$(MKDIR_P) hnco/algorithms/walsh-moments
-	@: > hnco/algorithms/walsh-moments/$(am__dirstamp)
-hnco/algorithms/walsh-moments/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) hnco/algorithms/walsh-moments/$(DEPDIR)
-	@: > hnco/algorithms/walsh-moments/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/walsh-moments/model.lo:  \
-	hnco/algorithms/walsh-moments/$(am__dirstamp) \
-	hnco/algorithms/walsh-moments/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/walsh-moments/herding.lo:  \
-	hnco/algorithms/walsh-moments/$(am__dirstamp) \
-	hnco/algorithms/walsh-moments/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/walsh-moments/spin-moment.lo:  \
-	hnco/algorithms/walsh-moments/$(am__dirstamp) \
-	hnco/algorithms/walsh-moments/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/walsh-moment/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/walsh-moment
+	@: > hnco/algorithms/walsh-moment/$(am__dirstamp)
+hnco/algorithms/walsh-moment/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/walsh-moment/$(DEPDIR)
+	@: > hnco/algorithms/walsh-moment/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/walsh-moment/model.lo:  \
+	hnco/algorithms/walsh-moment/$(am__dirstamp) \
+	hnco/algorithms/walsh-moment/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/walsh-moment/herding.lo:  \
+	hnco/algorithms/walsh-moment/$(am__dirstamp) \
+	hnco/algorithms/walsh-moment/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/walsh-moment/spin-moment.lo:  \
+	hnco/algorithms/walsh-moment/$(am__dirstamp) \
+	hnco/algorithms/walsh-moment/$(DEPDIR)/$(am__dirstamp)
 hnco/app/$(am__dirstamp):
 	@$(MKDIR_P) hnco/app
 	@: > hnco/app/$(am__dirstamp)
@@ -1517,8 +1517,8 @@ mostlyclean-compile:
 	-rm -f hnco/algorithms/ls/*.lo
 	-rm -f hnco/algorithms/pv/*.$(OBJEXT)
 	-rm -f hnco/algorithms/pv/*.lo
-	-rm -f hnco/algorithms/walsh-moments/*.$(OBJEXT)
-	-rm -f hnco/algorithms/walsh-moments/*.lo
+	-rm -f hnco/algorithms/walsh-moment/*.$(OBJEXT)
+	-rm -f hnco/algorithms/walsh-moment/*.lo
 	-rm -f hnco/app/*.$(OBJEXT)
 	-rm -f hnco/app/*.lo
 	-rm -f hnco/functions/*.$(OBJEXT)
@@ -1590,9 +1590,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/probability-vector.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/pv-algorithm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/umda.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/walsh-moments/$(DEPDIR)/herding.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/walsh-moments/$(DEPDIR)/model.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/walsh-moments/$(DEPDIR)/spin-moment.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/walsh-moment/$(DEPDIR)/herding.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/walsh-moment/$(DEPDIR)/model.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/walsh-moment/$(DEPDIR)/spin-moment.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/algorithm-factory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/application.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/decorated-function-factory.Plo@am__quote@ # am--include-marker
@@ -1699,7 +1699,7 @@ clean-libtool:
 	-rm -rf hnco/algorithms/fast-efficient-p3/.libs hnco/algorithms/fast-efficient-p3/_libs
 	-rm -rf hnco/algorithms/ls/.libs hnco/algorithms/ls/_libs
 	-rm -rf hnco/algorithms/pv/.libs hnco/algorithms/pv/_libs
-	-rm -rf hnco/algorithms/walsh-moments/.libs hnco/algorithms/walsh-moments/_libs
+	-rm -rf hnco/algorithms/walsh-moment/.libs hnco/algorithms/walsh-moment/_libs
 	-rm -rf hnco/app/.libs hnco/app/_libs
 	-rm -rf hnco/functions/.libs hnco/functions/_libs
 	-rm -rf hnco/functions/collection/.libs hnco/functions/collection/_libs
@@ -1873,8 +1873,8 @@ distclean-generic:
 	-rm -f hnco/algorithms/ls/$(am__dirstamp)
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/algorithms/pv/$(am__dirstamp)
-	-rm -f hnco/algorithms/walsh-moments/$(DEPDIR)/$(am__dirstamp)
-	-rm -f hnco/algorithms/walsh-moments/$(am__dirstamp)
+	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/algorithms/walsh-moment/$(am__dirstamp)
 	-rm -f hnco/app/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/app/$(am__dirstamp)
 	-rm -f hnco/functions/$(DEPDIR)/$(am__dirstamp)
@@ -1953,9 +1953,9 @@ distclean: distclean-am
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/probability-vector.Plo
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/pv-algorithm.Plo
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/umda.Plo
-	-rm -f hnco/algorithms/walsh-moments/$(DEPDIR)/herding.Plo
-	-rm -f hnco/algorithms/walsh-moments/$(DEPDIR)/model.Plo
-	-rm -f hnco/algorithms/walsh-moments/$(DEPDIR)/spin-moment.Plo
+	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/herding.Plo
+	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/model.Plo
+	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/spin-moment.Plo
 	-rm -f hnco/app/$(DEPDIR)/algorithm-factory.Plo
 	-rm -f hnco/app/$(DEPDIR)/application.Plo
 	-rm -f hnco/app/$(DEPDIR)/decorated-function-factory.Plo
@@ -2085,9 +2085,9 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/probability-vector.Plo
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/pv-algorithm.Plo
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/umda.Plo
-	-rm -f hnco/algorithms/walsh-moments/$(DEPDIR)/herding.Plo
-	-rm -f hnco/algorithms/walsh-moments/$(DEPDIR)/model.Plo
-	-rm -f hnco/algorithms/walsh-moments/$(DEPDIR)/spin-moment.Plo
+	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/herding.Plo
+	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/model.Plo
+	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/spin-moment.Plo
 	-rm -f hnco/app/$(DEPDIR)/algorithm-factory.Plo
 	-rm -f hnco/app/$(DEPDIR)/application.Plo
 	-rm -f hnco/app/$(DEPDIR)/decorated-function-factory.Plo

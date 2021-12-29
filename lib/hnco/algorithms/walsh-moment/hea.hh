@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_HEA_HEA_H
-#define HNCO_ALGORITHMS_HEA_HEA_H
+#ifndef HNCO_ALGORITHMS_WALSH_MOMENT_HEA_H
+#define HNCO_ALGORITHMS_WALSH_MOMENT_HEA_H
 
 #include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/algorithms/population.hh"

@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_HEA_ALL_H
-#define HNCO_ALGORITHMS_HEA_ALL_H
+#ifndef HNCO_ALGORITHMS_WALSH_MOMENT_ALL_H
+#define HNCO_ALGORITHMS_WALSH_MOMENT_ALL_H
 
 #include "bm-pbil.hh"
 #include "hea.hh"
