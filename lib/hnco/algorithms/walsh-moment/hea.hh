@@ -219,12 +219,6 @@ public:
    */
   ///@{
 
-  /// Set the herding algorithm
-  void set_herding(Herding *x) {
-    assert(x);
-    _herding = x;
-  }
-
   /// Set the moment margin
   void set_margin(double x) { _margin = x; }
 
