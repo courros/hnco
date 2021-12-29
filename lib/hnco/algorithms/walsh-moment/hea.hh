@@ -58,13 +58,13 @@ class Hea: public algorithm::IterativeAlgorithm {
   /// Herding
   Herding _herding;
 
-  /// Herding error
+  /// Herding error (moment discrepancy)
   double _herding_error;
 
-  /// Target 2-norm
+  /// Target 2-norm (distance to uniform moment)
   double _target_norm;
 
-  /// Delta 2-norm
+  /// Delta (moment increment) 2-norm
   double _delta_norm;
 
   /** @name Parameters
@@ -101,7 +101,7 @@ class Hea: public algorithm::IterativeAlgorithm {
   /// Log delta 2-norm (moment increment)
   bool _log_delta_norm = false;
 
-  /// Log target
+  /// Log target moment as a symmetric matrix
   bool _log_target = false;
 
   ///@}
@@ -246,13 +246,13 @@ public:
   /// Log herding error (moment discrepancy)
   void set_log_herding_error(bool b) { _log_herding_error = b; }
 
-  /// Log target 2-norm
+  /// Log target 2-norm (distance to uniform moment)
   void set_log_target_norm(bool b) { _log_target_norm = b; }
 
   /// Log delta (moment increment) 2-norm
   void set_log_delta_norm(bool b) { _log_delta_norm = b; }
 
-  /// Log target
+  /// Log target moment as a symmetric matrix
   void set_log_target(bool b) { _log_target = b; }
 
   ///@}

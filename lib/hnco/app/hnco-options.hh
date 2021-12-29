@@ -291,10 +291,10 @@ class HncoOptions {
   /// Log herding error (moment discrepancy)
   bool _hea_log_herding_error;
 
-  /// Log target
+  /// Log target moment as a symmetric matrix
   bool _hea_log_target;
 
-  /// Log target norm (distance to uniform moment)
+  /// Log target 2-norm (distance to uniform moment)
   bool _hea_log_target_norm;
 
   /// Randomize bit order

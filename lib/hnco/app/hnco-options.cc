@@ -1268,9 +1268,9 @@ void HncoOptions::print_help_hea(std::ostream& stream) const
   stream << "      --hea-log-herding-error" << std::endl;
   stream << "          Log herding error (moment discrepancy)" << std::endl;
   stream << "      --hea-log-target" << std::endl;
-  stream << "          Log target" << std::endl;
+  stream << "          Log target moment as a symmetric matrix" << std::endl;
   stream << "      --hea-log-target-norm" << std::endl;
-  stream << "          Log target norm (distance to uniform moment)" << std::endl;
+  stream << "          Log target 2-norm (distance to uniform moment)" << std::endl;
   stream << "      --hea-randomize-bit-order" << std::endl;
   stream << "          Randomize bit order" << std::endl;
   stream << "      --hea-reset-period (type int, default to 0)" << std::endl;

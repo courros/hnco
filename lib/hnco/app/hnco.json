@@ -360,7 +360,7 @@
 
         "hea_log_target_norm":
         {
-            "description": "Log target norm (distance to uniform moment)",
+            "description": "Log target 2-norm (distance to uniform moment)",
             "section": "hea"
         },
 
@@ -372,7 +372,7 @@
 
         "hea_log_target":
         {
-            "description": "Log target",
+            "description": "Log target moment as a symmetric matrix",
             "section": "hea"
         },
 
