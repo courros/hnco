@@ -34,25 +34,30 @@ using namespace hnco::random;
 using namespace hnco::algorithm::bm_pbil;
 
 void
-GibbsSampler::init()
+LowerTriangularWalshMoment2GibbsSampler::init()
 {
   bv_random(_state);
 }
 
 void
-GibbsSampler::update(int i)
+LowerTriangularWalshMoment2GibbsSampler::update(int i)
 {
   assert(is_in_range(i, 0, _state.size()));
 
   double delta = _model_parameters.first_moment[i];
+
   const std::vector<double>& row = _model_parameters.second_moment[i];
-  for (size_t j = 0; j < _state.size(); j++) {
-    if (int(j) == i)
-      continue;
+  for (int j = 0; j < i; j++)
     if (_state[j])
       delta -= row[j];
     else
       delta += row[j];
+
+  for (size_t j = i + 1; j < _state.size(); j++) {
+    if (_state[j])
+      delta -= _model_parameters.second_moment[j][i];
+    else
+      delta += _model_parameters.second_moment[j][i];
   }
   delta *= -2;
 
@@ -63,7 +68,62 @@ GibbsSampler::update(int i)
 }
 
 void
-GibbsSampler::update_sync()
+LowerTriangularWalshMoment2GibbsSampler::update_sync()
+{
+  for (size_t i = 0; i < _pv.size(); i++) {
+    double delta = _model_parameters.first_moment[i];
+    const std::vector<double>& row = _model_parameters.second_moment[i];
+    for (size_t j = 0; j < _state.size(); j++) {
+      if (j == i)
+        continue;
+      if (_state[j])
+        delta -= row[j];
+      else
+        delta += row[j];
+    }
+    delta *= -2;
+
+    _pv[i] = logistic(delta);
+  }
+  pv_sample(_state, _pv);
+}
+
+void
+SymmetricWalshMoment2GibbsSampler::init()
+{
+  bv_random(_state);
+}
+
+void
+SymmetricWalshMoment2GibbsSampler::update(int i)
+{
+  assert(is_in_range(i, 0, _state.size()));
+
+  double delta = _model_parameters.first_moment[i];
+
+  const std::vector<double>& row = _model_parameters.second_moment[i];
+  for (int j = 0; j < i; j++)
+    if (_state[j])
+      delta -= row[j];
+    else
+      delta += row[j];
+
+  for (size_t j = i + 1; j < _state.size(); j++) {
+    if (_state[j])
+      delta -= _model_parameters.second_moment[j][i];
+    else
+      delta += _model_parameters.second_moment[j][i];
+  }
+  delta *= -2;
+
+  if (Generator::uniform() < logistic(delta))
+    _state[i] = 1;
+  else
+    _state[i] = 0;
+}
+
+void
+SymmetricWalshMoment2GibbsSampler::update_sync()
 {
   for (size_t i = 0; i < _pv.size(); i++) {
     double delta = _model_parameters.first_moment[i];

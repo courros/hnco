@@ -33,8 +33,8 @@ namespace algorithm {
 namespace bm_pbil {
 
 
-/// Gibbs sampler
-class GibbsSampler
+/// Gibbs sampler with lower triangular Walsh moments
+class LowerTriangularWalshMoment2GibbsSampler
 {
   /// Model parameters
   const hea::LowerTriangularWalshMoment2& _model_parameters;
@@ -47,8 +47,48 @@ class GibbsSampler
 
 public:
 
+  /// Walsh moment type
+  typedef hea::LowerTriangularWalshMoment2 Moment;
+
   /// Constructor
-  GibbsSampler(int n, const hea::LowerTriangularWalshMoment2& mp):
+  LowerTriangularWalshMoment2GibbsSampler(int n, const hea::LowerTriangularWalshMoment2& mp):
+    _model_parameters(mp),
+    _state(n),
+    _pv(n) {}
+
+  /// Initialize
+  void init();
+
+  /// Update state
+  void update(int i);
+
+  /// Update state synchronously
+  void update_sync();
+
+  /// Get the state of the Gibbs sampler
+  const bit_vector_t& get_state() { return _state; }
+
+};
+
+/// Gibbs sampler with symmetric Walsh moments
+class SymmetricWalshMoment2GibbsSampler
+{
+  /// Model parameters
+  const hea::SymmetricWalshMoment2& _model_parameters;
+
+  /// State of the Gibbs sampler
+  bit_vector_t _state;
+
+  /// Probability vector for synchronous Gibbs sampling
+  pv_t _pv;
+
+public:
+
+  /// Walsh moment type
+  typedef hea::SymmetricWalshMoment2 Moment;
+
+  /// Constructor
+  SymmetricWalshMoment2GibbsSampler(int n, const hea::SymmetricWalshMoment2& mp):
     _model_parameters(mp),
     _state(n),
     _pv(n) {}
