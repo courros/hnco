@@ -52,7 +52,7 @@ class Hea: public algorithm::IterativeAlgorithm {
   /// Moment of selected individuals
   typename Herding::Moment _selection;
 
-  /// Population
+  /// %Population
   algorithm::Population _population;
 
   /// Herding
