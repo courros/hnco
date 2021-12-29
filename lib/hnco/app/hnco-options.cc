@@ -136,10 +136,10 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _fn_provides_incremental_evaluation(false),
   _fn_walsh_transform(false),
   _hea_bound_moment(false),
-  _hea_log_delta(false),
-  _hea_log_dtu(false),
-  _hea_log_error(false),
-  _hea_log_moment_matrix(false),
+  _hea_log_delta_norm(false),
+  _hea_log_herding_error(false),
+  _hea_log_target(false),
+  _hea_log_target_norm(false),
   _hea_randomize_bit_order(false),
   _incremental_evaluation(false),
   _load_solution(false),
@@ -253,10 +253,10 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_FN_PROVIDES_INCREMENTAL_EVALUATION,
     OPTION_FN_WALSH_TRANSFORM,
     OPTION_HEA_BOUND_MOMENT,
-    OPTION_HEA_LOG_DELTA,
-    OPTION_HEA_LOG_DTU,
-    OPTION_HEA_LOG_ERROR,
-    OPTION_HEA_LOG_MOMENT_MATRIX,
+    OPTION_HEA_LOG_DELTA_NORM,
+    OPTION_HEA_LOG_HERDING_ERROR,
+    OPTION_HEA_LOG_TARGET,
+    OPTION_HEA_LOG_TARGET_NORM,
     OPTION_HEA_RANDOMIZE_BIT_ORDER,
     OPTION_INCREMENTAL_EVALUATION,
     OPTION_LOAD_SOLUTION,
@@ -358,10 +358,10 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"fn-provides-incremental-evaluation", no_argument, 0, OPTION_FN_PROVIDES_INCREMENTAL_EVALUATION},
     {"fn-walsh-transform", no_argument, 0, OPTION_FN_WALSH_TRANSFORM},
     {"hea-bound-moment", no_argument, 0, OPTION_HEA_BOUND_MOMENT},
-    {"hea-log-delta", no_argument, 0, OPTION_HEA_LOG_DELTA},
-    {"hea-log-dtu", no_argument, 0, OPTION_HEA_LOG_DTU},
-    {"hea-log-error", no_argument, 0, OPTION_HEA_LOG_ERROR},
-    {"hea-log-moment-matrix", no_argument, 0, OPTION_HEA_LOG_MOMENT_MATRIX},
+    {"hea-log-delta-norm", no_argument, 0, OPTION_HEA_LOG_DELTA_NORM},
+    {"hea-log-herding-error", no_argument, 0, OPTION_HEA_LOG_HERDING_ERROR},
+    {"hea-log-target", no_argument, 0, OPTION_HEA_LOG_TARGET},
+    {"hea-log-target-norm", no_argument, 0, OPTION_HEA_LOG_TARGET_NORM},
     {"hea-randomize-bit-order", no_argument, 0, OPTION_HEA_RANDOMIZE_BIT_ORDER},
     {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
     {"load-solution", no_argument, 0, OPTION_LOAD_SOLUTION},
@@ -707,20 +707,20 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       _hea_bound_moment = true;
       break;
 
-    case OPTION_HEA_LOG_DELTA:
-      _hea_log_delta = true;
+    case OPTION_HEA_LOG_DELTA_NORM:
+      _hea_log_delta_norm = true;
       break;
 
-    case OPTION_HEA_LOG_DTU:
-      _hea_log_dtu = true;
+    case OPTION_HEA_LOG_HERDING_ERROR:
+      _hea_log_herding_error = true;
       break;
 
-    case OPTION_HEA_LOG_ERROR:
-      _hea_log_error = true;
+    case OPTION_HEA_LOG_TARGET:
+      _hea_log_target = true;
       break;
 
-    case OPTION_HEA_LOG_MOMENT_MATRIX:
-      _hea_log_moment_matrix = true;
+    case OPTION_HEA_LOG_TARGET_NORM:
+      _hea_log_target_norm = true;
       break;
 
     case OPTION_HEA_RANDOMIZE_BIT_ORDER:
@@ -1263,14 +1263,14 @@ void HncoOptions::print_help_hea(std::ostream& stream) const
   stream << "Herding Evolutionary Algorithms" << std::endl;
   stream << "      --hea-bound-moment" << std::endl;
   stream << "          Bound moment after update" << std::endl;
-  stream << "      --hea-log-delta" << std::endl;
-  stream << "          Log 2-norm of delta (in moment space)" << std::endl;
-  stream << "      --hea-log-dtu" << std::endl;
-  stream << "          Log distance to uniform" << std::endl;
-  stream << "      --hea-log-error" << std::endl;
-  stream << "          Log error (moment discrepancy)" << std::endl;
-  stream << "      --hea-log-moment-matrix" << std::endl;
-  stream << "          Log moment matrix" << std::endl;
+  stream << "      --hea-log-delta-norm" << std::endl;
+  stream << "          Log delta (moment increment) 2-norm" << std::endl;
+  stream << "      --hea-log-herding-error" << std::endl;
+  stream << "          Log herding error (moment discrepancy)" << std::endl;
+  stream << "      --hea-log-target" << std::endl;
+  stream << "          Log target" << std::endl;
+  stream << "      --hea-log-target-norm" << std::endl;
+  stream << "          Log target norm (distance to uniform moment)" << std::endl;
   stream << "      --hea-randomize-bit-order" << std::endl;
   stream << "          Randomize bit order" << std::endl;
   stream << "      --hea-reset-period (type int, default to 0)" << std::endl;
@@ -1399,14 +1399,14 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# fn_walsh_transform" << std::endl;
   if (options._hea_bound_moment)
     stream << "# hea_bound_moment" << std::endl;
-  if (options._hea_log_delta)
-    stream << "# hea_log_delta" << std::endl;
-  if (options._hea_log_dtu)
-    stream << "# hea_log_dtu" << std::endl;
-  if (options._hea_log_error)
-    stream << "# hea_log_error" << std::endl;
-  if (options._hea_log_moment_matrix)
-    stream << "# hea_log_moment_matrix" << std::endl;
+  if (options._hea_log_delta_norm)
+    stream << "# hea_log_delta_norm" << std::endl;
+  if (options._hea_log_herding_error)
+    stream << "# hea_log_herding_error" << std::endl;
+  if (options._hea_log_target)
+    stream << "# hea_log_target" << std::endl;
+  if (options._hea_log_target_norm)
+    stream << "# hea_log_target_norm" << std::endl;
   if (options._hea_randomize_bit_order)
     stream << "# hea_randomize_bit_order" << std::endl;
   if (options._incremental_evaluation)

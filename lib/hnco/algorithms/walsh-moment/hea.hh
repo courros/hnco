@@ -46,14 +46,11 @@ namespace walsh_moment {
 template<class Herding>
 class Hea: public algorithm::IterativeAlgorithm {
 
-  /// Moment
+  /// Target moment
   typename Herding::Moment _target;
 
   /// Moment of selected individuals
   typename Herding::Moment _selection;
-
-  /// Uniform moment
-  typename Herding::Moment _uniform;
 
   /// Population
   algorithm::Population _population;
@@ -61,17 +58,14 @@ class Hea: public algorithm::IterativeAlgorithm {
   /// Herding
   Herding _herding;
 
-  /// Error cache
-  double _error_cache;
+  /// Herding error
+  double _herding_error;
 
-  /// Distance to uniform cache
-  double _dtu_cache;
+  /// Target 2-norm
+  double _target_norm;
 
-  /// Delta cache
-  double _delta_cache;
-
-  /// Selection distance cache
-  double _selection_cache;
+  /// Delta 2-norm
+  double _delta_norm;
 
   /** @name Parameters
    */
@@ -98,17 +92,17 @@ class Hea: public algorithm::IterativeAlgorithm {
    */
   ///@{
 
-  /// Log error
-  bool _log_error = false;
+  /// Log herding error (moment discrepancy)
+  bool _log_herding_error = false;
 
-  /// Log distance to uniform
-  bool _log_dtu = false;
+  /// Log target 2-norm (distance to uniform moment)
+  bool _log_target_norm = false;
 
-  /// Log delta (moment increment)
-  bool _log_delta = false;
+  /// Log delta 2-norm (moment increment)
+  bool _log_delta_norm = false;
 
-  /// Log the moment matrix
-  bool _log_moment = false;
+  /// Log target
+  bool _log_target = false;
 
   ///@}
 
@@ -134,12 +128,12 @@ class Hea: public algorithm::IterativeAlgorithm {
     for (int i = 0; i < _population.size(); i++)
       _herding.sample(_target, _population.get_bv(i));
 
-    if (_log_error)
-      _error_cache = _herding.error(_target);
-    if (_log_dtu)
-      _dtu_cache = _target.distance(_uniform);
-    if (_log_delta)
-      _delta_cache = _herding.get_delta().norm_2();
+    if (_log_herding_error)
+      _herding_error = _herding.error(_target);
+    if (_log_target_norm)
+      _target_norm = _target.norm_2();
+    if (_log_delta_norm)
+      _delta_norm = _herding.get_delta().norm_2();
 
     if (_functions.size() > 1)
       _population.evaluate_in_parallel(_functions);
@@ -163,17 +157,17 @@ class Hea: public algorithm::IterativeAlgorithm {
   /// Set flag for something to log
   void set_something_to_log() {
     _something_to_log =
-      _log_error ||
-      _log_dtu ||
-      _log_delta ||
-      _log_moment;
+      _log_herding_error ||
+      _log_target_norm ||
+      _log_delta_norm ||
+      _log_target;
   }
 
   /// Log
   void log() override {
     assert(_something_to_log);
 
-    if (_log_moment) {
+    if (_log_target) {
       _target.display(logging::Logger::stream());
       return;
     }
@@ -181,14 +175,14 @@ class Hea: public algorithm::IterativeAlgorithm {
     logging::Logger l(_log_context);
 
     // Single line
-    if (_log_error)
-      l.line() << _error_cache << " ";
+    if (_log_herding_error)
+      l.line() << _herding_error << " ";
 
-    if (_log_dtu)
-      l.line() << _dtu_cache << " ";
+    if (_log_target_norm)
+      l.line() << _target_norm << " ";
 
-    if (_log_delta)
-      l.line() << _delta_cache << " ";
+    if (_log_delta_norm)
+      l.line() << _delta_norm << " ";
 
   }
 
@@ -203,17 +197,14 @@ public:
 
       _margin is initialized to 1 / n.
   */
-  Hea(int n, int population_size):
-    IterativeAlgorithm(n),
-    _target(n),
-    _selection(n),
-    _uniform(n),
-    _population(population_size, n),
-    _herding(n),
-    _margin(1 / double(n))
-  {
-    _uniform.init();
-  }
+  Hea(int n, int population_size)
+    : IterativeAlgorithm(n)
+    , _target(n)
+    , _selection(n)
+    , _population(population_size, n)
+    , _herding(n)
+    , _margin(1 / double(n))
+  {}
 
   /** @name Setters
    */
@@ -252,17 +243,17 @@ public:
    */
   ///@{
 
-  /// Log error
-  void set_log_error(bool b) { _log_error = b; }
+  /// Log herding error (moment discrepancy)
+  void set_log_herding_error(bool b) { _log_herding_error = b; }
 
-  /// Log distance to uniform
-  void set_log_dtu(bool b) { _log_dtu = b; }
+  /// Log target 2-norm
+  void set_log_target_norm(bool b) { _log_target_norm = b; }
 
-  /// Log delta (moment increment)
-  void set_log_delta(bool b) { _log_delta = b; }
+  /// Log delta (moment increment) 2-norm
+  void set_log_delta_norm(bool b) { _log_delta_norm = b; }
 
-  /// Log the moment matrix
-  void set_log_moment(bool b) { _log_moment = b; }
+  /// Log target
+  void set_log_target(bool b) { _log_target = b; }
 
   ///@}
 

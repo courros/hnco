@@ -285,17 +285,17 @@ class HncoOptions {
   /// Bound moment after update
   bool _hea_bound_moment;
 
-  /// Log 2-norm of delta (in moment space)
-  bool _hea_log_delta;
+  /// Log delta (moment increment) 2-norm
+  bool _hea_log_delta_norm;
 
-  /// Log distance to uniform
-  bool _hea_log_dtu;
+  /// Log herding error (moment discrepancy)
+  bool _hea_log_herding_error;
 
-  /// Log error (moment discrepancy)
-  bool _hea_log_error;
+  /// Log target
+  bool _hea_log_target;
 
-  /// Log moment matrix
-  bool _hea_log_moment_matrix;
+  /// Log target norm (distance to uniform moment)
+  bool _hea_log_target_norm;
 
   /// Randomize bit order
   bool _hea_randomize_bit_order;
@@ -1184,29 +1184,29 @@ public:
   /// Set hea_bound_moment
   void set_hea_bound_moment() { _hea_bound_moment = true; }
 
-  /// Get hea_log_delta
-  bool with_hea_log_delta() const { return _hea_log_delta; }
+  /// Get hea_log_delta_norm
+  bool with_hea_log_delta_norm() const { return _hea_log_delta_norm; }
 
-  /// Set hea_log_delta
-  void set_hea_log_delta() { _hea_log_delta = true; }
+  /// Set hea_log_delta_norm
+  void set_hea_log_delta_norm() { _hea_log_delta_norm = true; }
 
-  /// Get hea_log_dtu
-  bool with_hea_log_dtu() const { return _hea_log_dtu; }
+  /// Get hea_log_herding_error
+  bool with_hea_log_herding_error() const { return _hea_log_herding_error; }
 
-  /// Set hea_log_dtu
-  void set_hea_log_dtu() { _hea_log_dtu = true; }
+  /// Set hea_log_herding_error
+  void set_hea_log_herding_error() { _hea_log_herding_error = true; }
 
-  /// Get hea_log_error
-  bool with_hea_log_error() const { return _hea_log_error; }
+  /// Get hea_log_target
+  bool with_hea_log_target() const { return _hea_log_target; }
 
-  /// Set hea_log_error
-  void set_hea_log_error() { _hea_log_error = true; }
+  /// Set hea_log_target
+  void set_hea_log_target() { _hea_log_target = true; }
 
-  /// Get hea_log_moment_matrix
-  bool with_hea_log_moment_matrix() const { return _hea_log_moment_matrix; }
+  /// Get hea_log_target_norm
+  bool with_hea_log_target_norm() const { return _hea_log_target_norm; }
 
-  /// Set hea_log_moment_matrix
-  void set_hea_log_moment_matrix() { _hea_log_moment_matrix = true; }
+  /// Set hea_log_target_norm
+  void set_hea_log_target_norm() { _hea_log_target_norm = true; }
 
   /// Get hea_randomize_bit_order
   bool with_hea_randomize_bit_order() const { return _hea_randomize_bit_order; }

@@ -352,27 +352,27 @@
             "section": "hea"
         },
 
-        "hea_log_error":
+        "hea_log_herding_error":
         {
-            "description": "Log error (moment discrepancy)",
+            "description": "Log herding error (moment discrepancy)",
             "section": "hea"
         },
 
-        "hea_log_dtu":
+        "hea_log_target_norm":
         {
-            "description": "Log distance to uniform",
+            "description": "Log target norm (distance to uniform moment)",
             "section": "hea"
         },
 
-        "hea_log_delta":
+        "hea_log_delta_norm":
         {
-            "description": "Log 2-norm of delta (in moment space)",
+            "description": "Log delta (moment increment) 2-norm",
             "section": "hea"
         },
 
-        "hea_log_moment_matrix":
+        "hea_log_target":
         {
-            "description": "Log moment matrix",
+            "description": "Log target",
             "section": "hea"
         },
 

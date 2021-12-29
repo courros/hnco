@@ -323,10 +323,10 @@ CommandLineAlgorithmFactory::make(int bv_size)
     algo->set_reset_period(_options.get_hea_reset_period());
     algo->set_selection_size(_options.get_selection_size());
 
-    algo->set_log_delta(_options.with_hea_log_delta());
-    algo->set_log_dtu(_options.with_hea_log_dtu());
-    algo->set_log_error(_options.with_hea_log_error());
-    algo->set_log_moment(_options.with_hea_log_moment_matrix());
+    algo->set_log_delta_norm(_options.with_hea_log_delta_norm());
+    algo->set_log_target_norm(_options.with_hea_log_target_norm());
+    algo->set_log_herding_error(_options.with_hea_log_herding_error());
+    algo->set_log_target(_options.with_hea_log_target());
 
     return algo;
   }
@@ -345,10 +345,10 @@ CommandLineAlgorithmFactory::make(int bv_size)
     algo->set_reset_period(_options.get_hea_reset_period());
     algo->set_selection_size(_options.get_selection_size());
 
-    algo->set_log_delta(_options.with_hea_log_delta());
-    algo->set_log_dtu(_options.with_hea_log_dtu());
-    algo->set_log_error(_options.with_hea_log_error());
-    algo->set_log_moment(_options.with_hea_log_moment_matrix());
+    algo->set_log_delta_norm(_options.with_hea_log_delta_norm());
+    algo->set_log_target_norm(_options.with_hea_log_target_norm());
+    algo->set_log_herding_error(_options.with_hea_log_herding_error());
+    algo->set_log_target(_options.with_hea_log_target());
 
     return algo;
   }
