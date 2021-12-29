@@ -22,9 +22,9 @@
 #define HNCO_ALGORITHMS_WALSH_MOMENT_ALL_H
 
 #include "bm-pbil.hh"
+#include "gibbs-sampler.hh"
 #include "hea.hh"
 #include "herding.hh"
-#include "model.hh"
-#include "spin-moment.hh"
+#include "walsh-moment.hh"
 
 #endif

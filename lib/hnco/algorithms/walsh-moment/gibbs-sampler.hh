@@ -18,15 +18,15 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_WALSH_MOMENT_MODEL_H
-#define HNCO_ALGORITHMS_WALSH_MOMENT_MODEL_H
+#ifndef HNCO_ALGORITHMS_WALSH_MOMENT_GIBBS_SAMPLER_H
+#define HNCO_ALGORITHMS_WALSH_MOMENT_GIBBS_SAMPLER_H
 
 #include <vector>
 
 #include "hnco/bit-vector.hh"
 #include "hnco/algorithms/pv/probability-vector.hh"
 
-#include "spin-moment.hh"
+#include "walsh-moment.hh"
 
 
 namespace hnco {

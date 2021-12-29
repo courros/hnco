@@ -23,7 +23,7 @@
 
 #include "hnco/permutation.hh"
 
-#include "spin-moment.hh"
+#include "walsh-moment.hh"
 
 
 namespace hnco {

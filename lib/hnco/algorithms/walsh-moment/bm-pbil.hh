@@ -27,7 +27,7 @@
 #include "hnco/logging/logger.hh"
 #include "hnco/permutation.hh"
 
-#include "model.hh"
+#include "gibbs-sampler.hh"
 
 
 namespace hnco {

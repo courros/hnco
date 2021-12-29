@@ -24,7 +24,7 @@
 #include "hnco/random.hh"            // hnco::random::Generator
 #include "hnco/util.hh"         // hnco::logistic, hnco::is_in_range
 
-#include "model.hh"
+#include "gibbs-sampler.hh"
 
 
 using namespace hnco;

@@ -24,7 +24,7 @@
 #include "hnco/algorithms/matrix.hh" // hnco::algorithm::matrix_is_symmetric
 #include "hnco/util.hh"
 
-#include "spin-moment.hh"
+#include "walsh-moment.hh"
 
 using namespace hnco::algorithm::hea;
 
