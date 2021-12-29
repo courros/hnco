@@ -43,23 +43,23 @@ namespace hea {
     Companion ’15). ACM, New York, NY, USA, 1355–1356.
 
 */
-template<class Moment, class Herding>
+template<class Herding>
 class Hea: public algorithm::IterativeAlgorithm {
 
   /// Moment
-  Moment _target;
+  typename Herding::Moment _target;
 
   /// Moment of selected individuals
-  Moment _selection;
+  typename Herding::Moment _selection;
 
   /// Uniform moment
-  Moment _uniform;
+  typename Herding::Moment _uniform;
 
   /// Population
   algorithm::Population _population;
 
   /// Herding
-  Herding *_herding;
+  Herding _herding;
 
   /// Error cache
   double _error_cache;
@@ -120,7 +120,7 @@ class Hea: public algorithm::IterativeAlgorithm {
   void init() override {
     random_solution();
     _target.init();
-    _herding->init();
+    _herding.init();
     set_something_to_log();
   }
 
@@ -128,18 +128,18 @@ class Hea: public algorithm::IterativeAlgorithm {
   void iterate() override {
     if (_reset_period > 0) {
       if (_iteration % _reset_period == 0)
-        _herding->init();
+        _herding.init();
     }
 
     for (int i = 0; i < _population.size(); i++)
-      _herding->sample(_target, _population.get_bv(i));
+      _herding.sample(_target, _population.get_bv(i));
 
     if (_log_error)
-      _error_cache = _herding->error(_target);
+      _error_cache = _herding.error(_target);
     if (_log_dtu)
       _dtu_cache = _target.distance(_uniform);
     if (_log_delta)
-      _delta_cache = _herding->get_delta().norm_2();
+      _delta_cache = _herding.get_delta().norm_2();
 
     if (_functions.size() > 1)
       _population.evaluate_in_parallel(_functions);
@@ -209,6 +209,7 @@ public:
     _selection(n),
     _uniform(n),
     _population(population_size, n),
+    _herding(n),
     _margin(1 / double(n))
   {
     _uniform.init();
@@ -247,6 +248,9 @@ public:
 
   /// Set the bound moment after update
   void set_bound_moment(bool x) { _bound_moment = x; }
+
+  /// Randomize bit order
+  void set_randomize_bit_order(bool b) { _herding.set_randomize_bit_order(b); }
 
   ///@}
 
