@@ -179,8 +179,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	fparser/extrasrc/fptypes.hh fparser/fparser.cc \
 	fparser/fparser.hh fparser/fpconfig.hh fparser/fpoptimizer.cc \
 	hnco/algorithms/algorithm.cc hnco/algorithms/algorithm.hh \
-	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.cc \
-	hnco/algorithms/bm-pbil/bm-pbil.hh \
+	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.cc \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.cc \
@@ -343,9 +342,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	fast-efficient-p3/Population.lo fast-efficient-p3/Pyramid.lo \
 	fast-efficient-p3/Record.lo fast-efficient-p3/Util.lo \
 	fparser/fparser.lo fparser/fpoptimizer.lo \
-	hnco/algorithms/algorithm.lo \
-	hnco/algorithms/bm-pbil/bm-pbil.lo \
-	hnco/algorithms/bm-pbil/model.lo \
+	hnco/algorithms/algorithm.lo hnco/algorithms/bm-pbil/model.lo \
 	hnco/algorithms/complete-search.lo \
 	hnco/algorithms/decorators/restart.lo \
 	hnco/algorithms/ea/crossover.lo \
@@ -449,7 +446,6 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/algorithms/$(DEPDIR)/population.Plo \
 	hnco/algorithms/$(DEPDIR)/random-search.Plo \
 	hnco/algorithms/$(DEPDIR)/random-selection.Plo \
-	hnco/algorithms/bm-pbil/$(DEPDIR)/bm-pbil.Plo \
 	hnco/algorithms/bm-pbil/$(DEPDIR)/model.Plo \
 	hnco/algorithms/decorators/$(DEPDIR)/restart.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/crossover.Plo \
@@ -825,8 +821,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	fparser/extrasrc/fptypes.hh fparser/fparser.cc \
 	fparser/fparser.hh fparser/fpconfig.hh fparser/fpoptimizer.cc \
 	hnco/algorithms/algorithm.cc hnco/algorithms/algorithm.hh \
-	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.cc \
-	hnco/algorithms/bm-pbil/bm-pbil.hh \
+	hnco/algorithms/all.hh hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.cc \
 	hnco/algorithms/bm-pbil/model.hh \
 	hnco/algorithms/complete-search.cc \
@@ -1198,9 +1193,6 @@ hnco/algorithms/bm-pbil/$(am__dirstamp):
 hnco/algorithms/bm-pbil/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/bm-pbil/$(DEPDIR)
 	@: > hnco/algorithms/bm-pbil/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/bm-pbil/bm-pbil.lo:  \
-	hnco/algorithms/bm-pbil/$(am__dirstamp) \
-	hnco/algorithms/bm-pbil/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/bm-pbil/model.lo:  \
 	hnco/algorithms/bm-pbil/$(am__dirstamp) \
 	hnco/algorithms/bm-pbil/$(DEPDIR)/$(am__dirstamp)
@@ -1573,7 +1565,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/population.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/random-search.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/random-selection.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/bm-pbil/$(DEPDIR)/bm-pbil.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/bm-pbil/$(DEPDIR)/model.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/decorators/$(DEPDIR)/restart.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/crossover.Plo@am__quote@ # am--include-marker
@@ -1940,7 +1931,6 @@ distclean: distclean-am
 	-rm -f hnco/algorithms/$(DEPDIR)/population.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/random-search.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/random-selection.Plo
-	-rm -f hnco/algorithms/bm-pbil/$(DEPDIR)/bm-pbil.Plo
 	-rm -f hnco/algorithms/bm-pbil/$(DEPDIR)/model.Plo
 	-rm -f hnco/algorithms/decorators/$(DEPDIR)/restart.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/crossover.Plo
@@ -2073,7 +2063,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/algorithms/$(DEPDIR)/population.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/random-search.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/random-selection.Plo
-	-rm -f hnco/algorithms/bm-pbil/$(DEPDIR)/bm-pbil.Plo
 	-rm -f hnco/algorithms/bm-pbil/$(DEPDIR)/model.Plo
 	-rm -f hnco/algorithms/decorators/$(DEPDIR)/restart.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/crossover.Plo

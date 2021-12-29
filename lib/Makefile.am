@@ -53,7 +53,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/algorithm.cc \
 	hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh \
-	hnco/algorithms/bm-pbil/bm-pbil.cc \
 	hnco/algorithms/bm-pbil/bm-pbil.hh \
 	hnco/algorithms/bm-pbil/model.cc \
 	hnco/algorithms/bm-pbil/model.hh \
