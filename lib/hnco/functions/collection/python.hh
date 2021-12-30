@@ -23,6 +23,8 @@
 
 #include <string>
 
+#include <pybind11/embed.h>
+
 #include "hnco/functions/function.hh"
 
 
@@ -34,17 +36,26 @@ namespace function {
 class PythonInterpreter:
     public Function {
 
+  /// Module
+  pybind11::object _scope;
+
+  /// Function
+  Function *_function;
+
 public:
 
   /** Constructor.
-   */
+
+      \param path Path of the python file
+      \param name Name of the Function instance defined in the python file
+  */
   PythonInterpreter(std::string path, std::string name);
 
   /// Destructor
   ~PythonInterpreter();
 
   /// Get bit vector size
-  int get_bv_size() const { return 0; }
+  int get_bv_size() const;
 
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t&);

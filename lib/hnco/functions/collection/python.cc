@@ -19,8 +19,6 @@
 */
 
 #include <assert.h>
-#include <pybind11/embed.h>
-#include <pybind11/eval.h>
 
 #include "hnco/exception.hh"
 
@@ -30,13 +28,14 @@
 namespace py = pybind11;
 
 using namespace hnco::function;
-using namespace hnco::exception;
 
 PythonInterpreter::PythonInterpreter(std::string path, std::string name)
 {
   py::initialize_interpreter();
-  py::object scope = py::module_::import("__main__").attr("__dict__");
-  py::eval_file(path, scope);
+  _scope = py::module_::import("__main__").attr("__dict__");
+  py::eval_file(path, _scope);
+  py::object obj = _scope[name.c_str()];
+  _function = obj.cast<Function *>();
 }
 
 PythonInterpreter::~PythonInterpreter()
@@ -44,7 +43,13 @@ PythonInterpreter::~PythonInterpreter()
   py::finalize_interpreter();
 }
 
-double PythonInterpreter::evaluate(const bit_vector_t& x)
+int
+PythonInterpreter::get_bv_size() const
 {
-  return 0;
+  return _function->get_bv_size();
+}
+
+double PythonInterpreter::evaluate(const bit_vector_t& bv)
+{
+  return _function->evaluate(bv);
 }
