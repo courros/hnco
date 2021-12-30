@@ -19,46 +19,32 @@
 */
 
 #include <assert.h>
-#include <dlfcn.h>              // dlopen, dlsym, dlclose
-
-#include <sstream>              // std::ostringstream
+#include <pybind11/embed.h>
+#include <pybind11/eval.h>
 
 #include "hnco/exception.hh"
 
-#include "plugin.hh"
+#include "python.hh"
 
+
+namespace py = pybind11;
 
 using namespace hnco::function;
 using namespace hnco::exception;
 
-
-FunctionPlugin::FunctionPlugin(int bv_size, std::string path, std::string name):
-  _bv_size(bv_size)
+PythonInterpreter::PythonInterpreter(std::string path, std::string name)
 {
-  _handle = dlopen(path.c_str(), RTLD_LAZY);
-  if (!_handle) {
-    std::ostringstream stream;
-    stream << "FunctionPlugin::FunctionPlugin: "
-           << std::string(dlerror());
-    throw std::runtime_error(stream.str());
-  }
-  dlerror();
-  _extern_function = (extern_function_t) dlsym(_handle, name.c_str());
-  char *error = dlerror();
-  if (error != NULL) {
-    std::ostringstream stream;
-    stream << "FunctionPlugin::FunctionPlugin: " << std::string(error);
-    throw std::runtime_error(stream.str());
-  }
+  py::initialize_interpreter();
+  py::object scope = py::module_::import("__main__").attr("__dict__");
+  py::eval_file(path, scope);
 }
 
-FunctionPlugin::~FunctionPlugin()
+PythonInterpreter::~PythonInterpreter()
 {
-  dlclose(_handle);
+  py::finalize_interpreter();
 }
 
-double FunctionPlugin::evaluate(const bit_vector_t& x)
+double PythonInterpreter::evaluate(const bit_vector_t& x)
 {
-  assert(int(x.size()) == _bv_size);
-  return (*_extern_function)(x.data(), _bv_size);
+  return 0;
 }

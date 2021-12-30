@@ -250,6 +250,12 @@ libhnco_la_SOURCES += \
 	hnco/functions/collection/plugin.hh
 endif
 
+if ENABLE_PYTHON
+libhnco_la_SOURCES += \
+	hnco/functions/collection/python.cc \
+	hnco/functions/collection/python.hh
+endif
+
 nobase_include_HEADERS = \
 	fast-efficient-p3/Configuration.h \
 	fast-efficient-p3/Evaluation.h \
@@ -388,6 +394,10 @@ endif
 
 if ENABLE_PLUGIN
 nobase_include_HEADERS += hnco/functions/collection/plugin.hh
+endif
+
+if ENABLE_PYTHON
+nobase_include_HEADERS += hnco/functions/collection/python.hh
 endif
 
 BUILT_SOURCES = \

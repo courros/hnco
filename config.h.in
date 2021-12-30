@@ -6,6 +6,9 @@
 /* Define to 1 if plugin has been enabled */
 #undef ENABLE_PLUGIN
 
+/* Define to 1 if python has been enabled */
+#undef ENABLE_PYTHON
+
 /* define if the Boost library is available */
 #undef HAVE_BOOST
 
@@ -38,6 +41,9 @@
 
 /* Define to 1 if you have the <omp.h> header file. */
 #undef HAVE_OMP_H
+
+/* Define to 1 if you have the <pybind11/eval.h> header file. */
+#undef HAVE_PYBIND11_EVAL_H
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H

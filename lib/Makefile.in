@@ -115,8 +115,13 @@ host_triplet = @host@
 @ENABLE_PLUGIN_TRUE@	hnco/functions/collection/plugin.cc \
 @ENABLE_PLUGIN_TRUE@	hnco/functions/collection/plugin.hh
 
-@ENABLE_FACTORIZATION_TRUE@am__append_3 = hnco/functions/collection/factorization.hh
-@ENABLE_PLUGIN_TRUE@am__append_4 = hnco/functions/collection/plugin.hh
+@ENABLE_PYTHON_TRUE@am__append_3 = \
+@ENABLE_PYTHON_TRUE@	hnco/functions/collection/python.cc \
+@ENABLE_PYTHON_TRUE@	hnco/functions/collection/python.hh
+
+@ENABLE_FACTORIZATION_TRUE@am__append_4 = hnco/functions/collection/factorization.hh
+@ENABLE_PLUGIN_TRUE@am__append_5 = hnco/functions/collection/plugin.hh
+@ENABLE_PYTHON_TRUE@am__append_6 = hnco/functions/collection/python.hh
 subdir = lib
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -332,11 +337,15 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/collection/factorization.cc \
 	hnco/functions/collection/factorization.hh \
 	hnco/functions/collection/plugin.cc \
-	hnco/functions/collection/plugin.hh
+	hnco/functions/collection/plugin.hh \
+	hnco/functions/collection/python.cc \
+	hnco/functions/collection/python.hh
 am__dirstamp = $(am__leading_dot)dirstamp
 @ENABLE_FACTORIZATION_TRUE@am__objects_1 = hnco/functions/collection/factorization.lo
 @ENABLE_PLUGIN_TRUE@am__objects_2 =  \
 @ENABLE_PLUGIN_TRUE@	hnco/functions/collection/plugin.lo
+@ENABLE_PYTHON_TRUE@am__objects_3 =  \
+@ENABLE_PYTHON_TRUE@	hnco/functions/collection/python.lo
 am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	fast-efficient-p3/Evaluation.lo fast-efficient-p3/HBOA.lo \
 	fast-efficient-p3/HillCimb.lo fast-efficient-p3/LTGA.lo \
@@ -406,7 +415,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/neighborhoods/neighborhood-iterator.lo \
 	hnco/neighborhoods/neighborhood.lo hnco/permutation.lo \
 	hnco/random.lo hnco/sparse-bit-vector.lo $(am__objects_1) \
-	$(am__objects_2)
+	$(am__objects_2) $(am__objects_3)
 libhnco_la_OBJECTS = $(am_libhnco_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -492,6 +501,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/collection/$(DEPDIR)/nk-landscape.Plo \
 	hnco/functions/collection/$(DEPDIR)/partition.Plo \
 	hnco/functions/collection/$(DEPDIR)/plugin.Plo \
+	hnco/functions/collection/$(DEPDIR)/python.Plo \
 	hnco/functions/collection/$(DEPDIR)/qubo.Plo \
 	hnco/functions/collection/$(DEPDIR)/sudoku.Plo \
 	hnco/functions/collection/$(DEPDIR)/theory.Plo \
@@ -654,7 +664,8 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/representations/permutation.hh hnco/serialization.hh \
 	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
 	hnco/functions/collection/factorization.hh \
-	hnco/functions/collection/plugin.hh
+	hnco/functions/collection/plugin.hh \
+	hnco/functions/collection/python.hh
 HEADERS = $(nobase_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
@@ -747,6 +758,11 @@ PATH_SEPARATOR = @PATH_SEPARATOR@
 PKG_CONFIG = @PKG_CONFIG@
 PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
 PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
+PYTHON = @PYTHON@
+PYTHON_EXEC_PREFIX = @PYTHON_EXEC_PREFIX@
+PYTHON_PLATFORM = @PYTHON_PLATFORM@
+PYTHON_PREFIX = @PYTHON_PREFIX@
+PYTHON_VERSION = @PYTHON_VERSION@
 RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
@@ -796,9 +812,13 @@ mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
+pkgpyexecdir = @pkgpyexecdir@
+pkgpythondir = @pkgpythondir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
+pyexecdir = @pyexecdir@
+pythondir = @pythondir@
 runstatedir = @runstatedir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
@@ -978,7 +998,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/representations/permutation.hh hnco/serialization.hh \
 	hnco/sparse-bit-vector.cc hnco/sparse-bit-vector.hh \
 	hnco/stop-watch.hh hnco/util.hh $(am__append_1) \
-	$(am__append_2)
+	$(am__append_2) $(am__append_3)
 nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	fast-efficient-p3/Evaluation.h fast-efficient-p3/HBOA.h \
 	fast-efficient-p3/HillClimb.h fast-efficient-p3/LTGA.h \
@@ -1078,7 +1098,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/representations/integer.hh \
 	hnco/representations/permutation.hh hnco/serialization.hh \
 	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
-	$(am__append_3) $(am__append_4)
+	$(am__append_4) $(am__append_5) $(am__append_6)
 BUILT_SOURCES = \
 	hnco/app/hnco-options.cc \
 	hnco/app/hnco-options.hh
@@ -1493,6 +1513,9 @@ hnco/functions/collection/factorization.lo:  \
 hnco/functions/collection/plugin.lo:  \
 	hnco/functions/collection/$(am__dirstamp) \
 	hnco/functions/collection/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/collection/python.lo:  \
+	hnco/functions/collection/$(am__dirstamp) \
+	hnco/functions/collection/$(DEPDIR)/$(am__dirstamp)
 
 libhnco.la: $(libhnco_la_OBJECTS) $(libhnco_la_DEPENDENCIES) $(EXTRA_libhnco_la_DEPENDENCIES) 
 	$(AM_V_CXXLD)$(CXXLINK) -rpath $(libdir) $(libhnco_la_OBJECTS) $(libhnco_la_LIBADD) $(LIBS)
@@ -1611,6 +1634,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/nk-landscape.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/partition.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/plugin.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/python.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/qubo.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/sudoku.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/theory.Plo@am__quote@ # am--include-marker
@@ -1974,6 +1998,7 @@ distclean: distclean-am
 	-rm -f hnco/functions/collection/$(DEPDIR)/nk-landscape.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/partition.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/plugin.Plo
+	-rm -f hnco/functions/collection/$(DEPDIR)/python.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/qubo.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/sudoku.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/theory.Plo
@@ -2106,6 +2131,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/collection/$(DEPDIR)/nk-landscape.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/partition.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/plugin.Plo
+	-rm -f hnco/functions/collection/$(DEPDIR)/python.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/qubo.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/sudoku.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/theory.Plo

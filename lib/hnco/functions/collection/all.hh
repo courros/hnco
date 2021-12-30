@@ -48,4 +48,8 @@
 #include "plugin.hh"
 #endif
 
+#ifdef ENABLE_PYTHON
+#include "python.hh"
+#endif
+
 #endif

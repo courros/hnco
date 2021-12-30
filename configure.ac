@@ -41,12 +41,16 @@ AX_BOOST_SERIALIZATION
 AC_CHECK_HEADERS([gmp.h])
 AC_CHECK_HEADERS([dlfcn.h])
 AC_CHECK_HEADERS([omp.h])
+AC_CHECK_HEADERS([pybind11/eval.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AX_CXX_COMPILE_STDCXX_14
 AC_OPENMP
 
+#
 # Checks for optional features.
+#
+
 AC_ARG_ENABLE([factorization], AS_HELP_STRING([--enable-factorization], [Enable factorization]))
 if test "x$enable_factorization" = "xyes"
 then
@@ -60,6 +64,15 @@ then
   AC_DEFINE([ENABLE_PLUGIN], [1], [Define to 1 if plugin has been enabled])
 fi
 AM_CONDITIONAL([ENABLE_PLUGIN], [test "x$enable_plugin" = "xyes"])
+
+AC_ARG_ENABLE([python], AS_HELP_STRING([--enable-python], [Enable python]))
+if test "x$enable_python" = "xyes"
+then
+  AC_DEFINE([ENABLE_PYTHON], [1], [Define to 1 if python has been enabled])
+  AM_PATH_PYTHON
+  AC_CHECK_LIB([python$PYTHON_VERSION], [Py_Initialize])
+fi
+AM_CONDITIONAL([ENABLE_PYTHON], [test "x$enable_python" = "xyes"])
 
 # Check for Bash completion.
 PKG_CHECK_VAR(bashcompdir, [bash-completion], [completionsdir], ,

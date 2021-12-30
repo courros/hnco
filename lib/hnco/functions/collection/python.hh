@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_COLLECTION_PLUGIN_H
-#define HNCO_FUNCTIONS_COLLECTION_PLUGIN_H
+#ifndef HNCO_FUNCTIONS_COLLECTION_PYTHON_H
+#define HNCO_FUNCTIONS_COLLECTION_PYTHON_H
 
 #include <string>
 
@@ -30,37 +30,21 @@ namespace hnco {
 namespace function {
 
 
-/// %Function plugin
-class FunctionPlugin:
+/// Python interpreter
+class PythonInterpreter:
     public Function {
-
-  /// Bit vector size
-  int _bv_size;
-
-  /// Handle returned by dlopen
-  void *_handle;
-
-  /// Type of an extern function
-  typedef double (*extern_function_t)(const bit_t *, size_t);
-
-  /// Extern function
-  extern_function_t _extern_function;
 
 public:
 
   /** Constructor.
-
-      \param bv_size Size of bit vectors
-      \param path Path to a shared library
-      \param name Name of a function of the shared library
-  */
-  FunctionPlugin(int bv_size, std::string path, std::string name);
+   */
+  PythonInterpreter(std::string path, std::string name);
 
   /// Destructor
-  ~FunctionPlugin();
+  ~PythonInterpreter();
 
   /// Get bit vector size
-  int get_bv_size() const { return _bv_size; }
+  int get_bv_size() const { return 0; }
 
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t&);
