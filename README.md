@@ -392,7 +392,7 @@ sudo apt-get install libfile-slurp-perl libfile-homedir-perl libjson-perl libsta
 sudo apt-get install gnuplot
 sudo apt-get install texlive-base texlive-latex-extra python3-pygments
 sudo apt-get install ssh
-sudo apt-get install pybind11-dev python3-pybind11
+sudo apt-get install python3-dev pybind11-dev python3-pybind11
 ```
 
 ## Building and installing <a name="building"></a>
@@ -417,6 +417,7 @@ rather execute:
 Some configure options are relative to hnco only:
 - `--enable-factorization` to build the Factorization function (requires libgmp-dev)
 - `--enable-plugin` to build the Plugin function (requires libdl)
+- `--enable-python` to build the PythonInterpreter function (requires python3)
 
 See `./configure --help` for other options.
 
@@ -503,6 +504,9 @@ fparser:
 >syntax is specified later in this document). The function can then be
 >evaluated with different values of variables.
 
+This project uses pybind11 for the python binding of the library and
+for the communication with the python interpreter.
+
 ## References
 
 - Berny A. (2017). "In Hypercubo Nigrae Capsulae Optimum". In:
@@ -518,3 +522,6 @@ fparser:
   [FastEfficientP3](https://github.com/brianwgoldman/FastEfficientP3)
 - Juha Nieminen, Joel Yliluoma,
   [fparser](http://warp.povusers.org/FunctionParser/fparser.html)
+- Wenzel Jakob and Jason Rhinelander and Dean Moldovan (2017).
+  [pybind11 -- Seamless operability between C++11 and
+  Python](https://github.com/pybind/pybind11)
