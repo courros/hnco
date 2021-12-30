@@ -633,6 +633,11 @@
                 {
                     "value": 1000,
                     "description": "Plugin"
+                },
+
+                {
+                    "value": 1100,
+                    "description": "Python interpreter"
                 }
 
             ]

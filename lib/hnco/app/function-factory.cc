@@ -299,6 +299,13 @@ CommandLineFunctionFactory::make()
        _options.get_fn_name());
 #endif
 
+#ifdef ENABLE_PYTHON
+  case 1100:
+    return new PythonInterpreter
+      (_options.get_path(),
+       _options.get_fn_name());
+#endif
+
   default:
     throw std::runtime_error("CommandLineFunctionFactory::make: Unknown function type: " + std::to_string(_options.get_function()));
   }

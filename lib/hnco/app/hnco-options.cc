@@ -987,6 +987,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            190: Sudoku" << std::endl;
   stream << "            200: Travelling salesman problem" << std::endl;
   stream << "            1000: Plugin" << std::endl;
+  stream << "            1100: Python interpreter" << std::endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
   stream << std::endl;
