@@ -31,6 +31,7 @@ Library:
 - Renamed bm_pbil::Model -> walsh_moment::LowerTriangularWalshMoment2GibbsSampler
 - Added SymmetricWalshMoment2GibbsSampler
 - Removed bm_pbil::ModelParameters
+- Added PythonInterpreter
 
 Python:
 - Changed: representation is a submodule of hnco
