@@ -47,7 +47,7 @@ integer_reps = []
 integer_reps.append(rep.DyadicIntegerRepresentation(0, 255))
 integer_reps.append(rep.DyadicIntegerRepresentation(0, 255))
 
-real_rep = rep.DyadicFloatRepresentation(-2, 2, 8)
+float_rep = rep.DyadicFloatRepresentation(-2, 2, 8)
 
 float_reps = []
 float_reps.append(float_rep)
