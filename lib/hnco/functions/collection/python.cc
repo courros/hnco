@@ -29,7 +29,7 @@ namespace py = pybind11;
 
 using namespace hnco::function;
 
-PythonInterpreter::PythonInterpreter(std::string path, std::string name)
+PythonFunction::PythonFunction(std::string path, std::string name)
 {
   py::initialize_interpreter();
   _scope = py::module_::import("__main__").attr("__dict__");
@@ -38,18 +38,18 @@ PythonInterpreter::PythonInterpreter(std::string path, std::string name)
   _function = obj.cast<Function *>();
 }
 
-PythonInterpreter::~PythonInterpreter()
+PythonFunction::~PythonFunction()
 {
   py::finalize_interpreter();
 }
 
 int
-PythonInterpreter::get_bv_size() const
+PythonFunction::get_bv_size() const
 {
   return _function->get_bv_size();
 }
 
-double PythonInterpreter::evaluate(const bit_vector_t& bv)
+double PythonFunction::evaluate(const bit_vector_t& bv)
 {
   return _function->evaluate(bv);
 }

@@ -301,7 +301,7 @@ CommandLineFunctionFactory::make()
 
 #ifdef ENABLE_PYTHON
   case 1100:
-    return new PythonInterpreter
+    return new PythonFunction
       (_options.get_path(),
        _options.get_fn_name());
 #endif

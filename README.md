@@ -417,7 +417,7 @@ rather execute:
 Some configure options are relative to hnco only:
 - `--enable-factorization` to build the Factorization function (requires libgmp-dev)
 - `--enable-plugin` to build the Plugin function (requires libdl)
-- `--enable-python` to build the PythonInterpreter function (requires python3)
+- `--enable-python` to build the PythonFunction function (requires python3)
 
 See `./configure --help` for other options.
 

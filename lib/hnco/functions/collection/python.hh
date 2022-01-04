@@ -32,8 +32,19 @@ namespace hnco {
 namespace function {
 
 
-/// Python interpreter
-class PythonInterpreter:
+/** Python function.
+
+    Uses pybind11.
+
+    The constructor initializes the python interpreter and the
+    destructor finalizes it.
+
+    The python code must import the hnco module (built separately) to
+    allow for communication between C++ and python. It must also
+    define a derived class that inherits Function and an instance of
+    it.
+*/
+class PythonFunction:
     public Function {
 
   /// Module
@@ -49,10 +60,10 @@ public:
       \param path Path of the python file
       \param name Name of the Function instance defined in the python file
   */
-  PythonInterpreter(std::string path, std::string name);
+  PythonFunction(std::string path, std::string name);
 
   /// Destructor
-  ~PythonInterpreter();
+  ~PythonFunction();
 
   /// Get bit vector size
   int get_bv_size() const;
