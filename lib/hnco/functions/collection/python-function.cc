@@ -22,7 +22,7 @@
 
 #include "hnco/exception.hh"
 
-#include "python.hh"
+#include "python-function.hh"
 
 
 namespace py = pybind11;

@@ -116,12 +116,12 @@ host_triplet = @host@
 @ENABLE_PLUGIN_TRUE@	hnco/functions/collection/plugin.hh
 
 @ENABLE_PYTHON_TRUE@am__append_3 = \
-@ENABLE_PYTHON_TRUE@	hnco/functions/collection/python.cc \
-@ENABLE_PYTHON_TRUE@	hnco/functions/collection/python.hh
+@ENABLE_PYTHON_TRUE@	hnco/functions/collection/python-function.cc \
+@ENABLE_PYTHON_TRUE@	hnco/functions/collection/python-function.hh
 
 @ENABLE_FACTORIZATION_TRUE@am__append_4 = hnco/functions/collection/factorization.hh
 @ENABLE_PLUGIN_TRUE@am__append_5 = hnco/functions/collection/plugin.hh
-@ENABLE_PYTHON_TRUE@am__append_6 = hnco/functions/collection/python.hh
+@ENABLE_PYTHON_TRUE@am__append_6 = hnco/functions/collection/python-function.hh
 subdir = lib
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -338,14 +338,13 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/collection/factorization.hh \
 	hnco/functions/collection/plugin.cc \
 	hnco/functions/collection/plugin.hh \
-	hnco/functions/collection/python.cc \
-	hnco/functions/collection/python.hh
+	hnco/functions/collection/python-function.cc \
+	hnco/functions/collection/python-function.hh
 am__dirstamp = $(am__leading_dot)dirstamp
 @ENABLE_FACTORIZATION_TRUE@am__objects_1 = hnco/functions/collection/factorization.lo
 @ENABLE_PLUGIN_TRUE@am__objects_2 =  \
 @ENABLE_PLUGIN_TRUE@	hnco/functions/collection/plugin.lo
-@ENABLE_PYTHON_TRUE@am__objects_3 =  \
-@ENABLE_PYTHON_TRUE@	hnco/functions/collection/python.lo
+@ENABLE_PYTHON_TRUE@am__objects_3 = hnco/functions/collection/python-function.lo
 am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	fast-efficient-p3/Evaluation.lo fast-efficient-p3/HBOA.lo \
 	fast-efficient-p3/HillCimb.lo fast-efficient-p3/LTGA.lo \
@@ -501,7 +500,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/collection/$(DEPDIR)/nk-landscape.Plo \
 	hnco/functions/collection/$(DEPDIR)/partition.Plo \
 	hnco/functions/collection/$(DEPDIR)/plugin.Plo \
-	hnco/functions/collection/$(DEPDIR)/python.Plo \
+	hnco/functions/collection/$(DEPDIR)/python-function.Plo \
 	hnco/functions/collection/$(DEPDIR)/qubo.Plo \
 	hnco/functions/collection/$(DEPDIR)/sudoku.Plo \
 	hnco/functions/collection/$(DEPDIR)/theory.Plo \
@@ -665,7 +664,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
 	hnco/functions/collection/factorization.hh \
 	hnco/functions/collection/plugin.hh \
-	hnco/functions/collection/python.hh
+	hnco/functions/collection/python-function.hh
 HEADERS = $(nobase_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
@@ -1513,7 +1512,7 @@ hnco/functions/collection/factorization.lo:  \
 hnco/functions/collection/plugin.lo:  \
 	hnco/functions/collection/$(am__dirstamp) \
 	hnco/functions/collection/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/collection/python.lo:  \
+hnco/functions/collection/python-function.lo:  \
 	hnco/functions/collection/$(am__dirstamp) \
 	hnco/functions/collection/$(DEPDIR)/$(am__dirstamp)
 
@@ -1634,7 +1633,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/nk-landscape.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/partition.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/plugin.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/python.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/python-function.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/qubo.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/sudoku.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/theory.Plo@am__quote@ # am--include-marker
@@ -1998,7 +1997,7 @@ distclean: distclean-am
 	-rm -f hnco/functions/collection/$(DEPDIR)/nk-landscape.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/partition.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/plugin.Plo
-	-rm -f hnco/functions/collection/$(DEPDIR)/python.Plo
+	-rm -f hnco/functions/collection/$(DEPDIR)/python-function.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/qubo.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/sudoku.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/theory.Plo
@@ -2131,7 +2130,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/collection/$(DEPDIR)/nk-landscape.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/partition.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/plugin.Plo
-	-rm -f hnco/functions/collection/$(DEPDIR)/python.Plo
+	-rm -f hnco/functions/collection/$(DEPDIR)/python-function.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/qubo.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/sudoku.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/theory.Plo

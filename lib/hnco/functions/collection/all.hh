@@ -49,7 +49,7 @@
 #endif
 
 #ifdef ENABLE_PYTHON
-#include "python.hh"
+#include "python-function.hh"
 #endif
 
 #endif

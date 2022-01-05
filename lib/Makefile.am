@@ -252,8 +252,8 @@ endif
 
 if ENABLE_PYTHON
 libhnco_la_SOURCES += \
-	hnco/functions/collection/python.cc \
-	hnco/functions/collection/python.hh
+	hnco/functions/collection/python-function.cc \
+	hnco/functions/collection/python-function.hh
 endif
 
 nobase_include_HEADERS = \
@@ -397,7 +397,7 @@ nobase_include_HEADERS += hnco/functions/collection/plugin.hh
 endif
 
 if ENABLE_PYTHON
-nobase_include_HEADERS += hnco/functions/collection/python.hh
+nobase_include_HEADERS += hnco/functions/collection/python-function.hh
 endif
 
 BUILT_SOURCES = \
