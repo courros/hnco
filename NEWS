@@ -33,12 +33,13 @@ Library:
 - Removed bm_pbil::ModelParameters
 - Added PythonFunction
 
-Python:
-- Changed: representation is a submodule of hnco
-
 Examples:
 - Added cli-universal-function.cc
-- Added universal-function.py
+
+Python:
+- Changed: representation is a submodule of hnco
+- Added universal-function.py in bindings/examples/
+- Added one-max.py in bindings/examples/
 
 
 * Version 0.18 (2021-10-07)
