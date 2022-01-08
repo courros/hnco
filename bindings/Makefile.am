@@ -18,6 +18,7 @@
 
 EXTRA_DIST = \
 	examples/bindings.py \
+	examples/one-max.py \
 	examples/progress-tracker.py \
 	examples/runtime.py \
 	examples/universal-function.py \
