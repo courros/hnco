@@ -637,7 +637,7 @@
 
                 {
                     "value": 1100,
-                    "description": "Python interpreter"
+                    "description": "Python function (embedded interpreter)"
                 }
 
             ]
