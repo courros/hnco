@@ -1,4 +1,9 @@
-* Version 0.19 (unreleased)
+* Version 0.19 (2022-01-08)
+
+Highlight:
+- Representation of permutations
+- Universal function and its adapter
+- Python function
 
 Library:
 - Added PermutationRepresentation
