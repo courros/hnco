@@ -22,7 +22,7 @@ copyright = '2022, Arnaud Berny'
 author = 'Arnaud Berny'
 
 # The full version, including alpha/beta/rc tags
-release = '0.19'
+release = '0.20'
 
 
 # -- General configuration ---------------------------------------------------
