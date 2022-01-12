@@ -18,11 +18,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'HNCO'
-copyright = '2021, Arnaud Berny'
+copyright = '2022, Arnaud Berny'
 author = 'Arnaud Berny'
 
 # The full version, including alpha/beta/rc tags
-release = '0.18'
+release = '0.19'
 
 
 # -- General configuration ---------------------------------------------------
