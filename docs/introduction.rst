@@ -6,6 +6,9 @@ HNCO is a C++ library, a set of command-line tools, and a set of
 scripts for the optimization of black box functions defined on bit
 vectors. It aims at being flexible, fast, simple, and robust.
 
+The project is published under the LGPL3 license. The source code is
+available on `github <https://github.com/courros/hnco>`_.
+
 Library features:
 
 - 29 concrete functions
