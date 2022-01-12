@@ -1,4 +1,4 @@
-# Copyright (C) 2016, 2017, 2018, 2019, 2020, 2021 Arnaud Berny
+# Copyright (C) 2016, 2017, 2018, 2019, 2020, 2021, 2022 Arnaud Berny
 
 # This file is part of HNCO.
 
@@ -25,14 +25,19 @@ EXTRA_DIST = \
 	README.md \
 	docs/Doxyfile \
 	docs/Makefile \
+	docs/acknowledgments.rst \
 	docs/building.rst \
 	docs/commandline.rst \
 	docs/conf.py \
+	docs/contributing.rst \
 	docs/experiments.rst \
 	docs/index.rst \
 	docs/introduction.rst \
 	docs/library.rst \
+	docs/name.rst \
 	docs/python.rst \
+	docs/references.rst \
+	docs/requirements.rst \
 	tools/optgen.pl
 
 #
