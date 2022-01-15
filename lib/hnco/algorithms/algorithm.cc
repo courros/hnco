@@ -35,35 +35,27 @@ Algorithm::random_solution()
 }
 
 void
-Algorithm::set_solution(const bit_vector_t& x, double value)
+Algorithm::set_solution(const bit_vector_t& bv, double value)
 {
-  _solution.first = x;
+  _solution.first = bv;
   _solution.second = value;
 }
 
 void
-Algorithm::set_solution(const bit_vector_t& x)
+Algorithm::set_solution(const bit_vector_t& bv)
 {
   assert(_function);
 
-  set_solution(x, _function->evaluate(x));
+  set_solution(bv, _function->evaluate(bv));
 }
 
 void
-Algorithm::update_solution(const bit_vector_t& x, double value)
+Algorithm::update_solution(const bit_vector_t& bv, double value)
 {
   if (value > _solution.second) {
-    _solution.first = x;
+    _solution.first = bv;
     _solution.second = value;
   }
-}
-
-void
-Algorithm::update_solution(const bit_vector_t& x)
-{
-  assert(_function);
-
-  update_solution(x, _function->evaluate(x));
 }
 
 void
@@ -71,4 +63,12 @@ Algorithm::update_solution(const solution_t& s)
 {
   if (s.second > _solution.second)
     _solution = s;
+}
+
+void
+Algorithm::update_solution(const bit_vector_t& bv)
+{
+  assert(_function);
+
+  update_solution(bv, _function->evaluate(bv));
 }
