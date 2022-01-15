@@ -47,18 +47,17 @@ class Algorithm {
 
 protected:
 
-  /// Function
-  function::Function *_function;
-
   /** Functions.
 
       Each thread has its own function.
   */
   std::vector<function::Function *> _functions;
 
+  /// Function
+  function::Function *_function;
+
   /// Solution
   solution_t _solution;
-
 
   /** @name Parameters
    */
@@ -69,7 +68,6 @@ protected:
 
   ///@}
 
-
   /** @name Managing solution
    */
   ///@{
@@ -78,25 +76,25 @@ protected:
   void random_solution();
 
   /// Set solution
-  void set_solution(const bit_vector_t& x, double value);
+  void set_solution(const bit_vector_t& bv, double value);
 
   /** Set solution.
 
       \warning Evaluates the function once.
   */
-  void set_solution(const bit_vector_t& x);
+  void set_solution(const bit_vector_t& bv);
 
   /// Update solution (strict)
-  void update_solution(const bit_vector_t& x, double value);
+  void update_solution(const bit_vector_t& bv, double value);
+
+  /// Update solution (strict)
+  void update_solution(const solution_t& s);
 
   /** Update solution (strict).
 
       \warning Evaluates the function once.
   */
-  void update_solution(const bit_vector_t& x);
-
-  /// Update solution (strict)
-  void update_solution(const solution_t& s);
+  void update_solution(const bit_vector_t& bv);
 
   ///@}
 
@@ -109,11 +107,14 @@ protected:
     _function = functions[0];
   }
 
+  /// Get bit vector size
+  int get_bv_size() { return _solution.first.size(); }
+
 public:
 
   /// Constructor
-  Algorithm(int n):
-    _solution(bit_vector_t(n), 0.0)
+  Algorithm(int n)
+    : _solution(bit_vector_t(n), 0.0)
   {
     if (!(n > 0))
       throw std::runtime_error("Algorithm::Algorithm: bit vector size must be positive");
@@ -121,7 +122,6 @@ public:
 
   /// Destructor
   virtual ~Algorithm() {}
-
 
   /** @name Optimization
    */
@@ -142,30 +142,13 @@ public:
   */
   virtual void finalize() {}
 
-  ///@}
-
-
-  /** @name Getters
-   */
-  ///@{
-
-  /// Get bit vector size
-  int get_bv_size() { return _solution.first.size(); }
-
   /// Get the solution
   const solution_t& get_solution() { return _solution; }
 
   ///@}
 
-
-  /** @name Setters
-   */
-  ///@{
-
   /// Set the log context
   void set_log_context(logging::LogContext *log_context) { _log_context = log_context; }
-
-  ///@}
     
 };
 
