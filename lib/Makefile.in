@@ -322,6 +322,9 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/logging/log-context.hh hnco/logging/logger.cc \
 	hnco/logging/logger.hh hnco/maps/map.cc hnco/maps/map.hh \
 	hnco/maps/transvection.cc hnco/maps/transvection.hh \
+	hnco/multiobjective/algorithms/algorithm.hh \
+	hnco/multiobjective/functions/function.hh \
+	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -654,6 +657,9 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.hh \
 	hnco/maps/map.hh hnco/maps/transvection.hh \
+	hnco/multiobjective/algorithms/algorithm.hh \
+	hnco/multiobjective/functions/function.hh \
+	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/representations/all.hh \
@@ -985,6 +991,9 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/logging/log-context.hh hnco/logging/logger.cc \
 	hnco/logging/logger.hh hnco/maps/map.cc hnco/maps/map.hh \
 	hnco/maps/transvection.cc hnco/maps/transvection.hh \
+	hnco/multiobjective/algorithms/algorithm.hh \
+	hnco/multiobjective/functions/function.hh \
+	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.cc \
@@ -1089,6 +1098,9 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/walsh-term.hh hnco/iterator.hh \
 	hnco/logging/log-context.hh hnco/logging/logger.hh \
 	hnco/maps/map.hh hnco/maps/transvection.hh \
+	hnco/multiobjective/algorithms/algorithm.hh \
+	hnco/multiobjective/functions/function.hh \
+	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
 	hnco/random.hh hnco/representations/all.hh \
