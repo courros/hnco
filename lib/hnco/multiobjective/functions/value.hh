@@ -38,10 +38,10 @@ typedef std::vector<double> value_t;
 
 /** Domination relation.
 
-    \parameter a First value
-    \parameter b Second value
+    \param a First value
+    \param b Second value
 
-    \return True if a dominates b with respect to minimization
+    \return true if a dominates b with respect to minimization
 */
 bool dominates(const value_t& a, const value_t& b) {
   assert(have_same_size(a, b));
