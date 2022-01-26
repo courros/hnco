@@ -25,5 +25,6 @@
 #include "candidate-set.hh"
 #include "iterative-algorithm.hh"
 #include "non-domination-sort.hh"
+#include "nsga2.hh"
 
 #endif
