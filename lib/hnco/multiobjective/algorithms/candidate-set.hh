@@ -50,7 +50,14 @@ struct CandidateSet {
     : bvs(population_size, bit_vector_t(n))
     , values(population_size, value_t(num_objectives))
     , ranks(population_size)
-  {}
+  {
+    if (population_size <= 0)
+      throw std::runtime_error("multiobjective::CandidateSet::CandidateSet: population_size size must be positive");
+    if (n <= 0)
+      throw std::runtime_error("multiobjective::CandidateSet::CandidateSet: bit vector size must be positive");
+    if (num_objectives <= 0)
+      throw std::runtime_error("multiobjective::CandidateSet::CandidateSet: num_objectives size must be positive");
+  }
 
   /// Get the size of the candidate set
   int size() const { return bvs.size(); }
