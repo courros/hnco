@@ -44,6 +44,7 @@ class Algorithm {
 
 public:
 
+  /// Function type
   using Function = hnco::multiobjective::function::Function;
 
 protected:
