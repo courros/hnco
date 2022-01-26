@@ -21,15 +21,16 @@
 #ifndef HNCO_MULTIOBJECTIVE_ALGORITHMS_CANDIDATE_SET_H
 #define HNCO_MULTIOBJECTIVE_ALGORITHMS_CANDIDATE_SET_H
 
+#include "hnco/multiobjective/function.hh"
 
 namespace hnco {
 namespace multiobjective {
 namespace algorithm {
 
-using Function = hnco::multiobjective::function::Function;
-
 /// Candidate set
 struct CandidateSet {
+
+  using Function = hnco::multiobjective::function::Function;
 
   /// Bit vectors
   std::vector<bit_vector_t> bvs;

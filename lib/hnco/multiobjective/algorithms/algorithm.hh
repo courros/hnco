@@ -45,16 +45,20 @@ namespace algorithm {
 */
 class Algorithm {
 
+public:
+
+  using Function = hnco::multiobjective::function::Function;
+
 protected:
 
   /** Functions.
 
       Each thread has its own function.
   */
-  std::vector<function::Function *> _functions;
+  std::vector<Function *> _functions;
 
   /// Function
-  function::Function *_function;
+  Function *_function;
 
   /** @name Parameters
    */
@@ -66,16 +70,13 @@ protected:
   ///@}
 
   /// Set functions
-  void set_functions(const std::vector<function::Function *>& functions) {
+  void set_functions(const std::vector<Function *>& functions) {
     assert(!functions.empty());
     assert(functions[0]);
 
     _functions = functions;
     _function = functions[0];
   }
-
-  /// Get bit vector size
-  int get_bv_size() { return _solution.first.size(); }
 
 public:
 
@@ -87,7 +88,7 @@ public:
   ///@{
 
   /// Minimize
-  virtual void minimize(const std::vector<function::Function *>& functions) = 0;
+  virtual void minimize(const std::vector<Function *>& functions) = 0;
 
   /** Finalize.
 
