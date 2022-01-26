@@ -23,9 +23,6 @@
 
 #include <assert.h>
 
-#include <iostream>
-
-#include "hnco/exception.hh"
 #include "hnco/logging/log-context.hh"
 #include "hnco/multiobjective/functions/function.hh"
 
