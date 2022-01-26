@@ -28,6 +28,7 @@ void
 IterativeAlgorithm::loop()
 {
   init();
+  _last_iteration = false;
   if (_num_iterations > 0) {
     for (_iteration = 0; _iteration < _num_iterations; _iteration++) {
       if (_last_iteration)
