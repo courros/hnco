@@ -85,7 +85,7 @@ public:
 
       Calls set_functions() then loop.
   */
-  void Minimize(const std::vector<Function *>& functions) override;
+  void minimize(const std::vector<Function *>& functions) override;
 
   ///@}
 

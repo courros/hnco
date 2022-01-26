@@ -49,7 +49,7 @@ IterativeAlgorithm::loop()
 }
 
 void
-IterativeAlgorithm::maximize(const std::vector<Function *>& functions)
+IterativeAlgorithm::minimize(const std::vector<Function *>& functions)
 {
   set_functions(functions);
   loop();
