@@ -77,14 +77,6 @@ protected:
 
 public:
 
-  /** Constructor.
-
-      \param n Size of bit vectors
-  */
-  IterativeAlgorithm(int n)
-    : Algorithm(n)
-  {}
-
   /** @name Optimization
    */
   ///@{
