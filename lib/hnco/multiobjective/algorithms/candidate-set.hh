@@ -65,23 +65,23 @@ struct CandidateSet {
   int size() const { return bvs.size(); }
 
   /// Sample a random candidate set
-  void random();
+  void random() {}
 
   /** Evaluate a candidate set.
 
    */
-  void evaluate(Function *function);
+  void evaluate(Function *function) {}
 
   /** Evaluate a candidate set in parallel.
 
    */
-  void evaluate_in_parallel(const std::vector<Function *>& functions);
+  void evaluate_in_parallel(const std::vector<Function *>& functions) {}
 
   /** Check whether the candidate set is non dominated.
 
       \return True if the candidate set is non dominated
   */
-  bool is_non_dominated_set() const;
+  bool is_non_dominated_set() const { return false; }
 
 };
 

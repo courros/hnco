@@ -28,7 +28,7 @@ void
 Nsga2::init()
 {
   _population.random();
-  _population.evaluate();
+  _population.evaluate(_function);
 }
 
 void

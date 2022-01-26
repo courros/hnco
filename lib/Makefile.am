@@ -221,6 +221,8 @@ libhnco_la_SOURCES = \
 	hnco/multiobjective/algorithms/algorithm.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.cc \
 	hnco/multiobjective/algorithms/iterative-algorithm.hh \
+	hnco/multiobjective/algorithms/nsga2.cc \
+	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
@@ -380,6 +382,7 @@ nobase_include_HEADERS = \
 	hnco/maps/transvection.hh \
 	hnco/multiobjective/algorithms/algorithm.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.hh \
+	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \

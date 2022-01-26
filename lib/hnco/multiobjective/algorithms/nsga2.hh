@@ -22,6 +22,7 @@
 #define HNCO_MULTIOBJECTIVE_ALGORITHMS_NSGA2_H
 
 #include "iterative-algorithm.hh"
+#include "non-domination-sort.hh"
 
 
 namespace hnco {

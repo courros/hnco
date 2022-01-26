@@ -43,7 +43,7 @@ typedef std::vector<double> value_t;
 
     \return true if a dominates b with respect to minimization
 */
-bool dominates(const value_t& a, const value_t& b) {
+inline bool dominates(const value_t& a, const value_t& b) {
   assert(have_same_size(a, b));
   bool result = false;
   for (size_t i = 0; i < a.size(); i++) {
