@@ -36,11 +36,11 @@ protected:
   /// Current iteration
   int _iteration;
 
-  /// Something to log
-  bool _something_to_log = false;
-
   /// Last iteration
   bool _last_iteration = false;
+
+  /// Something to log
+  bool _something_to_log = false;
 
   /** @name Parameters
    */
@@ -64,8 +64,12 @@ protected:
   /// Log
   virtual void log() {}
 
-  /// Loop
-  virtual void loop();
+  /** Loop.
+
+      Calls init() then enter the main loop which, at each iteration,
+      calls iterate() then log() only if _something_to_log is true.
+  */
+  virtual void loop() final;
 
   ///@}
 
@@ -73,9 +77,12 @@ protected:
 public:
 
   /** Constructor.
-      \param n Size of bit vectors */
-  IterativeAlgorithm(int n):
-    Algorithm(n) {}
+
+      \param n Size of bit vectors
+  */
+  IterativeAlgorithm(int n)
+    : Algorithm(n)
+  {}
 
   /** @name Optimization
    */
@@ -83,10 +90,9 @@ public:
 
   /** Maximize.
 
-      It is essentially a loop which, at each iteration, calls
-      iterate() then log() only if _something_to_log is true.
+      Calls set_functions() then loop.
   */
-  void maximize(const std::vector<function::Function *>& functions);
+  void maximize(const std::vector<function::Function *>& functions) override;
 
   ///@}
 
@@ -98,7 +104,8 @@ public:
 
       \param x Number of iterations
 
-      x <= 0 means indefinite */
+      \warning x <= 0 means indefinite
+  */
   void set_num_iterations(int x) { _num_iterations = x; }
 
   ///@}
