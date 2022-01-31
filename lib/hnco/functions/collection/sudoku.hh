@@ -30,7 +30,7 @@ namespace hnco {
 namespace function {
 
 
-/// Sudoku
+/// %Sudoku
 class Sudoku {
 
 public:
