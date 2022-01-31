@@ -27,9 +27,9 @@
 namespace hnco {
 namespace algorithm {
 
-/// Human
-class Human:
-    public IterativeAlgorithm {
+
+/// %Human
+class Human: public IterativeAlgorithm {
 
 protected:
 
@@ -54,11 +54,13 @@ protected:
 public:
 
   /// Constructor
-  Human(int n):
-    IterativeAlgorithm(n),
-    _candidate(n) {}
+  Human(int n)
+    : IterativeAlgorithm(n)
+    , _candidate(n)
+  {}
 
 };
+
 
 } // end of namespace algorithm
 } // end of namespace hnco
