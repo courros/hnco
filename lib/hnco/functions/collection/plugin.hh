@@ -31,8 +31,7 @@ namespace function {
 
 
 /// %Function plugin
-class FunctionPlugin:
-    public Function {
+class FunctionPlugin: public Function {
 
   /// Bit vector size
   int _bv_size;
@@ -41,7 +40,7 @@ class FunctionPlugin:
   void *_handle;
 
   /// Type of an extern function
-  typedef double (*extern_function_t)(const bit_t *, size_t);
+  using extern_function_t = double (*)(const bit_t *, size_t);
 
   /// Extern function
   extern_function_t _extern_function;

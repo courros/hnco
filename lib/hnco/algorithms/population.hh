@@ -21,7 +21,8 @@
 #ifndef HNCO_ALGORITHMS_POPULATION_H
 #define HNCO_ALGORITHMS_POPULATION_H
 
-#include <functional>           // std::function
+#include <assert.h>
+
 #include <algorithm>            // std::sort, std::shuffle
 
 #include "hnco/functions/function.hh"
@@ -32,28 +33,34 @@ namespace hnco {
 namespace algorithm {
 
 
+/** @name Type and function related to index-value pairs
+ */
+///@{
+
+/// Index-value type
+using index_value_t = std::pair<int, double>;
+
+/// Binary operator for comparing index-value pairs
+inline bool compare_index_value(const index_value_t& a, const index_value_t& b) { return a.second > b.second; }
+
+///@}
+
+
 /// %Population
 class Population {
 
 protected:
 
-  /// Index-value type
-  typedef std::pair<int, double> index_value_t;
-
-  /// Bit vectors
+  /// Unsorted population of bit vectors
   std::vector<bit_vector_t> _bvs;
 
   /** Lookup table.
 
-      Let p be of type std::pair<int, double>. Then p.first is the
-      bv index in the unsorted population whereas p.second is the bv
-      value.
+      If p is an element of _lookup, then p.first is the index of the
+      corresponding bit vector in the unsorted population whereas
+      p.second is its value.
   */
   std::vector<index_value_t> _lookup;
-
-  /// Binary operator for comparing index-value pairs
-  std::function<bool(const index_value_t&, const index_value_t&)> _compare_index_value =
-    [](const index_value_t& a, const index_value_t& b) { return a.second > b.second; };
 
 public:
 
@@ -62,9 +69,10 @@ public:
       \param population_size Population size
       \param n Bit vector size
   */
-  Population(int population_size, int n):
-    _bvs(population_size, bit_vector_t(n)),
-    _lookup(population_size) {}
+  Population(int population_size, int n)
+    : _bvs(population_size, bit_vector_t(n))
+    , _lookup(population_size)
+  {}
 
   /// Size
   int size() const { return _bvs.size(); }
@@ -168,17 +176,17 @@ public:
   /// Evaluate the population in parallel
   void evaluate_in_parallel(const std::vector<function::Function *>& functions);
 
+  /// Shuffle the lookup table
+  void shuffle() { std::shuffle(_lookup.begin(), _lookup.end(), random::Generator::engine); }
+
   /// Sort the lookup table
-  void sort() { std::sort(_lookup.begin(), _lookup.end(), _compare_index_value); }
+  void sort() { std::sort(_lookup.begin(), _lookup.end(), compare_index_value); }
 
   /// Partially sort the lookup table
   void partial_sort(int selection_size) {
     assert(selection_size > 0);
-    std::partial_sort(_lookup.begin(), _lookup.begin() + selection_size, _lookup.end(), _compare_index_value);
+    std::partial_sort(_lookup.begin(), _lookup.begin() + selection_size, _lookup.end(), compare_index_value);
   }
-
-  /// Shuffle the lookup table
-  void shuffle() { std::shuffle(_lookup.begin(), _lookup.end(), random::Generator::engine); }
 
   ///@}
 

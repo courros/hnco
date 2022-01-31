@@ -1,5 +1,11 @@
 * Version 0.20 (unreleased)
 
+Library:
+- Population: index_value_t moved to namespace hnco::algorithm
+- Population: removed _compare_index_value
+- Declare type alias with using instead of typedef
+
+
 * Version 0.19 (2022-01-12)
 
 Highlight:

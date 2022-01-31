@@ -30,16 +30,16 @@ namespace hnco {
 namespace function {
 
 
-/// Sudoku
+/// %Sudoku
 class Sudoku {
 
 public:
 
   /// Domain type
-  typedef std::size_t domain_type;
+  using domain_type = std::size_t;
 
   /// Codomain type
-  typedef double codomain_type;
+  using codomain_type = double;
 
 private:
 

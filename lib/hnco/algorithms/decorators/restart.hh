@@ -30,13 +30,12 @@ namespace hnco {
 namespace algorithm {
 
 
-/** Restart.
+/** %Restart.
 
-    Restart an Algorithm an indefinite number of times. Should be
+    %Restart an Algorithm an indefinite number of times. Should be
     used in conjonction with OnBudgetFunction or StopOnMaximum.
 */
-class Restart:
-    public IterativeAlgorithm {
+class Restart: public IterativeAlgorithm {
 
 protected:
 
@@ -55,9 +54,9 @@ protected:
 public:
 
   /// Constructor
-  Restart(int n, Algorithm *algorithm):
-    IterativeAlgorithm(n),
-    _algorithm(algorithm)
+  Restart(int n, Algorithm *algorithm)
+    : IterativeAlgorithm(n)
+    , _algorithm(algorithm)
   {
     assert(algorithm);
   }

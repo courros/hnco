@@ -163,7 +163,7 @@ bool transvections_are_disjoint(const Transvection& a, const Transvection& b);
     Finite transvection sequences can then represent all invertible
     bit matrices.
 */
-typedef std::vector<Transvection> transvection_sequence_t;
+using transvection_sequence_t = std::vector<Transvection>;
 
 
 /** Check validity.

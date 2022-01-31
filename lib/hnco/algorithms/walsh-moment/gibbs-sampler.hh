@@ -35,8 +35,8 @@ namespace walsh_moment {
 
 
 /// Gibbs sampler with lower triangular Walsh moments
-class LowerTriangularWalshMoment2GibbsSampler
-{
+class LowerTriangularWalshMoment2GibbsSampler {
+
   /// Model parameters
   const LowerTriangularWalshMoment2& _model_parameters;
 
@@ -49,7 +49,7 @@ class LowerTriangularWalshMoment2GibbsSampler
 public:
 
   /// Walsh moment type
-  typedef LowerTriangularWalshMoment2 Moment;
+  using Moment = LowerTriangularWalshMoment2;
 
   /// Constructor
   LowerTriangularWalshMoment2GibbsSampler(int n, const LowerTriangularWalshMoment2& mp):
@@ -72,8 +72,8 @@ public:
 };
 
 /// Gibbs sampler with symmetric Walsh moments
-class SymmetricWalshMoment2GibbsSampler
-{
+class SymmetricWalshMoment2GibbsSampler {
+
   /// Model parameters
   const SymmetricWalshMoment2& _model_parameters;
 
@@ -86,7 +86,7 @@ class SymmetricWalshMoment2GibbsSampler
 public:
 
   /// Walsh moment type
-  typedef SymmetricWalshMoment2 Moment;
+  using Moment = SymmetricWalshMoment2;
 
   /// Constructor
   SymmetricWalshMoment2GibbsSampler(int n, const SymmetricWalshMoment2& mp):
@@ -109,8 +109,8 @@ public:
 };
 
 
-}
-}
-}
+} // end of namespace walsh_moment
+} // end of namespace algorithm
+} // end of namespace hnco
 
 #endif

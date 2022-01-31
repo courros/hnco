@@ -102,7 +102,7 @@ class DyadicIntegerRepresentation {
 public:
 
   /// Domain type
-  typedef T domain_type;
+  using domain_type = T;
 
   /** Constructor.
 

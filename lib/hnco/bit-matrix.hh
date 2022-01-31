@@ -43,7 +43,7 @@ namespace hnco {
 ///@{
 
 /// Bit matrix
-typedef std::vector<bit_vector_t> bit_matrix_t;
+using bit_matrix_t = std::vector<bit_vector_t>;
 
 
 /// Make a rectangular bit matrix

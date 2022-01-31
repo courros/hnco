@@ -35,7 +35,7 @@ namespace hnco {
 ///@{
 
 /// %Permutation type
-typedef std::vector<int> permutation_t;
+using permutation_t = std::vector<int>;
 
 /// Check that a vector represents a permutation
 bool perm_is_valid(const permutation_t& permutation);
