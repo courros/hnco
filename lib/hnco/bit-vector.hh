@@ -43,7 +43,7 @@ namespace hnco {
 ///@{
 
 /// Bit
-typedef std::uint8_t bit_t;
+using bit_t = std::uint8_t;
 
 /// Flip bit
 inline bit_t bit_flip(bit_t b) { return b ? 0 : 1; }
@@ -68,7 +68,7 @@ inline bit_t bit_random(double p) { return (random::Generator::uniform() < p) ? 
 ///@{
 
 /// Bit vector
-typedef std::vector<bit_t> bit_vector_t;
+using bit_vector_t = std::vector<bit_t>;
 
 /// Display bit vector
 inline std::string bv_domain(const bit_vector_t& x) { return std::string("bit vector (") + std::to_string(x.size()) + std::string(" bits)"); }

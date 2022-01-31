@@ -45,7 +45,7 @@ namespace algorithm {
 ///@{
 
 /// Probability vector type
-typedef std::vector<double> pv_t;
+using pv_t = std::vector<double>;
 
 /// Entropy of a probability vector
 double pv_entropy(const pv_t& pv);

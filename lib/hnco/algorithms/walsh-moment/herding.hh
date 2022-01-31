@@ -65,7 +65,7 @@ protected:
 public:
 
   /// Walsh moment type
-  typedef LowerTriangularWalshMoment2 Moment;
+  using Moment = LowerTriangularWalshMoment2;
 
   /** Constructor.
 
@@ -140,7 +140,7 @@ protected:
 public:
 
   /// Walsh moment type
-  typedef SymmetricWalshMoment2 Moment;
+  using Moment = SymmetricWalshMoment2;
 
   /** Constructor.
 

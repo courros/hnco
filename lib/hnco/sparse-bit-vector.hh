@@ -47,7 +47,7 @@ namespace hnco {
     A sparse bit vector does not know the dimension of the space it
     belongs to.
 */
-typedef std::vector<int> sparse_bit_vector_t;
+using sparse_bit_vector_t = std::vector<int>;
 
 /** Check that a sparse bit vector is valid.
 

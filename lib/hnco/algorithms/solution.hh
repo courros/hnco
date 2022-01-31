@@ -27,7 +27,7 @@ namespace algorithm {
 
 
 /// Type of a solution
-typedef std::pair<bit_vector_t, double> solution_t;
+using solution_t = std::pair<bit_vector_t, double>;
 
 
 } // end of namespace algorithm

@@ -54,7 +54,7 @@ class DyadicComplexRepresentation {
 public:
 
   /// Domain type
-  typedef std::complex<T> domain_type;
+  using domain_type = std::complex<T>;
 
   /** Constructor.
 

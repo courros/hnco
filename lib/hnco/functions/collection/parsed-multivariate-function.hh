@@ -45,8 +45,7 @@ namespace function {
 
 */
 template<class Parser>
-class ParsedMultivariateFunction
-{
+class ParsedMultivariateFunction {
 
   /// Function parser
   Parser _fparser;
@@ -60,10 +59,10 @@ class ParsedMultivariateFunction
 public:
 
   /// Domain type
-  typedef typename Parser::value_type domain_type;
+  using domain_type = typename Parser::value_type;
 
   /// Codomain type
-  typedef typename Parser::value_type codomain_type;
+  using codomain_type = typename Parser::value_type;
 
   /** Constructor.
 

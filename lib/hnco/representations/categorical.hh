@@ -63,7 +63,7 @@ class LinearCategoricalRepresentation {
 public:
 
   /// Domain type
-  typedef std::size_t domain_type;
+  using domain_type = std::size_t;
 
   /** Constructor.
 
@@ -150,7 +150,7 @@ class IntegerCategoricalRepresentation {
 public:
 
   /// Domain type
-  typedef std::size_t domain_type;
+  using domain_type = std::size_t;
 
   /** Constructor.
    *

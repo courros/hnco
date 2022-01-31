@@ -32,7 +32,7 @@ template<class T>
 struct ScalarToDouble {
 
   /// Codomain type
-  typedef T codomain_type;
+  using codomain_type = T;
 
   /// Convert to double
   double operator()(T x) { return x; }
@@ -44,7 +44,7 @@ template<class T>
 struct ComplexToDouble {
 
   /// Codomain type
-  typedef std::complex<T> codomain_type;
+  using codomain_type = std::complex<T>;
 
   /// Convert to double
   double operator()(std::complex<T> z) { return std::norm(z); }
