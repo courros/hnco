@@ -43,7 +43,7 @@ TournamentSelection::select()
     do {
       challenger = _choose_individual(Generator::engine);
     } while (challenger == winner);
-    if (_compare_index_value(_lookup[challenger], _lookup[winner]))
+    if (compare_index_value(_lookup[challenger], _lookup[winner]))
       winner = challenger;
   }
   return get_best_bv(winner);

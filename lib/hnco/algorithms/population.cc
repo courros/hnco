@@ -18,7 +18,6 @@
 
 */
 
-#include <assert.h>
 #include <omp.h>                // omp_get_thread_num
 
 #include "hnco/util.hh"         // hnco::is_in_range
@@ -82,7 +81,7 @@ Population::plus_selection(const Population& offsprings)
          i = 0,
          j = 0;
        i < int(_bvs.size()) && j < offsprings.size(); i++) {
-    if (_compare_index_value(_lookup[i], offsprings._lookup[j]))
+    if (compare_index_value(_lookup[i], offsprings._lookup[j]))
       continue;
     else {
       // _lookup[i].first is left unchanged
@@ -101,7 +100,7 @@ Population::plus_selection(Population& offsprings)
          i = 0,
          j = 0;
        i < int(_bvs.size()) && j < offsprings.size(); i++) {
-    if (_compare_index_value(_lookup[i], offsprings._lookup[j]))
+    if (compare_index_value(_lookup[i], offsprings._lookup[j]))
       continue;
     else {
       // _lookup[i].first is left unchanged
