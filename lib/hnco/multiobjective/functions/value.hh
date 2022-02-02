@@ -21,20 +21,24 @@
 #ifndef HNCO_MULTIOBJECTIVE_FUNCTIONS_VALUE_H
 #define HNCO_MULTIOBJECTIVE_FUNCTIONS_VALUE_H
 
+#include <assert.h>
+
 #include <vector>
 
 #include "hnco/util.hh"
 
+
 namespace hnco {
 namespace multiobjective {
 namespace function {
+
 
 /** Value type.
 
     A value type is the type of the output of a Function in the
     context of multiobjective optimization.
 */
-typedef std::vector<double> value_t;
+using value_t = std::vector<double>;
 
 /** Domination relation.
 
@@ -55,6 +59,7 @@ inline bool dominates(const value_t& a, const value_t& b) {
   }
   return result;
 }
+
 
 } // end of namespace function
 } // end of namespace multiobjective
