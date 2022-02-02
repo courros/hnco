@@ -18,27 +18,74 @@
 
 */
 
+#include <algorithm>            // std::find_if
+#include <utility>              // std::swap
+
+#include "hnco/random.hh"       // hnco::random::Generator::engine
+
 #include "nsga2.hh"
 
-
 using namespace hnco::multiobjective::algorithm;
+using namespace hnco::random;
 
 
 void
 Nsga2::init()
 {
-  _population.random();
-  _population.evaluate(_function);
+  _mutation.set_mutation_rate(_mutation_rate);
+  _mutation.set_allow_no_mutation(_allow_no_mutation);
+
+  _parents.random();
+  _parents.evaluate(_function);
 }
 
 void
 Nsga2::iterate()
 {
-  // generate _augmented_population
+  const int population_size = _parents.size();
 
-  _non_domination_sort->sort(_augmented_population);
+  // Offsprings
+  for (int i = 0; i < _offsprings.size(); i++) {
+    bit_vector_t& offspring = _offsprings.bvs[i];
+    if (_do_crossover(Generator::engine))
+      _crossover.breed(_selection.select(),_selection.select(), offspring);
+    else
+      offspring = _selection.select();
+    _mutation.mutate(offspring);
+  }
+  _offsprings.evaluate(_function);
 
-  // compute crowding distance by front
+  // Build augmented population (parents + offsprings)
+  for (int i = 0; i < _parents.size(); i++) {
+    std::swap(_parents.bvs[i], _augmented_population.bvs[i]);
+    std::swap(_parents.values[i], _augmented_population.values[i]);
+    std::swap(_offsprings.bvs[i], _augmented_population.bvs[population_size + i]);
+    std::swap(_offsprings.values[i], _augmented_population.values[population_size + i]);
+  }
 
-  // generate _population (last front problem)
+  _non_domination_sort.sort();
+  // ensure _augmented_population.pareto_fronts is correct
+  // ensure _augmented_population.indices is correct
+
+  auto& fronts = _augmented_population.pareto_fronts;
+  auto& indices = _augmented_population.indices;
+
+  int before = indices[population_size - 1];
+  int after = indices[population_size];
+  // Check for last front overflowing population_size
+  if (fronts[before] == fronts[after]) {
+    int last_front = fronts[before];
+    auto predicate = [fronts, last_front](int i){ return fronts[i] == last_front; };
+    auto start = std::find_if(indices.begin(), indices.end(), predicate);
+    auto stop = std::find_if_not(start, indices.end(), predicate);
+    for (auto iter = start; iter != stop; iter++) {
+      // Compute _crowding_distance
+    }
+  }
+
+  // Build parent population
+  for (int i = 0; i < _parents.size(); i++) {
+    std::swap(_parents.bvs[i], _augmented_population.bvs[i]);
+    std::swap(_parents.values[i], _augmented_population.values[i]);
+  }
 }

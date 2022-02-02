@@ -23,15 +23,16 @@
 
 #include "hnco/multiobjective/functions/function.hh"
 
+
 namespace hnco {
 namespace multiobjective {
 namespace algorithm {
+
 
 /// Candidate set
 struct CandidateSet {
 
   using Function = hnco::multiobjective::function::Function;
-
   using value_t = hnco::multiobjective::function::value_t;
 
   /// Bit vectors
@@ -40,8 +41,11 @@ struct CandidateSet {
   /// Values
   std::vector<value_t> values;
 
-  /// Ranks
-  std::vector<int> ranks;
+  /// Pareto fronts
+  std::vector<int> pareto_fronts;
+
+  /// Indices
+  std::vector<int> indices;
 
   /** Constructor.
       \param population_size Population size
@@ -51,10 +55,11 @@ struct CandidateSet {
   CandidateSet(int population_size, int n, int num_objectives)
     : bvs(population_size, bit_vector_t(n))
     , values(population_size, value_t(num_objectives))
-    , ranks(population_size)
+    , pareto_fronts(population_size)
+    , indices(population_size)
   {
     if (population_size <= 0)
-      throw std::runtime_error("multiobjective::CandidateSet::CandidateSet: population_size size must be positive");
+      throw std::runtime_error("multiobjective::CandidateSet::CandidateSet: population_size must be positive");
     if (n <= 0)
       throw std::runtime_error("multiobjective::CandidateSet::CandidateSet: bit vector size must be positive");
     if (num_objectives <= 0)
@@ -76,12 +81,6 @@ struct CandidateSet {
 
    */
   void evaluate_in_parallel(const std::vector<Function *>& functions) {}
-
-  /** Check whether the candidate set is non dominated.
-
-      \return True if the candidate set is non dominated
-  */
-  bool is_non_dominated_set() const { return false; }
 
 };
 

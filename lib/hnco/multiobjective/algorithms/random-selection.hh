@@ -36,9 +36,9 @@ public:
     : _candidate_set(candidate_set)
   {}
   void init() {}
-  int select() {
+  const bit_vector_t& select() {
     int winner = 0;
-    return winner;
+    return _candidate_set.bvs[winner];
   }
 };
 

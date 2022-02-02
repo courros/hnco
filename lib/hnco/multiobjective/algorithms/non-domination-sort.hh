@@ -30,26 +30,14 @@ namespace hnco {
 namespace multiobjective {
 namespace algorithm {
 
-/// Non domination sort
-class NonDominationSort {
-public:
-  /// Destructor
-  virtual ~NonDominationSort() {}
-  /** Sort.
-      \param candidate_set Candidate set to sort
-  */
-  virtual void sort(CandidateSet& candidate_set) = 0;
-};
 
-/** Non domination sort from NSGA-II.
-
- */
-class Nsga2NonDominationSort: public NonDominationSort {
+class Nsga2NonDominationSort {
+  CandidateSet& _candidate_set;
 public:
-  /** Sort.
-      \param candidate_set Candidate set to sort
-  */
-  void sort(CandidateSet& candidate_set) override;
+  Nsga2NonDominationSort(CandidateSet& candidate_set)
+    : _candidate_set(candidate_set)
+  {}
+  void sort() {}
 };
 
 

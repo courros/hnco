@@ -32,11 +32,11 @@
 namespace hnco {
 namespace multiobjective {
 
-/// Algorithms
+/// Multiobjective Algorithms
 namespace algorithm {
 
 
-/** Abstract search algorithm.
+/** Abstract multiobjective search algorithm.
 
     All algorithms minimize some given function.
 */
@@ -77,6 +77,18 @@ protected:
   }
 
 public:
+
+  /** Constructor.
+      \param n Size of bit vectors
+      \param num_objectives Number of objectives
+  */
+  Algorithm(int n, int num_objectives)
+  {
+    if (n <= 0)
+      throw std::runtime_error("multiobjective::Algorithm::Algorithm: bit vector size must be positive");
+    if (num_objectives <= 0)
+      throw std::runtime_error("multiobjective::Algorithm::Algorithm: num_objectives size must be positive");
+  }
 
   /// Destructor
   virtual ~Algorithm() {}

@@ -77,6 +77,14 @@ protected:
 
 public:
 
+  /** Constructor.
+      \param n Size of bit vectors
+      \param num_objectives Number of objectives
+  */
+  IterativeAlgorithm(int n, int num_objectives)
+    : Algorithm(n, num_objectives)
+  {}
+
   /** @name Optimization
    */
   ///@{
