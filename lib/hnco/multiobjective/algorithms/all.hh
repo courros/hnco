@@ -26,5 +26,6 @@
 #include "iterative-algorithm.hh"
 #include "non-domination-sort.hh"
 #include "nsga2.hh"
+#include "random-selection.hh"
 
 #endif
