@@ -323,10 +323,15 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/logging/logger.hh hnco/maps/map.cc hnco/maps/map.hh \
 	hnco/maps/transvection.cc hnco/maps/transvection.hh \
 	hnco/multiobjective/algorithms/algorithm.hh \
+	hnco/multiobjective/algorithms/all.hh \
+	hnco/multiobjective/algorithms/candidate-set.cc \
+	hnco/multiobjective/algorithms/candidate-set.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.cc \
 	hnco/multiobjective/algorithms/iterative-algorithm.hh \
+	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.cc \
 	hnco/multiobjective/algorithms/nsga2.hh \
+	hnco/multiobjective/algorithms/random-selection.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
@@ -418,6 +423,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/functions/modifiers/prior-noise.lo hnco/iterator.lo \
 	hnco/logging/logger.lo hnco/maps/map.lo \
 	hnco/maps/transvection.lo \
+	hnco/multiobjective/algorithms/candidate-set.lo \
 	hnco/multiobjective/algorithms/iterative-algorithm.lo \
 	hnco/multiobjective/algorithms/nsga2.lo \
 	hnco/neighborhoods/neighborhood-iterator.lo \
@@ -526,6 +532,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo \
 	hnco/logging/$(DEPDIR)/logger.Plo hnco/maps/$(DEPDIR)/map.Plo \
 	hnco/maps/$(DEPDIR)/transvection.Plo \
+	hnco/multiobjective/algorithms/$(DEPDIR)/candidate-set.Plo \
 	hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo \
 	hnco/multiobjective/algorithms/$(DEPDIR)/nsga2.Plo \
 	hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo \
@@ -666,8 +673,12 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/logging/log-context.hh hnco/logging/logger.hh \
 	hnco/maps/map.hh hnco/maps/transvection.hh \
 	hnco/multiobjective/algorithms/algorithm.hh \
+	hnco/multiobjective/algorithms/all.hh \
+	hnco/multiobjective/algorithms/candidate-set.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.hh \
+	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.hh \
+	hnco/multiobjective/algorithms/random-selection.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
@@ -1002,10 +1013,15 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/logging/logger.hh hnco/maps/map.cc hnco/maps/map.hh \
 	hnco/maps/transvection.cc hnco/maps/transvection.hh \
 	hnco/multiobjective/algorithms/algorithm.hh \
+	hnco/multiobjective/algorithms/all.hh \
+	hnco/multiobjective/algorithms/candidate-set.cc \
+	hnco/multiobjective/algorithms/candidate-set.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.cc \
 	hnco/multiobjective/algorithms/iterative-algorithm.hh \
+	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.cc \
 	hnco/multiobjective/algorithms/nsga2.hh \
+	hnco/multiobjective/algorithms/random-selection.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
@@ -1113,8 +1129,12 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/logging/log-context.hh hnco/logging/logger.hh \
 	hnco/maps/map.hh hnco/maps/transvection.hh \
 	hnco/multiobjective/algorithms/algorithm.hh \
+	hnco/multiobjective/algorithms/all.hh \
+	hnco/multiobjective/algorithms/candidate-set.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.hh \
+	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.hh \
+	hnco/multiobjective/algorithms/random-selection.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
@@ -1523,6 +1543,9 @@ hnco/multiobjective/algorithms/$(am__dirstamp):
 hnco/multiobjective/algorithms/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/multiobjective/algorithms/$(DEPDIR)
 	@: > hnco/multiobjective/algorithms/$(DEPDIR)/$(am__dirstamp)
+hnco/multiobjective/algorithms/candidate-set.lo:  \
+	hnco/multiobjective/algorithms/$(am__dirstamp) \
+	hnco/multiobjective/algorithms/$(DEPDIR)/$(am__dirstamp)
 hnco/multiobjective/algorithms/iterative-algorithm.lo:  \
 	hnco/multiobjective/algorithms/$(am__dirstamp) \
 	hnco/multiobjective/algorithms/$(DEPDIR)/$(am__dirstamp)
@@ -1693,6 +1716,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/logging/$(DEPDIR)/logger.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/maps/$(DEPDIR)/map.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/maps/$(DEPDIR)/transvection.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/algorithms/$(DEPDIR)/candidate-set.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/algorithms/$(DEPDIR)/nsga2.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo@am__quote@ # am--include-marker
@@ -2062,6 +2086,7 @@ distclean: distclean-am
 	-rm -f hnco/logging/$(DEPDIR)/logger.Plo
 	-rm -f hnco/maps/$(DEPDIR)/map.Plo
 	-rm -f hnco/maps/$(DEPDIR)/transvection.Plo
+	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/candidate-set.Plo
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/nsga2.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo
@@ -2197,6 +2222,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/logging/$(DEPDIR)/logger.Plo
 	-rm -f hnco/maps/$(DEPDIR)/map.Plo
 	-rm -f hnco/maps/$(DEPDIR)/transvection.Plo
+	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/candidate-set.Plo
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/nsga2.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo

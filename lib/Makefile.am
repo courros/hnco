@@ -219,10 +219,15 @@ libhnco_la_SOURCES = \
 	hnco/maps/transvection.cc \
 	hnco/maps/transvection.hh \
 	hnco/multiobjective/algorithms/algorithm.hh \
+	hnco/multiobjective/algorithms/all.hh \
+	hnco/multiobjective/algorithms/candidate-set.cc \
+	hnco/multiobjective/algorithms/candidate-set.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.cc \
 	hnco/multiobjective/algorithms/iterative-algorithm.hh \
+	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.cc \
 	hnco/multiobjective/algorithms/nsga2.hh \
+	hnco/multiobjective/algorithms/random-selection.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
@@ -381,8 +386,12 @@ nobase_include_HEADERS = \
 	hnco/maps/map.hh \
 	hnco/maps/transvection.hh \
 	hnco/multiobjective/algorithms/algorithm.hh \
+	hnco/multiobjective/algorithms/all.hh \
+	hnco/multiobjective/algorithms/candidate-set.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.hh \
+	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.hh \
+	hnco/multiobjective/algorithms/random-selection.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
