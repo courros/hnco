@@ -75,17 +75,22 @@ Nsga2::iterate()
   // Check for last front overflowing population_size
   if (fronts[before] == fronts[after]) {
     int last_front = fronts[before];
+    // Check capture of fronts as a reference
     auto predicate = [fronts, last_front](int i){ return fronts[i] == last_front; };
     auto start = std::find_if(indices.begin(), indices.end(), predicate);
-    auto stop = std::find_if_not(start, indices.end(), predicate);
+    assert(start != indices.end());
+    auto stop = std::find_if_not(start + 1, indices.end(), predicate);
     for (auto iter = start; iter != stop; iter++) {
       // Compute _crowding_distance
     }
+    auto compare = [this](int i, int j){ return this->_crowding_distance[i] > this->_crowding_distance[j]; };
+    std::sort(start, stop, compare);
   }
 
   // Build parent population
   for (int i = 0; i < _parents.size(); i++) {
-    std::swap(_parents.bvs[i], _augmented_population.bvs[i]);
-    std::swap(_parents.values[i], _augmented_population.values[i]);
+    int index = _augmented_population.indices[i];
+    std::swap(_parents.bvs[i], _augmented_population.bvs[index]);
+    std::swap(_parents.values[i], _augmented_population.values[index]);
   }
 }
