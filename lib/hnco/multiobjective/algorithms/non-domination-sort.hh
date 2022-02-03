@@ -21,8 +21,6 @@
 #ifndef HNCO_MULTIOBJECTIVE_ALGORITHMS_NON_DOMINATION_SORT_H
 #define HNCO_MULTIOBJECTIVE_ALGORITHMS_NON_DOMINATION_SORT_H
 
-#include <assert.h>
-
 #include "candidate-set.hh"
 
 
@@ -31,13 +29,25 @@ namespace multiobjective {
 namespace algorithm {
 
 
+/** Non domination sort from the NSGA-II paper.
+
+ */
 class Nsga2NonDominationSort {
+
+  /// Candidate set
   CandidateSet& _candidate_set;
+
 public:
+
+  /// Constructor
   Nsga2NonDominationSort(CandidateSet& candidate_set)
     : _candidate_set(candidate_set)
   {}
-  void sort() {}
+
+  /// Sort
+  void sort() {
+  }
+
 };
 
 

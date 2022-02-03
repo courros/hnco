@@ -29,17 +29,28 @@ namespace multiobjective {
 namespace algorithm {
 
 
+/// Tournament selection
 class TournamentSelection {
+
+  /// Candidate set
   CandidateSet& _candidate_set;
+
 public:
+
+  /// Constructor
   TournamentSelection(CandidateSet& candidate_set)
     : _candidate_set(candidate_set)
   {}
+
+  /// Initialize
   void init() {}
+
+  /// Select a bit vector
   const bit_vector_t& select() {
     int winner = 0;
     return _candidate_set.bvs[winner];
   }
+
 };
 
 
