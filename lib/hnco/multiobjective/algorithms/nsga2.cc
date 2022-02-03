@@ -18,8 +18,10 @@
 
 */
 
-#include <algorithm>            // std::find_if
+#include <algorithm>            // std::find_if, std::find_if_not, std::fill
+#include <limits>               // std::numeric_limits
 #include <utility>              // std::swap
+#include <iterator>             // std::distance
 
 #include "hnco/random.hh"       // hnco::random::Generator::engine
 
@@ -72,17 +74,29 @@ Nsga2::iterate()
 
   int before = indices[population_size - 1];
   int after = indices[population_size];
+
   // Check for last front overflowing population_size
   if (fronts[before] == fronts[after]) {
     int last_front = fronts[before];
-    // Check capture of fronts as a reference
-    auto predicate = [fronts, last_front](int i){ return fronts[i] == last_front; };
+    auto predicate = [&, last_front](int i){ return fronts[i] == last_front; };
     auto start = std::find_if(indices.begin(), indices.end(), predicate);
     assert(start != indices.end());
     auto stop = std::find_if_not(start + 1, indices.end(), predicate);
-    for (auto iter = start; iter != stop; iter++) {
-      // Compute _crowding_distance
+
+    // Compute crowding distance
+    std::fill(_crowding_distance.begin(), _crowding_distance.end(), 0);
+    const int num_objectives = _augmented_population.values[0].size();
+    for (int k = 0; k < num_objectives; k++) {
+      auto compare = [this, k](int i, int j){ return this->_augmented_population.values[i][k] < this->_augmented_population.values[j][k]; };
+      std::sort(start, stop, compare);
+      _crowding_distance[*start] = std::numeric_limits<double>::infinity();
+      _crowding_distance[*(stop - 1)] = std::numeric_limits<double>::infinity();
+      if (std::distance(start, stop) >= 3) {
+        for (auto iter = start + 1; iter != stop - 1; iter++)
+          _crowding_distance[*iter] += _augmented_population.values[*(iter + 1)][k] - _augmented_population.values[*(iter - 1)][k];
+      }
     }
+
     auto compare = [this](int i, int j){ return this->_crowding_distance[i] > this->_crowding_distance[j]; };
     std::sort(start, stop, compare);
   }
