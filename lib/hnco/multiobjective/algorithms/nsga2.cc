@@ -77,11 +77,11 @@ Nsga2::iterate()
 
   // Check for last front overflowing population_size
   if (fronts[before] == fronts[after]) {
-    int last_front = fronts[before];
+    const int last_front = fronts[before];
     auto predicate = [&, last_front](int i){ return fronts[i] == last_front; };
-    auto start = std::find_if(indices.begin(), indices.end(), predicate);
+    const auto start = std::find_if(indices.begin(), indices.end(), predicate);
     assert(start != indices.end());
-    auto stop = std::find_if_not(start + 1, indices.end(), predicate);
+    const auto stop = std::find_if_not(start + 1, indices.end(), predicate);
 
     // Compute crowding distance
     std::fill(_crowding_distance.begin(), _crowding_distance.end(), 0);
@@ -103,7 +103,7 @@ Nsga2::iterate()
 
   // Build parent population
   for (int i = 0; i < _parents.size(); i++) {
-    int index = _augmented_population.indices[i];
+    const int index = _augmented_population.indices[i];
     std::swap(_parents.bvs[i], _augmented_population.bvs[index]);
     std::swap(_parents.values[i], _augmented_population.values[index]);
   }
