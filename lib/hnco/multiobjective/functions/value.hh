@@ -25,7 +25,7 @@
 
 #include <vector>
 
-#include "hnco/util.hh"
+#include "hnco/util.hh"         // hnco::have_same_size
 
 
 namespace hnco {
