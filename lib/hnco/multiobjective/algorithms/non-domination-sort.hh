@@ -66,6 +66,7 @@ public:
 
   /// Sort
   void sort() {
+    int front = 0;
     std::iota(_pool.begin(), _pool.end(), 0);
     while (!_pool.empty()) {
       _non_dominated.clear();
@@ -84,7 +85,9 @@ public:
           _next_pool.push_back(i);
         }
       }
-      // Update _candidate_set with _non_dominated
+      for (auto i : _non_dominated)
+        _candidate_set.pareto_fronts[i] = front;
+      front++;
       std::swap(_pool, _next_pool);
     }
   }
