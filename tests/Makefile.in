@@ -144,6 +144,7 @@ check_PROGRAMS = test-bm-add-columns$(EXEEXT) \
 	test-incremental-one-max-single-bit-flip$(EXEEXT) \
 	test-incremental-walsh-expansion-1$(EXEEXT) \
 	test-injection-projection$(EXEEXT) \
+	test-nsga2-non-domination-sort$(EXEEXT) \
 	test-one-plus-one-ea-one-max$(EXEEXT) \
 	test-population-evaluate-in-parallel$(EXEEXT) \
 	test-save-load-linear-function$(EXEEXT) \
@@ -446,6 +447,12 @@ test_injection_projection_OBJECTS =  \
 	$(am_test_injection_projection_OBJECTS)
 test_injection_projection_LDADD = $(LDADD)
 test_injection_projection_DEPENDENCIES = ../lib/libhnco.la
+am_test_nsga2_non_domination_sort_OBJECTS =  \
+	test-nsga2-non-domination-sort.$(OBJEXT)
+test_nsga2_non_domination_sort_OBJECTS =  \
+	$(am_test_nsga2_non_domination_sort_OBJECTS)
+test_nsga2_non_domination_sort_LDADD = $(LDADD)
+test_nsga2_non_domination_sort_DEPENDENCIES = ../lib/libhnco.la
 am_test_one_plus_one_ea_one_max_OBJECTS =  \
 	test-one-plus-one-ea-one-max.$(OBJEXT)
 test_one_plus_one_ea_one_max_OBJECTS =  \
@@ -698,6 +705,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-columns.Po \
 	./$(DEPDIR)/test-incremental-one-max.Po \
 	./$(DEPDIR)/test-incremental-walsh-expansion-1.Po \
 	./$(DEPDIR)/test-injection-projection.Po \
+	./$(DEPDIR)/test-nsga2-non-domination-sort.Po \
 	./$(DEPDIR)/test-one-plus-one-ea-one-max.Po \
 	./$(DEPDIR)/test-population-evaluate-in-parallel.Po \
 	./$(DEPDIR)/test-save-load-linear-function.Po \
@@ -789,6 +797,7 @@ SOURCES = $(test_bm_add_columns_SOURCES) $(test_bm_add_rows_SOURCES) \
 	$(test_incremental_one_max_single_bit_flip_SOURCES) \
 	$(test_incremental_walsh_expansion_1_SOURCES) \
 	$(test_injection_projection_SOURCES) \
+	$(test_nsga2_non_domination_sort_SOURCES) \
 	$(test_one_plus_one_ea_one_max_SOURCES) \
 	$(test_population_evaluate_in_parallel_SOURCES) \
 	$(test_save_load_linear_function_SOURCES) \
@@ -862,6 +871,7 @@ DIST_SOURCES = $(test_bm_add_columns_SOURCES) \
 	$(test_incremental_one_max_single_bit_flip_SOURCES) \
 	$(test_incremental_walsh_expansion_1_SOURCES) \
 	$(test_injection_projection_SOURCES) \
+	$(test_nsga2_non_domination_sort_SOURCES) \
 	$(test_one_plus_one_ea_one_max_SOURCES) \
 	$(test_population_evaluate_in_parallel_SOURCES) \
 	$(test_save_load_linear_function_SOURCES) \
@@ -1315,6 +1325,7 @@ test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hammi
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
 test_incremental_walsh_expansion_1_SOURCES = test-incremental-walsh-expansion-1.cc
 test_injection_projection_SOURCES = test-injection-projection.cc
+test_nsga2_non_domination_sort_SOURCES = test-nsga2-non-domination-sort.cc
 test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_population_evaluate_in_parallel_SOURCES = test-population-evaluate-in-parallel.cc
 test_save_load_linear_function_SOURCES = test-save-load-linear-function.cc
@@ -1592,6 +1603,10 @@ test-injection-projection$(EXEEXT): $(test_injection_projection_OBJECTS) $(test_
 	@rm -f test-injection-projection$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_injection_projection_OBJECTS) $(test_injection_projection_LDADD) $(LIBS)
 
+test-nsga2-non-domination-sort$(EXEEXT): $(test_nsga2_non_domination_sort_OBJECTS) $(test_nsga2_non_domination_sort_DEPENDENCIES) $(EXTRA_test_nsga2_non_domination_sort_DEPENDENCIES) 
+	@rm -f test-nsga2-non-domination-sort$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_nsga2_non_domination_sort_OBJECTS) $(test_nsga2_non_domination_sort_LDADD) $(LIBS)
+
 test-one-plus-one-ea-one-max$(EXEEXT): $(test_one_plus_one_ea_one_max_OBJECTS) $(test_one_plus_one_ea_one_max_DEPENDENCIES) $(EXTRA_test_one_plus_one_ea_one_max_DEPENDENCIES) 
 	@rm -f test-one-plus-one-ea-one-max$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_one_plus_one_ea_one_max_OBJECTS) $(test_one_plus_one_ea_one_max_LDADD) $(LIBS)
@@ -1775,6 +1790,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-walsh-expansion-1.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-injection-projection.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-nsga2-non-domination-sort.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-one-plus-one-ea-one-max.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-population-evaluate-in-parallel.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-save-load-linear-function.Po@am__quote@ # am--include-marker
@@ -2346,6 +2362,13 @@ test-injection-projection.log: test-injection-projection$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-nsga2-non-domination-sort.log: test-nsga2-non-domination-sort$(EXEEXT)
+	@p='test-nsga2-non-domination-sort$(EXEEXT)'; \
+	b='test-nsga2-non-domination-sort'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-one-plus-one-ea-one-max.log: test-one-plus-one-ea-one-max$(EXEEXT)
 	@p='test-one-plus-one-ea-one-max$(EXEEXT)'; \
 	b='test-one-plus-one-ea-one-max'; \
@@ -2722,6 +2745,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-incremental-one-max.Po
 	-rm -f ./$(DEPDIR)/test-incremental-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-injection-projection.Po
+	-rm -f ./$(DEPDIR)/test-nsga2-non-domination-sort.Po
 	-rm -f ./$(DEPDIR)/test-one-plus-one-ea-one-max.Po
 	-rm -f ./$(DEPDIR)/test-population-evaluate-in-parallel.Po
 	-rm -f ./$(DEPDIR)/test-save-load-linear-function.Po
@@ -2845,6 +2869,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-incremental-one-max.Po
 	-rm -f ./$(DEPDIR)/test-incremental-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-injection-projection.Po
+	-rm -f ./$(DEPDIR)/test-nsga2-non-domination-sort.Po
 	-rm -f ./$(DEPDIR)/test-one-plus-one-ea-one-max.Po
 	-rm -f ./$(DEPDIR)/test-population-evaluate-in-parallel.Po
 	-rm -f ./$(DEPDIR)/test-save-load-linear-function.Po

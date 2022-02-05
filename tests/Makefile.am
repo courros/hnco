@@ -61,6 +61,7 @@ check_PROGRAMS = \
 	test-incremental-one-max-single-bit-flip \
 	test-incremental-walsh-expansion-1 \
 	test-injection-projection \
+	test-nsga2-non-domination-sort \
 	test-one-plus-one-ea-one-max \
 	test-population-evaluate-in-parallel \
 	test-save-load-linear-function \
@@ -150,6 +151,7 @@ test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hammi
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
 test_incremental_walsh_expansion_1_SOURCES = test-incremental-walsh-expansion-1.cc
 test_injection_projection_SOURCES = test-injection-projection.cc
+test_nsga2_non_domination_sort_SOURCES = test-nsga2-non-domination-sort.cc
 test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_population_evaluate_in_parallel_SOURCES = test-population-evaluate-in-parallel.cc
 test_save_load_linear_function_SOURCES = test-save-load-linear-function.cc
