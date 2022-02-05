@@ -20,43 +20,58 @@
 
 /** \file
 
-    Check ts_random_disjoint.
+    Check Nsga2NonDominationSort::sort.
 
-    Check that all transvections in the sequence are pairwise
-    disjoint.
 */
 
 #include <iostream>
-#include <iterator>
 
-#include "hnco/maps/transvection.hh"
+#include "hnco/multiobjective/algorithms/non-domination-sort.hh"
+#include "hnco/random.hh"
 
 
-using namespace hnco::map;
+using namespace hnco::multiobjective::algorithm;
+using namespace hnco::multiobjective::function;
 using namespace hnco::random;
 using namespace hnco;
 
 
-bool check_ts(const transvection_sequence_t& ts)
-{
-  for (size_t i = 0; i < ts.size(); i++)
-    for (size_t j = i + 1; j < ts.size(); j++)
-      if (!transvections_are_disjoint(ts[i], ts[j]))
-        return false;
-  return true;
-}
-
 bool check()
 {
-  std::uniform_int_distribution<int> dist(2, 200);
+  std::uniform_int_distribution<int> dist_population_size(1, 100);
+  std::uniform_int_distribution<int> dist_bv_size(1, 100);
+  std::uniform_int_distribution<int> dist_num_objectives(2, 10);
 
   for (int i = 0; i < 10; i++) {
-    const int n = dist(Generator::engine);
+    const int population_size   = dist_population_size(Generator::engine);
+    const int bv_size           = dist_bv_size(Generator::engine);
+    const int num_objectives    = dist_num_objectives(Generator::engine);
 
-    transvection_sequence_t ts;
-    ts_random_disjoint(ts, n, n / 2);
-    if (!check_ts(ts))
-      return false;
+    CandidateSet candidates(population_size, bv_size, num_objectives);
+    for (auto& v : candidates.values) {
+      for (auto& x : v) {
+        x = Generator::uniform();
+      }
+    }
+
+    Nsga2NonDominationSort non_domination(candidates);
+    non_domination.sort();
+
+    std::uniform_int_distribution<int> dist_index(0, population_size - 1);
+
+    for (int j = 0; j < 100; j++) {
+      const int a = dist_index(Generator::engine);
+      const int b = dist_index(Generator::engine);
+      if (a == b) continue;
+
+      if (candidates.pareto_fronts[a] == candidates.pareto_fronts[b]) {
+        if (dominates(candidates.values[a], candidates.values[b]))
+          return false;
+        if (dominates(candidates.values[b], candidates.values[a]))
+          return false;
+      }
+
+    }
   }
 
   return true;
