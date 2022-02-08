@@ -21,10 +21,13 @@
 #ifndef HNCO_MULTIOBJECTIVE_ALGORITHMS_NON_DOMINATION_SORT_H
 #define HNCO_MULTIOBJECTIVE_ALGORITHMS_NON_DOMINATION_SORT_H
 
+#include <assert.h>
+
 #include <unordered_set>
 #include <numeric>              // std::iota
 
 #include "hnco/multiobjective/functions/value.hh"
+#include "hnco/util.hh"         // hnco::is_in_range
 
 #include "candidate-set.hh"
 
@@ -48,9 +51,10 @@ class Nsga2NonDominationSort {
   std::unordered_set<int> _dominated;
 
   bool is_non_dominated(int i) {
-    for (auto j : _non_dominated)
+    for (auto j : _non_dominated) {
       if (function::dominates(_candidate_set.values[j], _candidate_set.values[i]))
         return false;
+    }
     return true;
   }
 
@@ -59,18 +63,21 @@ public:
   /// Constructor
   Nsga2NonDominationSort(CandidateSet& candidate_set)
     : _candidate_set(candidate_set)
-  {
-    _pool.reserve(candidate_set.size());
-    _next_pool.reserve(candidate_set.size());
-  }
+  {}
 
   /// Sort
   void sort() {
-    int front = 0;
+
+    _next_pool.reserve(_candidate_set.size());
+
+    _pool.resize(_candidate_set.size());
     std::iota(_pool.begin(), _pool.end(), 0);
+
+    int front = 0;
+
     while (!_pool.empty()) {
-      _non_dominated.clear();
       _next_pool.clear();
+      _non_dominated.clear();
       for (auto i : _pool) {
         if (is_non_dominated(i)) {
           _dominated.clear();
@@ -79,17 +86,24 @@ public:
               _dominated.insert(j);
             }
           }
-          _non_dominated.erase(_dominated.begin(), _dominated.end());
+          for (auto j : _dominated) {
+            assert(_non_dominated.count(j) == 1);
+            _non_dominated.erase(j);
+            _next_pool.push_back(j);
+          }
+          assert(_non_dominated.count(i) == 0);
           _non_dominated.insert(i);
         } else {
           _next_pool.push_back(i);
         }
       }
-      for (auto i : _non_dominated)
+      for (auto i : _non_dominated) {
         _candidate_set.pareto_fronts[i] = front;
+      }
       front++;
       std::swap(_pool, _next_pool);
     }
+
   }
 
 };
