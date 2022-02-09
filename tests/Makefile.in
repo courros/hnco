@@ -758,6 +758,24 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
+COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) \
+	$(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
+	$(AM_CFLAGS) $(CFLAGS)
+AM_V_CC = $(am__v_CC_@AM_V@)
+am__v_CC_ = $(am__v_CC_@AM_DEFAULT_V@)
+am__v_CC_0 = @echo "  CC      " $@;
+am__v_CC_1 = 
+CCLD = $(CC)
+LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+	$(AM_LDFLAGS) $(LDFLAGS) -o $@
+AM_V_CCLD = $(am__v_CCLD_@AM_V@)
+am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
+am__v_CCLD_0 = @echo "  CCLD    " $@;
+am__v_CCLD_1 = 
 SOURCES = $(test_bm_add_columns_SOURCES) $(test_bm_add_rows_SOURCES) \
 	$(test_bm_identity_SOURCES) $(test_bm_invert_SOURCES) \
 	$(test_bm_multiply_SOURCES) $(test_bm_rank_SOURCES) \
@@ -1325,7 +1343,7 @@ test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hammi
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
 test_incremental_walsh_expansion_1_SOURCES = test-incremental-walsh-expansion-1.cc
 test_injection_projection_SOURCES = test-injection-projection.cc
-test_nsga2_non_domination_sort_SOURCES = test-nsga2-non-domination-sort.cc
+test_nsga2_non_domination_sort_SOURCES = test-nsga2-non-domination-sort.cc test-non-domination-sort.hh
 test_one_plus_one_ea_one_max_SOURCES = test-one-plus-one-ea-one-max.cc
 test_population_evaluate_in_parallel_SOURCES = test-population-evaluate-in-parallel.cc
 test_save_load_linear_function_SOURCES = test-save-load-linear-function.cc
