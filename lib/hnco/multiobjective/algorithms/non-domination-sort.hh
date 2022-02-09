@@ -45,11 +45,28 @@ class Nsga2NonDominationSort {
   /// Candidate set
   CandidateSet& _candidate_set;
 
+  /// Pool of values to consider for inclusion in the Pareto front
   std::vector<int> _pool;
+
+  /// Next pool of values
   std::vector<int> _next_pool;
+
+  /// Non dominated values
   std::unordered_set<int> _non_dominated;
+
+  /** Dominated values.
+
+      To be removed from the non dominated ones.
+  */
   std::unordered_set<int> _dominated;
 
+  /** Check that a value is non dominated.
+
+      Check that no value in the non dominated set dominates the
+      considered value.
+
+      \param i Index of the value
+  */
   bool is_non_dominated(int i) {
     for (auto j : _non_dominated) {
       if (function::dominates(_candidate_set.values[j], _candidate_set.values[i]))
