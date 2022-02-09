@@ -18,7 +18,41 @@
 
 */
 
+#include <omp.h>                // omp_get_thread_num
+
+#include "hnco/util.hh"         // hnco::is_in_range
+
 #include "candidate-set.hh"
 
 
 using namespace hnco::multiobjective::algorithm;
+
+
+void CandidateSet::random()
+{
+  for (auto& bv : bvs)
+    bv_random(bv);
+}
+
+void CandidateSet::evaluate(Function *function)
+{
+  assert(have_same_size(bvs, values));
+  assert(function);
+
+  for (size_t i = 0; i < bvs.size(); i++)
+    function->evaluate(bvs[i], values[i]);
+}
+
+void CandidateSet::evaluate_in_parallel(const std::vector<Function *>& functions)
+{
+  assert(have_same_size(bvs, values));
+  assert(!functions.empty());
+
+#pragma omp parallel for
+  for (size_t i = 0; i < bvs.size(); i++) {
+    const int k = omp_get_thread_num();
+    assert(is_in_range(k, functions.size()));
+    assert(functions[k]);
+    functions[k]->evaluate(bvs[i], values[i]);
+  }
+}
