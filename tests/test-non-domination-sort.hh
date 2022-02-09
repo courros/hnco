@@ -31,8 +31,20 @@ using namespace hnco;
 
 /** Check non domination sort.
 
-    Check that, for all values a and b in the same pareto front,
-    neither a dominates b nor b dominates a.
+    Check that, for all values values[a] and values[b] in the same
+    pareto front, neither values[a] dominates values[b] nor values[b]
+    dominates values[a].
+
+    Also check that for all values values[a] and values[b] such that
+    pareto_fronts[a] < pareto_fronts[b] there exists a value values[i]
+    in the same pareto front as values[a] such that values[i]
+    dominates values[b].
+
+    Also check that for all values values[a] and values[b] such that
+    pareto_fronts[a] > pareto_fronts[b] there exists a value values[i]
+    in the same pareto front as values[b] such that values[i]
+    dominates values[a].
+
 */
 template<class NonDominationSort>
 bool check()
@@ -63,10 +75,34 @@ bool check()
       const int b = dist_index(Generator::engine);
       if (a == b) continue;
 
-      if (candidates.pareto_fronts[a] == candidates.pareto_fronts[b]) {
+      const int pa = candidates.pareto_fronts[a];
+      const int pb = candidates.pareto_fronts[b];
+
+      if (pa == pb) {
         if (dominates(candidates.values[a], candidates.values[b]))
           return false;
         if (dominates(candidates.values[b], candidates.values[a]))
+          return false;
+      } else if (pa < pb) {
+        bool found = false;
+        for (int i = 0; i < candidates.size(); i++) {
+          if (candidates.pareto_fronts[i] == pa && dominates(candidates.values[i], candidates.values[b])) {
+            found = true;
+            break;
+          }
+        }
+        if (!found)
+          return false;
+      } else {
+        assert(pb < pa);
+        bool found = false;
+        for (int i = 0; i < candidates.size(); i++) {
+          if (candidates.pareto_fronts[i] == pb && dominates(candidates.values[i], candidates.values[a])) {
+            found = true;
+            break;
+          }
+        }
+        if (!found)
           return false;
       }
 
