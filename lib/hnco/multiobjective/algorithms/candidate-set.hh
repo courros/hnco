@@ -64,6 +64,8 @@ struct CandidateSet {
       throw std::runtime_error("multiobjective::CandidateSet::CandidateSet: bit vector size must be positive");
     if (num_objectives <= 0)
       throw std::runtime_error("multiobjective::CandidateSet::CandidateSet: num_objectives size must be positive");
+
+    std::iota(indices.begin(), indices.end(), 0);
   }
 
   /// Get the size of the candidate set
@@ -81,6 +83,12 @@ struct CandidateSet {
 
    */
   void evaluate_in_parallel(const std::vector<Function *>& functions);
+
+  /// Sort indices by increasing Pareto front
+  void sort() {
+    std::sort(indices.begin(), indices.end(),
+              [this](int i, int j){ return this->pareto_fronts[i] < this->pareto_fronts[j]; });
+  }
 
 };
 
