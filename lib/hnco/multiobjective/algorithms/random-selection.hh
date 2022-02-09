@@ -21,6 +21,8 @@
 #ifndef HNCO_MULTIOBJECTIVE_ALGORITHMS_RANDOM_SELECTION_H
 #define HNCO_MULTIOBJECTIVE_ALGORITHMS_RANDOM_SELECTION_H
 
+#include "hnco/random.hh"       // hnco::random::Generator::engine
+
 #include "candidate-set.hh"
 
 
@@ -29,17 +31,34 @@ namespace multiobjective {
 namespace algorithm {
 
 
-/// Tournament selection
+/** Tournament selection.
+
+    The selection is biased towards bit vectors with small Pareto
+    front (non dominated ones).
+*/
 class TournamentSelection {
 
   /// Candidate set
   CandidateSet& _candidate_set;
+
+  /// Random index
+  std::uniform_int_distribution<int> _choose_individual;
+
+  /** @name Parameters
+   */
+  ///@{
+
+  /// Tournament size
+  int _tournament_size = 10;
+
+  ///@}
 
 public:
 
   /// Constructor
   TournamentSelection(CandidateSet& candidate_set)
     : _candidate_set(candidate_set)
+    , _choose_individual(0, candidate_set.size() - 1)
   {}
 
   /// Initialize
@@ -47,9 +66,26 @@ public:
 
   /// Select a bit vector
   const bit_vector_t& select() {
-    int winner = 0;
+    int winner = _choose_individual(random::Generator::engine);
+    for (int i = 0; i < _tournament_size; i++) {
+      int challenger;
+      do {
+        challenger = _choose_individual(random::Generator::engine);
+      } while (challenger == winner);
+      if (_candidate_set.pareto_fronts[challenger] < _candidate_set.pareto_fronts[winner])
+        winner = challenger;
+    }
     return _candidate_set.bvs[winner];
   }
+
+  /** @name Setters
+   */
+  ///@{
+
+  /// Set the tournament size
+  void set_tournament_size(int n) { _tournament_size = n; }
+
+  ///@}
 
 };
 
