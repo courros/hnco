@@ -23,8 +23,8 @@
 
 #include <assert.h>
 
-#include <unordered_set>
 #include <numeric>              // std::iota
+#include <unordered_set>
 
 #include "hnco/multiobjective/functions/value.hh"
 #include "hnco/util.hh"         // hnco::is_in_range
@@ -58,7 +58,7 @@ class Nsga2NonDominationSort {
 
       To be removed from the non dominated ones.
   */
-  std::unordered_set<int> _dominated;
+  std::vector<int> _dominated;
 
   /** Check that a value is non dominated.
 
@@ -80,18 +80,16 @@ public:
   /// Constructor
   Nsga2NonDominationSort(CandidateSet& candidate_set)
     : _candidate_set(candidate_set)
-  {}
+  {
+    _pool.reserve(_candidate_set.size());
+    _next_pool.reserve(_candidate_set.size());
+  }
 
   /// Sort
   void sort() {
-
-    _next_pool.reserve(_candidate_set.size());
-
     _pool.resize(_candidate_set.size());
     std::iota(_pool.begin(), _pool.end(), 0);
-
     int front = 0;
-
     while (!_pool.empty()) {
       _next_pool.clear();
       _non_dominated.clear();
@@ -100,7 +98,7 @@ public:
           _dominated.clear();
           for (auto j : _non_dominated) {
             if (function::dominates(_candidate_set.values[i], _candidate_set.values[j])) {
-              _dominated.insert(j);
+              _dominated.push_back(j);
             }
           }
           for (auto j : _dominated) {
@@ -120,7 +118,7 @@ public:
       front++;
       std::swap(_pool, _next_pool);
     }
-
+    _candidate_set.sort();
   }
 
 };
