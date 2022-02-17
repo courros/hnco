@@ -25,10 +25,12 @@
 
 #include "hnco-mo-options.hh"
 
+
 namespace hnco {
 namespace multiobjective {
 /// Classes for applications
 namespace app {
+
 
 /// Function factory
 class FunctionFactory {
@@ -36,6 +38,7 @@ public:
   /// Make a function
   virtual hnco::multiobjective::function::Function *make() = 0;
 };
+
 
 /// Command line function factory
 class CommandLineFunctionFactory : public FunctionFactory {
@@ -49,8 +52,10 @@ public:
   hnco::multiobjective::function::Function *make();
 };
 
+
 } // end of namespace app
 } // end of namespace multiobjective
 } // end of namespace hnco
+
 
 #endif

@@ -18,17 +18,20 @@
 
 */
 
-#ifndef HNCO_APP_APPLICATION_H
-#define HNCO_APP_APPLICATION_H
+#ifndef HNCO_MULTIOBJECTIVE_APP_APPLICATION_H
+#define HNCO_MULTIOBJECTIVE_APP_APPLICATION_H
 
 #include <vector>               // std::vector
 
-#include "hnco-options.hh"
-#include "decorated-function-factory.hh"
+#include "hnco-mo-options.hh"
+#include "function-factory.hh"
 #include "algorithm-factory.hh"
 
+
 namespace hnco {
+namespace multiobjective {
 namespace app {
+
 
 /// Command line application
 class CommandLineApplication {
@@ -36,20 +39,20 @@ class CommandLineApplication {
   /// HNCO options
   const HncoOptions& _options;
 
-  /// Decorated functin factory
-  DecoratedFunctionFactory _decorated_function_factory;
+  /// Functin factory
+  FunctionFactory& _function_factory;
 
   /// Algorithm factory
   AlgorithmFactory& _algorithm_factory;
 
   /// All functions
-  std::vector<function::Function *> _fns;
+  std::vector<hnco::multiobjective::function::Function *> _fns;
 
   /// Main function
-  function::Function *_fn = nullptr;
+  hnco::multiobjective::function::Function *_fn = nullptr;
 
   /// Algorithm
-  hnco::algorithm::Algorithm *_algorithm = nullptr;
+  hnco::multiobjective::algorithm::Algorithm *_algorithm = nullptr;
 
   /// Log context
   logging::ProgressTrackerContext *_log_context = nullptr;
@@ -69,8 +72,8 @@ class CommandLineApplication {
   /// Make algorithm
   void make_algorithm();
 
-  /// Maximize the function
-  void maximize();
+  /// Minimize objective functions
+  void minimize();
 
   /// Print results
   void print_results(double total_time, bool target_reached);
@@ -90,14 +93,18 @@ public:
                          FunctionFactory& function_factory,
                          AlgorithmFactory& algorithm_factory)
     : _options(options)
-    , _decorated_function_factory(options, function_factory)
-    , _algorithm_factory(algorithm_factory) {};
+    , _function_factory(function_factory)
+    , _algorithm_factory(algorithm_factory)
+  {}
 
   /// Run the application
   void run();
 };
 
-}
-}
+
+} // end of namespace app
+} // end of namespace multiobjective
+} // end of namespace hnco
+
 
 #endif
