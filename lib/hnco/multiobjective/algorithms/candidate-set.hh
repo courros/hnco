@@ -32,7 +32,10 @@ namespace algorithm {
 /// Candidate set
 struct CandidateSet {
 
+  /// %Function type
   using Function = hnco::multiobjective::function::Function;
+
+  /// Value type
   using value_t = hnco::multiobjective::function::value_t;
 
   /// Bit vectors
