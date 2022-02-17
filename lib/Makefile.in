@@ -332,6 +332,11 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/multiobjective/algorithms/nsga2.cc \
 	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
+	hnco/multiobjective/app/function-factory.cc \
+	hnco/multiobjective/app/function-factory.hh \
+	hnco/multiobjective/app/hnco-mo-options.cc \
+	hnco/multiobjective/app/hnco-mo-options.hh \
+	hnco/multiobjective/app/hnco-mo.json \
 	hnco/multiobjective/functions/all.hh \
 	hnco/multiobjective/functions/collection/all.hh \
 	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
@@ -430,6 +435,8 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/multiobjective/algorithms/candidate-set.lo \
 	hnco/multiobjective/algorithms/iterative-algorithm.lo \
 	hnco/multiobjective/algorithms/nsga2.lo \
+	hnco/multiobjective/app/function-factory.lo \
+	hnco/multiobjective/app/hnco-mo-options.lo \
 	hnco/neighborhoods/neighborhood-iterator.lo \
 	hnco/neighborhoods/neighborhood.lo hnco/permutation.lo \
 	hnco/random.lo hnco/sparse-bit-vector.lo $(am__objects_1) \
@@ -539,6 +546,8 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/multiobjective/algorithms/$(DEPDIR)/candidate-set.Plo \
 	hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo \
 	hnco/multiobjective/algorithms/$(DEPDIR)/nsga2.Plo \
+	hnco/multiobjective/app/$(DEPDIR)/function-factory.Plo \
+	hnco/multiobjective/app/$(DEPDIR)/hnco-mo-options.Plo \
 	hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo \
 	hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
 am__mv = mv -f
@@ -683,6 +692,9 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
+	hnco/multiobjective/app/function-factory.hh \
+	hnco/multiobjective/app/hnco-mo-options.hh \
+	hnco/multiobjective/app/hnco-mo.json \
 	hnco/multiobjective/functions/all.hh \
 	hnco/multiobjective/functions/collection/all.hh \
 	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
@@ -1030,6 +1042,11 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/multiobjective/algorithms/nsga2.cc \
 	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
+	hnco/multiobjective/app/function-factory.cc \
+	hnco/multiobjective/app/function-factory.hh \
+	hnco/multiobjective/app/hnco-mo-options.cc \
+	hnco/multiobjective/app/hnco-mo-options.hh \
+	hnco/multiobjective/app/hnco-mo.json \
 	hnco/multiobjective/functions/all.hh \
 	hnco/multiobjective/functions/collection/all.hh \
 	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
@@ -1147,6 +1164,9 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
+	hnco/multiobjective/app/function-factory.hh \
+	hnco/multiobjective/app/hnco-mo-options.hh \
+	hnco/multiobjective/app/hnco-mo.json \
 	hnco/multiobjective/functions/all.hh \
 	hnco/multiobjective/functions/collection/all.hh \
 	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
@@ -1164,7 +1184,9 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	$(am__append_4) $(am__append_5) $(am__append_6)
 BUILT_SOURCES = \
 	hnco/app/hnco-options.cc \
-	hnco/app/hnco-options.hh
+	hnco/app/hnco-options.hh \
+	hnco/multiobjective/app/hnco-mo-options.cc \
+	hnco/multiobjective/app/hnco-mo-options.hh
 
 EXTRA_DIST = \
 	fast-efficient-p3/LICENSE.txt
@@ -1568,6 +1590,18 @@ hnco/multiobjective/algorithms/iterative-algorithm.lo:  \
 hnco/multiobjective/algorithms/nsga2.lo:  \
 	hnco/multiobjective/algorithms/$(am__dirstamp) \
 	hnco/multiobjective/algorithms/$(DEPDIR)/$(am__dirstamp)
+hnco/multiobjective/app/$(am__dirstamp):
+	@$(MKDIR_P) hnco/multiobjective/app
+	@: > hnco/multiobjective/app/$(am__dirstamp)
+hnco/multiobjective/app/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/multiobjective/app/$(DEPDIR)
+	@: > hnco/multiobjective/app/$(DEPDIR)/$(am__dirstamp)
+hnco/multiobjective/app/function-factory.lo:  \
+	hnco/multiobjective/app/$(am__dirstamp) \
+	hnco/multiobjective/app/$(DEPDIR)/$(am__dirstamp)
+hnco/multiobjective/app/hnco-mo-options.lo:  \
+	hnco/multiobjective/app/$(am__dirstamp) \
+	hnco/multiobjective/app/$(DEPDIR)/$(am__dirstamp)
 hnco/neighborhoods/$(am__dirstamp):
 	@$(MKDIR_P) hnco/neighborhoods
 	@: > hnco/neighborhoods/$(am__dirstamp)
@@ -1640,6 +1674,8 @@ mostlyclean-compile:
 	-rm -f hnco/maps/*.lo
 	-rm -f hnco/multiobjective/algorithms/*.$(OBJEXT)
 	-rm -f hnco/multiobjective/algorithms/*.lo
+	-rm -f hnco/multiobjective/app/*.$(OBJEXT)
+	-rm -f hnco/multiobjective/app/*.lo
 	-rm -f hnco/neighborhoods/*.$(OBJEXT)
 	-rm -f hnco/neighborhoods/*.lo
 
@@ -1735,6 +1771,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/algorithms/$(DEPDIR)/candidate-set.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/algorithms/$(DEPDIR)/nsga2.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/app/$(DEPDIR)/function-factory.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/app/$(DEPDIR)/hnco-mo-options.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo@am__quote@ # am--include-marker
 
@@ -1817,6 +1855,7 @@ clean-libtool:
 	-rm -rf hnco/logging/.libs hnco/logging/_libs
 	-rm -rf hnco/maps/.libs hnco/maps/_libs
 	-rm -rf hnco/multiobjective/algorithms/.libs hnco/multiobjective/algorithms/_libs
+	-rm -rf hnco/multiobjective/app/.libs hnco/multiobjective/app/_libs
 	-rm -rf hnco/neighborhoods/.libs hnco/neighborhoods/_libs
 install-nobase_includeHEADERS: $(nobase_include_HEADERS)
 	@$(NORMAL_INSTALL)
@@ -2003,6 +2042,8 @@ distclean-generic:
 	-rm -f hnco/maps/$(am__dirstamp)
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/multiobjective/algorithms/$(am__dirstamp)
+	-rm -f hnco/multiobjective/app/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/multiobjective/app/$(am__dirstamp)
 	-rm -f hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/neighborhoods/$(am__dirstamp)
 
@@ -2105,6 +2146,8 @@ distclean: distclean-am
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/candidate-set.Plo
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/nsga2.Plo
+	-rm -f hnco/multiobjective/app/$(DEPDIR)/function-factory.Plo
+	-rm -f hnco/multiobjective/app/$(DEPDIR)/hnco-mo-options.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
 	-rm -f Makefile
@@ -2241,6 +2284,8 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/candidate-set.Plo
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/nsga2.Plo
+	-rm -f hnco/multiobjective/app/$(DEPDIR)/function-factory.Plo
+	-rm -f hnco/multiobjective/app/$(DEPDIR)/hnco-mo-options.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
 	-rm -f Makefile
@@ -2284,6 +2329,9 @@ uninstall-am: uninstall-libLTLIBRARIES uninstall-nobase_includeHEADERS
 
 hnco/app/hnco-options.hh hnco/app/hnco-options.cc: hnco/app/hnco.json
 	cd $(top_srcdir)/lib/hnco/app && $(top_srcdir)/tools/optgen.pl hnco.json
+
+hnco/multiobjective/app/hnco-mo-options.hh hnco/multiobjective/app/hnco-mo-options.cc: hnco/multiobjective/app/hnco-mo.json
+	cd $(top_srcdir)/lib/hnco/multiobjective/app && $(top_srcdir)/tools/optgen.pl hnco-mo.json
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

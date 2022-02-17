@@ -1,0 +1,399 @@
+{
+    "files": {
+        "header": "hnco-mo-options.hh",
+        "source": "hnco-mo-options.cc",
+        "exec": "hnco-mo"
+    },
+
+    "code": {
+        "cppdefine": "HNCO_MULTIONJECTIVE_APP_HNCO_OPTIONS_H",
+        "namespace": [ "hnco", "multiobjective", "app" ],
+        "classname": "HncoOptions"
+    },
+
+    "description": "HNCO for multiobjective optimization",
+
+    "version": "0.19",
+
+    "sections": [
+
+        {
+            "id": "gen",
+            "title": "General",
+            "fold": false
+        },
+
+        {
+            "id": "fn",
+            "title": "Functions",
+            "fold": false
+        },
+
+        {
+            "id": "fp",
+            "title": "Function parser",
+            "fold": true
+        },
+
+        {
+            "id": "rep",
+            "title": "Representations",
+            "fold": true
+        },
+
+        {
+            "id": "alg",
+            "title": "Algorithms",
+            "fold": false
+        },
+
+        {
+            "id": "ea",
+            "title": "Evolutionary Algorithms",
+            "fold": true
+        }
+
+    ],
+
+    "order": [ "gen", "fn", "fp", "rep", "alg", "ea" ],
+
+    "flags": {
+
+        "print_defaults":
+        {
+            "description": "Print the default parameters and exit",
+            "section": "gen"
+        },
+
+        "print_header":
+        {
+            "description": "At the beginning, print the header",
+            "section": "gen"
+        },
+
+        "print_results":
+        {
+            "description": "Print results",
+            "section": "gen"
+        },
+
+        "save_results":
+        {
+            "description": "At the end, save results in a file",
+            "section": "gen"
+        },
+
+        "print_solution":
+        {
+            "description": "Print the solution",
+            "section": "gen"
+        },
+
+        "save_solution":
+        {
+            "description": "At the end, save the solution in a file",
+            "section": "gen"
+        },
+
+        "concrete_solution":
+        {
+            "description": "At the end, print or save the solution in the domain of the concrete function",
+            "section": "gen"
+        },
+
+        "load_solution":
+        {
+            "description": "Load a solution from a file",
+            "section": "gen"
+        },
+
+        "print_description":
+        {
+            "description": "Print a description of the solution",
+            "section": "gen"
+        },
+
+        "save_description":
+        {
+            "description": "At the end, save a description of the solution in a file",
+            "section": "gen"
+        },
+
+
+        "fn_get_bv_size":
+        {
+            "description": "Print the size of bit vectors",
+            "section": "fn"
+        },
+
+        "fn_display":
+        {
+            "description": "Display the function and exit",
+            "section": "fn"
+        },
+
+
+        "allow_no_mutation":
+        {
+            "description": "Allow no mutation with standard bit mutation",
+            "section": "alg"
+        }
+
+    },
+
+    "parameters": {
+
+        "seed":
+        {
+            "type": "unsigned",
+            "value": 0,
+            "description": "Seed for the random number generator",
+            "section": "gen"
+        },
+
+        "num_threads":
+        {
+            "type": "int",
+            "value": 1,
+            "description": "Number of threads",
+            "section": "gen"
+        },
+
+        "results_path":
+        {
+            "type": "string",
+            "value": "results.json",
+            "description": "Path of the results file",
+            "section": "gen"
+        },
+
+        "solution_path":
+        {
+            "type": "string",
+            "value": "solution.txt",
+            "description": "Path of the solution file",
+            "section": "gen"
+        },
+
+        "description_path":
+        {
+            "type": "string",
+            "value": "description.txt",
+            "description": "Path of the description file",
+            "section": "gen"
+        },
+
+
+        "function":
+        {
+            "optchar": "F",
+            "type": "int",
+            "value": 0,
+            "description": "Type of function",
+            "section": "fn",
+            "alternatives":
+            [
+
+                {
+                    "value": 180,
+                    "description": "Real multivariate function"
+                },
+
+                {
+                    "value": 181,
+                    "description": "Integer multivariate function"
+                },
+
+                {
+                    "value": 182,
+                    "description": "Complex multivariate function (squared magnitude of)"
+                },
+
+                {
+                    "value": 1100,
+                    "description": "Python function (embedded interpreter)"
+                }
+
+            ]
+
+        },
+
+        "bv_size":
+        {
+            "optchar": "s",
+            "type": "int",
+            "value": 100,
+            "description": "Size of bit vectors",
+            "section": "fn"
+        },
+
+        "path":
+        {
+            "optchar": "p",
+            "type": "string",
+            "value": "function.txt",
+            "description": "Path of a function file",
+            "section": "fn"
+        },
+
+        "fn_name":
+        {
+            "type": "string",
+            "value": "noname",
+            "description": "Name of the function in the dynamic library",
+            "section": "fn"
+        },
+
+
+        "fp_lower_bound":
+        {
+            "type": "double",
+            "value": -2,
+            "description": "Lower bound",
+            "section": "fp"
+        },
+
+        "fp_upper_bound":
+        {
+            "type": "double",
+            "value": 2,
+            "description": "Upper bound",
+            "section": "fp"
+        },
+
+        "fp_expression":
+        {
+            "type": "string",
+            "value": "(1-x)^2+100*(y-x^2)^2",
+            "description": "Expression to parse",
+            "section": "fp"
+        },
+
+        "fp_num_bits":
+        {
+            "type": "int",
+            "value": "8",
+            "description": "Number of bits in the dyadic representation of a number",
+            "section": "fp"
+        },
+
+        "fp_precision":
+        {
+            "type": "double",
+            "value": "0.01",
+            "description": "Precision of the dyadic representation of a number",
+            "section": "fp"
+        },
+
+        "rep_categorical_representation":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Categorical representation",
+            "section": "rep",
+            "alternatives":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Integer"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Linear"
+                }
+
+            ]
+
+        },
+
+        "rep_num_additional_bits":
+        {
+            "type": "int",
+            "value": 2,
+            "description": "Number of additional bits per element for permutation representation",
+            "section": "rep"
+        },
+
+
+        "algorithm":
+        {
+            "optchar": "A",
+            "type": "int",
+            "value": 100,
+            "description": "Type of algorithm",
+            "section": "alg",
+            "alternatives":
+            [
+
+                {
+                    "value": 1400,
+                    "description": "NGSA-II"
+                }
+
+            ]
+
+        },
+
+        "num_iterations":
+        {
+            "optchar": "i",
+            "type": "int",
+            "value": 0,
+            "description": "Number of iterations (<= 0 means indefinite)",
+            "section": "alg"
+        },
+
+        "mutation_rate":
+        {
+            "optchar": "m",
+            "type": "double",
+            "value": 1.0,
+            "description": "Mutation rate relative to bv_size",
+            "section": "alg"
+        },
+
+        "ea_mu":
+        {
+            "type": "int",
+            "value": 10,
+            "description": "Parent population size",
+            "section": "ea"
+        },
+
+        "ea_lambda":
+        {
+            "type": "int",
+            "value": 100,
+            "description": "Offspring population size",
+            "section": "ea"
+        },
+
+        "ga_tournament_size":
+        {
+            "type": "int",
+            "value": 10,
+            "description": "Tournament size",
+            "section": "ea"
+        },
+
+        "ga_crossover_probability":
+        {
+            "type": "double",
+            "value": 0.5,
+            "description": "Crossover probability",
+            "section": "ea"
+        },
+
+        "ga_crossover_bias":
+        {
+            "type": "double",
+            "value": 0.5,
+            "description": "Crossover bias",
+            "section": "ea"
+        }
+
+    }
+
+}

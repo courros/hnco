@@ -228,6 +228,11 @@ libhnco_la_SOURCES = \
 	hnco/multiobjective/algorithms/nsga2.cc \
 	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
+	hnco/multiobjective/app/function-factory.cc \
+	hnco/multiobjective/app/function-factory.hh \
+	hnco/multiobjective/app/hnco-mo-options.cc \
+	hnco/multiobjective/app/hnco-mo-options.hh \
+	hnco/multiobjective/app/hnco-mo.json \
 	hnco/multiobjective/functions/all.hh \
 	hnco/multiobjective/functions/collection/all.hh \
 	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
@@ -396,6 +401,9 @@ nobase_include_HEADERS = \
 	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
+	hnco/multiobjective/app/function-factory.hh \
+	hnco/multiobjective/app/hnco-mo-options.hh \
+	hnco/multiobjective/app/hnco-mo.json \
 	hnco/multiobjective/functions/all.hh \
 	hnco/multiobjective/functions/collection/all.hh \
 	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
@@ -431,10 +439,15 @@ endif
 
 BUILT_SOURCES = \
 	hnco/app/hnco-options.cc \
-	hnco/app/hnco-options.hh
+	hnco/app/hnco-options.hh \
+	hnco/multiobjective/app/hnco-mo-options.cc \
+	hnco/multiobjective/app/hnco-mo-options.hh
 
 hnco/app/hnco-options.hh hnco/app/hnco-options.cc: hnco/app/hnco.json
 	cd $(top_srcdir)/lib/hnco/app && $(top_srcdir)/tools/optgen.pl hnco.json
+
+hnco/multiobjective/app/hnco-mo-options.hh hnco/multiobjective/app/hnco-mo-options.cc: hnco/multiobjective/app/hnco-mo.json
+	cd $(top_srcdir)/lib/hnco/multiobjective/app && $(top_srcdir)/tools/optgen.pl hnco-mo.json
 
 EXTRA_DIST = \
 	fast-efficient-p3/LICENSE.txt

@@ -70,7 +70,7 @@ private:
 
       Indexed by parser index.
   */
-  std::vector<std::string> _names;
+  std::vector<std::vector<std::string>> _names;
 
   /** Variables.
 
@@ -132,21 +132,21 @@ public:
     }
 
     // All names
-    std::unordered_set<std::string>> all_names;
-    for (size_t i = 0; i < _parsers.size(); i++) {
-      for (const auto& name : names[i])
+    std::unordered_set<std::string> all_names;
+    for (size_t i = 0; i < _names.size(); i++) {
+      for (const auto& name : _names[i])
         all_names.insert(name);
     }
 
     int index = 0;
     for (const auto& name : all_names)
-      _index_of.insert(name, index++);
+      _index_of[name] = index++;
 
     // build lookup tables
     _lookup_tables.resize(_expressions.size());
     for (size_t i = 0; i < _lookup_tables.size(); i++) {
       _lookup_tables[i].resize(_names[i].size());
-      for (size j = 0; j < _names[i].size(); j++) {
+      for (size_t j = 0; j < _names[i].size(); j++) {
         assert(_index_of.find(_names[i][j]) != _index_of.end());
 
         _lookup_tables[i][j] = _index_of[_names[i][j]];
@@ -155,7 +155,10 @@ public:
   }
 
   /// Get the number of variables
-  int get_num_variables() { return _index_of.size(); }
+  int get_num_variables() const { return _index_of.size(); }
+
+  /// Get output size (number of objectives)
+  int get_output_size() const { return _parsers.size(); }
 
   /// Evaluate
   void evaluate(const std::vector<domain_type>& x, std::vector<codomain_type>& values) {
@@ -165,7 +168,7 @@ public:
     for (size_t i = 0; i < values.size(); i++) {
       auto& vars = _variables[i];
       auto& lut = _lookup_tables[i];
-      for (size j = 0; j < vars.size(); j++) {
+      for (size_t j = 0; j < vars.size(); j++) {
         assert(is_in_range(lut[j], x.size()));
         vars[j] = x[lut[j]];
       }
@@ -177,7 +180,7 @@ public:
   void display(std::ostream& stream) const {
     stream << "ParsedMultivariateFunction is:" << std::endl;
     for (size_t i = 0; i < _parsers.size(); i++)
-      stream << join(names[i].begin(), names[i].end(), " ,") << " -> " << _expressions[i] << std::endl;
+      stream << join(_names[i].begin(), _names[i].end(), " ,") << " -> " << _expressions[i] << std::endl;
   }
 
   /// Describe a solution
