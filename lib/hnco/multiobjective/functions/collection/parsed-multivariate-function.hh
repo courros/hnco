@@ -23,12 +23,14 @@
 
 #include <assert.h>
 
-#include <vector>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
-#include "hnco/util.hh"
+#include "hnco/util.hh"         // hnco::join
 
 #include "fparser/fparser.hh"
 
@@ -48,15 +50,6 @@ namespace function {
 template<class Parser>
 class ParsedMultivariateFunction {
 
-  /// Function parser
-  Parser _fparser;
-
-  /// Variable names
-  std::vector<std::string> _variable_names;
-
-  /// Expression
-  std::string _expression;
-
 public:
 
   /// Domain type
@@ -65,42 +58,137 @@ public:
   /// Codomain type
   using codomain_type = typename Parser::value_type;
 
+private:
+
+  /// Expressions
+  std::vector<std::string> _expressions;
+
+  /// Function parsers
+  std::vector<Parser> _parsers;
+
+  /** Variable names.
+
+      Indexed by parser index.
+  */
+  std::vector<std::string> _names;
+
+  /** Variables.
+
+      Indexed by parser index.
+  */
+  std::vector<std::vector<domain_type>> _variables;
+
+  /** Lookup tables.
+
+      Indexed by parser index.
+  */
+  std::vector<std::vector<int>> _lookup_tables;
+
+  /** Index of variable.
+
+      In the vector of variables to be evaluated.
+  */
+  std::unordered_map<std::string, int> _index_of;
+
+public:
+
   /** Constructor.
+
+      An expression is a list of sub expressions separated by double
+      colons (::). Each sub expression defines a multivariate
+      function.
 
       \param expression Expression to parse
   */
   ParsedMultivariateFunction(std::string expression)
-    : _expression(expression)
   {
-    int position = _fparser.ParseAndDeduceVariables(_expression, _variable_names);
-    if (position != -1) {
-      std::ostringstream stream;
-      stream
-        << "ParsedMultivariateFunction::ParsedMultivariateFunction: " << _fparser.ErrorMsg()
-        << " at position: " << position
-        << " in _expression: " << _expression;
-      throw std::runtime_error(stream.str());
+    // Split expression into sub expressions
+    std::string delimiter = "::";
+    auto start = 0U;
+    auto end = expression.find(delimiter);
+    while (end != std::string::npos) {
+      _expressions.push_back(expression.substr(start, end - start));
+      start = end + delimiter.length();
+      end = expression.find(delimiter, start);
     }
-    _fparser.Optimize();
+    _expressions.push_back(expression.substr(start));
+
+    // Init parsers
+    _parsers.resize(_expressions.size());
+    _names.resize(_expressions.size());
+    _variables.resize(_expressions.size());
+    for (size_t i = 0; i < _parsers.size(); i++) {
+      int position = _parsers[i].ParseAndDeduceVariables(_expressions[i], _names[i]);
+      if (position != -1) {
+        std::ostringstream stream;
+        stream
+          << "ParsedMultivariateFunction::ParsedMultivariateFunction: " << _parsers[i].ErrorMsg()
+          << " at position: " << position
+          << " in _expression: " << _expressions[i];
+        throw std::runtime_error(stream.str());
+      }
+      _parsers[i].Optimize();
+      _variables[i].resize(_names[i].size());
+    }
+
+    // All names
+    std::unordered_set<std::string>> all_names;
+    for (size_t i = 0; i < _parsers.size(); i++) {
+      for (const auto& name : names[i])
+        all_names.insert(name);
+    }
+
+    int index = 0;
+    for (const auto& name : all_names)
+      _index_of.insert(name, index++);
+
+    // build lookup tables
+    _lookup_tables.resize(_expressions.size());
+    for (size_t i = 0; i < _lookup_tables.size(); i++) {
+      _lookup_tables[i].resize(_names[i].size());
+      for (size j = 0; j < _names[i].size(); j++) {
+        assert(_index_of.find(_names[i][j]) != _index_of.end());
+
+        _lookup_tables[i][j] = _index_of[_names[i][j]];
+      }
+    }
+  }
+
+  /// Get the number of variables
+  int get_num_variables() { return _index_of.size(); }
+
+  /// Evaluate
+  void evaluate(const std::vector<domain_type>& x, std::vector<codomain_type>& values) {
+    assert(int(x.size()) == get_num_variables());
+    assert(values.size() == _parsers.size());
+
+    for (size_t i = 0; i < values.size(); i++) {
+      auto& vars = _variables[i];
+      auto& lut = _lookup_tables[i];
+      for (size j = 0; j < vars.size(); j++) {
+        assert(is_in_range(lut[j], x.size()));
+        vars[j] = x[lut[j]];
+      }
+      values[i] = _parsers[i].Eval(vars.data());
+    }
   }
 
   /// Display the problem
   void display(std::ostream& stream) const {
-    stream << "Expression: f(" << join(begin(_variable_names), end(_variable_names), ", ") << ") = " << _expression << std::endl;
+    stream << "ParsedMultivariateFunction is:" << std::endl;
+    for (size_t i = 0; i < _parsers.size(); i++)
+      stream << join(names[i].begin(), names[i].end(), " ,") << " -> " << _expressions[i] << std::endl;
   }
-
-  /// Evaluate
-  codomain_type evaluate(const std::vector<domain_type>& x) { return _fparser.Eval(x.data()); }
 
   /// Describe a solution
   void describe(const std::vector<domain_type>& x, std::ostream& stream) {
-    assert(x.size() == _variable_names.size());
-    for (std::size_t i = 0; i < x.size(); i++)
-      stream << _variable_names[i] << " = " << x[i] << std::endl;
-  }
+    assert(int(x.size()) == get_num_variables());
 
-  /// Get the number of variables
-  int get_num_variables() { return _variable_names.size(); }
+    for (const auto& kv : _index_of) {
+      assert(is_in_range(kv.second, x.size()));
+      stream << kv.first << " = " << x[kv.second] << std::endl;
+    }
+  }
 
 };
 
