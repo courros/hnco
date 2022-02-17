@@ -332,7 +332,11 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/multiobjective/algorithms/nsga2.cc \
 	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
+	hnco/multiobjective/functions/all.hh \
+	hnco/multiobjective/functions/collection/all.hh \
+	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
 	hnco/multiobjective/functions/function.hh \
+	hnco/multiobjective/functions/multivariate-function-adapter.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
@@ -679,7 +683,11 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
+	hnco/multiobjective/functions/all.hh \
+	hnco/multiobjective/functions/collection/all.hh \
+	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
 	hnco/multiobjective/functions/function.hh \
+	hnco/multiobjective/functions/multivariate-function-adapter.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
@@ -1022,7 +1030,11 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/multiobjective/algorithms/nsga2.cc \
 	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
+	hnco/multiobjective/functions/all.hh \
+	hnco/multiobjective/functions/collection/all.hh \
+	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
 	hnco/multiobjective/functions/function.hh \
+	hnco/multiobjective/functions/multivariate-function-adapter.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
@@ -1135,7 +1147,11 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
+	hnco/multiobjective/functions/all.hh \
+	hnco/multiobjective/functions/collection/all.hh \
+	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
 	hnco/multiobjective/functions/function.hh \
+	hnco/multiobjective/functions/multivariate-function-adapter.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \

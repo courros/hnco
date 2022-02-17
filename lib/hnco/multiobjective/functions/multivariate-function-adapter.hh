@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_MULTIVARIATE_FUNCTION_ADAPTER_H
-#define HNCO_FUNCTIONS_MULTIVARIATE_FUNCTION_ADAPTER_H
+#ifndef HNCO_MULTIOBJECTIVE_FUNCTIONS_MULTIVARIATE_FUNCTION_ADAPTER_H
+#define HNCO_MULTIOBJECTIVE_FUNCTIONS_MULTIVARIATE_FUNCTION_ADAPTER_H
 
 #include <assert.h>
 
@@ -66,11 +66,11 @@ class MultivariateFunctionAdapter: public Function {
   /// Variables
   std::vector<typename Rep::domain_type> _variables;
 
-  /// Converter from codomain to double
-  Conv _converter;
-
   /// Codomain value
   std::vector<typename Fn::codomain_type> _codomain_value;
+
+  /// Converter from codomain to double
+  Conv _converter;
 
   /// Unpack a bit vector into variables
   void unpack(const bit_vector_t& bv) {

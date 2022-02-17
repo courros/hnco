@@ -228,7 +228,11 @@ libhnco_la_SOURCES = \
 	hnco/multiobjective/algorithms/nsga2.cc \
 	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
+	hnco/multiobjective/functions/all.hh \
+	hnco/multiobjective/functions/collection/all.hh \
+	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
 	hnco/multiobjective/functions/function.hh \
+	hnco/multiobjective/functions/multivariate-function-adapter.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
@@ -392,7 +396,11 @@ nobase_include_HEADERS = \
 	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
+	hnco/multiobjective/functions/all.hh \
+	hnco/multiobjective/functions/collection/all.hh \
+	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
 	hnco/multiobjective/functions/function.hh \
+	hnco/multiobjective/functions/multivariate-function-adapter.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh \

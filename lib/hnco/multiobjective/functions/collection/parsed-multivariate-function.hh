@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_COLLECTION_PARSED_MULTIVARIATE_FUNCTION_H
-#define HNCO_FUNCTIONS_COLLECTION_PARSED_MULTIVARIATE_FUNCTION_H
+#ifndef HNCO_MULTIOBJECTIVE_FUNCTIONS_COLLECTION_PARSED_MULTIVARIATE_FUNCTION_H
+#define HNCO_MULTIOBJECTIVE_FUNCTIONS_COLLECTION_PARSED_MULTIVARIATE_FUNCTION_H
 
 #include <assert.h>
 
@@ -33,6 +33,7 @@
 #include "fparser/fparser.hh"
 
 namespace hnco {
+namespace multiobjective {
 namespace function {
 
 /** Parsed multivariate function.
@@ -105,6 +106,7 @@ public:
 
 
 } // end of namespace function
+} // end of namespace multiobjective
 } // end of namespace hnco
 
 

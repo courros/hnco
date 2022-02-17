@@ -18,12 +18,9 @@
 
 */
 
-#ifndef HNCO_MULTIOBJECTIVE_FUNCTIONS_ALL_H
-#define HNCO_MULTIOBJECTIVE_FUNCTIONS_ALL_H
+#ifndef HNCO_MULTIOBJECTIVE_FUNCTIONS_COLLECTION_ALL_H
+#define HNCO_MULTIOBJECTIVE_FUNCTIONS_COLLECTION_ALL_H
 
-#include "collection/all.hh"
-#include "function.hh"
-#include "multivariate-function-adapter.hh"
-#include "value.hh"
+#include "parsed-multivariate-function.hh"
 
 #endif
