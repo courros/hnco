@@ -41,7 +41,7 @@ namespace function {
     an arbitrary multivariate function. This is achieved using a
     composition:
     - Representations (Rep): hypercube -> domain
-    - Multivariate function (Fn): product of domains -> codomain
+    - Multivariate function (Fn): product of domains -> product of codomains
     - Converter (Conv): codomain -> double
 */
 template<class Fn, class Rep, class Conv>
@@ -125,12 +125,14 @@ public:
 
   /// Evaluate
   void evaluate(const bit_vector_t& bv, value_t& value) override {
+    const int output_size = get_output_size();
+
     assert(get_bv_size() == int(bv.size()));
-    assert(get_output_size() == int(value.size()));
+    assert(output_size == int(value.size()));
 
     unpack(bv);
     _function->evaluate(_variables, _codomain_value);
-    for (int i = 0; i < get_output_size(); i++)
+    for (int i = 0; i < output_size; i++)
       value[i] = _converter(_codomain_value[i]);
   }
 

@@ -63,7 +63,7 @@ private:
   /// Expressions
   std::vector<std::string> _expressions;
 
-  /// Function parsers
+  /// %Function parsers
   std::vector<Parser> _parsers;
 
   /** Variable names.
