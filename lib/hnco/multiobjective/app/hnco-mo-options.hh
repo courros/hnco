@@ -29,6 +29,10 @@ class HncoOptions {
   std::string _description_path;
   bool _opt_description_path;
 
+  /// Crossover probability
+  double _ea_crossover_probability;
+  bool _opt_ea_crossover_probability;
+
   /// Offspring population size
   int _ea_lambda;
   bool _opt_ea_lambda;
@@ -36,6 +40,14 @@ class HncoOptions {
   /// Parent population size
   int _ea_mu;
   bool _opt_ea_mu;
+
+  /// Mutation rate relative to bv_size
+  double _ea_mutation_rate;
+  bool _opt_ea_mutation_rate;
+
+  /// Tournament size
+  int _ea_tournament_size;
+  bool _opt_ea_tournament_size;
 
   /// Name of the function in the dynamic library
   std::string _fn_name;
@@ -64,22 +76,6 @@ class HncoOptions {
   /// Type of function
   int _function;
   bool _opt_function;
-
-  /// Crossover bias
-  double _ga_crossover_bias;
-  bool _opt_ga_crossover_bias;
-
-  /// Crossover probability
-  double _ga_crossover_probability;
-  bool _opt_ga_crossover_probability;
-
-  /// Tournament size
-  int _ga_tournament_size;
-  bool _opt_ga_tournament_size;
-
-  /// Mutation rate relative to bv_size
-  double _mutation_rate;
-  bool _opt_mutation_rate;
 
   /// Number of iterations (<= 0 means indefinite)
   int _num_iterations;
@@ -113,11 +109,11 @@ class HncoOptions {
   std::string _solution_path;
   bool _opt_solution_path;
 
-  /// Allow no mutation with standard bit mutation
-  bool _allow_no_mutation;
-
   /// At the end, print or save the solution in the domain of the concrete function
   bool _concrete_solution;
+
+  /// Allow no mutation with standard bit mutation
+  bool _ea_allow_no_mutation;
 
   /// Display the function and exit
   bool _fn_display;
@@ -208,6 +204,18 @@ public:
   /// Get set-flag for description_path
   bool set_description_path() const { return _opt_description_path; }
 
+  /// Get ea_crossover_probability
+  double get_ea_crossover_probability() const { return _ea_crossover_probability; }
+
+  /// Set ea_crossover_probability
+  void set_ea_crossover_probability(double x) {
+    _ea_crossover_probability = x;
+    _opt_ea_crossover_probability = true;
+  }
+
+  /// Get set-flag for ea_crossover_probability
+  bool set_ea_crossover_probability() const { return _opt_ea_crossover_probability; }
+
   /// Get ea_lambda
   int get_ea_lambda() const { return _ea_lambda; }
 
@@ -231,6 +239,30 @@ public:
 
   /// Get set-flag for ea_mu
   bool set_ea_mu() const { return _opt_ea_mu; }
+
+  /// Get ea_mutation_rate
+  double get_ea_mutation_rate() const { return _ea_mutation_rate; }
+
+  /// Set ea_mutation_rate
+  void set_ea_mutation_rate(double x) {
+    _ea_mutation_rate = x;
+    _opt_ea_mutation_rate = true;
+  }
+
+  /// Get set-flag for ea_mutation_rate
+  bool set_ea_mutation_rate() const { return _opt_ea_mutation_rate; }
+
+  /// Get ea_tournament_size
+  int get_ea_tournament_size() const { return _ea_tournament_size; }
+
+  /// Set ea_tournament_size
+  void set_ea_tournament_size(int x) {
+    _ea_tournament_size = x;
+    _opt_ea_tournament_size = true;
+  }
+
+  /// Get set-flag for ea_tournament_size
+  bool set_ea_tournament_size() const { return _opt_ea_tournament_size; }
 
   /// Get fn_name
   std::string get_fn_name() const { return _fn_name; }
@@ -315,54 +347,6 @@ public:
 
   /// Get set-flag for function
   bool set_function() const { return _opt_function; }
-
-  /// Get ga_crossover_bias
-  double get_ga_crossover_bias() const { return _ga_crossover_bias; }
-
-  /// Set ga_crossover_bias
-  void set_ga_crossover_bias(double x) {
-    _ga_crossover_bias = x;
-    _opt_ga_crossover_bias = true;
-  }
-
-  /// Get set-flag for ga_crossover_bias
-  bool set_ga_crossover_bias() const { return _opt_ga_crossover_bias; }
-
-  /// Get ga_crossover_probability
-  double get_ga_crossover_probability() const { return _ga_crossover_probability; }
-
-  /// Set ga_crossover_probability
-  void set_ga_crossover_probability(double x) {
-    _ga_crossover_probability = x;
-    _opt_ga_crossover_probability = true;
-  }
-
-  /// Get set-flag for ga_crossover_probability
-  bool set_ga_crossover_probability() const { return _opt_ga_crossover_probability; }
-
-  /// Get ga_tournament_size
-  int get_ga_tournament_size() const { return _ga_tournament_size; }
-
-  /// Set ga_tournament_size
-  void set_ga_tournament_size(int x) {
-    _ga_tournament_size = x;
-    _opt_ga_tournament_size = true;
-  }
-
-  /// Get set-flag for ga_tournament_size
-  bool set_ga_tournament_size() const { return _opt_ga_tournament_size; }
-
-  /// Get mutation_rate
-  double get_mutation_rate() const { return _mutation_rate; }
-
-  /// Set mutation_rate
-  void set_mutation_rate(double x) {
-    _mutation_rate = x;
-    _opt_mutation_rate = true;
-  }
-
-  /// Get set-flag for mutation_rate
-  bool set_mutation_rate() const { return _opt_mutation_rate; }
 
   /// Get num_iterations
   int get_num_iterations() const { return _num_iterations; }
@@ -460,17 +444,17 @@ public:
   /// Get set-flag for solution_path
   bool set_solution_path() const { return _opt_solution_path; }
 
-  /// Get allow_no_mutation
-  bool with_allow_no_mutation() const { return _allow_no_mutation; }
-
-  /// Set allow_no_mutation
-  void set_allow_no_mutation() { _allow_no_mutation = true; }
-
   /// Get concrete_solution
   bool with_concrete_solution() const { return _concrete_solution; }
 
   /// Set concrete_solution
   void set_concrete_solution() { _concrete_solution = true; }
+
+  /// Get ea_allow_no_mutation
+  bool with_ea_allow_no_mutation() const { return _ea_allow_no_mutation; }
+
+  /// Set ea_allow_no_mutation
+  void set_ea_allow_no_mutation() { _ea_allow_no_mutation = true; }
 
   /// Get fn_display
   bool with_fn_display() const { return _fn_display; }

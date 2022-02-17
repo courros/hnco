@@ -8,17 +8,23 @@ using namespace hnco::multiobjective::app;
 
 HncoOptions::HncoOptions(int argc, char *argv[]):
   _exec_name(argv[0]),
-  _version("0.19"),
-  _algorithm(100),
+  _version("0.20"),
+  _algorithm(1400),
   _opt_algorithm(false),
   _bv_size(100),
   _opt_bv_size(false),
   _description_path("description.txt"),
   _opt_description_path(false),
+  _ea_crossover_probability(0.5),
+  _opt_ea_crossover_probability(false),
   _ea_lambda(100),
   _opt_ea_lambda(false),
   _ea_mu(10),
   _opt_ea_mu(false),
+  _ea_mutation_rate(1),
+  _opt_ea_mutation_rate(false),
+  _ea_tournament_size(10),
+  _opt_ea_tournament_size(false),
   _fn_name("noname"),
   _opt_fn_name(false),
   _fp_expression("(1-x)^2+100*(y-x^2)^2"),
@@ -33,14 +39,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_fp_upper_bound(false),
   _function(0),
   _opt_function(false),
-  _ga_crossover_bias(0.5),
-  _opt_ga_crossover_bias(false),
-  _ga_crossover_probability(0.5),
-  _opt_ga_crossover_probability(false),
-  _ga_tournament_size(10),
-  _opt_ga_tournament_size(false),
-  _mutation_rate(1),
-  _opt_mutation_rate(false),
   _num_iterations(0),
   _opt_num_iterations(false),
   _num_threads(1),
@@ -57,8 +55,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_seed(false),
   _solution_path("solution.txt"),
   _opt_solution_path(false),
-  _allow_no_mutation(false),
   _concrete_solution(false),
+  _ea_allow_no_mutation(false),
   _fn_display(false),
   _fn_get_bv_size(false),
   _load_solution(false),
@@ -80,8 +78,11 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_ALGORITHM,
     OPTION_BV_SIZE,
     OPTION_DESCRIPTION_PATH,
+    OPTION_EA_CROSSOVER_PROBABILITY,
     OPTION_EA_LAMBDA,
     OPTION_EA_MU,
+    OPTION_EA_MUTATION_RATE,
+    OPTION_EA_TOURNAMENT_SIZE,
     OPTION_FN_NAME,
     OPTION_FP_EXPRESSION,
     OPTION_FP_LOWER_BOUND,
@@ -89,10 +90,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_FP_PRECISION,
     OPTION_FP_UPPER_BOUND,
     OPTION_FUNCTION,
-    OPTION_GA_CROSSOVER_BIAS,
-    OPTION_GA_CROSSOVER_PROBABILITY,
-    OPTION_GA_TOURNAMENT_SIZE,
-    OPTION_MUTATION_RATE,
     OPTION_NUM_ITERATIONS,
     OPTION_NUM_THREADS,
     OPTION_PATH,
@@ -101,8 +98,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_RESULTS_PATH,
     OPTION_SEED,
     OPTION_SOLUTION_PATH,
-    OPTION_ALLOW_NO_MUTATION,
     OPTION_CONCRETE_SOLUTION,
+    OPTION_EA_ALLOW_NO_MUTATION,
     OPTION_FN_DISPLAY,
     OPTION_FN_GET_BV_SIZE,
     OPTION_LOAD_SOLUTION,
@@ -119,8 +116,11 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"algorithm", required_argument, 0, OPTION_ALGORITHM},
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
     {"description-path", required_argument, 0, OPTION_DESCRIPTION_PATH},
+    {"ea-crossover-probability", required_argument, 0, OPTION_EA_CROSSOVER_PROBABILITY},
     {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
+    {"ea-mutation-rate", required_argument, 0, OPTION_EA_MUTATION_RATE},
+    {"ea-tournament-size", required_argument, 0, OPTION_EA_TOURNAMENT_SIZE},
     {"fn-name", required_argument, 0, OPTION_FN_NAME},
     {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
     {"fp-lower-bound", required_argument, 0, OPTION_FP_LOWER_BOUND},
@@ -128,10 +128,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"fp-precision", required_argument, 0, OPTION_FP_PRECISION},
     {"fp-upper-bound", required_argument, 0, OPTION_FP_UPPER_BOUND},
     {"function", required_argument, 0, OPTION_FUNCTION},
-    {"ga-crossover-bias", required_argument, 0, OPTION_GA_CROSSOVER_BIAS},
-    {"ga-crossover-probability", required_argument, 0, OPTION_GA_CROSSOVER_PROBABILITY},
-    {"ga-tournament-size", required_argument, 0, OPTION_GA_TOURNAMENT_SIZE},
-    {"mutation-rate", required_argument, 0, OPTION_MUTATION_RATE},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
     {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
     {"path", required_argument, 0, OPTION_PATH},
@@ -140,8 +136,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"results-path", required_argument, 0, OPTION_RESULTS_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
     {"solution-path", required_argument, 0, OPTION_SOLUTION_PATH},
-    {"allow-no-mutation", no_argument, 0, OPTION_ALLOW_NO_MUTATION},
     {"concrete-solution", no_argument, 0, OPTION_CONCRETE_SOLUTION},
+    {"ea-allow-no-mutation", no_argument, 0, OPTION_EA_ALLOW_NO_MUTATION},
     {"fn-display", no_argument, 0, OPTION_FN_DISPLAY},
     {"fn-get-bv-size", no_argument, 0, OPTION_FN_GET_BV_SIZE},
     {"load-solution", no_argument, 0, OPTION_LOAD_SOLUTION},
@@ -160,7 +156,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"help-ea", no_argument, 0, OPTION_HELP_EA},
     {0, no_argument, 0, 0}
   };
-  const char *short_options = "A:s:F:m:i:p:";
+  const char *short_options = "A:s:m:F:i:p:";
   while (true) {
     int option = getopt_long(argc, argv, short_options, long_options, 0);
     if (option < 0)
@@ -180,12 +176,25 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       set_description_path(std::string(optarg));
       break;
 
+    case OPTION_EA_CROSSOVER_PROBABILITY:
+      set_ea_crossover_probability(atof(optarg));
+      break;
+
     case OPTION_EA_LAMBDA:
       set_ea_lambda(atoi(optarg));
       break;
 
     case OPTION_EA_MU:
       set_ea_mu(atoi(optarg));
+      break;
+
+    case 'm':
+    case OPTION_EA_MUTATION_RATE:
+      set_ea_mutation_rate(atof(optarg));
+      break;
+
+    case OPTION_EA_TOURNAMENT_SIZE:
+      set_ea_tournament_size(atoi(optarg));
       break;
 
     case OPTION_FN_NAME:
@@ -215,23 +224,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     case 'F':
     case OPTION_FUNCTION:
       set_function(atoi(optarg));
-      break;
-
-    case OPTION_GA_CROSSOVER_BIAS:
-      set_ga_crossover_bias(atof(optarg));
-      break;
-
-    case OPTION_GA_CROSSOVER_PROBABILITY:
-      set_ga_crossover_probability(atof(optarg));
-      break;
-
-    case OPTION_GA_TOURNAMENT_SIZE:
-      set_ga_tournament_size(atoi(optarg));
-      break;
-
-    case 'm':
-    case OPTION_MUTATION_RATE:
-      set_mutation_rate(atof(optarg));
       break;
 
     case 'i':
@@ -268,12 +260,12 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       set_solution_path(std::string(optarg));
       break;
 
-    case OPTION_ALLOW_NO_MUTATION:
-      _allow_no_mutation = true;
-      break;
-
     case OPTION_CONCRETE_SOLUTION:
       _concrete_solution = true;
+      break;
+
+    case OPTION_EA_ALLOW_NO_MUTATION:
+      _ea_allow_no_mutation = true;
       break;
 
     case OPTION_FN_DISPLAY:
@@ -402,13 +394,9 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Path of a function file" << std::endl;
   stream << std::endl;
   stream << "Algorithms" << std::endl;
-  stream << "  -A, --algorithm (type int, default to 100)" << std::endl;
+  stream << "  -A, --algorithm (type int, default to 1400)" << std::endl;
   stream << "          Type of algorithm" << std::endl;
   stream << "            1400: NGSA-II" << std::endl;
-  stream << "      --allow-no-mutation" << std::endl;
-  stream << "          Allow no mutation with standard bit mutation" << std::endl;
-  stream << "  -m, --mutation-rate (type double, default to 1)" << std::endl;
-  stream << "          Mutation rate relative to bv_size" << std::endl;
   stream << "  -i, --num-iterations (type int, default to 0)" << std::endl;
   stream << "          Number of iterations (<= 0 means indefinite)" << std::endl;
   stream << std::endl;
@@ -458,15 +446,17 @@ void HncoOptions::print_help_ea(std::ostream& stream) const
   stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Evolutionary Algorithms" << std::endl;
+  stream << "      --ea-allow-no-mutation" << std::endl;
+  stream << "          Allow no mutation with standard bit mutation" << std::endl;
+  stream << "      --ea-crossover-probability (type double, default to 0.5)" << std::endl;
+  stream << "          Crossover probability" << std::endl;
   stream << "      --ea-lambda (type int, default to 100)" << std::endl;
   stream << "          Offspring population size" << std::endl;
   stream << "      --ea-mu (type int, default to 10)" << std::endl;
   stream << "          Parent population size" << std::endl;
-  stream << "      --ga-crossover-bias (type double, default to 0.5)" << std::endl;
-  stream << "          Crossover bias" << std::endl;
-  stream << "      --ga-crossover-probability (type double, default to 0.5)" << std::endl;
-  stream << "          Crossover probability" << std::endl;
-  stream << "      --ga-tournament-size (type int, default to 10)" << std::endl;
+  stream << "  -m, --ea-mutation-rate (type double, default to 1)" << std::endl;
+  stream << "          Mutation rate relative to bv_size" << std::endl;
+  stream << "      --ea-tournament-size (type int, default to 10)" << std::endl;
   stream << "          Tournament size" << std::endl;
   stream << std::endl;
 }
@@ -481,8 +471,11 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# algorithm = " << options._algorithm << std::endl;
   stream << "# bv_size = " << options._bv_size << std::endl;
   stream << "# description_path = " << options._description_path << std::endl;
+  stream << "# ea_crossover_probability = " << options._ea_crossover_probability << std::endl;
   stream << "# ea_lambda = " << options._ea_lambda << std::endl;
   stream << "# ea_mu = " << options._ea_mu << std::endl;
+  stream << "# ea_mutation_rate = " << options._ea_mutation_rate << std::endl;
+  stream << "# ea_tournament_size = " << options._ea_tournament_size << std::endl;
   stream << "# fn_name = " << options._fn_name << std::endl;
   stream << "# fp_expression = " << options._fp_expression << std::endl;
   stream << "# fp_lower_bound = " << options._fp_lower_bound << std::endl;
@@ -490,10 +483,6 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# fp_precision = " << options._fp_precision << std::endl;
   stream << "# fp_upper_bound = " << options._fp_upper_bound << std::endl;
   stream << "# function = " << options._function << std::endl;
-  stream << "# ga_crossover_bias = " << options._ga_crossover_bias << std::endl;
-  stream << "# ga_crossover_probability = " << options._ga_crossover_probability << std::endl;
-  stream << "# ga_tournament_size = " << options._ga_tournament_size << std::endl;
-  stream << "# mutation_rate = " << options._mutation_rate << std::endl;
   stream << "# num_iterations = " << options._num_iterations << std::endl;
   stream << "# num_threads = " << options._num_threads << std::endl;
   stream << "# path = " << options._path << std::endl;
@@ -502,10 +491,10 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# results_path = " << options._results_path << std::endl;
   stream << "# seed = " << options._seed << std::endl;
   stream << "# solution_path = " << options._solution_path << std::endl;
-  if (options._allow_no_mutation)
-    stream << "# allow_no_mutation" << std::endl;
   if (options._concrete_solution)
     stream << "# concrete_solution" << std::endl;
+  if (options._ea_allow_no_mutation)
+    stream << "# ea_allow_no_mutation" << std::endl;
   if (options._fn_display)
     stream << "# fn_display" << std::endl;
   if (options._fn_get_bv_size)

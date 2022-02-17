@@ -13,7 +13,7 @@
 
     "description": "HNCO for multiobjective optimization",
 
-    "version": "0.19",
+    "version": "0.20",
 
     "sections": [
 
@@ -133,10 +133,10 @@
         },
 
 
-        "allow_no_mutation":
+        "ea_allow_no_mutation":
         {
             "description": "Allow no mutation with standard bit mutation",
-            "section": "alg"
+            "section": "ea"
         }
 
     },
@@ -321,7 +321,7 @@
         {
             "optchar": "A",
             "type": "int",
-            "value": 100,
+            "value": 1400,
             "description": "Type of algorithm",
             "section": "alg",
             "alternatives":
@@ -345,15 +345,6 @@
             "section": "alg"
         },
 
-        "mutation_rate":
-        {
-            "optchar": "m",
-            "type": "double",
-            "value": 1.0,
-            "description": "Mutation rate relative to bv_size",
-            "section": "alg"
-        },
-
         "ea_mu":
         {
             "type": "int",
@@ -370,7 +361,16 @@
             "section": "ea"
         },
 
-        "ga_tournament_size":
+        "ea_mutation_rate":
+        {
+            "optchar": "m",
+            "type": "double",
+            "value": 1.0,
+            "description": "Mutation rate relative to bv_size",
+            "section": "ea"
+        },
+
+        "ea_tournament_size":
         {
             "type": "int",
             "value": 10,
@@ -378,19 +378,11 @@
             "section": "ea"
         },
 
-        "ga_crossover_probability":
+        "ea_crossover_probability":
         {
             "type": "double",
             "value": 0.5,
             "description": "Crossover probability",
-            "section": "ea"
-        },
-
-        "ga_crossover_bias":
-        {
-            "type": "double",
-            "value": 0.5,
-            "description": "Crossover bias",
             "section": "ea"
         }
 
