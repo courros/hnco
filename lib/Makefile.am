@@ -230,6 +230,8 @@ libhnco_la_SOURCES = \
 	hnco/multiobjective/algorithms/random-selection.hh \
 	hnco/multiobjective/app/algorithm-factory.cc \
 	hnco/multiobjective/app/algorithm-factory.hh \
+	hnco/multiobjective/app/application.cc \
+	hnco/multiobjective/app/application.hh \
 	hnco/multiobjective/app/function-factory.cc \
 	hnco/multiobjective/app/function-factory.hh \
 	hnco/multiobjective/app/hnco-mo-options.cc \
@@ -404,6 +406,7 @@ nobase_include_HEADERS = \
 	hnco/multiobjective/algorithms/nsga2.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
 	hnco/multiobjective/app/algorithm-factory.hh \
+	hnco/multiobjective/app/application.hh \
 	hnco/multiobjective/app/function-factory.hh \
 	hnco/multiobjective/app/hnco-mo-options.hh \
 	hnco/multiobjective/app/hnco-mo.json \
