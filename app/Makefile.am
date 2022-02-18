@@ -17,8 +17,9 @@
 # <http://www.gnu.org/licenses/>.
 
 bin_PROGRAMS = \
-	hnco \
 	ffgen \
+	hnco \
+	hnco-mo \
 	mapgen
 
 BUILT_SOURCES = \
@@ -38,12 +39,6 @@ AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
 LDADD = ../lib/libhnco.la $(BOOST_SERIALIZATION_LIB)
 
 #
-# hnco program
-#
-
-hnco_SOURCES = hnco.cc
-
-#
 # ffgen program
 #
 
@@ -55,6 +50,18 @@ ffgen_SOURCES = \
 
 ffgen-options.hh ffgen-options.cc: ffgen.json
 	cd $(top_srcdir)/app && $(top_srcdir)/tools/optgen.pl ffgen.json
+
+#
+# hnco program
+#
+
+hnco_SOURCES = hnco.cc
+
+#
+# hnco-mo program
+#
+
+hnco_mo_SOURCES = hnco-mo.cc
 
 #
 # mapgen program

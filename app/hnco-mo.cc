@@ -18,7 +18,7 @@
 
 */
 
-#include "hnco/multiobjective/app/hnco-options.hh"
+#include "hnco/multiobjective/app/hnco-mo-options.hh"
 #include "hnco/multiobjective/app/algorithm-factory.hh"
 #include "hnco/multiobjective/app/function-factory.hh"
 #include "hnco/multiobjective/app/application.hh"

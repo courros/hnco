@@ -106,7 +106,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = hnco$(EXEEXT) ffgen$(EXEEXT) mapgen$(EXEEXT)
+bin_PROGRAMS = ffgen$(EXEEXT) hnco$(EXEEXT) hnco-mo$(EXEEXT) \
+	mapgen$(EXEEXT)
 subdir = app
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -135,6 +136,10 @@ am_hnco_OBJECTS = hnco.$(OBJEXT)
 hnco_OBJECTS = $(am_hnco_OBJECTS)
 hnco_LDADD = $(LDADD)
 hnco_DEPENDENCIES = ../lib/libhnco.la $(am__DEPENDENCIES_1)
+am_hnco_mo_OBJECTS = hnco-mo.$(OBJEXT)
+hnco_mo_OBJECTS = $(am_hnco_mo_OBJECTS)
+hnco_mo_LDADD = $(LDADD)
+hnco_mo_DEPENDENCIES = ../lib/libhnco.la $(am__DEPENDENCIES_1)
 am_mapgen_OBJECTS = mapgen-options.$(OBJEXT) mapgen.$(OBJEXT)
 mapgen_OBJECTS = $(am_mapgen_OBJECTS)
 mapgen_LDADD = $(LDADD)
@@ -155,8 +160,9 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/ffgen-options.Po \
-	./$(DEPDIR)/ffgen.Po ./$(DEPDIR)/hnco.Po \
-	./$(DEPDIR)/mapgen-options.Po ./$(DEPDIR)/mapgen.Po
+	./$(DEPDIR)/ffgen.Po ./$(DEPDIR)/hnco-mo.Po \
+	./$(DEPDIR)/hnco.Po ./$(DEPDIR)/mapgen-options.Po \
+	./$(DEPDIR)/mapgen.Po
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
@@ -194,8 +200,10 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(ffgen_SOURCES) $(hnco_SOURCES) $(mapgen_SOURCES)
-DIST_SOURCES = $(ffgen_SOURCES) $(hnco_SOURCES) $(mapgen_SOURCES)
+SOURCES = $(ffgen_SOURCES) $(hnco_SOURCES) $(hnco_mo_SOURCES) \
+	$(mapgen_SOURCES)
+DIST_SOURCES = $(ffgen_SOURCES) $(hnco_SOURCES) $(hnco_mo_SOURCES) \
+	$(mapgen_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -377,11 +385,6 @@ AM_CXXFLAGS = $(OPENMP_CXXFLAGS)
 LDADD = ../lib/libhnco.la $(BOOST_SERIALIZATION_LIB)
 
 #
-# hnco program
-#
-hnco_SOURCES = hnco.cc
-
-#
 # ffgen program
 #
 ffgen_SOURCES = \
@@ -390,6 +393,16 @@ ffgen_SOURCES = \
 	ffgen-options.hh \
 	ffgen.cc
 
+
+#
+# hnco program
+#
+hnco_SOURCES = hnco.cc
+
+#
+# hnco-mo program
+#
+hnco_mo_SOURCES = hnco-mo.cc
 
 #
 # mapgen program
@@ -492,6 +505,10 @@ hnco$(EXEEXT): $(hnco_OBJECTS) $(hnco_DEPENDENCIES) $(EXTRA_hnco_DEPENDENCIES)
 	@rm -f hnco$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(hnco_OBJECTS) $(hnco_LDADD) $(LIBS)
 
+hnco-mo$(EXEEXT): $(hnco_mo_OBJECTS) $(hnco_mo_DEPENDENCIES) $(EXTRA_hnco_mo_DEPENDENCIES) 
+	@rm -f hnco-mo$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(hnco_mo_OBJECTS) $(hnco_mo_LDADD) $(LIBS)
+
 mapgen$(EXEEXT): $(mapgen_OBJECTS) $(mapgen_DEPENDENCIES) $(EXTRA_mapgen_DEPENDENCIES) 
 	@rm -f mapgen$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mapgen_OBJECTS) $(mapgen_LDADD) $(LIBS)
@@ -504,6 +521,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ffgen-options.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ffgen.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hnco-mo.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hnco.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mapgen-options.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mapgen.Po@am__quote@ # am--include-marker
@@ -676,6 +694,7 @@ clean-am: clean-binPROGRAMS clean-generic clean-libtool mostlyclean-am
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/ffgen-options.Po
 	-rm -f ./$(DEPDIR)/ffgen.Po
+	-rm -f ./$(DEPDIR)/hnco-mo.Po
 	-rm -f ./$(DEPDIR)/hnco.Po
 	-rm -f ./$(DEPDIR)/mapgen-options.Po
 	-rm -f ./$(DEPDIR)/mapgen.Po
@@ -726,6 +745,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/ffgen-options.Po
 	-rm -f ./$(DEPDIR)/ffgen.Po
+	-rm -f ./$(DEPDIR)/hnco-mo.Po
 	-rm -f ./$(DEPDIR)/hnco.Po
 	-rm -f ./$(DEPDIR)/mapgen-options.Po
 	-rm -f ./$(DEPDIR)/mapgen.Po
