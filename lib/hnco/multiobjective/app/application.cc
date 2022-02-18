@@ -18,13 +18,13 @@
 
 */
 
+#include <assert.h>
 #include <math.h>               // std::abs
 #include <omp.h>                // omp_set_num_threads
-#include <assert.h>
 
 #include <algorithm>            // std::sort
-#include <iostream>
 #include <fstream>              // std::ifstream, std::ofstream
+#include <iostream>
 
 #include "hnco/random.hh"
 #include "hnco/stop-watch.hh"   // StopWatch
@@ -100,21 +100,6 @@ CommandLineApplication::make_algorithm()
 {
   _algorithm = _algorithm_factory.make(_fn->get_bv_size(), _fn->get_output_size());
 
-  _log_context = new logging::ProgressTrackerContext(_decorated_function_factory.get_tracker());
-  _algorithm->set_log_context(_log_context);
-
-}
-
-void
-CommandLineApplication::manage_solution(const CandidateSet& solutions)
-{
-  // Print description
-  if (_options.with_print_description()) {
-    for (const auto& bv : solutions.bvs)
-      _fn->describe(bv, std::cout);
-    std::cout << "--" << std::endl;
-  }
-
 }
 
 void
@@ -131,10 +116,19 @@ CommandLineApplication::minimize()
 
   stop_watch.stop();
 
-  CandidateSet solutions = _algorithm->get_solutions();
-  manage_solution(solutions);
+}
 
-  exit(0);
+void
+CommandLineApplication::manage_solutions()
+{
+  CandidateSet solutions = _algorithm->get_solutions();
+  for (size_t i = 0; i < solutions.indices.size(); i++) {
+    if (solutions.pareto_fronts[i] == 0) {
+      for (auto x : solutions.values[i])
+        std::cout << x << " ";
+      std::cout << std::endl;
+    }
+  }
 }
 
 void
@@ -145,4 +139,6 @@ CommandLineApplication::run()
   print_information();
   make_algorithm();
   minimize();
+  manage_solutions();
+  exit(0);
 }

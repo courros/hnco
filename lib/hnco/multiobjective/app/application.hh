@@ -63,9 +63,6 @@ class CommandLineApplication {
   /// Make all functions
   void make_functions();
 
-  /// Load a solution
-  void load_solution();
-
   /// Print information about the function
   void print_information();
 
@@ -75,11 +72,8 @@ class CommandLineApplication {
   /// Minimize objective functions
   void minimize();
 
-  /// Print results
-  void print_results(double total_time, bool target_reached);
-
-  /// Manage solution
-  void manage_solution(const bit_vector_t& bv);
+  /// Manage solutions
+  void manage_solutions();
 
 public:
 
