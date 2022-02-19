@@ -66,4 +66,5 @@ bashcompdir = @bashcompdir@
 dist_bashcomp_DATA = \
 	$(top_srcdir)/app/ffgen.bash \
 	$(top_srcdir)/app/mapgen.bash \
-	$(top_srcdir)/lib/hnco/app/hnco.bash
+	$(top_srcdir)/lib/hnco/app/hnco.bash \
+	$(top_srcdir)/lib/hnco/multiobjective/app/hnco-mo.bash
