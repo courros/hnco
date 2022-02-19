@@ -182,10 +182,10 @@ public:
     std::vector<std::string> vars(_index_of.size());
     for (const auto& kv : _index_of)
       vars[kv.second] = kv.first;
-    stream << "Variables: " << join(vars.begin(), vars.end(), ", ") << std::endl;
+    stream << "Variables: " << hnco::join(vars.begin(), vars.end(), ", ") << std::endl;
     stream << "Objectives:" << std::endl;
     for (size_t i = 0; i < _parsers.size(); i++)
-      stream << join(_names[i].begin(), _names[i].end(), ", ") << " -> " << _expressions[i] << std::endl;
+      stream << hnco::join(_names[i].begin(), _names[i].end(), ", ") << " -> " << _expressions[i] << std::endl;
   }
 
   /// Describe a solution
