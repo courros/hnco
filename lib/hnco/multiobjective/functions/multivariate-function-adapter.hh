@@ -146,9 +146,11 @@ public:
   /// Display
   void display(std::ostream& stream) const override {
     _function->display(stream);
-    stream << _function->get_num_variables() << " variables:" << std::endl;
-    for (const auto& rep : _representations)
+    stream << "Representations:" << std::endl;
+    for (const auto& rep : _representations) {
       rep.display(stream);
+      stream << std::endl;
+    }
     stream << get_bv_size() << " bits" << std::endl;
   }
 
