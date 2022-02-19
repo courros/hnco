@@ -340,7 +340,7 @@
         {
             "optchar": "i",
             "type": "int",
-            "value": 0,
+            "value": 100,
             "description": "Number of iterations (<= 0 means indefinite)",
             "section": "alg"
         },
@@ -348,16 +348,8 @@
         "ea_mu":
         {
             "type": "int",
-            "value": 10,
-            "description": "Parent population size",
-            "section": "ea"
-        },
-
-        "ea_lambda":
-        {
-            "type": "int",
             "value": 100,
-            "description": "Offspring population size",
+            "description": "Parent population size",
             "section": "ea"
         },
 
@@ -373,7 +365,7 @@
         "ea_tournament_size":
         {
             "type": "int",
-            "value": 10,
+            "value": 2,
             "description": "Tournament size",
             "section": "ea"
         },
@@ -381,7 +373,7 @@
         "ea_crossover_probability":
         {
             "type": "double",
-            "value": 0.5,
+            "value": 0.8,
             "description": "Crossover probability",
             "section": "ea"
         }

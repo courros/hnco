@@ -33,10 +33,6 @@ class HncoOptions {
   double _ea_crossover_probability;
   bool _opt_ea_crossover_probability;
 
-  /// Offspring population size
-  int _ea_lambda;
-  bool _opt_ea_lambda;
-
   /// Parent population size
   int _ea_mu;
   bool _opt_ea_mu;
@@ -215,18 +211,6 @@ public:
 
   /// Get set-flag for ea_crossover_probability
   bool set_ea_crossover_probability() const { return _opt_ea_crossover_probability; }
-
-  /// Get ea_lambda
-  int get_ea_lambda() const { return _ea_lambda; }
-
-  /// Set ea_lambda
-  void set_ea_lambda(int x) {
-    _ea_lambda = x;
-    _opt_ea_lambda = true;
-  }
-
-  /// Get set-flag for ea_lambda
-  bool set_ea_lambda() const { return _opt_ea_lambda; }
 
   /// Get ea_mu
   int get_ea_mu() const { return _ea_mu; }

@@ -15,15 +15,13 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_bv_size(false),
   _description_path("description.txt"),
   _opt_description_path(false),
-  _ea_crossover_probability(0.5),
+  _ea_crossover_probability(0.8),
   _opt_ea_crossover_probability(false),
-  _ea_lambda(100),
-  _opt_ea_lambda(false),
-  _ea_mu(10),
+  _ea_mu(100),
   _opt_ea_mu(false),
   _ea_mutation_rate(1),
   _opt_ea_mutation_rate(false),
-  _ea_tournament_size(10),
+  _ea_tournament_size(2),
   _opt_ea_tournament_size(false),
   _fn_name("noname"),
   _opt_fn_name(false),
@@ -39,7 +37,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_fp_upper_bound(false),
   _function(0),
   _opt_function(false),
-  _num_iterations(0),
+  _num_iterations(100),
   _opt_num_iterations(false),
   _num_threads(1),
   _opt_num_threads(false),
@@ -79,7 +77,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_BV_SIZE,
     OPTION_DESCRIPTION_PATH,
     OPTION_EA_CROSSOVER_PROBABILITY,
-    OPTION_EA_LAMBDA,
     OPTION_EA_MU,
     OPTION_EA_MUTATION_RATE,
     OPTION_EA_TOURNAMENT_SIZE,
@@ -117,7 +114,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
     {"description-path", required_argument, 0, OPTION_DESCRIPTION_PATH},
     {"ea-crossover-probability", required_argument, 0, OPTION_EA_CROSSOVER_PROBABILITY},
-    {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
     {"ea-mutation-rate", required_argument, 0, OPTION_EA_MUTATION_RATE},
     {"ea-tournament-size", required_argument, 0, OPTION_EA_TOURNAMENT_SIZE},
@@ -178,10 +174,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
 
     case OPTION_EA_CROSSOVER_PROBABILITY:
       set_ea_crossover_probability(atof(optarg));
-      break;
-
-    case OPTION_EA_LAMBDA:
-      set_ea_lambda(atoi(optarg));
       break;
 
     case OPTION_EA_MU:
@@ -397,7 +389,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "  -A, --algorithm (type int, default to 1400)" << std::endl;
   stream << "          Type of algorithm" << std::endl;
   stream << "            1400: NGSA-II" << std::endl;
-  stream << "  -i, --num-iterations (type int, default to 0)" << std::endl;
+  stream << "  -i, --num-iterations (type int, default to 100)" << std::endl;
   stream << "          Number of iterations (<= 0 means indefinite)" << std::endl;
   stream << std::endl;
   stream  << "Additional Sections" << std::endl;
@@ -448,15 +440,13 @@ void HncoOptions::print_help_ea(std::ostream& stream) const
   stream << "Evolutionary Algorithms" << std::endl;
   stream << "      --ea-allow-no-mutation" << std::endl;
   stream << "          Allow no mutation with standard bit mutation" << std::endl;
-  stream << "      --ea-crossover-probability (type double, default to 0.5)" << std::endl;
+  stream << "      --ea-crossover-probability (type double, default to 0.8)" << std::endl;
   stream << "          Crossover probability" << std::endl;
-  stream << "      --ea-lambda (type int, default to 100)" << std::endl;
-  stream << "          Offspring population size" << std::endl;
-  stream << "      --ea-mu (type int, default to 10)" << std::endl;
+  stream << "      --ea-mu (type int, default to 100)" << std::endl;
   stream << "          Parent population size" << std::endl;
   stream << "  -m, --ea-mutation-rate (type double, default to 1)" << std::endl;
   stream << "          Mutation rate relative to bv_size" << std::endl;
-  stream << "      --ea-tournament-size (type int, default to 10)" << std::endl;
+  stream << "      --ea-tournament-size (type int, default to 2)" << std::endl;
   stream << "          Tournament size" << std::endl;
   stream << std::endl;
 }
@@ -472,7 +462,6 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# bv_size = " << options._bv_size << std::endl;
   stream << "# description_path = " << options._description_path << std::endl;
   stream << "# ea_crossover_probability = " << options._ea_crossover_probability << std::endl;
-  stream << "# ea_lambda = " << options._ea_lambda << std::endl;
   stream << "# ea_mu = " << options._ea_mu << std::endl;
   stream << "# ea_mutation_rate = " << options._ea_mutation_rate << std::endl;
   stream << "# ea_tournament_size = " << options._ea_tournament_size << std::endl;
