@@ -34,7 +34,19 @@ namespace multiobjective {
 namespace algorithm {
 
 
-/// NSGA-II
+/** NSGA-II.
+
+    NSGA-II is a (mu+mu) evolutionary algorithm for multiobjective
+    optimization.
+
+    Deb, Agrawal, Pratap, and Meyarivan, "A Fast Elitist Non-dominated
+    Sorting Genetic %Algorithm for Multi-objective Optimization:
+    NSGA-II", Parallel Problem Solving from Nature PPSN VI, 2000,
+    Springer Berlin Heidelberg.
+
+    https://link.springer.com/chapter/10.1007/3-540-45356-3_83
+
+*/
 class Nsga2: public IterativeAlgorithm {
 
 protected:
@@ -71,7 +83,7 @@ protected:
   ///@{
 
   /// Tournament size
-  int _tournament_size = 10;
+  int _tournament_size = 2;
 
   /// Mutation rate
   double _mutation_rate;
@@ -80,7 +92,7 @@ protected:
   bool _allow_no_mutation = false;
 
   /// Crossover probability
-  double _crossover_probability = 0.5;
+  double _crossover_probability = 0.8;
 
   ///@}
 
@@ -116,7 +128,7 @@ public:
     , _selection(_parents)
     , _mutation(n)
     , _non_domination_sort(_augmented_population)
-    , _crowding_distance(population_size)
+    , _crowding_distance(2 * population_size)
     , _mutation_rate(1 / double(n))
   {}
 

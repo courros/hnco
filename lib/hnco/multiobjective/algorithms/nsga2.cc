@@ -27,6 +27,7 @@
 
 #include "nsga2.hh"
 
+
 using namespace hnco::multiobjective::algorithm;
 using namespace hnco::random;
 
@@ -34,6 +35,8 @@ using namespace hnco::random;
 void
 Nsga2::init()
 {
+  _selection.set_tournament_size(_tournament_size);
+
   _mutation.set_mutation_rate(_mutation_rate);
   _mutation.set_allow_no_mutation(_allow_no_mutation);
 
@@ -85,11 +88,13 @@ Nsga2::iterate()
 
     // Compute crowding distance
     std::fill(_crowding_distance.begin(), _crowding_distance.end(), 0);
-    const int num_objectives = _augmented_population.values[0].size();
+    const int num_objectives = _function->get_output_size();
     for (int k = 0; k < num_objectives; k++) {
       auto compare = [this, k](int i, int j){ return this->_augmented_population.values[i][k] < this->_augmented_population.values[j][k]; };
       std::sort(start, stop, compare);
+      assert(is_in_range(*start, _crowding_distance.size()));
       _crowding_distance[*start] = std::numeric_limits<double>::infinity();
+      assert(is_in_range(*(stop - 1), _crowding_distance.size()));
       _crowding_distance[*(stop - 1)] = std::numeric_limits<double>::infinity();
       if (std::distance(start, stop) >= 3) {
         for (auto iter = start + 1; iter != stop - 1; iter++)
