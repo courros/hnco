@@ -38,7 +38,7 @@ CommandLineAlgorithmFactory::make(int bv_size, int num_objectives)
     auto algo = new Nsga2
       (bv_size,
        num_objectives,
-       _options.get_ea_lambda());
+       _options.get_ea_mu());
 
     algo->set_allow_no_mutation(_options.with_ea_allow_no_mutation());
     algo->set_crossover_probability(_options.get_ea_crossover_probability());
