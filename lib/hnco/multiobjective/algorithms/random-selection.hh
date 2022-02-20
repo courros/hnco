@@ -21,9 +21,8 @@
 #ifndef HNCO_MULTIOBJECTIVE_ALGORITHMS_RANDOM_SELECTION_H
 #define HNCO_MULTIOBJECTIVE_ALGORITHMS_RANDOM_SELECTION_H
 
-#include "hnco/random.hh"       // hnco::random::Generator::engine
-
-#include "candidate-set.hh"
+#include "hnco/bit-vector.hh"
+#include "hnco/permutation.hh"
 
 
 namespace hnco {
@@ -33,16 +32,30 @@ namespace algorithm {
 
 /** Tournament selection.
 
-    The selection is biased towards bit vectors with small Pareto
-    front (non dominated ones).
+    Implement tournament selection without replacement as explained in
+    the reference:
+
+    Goldberg, Korb, and Deb, "Messy genetic algorithms: Motivation,
+    analysis, and first results", Complex systems, 1989.
+
 */
+template<typename T>
 class TournamentSelection {
 
-  /// Candidate set
-  CandidateSet& _candidate_set;
+  /// Population
+  const std::vector<bit_vector_t>& _population;
 
-  /// Random index
-  std::uniform_int_distribution<int> _choose_individual;
+  /// Values
+  const std::vector<T>& _values;
+
+  /// Permutation
+  hnco::permutation_t _permutation;
+
+  /// Beginning of the slice of permutation used in a tournament round
+  int _start;
+
+  /// End of the slice of permutation used in a tournament round
+  int _stop;
 
   /** @name Parameters
    */
@@ -56,26 +69,41 @@ class TournamentSelection {
 public:
 
   /// Constructor
-  TournamentSelection(CandidateSet& candidate_set)
-    : _candidate_set(candidate_set)
-    , _choose_individual(0, candidate_set.size() - 1)
-  {}
+  TournamentSelection(const std::vector<bit_vector_t>& population, const std::vector<T>& values)
+    : _population(population)
+    , _values(values)
+    , _permutation(population.size())
+  {
+    assert(is_in_range(_tournament_size, 2, population.size()));
+  }
 
   /// Initialize
-  void init() {}
+  void init() {
+    perm_random(_permutation);
+    _start = 0;
+    _stop = _tournament_size;
+  }
 
   /// Select a bit vector
   const bit_vector_t& select() {
-    int winner = _choose_individual(random::Generator::engine);
-    for (int i = 0; i < _tournament_size; i++) {
-      int challenger;
-      do {
-        challenger = _choose_individual(random::Generator::engine);
-      } while (challenger == winner);
-      if (_candidate_set.pareto_fronts[challenger] < _candidate_set.pareto_fronts[winner])
+    assert(is_in_range(_stop, 2, _population.size()));
+
+    int winner = _start;
+    T best_value = _values[_start];
+    for (int challenger = _start + 1; challenger < _stop; challenger++) {
+      T value = _values[challenger];
+      if (value > best_value) {
         winner = challenger;
+        best_value = value;
+      }
     }
-    return _candidate_set.bvs[winner];
+
+    _start = _stop;
+    _stop += _tournament_size;
+    if (_stop > int(_population.size()))
+      init();
+
+    return _population[winner];
   }
 
   /** @name Setters
@@ -83,7 +111,11 @@ public:
   ///@{
 
   /// Set the tournament size
-  void set_tournament_size(int n) { _tournament_size = n; }
+  void set_tournament_size(int n) {
+    assert(is_in_range(n, 2, _population.size()));
+
+    _tournament_size = n;
+  }
 
   ///@}
 

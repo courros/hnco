@@ -61,7 +61,7 @@ protected:
   CandidateSet _augmented_population;
 
   /// Selection
-  TournamentSelection _selection;
+  TournamentSelection<int> _selection;
 
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation;
@@ -125,7 +125,7 @@ public:
     , _parents(population_size, n, num_objectives)
     , _offsprings(population_size, n, num_objectives)
     , _augmented_population(2 * population_size, n, num_objectives)
-    , _selection(_parents)
+    , _selection(_parents.bvs, _parents.pareto_fronts)
     , _mutation(n)
     , _non_domination_sort(_augmented_population)
     , _crowding_distance(2 * population_size)
