@@ -34,9 +34,11 @@
 
 #include "fparser/fparser.hh"
 
+
 namespace hnco {
 namespace multiobjective {
 namespace function {
+
 
 /** Parsed multivariate function.
 
