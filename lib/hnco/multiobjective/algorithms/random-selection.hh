@@ -38,6 +38,8 @@ namespace algorithm {
     Goldberg, Korb, and Deb, "Messy genetic algorithms: Motivation,
     analysis, and first results", Complex systems, 1989.
 
+    https://www.complex-systems.com/abstracts/v03_i05_a05/
+
 */
 template<typename T>
 class TournamentSelection {
