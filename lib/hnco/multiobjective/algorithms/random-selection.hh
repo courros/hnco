@@ -88,7 +88,7 @@ public:
 
   /// Select a bit vector
   const bit_vector_t& select() {
-    assert(is_in_range(_stop, 2, _population.size()));
+    assert(is_in_range(_stop, 2, _population.size() + 1));
 
     int winner = _start;
     T best_value = _values[_start];
