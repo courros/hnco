@@ -49,7 +49,7 @@ class TournamentSelection {
   ///@{
 
   /// Tournament size
-  int _tournament_size = 10;
+  int _tournament_size = 2;
 
   ///@}
 
