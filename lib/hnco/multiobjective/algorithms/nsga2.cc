@@ -36,6 +36,7 @@ void
 Nsga2::init()
 {
   _selection.set_tournament_size(_tournament_size);
+  _selection.init();
 
   _mutation.set_mutation_rate(_mutation_rate);
   _mutation.set_allow_no_mutation(_allow_no_mutation);
