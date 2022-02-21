@@ -26,6 +26,7 @@
 #include <fstream>              // std::ifstream, std::ofstream
 #include <iostream>
 
+#include "hnco/multiobjective/algorithms/non-domination-sort.hh"
 #include "hnco/random.hh"
 #include "hnco/stop-watch.hh"   // StopWatch
 
@@ -121,9 +122,13 @@ CommandLineApplication::minimize()
 void
 CommandLineApplication::manage_solutions()
 {
-  CandidateSet solutions = _algorithm->get_solutions();
-  for (size_t i = 0; i < solutions.indices.size(); i++) {
-    if (solutions.pareto_fronts[i] == 0) {
+  Population solutions = _algorithm->get_solutions();
+  Nsga2ParetoFrontComputation pareto_front_computation(solutions);
+  std::vector<int> pareto_fronts(solutions.size());
+  pareto_front_computation.compute(pareto_fronts);
+
+  for (int i = 0; i < solutions.size(); i++) {
+    if (pareto_fronts[i] == 0) {
       for (auto x : solutions.values[i])
         std::cout << x << " ";
       std::cout << std::endl;
