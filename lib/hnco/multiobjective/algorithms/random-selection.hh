@@ -41,11 +41,11 @@ namespace algorithm {
     https://www.complex-systems.com/abstracts/v03_i05_a05/
 
 */
-template<typename T>
+template<typename T, typename Compare>
 class TournamentSelection {
 
-  /// Population
-  const std::vector<bit_vector_t>& _population;
+  /// Bit vectors
+  const std::vector<bit_vector_t>& _bvs;
 
   /// Values
   const std::vector<T>& _values;
@@ -71,12 +71,12 @@ class TournamentSelection {
 public:
 
   /// Constructor
-  TournamentSelection(const std::vector<bit_vector_t>& population, const std::vector<T>& values)
-    : _population(population)
+  TournamentSelection(const std::vector<bit_vector_t>& bvs, const std::vector<T>& values)
+    : _bvs(bvs)
     , _values(values)
-    , _permutation(population.size())
+    , _permutation(bvs.size())
   {
-    assert(is_in_range(_tournament_size, 2, population.size()));
+    assert(is_in_range(_tournament_size, 2, bvs.size()));
   }
 
   /// Initialize
@@ -88,13 +88,13 @@ public:
 
   /// Select a bit vector
   const bit_vector_t& select() {
-    assert(is_in_range(_stop, 2, _population.size() + 1));
+    assert(is_in_range(_stop, 2, _bvs.size() + 1));
 
     int winner = _start;
     T best_value = _values[_start];
     for (int challenger = _start + 1; challenger < _stop; challenger++) {
       T value = _values[challenger];
-      if (value > best_value) {
+      if (Compare()(value, best_value)) {
         winner = challenger;
         best_value = value;
       }
@@ -102,10 +102,10 @@ public:
 
     _start = _stop;
     _stop += _tournament_size;
-    if (_stop > int(_population.size()))
+    if (_stop > int(_bvs.size()))
       init();
 
-    return _population[winner];
+    return _bvs[winner];
   }
 
   /** @name Setters
@@ -114,7 +114,7 @@ public:
 
   /// Set the tournament size
   void set_tournament_size(int n) {
-    assert(is_in_range(n, 2, _population.size()));
+    assert(is_in_range(n, 2, _bvs.size()));
 
     _tournament_size = n;
   }
