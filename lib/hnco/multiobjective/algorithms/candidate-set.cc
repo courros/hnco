@@ -28,13 +28,13 @@
 using namespace hnco::multiobjective::algorithm;
 
 
-void CandidateSet::random()
+void Population::random()
 {
   for (auto& bv : bvs)
     bv_random(bv);
 }
 
-void CandidateSet::evaluate(Function *function)
+void Population::evaluate(Function *function)
 {
   assert(have_same_size(bvs, values));
   assert(function);
@@ -43,7 +43,7 @@ void CandidateSet::evaluate(Function *function)
     function->evaluate(bvs[i], values[i]);
 }
 
-void CandidateSet::evaluate_in_parallel(const std::vector<Function *>& functions)
+void Population::evaluate_in_parallel(const std::vector<Function *>& functions)
 {
   assert(have_same_size(bvs, values));
   assert(!functions.empty());

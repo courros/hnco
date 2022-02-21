@@ -112,7 +112,7 @@ public:
   virtual void finalize() {}
 
   /// Get solutions
-  virtual const CandidateSet& get_solutions() = 0;
+  virtual const Population& get_solutions() = 0;
 
   ///@}
 

@@ -29,8 +29,8 @@ namespace multiobjective {
 namespace algorithm {
 
 
-/// Candidate set
-struct CandidateSet {
+/// %Population
+struct Population {
 
   /// %Function type
   using Function = hnco::multiobjective::function::Function;
@@ -44,31 +44,21 @@ struct CandidateSet {
   /// Values
   std::vector<value_t> values;
 
-  /// Pareto fronts
-  std::vector<int> pareto_fronts;
-
-  /// Indices
-  std::vector<int> indices;
-
   /** Constructor.
-      \param population_size Population size
+      \param population_size %Population size
       \param n Size of bit vectors
       \param num_objectives Number of objectives
   */
-  CandidateSet(int population_size, int n, int num_objectives)
+  Population(int population_size, int n, int num_objectives)
     : bvs(population_size, bit_vector_t(n))
     , values(population_size, value_t(num_objectives))
-    , pareto_fronts(population_size)
-    , indices(population_size)
   {
     if (population_size <= 0)
-      throw std::runtime_error("multiobjective::CandidateSet::CandidateSet: population_size must be positive");
+      throw std::runtime_error("multiobjective::Population::Population: population_size must be positive");
     if (n <= 0)
-      throw std::runtime_error("multiobjective::CandidateSet::CandidateSet: bit vector size must be positive");
+      throw std::runtime_error("multiobjective::Population::Population: bit vector size must be positive");
     if (num_objectives <= 0)
-      throw std::runtime_error("multiobjective::CandidateSet::CandidateSet: num_objectives size must be positive");
-
-    std::iota(indices.begin(), indices.end(), 0);
+      throw std::runtime_error("multiobjective::Population::Population: num_objectives size must be positive");
   }
 
   /// Get the size of the candidate set
@@ -86,12 +76,6 @@ struct CandidateSet {
 
    */
   void evaluate_in_parallel(const std::vector<Function *>& functions);
-
-  /// Sort indices by increasing Pareto front
-  void sort() {
-    std::sort(indices.begin(), indices.end(),
-              [this](int i, int j){ return this->pareto_fronts[i] < this->pareto_fronts[j]; });
-  }
 
 };
 
