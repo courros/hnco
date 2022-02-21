@@ -26,9 +26,6 @@
 #include <numeric>              // std::iota
 #include <unordered_set>
 
-#include "hnco/multiobjective/functions/value.hh"
-#include "hnco/util.hh"         // hnco::is_in_range
-
 #include "candidate-set.hh"
 
 
@@ -37,13 +34,13 @@ namespace multiobjective {
 namespace algorithm {
 
 
-/** Non domination sort from the NSGA-II paper.
+/** Pareto front computation from the NSGA-II paper.
 
  */
-class Nsga2NonDominationSort {
+class Nsga2ParetoFrontComputation {
 
-  /// Candidate set
-  CandidateSet& _candidate_set;
+  /// %Population
+  const Population& _population;
 
   /// Pool of values to consider for inclusion in the Pareto front
   std::vector<int> _pool;
@@ -69,7 +66,7 @@ class Nsga2NonDominationSort {
   */
   bool is_non_dominated(int i) {
     for (auto j : _non_dominated) {
-      if (function::dominates(_candidate_set.values[j], _candidate_set.values[i]))
+      if (function::dominates(_population.values[j], _population.values[i]))
         return false;
     }
     return true;
@@ -78,16 +75,21 @@ class Nsga2NonDominationSort {
 public:
 
   /// Constructor
-  Nsga2NonDominationSort(CandidateSet& candidate_set)
-    : _candidate_set(candidate_set)
+  Nsga2ParetoFrontComputation(Population& population)
+    : _population(population)
   {
-    _pool.reserve(_candidate_set.size());
-    _next_pool.reserve(_candidate_set.size());
+    _pool.reserve(_population.size());
+    _next_pool.reserve(_population.size());
   }
 
-  /// Sort
-  void sort() {
-    _pool.resize(_candidate_set.size());
+  /** Compute Pareto fronts.
+
+      \param pareto_fronts Pareto fronts (output parameter)
+  */
+  void compute(std::vector<int>& pareto_fronts) {
+    assert(int(pareto_fronts.size()) == _population.size());
+
+    _pool.resize(_population.size());
     std::iota(_pool.begin(), _pool.end(), 0);
     int front = 0;
     while (!_pool.empty()) {
@@ -97,9 +99,8 @@ public:
         if (is_non_dominated(i)) {
           _dominated.clear();
           for (auto j : _non_dominated) {
-            if (function::dominates(_candidate_set.values[i], _candidate_set.values[j])) {
+            if (function::dominates(_population.values[i], _population.values[j]))
               _dominated.push_back(j);
-            }
           }
           for (auto j : _dominated) {
             assert(_non_dominated.count(j) == 1);
@@ -112,13 +113,11 @@ public:
           _next_pool.push_back(i);
         }
       }
-      for (auto i : _non_dominated) {
-        _candidate_set.pareto_fronts[i] = front;
-      }
+      for (auto i : _non_dominated)
+        pareto_fronts[i] = front;
       front++;
       std::swap(_pool, _next_pool);
     }
-    _candidate_set.sort();
   }
 
 };
