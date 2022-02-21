@@ -21,6 +21,8 @@
 #ifndef HNCO_MULTIOBJECTIVE_ALGORITHMS_NSGA2_H
 #define HNCO_MULTIOBJECTIVE_ALGORITHMS_NSGA2_H
 
+#include <functional>           // std::greater, std::less
+
 #include "hnco/algorithms/ea/crossover.hh"    // hnco::algorithm::UniformCrossover
 #include "hnco/neighborhoods/neighborhood.hh" // hnco::neighborhood::StandardBitMutation
 
@@ -52,16 +54,19 @@ class Nsga2: public IterativeAlgorithm {
 protected:
 
   /// Parent population
-  CandidateSet _parents;
+  Population _parents;
 
   /// Offspring population
-  CandidateSet _offsprings;
+  Population _offsprings;
 
   /// Augmented population
-  CandidateSet _augmented_population;
+  Population _augmented_population;
+
+  /// Pareto fronts
+  std::vector<int> _pareto_fronts;
 
   /// Selection
-  TournamentSelection<int> _selection;
+  TournamentSelection<int, std::less<int>> _selection_by_pareto_front;
 
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation;
@@ -72,11 +77,14 @@ protected:
   /// Uniform crossover
   hnco::algorithm::UniformCrossover _crossover;
 
-  /// Non domination sort
-  Nsga2NonDominationSort _non_domination_sort;
+  /// Pareto front computation
+  Nsga2ParetoFrontComputation _pareto_front_computation;
 
   /// Crowding distance
   std::vector<double> _crowding_distance;
+
+  /// Indices
+  hnco::permutation_t _indices;
 
   /** @name Parameters
    */
@@ -125,15 +133,17 @@ public:
     , _parents(population_size, n, num_objectives)
     , _offsprings(population_size, n, num_objectives)
     , _augmented_population(2 * population_size, n, num_objectives)
-    , _selection(_parents.bvs, _parents.pareto_fronts)
+    , _pareto_fronts(population_size)
+    , _selection_by_pareto_front(_parents.bvs, _pareto_fronts)
     , _mutation(n)
-    , _non_domination_sort(_augmented_population)
+    , _pareto_front_computation(_augmented_population)
     , _crowding_distance(2 * population_size)
+    , _indices(2 * population_size)
     , _mutation_rate(1 / double(n))
   {}
 
   /// Get solutions
-  const CandidateSet& get_solutions() { return _parents; }
+  const Population& get_solutions() { return _parents; }
 
   /** @name Setters
    */

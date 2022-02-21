@@ -35,14 +35,15 @@ using namespace hnco::random;
 void
 Nsga2::init()
 {
-  _selection.set_tournament_size(_tournament_size);
-  _selection.init();
+  _selection_by_pareto_front.set_tournament_size(_tournament_size);
 
   _mutation.set_mutation_rate(_mutation_rate);
   _mutation.set_allow_no_mutation(_allow_no_mutation);
 
   _parents.random();
   _parents.evaluate(_function);
+
+  perm_identity(_indices);
 }
 
 void
@@ -51,12 +52,13 @@ Nsga2::iterate()
   const int population_size = _parents.size();
 
   // Offsprings
+  _selection_by_pareto_front.init();
   for (int i = 0; i < _offsprings.size(); i++) {
     bit_vector_t& offspring = _offsprings.bvs[i];
     if (_do_crossover(Generator::engine))
-      _crossover.breed(_selection.select(),_selection.select(), offspring);
+      _crossover.breed(_selection_by_pareto_front.select(),_selection_by_pareto_front.select(), offspring);
     else
-      offspring = _selection.select();
+      offspring = _selection_by_pareto_front.select();
     _mutation.mutate(offspring);
   }
   _offsprings.evaluate(_function);
@@ -69,23 +71,21 @@ Nsga2::iterate()
     std::swap(_offsprings.values[i], _augmented_population.values[population_size + i]);
   }
 
-  _non_domination_sort.sort();
-  // ensure _augmented_population.pareto_fronts is correct
-  // ensure _augmented_population.indices is correct
+  _pareto_front_computation.compute(_pareto_fronts);
 
-  auto& fronts = _augmented_population.pareto_fronts;
-  auto& indices = _augmented_population.indices;
+  auto compare = [this](int i, int j){ return this->_pareto_fronts[i] < this->_pareto_fronts[j]; };
+  std::sort(_indices.begin(), _indices.end(), compare);
 
-  int before = indices[population_size - 1];
-  int after = indices[population_size];
+  int before = _indices[population_size - 1];
+  int after = _indices[population_size];
 
   // Check for last front overflowing population_size
-  if (fronts[before] == fronts[after]) {
-    const int last_front = fronts[before];
-    auto predicate = [&, last_front](int i){ return fronts[i] == last_front; };
-    const auto start = std::find_if(indices.begin(), indices.end(), predicate);
-    assert(start != indices.end());
-    const auto stop = std::find_if_not(start + 1, indices.end(), predicate);
+  if (_pareto_fronts[before] == _pareto_fronts[after]) {
+    const int last_front = _pareto_fronts[before];
+    auto predicate = [&, last_front](int i){ return _pareto_fronts[i] == last_front; };
+    const auto start = std::find_if(_indices.begin(), _indices.end(), predicate);
+    assert(start != _indices.end());
+    const auto stop = std::find_if_not(start + 1, _indices.end(), predicate);
 
     // Compute crowding distance
     std::fill(_crowding_distance.begin(), _crowding_distance.end(), 0);
@@ -109,7 +109,7 @@ Nsga2::iterate()
 
   // Build parent population
   for (int i = 0; i < _parents.size(); i++) {
-    const int index = _augmented_population.indices[i];
+    const int index = _indices[i];
     std::swap(_parents.bvs[i], _augmented_population.bvs[index]);
     std::swap(_parents.values[i], _augmented_population.values[index]);
   }
