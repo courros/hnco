@@ -22,10 +22,10 @@
 #define HNCO_MULTIOBJECTIVE_ALGORITHMS_ALL_H
 
 #include "algorithm.hh"
-#include "candidate-set.hh"
 #include "iterative-algorithm.hh"
 #include "non-domination-sort.hh"
 #include "nsga2.hh"
+#include "population.hh"
 #include "random-selection.hh"
 
 #endif

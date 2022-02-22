@@ -26,7 +26,7 @@
 #include <numeric>              // std::iota
 #include <unordered_set>
 
-#include "candidate-set.hh"
+#include "population.hh"
 
 
 namespace hnco {

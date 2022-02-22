@@ -220,13 +220,13 @@ libhnco_la_SOURCES = \
 	hnco/maps/transvection.hh \
 	hnco/multiobjective/algorithms/algorithm.hh \
 	hnco/multiobjective/algorithms/all.hh \
-	hnco/multiobjective/algorithms/candidate-set.cc \
-	hnco/multiobjective/algorithms/candidate-set.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.cc \
 	hnco/multiobjective/algorithms/iterative-algorithm.hh \
 	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.cc \
 	hnco/multiobjective/algorithms/nsga2.hh \
+	hnco/multiobjective/algorithms/population.cc \
+	hnco/multiobjective/algorithms/population.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
 	hnco/multiobjective/app/algorithm-factory.cc \
 	hnco/multiobjective/app/algorithm-factory.hh \
@@ -400,10 +400,10 @@ nobase_include_HEADERS = \
 	hnco/maps/transvection.hh \
 	hnco/multiobjective/algorithms/algorithm.hh \
 	hnco/multiobjective/algorithms/all.hh \
-	hnco/multiobjective/algorithms/candidate-set.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.hh \
 	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.hh \
+	hnco/multiobjective/algorithms/population.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
 	hnco/multiobjective/app/algorithm-factory.hh \
 	hnco/multiobjective/app/application.hh \

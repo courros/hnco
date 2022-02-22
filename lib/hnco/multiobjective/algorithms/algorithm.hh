@@ -26,7 +26,7 @@
 #include "hnco/logging/log-context.hh"
 #include "hnco/multiobjective/functions/function.hh"
 
-#include "candidate-set.hh"
+#include "population.hh"
 
 
 namespace hnco {

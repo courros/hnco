@@ -22,7 +22,7 @@
 
 #include "hnco/util.hh"         // hnco::is_in_range
 
-#include "candidate-set.hh"
+#include "population.hh"
 
 
 using namespace hnco::multiobjective::algorithm;
