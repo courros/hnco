@@ -27,7 +27,7 @@
 #include "hnco/neighborhoods/neighborhood.hh" // hnco::neighborhood::StandardBitMutation
 
 #include "iterative-algorithm.hh"
-#include "non-domination-sort.hh"
+#include "pareto-front-computation.hh"
 #include "random-selection.hh"
 
 

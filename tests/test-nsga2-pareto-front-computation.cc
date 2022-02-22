@@ -20,20 +20,20 @@
 
 /** \file
 
-    Check Nsga2NonDominationSort::sort.
+    Check Nsga2ParetoFrontComputation.
 
 */
 
-#include "hnco/multiobjective/algorithms/non-domination-sort.hh" // hnco::multiobjective::algorithm::Nsga2NonDominationSort
+#include "hnco/multiobjective/algorithms/pareto-front-computation.hh" // hnco::multiobjective::algorithm::Nsga2ParetoFrontComputation
 
-#include "test-non-domination-sort.hh"
+#include "test-pareto-front-computation.hh"
 
 
 int main(int argc, char *argv[])
 {
   Generator::set_seed();
 
-  if (check<Nsga2NonDominationSort>())
+  if (check<Nsga2ParetoFrontComputation>())
     return 0;
   else
     return 1;

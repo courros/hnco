@@ -23,13 +23,14 @@
 
 #include "hnco/random.hh"
 
+
 using namespace hnco::multiobjective::algorithm;
 using namespace hnco::multiobjective::function;
 using namespace hnco::random;
 using namespace hnco;
 
 
-/** Check non domination sort.
+/** Check Pareto front computation.
 
     Check that, for all values values[a] and values[b] in the same
     pareto front, neither values[a] dominates values[b] nor values[b]
@@ -46,7 +47,7 @@ using namespace hnco;
     dominates values[a].
 
 */
-template<class NonDominationSort>
+template<class ParetoFrontComputation>
 bool check()
 {
   std::uniform_int_distribution<int> dist_population_size(1, 100);
@@ -58,15 +59,16 @@ bool check()
     const int bv_size           = dist_bv_size(Generator::engine);
     const int num_objectives    = dist_num_objectives(Generator::engine);
 
-    CandidateSet candidates(population_size, bv_size, num_objectives);
-    for (auto& v : candidates.values) {
+    Population population(population_size, bv_size, num_objectives);
+    for (auto& v : population.values) {
       for (auto& x : v) {
         x = Generator::uniform();
       }
     }
 
-    NonDominationSort non_domination_sort(candidates);
-    non_domination_sort.sort();
+    std::vector<int> pareto_fronts(population_size);
+    ParetoFrontComputation pareto_front_computation(population);
+    pareto_front_computation.compute(pareto_fronts);
 
     std::uniform_int_distribution<int> dist_index(0, population_size - 1);
 
@@ -75,18 +77,18 @@ bool check()
       const int b = dist_index(Generator::engine);
       if (a == b) continue;
 
-      const int pa = candidates.pareto_fronts[a];
-      const int pb = candidates.pareto_fronts[b];
+      const int pa = pareto_fronts[a];
+      const int pb = pareto_fronts[b];
 
       if (pa == pb) {
-        if (dominates(candidates.values[a], candidates.values[b]))
+        if (dominates(population.values[a], population.values[b]))
           return false;
-        if (dominates(candidates.values[b], candidates.values[a]))
+        if (dominates(population.values[b], population.values[a]))
           return false;
       } else if (pa < pb) {
         bool found = false;
-        for (int i = 0; i < candidates.size(); i++) {
-          if (candidates.pareto_fronts[i] == pa && dominates(candidates.values[i], candidates.values[b])) {
+        for (int i = 0; i < population.size(); i++) {
+          if (pareto_fronts[i] == pa && dominates(population.values[i], population.values[b])) {
             found = true;
             break;
           }
@@ -96,8 +98,8 @@ bool check()
       } else {
         assert(pb < pa);
         bool found = false;
-        for (int i = 0; i < candidates.size(); i++) {
-          if (candidates.pareto_fronts[i] == pb && dominates(candidates.values[i], candidates.values[a])) {
+        for (int i = 0; i < population.size(); i++) {
+          if (pareto_fronts[i] == pb && dominates(population.values[i], population.values[a])) {
             found = true;
             break;
           }

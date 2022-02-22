@@ -222,9 +222,9 @@ libhnco_la_SOURCES = \
 	hnco/multiobjective/algorithms/all.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.cc \
 	hnco/multiobjective/algorithms/iterative-algorithm.hh \
-	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.cc \
 	hnco/multiobjective/algorithms/nsga2.hh \
+	hnco/multiobjective/algorithms/pareto-front-computation.hh \
 	hnco/multiobjective/algorithms/population.cc \
 	hnco/multiobjective/algorithms/population.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
@@ -401,8 +401,8 @@ nobase_include_HEADERS = \
 	hnco/multiobjective/algorithms/algorithm.hh \
 	hnco/multiobjective/algorithms/all.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.hh \
-	hnco/multiobjective/algorithms/non-domination-sort.hh \
 	hnco/multiobjective/algorithms/nsga2.hh \
+	hnco/multiobjective/algorithms/pareto-front-computation.hh \
 	hnco/multiobjective/algorithms/population.hh \
 	hnco/multiobjective/algorithms/random-selection.hh \
 	hnco/multiobjective/app/algorithm-factory.hh \

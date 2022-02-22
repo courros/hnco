@@ -23,8 +23,8 @@
 
 #include "algorithm.hh"
 #include "iterative-algorithm.hh"
-#include "non-domination-sort.hh"
 #include "nsga2.hh"
+#include "pareto-front-computation.hh"
 #include "population.hh"
 #include "random-selection.hh"
 
