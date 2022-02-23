@@ -73,8 +73,8 @@ protected:
   /// Offspring population
   Population _offsprings;
 
-  /// Augmented population
-  Population _augmented_population;
+  /// Full population
+  Population _full_population;
 
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation;
@@ -149,9 +149,9 @@ public:
     : IterativeAlgorithm(n, num_objectives)
     , _parents(population_size, n, num_objectives)
     , _offsprings(population_size, n, num_objectives)
-    , _augmented_population(2 * population_size, n, num_objectives)
+    , _full_population(2 * population_size, n, num_objectives)
     , _mutation(n)
-    , _pareto_front_computation(_augmented_population)
+    , _pareto_front_computation(_full_population)
     , _pareto_fronts(2 * population_size)
     , _crowding_distances(2 * population_size)
     , _permutation(2 * population_size)
