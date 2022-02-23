@@ -53,8 +53,9 @@ bool check()
   std::uniform_int_distribution<int> dist_population_size(1, 100);
   std::uniform_int_distribution<int> dist_bv_size(1, 100);
   std::uniform_int_distribution<int> dist_num_objectives(2, 10);
+  std::uniform_int_distribution<int> dist_values(-10, 10);
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 100; i++) {
     const int population_size   = dist_population_size(Generator::engine);
     const int bv_size           = dist_bv_size(Generator::engine);
     const int num_objectives    = dist_num_objectives(Generator::engine);
@@ -62,7 +63,7 @@ bool check()
     Population population(population_size, bv_size, num_objectives);
     for (auto& v : population.values) {
       for (auto& x : v) {
-        x = Generator::uniform();
+        x = dist_values(Generator::engine);
       }
     }
 
