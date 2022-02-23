@@ -91,9 +91,9 @@ public:
     assert(is_in_range(_stop, 2, _bvs.size() + 1));
 
     int winner = _start;
-    T best_value = _values[_start];
+    T best_value = _values[_permutation[_start]];
     for (int challenger = _start + 1; challenger < _stop; challenger++) {
-      T value = _values[challenger];
+      T value = _values[_permutation[challenger]];
       if (Compare()(value, best_value)) {
         winner = challenger;
         best_value = value;
@@ -105,7 +105,7 @@ public:
     if (_stop > int(_bvs.size()))
       init();
 
-    return _bvs[winner];
+    return _bvs[_permutation[winner]];
   }
 
   /** @name Setters
