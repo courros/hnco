@@ -36,6 +36,20 @@ namespace multiobjective {
 namespace algorithm {
 
 
+struct FrontDistancePair {
+  int pareto_front;
+  double crowding_distance;
+};
+
+inline bool operator<(const FrontDistancePair& a, const FrontDistancePair& b)
+{
+  if (a.pareto_front < b.pareto_front)
+    return true;
+  if (a.pareto_front == b.pareto_front && a.crowding_distance > b.crowding_distance)
+    return true;
+  return false;
+}
+
 /** NSGA-II.
 
     NSGA-II is a (mu+mu) evolutionary algorithm for multiobjective
@@ -62,12 +76,6 @@ protected:
   /// Augmented population
   Population _augmented_population;
 
-  /// Pareto fronts
-  std::vector<int> _pareto_fronts;
-
-  /// Selection
-  TournamentSelection<int, std::less<int>> _selection_by_pareto_front;
-
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation;
 
@@ -80,11 +88,20 @@ protected:
   /// Pareto front computation
   Nsga2ParetoFrontComputation _pareto_front_computation;
 
-  /// Crowding distance
-  std::vector<double> _crowding_distance;
+  /// Pareto fronts
+  std::vector<int> _pareto_fronts;
 
-  /// Indices
-  hnco::permutation_t _indices;
+  /// Crowding distances
+  std::vector<double> _crowding_distances;
+
+  /// Permutation relative to Pareto front
+  hnco::permutation_t _permutation;
+
+  /// Front distance pairs
+  std::vector<FrontDistancePair> _front_distance_pairs;
+
+  /// Selection by front distance pairs
+  TournamentSelection<FrontDistancePair, std::less<FrontDistancePair>> _selection_by_front_distance_pair;
 
   /** @name Parameters
    */
@@ -133,12 +150,13 @@ public:
     , _parents(population_size, n, num_objectives)
     , _offsprings(population_size, n, num_objectives)
     , _augmented_population(2 * population_size, n, num_objectives)
-    , _pareto_fronts(population_size)
-    , _selection_by_pareto_front(_parents.bvs, _pareto_fronts)
     , _mutation(n)
     , _pareto_front_computation(_augmented_population)
-    , _crowding_distance(2 * population_size)
-    , _indices(2 * population_size)
+    , _pareto_fronts(2 * population_size)
+    , _crowding_distances(2 * population_size)
+    , _permutation(2 * population_size)
+    , _front_distance_pairs(population_size)
+    , _selection_by_front_distance_pair(_parents.bvs, _front_distance_pairs)
     , _mutation_rate(1 / double(n))
   {}
 

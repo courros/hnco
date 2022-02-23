@@ -35,7 +35,9 @@ using namespace hnco::random;
 void
 Nsga2::init()
 {
-  _selection_by_pareto_front.set_tournament_size(_tournament_size);
+  perm_identity(_permutation);
+
+  _selection_by_front_distance_pair.set_tournament_size(_tournament_size);
 
   _mutation.set_mutation_rate(_mutation_rate);
   _mutation.set_allow_no_mutation(_allow_no_mutation);
@@ -43,7 +45,23 @@ Nsga2::init()
   _parents.random();
   _parents.evaluate(_function);
 
-  perm_identity(_indices);
+  std::vector<int> fronts(_parents.size());
+  Nsga2ParetoFrontComputation computation(_parents);
+  computation.compute(fronts);
+
+  // Offsprings
+  TournamentSelection<int, std::less<int>> selection(_parents.bvs, fronts);
+  selection.set_tournament_size(_tournament_size);
+  selection.init();
+  for (int i = 0; i < _offsprings.size(); i++) {
+    bit_vector_t& offspring = _offsprings.bvs[i];
+    if (_do_crossover(Generator::engine))
+      _crossover.breed(selection.select(),selection.select(), offspring);
+    else
+      offspring = selection.select();
+    _mutation.mutate(offspring);
+  }
+
 }
 
 void
@@ -51,20 +69,10 @@ Nsga2::iterate()
 {
   const int population_size = _parents.size();
 
-  // Offsprings
-  _selection_by_pareto_front.init();
-  for (int i = 0; i < _offsprings.size(); i++) {
-    bit_vector_t& offspring = _offsprings.bvs[i];
-    if (_do_crossover(Generator::engine))
-      _crossover.breed(_selection_by_pareto_front.select(),_selection_by_pareto_front.select(), offspring);
-    else
-      offspring = _selection_by_pareto_front.select();
-    _mutation.mutate(offspring);
-  }
   _offsprings.evaluate(_function);
 
   // Build augmented population (parents + offsprings)
-  for (int i = 0; i < _parents.size(); i++) {
+  for (int i = 0; i < population_size; i++) {
     std::swap(_parents.bvs[i], _augmented_population.bvs[i]);
     std::swap(_parents.values[i], _augmented_population.values[i]);
     std::swap(_offsprings.bvs[i], _augmented_population.bvs[population_size + i]);
@@ -73,44 +81,62 @@ Nsga2::iterate()
 
   _pareto_front_computation.compute(_pareto_fronts);
 
-  auto compare = [this](int i, int j){ return this->_pareto_fronts[i] < this->_pareto_fronts[j]; };
-  std::sort(_indices.begin(), _indices.end(), compare);
+  // Sort _permutation by increasing Pareto front
+  {
+    auto compare = [this](int i, int j){ return this->_pareto_fronts[i] < this->_pareto_fronts[j]; };
+    perm_random(_permutation);
+    std::sort(_permutation.begin(), _permutation.end(), compare);
+  }
 
-  int before = _indices[population_size - 1];
-  int after = _indices[population_size];
-
-  // Check for last front overflowing population_size
-  if (_pareto_fronts[before] == _pareto_fronts[after]) {
-    const int last_front = _pareto_fronts[before];
-    auto predicate = [&, last_front](int i){ return _pareto_fronts[i] == last_front; };
-    const auto start = std::find_if(_indices.begin(), _indices.end(), predicate);
-    assert(start != _indices.end());
-    const auto stop = std::find_if_not(start + 1, _indices.end(), predicate);
-
-    // Compute crowding distance
-    std::fill(_crowding_distance.begin(), _crowding_distance.end(), 0);
-    const int num_objectives = _function->get_output_size();
+  // Compute crowding distances
+  std::fill(_crowding_distances.begin(), _crowding_distances.end(), 0);
+  const int num_objectives = _function->get_output_size();
+  const int last_front = _pareto_fronts[_permutation[population_size - 1]];
+  auto start = _permutation.begin();
+  for (int front = 0; front <= last_front; front++) {
+    assert(_pareto_fronts[*start] == front);
+    auto predicate = [this, front](int i){ return this->_pareto_fronts[i] == front; };
+    const auto stop = std::find_if_not(start + 1, _permutation.end(), predicate);
     for (int k = 0; k < num_objectives; k++) {
       auto compare = [this, k](int i, int j){ return this->_augmented_population.values[i][k] < this->_augmented_population.values[j][k]; };
       std::sort(start, stop, compare);
-      assert(is_in_range(*start, _crowding_distance.size()));
-      _crowding_distance[*start] = std::numeric_limits<double>::infinity();
-      assert(is_in_range(*(stop - 1), _crowding_distance.size()));
-      _crowding_distance[*(stop - 1)] = std::numeric_limits<double>::infinity();
+      _crowding_distances[*start] = std::numeric_limits<double>::infinity();
+      _crowding_distances[*(stop - 1)] = std::numeric_limits<double>::infinity();
       if (std::distance(start, stop) >= 3) {
         for (auto iter = start + 1; iter != stop - 1; iter++)
-          _crowding_distance[*iter] += _augmented_population.values[*(iter + 1)][k] - _augmented_population.values[*(iter - 1)][k];
+          _crowding_distances[*iter] += _augmented_population.values[*(iter + 1)][k] - _augmented_population.values[*(iter - 1)][k];
       }
     }
+    start = stop;
+  }
 
-    auto compare = [this](int i, int j){ return this->_crowding_distance[i] > this->_crowding_distance[j]; };
+  // Sort last front by decreasing crowding distance
+  {
+    auto predicate = [this, last_front](int i){ return this->_pareto_fronts[i] == last_front; };
+    start = std::find_if(_permutation.begin(), _permutation.end(), predicate);
+    const auto stop = std::find_if_not(start + 1, _permutation.end(), predicate);
+    auto compare = [this](int i, int j){ return this->_crowding_distances[i] > this->_crowding_distances[j]; };
     std::sort(start, stop, compare);
   }
 
   // Build parent population
-  for (int i = 0; i < _parents.size(); i++) {
-    const int index = _indices[i];
+  for (int i = 0; i < population_size; i++) {
+    const int index = _permutation[i];
     std::swap(_parents.bvs[i], _augmented_population.bvs[index]);
     std::swap(_parents.values[i], _augmented_population.values[index]);
+    _front_distance_pairs[i].pareto_front = _pareto_fronts[index];
+    _front_distance_pairs[i].crowding_distance = _crowding_distances[index];
   }
+
+  // Offsprings
+  _selection_by_front_distance_pair.init();
+  for (int i = 0; i < _offsprings.size(); i++) {
+    bit_vector_t& offspring = _offsprings.bvs[i];
+    if (_do_crossover(Generator::engine))
+      _crossover.breed(_selection_by_front_distance_pair.select(),_selection_by_front_distance_pair.select(), offspring);
+    else
+      offspring = _selection_by_front_distance_pair.select();
+    _mutation.mutate(offspring);
+  }
+
 }
