@@ -72,7 +72,7 @@ Nsga2::iterate()
 
   _offsprings.evaluate(_function);
 
-  // Build augmented population (parents + offsprings)
+  // Build full population (parents + offsprings)
   for (int i = 0; i < population_size; i++) {
     std::swap(_parents.bvs[i], _full_population.bvs[i]);
     std::swap(_parents.values[i], _full_population.values[i]);
@@ -100,11 +100,12 @@ Nsga2::iterate()
     for (int k = 0; k < num_objectives; k++) {
       auto compare = [this, k](int i, int j){ return this->_full_population.values[i][k] < this->_full_population.values[j][k]; };
       std::sort(start, stop, compare);
+      static_assert(std::numeric_limits<double>::has_infinity == true);
       _crowding_distances[*start] = std::numeric_limits<double>::infinity();
       _crowding_distances[*(stop - 1)] = std::numeric_limits<double>::infinity();
       if (std::distance(start, stop) >= 3) {
         for (auto iter = start + 1; iter != stop - 1; iter++) {
-          assert(_full_population.values[*(iter + 1)][k] - _full_population.values[*(iter - 1)][k] > 0);
+          assert(_full_population.values[*(iter + 1)][k] - _full_population.values[*(iter - 1)][k] >= 0);
           _crowding_distances[*iter] += _full_population.values[*(iter + 1)][k] - _full_population.values[*(iter - 1)][k];
         }
       }
