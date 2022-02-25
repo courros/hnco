@@ -59,6 +59,9 @@ class TournamentSelection {
   /// End of the slice of permutation used in a tournament round
   int _stop;
 
+  /// Comparison operator
+  Compare _compare;
+
   /** @name Parameters
    */
   ///@{
@@ -77,6 +80,7 @@ public:
     , _permutation(bvs.size())
   {
     assert(is_in_range(_tournament_size, 2, bvs.size()));
+    assert(have_same_size(bvs, values));
   }
 
   /// Initialize
@@ -94,7 +98,7 @@ public:
     T best_value = _values[_permutation[_start]];
     for (int challenger = _start + 1; challenger < _stop; challenger++) {
       T value = _values[_permutation[challenger]];
-      if (Compare()(value, best_value)) {
+      if (_compare(value, best_value)) {
         winner = challenger;
         best_value = value;
       }
