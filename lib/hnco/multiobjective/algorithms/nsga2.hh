@@ -21,7 +21,7 @@
 #ifndef HNCO_MULTIOBJECTIVE_ALGORITHMS_NSGA2_H
 #define HNCO_MULTIOBJECTIVE_ALGORITHMS_NSGA2_H
 
-#include <functional>           // std::greater, std::less
+#include <functional>           // std::less
 
 #include "hnco/algorithms/ea/crossover.hh"    // hnco::algorithm::UniformCrossover
 #include "hnco/neighborhoods/neighborhood.hh" // hnco::neighborhood::StandardBitMutation
@@ -36,11 +36,23 @@ namespace multiobjective {
 namespace algorithm {
 
 
+/** Front-distance pair.
+
+    A front-distance pair measures the quality of an individual within
+    a population.
+*/
 struct FrontDistancePair {
+  /// Pareto front
   int pareto_front;
+  /// Crowding distance
   double crowding_distance;
 };
 
+/** Comparison operator for front-distance pairs.
+
+    Favors individuals with smaller Pareto front then greater crowding
+    distance.
+*/
 inline bool operator<(const FrontDistancePair& a, const FrontDistancePair& b)
 {
   if (a.pareto_front < b.pareto_front)
