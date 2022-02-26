@@ -166,17 +166,17 @@
 
                 {
                     "value": 180,
-                    "description": "Real multivariate function"
+                    "description": "Real multivariate function (objectives are separated by double colons ::)"
                 },
 
                 {
                     "value": 181,
-                    "description": "Integer multivariate function"
+                    "description": "Integer multivariate function (objectives are separated by double colons ::)"
                 },
 
                 {
                     "value": 182,
-                    "description": "Complex multivariate function (squared magnitude of)"
+                    "description": "Complex multivariate function (squared magnitude of, objectives are separated by double colons ::)"
                 },
 
                 {

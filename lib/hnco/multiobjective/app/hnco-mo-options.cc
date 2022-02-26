@@ -333,9 +333,9 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Name of the function in the dynamic library" << std::endl;
   stream << "  -F, --function (type int, default to 0)" << std::endl;
   stream << "          Type of function" << std::endl;
-  stream << "            180: Real multivariate function" << std::endl;
-  stream << "            181: Integer multivariate function" << std::endl;
-  stream << "            182: Complex multivariate function (squared magnitude of)" << std::endl;
+  stream << "            180: Real multivariate function (objectives are separated by double colons ::)" << std::endl;
+  stream << "            181: Integer multivariate function (objectives are separated by double colons ::)" << std::endl;
+  stream << "            182: Complex multivariate function (squared magnitude of, objectives are separated by double colons ::)" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
