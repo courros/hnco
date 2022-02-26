@@ -145,6 +145,17 @@ CommandLineApplication::manage_solutions()
     }
   }
 
+  // Print Pareto front
+  if (_options.with_print_pareto_front()) {
+    for (int i = 0; i < solutions.size(); i++) {
+      if (pareto_fronts[i] == 0) {
+        for (auto x : solutions.values[i])
+          std::cout << x << " ";
+        std::cout << std::endl;
+      }
+    }
+  }
+
 }
 
 void

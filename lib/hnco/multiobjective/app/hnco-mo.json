@@ -77,6 +77,12 @@
             "section": "gen"
         },
 
+        "print_pareto_front":
+        {
+            "description": "Print the Pareto front",
+            "section": "gen"
+        },
+
 
         "fn_get_bv_size":
         {

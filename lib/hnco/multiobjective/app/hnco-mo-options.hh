@@ -126,6 +126,9 @@ class HncoOptions {
   /// At the beginning, print the header
   bool _print_header;
 
+  /// Print the Pareto front
+  bool _print_pareto_front;
+
   /// Print help message
   void print_help(std::ostream& stream) const;
 
@@ -451,6 +454,12 @@ public:
 
   /// Set print_header
   void set_print_header() { _print_header = true; }
+
+  /// Get print_pareto_front
+  bool with_print_pareto_front() const { return _print_pareto_front; }
+
+  /// Set print_pareto_front
+  void set_print_pareto_front() { _print_pareto_front = true; }
 
   friend std::ostream& operator<<(std::ostream&, const HncoOptions&);
 };

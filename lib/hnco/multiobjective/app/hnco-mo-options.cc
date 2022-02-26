@@ -59,7 +59,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _fn_get_output_size(false),
   _print_defaults(false),
   _print_description(false),
-  _print_header(false)
+  _print_header(false),
+  _print_pareto_front(false)
 {
   enum {
     OPTION_HELP=256,
@@ -95,7 +96,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_FN_GET_OUTPUT_SIZE,
     OPTION_PRINT_DEFAULTS,
     OPTION_PRINT_DESCRIPTION,
-    OPTION_PRINT_HEADER
+    OPTION_PRINT_HEADER,
+    OPTION_PRINT_PARETO_FRONT
   };
   const struct option long_options[] = {
     {"algorithm", required_argument, 0, OPTION_ALGORITHM},
@@ -127,6 +129,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"print-defaults", no_argument, 0, OPTION_PRINT_DEFAULTS},
     {"print-description", no_argument, 0, OPTION_PRINT_DESCRIPTION},
     {"print-header", no_argument, 0, OPTION_PRINT_HEADER},
+    {"print-pareto-front", no_argument, 0, OPTION_PRINT_PARETO_FRONT},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
     {"help-fp", no_argument, 0, OPTION_HELP_FP},
@@ -262,6 +265,10 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       _print_header = true;
       break;
 
+    case OPTION_PRINT_PARETO_FRONT:
+      _print_pareto_front = true;
+      break;
+
     case OPTION_HELP:
       print_help(std::cerr);
       exit(0);
@@ -304,6 +311,8 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print a description of the solution" << std::endl;
   stream << "      --print-header" << std::endl;
   stream << "          At the beginning, print the header" << std::endl;
+  stream << "      --print-pareto-front" << std::endl;
+  stream << "          Print the Pareto front" << std::endl;
   stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
   stream << "          Path of the results file" << std::endl;
   stream << "      --seed (type unsigned, default to 0)" << std::endl;
@@ -440,6 +449,8 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
     stream << "# print_description" << std::endl;
   if (options._print_header)
     stream << "# print_header" << std::endl;
+  if (options._print_pareto_front)
+    stream << "# print_pareto_front" << std::endl;
   stream << "# last_parameter" << std::endl;
   stream << "# exec_name = " << options._exec_name << std::endl;
   stream << "# version = " << options._version << std::endl;
