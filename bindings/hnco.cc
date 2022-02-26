@@ -32,6 +32,8 @@
 #include "hnco/functions/all.hh"
 #include "hnco/iterator.hh"
 #include "hnco/maps/map.hh"
+#include "hnco/multiobjective/algorithms/all.hh"
+#include "hnco/multiobjective/functions/all.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/random.hh"
 
@@ -41,6 +43,7 @@ using namespace hnco;
 
 PYBIND11_MAKE_OPAQUE(bit_vector_t);
 PYBIND11_MAKE_OPAQUE(algorithm::solution_t);
+PYBIND11_MAKE_OPAQUE(hnco::multiobjective::function::value_t);
 
 //
 // Iterators
@@ -140,6 +143,48 @@ public:
   using algorithm::IterativeAlgorithm::IterativeAlgorithm;
   void iterate()                                override { PYBIND11_OVERLOAD_PURE(void, algorithm::IterativeAlgorithm, iterate, ); }
 };
+
+//
+// Multiobjective
+//
+
+namespace hnco {
+namespace multiobjective {
+
+//
+// Function
+//
+
+class PyFunction: public function::Function {
+public:
+  using function::Function::Function;
+  int get_bv_size() const                       override { PYBIND11_OVERLOAD_PURE(int, function::Function, get_bv_size, ); }
+  int get_output_size() const                   override { PYBIND11_OVERLOAD_PURE(int, function::Function, get_output_size, ); }
+  void evaluate(const bit_vector_t& bv, function::value_t& value)
+                                                override { PYBIND11_OVERLOAD_PURE(void, function::Function, evaluate, bv, value); }
+};
+
+//
+// Algorithms
+//
+
+class PyAlgorithm: public algorithm::Algorithm {
+public:
+  using algorithm::Algorithm::Algorithm;
+  void minimize(const std::vector<function::Function *>& functions)
+                                                override { PYBIND11_OVERLOAD_PURE(void, algorithm::Algorithm, minimize, functions); }
+  const algorithm::Population& get_solutions()  override { PYBIND11_OVERLOAD_PURE(const algorithm::Population&, algorithm::Algorithm, get_solutions, ); }
+  void finalize()                               override { PYBIND11_OVERLOAD(void, algorithm::Algorithm, finalize, ); }
+};
+
+class PyIterativeAlgorithm: public algorithm::IterativeAlgorithm {
+public:
+  using algorithm::IterativeAlgorithm::IterativeAlgorithm;
+  void iterate()                                override { PYBIND11_OVERLOAD_PURE(void, algorithm::IterativeAlgorithm, iterate, ); }
+};
+
+}
+}
 
 //
 // Modules
@@ -746,7 +791,6 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     py::class_<Algorithm, PyAlgorithm>(module_algorithm, "Algorithm")
       .def(py::init<int>())
-      .def("get_bv_size", &Algorithm::get_bv_size)
       .def("get_solution", &Algorithm::get_solution)
       .def("maximize", &Algorithm::maximize)
       .def("finalize", &Algorithm::finalize)
@@ -897,6 +941,65 @@ PYBIND11_MODULE(hnco, module_hnco) {
     py::class_<Umda, PvAlgorithm>(module_algorithm, "Umda")
       .def(py::init<int, int>())
       .def("set_selection_size", &Umda::set_selection_size)
+      ;
+
+  }
+
+  //
+  // Multiobjective
+  //
+
+  py::module module_multiobjective = module_hnco.def_submodule("multiobjective", "Multiobjective optimization");
+  py::module module_multiobjective_function = module_multiobjective.def_submodule("function", "Functions for multiobjective optimization");
+  py::module module_multiobjective_algorithm = module_multiobjective.def_submodule("algorithm", "Algorithms for multiobjective optimization");
+
+  {
+    using namespace hnco::multiobjective::function;
+
+    py::bind_vector<value_t>(module_multiobjective_function, "Value")
+      .def("__str__",
+           [](const value_t& value) {
+             std::ostringstream stream;
+             value_display(value, stream);
+             return stream.str();
+           })
+      ;
+
+    py::class_<Function, hnco::multiobjective::PyFunction>(module_multiobjective_function, "Function")
+      .def(py::init<>())
+      .def("get_bv_size", &Function::get_bv_size)
+      .def("get_output_size", &Function::get_output_size)
+      .def("evaluate", &Function::evaluate)
+      .def("__str__",
+           [](Function& fn) {
+             std::ostringstream stream;
+             fn.display(stream);
+             return stream.str();
+           })
+      ;
+
+  }
+
+  {
+    using namespace hnco::multiobjective::algorithm;
+
+    py::class_<Population>(module_multiobjective_algorithm, "Population")
+      .def(py::init<int, int, int>())
+      .def("size", &Population::size)
+      .def("random", &Population::random)
+      .def("evaluate", &Population::evaluate)
+      ;
+
+    py::class_<IterativeAlgorithm, Algorithm, hnco::multiobjective::PyIterativeAlgorithm>(module_multiobjective_algorithm, "IterativeAlgorithm")
+      .def("set_num_iterations", &IterativeAlgorithm::set_num_iterations)
+      ;
+
+    py::class_<Nsga2, IterativeAlgorithm>(module_multiobjective_algorithm, "Nsga2")
+      .def(py::init<int, int, int>())
+      .def("set_tournament_size", &Nsga2::set_tournament_size)
+      .def("set_mutation_rate", &Nsga2::set_mutation_rate)
+      .def("set_allow_no_mutation", &Nsga2::set_allow_no_mutation)
+      .def("set_crossover_probability", &Nsga2::set_crossover_probability)
       ;
 
   }
