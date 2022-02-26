@@ -6,7 +6,7 @@
     },
 
     "code": {
-        "cppdefine": "HNCO_MULTIONJECTIVE_APP_HNCO_OPTIONS_H",
+        "cppdefine": "HNCO_MULTIOBJECTIVE_APP_HNCO_OPTIONS_H",
         "namespace": [ "hnco", "multiobjective", "app" ],
         "classname": "HncoOptions"
     },
