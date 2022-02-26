@@ -71,51 +71,9 @@
             "section": "gen"
         },
 
-        "print_results":
-        {
-            "description": "Print results",
-            "section": "gen"
-        },
-
-        "save_results":
-        {
-            "description": "At the end, save results in a file",
-            "section": "gen"
-        },
-
-        "print_solution":
-        {
-            "description": "Print the solution",
-            "section": "gen"
-        },
-
-        "save_solution":
-        {
-            "description": "At the end, save the solution in a file",
-            "section": "gen"
-        },
-
-        "concrete_solution":
-        {
-            "description": "At the end, print or save the solution in the domain of the concrete function",
-            "section": "gen"
-        },
-
-        "load_solution":
-        {
-            "description": "Load a solution from a file",
-            "section": "gen"
-        },
-
         "print_description":
         {
             "description": "Print a description of the solution",
-            "section": "gen"
-        },
-
-        "save_description":
-        {
-            "description": "At the end, save a description of the solution in a file",
             "section": "gen"
         },
 
@@ -123,6 +81,12 @@
         "fn_get_bv_size":
         {
             "description": "Print the size of bit vectors",
+            "section": "fn"
+        },
+
+        "fn_get_output_size":
+        {
+            "description": "Print the number of objectives",
             "section": "fn"
         },
 

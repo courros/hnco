@@ -53,19 +53,13 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_seed(false),
   _solution_path("solution.txt"),
   _opt_solution_path(false),
-  _concrete_solution(false),
   _ea_allow_no_mutation(false),
   _fn_display(false),
   _fn_get_bv_size(false),
-  _load_solution(false),
+  _fn_get_output_size(false),
   _print_defaults(false),
   _print_description(false),
-  _print_header(false),
-  _print_results(false),
-  _print_solution(false),
-  _save_description(false),
-  _save_results(false),
-  _save_solution(false)
+  _print_header(false)
 {
   enum {
     OPTION_HELP=256,
@@ -95,19 +89,13 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_RESULTS_PATH,
     OPTION_SEED,
     OPTION_SOLUTION_PATH,
-    OPTION_CONCRETE_SOLUTION,
     OPTION_EA_ALLOW_NO_MUTATION,
     OPTION_FN_DISPLAY,
     OPTION_FN_GET_BV_SIZE,
-    OPTION_LOAD_SOLUTION,
+    OPTION_FN_GET_OUTPUT_SIZE,
     OPTION_PRINT_DEFAULTS,
     OPTION_PRINT_DESCRIPTION,
-    OPTION_PRINT_HEADER,
-    OPTION_PRINT_RESULTS,
-    OPTION_PRINT_SOLUTION,
-    OPTION_SAVE_DESCRIPTION,
-    OPTION_SAVE_RESULTS,
-    OPTION_SAVE_SOLUTION
+    OPTION_PRINT_HEADER
   };
   const struct option long_options[] = {
     {"algorithm", required_argument, 0, OPTION_ALGORITHM},
@@ -132,19 +120,13 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"results-path", required_argument, 0, OPTION_RESULTS_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
     {"solution-path", required_argument, 0, OPTION_SOLUTION_PATH},
-    {"concrete-solution", no_argument, 0, OPTION_CONCRETE_SOLUTION},
     {"ea-allow-no-mutation", no_argument, 0, OPTION_EA_ALLOW_NO_MUTATION},
     {"fn-display", no_argument, 0, OPTION_FN_DISPLAY},
     {"fn-get-bv-size", no_argument, 0, OPTION_FN_GET_BV_SIZE},
-    {"load-solution", no_argument, 0, OPTION_LOAD_SOLUTION},
+    {"fn-get-output-size", no_argument, 0, OPTION_FN_GET_OUTPUT_SIZE},
     {"print-defaults", no_argument, 0, OPTION_PRINT_DEFAULTS},
     {"print-description", no_argument, 0, OPTION_PRINT_DESCRIPTION},
     {"print-header", no_argument, 0, OPTION_PRINT_HEADER},
-    {"print-results", no_argument, 0, OPTION_PRINT_RESULTS},
-    {"print-solution", no_argument, 0, OPTION_PRINT_SOLUTION},
-    {"save-description", no_argument, 0, OPTION_SAVE_DESCRIPTION},
-    {"save-results", no_argument, 0, OPTION_SAVE_RESULTS},
-    {"save-solution", no_argument, 0, OPTION_SAVE_SOLUTION},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
     {"help-fp", no_argument, 0, OPTION_HELP_FP},
@@ -252,10 +234,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       set_solution_path(std::string(optarg));
       break;
 
-    case OPTION_CONCRETE_SOLUTION:
-      _concrete_solution = true;
-      break;
-
     case OPTION_EA_ALLOW_NO_MUTATION:
       _ea_allow_no_mutation = true;
       break;
@@ -268,8 +246,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       _fn_get_bv_size = true;
       break;
 
-    case OPTION_LOAD_SOLUTION:
-      _load_solution = true;
+    case OPTION_FN_GET_OUTPUT_SIZE:
+      _fn_get_output_size = true;
       break;
 
     case OPTION_PRINT_DEFAULTS:
@@ -282,26 +260,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
 
     case OPTION_PRINT_HEADER:
       _print_header = true;
-      break;
-
-    case OPTION_PRINT_RESULTS:
-      _print_results = true;
-      break;
-
-    case OPTION_PRINT_SOLUTION:
-      _print_solution = true;
-      break;
-
-    case OPTION_SAVE_DESCRIPTION:
-      _save_description = true;
-      break;
-
-    case OPTION_SAVE_RESULTS:
-      _save_results = true;
-      break;
-
-    case OPTION_SAVE_SOLUTION:
-      _save_solution = true;
       break;
 
     case OPTION_HELP:
@@ -336,12 +294,8 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "General" << std::endl;
-  stream << "      --concrete-solution" << std::endl;
-  stream << "          At the end, print or save the solution in the domain of the concrete function" << std::endl;
   stream << "      --description-path (type string, default to \"description.txt\")" << std::endl;
   stream << "          Path of the description file" << std::endl;
-  stream << "      --load-solution" << std::endl;
-  stream << "          Load a solution from a file" << std::endl;
   stream << "      --num-threads (type int, default to 1)" << std::endl;
   stream << "          Number of threads" << std::endl;
   stream << "      --print-defaults" << std::endl;
@@ -350,18 +304,8 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print a description of the solution" << std::endl;
   stream << "      --print-header" << std::endl;
   stream << "          At the beginning, print the header" << std::endl;
-  stream << "      --print-results" << std::endl;
-  stream << "          Print results" << std::endl;
-  stream << "      --print-solution" << std::endl;
-  stream << "          Print the solution" << std::endl;
   stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
   stream << "          Path of the results file" << std::endl;
-  stream << "      --save-description" << std::endl;
-  stream << "          At the end, save a description of the solution in a file" << std::endl;
-  stream << "      --save-results" << std::endl;
-  stream << "          At the end, save results in a file" << std::endl;
-  stream << "      --save-solution" << std::endl;
-  stream << "          At the end, save the solution in a file" << std::endl;
   stream << "      --seed (type unsigned, default to 0)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
   stream << "      --solution-path (type string, default to \"solution.txt\")" << std::endl;
@@ -374,6 +318,8 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Display the function and exit" << std::endl;
   stream << "      --fn-get-bv-size" << std::endl;
   stream << "          Print the size of bit vectors" << std::endl;
+  stream << "      --fn-get-output-size" << std::endl;
+  stream << "          Print the number of objectives" << std::endl;
   stream << "      --fn-name (type string, default to \"noname\")" << std::endl;
   stream << "          Name of the function in the dynamic library" << std::endl;
   stream << "  -F, --function (type int, default to 0)" << std::endl;
@@ -480,32 +426,20 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# results_path = " << options._results_path << std::endl;
   stream << "# seed = " << options._seed << std::endl;
   stream << "# solution_path = " << options._solution_path << std::endl;
-  if (options._concrete_solution)
-    stream << "# concrete_solution" << std::endl;
   if (options._ea_allow_no_mutation)
     stream << "# ea_allow_no_mutation" << std::endl;
   if (options._fn_display)
     stream << "# fn_display" << std::endl;
   if (options._fn_get_bv_size)
     stream << "# fn_get_bv_size" << std::endl;
-  if (options._load_solution)
-    stream << "# load_solution" << std::endl;
+  if (options._fn_get_output_size)
+    stream << "# fn_get_output_size" << std::endl;
   if (options._print_defaults)
     stream << "# print_defaults" << std::endl;
   if (options._print_description)
     stream << "# print_description" << std::endl;
   if (options._print_header)
     stream << "# print_header" << std::endl;
-  if (options._print_results)
-    stream << "# print_results" << std::endl;
-  if (options._print_solution)
-    stream << "# print_solution" << std::endl;
-  if (options._save_description)
-    stream << "# save_description" << std::endl;
-  if (options._save_results)
-    stream << "# save_results" << std::endl;
-  if (options._save_solution)
-    stream << "# save_solution" << std::endl;
   stream << "# last_parameter" << std::endl;
   stream << "# exec_name = " << options._exec_name << std::endl;
   stream << "# version = " << options._version << std::endl;

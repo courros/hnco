@@ -89,6 +89,11 @@ CommandLineApplication::print_information()
     exit(0);
   }
 
+  if (_options.with_fn_get_output_size()) {
+    std::cout << _fn->get_output_size() << std::endl;
+    exit(0);
+  }
+
   if (_options.with_fn_display()) {
     _fn->display(std::cout);
     exit(0);

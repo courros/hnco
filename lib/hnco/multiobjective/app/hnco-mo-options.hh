@@ -105,9 +105,6 @@ class HncoOptions {
   std::string _solution_path;
   bool _opt_solution_path;
 
-  /// At the end, print or save the solution in the domain of the concrete function
-  bool _concrete_solution;
-
   /// Allow no mutation with standard bit mutation
   bool _ea_allow_no_mutation;
 
@@ -117,8 +114,8 @@ class HncoOptions {
   /// Print the size of bit vectors
   bool _fn_get_bv_size;
 
-  /// Load a solution from a file
-  bool _load_solution;
+  /// Print the number of objectives
+  bool _fn_get_output_size;
 
   /// Print the default parameters and exit
   bool _print_defaults;
@@ -128,21 +125,6 @@ class HncoOptions {
 
   /// At the beginning, print the header
   bool _print_header;
-
-  /// Print results
-  bool _print_results;
-
-  /// Print the solution
-  bool _print_solution;
-
-  /// At the end, save a description of the solution in a file
-  bool _save_description;
-
-  /// At the end, save results in a file
-  bool _save_results;
-
-  /// At the end, save the solution in a file
-  bool _save_solution;
 
   /// Print help message
   void print_help(std::ostream& stream) const;
@@ -428,12 +410,6 @@ public:
   /// Get set-flag for solution_path
   bool set_solution_path() const { return _opt_solution_path; }
 
-  /// Get concrete_solution
-  bool with_concrete_solution() const { return _concrete_solution; }
-
-  /// Set concrete_solution
-  void set_concrete_solution() { _concrete_solution = true; }
-
   /// Get ea_allow_no_mutation
   bool with_ea_allow_no_mutation() const { return _ea_allow_no_mutation; }
 
@@ -452,11 +428,11 @@ public:
   /// Set fn_get_bv_size
   void set_fn_get_bv_size() { _fn_get_bv_size = true; }
 
-  /// Get load_solution
-  bool with_load_solution() const { return _load_solution; }
+  /// Get fn_get_output_size
+  bool with_fn_get_output_size() const { return _fn_get_output_size; }
 
-  /// Set load_solution
-  void set_load_solution() { _load_solution = true; }
+  /// Set fn_get_output_size
+  void set_fn_get_output_size() { _fn_get_output_size = true; }
 
   /// Get print_defaults
   bool with_print_defaults() const { return _print_defaults; }
@@ -475,36 +451,6 @@ public:
 
   /// Set print_header
   void set_print_header() { _print_header = true; }
-
-  /// Get print_results
-  bool with_print_results() const { return _print_results; }
-
-  /// Set print_results
-  void set_print_results() { _print_results = true; }
-
-  /// Get print_solution
-  bool with_print_solution() const { return _print_solution; }
-
-  /// Set print_solution
-  void set_print_solution() { _print_solution = true; }
-
-  /// Get save_description
-  bool with_save_description() const { return _save_description; }
-
-  /// Set save_description
-  void set_save_description() { _save_description = true; }
-
-  /// Get save_results
-  bool with_save_results() const { return _save_results; }
-
-  /// Set save_results
-  void set_save_results() { _save_results = true; }
-
-  /// Get save_solution
-  bool with_save_solution() const { return _save_solution; }
-
-  /// Set save_solution
-  void set_save_solution() { _save_solution = true; }
 
   friend std::ostream& operator<<(std::ostream&, const HncoOptions&);
 };
