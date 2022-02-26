@@ -42,10 +42,13 @@ namespace algorithm {
     a population.
 */
 struct FrontDistancePair {
+
   /// Pareto front
   int pareto_front;
+
   /// Crowding distance
   double crowding_distance;
+
 };
 
 /** Comparison operator for front-distance pairs.

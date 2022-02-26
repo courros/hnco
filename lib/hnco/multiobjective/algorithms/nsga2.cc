@@ -89,9 +89,10 @@ Nsga2::iterate()
     std::sort(_permutation.begin(), _permutation.end(), compare);
   }
 
+  const int last_front = _pareto_fronts[_permutation[population_size - 1]];
+
   // Compute crowding distances
   std::fill(_crowding_distances.begin(), _crowding_distances.end(), 0);
-  const int last_front = _pareto_fronts[_permutation[population_size - 1]];
   auto start = _permutation.begin();
   for (int front = 0; front <= last_front; front++) {
     assert(_pareto_fronts[*start] == front);
