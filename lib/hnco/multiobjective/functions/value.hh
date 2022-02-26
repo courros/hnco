@@ -23,9 +23,10 @@
 
 #include <assert.h>
 
+#include <iostream>
 #include <vector>
 
-#include "hnco/util.hh"         // hnco::have_same_size
+#include "hnco/util.hh"         // hnco::have_same_size, hnco::join
 
 
 namespace hnco {
@@ -58,6 +59,12 @@ inline bool dominates(const value_t& a, const value_t& b) {
       result = true;
   }
   return result;
+}
+
+/// Display a value
+inline void value_display(const value_t& a, std::ostream& stream)
+{
+  stream << "(" << join(a.begin(), a.end(), ", ") << ")";
 }
 
 

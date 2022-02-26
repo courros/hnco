@@ -127,13 +127,19 @@ CommandLineApplication::manage_solutions()
   std::vector<int> pareto_fronts(solutions.size());
   pareto_front_computation.compute(pareto_fronts);
 
-  for (int i = 0; i < solutions.size(); i++) {
-    if (pareto_fronts[i] == 0) {
-      for (auto x : solutions.values[i])
-        std::cout << x << " ";
-      std::cout << std::endl;
+  // Print description
+  if (_options.with_print_description()) {
+    for (int i = 0; i < solutions.size(); i++) {
+      if (pareto_fronts[i] == 0) {
+        std::cout << "Objectives: ";
+        value_display(solutions.values[i], std::cout);
+        std::cout << std::endl;
+        _fn->describe(solutions.bvs[i], std::cout);
+        std::cout << std::endl;
+      }
     }
   }
+
 }
 
 void
