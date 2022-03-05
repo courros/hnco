@@ -42,8 +42,9 @@ namespace py = pybind11;
 using namespace hnco;
 
 PYBIND11_MAKE_OPAQUE(bit_vector_t);
+PYBIND11_MAKE_OPAQUE(permutation_t);
 PYBIND11_MAKE_OPAQUE(algorithm::solution_t);
-PYBIND11_MAKE_OPAQUE(hnco::multiobjective::function::value_t);
+PYBIND11_MAKE_OPAQUE(multiobjective::function::value_t);
 
 //
 // Iterators
@@ -138,10 +139,23 @@ public:
   void finalize()                               override { PYBIND11_OVERLOAD(void, algorithm::Algorithm, finalize, ); }
 };
 
+class AlgorithmPublicist: public algorithm::Algorithm {
+public:
+  using algorithm::Algorithm::_solution;
+  using algorithm::Algorithm::random_solution;
+  using algorithm::Algorithm::update_solution;
+};
+
 class PyIterativeAlgorithm: public algorithm::IterativeAlgorithm {
 public:
   using algorithm::IterativeAlgorithm::IterativeAlgorithm;
-  void iterate()                                override { PYBIND11_OVERLOAD_PURE(void, algorithm::IterativeAlgorithm, iterate, ); }
+  void init()           override { PYBIND11_OVERLOAD(void, algorithm::IterativeAlgorithm, init, ); }
+  void iterate()        override { PYBIND11_OVERLOAD_PURE(void, algorithm::IterativeAlgorithm, iterate, ); }
+};
+
+class IterativeAlgorithmPublicist: public algorithm::IterativeAlgorithm {
+public:
+  using algorithm::IterativeAlgorithm::init;
 };
 
 //
@@ -155,36 +169,37 @@ namespace multiobjective {
 // Function
 //
 
-class PyFunction: public function::Function {
+class PyFunction: public multiobjective::function::Function {
 public:
-  using function::Function::Function;
-  int get_bv_size() const                       override { PYBIND11_OVERLOAD_PURE(int, function::Function, get_bv_size, ); }
-  int get_output_size() const                   override { PYBIND11_OVERLOAD_PURE(int, function::Function, get_output_size, ); }
-  void evaluate(const bit_vector_t& bv, function::value_t& value)
-                                                override { PYBIND11_OVERLOAD_PURE(void, function::Function, evaluate, bv, value); }
+  using multiobjective::function::Function::Function;
+  int get_bv_size() const                       override { PYBIND11_OVERLOAD_PURE(int, multiobjective::function::Function, get_bv_size, ); }
+  int get_output_size() const                   override { PYBIND11_OVERLOAD_PURE(int, multiobjective::function::Function, get_output_size, ); }
+  void evaluate(const bit_vector_t& bv, multiobjective::function::value_t& value)
+                                                override { PYBIND11_OVERLOAD_PURE(void, multiobjective::function::Function, evaluate, bv, value); }
 };
 
 //
 // Algorithms
 //
 
-class PyAlgorithm: public algorithm::Algorithm {
+class PyAlgorithm: public multiobjective::algorithm::Algorithm {
 public:
-  using algorithm::Algorithm::Algorithm;
-  void minimize(const std::vector<function::Function *>& functions)
-                                                override { PYBIND11_OVERLOAD_PURE(void, algorithm::Algorithm, minimize, functions); }
-  const algorithm::Population& get_solutions()  override { PYBIND11_OVERLOAD_PURE(const algorithm::Population&, algorithm::Algorithm, get_solutions, ); }
-  void finalize()                               override { PYBIND11_OVERLOAD(void, algorithm::Algorithm, finalize, ); }
+  using multiobjective::algorithm::Algorithm::Algorithm;
+  void minimize(const std::vector<multiobjective::function::Function *>& functions)
+                                                override { PYBIND11_OVERLOAD_PURE(void, multiobjective::algorithm::Algorithm, minimize, functions); }
+  const multiobjective::algorithm::Population& get_solutions()
+                                                override { PYBIND11_OVERLOAD_PURE(const multiobjective::algorithm::Population&, multiobjective::algorithm::Algorithm, get_solutions, ); }
+  void finalize()                               override { PYBIND11_OVERLOAD(void, multiobjective::algorithm::Algorithm, finalize, ); }
 };
 
-class PyIterativeAlgorithm: public algorithm::IterativeAlgorithm {
+class PyIterativeAlgorithm: public multiobjective::algorithm::IterativeAlgorithm {
 public:
-  using algorithm::IterativeAlgorithm::IterativeAlgorithm;
-  void iterate()                                override { PYBIND11_OVERLOAD_PURE(void, algorithm::IterativeAlgorithm, iterate, ); }
+  using multiobjective::algorithm::IterativeAlgorithm::IterativeAlgorithm;
+  void iterate()                                override { PYBIND11_OVERLOAD_PURE(void, multiobjective::algorithm::IterativeAlgorithm, iterate, ); }
 };
 
-}
-}
+} // end of namespace multiobjective
+} // end of namespace hnco
 
 //
 // Modules
@@ -193,21 +208,26 @@ public:
 PYBIND11_MODULE(hnco, module_hnco) {
  
   py::bind_vector<bit_vector_t>(module_hnco, "BitVector")
+    .def(py::init<int>())
+    .def(py::init<int, bit_t>())
     .def("__str__",
          [](const bit_vector_t& bv) {
            std::ostringstream stream;
            bv_display(bv, stream);
            return stream.str();
          })
+    .def("random", [](bit_vector_t& bv) { bv_random(bv); })
     ;
 
   py::bind_vector<permutation_t>(module_hnco, "Permutation")
+    .def(py::init<int>())
     .def("__str__",
          [](const permutation_t& permutation) {
            std::ostringstream stream;
            perm_display(permutation, stream);
            return stream.str();
          })
+    .def("random", [](permutation_t& permutation) { perm_random(permutation); })
     ;
  
   py::class_<algorithm::solution_t>(module_hnco, "Solution")
@@ -323,7 +343,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   py::module module_map = module_hnco.def_submodule("map", "Maps");
 
   {
-    using namespace hnco::map;
+    using namespace map;
 
     py::class_<Map>(module_map, "Map")
       .def("map", &Map::map)
@@ -403,7 +423,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   //
 
   {
-    using namespace hnco::exception;
+    using namespace exception;
 
     py::register_exception<TargetReached>(module_hnco, "TargetReached");
     py::register_exception<LastEvaluation>(module_hnco, "LastEvaluation");
@@ -417,7 +437,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   py::module module_function = module_hnco.def_submodule("function", "Functions");
 
   {
-    using namespace hnco::function;
+    using namespace function;
 
     py::class_<Function, PyFunction>(module_function, "Function")
       .def(py::init<>())
@@ -653,7 +673,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
   {
     using namespace function::modifier;
-    using namespace hnco::map;
+    using namespace map;
 
     py::class_<Modifier, function::Decorator>(module_modifier, "Modifier");
 
@@ -787,13 +807,16 @@ PYBIND11_MODULE(hnco, module_hnco) {
   py::module module_algorithm = module_hnco.def_submodule("algorithm", "Algorithms");
 
   {
-    using namespace hnco::algorithm;
+    using namespace algorithm;
 
     py::class_<Algorithm, PyAlgorithm>(module_algorithm, "Algorithm")
       .def(py::init<int>())
       .def("get_solution", &Algorithm::get_solution)
       .def("maximize", &Algorithm::maximize)
       .def("finalize", &Algorithm::finalize)
+      .def("random_solution", &AlgorithmPublicist::random_solution)
+      .def("update_solution", py::overload_cast<const bit_vector_t&>(&AlgorithmPublicist::update_solution))
+      .def_readwrite("solution", &AlgorithmPublicist::_solution)
       ;
 
     py::class_<CompleteSearch, Algorithm>(module_algorithm, "CompleteSearch")
@@ -823,6 +846,8 @@ PYBIND11_MODULE(hnco, module_hnco) {
       ;
 
     py::class_<IterativeAlgorithm, Algorithm, PyIterativeAlgorithm>(module_algorithm, "IterativeAlgorithm")
+      .def(py::init<int>())
+      .def("init", &IterativeAlgorithmPublicist::init)
       .def("set_num_iterations", &IterativeAlgorithm::set_num_iterations)
       ;
 
@@ -881,7 +906,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
       ;
 
     {
-      using namespace hnco::algorithm::walsh_moment;
+      using namespace algorithm::walsh_moment;
 
       {
         using Algo = Hea<SymmetricWalshMoment2Herding>;
@@ -954,7 +979,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   py::module module_multiobjective_algorithm = module_multiobjective.def_submodule("algorithm", "Algorithms for multiobjective optimization");
 
   {
-    using namespace hnco::multiobjective::function;
+    using namespace multiobjective::function;
 
     py::bind_vector<value_t>(module_multiobjective_function, "Value")
       .def("__str__",
@@ -965,7 +990,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    py::class_<Function, hnco::multiobjective::PyFunction>(module_multiobjective_function, "Function")
+    py::class_<Function, multiobjective::PyFunction>(module_multiobjective_function, "Function")
       .def(py::init<>())
       .def("get_bv_size", &Function::get_bv_size)
       .def("get_output_size", &Function::get_output_size)
@@ -981,7 +1006,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   }
 
   {
-    using namespace hnco::multiobjective::algorithm;
+    using namespace multiobjective::algorithm;
 
     py::class_<Population>(module_multiobjective_algorithm, "Population")
       .def(py::init<int, int, int>())
@@ -990,7 +1015,14 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("evaluate", &Population::evaluate)
       ;
 
-    py::class_<IterativeAlgorithm, Algorithm, hnco::multiobjective::PyIterativeAlgorithm>(module_multiobjective_algorithm, "IterativeAlgorithm")
+    py::class_<Algorithm, multiobjective::PyAlgorithm>(module_multiobjective_algorithm, "Algorithm")
+      .def(py::init<int, int>())
+      .def("get_solutions", &Algorithm::get_solutions)
+      .def("minimize", &Algorithm::minimize)
+      .def("finalize", &Algorithm::finalize)
+      ;
+
+    py::class_<IterativeAlgorithm, Algorithm, multiobjective::PyIterativeAlgorithm>(module_multiobjective_algorithm, "IterativeAlgorithm")
       .def("set_num_iterations", &IterativeAlgorithm::set_num_iterations)
       ;
 
