@@ -284,6 +284,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 EXTRA_DIST = \
 	examples/bindings.py \
+	examples/multiobjective-function.py \
 	examples/one-max.py \
 	examples/progress-tracker.py \
 	examples/runtime.py \
