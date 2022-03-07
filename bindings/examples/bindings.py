@@ -40,7 +40,7 @@ solution = p.first
 print(solution)
 
 # Translated solution should give 11111
-output = hnco.BitVector([0 for i in range(5)])
+output = hnco.BitVector(5, 0)
 tr.map(solution, output)
 print(output)
 
