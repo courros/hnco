@@ -22,5 +22,6 @@
 #define HNCO_MULTIOBJECTIVE_FUNCTIONS_COLLECTION_ALL_H
 
 #include "parsed-multivariate-function.hh"
+#include "python-function.hh"
 
 #endif

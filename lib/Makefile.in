@@ -117,11 +117,16 @@ host_triplet = @host@
 
 @ENABLE_PYTHON_TRUE@am__append_3 = \
 @ENABLE_PYTHON_TRUE@	hnco/functions/collection/python-function.cc \
-@ENABLE_PYTHON_TRUE@	hnco/functions/collection/python-function.hh
+@ENABLE_PYTHON_TRUE@	hnco/functions/collection/python-function.hh \
+@ENABLE_PYTHON_TRUE@	hnco/multiobjective/functions/collection/python-function.cc \
+@ENABLE_PYTHON_TRUE@	hnco/multiobjective/functions/collection/python-function.hh
 
 @ENABLE_FACTORIZATION_TRUE@am__append_4 = hnco/functions/collection/factorization.hh
 @ENABLE_PLUGIN_TRUE@am__append_5 = hnco/functions/collection/plugin.hh
-@ENABLE_PYTHON_TRUE@am__append_6 = hnco/functions/collection/python-function.hh
+@ENABLE_PYTHON_TRUE@am__append_6 = \
+@ENABLE_PYTHON_TRUE@	hnco/functions/collection/python-function.hh \
+@ENABLE_PYTHON_TRUE@	hnco/multiobjective/functions/collection/python-function.hh
+
 subdir = lib
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -346,6 +351,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/multivariate-function-adapter.hh \
+	hnco/multiobjective/functions/universal-function-adapter.hh \
+	hnco/multiobjective/functions/universal-function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
@@ -364,12 +371,15 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/collection/plugin.cc \
 	hnco/functions/collection/plugin.hh \
 	hnco/functions/collection/python-function.cc \
-	hnco/functions/collection/python-function.hh
+	hnco/functions/collection/python-function.hh \
+	hnco/multiobjective/functions/collection/python-function.cc \
+	hnco/multiobjective/functions/collection/python-function.hh
 am__dirstamp = $(am__leading_dot)dirstamp
 @ENABLE_FACTORIZATION_TRUE@am__objects_1 = hnco/functions/collection/factorization.lo
 @ENABLE_PLUGIN_TRUE@am__objects_2 =  \
 @ENABLE_PLUGIN_TRUE@	hnco/functions/collection/plugin.lo
-@ENABLE_PYTHON_TRUE@am__objects_3 = hnco/functions/collection/python-function.lo
+@ENABLE_PYTHON_TRUE@am__objects_3 = hnco/functions/collection/python-function.lo \
+@ENABLE_PYTHON_TRUE@	hnco/multiobjective/functions/collection/python-function.lo
 am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	fast-efficient-p3/Evaluation.lo fast-efficient-p3/HBOA.lo \
 	fast-efficient-p3/HillCimb.lo fast-efficient-p3/LTGA.lo \
@@ -556,6 +566,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/multiobjective/app/$(DEPDIR)/application.Plo \
 	hnco/multiobjective/app/$(DEPDIR)/function-factory.Plo \
 	hnco/multiobjective/app/$(DEPDIR)/hnco-mo-options.Plo \
+	hnco/multiobjective/functions/collection/$(DEPDIR)/python-function.Plo \
 	hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo \
 	hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
 am__mv = mv -f
@@ -710,6 +721,8 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/multivariate-function-adapter.hh \
+	hnco/multiobjective/functions/universal-function-adapter.hh \
+	hnco/multiobjective/functions/universal-function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
@@ -721,7 +734,8 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
 	hnco/functions/collection/factorization.hh \
 	hnco/functions/collection/plugin.hh \
-	hnco/functions/collection/python-function.hh
+	hnco/functions/collection/python-function.hh \
+	hnco/multiobjective/functions/collection/python-function.hh
 HEADERS = $(nobase_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
@@ -1066,6 +1080,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/multivariate-function-adapter.hh \
+	hnco/multiobjective/functions/universal-function-adapter.hh \
+	hnco/multiobjective/functions/universal-function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
@@ -1188,6 +1204,8 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/multivariate-function-adapter.hh \
+	hnco/multiobjective/functions/universal-function-adapter.hh \
+	hnco/multiobjective/functions/universal-function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh hnco/permutation.hh \
@@ -1650,6 +1668,15 @@ hnco/functions/collection/plugin.lo:  \
 hnco/functions/collection/python-function.lo:  \
 	hnco/functions/collection/$(am__dirstamp) \
 	hnco/functions/collection/$(DEPDIR)/$(am__dirstamp)
+hnco/multiobjective/functions/collection/$(am__dirstamp):
+	@$(MKDIR_P) hnco/multiobjective/functions/collection
+	@: > hnco/multiobjective/functions/collection/$(am__dirstamp)
+hnco/multiobjective/functions/collection/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/multiobjective/functions/collection/$(DEPDIR)
+	@: > hnco/multiobjective/functions/collection/$(DEPDIR)/$(am__dirstamp)
+hnco/multiobjective/functions/collection/python-function.lo:  \
+	hnco/multiobjective/functions/collection/$(am__dirstamp) \
+	hnco/multiobjective/functions/collection/$(DEPDIR)/$(am__dirstamp)
 
 libhnco.la: $(libhnco_la_OBJECTS) $(libhnco_la_DEPENDENCIES) $(EXTRA_libhnco_la_DEPENDENCIES) 
 	$(AM_V_CXXLD)$(CXXLINK) -rpath $(libdir) $(libhnco_la_OBJECTS) $(libhnco_la_LIBADD) $(LIBS)
@@ -1698,6 +1725,8 @@ mostlyclean-compile:
 	-rm -f hnco/multiobjective/algorithms/*.lo
 	-rm -f hnco/multiobjective/app/*.$(OBJEXT)
 	-rm -f hnco/multiobjective/app/*.lo
+	-rm -f hnco/multiobjective/functions/collection/*.$(OBJEXT)
+	-rm -f hnco/multiobjective/functions/collection/*.lo
 	-rm -f hnco/neighborhoods/*.$(OBJEXT)
 	-rm -f hnco/neighborhoods/*.lo
 
@@ -1797,6 +1826,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/app/$(DEPDIR)/application.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/app/$(DEPDIR)/function-factory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/app/$(DEPDIR)/hnco-mo-options.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/functions/collection/$(DEPDIR)/python-function.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo@am__quote@ # am--include-marker
 
@@ -1880,6 +1910,7 @@ clean-libtool:
 	-rm -rf hnco/maps/.libs hnco/maps/_libs
 	-rm -rf hnco/multiobjective/algorithms/.libs hnco/multiobjective/algorithms/_libs
 	-rm -rf hnco/multiobjective/app/.libs hnco/multiobjective/app/_libs
+	-rm -rf hnco/multiobjective/functions/collection/.libs hnco/multiobjective/functions/collection/_libs
 	-rm -rf hnco/neighborhoods/.libs hnco/neighborhoods/_libs
 install-nobase_includeHEADERS: $(nobase_include_HEADERS)
 	@$(NORMAL_INSTALL)
@@ -2068,6 +2099,8 @@ distclean-generic:
 	-rm -f hnco/multiobjective/algorithms/$(am__dirstamp)
 	-rm -f hnco/multiobjective/app/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/multiobjective/app/$(am__dirstamp)
+	-rm -f hnco/multiobjective/functions/collection/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/multiobjective/functions/collection/$(am__dirstamp)
 	-rm -f hnco/neighborhoods/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/neighborhoods/$(am__dirstamp)
 
@@ -2174,6 +2207,7 @@ distclean: distclean-am
 	-rm -f hnco/multiobjective/app/$(DEPDIR)/application.Plo
 	-rm -f hnco/multiobjective/app/$(DEPDIR)/function-factory.Plo
 	-rm -f hnco/multiobjective/app/$(DEPDIR)/hnco-mo-options.Plo
+	-rm -f hnco/multiobjective/functions/collection/$(DEPDIR)/python-function.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
 	-rm -f Makefile
@@ -2314,6 +2348,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/multiobjective/app/$(DEPDIR)/application.Plo
 	-rm -f hnco/multiobjective/app/$(DEPDIR)/function-factory.Plo
 	-rm -f hnco/multiobjective/app/$(DEPDIR)/hnco-mo-options.Plo
+	-rm -f hnco/multiobjective/functions/collection/$(DEPDIR)/python-function.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood-iterator.Plo
 	-rm -f hnco/neighborhoods/$(DEPDIR)/neighborhood.Plo
 	-rm -f Makefile

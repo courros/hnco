@@ -20,14 +20,13 @@
 
 #include <assert.h>
 
-#include "hnco/exception.hh"
-
 #include "python-function.hh"
 
 
 namespace py = pybind11;
 
-using namespace hnco::function;
+using namespace hnco::multiobjective::function;
+
 
 PythonFunction::PythonFunction(std::string path, std::string name)
 {
@@ -49,7 +48,16 @@ PythonFunction::get_bv_size() const
   return _function->get_bv_size();
 }
 
-double PythonFunction::evaluate(const bit_vector_t& bv)
+int
+PythonFunction::get_output_size() const
 {
-  return _function->evaluate(bv);
+  return _function->get_output_size();
+}
+
+void
+PythonFunction::evaluate(const bit_vector_t& bv, value_t& value)
+{
+  assert(int(value.size()) == get_output_size());
+
+  _function->evaluate(bv, value);
 }

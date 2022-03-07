@@ -18,16 +18,19 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_UNIVERSAL_FUNCTION_H
-#define HNCO_FUNCTIONS_UNIVERSAL_FUNCTION_H
+#ifndef HNCO_MULTIOBJECTIVE_FUNCTIONS_UNIVERSAL_FUNCTION_H
+#define HNCO_MULTIOBJECTIVE_FUNCTIONS_UNIVERSAL_FUNCTION_H
 
 #include <iostream>
 
 #include "hnco/bit-vector.hh"
 #include "hnco/permutation.hh"
 
+#include "value.hh"
+
 
 namespace hnco {
+namespace multiobjective {
 namespace function {
 
 /** Universal function.
@@ -43,13 +46,17 @@ public:
   /// Destructor
   virtual ~UniversalFunction() {}
 
+  /// Get output size (number of objectives)
+  virtual int get_output_size() const = 0;
+
   /// Evaluate the function
-  virtual double evaluate(const bit_vector_t& boolean_vars,
-                          const std::vector<int>& integer_vars,
-                          const std::vector<double>& float_vars,
-                          const std::vector<std::complex<double>>& complex_vars,
-                          const std::vector<int>& categorical_vars,
-                          const std::vector<permutation_t> permutation_vars) = 0;
+  virtual void evaluate(const bit_vector_t& boolean_vars,
+                        const std::vector<int>& integer_vars,
+                        const std::vector<double>& float_vars,
+                        const std::vector<std::complex<double>>& complex_vars,
+                        const std::vector<int>& categorical_vars,
+                        const std::vector<permutation_t> permutation_vars,
+                        value_t& value) = 0;
 
   /// Display the function
   virtual void display(std::ostream& stream) const {}
@@ -67,6 +74,7 @@ public:
 };
 
 } // end of namespace function
+} // end of namespace multiobjective
 } // end of namespace hnco
 
 

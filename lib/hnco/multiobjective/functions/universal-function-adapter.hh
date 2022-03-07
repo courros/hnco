@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_UNVERSAL_FUNCTION_ADAPTER_H
-#define HNCO_FUNCTIONS_UNVERSAL_FUNCTION_ADAPTER_H
+#ifndef HNCO_MULTIOBJECTIVE_FUNCTIONS_UNVERSAL_FUNCTION_ADAPTER_H
+#define HNCO_MULTIOBJECTIVE_FUNCTIONS_UNVERSAL_FUNCTION_ADAPTER_H
 
 #include <assert.h>
 
@@ -34,6 +34,7 @@
 
 
 namespace hnco {
+namespace multiobjective {
 namespace function {
 
 /** Universal function adapter.
@@ -171,10 +172,13 @@ public:
   /// Get bit vector size
   int get_bv_size() const override { return _bv_size; }
 
+  /// Get output size (number of objectives)
+  int get_output_size() const { return _function->get_output_size(); }
+
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t& bv) override {
+  void evaluate(const bit_vector_t& bv, value_t& value) override {
     unpack(bv);
-    return _function->evaluate(_boolean_vars, _integer_vars, _float_vars, _complex_vars, _categorical_vars, _permutation_vars);
+    _function->evaluate(_boolean_vars, _integer_vars, _float_vars, _complex_vars, _categorical_vars, _permutation_vars, value);
   }
 
   /// Display
@@ -253,6 +257,7 @@ public:
 };
 
 } // end of namespace function
+} // end of namespace multiobjective
 } // end of namespace hnco
 
 

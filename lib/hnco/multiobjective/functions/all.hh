@@ -24,6 +24,8 @@
 #include "collection/all.hh"
 #include "function.hh"
 #include "multivariate-function-adapter.hh"
+#include "universal-function-adapter.hh"
+#include "universal-function.hh"
 #include "value.hh"
 
 #endif

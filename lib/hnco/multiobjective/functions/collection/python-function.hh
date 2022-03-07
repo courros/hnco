@@ -18,17 +18,18 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_COLLECTION_PYTHON_H
-#define HNCO_FUNCTIONS_COLLECTION_PYTHON_H
+#ifndef HNCO_MULTIOBJECTIVE_FUNCTIONS_COLLECTION_PYTHON_H
+#define HNCO_MULTIOBJECTIVE_FUNCTIONS_COLLECTION_PYTHON_H
 
 #include <string>
 
 #include <pybind11/embed.h>
 
-#include "hnco/functions/function.hh"
+#include "hnco/multiobjective/functions/function.hh"
 
 
 namespace hnco {
+namespace multiobjective {
 namespace function {
 
 
@@ -44,8 +45,7 @@ namespace function {
     define a derived class that inherits Function and an instance of
     it.
 */
-class PythonFunction:
-    public Function {
+class PythonFunction: public Function {
 
   /// Module
   pybind11::object _scope;
@@ -68,13 +68,17 @@ public:
   /// Get bit vector size
   int get_bv_size() const;
 
+  /// Get output size (number of objectives)
+  int get_output_size() const;
+
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&);
+  void evaluate(const bit_vector_t& bv, value_t& value);
 
 };
 
 
 } // end of namespace function
+} // end of namespace multiobjective
 } // end of namespace hnco
 
 

@@ -69,7 +69,7 @@ public:
       vector, it might require some data member to store temporary
       results. In case of parallel evaluation, there should be a copy
       of the function per thread, as is done in
-      CandidateSet::evaluate_in_parallel().
+      Population::evaluate_in_parallel().
 
       \param bv Bit vector to evaluate
       \param value Output value

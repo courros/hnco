@@ -104,59 +104,89 @@ public:
 // Functions
 //
 
-class PyFunction: public function::Function {
+namespace hnco {
+namespace function {
+
+class PyFunction: public Function {
 public:
-  using function::Function::Function;
-  int get_bv_size() const                       override { PYBIND11_OVERLOAD_PURE(int, function::Function, get_bv_size, ); }
-  double evaluate(const bit_vector_t& x)        override { PYBIND11_OVERLOAD_PURE(double, function::Function, evaluate, x); }
-  double get_maximum() const                    override { PYBIND11_OVERLOAD(double, function::Function, get_maximum, ); }
-  bool has_known_maximum() const                override { PYBIND11_OVERLOAD(bool, function::Function, has_known_maximum, ); }
-  bool provides_incremental_evaluation() const  override { PYBIND11_OVERLOAD(bool, function::Function, provides_incremental_evaluation, ); }
+  using Function::Function;
+  int get_bv_size() const override {
+    PYBIND11_OVERLOAD_PURE(int, Function, get_bv_size, );
+  }
+  double evaluate(const bit_vector_t& x) override {
+    PYBIND11_OVERLOAD_PURE(double, Function, evaluate, x);
+  }
+  double get_maximum() const override {
+    PYBIND11_OVERLOAD(double, Function, get_maximum, );
+  }
+  bool has_known_maximum() const override {
+    PYBIND11_OVERLOAD(bool, Function, has_known_maximum, );
+  }
+  bool provides_incremental_evaluation() const override {
+    PYBIND11_OVERLOAD(bool, Function, provides_incremental_evaluation, );
+  }
 };
 
-class PyUniversalFunction: public function::UniversalFunction {
+class PyUniversalFunction: public UniversalFunction {
 public:
-  using function::UniversalFunction::UniversalFunction;
+  using UniversalFunction::UniversalFunction;
   double evaluate(const bit_vector_t& boolean_vars,
                   const std::vector<int>& integer_vars,
                   const std::vector<double>& float_vars,
                   const std::vector<std::complex<double>>& complex_vars,
                   const std::vector<int>& categorical_vars,
-                  const std::vector<permutation_t> permutation_vars)
-                                                override { PYBIND11_OVERLOAD_PURE(double, function::UniversalFunction, evaluate,
-                                                                                  boolean_vars, integer_vars, float_vars, complex_vars, categorical_vars, permutation_vars); }
+                  const std::vector<permutation_t> permutation_vars) override {
+    PYBIND11_OVERLOAD_PURE(double, UniversalFunction, evaluate,
+                           boolean_vars, integer_vars, float_vars, complex_vars, categorical_vars, permutation_vars);
+  }
 };
+
+} // end of namespace function
+} // end of namespace hnco
 
 //
 // Algorithms
 //
 
-class PyAlgorithm: public algorithm::Algorithm {
+namespace hnco {
+namespace algorithm {
+
+class PyAlgorithm: public Algorithm {
 public:
-  using algorithm::Algorithm::Algorithm;
-  void maximize(const std::vector<function::Function *>& functions)
-                                                override { PYBIND11_OVERLOAD_PURE(void, algorithm::Algorithm, maximize, functions); }
-  void finalize()                               override { PYBIND11_OVERLOAD(void, algorithm::Algorithm, finalize, ); }
+  using Algorithm::Algorithm;
+  void maximize(const std::vector<function::Function *>& functions) override {
+    PYBIND11_OVERLOAD_PURE(void, Algorithm, maximize, functions);
+  }
+  void finalize() override {
+    PYBIND11_OVERLOAD(void, Algorithm, finalize, );
+  }
 };
 
-class AlgorithmPublicist: public algorithm::Algorithm {
+class AlgorithmPublicist: public Algorithm {
 public:
-  using algorithm::Algorithm::_solution;
-  using algorithm::Algorithm::random_solution;
-  using algorithm::Algorithm::update_solution;
+  using Algorithm::_solution;
+  using Algorithm::random_solution;
+  using Algorithm::update_solution;
 };
 
-class PyIterativeAlgorithm: public algorithm::IterativeAlgorithm {
+class PyIterativeAlgorithm: public IterativeAlgorithm {
 public:
-  using algorithm::IterativeAlgorithm::IterativeAlgorithm;
-  void init()           override { PYBIND11_OVERLOAD(void, algorithm::IterativeAlgorithm, init, ); }
-  void iterate()        override { PYBIND11_OVERLOAD_PURE(void, algorithm::IterativeAlgorithm, iterate, ); }
+  using IterativeAlgorithm::IterativeAlgorithm;
+  void init() override {
+    PYBIND11_OVERLOAD(void, IterativeAlgorithm, init, );
+  }
+  void iterate() override {
+    PYBIND11_OVERLOAD_PURE(void, IterativeAlgorithm, iterate, );
+  }
 };
 
-class IterativeAlgorithmPublicist: public algorithm::IterativeAlgorithm {
+class IterativeAlgorithmPublicist: public IterativeAlgorithm {
 public:
-  using algorithm::IterativeAlgorithm::init;
+  using IterativeAlgorithm::init;
 };
+
+} // end of namespace algorithm
+} // end of namespace hnco
 
 //
 // Multiobjective
@@ -164,40 +194,71 @@ public:
 
 namespace hnco {
 namespace multiobjective {
+namespace function {
 
-//
-// Function
-//
-
-class PyFunction: public multiobjective::function::Function {
+class PyFunction: public Function {
 public:
-  using multiobjective::function::Function::Function;
-  int get_bv_size() const                       override { PYBIND11_OVERLOAD_PURE(int, multiobjective::function::Function, get_bv_size, ); }
-  int get_output_size() const                   override { PYBIND11_OVERLOAD_PURE(int, multiobjective::function::Function, get_output_size, ); }
-  void evaluate(const bit_vector_t& bv, multiobjective::function::value_t& value)
-                                                override { PYBIND11_OVERLOAD_PURE(void, multiobjective::function::Function, evaluate, bv, value); }
+  using Function::Function;
+  int get_bv_size() const override {
+    PYBIND11_OVERLOAD_PURE(int, Function, get_bv_size, );
+  }
+  int get_output_size() const override {
+    PYBIND11_OVERLOAD_PURE(int, Function, get_output_size, );
+  }
+  void evaluate(const bit_vector_t& bv, value_t& value) override {
+    PYBIND11_OVERLOAD_PURE(void, Function, evaluate, bv, &value);
+  }
 };
 
-//
-// Algorithms
-//
-
-class PyAlgorithm: public multiobjective::algorithm::Algorithm {
+class PyUniversalFunction: public UniversalFunction {
 public:
-  using multiobjective::algorithm::Algorithm::Algorithm;
-  void minimize(const std::vector<multiobjective::function::Function *>& functions)
-                                                override { PYBIND11_OVERLOAD_PURE(void, multiobjective::algorithm::Algorithm, minimize, functions); }
-  const multiobjective::algorithm::Population& get_solutions()
-                                                override { PYBIND11_OVERLOAD_PURE(const multiobjective::algorithm::Population&, multiobjective::algorithm::Algorithm, get_solutions, ); }
-  void finalize()                               override { PYBIND11_OVERLOAD(void, multiobjective::algorithm::Algorithm, finalize, ); }
+  using UniversalFunction::UniversalFunction;
+  int get_output_size() const override {
+    PYBIND11_OVERLOAD_PURE(int, UniversalFunction, get_output_size, );
+  }
+  void evaluate(const bit_vector_t& boolean_vars,
+                const std::vector<int>& integer_vars,
+                const std::vector<double>& float_vars,
+                const std::vector<std::complex<double>>& complex_vars,
+                const std::vector<int>& categorical_vars,
+                const std::vector<permutation_t> permutation_vars,
+                value_t& value) override {
+    PYBIND11_OVERLOAD_PURE(void, UniversalFunction, evaluate,
+                           boolean_vars, integer_vars, float_vars, complex_vars, categorical_vars, permutation_vars, &value);
+  }
 };
 
-class PyIterativeAlgorithm: public multiobjective::algorithm::IterativeAlgorithm {
+} // end of namespace function
+} // end of namespace multiobjective
+} // end of namespace hnco
+
+namespace hnco {
+namespace multiobjective {
+namespace algorithm {
+
+class PyAlgorithm: public Algorithm {
 public:
-  using multiobjective::algorithm::IterativeAlgorithm::IterativeAlgorithm;
-  void iterate()                                override { PYBIND11_OVERLOAD_PURE(void, multiobjective::algorithm::IterativeAlgorithm, iterate, ); }
+  using Algorithm::Algorithm;
+  void minimize(const std::vector<function::Function *>& functions) override {
+    PYBIND11_OVERLOAD_PURE(void, Algorithm, minimize, functions);
+  }
+  const Population& get_solutions() override {
+    PYBIND11_OVERLOAD_PURE(const Population&, Algorithm, get_solutions, );
+  }
+  void finalize() override {
+    PYBIND11_OVERLOAD(void, Algorithm, finalize, );
+  }
 };
 
+class PyIterativeAlgorithm: public IterativeAlgorithm {
+public:
+  using IterativeAlgorithm::IterativeAlgorithm;
+  void iterate() override {
+    PYBIND11_OVERLOAD_PURE(void, IterativeAlgorithm, iterate, );
+  }
+};
+
+} // end of namespace algorithm
 } // end of namespace multiobjective
 } // end of namespace hnco
 
@@ -616,6 +677,34 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     py::class_<Decorator, Function>(module_function, "Decorator");
 
+    using namespace representation;
+
+    using IntegerRep = DyadicIntegerRepresentation<int>;
+    using FloatRep = DyadicFloatRepresentation<double>;
+    using ComplexRep = DyadicComplexRepresentation<double>;
+
+    py::class_<UniversalFunctionAdapter, Function>(module_function, "UniversalFunctionAdapter")
+      .def(py::init<
+           UniversalFunction *,
+           int,
+           std::vector<IntegerRep>,
+           std::vector<FloatRep>,
+           std::vector<ComplexRep>,
+           std::vector<LinearCategoricalRepresentation>,
+           std::vector<PermutationRepresentation>>())
+      ;
+
+    py::class_<UniversalFunction, PyUniversalFunction>(module_function, "UniversalFunction")
+      .def(py::init<>())
+      .def("evaluate", &UniversalFunction::evaluate)
+      .def("__str__",
+           [](UniversalFunction& fn) {
+             std::ostringstream stream;
+             fn.display(stream);
+             return stream.str();
+           })
+      ;
+
   }
 
   //
@@ -772,28 +861,6 @@ PYBIND11_MODULE(hnco, module_hnco) {
            [](const PermutationRepresentation& rep) {
              std::ostringstream stream;
              rep.display(stream);
-             return stream.str();
-           })
-      ;
-
-    py::class_<UniversalFunctionAdapter, Function>(module_function, "UniversalFunctionAdapter")
-      .def(py::init<
-           UniversalFunction *,
-           int,
-           std::vector<IntegerRep>,
-           std::vector<FloatRep>,
-           std::vector<ComplexRep>,
-           std::vector<LinearCategoricalRepresentation>,
-           std::vector<PermutationRepresentation>>())
-      ;
-
-    py::class_<UniversalFunction, PyUniversalFunction>(module_function, "UniversalFunction")
-      .def(py::init<>())
-      .def("evaluate", &UniversalFunction::evaluate)
-      .def("__str__",
-           [](UniversalFunction& fn) {
-             std::ostringstream stream;
-             fn.display(stream);
              return stream.str();
            })
       ;
@@ -982,6 +1049,8 @@ PYBIND11_MODULE(hnco, module_hnco) {
     using namespace multiobjective::function;
 
     py::bind_vector<value_t>(module_multiobjective_function, "Value")
+      .def(py::init<int>())
+      .def(py::init<int, double>())
       .def("__str__",
            [](const value_t& value) {
              std::ostringstream stream;
@@ -990,13 +1059,41 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    py::class_<Function, multiobjective::PyFunction>(module_multiobjective_function, "Function")
+    py::class_<Function, multiobjective::function::PyFunction>(module_multiobjective_function, "Function")
       .def(py::init<>())
       .def("get_bv_size", &Function::get_bv_size)
       .def("get_output_size", &Function::get_output_size)
       .def("evaluate", &Function::evaluate)
       .def("__str__",
            [](Function& fn) {
+             std::ostringstream stream;
+             fn.display(stream);
+             return stream.str();
+           })
+      ;
+
+    using namespace representation;
+
+    using IntegerRep = DyadicIntegerRepresentation<int>;
+    using FloatRep = DyadicFloatRepresentation<double>;
+    using ComplexRep = DyadicComplexRepresentation<double>;
+
+    py::class_<UniversalFunctionAdapter, Function>(module_multiobjective_function, "UniversalFunctionAdapter")
+      .def(py::init<
+           UniversalFunction *,
+           int,
+           std::vector<IntegerRep>,
+           std::vector<FloatRep>,
+           std::vector<ComplexRep>,
+           std::vector<LinearCategoricalRepresentation>,
+           std::vector<PermutationRepresentation>>())
+      ;
+
+    py::class_<UniversalFunction, PyUniversalFunction>(module_multiobjective_function, "UniversalFunction")
+      .def(py::init<>())
+      .def("evaluate", &UniversalFunction::evaluate)
+      .def("__str__",
+           [](UniversalFunction& fn) {
              std::ostringstream stream;
              fn.display(stream);
              return stream.str();
@@ -1015,14 +1112,14 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("evaluate", &Population::evaluate)
       ;
 
-    py::class_<Algorithm, multiobjective::PyAlgorithm>(module_multiobjective_algorithm, "Algorithm")
+    py::class_<Algorithm, multiobjective::algorithm::PyAlgorithm>(module_multiobjective_algorithm, "Algorithm")
       .def(py::init<int, int>())
       .def("get_solutions", &Algorithm::get_solutions)
       .def("minimize", &Algorithm::minimize)
       .def("finalize", &Algorithm::finalize)
       ;
 
-    py::class_<IterativeAlgorithm, Algorithm, multiobjective::PyIterativeAlgorithm>(module_multiobjective_algorithm, "IterativeAlgorithm")
+    py::class_<IterativeAlgorithm, Algorithm, multiobjective::algorithm::PyIterativeAlgorithm>(module_multiobjective_algorithm, "IterativeAlgorithm")
       .def("set_num_iterations", &IterativeAlgorithm::set_num_iterations)
       ;
 

@@ -242,6 +242,8 @@ libhnco_la_SOURCES = \
 	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/multivariate-function-adapter.hh \
+	hnco/multiobjective/functions/universal-function-adapter.hh \
+	hnco/multiobjective/functions/universal-function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.cc \
 	hnco/neighborhoods/neighborhood-iterator.hh \
@@ -278,7 +280,9 @@ endif
 if ENABLE_PYTHON
 libhnco_la_SOURCES += \
 	hnco/functions/collection/python-function.cc \
-	hnco/functions/collection/python-function.hh
+	hnco/functions/collection/python-function.hh \
+	hnco/multiobjective/functions/collection/python-function.cc \
+	hnco/multiobjective/functions/collection/python-function.hh
 endif
 
 nobase_include_HEADERS = \
@@ -415,6 +419,8 @@ nobase_include_HEADERS = \
 	hnco/multiobjective/functions/collection/parsed-multivariate-function.hh \
 	hnco/multiobjective/functions/function.hh \
 	hnco/multiobjective/functions/multivariate-function-adapter.hh \
+	hnco/multiobjective/functions/universal-function-adapter.hh \
+	hnco/multiobjective/functions/universal-function.hh \
 	hnco/multiobjective/functions/value.hh \
 	hnco/neighborhoods/neighborhood-iterator.hh \
 	hnco/neighborhoods/neighborhood.hh \
@@ -440,7 +446,9 @@ nobase_include_HEADERS += hnco/functions/collection/plugin.hh
 endif
 
 if ENABLE_PYTHON
-nobase_include_HEADERS += hnco/functions/collection/python-function.hh
+nobase_include_HEADERS += \
+	hnco/functions/collection/python-function.hh \
+	hnco/multiobjective/functions/collection/python-function.hh
 endif
 
 BUILT_SOURCES = \
