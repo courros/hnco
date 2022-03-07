@@ -5,6 +5,7 @@ import hnco.function.controller as ctrl
 import hnco.function.modifier as mod
 import hnco.map as map
 import hnco.representation as rep
+
 from hnco.random import Generator
 
 # OneMax with 5 bits

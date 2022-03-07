@@ -1,8 +1,9 @@
 import hnco
 
-from hnco import function as fn
-from hnco import algorithm as algo
-from hnco.function import controller as ctrl
+import hnco.algorithm as algo
+import hnco.function as fn
+import hnco.function.controller as ctrl
+
 from hnco.random import Generator
 
 Generator.set_seed()
