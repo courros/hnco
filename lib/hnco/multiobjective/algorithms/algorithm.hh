@@ -100,17 +100,6 @@ public:
   /// Minimize
   virtual void minimize(const std::vector<Function *>& functions) = 0;
 
-  /** Finalize.
-
-      Does nothing.
-
-      It is usually overridden by algorithms which do not keep their
-      solution up-to-date. In case _function throws a LastEvaluation
-      exception, the algorithm might leave its solution in an
-      undefined state. This can be fixed in this member function.
-  */
-  virtual void finalize() {}
-
   /// Get solutions
   virtual const Population& get_solutions() = 0;
 

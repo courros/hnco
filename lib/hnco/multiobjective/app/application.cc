@@ -118,7 +118,6 @@ CommandLineApplication::minimize()
   stop_watch.start();
 
   _algorithm->minimize(_fns);
-  _algorithm->finalize();
 
   stop_watch.stop();
 

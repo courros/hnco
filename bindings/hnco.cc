@@ -245,9 +245,6 @@ public:
   const Population& get_solutions() override {
     PYBIND11_OVERLOAD_PURE(const Population&, Algorithm, get_solutions, );
   }
-  void finalize() override {
-    PYBIND11_OVERLOAD(void, Algorithm, finalize, );
-  }
 };
 
 class PyIterativeAlgorithm: public IterativeAlgorithm {
@@ -1110,13 +1107,14 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("size", &Population::size)
       .def("random", &Population::random)
       .def("evaluate", &Population::evaluate)
+      .def_readwrite("bvs", &Population::bvs)
+      .def_readwrite("values", &Population::values)
       ;
 
     py::class_<Algorithm, multiobjective::algorithm::PyAlgorithm>(module_multiobjective_algorithm, "Algorithm")
       .def(py::init<int, int>())
       .def("get_solutions", &Algorithm::get_solutions)
       .def("minimize", &Algorithm::minimize)
-      .def("finalize", &Algorithm::finalize)
       ;
 
     py::class_<IterativeAlgorithm, Algorithm, multiobjective::algorithm::PyIterativeAlgorithm>(module_multiobjective_algorithm, "IterativeAlgorithm")
