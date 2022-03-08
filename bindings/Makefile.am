@@ -19,6 +19,7 @@
 EXTRA_DIST = \
 	examples/bindings.py \
 	examples/multiobjective-function.py \
+	examples/multiobjective-universal-function.py \
 	examples/one-max.py \
 	examples/progress-tracker.py \
 	examples/runtime.py \
