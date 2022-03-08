@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_MULTIOBJECTIVE_ALGORITHMS_CANDIDATE_SET_H
-#define HNCO_MULTIOBJECTIVE_ALGORITHMS_CANDIDATE_SET_H
+#ifndef HNCO_MULTIOBJECTIVE_ALGORITHMS_POPULATION_H
+#define HNCO_MULTIOBJECTIVE_ALGORITHMS_POPULATION_H
 
 #include "hnco/multiobjective/functions/function.hh"
 
@@ -61,18 +61,18 @@ struct Population {
       throw std::runtime_error("multiobjective::Population::Population: num_objectives size must be positive");
   }
 
-  /// Get the size of the candidate set
+  /// Get the population size
   int size() const { return bvs.size(); }
 
-  /// Sample a random candidate set
+  /// Sample a random population
   void random();
 
-  /** Evaluate a candidate set.
+  /** Evaluate a population.
 
    */
   void evaluate(Function *function);
 
-  /** Evaluate a candidate set in parallel.
+  /** Evaluate a population in parallel.
 
    */
   void evaluate_in_parallel(const std::vector<Function *>& functions);
