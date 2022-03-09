@@ -27,9 +27,6 @@ using namespace hnco::multiobjective::algorithm;
 void
 IterativeAlgorithm::loop()
 {
-  if (_num_iterations <= 0)
-    return;
-
   init();
   _last_iteration = false;
   for (_iteration = 0; _iteration < _num_iterations; _iteration++) {
