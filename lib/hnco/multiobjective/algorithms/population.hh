@@ -21,6 +21,8 @@
 #ifndef HNCO_MULTIOBJECTIVE_ALGORITHMS_POPULATION_H
 #define HNCO_MULTIOBJECTIVE_ALGORITHMS_POPULATION_H
 
+#include <assert.h>
+
 #include "hnco/multiobjective/functions/function.hh"
 
 
@@ -44,6 +46,9 @@ struct Population {
   /// Values
   std::vector<value_t> values;
 
+  /// Default constructor
+  Population() = default;
+
   /** Constructor.
       \param population_size %Population size
       \param n Size of bit vectors
@@ -63,6 +68,26 @@ struct Population {
 
   /// Get the population size
   int size() const { return bvs.size(); }
+
+  /** Resize.
+
+      \param population_size %Population size
+      \param n Size of bit vectors
+      \param num_objectives Number of objectives
+  */
+  void resize(int population_size, int n, int num_objectives) {
+    assert(population_size > 0);
+
+    const int old_size = size();
+    bvs.resize(population_size);
+    values.resize(population_size);
+    if (population_size > old_size) {
+      for (int i = old_size; i < population_size; i++) {
+        bvs[i] = bit_vector_t(n);
+        values[i] = value_t(num_objectives);
+      }
+    }
+  }
 
   /// Sample a random population
   void random();
