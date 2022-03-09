@@ -80,4 +80,7 @@ a = algo.Nsga2(ufa.get_bv_size(), ufa.get_output_size(), 100)
 
 a.set_num_iterations(200)
 a.minimize([ufa])
-a.finalize()
+
+solutions = a.get_solutions()
+for bv in solutions.bvs:
+    ufa.describe(bv)

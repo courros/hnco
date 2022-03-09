@@ -1069,6 +1069,8 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
+    module_multiobjective_function.def("bv_describe", [](const bit_vector_t& bv, multiobjective::function::Function *fn) { fn->describe(bv, std::cout); }, "Describe a bit vector in the context of a function");
+
     using namespace representation;
 
     using IntegerRep = DyadicIntegerRepresentation<int>;
@@ -1113,7 +1115,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     py::class_<Algorithm, multiobjective::algorithm::PyAlgorithm>(module_multiobjective_algorithm, "Algorithm")
       .def(py::init<int, int>())
-      .def("get_solutions", &Algorithm::get_solutions)
+      .def("get_solutions", &Algorithm::get_solutions, py::return_value_policy::reference)
       .def("minimize", &Algorithm::minimize)
       ;
 
