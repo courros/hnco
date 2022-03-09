@@ -65,6 +65,9 @@ protected:
   /// Log
   virtual void log() {}
 
+  /// Finalize
+  virtual void finalize() {}
+
   /** Loop.
 
       Calls init() then enter the main loop which, at each iteration,

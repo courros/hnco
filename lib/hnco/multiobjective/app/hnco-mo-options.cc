@@ -345,7 +345,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Type of algorithm" << std::endl;
   stream << "            1400: NGSA-II" << std::endl;
   stream << "  -i, --num-iterations (type int, default to 100)" << std::endl;
-  stream << "          Number of iterations (<= 0 means indefinite)" << std::endl;
+  stream << "          Number of iterations" << std::endl;
   stream << std::endl;
   stream  << "Additional Sections" << std::endl;
   stream << "      --help-fp" << std::endl;

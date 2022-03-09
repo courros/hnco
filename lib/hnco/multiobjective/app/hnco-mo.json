@@ -311,7 +311,7 @@
             "optchar": "i",
             "type": "int",
             "value": 100,
-            "description": "Number of iterations (<= 0 means indefinite)",
+            "description": "Number of iterations",
             "section": "alg"
         },
 

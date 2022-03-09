@@ -73,7 +73,7 @@ class HncoOptions {
   int _function;
   bool _opt_function;
 
-  /// Number of iterations (<= 0 means indefinite)
+  /// Number of iterations
   int _num_iterations;
   bool _opt_num_iterations;
 

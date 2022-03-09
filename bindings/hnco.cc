@@ -250,9 +250,9 @@ public:
 class PyIterativeAlgorithm: public IterativeAlgorithm {
 public:
   using IterativeAlgorithm::IterativeAlgorithm;
-  void iterate() override {
-    PYBIND11_OVERLOAD_PURE(void, IterativeAlgorithm, iterate, );
-  }
+  void init() override { PYBIND11_OVERLOAD(void, IterativeAlgorithm, init, ); }
+  void finalize() override { PYBIND11_OVERLOAD(void, IterativeAlgorithm, finalize, ); }
+  void iterate() override { PYBIND11_OVERLOAD_PURE(void, IterativeAlgorithm, iterate, ); }
 };
 
 } // end of namespace algorithm

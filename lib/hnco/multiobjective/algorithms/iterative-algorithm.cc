@@ -27,25 +27,19 @@ using namespace hnco::multiobjective::algorithm;
 void
 IterativeAlgorithm::loop()
 {
+  if (_num_iterations <= 0)
+    return;
+
   init();
   _last_iteration = false;
-  if (_num_iterations > 0) {
-    for (_iteration = 0; _iteration < _num_iterations; _iteration++) {
-      if (_last_iteration)
-        break;
-      iterate();
-      if (_something_to_log)
-        log();
-    }
-  } else {
-    for (_iteration = 0;; _iteration++) {
-      if (_last_iteration)
-        break;
-      iterate();
-      if (_something_to_log)
-        log();
-    }
+  for (_iteration = 0; _iteration < _num_iterations; _iteration++) {
+    if (_last_iteration)
+      break;
+    iterate();
+    if (_something_to_log)
+      log();
   }
+  finalize();
 }
 
 void
