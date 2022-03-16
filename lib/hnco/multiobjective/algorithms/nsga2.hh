@@ -91,6 +91,9 @@ protected:
   /// Full population
   Population _full_population;
 
+  /// Solutions
+  Population _solutions;
+
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation;
 
@@ -146,6 +149,9 @@ protected:
   /// Single iteration
   void iterate();
 
+  /// Finalize
+  void finalize() override;
+
   /// Log
   void log() override {}
 
@@ -165,6 +171,7 @@ public:
     , _parents(population_size, n, num_objectives)
     , _offsprings(population_size, n, num_objectives)
     , _full_population(2 * population_size, n, num_objectives)
+    , _solutions(population_size, n, num_objectives)
     , _mutation(n)
     , _pareto_front_computation(_full_population)
     , _pareto_fronts(2 * population_size)
@@ -176,7 +183,7 @@ public:
   {}
 
   /// Get solutions
-  const Population& get_solutions() { return _parents; }
+  const Population& get_solutions() { return _solutions; }
 
   /** @name Setters
    */

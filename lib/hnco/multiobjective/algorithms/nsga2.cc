@@ -144,3 +144,22 @@ Nsga2::iterate()
   }
 
 }
+
+void
+Nsga2::finalize()
+{
+  std::vector<int> fronts(_parents.size());
+  Nsga2ParetoFrontComputation computation(_parents);
+  computation.compute(fronts);
+
+  int index = 0;
+  for (int i = 0; i < _parents.size(); i++) {
+    if (fronts[i] == 0) {
+      _solutions.bvs[index] = _parents.bvs[i];
+      _solutions.values[index] = _parents.values[i];
+      index++;
+    }
+  }
+
+  _solutions.shrink(index);
+}
