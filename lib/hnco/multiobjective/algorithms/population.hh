@@ -89,6 +89,19 @@ struct Population {
     }
   }
 
+  /** Shrink the population.
+
+      \param population_size %Population size
+      \pre population_size < size()
+  */
+  void shrink(int population_size) {
+    assert(population_size > 0);
+    assert(population_size < size());
+
+    bvs.resize(population_size);
+    values.resize(population_size);
+  }
+
   /// Sample a random population
   void random();
 
