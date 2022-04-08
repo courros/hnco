@@ -135,7 +135,7 @@ public:
                   const std::vector<double>& float_vars,
                   const std::vector<std::complex<double>>& complex_vars,
                   const std::vector<int>& categorical_vars,
-                  const std::vector<permutation_t> permutation_vars) override {
+                  const std::vector<permutation_t>& permutation_vars) override {
     PYBIND11_OVERLOAD_PURE(double, UniversalFunction, evaluate,
                            boolean_vars, integer_vars, float_vars, complex_vars, categorical_vars, permutation_vars);
   }
