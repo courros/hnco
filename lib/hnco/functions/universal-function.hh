@@ -49,7 +49,7 @@ public:
                           const std::vector<double>& float_vars,
                           const std::vector<std::complex<double>>& complex_vars,
                           const std::vector<int>& categorical_vars,
-                          const std::vector<permutation_t> permutation_vars) = 0;
+                          const std::vector<permutation_t>& permutation_vars) = 0;
 
   /// Display the function
   virtual void display(std::ostream& stream) const {}
@@ -60,7 +60,7 @@ public:
                         const std::vector<double>& float_vars,
                         const std::vector<std::complex<double>>& complex_vars,
                         const std::vector<int>& categorical_vars,
-                        const std::vector<permutation_t> permutation_vars,
+                        const std::vector<permutation_t>& permutation_vars,
                         std::ostream& stream)
   {}
 

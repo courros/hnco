@@ -40,7 +40,7 @@ public:
                   const std::vector<double>& float_vars,
                   const std::vector<std::complex<double>>& complex_vars,
                   const std::vector<int>& categorical_vars,
-                  const std::vector<permutation_t> permutation_vars) override
+                  const std::vector<permutation_t>& permutation_vars) override
   {
     double result = 0;
     result += bv_hamming_weight(boolean_vars);
