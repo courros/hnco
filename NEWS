@@ -12,7 +12,7 @@ Perl scripts:
 - Add hnco-runtime-skeleton.pl
 
 Experiments:
-- Updated experiment runtime (with incrmental evaluation)
+- Updated experiment runtime (with incremental evaluation)
 
 
 * Version 0.19 (2022-01-12)
