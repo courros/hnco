@@ -22,7 +22,7 @@
         {
             "id": "one-max",
             "name": "OneMax",
-	    "opt": "-F 0",
+	    "opt": "-F 0 --incremental-evaluation",
 
             "mean_gnuplot": [
 

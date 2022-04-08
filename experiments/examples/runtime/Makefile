@@ -5,8 +5,8 @@ default-parameters:
 
 run:
 	echo `date` >> log.err
-	hnco-algorithm-parameter-skeleton.pl
-	time -a -o log.err hnco-algorithm-parameter-run.pl
+	hnco-runtime-skeleton.pl
+	time -a -o log.err hnco-runtime-run.pl
 
 report:
 	hnco-runtime-stat.pl

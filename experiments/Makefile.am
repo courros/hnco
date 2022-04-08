@@ -37,6 +37,8 @@ dist_bin_SCRIPTS = \
 	scripts/hnco-observable-evolution-run.pl \
 	scripts/hnco-observable-evolution-skeleton.pl \
 	scripts/hnco-observable-evolution-stat.pl \
+	scripts/hnco-runtime-run.pl \
+	scripts/hnco-runtime-skeleton.pl \
 	scripts/hnco-runtime-stat.pl \
 	scripts/hnco-runtime2-run.pl \
 	scripts/hnco-runtime2-skeleton.pl \
