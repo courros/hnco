@@ -1,5 +1,7 @@
 * Version 0.20 (unreleased)
 
+Highlight: multiobjective optimization
+
 Library:
 - Population: index_value_t moved to namespace hnco::algorithm
 - Population: removed _compare_index_value

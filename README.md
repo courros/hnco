@@ -21,6 +21,7 @@ Library features:
 - Support for incremental evaluation
 - Python bindings
 - Representations for integer, float, complex, categorical and permutation values
+- Support for multiobjective optimization
 
 Purposes:
 
