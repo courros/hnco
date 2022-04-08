@@ -7,6 +7,13 @@ Library:
 - Population: removed _compare_index_value
 - Declare type alias with using instead of typedef
 
+Perl scripts:
+- Add hnco-runtime-run.pl
+- Add hnco-runtime-skeleton.pl
+
+Experiments:
+- Updated experiment runtime (with incrmental evaluation)
+
 
 * Version 0.19 (2022-01-12)
 
