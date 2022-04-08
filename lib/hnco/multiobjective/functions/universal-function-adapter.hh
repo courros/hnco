@@ -173,7 +173,7 @@ public:
   int get_bv_size() const override { return _bv_size; }
 
   /// Get output size (number of objectives)
-  int get_output_size() const { return _function->get_output_size(); }
+  int get_output_size() const override { return _function->get_output_size(); }
 
   /// Evaluate a bit vector
   void evaluate(const bit_vector_t& bv, value_t& value) override {

@@ -147,7 +147,7 @@ protected:
   void init() override;
 
   /// Single iteration
-  void iterate();
+  void iterate() override;
 
   /// Finalize
   void finalize() override;
@@ -183,7 +183,7 @@ public:
   {}
 
   /// Get solutions
-  const Population& get_solutions() { return _solutions; }
+  const Population& get_solutions() override { return _solutions; }
 
   /** @name Setters
    */
