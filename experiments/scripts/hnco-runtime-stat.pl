@@ -335,14 +335,14 @@ sub generate_gnuplot_mean
         my $quoted_string = qq("Mean runtime on $f->{name}");
         print MEAN "set title $quoted_string\n";
 
-        print MEAN
-            "$terminal{pdf} $font\n",
-            qq(set output "$path_graphics/$function_id/mean.pdf"\n);
-
         # Additional functions
         foreach my $gnuplot (@{$f->{mean_gnuplot}}) {
             print MEAN $gnuplot->{expression}, "\n";
         }
+
+        print MEAN
+            "$terminal{pdf} $font\n",
+            qq(set output "$path_graphics/$function_id/mean.pdf"\n);
 
         print MEAN "plot \\\n";
         print MEAN
@@ -387,7 +387,7 @@ sub generate_gnuplot_stddev
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         qq(set xlabel "$parameter_name"\n),
-        qq(set ylabel "Standard deviation of runtime"\n),
+        qq(set ylabel "Number of evaluations"\n),
         "set logscale y\n",
         "set format y", qq("10^{\%T}"), "\n",
         "set key bottom right box opaque\n",
@@ -411,6 +411,9 @@ sub generate_gnuplot_stddev
         my $function_id = $f->{id};
 
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
+
+        my $quoted_string = qq("Standard deviation of runtime on $f->{name}");
+        print STDDEV "set title $quoted_string\n";
 
         # Additional functions
         foreach my $gnuplot (@{$f->{stddev_gnuplot}}) {
@@ -447,11 +450,11 @@ sub generate_gnuplot_stddev
                 "replot\n";
         }
 
+        print STDDEV "\n";
     }
 
     close(STDDEV);
     system("chmod a+x stddev.gp");
-
 }
 
 sub generate_latex
