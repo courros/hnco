@@ -218,7 +218,7 @@ sub generate_gnuplot_candlesticks
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         qq(set xlabel "$parameter_name"\n),
-        qq(set ylabel "Runtime"\n),
+        qq(set ylabel "Number of evaluations"\n),
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
@@ -265,7 +265,7 @@ sub generate_gnuplot_candlesticks
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
 
-            my $quoted_string = qq("$a->{name} on $f->{name}");
+            my $quoted_string = qq("Runtime of $a->{name} on $f->{name}");
             print CANDLESTICKS "set title $quoted_string\n";
 
             $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.pdf");
