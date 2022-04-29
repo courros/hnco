@@ -76,7 +76,7 @@ my $parameter           = $obj->{parameter};
 my $graphics            = $obj->{graphics};
 
 my $parameter_id        = $parameter->{id};
-my $parameter_name      = $parameter->{name} || $parameter_id;
+my $parameter_label     = $parameter->{label} || $parameter_id;
 
 my $all_stat = {};
 
@@ -217,7 +217,7 @@ sub generate_gnuplot_candlesticks
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        qq(set xlabel "$parameter_name"\n),
+        qq(set xlabel "$parameter_label"\n),
         qq(set ylabel "Number of evaluations"\n),
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -305,7 +305,7 @@ sub generate_gnuplot_mean
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        qq(set xlabel "$parameter_name"\n),
+        qq(set xlabel "$parameter_label"\n),
         qq(set ylabel "Number of evaluations"\n),
         "set logscale y\n",
         "set format y", qq("10^{\%T}"), "\n",
@@ -386,7 +386,7 @@ sub generate_gnuplot_stddev
     print STDDEV
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        qq(set xlabel "$parameter_name"\n),
+        qq(set xlabel "$parameter_label"\n),
         qq(set ylabel "Number of evaluations"\n),
         "set logscale y\n",
         "set format y", qq("10^{\%T}"), "\n",
