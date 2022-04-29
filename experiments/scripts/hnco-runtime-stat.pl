@@ -306,7 +306,7 @@ sub generate_gnuplot_mean
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         qq(set xlabel "$parameter_name"\n),
-        qq(set ylabel "Mean runtime"\n),
+        qq(set ylabel "Number of evaluations"\n),
         "set logscale y\n",
         "set format y", qq("10^{\%T}"), "\n",
         "set key " . ($graphics->{mean}->{key} || "bottom right box opaque") . "\n",
@@ -328,17 +328,21 @@ sub generate_gnuplot_mean
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
+        unless (-d "$path_graphics/$function_id") {
+            mkdir "$path_graphics/$function_id";
+        }
 
-        unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
+        my $quoted_string = qq("Mean runtime on $f->{name}");
+        print MEAN "set title $quoted_string\n";
+
+        print MEAN
+            "$terminal{pdf} $font\n",
+            qq(set output "$path_graphics/$function_id/mean.pdf"\n);
 
         # Additional functions
         foreach my $gnuplot (@{$f->{mean_gnuplot}}) {
             print MEAN $gnuplot->{expression}, "\n";
         }
-
-        print MEAN
-            "$terminal{pdf} $font\n",
-            qq(set output "$path_graphics/$function_id/mean.pdf"\n);
 
         print MEAN "plot \\\n";
         print MEAN
@@ -366,6 +370,7 @@ sub generate_gnuplot_mean
                 "replot\n";
         }
 
+        print MEAN "\n";
     }
 
     close(MEAN);
