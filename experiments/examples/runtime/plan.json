@@ -8,6 +8,7 @@
 
     "parameter": {
         "id": "bv-size",
+        "label": "Bit vector size",
         "values_perl": "map { 100 + 100 * $_ } (0 .. 19)"
     },
 
