@@ -49,7 +49,7 @@ class Trap:
   /// Number of traps
   int _num_traps;
 
-  /// Trap size
+  /// %Trap size
   int _trap_size;
 
 public:
