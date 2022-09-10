@@ -21,6 +21,7 @@
 #ifndef HNCO_UTIL_H
 #define HNCO_UTIL_H
 
+#include <assert.h>
 #include <math.h>               // std::exp
 
 #include <string>               // std::string
