@@ -25,6 +25,7 @@
 
 #include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/algorithms/random-selection.hh"
+#include "hnco/algorithms/selection.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/random.hh"
 
@@ -54,10 +55,16 @@ class GeneticAlgorithm:
 protected:
 
   /// Parents
-  TournamentSelection _parents;
+  Population _parents;
 
   /// Offsprings
-  TournamentSelection _offsprings;
+  Population _offsprings;
+
+  /// Comma selection
+  CommaSelection _comma_selection;
+
+  /// Tournament selection
+  TournamentSelection _tournament_selection;
 
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation;
@@ -109,6 +116,8 @@ public:
     IterativeAlgorithm(n),
     _parents(mu, n),
     _offsprings(mu, n),
+    _comma_selection(_parents, _offsprings),
+    _tournament_selection(_parents),
     _mutation(n),
     _mutation_rate(1 / double(n)) {}
 
@@ -120,10 +129,10 @@ public:
   void set_mutation_rate(double p) { _mutation_rate = p; }
 
   /// Set the crossover probability
-  void set_crossover_probability(double x) { _crossover_probability = x; }
+  void set_crossover_probability(double p) { _crossover_probability = p; }
 
   /// Set the tournament size
-  void set_tournament_size(int x) { _tournament_size = x; }
+  void set_tournament_size(int n) { _tournament_size = n; }
 
   /// Set the flag _allow_no_mutation
   void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }

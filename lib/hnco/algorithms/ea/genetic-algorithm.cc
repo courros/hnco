@@ -35,7 +35,7 @@ GeneticAlgorithm::init()
 
   _do_crossover = std::bernoulli_distribution(_crossover_probability);
 
-  _parents.set_tournament_size(_tournament_size);
+  _tournament_selection.set_tournament_size(_tournament_size);
 
   _parents.random();
   _parents.evaluate(_function);
@@ -50,13 +50,13 @@ void
 GeneticAlgorithm::iterate()
 {
   for (int i = 0; i < _offsprings.size(); i++) {
-    bit_vector_t& offspring = _offsprings.bvs[i];
+    auto& offspring = _offsprings.bvs[i];
 
     // Crossover
     if (_do_crossover(Generator::engine))
-      _crossover.breed(_parents.select(), _parents.select(), offspring);
+      _crossover.breed(_tournament_selection.select(), _tournament_selection.select(), offspring);
     else
-      offspring = _parents.select();
+      offspring = _tournament_selection.select();
 
     // Mutation
     _mutation.mutate(offspring);
@@ -67,8 +67,7 @@ GeneticAlgorithm::iterate()
   else
     _offsprings.evaluate(_function);
 
-  _offsprings.partial_sort(_parents.size());
-  _parents.comma_selection(_offsprings);
+  _comma_selection.select();
 
   update_solution(_parents.get_best_bv(),
                   _parents.get_best_value());
