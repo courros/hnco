@@ -147,7 +147,7 @@ void
 Mimic::iterate()
 {
   for (int i = 0; i < _population.size(); i++)
-    sample(_population.get_bv(i));
+    sample(_population.bvs[i]);
 
   if (_functions.size() > 1)
     _population.evaluate_in_parallel(_functions);

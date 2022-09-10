@@ -47,8 +47,8 @@ void
 MuPlusLambdaEa::iterate()
 {
   for (int i = 0; i < _offsprings.size(); i++) {
-    bit_vector_t& offspring = _offsprings.get_bv(i);
-    offspring = _parents.get_bv(_select_parent(Generator::engine));
+    bit_vector_t& offspring = _offsprings.bvs[i];
+    offspring = _parents.bvs[_select_parent(Generator::engine)];
     _mutation.mutate(offspring);
   }
 
@@ -57,8 +57,7 @@ MuPlusLambdaEa::iterate()
   else
     _offsprings.evaluate(_function);
 
-  _offsprings.sort();
-  _parents.plus_selection(_offsprings);
+  _plus_selection.select();
 
   update_solution(_parents.get_best_bv(),
                   _parents.get_best_value());

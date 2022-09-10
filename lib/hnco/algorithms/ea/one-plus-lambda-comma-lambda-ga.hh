@@ -46,8 +46,7 @@ namespace algorithm {
     algorithms. Theoretical Computer Science 567 (2015), 87–104.
 
 */
-class OnePlusLambdaCommaLambdaGa:
-    public IterativeAlgorithm {
+class OnePlusLambdaCommaLambdaGa: public IterativeAlgorithm {
 
 protected:
 

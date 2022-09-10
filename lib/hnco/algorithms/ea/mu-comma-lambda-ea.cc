@@ -47,8 +47,8 @@ void
 MuCommaLambdaEa::iterate()
 {
   for (int i = 0; i < _offsprings.size(); i++) {
-    bit_vector_t& offspring = _offsprings.get_bv(i);
-    offspring = _parents.get_bv(_select_parent(Generator::engine));
+    bit_vector_t& offspring = _offsprings.bvs[i];
+    offspring = _parents.bvs[_select_parent(Generator::engine)];
     _mutation.mutate(offspring);
   }
 
@@ -57,9 +57,7 @@ MuCommaLambdaEa::iterate()
   else
     _offsprings.evaluate(_function);
 
-  _offsprings.shuffle();
-  _offsprings.partial_sort(_parents.size());
-  _parents.comma_selection(_offsprings);
+  _comma_selection.select();
 
   update_solution(_parents.get_best_bv(),
                   _parents.get_best_value());

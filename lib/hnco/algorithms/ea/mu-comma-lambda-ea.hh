@@ -23,6 +23,7 @@
 
 #include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/algorithms/population.hh"
+#include "hnco/algorithms/selection.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/random.hh"
 
@@ -47,6 +48,9 @@ protected:
 
   /// Offsprings
   Population _offsprings;
+
+  /// Comma selection
+  CommaSelection _comma_selection;
 
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation;
@@ -90,6 +94,7 @@ public:
     IterativeAlgorithm(n),
     _parents(mu, n),
     _offsprings(lambda, n),
+    _comma_selection(_parents, _offsprings),
     _mutation(n),
     _select_parent(0, mu - 1),
     _mutation_rate(1 / double(n)) {};

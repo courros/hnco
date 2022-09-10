@@ -126,7 +126,7 @@ class Hea: public algorithm::IterativeAlgorithm {
     }
 
     for (int i = 0; i < _population.size(); i++)
-      _herding.sample(_target, _population.get_bv(i));
+      _herding.sample(_target, _population.bvs[i]);
 
     if (_log_herding_error)
       _herding_error = _herding.error(_target);

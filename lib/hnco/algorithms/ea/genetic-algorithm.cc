@@ -50,7 +50,7 @@ void
 GeneticAlgorithm::iterate()
 {
   for (int i = 0; i < _offsprings.size(); i++) {
-    bit_vector_t& offspring = _offsprings.get_bv(i);
+    bit_vector_t& offspring = _offsprings.bvs[i];
 
     // Crossover
     if (_do_crossover(Generator::engine))
@@ -67,7 +67,6 @@ GeneticAlgorithm::iterate()
   else
     _offsprings.evaluate(_function);
 
-  _offsprings.shuffle();
   _offsprings.partial_sort(_parents.size());
   _parents.comma_selection(_offsprings);
 
