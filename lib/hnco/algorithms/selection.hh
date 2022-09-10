@@ -46,8 +46,8 @@ public:
     : _parents(parents)
     , _children(children)
   {
-    require(children.size() > parents.size(),
-            "CommaSelection::CommaSelection: Children population size must be greater than parents population size");
+    require(children.size() >= parents.size(),
+            "CommaSelection::CommaSelection: Children population size must be greater than or equal to parents population size");
   }
 
   void select() {
@@ -56,6 +56,7 @@ public:
       _parents.values[i] = _children.get_best_value(i);
       std::swap(_parents.bvs[i], _children.get_best_bv(i));
     }
+    perm_identity(_parents.permutation);
   }
 
 };
@@ -78,7 +79,7 @@ public:
     , _pool(parents.size() + children.size(), parents.get_bv_size())
   {
     require(children.get_bv_size() == parents.get_bv_size(),
-            "PlusSelection::PlusSelection: Bit vectors in parents and children population must have the same size");
+            "PlusSelection::PlusSelection: Bit vectors in parents and children populations must have the same size");
   }
 
   void select() {
@@ -96,6 +97,7 @@ public:
       _parents.values[i] = _pool.get_best_value(i);
       std::swap(_parents.bvs[i], _pool.get_best_bv(i));
     }
+    perm_identity(_parents.permutation);
   }
 
 };
