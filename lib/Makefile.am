@@ -100,6 +100,7 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/mimic.hh \
 	hnco/algorithms/population.cc \
 	hnco/algorithms/population.hh \
+	hnco/algorithms/selection.hh \
 	hnco/algorithms/pv/all.hh \
 	hnco/algorithms/pv/compact-ga.cc \
 	hnco/algorithms/pv/compact-ga.hh \
@@ -343,6 +344,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.hh \
 	hnco/algorithms/random-selection.hh \
+	hnco/algorithms/selection.hh \
 	hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
 	hnco/algorithms/walsh-moment/bm-pbil.hh \

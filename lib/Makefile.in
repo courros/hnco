@@ -231,8 +231,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh hnco/algorithms/mimic.cc \
 	hnco/algorithms/mimic.hh hnco/algorithms/population.cc \
-	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
-	hnco/algorithms/pv/compact-ga.cc \
+	hnco/algorithms/population.hh hnco/algorithms/selection.hh \
+	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.cc \
 	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.cc \
 	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.cc \
 	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.cc \
@@ -655,7 +655,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.hh \
 	hnco/algorithms/random-selection.hh \
-	hnco/algorithms/solution.hh \
+	hnco/algorithms/selection.hh hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
 	hnco/algorithms/walsh-moment/bm-pbil.hh \
 	hnco/algorithms/walsh-moment/gibbs-sampler.hh \
@@ -959,8 +959,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh hnco/algorithms/mimic.cc \
 	hnco/algorithms/mimic.hh hnco/algorithms/population.cc \
-	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
-	hnco/algorithms/pv/compact-ga.cc \
+	hnco/algorithms/population.hh hnco/algorithms/selection.hh \
+	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.cc \
 	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.cc \
 	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.cc \
 	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.cc \
@@ -1137,7 +1137,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.hh \
 	hnco/algorithms/random-selection.hh \
-	hnco/algorithms/solution.hh \
+	hnco/algorithms/selection.hh hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
 	hnco/algorithms/walsh-moment/bm-pbil.hh \
 	hnco/algorithms/walsh-moment/gibbs-sampler.hh \
