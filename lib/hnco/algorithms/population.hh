@@ -23,46 +23,33 @@
 
 #include <assert.h>
 
-#include <algorithm>            // std::sort, std::shuffle
+#include <algorithm>            // std::sort
 
+#include "hnco/bit-vector.hh"
 #include "hnco/functions/function.hh"
-#include "hnco/random.hh"
+#include "hnco/permutation.hh"
+#include "hnco/random.hh"       // random::Generator::engine
+#include "hnco/util.hh"         // hnco::require
 
 
 namespace hnco {
 namespace algorithm {
 
 
-/** @name Type and function related to index-value pairs
- */
-///@{
-
-/// Index-value type
-using index_value_t = std::pair<int, double>;
-
-/// Binary operator for comparing index-value pairs
-inline bool compare_index_value(const index_value_t& a, const index_value_t& b) { return a.second > b.second; }
-
-///@}
-
-
 /// %Population
-class Population {
+struct Population {
 
-protected:
+  /// %Function type
+  using Function = hnco::function::Function;
 
-  /// Unsorted population of bit vectors
-  std::vector<bit_vector_t> _bvs;
+  /// Bit vectors
+  std::vector<bit_vector_t> bvs;
 
-  /** Lookup table.
+  /// Values
+  std::vector<double> values;
 
-      If p is an element of _lookup, then p.first is the index of the
-      corresponding bit vector in the unsorted population whereas
-      p.second is its value.
-  */
-  std::vector<index_value_t> _lookup;
-
-public:
+  /// Permutation
+  hnco::permutation_t permutation;
 
   /** Constructor.
 
@@ -70,29 +57,35 @@ public:
       \param n Bit vector size
   */
   Population(int population_size, int n)
-    : _bvs(population_size, bit_vector_t(n))
-    , _lookup(population_size)
-  {}
+    : bvs(population_size, bit_vector_t(n))
+    , values(population_size)
+    , permutation(population_size)
+  {
+    require(population_size > 0, "Population::Population: population_size must be positive");
+    require(n > 0, "Population::Population: bit vector size must be positive");
+
+    perm_identity(permutation);
+  }
 
   /// Size
-  int size() const { return _bvs.size(); }
+  int size() const { return bvs.size(); }
 
-  /// Initialize the population with random bit vectors
+  /// Get bit vector size
+  int get_bv_size() const { return bvs[0].size(); }
+
+  /// Sample a random population
   void random();
 
 
-  /** @name Get bit vectors for non const populations
+  /** @name Get sorted bit vectors
    */
   ///@{
-
-  /// Get a bit vector
-  bit_vector_t& get_bv(int i) { return _bvs[i]; }
 
   /** Get best bit vector.
 
       \pre The population must be sorted.
   */
-  bit_vector_t& get_best_bv() { return _bvs[_lookup[0].first]; }
+  bit_vector_t& get_best_bv() { return bvs[permutation[0]]; }
 
   /** Get best bit vector.
 
@@ -100,7 +93,7 @@ public:
 
       \pre The population must be sorted.
   */
-  bit_vector_t& get_best_bv(int i) { return _bvs[_lookup[i].first]; }
+  bit_vector_t& get_best_bv(int i) { return bvs[permutation[i]]; }
 
   /** Get worst bit vector.
 
@@ -108,39 +101,7 @@ public:
 
       \pre The population must be sorted.
   */
-  bit_vector_t& get_worst_bv(int i) { return get_best_bv(_bvs.size() - 1 - i); }
-
-  ///@}
-
-
-  /** @name Get bit vectors for const populations
-   */
-  ///@{
-
-  /// Get a bit vector
-  const bit_vector_t& get_bv(int i) const { return _bvs[i]; }
-
-  /** Get best bit vector.
-
-      \pre The population must be sorted.
-  */
-  const bit_vector_t& get_best_bv() const { return _bvs[_lookup[0].first]; }
-
-  /** Get best bit vector.
-
-      \param i Index in the sorted population
-
-      \pre The population must be sorted.
-  */
-  const bit_vector_t& get_best_bv(int i) const { return _bvs[_lookup[i].first]; }
-
-  /** Get worst bit vector.
-
-      \param i Index in the sorted population
-
-      \pre The population must be sorted.
-  */
-  const bit_vector_t& get_worst_bv(int i) const { return get_best_bv(_bvs.size() - 1 - i); }
+  bit_vector_t& get_worst_bv(int i) { return get_best_bv(bvs.size() - 1 - i); }
 
   ///@}
 
@@ -151,17 +112,17 @@ public:
 
   /** Get best value.
 
+      \pre The population must be sorted.
+  */
+  double get_best_value() const { return values[permutation[0]]; }
+
+  /** Get best value.
+
       \param i Index in the sorted population
 
       \pre The population must be sorted.
   */
-  double get_best_value(int i) const { return _lookup[i].second; }
-
-  /** Get best value.
-
-      \pre The population must be sorted.
-  */
-  double get_best_value() const { return _lookup[0].second; }
+  double get_best_value(int i) const { return values[permutation[i]]; }
 
   ///@}
 
@@ -171,79 +132,42 @@ public:
   ///@{
 
   /// Evaluate the population
-  void evaluate(function::Function *function);
+  void evaluate(Function *function);
 
   /// Evaluate the population in parallel
-  void evaluate_in_parallel(const std::vector<function::Function *>& functions);
+  void evaluate_in_parallel(const std::vector<Function *>& functions);
 
-  /// Shuffle the lookup table
-  void shuffle() { std::shuffle(_lookup.begin(), _lookup.end(), random::Generator::engine); }
+  /** Sort the population
 
-  /// Sort the lookup table
-  void sort() { std::sort(_lookup.begin(), _lookup.end(), compare_index_value); }
+      Only the permutation is sorted using the order defined by i < j
+      if value[i] > value[j].
 
-  /// Partially sort the lookup table
-  void partial_sort(int selection_size) {
-    assert(selection_size > 0);
-    std::partial_sort(_lookup.begin(), _lookup.begin() + selection_size, _lookup.end(), compare_index_value);
+      Before sorting, the permutation is shuffled to break ties
+      randomly.
+  */
+  void sort() {
+    auto compare = [this](int i, int j){ return this->values[i] > this->values[j]; };
+    perm_shuffle(permutation);
+    std::sort(permutation.begin(), permutation.end(), compare);
   }
 
-  ///@}
+  /** Partially sort the population
 
+      Only the permutation is sorted using the order defined by i < j
+      if value[i] > value[j].
 
-  /** @name Selection
-   */
-  ///@{
+      Before sorting, the permutation is shuffled to break ties
+      randomly.
 
-  /** Plus selection.
-
-      Implemented with a copy.
-
-      \pre Both populations must be completely sorted.
-
-      \warning The function does not break ties randomly
-      (workaround: shuffle parents and offsprings).
+      \param selection_size Sort the best selection_size individuals
   */
-  void plus_selection(const Population& offsprings);
+  void partial_sort(int selection_size) {
+    assert(selection_size > 0);
 
-  /** Plus selection.
-
-      Implemented with a swap. Should be faster than plus_selection
-      with a copy.
-
-      \pre Both populations must be completely sorted.
-
-      \warning The function does not break ties randomly
-      (workaround: shuffle parents and offsprings).
-
-      \warning Modifies its argument.
-  */
-  void plus_selection(Population& offsprings);
-
-  /** Comma selection.
-
-      Implemented with a copy.
-
-      \pre Offspring population must be partially sorted.
-
-      \warning The function does not break ties randomly
-      (workaround: shuffle offsprings).
-  */
-  void comma_selection(const Population& offsprings);
-
-  /** Comma selection.
-
-      Implemented with a swap. Should be faster than comma_selection
-      with a copy.
-
-      \pre Offspring population must be partially sorted.
-
-      \warning The function does not break ties randomly
-      (workaround: shuffle offsprings).
-
-      \warning Modifies its argument.
-  */
-  void comma_selection(Population& offsprings);
+    auto compare = [this](int i, int j){ return this->values[i] > this->values[j]; };
+    perm_shuffle(permutation);
+    std::partial_sort(permutation.begin(), permutation.begin() + selection_size, permutation.end(), compare);
+  }
 
   ///@}
 

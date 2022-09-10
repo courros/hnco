@@ -34,107 +34,37 @@ using namespace hnco;
 void
 Population::random()
 {
-  for (size_t i = 0; i < _bvs.size(); i++)
-    bv_random(_bvs[i]);
+  for (auto& bv : bvs)
+    bv_random(bv);
 }
 
 
 void
 Population::evaluate(Function *function)
 {
-  assert(have_same_size(_bvs, _lookup));
+  assert(have_same_size(bvs, values));
   assert(function);
 
-  for (size_t i = 0; i < _bvs.size(); i++) {
-    _lookup[i].first = i;
-    _lookup[i].second = function->evaluate(_bvs[i]);
-  }
-
+  for (size_t i = 0; i < bvs.size(); i++)
+    values[i] = function->evaluate(bvs[i]);
 }
 
 
 void
 Population::evaluate_in_parallel(const std::vector<Function *>& fns)
 {
-  assert(have_same_size(_bvs, _lookup));
+  assert(have_same_size(bvs, values));
   assert(!fns.empty());
 
 #pragma omp parallel for
-  for (size_t i = 0; i < _bvs.size(); i++) {
+  for (size_t i = 0; i < bvs.size(); i++) {
     int k = omp_get_thread_num();
-    assert(is_in_range(k, int(fns.size())));
+    assert(is_in_range(k, fns.size()));
     assert(fns[k]);
-    _lookup[i].first = i;
-    _lookup[i].second = fns[k]->evaluate_safely(_bvs[i]);
+
+    values[i] = fns[k]->evaluate_safely(bvs[i]);
   }
 
-  for (size_t i = 0; i < _bvs.size(); i++)
-    fns[0]->update(_bvs[i], _lookup[i].second);
-
-}
-
-
-void
-Population::plus_selection(const Population& offsprings)
-{
-  for (int
-         i = 0,
-         j = 0;
-       i < int(_bvs.size()) && j < offsprings.size(); i++) {
-    if (compare_index_value(_lookup[i], offsprings._lookup[j]))
-      continue;
-    else {
-      // _lookup[i].first is left unchanged
-      _lookup[i].second = offsprings.get_best_value(j);
-      _bvs[_lookup[i].first] = offsprings.get_best_bv(j);
-      j++;
-    }
-  }
-}
-
-
-void
-Population::plus_selection(Population& offsprings)
-{
-  for (int
-         i = 0,
-         j = 0;
-       i < int(_bvs.size()) && j < offsprings.size(); i++) {
-    if (compare_index_value(_lookup[i], offsprings._lookup[j]))
-      continue;
-    else {
-      // _lookup[i].first is left unchanged
-      _lookup[i].second = offsprings.get_best_value(j);
-      std::swap(_bvs[_lookup[i].first], offsprings.get_best_bv(j));
-      j++;
-    }
-  }
-}
-
-
-void
-Population::comma_selection(const Population& offsprings)
-{
-  assert(int(_bvs.size()) <= offsprings.size());
-
-  for (size_t i = 0; i < _bvs.size(); i++) {
-    _lookup[i].first = i;
-    _lookup[i].second = offsprings.get_best_value(i);
-    _bvs[i] = offsprings.get_best_bv(i);
-  }
-
-}
-
-
-void
-Population::comma_selection(Population& offsprings)
-{
-  assert(int(_bvs.size()) <= offsprings.size());
-
-  for (size_t i = 0; i < _bvs.size(); i++) {
-    _lookup[i].first = i;
-    _lookup[i].second = offsprings.get_best_value(i);
-    std::swap(_bvs[i], offsprings.get_best_bv(i));
-  }
-
+  for (size_t i = 0; i < bvs.size(); i++)
+    fns[0]->update(bvs[i], values[i]);
 }
