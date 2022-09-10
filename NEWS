@@ -1,5 +1,8 @@
 * Version 0.21 (unreleased)
 
+Library:
+- Added perm_shuffle
+
 
 * Version 0.20 (2022-04-10)
 
@@ -11,8 +14,8 @@ Library:
 - Declare type alias with using instead of typedef
 
 Perl scripts:
-- Add hnco-runtime-run.pl
-- Add hnco-runtime-skeleton.pl
+- Added hnco-runtime-run.pl
+- Added hnco-runtime-skeleton.pl
 
 Experiments:
 - Updated experiment runtime (with incremental evaluation)

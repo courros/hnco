@@ -50,6 +50,9 @@ inline void perm_identity(permutation_t& s)
     s[i] = i;
 }
 
+/// Shuffle a permutation
+inline void perm_shuffle(permutation_t& s) { std::shuffle(s.begin(), s.end(), random::Generator::engine); }
+
 /** Sample a random permutation.
 
     \warning This function does not set the size of the permutation.
@@ -57,7 +60,7 @@ inline void perm_identity(permutation_t& s)
 inline void perm_random(permutation_t& s)
 {
   perm_identity(s);
-  shuffle(s.begin(), s.end(), random::Generator::engine);
+  perm_shuffle(s);
 }
 
 /// Display a permutation
