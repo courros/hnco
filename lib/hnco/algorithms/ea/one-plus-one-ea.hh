@@ -30,98 +30,98 @@ namespace hnco {
 namespace algorithm {
 
 
-  /** (1+1) EA.
+/** (1+1) EA.
 
-      (1+1) EA is implemented as a RandomLocalSearch with a
-      StandardBitMutation neighborhood and infinite patience. Thus the
-      class OnePlusOneEa is derived from Algorithm instead of
-      IterativeAlgorithm.
+    (1+1) EA is implemented as a RandomLocalSearch with a
+    StandardBitMutation neighborhood and infinite patience. Thus the
+    class OnePlusOneEa is derived from Algorithm instead of
+    IterativeAlgorithm.
 
-      Reference:
+    Reference:
 
-      Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
+    Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
 
-  */
-  class OnePlusOneEa:
+*/
+class OnePlusOneEa:
     public Algorithm {
 
-    /// Neighborhood
-    neighborhood::StandardBitMutation _neighborhood;
+  /// Neighborhood
+  neighborhood::StandardBitMutation _neighborhood;
 
-    /// Random local search
-    RandomLocalSearch _rls;
+  /// Random local search
+  RandomLocalSearch _rls;
 
-    /** @name Parameters
-     */
-    ///@{
+  /** @name Parameters
+   */
+  ///@{
 
-    /// Number of iterations
-    int _num_iterations = 0;
+  /// Number of iterations
+  int _num_iterations = 0;
 
-    /// Mutation rate
-    double _mutation_rate;
+  /// Mutation rate
+  double _mutation_rate;
 
-    /// Allow no mutation
-    bool _allow_no_mutation = false;
+  /// Allow no mutation
+  bool _allow_no_mutation = false;
 
-    /// Incremental evaluation
-    bool _incremental_evaluation = false;
+  /// Incremental evaluation
+  bool _incremental_evaluation = false;
 
-    ///@}
+  ///@}
 
-  public:
+public:
 
-    /** Constructor.
+  /** Constructor.
 
-        \param n Size of bit vectors
+      \param n Size of bit vectors
 
-        _mutation_rate is initialized to 1 / n.
-    */
-    OnePlusOneEa(int n):
-      Algorithm(n),
-      _neighborhood(n),
-      _rls(n, &_neighborhood),
-      _mutation_rate(1 / double(n)) {}
+      _mutation_rate is initialized to 1 / n.
+  */
+  OnePlusOneEa(int n):
+    Algorithm(n),
+    _neighborhood(n),
+    _rls(n, &_neighborhood),
+    _mutation_rate(1 / double(n)) {}
 
-    /// Maximize
-    void maximize(const std::vector<function::Function *>& functions) override {
-      _neighborhood.set_mutation_rate(_mutation_rate);
-      _neighborhood.set_allow_no_mutation(_allow_no_mutation);
-      _rls.set_num_iterations(_num_iterations);
-      _rls.set_incremental_evaluation(_incremental_evaluation);
-      _rls.set_patience(0);
-      _rls.maximize(functions);
-    }
+  /// Maximize
+  void maximize(const std::vector<function::Function *>& functions) override {
+    _neighborhood.set_mutation_rate(_mutation_rate);
+    _neighborhood.set_allow_no_mutation(_allow_no_mutation);
+    _rls.set_num_iterations(_num_iterations);
+    _rls.set_incremental_evaluation(_incremental_evaluation);
+    _rls.set_patience(0);
+    _rls.maximize(functions);
+  }
 
-    /// Finalize
-    void finalize() override {
-      _rls.finalize();
-      _solution = _rls.get_solution();
-    }
+  /// Finalize
+  void finalize() override {
+    _rls.finalize();
+    _solution = _rls.get_solution();
+  }
 
-    /** @name Setters
-     */
-    ///@{
+  /** @name Setters
+   */
+  ///@{
 
-    /** Set the number of iterations.
+  /** Set the number of iterations.
 
-        \param x Number of iterations
+      \param x Number of iterations
 
-        x <= 0 means indefinite */
-    void set_num_iterations(int x) { _num_iterations = x; }
+      x <= 0 means indefinite */
+  void set_num_iterations(int x) { _num_iterations = x; }
 
-    /// Set the mutation rate
-    void set_mutation_rate(double p) { _mutation_rate = p; }
+  /// Set the mutation rate
+  void set_mutation_rate(double p) { _mutation_rate = p; }
 
-    /// Set the flag _allow_no_mutation
-    void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }
+  /// Set the flag _allow_no_mutation
+  void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }
 
-    /// Set incremental evaluation
-    void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }
+  /// Set incremental evaluation
+  void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }
 
-    ///@}
+  ///@}
 
-  };
+};
 
 
 } // end of namespace algorithm
