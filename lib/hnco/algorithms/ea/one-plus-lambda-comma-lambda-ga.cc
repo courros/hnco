@@ -43,7 +43,7 @@ OnePlusLambdaCommaLambdaGa::iterate()
   // Mutation
   _mutation.set_radius(_radius_dist(Generator::engine));
   for (int i = 0; i < _offsprings.size(); i++) {
-    bit_vector_t& offspring = _offsprings.bvs[i];
+    auto& offspring = _offsprings.bvs[i];
     _mutation.map(_solution.first, offspring);
   }
   _offsprings.evaluate(_function);
