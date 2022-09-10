@@ -21,8 +21,11 @@
 #ifndef HNCO_ALGORITHMS_RANDOM_SELECTION_H
 #define HNCO_ALGORITHMS_RANDOM_SELECTION_H
 
+#include <functional>           // std::greater
+
 #include "hnco/algorithms/population.hh"
 #include "hnco/functions/function.hh"
+#include "hnco/multiobjective/algorithms/random-selection.hh"
 #include "hnco/random.hh"
 
 
@@ -31,18 +34,21 @@ namespace algorithm {
 
 
 /// Random selection
-class RandomSelection: public Population
+class RandomSelection
 {
+protected:
+
+  /// Population to select from
+  Population& _population;
 
 public:
 
   /** Constructor.
 
-      \param population_size %Population size
-      \param n Bit vector size
+      \param population Population to select from
   */
-  RandomSelection(int population_size, int n)
-    : Population(population_size, n)
+  RandomSelection(Population& population)
+    : _population(population)
   {}
 
   /// Initialize
@@ -65,12 +71,12 @@ public:
 
   /** Constructor.
 
-      \param population_size %Population size
-      \param n Bit vector size
+      \param population Population
   */
-  UniformSelection(int population_size, int n):
-    RandomSelection(population_size, n),
-    _choose_individual(0, population_size - 1) {}
+  UniformSelection(Population& population)
+    : RandomSelection(population)
+    , _choose_individual(0, population.size() - 1)
+  {}
 
   /// Select an individual in the population
   const bit_vector_t& select() override;
@@ -78,19 +84,22 @@ public:
 };
 
 
-/// Tournament selection
-class TournamentSelection: public RandomSelection
-{
+/** Tournament selection.
 
-  /// Random index
-  std::uniform_int_distribution<int> _choose_individual;
+    Implemented with the TournamentSelection class found in
+    multiobjective optimization.
+*/
+class TournamentSelection:
+    public RandomSelection {
+
+  hnco::multiobjective::algorithm::TournamentSelection<double, std::greater<double>> _tournament_selection;
 
   /** @name Parameters
    */
   ///@{
 
   /// Tournament size
-  int _tournament_size = 10;
+  int _tournament_size = 2;
 
   ///@}
 
@@ -98,12 +107,15 @@ public:
 
   /** Constructor.
 
-      \param population_size %Population size
-      \param n Bit vector size
+      \param population Population to select from
   */
-  TournamentSelection(int population_size, int n):
-    RandomSelection(population_size, n),
-    _choose_individual(0, population_size - 1) {}
+  TournamentSelection(Population& population)
+    : RandomSelection(population)
+    , _tournament_selection(population.bvs, population.values)
+  {}
+
+  /// Initialize
+  void init() override;
   
   /** Select an individual in the population.
 
@@ -119,7 +131,7 @@ public:
   ///@{
 
   /// Set the tournament size
-  void set_tournament_size(int x) { _tournament_size = x; }
+  void set_tournament_size(int n) { _tournament_size = n; }
 
   ///@}
 

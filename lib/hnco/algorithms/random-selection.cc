@@ -30,21 +30,19 @@ using namespace hnco;
 const bit_vector_t&
 UniformSelection::select()
 {
-  return get_best_bv(_choose_individual(Generator::engine));
+  return _population.bvs[_choose_individual(Generator::engine)];
 }
 
+
+void
+TournamentSelection::init()
+{
+  _tournament_selection.set_tournament_size(_tournament_size);
+  _tournament_selection.init();
+}
 
 const bit_vector_t&
 TournamentSelection::select()
 {
-  int winner = _choose_individual(Generator::engine);
-  for (int i = 0; i < _tournament_size; i++) {
-    int challenger;
-    do {
-      challenger = _choose_individual(Generator::engine);
-    } while (challenger == winner);
-    if (compare_index_value(_lookup[challenger], _lookup[winner]))
-      winner = challenger;
-  }
-  return get_best_bv(winner);
+  return _tournament_selection.select();
 }
