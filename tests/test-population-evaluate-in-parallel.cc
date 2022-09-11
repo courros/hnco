@@ -70,19 +70,19 @@ bool check()
 
     Population population_seq(population_size, n);
     assert(population_seq.size() == population_size);
+    assert(population_seq.get_bv_size() == n);
     population_seq.random();
 
     Population population_par(population_seq);
-    assert(population_seq.size() == population_par.size());
+    assert(population_par.size() == population_size);
+    assert(population_par.get_bv_size() == n);
 
     population_seq.evaluate(fns[0]);
     population_par.evaluate_in_parallel(fns);
 
     for (int j = 0; j < population_size; j++) {
-      assert(population_seq.get_bv(j) == population_par.get_bv(j));
-      // Populations are not sorted so get_best_value returns the
-      // value of get_bv with the same index.
-      if (population_seq.get_best_value(j) != population_par.get_best_value(j))
+      assert(population_seq.bvs[j] == population_par.bvs[j]);
+      if (population_seq.values[j] != population_par.values[j])
         return false;
     }
 
