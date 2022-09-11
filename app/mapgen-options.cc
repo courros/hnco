@@ -8,7 +8,7 @@ using namespace hnco::app;
 
 MapgenOptions::MapgenOptions(int argc, char *argv[]):
   _exec_name(argv[0]),
-  _version("0.20"),
+  _version("0.21"),
   _input_size(100),
   _opt_input_size(false),
   _map(1),

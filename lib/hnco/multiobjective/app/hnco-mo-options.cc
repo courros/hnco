@@ -8,7 +8,7 @@ using namespace hnco::multiobjective::app;
 
 HncoOptions::HncoOptions(int argc, char *argv[]):
   _exec_name(argv[0]),
-  _version("0.20"),
+  _version("0.21"),
   _algorithm(1400),
   _opt_algorithm(false),
   _bv_size(100),
