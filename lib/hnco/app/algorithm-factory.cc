@@ -215,7 +215,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
     algo->set_num_iterations(_options.get_num_iterations());
     algo->set_mutation_rate(_options.get_mutation_rate() / bv_size);
     algo->set_crossover_probability(_options.get_ga_crossover_probability());
-    algo->set_tournament_size(_options.get_ga_tournament_size());
+    algo->set_tournament_size(_options.get_ea_tournament_size());
     algo->set_allow_no_mutation(_options.with_allow_no_mutation());
 
     return algo;

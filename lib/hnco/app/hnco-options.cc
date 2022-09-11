@@ -8,7 +8,7 @@ using namespace hnco::app;
 
 HncoOptions::HncoOptions(int argc, char *argv[]):
   _exec_name(argv[0]),
-  _version("0.20"),
+  _version("0.21"),
   _algorithm(100),
   _opt_algorithm(false),
   _bm_mc_reset_strategy(1),
@@ -29,6 +29,8 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_ea_lambda(false),
   _ea_mu(10),
   _opt_ea_mu(false),
+  _ea_tournament_size(2),
+  _opt_ea_tournament_size(false),
   _expression("x"),
   _opt_expression(false),
   _fn_name("noname"),
@@ -55,8 +57,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_ga_crossover_bias(false),
   _ga_crossover_probability(0.5),
   _opt_ga_crossover_probability(false),
-  _ga_tournament_size(10),
-  _opt_ga_tournament_size(false),
   _hea_reset_period(0),
   _opt_hea_reset_period(false),
   _learning_rate(0.001),
@@ -192,6 +192,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_DESCRIPTION_PATH,
     OPTION_EA_LAMBDA,
     OPTION_EA_MU,
+    OPTION_EA_TOURNAMENT_SIZE,
     OPTION_EXPRESSION,
     OPTION_FN_NAME,
     OPTION_FN_NUM_TRAPS,
@@ -205,7 +206,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_FUNCTION,
     OPTION_GA_CROSSOVER_BIAS,
     OPTION_GA_CROSSOVER_PROBABILITY,
-    OPTION_GA_TOURNAMENT_SIZE,
     OPTION_HEA_RESET_PERIOD,
     OPTION_LEARNING_RATE,
     OPTION_MAP,
@@ -297,6 +297,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"description-path", required_argument, 0, OPTION_DESCRIPTION_PATH},
     {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
+    {"ea-tournament-size", required_argument, 0, OPTION_EA_TOURNAMENT_SIZE},
     {"expression", required_argument, 0, OPTION_EXPRESSION},
     {"fn-name", required_argument, 0, OPTION_FN_NAME},
     {"fn-num-traps", required_argument, 0, OPTION_FN_NUM_TRAPS},
@@ -310,7 +311,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"ga-crossover-bias", required_argument, 0, OPTION_GA_CROSSOVER_BIAS},
     {"ga-crossover-probability", required_argument, 0, OPTION_GA_CROSSOVER_PROBABILITY},
-    {"ga-tournament-size", required_argument, 0, OPTION_GA_TOURNAMENT_SIZE},
     {"hea-reset-period", required_argument, 0, OPTION_HEA_RESET_PERIOD},
     {"learning-rate", required_argument, 0, OPTION_LEARNING_RATE},
     {"map", required_argument, 0, OPTION_MAP},
@@ -453,6 +453,10 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       set_ea_mu(atoi(optarg));
       break;
 
+    case OPTION_EA_TOURNAMENT_SIZE:
+      set_ea_tournament_size(atoi(optarg));
+      break;
+
     case OPTION_EXPRESSION:
       set_expression(std::string(optarg));
       break;
@@ -505,10 +509,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
 
     case OPTION_GA_CROSSOVER_PROBABILITY:
       set_ga_crossover_probability(atof(optarg));
-      break;
-
-    case OPTION_GA_TOURNAMENT_SIZE:
-      set_ga_tournament_size(atoi(optarg));
       break;
 
     case OPTION_HEA_RESET_PERIOD:
@@ -1226,12 +1226,12 @@ void HncoOptions::print_help_ea(std::ostream& stream) const
   stream << "          Offspring population size" << std::endl;
   stream << "      --ea-mu (type int, default to 10)" << std::endl;
   stream << "          Parent population size" << std::endl;
+  stream << "      --ea-tournament-size (type int, default to 2)" << std::endl;
+  stream << "          Tournament size" << std::endl;
   stream << "      --ga-crossover-bias (type double, default to 0.5)" << std::endl;
   stream << "          Crossover bias" << std::endl;
   stream << "      --ga-crossover-probability (type double, default to 0.5)" << std::endl;
   stream << "          Crossover probability" << std::endl;
-  stream << "      --ga-tournament-size (type int, default to 10)" << std::endl;
-  stream << "          Tournament size" << std::endl;
   stream << std::endl;
 }
 
@@ -1324,6 +1324,7 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# description_path = " << options._description_path << std::endl;
   stream << "# ea_lambda = " << options._ea_lambda << std::endl;
   stream << "# ea_mu = " << options._ea_mu << std::endl;
+  stream << "# ea_tournament_size = " << options._ea_tournament_size << std::endl;
   stream << "# expression = " << options._expression << std::endl;
   stream << "# fn_name = " << options._fn_name << std::endl;
   stream << "# fn_num_traps = " << options._fn_num_traps << std::endl;
@@ -1337,7 +1338,6 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# function = " << options._function << std::endl;
   stream << "# ga_crossover_bias = " << options._ga_crossover_bias << std::endl;
   stream << "# ga_crossover_probability = " << options._ga_crossover_probability << std::endl;
-  stream << "# ga_tournament_size = " << options._ga_tournament_size << std::endl;
   stream << "# hea_reset_period = " << options._hea_reset_period << std::endl;
   stream << "# learning_rate = " << options._learning_rate << std::endl;
   stream << "# map = " << options._map << std::endl;

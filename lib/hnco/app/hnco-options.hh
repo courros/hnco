@@ -56,6 +56,10 @@ class HncoOptions {
   int _ea_mu;
   bool _opt_ea_mu;
 
+  /// Tournament size
+  int _ea_tournament_size;
+  bool _opt_ea_tournament_size;
+
   /// Expression of the variable x
   std::string _expression;
   bool _opt_expression;
@@ -107,10 +111,6 @@ class HncoOptions {
   /// Crossover probability
   double _ga_crossover_probability;
   bool _opt_ga_crossover_probability;
-
-  /// Tournament size
-  int _ga_tournament_size;
-  bool _opt_ga_tournament_size;
 
   /// Reset period (<= 0 means no reset)
   int _hea_reset_period;
@@ -542,6 +542,18 @@ public:
   /// Get set-flag for ea_mu
   bool set_ea_mu() const { return _opt_ea_mu; }
 
+  /// Get ea_tournament_size
+  int get_ea_tournament_size() const { return _ea_tournament_size; }
+
+  /// Set ea_tournament_size
+  void set_ea_tournament_size(int x) {
+    _ea_tournament_size = x;
+    _opt_ea_tournament_size = true;
+  }
+
+  /// Get set-flag for ea_tournament_size
+  bool set_ea_tournament_size() const { return _opt_ea_tournament_size; }
+
   /// Get expression
   std::string get_expression() const { return _expression; }
 
@@ -697,18 +709,6 @@ public:
 
   /// Get set-flag for ga_crossover_probability
   bool set_ga_crossover_probability() const { return _opt_ga_crossover_probability; }
-
-  /// Get ga_tournament_size
-  int get_ga_tournament_size() const { return _ga_tournament_size; }
-
-  /// Set ga_tournament_size
-  void set_ga_tournament_size(int x) {
-    _ga_tournament_size = x;
-    _opt_ga_tournament_size = true;
-  }
-
-  /// Get set-flag for ga_tournament_size
-  bool set_ga_tournament_size() const { return _opt_ga_tournament_size; }
 
   /// Get hea_reset_period
   int get_hea_reset_period() const { return _hea_reset_period; }

@@ -13,7 +13,7 @@
 
     "description": "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors",
 
-    "version": "0.20",
+    "version": "0.21",
 
     "sections": [
 
@@ -1251,10 +1251,10 @@
             "section": "ea"
         },
 
-        "ga_tournament_size":
+        "ea_tournament_size":
         {
             "type": "int",
-            "value": 10,
+            "value": 2,
             "description": "Tournament size",
             "section": "ea"
         },
