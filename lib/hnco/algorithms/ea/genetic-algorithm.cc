@@ -30,12 +30,13 @@ using namespace hnco;
 void
 GeneticAlgorithm::init()
 {
-  _mutation.set_mutation_rate(_mutation_rate);
-  _mutation.set_allow_no_mutation(_allow_no_mutation);
+  _tournament_selection.set_tournament_size(_tournament_size);
+  _tournament_selection.init();
 
   _do_crossover = std::bernoulli_distribution(_crossover_probability);
 
-  _tournament_selection.set_tournament_size(_tournament_size);
+  _mutation.set_mutation_rate(_mutation_rate);
+  _mutation.set_allow_no_mutation(_allow_no_mutation);
 
   _parents.random();
   _parents.evaluate(_function);
