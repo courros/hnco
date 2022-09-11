@@ -1032,6 +1032,15 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("set_selection_size", &Umda::set_selection_size)
       ;
 
+    py::class_<Population>(module_algorithm, "Population")
+      .def(py::init<int, int>())
+      .def("size", &Population::size)
+      .def("random", &Population::random)
+      .def("evaluate", &Population::evaluate)
+      .def_readwrite("bvs", &Population::bvs)
+      .def_readwrite("values", &Population::values)
+      ;
+
   }
 
   //
