@@ -24,7 +24,6 @@
 #include <functional>           // std::greater
 
 #include "hnco/algorithms/population.hh"
-#include "hnco/functions/function.hh"
 #include "hnco/multiobjective/algorithms/random-selection.hh"
 #include "hnco/random.hh"
 
@@ -33,21 +32,24 @@ namespace hnco {
 namespace algorithm {
 
 
-/// Random selection
+/**
+ * Random selection. Used as selection for reproduction in
+ * evolutionary algorithms.
+ */
 class RandomSelection
 {
 protected:
 
-  /// Population to select from
-  Population& _population;
+  /// %Population to select from
+  const Population& _population;
 
 public:
 
-  /** Constructor.
-
-      \param population Population to select from
-  */
-  RandomSelection(Population& population)
+  /**
+   * Constructor.
+   * @param population %Population to select from
+   */
+  RandomSelection(const Population& population)
     : _population(population)
   {}
 
@@ -69,11 +71,11 @@ class UniformSelection: public RandomSelection
 
 public:
 
-  /** Constructor.
-
-      \param population Population
-  */
-  UniformSelection(Population& population)
+  /**
+   * Constructor.
+   * @param population %Population to select from
+   */
+  UniformSelection(const Population& population)
     : RandomSelection(population)
     , _choose_individual(0, population.size() - 1)
   {}
@@ -84,17 +86,17 @@ public:
 };
 
 
-/** Tournament selection.
-
-    Implemented with the TournamentSelection class found in
-    multiobjective optimization.
-*/
-class TournamentSelection:
-    public RandomSelection {
+/**
+ * Tournament selection. Reuses the
+ * hnco::multiobjective::algorithm::TournamentSelection class.
+ */
+class TournamentSelection: public RandomSelection
+{
 
   hnco::multiobjective::algorithm::TournamentSelection<double, std::greater<double>> _tournament_selection;
 
-  /** @name Parameters
+  /**
+   * @name Parameters
    */
   ///@{
 
@@ -105,11 +107,11 @@ class TournamentSelection:
 
 public:
 
-  /** Constructor.
-
-      \param population Population to select from
-  */
-  TournamentSelection(Population& population)
+  /**
+   * Constructor.
+   * @param population %Population to select from
+   */
+  TournamentSelection(const Population& population)
     : RandomSelection(population)
     , _tournament_selection(population.bvs, population.values)
   {}
@@ -117,16 +119,16 @@ public:
   /// Initialize
   void init() override;
   
-  /** Select an individual in the population.
-
-      The selection only requires that the population be evaluated,
-      not necessarily sorted.
-
-      \pre The population must be evaluated.
-  */
+  /**
+   * Select an individual in the population. The selection only
+   * requires that the population be evaluated, not necessarily
+   * sorted.
+   * @pre The population must be evaluated.
+   */
   const bit_vector_t& select() override;
 
-  /** @name Setters
+  /**
+   * @name Setters
    */
   ///@{
 
