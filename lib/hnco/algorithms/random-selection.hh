@@ -93,6 +93,7 @@ public:
 class TournamentSelection: public RandomSelection
 {
 
+  /// Tournament selection
   hnco::multiobjective::algorithm::TournamentSelection<double, std::greater<double>> _tournament_selection;
 
   /**
