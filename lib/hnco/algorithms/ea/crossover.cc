@@ -27,8 +27,8 @@ using namespace hnco;
 
 
 void
-UniformCrossover::breed(const bit_vector_t& parent1,
-                        const bit_vector_t& parent2, bit_vector_t& offspring)
+UniformCrossover::recombine(const bit_vector_t& parent1,
+                            const bit_vector_t& parent2, bit_vector_t& offspring)
 {
   assert(offspring.size() == parent1.size());
   assert(offspring.size() == parent2.size());
@@ -42,8 +42,8 @@ UniformCrossover::breed(const bit_vector_t& parent1,
 
 
 void
-BiasedCrossover::breed(const bit_vector_t& parent1,
-                       const bit_vector_t& parent2, bit_vector_t& offspring)
+BiasedCrossover::recombine(const bit_vector_t& parent1,
+                           const bit_vector_t& parent2, bit_vector_t& offspring)
 {
   assert(offspring.size() == parent1.size());
   assert(offspring.size() == parent2.size());

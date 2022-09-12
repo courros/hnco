@@ -59,7 +59,7 @@ OnePlusLambdaCommaLambdaGa::iterate()
 
   // Crossover
   for (int i = 0; i < _offsprings.size(); i++)
-    _crossover.breed(_solution.first, _parent, _offsprings.bvs[i]);
+    _crossover.recombine(_solution.first, _parent, _offsprings.bvs[i]);
   _offsprings.evaluate(_function);
   _offsprings.sort();
 

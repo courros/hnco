@@ -55,7 +55,7 @@ GeneticAlgorithm::iterate()
 
     // Crossover
     if (_do_crossover(Generator::engine))
-      _crossover.breed(_tournament_selection.select(), _tournament_selection.select(), offspring);
+      _crossover.recombine(_tournament_selection.select(), _tournament_selection.select(), offspring);
     else
       offspring = _tournament_selection.select();
 

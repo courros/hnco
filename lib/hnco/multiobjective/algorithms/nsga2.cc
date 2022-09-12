@@ -56,7 +56,7 @@ Nsga2::init()
   for (int i = 0; i < _offsprings.size(); i++) {
     bit_vector_t& offspring = _offsprings.bvs[i];
     if (_do_crossover(Generator::engine))
-      _crossover.breed(selection.select(),selection.select(), offspring);
+      _crossover.recombine(selection.select(),selection.select(), offspring);
     else
       offspring = selection.select();
     _mutation.mutate(offspring);
@@ -137,7 +137,7 @@ Nsga2::iterate()
   for (int i = 0; i < _offsprings.size(); i++) {
     bit_vector_t& offspring = _offsprings.bvs[i];
     if (_do_crossover(Generator::engine))
-      _crossover.breed(_selection_by_front_distance_pair.select(),_selection_by_front_distance_pair.select(), offspring);
+      _crossover.recombine(_selection_by_front_distance_pair.select(),_selection_by_front_distance_pair.select(), offspring);
     else
       offspring = _selection_by_front_distance_pair.select();
     _mutation.mutate(offspring);

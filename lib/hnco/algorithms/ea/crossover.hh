@@ -39,7 +39,7 @@ public:
   /// Destructor
   virtual ~Crossover() {}
 
-  /** Breed.
+  /** Recombine.
 
       The offspring is the crossover of two parents.
 
@@ -47,7 +47,7 @@ public:
       \param parent2 Second parent
       \param offspring Offspring
   */
-  virtual void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring) = 0;
+  virtual void recombine(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring) = 0;
 
 };
 
@@ -58,7 +58,7 @@ class UniformCrossover:
 
 public:
 
-  /** Breed.
+  /** Recombine.
 
       The offspring is the uniform crossover of two parents.
 
@@ -66,7 +66,7 @@ public:
       \param parent2 Second parent
       \param offspring Offspring
   */
-  void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring);
+  void recombine(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring);
 
 };
 
@@ -84,7 +84,7 @@ public:
   BiasedCrossover():
     _bernoulli_dist(0.5) {}
 
-  /** Breed.
+  /** Recombine.
 
       Each offspring's bit is copied from second parent with a fixed
       probability (the crossover bias), from first parent otherwise.
@@ -93,7 +93,7 @@ public:
       \param parent2 Second parent
       \param offspring Offspring
   */
-  void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring);
+  void recombine(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring);
 
   /// Set bias
   void set_bias(double b) {
