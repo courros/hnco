@@ -146,8 +146,8 @@ struct Population {
       randomly.
   */
   void sort() {
-    auto compare = [this](int i, int j){ return this->values[i] > this->values[j]; };
     perm_shuffle(permutation);
+    auto compare = [this](int i, int j){ return this->values[i] > this->values[j]; };
     std::sort(permutation.begin(), permutation.end(), compare);
   }
 
@@ -164,8 +164,8 @@ struct Population {
   void partial_sort(int selection_size) {
     assert(selection_size > 0);
 
-    auto compare = [this](int i, int j){ return this->values[i] > this->values[j]; };
     perm_shuffle(permutation);
+    auto compare = [this](int i, int j){ return this->values[i] > this->values[j]; };
     std::partial_sort(permutation.begin(), permutation.begin() + selection_size, permutation.end(), compare);
   }
 
