@@ -21,9 +21,9 @@
 #ifndef HNCO_ALGORITHMS_SELECTION_H
 #define HNCO_ALGORITHMS_SELECTION_H
 
-#include <assert.h>
-
 #include <utility>              // std::swap
+
+#include "hnco/util.hh"         // hnco::require
 
 #include "population.hh"
 
@@ -32,29 +32,39 @@ namespace hnco {
 namespace algorithm {
 
 
+/**
+ * Comma selection. Used as selection for replacement in evolutionary
+ * algorithms.
+ */
 class CommaSelection
 {
+  /// Parent population
   Population& _parents;
-  Population& _children;
+
+  /// Offspring population
+  Population& _offsprings;
 
 public:
 
-  /** Constructor.
-
+  /**
+   * Constructor.
+   * @param parents Parent population
+   * @param offsprings Offspring population
    */
-  CommaSelection(Population& parents, Population& children)
+  CommaSelection(Population& parents, Population& offsprings)
     : _parents(parents)
-    , _children(children)
+    , _offsprings(offsprings)
   {
-    require(children.size() >= parents.size(),
-            "CommaSelection::CommaSelection: Children population size must be greater than or equal to parents population size");
+    require(offsprings.size() >= parents.size(),
+            "CommaSelection::CommaSelection: Offspring population size must be greater than or equal to parent population size");
   }
 
+  /// Apply selection
   void select() {
-    _children.partial_sort(_parents.size());
+    _offsprings.partial_sort(_parents.size());
     for (int i = 0; i < _parents.size(); i++) {
-      _parents.values[i] = _children.get_best_value(i);
-      std::swap(_parents.bvs[i], _children.get_best_bv(i));
+      _parents.values[i] = _offsprings.get_best_value(i);
+      std::swap(_parents.bvs[i], _offsprings.get_best_bv(i));
     }
     perm_identity(_parents.permutation);
   }
@@ -62,35 +72,42 @@ public:
 };
 
 
+/**
+ * Plus selection. Used as selection for replacement in evolutionary
+ * algorithms.
+ */
 class PlusSelection
 {
   Population& _parents;
-  Population& _children;
+  Population& _offsprings;
   Population _pool;
 
 public:
 
-  /** Constructor.
-
+  /**
+   * Constructor.
+   * @param parents Parent population
+   * @param offsprings Offspring population
    */
-  PlusSelection(Population& parents, Population& children)
+  PlusSelection(Population& parents, Population& offsprings)
     : _parents(parents)
-    , _children(children)
-    , _pool(parents.size() + children.size(), parents.get_bv_size())
+    , _offsprings(offsprings)
+    , _pool(parents.size() + offsprings.size(), parents.get_bv_size())
   {
-    require(children.get_bv_size() == parents.get_bv_size(),
-            "PlusSelection::PlusSelection: Bit vectors in parents and children populations must have the same size");
+    require(offsprings.get_bv_size() == parents.get_bv_size(),
+            "PlusSelection::PlusSelection: Bit vectors in parent and offspring populations must have the same size");
   }
 
+  /// Apply selection
   void select() {
     for (int i = 0; i < _parents.size(); i++) {
       _pool.values[i] = _parents.values[i];
       std::swap(_pool.bvs[i], _parents.bvs[i]);
     }
     int offset = _parents.size();
-    for (int i = 0; i < _children.size(); i++) {
-      _pool.values[offset + i] = _children.values[i];
-      std::swap(_pool.bvs[offset + i], _children.bvs[i]);
+    for (int i = 0; i < _offsprings.size(); i++) {
+      _pool.values[offset + i] = _offsprings.values[i];
+      std::swap(_pool.bvs[offset + i], _offsprings.bvs[i]);
     }
     _pool.partial_sort(_parents.size());
     for (int i = 0; i < _parents.size(); i++) {
