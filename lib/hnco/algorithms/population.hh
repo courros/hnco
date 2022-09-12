@@ -140,7 +140,7 @@ struct Population {
   /** Sort the population
 
       Only the permutation is sorted using the order defined by i < j
-      if value[i] > value[j].
+      if values[i] > values[j].
 
       Before sorting, the permutation is shuffled to break ties
       randomly.
@@ -154,7 +154,7 @@ struct Population {
   /** Partially sort the population
 
       Only the permutation is sorted using the order defined by i < j
-      if value[i] > value[j].
+      if values[i] > values[j].
 
       Before sorting, the permutation is shuffled to break ties
       randomly.
