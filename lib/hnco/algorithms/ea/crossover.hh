@@ -31,79 +31,79 @@ namespace hnco {
 namespace algorithm {
 
 
-  /// %Crossover
-  class Crossover {
+/// %Crossover
+class Crossover {
 
-  public:
+public:
 
-    /// Destructor
-    virtual ~Crossover() {}
+  /// Destructor
+  virtual ~Crossover() {}
 
-    /** Breed.
+  /** Breed.
 
-        The offspring is the crossover of two parents.
+      The offspring is the crossover of two parents.
 
-        \param parent1 First parent
-        \param parent2 Second parent
-        \param offspring Offspring
-    */
-    virtual void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring) = 0;
+      \param parent1 First parent
+      \param parent2 Second parent
+      \param offspring Offspring
+  */
+  virtual void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring) = 0;
 
-  };
+};
 
 
-  /// Uniform crossover
-  class UniformCrossover:
+/// Uniform crossover
+class UniformCrossover:
     public Crossover {
 
-  public:
+public:
 
-    /** Breed.
+  /** Breed.
 
-        The offspring is the uniform crossover of two parents.
+      The offspring is the uniform crossover of two parents.
 
-        \param parent1 First parent
-        \param parent2 Second parent
-        \param offspring Offspring
-    */
-    void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring);
+      \param parent1 First parent
+      \param parent2 Second parent
+      \param offspring Offspring
+  */
+  void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring);
 
-  };
+};
 
 
-  /// Biased crossover
-  class BiasedCrossover:
+/// Biased crossover
+class BiasedCrossover:
     public Crossover {
 
-    /// Bernoulli distribution
-    std::bernoulli_distribution _bernoulli_dist;
+  /// Bernoulli distribution
+  std::bernoulli_distribution _bernoulli_dist;
 
-  public:
+public:
 
-    /// Constructor
-    BiasedCrossover():
-      _bernoulli_dist(0.5) {}
+  /// Constructor
+  BiasedCrossover():
+    _bernoulli_dist(0.5) {}
 
-    /** Breed.
+  /** Breed.
 
-        Each offspring's bit is copied from second parent with a fixed
-        probability (the crossover bias), from first parent otherwise.
+      Each offspring's bit is copied from second parent with a fixed
+      probability (the crossover bias), from first parent otherwise.
 
-        \param parent1 First parent
-        \param parent2 Second parent
-        \param offspring Offspring
-    */
-    void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring);
+      \param parent1 First parent
+      \param parent2 Second parent
+      \param offspring Offspring
+  */
+  void breed(const bit_vector_t& parent1, const bit_vector_t& parent2, bit_vector_t& offspring);
 
-    /// Set bias
-    void set_bias(double b) {
-      assert(b > 0);
-      assert(b < 1);
+  /// Set bias
+  void set_bias(double b) {
+    assert(b > 0);
+    assert(b < 1);
 
-      _bernoulli_dist = std::bernoulli_distribution(b);
-    }
+    _bernoulli_dist = std::bernoulli_distribution(b);
+  }
 
-  };
+};
 
 
 } // end of namespace algorithm
