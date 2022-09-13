@@ -23,13 +23,15 @@
 
 #include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/algorithms/population.hh"
-#include "hnco/algorithms/selection.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/random.hh"
+
+#include "selection.hh"
 
 
 namespace hnco {
 namespace algorithm {
+
 
 /** (mu+lambda) EA.
 

@@ -26,5 +26,7 @@
 #include "mu-plus-lambda-ea.hh"
 #include "one-plus-lambda-comma-lambda-ga.hh"
 #include "one-plus-one-ea.hh"
+#include "random-selection.hh"
+#include "selection.hh"
 
 #endif

@@ -32,8 +32,6 @@
 #include "mimic.hh"
 #include "pv/all.hh"
 #include "random-search.hh"
-#include "random-selection.hh"
-#include "selection.hh"
 #include "walsh-moment/all.hh"
 
 #endif

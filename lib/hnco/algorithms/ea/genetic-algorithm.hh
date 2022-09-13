@@ -24,12 +24,13 @@
 #include <random>
 
 #include "hnco/algorithms/iterative-algorithm.hh"
-#include "hnco/algorithms/random-selection.hh"
-#include "hnco/algorithms/selection.hh"
+#include "hnco/algorithms/population.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 #include "hnco/random.hh"
 
 #include "crossover.hh"
+#include "random-selection.hh"
+#include "selection.hh"
 
 
 namespace hnco {
@@ -49,8 +50,7 @@ namespace algorithm {
     systems. University of Michigan Press, Ann Arbor.
 
 */
-class GeneticAlgorithm:
-    public IterativeAlgorithm {
+class GeneticAlgorithm: public IterativeAlgorithm {
 
 protected:
 

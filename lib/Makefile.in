@@ -205,6 +205,9 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.cc \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
+	hnco/algorithms/ea/random-selection.cc \
+	hnco/algorithms/ea/random-selection.hh \
+	hnco/algorithms/ea/selection.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
@@ -231,8 +234,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh hnco/algorithms/mimic.cc \
 	hnco/algorithms/mimic.hh hnco/algorithms/population.cc \
-	hnco/algorithms/population.hh hnco/algorithms/selection.hh \
-	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.cc \
+	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
+	hnco/algorithms/pv/compact-ga.cc \
 	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.cc \
 	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.cc \
 	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.cc \
@@ -242,10 +245,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/pv/pv-algorithm.cc \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.cc \
 	hnco/algorithms/pv/umda.hh hnco/algorithms/random-search.cc \
-	hnco/algorithms/random-search.hh \
-	hnco/algorithms/random-selection.cc \
-	hnco/algorithms/random-selection.hh \
-	hnco/algorithms/solution.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
 	hnco/algorithms/walsh-moment/bm-pbil.hh \
 	hnco/algorithms/walsh-moment/gibbs-sampler.cc \
@@ -395,6 +395,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/ea/mu-comma-lambda-ea.lo \
 	hnco/algorithms/ea/mu-plus-lambda-ea.lo \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.lo \
+	hnco/algorithms/ea/random-selection.lo \
 	hnco/algorithms/fast-efficient-p3/hboa.lo \
 	hnco/algorithms/fast-efficient-p3/ltga.lo \
 	hnco/algorithms/fast-efficient-p3/p3.lo \
@@ -411,7 +412,6 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/pv/probability-vector.lo \
 	hnco/algorithms/pv/pv-algorithm.lo hnco/algorithms/pv/umda.lo \
 	hnco/algorithms/random-search.lo \
-	hnco/algorithms/random-selection.lo \
 	hnco/algorithms/walsh-moment/gibbs-sampler.lo \
 	hnco/algorithms/walsh-moment/herding.lo \
 	hnco/algorithms/walsh-moment/walsh-moment.lo \
@@ -499,13 +499,13 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/algorithms/$(DEPDIR)/mimic.Plo \
 	hnco/algorithms/$(DEPDIR)/population.Plo \
 	hnco/algorithms/$(DEPDIR)/random-search.Plo \
-	hnco/algorithms/$(DEPDIR)/random-selection.Plo \
 	hnco/algorithms/decorators/$(DEPDIR)/restart.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/crossover.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/genetic-algorithm.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/mu-comma-lambda-ea.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo \
+	hnco/algorithms/ea/$(DEPDIR)/random-selection.Plo \
 	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo \
 	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo \
 	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo \
@@ -632,6 +632,8 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
+	hnco/algorithms/ea/random-selection.hh \
+	hnco/algorithms/ea/selection.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
@@ -653,9 +655,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.hh \
 	hnco/algorithms/pv/probability-vector.hh \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
-	hnco/algorithms/random-search.hh \
-	hnco/algorithms/random-selection.hh \
-	hnco/algorithms/selection.hh hnco/algorithms/solution.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
 	hnco/algorithms/walsh-moment/bm-pbil.hh \
 	hnco/algorithms/walsh-moment/gibbs-sampler.hh \
@@ -933,6 +933,9 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.cc \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
+	hnco/algorithms/ea/random-selection.cc \
+	hnco/algorithms/ea/random-selection.hh \
+	hnco/algorithms/ea/selection.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
@@ -959,8 +962,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/matrix.hh hnco/algorithms/mimic.cc \
 	hnco/algorithms/mimic.hh hnco/algorithms/population.cc \
-	hnco/algorithms/population.hh hnco/algorithms/selection.hh \
-	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.cc \
+	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
+	hnco/algorithms/pv/compact-ga.cc \
 	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.cc \
 	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.cc \
 	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.cc \
@@ -970,10 +973,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/pv/pv-algorithm.cc \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.cc \
 	hnco/algorithms/pv/umda.hh hnco/algorithms/random-search.cc \
-	hnco/algorithms/random-search.hh \
-	hnco/algorithms/random-selection.cc \
-	hnco/algorithms/random-selection.hh \
-	hnco/algorithms/solution.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
 	hnco/algorithms/walsh-moment/bm-pbil.hh \
 	hnco/algorithms/walsh-moment/gibbs-sampler.cc \
@@ -1114,6 +1114,8 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
+	hnco/algorithms/ea/random-selection.hh \
+	hnco/algorithms/ea/selection.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
@@ -1135,9 +1137,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.hh \
 	hnco/algorithms/pv/probability-vector.hh \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
-	hnco/algorithms/random-search.hh \
-	hnco/algorithms/random-selection.hh \
-	hnco/algorithms/selection.hh hnco/algorithms/solution.hh \
+	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
 	hnco/algorithms/walsh-moment/bm-pbil.hh \
 	hnco/algorithms/walsh-moment/gibbs-sampler.hh \
@@ -1368,6 +1368,9 @@ hnco/algorithms/ea/mu-plus-lambda-ea.lo:  \
 hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.lo:  \
 	hnco/algorithms/ea/$(am__dirstamp) \
 	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/ea/random-selection.lo:  \
+	hnco/algorithms/ea/$(am__dirstamp) \
+	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/fast-efficient-p3/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/fast-efficient-p3
 	@: > hnco/algorithms/fast-efficient-p3/$(am__dirstamp)
@@ -1435,8 +1438,6 @@ hnco/algorithms/pv/pv-algorithm.lo:  \
 hnco/algorithms/pv/umda.lo: hnco/algorithms/pv/$(am__dirstamp) \
 	hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/random-search.lo: hnco/algorithms/$(am__dirstamp) \
-	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/random-selection.lo: hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/walsh-moment/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms/walsh-moment
@@ -1757,13 +1758,13 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/mimic.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/population.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/random-search.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/$(DEPDIR)/random-selection.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/decorators/$(DEPDIR)/restart.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/crossover.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/genetic-algorithm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-comma-lambda-ea.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/random-selection.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo@am__quote@ # am--include-marker
@@ -2138,13 +2139,13 @@ distclean: distclean-am
 	-rm -f hnco/algorithms/$(DEPDIR)/mimic.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/population.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/random-search.Plo
-	-rm -f hnco/algorithms/$(DEPDIR)/random-selection.Plo
 	-rm -f hnco/algorithms/decorators/$(DEPDIR)/restart.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/crossover.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/genetic-algorithm.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/mu-comma-lambda-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo
+	-rm -f hnco/algorithms/ea/$(DEPDIR)/random-selection.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo
@@ -2279,13 +2280,13 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/algorithms/$(DEPDIR)/mimic.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/population.Plo
 	-rm -f hnco/algorithms/$(DEPDIR)/random-search.Plo
-	-rm -f hnco/algorithms/$(DEPDIR)/random-selection.Plo
 	-rm -f hnco/algorithms/decorators/$(DEPDIR)/restart.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/crossover.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/genetic-algorithm.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/mu-comma-lambda-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo
+	-rm -f hnco/algorithms/ea/$(DEPDIR)/random-selection.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo

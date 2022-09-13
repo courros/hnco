@@ -24,8 +24,7 @@
 #include <utility>              // std::swap
 
 #include "hnco/util.hh"         // hnco::require
-
-#include "population.hh"
+#include "hnco/algorithms/population.hh"
 
 
 namespace hnco {

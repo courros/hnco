@@ -70,6 +70,9 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.cc \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
+	hnco/algorithms/ea/random-selection.cc \
+	hnco/algorithms/ea/random-selection.hh \
+	hnco/algorithms/ea/selection.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
@@ -100,7 +103,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/mimic.hh \
 	hnco/algorithms/population.cc \
 	hnco/algorithms/population.hh \
-	hnco/algorithms/selection.hh \
 	hnco/algorithms/pv/all.hh \
 	hnco/algorithms/pv/compact-ga.cc \
 	hnco/algorithms/pv/compact-ga.hh \
@@ -118,8 +120,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.cc \
 	hnco/algorithms/random-search.hh \
-	hnco/algorithms/random-selection.cc \
-	hnco/algorithms/random-selection.hh \
 	hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
 	hnco/algorithms/walsh-moment/bm-pbil.hh \
@@ -316,6 +316,8 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
+	hnco/algorithms/ea/random-selection.hh \
+	hnco/algorithms/ea/selection.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
@@ -343,8 +345,6 @@ nobase_include_HEADERS = \
 	hnco/algorithms/pv/pv-algorithm.hh \
 	hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.hh \
-	hnco/algorithms/random-selection.hh \
-	hnco/algorithms/selection.hh \
 	hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
 	hnco/algorithms/walsh-moment/bm-pbil.hh \
