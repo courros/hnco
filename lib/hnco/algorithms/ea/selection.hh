@@ -77,8 +77,13 @@ public:
  */
 class PlusSelection
 {
+  /// Parent population
   Population& _parents;
+
+  /// Offspring population
   Population& _offsprings;
+
+  /// Union of parent and offspring population
   Population _pool;
 
 public:
