@@ -98,7 +98,7 @@ struct Population
 
   /**
    * Get worst bit vector.
-   * @param i Index in the sorted population
+   * @param i Reversed index in the sorted population
    * @pre The population must be sorted.
    */
   bit_vector_t& get_worst_bv(int i) { return get_best_bv(bvs.size() - 1 - i); }
