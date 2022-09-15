@@ -20,8 +20,7 @@
 
 #include <assert.h>
 
-#include "hnco/algorithms/matrix.hh" // hnco::algorithm::matrix_is_symmetric
-#include "hnco/random.hh"            // hnco::random::Generator
+#include "hnco/random.hh"       // hnco::random::Generator
 #include "hnco/util.hh"         // hnco::logistic, hnco::is_in_range
 
 #include "gibbs-sampler.hh"
