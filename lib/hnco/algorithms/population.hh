@@ -24,6 +24,7 @@
 #include <assert.h>
 
 #include <algorithm>            // std::sort
+#include <utility>              // std::pair
 
 #include "hnco/bit-vector.hh"
 #include "hnco/functions/function.hh"
@@ -162,6 +163,8 @@ struct Population
     auto compare = [this](int i, int j){ return this->values[i] > this->values[j]; };
     std::partial_sort(permutation.begin(), permutation.begin() + selection_size, permutation.end(), compare);
   }
+
+  std::pair<int, int> class_of(int index);
 
   ///@}
 

@@ -1034,9 +1034,25 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     py::class_<Population>(module_algorithm, "Population")
       .def(py::init<int, int>())
+
       .def("size", &Population::size)
+      .def("get_bv_size", &Population::get_bv_size)
+
       .def("random", &Population::random)
+
+      .def("get_best_bv", static_cast<bit_vector_t& (Population::*)()>(&Population::get_best_bv))
+      .def("get_best_bv", static_cast<bit_vector_t& (Population::*)(int)>(&Population::get_best_bv))
+      .def("get_worst_bv", &Population::get_worst_bv)
+
+      .def("get_best_value", static_cast<double (Population::*)() const>(&Population::get_best_value))
+      .def("get_best_value", static_cast<double (Population::*)(int) const>(&Population::get_best_value))
+
       .def("evaluate", &Population::evaluate)
+      .def("sort", &Population::sort)
+      .def("partial_sort", &Population::partial_sort)
+
+      .def("class_of", &Population::class_of)
+
       .def_readwrite("bvs", &Population::bvs)
       .def_readwrite("values", &Population::values)
       ;

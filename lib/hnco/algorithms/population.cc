@@ -20,6 +20,9 @@
 
 #include <omp.h>                // omp_get_thread_num
 
+#include <algorithm>            // std::equal_range
+#include <iterator>             // std::distance
+
 #include "hnco/util.hh"         // hnco::is_in_range
 
 #include "population.hh"
@@ -67,4 +70,17 @@ Population::evaluate_in_parallel(const std::vector<Function *>& fns)
 
   for (size_t i = 0; i < bvs.size(); i++)
     fns[0]->update(bvs[i], values[i]);
+}
+
+
+std::pair<int, int>
+Population::class_of(int index)
+{
+  assert(is_in_range(index, permutation.size()));
+
+  auto compare = [this](int i, int j){ return this->values[i] > this->values[j]; };
+  auto range = std::equal_range(permutation.begin(), permutation.end(), permutation[index], compare);
+
+  return std::make_pair(std::distance(permutation.begin(), range.first),
+                        std::distance(permutation.begin(), range.second));
 }
