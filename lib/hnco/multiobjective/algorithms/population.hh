@@ -24,6 +24,7 @@
 #include <assert.h>
 
 #include "hnco/multiobjective/functions/function.hh"
+#include "hnco/util.hh"         // hnco::require
 
 
 namespace hnco {
@@ -51,20 +52,20 @@ struct Population {
 
   /**
    * Constructor.
-   * \param population_size %Population size
-   * \param n Size of bit vectors
-   * \param num_objectives Number of objectives
+   * @param population_size %Population size
+   * @param n Size of bit vectors
+   * @param num_objectives Number of objectives
    */
   Population(int population_size, int n, int num_objectives)
     : bvs(population_size, bit_vector_t(n))
     , values(population_size, value_t(num_objectives))
   {
-    if (population_size <= 0)
-      throw std::runtime_error("multiobjective::Population::Population: population_size must be positive");
-    if (n <= 0)
-      throw std::runtime_error("multiobjective::Population::Population: bit vector size must be positive");
-    if (num_objectives <= 0)
-      throw std::runtime_error("multiobjective::Population::Population: num_objectives size must be positive");
+    require(population_size > 0,
+            "multiobjective::Population::Population: population_size must be positive");
+    require(n > 0,
+            "multiobjective::Population::Population: bit vector size must be positive");
+    require(num_objectives > 0,
+            "multiobjective::Population::Population: num_objectives must be positive");
   }
 
   /// Get the population size
@@ -72,9 +73,9 @@ struct Population {
 
   /**
    * Resize the population.
-   * \param population_size %Population size
-   * \param n Size of bit vectors
-   * \param num_objectives Number of objectives
+   * @param population_size %Population size
+   * @param n Size of bit vectors
+   * @param num_objectives Number of objectives
    */
   void resize(int population_size, int n, int num_objectives) {
     assert(population_size > 0);
@@ -92,8 +93,8 @@ struct Population {
 
   /**
    * Shrink the population.
-   * \param population_size %Population size
-   * \pre population_size < size()
+   * @param population_size %Population size
+   * @pre population_size < size()
    */
   void shrink(int population_size) {
     assert(population_size > 0);
