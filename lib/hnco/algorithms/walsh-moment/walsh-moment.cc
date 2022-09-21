@@ -21,9 +21,9 @@
 #include <assert.h>
 #include <math.h>		// std::sqrt
 
-#include "hnco/algorithms/matrix.hh" // hnco::algorithm::matrix_is_symmetric
 #include "hnco/util.hh"
 
+#include "matrix.hh" // hnco::algorithm::matrix_is_symmetric
 #include "walsh-moment.hh"
 
 

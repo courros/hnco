@@ -54,14 +54,14 @@ public:
     : _parents(parents)
     , _offsprings(offsprings)
   {
-    require(offsprings.size() >= parents.size(),
+    require(offsprings.get_size() >= parents.get_size(),
             "CommaSelection::CommaSelection: Offspring population size must be greater than or equal to parent population size");
   }
 
   /// Apply selection
   void select() {
-    _offsprings.partial_sort(_parents.size());
-    for (int i = 0; i < _parents.size(); i++) {
+    _offsprings.partial_sort(_parents.get_size());
+    for (int i = 0; i < _parents.get_size(); i++) {
       _parents.values[i] = _offsprings.get_best_value(i);
       std::swap(_parents.bvs[i], _offsprings.get_best_bv(i));
     }
@@ -96,7 +96,7 @@ public:
   PlusSelection(Population& parents, Population& offsprings)
     : _parents(parents)
     , _offsprings(offsprings)
-    , _pool(parents.size() + offsprings.size(), parents.get_bv_size())
+    , _pool(parents.get_size() + offsprings.get_size(), parents.get_bv_size())
   {
     require(offsprings.get_bv_size() == parents.get_bv_size(),
             "PlusSelection::PlusSelection: Bit vectors in parent and offspring populations must have the same size");
@@ -104,17 +104,17 @@ public:
 
   /// Apply selection
   void select() {
-    for (int i = 0; i < _parents.size(); i++) {
+    for (int i = 0; i < _parents.get_size(); i++) {
       _pool.values[i] = _parents.values[i];
       std::swap(_pool.bvs[i], _parents.bvs[i]);
     }
-    int offset = _parents.size();
-    for (int i = 0; i < _offsprings.size(); i++) {
+    int offset = _parents.get_size();
+    for (int i = 0; i < _offsprings.get_size(); i++) {
       _pool.values[offset + i] = _offsprings.values[i];
       std::swap(_pool.bvs[offset + i], _offsprings.bvs[i]);
     }
-    _pool.partial_sort(_parents.size());
-    for (int i = 0; i < _parents.size(); i++) {
+    _pool.partial_sort(_parents.get_size());
+    for (int i = 0; i < _parents.get_size(); i++) {
       _parents.values[i] = _pool.get_best_value(i);
       std::swap(_parents.bvs[i], _pool.get_best_bv(i));
     }

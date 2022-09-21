@@ -182,7 +182,7 @@ protected:
       _gibbs_sampler.init();
 
     // Sample population
-    for (int i = 0; i < _population.size(); i++) {
+    for (int i = 0; i < _population.get_size(); i++) {
       if (_mc_reset_strategy == RESET_BIT_VECTOR)
         _gibbs_sampler.init();
       sample(_population.bvs[i]);
@@ -215,9 +215,9 @@ protected:
     } else {
       // Average all individuals
       _walsh_moment_all.init();
-      for (int i = 0; i < _population.size(); i++)
+      for (int i = 0; i < _population.get_size(); i++)
         _walsh_moment_all.add(_population.bvs[i]);
-      _walsh_moment_all.average(_population.size());
+      _walsh_moment_all.average(_population.get_size());
       _model_parameters.update(_walsh_moment_best, _walsh_moment_all, _learning_rate);
     }
 

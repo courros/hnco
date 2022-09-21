@@ -38,8 +38,7 @@ namespace algorithm {
 
 
 /// %Population
-struct Population
-{
+struct Population {
 
   /// %Function type
   using Function = hnco::function::Function;
@@ -69,8 +68,8 @@ struct Population
     perm_identity(permutation);
   }
 
-  /// Size
-  int size() const { return bvs.size(); }
+  /// Get population size
+  int get_size() const { return bvs.size(); }
 
   /// Get bit vector size
   int get_bv_size() const { return bvs[0].size(); }

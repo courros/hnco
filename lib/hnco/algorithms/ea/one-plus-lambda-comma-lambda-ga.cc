@@ -42,7 +42,7 @@ OnePlusLambdaCommaLambdaGa::iterate()
 {
   // Mutation
   _mutation.set_radius(_radius_dist(Generator::engine));
-  for (int i = 0; i < _offsprings.size(); i++) {
+  for (int i = 0; i < _offsprings.get_size(); i++) {
     auto& offspring = _offsprings.bvs[i];
     _mutation.map(_solution.first, offspring);
   }
@@ -51,14 +51,14 @@ OnePlusLambdaCommaLambdaGa::iterate()
 
   double value = _offsprings.get_best_value(0);
   int n = 0;
-  while (_offsprings.get_best_value(n) == value && n < _offsprings.size())
+  while (_offsprings.get_best_value(n) == value && n < _offsprings.get_size())
     n++;
   assert(n > 0);
   std::uniform_int_distribution<int> choose_parent(0, n - 1);
   _parent = _offsprings.get_best_bv(choose_parent(Generator::engine));
 
   // Crossover
-  for (int i = 0; i < _offsprings.size(); i++)
+  for (int i = 0; i < _offsprings.get_size(); i++)
     _crossover.recombine(_solution.first, _parent, _offsprings.bvs[i]);
   _offsprings.evaluate(_function);
   _offsprings.sort();
@@ -67,7 +67,7 @@ OnePlusLambdaCommaLambdaGa::iterate()
   value = _offsprings.get_best_value(0);
   if (value >= _solution.second) {
     n = 0;
-    while (_offsprings.get_best_value(n) == value && n < _offsprings.size())
+    while (_offsprings.get_best_value(n) == value && n < _offsprings.get_size())
       n++;
     assert(n > 0);
     choose_parent = std::uniform_int_distribution<int>(0, n - 1);

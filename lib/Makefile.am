@@ -98,7 +98,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
-	hnco/algorithms/matrix.hh \
 	hnco/algorithms/mimic.cc \
 	hnco/algorithms/mimic.hh \
 	hnco/algorithms/population.cc \
@@ -128,6 +127,7 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/walsh-moment/hea.hh \
 	hnco/algorithms/walsh-moment/herding.cc \
 	hnco/algorithms/walsh-moment/herding.hh \
+	hnco/algorithms/walsh-moment/matrix.hh \
 	hnco/algorithms/walsh-moment/walsh-moment.cc \
 	hnco/algorithms/walsh-moment/walsh-moment.hh \
 	hnco/app/algorithm-factory.cc \
@@ -333,7 +333,6 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ls/random-walk.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
-	hnco/algorithms/matrix.hh \
 	hnco/algorithms/mimic.hh \
 	hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh \
@@ -351,6 +350,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/walsh-moment/gibbs-sampler.hh \
 	hnco/algorithms/walsh-moment/hea.hh \
 	hnco/algorithms/walsh-moment/herding.hh \
+	hnco/algorithms/walsh-moment/matrix.hh \
 	hnco/algorithms/walsh-moment/walsh-moment.hh \
 	hnco/app/algorithm-factory.hh \
 	hnco/app/application.hh \

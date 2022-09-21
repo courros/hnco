@@ -69,12 +69,12 @@ bool check()
     }
 
     Population population_seq(population_size, n);
-    assert(population_seq.size() == population_size);
+    assert(population_seq.get_size() == population_size);
     assert(population_seq.get_bv_size() == n);
     population_seq.random();
 
     Population population_par(population_seq);
-    assert(population_par.size() == population_size);
+    assert(population_par.get_size() == population_size);
     assert(population_par.get_bv_size() == n);
 
     population_seq.evaluate(fns[0]);

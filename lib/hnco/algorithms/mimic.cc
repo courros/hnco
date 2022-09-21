@@ -39,7 +39,7 @@ void
 Mimic::init()
 {
   assert(_selection_size > 0);
-  assert(_selection_size < int(_population.size()));
+  assert(_selection_size < int(_population.get_size()));
 
   random_solution();
   perm_random(_permutation);
@@ -146,7 +146,7 @@ Mimic::update_model()
 void
 Mimic::iterate()
 {
-  for (int i = 0; i < _population.size(); i++)
+  for (int i = 0; i < _population.get_size(); i++)
     sample(_population.bvs[i]);
 
   if (_functions.size() > 1)

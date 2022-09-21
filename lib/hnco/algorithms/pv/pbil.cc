@@ -39,7 +39,7 @@ Pbil::init()
 void
 Pbil::iterate()
 {
-  for (int i = 0; i < _population.size(); i++)
+  for (int i = 0; i < _population.get_size(); i++)
     pv_sample(_population.bvs[i], _pv);
 
   if (_functions.size() > 1)

@@ -232,10 +232,9 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
-	hnco/algorithms/matrix.hh hnco/algorithms/mimic.cc \
-	hnco/algorithms/mimic.hh hnco/algorithms/population.cc \
-	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
-	hnco/algorithms/pv/compact-ga.cc \
+	hnco/algorithms/mimic.cc hnco/algorithms/mimic.hh \
+	hnco/algorithms/population.cc hnco/algorithms/population.hh \
+	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.cc \
 	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.cc \
 	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.cc \
 	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.cc \
@@ -253,6 +252,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/walsh-moment/hea.hh \
 	hnco/algorithms/walsh-moment/herding.cc \
 	hnco/algorithms/walsh-moment/herding.hh \
+	hnco/algorithms/walsh-moment/matrix.hh \
 	hnco/algorithms/walsh-moment/walsh-moment.cc \
 	hnco/algorithms/walsh-moment/walsh-moment.hh \
 	hnco/app/algorithm-factory.cc hnco/app/algorithm-factory.hh \
@@ -649,10 +649,10 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/ls/random-walk.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
-	hnco/algorithms/matrix.hh hnco/algorithms/mimic.hh \
-	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
-	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.hh \
-	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.hh \
+	hnco/algorithms/mimic.hh hnco/algorithms/population.hh \
+	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
+	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
+	hnco/algorithms/pv/pbil.hh \
 	hnco/algorithms/pv/probability-vector.hh \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
@@ -661,6 +661,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/walsh-moment/gibbs-sampler.hh \
 	hnco/algorithms/walsh-moment/hea.hh \
 	hnco/algorithms/walsh-moment/herding.hh \
+	hnco/algorithms/walsh-moment/matrix.hh \
 	hnco/algorithms/walsh-moment/walsh-moment.hh \
 	hnco/app/algorithm-factory.hh hnco/app/application.hh \
 	hnco/app/decorated-function-factory.hh \
@@ -960,10 +961,9 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
-	hnco/algorithms/matrix.hh hnco/algorithms/mimic.cc \
-	hnco/algorithms/mimic.hh hnco/algorithms/population.cc \
-	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
-	hnco/algorithms/pv/compact-ga.cc \
+	hnco/algorithms/mimic.cc hnco/algorithms/mimic.hh \
+	hnco/algorithms/population.cc hnco/algorithms/population.hh \
+	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.cc \
 	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.cc \
 	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.cc \
 	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.cc \
@@ -981,6 +981,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/walsh-moment/hea.hh \
 	hnco/algorithms/walsh-moment/herding.cc \
 	hnco/algorithms/walsh-moment/herding.hh \
+	hnco/algorithms/walsh-moment/matrix.hh \
 	hnco/algorithms/walsh-moment/walsh-moment.cc \
 	hnco/algorithms/walsh-moment/walsh-moment.hh \
 	hnco/app/algorithm-factory.cc hnco/app/algorithm-factory.hh \
@@ -1131,10 +1132,10 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/ls/random-walk.hh \
 	hnco/algorithms/ls/simulated-annealing.hh \
 	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
-	hnco/algorithms/matrix.hh hnco/algorithms/mimic.hh \
-	hnco/algorithms/population.hh hnco/algorithms/pv/all.hh \
-	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.hh \
-	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.hh \
+	hnco/algorithms/mimic.hh hnco/algorithms/population.hh \
+	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
+	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
+	hnco/algorithms/pv/pbil.hh \
 	hnco/algorithms/pv/probability-vector.hh \
 	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
 	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
@@ -1143,6 +1144,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/walsh-moment/gibbs-sampler.hh \
 	hnco/algorithms/walsh-moment/hea.hh \
 	hnco/algorithms/walsh-moment/herding.hh \
+	hnco/algorithms/walsh-moment/matrix.hh \
 	hnco/algorithms/walsh-moment/walsh-moment.hh \
 	hnco/app/algorithm-factory.hh hnco/app/application.hh \
 	hnco/app/decorated-function-factory.hh \

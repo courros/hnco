@@ -50,7 +50,7 @@ GeneticAlgorithm::init()
 void
 GeneticAlgorithm::iterate()
 {
-  for (int i = 0; i < _offsprings.size(); i++) {
+  for (int i = 0; i < _offsprings.get_size(); i++) {
     auto& offspring = _offsprings.bvs[i];
 
     // Crossover

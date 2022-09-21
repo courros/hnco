@@ -46,7 +46,7 @@ MuCommaLambdaEa::init()
 void
 MuCommaLambdaEa::iterate()
 {
-  for (int i = 0; i < _offsprings.size(); i++) {
+  for (int i = 0; i < _offsprings.get_size(); i++) {
     auto& offspring = _offsprings.bvs[i];
     offspring = _parents.bvs[_select_parent(Generator::engine)];
     _mutation.mutate(offspring);

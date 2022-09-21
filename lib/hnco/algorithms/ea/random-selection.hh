@@ -77,7 +77,7 @@ public:
    */
   UniformSelection(const Population& population)
     : RandomSelection(population)
-    , _choose_individual(0, population.size() - 1)
+    , _choose_individual(0, population.get_size() - 1)
   {}
 
   /// Select an individual in the population
