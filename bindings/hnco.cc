@@ -1035,7 +1035,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
     py::class_<Population>(module_algorithm, "Population")
       .def(py::init<int, int>())
 
-      .def("size", &Population::size)
+      .def("get_size", &Population::get_size)
       .def("get_bv_size", &Population::get_bv_size)
 
       .def("random", &Population::random)
@@ -1131,7 +1131,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     py::class_<Population>(module_multiobjective_algorithm, "Population")
       .def(py::init<int, int, int>())
-      .def("size", &Population::size)
+      .def("get_size", &Population::get_size)
       .def("random", &Population::random)
       .def("evaluate", &Population::evaluate)
       .def_readwrite("bvs", &Population::bvs)
