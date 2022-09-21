@@ -1051,7 +1051,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("sort", &Population::sort)
       .def("partial_sort", &Population::partial_sort)
 
-      .def("class_of", &Population::class_of)
+      .def("get_equivalent_bvs", &Population::get_equivalent_bvs)
 
       .def_readwrite("bvs", &Population::bvs)
       .def_readwrite("values", &Population::values)

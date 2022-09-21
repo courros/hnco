@@ -164,7 +164,20 @@ struct Population
     std::partial_sort(permutation.begin(), permutation.begin() + selection_size, permutation.end(), compare);
   }
 
-  std::pair<int, int> class_of(int index);
+  /**
+   * Get equivalent bit vectors. This member function returns a pair
+   * of ints (a, b) such that,
+   * - for all i in [0, a), f(get_best_bv(i)) > f(get_best_bv(index))
+   * - for all i in [a, b), f(get_best_bv(i)) = f(get_best_bv(index))
+   * - for all i in [b, size), f(get_best_bv(i)) < f(get_best_bv(index))
+   *
+   * Put another way, the range [a, b) is the equivalence class of
+   * index, where two indices i and j are equivalent if
+   * f(get_best_bv(i)) = f(get_best_bv(j)).
+   * @param index Bit vector's index in the sorted population
+   * @pre The population must be sorted.
+   */
+  std::pair<int, int> get_equivalent_bvs(int index);
 
   ///@}
 

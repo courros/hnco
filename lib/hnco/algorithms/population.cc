@@ -74,7 +74,7 @@ Population::evaluate_in_parallel(const std::vector<Function *>& fns)
 
 
 std::pair<int, int>
-Population::class_of(int index)
+Population::get_equivalent_bvs(int index)
 {
   assert(is_in_range(index, permutation.size()));
 
