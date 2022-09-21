@@ -88,7 +88,7 @@ bool check()
           return false;
       } else if (pa < pb) {
         bool found = false;
-        for (int i = 0; i < population.size(); i++) {
+        for (int i = 0; i < population.get_size(); i++) {
           if (pareto_fronts[i] == pa && dominates(population.values[i], population.values[b])) {
             found = true;
             break;
@@ -99,7 +99,7 @@ bool check()
       } else {
         assert(pb < pa);
         bool found = false;
-        for (int i = 0; i < population.size(); i++) {
+        for (int i = 0; i < population.get_size(); i++) {
           if (pareto_fronts[i] == pb && dominates(population.values[i], population.values[a])) {
             found = true;
             break;

@@ -49,11 +49,12 @@ struct Population {
   /// Default constructor
   Population() = default;
 
-  /** Constructor.
-      \param population_size %Population size
-      \param n Size of bit vectors
-      \param num_objectives Number of objectives
-  */
+  /**
+   * Constructor.
+   * \param population_size %Population size
+   * \param n Size of bit vectors
+   * \param num_objectives Number of objectives
+   */
   Population(int population_size, int n, int num_objectives)
     : bvs(population_size, bit_vector_t(n))
     , values(population_size, value_t(num_objectives))
@@ -67,18 +68,18 @@ struct Population {
   }
 
   /// Get the population size
-  int size() const { return bvs.size(); }
+  int get_size() const { return bvs.size(); }
 
-  /** Resize.
-
-      \param population_size %Population size
-      \param n Size of bit vectors
-      \param num_objectives Number of objectives
-  */
+  /**
+   * Resize the population.
+   * \param population_size %Population size
+   * \param n Size of bit vectors
+   * \param num_objectives Number of objectives
+   */
   void resize(int population_size, int n, int num_objectives) {
     assert(population_size > 0);
 
-    const int old_size = size();
+    const int old_size = get_size();
     bvs.resize(population_size);
     values.resize(population_size);
     if (population_size > old_size) {
@@ -89,14 +90,14 @@ struct Population {
     }
   }
 
-  /** Shrink the population.
-
-      \param population_size %Population size
-      \pre population_size < size()
-  */
+  /**
+   * Shrink the population.
+   * \param population_size %Population size
+   * \pre population_size < size()
+   */
   void shrink(int population_size) {
     assert(population_size > 0);
-    assert(population_size < size());
+    assert(population_size < get_size());
 
     bvs.resize(population_size);
     values.resize(population_size);
@@ -105,13 +106,13 @@ struct Population {
   /// Sample a random population
   void random();
 
-  /** Evaluate a population.
-
+  /**
+   * Evaluate a population.
    */
   void evaluate(Function *function);
 
-  /** Evaluate a population in parallel.
-
+  /**
+   * Evaluate a population in parallel.
    */
   void evaluate_in_parallel(const std::vector<Function *>& functions);
 

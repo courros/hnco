@@ -45,7 +45,7 @@ Nsga2::init()
   _parents.random();
   _parents.evaluate(_function);
 
-  std::vector<int> fronts(_parents.size());
+  std::vector<int> fronts(_parents.get_size());
   Nsga2ParetoFrontComputation computation(_parents);
   computation.compute(fronts);
 
@@ -53,7 +53,7 @@ Nsga2::init()
   TournamentSelection<int, std::less<int>> selection(_parents.bvs, fronts);
   selection.set_tournament_size(_tournament_size);
   selection.init();
-  for (int i = 0; i < _offsprings.size(); i++) {
+  for (int i = 0; i < _offsprings.get_size(); i++) {
     bit_vector_t& offspring = _offsprings.bvs[i];
     if (_do_crossover(Generator::engine))
       _crossover.recombine(selection.select(),selection.select(), offspring);
@@ -67,7 +67,7 @@ Nsga2::init()
 void
 Nsga2::iterate()
 {
-  const int population_size = _parents.size();
+  const int population_size = _parents.get_size();
   const int num_objectives = _function->get_output_size();
 
   _offsprings.evaluate(_function);
@@ -134,7 +134,7 @@ Nsga2::iterate()
 
   // Offsprings
   _selection_by_front_distance_pair.init();
-  for (int i = 0; i < _offsprings.size(); i++) {
+  for (int i = 0; i < _offsprings.get_size(); i++) {
     bit_vector_t& offspring = _offsprings.bvs[i];
     if (_do_crossover(Generator::engine))
       _crossover.recombine(_selection_by_front_distance_pair.select(),_selection_by_front_distance_pair.select(), offspring);
@@ -148,12 +148,12 @@ Nsga2::iterate()
 void
 Nsga2::finalize()
 {
-  std::vector<int> fronts(_parents.size());
+  std::vector<int> fronts(_parents.get_size());
   Nsga2ParetoFrontComputation computation(_parents);
   computation.compute(fronts);
 
   int index = 0;
-  for (int i = 0; i < _parents.size(); i++) {
+  for (int i = 0; i < _parents.get_size(); i++) {
     if (fronts[i] == 0) {
       _solutions.bvs[index] = _parents.bvs[i];
       _solutions.values[index] = _parents.values[i];

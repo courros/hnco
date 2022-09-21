@@ -78,8 +78,8 @@ public:
   Nsga2ParetoFrontComputation(Population& population)
     : _population(population)
   {
-    _pool.reserve(_population.size());
-    _next_pool.reserve(_population.size());
+    _pool.reserve(_population.get_size());
+    _next_pool.reserve(_population.get_size());
   }
 
   /** Compute Pareto fronts.
@@ -87,9 +87,9 @@ public:
       \param pareto_fronts Pareto fronts (output parameter)
   */
   void compute(std::vector<int>& pareto_fronts) {
-    assert(int(pareto_fronts.size()) == _population.size());
+    assert(int(pareto_fronts.size()) == _population.get_size());
 
-    _pool.resize(_population.size());
+    _pool.resize(_population.get_size());
     std::iota(_pool.begin(), _pool.end(), 0);
     int front = 0;
     while (!_pool.empty()) {

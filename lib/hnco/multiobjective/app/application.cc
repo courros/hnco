@@ -128,12 +128,12 @@ CommandLineApplication::manage_solutions()
 {
   Population solutions = _algorithm->get_solutions();
   Nsga2ParetoFrontComputation pareto_front_computation(solutions);
-  std::vector<int> pareto_fronts(solutions.size());
+  std::vector<int> pareto_fronts(solutions.get_size());
   pareto_front_computation.compute(pareto_fronts);
 
   // Print description
   if (_options.with_print_description()) {
-    for (int i = 0; i < solutions.size(); i++) {
+    for (int i = 0; i < solutions.get_size(); i++) {
       if (pareto_fronts[i] == 0) {
         std::cout << "Objectives: ";
         value_display(solutions.values[i], std::cout);
@@ -146,7 +146,7 @@ CommandLineApplication::manage_solutions()
 
   // Print Pareto front
   if (_options.with_print_pareto_front()) {
-    for (int i = 0; i < solutions.size(); i++) {
+    for (int i = 0; i < solutions.get_size(); i++) {
       if (pareto_fronts[i] == 0) {
         for (auto x : solutions.values[i])
           std::cout << x << " ";
