@@ -2,6 +2,20 @@
 
 Library:
 - Added perm_shuffle
+- Added hnco::ensure
+- Renamed multiobjective::algorithm::Population::size -> get_size
+- Renamed algorithm::Population::size -> get_size
+- Added Population::get_equivalent_bvs
+- Removed Population::plus_selection and comma_selection
+- Added file algorithms/ea/selection.hh
+- Added classes PlusSelection and CommaSelection
+- Moved file algorithms/random-selection.hh under algorithms/ea/
+- Renamed Crossover::breed -> recombine
+- RandomSelection does not inherit from Population anymore
+- Reimplemented TournamentSelection
+
+Applications:
+- hnco: renamed option --ga-tournament-size -> --ea-tournament-size
 
 
 * Version 0.20 (2022-04-10)
