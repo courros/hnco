@@ -79,7 +79,7 @@ public:
     , _values(values)
     , _permutation(bvs.size())
   {
-    require(have_same_size(bvs, values), "multiobjective::algorithm::TournamentSelection::TournamentSelection: required: have_same_size(bvs, values)");
+    ensure(have_same_size(bvs, values), "multiobjective::algorithm::TournamentSelection::TournamentSelection: bvs and values must have the same size");
 
     perm_identity(_permutation);
   }
@@ -119,7 +119,7 @@ public:
 
   /// Set the tournament size
   void set_tournament_size(int n) {
-    require(is_in_range(n, 2, _bvs.size()), "multiobjective::algorithm::TournamentSelection::set_tournament_size: required: is_in_range(n, 2, _bvs.size())");
+    ensure(is_in_range(n, 2, _bvs.size()), "multiobjective::algorithm::TournamentSelection::set_tournament_size: n must be in the range [2, _bvs.size())");
 
     _tournament_size = n;
   }

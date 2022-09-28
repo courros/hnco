@@ -30,7 +30,7 @@
 #include "hnco/functions/function.hh"
 #include "hnco/permutation.hh"
 #include "hnco/random.hh"       // random::Generator::engine
-#include "hnco/util.hh"         // hnco::require
+#include "hnco/util.hh"         // hnco::ensure
 
 
 namespace hnco {
@@ -62,8 +62,8 @@ struct Population {
     , values(population_size)
     , permutation(population_size)
   {
-    require(population_size > 0, "Population::Population: population_size must be positive");
-    require(n > 0, "Population::Population: bit vector size must be positive");
+    ensure(population_size > 0, "Population::Population: population size must be positive");
+    ensure(n > 0, "Population::Population: bit vector size must be positive");
 
     perm_identity(permutation);
   }

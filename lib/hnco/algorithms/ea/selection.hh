@@ -23,7 +23,7 @@
 
 #include <utility>              // std::swap
 
-#include "hnco/util.hh"         // hnco::require
+#include "hnco/util.hh"         // hnco::ensure
 #include "hnco/algorithms/population.hh"
 
 
@@ -54,8 +54,8 @@ public:
     : _parents(parents)
     , _offsprings(offsprings)
   {
-    require(offsprings.get_size() >= parents.get_size(),
-            "CommaSelection::CommaSelection: Offspring population size must be greater than or equal to parent population size");
+    ensure(offsprings.get_size() >= parents.get_size(),
+           "CommaSelection::CommaSelection: offspring population size must be greater than or equal to parent population size");
   }
 
   /// Apply selection
@@ -98,8 +98,8 @@ public:
     , _offsprings(offsprings)
     , _pool(parents.get_size() + offsprings.get_size(), parents.get_bv_size())
   {
-    require(offsprings.get_bv_size() == parents.get_bv_size(),
-            "PlusSelection::PlusSelection: Bit vectors in parent and offspring populations must have the same size");
+    ensure(offsprings.get_bv_size() == parents.get_bv_size(),
+           "PlusSelection::PlusSelection: bit vectors in parent and offspring populations must have the same size");
   }
 
   /// Apply selection

@@ -32,11 +32,11 @@ namespace hnco {
 
 
 /**
- * Check that a condition is satisfied or throw a runtime exception.
+ * Ensure that a condition is satisfied or throw a runtime exception.
  * \param b Boolean
  * \param message Message to display if the boolean is false
  */
-inline void require(bool b, const std::string message)
+inline void ensure(bool b, const std::string message)
 {
   if (!b)
     throw std::runtime_error(message);

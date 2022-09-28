@@ -24,7 +24,7 @@
 #include <assert.h>
 
 #include "hnco/multiobjective/functions/function.hh"
-#include "hnco/util.hh"         // hnco::require
+#include "hnco/util.hh"         // hnco::ensure
 
 
 namespace hnco {
@@ -60,12 +60,12 @@ struct Population {
     : bvs(population_size, bit_vector_t(n))
     , values(population_size, value_t(num_objectives))
   {
-    require(population_size > 0,
-            "multiobjective::Population::Population: population_size must be positive");
-    require(n > 0,
-            "multiobjective::Population::Population: bit vector size must be positive");
-    require(num_objectives > 0,
-            "multiobjective::Population::Population: num_objectives must be positive");
+    ensure(population_size > 0,
+           "multiobjective::Population::Population: population size must be positive");
+    ensure(n > 0,
+           "multiobjective::Population::Population: bit vector size must be positive");
+    ensure(num_objectives > 0,
+           "multiobjective::Population::Population: num_objectives must be positive");
   }
 
   /// Get the population size
