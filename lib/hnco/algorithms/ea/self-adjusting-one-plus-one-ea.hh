@@ -43,6 +43,9 @@ class SelfAdjustingOnePlusOneEa: public IterativeAlgorithm {
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation;
 
+  /// Mutation rate
+  double _mutation_rate;
+
   /// Update strength to the power the success rate
   double _coefficient;
 
@@ -51,8 +54,8 @@ class SelfAdjustingOnePlusOneEa: public IterativeAlgorithm {
    */
   ///@{
 
-  /// Mutation rate
-  double _mutation_rate;
+  /// Initial mutation rate
+  double _mutation_rate_init;
 
   /// Minimum mutation rate
   double _mutation_rate_min;
@@ -75,6 +78,16 @@ class SelfAdjustingOnePlusOneEa: public IterativeAlgorithm {
   ///@}
 
   /**
+   * @name Logging
+   */
+  ///@{
+
+  /// Log entropy
+  bool _log_mutation_rate = false;
+
+  ///@}
+
+  /**
    * @name Loop
    */
   ///@{
@@ -85,6 +98,9 @@ class SelfAdjustingOnePlusOneEa: public IterativeAlgorithm {
   /// Single iteration
   void iterate() override;
 
+  /// Log
+  void log() override;
+
   ///@}
 
   /// Single iteration with full evaluation
@@ -93,13 +109,16 @@ class SelfAdjustingOnePlusOneEa: public IterativeAlgorithm {
   /// Single iteration with incremental evaluation
   void iterate_incremental();
 
+  /// Set flag for something to log
+  void set_something_to_log() { _something_to_log = _log_mutation_rate; }
+
 public:
 
   /// Constructor
   SelfAdjustingOnePlusOneEa(int n)
     : IterativeAlgorithm(n)
     , _mutation(n)
-    , _mutation_rate(1 / double(n))
+    , _mutation_rate_init(1 / double(n))
     , _mutation_rate_min(1 / double(n * n))
     , _update_strength(1 + 1 / double(n))
   {}
@@ -113,7 +132,7 @@ public:
   ///@{
 
   /// Set the initial mutation rate
-  void set_mutation_rate(double p) { _mutation_rate = p; }
+  void set_mutation_rate_init(double p) { _mutation_rate_init = p; }
 
   /// Set the minimum mutation rate
   void set_mutation_rate_min(double p) { _mutation_rate_min = p; }
@@ -132,6 +151,16 @@ public:
 
   /// Turn on incremental evaluation
   void set_incremental_evaluation(bool b) { _incremental_evaluation = b; }
+
+  ///@}
+
+  /**
+   * @name Setters for logging
+   */
+  ///@{
+
+  /// Log mutation rate
+  void set_log_mutation_rate(bool b) { _log_mutation_rate = b; }
 
   ///@}
 

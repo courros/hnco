@@ -185,13 +185,14 @@ CommandLineAlgorithmFactory::make(int bv_size)
     auto algo = new SelfAdjustingOnePlusOneEa(bv_size);
 
     algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_mutation_rate(_options.get_ea_mutation_rate() / bv_size);
+    algo->set_mutation_rate_init(_options.get_ea_mutation_rate() / bv_size);
     algo->set_mutation_rate_min(_options.get_ea_mutation_rate_min());
     algo->set_mutation_rate_max(_options.get_ea_mutation_rate_max());
     algo->set_update_strength(_options.get_ea_update_strength());
     algo->set_success_ratio(_options.get_ea_success_ratio());
     algo->set_allow_no_mutation(_options.with_ea_allow_no_mutation());
     algo->set_incremental_evaluation(_options.with_incremental_evaluation());
+    algo->set_log_mutation_rate(_options.with_ea_log_mutation_rate());
 
     return algo;
   }

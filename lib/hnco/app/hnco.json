@@ -328,6 +328,12 @@
             "section": "ea"
         },
 
+        "ea_log_mutation_rate":
+        {
+            "description": "Log mutation rate",
+            "section": "ea"
+        },
+
         "pv_log_pv":
         {
             "description": "Log probability vector",

@@ -280,6 +280,9 @@ class HncoOptions {
   /// Allow no mutation with standard bit mutation
   bool _ea_allow_no_mutation;
 
+  /// Log mutation rate
+  bool _ea_log_mutation_rate;
+
   /// Display the function and exit
   bool _fn_display;
 
@@ -1205,6 +1208,12 @@ public:
 
   /// Set ea_allow_no_mutation
   void set_ea_allow_no_mutation() { _ea_allow_no_mutation = true; }
+
+  /// Get ea_log_mutation_rate
+  bool with_ea_log_mutation_rate() const { return _ea_log_mutation_rate; }
+
+  /// Set ea_log_mutation_rate
+  void set_ea_log_mutation_rate() { _ea_log_mutation_rate = true; }
 
   /// Get fn_display
   bool with_fn_display() const { return _fn_display; }

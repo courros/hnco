@@ -23,6 +23,8 @@
 #include <algorithm>            // std::max, std::min
 #include <cmath>                // std::powf
 
+#include "hnco/logging/logger.hh"
+
 #include "self-adjusting-one-plus-one-ea.hh"
 
 
@@ -34,12 +36,14 @@ using namespace hnco;
 void
 SelfAdjustingOnePlusOneEa::init()
 {
+  _mutation_rate = _mutation_rate_init;
   _mutation.set_mutation_rate(_mutation_rate);
   _mutation.set_allow_no_mutation(_allow_no_mutation);
   _coefficient = std::pow(_update_strength, _success_ratio);
 
   random_solution();
   _mutation.set_origin(_solution.first);
+  set_something_to_log();
 }
 
 
@@ -74,6 +78,7 @@ SelfAdjustingOnePlusOneEa::iterate_full()
     _mutation.forget();
     _mutation_rate = std::max(_mutation_rate / _update_strength, _mutation_rate_min);
   }
+  _mutation.set_mutation_rate(_mutation_rate);
 
 }
 
@@ -99,6 +104,7 @@ SelfAdjustingOnePlusOneEa::iterate_incremental()
     _mutation.forget();
     _mutation_rate = std::max(_mutation_rate / _update_strength, _mutation_rate_min);
   }
+  _mutation.set_mutation_rate(_mutation_rate);
 
 }
 
@@ -108,4 +114,17 @@ SelfAdjustingOnePlusOneEa::finalize()
 {
   _solution.first = _mutation.get_origin();
   // _solution.second has been taken care of
+}
+
+
+void
+SelfAdjustingOnePlusOneEa::log()
+{
+  assert(_something_to_log);
+
+  logging::Logger l(_log_context);
+
+  if (_log_mutation_rate)
+    l.line() << _mutation_rate << " ";
+
 }

@@ -137,6 +137,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _cache_budget(false),
   _concrete_solution(false),
   _ea_allow_no_mutation(false),
+  _ea_log_mutation_rate(false),
   _fn_display(false),
   _fn_get_bv_size(false),
   _fn_get_maximum(false),
@@ -258,6 +259,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_CACHE_BUDGET,
     OPTION_CONCRETE_SOLUTION,
     OPTION_EA_ALLOW_NO_MUTATION,
+    OPTION_EA_LOG_MUTATION_RATE,
     OPTION_FN_DISPLAY,
     OPTION_FN_GET_BV_SIZE,
     OPTION_FN_GET_MAXIMUM,
@@ -367,6 +369,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"cache-budget", no_argument, 0, OPTION_CACHE_BUDGET},
     {"concrete-solution", no_argument, 0, OPTION_CONCRETE_SOLUTION},
     {"ea-allow-no-mutation", no_argument, 0, OPTION_EA_ALLOW_NO_MUTATION},
+    {"ea-log-mutation-rate", no_argument, 0, OPTION_EA_LOG_MUTATION_RATE},
     {"fn-display", no_argument, 0, OPTION_FN_DISPLAY},
     {"fn-get-bv-size", no_argument, 0, OPTION_FN_GET_BV_SIZE},
     {"fn-get-maximum", no_argument, 0, OPTION_FN_GET_MAXIMUM},
@@ -709,6 +712,10 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
 
     case OPTION_EA_ALLOW_NO_MUTATION:
       _ea_allow_no_mutation = true;
+      break;
+
+    case OPTION_EA_LOG_MUTATION_RATE:
+      _ea_log_mutation_rate = true;
       break;
 
     case OPTION_FN_DISPLAY:
@@ -1259,6 +1266,8 @@ void HncoOptions::print_help_ea(std::ostream& stream) const
   stream << "          Crossover probability" << std::endl;
   stream << "      --ea-lambda (type int, default to 100)" << std::endl;
   stream << "          Offspring population size" << std::endl;
+  stream << "      --ea-log-mutation-rate" << std::endl;
+  stream << "          Log mutation rate" << std::endl;
   stream << "      --ea-mu (type int, default to 10)" << std::endl;
   stream << "          Parent population size" << std::endl;
   stream << "  -m, --ea-mutation-rate (type double, default to 1)" << std::endl;
@@ -1431,6 +1440,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# concrete_solution" << std::endl;
   if (options._ea_allow_no_mutation)
     stream << "# ea_allow_no_mutation" << std::endl;
+  if (options._ea_log_mutation_rate)
+    stream << "# ea_log_mutation_rate" << std::endl;
   if (options._fn_display)
     stream << "# fn_display" << std::endl;
   if (options._fn_get_bv_size)
