@@ -28,5 +28,6 @@
 #include "one-plus-one-ea.hh"
 #include "random-selection.hh"
 #include "selection.hh"
+#include "self-adjusting-one-plus-one-ea.hh"
 
 #endif
