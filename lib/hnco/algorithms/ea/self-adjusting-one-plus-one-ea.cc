@@ -20,6 +20,9 @@
 
 #include <assert.h>
 
+#include <algorithm>            // std::max, std::min
+#include <cmath>                // std::powf
+
 #include "self-adjusting-one-plus-one-ea.hh"
 
 
@@ -33,6 +36,7 @@ SelfAdjustingOnePlusOneEa::init()
 {
   _mutation.set_mutation_rate(_mutation_rate);
   _mutation.set_allow_no_mutation(_allow_no_mutation);
+  _coefficient = std::pow(_update_strength, _success_ratio);
 
   random_solution();
   _mutation.set_origin(_solution.first);
@@ -64,9 +68,11 @@ SelfAdjustingOnePlusOneEa::iterate_full()
     // success
     _mutation.keep();
     _solution.second = value;
+    _mutation_rate = std::min(_mutation_rate * _coefficient, _mutation_rate_max);
   } else {
     // failure
     _mutation.forget();
+    _mutation_rate = std::max(_mutation_rate / _update_strength, _mutation_rate_min);
   }
 
 }
@@ -87,9 +93,11 @@ SelfAdjustingOnePlusOneEa::iterate_incremental()
     // success
     _mutation.keep();
     _solution.second = value;
+    _mutation_rate = std::min(_mutation_rate * _coefficient, _mutation_rate_max);
   } else {
     // failure
     _mutation.forget();
+    _mutation_rate = std::max(_mutation_rate / _update_strength, _mutation_rate_min);
   }
 
 }

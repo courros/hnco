@@ -43,6 +43,9 @@ class SelfAdjustingOnePlusOneEa: public IterativeAlgorithm {
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation;
 
+  /// Update strength to the power the success rate
+  double _coefficient;
+
   /**
    * @name Parameters
    */
@@ -50,6 +53,18 @@ class SelfAdjustingOnePlusOneEa: public IterativeAlgorithm {
 
   /// Mutation rate
   double _mutation_rate;
+
+  /// Minimum mutation rate
+  double _mutation_rate_min;
+
+  /// Maximum mutation rate
+  double _mutation_rate_max = 1;
+
+  /// Success ratio
+  double _success_ratio = 4;
+
+  /// Update strength
+  double _update_strength;
 
   /// Allow no mutation
   bool _allow_no_mutation = false;
@@ -85,6 +100,8 @@ public:
     : IterativeAlgorithm(n)
     , _mutation(n)
     , _mutation_rate(1 / double(n))
+    , _mutation_rate_min(1 / double(n * n))
+    , _update_strength(1 + 1 / double(n))
   {}
 
   /// Finalize
@@ -95,13 +112,25 @@ public:
    */
   ///@{
 
-  /// Set the mutation rate
+  /// Set the initial mutation rate
   void set_mutation_rate(double p) { _mutation_rate = p; }
 
-  /// Set the flag _allow_no_mutation
+  /// Set the minimum mutation rate
+  void set_mutation_rate_min(double p) { _mutation_rate_min = p; }
+
+  /// Set the maximum mutation rate
+  void set_mutation_rate_max(double p) { _mutation_rate_max = p; }
+
+  /// Set update strength
+  void set_update_strength(double x) { _update_strength = x; }
+
+  /// Set success ratio
+  void set_success_ratio(double x) { _success_ratio = x; }
+
+  /// Allow no mutation
   void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }
 
-  /// Set incremental evaluation
+  /// Turn on incremental evaluation
   void set_incremental_evaluation(bool b) { _incremental_evaluation = b; }
 
   ///@}
