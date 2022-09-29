@@ -1024,6 +1024,11 @@
                 },
 
                 {
+                    "value": 301,
+                    "description": "Self-adjusting (1+1) evolutionary algorithm (EA)"
+                },
+
+                {
                     "value": 310,
                     "description": "(mu+lambda) evolutionary algorithm (EA)"
                 },

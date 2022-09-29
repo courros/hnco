@@ -1033,6 +1033,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            160: First ascent hill climbing" << std::endl;
   stream << "            200: Simulated annealing" << std::endl;
   stream << "            300: (1+1) evolutionary algorithm (EA)" << std::endl;
+  stream << "            301: Self-adjusting (1+1) evolutionary algorithm (EA)" << std::endl;
   stream << "            310: (mu+lambda) evolutionary algorithm (EA)" << std::endl;
   stream << "            320: (mu,lambda) evolutionary algorithm (EA)" << std::endl;
   stream << "            400: Genetic algorithm (GA)" << std::endl;

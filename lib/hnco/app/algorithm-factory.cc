@@ -181,6 +181,17 @@ CommandLineAlgorithmFactory::make(int bv_size)
     return algo;
   }
 
+  case 301: {
+    auto algo = new SelfAdjustingOnePlusOneEa(bv_size);
+
+    algo->set_num_iterations(_options.get_num_iterations());
+    algo->set_mutation_rate(_options.get_mutation_rate() / bv_size);
+    algo->set_incremental_evaluation(_options.with_incremental_evaluation());
+    algo->set_allow_no_mutation(_options.with_allow_no_mutation());
+
+    return algo;
+  }
+
   case 310: {
     auto algo = new MuPlusLambdaEa
       (bv_size,

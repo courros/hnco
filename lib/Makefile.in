@@ -208,6 +208,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ea/random-selection.cc \
 	hnco/algorithms/ea/random-selection.hh \
 	hnco/algorithms/ea/selection.hh \
+	hnco/algorithms/ea/self-adjusting-one-plus-one-ea.cc \
+	hnco/algorithms/ea/self-adjusting-one-plus-one-ea.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
@@ -396,6 +398,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/ea/mu-plus-lambda-ea.lo \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.lo \
 	hnco/algorithms/ea/random-selection.lo \
+	hnco/algorithms/ea/self-adjusting-one-plus-one-ea.lo \
 	hnco/algorithms/fast-efficient-p3/hboa.lo \
 	hnco/algorithms/fast-efficient-p3/ltga.lo \
 	hnco/algorithms/fast-efficient-p3/p3.lo \
@@ -506,6 +509,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/random-selection.Plo \
+	hnco/algorithms/ea/$(DEPDIR)/self-adjusting-one-plus-one-ea.Plo \
 	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo \
 	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo \
 	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo \
@@ -634,6 +638,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/random-selection.hh \
 	hnco/algorithms/ea/selection.hh \
+	hnco/algorithms/ea/self-adjusting-one-plus-one-ea.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
@@ -937,6 +942,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ea/random-selection.cc \
 	hnco/algorithms/ea/random-selection.hh \
 	hnco/algorithms/ea/selection.hh \
+	hnco/algorithms/ea/self-adjusting-one-plus-one-ea.cc \
+	hnco/algorithms/ea/self-adjusting-one-plus-one-ea.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
@@ -1117,6 +1124,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/ea/one-plus-one-ea.hh \
 	hnco/algorithms/ea/random-selection.hh \
 	hnco/algorithms/ea/selection.hh \
+	hnco/algorithms/ea/self-adjusting-one-plus-one-ea.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
@@ -1371,6 +1379,9 @@ hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.lo:  \
 	hnco/algorithms/ea/$(am__dirstamp) \
 	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/ea/random-selection.lo:  \
+	hnco/algorithms/ea/$(am__dirstamp) \
+	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/ea/self-adjusting-one-plus-one-ea.lo:  \
 	hnco/algorithms/ea/$(am__dirstamp) \
 	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/fast-efficient-p3/$(am__dirstamp):
@@ -1767,6 +1778,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/random-selection.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/self-adjusting-one-plus-one-ea.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo@am__quote@ # am--include-marker
@@ -2148,6 +2160,7 @@ distclean: distclean-am
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/random-selection.Plo
+	-rm -f hnco/algorithms/ea/$(DEPDIR)/self-adjusting-one-plus-one-ea.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo
@@ -2289,6 +2302,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/random-selection.Plo
+	-rm -f hnco/algorithms/ea/$(DEPDIR)/self-adjusting-one-plus-one-ea.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo

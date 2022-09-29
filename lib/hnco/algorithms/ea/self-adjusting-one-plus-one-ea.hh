@@ -31,8 +31,14 @@ namespace algorithm {
 
 /** 
  * Self-adjusting (1+1) EA.
+ * Reference:
+ * Benjamin Doerr, Carola Doerr, and Johannes Lengler. 2019.
+ * Self-adjusting mutation rates with provably optimal success rules.
+ * In Proceedings of the Genetic and Evolutionary Computation
+ * Conference (GECCO '19). Association for Computing Machinery, New
+ * York, NY, USA, 1479–1487. https://doi.org/10.1145/3321707.3321733
  */
-class SelfAdjustingOnePlusOneEa: IterativeAlgorithm {
+class SelfAdjustingOnePlusOneEa: public IterativeAlgorithm {
 
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation;
@@ -77,7 +83,7 @@ public:
   /// Constructor
   SelfAdjustingOnePlusOneEa(int n)
     : IterativeAlgorithm(n)
-    , _mutation(n),
+    , _mutation(n)
     , _mutation_rate(1 / double(n))
   {}
 
@@ -89,8 +95,14 @@ public:
    */
   ///@{
 
+  /// Set the mutation rate
+  void set_mutation_rate(double p) { _mutation_rate = p; }
+
+  /// Set the flag _allow_no_mutation
+  void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }
+
   /// Set incremental evaluation
-  void set_incremental_evaluation(bool x) { _incremental_evaluation = x; }
+  void set_incremental_evaluation(bool b) { _incremental_evaluation = b; }
 
   ///@}
 
