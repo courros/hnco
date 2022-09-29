@@ -43,8 +43,8 @@ make_neighborhood(const HncoOptions& options)
   case 1: {
     auto neighborhood = new StandardBitMutation
       (options.get_bv_size(),
-       options.get_mutation_rate() / options.get_bv_size());
-    neighborhood->set_allow_no_mutation(options.with_allow_no_mutation());
+       options.get_ea_mutation_rate() / options.get_bv_size());
+    neighborhood->set_allow_no_mutation(options.with_ea_allow_no_mutation());
     return neighborhood;
   }
 
@@ -174,9 +174,9 @@ CommandLineAlgorithmFactory::make(int bv_size)
     auto algo = new OnePlusOneEa(bv_size);
 
     algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_mutation_rate(_options.get_mutation_rate() / bv_size);
+    algo->set_mutation_rate(_options.get_ea_mutation_rate() / bv_size);
     algo->set_incremental_evaluation(_options.with_incremental_evaluation());
-    algo->set_allow_no_mutation(_options.with_allow_no_mutation());
+    algo->set_allow_no_mutation(_options.with_ea_allow_no_mutation());
 
     return algo;
   }
@@ -185,9 +185,13 @@ CommandLineAlgorithmFactory::make(int bv_size)
     auto algo = new SelfAdjustingOnePlusOneEa(bv_size);
 
     algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_mutation_rate(_options.get_mutation_rate() / bv_size);
+    algo->set_mutation_rate(_options.get_ea_mutation_rate() / bv_size);
+    algo->set_mutation_rate_min(_options.get_ea_mutation_rate_min());
+    algo->set_mutation_rate_max(_options.get_ea_mutation_rate_max());
+    algo->set_update_strength(_options.get_ea_update_strength());
+    algo->set_success_ratio(_options.get_ea_success_ratio());
+    algo->set_allow_no_mutation(_options.with_ea_allow_no_mutation());
     algo->set_incremental_evaluation(_options.with_incremental_evaluation());
-    algo->set_allow_no_mutation(_options.with_allow_no_mutation());
 
     return algo;
   }
@@ -199,8 +203,8 @@ CommandLineAlgorithmFactory::make(int bv_size)
        _options.get_ea_lambda());
 
     algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_mutation_rate(_options.get_mutation_rate() / bv_size);
-    algo->set_allow_no_mutation(_options.with_allow_no_mutation());
+    algo->set_mutation_rate(_options.get_ea_mutation_rate() / bv_size);
+    algo->set_allow_no_mutation(_options.with_ea_allow_no_mutation());
 
     return algo;
   }
@@ -212,8 +216,8 @@ CommandLineAlgorithmFactory::make(int bv_size)
        _options.get_ea_lambda());
 
     algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_mutation_rate(_options.get_mutation_rate() / bv_size);
-    algo->set_allow_no_mutation(_options.with_allow_no_mutation());
+    algo->set_mutation_rate(_options.get_ea_mutation_rate() / bv_size);
+    algo->set_allow_no_mutation(_options.with_ea_allow_no_mutation());
 
     return algo;
   }
@@ -224,10 +228,10 @@ CommandLineAlgorithmFactory::make(int bv_size)
        _options.get_ea_mu());
 
     algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_mutation_rate(_options.get_mutation_rate() / bv_size);
-    algo->set_crossover_probability(_options.get_ga_crossover_probability());
+    algo->set_mutation_rate(_options.get_ea_mutation_rate() / bv_size);
+    algo->set_crossover_probability(_options.get_ea_crossover_probability());
     algo->set_tournament_size(_options.get_ea_tournament_size());
-    algo->set_allow_no_mutation(_options.with_allow_no_mutation());
+    algo->set_allow_no_mutation(_options.with_ea_allow_no_mutation());
 
     return algo;
   }
@@ -238,8 +242,8 @@ CommandLineAlgorithmFactory::make(int bv_size)
        _options.get_ea_mu());
 
     algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_mutation_rate(_options.get_mutation_rate() / bv_size);
-    algo->set_crossover_bias(_options.get_ga_crossover_bias());
+    algo->set_mutation_rate(_options.get_ea_mutation_rate() / bv_size);
+    algo->set_crossover_bias(_options.get_ea_crossover_bias());
 
     return algo;
   }

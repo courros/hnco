@@ -48,6 +48,14 @@ class HncoOptions {
   std::string _description_path;
   bool _opt_description_path;
 
+  /// Crossover bias
+  double _ea_crossover_bias;
+  bool _opt_ea_crossover_bias;
+
+  /// Crossover probability
+  double _ea_crossover_probability;
+  bool _opt_ea_crossover_probability;
+
   /// Offspring population size
   int _ea_lambda;
   bool _opt_ea_lambda;
@@ -56,9 +64,29 @@ class HncoOptions {
   int _ea_mu;
   bool _opt_ea_mu;
 
+  /// Mutation rate relative to bv_size (fixed or initial value)
+  double _ea_mutation_rate;
+  bool _opt_ea_mutation_rate;
+
+  /// Maximum mutation rate
+  double _ea_mutation_rate_max;
+  bool _opt_ea_mutation_rate_max;
+
+  /// Minimum mutation rate
+  double _ea_mutation_rate_min;
+  bool _opt_ea_mutation_rate_min;
+
+  /// Success rate for for self-adjusting mutation rate
+  double _ea_success_ratio;
+  bool _opt_ea_success_ratio;
+
   /// Tournament size
   int _ea_tournament_size;
   bool _opt_ea_tournament_size;
+
+  /// Update strength for self-adjusting mutation rate
+  double _ea_update_strength;
+  bool _opt_ea_update_strength;
 
   /// Expression of the variable x
   std::string _expression;
@@ -104,14 +132,6 @@ class HncoOptions {
   int _function;
   bool _opt_function;
 
-  /// Crossover bias
-  double _ga_crossover_bias;
-  bool _opt_ga_crossover_bias;
-
-  /// Crossover probability
-  double _ga_crossover_probability;
-  bool _opt_ga_crossover_probability;
-
   /// Reset period (<= 0 means no reset)
   int _hea_reset_period;
   bool _opt_hea_reset_period;
@@ -139,10 +159,6 @@ class HncoOptions {
   /// Transvection sequence sampling mode
   int _map_ts_sampling_mode;
   bool _opt_map_ts_sampling_mode;
-
-  /// Mutation rate relative to bv_size
-  double _mutation_rate;
-  bool _opt_mutation_rate;
 
   /// Type of neighborhood
   int _neighborhood;
@@ -243,9 +259,6 @@ class HncoOptions {
   /// Additive Gaussian noise
   bool _additive_gaussian_noise;
 
-  /// Allow no mutation with standard bit mutation
-  bool _allow_no_mutation;
-
   /// Log 1-norm of the parameters
   bool _bm_log_norm_1;
 
@@ -263,6 +276,9 @@ class HncoOptions {
 
   /// At the end, print or save the solution in the domain of the concrete function
   bool _concrete_solution;
+
+  /// Allow no mutation with standard bit mutation
+  bool _ea_allow_no_mutation;
 
   /// Display the function and exit
   bool _fn_display;
@@ -518,6 +534,30 @@ public:
   /// Get set-flag for description_path
   bool set_description_path() const { return _opt_description_path; }
 
+  /// Get ea_crossover_bias
+  double get_ea_crossover_bias() const { return _ea_crossover_bias; }
+
+  /// Set ea_crossover_bias
+  void set_ea_crossover_bias(double x) {
+    _ea_crossover_bias = x;
+    _opt_ea_crossover_bias = true;
+  }
+
+  /// Get set-flag for ea_crossover_bias
+  bool set_ea_crossover_bias() const { return _opt_ea_crossover_bias; }
+
+  /// Get ea_crossover_probability
+  double get_ea_crossover_probability() const { return _ea_crossover_probability; }
+
+  /// Set ea_crossover_probability
+  void set_ea_crossover_probability(double x) {
+    _ea_crossover_probability = x;
+    _opt_ea_crossover_probability = true;
+  }
+
+  /// Get set-flag for ea_crossover_probability
+  bool set_ea_crossover_probability() const { return _opt_ea_crossover_probability; }
+
   /// Get ea_lambda
   int get_ea_lambda() const { return _ea_lambda; }
 
@@ -542,6 +582,54 @@ public:
   /// Get set-flag for ea_mu
   bool set_ea_mu() const { return _opt_ea_mu; }
 
+  /// Get ea_mutation_rate
+  double get_ea_mutation_rate() const { return _ea_mutation_rate; }
+
+  /// Set ea_mutation_rate
+  void set_ea_mutation_rate(double x) {
+    _ea_mutation_rate = x;
+    _opt_ea_mutation_rate = true;
+  }
+
+  /// Get set-flag for ea_mutation_rate
+  bool set_ea_mutation_rate() const { return _opt_ea_mutation_rate; }
+
+  /// Get ea_mutation_rate_max
+  double get_ea_mutation_rate_max() const { return _ea_mutation_rate_max; }
+
+  /// Set ea_mutation_rate_max
+  void set_ea_mutation_rate_max(double x) {
+    _ea_mutation_rate_max = x;
+    _opt_ea_mutation_rate_max = true;
+  }
+
+  /// Get set-flag for ea_mutation_rate_max
+  bool set_ea_mutation_rate_max() const { return _opt_ea_mutation_rate_max; }
+
+  /// Get ea_mutation_rate_min
+  double get_ea_mutation_rate_min() const { return _ea_mutation_rate_min; }
+
+  /// Set ea_mutation_rate_min
+  void set_ea_mutation_rate_min(double x) {
+    _ea_mutation_rate_min = x;
+    _opt_ea_mutation_rate_min = true;
+  }
+
+  /// Get set-flag for ea_mutation_rate_min
+  bool set_ea_mutation_rate_min() const { return _opt_ea_mutation_rate_min; }
+
+  /// Get ea_success_ratio
+  double get_ea_success_ratio() const { return _ea_success_ratio; }
+
+  /// Set ea_success_ratio
+  void set_ea_success_ratio(double x) {
+    _ea_success_ratio = x;
+    _opt_ea_success_ratio = true;
+  }
+
+  /// Get set-flag for ea_success_ratio
+  bool set_ea_success_ratio() const { return _opt_ea_success_ratio; }
+
   /// Get ea_tournament_size
   int get_ea_tournament_size() const { return _ea_tournament_size; }
 
@@ -553,6 +641,18 @@ public:
 
   /// Get set-flag for ea_tournament_size
   bool set_ea_tournament_size() const { return _opt_ea_tournament_size; }
+
+  /// Get ea_update_strength
+  double get_ea_update_strength() const { return _ea_update_strength; }
+
+  /// Set ea_update_strength
+  void set_ea_update_strength(double x) {
+    _ea_update_strength = x;
+    _opt_ea_update_strength = true;
+  }
+
+  /// Get set-flag for ea_update_strength
+  bool set_ea_update_strength() const { return _opt_ea_update_strength; }
 
   /// Get expression
   std::string get_expression() const { return _expression; }
@@ -686,30 +786,6 @@ public:
   /// Get set-flag for function
   bool set_function() const { return _opt_function; }
 
-  /// Get ga_crossover_bias
-  double get_ga_crossover_bias() const { return _ga_crossover_bias; }
-
-  /// Set ga_crossover_bias
-  void set_ga_crossover_bias(double x) {
-    _ga_crossover_bias = x;
-    _opt_ga_crossover_bias = true;
-  }
-
-  /// Get set-flag for ga_crossover_bias
-  bool set_ga_crossover_bias() const { return _opt_ga_crossover_bias; }
-
-  /// Get ga_crossover_probability
-  double get_ga_crossover_probability() const { return _ga_crossover_probability; }
-
-  /// Set ga_crossover_probability
-  void set_ga_crossover_probability(double x) {
-    _ga_crossover_probability = x;
-    _opt_ga_crossover_probability = true;
-  }
-
-  /// Get set-flag for ga_crossover_probability
-  bool set_ga_crossover_probability() const { return _opt_ga_crossover_probability; }
-
   /// Get hea_reset_period
   int get_hea_reset_period() const { return _hea_reset_period; }
 
@@ -793,18 +869,6 @@ public:
 
   /// Get set-flag for map_ts_sampling_mode
   bool set_map_ts_sampling_mode() const { return _opt_map_ts_sampling_mode; }
-
-  /// Get mutation_rate
-  double get_mutation_rate() const { return _mutation_rate; }
-
-  /// Set mutation_rate
-  void set_mutation_rate(double x) {
-    _mutation_rate = x;
-    _opt_mutation_rate = true;
-  }
-
-  /// Get set-flag for mutation_rate
-  bool set_mutation_rate() const { return _opt_mutation_rate; }
 
   /// Get neighborhood
   int get_neighborhood() const { return _neighborhood; }
@@ -1100,12 +1164,6 @@ public:
   /// Set additive_gaussian_noise
   void set_additive_gaussian_noise() { _additive_gaussian_noise = true; }
 
-  /// Get allow_no_mutation
-  bool with_allow_no_mutation() const { return _allow_no_mutation; }
-
-  /// Set allow_no_mutation
-  void set_allow_no_mutation() { _allow_no_mutation = true; }
-
   /// Get bm_log_norm_1
   bool with_bm_log_norm_1() const { return _bm_log_norm_1; }
 
@@ -1141,6 +1199,12 @@ public:
 
   /// Set concrete_solution
   void set_concrete_solution() { _concrete_solution = true; }
+
+  /// Get ea_allow_no_mutation
+  bool with_ea_allow_no_mutation() const { return _ea_allow_no_mutation; }
+
+  /// Set ea_allow_no_mutation
+  void set_ea_allow_no_mutation() { _ea_allow_no_mutation = true; }
 
   /// Get fn_display
   bool with_fn_display() const { return _fn_display; }

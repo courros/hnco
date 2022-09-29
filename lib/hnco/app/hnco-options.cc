@@ -25,12 +25,26 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_bv_size(false),
   _description_path("description.txt"),
   _opt_description_path(false),
+  _ea_crossover_bias(0.5),
+  _opt_ea_crossover_bias(false),
+  _ea_crossover_probability(0.5),
+  _opt_ea_crossover_probability(false),
   _ea_lambda(100),
   _opt_ea_lambda(false),
   _ea_mu(10),
   _opt_ea_mu(false),
+  _ea_mutation_rate(1),
+  _opt_ea_mutation_rate(false),
+  _ea_mutation_rate_max(1),
+  _opt_ea_mutation_rate_max(false),
+  _ea_mutation_rate_min(0.01),
+  _opt_ea_mutation_rate_min(false),
+  _ea_success_ratio(4),
+  _opt_ea_success_ratio(false),
   _ea_tournament_size(2),
   _opt_ea_tournament_size(false),
+  _ea_update_strength(1.01),
+  _opt_ea_update_strength(false),
   _expression("x"),
   _opt_expression(false),
   _fn_name("noname"),
@@ -53,10 +67,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_fp_upper_bound(false),
   _function(0),
   _opt_function(false),
-  _ga_crossover_bias(0.5),
-  _opt_ga_crossover_bias(false),
-  _ga_crossover_probability(0.5),
-  _opt_ga_crossover_probability(false),
   _hea_reset_period(0),
   _opt_hea_reset_period(false),
   _learning_rate(0.001),
@@ -71,8 +81,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_map_ts_length(false),
   _map_ts_sampling_mode(0),
   _opt_map_ts_sampling_mode(false),
-  _mutation_rate(1),
-  _opt_mutation_rate(false),
   _neighborhood(0),
   _opt_neighborhood(false),
   _neighborhood_iterator(0),
@@ -122,13 +130,13 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _target(100),
   _opt_target(false),
   _additive_gaussian_noise(false),
-  _allow_no_mutation(false),
   _bm_log_norm_1(false),
   _bm_log_norm_infinite(false),
   _bm_negative_positive_selection(false),
   _cache(false),
   _cache_budget(false),
   _concrete_solution(false),
+  _ea_allow_no_mutation(false),
   _fn_display(false),
   _fn_get_bv_size(false),
   _fn_get_maximum(false),
@@ -190,9 +198,16 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_BUDGET,
     OPTION_BV_SIZE,
     OPTION_DESCRIPTION_PATH,
+    OPTION_EA_CROSSOVER_BIAS,
+    OPTION_EA_CROSSOVER_PROBABILITY,
     OPTION_EA_LAMBDA,
     OPTION_EA_MU,
+    OPTION_EA_MUTATION_RATE,
+    OPTION_EA_MUTATION_RATE_MAX,
+    OPTION_EA_MUTATION_RATE_MIN,
+    OPTION_EA_SUCCESS_RATIO,
     OPTION_EA_TOURNAMENT_SIZE,
+    OPTION_EA_UPDATE_STRENGTH,
     OPTION_EXPRESSION,
     OPTION_FN_NAME,
     OPTION_FN_NUM_TRAPS,
@@ -204,8 +219,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_FP_PRECISION,
     OPTION_FP_UPPER_BOUND,
     OPTION_FUNCTION,
-    OPTION_GA_CROSSOVER_BIAS,
-    OPTION_GA_CROSSOVER_PROBABILITY,
     OPTION_HEA_RESET_PERIOD,
     OPTION_LEARNING_RATE,
     OPTION_MAP,
@@ -213,7 +226,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_MAP_PATH,
     OPTION_MAP_TS_LENGTH,
     OPTION_MAP_TS_SAMPLING_MODE,
-    OPTION_MUTATION_RATE,
     OPTION_NEIGHBORHOOD,
     OPTION_NEIGHBORHOOD_ITERATOR,
     OPTION_NOISE_STDDEV,
@@ -239,13 +251,13 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_SOLUTION_PATH,
     OPTION_TARGET,
     OPTION_ADDITIVE_GAUSSIAN_NOISE,
-    OPTION_ALLOW_NO_MUTATION,
     OPTION_BM_LOG_NORM_1,
     OPTION_BM_LOG_NORM_INFINITE,
     OPTION_BM_NEGATIVE_POSITIVE_SELECTION,
     OPTION_CACHE,
     OPTION_CACHE_BUDGET,
     OPTION_CONCRETE_SOLUTION,
+    OPTION_EA_ALLOW_NO_MUTATION,
     OPTION_FN_DISPLAY,
     OPTION_FN_GET_BV_SIZE,
     OPTION_FN_GET_MAXIMUM,
@@ -295,9 +307,16 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"budget", required_argument, 0, OPTION_BUDGET},
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
     {"description-path", required_argument, 0, OPTION_DESCRIPTION_PATH},
+    {"ea-crossover-bias", required_argument, 0, OPTION_EA_CROSSOVER_BIAS},
+    {"ea-crossover-probability", required_argument, 0, OPTION_EA_CROSSOVER_PROBABILITY},
     {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
+    {"ea-mutation-rate", required_argument, 0, OPTION_EA_MUTATION_RATE},
+    {"ea-mutation-rate-max", required_argument, 0, OPTION_EA_MUTATION_RATE_MAX},
+    {"ea-mutation-rate-min", required_argument, 0, OPTION_EA_MUTATION_RATE_MIN},
+    {"ea-success-ratio", required_argument, 0, OPTION_EA_SUCCESS_RATIO},
     {"ea-tournament-size", required_argument, 0, OPTION_EA_TOURNAMENT_SIZE},
+    {"ea-update-strength", required_argument, 0, OPTION_EA_UPDATE_STRENGTH},
     {"expression", required_argument, 0, OPTION_EXPRESSION},
     {"fn-name", required_argument, 0, OPTION_FN_NAME},
     {"fn-num-traps", required_argument, 0, OPTION_FN_NUM_TRAPS},
@@ -309,8 +328,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"fp-precision", required_argument, 0, OPTION_FP_PRECISION},
     {"fp-upper-bound", required_argument, 0, OPTION_FP_UPPER_BOUND},
     {"function", required_argument, 0, OPTION_FUNCTION},
-    {"ga-crossover-bias", required_argument, 0, OPTION_GA_CROSSOVER_BIAS},
-    {"ga-crossover-probability", required_argument, 0, OPTION_GA_CROSSOVER_PROBABILITY},
     {"hea-reset-period", required_argument, 0, OPTION_HEA_RESET_PERIOD},
     {"learning-rate", required_argument, 0, OPTION_LEARNING_RATE},
     {"map", required_argument, 0, OPTION_MAP},
@@ -318,7 +335,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"map-path", required_argument, 0, OPTION_MAP_PATH},
     {"map-ts-length", required_argument, 0, OPTION_MAP_TS_LENGTH},
     {"map-ts-sampling-mode", required_argument, 0, OPTION_MAP_TS_SAMPLING_MODE},
-    {"mutation-rate", required_argument, 0, OPTION_MUTATION_RATE},
     {"neighborhood", required_argument, 0, OPTION_NEIGHBORHOOD},
     {"neighborhood-iterator", required_argument, 0, OPTION_NEIGHBORHOOD_ITERATOR},
     {"noise-stddev", required_argument, 0, OPTION_NOISE_STDDEV},
@@ -344,13 +360,13 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"solution-path", required_argument, 0, OPTION_SOLUTION_PATH},
     {"target", required_argument, 0, OPTION_TARGET},
     {"additive-gaussian-noise", no_argument, 0, OPTION_ADDITIVE_GAUSSIAN_NOISE},
-    {"allow-no-mutation", no_argument, 0, OPTION_ALLOW_NO_MUTATION},
     {"bm-log-norm-1", no_argument, 0, OPTION_BM_LOG_NORM_1},
     {"bm-log-norm-infinite", no_argument, 0, OPTION_BM_LOG_NORM_INFINITE},
     {"bm-negative-positive-selection", no_argument, 0, OPTION_BM_NEGATIVE_POSITIVE_SELECTION},
     {"cache", no_argument, 0, OPTION_CACHE},
     {"cache-budget", no_argument, 0, OPTION_CACHE_BUDGET},
     {"concrete-solution", no_argument, 0, OPTION_CONCRETE_SOLUTION},
+    {"ea-allow-no-mutation", no_argument, 0, OPTION_EA_ALLOW_NO_MUTATION},
     {"fn-display", no_argument, 0, OPTION_FN_DISPLAY},
     {"fn-get-bv-size", no_argument, 0, OPTION_FN_GET_BV_SIZE},
     {"fn-get-maximum", no_argument, 0, OPTION_FN_GET_MAXIMUM},
@@ -404,7 +420,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"help-bm", no_argument, 0, OPTION_HELP_BM},
     {0, no_argument, 0, 0}
   };
-  const char *short_options = "A:b:s:t:F:l:M:m:N:i:p:x:y:";
+  const char *short_options = "A:b:s:m:t:F:l:M:N:i:p:x:y:";
   while (true) {
     int option = getopt_long(argc, argv, short_options, long_options, 0);
     if (option < 0)
@@ -445,6 +461,14 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       set_description_path(std::string(optarg));
       break;
 
+    case OPTION_EA_CROSSOVER_BIAS:
+      set_ea_crossover_bias(atof(optarg));
+      break;
+
+    case OPTION_EA_CROSSOVER_PROBABILITY:
+      set_ea_crossover_probability(atof(optarg));
+      break;
+
     case OPTION_EA_LAMBDA:
       set_ea_lambda(atoi(optarg));
       break;
@@ -453,8 +477,29 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       set_ea_mu(atoi(optarg));
       break;
 
+    case 'm':
+    case OPTION_EA_MUTATION_RATE:
+      set_ea_mutation_rate(atof(optarg));
+      break;
+
+    case OPTION_EA_MUTATION_RATE_MAX:
+      set_ea_mutation_rate_max(atof(optarg));
+      break;
+
+    case OPTION_EA_MUTATION_RATE_MIN:
+      set_ea_mutation_rate_min(atof(optarg));
+      break;
+
+    case OPTION_EA_SUCCESS_RATIO:
+      set_ea_success_ratio(atof(optarg));
+      break;
+
     case OPTION_EA_TOURNAMENT_SIZE:
       set_ea_tournament_size(atoi(optarg));
+      break;
+
+    case OPTION_EA_UPDATE_STRENGTH:
+      set_ea_update_strength(atof(optarg));
       break;
 
     case OPTION_EXPRESSION:
@@ -503,14 +548,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       set_function(atoi(optarg));
       break;
 
-    case OPTION_GA_CROSSOVER_BIAS:
-      set_ga_crossover_bias(atof(optarg));
-      break;
-
-    case OPTION_GA_CROSSOVER_PROBABILITY:
-      set_ga_crossover_probability(atof(optarg));
-      break;
-
     case OPTION_HEA_RESET_PERIOD:
       set_hea_reset_period(atoi(optarg));
       break;
@@ -539,11 +576,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
 
     case OPTION_MAP_TS_SAMPLING_MODE:
       set_map_ts_sampling_mode(atoi(optarg));
-      break;
-
-    case 'm':
-    case OPTION_MUTATION_RATE:
-      set_mutation_rate(atof(optarg));
       break;
 
     case 'N':
@@ -651,10 +683,6 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       _additive_gaussian_noise = true;
       break;
 
-    case OPTION_ALLOW_NO_MUTATION:
-      _allow_no_mutation = true;
-      break;
-
     case OPTION_BM_LOG_NORM_1:
       _bm_log_norm_1 = true;
       break;
@@ -677,6 +705,10 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
 
     case OPTION_CONCRETE_SOLUTION:
       _concrete_solution = true;
+      break;
+
+    case OPTION_EA_ALLOW_NO_MUTATION:
+      _ea_allow_no_mutation = true;
       break;
 
     case OPTION_FN_DISPLAY:
@@ -1051,10 +1083,6 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            1110: Hierarchical Bayesian optimization algorithm (hBOA)" << std::endl;
   stream << "            1200: Linkage tree genetic algorithm (LTGA)" << std::endl;
   stream << "            1300: Parameter-less population pyramid (P3)" << std::endl;
-  stream << "      --allow-no-mutation" << std::endl;
-  stream << "          Allow no mutation with standard bit mutation" << std::endl;
-  stream << "  -m, --mutation-rate (type double, default to 1)" << std::endl;
-  stream << "          Mutation rate relative to bv_size" << std::endl;
   stream << "  -i, --num-iterations (type int, default to 0)" << std::endl;
   stream << "          Number of iterations (<= 0 means indefinite)" << std::endl;
   stream << "      --restart" << std::endl;
@@ -1223,16 +1251,28 @@ void HncoOptions::print_help_ea(std::ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Evolutionary Algorithms" << std::endl;
+  stream << "      --ea-allow-no-mutation" << std::endl;
+  stream << "          Allow no mutation with standard bit mutation" << std::endl;
+  stream << "      --ea-crossover-bias (type double, default to 0.5)" << std::endl;
+  stream << "          Crossover bias" << std::endl;
+  stream << "      --ea-crossover-probability (type double, default to 0.5)" << std::endl;
+  stream << "          Crossover probability" << std::endl;
   stream << "      --ea-lambda (type int, default to 100)" << std::endl;
   stream << "          Offspring population size" << std::endl;
   stream << "      --ea-mu (type int, default to 10)" << std::endl;
   stream << "          Parent population size" << std::endl;
+  stream << "  -m, --ea-mutation-rate (type double, default to 1)" << std::endl;
+  stream << "          Mutation rate relative to bv_size (fixed or initial value)" << std::endl;
+  stream << "      --ea-mutation-rate-max (type double, default to 1)" << std::endl;
+  stream << "          Maximum mutation rate" << std::endl;
+  stream << "      --ea-mutation-rate-min (type double, default to 0.01)" << std::endl;
+  stream << "          Minimum mutation rate" << std::endl;
+  stream << "      --ea-success-ratio (type double, default to 4)" << std::endl;
+  stream << "          Success rate for for self-adjusting mutation rate" << std::endl;
   stream << "      --ea-tournament-size (type int, default to 2)" << std::endl;
   stream << "          Tournament size" << std::endl;
-  stream << "      --ga-crossover-bias (type double, default to 0.5)" << std::endl;
-  stream << "          Crossover bias" << std::endl;
-  stream << "      --ga-crossover-probability (type double, default to 0.5)" << std::endl;
-  stream << "          Crossover probability" << std::endl;
+  stream << "      --ea-update-strength (type double, default to 1.01)" << std::endl;
+  stream << "          Update strength for self-adjusting mutation rate" << std::endl;
   stream << std::endl;
 }
 
@@ -1323,9 +1363,16 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# budget = " << options._budget << std::endl;
   stream << "# bv_size = " << options._bv_size << std::endl;
   stream << "# description_path = " << options._description_path << std::endl;
+  stream << "# ea_crossover_bias = " << options._ea_crossover_bias << std::endl;
+  stream << "# ea_crossover_probability = " << options._ea_crossover_probability << std::endl;
   stream << "# ea_lambda = " << options._ea_lambda << std::endl;
   stream << "# ea_mu = " << options._ea_mu << std::endl;
+  stream << "# ea_mutation_rate = " << options._ea_mutation_rate << std::endl;
+  stream << "# ea_mutation_rate_max = " << options._ea_mutation_rate_max << std::endl;
+  stream << "# ea_mutation_rate_min = " << options._ea_mutation_rate_min << std::endl;
+  stream << "# ea_success_ratio = " << options._ea_success_ratio << std::endl;
   stream << "# ea_tournament_size = " << options._ea_tournament_size << std::endl;
+  stream << "# ea_update_strength = " << options._ea_update_strength << std::endl;
   stream << "# expression = " << options._expression << std::endl;
   stream << "# fn_name = " << options._fn_name << std::endl;
   stream << "# fn_num_traps = " << options._fn_num_traps << std::endl;
@@ -1337,8 +1384,6 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# fp_precision = " << options._fp_precision << std::endl;
   stream << "# fp_upper_bound = " << options._fp_upper_bound << std::endl;
   stream << "# function = " << options._function << std::endl;
-  stream << "# ga_crossover_bias = " << options._ga_crossover_bias << std::endl;
-  stream << "# ga_crossover_probability = " << options._ga_crossover_probability << std::endl;
   stream << "# hea_reset_period = " << options._hea_reset_period << std::endl;
   stream << "# learning_rate = " << options._learning_rate << std::endl;
   stream << "# map = " << options._map << std::endl;
@@ -1346,7 +1391,6 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# map_path = " << options._map_path << std::endl;
   stream << "# map_ts_length = " << options._map_ts_length << std::endl;
   stream << "# map_ts_sampling_mode = " << options._map_ts_sampling_mode << std::endl;
-  stream << "# mutation_rate = " << options._mutation_rate << std::endl;
   stream << "# neighborhood = " << options._neighborhood << std::endl;
   stream << "# neighborhood_iterator = " << options._neighborhood_iterator << std::endl;
   stream << "# noise_stddev = " << options._noise_stddev << std::endl;
@@ -1373,8 +1417,6 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# target = " << options._target << std::endl;
   if (options._additive_gaussian_noise)
     stream << "# additive_gaussian_noise" << std::endl;
-  if (options._allow_no_mutation)
-    stream << "# allow_no_mutation" << std::endl;
   if (options._bm_log_norm_1)
     stream << "# bm_log_norm_1" << std::endl;
   if (options._bm_log_norm_infinite)
@@ -1387,6 +1429,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# cache_budget" << std::endl;
   if (options._concrete_solution)
     stream << "# concrete_solution" << std::endl;
+  if (options._ea_allow_no_mutation)
+    stream << "# ea_allow_no_mutation" << std::endl;
   if (options._fn_display)
     stream << "# fn_display" << std::endl;
   if (options._fn_get_bv_size)

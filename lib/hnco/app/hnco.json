@@ -304,12 +304,6 @@
             "section": "alg"
         },
 
-        "allow_no_mutation":
-        {
-            "description": "Allow no mutation with standard bit mutation",
-            "section": "alg"
-        },
-
         "incremental_evaluation":
         {
             "description": "Incremental evaluation",
@@ -326,6 +320,12 @@
         {
             "description": "Log bit vector value during random walk",
             "section": "ls"
+        },
+
+        "ea_allow_no_mutation":
+        {
+            "description": "Allow no mutation with standard bit mutation",
+            "section": "ea"
         },
 
         "pv_log_pv":
@@ -1126,15 +1126,6 @@
             "section": "alg"
         },
 
-        "mutation_rate":
-        {
-            "optchar": "m",
-            "type": "double",
-            "value": 1.0,
-            "description": "Mutation rate relative to bv_size",
-            "section": "alg"
-        },
-
         "neighborhood":
         {
             "optchar": "N",
@@ -1240,6 +1231,47 @@
             "section": "sa"
         },
 
+        "ea_mutation_rate":
+        {
+            "optchar": "m",
+            "type": "double",
+            "value": 1.0,
+            "description": "Mutation rate relative to bv_size (fixed or initial value)",
+            "section": "ea"
+        },
+
+        "ea_mutation_rate_min":
+        {
+            "type": "double",
+            "value": 0.01,
+            "description": "Minimum mutation rate",
+            "section": "ea"
+        },
+
+        "ea_mutation_rate_max":
+        {
+            "type": "double",
+            "value": 1,
+            "description": "Maximum mutation rate",
+            "section": "ea"
+        },
+
+        "ea_update_strength":
+        {
+            "type": "double",
+            "value": 1.01,
+            "description": "Update strength for self-adjusting mutation rate",
+            "section": "ea"
+        },
+
+        "ea_success_ratio":
+        {
+            "type": "double",
+            "value": 4,
+            "description": "Success rate for for self-adjusting mutation rate",
+            "section": "ea"
+        },
+
         "ea_mu":
         {
             "type": "int",
@@ -1264,7 +1296,7 @@
             "section": "ea"
         },
 
-        "ga_crossover_probability":
+        "ea_crossover_probability":
         {
             "type": "double",
             "value": 0.5,
@@ -1272,7 +1304,7 @@
             "section": "ea"
         },
 
-        "ga_crossover_bias":
+        "ea_crossover_bias":
         {
             "type": "double",
             "value": 0.5,
