@@ -3,14 +3,14 @@
 Library:
 - Added perm_shuffle
 - Added hnco::ensure
-- Renamed multiobjective::algorithm::Population::size -> get_size
-- Renamed algorithm::Population::size -> get_size
-- Added Population::get_equivalent_bvs
-- Removed Population::plus_selection and comma_selection
+- Renamed multiobjective::algorithm::Population::size() -> get_size()
+- Renamed algorithm::Population::size() -> get_size()
+- Added Population::get_equivalent_bvs()
+- Removed Population::plus_selection() and comma_selection()
 - Added file algorithms/ea/selection.hh
 - Added classes PlusSelection and CommaSelection
 - Moved file algorithms/random-selection.hh under algorithms/ea/
-- Renamed Crossover::breed -> recombine
+- Renamed Crossover::breed() -> recombine()
 - RandomSelection does not inherit from Population anymore
 - Reimplemented TournamentSelection
 - Added SelfAdjustingOnePlusOneEa
@@ -31,9 +31,23 @@ Applications:
 Highlight: multiobjective optimization
 
 Library:
+- Algorithm::get_bv_size() is protected
+- IterativeAlgorithm: _last_iteration initialized by loop() instead of init()
+- Added namespace hnco::multiobjective
+- Added multiobjective::function::Function and value_t
+- Added multiobjective::function::MultivariateFunctionAdapter, ParsedMultivariateFunction
+- Added multiobjective::algorithm::Population
+- Added multiobjective::algorithm::Algorithm, IterativeAlgorithm
+- Added multiobjective::algorithm::Nsga2, Nsga2ParetoFrontComputation
+- Added multiobjective::algorithm::TournamentSelection
+- Added multiobjective::app::AlgorithmFactory, FunctionFactory
+- Added multiobjective::app::CommandLineApplication
 - Population: index_value_t moved to namespace hnco::algorithm
 - Population: removed _compare_index_value
 - Declare type alias with using instead of typedef
+
+Python:
+- Added bindings for multiobjective optimization
 
 Perl scripts:
 - Added hnco-runtime-run.pl
