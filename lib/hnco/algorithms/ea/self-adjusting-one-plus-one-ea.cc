@@ -21,7 +21,7 @@
 #include <assert.h>
 
 #include <algorithm>            // std::max, std::min
-#include <cmath>                // std::powf
+#include <cmath>                // std::pow
 
 #include "hnco/logging/logger.hh"
 
@@ -29,7 +29,6 @@
 
 
 using namespace hnco::algorithm;
-using namespace hnco::exception;
 using namespace hnco;
 
 

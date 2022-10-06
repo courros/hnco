@@ -30,7 +30,7 @@ namespace algorithm {
 
 
 /** 
- * Self-adjusting (1+1) EA.
+ * Self-adjusting (1+1) evolutionary algorithm.
  * Reference:
  * Benjamin Doerr, Carola Doerr, and Johannes Lengler. 2019.
  * Self-adjusting mutation rates with provably optimal success rules.
@@ -82,7 +82,7 @@ class SelfAdjustingOnePlusOneEa: public IterativeAlgorithm {
    */
   ///@{
 
-  /// Log entropy
+  /// Log mutation rate
   bool _log_mutation_rate = false;
 
   ///@}
