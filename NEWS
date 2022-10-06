@@ -8,7 +8,7 @@ Library:
 - Added Population::get_equivalent_bvs()
 - Removed Population::plus_selection() and comma_selection()
 - Added file algorithms/ea/selection.hh
-- Added classes PlusSelection and CommaSelection
+- Added classes algorithm::PlusSelection and CommaSelection
 - Moved file algorithms/random-selection.hh under algorithms/ea/
 - Renamed Crossover::breed() -> recombine()
 - RandomSelection does not inherit from Population anymore
