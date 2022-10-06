@@ -13,9 +13,17 @@ Library:
 - Renamed Crossover::breed -> recombine
 - RandomSelection does not inherit from Population anymore
 - Reimplemented TournamentSelection
+- Added SelfAdjustingOnePlusOneEa
 
 Applications:
 - hnco: renamed option --ga-tournament-size -> --ea-tournament-size
+- hnco: renamed option --ga-crossover-bias -> --ea-crossover-bias
+- hnco: renamed option --mutation-rate -> --ea-mutation-rate
+- hnco: renamed option --allow-no-mutation -> --ea-allow-no-mutation
+- hnco: added option --ea-mutation-rate-min
+- hnco: added option --ea-mutation-rate-max
+- hnco: added option --ea-update-strength
+- hnco: added option --ea-success-ratio
 
 
 * Version 0.20 (2022-04-10)
