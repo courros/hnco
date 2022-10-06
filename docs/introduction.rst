@@ -12,8 +12,8 @@ available on `github <https://github.com/courros/hnco>`_.
 Library features:
 
 - 29 concrete functions
-- 24 concrete algorithms
-- 78 unit tests
+- 25 concrete algorithms
+- 79 unit tests
 - Maps from bit vectors to bit vectors
 - Function decorators to control evaluation (budget...)
 - Function decorators to modify functions (noise...)
