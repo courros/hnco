@@ -25,6 +25,9 @@ Applications:
 - hnco: added option --ea-update-strength
 - hnco: added option --ea-success-ratio
 
+Python:
+- Added bindings for SelfAdjustingOnePlusOneEa
+
 
 * Version 0.20 (2022-04-10)
 
