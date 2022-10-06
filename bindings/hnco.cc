@@ -895,6 +895,18 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("set_incremental_evaluation", &OnePlusOneEa::set_incremental_evaluation)
       ;
 
+    py::class_<SelfAdjustingOnePlusOneEa, IterativeAlgorithm>(module_algorithm, "SelfAdjustingOnePlusOneEa")
+      .def(py::init<int>())
+      .def("set_num_iterations", &SelfAdjustingOnePlusOneEa::set_num_iterations)
+      .def("set_mutation_rate_init", &SelfAdjustingOnePlusOneEa::set_mutation_rate_init)
+      .def("set_mutation_rate_min", &SelfAdjustingOnePlusOneEa::set_mutation_rate_min)
+      .def("set_mutation_rate_max", &SelfAdjustingOnePlusOneEa::set_mutation_rate_max)
+      .def("set_update_strength", &SelfAdjustingOnePlusOneEa::set_update_strength)
+      .def("set_success_ratio", &SelfAdjustingOnePlusOneEa::set_success_ratio)
+      .def("set_allow_no_mutation", &SelfAdjustingOnePlusOneEa::set_allow_no_mutation)
+      .def("set_incremental_evaluation", &SelfAdjustingOnePlusOneEa::set_incremental_evaluation)
+      ;
+
     py::class_<fast_efficient_p3::Hboa, Algorithm>(module_algorithm, "Hboa")
       .def(py::init<int>())
       .def("set_population_size", &fast_efficient_p3::Hboa::set_population_size)
