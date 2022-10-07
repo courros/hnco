@@ -1,16 +1,21 @@
-* Version 0.21 (unreleased)
+* Version 0.21 (2022-10-07)
+
+Highlight:
+- Refactored population and selection
+- New algorithm: SelfAdjustingOnePlusOneEa
 
 Library:
-- Added perm_shuffle
-- Added hnco::ensure
-- Renamed multiobjective::algorithm::Population::size() -> get_size()
-- Renamed algorithm::Population::size() -> get_size()
-- Added Population::get_equivalent_bvs()
-- Removed Population::plus_selection() and comma_selection()
+- Added perm_shuffle()
+- Added ensure()
+- Multiobjective Population: Renamed size() -> get_size()
+- Population is now a struct
+- Population: size() -> get_size()
+- Population: added get_equivalent_bvs()
+- Population: removed plus_selection() and comma_selection()
 - Added file algorithms/ea/selection.hh
-- Added classes algorithm::PlusSelection and CommaSelection
+- Added classes PlusSelection and CommaSelection
 - Moved file algorithms/random-selection.hh under algorithms/ea/
-- Renamed Crossover::breed() -> recombine()
+- Crossover: renamed breed() -> recombine()
 - RandomSelection does not inherit from Population anymore
 - Reimplemented TournamentSelection
 - Added SelfAdjustingOnePlusOneEa
