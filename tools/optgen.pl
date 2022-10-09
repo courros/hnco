@@ -152,6 +152,8 @@ sub generate_header
         "  /// Print version\n",
         "  void print_version(std::ostream& stream) const;\n\n",
         "public:\n\n",
+        "  /// Default constructor\n",
+        "  $classname();\n\n",
         "  /// Constructor\n",
         "  $classname(int argc, char *argv[]);\n\n");
 
@@ -211,7 +213,8 @@ sub generate_source
 	"#include \"$header\"\n\n",
         "using namespace $namespace;\n\n";
 
-    generate_source_cons();
+    generate_source_default_constructor();
+    generate_source_constructor();
     generate_source_help();
     generate_source_additional_section_help();
     generate_source_version();
@@ -220,7 +223,29 @@ sub generate_source
     close(SRC);
 }
 
-sub generate_source_cons()
+sub generate_source_default_constructor()
+{
+    print SRC
+	"$classname\:\:$classname():\n",
+	"  _exec_name(\"unknown\"),\n",
+        "  _version(\"$version\"),\n";
+
+    my @plist = map {
+	my $parameter = $parameters->{$_};
+	my $value = $parameter->{value};
+	($parameter->{type} eq "string" ?
+	 "  _$_(\"$value\"),\n" :
+	 "  _$_($value),\n") .
+	 "  _opt_$_(false)";
+    } sort(keys(%$parameters));
+
+    my @flist = map { "  _$_(false)" } sort(keys(%$flags));
+
+    print SRC join ",\n", (@plist, @flist);
+    print SRC "\n{}\n\n";
+}
+
+sub generate_source_constructor()
 {
     print SRC
 	"$classname\:\:$classname(int argc, char *argv[]):\n",
