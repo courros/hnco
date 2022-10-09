@@ -438,6 +438,9 @@ class HncoOptions {
 
 public:
 
+  /// Default constructor
+  HncoOptions();
+
   /// Constructor
   HncoOptions(int argc, char *argv[]);
 
