@@ -44,7 +44,8 @@ void
 CommandLineApplication::init()
 {
   if (_options.with_print_default_parameters()) {
-    std::cout << _options;
+    HncoOptions options;
+    std::cout << options;
     exit(0);
   }
 
