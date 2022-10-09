@@ -1,3 +1,16 @@
+* Version 0.22 (unreleased)
+
+Library:
+- CommandLineApplication::init() prints a default constructed HncoOptions (single and multi)
+
+Applications:
+- hnco, hnco-mo: renamed option --print-defaults -> --print-default-parameters
+- hnco, hnco-mo: renamed option --print-header -> --print-parameters
+
+Build:
+- optgen.pl: generates option default constructor
+
+
 * Version 0.21 (2022-10-07)
 
 Highlight:
