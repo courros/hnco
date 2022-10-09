@@ -274,7 +274,7 @@ class HncoOptions {
   /// Set cache on budget
   bool _cache_budget;
 
-  /// At the end, print or save the solution in the domain of the concrete function
+  /// Print or save the solution in the domain of the concrete function
   bool _concrete_solution;
 
   /// Allow no mutation with standard bit mutation
@@ -350,13 +350,13 @@ class HncoOptions {
   bool _pn_allow_no_mutation;
 
   /// Print the default parameters and exit
-  bool _print_defaults;
+  bool _print_default_parameters;
 
   /// Print a description of the solution
   bool _print_description;
 
-  /// At the beginning, print the header
-  bool _print_header;
+  /// Print the parameters
+  bool _print_parameters;
 
   /// Print results
   bool _print_results;
@@ -385,13 +385,13 @@ class HncoOptions {
   /// Log bit vector value during random walk
   bool _rw_log_value;
 
-  /// At the end, save a description of the solution in a file
+  /// Save a description of the solution in a file
   bool _save_description;
 
-  /// At the end, save results in a file
+  /// Save the results in a file
   bool _save_results;
 
-  /// At the end, save the solution in a file
+  /// Save the solution in a file
   bool _save_solution;
 
   /// Stop on maximum
@@ -1347,11 +1347,11 @@ public:
   /// Set pn_allow_no_mutation
   void set_pn_allow_no_mutation() { _pn_allow_no_mutation = true; }
 
-  /// Get print_defaults
-  bool with_print_defaults() const { return _print_defaults; }
+  /// Get print_default_parameters
+  bool with_print_default_parameters() const { return _print_default_parameters; }
 
-  /// Set print_defaults
-  void set_print_defaults() { _print_defaults = true; }
+  /// Set print_default_parameters
+  void set_print_default_parameters() { _print_default_parameters = true; }
 
   /// Get print_description
   bool with_print_description() const { return _print_description; }
@@ -1359,11 +1359,11 @@ public:
   /// Set print_description
   void set_print_description() { _print_description = true; }
 
-  /// Get print_header
-  bool with_print_header() const { return _print_header; }
+  /// Get print_parameters
+  bool with_print_parameters() const { return _print_parameters; }
 
-  /// Set print_header
-  void set_print_header() { _print_header = true; }
+  /// Set print_parameters
+  void set_print_parameters() { _print_parameters = true; }
 
   /// Get print_results
   bool with_print_results() const { return _print_results; }

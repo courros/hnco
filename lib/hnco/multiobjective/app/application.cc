@@ -43,7 +43,7 @@ using namespace hnco;
 void
 CommandLineApplication::init()
 {
-  if (_options.with_print_defaults()) {
+  if (_options.with_print_default_parameters()) {
     std::cout << _options;
     exit(0);
   }
@@ -111,7 +111,7 @@ CommandLineApplication::make_algorithm()
 void
 CommandLineApplication::minimize()
 {
-  if (_options.with_print_header())
+  if (_options.with_print_parameters())
     std::cout << _options;
 
   StopWatch stop_watch;

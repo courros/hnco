@@ -160,9 +160,9 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _negation(false),
   _parsed_modifier(false),
   _pn_allow_no_mutation(false),
-  _print_defaults(false),
+  _print_default_parameters(false),
   _print_description(false),
-  _print_header(false),
+  _print_parameters(false),
   _print_results(false),
   _print_solution(false),
   _prior_noise(false),
@@ -282,9 +282,9 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_NEGATION,
     OPTION_PARSED_MODIFIER,
     OPTION_PN_ALLOW_NO_MUTATION,
-    OPTION_PRINT_DEFAULTS,
+    OPTION_PRINT_DEFAULT_PARAMETERS,
     OPTION_PRINT_DESCRIPTION,
-    OPTION_PRINT_HEADER,
+    OPTION_PRINT_PARAMETERS,
     OPTION_PRINT_RESULTS,
     OPTION_PRINT_SOLUTION,
     OPTION_PRIOR_NOISE,
@@ -392,9 +392,9 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"negation", no_argument, 0, OPTION_NEGATION},
     {"parsed-modifier", no_argument, 0, OPTION_PARSED_MODIFIER},
     {"pn-allow-no-mutation", no_argument, 0, OPTION_PN_ALLOW_NO_MUTATION},
-    {"print-defaults", no_argument, 0, OPTION_PRINT_DEFAULTS},
+    {"print-default-parameters", no_argument, 0, OPTION_PRINT_DEFAULT_PARAMETERS},
     {"print-description", no_argument, 0, OPTION_PRINT_DESCRIPTION},
-    {"print-header", no_argument, 0, OPTION_PRINT_HEADER},
+    {"print-parameters", no_argument, 0, OPTION_PRINT_PARAMETERS},
     {"print-results", no_argument, 0, OPTION_PRINT_RESULTS},
     {"print-solution", no_argument, 0, OPTION_PRINT_SOLUTION},
     {"prior-noise", no_argument, 0, OPTION_PRIOR_NOISE},
@@ -806,16 +806,16 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       _pn_allow_no_mutation = true;
       break;
 
-    case OPTION_PRINT_DEFAULTS:
-      _print_defaults = true;
+    case OPTION_PRINT_DEFAULT_PARAMETERS:
+      _print_default_parameters = true;
       break;
 
     case OPTION_PRINT_DESCRIPTION:
       _print_description = true;
       break;
 
-    case OPTION_PRINT_HEADER:
-      _print_header = true;
+    case OPTION_PRINT_PARAMETERS:
+      _print_parameters = true;
       break;
 
     case OPTION_PRINT_RESULTS:
@@ -935,19 +935,19 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "General" << std::endl;
   stream << "      --concrete-solution" << std::endl;
-  stream << "          At the end, print or save the solution in the domain of the concrete function" << std::endl;
+  stream << "          Print or save the solution in the domain of the concrete function" << std::endl;
   stream << "      --description-path (type string, default to \"description.txt\")" << std::endl;
   stream << "          Path of the description file" << std::endl;
   stream << "      --load-solution" << std::endl;
   stream << "          Load a solution from a file" << std::endl;
   stream << "      --num-threads (type int, default to 1)" << std::endl;
   stream << "          Number of threads" << std::endl;
-  stream << "      --print-defaults" << std::endl;
+  stream << "      --print-default-parameters" << std::endl;
   stream << "          Print the default parameters and exit" << std::endl;
   stream << "      --print-description" << std::endl;
   stream << "          Print a description of the solution" << std::endl;
-  stream << "      --print-header" << std::endl;
-  stream << "          At the beginning, print the header" << std::endl;
+  stream << "      --print-parameters" << std::endl;
+  stream << "          Print the parameters" << std::endl;
   stream << "      --print-results" << std::endl;
   stream << "          Print results" << std::endl;
   stream << "      --print-solution" << std::endl;
@@ -955,11 +955,11 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
   stream << "          Path of the results file" << std::endl;
   stream << "      --save-description" << std::endl;
-  stream << "          At the end, save a description of the solution in a file" << std::endl;
+  stream << "          Save a description of the solution in a file" << std::endl;
   stream << "      --save-results" << std::endl;
-  stream << "          At the end, save results in a file" << std::endl;
+  stream << "          Save the results in a file" << std::endl;
   stream << "      --save-solution" << std::endl;
-  stream << "          At the end, save the solution in a file" << std::endl;
+  stream << "          Save the solution in a file" << std::endl;
   stream << "      --seed (type unsigned, default to 0)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
   stream << "      --solution-path (type string, default to \"solution.txt\")" << std::endl;
@@ -1486,12 +1486,12 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# parsed_modifier" << std::endl;
   if (options._pn_allow_no_mutation)
     stream << "# pn_allow_no_mutation" << std::endl;
-  if (options._print_defaults)
-    stream << "# print_defaults" << std::endl;
+  if (options._print_default_parameters)
+    stream << "# print_default_parameters" << std::endl;
   if (options._print_description)
     stream << "# print_description" << std::endl;
-  if (options._print_header)
-    stream << "# print_header" << std::endl;
+  if (options._print_parameters)
+    stream << "# print_parameters" << std::endl;
   if (options._print_results)
     stream << "# print_results" << std::endl;
   if (options._print_solution)

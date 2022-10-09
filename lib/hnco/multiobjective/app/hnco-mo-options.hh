@@ -117,14 +117,14 @@ class HncoOptions {
   /// Print the number of objectives
   bool _fn_get_output_size;
 
-  /// Print the default parameters and exit
-  bool _print_defaults;
+  /// Print the parameters and exit
+  bool _print_default_parameters;
 
   /// Print a description of the solution
   bool _print_description;
 
-  /// At the beginning, print the header
-  bool _print_header;
+  /// Print the parameters
+  bool _print_parameters;
 
   /// Print the Pareto front
   bool _print_pareto_front;
@@ -437,11 +437,11 @@ public:
   /// Set fn_get_output_size
   void set_fn_get_output_size() { _fn_get_output_size = true; }
 
-  /// Get print_defaults
-  bool with_print_defaults() const { return _print_defaults; }
+  /// Get print_default_parameters
+  bool with_print_default_parameters() const { return _print_default_parameters; }
 
-  /// Set print_defaults
-  void set_print_defaults() { _print_defaults = true; }
+  /// Set print_default_parameters
+  void set_print_default_parameters() { _print_default_parameters = true; }
 
   /// Get print_description
   bool with_print_description() const { return _print_description; }
@@ -449,11 +449,11 @@ public:
   /// Set print_description
   void set_print_description() { _print_description = true; }
 
-  /// Get print_header
-  bool with_print_header() const { return _print_header; }
+  /// Get print_parameters
+  bool with_print_parameters() const { return _print_parameters; }
 
-  /// Set print_header
-  void set_print_header() { _print_header = true; }
+  /// Set print_parameters
+  void set_print_parameters() { _print_parameters = true; }
 
   /// Get print_pareto_front
   bool with_print_pareto_front() const { return _print_pareto_front; }

@@ -113,15 +113,15 @@
 
     "flags": {
 
-        "print_defaults":
+        "print_default_parameters":
         {
             "description": "Print the default parameters and exit",
             "section": "gen"
         },
 
-        "print_header":
+        "print_parameters":
         {
-            "description": "At the beginning, print the header",
+            "description": "Print the parameters",
             "section": "gen"
         },
 
@@ -133,7 +133,7 @@
 
         "save_results":
         {
-            "description": "At the end, save results in a file",
+            "description": "Save the results in a file",
             "section": "gen"
         },
 
@@ -145,13 +145,13 @@
 
         "save_solution":
         {
-            "description": "At the end, save the solution in a file",
+            "description": "Save the solution in a file",
             "section": "gen"
         },
 
         "concrete_solution":
         {
-            "description": "At the end, print or save the solution in the domain of the concrete function",
+            "description": "Print or save the solution in the domain of the concrete function",
             "section": "gen"
         },
 
@@ -169,7 +169,7 @@
 
         "save_description":
         {
-            "description": "At the end, save a description of the solution in a file",
+            "description": "Save a description of the solution in a file",
             "section": "gen"
         },
 

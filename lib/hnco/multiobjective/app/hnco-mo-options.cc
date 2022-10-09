@@ -35,7 +35,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _opt_fp_precision(false),
   _fp_upper_bound(2),
   _opt_fp_upper_bound(false),
-  _function(0),
+  _function(180),
   _opt_function(false),
   _num_iterations(100),
   _opt_num_iterations(false),
@@ -57,9 +57,9 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _fn_display(false),
   _fn_get_bv_size(false),
   _fn_get_output_size(false),
-  _print_defaults(false),
+  _print_default_parameters(false),
   _print_description(false),
-  _print_header(false),
+  _print_parameters(false),
   _print_pareto_front(false)
 {
   enum {
@@ -94,9 +94,9 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_FN_DISPLAY,
     OPTION_FN_GET_BV_SIZE,
     OPTION_FN_GET_OUTPUT_SIZE,
-    OPTION_PRINT_DEFAULTS,
+    OPTION_PRINT_DEFAULT_PARAMETERS,
     OPTION_PRINT_DESCRIPTION,
-    OPTION_PRINT_HEADER,
+    OPTION_PRINT_PARAMETERS,
     OPTION_PRINT_PARETO_FRONT
   };
   const struct option long_options[] = {
@@ -126,9 +126,9 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"fn-display", no_argument, 0, OPTION_FN_DISPLAY},
     {"fn-get-bv-size", no_argument, 0, OPTION_FN_GET_BV_SIZE},
     {"fn-get-output-size", no_argument, 0, OPTION_FN_GET_OUTPUT_SIZE},
-    {"print-defaults", no_argument, 0, OPTION_PRINT_DEFAULTS},
+    {"print-default-parameters", no_argument, 0, OPTION_PRINT_DEFAULT_PARAMETERS},
     {"print-description", no_argument, 0, OPTION_PRINT_DESCRIPTION},
-    {"print-header", no_argument, 0, OPTION_PRINT_HEADER},
+    {"print-parameters", no_argument, 0, OPTION_PRINT_PARAMETERS},
     {"print-pareto-front", no_argument, 0, OPTION_PRINT_PARETO_FRONT},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
@@ -253,16 +253,16 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       _fn_get_output_size = true;
       break;
 
-    case OPTION_PRINT_DEFAULTS:
-      _print_defaults = true;
+    case OPTION_PRINT_DEFAULT_PARAMETERS:
+      _print_default_parameters = true;
       break;
 
     case OPTION_PRINT_DESCRIPTION:
       _print_description = true;
       break;
 
-    case OPTION_PRINT_HEADER:
-      _print_header = true;
+    case OPTION_PRINT_PARAMETERS:
+      _print_parameters = true;
       break;
 
     case OPTION_PRINT_PARETO_FRONT:
@@ -305,12 +305,12 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Path of the description file" << std::endl;
   stream << "      --num-threads (type int, default to 1)" << std::endl;
   stream << "          Number of threads" << std::endl;
-  stream << "      --print-defaults" << std::endl;
-  stream << "          Print the default parameters and exit" << std::endl;
+  stream << "      --print-default-parameters" << std::endl;
+  stream << "          Print the parameters and exit" << std::endl;
   stream << "      --print-description" << std::endl;
   stream << "          Print a description of the solution" << std::endl;
-  stream << "      --print-header" << std::endl;
-  stream << "          At the beginning, print the header" << std::endl;
+  stream << "      --print-parameters" << std::endl;
+  stream << "          Print the parameters" << std::endl;
   stream << "      --print-pareto-front" << std::endl;
   stream << "          Print the Pareto front" << std::endl;
   stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
@@ -331,7 +331,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print the number of objectives" << std::endl;
   stream << "      --fn-name (type string, default to \"noname\")" << std::endl;
   stream << "          Name of the function in the dynamic library" << std::endl;
-  stream << "  -F, --function (type int, default to 0)" << std::endl;
+  stream << "  -F, --function (type int, default to 180)" << std::endl;
   stream << "          Type of function" << std::endl;
   stream << "            180: Real multivariate function (objectives are separated by double colons ::)" << std::endl;
   stream << "            181: Integer multivariate function (objectives are separated by double colons ::)" << std::endl;
@@ -443,12 +443,12 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
     stream << "# fn_get_bv_size" << std::endl;
   if (options._fn_get_output_size)
     stream << "# fn_get_output_size" << std::endl;
-  if (options._print_defaults)
-    stream << "# print_defaults" << std::endl;
+  if (options._print_default_parameters)
+    stream << "# print_default_parameters" << std::endl;
   if (options._print_description)
     stream << "# print_description" << std::endl;
-  if (options._print_header)
-    stream << "# print_header" << std::endl;
+  if (options._print_parameters)
+    stream << "# print_parameters" << std::endl;
   if (options._print_pareto_front)
     stream << "# print_pareto_front" << std::endl;
   stream << "# last_parameter" << std::endl;

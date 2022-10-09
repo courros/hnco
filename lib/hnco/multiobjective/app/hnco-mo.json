@@ -59,15 +59,15 @@
 
     "flags": {
 
-        "print_defaults":
+        "print_default_parameters":
         {
-            "description": "Print the default parameters and exit",
+            "description": "Print the parameters and exit",
             "section": "gen"
         },
 
-        "print_header":
+        "print_parameters":
         {
-            "description": "At the beginning, print the header",
+            "description": "Print the parameters",
             "section": "gen"
         },
 
@@ -158,7 +158,7 @@
         {
             "optchar": "F",
             "type": "int",
-            "value": 0,
+            "value": 180,
             "description": "Type of function",
             "section": "fn",
             "alternatives":

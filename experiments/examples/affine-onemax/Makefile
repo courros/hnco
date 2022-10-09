@@ -1,7 +1,7 @@
 all: default-parameters run report
 
 default-parameters:
-	hnco --print-defaults > log.defaults
+	hnco --print-default-parameters > log.defaults
 
 run:
 	echo `date` >> log.err
