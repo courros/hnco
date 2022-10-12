@@ -1,8 +1,11 @@
 _minted-report/
 auto/
-*~
+
 *.aux
+*.blg
 *.log
 *.out
 *.toc
+*~
+
 results.tex
