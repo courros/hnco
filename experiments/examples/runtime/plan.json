@@ -13,7 +13,17 @@
     },
 
     "graphics": {
+        "mean": {
+            "title": true,
+            "logscale": false
+        },
+        "stddev": {
+            "title": true,
+            "logscale": false
+        },
         "candlesticks": {
+            "title": true,
+            "logscale": false,
             "boxwidth": 40
         }
     },
@@ -22,14 +32,14 @@
 
         {
             "id": "one-max",
-            "name": "OneMax",
+            "label": "OneMax",
 	    "opt": "-F 0 --incremental-evaluation",
 
             "mean_gnuplot": [
 
                 {
                     "expression": "f(x) = exp(1) * (x + 1/2) * log(x) - 1.8925417883 * x",
-                    "title": "Theory (1+1) EA"
+                    "label": "Theory (1+1) EA"
                 }
 
             ],
@@ -38,7 +48,7 @@
 
                 {
                     "expression": "f(x) = sqrt(pi**2 / 6 * (exp(1) * x)**2 - (2 * exp(1) + 1) * exp(1) * x * log(x))",
-                    "title": "Theory (1+1) EA"
+                    "label": "Theory (1+1) EA"
                 }
 
             ]
@@ -47,14 +57,14 @@
 
         {
             "id": "leading-ones",
-            "name": "LeadingOnes",
+            "label": "LeadingOnes",
 	    "opt": "-F 10",
 
             "mean_gnuplot": [
 
                 {
                     "expression": "f(x) = (exp(1) - 1) / 2 * x**2",
-                    "title": "Theory (1+1) EA"
+                    "label": "Theory (1+1) EA"
                 }
 
             ],
@@ -62,8 +72,8 @@
             "stddev_gnuplot": [
 
                 {
-                    "expression": "f(x) = sqrt((exp(2) - 1) / 8 * x**3)",
-                    "title": "Theory (1+1) EA"
+                    "expression": "f(x) = sqrt((exp(2) - 1) / 8 * x**3 + (-3 * exp(2) - 8 * exp(1) + 17) / 16 * x**2)",
+                    "label": "Theory (1+1) EA"
                 }
 
             ]
@@ -76,13 +86,13 @@
 
         {
             "id": "ea-1p1",
-            "name": "(1+1) EA",
+            "label": "(1+1) EA",
 	    "opt": "-A 300 --ea-allow-no-mutation"
         },
 
         {
             "id": "rls",
-            "name": "RLS",
+            "label": "RLS",
 	    "opt": "-A 100 --rls-patience 0"
         }
 

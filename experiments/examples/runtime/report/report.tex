@@ -30,10 +30,20 @@
 %\thispagestyle{empty}
 
 \title{HNCO\\
-  Runtime as a function of size \\
+  Empirical runtime analysis\\
   of (1+1) EA and RLS \\
   on OneMax and LeadingOnes}
 \maketitle
+
+\begin{abstract}
+  This report contains the results of an empirical runtime analysis of
+  (1+1) EA and RLS on OneMax and LeadingOnes performed with HNCO. The
+  added theoretical results come from \cite{hwang2018probabilistic}.
+  We observe a discrepancy between theory and practice in the case of
+  the standard deviation of the runtime of (1+1) EA applied to
+  LeadingOnes. In this case, the expression is exact only up to a
+  $O(n)$ term, which might explain the discrepancy.
+\end{abstract}
 
 \tableofcontents
 
@@ -48,6 +58,11 @@
 \section{Default parameters}
 
 \inputminted[breaklines=true]{text}{../log.defaults}
+
+%\bibliographystyle{plainnat}
+\bibliographystyle{plain}
+
+\bibliography{bibliography}
 
 \end{document}
 
