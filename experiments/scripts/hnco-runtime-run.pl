@@ -106,29 +106,28 @@ sub iterate_algorithms
         }
         my $algorithm_id = $algorithm->{id};
         print "$algorithm_id\n\n";
-        iterate_values("$prefix/$algorithm_id", "$algorithm_cmd $algorithm->{opt}", $a);
+        iterate_values("$prefix/$algorithm_id", "$algorithm_cmd $algorithm->{opt}", $algorithm);
         print "\n";
     }
 }
 
 sub iterate_values
 {
-    my ($prefix, $cmd, $a) = @_;
+    my ($prefix, $cmd, $algorithm) = @_;
 
     my $num_runs = $obj->{num_runs};
-    if ($a->{deterministic}) {
+    if ($algorithm->{deterministic}) {
         $num_runs = 1;
     }
 
     foreach my $value (@$values) {
         print "$parameter_id = $value: ";
-        my $dep = "";
-        if (exists($a->{opt_perl})) {
-            foreach (@{ $a->{opt_perl} }) {
-                my $value = eval $_->{value};
-                $dep = "$dep $_->{opt} $value";
-            }
-        }
+
+        my $dep = join " ", map {
+            my $v = eval $_->{value};
+            "$_->{opt} $v";
+        } @{ $algorithm->{opt_perl} };
+
         iterate_runs("$prefix/$parameter_id-$value", "$cmd --$parameter_id $value $dep", $num_runs);
         print "\n";
     }
