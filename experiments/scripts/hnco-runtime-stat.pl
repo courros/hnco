@@ -214,6 +214,8 @@ sub generate_gnuplot_candlesticks
     open(CANDLESTICKS, ">candlesticks.gp")
         or die "hnco-runtime-stat.pl: generate_gnuplot_candlesticks: Cannot open candlesticks.gp\n";
 
+    my $context = $graphics->{candlesticks};
+
     print CANDLESTICKS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
@@ -231,18 +233,18 @@ sub generate_gnuplot_candlesticks
 
     # Font face and size
     my $font = "";
-    if ($graphics->{candlesticks}->{font_face}) {
-        $font = $graphics->{candlesticks}->{font_face};
+    if ($context->{font_face}) {
+        $font = $context->{font_face};
     }
-    if ($graphics->{candlesticks}->{font_size}) {
-        $font = "$font,$graphics->{candlesticks}->{font_size}";
+    if ($context->{font_size}) {
+        $font = "$font,$context->{font_size}";
     }
     $font = qq(font "$font");
 
     # boxwidth
     my $boxwidth = 10;
-    if ($graphics->{candlesticks}->{boxwidth}) {
-        $boxwidth = $graphics->{candlesticks}->{boxwidth};
+    if ($context->{boxwidth}) {
+        $boxwidth = $context->{boxwidth};
     }
 
     foreach my $f (@$functions) {
@@ -265,10 +267,11 @@ sub generate_gnuplot_candlesticks
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
 
-            my $quoted_string = qq("Runtime of $a->{label} on $f->{label}");
-            print CANDLESTICKS "set title $quoted_string\n";
+            if ($context->{title}) {
+                print CANDLESTICKS qq(set title "Runtime of $a->{label} on $f->{label}"\n);
+            }
 
-            $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.pdf");
+            my $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.pdf");
             print CANDLESTICKS
                 "$terminal{pdf} $font\n",
                 "set output $quoted_string\n";
@@ -302,6 +305,8 @@ sub generate_gnuplot_mean
     open(MEAN, ">mean.gp")
         or die "hnco-runtime-stat.pl: generate_gnuplot_mean: Cannot open mean.gp\n";
 
+    my $context = $graphics->{mean};
+
     print MEAN
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
@@ -309,17 +314,17 @@ sub generate_gnuplot_mean
         qq(set ylabel "Number of evaluations"\n),
         "set logscale y\n",
         "set format y", qq("10^{\%T}"), "\n",
-        "set key " . ($graphics->{mean}->{key} || "bottom right box opaque") . "\n",
+        "set key " . ($context->{key} || "bottom right box opaque") . "\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
     # Font face and size
     my $font = "";
-    if ($graphics->{mean}->{font_face}) {
-        $font = $graphics->{mean}->{font_face};
+    if ($context->{font_face}) {
+        $font = $context->{font_face};
     }
-    if ($graphics->{mean}->{font_size}) {
-        $font = "$font,$graphics->{mean}->{font_size}";
+    if ($context->{font_size}) {
+        $font = "$font,$context->{font_size}";
     }
     $font = qq(font "$font");
 
@@ -332,8 +337,9 @@ sub generate_gnuplot_mean
             mkdir "$path_graphics/$function_id";
         }
 
-        my $quoted_string = qq("Mean runtime on $f->{label}");
-        print MEAN "set title $quoted_string\n";
+        if ($context->{title}) {
+            print MEAN qq(set title "Mean runtime on $f->{label}"\n);
+        }
 
         # Additional functions
         foreach my $gnuplot (@{$f->{mean_gnuplot}}) {
@@ -383,6 +389,8 @@ sub generate_gnuplot_stddev
     open(STDDEV, ">stddev.gp")
         or die "hnco-runtime-stat.pl: generate_gnuplot_stddev: Cannot open stddev.gp\n";
 
+    my $context = $graphics->{stddev};
+
     print STDDEV
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
@@ -396,11 +404,11 @@ sub generate_gnuplot_stddev
 
     # Font face and size
     my $font = "";
-    if ($graphics->{stddev}->{font_face}) {
-        $font = $graphics->{stddev}->{font_face};
+    if ($context->{font_face}) {
+        $font = $context->{font_face};
     }
-    if ($graphics->{stddev}->{font_size}) {
-        $font = "$font,$graphics->{stddev}->{font_size}";
+    if ($context->{font_size}) {
+        $font = "$font,$context->{font_size}";
     }
     $font = qq(font "$font");
 
@@ -409,11 +417,13 @@ sub generate_gnuplot_stddev
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
+        unless (-d "$path_graphics/$function_id") {
+            mkdir "$path_graphics/$function_id";
+        }
 
-        unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
-
-        my $quoted_string = qq("Standard deviation of runtime on $f->{label}");
-        print STDDEV "set title $quoted_string\n";
+        if ($context->{title}) {
+            print STDDEV qq(set title "Standard deviation of runtime on $f->{label}"\n);
+        }
 
         # Additional functions
         foreach my $gnuplot (@{$f->{stddev_gnuplot}}) {
