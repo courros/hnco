@@ -74,7 +74,7 @@ if ($parameter->{values_perl}) {
 
 my @commands = ();
 
-iterate_functions($path_results, "$obj->{exec} $obj->{opt} -b $budget");
+iterate_functions($path_results, "$obj->{opt} -b $budget");
 
 if ($parallel) {
     write_file('commands.txt', map { "$_\n" } @commands);
@@ -98,10 +98,15 @@ sub iterate_functions
 sub iterate_algorithms
 {
     my ($prefix, $cmd) = @_;
-    foreach my $a (@$algorithms) {
-        my $algorithm_id = $a->{id};
+
+    foreach my $algorithm (@$algorithms) {
+        my $algorithm_cmd = "$obj->{exec} $cmd";
+        if ($algorithm->{exec}) {
+            $algorithm_cmd = "$algorithm->{exec} $cmd";
+        }
+        my $algorithm_id = $algorithm->{id};
         print "$algorithm_id\n\n";
-        iterate_values("$prefix/$algorithm_id", "$cmd $a->{opt}", $a);
+        iterate_values("$prefix/$algorithm_id", "$algorithm_cmd $algorithm->{opt}", $a);
         print "\n";
     }
 }
