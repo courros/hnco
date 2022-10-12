@@ -7,8 +7,8 @@ evaluation.
 
 Dirk Sudholt has pointed the discrepancy between theoretical and
 experimental optimization times of (1+1) EA on OneMax, which has led
-to the addition of the option ``--allow-no-mutation`` to allow to stay
-on the same bit vector when no mutation occurs.
+to the addition of the option ``--ea-allow-no-mutation`` to allow to
+stay on the same bit vector when no mutation occurs.
 
 The library embeds code from Brian W. Goldman's project
 FastEfficientP3 to provide Hboa, Ltga, and P3 algorithms.

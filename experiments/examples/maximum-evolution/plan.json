@@ -134,7 +134,7 @@
 
         {
             "id": "ea-1c10",
-	    "opt": "-A 320 --ea-mu 1 --ea-lambda 10 --allow-no-mutation"
+	    "opt": "-A 320 --ea-mu 1 --ea-lambda 10 --ea-allow-no-mutation"
         },
 
         {

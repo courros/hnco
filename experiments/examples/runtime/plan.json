@@ -77,7 +77,7 @@
         {
             "id": "ea-1p1",
             "name": "(1+1) EA",
-	    "opt": "-A 300 --allow-no-mutation"
+	    "opt": "-A 300 --ea-allow-no-mutation"
         },
 
         {
