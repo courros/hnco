@@ -14,16 +14,13 @@
 
     "graphics": {
         "mean": {
-            "title": true,
-            "logscale": false
+            "title": true
         },
         "stddev": {
-            "title": true,
-            "logscale": false
+            "title": true
         },
         "candlesticks": {
             "title": true,
-            "logscale": false,
             "boxwidth": 40
         }
     },
@@ -34,6 +31,7 @@
             "id": "one-max",
             "label": "OneMax",
 	    "opt": "-F 0 --incremental-evaluation",
+            "logscale": false,
 
             "mean_gnuplot": [
 
@@ -59,6 +57,7 @@
             "id": "leading-ones",
             "label": "LeadingOnes",
 	    "opt": "-F 10",
+            "logscale": false,
 
             "mean_gnuplot": [
 
