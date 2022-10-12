@@ -98,8 +98,8 @@ if ($parameter->{values_perl}) {
 
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
-add_missing_names($functions);
-add_missing_names($algorithms);
+add_missing_labels($functions);
+add_missing_labels($algorithms);
 compute_statistics();
 generate_data();
 generate_gnuplot_candlesticks();
@@ -111,12 +111,12 @@ generate_latex();
 # Local functions
 #
 
-sub add_missing_names
+sub add_missing_labels
 {
     my $list = shift;
     foreach my $item (@$list) {
-        if (!exists($item->{name})) {
-            $item->{name} = $item->{id};
+        if (!exists($item->{label})) {
+            $item->{label} = $item->{id};
         }
     }
 }
@@ -265,7 +265,7 @@ sub generate_gnuplot_candlesticks
         foreach my $a (@$algorithms) {
             my $algorithm_id = $a->{id};
 
-            my $quoted_string = qq("Runtime of $a->{name} on $f->{name}");
+            my $quoted_string = qq("Runtime of $a->{label} on $f->{label}");
             print CANDLESTICKS "set title $quoted_string\n";
 
             $quoted_string = qq("$path_graphics/$function_id/$algorithm_id.pdf");
@@ -332,7 +332,7 @@ sub generate_gnuplot_mean
             mkdir "$path_graphics/$function_id";
         }
 
-        my $quoted_string = qq("Mean runtime on $f->{name}");
+        my $quoted_string = qq("Mean runtime on $f->{label}");
         print MEAN "set title $quoted_string\n";
 
         # Additional functions
@@ -349,17 +349,17 @@ sub generate_gnuplot_mean
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $name = qq("$_->{name}");
+                my $label = qq("$_->{label}");
                 my $quoted_path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
-                "  $quoted_path using 1:2 with l lw 2 title $name";
+                "  $quoted_path using 1:2 with l lw 2 title $label";
              } @$algorithms);
 
         foreach my $gnuplot (@{ $f->{mean_gnuplot}}) {
             my ($before, $after) = split /\s*=\s*/, $gnuplot->{expression};
-            my $title = qq("$gnuplot->{title}");
+            my $label = qq("$gnuplot->{label}");
             print MEAN
                 ", \\\n",
-                "  [$xmin:$xmax] $before w l lw 2 title $title";
+                "  [$xmin:$xmax] $before w l lw 2 title $label";
         }
         print MEAN "\n";
 
@@ -412,7 +412,7 @@ sub generate_gnuplot_stddev
 
         unless (-d "$path_graphics/$function_id") { mkdir "$path_graphics/$function_id"; }
 
-        my $quoted_string = qq("Standard deviation of runtime on $f->{name}");
+        my $quoted_string = qq("Standard deviation of runtime on $f->{label}");
         print STDDEV "set title $quoted_string\n";
 
         # Additional functions
@@ -429,17 +429,17 @@ sub generate_gnuplot_stddev
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $name = qq("$_->{name}");
+                my $label = qq("$_->{label}");
                 my $quoted_path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
-                "  $quoted_path using 1:3 with l lw 2 title $name";
+                "  $quoted_path using 1:3 with l lw 2 title $label";
              } @$algorithms);
 
         foreach my $gnuplot (@{ $f->{stddev_gnuplot}}) {
             my ($before, $after) = split /\s*=\s*/, $gnuplot->{expression};
-            my $title = qq("$gnuplot->{title}");
+            my $label = qq("$gnuplot->{label}");
             print STDDEV
                 ", \\\n",
-                "  [$xmin:$xmax] $before w l lw 2 title $title";
+                "  [$xmin:$xmax] $before w l lw 2 title $label";
         }
         print STDDEV "\n";
 
@@ -467,7 +467,7 @@ sub generate_latex
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
-        print LATEX latex_section("Function $f->{name}");
+        print LATEX latex_section("Function $f->{label}");
 
         print LATEX latex_begin_center();
         print LATEX latex_includegraphics("$function_id/mean");
