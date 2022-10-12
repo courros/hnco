@@ -312,8 +312,6 @@ sub generate_gnuplot_mean
         "set grid\n",
         qq(set xlabel "$parameter_label"\n),
         qq(set ylabel "Number of evaluations"\n),
-        "set logscale y\n",
-        "set format y", qq("10^{\%T}"), "\n",
         "set key " . ($context->{key} || "bottom right box opaque") . "\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -335,6 +333,17 @@ sub generate_gnuplot_mean
         my $function_id = $f->{id};
         unless (-d "$path_graphics/$function_id") {
             mkdir "$path_graphics/$function_id";
+        }
+
+        if ($f->{logscale}) {
+            my $fmt = qq("10^{\%T}");
+            print MEAN
+                "set logscale y 10\n",
+                "set format y $fmt\n";
+        } else {
+            print MEAN
+                "unset logscale y\n",
+                "set format y\n";
         }
 
         if ($context->{title}) {
@@ -396,8 +405,6 @@ sub generate_gnuplot_stddev
         "set grid\n",
         qq(set xlabel "$parameter_label"\n),
         qq(set ylabel "Number of evaluations"\n),
-        "set logscale y\n",
-        "set format y", qq("10^{\%T}"), "\n",
         "set key bottom right box opaque\n",
         "set autoscale fix\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
@@ -419,6 +426,17 @@ sub generate_gnuplot_stddev
         my $function_id = $f->{id};
         unless (-d "$path_graphics/$function_id") {
             mkdir "$path_graphics/$function_id";
+        }
+
+        if ($f->{logscale}) {
+            my $fmt = qq("10^{\%T}");
+            print STDDEV
+                "set logscale y 10\n",
+                "set format y $fmt\n";
+        } else {
+            print STDDEV
+                "unset logscale y\n",
+                "set format y\n";
         }
 
         if ($context->{title}) {
