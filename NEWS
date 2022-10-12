@@ -12,13 +12,13 @@ Build:
 - optgen.pl: generates default constructor for option class
 
 Perl scripts:
-- hnco-runtime-run.pl: fixed dependent values
 - hnco-runtime-run.pl: alternative exec per algorithm
+- hnco-runtime-run.pl: fixed dependent values
 - hnco-runtime-stat.pl: optional logscale, title
-- hnco-runtime-stat.pl: plan file: title, name -> label
 
 Experiments:
-- Updated experiment runtime (bibliography)
+- runtime: plan: renamed fields title, name -> label
+- runtime: updated experiment
 
 
 * Version 0.21 (2022-10-07)
