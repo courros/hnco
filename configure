@@ -16994,7 +16994,7 @@ else $as_nop
         else
             search_libsubdirs="$multiarch_libsubdir $libsubdirs"
         fi
-        for _AX_BOOST_BASE_boost_path_tmp in /usr /usr/local /opt /opt/local ; do
+        for _AX_BOOST_BASE_boost_path_tmp in /usr /usr/local /opt /opt/local /opt/homebrew ; do
             if test -d "$_AX_BOOST_BASE_boost_path_tmp/include/boost" && test -r "$_AX_BOOST_BASE_boost_path_tmp/include/boost" ; then
                 for libsubdir in $search_libsubdirs ; do
                     if ls "$_AX_BOOST_BASE_boost_path_tmp/$libsubdir/libboost_"* >/dev/null 2>&1 ; then break; fi
@@ -17096,7 +17096,7 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
             fi
         else
             if test "x$cross_compiling" != "xyes" ; then
-                for _AX_BOOST_BASE_boost_path in /usr /usr/local /opt /opt/local ; do
+                for _AX_BOOST_BASE_boost_path in /usr /usr/local /opt /opt/local /opt/homebrew ; do
                     if test -d "$_AX_BOOST_BASE_boost_path" && test -r "$_AX_BOOST_BASE_boost_path" ; then
                         for i in `ls -d $_AX_BOOST_BASE_boost_path/include/boost-* 2>/dev/null`; do
                             _version_tmp=`echo $i | sed "s#$_AX_BOOST_BASE_boost_path##" | sed 's/\/include\/boost-//' | sed 's/_/./'`
@@ -17507,7 +17507,11 @@ else $as_nop
 
 #error "This is not a C++ compiler"
 
-#elif __cplusplus < 201103L
+// MSVC always sets __cplusplus to 199711L in older versions; newer versions
+// only set it correctly if /Zc:__cplusplus is specified as well as a
+// /std:c++NN switch:
+// https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/
+#elif __cplusplus < 201103L && !defined _MSC_VER
 
 #error "This is not a C++11 compiler"
 
@@ -17794,7 +17798,7 @@ namespace cxx11
 
 #error "This is not a C++ compiler"
 
-#elif __cplusplus < 201402L
+#elif __cplusplus < 201402L && !defined _MSC_VER
 
 #error "This is not a C++14 compiler"
 
@@ -17944,7 +17948,11 @@ else $as_nop
 
 #error "This is not a C++ compiler"
 
-#elif __cplusplus < 201103L
+// MSVC always sets __cplusplus to 199711L in older versions; newer versions
+// only set it correctly if /Zc:__cplusplus is specified as well as a
+// /std:c++NN switch:
+// https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/
+#elif __cplusplus < 201103L && !defined _MSC_VER
 
 #error "This is not a C++11 compiler"
 
@@ -18231,7 +18239,7 @@ namespace cxx11
 
 #error "This is not a C++ compiler"
 
-#elif __cplusplus < 201402L
+#elif __cplusplus < 201402L && !defined _MSC_VER
 
 #error "This is not a C++14 compiler"
 
@@ -18390,7 +18398,11 @@ else $as_nop
 
 #error "This is not a C++ compiler"
 
-#elif __cplusplus < 201103L
+// MSVC always sets __cplusplus to 199711L in older versions; newer versions
+// only set it correctly if /Zc:__cplusplus is specified as well as a
+// /std:c++NN switch:
+// https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/
+#elif __cplusplus < 201103L && !defined _MSC_VER
 
 #error "This is not a C++11 compiler"
 
@@ -18677,7 +18689,7 @@ namespace cxx11
 
 #error "This is not a C++ compiler"
 
-#elif __cplusplus < 201402L
+#elif __cplusplus < 201402L && !defined _MSC_VER
 
 #error "This is not a C++14 compiler"
 
