@@ -55,6 +55,9 @@ class MapgenOptions {
 
 public:
 
+  /// Default constructor
+  MapgenOptions();
+
   /// Constructor
   MapgenOptions(int argc, char *argv[]);
 

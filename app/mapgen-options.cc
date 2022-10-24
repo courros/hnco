@@ -6,6 +6,26 @@
 
 using namespace hnco::app;
 
+MapgenOptions::MapgenOptions():
+  _exec_name("unknown"),
+  _version("0.22"),
+  _input_size(100),
+  _opt_input_size(false),
+  _map(1),
+  _opt_map(false),
+  _output_size(100),
+  _opt_output_size(false),
+  _path("map.txt"),
+  _opt_path(false),
+  _seed(0),
+  _opt_seed(false),
+  _ts_length(10),
+  _opt_ts_length(false),
+  _ts_sampling_mode(0),
+  _opt_ts_sampling_mode(false),
+  _surjective(false)
+{}
+
 MapgenOptions::MapgenOptions(int argc, char *argv[]):
   _exec_name(argv[0]),
   _version("0.22"),

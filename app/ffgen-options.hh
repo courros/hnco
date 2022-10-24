@@ -126,6 +126,9 @@ class FfgenOptions {
 
 public:
 
+  /// Default constructor
+  FfgenOptions();
+
   /// Constructor
   FfgenOptions(int argc, char *argv[]);
 
