@@ -297,7 +297,11 @@ CommandLineApplication::maximize()
 
   stop_watch.stop();
 
-  print_results(stop_watch.get_total_time(), target_reached);
+  if (_options.with_record_total_time())
+    print_results(stop_watch.get_total_time(), target_reached);
+  else
+    print_results(0, target_reached);
+
   manage_solution(solution.first);
 
   if (_options.with_stop_on_maximum() && !target_reached)

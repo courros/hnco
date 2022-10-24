@@ -376,6 +376,9 @@ class HncoOptions {
   /// Record evaluation time
   bool _record_evaluation_time;
 
+  /// Record total time
+  bool _record_total_time;
+
   /// Restart any algorithm an indefinite number of times
   bool _restart;
 
@@ -1403,6 +1406,12 @@ public:
 
   /// Set record_evaluation_time
   void set_record_evaluation_time() { _record_evaluation_time = true; }
+
+  /// Get record_total_time
+  bool with_record_total_time() const { return _record_total_time; }
+
+  /// Set record_total_time
+  void set_record_total_time() { _record_total_time = true; }
 
   /// Get restart
   bool with_restart() const { return _restart; }

@@ -169,6 +169,7 @@ HncoOptions::HncoOptions():
   _pv_log_entropy(false),
   _pv_log_pv(false),
   _record_evaluation_time(false),
+  _record_total_time(false),
   _restart(false),
   _rls_strict(false),
   _rw_log_value(false),
@@ -342,6 +343,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   _pv_log_entropy(false),
   _pv_log_pv(false),
   _record_evaluation_time(false),
+  _record_total_time(false),
   _restart(false),
   _rls_strict(false),
   _rw_log_value(false),
@@ -464,6 +466,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     OPTION_PV_LOG_ENTROPY,
     OPTION_PV_LOG_PV,
     OPTION_RECORD_EVALUATION_TIME,
+    OPTION_RECORD_TOTAL_TIME,
     OPTION_RESTART,
     OPTION_RLS_STRICT,
     OPTION_RW_LOG_VALUE,
@@ -574,6 +577,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {"pv-log-entropy", no_argument, 0, OPTION_PV_LOG_ENTROPY},
     {"pv-log-pv", no_argument, 0, OPTION_PV_LOG_PV},
     {"record-evaluation-time", no_argument, 0, OPTION_RECORD_EVALUATION_TIME},
+    {"record-total-time", no_argument, 0, OPTION_RECORD_TOTAL_TIME},
     {"restart", no_argument, 0, OPTION_RESTART},
     {"rls-strict", no_argument, 0, OPTION_RLS_STRICT},
     {"rw-log-value", no_argument, 0, OPTION_RW_LOG_VALUE},
@@ -1015,6 +1019,10 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       _record_evaluation_time = true;
       break;
 
+    case OPTION_RECORD_TOTAL_TIME:
+      _record_total_time = true;
+      break;
+
     case OPTION_RESTART:
       _restart = true;
       break;
@@ -1125,6 +1133,8 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print results" << std::endl;
   stream << "      --print-solution" << std::endl;
   stream << "          Print the solution" << std::endl;
+  stream << "      --record-total-time" << std::endl;
+  stream << "          Record total time" << std::endl;
   stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
   stream << "          Path of the results file" << std::endl;
   stream << "      --save-description" << std::endl;
@@ -1677,6 +1687,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# pv_log_pv" << std::endl;
   if (options._record_evaluation_time)
     stream << "# record_evaluation_time" << std::endl;
+  if (options._record_total_time)
+    stream << "# record_total_time" << std::endl;
   if (options._restart)
     stream << "# restart" << std::endl;
   if (options._rls_strict)

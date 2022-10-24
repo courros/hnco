@@ -173,6 +173,12 @@
             "section": "gen"
         },
 
+        "record_total_time":
+        {
+            "description": "Record total time",
+            "section": "gen"
+        },
+
 
         "fn_has_known_maximum":
         {
