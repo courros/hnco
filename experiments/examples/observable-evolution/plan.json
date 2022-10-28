@@ -13,7 +13,7 @@
     "xlogscale": true,
 
     "ylabel": "Entropy",
-    "ycolumn": 2,
+    "ycolumn": 4,
     "ylogscale": false,
 
     "functions": [
