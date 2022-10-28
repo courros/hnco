@@ -39,6 +39,14 @@ use HNCO::Report qw(
     );
 
 #
+# Global constants
+#
+
+my $path_results        = "results";
+my $path_graphics       = "graphics";
+my $path_report         = "report";
+
+#
 # Read plan
 #
 
@@ -54,9 +62,6 @@ my $obj = from_json(read_file($plan));
 # Global variables
 #
 
-my $path_results        = $obj->{results};
-my $path_report         = $obj->{report};
-my $path_graphics       = $obj->{graphics};
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
 

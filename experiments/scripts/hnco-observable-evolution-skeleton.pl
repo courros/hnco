@@ -24,6 +24,12 @@ use JSON;
 use File::Slurp qw(read_file);
 
 #
+# Global constants
+#
+
+my $path_results        = "results";
+
+#
 # Read plan
 #
 
@@ -41,18 +47,17 @@ my $obj = from_json(read_file($plan));
 
 my $functions   = $obj->{functions};
 my $algorithms  = $obj->{algorithms};
-my $path        = $obj->{results};
 
 #
 # Processing
 #
 
-unless (-d $path) {
-    mkdir $path;
-    print "Created $path\n";
+unless (-d $path_results) {
+    mkdir $path_results;
+    print "Created $path_results\n";
 }
 
-iterate_functions($path);
+iterate_functions($path_results);
 
 #
 # Local functions

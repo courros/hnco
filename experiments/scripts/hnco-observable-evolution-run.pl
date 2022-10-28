@@ -27,6 +27,12 @@ use List::MoreUtils qw(none any);
 use HNCO::Run qw(gnu_parallel);
 
 #
+# Global constants
+#
+
+my $path_results        = "results";
+
+#
 # Read plan
 #
 
@@ -46,7 +52,6 @@ my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
 my $parallel            = $obj->{parallel};
 my $servers             = $obj->{servers};
-my $path_results        = $obj->{results};
 
 #
 # Processing
