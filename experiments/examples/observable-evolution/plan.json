@@ -4,10 +4,6 @@
 
     "parallel": true,
 
-    "results": "results",
-    "graphics": "graphics",
-    "report": "report",
-
     "xlabel": "Number of evaluations",
     "xcolumn": 1,
     "xlogscale": true,
