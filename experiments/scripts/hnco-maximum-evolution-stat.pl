@@ -113,19 +113,16 @@ sub generate_graphics
             "set key title $quoted_title\n";
 
         print GRAPHICS "plot \\\n";
-        my $position = 1;
         print GRAPHICS
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
                 $quoted_path = qq("$path_results/$function_id/$algorithm_id/1.out");
                 $quoted_title = qq("$algorithm_id");
-                $position++;
                 $f->{reverse} ?
                     "  $quoted_path using 1:(-\$2) with steps lw 2 title $quoted_title" :
                     "  $quoted_path using 1:2 with steps lw 2 title $quoted_title";
              } @$algorithms);
-
         print GRAPHICS "\n";
 
         $quoted_path = qq("$path_graphics/$function_id.pdf");
