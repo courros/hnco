@@ -46,24 +46,32 @@ public:
 
 
 /// Log context for ProgressTracker
-class ProgressTrackerContext:
-    public LogContext {
+class ProgressTrackerContext: public LogContext {
 
   /// Progress tracker
-  hnco::function::controller::ProgressTracker *_pt;
+  function::controller::ProgressTracker *_progress_tracker;
 
 public:
 
   /// Constructor
-  ProgressTrackerContext(hnco::function::controller::ProgressTracker *pt):
-    _pt(pt) {}
+  ProgressTrackerContext(function::controller::ProgressTracker *pt)
+    : _progress_tracker(pt)
+  {}
 
-  /// Get context
+  /**
+   * Get context.
+   * @return A string made of the following information:
+   * - Number of evaluations
+   * - Number of evaluations to find the best so far solution
+   * - Value of the best so far solution
+   */
   std::string to_string() {
-    assert(_pt);
+    assert(_progress_tracker);
 
     std::ostringstream stream;
-    stream << _pt->get_num_calls();
+    stream
+      << _progress_tracker->get_num_calls() << " "
+      << _progress_tracker->get_last_improvement();
     return stream.str();
   }
 
