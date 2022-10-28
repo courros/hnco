@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_LOG_CONTEXT_H
-#define HNCO_ALGORITHMS_LOG_CONTEXT_H
+#ifndef HNCO_LOGGING_LOG_CONTEXT_H
+#define HNCO_LOGGING_LOG_CONTEXT_H
 
 #include <sstream>              // std::ostringstream
 
@@ -30,45 +30,44 @@ namespace hnco {
 namespace logging {
 
 
-  /** Log context.
+/**
+ * Log context. A log context gives an algorithm more information
+ * about what is going on during optimization than what can be gained
+ * through its function. In particular, its function may not be a
+ * function controller. Information is provided through a log context
+ * in the form of a string.
+ */
+class LogContext {
+public:
 
-      A log context gives an algorithm more information about what is
-      going on during optimization than what can be gained through its
-      function. In particular, its function may not be a function
-      controller. Information is provided through a log context in the
-      form of a string.
-   */
-  class LogContext {
-  public:
-
-    /// Get context
-    virtual std::string to_string() = 0;
-  };
+  /// Get context
+  virtual std::string to_string() = 0;
+};
 
 
-  /// Log context for ProgressTracker
-  class ProgressTrackerContext:
+/// Log context for ProgressTracker
+class ProgressTrackerContext:
     public LogContext {
 
-    /// Progress tracker
-    hnco::function::controller::ProgressTracker *_pt;
+  /// Progress tracker
+  hnco::function::controller::ProgressTracker *_pt;
 
-  public:
+public:
 
-    /// Constructor
-    ProgressTrackerContext(hnco::function::controller::ProgressTracker *pt):
-      _pt(pt) {}
+  /// Constructor
+  ProgressTrackerContext(hnco::function::controller::ProgressTracker *pt):
+    _pt(pt) {}
 
-    /// Get context
-    std::string to_string() {
-      assert(_pt);
+  /// Get context
+  std::string to_string() {
+    assert(_pt);
 
-      std::ostringstream stream;
-      stream << _pt->get_num_calls();
-      return stream.str();
-    }
+    std::ostringstream stream;
+    stream << _pt->get_num_calls();
+    return stream.str();
+  }
 
-  };
+};
 
 
 }
