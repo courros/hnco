@@ -15,7 +15,8 @@ report:
 	make -C report
 
 clean:
-	rm -f log.defaults log.err
+	rm -f log.defaults log.err log.parallel
+	rm -f commands.txt
 	rm -f report/pretty.json
 	rm -f graphics.gp
 	rm -rf results
