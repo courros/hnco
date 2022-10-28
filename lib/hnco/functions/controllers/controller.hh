@@ -47,7 +47,8 @@ public:
   Controller(Function *function):
     Decorator(function) {}
 
-  /** @name Information about the function
+  /**
+   * @name Information about the function
    */
   ///@{
 
@@ -60,15 +61,17 @@ public:
   /// Check for a known maximum
   bool has_known_maximum() const { return _function->has_known_maximum(); }
 
-  /** Check whether the function provides incremental evaluation.
-      \return true if the decorated function does
-  */
+  /**
+   * Check whether the function provides incremental evaluation.
+   * @return true if the decorated function does
+   */
   bool provides_incremental_evaluation() const { return _function->provides_incremental_evaluation(); }
 
   ///@}
 
 
-  /** @name Evaluation
+  /**
+   * @name Evaluation
    */
   ///@{
 
@@ -80,15 +83,14 @@ public:
 };
 
 
-/** Stop on target.
-
-    The member function eval throws an exception TargetReached when
-    the value of its decorated function reaches a given target.
-
-    \warning The target is detected using the greater or equal
-    operator hence the result should be taken with care in case of
-    non integer (floating point) function values.
-*/
+/**
+ * Stop on target. The member function eval throws an exception
+ * TargetReached when the value of its decorated function reaches a
+ * given target.
+ * @warning The target is detected using the greater or equal operator
+ * hence the result should be taken with care in case of non integer
+ * (floating point) function values.
+ */
 class StopOnTarget: public Controller {
 
   /// Target
@@ -99,29 +101,36 @@ class StopOnTarget: public Controller {
 
 public:
 
-  /** Constructor.
-
-      \param function Decorated function
-      \param target Target
-  */
+  /**
+   * Constructor.
+   * @param function Decorated function
+   * @param target Target
+   */
   StopOnTarget(Function *function, double target):
     Controller(function),
     _target(target) {}
 
-  /** @name Evaluation
+  /**
+   * @name Evaluation
    */
   ///@{
 
-  /** Evaluate a bit vector.
-      \throw TargetReached */
+  /**
+   * Evaluate a bit vector.
+   * @throw TargetReached
+   */
   double evaluate(const bit_vector_t&);
 
-  /** Incrementally evaluate a bit vector.
-      \throw TargetReached */
+  /**
+   * Incrementally evaluate a bit vector.
+   * @throw TargetReached
+   */
   double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
-  /** Update after a safe evaluation.
-      \throw TargetReached */
+  /**
+   * Update after a safe evaluation.
+   * @throw TargetReached
+   */
   void update(const bit_vector_t& x, double value);
 
   ///@}
@@ -136,10 +145,10 @@ public:
 class StopOnMaximum: public StopOnTarget {
 public:
 
-  /** Constructor.
-
-      \pre function->has_known_maximum()
-  */
+  /**
+   * Constructor.
+   * @pre function->has_known_maximum()
+   */
   StopOnMaximum(Function *function):
     StopOnTarget(function, function->get_maximum()) {}
 };
@@ -160,7 +169,8 @@ public:
     Controller(function),
     _num_calls(0) {}
 
-  /** @name Evaluation
+  /**
+   * @name Evaluation
    */
   ///@{
 
@@ -196,20 +206,27 @@ public:
     , _budget(budget)
   {}
 
-  /** @name Evaluation
+  /**
+   * @name Evaluation
    */
   ///@{
 
-  /** Evaluate a bit vector.
-      \throw LastEvaluation */
+  /**
+   * Evaluate a bit vector.
+   * @throw LastEvaluation
+   */
   double evaluate(const bit_vector_t&);
 
-  /** Incrementally evaluate a bit vector.
-      \throw LastEvaluation */
+  /**
+   * Incrementally evaluate a bit vector.
+   * @throw LastEvaluation
+   */
   double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
-  /** Update after a safe evaluation
-      \throw LastEvaluation */
+  /**
+   * Update after a safe evaluation
+   * @throw LastEvaluation
+   */
   void update(const bit_vector_t& x, double value);
 
   ///@}
@@ -217,12 +234,11 @@ public:
 };
 
 
-/** ProgressTracker.
-
-    A ProgressTracker is a CallCounter which keeps track the last
-    improvement, that is its value and the number of evaluations
-    needed to reach it.
-*/    
+/**
+ * ProgressTracker. A ProgressTracker is a CallCounter which keeps
+ * track the last improvement, that is its value and the number of
+ * evaluations needed to reach it.
+ */    
 class ProgressTracker: public CallCounter {
 
 public:
@@ -246,17 +262,18 @@ protected:
   /// Stop watch
   StopWatch _stop_watch;
 
-  /** @name Parameters
+  /**
+   * @name Parameters
    */
   ///@{
 
   /// Log improvement
   bool _log_improvement = false;
 
-  /** Record evaluation time.
-
-      Only relevant for ProgressTracker::evaluate.
-  */
+  /**
+   * Record evaluation time. Only relevant for
+   * ProgressTracker::evaluate.
+   */
   bool _record_evaluation_time = false;
 
   ///@}
@@ -273,7 +290,8 @@ public:
     _last_improvement.num_evaluations = 0;
   }
 
-  /** @name Evaluation
+  /**
+   * @name Evaluation
    */
   ///@{
 
@@ -289,16 +307,17 @@ public:
   ///@}
 
 
-  /** @name Get information
+  /**
+   * @name Get information
    */
   ///@{
 
-  /** Get the last improvement.
-
-      \warning If _last_improvement.num_evaluations is zero then
-      _function has never been called. The Event returned by
-      get_last_improvement has therefore no meaning.
-  */
+  /**
+   * Get the last improvement.
+   * @warning If _last_improvement.num_evaluations is zero then
+   * _function has never been called. The Event returned by
+   * get_last_improvement has therefore no meaning.
+   */
   const Event& get_last_improvement() { return _last_improvement; }
 
   /// Get evaluation time
@@ -306,7 +325,8 @@ public:
 
   ///@}
 
-  /** @name Setters
+  /**
+   * @name Setters
    */
   ///@{
 
@@ -325,19 +345,15 @@ public:
 std::ostream& operator<<(std::ostream& stream, const ProgressTracker::Event& event);
 
 
-/** Cache.
-
-    This is a naive approach, in particular with respect to time
-    complexity. Moreover, there is no control on the size of the
-    database.
-
-    There is no default hash function for std::vector<char> hence
-    the need to first copy a bit_vector_t into a std::vector<bool>,
-    for which such a function exists, before inserting it or
-    checking its existence in the map.
-*/
-class Cache:
-    public Controller {
+/**
+ * %Cache. This is a naive approach, in particular with respect to
+ * time complexity. Moreover, there is no control on the size of the
+ * database. There is no default hash function for std::vector<char>
+ * hence the need to first copy a bit_vector_t into a
+ * std::vector<bool>, for which such a function exists, before
+ * inserting it or checking its existence in the map.
+ */
+class Cache: public Controller {
 
   /// Cache
   std::unordered_map<std::vector<bool>, double> _cache;
@@ -353,20 +369,24 @@ class Cache:
 
 public:
 
-  /** Constructor.
-      \param function Decorated function */
+  /**
+   * Constructor.
+   * @param function Decorated function
+   */
   Cache(Function *function):
     Controller(function),
     _key(function->get_bv_size()),
     _num_evaluations(0),
     _num_lookups(0) {}
 
-  /** Check whether the function provides incremental evaluation.
-      \return false
-  */
+  /**
+   * Check whether the function provides incremental evaluation.
+   * @return false
+   */
   bool provides_incremental_evaluation() const { return false; }
 
-  /** @name Evaluation
+  /**
+   * @name Evaluation
    */
   ///@{
 
