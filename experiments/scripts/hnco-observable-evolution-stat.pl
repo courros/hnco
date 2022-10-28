@@ -64,8 +64,15 @@ my $obj = from_json(read_file($plan));
 
 my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
-my $xcolumn             = $obj->{xcolumn};
-my $ycolumn             = $obj->{ycolumn};
+my $graphics            = $obj->{graphics};
+
+my $xcolumn             = $graphics->{xcolumn};
+my $xlabel              = $graphics->{xlabel};
+my $xlogscale           = $graphics->{xlogscale};
+
+my $ycolumn             = $graphics->{ycolumn};
+my $ylabel              = $graphics->{ylabel};
+my $ylogscale           = $graphics->{ylogscale};
 
 #
 # Processing
@@ -73,6 +80,8 @@ my $ycolumn             = $obj->{ycolumn};
 
 unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 
+add_missing_labels($functions);
+add_missing_labels($algorithms);
 generate_graphics();
 generate_latex();
 
@@ -80,21 +89,48 @@ generate_latex();
 # Local functions
 #
 
+sub add_missing_labels
+{
+    my $list = shift;
+    foreach my $item (@$list) {
+        if (!exists($item->{label})) {
+            $item->{label} = $item->{id};
+        }
+    }
+}
+
 sub generate_graphics
 {
     open(GRAPHICS, ">graphics.gp")
         or die "hnco-observable-evolution-stat.pl: generate_graphics: cannot open graphics.gp\n";
 
+    # Font face and size
+    my $font = "";
+    if ($graphics->{font_face}) {
+        $font = $graphics->{font_face};
+    }
+    if ($graphics->{font_size}) {
+        $font = "$font,$graphics->{font_size}";
+    }
+    $font = qq("$font");
+
+    my $key = qq(font $font);
+    if ($graphics->{key}) {
+        $key = "$key $graphics->{key}";
+    } else {
+        $key = qq($key inside top right opaque vertical reverse Left title "Algorithm" left);
+    }
+
     print GRAPHICS
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
-        "set xlabel \"$obj->{xlabel}\"\n",
-        "set ylabel \"$obj->{ylabel}\"\n",
-        "set key outside top center box opaque horizontal\n",
+        "set xlabel \"$xlabel\"\n",
+        "set ylabel \"$ylabel\"\n",
+        "set key $key\n",
         "set autoscale fix\n\n",
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
 
-    if ($obj->{xlogscale}) {
+    if ($xlogscale) {
         my $fmt = qq("10^{\%L}");
         print GRAPHICS
             "set logscale x\n",
@@ -105,7 +141,7 @@ sub generate_graphics
             "set format x\n";
     }
 
-    if ($obj->{ylogscale}) {
+    if ($ylogscale) {
         my $fmt = qq("10^{\%L}");
         print GRAPHICS
             "set logscale y\n",
@@ -119,26 +155,20 @@ sub generate_graphics
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
-        my $quoted_title = qq("$function_id");
         my $quoted_path = qq("$path_graphics/$function_id.eps");
-
         print GRAPHICS
             $terminal{eps}, "\n",
-            "set output $quoted_path\n",
-            "set key title $quoted_title\n";
+            "set output $quoted_path\n";
 
         print GRAPHICS "plot \\\n";
-        my $position = 1;
         print GRAPHICS
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
+                my $quoted_title = qq("$_->{label}");
                 $quoted_path = qq("$path_results/$function_id/$algorithm_id/1.out");
-                $quoted_title = qq("$algorithm_id");
-                $position++;
                 "  $quoted_path using $xcolumn:$ycolumn with lines lw 1 title $quoted_title";
              } @$algorithms);
-
         print GRAPHICS "\n";
 
         $quoted_path = qq("$path_graphics/$function_id.pdf");
@@ -167,7 +197,7 @@ sub generate_latex
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
-        print LATEX latex_section($function_id);
+        print LATEX latex_section($f->{label});
         print LATEX latex_begin_center();
         print LATEX latex_includegraphics($function_id);
         print LATEX latex_end_center();
