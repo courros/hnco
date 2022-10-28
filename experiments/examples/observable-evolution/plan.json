@@ -4,13 +4,15 @@
 
     "parallel": true,
 
-    "xlabel": "Number of evaluations",
-    "xcolumn": 1,
-    "xlogscale": true,
-
-    "ylabel": "Entropy",
-    "ycolumn": 4,
-    "ylogscale": false,
+    "graphics": {
+        "key": "inside top right opaque vertical reverse Left title \"Algorithm\" left",
+        "xlabel": "Number of evaluations",
+        "xcolumn": 1,
+        "xlogscale": true,
+        "ylabel": "Entropy",
+        "ycolumn": 4,
+        "ylogscale": false
+    },
 
     "functions": [
 
