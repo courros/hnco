@@ -155,7 +155,9 @@ sub generate_header
         "  /// Default constructor\n",
         "  $classname();\n\n",
         "  /// Constructor\n",
-        "  $classname(int argc, char *argv[]);\n\n");
+        "  $classname(int argc, char *argv[]);\n\n",
+        "  /// Constructor\n",
+        "  $classname(int argc, char *argv[], bool blocking);\n\n");
 
     #
     # Access
@@ -215,6 +217,7 @@ sub generate_source
 
     generate_source_default_constructor();
     generate_source_constructor();
+    generate_source_constructor_ignore_bad_options();
     generate_source_help();
     generate_source_additional_section_help();
     generate_source_version();
@@ -391,6 +394,160 @@ sub generate_source_constructor()
 	"    default:\n",
         "      std::cerr << \"For more information, please enter: \" << _exec_name << \" --help\" << std::endl;\n",
 	"      exit(1);\n",
+	"    }\n",
+	"  }\n",
+	"}\n\n";
+}
+
+sub generate_source_constructor_ignore_bad_options()
+{
+    print SRC
+	"$classname\:\:$classname(int argc, char *argv[], bool ignore_bad_options):\n",
+	"  _exec_name(argv[0]),\n",
+        "  _version(\"$version\"),\n";
+
+    my @plist = map {
+	my $parameter = $parameters->{$_};
+	my $value = $parameter->{value};
+	($parameter->{type} eq "string" ?
+	 "  _$_(\"$value\"),\n" :
+	 "  _$_($value),\n") .
+	 "  _opt_$_(false)";
+    } sort(keys(%$parameters));
+
+    my @flist = map { "  _$_(false)" } sort(keys(%$flags));
+
+    print SRC join ",\n", (@plist, @flist);
+    print SRC "\n{\n";
+
+    # We start the enum at 256 to avoid any collision with ascii
+    # values of characters. For example, the value of 'A' is 65, that
+    # of 'Z' is 122. Since an ascii character is represented by 8 bits
+    # at most, it seems safe to start at 256.
+
+    print SRC "  enum {\n";
+    print SRC "    OPTION_HELP=256,\n";
+    if (@folded_sections) {
+        print SRC join ",\n", map { "    OPTION_HELP_" . uc($_) } (sort(@folded_sections));
+        print SRC ",\n";
+    }
+    print SRC "    OPTION_VERSION,\n";
+    print SRC join ",\n", map { "    OPTION_" . uc($_) } (sort(keys(%$parameters)), sort(keys(%$flags)));
+    print SRC "\n";
+    print SRC "  };\n";
+
+    print SRC "  const struct option long_options[] = {\n";
+
+    @plist = map {
+	my $uppercase = uc($_);
+	my $hyphen = $_;
+	$hyphen =~ s/_/-/g;
+	"    {\"$hyphen\", required_argument, 0, OPTION_$uppercase}"
+    } sort(keys(%$parameters));
+
+    @flist = map {
+	my $uppercase = uc($_);
+	my $hyphen = $_;
+	$hyphen =~ s/_/-/g;
+	"    {\"$hyphen\", no_argument, 0, OPTION_$uppercase}"
+    } (sort(keys(%$flags)), "version", "help", map { "help_$_" } @folded_sections);
+
+    print SRC join ",\n", (@plist, @flist);
+    print SRC
+	",\n",
+	"    {0, no_argument, 0, 0}\n",
+	"  };\n";
+
+    @plist = map {
+	my $optchar = $parameters->{$_}->{optchar};
+	"$optchar:"
+    }
+    grep { exists($parameters->{$_}->{optchar}); } sort(keys(%$parameters));
+
+    @flist = map {
+	my $optchar = $flags->{$_}->{optchar};
+	"$optchar"
+    }
+    grep { exists($flags->{$_}->{optchar}); } sort(keys(%$flags));
+
+    print SRC
+	"  const char *short_options = \"" . join("", (@plist, @flist)) . "\";\n",
+	"  optind = 0;\n",
+	"  while (true) {\n",
+	"    int option = getopt_long(argc, argv, short_options, long_options, 0);\n",
+	"    if (option < 0)\n",
+	"      break;\n",
+	"    switch (option) {\n";
+
+    foreach (sort(keys(%$parameters))) {
+
+        my $parameter = $parameters->{$_};
+
+	if (exists($parameter->{optchar})) {
+	    my $optchar = $parameter->{optchar};
+	    print SRC "    case \'$optchar\':\n";
+	}
+
+	my $uppercase = uc($_);
+	print SRC
+	    "    case OPTION_$uppercase:\n",
+	    "      set_$_(";
+
+	if (not exists($parameter->{type})) {
+	    print "$_\n";
+	    exit 1;
+	}
+
+        my $type = $parameter->{type};
+	if ($type eq "int" or $type eq "bool") {
+	    print SRC "atoi(optarg));\n";
+	} elsif ($type eq "unsigned") {
+	    print SRC "strtoul(optarg, NULL, 0));\n";
+	} elsif ($type eq "double") {
+	    print SRC "atof(optarg));\n";
+	} elsif ($type eq "string") {
+	    print SRC "std::string(optarg));\n";
+	} else {
+	    die "$type: unknown type\n";
+	}
+
+	print SRC "      break;\n\n"
+    }
+
+    foreach (sort(keys(%$flags))) {
+	my $flag = $flags->{$_};
+	if (exists($flag->{optchar})) {
+	    my $optchar = $flag->{optchar};
+	    print SRC "    case \'$optchar\':\n";
+	}
+	my $uppercase = uc($_);
+	print SRC
+	    "    case OPTION_$uppercase:\n",
+	    "      _$_ = true;\n",
+	    "      break;\n\n";
+    }
+
+    print SRC
+	"    case OPTION_HELP:\n",
+	"      print_help(std::cerr);\n",
+	"      exit(0);\n\n";
+
+    foreach (@folded_sections) {
+        print SRC
+            "    case OPTION_HELP_", uc($_), ":\n",
+            "      print_help_$_(std::cerr);\n",
+            "      exit(0);\n\n";
+    }
+
+    print SRC
+	"    case OPTION_VERSION:\n",
+	"      print_version(std::cerr);\n",
+	"      exit(0);\n\n",
+	"    default:\n",
+        "      if (!ignore_bad_options) {\n",
+        "        std::cerr << \"For more information, please enter: \" << _exec_name << \" --help\" << std::endl;\n",
+	"        exit(1);\n",
+	"      }\n",
 	"    }\n",
 	"  }\n",
 	"}\n\n";
