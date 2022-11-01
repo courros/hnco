@@ -447,6 +447,9 @@ public:
   /// Constructor
   HncoOptions(int argc, char *argv[]);
 
+  /// Constructor
+  HncoOptions(int argc, char *argv[], bool blocking);
+
   /// Get algorithm
   int get_algorithm() const { return _algorithm; }
 

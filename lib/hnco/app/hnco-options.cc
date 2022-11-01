@@ -1110,6 +1110,939 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   }
 }
 
+HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_invalid_options):
+  _exec_name(argv[0]),
+  _version("0.22"),
+  _algorithm(100),
+  _opt_algorithm(false),
+  _bm_mc_reset_strategy(1),
+  _opt_bm_mc_reset_strategy(false),
+  _bm_num_gs_cycles(1),
+  _opt_bm_num_gs_cycles(false),
+  _bm_num_gs_steps(100),
+  _opt_bm_num_gs_steps(false),
+  _bm_sampling(1),
+  _opt_bm_sampling(false),
+  _budget(10000),
+  _opt_budget(false),
+  _bv_size(100),
+  _opt_bv_size(false),
+  _description_path("description.txt"),
+  _opt_description_path(false),
+  _ea_crossover_bias(0.5),
+  _opt_ea_crossover_bias(false),
+  _ea_crossover_probability(0.5),
+  _opt_ea_crossover_probability(false),
+  _ea_lambda(100),
+  _opt_ea_lambda(false),
+  _ea_mu(10),
+  _opt_ea_mu(false),
+  _ea_mutation_rate(1),
+  _opt_ea_mutation_rate(false),
+  _ea_mutation_rate_max(1),
+  _opt_ea_mutation_rate_max(false),
+  _ea_mutation_rate_min(0.01),
+  _opt_ea_mutation_rate_min(false),
+  _ea_success_ratio(4),
+  _opt_ea_success_ratio(false),
+  _ea_tournament_size(2),
+  _opt_ea_tournament_size(false),
+  _ea_update_strength(1.01),
+  _opt_ea_update_strength(false),
+  _expression("x"),
+  _opt_expression(false),
+  _fn_name("noname"),
+  _opt_fn_name(false),
+  _fn_num_traps(10),
+  _opt_fn_num_traps(false),
+  _fn_prefix_length(2),
+  _opt_fn_prefix_length(false),
+  _fn_threshold(10),
+  _opt_fn_threshold(false),
+  _fp_expression("(1-x)^2+100*(y-x^2)^2"),
+  _opt_fp_expression(false),
+  _fp_lower_bound(-2),
+  _opt_fp_lower_bound(false),
+  _fp_num_bits(8),
+  _opt_fp_num_bits(false),
+  _fp_precision(0.01),
+  _opt_fp_precision(false),
+  _fp_upper_bound(2),
+  _opt_fp_upper_bound(false),
+  _function(0),
+  _opt_function(false),
+  _hea_reset_period(0),
+  _opt_hea_reset_period(false),
+  _learning_rate(0.001),
+  _opt_learning_rate(false),
+  _map(0),
+  _opt_map(false),
+  _map_input_size(100),
+  _opt_map_input_size(false),
+  _map_path("map.txt"),
+  _opt_map_path(false),
+  _map_ts_length(10),
+  _opt_map_ts_length(false),
+  _map_ts_sampling_mode(0),
+  _opt_map_ts_sampling_mode(false),
+  _neighborhood(0),
+  _opt_neighborhood(false),
+  _neighborhood_iterator(0),
+  _opt_neighborhood_iterator(false),
+  _noise_stddev(1),
+  _opt_noise_stddev(false),
+  _num_iterations(0),
+  _opt_num_iterations(false),
+  _num_threads(1),
+  _opt_num_threads(false),
+  _path("function.txt"),
+  _opt_path(false),
+  _pn_mutation_rate(1),
+  _opt_pn_mutation_rate(false),
+  _pn_neighborhood(0),
+  _opt_pn_neighborhood(false),
+  _pn_radius(2),
+  _opt_pn_radius(false),
+  _population_size(10),
+  _opt_population_size(false),
+  _pv_log_num_components(5),
+  _opt_pv_log_num_components(false),
+  _radius(2),
+  _opt_radius(false),
+  _rep_categorical_representation(0),
+  _opt_rep_categorical_representation(false),
+  _rep_num_additional_bits(2),
+  _opt_rep_num_additional_bits(false),
+  _results_path("results.json"),
+  _opt_results_path(false),
+  _rls_patience(50),
+  _opt_rls_patience(false),
+  _sa_beta_ratio(1.2),
+  _opt_sa_beta_ratio(false),
+  _sa_initial_acceptance_probability(0.6),
+  _opt_sa_initial_acceptance_probability(false),
+  _sa_num_transitions(50),
+  _opt_sa_num_transitions(false),
+  _sa_num_trials(100),
+  _opt_sa_num_trials(false),
+  _seed(0),
+  _opt_seed(false),
+  _selection_size(1),
+  _opt_selection_size(false),
+  _solution_path("solution.txt"),
+  _opt_solution_path(false),
+  _target(100),
+  _opt_target(false),
+  _additive_gaussian_noise(false),
+  _bm_log_norm_1(false),
+  _bm_log_norm_infinite(false),
+  _bm_negative_positive_selection(false),
+  _cache(false),
+  _cache_budget(false),
+  _concrete_solution(false),
+  _ea_allow_no_mutation(false),
+  _ea_log_mutation_rate(false),
+  _fn_display(false),
+  _fn_get_bv_size(false),
+  _fn_get_maximum(false),
+  _fn_has_known_maximum(false),
+  _fn_provides_incremental_evaluation(false),
+  _fn_walsh_transform(false),
+  _hea_bound_moment(false),
+  _hea_log_delta_norm(false),
+  _hea_log_herding_error(false),
+  _hea_log_target(false),
+  _hea_log_target_norm(false),
+  _hea_randomize_bit_order(false),
+  _incremental_evaluation(false),
+  _load_solution(false),
+  _log_improvement(false),
+  _map_display(false),
+  _map_random(false),
+  _map_surjective(false),
+  _mmas_strict(false),
+  _negation(false),
+  _parsed_modifier(false),
+  _pn_allow_no_mutation(false),
+  _print_default_parameters(false),
+  _print_description(false),
+  _print_parameters(false),
+  _print_results(false),
+  _print_solution(false),
+  _prior_noise(false),
+  _pv_log_entropy(false),
+  _pv_log_pv(false),
+  _record_evaluation_time(false),
+  _record_total_time(false),
+  _restart(false),
+  _rls_strict(false),
+  _rw_log_value(false),
+  _save_description(false),
+  _save_results(false),
+  _save_solution(false),
+  _stop_on_maximum(false),
+  _stop_on_target(false)
+{
+  enum {
+    OPTION_HELP=256,
+    OPTION_HELP_BM,
+    OPTION_HELP_EA,
+    OPTION_HELP_EDA,
+    OPTION_HELP_FP,
+    OPTION_HELP_HEA,
+    OPTION_HELP_LS,
+    OPTION_HELP_MAP,
+    OPTION_HELP_PN,
+    OPTION_HELP_REP,
+    OPTION_HELP_SA,
+    OPTION_VERSION,
+    OPTION_ALGORITHM,
+    OPTION_BM_MC_RESET_STRATEGY,
+    OPTION_BM_NUM_GS_CYCLES,
+    OPTION_BM_NUM_GS_STEPS,
+    OPTION_BM_SAMPLING,
+    OPTION_BUDGET,
+    OPTION_BV_SIZE,
+    OPTION_DESCRIPTION_PATH,
+    OPTION_EA_CROSSOVER_BIAS,
+    OPTION_EA_CROSSOVER_PROBABILITY,
+    OPTION_EA_LAMBDA,
+    OPTION_EA_MU,
+    OPTION_EA_MUTATION_RATE,
+    OPTION_EA_MUTATION_RATE_MAX,
+    OPTION_EA_MUTATION_RATE_MIN,
+    OPTION_EA_SUCCESS_RATIO,
+    OPTION_EA_TOURNAMENT_SIZE,
+    OPTION_EA_UPDATE_STRENGTH,
+    OPTION_EXPRESSION,
+    OPTION_FN_NAME,
+    OPTION_FN_NUM_TRAPS,
+    OPTION_FN_PREFIX_LENGTH,
+    OPTION_FN_THRESHOLD,
+    OPTION_FP_EXPRESSION,
+    OPTION_FP_LOWER_BOUND,
+    OPTION_FP_NUM_BITS,
+    OPTION_FP_PRECISION,
+    OPTION_FP_UPPER_BOUND,
+    OPTION_FUNCTION,
+    OPTION_HEA_RESET_PERIOD,
+    OPTION_LEARNING_RATE,
+    OPTION_MAP,
+    OPTION_MAP_INPUT_SIZE,
+    OPTION_MAP_PATH,
+    OPTION_MAP_TS_LENGTH,
+    OPTION_MAP_TS_SAMPLING_MODE,
+    OPTION_NEIGHBORHOOD,
+    OPTION_NEIGHBORHOOD_ITERATOR,
+    OPTION_NOISE_STDDEV,
+    OPTION_NUM_ITERATIONS,
+    OPTION_NUM_THREADS,
+    OPTION_PATH,
+    OPTION_PN_MUTATION_RATE,
+    OPTION_PN_NEIGHBORHOOD,
+    OPTION_PN_RADIUS,
+    OPTION_POPULATION_SIZE,
+    OPTION_PV_LOG_NUM_COMPONENTS,
+    OPTION_RADIUS,
+    OPTION_REP_CATEGORICAL_REPRESENTATION,
+    OPTION_REP_NUM_ADDITIONAL_BITS,
+    OPTION_RESULTS_PATH,
+    OPTION_RLS_PATIENCE,
+    OPTION_SA_BETA_RATIO,
+    OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY,
+    OPTION_SA_NUM_TRANSITIONS,
+    OPTION_SA_NUM_TRIALS,
+    OPTION_SEED,
+    OPTION_SELECTION_SIZE,
+    OPTION_SOLUTION_PATH,
+    OPTION_TARGET,
+    OPTION_ADDITIVE_GAUSSIAN_NOISE,
+    OPTION_BM_LOG_NORM_1,
+    OPTION_BM_LOG_NORM_INFINITE,
+    OPTION_BM_NEGATIVE_POSITIVE_SELECTION,
+    OPTION_CACHE,
+    OPTION_CACHE_BUDGET,
+    OPTION_CONCRETE_SOLUTION,
+    OPTION_EA_ALLOW_NO_MUTATION,
+    OPTION_EA_LOG_MUTATION_RATE,
+    OPTION_FN_DISPLAY,
+    OPTION_FN_GET_BV_SIZE,
+    OPTION_FN_GET_MAXIMUM,
+    OPTION_FN_HAS_KNOWN_MAXIMUM,
+    OPTION_FN_PROVIDES_INCREMENTAL_EVALUATION,
+    OPTION_FN_WALSH_TRANSFORM,
+    OPTION_HEA_BOUND_MOMENT,
+    OPTION_HEA_LOG_DELTA_NORM,
+    OPTION_HEA_LOG_HERDING_ERROR,
+    OPTION_HEA_LOG_TARGET,
+    OPTION_HEA_LOG_TARGET_NORM,
+    OPTION_HEA_RANDOMIZE_BIT_ORDER,
+    OPTION_INCREMENTAL_EVALUATION,
+    OPTION_LOAD_SOLUTION,
+    OPTION_LOG_IMPROVEMENT,
+    OPTION_MAP_DISPLAY,
+    OPTION_MAP_RANDOM,
+    OPTION_MAP_SURJECTIVE,
+    OPTION_MMAS_STRICT,
+    OPTION_NEGATION,
+    OPTION_PARSED_MODIFIER,
+    OPTION_PN_ALLOW_NO_MUTATION,
+    OPTION_PRINT_DEFAULT_PARAMETERS,
+    OPTION_PRINT_DESCRIPTION,
+    OPTION_PRINT_PARAMETERS,
+    OPTION_PRINT_RESULTS,
+    OPTION_PRINT_SOLUTION,
+    OPTION_PRIOR_NOISE,
+    OPTION_PV_LOG_ENTROPY,
+    OPTION_PV_LOG_PV,
+    OPTION_RECORD_EVALUATION_TIME,
+    OPTION_RECORD_TOTAL_TIME,
+    OPTION_RESTART,
+    OPTION_RLS_STRICT,
+    OPTION_RW_LOG_VALUE,
+    OPTION_SAVE_DESCRIPTION,
+    OPTION_SAVE_RESULTS,
+    OPTION_SAVE_SOLUTION,
+    OPTION_STOP_ON_MAXIMUM,
+    OPTION_STOP_ON_TARGET
+  };
+  const struct option long_options[] = {
+    {"algorithm", required_argument, 0, OPTION_ALGORITHM},
+    {"bm-mc-reset-strategy", required_argument, 0, OPTION_BM_MC_RESET_STRATEGY},
+    {"bm-num-gs-cycles", required_argument, 0, OPTION_BM_NUM_GS_CYCLES},
+    {"bm-num-gs-steps", required_argument, 0, OPTION_BM_NUM_GS_STEPS},
+    {"bm-sampling", required_argument, 0, OPTION_BM_SAMPLING},
+    {"budget", required_argument, 0, OPTION_BUDGET},
+    {"bv-size", required_argument, 0, OPTION_BV_SIZE},
+    {"description-path", required_argument, 0, OPTION_DESCRIPTION_PATH},
+    {"ea-crossover-bias", required_argument, 0, OPTION_EA_CROSSOVER_BIAS},
+    {"ea-crossover-probability", required_argument, 0, OPTION_EA_CROSSOVER_PROBABILITY},
+    {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
+    {"ea-mu", required_argument, 0, OPTION_EA_MU},
+    {"ea-mutation-rate", required_argument, 0, OPTION_EA_MUTATION_RATE},
+    {"ea-mutation-rate-max", required_argument, 0, OPTION_EA_MUTATION_RATE_MAX},
+    {"ea-mutation-rate-min", required_argument, 0, OPTION_EA_MUTATION_RATE_MIN},
+    {"ea-success-ratio", required_argument, 0, OPTION_EA_SUCCESS_RATIO},
+    {"ea-tournament-size", required_argument, 0, OPTION_EA_TOURNAMENT_SIZE},
+    {"ea-update-strength", required_argument, 0, OPTION_EA_UPDATE_STRENGTH},
+    {"expression", required_argument, 0, OPTION_EXPRESSION},
+    {"fn-name", required_argument, 0, OPTION_FN_NAME},
+    {"fn-num-traps", required_argument, 0, OPTION_FN_NUM_TRAPS},
+    {"fn-prefix-length", required_argument, 0, OPTION_FN_PREFIX_LENGTH},
+    {"fn-threshold", required_argument, 0, OPTION_FN_THRESHOLD},
+    {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
+    {"fp-lower-bound", required_argument, 0, OPTION_FP_LOWER_BOUND},
+    {"fp-num-bits", required_argument, 0, OPTION_FP_NUM_BITS},
+    {"fp-precision", required_argument, 0, OPTION_FP_PRECISION},
+    {"fp-upper-bound", required_argument, 0, OPTION_FP_UPPER_BOUND},
+    {"function", required_argument, 0, OPTION_FUNCTION},
+    {"hea-reset-period", required_argument, 0, OPTION_HEA_RESET_PERIOD},
+    {"learning-rate", required_argument, 0, OPTION_LEARNING_RATE},
+    {"map", required_argument, 0, OPTION_MAP},
+    {"map-input-size", required_argument, 0, OPTION_MAP_INPUT_SIZE},
+    {"map-path", required_argument, 0, OPTION_MAP_PATH},
+    {"map-ts-length", required_argument, 0, OPTION_MAP_TS_LENGTH},
+    {"map-ts-sampling-mode", required_argument, 0, OPTION_MAP_TS_SAMPLING_MODE},
+    {"neighborhood", required_argument, 0, OPTION_NEIGHBORHOOD},
+    {"neighborhood-iterator", required_argument, 0, OPTION_NEIGHBORHOOD_ITERATOR},
+    {"noise-stddev", required_argument, 0, OPTION_NOISE_STDDEV},
+    {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
+    {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
+    {"path", required_argument, 0, OPTION_PATH},
+    {"pn-mutation-rate", required_argument, 0, OPTION_PN_MUTATION_RATE},
+    {"pn-neighborhood", required_argument, 0, OPTION_PN_NEIGHBORHOOD},
+    {"pn-radius", required_argument, 0, OPTION_PN_RADIUS},
+    {"population-size", required_argument, 0, OPTION_POPULATION_SIZE},
+    {"pv-log-num-components", required_argument, 0, OPTION_PV_LOG_NUM_COMPONENTS},
+    {"radius", required_argument, 0, OPTION_RADIUS},
+    {"rep-categorical-representation", required_argument, 0, OPTION_REP_CATEGORICAL_REPRESENTATION},
+    {"rep-num-additional-bits", required_argument, 0, OPTION_REP_NUM_ADDITIONAL_BITS},
+    {"results-path", required_argument, 0, OPTION_RESULTS_PATH},
+    {"rls-patience", required_argument, 0, OPTION_RLS_PATIENCE},
+    {"sa-beta-ratio", required_argument, 0, OPTION_SA_BETA_RATIO},
+    {"sa-initial-acceptance-probability", required_argument, 0, OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY},
+    {"sa-num-transitions", required_argument, 0, OPTION_SA_NUM_TRANSITIONS},
+    {"sa-num-trials", required_argument, 0, OPTION_SA_NUM_TRIALS},
+    {"seed", required_argument, 0, OPTION_SEED},
+    {"selection-size", required_argument, 0, OPTION_SELECTION_SIZE},
+    {"solution-path", required_argument, 0, OPTION_SOLUTION_PATH},
+    {"target", required_argument, 0, OPTION_TARGET},
+    {"additive-gaussian-noise", no_argument, 0, OPTION_ADDITIVE_GAUSSIAN_NOISE},
+    {"bm-log-norm-1", no_argument, 0, OPTION_BM_LOG_NORM_1},
+    {"bm-log-norm-infinite", no_argument, 0, OPTION_BM_LOG_NORM_INFINITE},
+    {"bm-negative-positive-selection", no_argument, 0, OPTION_BM_NEGATIVE_POSITIVE_SELECTION},
+    {"cache", no_argument, 0, OPTION_CACHE},
+    {"cache-budget", no_argument, 0, OPTION_CACHE_BUDGET},
+    {"concrete-solution", no_argument, 0, OPTION_CONCRETE_SOLUTION},
+    {"ea-allow-no-mutation", no_argument, 0, OPTION_EA_ALLOW_NO_MUTATION},
+    {"ea-log-mutation-rate", no_argument, 0, OPTION_EA_LOG_MUTATION_RATE},
+    {"fn-display", no_argument, 0, OPTION_FN_DISPLAY},
+    {"fn-get-bv-size", no_argument, 0, OPTION_FN_GET_BV_SIZE},
+    {"fn-get-maximum", no_argument, 0, OPTION_FN_GET_MAXIMUM},
+    {"fn-has-known-maximum", no_argument, 0, OPTION_FN_HAS_KNOWN_MAXIMUM},
+    {"fn-provides-incremental-evaluation", no_argument, 0, OPTION_FN_PROVIDES_INCREMENTAL_EVALUATION},
+    {"fn-walsh-transform", no_argument, 0, OPTION_FN_WALSH_TRANSFORM},
+    {"hea-bound-moment", no_argument, 0, OPTION_HEA_BOUND_MOMENT},
+    {"hea-log-delta-norm", no_argument, 0, OPTION_HEA_LOG_DELTA_NORM},
+    {"hea-log-herding-error", no_argument, 0, OPTION_HEA_LOG_HERDING_ERROR},
+    {"hea-log-target", no_argument, 0, OPTION_HEA_LOG_TARGET},
+    {"hea-log-target-norm", no_argument, 0, OPTION_HEA_LOG_TARGET_NORM},
+    {"hea-randomize-bit-order", no_argument, 0, OPTION_HEA_RANDOMIZE_BIT_ORDER},
+    {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
+    {"load-solution", no_argument, 0, OPTION_LOAD_SOLUTION},
+    {"log-improvement", no_argument, 0, OPTION_LOG_IMPROVEMENT},
+    {"map-display", no_argument, 0, OPTION_MAP_DISPLAY},
+    {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
+    {"map-surjective", no_argument, 0, OPTION_MAP_SURJECTIVE},
+    {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
+    {"negation", no_argument, 0, OPTION_NEGATION},
+    {"parsed-modifier", no_argument, 0, OPTION_PARSED_MODIFIER},
+    {"pn-allow-no-mutation", no_argument, 0, OPTION_PN_ALLOW_NO_MUTATION},
+    {"print-default-parameters", no_argument, 0, OPTION_PRINT_DEFAULT_PARAMETERS},
+    {"print-description", no_argument, 0, OPTION_PRINT_DESCRIPTION},
+    {"print-parameters", no_argument, 0, OPTION_PRINT_PARAMETERS},
+    {"print-results", no_argument, 0, OPTION_PRINT_RESULTS},
+    {"print-solution", no_argument, 0, OPTION_PRINT_SOLUTION},
+    {"prior-noise", no_argument, 0, OPTION_PRIOR_NOISE},
+    {"pv-log-entropy", no_argument, 0, OPTION_PV_LOG_ENTROPY},
+    {"pv-log-pv", no_argument, 0, OPTION_PV_LOG_PV},
+    {"record-evaluation-time", no_argument, 0, OPTION_RECORD_EVALUATION_TIME},
+    {"record-total-time", no_argument, 0, OPTION_RECORD_TOTAL_TIME},
+    {"restart", no_argument, 0, OPTION_RESTART},
+    {"rls-strict", no_argument, 0, OPTION_RLS_STRICT},
+    {"rw-log-value", no_argument, 0, OPTION_RW_LOG_VALUE},
+    {"save-description", no_argument, 0, OPTION_SAVE_DESCRIPTION},
+    {"save-results", no_argument, 0, OPTION_SAVE_RESULTS},
+    {"save-solution", no_argument, 0, OPTION_SAVE_SOLUTION},
+    {"stop-on-maximum", no_argument, 0, OPTION_STOP_ON_MAXIMUM},
+    {"stop-on-target", no_argument, 0, OPTION_STOP_ON_TARGET},
+    {"version", no_argument, 0, OPTION_VERSION},
+    {"help", no_argument, 0, OPTION_HELP},
+    {"help-fp", no_argument, 0, OPTION_HELP_FP},
+    {"help-rep", no_argument, 0, OPTION_HELP_REP},
+    {"help-pn", no_argument, 0, OPTION_HELP_PN},
+    {"help-map", no_argument, 0, OPTION_HELP_MAP},
+    {"help-ls", no_argument, 0, OPTION_HELP_LS},
+    {"help-sa", no_argument, 0, OPTION_HELP_SA},
+    {"help-ea", no_argument, 0, OPTION_HELP_EA},
+    {"help-eda", no_argument, 0, OPTION_HELP_EDA},
+    {"help-hea", no_argument, 0, OPTION_HELP_HEA},
+    {"help-bm", no_argument, 0, OPTION_HELP_BM},
+    {0, no_argument, 0, 0}
+  };
+  const char *short_options = "A:b:s:m:t:F:l:M:N:i:p:x:y:";
+  optind = 0;
+  while (true) {
+    int option = getopt_long(argc, argv, short_options, long_options, 0);
+    if (option < 0)
+      break;
+    switch (option) {
+    case 'A':
+    case OPTION_ALGORITHM:
+      set_algorithm(atoi(optarg));
+      break;
+
+    case OPTION_BM_MC_RESET_STRATEGY:
+      set_bm_mc_reset_strategy(atoi(optarg));
+      break;
+
+    case OPTION_BM_NUM_GS_CYCLES:
+      set_bm_num_gs_cycles(atoi(optarg));
+      break;
+
+    case OPTION_BM_NUM_GS_STEPS:
+      set_bm_num_gs_steps(atoi(optarg));
+      break;
+
+    case OPTION_BM_SAMPLING:
+      set_bm_sampling(atoi(optarg));
+      break;
+
+    case 'b':
+    case OPTION_BUDGET:
+      set_budget(atoi(optarg));
+      break;
+
+    case 's':
+    case OPTION_BV_SIZE:
+      set_bv_size(atoi(optarg));
+      break;
+
+    case OPTION_DESCRIPTION_PATH:
+      set_description_path(std::string(optarg));
+      break;
+
+    case OPTION_EA_CROSSOVER_BIAS:
+      set_ea_crossover_bias(atof(optarg));
+      break;
+
+    case OPTION_EA_CROSSOVER_PROBABILITY:
+      set_ea_crossover_probability(atof(optarg));
+      break;
+
+    case OPTION_EA_LAMBDA:
+      set_ea_lambda(atoi(optarg));
+      break;
+
+    case OPTION_EA_MU:
+      set_ea_mu(atoi(optarg));
+      break;
+
+    case 'm':
+    case OPTION_EA_MUTATION_RATE:
+      set_ea_mutation_rate(atof(optarg));
+      break;
+
+    case OPTION_EA_MUTATION_RATE_MAX:
+      set_ea_mutation_rate_max(atof(optarg));
+      break;
+
+    case OPTION_EA_MUTATION_RATE_MIN:
+      set_ea_mutation_rate_min(atof(optarg));
+      break;
+
+    case OPTION_EA_SUCCESS_RATIO:
+      set_ea_success_ratio(atof(optarg));
+      break;
+
+    case OPTION_EA_TOURNAMENT_SIZE:
+      set_ea_tournament_size(atoi(optarg));
+      break;
+
+    case OPTION_EA_UPDATE_STRENGTH:
+      set_ea_update_strength(atof(optarg));
+      break;
+
+    case OPTION_EXPRESSION:
+      set_expression(std::string(optarg));
+      break;
+
+    case OPTION_FN_NAME:
+      set_fn_name(std::string(optarg));
+      break;
+
+    case OPTION_FN_NUM_TRAPS:
+      set_fn_num_traps(atoi(optarg));
+      break;
+
+    case OPTION_FN_PREFIX_LENGTH:
+      set_fn_prefix_length(atoi(optarg));
+      break;
+
+    case 't':
+    case OPTION_FN_THRESHOLD:
+      set_fn_threshold(atoi(optarg));
+      break;
+
+    case OPTION_FP_EXPRESSION:
+      set_fp_expression(std::string(optarg));
+      break;
+
+    case OPTION_FP_LOWER_BOUND:
+      set_fp_lower_bound(atof(optarg));
+      break;
+
+    case OPTION_FP_NUM_BITS:
+      set_fp_num_bits(atoi(optarg));
+      break;
+
+    case OPTION_FP_PRECISION:
+      set_fp_precision(atof(optarg));
+      break;
+
+    case OPTION_FP_UPPER_BOUND:
+      set_fp_upper_bound(atof(optarg));
+      break;
+
+    case 'F':
+    case OPTION_FUNCTION:
+      set_function(atoi(optarg));
+      break;
+
+    case OPTION_HEA_RESET_PERIOD:
+      set_hea_reset_period(atoi(optarg));
+      break;
+
+    case 'l':
+    case OPTION_LEARNING_RATE:
+      set_learning_rate(atof(optarg));
+      break;
+
+    case 'M':
+    case OPTION_MAP:
+      set_map(atoi(optarg));
+      break;
+
+    case OPTION_MAP_INPUT_SIZE:
+      set_map_input_size(atoi(optarg));
+      break;
+
+    case OPTION_MAP_PATH:
+      set_map_path(std::string(optarg));
+      break;
+
+    case OPTION_MAP_TS_LENGTH:
+      set_map_ts_length(atoi(optarg));
+      break;
+
+    case OPTION_MAP_TS_SAMPLING_MODE:
+      set_map_ts_sampling_mode(atoi(optarg));
+      break;
+
+    case 'N':
+    case OPTION_NEIGHBORHOOD:
+      set_neighborhood(atoi(optarg));
+      break;
+
+    case OPTION_NEIGHBORHOOD_ITERATOR:
+      set_neighborhood_iterator(atoi(optarg));
+      break;
+
+    case OPTION_NOISE_STDDEV:
+      set_noise_stddev(atof(optarg));
+      break;
+
+    case 'i':
+    case OPTION_NUM_ITERATIONS:
+      set_num_iterations(atoi(optarg));
+      break;
+
+    case OPTION_NUM_THREADS:
+      set_num_threads(atoi(optarg));
+      break;
+
+    case 'p':
+    case OPTION_PATH:
+      set_path(std::string(optarg));
+      break;
+
+    case OPTION_PN_MUTATION_RATE:
+      set_pn_mutation_rate(atof(optarg));
+      break;
+
+    case OPTION_PN_NEIGHBORHOOD:
+      set_pn_neighborhood(atoi(optarg));
+      break;
+
+    case OPTION_PN_RADIUS:
+      set_pn_radius(atoi(optarg));
+      break;
+
+    case 'x':
+    case OPTION_POPULATION_SIZE:
+      set_population_size(atoi(optarg));
+      break;
+
+    case OPTION_PV_LOG_NUM_COMPONENTS:
+      set_pv_log_num_components(atoi(optarg));
+      break;
+
+    case OPTION_RADIUS:
+      set_radius(atoi(optarg));
+      break;
+
+    case OPTION_REP_CATEGORICAL_REPRESENTATION:
+      set_rep_categorical_representation(atoi(optarg));
+      break;
+
+    case OPTION_REP_NUM_ADDITIONAL_BITS:
+      set_rep_num_additional_bits(atoi(optarg));
+      break;
+
+    case OPTION_RESULTS_PATH:
+      set_results_path(std::string(optarg));
+      break;
+
+    case OPTION_RLS_PATIENCE:
+      set_rls_patience(atoi(optarg));
+      break;
+
+    case OPTION_SA_BETA_RATIO:
+      set_sa_beta_ratio(atof(optarg));
+      break;
+
+    case OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY:
+      set_sa_initial_acceptance_probability(atof(optarg));
+      break;
+
+    case OPTION_SA_NUM_TRANSITIONS:
+      set_sa_num_transitions(atoi(optarg));
+      break;
+
+    case OPTION_SA_NUM_TRIALS:
+      set_sa_num_trials(atoi(optarg));
+      break;
+
+    case OPTION_SEED:
+      set_seed(strtoul(optarg, NULL, 0));
+      break;
+
+    case 'y':
+    case OPTION_SELECTION_SIZE:
+      set_selection_size(atoi(optarg));
+      break;
+
+    case OPTION_SOLUTION_PATH:
+      set_solution_path(std::string(optarg));
+      break;
+
+    case OPTION_TARGET:
+      set_target(atof(optarg));
+      break;
+
+    case OPTION_ADDITIVE_GAUSSIAN_NOISE:
+      _additive_gaussian_noise = true;
+      break;
+
+    case OPTION_BM_LOG_NORM_1:
+      _bm_log_norm_1 = true;
+      break;
+
+    case OPTION_BM_LOG_NORM_INFINITE:
+      _bm_log_norm_infinite = true;
+      break;
+
+    case OPTION_BM_NEGATIVE_POSITIVE_SELECTION:
+      _bm_negative_positive_selection = true;
+      break;
+
+    case OPTION_CACHE:
+      _cache = true;
+      break;
+
+    case OPTION_CACHE_BUDGET:
+      _cache_budget = true;
+      break;
+
+    case OPTION_CONCRETE_SOLUTION:
+      _concrete_solution = true;
+      break;
+
+    case OPTION_EA_ALLOW_NO_MUTATION:
+      _ea_allow_no_mutation = true;
+      break;
+
+    case OPTION_EA_LOG_MUTATION_RATE:
+      _ea_log_mutation_rate = true;
+      break;
+
+    case OPTION_FN_DISPLAY:
+      _fn_display = true;
+      break;
+
+    case OPTION_FN_GET_BV_SIZE:
+      _fn_get_bv_size = true;
+      break;
+
+    case OPTION_FN_GET_MAXIMUM:
+      _fn_get_maximum = true;
+      break;
+
+    case OPTION_FN_HAS_KNOWN_MAXIMUM:
+      _fn_has_known_maximum = true;
+      break;
+
+    case OPTION_FN_PROVIDES_INCREMENTAL_EVALUATION:
+      _fn_provides_incremental_evaluation = true;
+      break;
+
+    case OPTION_FN_WALSH_TRANSFORM:
+      _fn_walsh_transform = true;
+      break;
+
+    case OPTION_HEA_BOUND_MOMENT:
+      _hea_bound_moment = true;
+      break;
+
+    case OPTION_HEA_LOG_DELTA_NORM:
+      _hea_log_delta_norm = true;
+      break;
+
+    case OPTION_HEA_LOG_HERDING_ERROR:
+      _hea_log_herding_error = true;
+      break;
+
+    case OPTION_HEA_LOG_TARGET:
+      _hea_log_target = true;
+      break;
+
+    case OPTION_HEA_LOG_TARGET_NORM:
+      _hea_log_target_norm = true;
+      break;
+
+    case OPTION_HEA_RANDOMIZE_BIT_ORDER:
+      _hea_randomize_bit_order = true;
+      break;
+
+    case OPTION_INCREMENTAL_EVALUATION:
+      _incremental_evaluation = true;
+      break;
+
+    case OPTION_LOAD_SOLUTION:
+      _load_solution = true;
+      break;
+
+    case OPTION_LOG_IMPROVEMENT:
+      _log_improvement = true;
+      break;
+
+    case OPTION_MAP_DISPLAY:
+      _map_display = true;
+      break;
+
+    case OPTION_MAP_RANDOM:
+      _map_random = true;
+      break;
+
+    case OPTION_MAP_SURJECTIVE:
+      _map_surjective = true;
+      break;
+
+    case OPTION_MMAS_STRICT:
+      _mmas_strict = true;
+      break;
+
+    case OPTION_NEGATION:
+      _negation = true;
+      break;
+
+    case OPTION_PARSED_MODIFIER:
+      _parsed_modifier = true;
+      break;
+
+    case OPTION_PN_ALLOW_NO_MUTATION:
+      _pn_allow_no_mutation = true;
+      break;
+
+    case OPTION_PRINT_DEFAULT_PARAMETERS:
+      _print_default_parameters = true;
+      break;
+
+    case OPTION_PRINT_DESCRIPTION:
+      _print_description = true;
+      break;
+
+    case OPTION_PRINT_PARAMETERS:
+      _print_parameters = true;
+      break;
+
+    case OPTION_PRINT_RESULTS:
+      _print_results = true;
+      break;
+
+    case OPTION_PRINT_SOLUTION:
+      _print_solution = true;
+      break;
+
+    case OPTION_PRIOR_NOISE:
+      _prior_noise = true;
+      break;
+
+    case OPTION_PV_LOG_ENTROPY:
+      _pv_log_entropy = true;
+      break;
+
+    case OPTION_PV_LOG_PV:
+      _pv_log_pv = true;
+      break;
+
+    case OPTION_RECORD_EVALUATION_TIME:
+      _record_evaluation_time = true;
+      break;
+
+    case OPTION_RECORD_TOTAL_TIME:
+      _record_total_time = true;
+      break;
+
+    case OPTION_RESTART:
+      _restart = true;
+      break;
+
+    case OPTION_RLS_STRICT:
+      _rls_strict = true;
+      break;
+
+    case OPTION_RW_LOG_VALUE:
+      _rw_log_value = true;
+      break;
+
+    case OPTION_SAVE_DESCRIPTION:
+      _save_description = true;
+      break;
+
+    case OPTION_SAVE_RESULTS:
+      _save_results = true;
+      break;
+
+    case OPTION_SAVE_SOLUTION:
+      _save_solution = true;
+      break;
+
+    case OPTION_STOP_ON_MAXIMUM:
+      _stop_on_maximum = true;
+      break;
+
+    case OPTION_STOP_ON_TARGET:
+      _stop_on_target = true;
+      break;
+
+    case OPTION_HELP:
+      print_help(std::cerr);
+      exit(0);
+
+    case OPTION_HELP_FP:
+      print_help_fp(std::cerr);
+      exit(0);
+
+    case OPTION_HELP_REP:
+      print_help_rep(std::cerr);
+      exit(0);
+
+    case OPTION_HELP_PN:
+      print_help_pn(std::cerr);
+      exit(0);
+
+    case OPTION_HELP_MAP:
+      print_help_map(std::cerr);
+      exit(0);
+
+    case OPTION_HELP_LS:
+      print_help_ls(std::cerr);
+      exit(0);
+
+    case OPTION_HELP_SA:
+      print_help_sa(std::cerr);
+      exit(0);
+
+    case OPTION_HELP_EA:
+      print_help_ea(std::cerr);
+      exit(0);
+
+    case OPTION_HELP_EDA:
+      print_help_eda(std::cerr);
+      exit(0);
+
+    case OPTION_HELP_HEA:
+      print_help_hea(std::cerr);
+      exit(0);
+
+    case OPTION_HELP_BM:
+      print_help_bm(std::cerr);
+      exit(0);
+
+    case OPTION_VERSION:
+      print_version(std::cerr);
+      exit(0);
+
+    default:
+      if (!ignore_invalid_options) {
+        std::cerr << "For more information, please enter: " << _exec_name << " --help" << std::endl;
+        exit(1);
+      }
+    }
+  }
+}
+
 void HncoOptions::print_help(std::ostream& stream) const
 {
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
