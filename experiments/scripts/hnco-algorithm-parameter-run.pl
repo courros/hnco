@@ -94,6 +94,7 @@ sub iterate_functions
         my $function_id = $f->{id};
         print "$function_id\n\n";
         iterate_values("$prefix/$function_id", "$cmd $f->{opt}");
+        print "\n";
     }
 }
 
