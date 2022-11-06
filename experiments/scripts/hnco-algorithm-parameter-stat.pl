@@ -669,11 +669,11 @@ sub generate_table_value
         }
 
         my $quantiles = "";
-        $quantiles .= ">{{\\nprounddigits{$after_min_max}}}n{$before}{0}";
+        $quantiles .= ">{{\\nprounddigits{$after_min_max}}}n{$before}{$after_min_max}";
         $quantiles .= ">{{\\nprounddigits{$after_quantiles}}}n{$before}{$after_quantiles}";
         $quantiles .= ">{{\\nprounddigits{$after_median}}}n{$before}{$after_median}";
         $quantiles .= ">{{\\nprounddigits{$after_quantiles}}}n{$before}{$after_quantiles}";
-        $quantiles .= ">{{\\nprounddigits{$after_min_max}}}n{$before}{0}";
+        $quantiles .= ">{{\\nprounddigits{$after_min_max}}}n{$before}{$after_min_max}";
 
         $file->print("\\begin{tabular}{\@{} l $quantiles \@{}}\n",
                      "\\toprule\n",
