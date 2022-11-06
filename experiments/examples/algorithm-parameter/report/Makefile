@@ -1,4 +1,4 @@
-pdf: report.tex results.tex
+pdf: report.tex
 	pdflatex -shell-escape report
 	pdflatex -shell-escape report
 
