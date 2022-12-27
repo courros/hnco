@@ -62,14 +62,13 @@ my $obj = from_json(read_file($plan));
 # Global variables
 #
 
-my $functions           = $obj->{functions};
 my $algorithms          = $obj->{algorithms};
+my $functions           = $obj->{functions};
 my $graphics            = $obj->{graphics};
 
 my $xcolumn             = $graphics->{xcolumn};
 my $xlabel              = $graphics->{xlabel};
 my $xlogscale           = $graphics->{xlogscale};
-
 my $ycolumn             = $graphics->{ycolumn};
 my $ylabel              = $graphics->{ylabel};
 my $ylogscale           = $graphics->{ylogscale};
@@ -152,6 +151,15 @@ sub generate_graphics
             "set format y\n";
     }
 
+    my $data = "using $xcolumn:$ycolumn";
+    if ($graphics->{transform}) {
+        my $transform = $graphics->{transform};
+        print GRAPHICS "$transform->{function}($transform->{variable}) = $transform->{expression}\n";
+        $data = "using $xcolumn:($transform->{function}(\$$ycolumn))";
+    }
+
+    print GRAPHICS "\n";
+
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
@@ -167,7 +175,7 @@ sub generate_graphics
                 my $algorithm_id = $_->{id};
                 my $quoted_title = qq("$_->{label}");
                 $quoted_path = qq("$path_results/$function_id/$algorithm_id/1.out");
-                "  $quoted_path using $xcolumn:$ycolumn with lines lw 1 title $quoted_title";
+                "  $quoted_path $data with lines lw 1 title $quoted_title";
              } @$algorithms);
         print GRAPHICS "\n";
 
