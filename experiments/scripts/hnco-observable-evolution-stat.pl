@@ -163,32 +163,32 @@ sub generate_graphics
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
-        my $quoted_path = qq("$path_graphics/$function_id.eps");
+        my $path = qq("$path_graphics/$function_id.eps");
         print GRAPHICS
             $terminal{eps}, "\n",
-            "set output $quoted_path\n";
+            "set output $path\n";
 
         print GRAPHICS "plot \\\n";
         print GRAPHICS
             join ", \\\n",
             (map {
                 my $algorithm_id = $_->{id};
-                my $quoted_title = qq("$_->{label}");
-                $quoted_path = qq("$path_results/$function_id/$algorithm_id/1.out");
-                "  $quoted_path $data with lines lw 1 title $quoted_title";
+                my $title = qq("$_->{label}");
+                $path = qq("$path_results/$function_id/$algorithm_id/1.out");
+                "  $path $data with lines lw 1 title $title";
              } @$algorithms);
         print GRAPHICS "\n";
 
-        $quoted_path = qq("$path_graphics/$function_id.pdf");
+        $path = qq("$path_graphics/$function_id.pdf");
         print GRAPHICS
             $terminal{pdf}, "\n",
-            "set output $quoted_path\n",
+            "set output $path\n",
             "replot\n";
 
-        $quoted_path = qq("$path_graphics/$function_id.png");
+        $path = qq("$path_graphics/$function_id.png");
         print GRAPHICS
             $terminal{png}, "\n",
-            "set output $quoted_path\n",
+            "set output $path\n",
             "replot\n\n";
     }
 
