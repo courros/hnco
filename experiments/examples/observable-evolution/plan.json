@@ -5,7 +5,7 @@
     "parallel": true,
 
     "graphics": {
-        "key": "inside top right opaque vertical reverse Left title \"Algorithm\" left",
+        "key": "inside bottom left opaque box vertical title \"Algorithm\" center width +1.5 spacing 1.2",
         "xlabel": "Number of evaluations",
         "xcolumn": 1,
         "xlogscale": true,
