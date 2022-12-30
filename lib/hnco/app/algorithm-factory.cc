@@ -223,6 +223,20 @@ CommandLineAlgorithmFactory::make(int bv_size)
     return algo;
   }
 
+  case 330: {
+    auto algo = new TwoRateOnePlusLambdaEa
+      (bv_size,
+       _options.get_ea_lambda());
+
+    algo->set_allow_no_mutation  (_options.with_ea_allow_no_mutation());
+    algo->set_mutation_rate_init (_options.get_ea_mutation_rate() / bv_size);
+    algo->set_num_iterations     (_options.get_num_iterations());
+
+    algo->set_log_mutation_rate  (_options.with_ea_log_mutation_rate());
+
+    return algo;
+  }
+
   case 400: {
     auto algo = new GeneticAlgorithm
       (bv_size,

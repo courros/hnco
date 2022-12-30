@@ -75,6 +75,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ea/selection.hh \
 	hnco/algorithms/ea/self-adjusting-one-plus-one-ea.cc \
 	hnco/algorithms/ea/self-adjusting-one-plus-one-ea.hh \
+	hnco/algorithms/ea/two-rate-one-plus-lambda-ea.cc \
+	hnco/algorithms/ea/two-rate-one-plus-lambda-ea.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
@@ -321,6 +323,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ea/random-selection.hh \
 	hnco/algorithms/ea/selection.hh \
 	hnco/algorithms/ea/self-adjusting-one-plus-one-ea.hh \
+	hnco/algorithms/ea/two-rate-one-plus-lambda-ea.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \

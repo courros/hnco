@@ -29,5 +29,6 @@
 #include "random-selection.hh"
 #include "selection.hh"
 #include "self-adjusting-one-plus-one-ea.hh"
+#include "two-rate-one-plus-lambda-ea.hh"
 
 #endif

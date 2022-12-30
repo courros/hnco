@@ -1051,6 +1051,11 @@
                 },
 
                 {
+                    "value": 330,
+                    "description": "Two-rate (1+lambda) evolutionary algorithm (EA)"
+                },
+
+                {
                     "value": 400,
                     "description": "Genetic algorithm (GA)"
                 },

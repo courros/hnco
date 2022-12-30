@@ -1110,7 +1110,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
   }
 }
 
-HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_invalid_options):
+HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
   _exec_name(argv[0]),
   _version("0.22"),
   _algorithm(100),
@@ -2035,7 +2035,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_invalid_options):
       exit(0);
 
     default:
-      if (!ignore_invalid_options) {
+      if (!ignore_bad_options) {
         std::cerr << "For more information, please enter: " << _exec_name << " --help" << std::endl;
         exit(1);
       }
@@ -2191,6 +2191,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            301: Self-adjusting (1+1) evolutionary algorithm (EA)" << std::endl;
   stream << "            310: (mu+lambda) evolutionary algorithm (EA)" << std::endl;
   stream << "            320: (mu,lambda) evolutionary algorithm (EA)" << std::endl;
+  stream << "            330: Two-rate (1+lambda) evolutionary algorithm (EA)" << std::endl;
   stream << "            400: Genetic algorithm (GA)" << std::endl;
   stream << "            450: (1+(lambda,lambda)) genetic algorithm (GA)" << std::endl;
   stream << "            500: Population-based incremental learning (PBIL)" << std::endl;
