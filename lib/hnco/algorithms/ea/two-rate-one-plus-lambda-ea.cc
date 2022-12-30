@@ -18,13 +18,17 @@
 
 */
 
+#include <algorithm>            // std::max, std::min
+
 #include "hnco/logging/logger.hh"
+#include "hnco/util.hh"         // hnco::is_in_range, hnco::clip_value
 
 #include "two-rate-one-plus-lambda-ea.hh"
 
 
-using namespace hnco::function;
 using namespace hnco::algorithm;
+using namespace hnco::function;
+using namespace hnco::random;
 using namespace hnco;
 
 
@@ -42,20 +46,47 @@ void
 TwoRateOnePlusLambdaEa::iterate()
 {
   // Generate population
-  _mutation_operator.set_mutation_rate(_mutation_rate);
-  for (auto& offspring : _population.bvs)
-    _mutation_operator.map(_solution.first, offspring);
+  const int lambda = _population.get_size();
+  const int mid = lambda / 2;
+
+  _mutation_operator.set_mutation_rate(_mutation_rate / 2);
+  for (int i = 0; i < mid; i++) {
+    _mutation_operator.map(_solution.first, _population.bvs[i]);
+    _created_with_small_rate[i] = 1;
+  }
+
+  _mutation_operator.set_mutation_rate(2 * _mutation_rate);
+  for (int i = mid; i < lambda; i++) {
+    _mutation_operator.map(_solution.first, _population.bvs[i]);
+    _created_with_small_rate[i] = 0;
+  }
 
   // Evaluate and sort
   if (_functions.size() > 1)
     _population.evaluate_in_parallel(_functions);
   else
     _population.evaluate(_function);
-  _population.sort();           // Complete sort is required by get_equivalent_bvs
+  _population.sort();
 
   update_solution(_population.get_best_bv(), _population.get_best_value());
 
   // Update mutation rate
+  const int n = get_bv_size();
+  const double low = 2 / double(n);
+  const double high = 0.25;
+  double x = Generator::uniform();
+  if (x < 0.25)
+    _mutation_rate = std::max(_mutation_rate / 2, low);
+  else if ( x < 0.5)
+    _mutation_rate = std::min(2 * _mutation_rate, high);
+  else {
+    assert(is_in_range(_population.permutation[0], _created_with_small_rate.size()));
+    if (_created_with_small_rate[_population.permutation[0]])
+      _mutation_rate = _mutation_rate / 2;
+    else
+      _mutation_rate = 2 * _mutation_rate;
+    _mutation_rate = clip_value(_mutation_rate, low, high);
+  }
 
 }
 

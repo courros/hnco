@@ -51,6 +51,7 @@ public:
   TwoRateOnePlusLambdaEa(int n, int population_size)
     : IterativeAlgorithm(n)
     , _population(population_size, n)
+    , _created_with_small_rate(population_size)
     , _mutation_operator(n)
   {}
 
@@ -81,6 +82,8 @@ protected:
 
   /// Population
   Population _population;
+
+  bit_vector_t _created_with_small_rate;
 
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation_operator;
