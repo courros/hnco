@@ -56,15 +56,15 @@ if (@ARGV) {
 }
 print "Using $filename\n";
 
-my $obj = from_json(read_file($filename));
+my $plan = from_json(read_file($filename));
 
 #
 # Global variables
 #
 
-my $algorithms          = $obj->{algorithms};
-my $functions           = $obj->{functions};
-my $graphics            = $obj->{graphics};
+my $algorithms          = $plan->{algorithms};
+my $functions           = $plan->{functions};
+my $graphics            = $plan->{graphics};
 
 my $xcolumn             = $graphics->{xcolumn};
 my $xlabel              = $graphics->{xlabel};
