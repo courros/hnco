@@ -307,15 +307,6 @@ sub generate_gnuplot_mean
 
     my $context = $graphics->{mean};
 
-    print MEAN
-        "#!/usr/bin/gnuplot -persist\n",
-        "set grid\n",
-        qq(set xlabel "$parameter_label"\n),
-        qq(set ylabel "Number of evaluations"\n),
-        "set key " . ($context->{key} || "bottom right box opaque") . "\n",
-        "set autoscale fix\n",
-        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
-
     # Font face and size
     my $font = "";
     if ($context->{font_face}) {
@@ -325,6 +316,22 @@ sub generate_gnuplot_mean
         $font = "$font,$context->{font_size}";
     }
     $font = qq(font "$font");
+
+    my $key = $font;
+    if ($context->{key}) {
+        $key = "$key $context->{key}";
+    } else {
+        $key = qq($key bottom right box opaque);
+    }
+
+    print MEAN
+        "#!/usr/bin/gnuplot -persist\n",
+        "set grid\n",
+        qq(set xlabel "$parameter_label"\n),
+        qq(set ylabel "Number of evaluations"\n),
+        "set key $key\n",
+        "set autoscale fix\n",
+        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
     my $xmin = min(@$values);
     my $xmax = max(@$values);
@@ -365,8 +372,8 @@ sub generate_gnuplot_mean
             (map {
                 my $algorithm_id = $_->{id};
                 my $label = qq("$_->{label}");
-                my $quoted_path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
-                "  $quoted_path using 1:2 with l lw 2 title $label";
+                my $path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
+                "  $path using 1:2 with l lw 2 title $label";
              } @$algorithms);
 
         foreach my $gnuplot (@{ $f->{mean_gnuplot}}) {
@@ -400,15 +407,6 @@ sub generate_gnuplot_stddev
 
     my $context = $graphics->{stddev};
 
-    print STDDEV
-        "#!/usr/bin/gnuplot -persist\n",
-        "set grid\n",
-        qq(set xlabel "$parameter_label"\n),
-        qq(set ylabel "Number of evaluations"\n),
-        "set key bottom right box opaque\n",
-        "set autoscale fix\n",
-        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
-
     # Font face and size
     my $font = "";
     if ($context->{font_face}) {
@@ -418,6 +416,22 @@ sub generate_gnuplot_stddev
         $font = "$font,$context->{font_size}";
     }
     $font = qq(font "$font");
+
+    my $key = $font;
+    if ($context->{key}) {
+        $key = "$key $context->{key}";
+    } else {
+        $key = qq($key bottom right box opaque);
+    }
+
+    print STDDEV
+        "#!/usr/bin/gnuplot -persist\n",
+        "set grid\n",
+        qq(set xlabel "$parameter_label"\n),
+        qq(set ylabel "Number of evaluations"\n),
+        "set key $key\n",
+        "set autoscale fix\n",
+        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
 
     my $xmin = min(@$values);
     my $xmax = max(@$values);
@@ -458,8 +472,8 @@ sub generate_gnuplot_stddev
             (map {
                 my $algorithm_id = $_->{id};
                 my $label = qq("$_->{label}");
-                my $quoted_path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
-                "  $quoted_path using 1:3 with l lw 2 title $label";
+                my $path = qq("$path_results/$function_id/$algorithm_id/mean.dat");
+                "  $path using 1:3 with l lw 2 title $label";
              } @$algorithms);
 
         foreach my $gnuplot (@{ $f->{stddev_gnuplot}}) {
