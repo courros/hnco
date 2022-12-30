@@ -57,23 +57,23 @@ my $path_results        = "results";
 # Read plan
 #
 
-my $plan = "plan.json";
+my $filename = "plan.json";
 if (@ARGV) {
-    $plan = shift @ARGV;
+    $filename = shift @ARGV;
 }
-print "Using $plan\n";
+print "Using $filename\n";
 
-my $obj = from_json(read_file($plan));
+my $plan = from_json(read_file($filename));
 
 #
 # Global variables
 #
 
-my $algorithms          = $obj->{algorithms};
-my $functions           = $obj->{functions};
-my $num_runs            = $obj->{num_runs};
-my $parameter           = $obj->{parameter};
-my $graphics            = $obj->{graphics};
+my $algorithms          = $plan->{algorithms};
+my $functions           = $plan->{functions};
+my $num_runs            = $plan->{num_runs};
+my $parameter           = $plan->{parameter};
+my $graphics            = $plan->{graphics};
 
 my $parameter_id        = $parameter->{id};
 my $parameter_label     = $parameter->{label} || $parameter_id;
