@@ -50,13 +50,13 @@ my $path_report         = "report";
 # Read plan
 #
 
-my $plan = "plan.json";
+my $filename = "plan.json";
 if (@ARGV) {
-    $plan = shift @ARGV;
+    $filename = shift @ARGV;
 }
-print "Using $plan\n";
+print "Using $filename\n";
 
-my $obj = from_json(read_file($plan));
+my $obj = from_json(read_file($filename));
 
 #
 # Global variables
