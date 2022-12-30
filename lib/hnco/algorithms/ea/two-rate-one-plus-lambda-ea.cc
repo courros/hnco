@@ -68,7 +68,10 @@ TwoRateOnePlusLambdaEa::iterate()
     _population.evaluate(_function);
   _population.sort();
 
-  update_solution(_population.get_best_bv(), _population.get_best_value());
+  if (_population.get_best_value() >= _solution.second) {
+    _solution.first = _population.get_best_bv();
+    _solution.second = _population.get_best_value();
+  }
 
   // Update mutation rate
   const int n = get_bv_size();
