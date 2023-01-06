@@ -170,71 +170,91 @@
         {
             "id": "rls",
 	    "opt": "-A 100 --restart",
-            "latex": "RLS",
-            "gnuplot": "RLS"
+            "labels": {
+                "latex": "RLS",
+                "gnuplot": "RLS"
+            }
         },
 
         {
             "id": "hc",
 	    "opt": "-A 150 --restart",
-            "latex": "HC",
-            "gnuplot": "HC"
+            "labels": {
+                "latex": "HC",
+                "gnuplot": "HC"
+            }
         },
 
         {
             "id": "sa",
 	    "opt": "-A 200 --sa-beta-ratio 1.05 --sa-num-trials 10",
-            "latex": "SA",
-            "gnuplot": "SA"
+            "labels": {
+                "latex": "SA",
+                "gnuplot": "SA"
+            }
         },
 
         {
             "id": "ea-1p1",
 	    "opt": "-A 300",
-            "latex": "$(1+1)$ EA",
-            "gnuplot": "(1+1) EA"
+            "labels": {
+                "latex": "$(1+1)$ EA",
+                "gnuplot": "(1+1) EA"
+            }
         },
 
         {
             "id": "ea-1p10",
 	    "opt": "-A 310 --ea-mu 1 --ea-lambda 10",
-            "latex": "$(1+10)$ EA",
-            "gnuplot": "(1+10) EA"
+            "labels": {
+                "latex": "$(1+10)$ EA",
+                "gnuplot": "(1+10) EA"
+            }
         },
 
         {
             "id": "ea-10p1",
 	    "opt": "-A 310 --ea-mu 10 --ea-lambda 1",
-            "latex": "$(10+1)$ EA",
-            "gnuplot": "(10+1) EA"
+            "labels": {
+                "latex": "$(10+1)$ EA",
+                "gnuplot": "(10+1) EA"
+            }
         },
 
         {
             "id": "ea-1c10",
 	    "opt": "-A 320 --ea-mu 1 --ea-lambda 10 --ea-allow-no-mutation",
-            "latex": "$(1,10)$ EA",
-            "gnuplot": "(1,10) EA"
+            "labels": {
+                "latex": "$(1,10)$ EA",
+                "gnuplot": "(1,10) EA"
+            }
         },
 
         {
             "id": "ga",
 	    "opt": "-A 400 --ea-mu 100",
-            "latex": "GA",
-            "gnuplot": "GA"
+            "labels": {
+                "latex": "GA",
+                "gnuplot": "GA"
+            }
         },
 
         {
             "id": "pbil",
 	    "opt": "-A 500 -l 5e-3",
-            "latex": "PBIL",
-            "gnuplot": "PBIL"
+            "labels": {
+                "latex": "PBIL",
+                "gnuplot": "PBIL"
+            }
         },
 
         {
             "id": "umda",
 	    "opt": "-A 600 -x 100 -y 10",
-            "latex": "UMDA",
-            "gnuplot": "UMDA"
+            "labels": {
+                "latex": "UMDA",
+                "gnuplot": "UMDA"
+            }
         }
 
     ]
