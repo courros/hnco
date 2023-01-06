@@ -60,30 +60,31 @@ my $path_report         = "report";
 # Read plan
 #
 
-my $plan = "plan.json";
+my $filename = "plan.json";
 if (@ARGV) {
-    $plan = shift @ARGV;
+    $filename = shift @ARGV;
 }
-print "Using $plan\n";
+print "Using $filename\n";
 
-my $obj = from_json(read_file($plan));
+my $plan = from_json(read_file($filename));
 
 #
 # Global variables
 #
 
-my $algorithms  = $obj->{algorithms};
-my $functions   = $obj->{functions};
-my $num_runs    = $obj->{num_runs};
-my $graphics    = $obj->{graphics};
+my $algorithms            = $plan->{algorithms};
+my $functions             = $plan->{functions};
+my $graphics              = $plan->{graphics};
+my $num_runs              = $plan->{num_runs};
 
-my @results = ();
-my @value_statistics = ();
-my @time_statistics = ();
-my @rank_statistics = ();
+my @results               = ();
+my @value_statistics      = ();
+my @time_statistics       = ();
+my @rank_statistics       = ();
 
 # hash indexed by algorithm
-my $rank_data = {};
+my $rank_data             = {};
+my $algorithm_from_id     = {};
 
 # hash indexed by function
 my $best_value_statistics = {};
@@ -91,6 +92,8 @@ my $best_value_statistics = {};
 #
 # Processing
 #
+
+add_missing_properties();
 
 load_results();
 
@@ -113,6 +116,20 @@ unless (-d "$path_graphics") { mkdir "$path_graphics"; }
 #
 # Local functions
 #
+
+sub add_missing_properties
+{
+    foreach (@$algorithms) {
+        my $id = $_->{id};
+        $algorithm_from_id->{$id} = $_;
+        if (!exists($_->{latex})) {
+            $_->{latex} = $id;
+        }
+        if (!exists($_->{gnuplot})) {
+            $_->{gnuplot} = $id;
+        }
+    }
+}
 
 sub load_results
 {
@@ -148,15 +165,15 @@ sub compute_statistics
             my @values = map { $_->{value} } @rows;
             my $sd = Statistics::Descriptive::Full->new();
             $sd->add_data(@values);
-            push @value_statistics, { function        => $function_id,
-                                      algorithm       => $algorithm_id,
-                                      min             => $sd->min(),
-                                      q1              => $sd->quantile(1),
-                                      median          => $sd->median(),
-                                      q3              => $sd->quantile(3),
-                                      max             => $sd->max() };
+            push @value_statistics, { function  => $function_id,
+                                      algorithm => $algorithm_id,
+                                      min       => $sd->min(),
+                                      q1        => $sd->quantile(1),
+                                      median    => $sd->median(),
+                                      q3        => $sd->quantile(3),
+                                      max       => $sd->max() };
 
-            my $item = { function => $function_id,
+            my $item = { function  => $function_id,
                          algorithm => $algorithm_id };
 
             @values = map { $_->{total_time} } @rows;
@@ -244,12 +261,12 @@ sub compute_rank_statistics
         my $id = $algorithm->{id};
         my $sd = Statistics::Descriptive::Full->new();
         $sd->add_data(@{ $rank_data->{$id} });
-        my $row = { algorithm   => $id,
-                    min         => $sd->min(),
-                    q1          => $sd->quantile(1),
-                    median      => $sd->median(),
-                    q3          => $sd->quantile(3),
-                    max         => $sd->max() };
+        my $row = { algorithm => $id,
+                    min       => $sd->min(),
+                    q1        => $sd->quantile(1),
+                    median    => $sd->median(),
+                    q3        => $sd->quantile(3),
+                    max       => $sd->max() };
         push @rank_statistics, $row;
     }
 }
@@ -308,30 +325,30 @@ sub generate_scatter_gnuplot
                          "set format y\n");
         }
 
-        my $quoted_path = qq("$path_graphics/scatter.$function_id.eps");
+        $path = qq("$path_graphics/scatter.$function_id.eps");
         $file->print("$terminal{eps} $font\n",
-                     "set output $quoted_path\n");
+                     "set output $path\n");
 
         $file->print("plot \\\n");
         $file->print(join ", \\\n",
                      (map {
                          my $algorithm_id = $_->{id};
-                         my $quoted_path = qq("$path_results/$function_id/$algorithm_id/scatter.dat");
-                         my $quoted_title = qq("$algorithm_id");
+                         my $path = qq("$path_results/$function_id/$algorithm_id/scatter.dat");
+                         my $title = qq("$_->{gnuplot}");
                          $fn->{reverse} ?
-                             "  $quoted_path using 1:(-\$2) with points title $quoted_title" :
-                             "  $quoted_path using 1:2 with points title $quoted_title";
+                             "  $path using 1:(-\$2) with points title $title" :
+                             "  $path using 1:2 with points title $title";
                       } @$algorithms));
         $file->print("\n");
 
-        $quoted_path = qq("$path_graphics/scatter.$function_id.pdf");
+        $path = qq("$path_graphics/scatter.$function_id.pdf");
         $file->print("$terminal{pdf} $font\n",
-                     "set output $quoted_path\n",
+                     "set output $path\n",
                      "replot\n");
 
-        $quoted_path = qq("$path_graphics/scatter.$function_id.png");
+        $path = qq("$path_graphics/scatter.$function_id.png");
         $file->print("$terminal{png} $font\n",
-                     "set output $quoted_path\n",
+                     "set output $path\n",
                      "replot\n\n");
     }
     $file->close();
@@ -348,6 +365,7 @@ sub generate_candlesticks_data
         my $position = 1;
         my @rows = grep { $_->{function} eq $id } @value_statistics;
         foreach (@rows) {
+            my $label = qq($algorithm_from_id->{$_->{algorithm}}->{gnuplot});
             if ($fn->{reverse}) {
                 $file->printf("%d %e %e %e %e %e %s\n",
                               $position,
@@ -356,7 +374,7 @@ sub generate_candlesticks_data
                               -$_->{median},
                               -$_->{q1},
                               -$_->{min},
-                              $_->{algorithm});
+                              $label);
             } else {
                 $file->printf("%d %e %e %e %e %e %s\n",
                               $position,
@@ -365,7 +383,7 @@ sub generate_candlesticks_data
                               $_->{median},
                               $_->{q3},
                               $_->{max},
-                              $_->{algorithm});
+                              $label);
             }
             $position++;
         }
@@ -414,21 +432,21 @@ sub generate_candlesticks_gnuplot
                          "set format y\n");
         }
 
-        my $quoted_path = qq("$path_graphics/candlesticks.$id.pdf");
+        my $path = qq("$path_graphics/candlesticks.$id.pdf");
         $file->print("$terminal{pdf} $font\n",
-                     "set output $quoted_path\n");
-        $quoted_path = qq("$path_results/$id/candlesticks.dat");
-        $file->print("plot $quoted_path using 1:3:2:6:5:xticlabels(7) with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
-                     "     $quoted_path using 1:4:4:4:4 with candlesticks lw 3 lt 1 notitle\n");
+                     "set output $path\n");
+        $path = qq("$path_results/$id/candlesticks.dat");
+        $file->print("plot $path using 1:3:2:6:5:xticlabels(7) with candlesticks lw 2 lt 3 notitle whiskerbars, \\\n",
+                     "     $path using 1:4:4:4:4 with candlesticks lw 3 lt 1 notitle\n");
 
-        $quoted_path = qq("$path_graphics/candlesticks.$id.eps");
+        $path = qq("$path_graphics/candlesticks.$id.eps");
         $file->print("$terminal{eps} $font\n",
-                     "set output $quoted_path\n",
+                     "set output $path\n",
                      "replot\n");
 
-        $quoted_path = qq("$path_graphics/candlesticks.$id.png");
+        $path = qq("$path_graphics/candlesticks.$id.png");
         $file->print("$terminal{png} $font\n",
-                     "set output $quoted_path\n",
+                     "set output $path\n",
                      "replot\n\n");
     }
     $file->close();
@@ -468,7 +486,8 @@ sub generate_table_rank
     } @rank_statistics;
     my $format = join " & ", map { "%f" } @summary_statistics;
     foreach my $row (@sorted) {
-        $file->print("$row->{algorithm} & ");
+        my $label = $algorithm_from_id->{$row->{algorithm}}->{latex};
+        $file->print("$label & ");
         $file->printf($format, $row->{min}, $row->{q1}, $row->{median}, $row->{q3}, $row->{max});
         $file->print(" \\\\\n");
     }
@@ -508,7 +527,8 @@ sub generate_table_value
         my $conversion = $fn->{logscale} ? "%e" : "%f";
         my $best = $best_value_statistics->{$id};
         foreach my $row (@sorted) {
-            $file->print("$row->{algorithm} & ");
+            my $label = $algorithm_from_id->{$row->{algorithm}}->{latex};
+            $file->print("$label & ");
             if ($fn->{reverse}) {
                 my $format = join " & ",
                     map { $row->{$_} == $best->{$_} ? "{\\npboldmath} $conversion" : "$conversion" } @summary_statistics_reverse;
@@ -559,7 +579,8 @@ sub generate_table_time
         my @rows = grep { $_->{function} eq $id } @time_statistics;
         my @sorted = sort { $a->{algorithm_time_mean} <=> $b->{algorithm_time_mean} } @rows;
         foreach my $row (@sorted) {
-            $file->printf("$row->{algorithm} & %f & %f & %f & %f & %f & %f \\\\\n",
+            my $label = $algorithm_from_id->{$row->{algorithm}}->{latex};
+            $file->printf("$label & %f & %f & %f & %f & %f & %f \\\\\n",
                           $row->{algorithm_time_mean},
                           $row->{algorithm_time_stddev},
                           $row->{evaluation_time_mean},
