@@ -373,7 +373,7 @@ sub generate_candlesticks_data
         my $position = 1;
         my @rows = grep { $_->{function} eq $id } @value_statistics;
         foreach (@rows) {
-            my $label = qq($algorithm_from_id->{$_->{algorithm}}->{labels}->{gnuplot});
+            my $label = qq("$algorithm_from_id->{$_->{algorithm}}->{labels}->{gnuplot}");
             if ($fn->{reverse}) {
                 $file->printf("%d %e %e %e %e %e %s\n",
                               $position,
