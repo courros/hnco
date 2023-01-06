@@ -122,11 +122,19 @@ sub add_missing_properties
     foreach (@$algorithms) {
         my $id = $_->{id};
         $algorithm_from_id->{$id} = $_;
-        if (!exists($_->{latex})) {
-            $_->{latex} = $id;
-        }
-        if (!exists($_->{gnuplot})) {
-            $_->{gnuplot} = $id;
+        if (exists $_->{labels}) {
+            my $labels = $_->{labels};
+            unless (exists $labels->{latex}) {
+                $labels->{latex} = $id;
+            }
+            unless (exists $labels->{gnuplot}) {
+                $labels->{gnuplot} = $id;
+            }
+        } else {
+            my $labels = {};
+            $labels->{latex} = $id;
+            $labels->{gnuplot} = $id;
+            $_->{labels} = $labels;
         }
     }
 }
@@ -140,14 +148,14 @@ sub load_results
             my $prefix = "$path_results/$function_id/$algorithm_id";
             foreach (1 .. $num_runs) {
                 my $obj = from_json(read_file("$prefix/$_.out"));
-                push @results, { function               => $function_id,
-                                 algorithm              => $algorithm_id,
-                                 run                    => $_,
-                                 value                  => $obj->{value},
-                                 num_evaluations        => $obj->{num_evaluations},
-                                 total_time             => $obj->{total_time},
-                                 evaluation_time        => $obj->{evaluation_time},
-                                 algorithm_time         => $obj->{total_time} - $obj->{evaluation_time} };
+                push @results, { function        => $function_id,
+                                 algorithm       => $algorithm_id,
+                                 run             => $_,
+                                 value           => $obj->{value},
+                                 num_evaluations => $obj->{num_evaluations},
+                                 total_time      => $obj->{total_time},
+                                 evaluation_time => $obj->{evaluation_time},
+                                 algorithm_time  => $obj->{total_time} - $obj->{evaluation_time} };
             }
         }
     }
@@ -334,7 +342,7 @@ sub generate_scatter_gnuplot
                      (map {
                          my $algorithm_id = $_->{id};
                          my $path = qq("$path_results/$function_id/$algorithm_id/scatter.dat");
-                         my $title = qq("$_->{gnuplot}");
+                         my $title = qq("$_->{labels}->{gnuplot}");
                          $fn->{reverse} ?
                              "  $path using 1:(-\$2) with points title $title" :
                              "  $path using 1:2 with points title $title";
@@ -365,7 +373,7 @@ sub generate_candlesticks_data
         my $position = 1;
         my @rows = grep { $_->{function} eq $id } @value_statistics;
         foreach (@rows) {
-            my $label = qq($algorithm_from_id->{$_->{algorithm}}->{gnuplot});
+            my $label = qq($algorithm_from_id->{$_->{algorithm}}->{labels}->{gnuplot});
             if ($fn->{reverse}) {
                 $file->printf("%d %e %e %e %e %e %s\n",
                               $position,
@@ -486,7 +494,7 @@ sub generate_table_rank
     } @rank_statistics;
     my $format = join " & ", map { "%f" } @summary_statistics;
     foreach my $row (@sorted) {
-        my $label = $algorithm_from_id->{$row->{algorithm}}->{latex};
+        my $label = $algorithm_from_id->{$row->{algorithm}}->{labels}->{latex};
         $file->print("$label & ");
         $file->printf($format, $row->{min}, $row->{q1}, $row->{median}, $row->{q3}, $row->{max});
         $file->print(" \\\\\n");
@@ -527,7 +535,7 @@ sub generate_table_value
         my $conversion = $fn->{logscale} ? "%e" : "%f";
         my $best = $best_value_statistics->{$id};
         foreach my $row (@sorted) {
-            my $label = $algorithm_from_id->{$row->{algorithm}}->{latex};
+            my $label = $algorithm_from_id->{$row->{algorithm}}->{labels}->{latex};
             $file->print("$label & ");
             if ($fn->{reverse}) {
                 my $format = join " & ",
@@ -579,7 +587,7 @@ sub generate_table_time
         my @rows = grep { $_->{function} eq $id } @time_statistics;
         my @sorted = sort { $a->{algorithm_time_mean} <=> $b->{algorithm_time_mean} } @rows;
         foreach my $row (@sorted) {
-            my $label = $algorithm_from_id->{$row->{algorithm}}->{latex};
+            my $label = $algorithm_from_id->{$row->{algorithm}}->{labels}->{latex};
             $file->printf("$label & %f & %f & %f & %f & %f & %f \\\\\n",
                           $row->{algorithm_time_mean},
                           $row->{algorithm_time_stddev},
