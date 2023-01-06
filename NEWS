@@ -20,7 +20,7 @@ Perl scripts:
 - hnco-runtime-run.pl: fixed dependent values
 - hnco-runtime-stat.pl: renamed properties title, name -> label
 - hnco-runtime-stat.pl: implemented optional properties logscale, title
-- hnco-benchmark-stat.pl: implemented optional algorithm properties gnuplot and latex
+- hnco-benchmark-stat.pl: implemented optional algorithm property labels
 - hnco-observable-evolution-stat.pl: implemented optional function property label
 - hnco-observable-evolution-stat.pl: implemented optional graphics property transform
 
