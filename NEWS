@@ -2,6 +2,8 @@
 
 Library:
 - CommandLineApplication::init() prints a default constructed HncoOptions (single and multi)
+- Added algorithm::TwoRateOnePlusLambdaEa
+- LogContext: added last improvement to the string
 
 Applications:
 - hnco, hnco-mo: renamed option --print-defaults -> --print-default-parameters
@@ -10,16 +12,21 @@ Applications:
 - hnco: added option --record-total-time
 
 Build:
-- optgen.pl: generates default constructor for option class
+- optgen.pl: generate default constructor
+- optgen.pl: generate constructor taking a flag to ignore bad options
 
 Perl scripts:
-- hnco-runtime-run.pl: alternative exec per algorithm
+- hnco-runtime-run.pl: implemented optional algorithm property exec
 - hnco-runtime-run.pl: fixed dependent values
-- hnco-runtime-stat.pl: optional logscale, title
+- hnco-runtime-stat.pl: renamed properties title, name -> label
+- hnco-runtime-stat.pl: implemented optional properties logscale, title
+- hnco-benchmark-stat.pl: implemented optional algorithm properties gnuplot and latex
+- hnco-observable-evolution-stat.pl: implemented optional function property label
+- hnco-observable-evolution-stat.pl: implemented optional graphics property transform
 
 Experiments:
-- runtime: plan: renamed fields title, name -> label
-- runtime: updated experiment
+- Rerun experiment runtime
+- Rerun experiment observable-evolution
 
 
 * Version 0.21 (2022-10-07)
