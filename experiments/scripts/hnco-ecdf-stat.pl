@@ -66,13 +66,16 @@ my $obj = from_json(read_file($plan));
 # Global variables
 #
 
-my $algorithms          = $obj->{algorithms};
-my $functions           = $obj->{functions};
-my $num_runs            = $obj->{num_runs};
-my $num_targets         = $obj->{num_targets};
-my $budget              = $obj->{budget};
-my $graphics            = $obj->{graphics};
-my $groups              = $graphics->{groups};
+my $algorithms        = $obj->{algorithms};
+my $functions         = $obj->{functions};
+my $num_runs          = $obj->{num_runs};
+my $num_targets       = $obj->{num_targets};
+my $budget            = $obj->{budget};
+my $graphics          = $obj->{graphics};
+my $groups            = $graphics->{groups};
+
+# Hash indexed by algorithm
+my $algorithm_from_id = {};
 
 #
 # Make directories
@@ -94,19 +97,11 @@ foreach my $section ("global", map { $_->{id} } @$functions) {
 
 make_directories(@directories);
 
-sub make_directories
-{
-    foreach (@_) {
-        unless (-d "$_") {
-            mkdir "$_";
-            print "Created $_\n";
-        }
-    }
-}
-
 #
 # Processing
 #
+
+add_missing_properties();
 
 foreach (@$functions) {
     compute_ranges($_);
@@ -132,6 +127,38 @@ generate_latex();
 #
 # Local functions
 #
+
+sub make_directories
+{
+    foreach (@_) {
+        unless (-d "$_") {
+            mkdir "$_";
+            print "Created $_\n";
+        }
+    }
+}
+
+sub add_missing_properties
+{
+    foreach (@$algorithms) {
+        my $id = $_->{id};
+        $algorithm_from_id->{$id} = $_;
+        if (exists $_->{labels}) {
+            my $labels = $_->{labels};
+            unless (exists $labels->{latex}) {
+                $labels->{latex} = $id;
+            }
+            unless (exists $labels->{gnuplot}) {
+                $labels->{gnuplot} = $id;
+            }
+        } else {
+            my $labels = {};
+            $labels->{latex} = $id;
+            $labels->{gnuplot} = $id;
+            $_->{labels} = $labels;
+        }
+    }
+}
 
 sub compute_ranges
 {
@@ -364,14 +391,13 @@ sub generate_gnuplot_global_all
     if ($graphics->{all}->{font_size}) {
         $font = "$font,$graphics->{all}->{font_size}";
     }
-    $font = qq("$font");
+    $font = qq(font "$font");
 
-    my $key = qq(font $font notitle);
+    my $key = $font;
     if ($graphics->{all}->{key}) {
         $key = "$key $graphics->{all}->{key}";
     } else {
-        # opaque vertical reverse Left outside right center box
-        $key = "$key opaque vertical noreverse Right top inside left box";
+        $key = "$key outside right vertical reverse Left top box";
     }
 
     $file->print("#!/usr/bin/gnuplot -persist\n",
@@ -385,23 +411,26 @@ sub generate_gnuplot_global_all
                  "set autoscale fix\n",
                  "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n");
 
-    my $quoted_path = qq("$path_graphics/global.eps");
-    $file->print("$terminal{eps} font $font\n",
-                 "set output $quoted_path\n");
+    $path = qq("$path_graphics/global.eps");
+    $file->print("$terminal{eps} $font\n",
+                 "set output $path\n");
     my @ids = map { $_->{id} } @$algorithms;
     my $type = $graphics->{all}->{helper} ? "all" : "raw";
     $file->print("plot \\\n",
                  join ", \\\n",
-                 (map { qq(  "$path_results/ecdf/global/$type/$_.dat" using 1:2 with lines title "$_"); }
+                 (map {
+                     my $label = qq("$algorithm_from_id->{$_}->{labels}->{gnuplot}");
+                     qq(  "$path_results/ecdf/global/$type/$_.dat" using 1:2 with lines title $label);
+                  }
                   sort_algorithms("$path_results/ecdf/global/raw", \@ids)));
     $file->print("\n");
-    $quoted_path = qq("$path_graphics/global.pdf");
-    $file->print("$terminal{pdf} font $font\n",
-                 "set output $quoted_path\n",
+    $path = qq("$path_graphics/global.pdf");
+    $file->print("$terminal{pdf} $font\n",
+                 "set output $path\n",
                  "replot\n");
-    $quoted_path = qq("$path_graphics/global.png");
-    $file->print("$terminal{png} font $font\n",
-                 "set output $quoted_path\n",
+    $path = qq("$path_graphics/global.png");
+    $file->print("$terminal{png} $font\n",
+                 "set output $path\n",
                  "replot\n");
     $file->close();
     system("chmod a+x global-all.gp");
@@ -433,35 +462,37 @@ sub generate_gnuplot_global_groups
         if ($group->{font_size}) {
             $font = "$font,$group->{font_size}";
         }
-        $font = qq("$font");
+        $font = qq(font "$font");
 
-        my $key = qq(font $font notitle);
+        my $key = $font;
         if ($group->{key}) {
             $key = "$key $group->{key}";
         } else {
-            # opaque vertical reverse Left outside right center box
-            $key = "$key opaque vertical noreverse Right top inside left box";
+            $key = "$key outside right vertical reverse Left top box";
         }
 
         $file->print("unset key\n",
                      "set key $key\n");
 
-        my $quoted_path = qq("$path_graphics/global-$group_id.eps");
-        $file->print("$terminal{eps} font $font\n",
-                     "set output $quoted_path\n");
+        $path = qq("$path_graphics/global-$group_id.eps");
+        $file->print("$terminal{eps} $font\n",
+                     "set output $path\n");
         my $type = $group->{helper} ? "groups/$group_id" : "raw";
         $file->print("plot \\\n",
                      join ", \\\n",
-                     (map { qq(  "$path_results/ecdf/global/$type/$_.dat" using 1:2 with lines title "$_"); }
+                     (map {
+                         my $label = qq("$algorithm_from_id->{$_}->{labels}->{gnuplot}");
+                         qq(  "$path_results/ecdf/global/$type/$_.dat" using 1:2 with lines title $label);
+                      }
                       sort_algorithms("$path_results/ecdf/global/raw", $group->{algorithms})));
         $file->print("\n");
-        $quoted_path = qq("$path_graphics/global-$group_id.pdf");
-        $file->print("$terminal{pdf} font $font\n",
-                     "set output $quoted_path\n",
+        $path = qq("$path_graphics/global-$group_id.pdf");
+        $file->print("$terminal{pdf} $font\n",
+                     "set output $path\n",
                      "replot\n");
-        $quoted_path = qq("$path_graphics/global-$group_id.png");
-        $file->print("$terminal{png} font $font\n",
-                     "set output $quoted_path\n",
+        $path = qq("$path_graphics/global-$group_id.png");
+        $file->print("$terminal{png} $font\n",
+                     "set output $path\n",
                      "replot\n\n");
     }
     $file->close();
@@ -482,14 +513,13 @@ sub generate_gnuplot_function_all
     if ($graphics->{all}->{font_size}) {
         $font = "$font,$graphics->{all}->{font_size}";
     }
-    $font = qq("$font");
+    $font = qq(font "$font");
 
-    my $key = qq(font $font notitle);
+    my $key = $font;
     if ($graphics->{all}->{key}) {
         $key = "$key $graphics->{all}->{key}";
     } else {
-        # opaque vertical reverse Left outside right center box
-        $key = "$key opaque vertical noreverse Right top inside left box";
+        $key = "$key outside right vertical reverse Left top box";
     }
 
     $file->print("#!/usr/bin/gnuplot -persist\n",
@@ -505,22 +535,26 @@ sub generate_gnuplot_function_all
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-        my $quoted = qq("$path_graphics/$function_id.eps");
-        $file->print("$terminal{eps} font $font\n",
-                     "set output $quoted\n");
+        $path = qq("$path_graphics/$function_id.eps");
+        $file->print("$terminal{eps} $font\n",
+                     "set output $path\n");
         my @ids = map { $_->{id} } @$algorithms;
         my $type = $graphics->{all}->{helper} ? "all" : "raw";
         $file->print("plot \\\n",
-                     join ", \\\n", (map { qq(  "$path_results/ecdf/$function_id/$type/$_.dat" using 1:2 with lines title "$_"); }
-                                     sort_algorithms("$path_results/ecdf/$function_id/raw", \@ids)));
+                     join ", \\\n",
+                     (map {
+                         my $label = qq("$algorithm_from_id->{$_}->{labels}->{gnuplot}");
+                         qq(  "$path_results/ecdf/$function_id/$type/$_.dat" using 1:2 with lines title $label);
+                      }
+                      sort_algorithms("$path_results/ecdf/$function_id/raw", \@ids)));
         $file->print("\n");
-        $quoted = qq("$path_graphics/$function_id.pdf");
-        $file->print("$terminal{pdf} font $font\n",
-                     "set output $quoted\n",
+        $path = qq("$path_graphics/$function_id.pdf");
+        $file->print("$terminal{pdf} $font\n",
+                     "set output $path\n",
                      "replot\n");
-        $quoted = qq("$path_graphics/$function_id.png");
-        $file->print("$terminal{png} font $font\n",
-                     "set output $quoted\n",
+        $path = qq("$path_graphics/$function_id.png");
+        $file->print("$terminal{png} $font\n",
+                     "set output $path\n",
                      "replot\n\n");
     }
 
@@ -554,34 +588,37 @@ sub generate_gnuplot_function_groups
             if ($group->{font_size}) {
                 $font = "$font,$group->{font_size}";
             }
-            $font = qq("$font");
+            $font = qq(font "$font");
 
-            my $key = qq(font $font notitle);
+            my $key = $font;
             if ($group->{key}) {
                 $key = "$key $group->{key}";
             } else {
-                # opaque vertical reverse Left outside right center box
-                $key = "$key opaque vertical noreverse Right top inside left box";
+                $key = "$key outside right vertical reverse Left top box";
             }
 
             $file->print("unset key\n",
                          "set key $key\n");
 
-            my $quoted_path = qq("$path_graphics/$function_id-$group_id.eps");
-            $file->print("$terminal{eps} font $font\n",
-                         "set output $quoted_path\n");
+            $path = qq("$path_graphics/$function_id-$group_id.eps");
+            $file->print("$terminal{eps} $font\n",
+                         "set output $path\n");
             my $type = $group->{helper} ? "groups/$group_id" : "raw";
             $file->print("plot \\\n",
-                         join ", \\\n", (map { qq(  "$path_results/ecdf/$function_id/$type/$_.dat" using 1:2 with lines title "$_"); }
-                                         sort_algorithms("$path_results/ecdf/$function_id/raw", $group->{algorithms})));
+                         join ", \\\n",
+                         (map {
+                             my $label = qq("$algorithm_from_id->{$_}->{labels}->{gnuplot}");
+                             qq(  "$path_results/ecdf/$function_id/$type/$_.dat" using 1:2 with lines title $label);
+                          }
+                          sort_algorithms("$path_results/ecdf/$function_id/raw", $group->{algorithms})));
             $file->print("\n");
-            $quoted_path = qq("$path_graphics/$function_id-$group_id.pdf");
-            $file->print("$terminal{pdf} font $font\n",
-                         "set output $quoted_path\n",
+            $path = qq("$path_graphics/$function_id-$group_id.pdf");
+            $file->print("$terminal{pdf} $font\n",
+                         "set output $path\n",
                          "replot\n");
-            $quoted_path = qq("$path_graphics/$function_id-$group_id.png");
-            $file->print("$terminal{png} font $font\n",
-                         "set output $quoted_path\n",
+            $path = qq("$path_graphics/$function_id-$group_id.png");
+            $file->print("$terminal{png} $font\n",
+                         "set output $path\n",
                          "replot\n\n");
         }
     }
