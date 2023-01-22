@@ -74,7 +74,7 @@ my $budget            = $obj->{budget};
 my $graphics          = $obj->{graphics};
 my $groups            = $graphics->{groups};
 
-# Hash indexed by algorithm
+# Hash indexed by algorithm ids
 my $algorithm_from_id = {};
 
 #
