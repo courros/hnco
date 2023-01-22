@@ -23,6 +23,7 @@ Perl scripts:
 - hnco-benchmark-stat.pl: implemented optional algorithm property labels
 - hnco-observable-evolution-stat.pl: implemented optional function property label
 - hnco-observable-evolution-stat.pl: implemented optional graphics property transform
+- hnco-ecdf-stat.pl: implemented optional algorithm property labels
 
 Experiments:
 - Rerun experiment runtime
