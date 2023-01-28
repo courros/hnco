@@ -67,11 +67,12 @@ my $obj = from_json(read_file($plan));
 #
 
 my $algorithms        = $obj->{algorithms};
+my $budget            = $obj->{budget};
 my $functions         = $obj->{functions};
+my $graphics          = $obj->{graphics};
 my $num_runs          = $obj->{num_runs};
 my $num_targets       = $obj->{num_targets};
-my $budget            = $obj->{budget};
-my $graphics          = $obj->{graphics};
+
 my $groups            = $graphics->{groups};
 
 # Hash indexed by algorithm ids
@@ -409,7 +410,14 @@ sub generate_gnuplot_global_all
                  "set format x ", qq("10^{%L}"), "\n",
                  "set logscale x\n",
                  "set autoscale fix\n",
-                 "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n");
+                 "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n");
+
+    if ($graphics->{all}->{xrange}) {
+        $file->print("set xrange $graphics->{all}->{xrange}\n");
+    } else {
+        $file->print("unset xrange\n");
+    }
+    $file->print("\n");
 
     $path = qq("$path_graphics/global.eps");
     $file->print("$terminal{eps} $font\n",
@@ -474,6 +482,13 @@ sub generate_gnuplot_global_groups
         $file->print("unset key\n",
                      "set key $key\n");
 
+        if ($group->{xrange}) {
+            $file->print("set xrange $group->{xrange}\n");
+        } else {
+            $file->print("unset xrange\n");
+        }
+        $file->print("\n");
+
         $path = qq("$path_graphics/global-$group_id.eps");
         $file->print("$terminal{eps} $font\n",
                      "set output $path\n");
@@ -531,7 +546,14 @@ sub generate_gnuplot_function_all
                  "set format x ", qq("10^{%L}"), "\n",
                  "set logscale x\n",
                  "set autoscale fix\n",
-                 "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n");
+                 "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n");
+
+    if ($graphics->{all}->{xrange}) {
+        $file->print("set xrange $graphics->{all}->{xrange}\n");
+    } else {
+        $file->print("unset xrange\n");
+    }
+    $file->print("\n");
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
@@ -599,6 +621,13 @@ sub generate_gnuplot_function_groups
 
             $file->print("unset key\n",
                          "set key $key\n");
+
+            if ($group->{xrange}) {
+                $file->print("set xrange $group->{xrange}\n");
+            } else {
+                $file->print("unset xrange\n");
+            }
+            $file->print("\n");
 
             $path = qq("$path_graphics/$function_id-$group_id.eps");
             $file->print("$terminal{eps} $font\n",
