@@ -1,4 +1,4 @@
-* Version 0.22 (unreleased)
+* Version 0.22 (2023-02-05)
 
 Library:
 - CommandLineApplication::init() prints a default constructed HncoOptions (single and multi)
