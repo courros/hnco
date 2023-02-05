@@ -123,7 +123,7 @@ protected:
   void init() override;
 
   /// Single iteration
-  void iterate();
+  void iterate() override;
 
   /// Log
   void log() override;
