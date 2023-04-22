@@ -14,394 +14,518 @@ class HncoOptions {
   std::string _exec_name;
 
   /// Name Version
-  std::string _version;
+  std::string _version = "0.23";
+
+  enum {
+    OPTION_HELP=256,
+    OPTION_HELP_BM,
+    OPTION_HELP_EA,
+    OPTION_HELP_EDA,
+    OPTION_HELP_FP,
+    OPTION_HELP_HEA,
+    OPTION_HELP_LS,
+    OPTION_HELP_MAP,
+    OPTION_HELP_PN,
+    OPTION_HELP_REP,
+    OPTION_HELP_SA,
+    OPTION_VERSION,
+    OPTION_ALGORITHM,
+    OPTION_BM_MC_RESET_STRATEGY,
+    OPTION_BM_NUM_GS_CYCLES,
+    OPTION_BM_NUM_GS_STEPS,
+    OPTION_BM_SAMPLING,
+    OPTION_BUDGET,
+    OPTION_BV_SIZE,
+    OPTION_DESCRIPTION_PATH,
+    OPTION_EA_CROSSOVER_BIAS,
+    OPTION_EA_CROSSOVER_PROBABILITY,
+    OPTION_EA_LAMBDA,
+    OPTION_EA_MU,
+    OPTION_EA_MUTATION_RATE,
+    OPTION_EA_MUTATION_RATE_MAX,
+    OPTION_EA_MUTATION_RATE_MIN,
+    OPTION_EA_SUCCESS_RATIO,
+    OPTION_EA_TOURNAMENT_SIZE,
+    OPTION_EA_UPDATE_STRENGTH,
+    OPTION_EXPRESSION,
+    OPTION_FN_NAME,
+    OPTION_FN_NUM_TRAPS,
+    OPTION_FN_PREFIX_LENGTH,
+    OPTION_FN_THRESHOLD,
+    OPTION_FP_EXPRESSION,
+    OPTION_FP_LOWER_BOUND,
+    OPTION_FP_NUM_BITS,
+    OPTION_FP_PRECISION,
+    OPTION_FP_UPPER_BOUND,
+    OPTION_FUNCTION,
+    OPTION_HEA_RESET_PERIOD,
+    OPTION_LEARNING_RATE,
+    OPTION_MAP,
+    OPTION_MAP_INPUT_SIZE,
+    OPTION_MAP_PATH,
+    OPTION_MAP_TS_LENGTH,
+    OPTION_MAP_TS_SAMPLING_MODE,
+    OPTION_NEIGHBORHOOD,
+    OPTION_NEIGHBORHOOD_ITERATOR,
+    OPTION_NOISE_STDDEV,
+    OPTION_NUM_ITERATIONS,
+    OPTION_NUM_THREADS,
+    OPTION_PATH,
+    OPTION_PN_MUTATION_RATE,
+    OPTION_PN_NEIGHBORHOOD,
+    OPTION_PN_RADIUS,
+    OPTION_POPULATION_SIZE,
+    OPTION_PV_LOG_NUM_COMPONENTS,
+    OPTION_RADIUS,
+    OPTION_REP_CATEGORICAL_REPRESENTATION,
+    OPTION_REP_NUM_ADDITIONAL_BITS,
+    OPTION_RESULTS_PATH,
+    OPTION_RLS_PATIENCE,
+    OPTION_SA_BETA_RATIO,
+    OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY,
+    OPTION_SA_NUM_TRANSITIONS,
+    OPTION_SA_NUM_TRIALS,
+    OPTION_SEED,
+    OPTION_SELECTION_SIZE,
+    OPTION_SOLUTION_PATH,
+    OPTION_TARGET,
+    OPTION_ADDITIVE_GAUSSIAN_NOISE,
+    OPTION_BM_LOG_NORM_1,
+    OPTION_BM_LOG_NORM_INFINITE,
+    OPTION_BM_NEGATIVE_POSITIVE_SELECTION,
+    OPTION_CACHE,
+    OPTION_CACHE_BUDGET,
+    OPTION_CONCRETE_SOLUTION,
+    OPTION_EA_ALLOW_NO_MUTATION,
+    OPTION_EA_LOG_MUTATION_RATE,
+    OPTION_FN_DISPLAY,
+    OPTION_FN_GET_BV_SIZE,
+    OPTION_FN_GET_MAXIMUM,
+    OPTION_FN_HAS_KNOWN_MAXIMUM,
+    OPTION_FN_PROVIDES_INCREMENTAL_EVALUATION,
+    OPTION_FN_WALSH_TRANSFORM,
+    OPTION_HEA_BOUND_MOMENT,
+    OPTION_HEA_LOG_DELTA_NORM,
+    OPTION_HEA_LOG_HERDING_ERROR,
+    OPTION_HEA_LOG_TARGET,
+    OPTION_HEA_LOG_TARGET_NORM,
+    OPTION_HEA_RANDOMIZE_BIT_ORDER,
+    OPTION_INCREMENTAL_EVALUATION,
+    OPTION_LOAD_SOLUTION,
+    OPTION_LOG_IMPROVEMENT,
+    OPTION_MAP_DISPLAY,
+    OPTION_MAP_RANDOM,
+    OPTION_MAP_SURJECTIVE,
+    OPTION_MMAS_STRICT,
+    OPTION_NEGATION,
+    OPTION_PARSED_MODIFIER,
+    OPTION_PN_ALLOW_NO_MUTATION,
+    OPTION_PRINT_DEFAULT_PARAMETERS,
+    OPTION_PRINT_DESCRIPTION,
+    OPTION_PRINT_PARAMETERS,
+    OPTION_PRINT_RESULTS,
+    OPTION_PRINT_SOLUTION,
+    OPTION_PRIOR_NOISE,
+    OPTION_PV_LOG_ENTROPY,
+    OPTION_PV_LOG_PV,
+    OPTION_RECORD_EVALUATION_TIME,
+    OPTION_RECORD_TOTAL_TIME,
+    OPTION_RESTART,
+    OPTION_RLS_STRICT,
+    OPTION_RW_LOG_VALUE,
+    OPTION_SAVE_DESCRIPTION,
+    OPTION_SAVE_RESULTS,
+    OPTION_SAVE_SOLUTION,
+    OPTION_STOP_ON_MAXIMUM,
+    OPTION_STOP_ON_TARGET
+  };
 
   /// Type of algorithm
-  int _algorithm;
-  bool _opt_algorithm;
+  int _algorithm = 100;
+  bool _opt_algorithm = false;
 
   /// Markov chain reset strategy
-  int _bm_mc_reset_strategy;
-  bool _opt_bm_mc_reset_strategy;
+  int _bm_mc_reset_strategy = 1;
+  bool _opt_bm_mc_reset_strategy = false;
 
   /// Number of Gibbs sampler cycles per bit vector
-  int _bm_num_gs_cycles;
-  bool _opt_bm_num_gs_cycles;
+  int _bm_num_gs_cycles = 1;
+  bool _opt_bm_num_gs_cycles = false;
 
   /// Number of Gibbs sampler steps per bit vector
-  int _bm_num_gs_steps;
-  bool _opt_bm_num_gs_steps;
+  int _bm_num_gs_steps = 100;
+  bool _opt_bm_num_gs_steps = false;
 
   /// Sampling mode for the Boltzmann machine
-  int _bm_sampling;
-  bool _opt_bm_sampling;
+  int _bm_sampling = 1;
+  bool _opt_bm_sampling = false;
 
   /// Number of allowed function evaluations (<= 0 means indefinite)
-  int _budget;
-  bool _opt_budget;
+  int _budget = 10000;
+  bool _opt_budget = false;
 
   /// Size of bit vectors
-  int _bv_size;
-  bool _opt_bv_size;
+  int _bv_size = 100;
+  bool _opt_bv_size = false;
 
   /// Path of the description file
-  std::string _description_path;
-  bool _opt_description_path;
+  std::string _description_path = "description.txt";
+  bool _opt_description_path = false;
 
   /// Crossover bias
-  double _ea_crossover_bias;
-  bool _opt_ea_crossover_bias;
+  double _ea_crossover_bias = 0.5;
+  bool _opt_ea_crossover_bias = false;
 
   /// Crossover probability
-  double _ea_crossover_probability;
-  bool _opt_ea_crossover_probability;
+  double _ea_crossover_probability = 0.5;
+  bool _opt_ea_crossover_probability = false;
 
   /// Offspring population size
-  int _ea_lambda;
-  bool _opt_ea_lambda;
+  int _ea_lambda = 100;
+  bool _opt_ea_lambda = false;
 
   /// Parent population size
-  int _ea_mu;
-  bool _opt_ea_mu;
+  int _ea_mu = 10;
+  bool _opt_ea_mu = false;
 
   /// Mutation rate relative to bv_size (fixed or initial value)
-  double _ea_mutation_rate;
-  bool _opt_ea_mutation_rate;
+  double _ea_mutation_rate = 1;
+  bool _opt_ea_mutation_rate = false;
 
   /// Maximum mutation rate
-  double _ea_mutation_rate_max;
-  bool _opt_ea_mutation_rate_max;
+  double _ea_mutation_rate_max = 1;
+  bool _opt_ea_mutation_rate_max = false;
 
   /// Minimum mutation rate
-  double _ea_mutation_rate_min;
-  bool _opt_ea_mutation_rate_min;
+  double _ea_mutation_rate_min = 0.01;
+  bool _opt_ea_mutation_rate_min = false;
 
   /// Success rate for for self-adjusting mutation rate
-  double _ea_success_ratio;
-  bool _opt_ea_success_ratio;
+  double _ea_success_ratio = 4;
+  bool _opt_ea_success_ratio = false;
 
   /// Tournament size
-  int _ea_tournament_size;
-  bool _opt_ea_tournament_size;
+  int _ea_tournament_size = 2;
+  bool _opt_ea_tournament_size = false;
 
   /// Update strength for self-adjusting mutation rate
-  double _ea_update_strength;
-  bool _opt_ea_update_strength;
+  double _ea_update_strength = 1.01;
+  bool _opt_ea_update_strength = false;
 
   /// Expression of the variable x
-  std::string _expression;
-  bool _opt_expression;
+  std::string _expression = "x";
+  bool _opt_expression = false;
 
   /// Name of the function in the dynamic library
-  std::string _fn_name;
-  bool _opt_fn_name;
+  std::string _fn_name = "noname";
+  bool _opt_fn_name = false;
 
   /// Number of traps
-  int _fn_num_traps;
-  bool _opt_fn_num_traps;
+  int _fn_num_traps = 10;
+  bool _opt_fn_num_traps = false;
 
   /// Prefix length for long path
-  int _fn_prefix_length;
-  bool _opt_fn_prefix_length;
+  int _fn_prefix_length = 2;
+  bool _opt_fn_prefix_length = false;
 
   /// Threshold (in bits) for Jump, Four Peaks, and Six Peaks
-  int _fn_threshold;
-  bool _opt_fn_threshold;
+  int _fn_threshold = 10;
+  bool _opt_fn_threshold = false;
 
   /// Expression to parse
-  std::string _fp_expression;
-  bool _opt_fp_expression;
+  std::string _fp_expression = "(1-x)^2+100*(y-x^2)^2";
+  bool _opt_fp_expression = false;
 
   /// Lower bound
-  double _fp_lower_bound;
-  bool _opt_fp_lower_bound;
+  double _fp_lower_bound = -2;
+  bool _opt_fp_lower_bound = false;
 
   /// Number of bits in the dyadic representation of a number
-  int _fp_num_bits;
-  bool _opt_fp_num_bits;
+  int _fp_num_bits = 8;
+  bool _opt_fp_num_bits = false;
 
   /// Precision of the dyadic representation of a number
-  double _fp_precision;
-  bool _opt_fp_precision;
+  double _fp_precision = 0.01;
+  bool _opt_fp_precision = false;
 
   /// Upper bound
-  double _fp_upper_bound;
-  bool _opt_fp_upper_bound;
+  double _fp_upper_bound = 2;
+  bool _opt_fp_upper_bound = false;
 
   /// Type of function
-  int _function;
-  bool _opt_function;
+  int _function = 0;
+  bool _opt_function = false;
 
   /// Reset period (<= 0 means no reset)
-  int _hea_reset_period;
-  bool _opt_hea_reset_period;
+  int _hea_reset_period = 0;
+  bool _opt_hea_reset_period = false;
 
   /// Learning rate
-  double _learning_rate;
-  bool _opt_learning_rate;
+  double _learning_rate = 0.001;
+  bool _opt_learning_rate = false;
 
   /// Type of map
-  int _map;
-  bool _opt_map;
+  int _map = 0;
+  bool _opt_map = false;
 
   /// Input size of linear and affine maps
-  int _map_input_size;
-  bool _opt_map_input_size;
+  int _map_input_size = 100;
+  bool _opt_map_input_size = false;
 
   /// Path of a map file
-  std::string _map_path;
-  bool _opt_map_path;
+  std::string _map_path = "map.txt";
+  bool _opt_map_path = false;
 
   /// Transvection sequence length
-  int _map_ts_length;
-  bool _opt_map_ts_length;
+  int _map_ts_length = 10;
+  bool _opt_map_ts_length = false;
 
   /// Transvection sequence sampling mode
-  int _map_ts_sampling_mode;
-  bool _opt_map_ts_sampling_mode;
+  int _map_ts_sampling_mode = 0;
+  bool _opt_map_ts_sampling_mode = false;
 
   /// Type of neighborhood
-  int _neighborhood;
-  bool _opt_neighborhood;
+  int _neighborhood = 0;
+  bool _opt_neighborhood = false;
 
   /// Type of neighborhood iterator
-  int _neighborhood_iterator;
-  bool _opt_neighborhood_iterator;
+  int _neighborhood_iterator = 0;
+  bool _opt_neighborhood_iterator = false;
 
   /// Noise standard deviation
-  double _noise_stddev;
-  bool _opt_noise_stddev;
+  double _noise_stddev = 1;
+  bool _opt_noise_stddev = false;
 
   /// Number of iterations (<= 0 means indefinite)
-  int _num_iterations;
-  bool _opt_num_iterations;
+  int _num_iterations = 0;
+  bool _opt_num_iterations = false;
 
   /// Number of threads
-  int _num_threads;
-  bool _opt_num_threads;
+  int _num_threads = 1;
+  bool _opt_num_threads = false;
 
   /// Path of a function file
-  std::string _path;
-  bool _opt_path;
+  std::string _path = "function.txt";
+  bool _opt_path = false;
 
   /// Mutation rate relative to bv_size
-  double _pn_mutation_rate;
-  bool _opt_pn_mutation_rate;
+  double _pn_mutation_rate = 1;
+  bool _opt_pn_mutation_rate = false;
 
   /// Type of neighborhood
-  int _pn_neighborhood;
-  bool _opt_pn_neighborhood;
+  int _pn_neighborhood = 0;
+  bool _opt_pn_neighborhood = false;
 
   /// Radius of Hamming ball or sphere
-  int _pn_radius;
-  bool _opt_pn_radius;
+  int _pn_radius = 2;
+  bool _opt_pn_radius = false;
 
   /// Population size
-  int _population_size;
-  bool _opt_population_size;
+  int _population_size = 10;
+  bool _opt_population_size = false;
 
   /// Number of probability vector components to log
-  int _pv_log_num_components;
-  bool _opt_pv_log_num_components;
+  int _pv_log_num_components = 5;
+  bool _opt_pv_log_num_components = false;
 
   /// Radius of Hamming ball or sphere
-  int _radius;
-  bool _opt_radius;
+  int _radius = 2;
+  bool _opt_radius = false;
 
   /// Categorical representation
-  int _rep_categorical_representation;
-  bool _opt_rep_categorical_representation;
+  int _rep_categorical_representation = 0;
+  bool _opt_rep_categorical_representation = false;
 
   /// Number of additional bits per element for permutation representation
-  int _rep_num_additional_bits;
-  bool _opt_rep_num_additional_bits;
+  int _rep_num_additional_bits = 2;
+  bool _opt_rep_num_additional_bits = false;
 
   /// Path of the results file
-  std::string _results_path;
-  bool _opt_results_path;
+  std::string _results_path = "results.json";
+  bool _opt_results_path = false;
 
   /// Number of consecutive rejected moves before ending the search (<= 0 means infinite)
-  int _rls_patience;
-  bool _opt_rls_patience;
+  int _rls_patience = 50;
+  bool _opt_rls_patience = false;
 
   /// Ratio for beta or inverse temperature
-  double _sa_beta_ratio;
-  bool _opt_sa_beta_ratio;
+  double _sa_beta_ratio = 1.2;
+  bool _opt_sa_beta_ratio = false;
 
   /// Initial acceptance probability
-  double _sa_initial_acceptance_probability;
-  bool _opt_sa_initial_acceptance_probability;
+  double _sa_initial_acceptance_probability = 0.6;
+  bool _opt_sa_initial_acceptance_probability = false;
 
   /// Number of accepted transitions before annealing
-  int _sa_num_transitions;
-  bool _opt_sa_num_transitions;
+  int _sa_num_transitions = 50;
+  bool _opt_sa_num_transitions = false;
 
   /// Number of trials to estimate initial inverse temperature
-  int _sa_num_trials;
-  bool _opt_sa_num_trials;
+  int _sa_num_trials = 100;
+  bool _opt_sa_num_trials = false;
 
   /// Seed for the random number generator
-  unsigned _seed;
-  bool _opt_seed;
+  unsigned _seed = 0;
+  bool _opt_seed = false;
 
   /// Selection size (number of selected individuals)
-  int _selection_size;
-  bool _opt_selection_size;
+  int _selection_size = 1;
+  bool _opt_selection_size = false;
 
   /// Path of the solution file
-  std::string _solution_path;
-  bool _opt_solution_path;
+  std::string _solution_path = "solution.txt";
+  bool _opt_solution_path = false;
 
   /// Target
-  double _target;
-  bool _opt_target;
+  double _target = 100;
+  bool _opt_target = false;
 
   /// Additive Gaussian noise
-  bool _additive_gaussian_noise;
+  bool _additive_gaussian_noise = false;
 
   /// Log 1-norm of the parameters
-  bool _bm_log_norm_1;
+  bool _bm_log_norm_1 = false;
 
   /// Log infinite norm of the parameters
-  bool _bm_log_norm_infinite;
+  bool _bm_log_norm_infinite = false;
 
   /// Negative and positive selection
-  bool _bm_negative_positive_selection;
+  bool _bm_negative_positive_selection = false;
 
   /// Cache function evaluations
-  bool _cache;
+  bool _cache = false;
 
   /// Set cache on budget
-  bool _cache_budget;
+  bool _cache_budget = false;
 
   /// Print or save the solution in the domain of the concrete function
-  bool _concrete_solution;
+  bool _concrete_solution = false;
 
   /// Allow no mutation with standard bit mutation
-  bool _ea_allow_no_mutation;
+  bool _ea_allow_no_mutation = false;
 
   /// Log mutation rate
-  bool _ea_log_mutation_rate;
+  bool _ea_log_mutation_rate = false;
 
   /// Display the function and exit
-  bool _fn_display;
+  bool _fn_display = false;
 
   /// Print the size of bit vectors
-  bool _fn_get_bv_size;
+  bool _fn_get_bv_size = false;
 
   /// If the maximum is known then print it and exit with status 0 else exit with status 1
-  bool _fn_get_maximum;
+  bool _fn_get_maximum = false;
 
   /// Does the function have a known maximum?
-  bool _fn_has_known_maximum;
+  bool _fn_has_known_maximum = false;
 
   /// Does the function provide incremental evaluation?
-  bool _fn_provides_incremental_evaluation;
+  bool _fn_provides_incremental_evaluation = false;
 
   /// Compute the Walsh transform of the function
-  bool _fn_walsh_transform;
+  bool _fn_walsh_transform = false;
 
   /// Bound moment after update
-  bool _hea_bound_moment;
+  bool _hea_bound_moment = false;
 
   /// Log delta (moment increment) 2-norm
-  bool _hea_log_delta_norm;
+  bool _hea_log_delta_norm = false;
 
   /// Log herding error (moment discrepancy)
-  bool _hea_log_herding_error;
+  bool _hea_log_herding_error = false;
 
   /// Log target moment as a symmetric matrix
-  bool _hea_log_target;
+  bool _hea_log_target = false;
 
   /// Log target 2-norm (distance to uniform moment)
-  bool _hea_log_target_norm;
+  bool _hea_log_target_norm = false;
 
   /// Randomize bit order
-  bool _hea_randomize_bit_order;
+  bool _hea_randomize_bit_order = false;
 
   /// Incremental evaluation
-  bool _incremental_evaluation;
+  bool _incremental_evaluation = false;
 
   /// Load a solution from a file
-  bool _load_solution;
+  bool _load_solution = false;
 
   /// Log improvement
-  bool _log_improvement;
+  bool _log_improvement = false;
 
   /// Display the map and exit
-  bool _map_display;
+  bool _map_display = false;
 
   /// Sample a random map
-  bool _map_random;
+  bool _map_random = false;
 
   /// Ensure that the sampled linear or affine map is surjective
-  bool _map_surjective;
+  bool _map_surjective = false;
 
   /// Strict (>) max-min ant system
-  bool _mmas_strict;
+  bool _mmas_strict = false;
 
   /// Negation (hence minimization) of the function
-  bool _negation;
+  bool _negation = false;
 
   /// Parsed modifier
-  bool _parsed_modifier;
+  bool _parsed_modifier = false;
 
   /// Allow no mutation with standard bit mutation
-  bool _pn_allow_no_mutation;
+  bool _pn_allow_no_mutation = false;
 
   /// Print the default parameters and exit
-  bool _print_default_parameters;
+  bool _print_default_parameters = false;
 
   /// Print a description of the solution
-  bool _print_description;
+  bool _print_description = false;
 
   /// Print the parameters
-  bool _print_parameters;
+  bool _print_parameters = false;
 
   /// Print results
-  bool _print_results;
+  bool _print_results = false;
 
   /// Print the solution
-  bool _print_solution;
+  bool _print_solution = false;
 
   /// Prior noise
-  bool _prior_noise;
+  bool _prior_noise = false;
 
   /// Log entropy of probability vector
-  bool _pv_log_entropy;
+  bool _pv_log_entropy = false;
 
   /// Log probability vector
-  bool _pv_log_pv;
+  bool _pv_log_pv = false;
 
   /// Record evaluation time
-  bool _record_evaluation_time;
+  bool _record_evaluation_time = false;
 
   /// Record total time
-  bool _record_total_time;
+  bool _record_total_time = false;
 
   /// Restart any algorithm an indefinite number of times
-  bool _restart;
+  bool _restart = false;
 
   /// Strict (>) random local search
-  bool _rls_strict;
+  bool _rls_strict = false;
 
   /// Log bit vector value during random walk
-  bool _rw_log_value;
+  bool _rw_log_value = false;
 
   /// Save a description of the solution in a file
-  bool _save_description;
+  bool _save_description = false;
 
   /// Save the results in a file
-  bool _save_results;
+  bool _save_results = false;
 
   /// Save the solution in a file
-  bool _save_solution;
+  bool _save_solution = false;
 
   /// Stop on maximum
-  bool _stop_on_maximum;
+  bool _stop_on_maximum = false;
 
   /// Stop on target
-  bool _stop_on_target;
+  bool _stop_on_target = false;
 
   /// Print help message
   void print_help(std::ostream& stream) const;
@@ -445,10 +569,7 @@ public:
   HncoOptions();
 
   /// Constructor
-  HncoOptions(int argc, char *argv[]);
-
-  /// Constructor
-  HncoOptions(int argc, char *argv[], bool blocking);
+  HncoOptions(int argc, char *argv[], bool ignore_bad_options = false);
 
   /// Get algorithm
   int get_algorithm() const { return _algorithm; }
