@@ -61,6 +61,9 @@ public:
   /// Constructor
   MapgenOptions(int argc, char *argv[]);
 
+  /// Constructor
+  MapgenOptions(int argc, char *argv[], bool blocking);
+
   /// Get input_size
   int get_input_size() const { return _input_size; }
 

@@ -132,6 +132,9 @@ public:
   /// Constructor
   FfgenOptions(int argc, char *argv[]);
 
+  /// Constructor
+  FfgenOptions(int argc, char *argv[], bool blocking);
+
   /// Get bv_size
   int get_bv_size() const { return _bv_size; }
 

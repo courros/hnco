@@ -8,7 +8,7 @@ using namespace hnco::app;
 
 HncoOptions::HncoOptions():
   _exec_name("unknown"),
-  _version("0.22"),
+  _version("0.23"),
   _algorithm(100),
   _opt_algorithm(false),
   _bm_mc_reset_strategy(1),
@@ -182,7 +182,7 @@ HncoOptions::HncoOptions():
 
 HncoOptions::HncoOptions(int argc, char *argv[]):
   _exec_name(argv[0]),
-  _version("0.22"),
+  _version("0.23"),
   _algorithm(100),
   _opt_algorithm(false),
   _bm_mc_reset_strategy(1),
@@ -1112,7 +1112,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
 
 HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
   _exec_name(argv[0]),
-  _version("0.22"),
+  _version("0.23"),
   _algorithm(100),
   _opt_algorithm(false),
   _bm_mc_reset_strategy(1),
