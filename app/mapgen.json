@@ -29,7 +29,6 @@
         "seed":
         {
             "type": "int",
-            "value": 0,
             "description": "Seed for the random number generator"
         },
 
@@ -145,7 +144,7 @@
         {
             "optchar": "p",
             "type": "string",
-            "value": "map.txt",
+            "value": "map.dat",
             "description": "Path (relative or absolute) of a map file"
         }
 

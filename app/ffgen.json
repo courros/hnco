@@ -114,7 +114,6 @@
         "seed":
         {
             "type": "int",
-            "value": 0,
             "description": "Seed for the random number generator",
             "section": "gen"
         },
@@ -132,7 +131,7 @@
         {
             "optchar": "p",
             "type": "string",
-            "value": "function.txt",
+            "value": "function.dat",
             "description": "Path (relative or absolute) of a function file",
             "section": "gen"
         },
