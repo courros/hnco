@@ -40,18 +40,19 @@ my $obj = from_json(read_file($json));
 # Global variables
 #
 
-my $header     = $obj->{files}->{header};
-my $source     = $obj->{files}->{source};
-my $exec       = $obj->{files}->{exec};
-my $cppdefine  = $obj->{code}->{cppdefine};
-my $namespace  = join "::", @{ $obj->{code}->{namespace} };
-my $classname  = $obj->{code}->{classname};
-my $version    = $obj->{version};
-
-my $parameters = $obj->{parameters};
+my $code       = $obj->{code};
 my $flags      = $obj->{flags};
 my $order      = $obj->{order};
+my $parameters = $obj->{parameters};
 my $sections   = $obj->{sections};
+my $version    = $obj->{version};
+
+my $exec       = $obj->{files}->{exec};
+my $header     = $obj->{files}->{header};
+my $source     = $obj->{files}->{source};
+
+my $classname  = $code->{classname};
+my $namespace  = join "::", @{ $code->{namespace} };
 
 my %section_hash    = ();
 my @folded_sections = ();
@@ -93,13 +94,14 @@ sub generate_header
     my $file = IO::File->new($header, '>')
         or die "optgen.pl: generate_header: Cannot open $header\n";
 
+    my $cppdefine = $code->{cppdefine};
     $file->print(
 	"#ifndef $cppdefine\n",
 	"#define $cppdefine\n\n",
 	"#include <iostream>\n",
 	"#include <string>\n\n");
 
-    foreach (@{ $obj->{code}->{namespace} }) {
+    foreach (@{ $code->{namespace} }) {
         $file->print("namespace $_ {\n");
     }
     $file->print("\n");
@@ -139,10 +141,16 @@ sub generate_header
 
     foreach (sort(keys(%$parameters))) {
 	my $parameter = $parameters->{$_};
-        $file->print(
-            "  /// ", $parameter->{description}, "\n",
-            "  ", $type_conversion{$parameter->{type}}, " _$_ = ", ($parameter->{type} eq "string" ? qq("$parameter->{value}") : $parameter->{value}), ";\n",
-            "  bool _with_$_ = false;\n\n");
+        if (exists($parameter->{value})) {
+            $file->print(
+                "  /// ", $parameter->{description}, "\n",
+                "  ", $type_conversion{$parameter->{type}}, " _$_ = ", ($parameter->{type} eq "string" ? qq("$parameter->{value}") : $parameter->{value}), ";\n");
+        } else {
+            $file->print(
+                "  /// ", $parameter->{description}, "\n",
+                "  ", $type_conversion{$parameter->{type}}, " _$_;\n");
+        }
+        $file->print("  bool _with_$_ = false;\n\n");
     }
 
     #
@@ -205,7 +213,7 @@ sub generate_header
         "/// Print a header containing the parameter values\n",
         "std::ostream& operator<<(std::ostream& stream, const $classname& options);\n\n");
 
-    foreach (@{ $obj->{code}->{namespace} }) {
+    foreach (@{ $code->{namespace} }) {
         $file->print("}\n");
     }
     $file->print("\n#endif\n");
@@ -361,28 +369,33 @@ sub generate_source_constructor()
 sub generate_source_help_par
 {
     my $key = shift;
-    my $par = $parameters->{$key};
-    my $desc = $par->{description};
-    my $value = $par->{value};
-    my $type = $par->{type};
 
-    if ($type eq "string") {
-        $value = qq(\\"$value\\");
-    }
+    my $parameter = $parameters->{$key};
+    my $desc      = $parameter->{description};
+    my $type      = $parameter->{type};
 
     my $hyphen = $key;
     $hyphen =~ s/_/-/g;
 
-    if (exists($par->{optchar})) {
-	my $optchar = $par->{optchar};
-	print SRC "  stream << \"  -$optchar, --$hyphen (type $type, default to $value)\" << std::endl;\n";
+    my $default = "no default";
+    if (exists($parameter->{value})) {
+        my $value = $parameter->{value};
+        if ($type eq "string") {
+            $value = qq(\\"$value\\");
+        }
+        $default = "default to $value";
+    }
+
+    if (exists($parameter->{optchar})) {
+	my $optchar = $parameter->{optchar};
+	print SRC "  stream << \"  -$optchar, --$hyphen (type $type, $default)\" << std::endl;\n";
     } else {
-	print SRC "  stream << \"      --$hyphen (type $type, default to $value)\" << std::endl;\n";
+	print SRC "  stream << \"      --$hyphen (type $type, $default)\" << std::endl;\n";
     }
     print SRC "  stream << \"          $desc\" << std::endl;\n";
 
-    if (exists($par->{alternatives})) {
-	my $alternatives = $par->{alternatives};
+    if (exists($parameter->{alternatives})) {
+	my $alternatives = $parameter->{alternatives};
 	foreach (@$alternatives) {
 	    my $v = $_->{value};
 	    my $d = $_->{description};
@@ -421,7 +434,7 @@ sub generate_source_help_folded_section
 
 sub generate_source_help()
 {
-    my $classname = $obj->{code}->{classname};
+    my $classname = $code->{classname};
 
     print SRC
 	"void $classname\:\:print_help(std::ostream& stream) const\n",
@@ -429,16 +442,7 @@ sub generate_source_help()
         "  stream << ", qq("$obj->{description}"), " << std::endl << std::endl;\n",
         "  stream << ", qq("usage: "), " << _exec_name << ", qq(" [--help] [--version] [options]"), " << std::endl << std::endl;\n";
 
-    if (not $obj->{sections}) {
-	my @list = (keys(%$parameters), keys(%$flags));
-	foreach (sort(@list)) {
-	    if (exists($parameters->{$_})) {
-		generate_source_help_par $_;
-	    } else {
-		generate_source_help_flag $_;
-	    }
-	}
-    } else {
+    if ($obj->{sections}) {
 	foreach (@$order) {
             if (not $section_hash{$_}->{fold}) {
                 my $title = $section_hash{$_}->{title};
@@ -460,6 +464,15 @@ sub generate_source_help()
                 generate_source_help_folded_section($_);
             }
         }
+    } else {
+	my @list = (keys(%$parameters), keys(%$flags));
+	foreach (sort(@list)) {
+	    if (exists($parameters->{$_})) {
+		generate_source_help_par $_;
+	    } else {
+		generate_source_help_flag $_;
+	    }
+	}
     }
 
     print SRC "}\n\n";
@@ -498,36 +511,41 @@ sub generate_source_version()
 
 sub generate_source_stream()
 {
-    print SRC
-        "std::ostream& $namespace\:\:operator<<(std::ostream& stream, const $classname& options)\n",
-        "{\n";
+    my @lines = ();
 
-    foreach(sort(keys(%$parameters))) {
+    push @lines, "std::ostream& $namespace\:\:operator<<(std::ostream& stream, const $classname& options)";
+    push @lines, "{";
+
+    foreach (sort(keys(%$parameters))) {
 	my $parameter = $parameters->{$_};
         my $type = $parameter->{type};
-	if ($type eq "string") {
-            print SRC "  stream << \"# $_ = \\\"\" << options._$_ << \"\\\"\" << std::endl;\n";
-	} else {
-            print SRC "  stream << \"# $_ = \" << options._$_ << std::endl;\n";
-	}
+        if (exists($parameter->{value})) {
+            if ($type eq "string") {
+                push @lines, qq(  stream << "# $_ = \\"" << options._$_ << "\\"" << std::endl;);
+            } else {
+                push @lines, qq(  stream << "# $_ = " << options._$_ << std::endl;);
+            }
+        } else {
+            push @lines, "  if (options._with_$_)";
+            push @lines, "    stream << \"# $_ = \" << options._$_ << std::endl;";
+        }
     }
 
-    foreach(sort(keys(%$flags))) {
-	my $flag = $flags->{$_};
-	print SRC <<EOF;
-  if (options._$_)
-    stream << \"# $_\" << std::endl;
-EOF
+    foreach (sort(keys(%$flags))) {
+        push @lines, "  if (options._$_)";
+        push @lines, "    stream << \"# $_ \" << std::endl;";
     }
 
-    print SRC <<EOF;
-  stream << \"# last_parameter\" << std::endl;
-  stream << \"# exec_name = \" << options._exec_name << std::endl;
-  stream << \"# version = \" << options._version << std::endl;
-  stream << \"# Generated from $json\" << std::endl;
-  return stream;
-}
-EOF
+    push @lines, qq(  stream << "# last_parameter" << std::endl;);
+    push @lines, qq(  stream << "# exec_name = " << options._exec_name << std::endl;);
+    push @lines, qq(  stream << "# version = " << options._version << std::endl;);
+    push @lines, qq(  stream << "# Generated from $json" << std::endl;);
+    push @lines, "  return stream;";
+    push @lines, "}";
+
+    foreach (@lines) {
+        print SRC $_, "\n";
+    }
 }
 
 
