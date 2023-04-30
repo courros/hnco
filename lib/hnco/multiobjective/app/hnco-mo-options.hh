@@ -120,7 +120,7 @@ class HncoOptions {
   bool _with_num_threads = false;
 
   /// Path of a function file
-  std::string _path = "function.txt";
+  std::string _path = "function.dat";
   bool _with_path = false;
 
   /// Categorical representation
@@ -136,11 +136,11 @@ class HncoOptions {
   bool _with_results_path = false;
 
   /// Seed for the random number generator
-  unsigned _seed = 0;
+  unsigned _seed;
   bool _with_seed = false;
 
   /// Path of the solution file
-  std::string _solution_path = "solution.txt";
+  std::string _solution_path = "solution.dat";
   bool _with_solution_path = false;
 
   /// Allow no mutation with standard bit mutation
@@ -311,7 +311,12 @@ public:
   bool with_results_path() const { return _with_results_path; }
 
   /// Get the value of seed
-  unsigned get_seed() const { return _seed; }
+  unsigned get_seed() const {
+    if (_with_seed)
+      return _seed;
+    else
+      throw std::runtime_error("HncoOptions::get_seed: Parameter seed has no default value and has not been set");
+    }
 
   /// With parameter seed
   bool with_seed() const { return _with_seed; }

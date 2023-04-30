@@ -250,9 +250,9 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print the Pareto front" << std::endl;
   stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
   stream << "          Path of the results file" << std::endl;
-  stream << "      --seed (type unsigned, default to 0)" << std::endl;
+  stream << "      --seed (type unsigned, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
-  stream << "      --solution-path (type string, default to \"solution.txt\")" << std::endl;
+  stream << "      --solution-path (type string, default to \"solution.dat\")" << std::endl;
   stream << "          Path of the solution file" << std::endl;
   stream << std::endl;
   stream << "Functions" << std::endl;
@@ -272,7 +272,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            181: Integer multivariate function (objectives are separated by double colons ::)" << std::endl;
   stream << "            182: Complex multivariate function (squared magnitude of, objectives are separated by double colons ::)" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
-  stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
+  stream << "  -p, --path (type string, default to \"function.dat\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
   stream << std::endl;
   stream << "Algorithms" << std::endl;
@@ -368,24 +368,25 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# rep_categorical_representation = " << options._rep_categorical_representation << std::endl;
   stream << "# rep_num_additional_bits = " << options._rep_num_additional_bits << std::endl;
   stream << "# results_path = \"" << options._results_path << "\"" << std::endl;
-  stream << "# seed = " << options._seed << std::endl;
+  if (options._with_seed)
+    stream << "# seed = " << options._seed << std::endl;
   stream << "# solution_path = \"" << options._solution_path << "\"" << std::endl;
   if (options._ea_allow_no_mutation)
-    stream << "# ea_allow_no_mutation" << std::endl;
+    stream << "# ea_allow_no_mutation " << std::endl;
   if (options._fn_display)
-    stream << "# fn_display" << std::endl;
+    stream << "# fn_display " << std::endl;
   if (options._fn_get_bv_size)
-    stream << "# fn_get_bv_size" << std::endl;
+    stream << "# fn_get_bv_size " << std::endl;
   if (options._fn_get_output_size)
-    stream << "# fn_get_output_size" << std::endl;
+    stream << "# fn_get_output_size " << std::endl;
   if (options._print_default_parameters)
-    stream << "# print_default_parameters" << std::endl;
+    stream << "# print_default_parameters " << std::endl;
   if (options._print_description)
-    stream << "# print_description" << std::endl;
+    stream << "# print_description " << std::endl;
   if (options._print_parameters)
-    stream << "# print_parameters" << std::endl;
+    stream << "# print_parameters " << std::endl;
   if (options._print_pareto_front)
-    stream << "# print_pareto_front" << std::endl;
+    stream << "# print_pareto_front " << std::endl;
   stream << "# last_parameter" << std::endl;
   stream << "# exec_name = " << options._exec_name << std::endl;
   stream << "# version = " << options._version << std::endl;

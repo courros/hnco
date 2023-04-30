@@ -912,7 +912,7 @@ public:
     if (_with_seed)
       return _seed;
     else
-      throw std::runtime_error("HncoOptions::get_seed: Parameter seed has no default value yet has not been set");
+      throw std::runtime_error("HncoOptions::get_seed: Parameter seed has no default value and has not been set");
     }
 
   /// With parameter seed
