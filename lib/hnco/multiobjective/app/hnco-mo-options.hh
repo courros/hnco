@@ -15,119 +15,157 @@ class HncoOptions {
   std::string _exec_name;
 
   /// Name Version
-  std::string _version;
+  std::string _version = "0.23";
+
+  enum {
+    OPTION_HELP=256,
+    OPTION_HELP_EA,
+    OPTION_HELP_FP,
+    OPTION_HELP_REP,
+    OPTION_VERSION,
+    OPTION_ALGORITHM,
+    OPTION_BV_SIZE,
+    OPTION_DESCRIPTION_PATH,
+    OPTION_EA_CROSSOVER_PROBABILITY,
+    OPTION_EA_MU,
+    OPTION_EA_MUTATION_RATE,
+    OPTION_EA_TOURNAMENT_SIZE,
+    OPTION_FN_NAME,
+    OPTION_FP_EXPRESSION,
+    OPTION_FP_LOWER_BOUND,
+    OPTION_FP_NUM_BITS,
+    OPTION_FP_PRECISION,
+    OPTION_FP_UPPER_BOUND,
+    OPTION_FUNCTION,
+    OPTION_NUM_ITERATIONS,
+    OPTION_NUM_THREADS,
+    OPTION_PATH,
+    OPTION_REP_CATEGORICAL_REPRESENTATION,
+    OPTION_REP_NUM_ADDITIONAL_BITS,
+    OPTION_RESULTS_PATH,
+    OPTION_SEED,
+    OPTION_SOLUTION_PATH,
+    OPTION_EA_ALLOW_NO_MUTATION,
+    OPTION_FN_DISPLAY,
+    OPTION_FN_GET_BV_SIZE,
+    OPTION_FN_GET_OUTPUT_SIZE,
+    OPTION_PRINT_DEFAULT_PARAMETERS,
+    OPTION_PRINT_DESCRIPTION,
+    OPTION_PRINT_PARAMETERS,
+    OPTION_PRINT_PARETO_FRONT
+  };
 
   /// Type of algorithm
-  int _algorithm;
-  bool _opt_algorithm;
+  int _algorithm = 1400;
+  bool _with_algorithm = false;
 
   /// Size of bit vectors
-  int _bv_size;
-  bool _opt_bv_size;
+  int _bv_size = 100;
+  bool _with_bv_size = false;
 
   /// Path of the description file
-  std::string _description_path;
-  bool _opt_description_path;
+  std::string _description_path = "description.txt";
+  bool _with_description_path = false;
 
   /// Crossover probability
-  double _ea_crossover_probability;
-  bool _opt_ea_crossover_probability;
+  double _ea_crossover_probability = 0.8;
+  bool _with_ea_crossover_probability = false;
 
   /// Parent population size
-  int _ea_mu;
-  bool _opt_ea_mu;
+  int _ea_mu = 100;
+  bool _with_ea_mu = false;
 
   /// Mutation rate relative to bv_size
-  double _ea_mutation_rate;
-  bool _opt_ea_mutation_rate;
+  double _ea_mutation_rate = 1;
+  bool _with_ea_mutation_rate = false;
 
   /// Tournament size
-  int _ea_tournament_size;
-  bool _opt_ea_tournament_size;
+  int _ea_tournament_size = 2;
+  bool _with_ea_tournament_size = false;
 
   /// Name of the function in the dynamic library
-  std::string _fn_name;
-  bool _opt_fn_name;
+  std::string _fn_name = "noname";
+  bool _with_fn_name = false;
 
   /// Expression to parse
-  std::string _fp_expression;
-  bool _opt_fp_expression;
+  std::string _fp_expression = "(1-x)^2+100*(y-x^2)^2";
+  bool _with_fp_expression = false;
 
   /// Lower bound
-  double _fp_lower_bound;
-  bool _opt_fp_lower_bound;
+  double _fp_lower_bound = -2;
+  bool _with_fp_lower_bound = false;
 
   /// Number of bits in the dyadic representation of a number
-  int _fp_num_bits;
-  bool _opt_fp_num_bits;
+  int _fp_num_bits = 8;
+  bool _with_fp_num_bits = false;
 
   /// Precision of the dyadic representation of a number
-  double _fp_precision;
-  bool _opt_fp_precision;
+  double _fp_precision = 0.01;
+  bool _with_fp_precision = false;
 
   /// Upper bound
-  double _fp_upper_bound;
-  bool _opt_fp_upper_bound;
+  double _fp_upper_bound = 2;
+  bool _with_fp_upper_bound = false;
 
   /// Type of function
-  int _function;
-  bool _opt_function;
+  int _function = 180;
+  bool _with_function = false;
 
   /// Number of iterations
-  int _num_iterations;
-  bool _opt_num_iterations;
+  int _num_iterations = 100;
+  bool _with_num_iterations = false;
 
   /// Number of threads
-  int _num_threads;
-  bool _opt_num_threads;
+  int _num_threads = 1;
+  bool _with_num_threads = false;
 
   /// Path of a function file
-  std::string _path;
-  bool _opt_path;
+  std::string _path = "function.txt";
+  bool _with_path = false;
 
   /// Categorical representation
-  int _rep_categorical_representation;
-  bool _opt_rep_categorical_representation;
+  int _rep_categorical_representation = 0;
+  bool _with_rep_categorical_representation = false;
 
   /// Number of additional bits per element for permutation representation
-  int _rep_num_additional_bits;
-  bool _opt_rep_num_additional_bits;
+  int _rep_num_additional_bits = 2;
+  bool _with_rep_num_additional_bits = false;
 
   /// Path of the results file
-  std::string _results_path;
-  bool _opt_results_path;
+  std::string _results_path = "results.json";
+  bool _with_results_path = false;
 
   /// Seed for the random number generator
-  unsigned _seed;
-  bool _opt_seed;
+  unsigned _seed = 0;
+  bool _with_seed = false;
 
   /// Path of the solution file
-  std::string _solution_path;
-  bool _opt_solution_path;
+  std::string _solution_path = "solution.txt";
+  bool _with_solution_path = false;
 
   /// Allow no mutation with standard bit mutation
-  bool _ea_allow_no_mutation;
+  bool _ea_allow_no_mutation = false;
 
   /// Display the function and exit
-  bool _fn_display;
+  bool _fn_display = false;
 
   /// Print the size of bit vectors
-  bool _fn_get_bv_size;
+  bool _fn_get_bv_size = false;
 
   /// Print the number of objectives
-  bool _fn_get_output_size;
+  bool _fn_get_output_size = false;
 
   /// Print the parameters and exit
-  bool _print_default_parameters;
+  bool _print_default_parameters = false;
 
   /// Print a description of the solution
-  bool _print_description;
+  bool _print_description = false;
 
   /// Print the parameters
-  bool _print_parameters;
+  bool _print_parameters = false;
 
   /// Print the Pareto front
-  bool _print_pareto_front;
+  bool _print_pareto_front = false;
 
   /// Print help message
   void print_help(std::ostream& stream) const;
@@ -147,322 +185,166 @@ class HncoOptions {
 public:
 
   /// Default constructor
-  HncoOptions();
+  HncoOptions(): _exec_name("hnco-mo") {}
 
   /// Constructor
-  HncoOptions(int argc, char *argv[]);
+  HncoOptions(int argc, char *argv[], bool ignore_bad_options = false);
 
-  /// Get algorithm
+  /// Get the value of algorithm
   int get_algorithm() const { return _algorithm; }
 
-  /// Set algorithm
-  void set_algorithm(int x) {
-    _algorithm = x;
-    _opt_algorithm = true;
-  }
+  /// With parameter algorithm
+  bool with_algorithm() const { return _with_algorithm; }
 
-  /// Get set-flag for algorithm
-  bool set_algorithm() const { return _opt_algorithm; }
-
-  /// Get bv_size
+  /// Get the value of bv_size
   int get_bv_size() const { return _bv_size; }
 
-  /// Set bv_size
-  void set_bv_size(int x) {
-    _bv_size = x;
-    _opt_bv_size = true;
-  }
+  /// With parameter bv_size
+  bool with_bv_size() const { return _with_bv_size; }
 
-  /// Get set-flag for bv_size
-  bool set_bv_size() const { return _opt_bv_size; }
-
-  /// Get description_path
+  /// Get the value of description_path
   std::string get_description_path() const { return _description_path; }
 
-  /// Set description_path
-  void set_description_path(std::string x) {
-    _description_path = x;
-    _opt_description_path = true;
-  }
+  /// With parameter description_path
+  bool with_description_path() const { return _with_description_path; }
 
-  /// Get set-flag for description_path
-  bool set_description_path() const { return _opt_description_path; }
-
-  /// Get ea_crossover_probability
+  /// Get the value of ea_crossover_probability
   double get_ea_crossover_probability() const { return _ea_crossover_probability; }
 
-  /// Set ea_crossover_probability
-  void set_ea_crossover_probability(double x) {
-    _ea_crossover_probability = x;
-    _opt_ea_crossover_probability = true;
-  }
+  /// With parameter ea_crossover_probability
+  bool with_ea_crossover_probability() const { return _with_ea_crossover_probability; }
 
-  /// Get set-flag for ea_crossover_probability
-  bool set_ea_crossover_probability() const { return _opt_ea_crossover_probability; }
-
-  /// Get ea_mu
+  /// Get the value of ea_mu
   int get_ea_mu() const { return _ea_mu; }
 
-  /// Set ea_mu
-  void set_ea_mu(int x) {
-    _ea_mu = x;
-    _opt_ea_mu = true;
-  }
+  /// With parameter ea_mu
+  bool with_ea_mu() const { return _with_ea_mu; }
 
-  /// Get set-flag for ea_mu
-  bool set_ea_mu() const { return _opt_ea_mu; }
-
-  /// Get ea_mutation_rate
+  /// Get the value of ea_mutation_rate
   double get_ea_mutation_rate() const { return _ea_mutation_rate; }
 
-  /// Set ea_mutation_rate
-  void set_ea_mutation_rate(double x) {
-    _ea_mutation_rate = x;
-    _opt_ea_mutation_rate = true;
-  }
+  /// With parameter ea_mutation_rate
+  bool with_ea_mutation_rate() const { return _with_ea_mutation_rate; }
 
-  /// Get set-flag for ea_mutation_rate
-  bool set_ea_mutation_rate() const { return _opt_ea_mutation_rate; }
-
-  /// Get ea_tournament_size
+  /// Get the value of ea_tournament_size
   int get_ea_tournament_size() const { return _ea_tournament_size; }
 
-  /// Set ea_tournament_size
-  void set_ea_tournament_size(int x) {
-    _ea_tournament_size = x;
-    _opt_ea_tournament_size = true;
-  }
+  /// With parameter ea_tournament_size
+  bool with_ea_tournament_size() const { return _with_ea_tournament_size; }
 
-  /// Get set-flag for ea_tournament_size
-  bool set_ea_tournament_size() const { return _opt_ea_tournament_size; }
-
-  /// Get fn_name
+  /// Get the value of fn_name
   std::string get_fn_name() const { return _fn_name; }
 
-  /// Set fn_name
-  void set_fn_name(std::string x) {
-    _fn_name = x;
-    _opt_fn_name = true;
-  }
+  /// With parameter fn_name
+  bool with_fn_name() const { return _with_fn_name; }
 
-  /// Get set-flag for fn_name
-  bool set_fn_name() const { return _opt_fn_name; }
-
-  /// Get fp_expression
+  /// Get the value of fp_expression
   std::string get_fp_expression() const { return _fp_expression; }
 
-  /// Set fp_expression
-  void set_fp_expression(std::string x) {
-    _fp_expression = x;
-    _opt_fp_expression = true;
-  }
+  /// With parameter fp_expression
+  bool with_fp_expression() const { return _with_fp_expression; }
 
-  /// Get set-flag for fp_expression
-  bool set_fp_expression() const { return _opt_fp_expression; }
-
-  /// Get fp_lower_bound
+  /// Get the value of fp_lower_bound
   double get_fp_lower_bound() const { return _fp_lower_bound; }
 
-  /// Set fp_lower_bound
-  void set_fp_lower_bound(double x) {
-    _fp_lower_bound = x;
-    _opt_fp_lower_bound = true;
-  }
+  /// With parameter fp_lower_bound
+  bool with_fp_lower_bound() const { return _with_fp_lower_bound; }
 
-  /// Get set-flag for fp_lower_bound
-  bool set_fp_lower_bound() const { return _opt_fp_lower_bound; }
-
-  /// Get fp_num_bits
+  /// Get the value of fp_num_bits
   int get_fp_num_bits() const { return _fp_num_bits; }
 
-  /// Set fp_num_bits
-  void set_fp_num_bits(int x) {
-    _fp_num_bits = x;
-    _opt_fp_num_bits = true;
-  }
+  /// With parameter fp_num_bits
+  bool with_fp_num_bits() const { return _with_fp_num_bits; }
 
-  /// Get set-flag for fp_num_bits
-  bool set_fp_num_bits() const { return _opt_fp_num_bits; }
-
-  /// Get fp_precision
+  /// Get the value of fp_precision
   double get_fp_precision() const { return _fp_precision; }
 
-  /// Set fp_precision
-  void set_fp_precision(double x) {
-    _fp_precision = x;
-    _opt_fp_precision = true;
-  }
+  /// With parameter fp_precision
+  bool with_fp_precision() const { return _with_fp_precision; }
 
-  /// Get set-flag for fp_precision
-  bool set_fp_precision() const { return _opt_fp_precision; }
-
-  /// Get fp_upper_bound
+  /// Get the value of fp_upper_bound
   double get_fp_upper_bound() const { return _fp_upper_bound; }
 
-  /// Set fp_upper_bound
-  void set_fp_upper_bound(double x) {
-    _fp_upper_bound = x;
-    _opt_fp_upper_bound = true;
-  }
+  /// With parameter fp_upper_bound
+  bool with_fp_upper_bound() const { return _with_fp_upper_bound; }
 
-  /// Get set-flag for fp_upper_bound
-  bool set_fp_upper_bound() const { return _opt_fp_upper_bound; }
-
-  /// Get function
+  /// Get the value of function
   int get_function() const { return _function; }
 
-  /// Set function
-  void set_function(int x) {
-    _function = x;
-    _opt_function = true;
-  }
+  /// With parameter function
+  bool with_function() const { return _with_function; }
 
-  /// Get set-flag for function
-  bool set_function() const { return _opt_function; }
-
-  /// Get num_iterations
+  /// Get the value of num_iterations
   int get_num_iterations() const { return _num_iterations; }
 
-  /// Set num_iterations
-  void set_num_iterations(int x) {
-    _num_iterations = x;
-    _opt_num_iterations = true;
-  }
+  /// With parameter num_iterations
+  bool with_num_iterations() const { return _with_num_iterations; }
 
-  /// Get set-flag for num_iterations
-  bool set_num_iterations() const { return _opt_num_iterations; }
-
-  /// Get num_threads
+  /// Get the value of num_threads
   int get_num_threads() const { return _num_threads; }
 
-  /// Set num_threads
-  void set_num_threads(int x) {
-    _num_threads = x;
-    _opt_num_threads = true;
-  }
+  /// With parameter num_threads
+  bool with_num_threads() const { return _with_num_threads; }
 
-  /// Get set-flag for num_threads
-  bool set_num_threads() const { return _opt_num_threads; }
-
-  /// Get path
+  /// Get the value of path
   std::string get_path() const { return _path; }
 
-  /// Set path
-  void set_path(std::string x) {
-    _path = x;
-    _opt_path = true;
-  }
+  /// With parameter path
+  bool with_path() const { return _with_path; }
 
-  /// Get set-flag for path
-  bool set_path() const { return _opt_path; }
-
-  /// Get rep_categorical_representation
+  /// Get the value of rep_categorical_representation
   int get_rep_categorical_representation() const { return _rep_categorical_representation; }
 
-  /// Set rep_categorical_representation
-  void set_rep_categorical_representation(int x) {
-    _rep_categorical_representation = x;
-    _opt_rep_categorical_representation = true;
-  }
+  /// With parameter rep_categorical_representation
+  bool with_rep_categorical_representation() const { return _with_rep_categorical_representation; }
 
-  /// Get set-flag for rep_categorical_representation
-  bool set_rep_categorical_representation() const { return _opt_rep_categorical_representation; }
-
-  /// Get rep_num_additional_bits
+  /// Get the value of rep_num_additional_bits
   int get_rep_num_additional_bits() const { return _rep_num_additional_bits; }
 
-  /// Set rep_num_additional_bits
-  void set_rep_num_additional_bits(int x) {
-    _rep_num_additional_bits = x;
-    _opt_rep_num_additional_bits = true;
-  }
+  /// With parameter rep_num_additional_bits
+  bool with_rep_num_additional_bits() const { return _with_rep_num_additional_bits; }
 
-  /// Get set-flag for rep_num_additional_bits
-  bool set_rep_num_additional_bits() const { return _opt_rep_num_additional_bits; }
-
-  /// Get results_path
+  /// Get the value of results_path
   std::string get_results_path() const { return _results_path; }
 
-  /// Set results_path
-  void set_results_path(std::string x) {
-    _results_path = x;
-    _opt_results_path = true;
-  }
+  /// With parameter results_path
+  bool with_results_path() const { return _with_results_path; }
 
-  /// Get set-flag for results_path
-  bool set_results_path() const { return _opt_results_path; }
-
-  /// Get seed
+  /// Get the value of seed
   unsigned get_seed() const { return _seed; }
 
-  /// Set seed
-  void set_seed(unsigned x) {
-    _seed = x;
-    _opt_seed = true;
-  }
+  /// With parameter seed
+  bool with_seed() const { return _with_seed; }
 
-  /// Get set-flag for seed
-  bool set_seed() const { return _opt_seed; }
-
-  /// Get solution_path
+  /// Get the value of solution_path
   std::string get_solution_path() const { return _solution_path; }
 
-  /// Set solution_path
-  void set_solution_path(std::string x) {
-    _solution_path = x;
-    _opt_solution_path = true;
-  }
+  /// With parameter solution_path
+  bool with_solution_path() const { return _with_solution_path; }
 
-  /// Get set-flag for solution_path
-  bool set_solution_path() const { return _opt_solution_path; }
-
-  /// Get ea_allow_no_mutation
+  /// With the flag ea_allow_no_mutation
   bool with_ea_allow_no_mutation() const { return _ea_allow_no_mutation; }
 
-  /// Set ea_allow_no_mutation
-  void set_ea_allow_no_mutation() { _ea_allow_no_mutation = true; }
-
-  /// Get fn_display
+  /// With the flag fn_display
   bool with_fn_display() const { return _fn_display; }
 
-  /// Set fn_display
-  void set_fn_display() { _fn_display = true; }
-
-  /// Get fn_get_bv_size
+  /// With the flag fn_get_bv_size
   bool with_fn_get_bv_size() const { return _fn_get_bv_size; }
 
-  /// Set fn_get_bv_size
-  void set_fn_get_bv_size() { _fn_get_bv_size = true; }
-
-  /// Get fn_get_output_size
+  /// With the flag fn_get_output_size
   bool with_fn_get_output_size() const { return _fn_get_output_size; }
 
-  /// Set fn_get_output_size
-  void set_fn_get_output_size() { _fn_get_output_size = true; }
-
-  /// Get print_default_parameters
+  /// With the flag print_default_parameters
   bool with_print_default_parameters() const { return _print_default_parameters; }
 
-  /// Set print_default_parameters
-  void set_print_default_parameters() { _print_default_parameters = true; }
-
-  /// Get print_description
+  /// With the flag print_description
   bool with_print_description() const { return _print_description; }
 
-  /// Set print_description
-  void set_print_description() { _print_description = true; }
-
-  /// Get print_parameters
+  /// With the flag print_parameters
   bool with_print_parameters() const { return _print_parameters; }
 
-  /// Set print_parameters
-  void set_print_parameters() { _print_parameters = true; }
-
-  /// Get print_pareto_front
+  /// With the flag print_pareto_front
   bool with_print_pareto_front() const { return _print_pareto_front; }
-
-  /// Set print_pareto_front
-  void set_print_pareto_front() { _print_pareto_front = true; }
 
   friend std::ostream& operator<<(std::ostream&, const HncoOptions&);
 };

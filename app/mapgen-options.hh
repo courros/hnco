@@ -14,38 +14,51 @@ class MapgenOptions {
   std::string _exec_name;
 
   /// Name Version
-  std::string _version;
+  std::string _version = "0.23";
+
+  enum {
+    OPTION_HELP=256,
+    OPTION_VERSION,
+    OPTION_INPUT_SIZE,
+    OPTION_MAP,
+    OPTION_OUTPUT_SIZE,
+    OPTION_PATH,
+    OPTION_SEED,
+    OPTION_TS_LENGTH,
+    OPTION_TS_SAMPLING_MODE,
+    OPTION_SURJECTIVE
+  };
 
   /// Input bit vector size
-  int _input_size;
-  bool _opt_input_size;
+  int _input_size = 100;
+  bool _with_input_size = false;
 
   /// Type of map
-  int _map;
-  bool _opt_map;
+  int _map = 1;
+  bool _with_map = false;
 
   /// Output bit vector size
-  int _output_size;
-  bool _opt_output_size;
+  int _output_size = 100;
+  bool _with_output_size = false;
 
   /// Path (relative or absolute) of a map file
-  std::string _path;
-  bool _opt_path;
+  std::string _path = "map.txt";
+  bool _with_path = false;
 
   /// Seed for the random number generator
-  int _seed;
-  bool _opt_seed;
+  int _seed = 0;
+  bool _with_seed = false;
 
   /// Transvection sequence length
-  int _ts_length;
-  bool _opt_ts_length;
+  int _ts_length = 10;
+  bool _with_ts_length = false;
 
   /// Transvection sequence sampling mode
-  int _ts_sampling_mode;
-  bool _opt_ts_sampling_mode;
+  int _ts_sampling_mode = 0;
+  bool _with_ts_sampling_mode = false;
 
   /// Ensure that the sampled linear or affine map is surjective
-  bool _surjective;
+  bool _surjective = false;
 
   /// Print help message
   void print_help(std::ostream& stream) const;
@@ -56,103 +69,55 @@ class MapgenOptions {
 public:
 
   /// Default constructor
-  MapgenOptions();
+  MapgenOptions(): _exec_name("mapgen") {}
 
   /// Constructor
-  MapgenOptions(int argc, char *argv[]);
+  MapgenOptions(int argc, char *argv[], bool ignore_bad_options = false);
 
-  /// Constructor
-  MapgenOptions(int argc, char *argv[], bool blocking);
-
-  /// Get input_size
+  /// Get the value of input_size
   int get_input_size() const { return _input_size; }
 
-  /// Set input_size
-  void set_input_size(int x) {
-    _input_size = x;
-    _opt_input_size = true;
-  }
+  /// With parameter input_size
+  bool with_input_size() const { return _with_input_size; }
 
-  /// Get set-flag for input_size
-  bool set_input_size() const { return _opt_input_size; }
-
-  /// Get map
+  /// Get the value of map
   int get_map() const { return _map; }
 
-  /// Set map
-  void set_map(int x) {
-    _map = x;
-    _opt_map = true;
-  }
+  /// With parameter map
+  bool with_map() const { return _with_map; }
 
-  /// Get set-flag for map
-  bool set_map() const { return _opt_map; }
-
-  /// Get output_size
+  /// Get the value of output_size
   int get_output_size() const { return _output_size; }
 
-  /// Set output_size
-  void set_output_size(int x) {
-    _output_size = x;
-    _opt_output_size = true;
-  }
+  /// With parameter output_size
+  bool with_output_size() const { return _with_output_size; }
 
-  /// Get set-flag for output_size
-  bool set_output_size() const { return _opt_output_size; }
-
-  /// Get path
+  /// Get the value of path
   std::string get_path() const { return _path; }
 
-  /// Set path
-  void set_path(std::string x) {
-    _path = x;
-    _opt_path = true;
-  }
+  /// With parameter path
+  bool with_path() const { return _with_path; }
 
-  /// Get set-flag for path
-  bool set_path() const { return _opt_path; }
-
-  /// Get seed
+  /// Get the value of seed
   int get_seed() const { return _seed; }
 
-  /// Set seed
-  void set_seed(int x) {
-    _seed = x;
-    _opt_seed = true;
-  }
+  /// With parameter seed
+  bool with_seed() const { return _with_seed; }
 
-  /// Get set-flag for seed
-  bool set_seed() const { return _opt_seed; }
-
-  /// Get ts_length
+  /// Get the value of ts_length
   int get_ts_length() const { return _ts_length; }
 
-  /// Set ts_length
-  void set_ts_length(int x) {
-    _ts_length = x;
-    _opt_ts_length = true;
-  }
+  /// With parameter ts_length
+  bool with_ts_length() const { return _with_ts_length; }
 
-  /// Get set-flag for ts_length
-  bool set_ts_length() const { return _opt_ts_length; }
-
-  /// Get ts_sampling_mode
+  /// Get the value of ts_sampling_mode
   int get_ts_sampling_mode() const { return _ts_sampling_mode; }
 
-  /// Set ts_sampling_mode
-  void set_ts_sampling_mode(int x) {
-    _ts_sampling_mode = x;
-    _opt_ts_sampling_mode = true;
-  }
+  /// With parameter ts_sampling_mode
+  bool with_ts_sampling_mode() const { return _with_ts_sampling_mode; }
 
-  /// Get set-flag for ts_sampling_mode
-  bool set_ts_sampling_mode() const { return _opt_ts_sampling_mode; }
-
-  /// Get surjective
+  /// With the flag surjective
   bool with_surjective() const { return _surjective; }
-
-  /// Set surjective
-  void set_surjective() { _surjective = true; }
 
   friend std::ostream& operator<<(std::ostream&, const MapgenOptions&);
 };

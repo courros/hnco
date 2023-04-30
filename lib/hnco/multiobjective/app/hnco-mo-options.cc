@@ -6,156 +6,9 @@
 
 using namespace hnco::multiobjective::app;
 
-HncoOptions::HncoOptions():
-  _exec_name("unknown"),
-  _version("0.22"),
-  _algorithm(1400),
-  _opt_algorithm(false),
-  _bv_size(100),
-  _opt_bv_size(false),
-  _description_path("description.txt"),
-  _opt_description_path(false),
-  _ea_crossover_probability(0.8),
-  _opt_ea_crossover_probability(false),
-  _ea_mu(100),
-  _opt_ea_mu(false),
-  _ea_mutation_rate(1),
-  _opt_ea_mutation_rate(false),
-  _ea_tournament_size(2),
-  _opt_ea_tournament_size(false),
-  _fn_name("noname"),
-  _opt_fn_name(false),
-  _fp_expression("(1-x)^2+100*(y-x^2)^2"),
-  _opt_fp_expression(false),
-  _fp_lower_bound(-2),
-  _opt_fp_lower_bound(false),
-  _fp_num_bits(8),
-  _opt_fp_num_bits(false),
-  _fp_precision(0.01),
-  _opt_fp_precision(false),
-  _fp_upper_bound(2),
-  _opt_fp_upper_bound(false),
-  _function(180),
-  _opt_function(false),
-  _num_iterations(100),
-  _opt_num_iterations(false),
-  _num_threads(1),
-  _opt_num_threads(false),
-  _path("function.txt"),
-  _opt_path(false),
-  _rep_categorical_representation(0),
-  _opt_rep_categorical_representation(false),
-  _rep_num_additional_bits(2),
-  _opt_rep_num_additional_bits(false),
-  _results_path("results.json"),
-  _opt_results_path(false),
-  _seed(0),
-  _opt_seed(false),
-  _solution_path("solution.txt"),
-  _opt_solution_path(false),
-  _ea_allow_no_mutation(false),
-  _fn_display(false),
-  _fn_get_bv_size(false),
-  _fn_get_output_size(false),
-  _print_default_parameters(false),
-  _print_description(false),
-  _print_parameters(false),
-  _print_pareto_front(false)
-{}
-
-HncoOptions::HncoOptions(int argc, char *argv[]):
-  _exec_name(argv[0]),
-  _version("0.22"),
-  _algorithm(1400),
-  _opt_algorithm(false),
-  _bv_size(100),
-  _opt_bv_size(false),
-  _description_path("description.txt"),
-  _opt_description_path(false),
-  _ea_crossover_probability(0.8),
-  _opt_ea_crossover_probability(false),
-  _ea_mu(100),
-  _opt_ea_mu(false),
-  _ea_mutation_rate(1),
-  _opt_ea_mutation_rate(false),
-  _ea_tournament_size(2),
-  _opt_ea_tournament_size(false),
-  _fn_name("noname"),
-  _opt_fn_name(false),
-  _fp_expression("(1-x)^2+100*(y-x^2)^2"),
-  _opt_fp_expression(false),
-  _fp_lower_bound(-2),
-  _opt_fp_lower_bound(false),
-  _fp_num_bits(8),
-  _opt_fp_num_bits(false),
-  _fp_precision(0.01),
-  _opt_fp_precision(false),
-  _fp_upper_bound(2),
-  _opt_fp_upper_bound(false),
-  _function(180),
-  _opt_function(false),
-  _num_iterations(100),
-  _opt_num_iterations(false),
-  _num_threads(1),
-  _opt_num_threads(false),
-  _path("function.txt"),
-  _opt_path(false),
-  _rep_categorical_representation(0),
-  _opt_rep_categorical_representation(false),
-  _rep_num_additional_bits(2),
-  _opt_rep_num_additional_bits(false),
-  _results_path("results.json"),
-  _opt_results_path(false),
-  _seed(0),
-  _opt_seed(false),
-  _solution_path("solution.txt"),
-  _opt_solution_path(false),
-  _ea_allow_no_mutation(false),
-  _fn_display(false),
-  _fn_get_bv_size(false),
-  _fn_get_output_size(false),
-  _print_default_parameters(false),
-  _print_description(false),
-  _print_parameters(false),
-  _print_pareto_front(false)
+HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
+  _exec_name(argv[0])
 {
-  enum {
-    OPTION_HELP=256,
-    OPTION_HELP_EA,
-    OPTION_HELP_FP,
-    OPTION_HELP_REP,
-    OPTION_VERSION,
-    OPTION_ALGORITHM,
-    OPTION_BV_SIZE,
-    OPTION_DESCRIPTION_PATH,
-    OPTION_EA_CROSSOVER_PROBABILITY,
-    OPTION_EA_MU,
-    OPTION_EA_MUTATION_RATE,
-    OPTION_EA_TOURNAMENT_SIZE,
-    OPTION_FN_NAME,
-    OPTION_FP_EXPRESSION,
-    OPTION_FP_LOWER_BOUND,
-    OPTION_FP_NUM_BITS,
-    OPTION_FP_PRECISION,
-    OPTION_FP_UPPER_BOUND,
-    OPTION_FUNCTION,
-    OPTION_NUM_ITERATIONS,
-    OPTION_NUM_THREADS,
-    OPTION_PATH,
-    OPTION_REP_CATEGORICAL_REPRESENTATION,
-    OPTION_REP_NUM_ADDITIONAL_BITS,
-    OPTION_RESULTS_PATH,
-    OPTION_SEED,
-    OPTION_SOLUTION_PATH,
-    OPTION_EA_ALLOW_NO_MUTATION,
-    OPTION_FN_DISPLAY,
-    OPTION_FN_GET_BV_SIZE,
-    OPTION_FN_GET_OUTPUT_SIZE,
-    OPTION_PRINT_DEFAULT_PARAMETERS,
-    OPTION_PRINT_DESCRIPTION,
-    OPTION_PRINT_PARAMETERS,
-    OPTION_PRINT_PARETO_FRONT
-  };
   const struct option long_options[] = {
     {"algorithm", required_argument, 0, OPTION_ALGORITHM},
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
@@ -195,6 +48,7 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     {0, no_argument, 0, 0}
   };
   const char *short_options = "A:s:m:F:i:p:";
+  optind = 0;
   while (true) {
     int option = getopt_long(argc, argv, short_options, long_options, 0);
     if (option < 0)
@@ -202,96 +56,118 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
     switch (option) {
     case 'A':
     case OPTION_ALGORITHM:
-      set_algorithm(atoi(optarg));
+      _with_algorithm = true;
+      _algorithm = atoi(optarg);
       break;
 
     case 's':
     case OPTION_BV_SIZE:
-      set_bv_size(atoi(optarg));
+      _with_bv_size = true;
+      _bv_size = atoi(optarg);
       break;
 
     case OPTION_DESCRIPTION_PATH:
-      set_description_path(std::string(optarg));
+      _with_description_path = true;
+      _description_path = std::string(optarg);
       break;
 
     case OPTION_EA_CROSSOVER_PROBABILITY:
-      set_ea_crossover_probability(atof(optarg));
+      _with_ea_crossover_probability = true;
+      _ea_crossover_probability = atof(optarg);
       break;
 
     case OPTION_EA_MU:
-      set_ea_mu(atoi(optarg));
+      _with_ea_mu = true;
+      _ea_mu = atoi(optarg);
       break;
 
     case 'm':
     case OPTION_EA_MUTATION_RATE:
-      set_ea_mutation_rate(atof(optarg));
+      _with_ea_mutation_rate = true;
+      _ea_mutation_rate = atof(optarg);
       break;
 
     case OPTION_EA_TOURNAMENT_SIZE:
-      set_ea_tournament_size(atoi(optarg));
+      _with_ea_tournament_size = true;
+      _ea_tournament_size = atoi(optarg);
       break;
 
     case OPTION_FN_NAME:
-      set_fn_name(std::string(optarg));
+      _with_fn_name = true;
+      _fn_name = std::string(optarg);
       break;
 
     case OPTION_FP_EXPRESSION:
-      set_fp_expression(std::string(optarg));
+      _with_fp_expression = true;
+      _fp_expression = std::string(optarg);
       break;
 
     case OPTION_FP_LOWER_BOUND:
-      set_fp_lower_bound(atof(optarg));
+      _with_fp_lower_bound = true;
+      _fp_lower_bound = atof(optarg);
       break;
 
     case OPTION_FP_NUM_BITS:
-      set_fp_num_bits(atoi(optarg));
+      _with_fp_num_bits = true;
+      _fp_num_bits = atoi(optarg);
       break;
 
     case OPTION_FP_PRECISION:
-      set_fp_precision(atof(optarg));
+      _with_fp_precision = true;
+      _fp_precision = atof(optarg);
       break;
 
     case OPTION_FP_UPPER_BOUND:
-      set_fp_upper_bound(atof(optarg));
+      _with_fp_upper_bound = true;
+      _fp_upper_bound = atof(optarg);
       break;
 
     case 'F':
     case OPTION_FUNCTION:
-      set_function(atoi(optarg));
+      _with_function = true;
+      _function = atoi(optarg);
       break;
 
     case 'i':
     case OPTION_NUM_ITERATIONS:
-      set_num_iterations(atoi(optarg));
+      _with_num_iterations = true;
+      _num_iterations = atoi(optarg);
       break;
 
     case OPTION_NUM_THREADS:
-      set_num_threads(atoi(optarg));
+      _with_num_threads = true;
+      _num_threads = atoi(optarg);
       break;
 
     case 'p':
     case OPTION_PATH:
-      set_path(std::string(optarg));
+      _with_path = true;
+      _path = std::string(optarg);
       break;
 
     case OPTION_REP_CATEGORICAL_REPRESENTATION:
-      set_rep_categorical_representation(atoi(optarg));
+      _with_rep_categorical_representation = true;
+      _rep_categorical_representation = atoi(optarg);
       break;
 
     case OPTION_REP_NUM_ADDITIONAL_BITS:
-      set_rep_num_additional_bits(atoi(optarg));
+      _with_rep_num_additional_bits = true;
+      _rep_num_additional_bits = atoi(optarg);
       break;
 
     case OPTION_RESULTS_PATH:
-      set_results_path(std::string(optarg));
+      _with_results_path = true;
+      _results_path = std::string(optarg);
       break;
 
     case OPTION_SEED:
-      set_seed(strtoul(optarg, NULL, 0));
+      _with_seed = true;
+      _seed = strtoul(optarg, NULL, 0);
       break;
 
     case OPTION_SOLUTION_PATH:
-      set_solution_path(std::string(optarg));
+      _with_solution_path = true;
+      _solution_path = std::string(optarg);
       break;
 
     case OPTION_EA_ALLOW_NO_MUTATION:
@@ -347,8 +223,10 @@ HncoOptions::HncoOptions(int argc, char *argv[]):
       exit(0);
 
     default:
-      std::cerr << "For more information, please enter: " << _exec_name << " --help" << std::endl;
-      exit(1);
+      if (!ignore_bad_options) {
+        std::cerr << "For more information, please enter: " << _exec_name << " --help" << std::endl;
+        exit(1);
+      }
     }
   }
 }
@@ -472,13 +350,13 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
 {
   stream << "# algorithm = " << options._algorithm << std::endl;
   stream << "# bv_size = " << options._bv_size << std::endl;
-  stream << "# description_path = " << options._description_path << std::endl;
+  stream << "# description_path = \"" << options._description_path << "\"" << std::endl;
   stream << "# ea_crossover_probability = " << options._ea_crossover_probability << std::endl;
   stream << "# ea_mu = " << options._ea_mu << std::endl;
   stream << "# ea_mutation_rate = " << options._ea_mutation_rate << std::endl;
   stream << "# ea_tournament_size = " << options._ea_tournament_size << std::endl;
-  stream << "# fn_name = " << options._fn_name << std::endl;
-  stream << "# fp_expression = " << options._fp_expression << std::endl;
+  stream << "# fn_name = \"" << options._fn_name << "\"" << std::endl;
+  stream << "# fp_expression = \"" << options._fp_expression << "\"" << std::endl;
   stream << "# fp_lower_bound = " << options._fp_lower_bound << std::endl;
   stream << "# fp_num_bits = " << options._fp_num_bits << std::endl;
   stream << "# fp_precision = " << options._fp_precision << std::endl;
@@ -486,12 +364,12 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# function = " << options._function << std::endl;
   stream << "# num_iterations = " << options._num_iterations << std::endl;
   stream << "# num_threads = " << options._num_threads << std::endl;
-  stream << "# path = " << options._path << std::endl;
+  stream << "# path = \"" << options._path << "\"" << std::endl;
   stream << "# rep_categorical_representation = " << options._rep_categorical_representation << std::endl;
   stream << "# rep_num_additional_bits = " << options._rep_num_additional_bits << std::endl;
-  stream << "# results_path = " << options._results_path << std::endl;
+  stream << "# results_path = \"" << options._results_path << "\"" << std::endl;
   stream << "# seed = " << options._seed << std::endl;
-  stream << "# solution_path = " << options._solution_path << std::endl;
+  stream << "# solution_path = \"" << options._solution_path << "\"" << std::endl;
   if (options._ea_allow_no_mutation)
     stream << "# ea_allow_no_mutation" << std::endl;
   if (options._fn_display)

@@ -6,158 +6,9 @@
 
 using namespace hnco::app;
 
-MapgenOptions::MapgenOptions():
-  _exec_name("unknown"),
-  _version("0.23"),
-  _input_size(100),
-  _opt_input_size(false),
-  _map(1),
-  _opt_map(false),
-  _output_size(100),
-  _opt_output_size(false),
-  _path("map.txt"),
-  _opt_path(false),
-  _seed(0),
-  _opt_seed(false),
-  _ts_length(10),
-  _opt_ts_length(false),
-  _ts_sampling_mode(0),
-  _opt_ts_sampling_mode(false),
-  _surjective(false)
-{}
-
-MapgenOptions::MapgenOptions(int argc, char *argv[]):
-  _exec_name(argv[0]),
-  _version("0.23"),
-  _input_size(100),
-  _opt_input_size(false),
-  _map(1),
-  _opt_map(false),
-  _output_size(100),
-  _opt_output_size(false),
-  _path("map.txt"),
-  _opt_path(false),
-  _seed(0),
-  _opt_seed(false),
-  _ts_length(10),
-  _opt_ts_length(false),
-  _ts_sampling_mode(0),
-  _opt_ts_sampling_mode(false),
-  _surjective(false)
-{
-  enum {
-    OPTION_HELP=256,
-    OPTION_VERSION,
-    OPTION_INPUT_SIZE,
-    OPTION_MAP,
-    OPTION_OUTPUT_SIZE,
-    OPTION_PATH,
-    OPTION_SEED,
-    OPTION_TS_LENGTH,
-    OPTION_TS_SAMPLING_MODE,
-    OPTION_SURJECTIVE
-  };
-  const struct option long_options[] = {
-    {"input-size", required_argument, 0, OPTION_INPUT_SIZE},
-    {"map", required_argument, 0, OPTION_MAP},
-    {"output-size", required_argument, 0, OPTION_OUTPUT_SIZE},
-    {"path", required_argument, 0, OPTION_PATH},
-    {"seed", required_argument, 0, OPTION_SEED},
-    {"ts-length", required_argument, 0, OPTION_TS_LENGTH},
-    {"ts-sampling-mode", required_argument, 0, OPTION_TS_SAMPLING_MODE},
-    {"surjective", no_argument, 0, OPTION_SURJECTIVE},
-    {"version", no_argument, 0, OPTION_VERSION},
-    {"help", no_argument, 0, OPTION_HELP},
-    {0, no_argument, 0, 0}
-  };
-  const char *short_options = "x:M:y:p:";
-  while (true) {
-    int option = getopt_long(argc, argv, short_options, long_options, 0);
-    if (option < 0)
-      break;
-    switch (option) {
-    case 'x':
-    case OPTION_INPUT_SIZE:
-      set_input_size(atoi(optarg));
-      break;
-
-    case 'M':
-    case OPTION_MAP:
-      set_map(atoi(optarg));
-      break;
-
-    case 'y':
-    case OPTION_OUTPUT_SIZE:
-      set_output_size(atoi(optarg));
-      break;
-
-    case 'p':
-    case OPTION_PATH:
-      set_path(std::string(optarg));
-      break;
-
-    case OPTION_SEED:
-      set_seed(atoi(optarg));
-      break;
-
-    case OPTION_TS_LENGTH:
-      set_ts_length(atoi(optarg));
-      break;
-
-    case OPTION_TS_SAMPLING_MODE:
-      set_ts_sampling_mode(atoi(optarg));
-      break;
-
-    case OPTION_SURJECTIVE:
-      _surjective = true;
-      break;
-
-    case OPTION_HELP:
-      print_help(std::cerr);
-      exit(0);
-
-    case OPTION_VERSION:
-      print_version(std::cerr);
-      exit(0);
-
-    default:
-      std::cerr << "For more information, please enter: " << _exec_name << " --help" << std::endl;
-      exit(1);
-    }
-  }
-}
-
 MapgenOptions::MapgenOptions(int argc, char *argv[], bool ignore_bad_options):
-  _exec_name(argv[0]),
-  _version("0.23"),
-  _input_size(100),
-  _opt_input_size(false),
-  _map(1),
-  _opt_map(false),
-  _output_size(100),
-  _opt_output_size(false),
-  _path("map.txt"),
-  _opt_path(false),
-  _seed(0),
-  _opt_seed(false),
-  _ts_length(10),
-  _opt_ts_length(false),
-  _ts_sampling_mode(0),
-  _opt_ts_sampling_mode(false),
-  _surjective(false)
+  _exec_name(argv[0])
 {
-  enum {
-    OPTION_HELP=256,
-    OPTION_VERSION,
-    OPTION_INPUT_SIZE,
-    OPTION_MAP,
-    OPTION_OUTPUT_SIZE,
-    OPTION_PATH,
-    OPTION_SEED,
-    OPTION_TS_LENGTH,
-    OPTION_TS_SAMPLING_MODE,
-    OPTION_SURJECTIVE
-  };
   const struct option long_options[] = {
     {"input-size", required_argument, 0, OPTION_INPUT_SIZE},
     {"map", required_argument, 0, OPTION_MAP},
@@ -180,34 +31,41 @@ MapgenOptions::MapgenOptions(int argc, char *argv[], bool ignore_bad_options):
     switch (option) {
     case 'x':
     case OPTION_INPUT_SIZE:
-      set_input_size(atoi(optarg));
+      _with_input_size = true;
+      _input_size = atoi(optarg);
       break;
 
     case 'M':
     case OPTION_MAP:
-      set_map(atoi(optarg));
+      _with_map = true;
+      _map = atoi(optarg);
       break;
 
     case 'y':
     case OPTION_OUTPUT_SIZE:
-      set_output_size(atoi(optarg));
+      _with_output_size = true;
+      _output_size = atoi(optarg);
       break;
 
     case 'p':
     case OPTION_PATH:
-      set_path(std::string(optarg));
+      _with_path = true;
+      _path = std::string(optarg);
       break;
 
     case OPTION_SEED:
-      set_seed(atoi(optarg));
+      _with_seed = true;
+      _seed = atoi(optarg);
       break;
 
     case OPTION_TS_LENGTH:
-      set_ts_length(atoi(optarg));
+      _with_ts_length = true;
+      _ts_length = atoi(optarg);
       break;
 
     case OPTION_TS_SAMPLING_MODE:
-      set_ts_sampling_mode(atoi(optarg));
+      _with_ts_sampling_mode = true;
+      _ts_sampling_mode = atoi(optarg);
       break;
 
     case OPTION_SURJECTIVE:
@@ -275,7 +133,7 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const MapgenOptions& o
   stream << "# input_size = " << options._input_size << std::endl;
   stream << "# map = " << options._map << std::endl;
   stream << "# output_size = " << options._output_size << std::endl;
-  stream << "# path = " << options._path << std::endl;
+  stream << "# path = \"" << options._path << "\"" << std::endl;
   stream << "# seed = " << options._seed << std::endl;
   stream << "# ts_length = " << options._ts_length << std::endl;
   stream << "# ts_sampling_mode = " << options._ts_sampling_mode << std::endl;

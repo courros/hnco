@@ -14,109 +14,140 @@ class FfgenOptions {
   std::string _exec_name;
 
   /// Name Version
-  std::string _version;
+  std::string _version = "0.23";
+
+  enum {
+    OPTION_HELP=256,
+    OPTION_VERSION,
+    OPTION_BV_SIZE,
+    OPTION_COUPLING_CONSTANT,
+    OPTION_EP_UPPER_BOUND,
+    OPTION_FIELD_CONSTANT,
+    OPTION_FUNCTION,
+    OPTION_LIN_DISTANCE,
+    OPTION_LIN_GENERATOR,
+    OPTION_LIN_INITIAL_WEIGHT,
+    OPTION_LIN_RATIO,
+    OPTION_MS_NUM_CLAUSES,
+    OPTION_MS_NUM_LITERALS_PER_CLAUSE,
+    OPTION_NK_K,
+    OPTION_NN1_GENERATOR,
+    OPTION_NN2_GENERATOR,
+    OPTION_NN2_NUM_COLUMNS,
+    OPTION_NN2_NUM_ROWS,
+    OPTION_PART_UPPER_BOUND,
+    OPTION_PATH,
+    OPTION_SEED,
+    OPTION_STDDEV,
+    OPTION_SUDOKU_NUM_EMPTY_CELLS,
+    OPTION_WALSH2_GENERATOR,
+    OPTION_WALSH2_ISING_ALPHA,
+    OPTION_WALSH_NUM_FEATURES,
+    OPTION_MS_PLANTED_SOLUTION,
+    OPTION_PERIODIC_BOUNDARY_CONDITIONS
+  };
 
   /// Size of bit vectors
-  int _bv_size;
-  bool _opt_bv_size;
+  int _bv_size = 100;
+  bool _with_bv_size = false;
 
   /// Coupling constant
-  double _coupling_constant;
-  bool _opt_coupling_constant;
+  double _coupling_constant = 1;
+  bool _with_coupling_constant = false;
 
   /// Upper bound of numbers
-  double _ep_upper_bound;
-  bool _opt_ep_upper_bound;
+  double _ep_upper_bound = 1;
+  bool _with_ep_upper_bound = false;
 
   /// Field constant
-  double _field_constant;
-  bool _opt_field_constant;
+  double _field_constant = 1;
+  bool _with_field_constant = false;
 
   /// Type of function
-  int _function;
-  bool _opt_function;
+  int _function = 1;
+  bool _with_function = false;
 
   /// Common distance of arithmetic progression
-  double _lin_distance;
-  bool _opt_lin_distance;
+  double _lin_distance = 1;
+  bool _with_lin_distance = false;
 
   /// Type of LinearFunction generator
-  int _lin_generator;
-  bool _opt_lin_generator;
+  int _lin_generator = 0;
+  bool _with_lin_generator = false;
 
   /// Initial weight
-  double _lin_initial_weight;
-  bool _opt_lin_initial_weight;
+  double _lin_initial_weight = 1;
+  bool _with_lin_initial_weight = false;
 
   /// Common ratio of geometric progression
-  double _lin_ratio;
-  bool _opt_lin_ratio;
+  double _lin_ratio = 2;
+  bool _with_lin_ratio = false;
 
   /// Number of clauses
-  int _ms_num_clauses;
-  bool _opt_ms_num_clauses;
+  int _ms_num_clauses = 100;
+  bool _with_ms_num_clauses = false;
 
   /// Number of literals per clause
-  int _ms_num_literals_per_clause;
-  bool _opt_ms_num_literals_per_clause;
+  int _ms_num_literals_per_clause = 3;
+  bool _with_ms_num_literals_per_clause = false;
 
   /// Each bit is connected to k other bits
-  int _nk_k;
-  bool _opt_nk_k;
+  int _nk_k = 3;
+  bool _with_nk_k = false;
 
   /// Type of NearestNeighborIsingModel1 generator
-  int _nn1_generator;
-  bool _opt_nn1_generator;
+  int _nn1_generator = 0;
+  bool _with_nn1_generator = false;
 
   /// Type of NearestNeighborIsingModel2 generator
-  int _nn2_generator;
-  bool _opt_nn2_generator;
+  int _nn2_generator = 0;
+  bool _with_nn2_generator = false;
 
   /// Number of columns
-  int _nn2_num_columns;
-  bool _opt_nn2_num_columns;
+  int _nn2_num_columns = 10;
+  bool _with_nn2_num_columns = false;
 
   /// Number of rows
-  int _nn2_num_rows;
-  bool _opt_nn2_num_rows;
+  int _nn2_num_rows = 10;
+  bool _with_nn2_num_rows = false;
 
   /// Upper bound of numbers
-  int _part_upper_bound;
-  bool _opt_part_upper_bound;
+  int _part_upper_bound = 100;
+  bool _with_part_upper_bound = false;
 
   /// Path (relative or absolute) of a function file
-  std::string _path;
-  bool _opt_path;
+  std::string _path = "function.txt";
+  bool _with_path = false;
 
   /// Seed for the random number generator
-  int _seed;
-  bool _opt_seed;
+  int _seed = 0;
+  bool _with_seed = false;
 
   /// Standard deviation
-  double _stddev;
-  bool _opt_stddev;
+  double _stddev = 1;
+  bool _with_stddev = false;
 
   /// Number of empty cells
-  int _sudoku_num_empty_cells;
-  bool _opt_sudoku_num_empty_cells;
+  int _sudoku_num_empty_cells = 10;
+  bool _with_sudoku_num_empty_cells = false;
 
   /// Type of WalshExpansion2 generator
-  int _walsh2_generator;
-  bool _opt_walsh2_generator;
+  int _walsh2_generator = 0;
+  bool _with_walsh2_generator = false;
 
   /// Dyson-Ising: exponential decay parameter for long range interactions
-  double _walsh2_ising_alpha;
-  bool _opt_walsh2_ising_alpha;
+  double _walsh2_ising_alpha = 2;
+  bool _with_walsh2_ising_alpha = false;
 
   /// Number of features
-  int _walsh_num_features;
-  bool _opt_walsh_num_features;
+  int _walsh_num_features = 100;
+  bool _with_walsh_num_features = false;
 
   /// Generate an instance with a planted solution
-  bool _ms_planted_solution;
+  bool _ms_planted_solution = false;
 
   /// Periodic boundary conditions
-  bool _periodic_boundary_conditions;
+  bool _periodic_boundary_conditions = false;
 
   /// Print help message
   void print_help(std::ostream& stream) const;
@@ -127,313 +158,160 @@ class FfgenOptions {
 public:
 
   /// Default constructor
-  FfgenOptions();
+  FfgenOptions(): _exec_name("ffgen") {}
 
   /// Constructor
-  FfgenOptions(int argc, char *argv[]);
+  FfgenOptions(int argc, char *argv[], bool ignore_bad_options = false);
 
-  /// Constructor
-  FfgenOptions(int argc, char *argv[], bool blocking);
-
-  /// Get bv_size
+  /// Get the value of bv_size
   int get_bv_size() const { return _bv_size; }
 
-  /// Set bv_size
-  void set_bv_size(int x) {
-    _bv_size = x;
-    _opt_bv_size = true;
-  }
+  /// With parameter bv_size
+  bool with_bv_size() const { return _with_bv_size; }
 
-  /// Get set-flag for bv_size
-  bool set_bv_size() const { return _opt_bv_size; }
-
-  /// Get coupling_constant
+  /// Get the value of coupling_constant
   double get_coupling_constant() const { return _coupling_constant; }
 
-  /// Set coupling_constant
-  void set_coupling_constant(double x) {
-    _coupling_constant = x;
-    _opt_coupling_constant = true;
-  }
+  /// With parameter coupling_constant
+  bool with_coupling_constant() const { return _with_coupling_constant; }
 
-  /// Get set-flag for coupling_constant
-  bool set_coupling_constant() const { return _opt_coupling_constant; }
-
-  /// Get ep_upper_bound
+  /// Get the value of ep_upper_bound
   double get_ep_upper_bound() const { return _ep_upper_bound; }
 
-  /// Set ep_upper_bound
-  void set_ep_upper_bound(double x) {
-    _ep_upper_bound = x;
-    _opt_ep_upper_bound = true;
-  }
+  /// With parameter ep_upper_bound
+  bool with_ep_upper_bound() const { return _with_ep_upper_bound; }
 
-  /// Get set-flag for ep_upper_bound
-  bool set_ep_upper_bound() const { return _opt_ep_upper_bound; }
-
-  /// Get field_constant
+  /// Get the value of field_constant
   double get_field_constant() const { return _field_constant; }
 
-  /// Set field_constant
-  void set_field_constant(double x) {
-    _field_constant = x;
-    _opt_field_constant = true;
-  }
+  /// With parameter field_constant
+  bool with_field_constant() const { return _with_field_constant; }
 
-  /// Get set-flag for field_constant
-  bool set_field_constant() const { return _opt_field_constant; }
-
-  /// Get function
+  /// Get the value of function
   int get_function() const { return _function; }
 
-  /// Set function
-  void set_function(int x) {
-    _function = x;
-    _opt_function = true;
-  }
+  /// With parameter function
+  bool with_function() const { return _with_function; }
 
-  /// Get set-flag for function
-  bool set_function() const { return _opt_function; }
-
-  /// Get lin_distance
+  /// Get the value of lin_distance
   double get_lin_distance() const { return _lin_distance; }
 
-  /// Set lin_distance
-  void set_lin_distance(double x) {
-    _lin_distance = x;
-    _opt_lin_distance = true;
-  }
+  /// With parameter lin_distance
+  bool with_lin_distance() const { return _with_lin_distance; }
 
-  /// Get set-flag for lin_distance
-  bool set_lin_distance() const { return _opt_lin_distance; }
-
-  /// Get lin_generator
+  /// Get the value of lin_generator
   int get_lin_generator() const { return _lin_generator; }
 
-  /// Set lin_generator
-  void set_lin_generator(int x) {
-    _lin_generator = x;
-    _opt_lin_generator = true;
-  }
+  /// With parameter lin_generator
+  bool with_lin_generator() const { return _with_lin_generator; }
 
-  /// Get set-flag for lin_generator
-  bool set_lin_generator() const { return _opt_lin_generator; }
-
-  /// Get lin_initial_weight
+  /// Get the value of lin_initial_weight
   double get_lin_initial_weight() const { return _lin_initial_weight; }
 
-  /// Set lin_initial_weight
-  void set_lin_initial_weight(double x) {
-    _lin_initial_weight = x;
-    _opt_lin_initial_weight = true;
-  }
+  /// With parameter lin_initial_weight
+  bool with_lin_initial_weight() const { return _with_lin_initial_weight; }
 
-  /// Get set-flag for lin_initial_weight
-  bool set_lin_initial_weight() const { return _opt_lin_initial_weight; }
-
-  /// Get lin_ratio
+  /// Get the value of lin_ratio
   double get_lin_ratio() const { return _lin_ratio; }
 
-  /// Set lin_ratio
-  void set_lin_ratio(double x) {
-    _lin_ratio = x;
-    _opt_lin_ratio = true;
-  }
+  /// With parameter lin_ratio
+  bool with_lin_ratio() const { return _with_lin_ratio; }
 
-  /// Get set-flag for lin_ratio
-  bool set_lin_ratio() const { return _opt_lin_ratio; }
-
-  /// Get ms_num_clauses
+  /// Get the value of ms_num_clauses
   int get_ms_num_clauses() const { return _ms_num_clauses; }
 
-  /// Set ms_num_clauses
-  void set_ms_num_clauses(int x) {
-    _ms_num_clauses = x;
-    _opt_ms_num_clauses = true;
-  }
+  /// With parameter ms_num_clauses
+  bool with_ms_num_clauses() const { return _with_ms_num_clauses; }
 
-  /// Get set-flag for ms_num_clauses
-  bool set_ms_num_clauses() const { return _opt_ms_num_clauses; }
-
-  /// Get ms_num_literals_per_clause
+  /// Get the value of ms_num_literals_per_clause
   int get_ms_num_literals_per_clause() const { return _ms_num_literals_per_clause; }
 
-  /// Set ms_num_literals_per_clause
-  void set_ms_num_literals_per_clause(int x) {
-    _ms_num_literals_per_clause = x;
-    _opt_ms_num_literals_per_clause = true;
-  }
+  /// With parameter ms_num_literals_per_clause
+  bool with_ms_num_literals_per_clause() const { return _with_ms_num_literals_per_clause; }
 
-  /// Get set-flag for ms_num_literals_per_clause
-  bool set_ms_num_literals_per_clause() const { return _opt_ms_num_literals_per_clause; }
-
-  /// Get nk_k
+  /// Get the value of nk_k
   int get_nk_k() const { return _nk_k; }
 
-  /// Set nk_k
-  void set_nk_k(int x) {
-    _nk_k = x;
-    _opt_nk_k = true;
-  }
+  /// With parameter nk_k
+  bool with_nk_k() const { return _with_nk_k; }
 
-  /// Get set-flag for nk_k
-  bool set_nk_k() const { return _opt_nk_k; }
-
-  /// Get nn1_generator
+  /// Get the value of nn1_generator
   int get_nn1_generator() const { return _nn1_generator; }
 
-  /// Set nn1_generator
-  void set_nn1_generator(int x) {
-    _nn1_generator = x;
-    _opt_nn1_generator = true;
-  }
+  /// With parameter nn1_generator
+  bool with_nn1_generator() const { return _with_nn1_generator; }
 
-  /// Get set-flag for nn1_generator
-  bool set_nn1_generator() const { return _opt_nn1_generator; }
-
-  /// Get nn2_generator
+  /// Get the value of nn2_generator
   int get_nn2_generator() const { return _nn2_generator; }
 
-  /// Set nn2_generator
-  void set_nn2_generator(int x) {
-    _nn2_generator = x;
-    _opt_nn2_generator = true;
-  }
+  /// With parameter nn2_generator
+  bool with_nn2_generator() const { return _with_nn2_generator; }
 
-  /// Get set-flag for nn2_generator
-  bool set_nn2_generator() const { return _opt_nn2_generator; }
-
-  /// Get nn2_num_columns
+  /// Get the value of nn2_num_columns
   int get_nn2_num_columns() const { return _nn2_num_columns; }
 
-  /// Set nn2_num_columns
-  void set_nn2_num_columns(int x) {
-    _nn2_num_columns = x;
-    _opt_nn2_num_columns = true;
-  }
+  /// With parameter nn2_num_columns
+  bool with_nn2_num_columns() const { return _with_nn2_num_columns; }
 
-  /// Get set-flag for nn2_num_columns
-  bool set_nn2_num_columns() const { return _opt_nn2_num_columns; }
-
-  /// Get nn2_num_rows
+  /// Get the value of nn2_num_rows
   int get_nn2_num_rows() const { return _nn2_num_rows; }
 
-  /// Set nn2_num_rows
-  void set_nn2_num_rows(int x) {
-    _nn2_num_rows = x;
-    _opt_nn2_num_rows = true;
-  }
+  /// With parameter nn2_num_rows
+  bool with_nn2_num_rows() const { return _with_nn2_num_rows; }
 
-  /// Get set-flag for nn2_num_rows
-  bool set_nn2_num_rows() const { return _opt_nn2_num_rows; }
-
-  /// Get part_upper_bound
+  /// Get the value of part_upper_bound
   int get_part_upper_bound() const { return _part_upper_bound; }
 
-  /// Set part_upper_bound
-  void set_part_upper_bound(int x) {
-    _part_upper_bound = x;
-    _opt_part_upper_bound = true;
-  }
+  /// With parameter part_upper_bound
+  bool with_part_upper_bound() const { return _with_part_upper_bound; }
 
-  /// Get set-flag for part_upper_bound
-  bool set_part_upper_bound() const { return _opt_part_upper_bound; }
-
-  /// Get path
+  /// Get the value of path
   std::string get_path() const { return _path; }
 
-  /// Set path
-  void set_path(std::string x) {
-    _path = x;
-    _opt_path = true;
-  }
+  /// With parameter path
+  bool with_path() const { return _with_path; }
 
-  /// Get set-flag for path
-  bool set_path() const { return _opt_path; }
-
-  /// Get seed
+  /// Get the value of seed
   int get_seed() const { return _seed; }
 
-  /// Set seed
-  void set_seed(int x) {
-    _seed = x;
-    _opt_seed = true;
-  }
+  /// With parameter seed
+  bool with_seed() const { return _with_seed; }
 
-  /// Get set-flag for seed
-  bool set_seed() const { return _opt_seed; }
-
-  /// Get stddev
+  /// Get the value of stddev
   double get_stddev() const { return _stddev; }
 
-  /// Set stddev
-  void set_stddev(double x) {
-    _stddev = x;
-    _opt_stddev = true;
-  }
+  /// With parameter stddev
+  bool with_stddev() const { return _with_stddev; }
 
-  /// Get set-flag for stddev
-  bool set_stddev() const { return _opt_stddev; }
-
-  /// Get sudoku_num_empty_cells
+  /// Get the value of sudoku_num_empty_cells
   int get_sudoku_num_empty_cells() const { return _sudoku_num_empty_cells; }
 
-  /// Set sudoku_num_empty_cells
-  void set_sudoku_num_empty_cells(int x) {
-    _sudoku_num_empty_cells = x;
-    _opt_sudoku_num_empty_cells = true;
-  }
+  /// With parameter sudoku_num_empty_cells
+  bool with_sudoku_num_empty_cells() const { return _with_sudoku_num_empty_cells; }
 
-  /// Get set-flag for sudoku_num_empty_cells
-  bool set_sudoku_num_empty_cells() const { return _opt_sudoku_num_empty_cells; }
-
-  /// Get walsh2_generator
+  /// Get the value of walsh2_generator
   int get_walsh2_generator() const { return _walsh2_generator; }
 
-  /// Set walsh2_generator
-  void set_walsh2_generator(int x) {
-    _walsh2_generator = x;
-    _opt_walsh2_generator = true;
-  }
+  /// With parameter walsh2_generator
+  bool with_walsh2_generator() const { return _with_walsh2_generator; }
 
-  /// Get set-flag for walsh2_generator
-  bool set_walsh2_generator() const { return _opt_walsh2_generator; }
-
-  /// Get walsh2_ising_alpha
+  /// Get the value of walsh2_ising_alpha
   double get_walsh2_ising_alpha() const { return _walsh2_ising_alpha; }
 
-  /// Set walsh2_ising_alpha
-  void set_walsh2_ising_alpha(double x) {
-    _walsh2_ising_alpha = x;
-    _opt_walsh2_ising_alpha = true;
-  }
+  /// With parameter walsh2_ising_alpha
+  bool with_walsh2_ising_alpha() const { return _with_walsh2_ising_alpha; }
 
-  /// Get set-flag for walsh2_ising_alpha
-  bool set_walsh2_ising_alpha() const { return _opt_walsh2_ising_alpha; }
-
-  /// Get walsh_num_features
+  /// Get the value of walsh_num_features
   int get_walsh_num_features() const { return _walsh_num_features; }
 
-  /// Set walsh_num_features
-  void set_walsh_num_features(int x) {
-    _walsh_num_features = x;
-    _opt_walsh_num_features = true;
-  }
+  /// With parameter walsh_num_features
+  bool with_walsh_num_features() const { return _with_walsh_num_features; }
 
-  /// Get set-flag for walsh_num_features
-  bool set_walsh_num_features() const { return _opt_walsh_num_features; }
-
-  /// Get ms_planted_solution
+  /// With the flag ms_planted_solution
   bool with_ms_planted_solution() const { return _ms_planted_solution; }
 
-  /// Set ms_planted_solution
-  void set_ms_planted_solution() { _ms_planted_solution = true; }
-
-  /// Get periodic_boundary_conditions
+  /// With the flag periodic_boundary_conditions
   bool with_periodic_boundary_conditions() const { return _periodic_boundary_conditions; }
-
-  /// Set periodic_boundary_conditions
-  void set_periodic_boundary_conditions() { _periodic_boundary_conditions = true; }
 
   friend std::ostream& operator<<(std::ostream&, const FfgenOptions&);
 };
