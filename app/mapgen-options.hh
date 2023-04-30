@@ -42,11 +42,11 @@ class MapgenOptions {
   bool _with_output_size = false;
 
   /// Path (relative or absolute) of a map file
-  std::string _path = "map.txt";
+  std::string _path = "map.dat";
   bool _with_path = false;
 
   /// Seed for the random number generator
-  int _seed = 0;
+  int _seed;
   bool _with_seed = false;
 
   /// Transvection sequence length
@@ -99,7 +99,12 @@ public:
   bool with_path() const { return _with_path; }
 
   /// Get the value of seed
-  int get_seed() const { return _seed; }
+  int get_seed() const {
+    if (_with_seed)
+      return _seed;
+    else
+      throw std::runtime_error("MapgenOptions::get_seed: Parameter seed has no default value and has not been set");
+    }
 
   /// With parameter seed
   bool with_seed() const { return _with_seed; }

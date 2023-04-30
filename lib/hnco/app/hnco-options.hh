@@ -908,7 +908,12 @@ public:
   bool with_sa_num_trials() const { return _with_sa_num_trials; }
 
   /// Get the value of seed
-  unsigned get_seed() const { return _seed; }
+  unsigned get_seed() const {
+    if (_with_seed)
+      return _seed;
+    else
+      throw std::runtime_error("HncoOptions::get_seed: Parameter seed has no default value yet has not been set");
+    }
 
   /// With parameter seed
   bool with_seed() const { return _with_seed; }

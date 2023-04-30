@@ -215,9 +215,9 @@ void FfgenOptions::print_help(std::ostream& stream) const
   stream << "            171: Nearest neighbor Ising model in one dimension" << std::endl;
   stream << "            172: Nearest neighbor Ising model in two dimensions" << std::endl;
   stream << "            190: Sudoku" << std::endl;
-  stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
+  stream << "  -p, --path (type string, default to \"function.dat\")" << std::endl;
   stream << "          Path (relative or absolute) of a function file" << std::endl;
-  stream << "      --seed (type int, default to 0)" << std::endl;
+  stream << "      --seed (type int, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
   stream << std::endl;
   stream << "Parameters" << std::endl;
@@ -326,16 +326,17 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const FfgenOptions& op
   stream << "# nn2_num_rows = " << options._nn2_num_rows << std::endl;
   stream << "# part_upper_bound = " << options._part_upper_bound << std::endl;
   stream << "# path = \"" << options._path << "\"" << std::endl;
-  stream << "# seed = " << options._seed << std::endl;
+  if (options._with_seed)
+    stream << "# seed = " << options._seed << std::endl;
   stream << "# stddev = " << options._stddev << std::endl;
   stream << "# sudoku_num_empty_cells = " << options._sudoku_num_empty_cells << std::endl;
   stream << "# walsh2_generator = " << options._walsh2_generator << std::endl;
   stream << "# walsh2_ising_alpha = " << options._walsh2_ising_alpha << std::endl;
   stream << "# walsh_num_features = " << options._walsh_num_features << std::endl;
   if (options._ms_planted_solution)
-    stream << "# ms_planted_solution" << std::endl;
+    stream << "# ms_planted_solution " << std::endl;
   if (options._periodic_boundary_conditions)
-    stream << "# periodic_boundary_conditions" << std::endl;
+    stream << "# periodic_boundary_conditions " << std::endl;
   stream << "# last_parameter" << std::endl;
   stream << "# exec_name = " << options._exec_name << std::endl;
   stream << "# version = " << options._version << std::endl;

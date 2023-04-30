@@ -105,9 +105,9 @@ void MapgenOptions::print_help(std::ostream& stream) const
   stream << "            6: Affine (transvection sequence)" << std::endl;
   stream << "  -y, --output-size (type int, default to 100)" << std::endl;
   stream << "          Output bit vector size" << std::endl;
-  stream << "  -p, --path (type string, default to \"map.txt\")" << std::endl;
+  stream << "  -p, --path (type string, default to \"map.dat\")" << std::endl;
   stream << "          Path (relative or absolute) of a map file" << std::endl;
-  stream << "      --seed (type int, default to 0)" << std::endl;
+  stream << "      --seed (type int, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
   stream << "      --surjective" << std::endl;
   stream << "          Ensure that the sampled linear or affine map is surjective" << std::endl;
@@ -134,11 +134,12 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const MapgenOptions& o
   stream << "# map = " << options._map << std::endl;
   stream << "# output_size = " << options._output_size << std::endl;
   stream << "# path = \"" << options._path << "\"" << std::endl;
-  stream << "# seed = " << options._seed << std::endl;
+  if (options._with_seed)
+    stream << "# seed = " << options._seed << std::endl;
   stream << "# ts_length = " << options._ts_length << std::endl;
   stream << "# ts_sampling_mode = " << options._ts_sampling_mode << std::endl;
   if (options._surjective)
-    stream << "# surjective" << std::endl;
+    stream << "# surjective " << std::endl;
   stream << "# last_parameter" << std::endl;
   stream << "# exec_name = " << options._exec_name << std::endl;
   stream << "# version = " << options._version << std::endl;

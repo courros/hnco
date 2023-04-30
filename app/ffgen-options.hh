@@ -116,11 +116,11 @@ class FfgenOptions {
   bool _with_part_upper_bound = false;
 
   /// Path (relative or absolute) of a function file
-  std::string _path = "function.txt";
+  std::string _path = "function.dat";
   bool _with_path = false;
 
   /// Seed for the random number generator
-  int _seed = 0;
+  int _seed;
   bool _with_seed = false;
 
   /// Standard deviation
@@ -272,7 +272,12 @@ public:
   bool with_path() const { return _with_path; }
 
   /// Get the value of seed
-  int get_seed() const { return _seed; }
+  int get_seed() const {
+    if (_with_seed)
+      return _seed;
+    else
+      throw std::runtime_error("FfgenOptions::get_seed: Parameter seed has no default value and has not been set");
+    }
 
   /// With parameter seed
   bool with_seed() const { return _with_seed; }
