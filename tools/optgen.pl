@@ -194,9 +194,26 @@ sub generate_header
     foreach (sort(keys(%$parameters))) {
 	my $parameter = $parameters->{$_};
 	my $type = $parameter->{type};
+        $file->print("  /// Get the value of $_\n");
+        if (exists($parameter->{value})) {
+            my $line = qq/  $type_conversion{$type} get_$_() const { return _$_; }/;
+            $file->print($line);
+            $file->print("\n\n");
+        } else {
+            my @lines = (
+                qq/  $type_conversion{$type} get_$_() const {/,
+                qq/    if (_with_$_)/,
+                qq/      return _$_;/,
+                qq/    else/,
+                qq/      throw std::runtime_error("$classname\:\:get_$_: Parameter $_ has no default value and has not been set");/,
+                qq/    }/,
+                );
+            foreach (@lines) {
+                $file->print($_, "\n");
+            }
+            $file->print("\n");
+        }
         $file->print(
-            "  /// Get the value of $_\n",
-            "  ", $type_conversion{$type}, " get_$_() const { return _$_; }\n\n",
             "  /// With parameter $_\n",
             "  bool with_$_() const { return _with_$_; }\n\n");
     }
