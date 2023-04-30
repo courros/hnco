@@ -50,7 +50,7 @@ CommandLineApplication::init()
   }
 
   // Seed random number generator
-  if (_options.set_seed())
+  if (_options.with_seed())
     Generator::set_seed(_options.get_seed());
   else
     Generator::set_seed();

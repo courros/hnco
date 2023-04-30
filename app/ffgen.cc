@@ -302,7 +302,7 @@ int main(int argc, char *argv[])
   // Seed random number generator
   //
 
-  if (options.set_seed())
+  if (options.with_seed())
     Generator::set_seed(options.get_seed());
   else
     Generator::set_seed();

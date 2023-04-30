@@ -47,7 +47,7 @@ CommandLineFunctionFactory::make()
     using Fn = ParsedMultivariateFunction<FunctionParser>;
     using Conv = hnco::function::ScalarToDouble<double>;
     auto instance = new Fn(_options.get_fp_expression());
-    if (_options.set_fp_num_bits()) {
+    if (_options.with_fp_num_bits()) {
       auto reps = std::vector<Rep>
         (instance->get_num_variables(),
          Rep(_options.get_fp_lower_bound(),
@@ -84,7 +84,7 @@ CommandLineFunctionFactory::make()
     using Fn = ParsedMultivariateFunction<FunctionParser_cd>;
     using Conv = hnco::function::ComplexToDouble<double>;
     auto instance = new Fn(_options.get_fp_expression());
-    if (_options.set_fp_num_bits()) {
+    if (_options.with_fp_num_bits()) {
       FloatRep float_rep(_options.get_fp_lower_bound(),
                        _options.get_fp_upper_bound(),
                        _options.get_fp_num_bits());
