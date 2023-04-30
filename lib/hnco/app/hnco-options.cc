@@ -754,15 +754,15 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "      --fn-get-maximum" << std::endl;
   stream << "          If the maximum is known then print it and exit with status 0 else exit with status 1" << std::endl;
   stream << "      --fn-has-known-maximum" << std::endl;
-  stream << "          Does the function have a known maximum?" << std::endl;
-  stream << "      --fn-name (type string, default to \"noname\")" << std::endl;
+  stream << "          Check whether the function has a known maximum" << std::endl;
+  stream << "      --fn-name (type string, no default)" << std::endl;
   stream << "          Name of the function in the dynamic library" << std::endl;
   stream << "      --fn-num-traps (type int, default to 10)" << std::endl;
   stream << "          Number of traps" << std::endl;
   stream << "      --fn-prefix-length (type int, default to 2)" << std::endl;
   stream << "          Prefix length for long path" << std::endl;
   stream << "      --fn-provides-incremental-evaluation" << std::endl;
-  stream << "          Does the function provide incremental evaluation?" << std::endl;
+  stream << "          Check whether the function provides incremental evaluation" << std::endl;
   stream << "  -t, --fn-threshold (type int, default to 10)" << std::endl;
   stream << "          Threshold (in bits) for Jump, Four Peaks, and Six Peaks" << std::endl;
   stream << "      --fn-walsh-transform" << std::endl;
@@ -1163,7 +1163,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# ea_tournament_size = " << options._ea_tournament_size << std::endl;
   stream << "# ea_update_strength = " << options._ea_update_strength << std::endl;
   stream << "# expression = \"" << options._expression << "\"" << std::endl;
-  stream << "# fn_name = \"" << options._fn_name << "\"" << std::endl;
+  if (options._with_fn_name)
+    stream << "# fn_name = " << options._fn_name << std::endl;
   stream << "# fn_num_traps = " << options._fn_num_traps << std::endl;
   stream << "# fn_prefix_length = " << options._fn_prefix_length << std::endl;
   stream << "# fn_threshold = " << options._fn_threshold << std::endl;

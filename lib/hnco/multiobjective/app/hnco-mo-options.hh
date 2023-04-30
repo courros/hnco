@@ -84,7 +84,7 @@ class HncoOptions {
   bool _with_ea_tournament_size = false;
 
   /// Name of the function in the dynamic library
-  std::string _fn_name = "noname";
+  std::string _fn_name;
   bool _with_fn_name = false;
 
   /// Expression to parse
@@ -233,7 +233,12 @@ public:
   bool with_ea_tournament_size() const { return _with_ea_tournament_size; }
 
   /// Get the value of fn_name
-  std::string get_fn_name() const { return _fn_name; }
+  std::string get_fn_name() const {
+    if (_with_fn_name)
+      return _fn_name;
+    else
+      throw std::runtime_error("HncoOptions::get_fn_name: Parameter fn_name has no default value and has not been set");
+    }
 
   /// With parameter fn_name
   bool with_fn_name() const { return _with_fn_name; }

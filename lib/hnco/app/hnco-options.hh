@@ -217,7 +217,7 @@ class HncoOptions {
   bool _with_expression = false;
 
   /// Name of the function in the dynamic library
-  std::string _fn_name = "noname";
+  std::string _fn_name;
   bool _with_fn_name = false;
 
   /// Number of traps
@@ -416,10 +416,10 @@ class HncoOptions {
   /// If the maximum is known then print it and exit with status 0 else exit with status 1
   bool _fn_get_maximum = false;
 
-  /// Does the function have a known maximum?
+  /// Check whether the function has a known maximum
   bool _fn_has_known_maximum = false;
 
-  /// Does the function provide incremental evaluation?
+  /// Check whether the function provides incremental evaluation
   bool _fn_provides_incremental_evaluation = false;
 
   /// Compute the Walsh transform of the function
@@ -686,7 +686,12 @@ public:
   bool with_expression() const { return _with_expression; }
 
   /// Get the value of fn_name
-  std::string get_fn_name() const { return _fn_name; }
+  std::string get_fn_name() const {
+    if (_with_fn_name)
+      return _fn_name;
+    else
+      throw std::runtime_error("HncoOptions::get_fn_name: Parameter fn_name has no default value and has not been set");
+    }
 
   /// With parameter fn_name
   bool with_fn_name() const { return _with_fn_name; }

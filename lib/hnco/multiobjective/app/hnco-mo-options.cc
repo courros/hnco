@@ -264,7 +264,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print the size of bit vectors" << std::endl;
   stream << "      --fn-get-output-size" << std::endl;
   stream << "          Print the number of objectives" << std::endl;
-  stream << "      --fn-name (type string, default to \"noname\")" << std::endl;
+  stream << "      --fn-name (type string, no default)" << std::endl;
   stream << "          Name of the function in the dynamic library" << std::endl;
   stream << "  -F, --function (type int, default to 180)" << std::endl;
   stream << "          Type of function" << std::endl;
@@ -355,7 +355,8 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# ea_mu = " << options._ea_mu << std::endl;
   stream << "# ea_mutation_rate = " << options._ea_mutation_rate << std::endl;
   stream << "# ea_tournament_size = " << options._ea_tournament_size << std::endl;
-  stream << "# fn_name = \"" << options._fn_name << "\"" << std::endl;
+  if (options._with_fn_name)
+    stream << "# fn_name = " << options._fn_name << std::endl;
   stream << "# fp_expression = \"" << options._fp_expression << "\"" << std::endl;
   stream << "# fp_lower_bound = " << options._fp_lower_bound << std::endl;
   stream << "# fp_num_bits = " << options._fp_num_bits << std::endl;
