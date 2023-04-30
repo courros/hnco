@@ -81,17 +81,18 @@ class CommandLineApplication {
 public:
 
   /** Constructor.
-
-      \param options HNCO options
-      \param function_factory Function factory
-      \param algorithm_factory Algorithm factory
-  */
+   *
+   * \param options HNCO options
+   * \param function_factory Function factory
+   * \param algorithm_factory Algorithm factory
+   */
   CommandLineApplication(const HncoOptions& options,
                          FunctionFactory& function_factory,
                          AlgorithmFactory& algorithm_factory)
     : _options(options)
     , _decorated_function_factory(options, function_factory)
-    , _algorithm_factory(algorithm_factory) {};
+    , _algorithm_factory(algorithm_factory)
+  {}
 
   /// Run the application
   void run();
