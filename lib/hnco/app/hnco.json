@@ -419,7 +419,6 @@
         "seed":
         {
             "type": "unsigned",
-            "value": 0,
             "description": "Seed for the random number generator",
             "section": "gen"
         },
