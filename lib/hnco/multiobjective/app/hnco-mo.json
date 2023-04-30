@@ -123,7 +123,7 @@
         "num_threads":
         {
             "type": "int",
-            "value": 1,
+            "default": 1,
             "description": "Number of threads",
             "section": "gen"
         },
@@ -131,7 +131,7 @@
         "results_path":
         {
             "type": "string",
-            "value": "results.json",
+            "default": "results.json",
             "description": "Path of the results file",
             "section": "gen"
         },
@@ -139,7 +139,7 @@
         "solution_path":
         {
             "type": "string",
-            "value": "solution.dat",
+            "default": "solution.dat",
             "description": "Path of the solution file",
             "section": "gen"
         },
@@ -147,7 +147,7 @@
         "description_path":
         {
             "type": "string",
-            "value": "description.txt",
+            "default": "description.txt",
             "description": "Path of the description file",
             "section": "gen"
         },
@@ -157,10 +157,10 @@
         {
             "optchar": "F",
             "type": "int",
-            "value": 180,
+            "default": 180,
             "description": "Type of function",
             "section": "fn",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -191,7 +191,7 @@
         {
             "optchar": "s",
             "type": "int",
-            "value": 100,
+            "default": 100,
             "description": "Size of bit vectors",
             "section": "fn"
         },
@@ -200,7 +200,7 @@
         {
             "optchar": "p",
             "type": "string",
-            "value": "function.dat",
+            "default": "function.dat",
             "description": "Path of a function file",
             "section": "fn"
         },
@@ -208,7 +208,6 @@
         "fn_name":
         {
             "type": "string",
-            "value": "noname",
             "description": "Name of the function in the dynamic library",
             "section": "fn"
         },
@@ -217,7 +216,7 @@
         "fp_lower_bound":
         {
             "type": "double",
-            "value": -2,
+            "default": -2,
             "description": "Lower bound",
             "section": "fp"
         },
@@ -225,7 +224,7 @@
         "fp_upper_bound":
         {
             "type": "double",
-            "value": 2,
+            "default": 2,
             "description": "Upper bound",
             "section": "fp"
         },
@@ -233,7 +232,7 @@
         "fp_expression":
         {
             "type": "string",
-            "value": "(1-x)^2+100*(y-x^2)^2",
+            "default": "(1-x)^2+100*(y-x^2)^2",
             "description": "Expression to parse",
             "section": "fp"
         },
@@ -241,7 +240,7 @@
         "fp_num_bits":
         {
             "type": "int",
-            "value": "8",
+            "default": "8",
             "description": "Number of bits in the dyadic representation of a number",
             "section": "fp"
         },
@@ -249,7 +248,7 @@
         "fp_precision":
         {
             "type": "double",
-            "value": "0.01",
+            "default": "0.01",
             "description": "Precision of the dyadic representation of a number",
             "section": "fp"
         },
@@ -257,10 +256,10 @@
         "rep_categorical_representation":
         {
             "type": "int",
-            "value": 0,
+            "default": 0,
             "description": "Categorical representation",
             "section": "rep",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -280,7 +279,7 @@
         "rep_num_additional_bits":
         {
             "type": "int",
-            "value": 2,
+            "default": 2,
             "description": "Number of additional bits per element for permutation representation",
             "section": "rep"
         },
@@ -290,10 +289,10 @@
         {
             "optchar": "A",
             "type": "int",
-            "value": 1400,
+            "default": 1400,
             "description": "Type of algorithm",
             "section": "alg",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -309,7 +308,7 @@
         {
             "optchar": "i",
             "type": "int",
-            "value": 100,
+            "default": 100,
             "description": "Number of iterations",
             "section": "alg"
         },
@@ -317,7 +316,7 @@
         "ea_mu":
         {
             "type": "int",
-            "value": 100,
+            "default": 100,
             "description": "Parent population size",
             "section": "ea"
         },
@@ -326,7 +325,7 @@
         {
             "optchar": "m",
             "type": "double",
-            "value": 1.0,
+            "default": 1.0,
             "description": "Mutation rate relative to bv_size",
             "section": "ea"
         },
@@ -334,7 +333,7 @@
         "ea_tournament_size":
         {
             "type": "int",
-            "value": 2,
+            "default": 2,
             "description": "Tournament size",
             "section": "ea"
         },
@@ -342,7 +341,7 @@
         "ea_crossover_probability":
         {
             "type": "double",
-            "value": 0.8,
+            "default": 0.8,
             "description": "Crossover probability",
             "section": "ea"
         }

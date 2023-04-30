@@ -36,9 +36,9 @@
         {
             "optchar": "M",
             "type": "int",
-            "value": 1,
+            "default": 1,
             "description": "Type of map",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -79,7 +79,7 @@
         {
             "optchar": "x",
             "type": "int",
-            "value": 100,
+            "default": 100,
             "description": "Input bit vector size"
         },
 
@@ -87,16 +87,16 @@
         {
             "optchar": "y",
             "type": "int",
-            "value": 100,
+            "default": 100,
             "description": "Output bit vector size"
         },
 
         "ts_sampling_mode":
         {
             "type": "int",
-            "value": 0,
+            "default": 0,
             "description": "Transvection sequence sampling mode",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -136,7 +136,7 @@
         "ts_length":
         {
             "type": "int",
-            "value": 10,
+            "default": 10,
             "description": "Transvection sequence length"
         },
 
@@ -144,7 +144,7 @@
         {
             "optchar": "p",
             "type": "string",
-            "value": "map.dat",
+            "default": "map.dat",
             "description": "Path (relative or absolute) of a map file"
         }
 

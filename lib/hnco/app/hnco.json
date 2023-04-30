@@ -182,7 +182,7 @@
 
         "fn_has_known_maximum":
         {
-            "description": "Does the function have a known maximum?",
+            "description": "Check whether the function has a known maximum",
             "section": "fn"
         },
 
@@ -200,7 +200,7 @@
 
         "fn_provides_incremental_evaluation":
         {
-            "description": "Does the function provide incremental evaluation?",
+            "description": "Check whether the function provides incremental evaluation",
             "section": "fn"
         },
 
@@ -426,7 +426,7 @@
         "num_threads":
         {
             "type": "int",
-            "value": 1,
+            "default": 1,
             "description": "Number of threads",
             "section": "gen"
         },
@@ -434,7 +434,7 @@
         "results_path":
         {
             "type": "string",
-            "value": "results.json",
+            "default": "results.json",
             "description": "Path of the results file",
             "section": "gen"
         },
@@ -442,7 +442,7 @@
         "solution_path":
         {
             "type": "string",
-            "value": "solution.dat",
+            "default": "solution.dat",
             "description": "Path of the solution file",
             "section": "gen"
         },
@@ -450,7 +450,7 @@
         "description_path":
         {
             "type": "string",
-            "value": "description.txt",
+            "default": "description.txt",
             "description": "Path of the description file",
             "section": "gen"
         },
@@ -460,10 +460,10 @@
         {
             "optchar": "F",
             "type": "int",
-            "value": 0,
+            "default": 0,
             "description": "Type of function",
             "section": "fn",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -659,7 +659,7 @@
         {
             "optchar": "s",
             "type": "int",
-            "value": 100,
+            "default": 100,
             "description": "Size of bit vectors",
             "section": "fn"
         },
@@ -668,7 +668,7 @@
         {
             "optchar": "p",
             "type": "string",
-            "value": "function.dat",
+            "default": "function.dat",
             "description": "Path of a function file",
             "section": "fn"
         },
@@ -677,7 +677,7 @@
         {
             "optchar": "t",
             "type": "int",
-            "value": 10,
+            "default": 10,
             "description": "Threshold (in bits) for Jump, Four Peaks, and Six Peaks",
             "section": "fn"
         },
@@ -685,7 +685,7 @@
         "fn_num_traps":
         {
             "type": "int",
-            "value": 10,
+            "default": 10,
             "description": "Number of traps",
             "section": "fn"
         },
@@ -693,7 +693,7 @@
         "fn_prefix_length":
         {
             "type": "int",
-            "value": 2,
+            "default": 2,
             "description": "Prefix length for long path",
             "section": "fn"
         },
@@ -701,7 +701,6 @@
         "fn_name":
         {
             "type": "string",
-            "value": "noname",
             "description": "Name of the function in the dynamic library",
             "section": "fn"
         },
@@ -710,7 +709,7 @@
         "fp_lower_bound":
         {
             "type": "double",
-            "value": -2,
+            "default": -2,
             "description": "Lower bound",
             "section": "fp"
         },
@@ -718,7 +717,7 @@
         "fp_upper_bound":
         {
             "type": "double",
-            "value": 2,
+            "default": 2,
             "description": "Upper bound",
             "section": "fp"
         },
@@ -726,7 +725,7 @@
         "fp_expression":
         {
             "type": "string",
-            "value": "(1-x)^2+100*(y-x^2)^2",
+            "default": "(1-x)^2+100*(y-x^2)^2",
             "description": "Expression to parse",
             "section": "fp"
         },
@@ -734,7 +733,7 @@
         "fp_num_bits":
         {
             "type": "int",
-            "value": "8",
+            "default": "8",
             "description": "Number of bits in the dyadic representation of a number",
             "section": "fp"
         },
@@ -742,7 +741,7 @@
         "fp_precision":
         {
             "type": "double",
-            "value": "0.01",
+            "default": "0.01",
             "description": "Precision of the dyadic representation of a number",
             "section": "fp"
         },
@@ -750,10 +749,10 @@
         "rep_categorical_representation":
         {
             "type": "int",
-            "value": 0,
+            "default": 0,
             "description": "Categorical representation",
             "section": "rep",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -773,7 +772,7 @@
         "rep_num_additional_bits":
         {
             "type": "int",
-            "value": 2,
+            "default": 2,
             "description": "Number of additional bits per element for permutation representation",
             "section": "rep"
         },
@@ -782,7 +781,7 @@
         {
             "optchar": "b",
             "type": "int",
-            "value": 10000,
+            "default": 10000,
             "description": "Number of allowed function evaluations (<= 0 means indefinite)",
             "section": "ctrl"
         },
@@ -790,7 +789,7 @@
         "target":
         {
             "type": "double",
-            "value": 100.0,
+            "default": 100.0,
             "description": "Target",
             "section": "ctrl"
         },
@@ -799,7 +798,7 @@
         "noise_stddev":
         {
             "type": "double",
-            "value": 1.0,
+            "default": 1.0,
             "description": "Noise standard deviation",
             "section": "mod"
         },
@@ -807,7 +806,7 @@
         "expression":
         {
             "type": "string",
-            "value": "x",
+            "default": "x",
             "description": "Expression of the variable x",
             "section": "mod"
         },
@@ -816,7 +815,7 @@
         "pn_mutation_rate":
         {
             "type": "double",
-            "value": 1.0,
+            "default": 1.0,
             "description": "Mutation rate relative to bv_size",
             "section": "pn"
         },
@@ -824,7 +823,7 @@
         "pn_radius":
         {
             "type": "int",
-            "value": 2,
+            "default": 2,
             "description": "Radius of Hamming ball or sphere",
             "section": "pn"
         },
@@ -832,10 +831,10 @@
         "pn_neighborhood":
         {
             "type": "int",
-            "value": 0,
+            "default": 0,
             "description": "Type of neighborhood",
             "section": "pn",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -867,10 +866,10 @@
         {
             "optchar": "M",
             "type": "int",
-            "value": 0,
+            "default": 0,
             "description": "Type of map",
             "section": "map",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -915,7 +914,7 @@
         "map_input_size":
         {
             "type": "int",
-            "value": 100,
+            "default": 100,
             "description": "Input size of linear and affine maps",
             "section": "map"
         },
@@ -923,7 +922,7 @@
         "map_path":
         {
             "type": "string",
-            "value": "map.dat",
+            "default": "map.dat",
             "description": "Path of a map file",
             "section": "map"
         },
@@ -931,10 +930,10 @@
         "map_ts_sampling_mode":
         {
             "type": "int",
-            "value": 0,
+            "default": 0,
             "description": "Transvection sequence sampling mode",
             "section": "map",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -974,7 +973,7 @@
         "map_ts_length":
         {
             "type": "int",
-            "value": 10,
+            "default": 10,
             "description": "Transvection sequence length",
             "section": "map"
         },
@@ -983,10 +982,10 @@
         {
             "optchar": "A",
             "type": "int",
-            "value": 100,
+            "default": 100,
             "description": "Type of algorithm",
             "section": "alg",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -1137,7 +1136,7 @@
         {
             "optchar": "i",
             "type": "int",
-            "value": 0,
+            "default": 0,
             "description": "Number of iterations (<= 0 means indefinite)",
             "section": "alg"
         },
@@ -1146,10 +1145,10 @@
         {
             "optchar": "N",
             "type": "int",
-            "value": 0,
+            "default": 0,
             "description": "Type of neighborhood",
             "section": "ls",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -1179,10 +1178,10 @@
         "neighborhood_iterator":
         {
             "type": "int",
-            "value": 0,
+            "default": 0,
             "description": "Type of neighborhood iterator",
             "section": "ls",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -1202,7 +1201,7 @@
         "rls_patience":
         {
             "type": "int",
-            "value": 50,
+            "default": 50,
             "description": "Number of consecutive rejected moves before ending the search (<= 0 means infinite)",
             "section": "ls"
         },
@@ -1210,7 +1209,7 @@
         "radius":
         {
             "type": "int",
-            "value": 2,
+            "default": 2,
             "description": "Radius of Hamming ball or sphere",
             "section": "ls"
         },
@@ -1218,7 +1217,7 @@
         "sa_num_transitions":
         {
             "type": "int",
-            "value": 50,
+            "default": 50,
             "description": "Number of accepted transitions before annealing",
             "section": "sa"
         },
@@ -1226,7 +1225,7 @@
         "sa_num_trials":
         {
             "type": "int",
-            "value": 100,
+            "default": 100,
             "description": "Number of trials to estimate initial inverse temperature",
             "section": "sa"
         },
@@ -1234,7 +1233,7 @@
         "sa_initial_acceptance_probability":
         {
             "type": "double",
-            "value": 0.6,
+            "default": 0.6,
             "description": "Initial acceptance probability",
             "section": "sa"
         },
@@ -1242,7 +1241,7 @@
         "sa_beta_ratio":
         {
             "type": "double",
-            "value": 1.2,
+            "default": 1.2,
             "description": "Ratio for beta or inverse temperature",
             "section": "sa"
         },
@@ -1251,7 +1250,7 @@
         {
             "optchar": "m",
             "type": "double",
-            "value": 1.0,
+            "default": 1.0,
             "description": "Mutation rate relative to bv_size (fixed or initial value)",
             "section": "ea"
         },
@@ -1259,7 +1258,7 @@
         "ea_mutation_rate_min":
         {
             "type": "double",
-            "value": 0.01,
+            "default": 0.01,
             "description": "Minimum mutation rate",
             "section": "ea"
         },
@@ -1267,7 +1266,7 @@
         "ea_mutation_rate_max":
         {
             "type": "double",
-            "value": 1,
+            "default": 1,
             "description": "Maximum mutation rate",
             "section": "ea"
         },
@@ -1275,7 +1274,7 @@
         "ea_update_strength":
         {
             "type": "double",
-            "value": 1.01,
+            "default": 1.01,
             "description": "Update strength for self-adjusting mutation rate",
             "section": "ea"
         },
@@ -1283,7 +1282,7 @@
         "ea_success_ratio":
         {
             "type": "double",
-            "value": 4,
+            "default": 4,
             "description": "Success rate for for self-adjusting mutation rate",
             "section": "ea"
         },
@@ -1291,7 +1290,7 @@
         "ea_mu":
         {
             "type": "int",
-            "value": 10,
+            "default": 10,
             "description": "Parent population size",
             "section": "ea"
         },
@@ -1299,7 +1298,7 @@
         "ea_lambda":
         {
             "type": "int",
-            "value": 100,
+            "default": 100,
             "description": "Offspring population size",
             "section": "ea"
         },
@@ -1307,7 +1306,7 @@
         "ea_tournament_size":
         {
             "type": "int",
-            "value": 2,
+            "default": 2,
             "description": "Tournament size",
             "section": "ea"
         },
@@ -1315,7 +1314,7 @@
         "ea_crossover_probability":
         {
             "type": "double",
-            "value": 0.5,
+            "default": 0.5,
             "description": "Crossover probability",
             "section": "ea"
         },
@@ -1323,7 +1322,7 @@
         "ea_crossover_bias":
         {
             "type": "double",
-            "value": 0.5,
+            "default": 0.5,
             "description": "Crossover bias",
             "section": "ea"
         },
@@ -1332,7 +1331,7 @@
         {
             "optchar": "x",
             "type": "int",
-            "value": 10,
+            "default": 10,
             "description": "Population size",
             "section": "eda"
         },
@@ -1341,7 +1340,7 @@
         {
             "optchar": "y",
             "type": "int",
-            "value": 1,
+            "default": 1,
             "description": "Selection size (number of selected individuals)",
             "section": "eda"
         },
@@ -1350,7 +1349,7 @@
         {
             "optchar": "l",
             "type": "double",
-            "value": 1e-3,
+            "default": 1e-3,
             "description": "Learning rate",
             "section": "eda"
         },
@@ -1358,7 +1357,7 @@
         "pv_log_num_components":
         {
             "type": "int",
-            "value": 5,
+            "default": 5,
             "description": "Number of probability vector components to log",
             "section": "eda"
         },
@@ -1366,7 +1365,7 @@
         "hea_reset_period":
         {
             "type": "int",
-            "value": 0,
+            "default": 0,
             "description": "Reset period (<= 0 means no reset)",
             "section": "hea"
         },
@@ -1374,7 +1373,7 @@
         "bm_num_gs_steps":
         {
             "type": "int",
-            "value": 100,
+            "default": 100,
             "description": "Number of Gibbs sampler steps per bit vector",
             "section": "bm"
         },
@@ -1382,7 +1381,7 @@
         "bm_num_gs_cycles":
         {
             "type": "int",
-            "value": 1,
+            "default": 1,
             "description": "Number of Gibbs sampler cycles per bit vector",
             "section": "bm"
         },
@@ -1390,10 +1389,10 @@
         "bm_sampling":
         {
             "type": "int",
-            "value": 1,
+            "default": 1,
             "description": "Sampling mode for the Boltzmann machine",
             "section": "bm",
-            "alternatives":
+            "values":
             [
 
                 {
@@ -1418,10 +1417,10 @@
         "bm_mc_reset_strategy":
         {
             "type": "int",
-            "value": 1,
+            "default": 1,
             "description": "Markov chain reset strategy",
             "section": "bm",
-            "alternatives":
+            "values":
             [
 
                 {

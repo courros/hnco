@@ -141,10 +141,10 @@ sub generate_header
 
     foreach (sort(keys(%$parameters))) {
 	my $parameter = $parameters->{$_};
-        if (exists($parameter->{value})) {
+        if (exists($parameter->{default})) {
             $file->print(
                 "  /// ", $parameter->{description}, "\n",
-                "  ", $type_conversion{$parameter->{type}}, " _$_ = ", ($parameter->{type} eq "string" ? qq("$parameter->{value}") : $parameter->{value}), ";\n");
+                "  ", $type_conversion{$parameter->{type}}, " _$_ = ", ($parameter->{type} eq "string" ? qq("$parameter->{default}") : $parameter->{default}), ";\n");
         } else {
             $file->print(
                 "  /// ", $parameter->{description}, "\n",
@@ -195,7 +195,7 @@ sub generate_header
 	my $parameter = $parameters->{$_};
 	my $type = $parameter->{type};
         $file->print("  /// Get the value of $_\n");
-        if (exists($parameter->{value})) {
+        if (exists($parameter->{default})) {
             my $line = qq/  $type_conversion{$type} get_$_() const { return _$_; }/;
             $file->print($line);
             $file->print("\n\n");
@@ -395,12 +395,12 @@ sub generate_source_help_par
     $hyphen =~ s/_/-/g;
 
     my $default = "no default";
-    if (exists($parameter->{value})) {
-        my $value = $parameter->{value};
+    if (exists($parameter->{default})) {
+        $default = $parameter->{default};
         if ($type eq "string") {
-            $value = qq(\\"$value\\");
+            $default = qq(\\"$default\\");
         }
-        $default = "default to $value";
+        $default = "default to $default";
     }
 
     if (exists($parameter->{optchar})) {
@@ -411,9 +411,9 @@ sub generate_source_help_par
     }
     print SRC "  stream << \"          $desc\" << std::endl;\n";
 
-    if (exists($parameter->{alternatives})) {
-	my $alternatives = $parameter->{alternatives};
-	foreach (@$alternatives) {
+    if (exists($parameter->{values})) {
+	my $values = $parameter->{values};
+	foreach (@$values) {
 	    my $v = $_->{value};
 	    my $d = $_->{description};
 	    print SRC "  stream << \"            $v: $d\" << std::endl;\n";
@@ -536,7 +536,7 @@ sub generate_source_stream()
     foreach (sort(keys(%$parameters))) {
 	my $parameter = $parameters->{$_};
         my $type = $parameter->{type};
-        if (exists($parameter->{value})) {
+        if (exists($parameter->{default})) {
             if ($type eq "string") {
                 push @lines, qq(  stream << "# $_ = \\"" << options._$_ << "\\"" << std::endl;);
             } else {
