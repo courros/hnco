@@ -273,7 +273,7 @@ class HncoOptions {
   bool _with_map_input_size = false;
 
   /// Path of a map file
-  std::string _map_path = "map.txt";
+  std::string _map_path = "map.dat";
   bool _with_map_path = false;
 
   /// Transvection sequence length
@@ -305,7 +305,7 @@ class HncoOptions {
   bool _with_num_threads = false;
 
   /// Path of a function file
-  std::string _path = "function.txt";
+  std::string _path = "function.dat";
   bool _with_path = false;
 
   /// Mutation rate relative to bv_size
@@ -365,7 +365,7 @@ class HncoOptions {
   bool _with_sa_num_trials = false;
 
   /// Seed for the random number generator
-  unsigned _seed = 0;
+  unsigned _seed;
   bool _with_seed = false;
 
   /// Selection size (number of selected individuals)
@@ -373,7 +373,7 @@ class HncoOptions {
   bool _with_selection_size = false;
 
   /// Path of the solution file
-  std::string _solution_path = "solution.txt";
+  std::string _solution_path = "solution.dat";
   bool _with_solution_path = false;
 
   /// Target

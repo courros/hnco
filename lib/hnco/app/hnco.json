@@ -442,7 +442,7 @@
         "solution_path":
         {
             "type": "string",
-            "value": "solution.txt",
+            "value": "solution.dat",
             "description": "Path of the solution file",
             "section": "gen"
         },
@@ -668,7 +668,7 @@
         {
             "optchar": "p",
             "type": "string",
-            "value": "function.txt",
+            "value": "function.dat",
             "description": "Path of a function file",
             "section": "fn"
         },
@@ -923,7 +923,7 @@
         "map_path":
         {
             "type": "string",
-            "value": "map.txt",
+            "value": "map.dat",
             "description": "Path of a map file",
             "section": "map"
         },

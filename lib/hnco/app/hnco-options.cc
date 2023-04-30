@@ -739,9 +739,9 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Save the results in a file" << std::endl;
   stream << "      --save-solution" << std::endl;
   stream << "          Save the solution in a file" << std::endl;
-  stream << "      --seed (type unsigned, default to 0)" << std::endl;
+  stream << "      --seed (type unsigned, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
-  stream << "      --solution-path (type string, default to \"solution.txt\")" << std::endl;
+  stream << "      --solution-path (type string, default to \"solution.dat\")" << std::endl;
   stream << "          Path of the solution file" << std::endl;
   stream << std::endl;
   stream << "Functions" << std::endl;
@@ -806,7 +806,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            200: Travelling salesman problem" << std::endl;
   stream << "            1000: Plugin" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
-  stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
+  stream << "  -p, --path (type string, default to \"function.dat\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
   stream << std::endl;
   stream << "Function Modifiers" << std::endl;
@@ -970,7 +970,7 @@ void HncoOptions::print_help_map(std::ostream& stream) const
   stream << "          Display the map and exit" << std::endl;
   stream << "      --map-input-size (type int, default to 100)" << std::endl;
   stream << "          Input size of linear and affine maps" << std::endl;
-  stream << "      --map-path (type string, default to \"map.txt\")" << std::endl;
+  stream << "      --map-path (type string, default to \"map.dat\")" << std::endl;
   stream << "          Path of a map file" << std::endl;
   stream << "      --map-random" << std::endl;
   stream << "          Sample a random map" << std::endl;
@@ -1200,108 +1200,109 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# sa_initial_acceptance_probability = " << options._sa_initial_acceptance_probability << std::endl;
   stream << "# sa_num_transitions = " << options._sa_num_transitions << std::endl;
   stream << "# sa_num_trials = " << options._sa_num_trials << std::endl;
-  stream << "# seed = " << options._seed << std::endl;
+  if (options._with_seed)
+    stream << "# seed = " << options._seed << std::endl;
   stream << "# selection_size = " << options._selection_size << std::endl;
   stream << "# solution_path = \"" << options._solution_path << "\"" << std::endl;
   stream << "# target = " << options._target << std::endl;
   if (options._additive_gaussian_noise)
-    stream << "# additive_gaussian_noise" << std::endl;
+    stream << "# additive_gaussian_noise " << std::endl;
   if (options._bm_log_norm_1)
-    stream << "# bm_log_norm_1" << std::endl;
+    stream << "# bm_log_norm_1 " << std::endl;
   if (options._bm_log_norm_infinite)
-    stream << "# bm_log_norm_infinite" << std::endl;
+    stream << "# bm_log_norm_infinite " << std::endl;
   if (options._bm_negative_positive_selection)
-    stream << "# bm_negative_positive_selection" << std::endl;
+    stream << "# bm_negative_positive_selection " << std::endl;
   if (options._cache)
-    stream << "# cache" << std::endl;
+    stream << "# cache " << std::endl;
   if (options._cache_budget)
-    stream << "# cache_budget" << std::endl;
+    stream << "# cache_budget " << std::endl;
   if (options._concrete_solution)
-    stream << "# concrete_solution" << std::endl;
+    stream << "# concrete_solution " << std::endl;
   if (options._ea_allow_no_mutation)
-    stream << "# ea_allow_no_mutation" << std::endl;
+    stream << "# ea_allow_no_mutation " << std::endl;
   if (options._ea_log_mutation_rate)
-    stream << "# ea_log_mutation_rate" << std::endl;
+    stream << "# ea_log_mutation_rate " << std::endl;
   if (options._fn_display)
-    stream << "# fn_display" << std::endl;
+    stream << "# fn_display " << std::endl;
   if (options._fn_get_bv_size)
-    stream << "# fn_get_bv_size" << std::endl;
+    stream << "# fn_get_bv_size " << std::endl;
   if (options._fn_get_maximum)
-    stream << "# fn_get_maximum" << std::endl;
+    stream << "# fn_get_maximum " << std::endl;
   if (options._fn_has_known_maximum)
-    stream << "# fn_has_known_maximum" << std::endl;
+    stream << "# fn_has_known_maximum " << std::endl;
   if (options._fn_provides_incremental_evaluation)
-    stream << "# fn_provides_incremental_evaluation" << std::endl;
+    stream << "# fn_provides_incremental_evaluation " << std::endl;
   if (options._fn_walsh_transform)
-    stream << "# fn_walsh_transform" << std::endl;
+    stream << "# fn_walsh_transform " << std::endl;
   if (options._hea_bound_moment)
-    stream << "# hea_bound_moment" << std::endl;
+    stream << "# hea_bound_moment " << std::endl;
   if (options._hea_log_delta_norm)
-    stream << "# hea_log_delta_norm" << std::endl;
+    stream << "# hea_log_delta_norm " << std::endl;
   if (options._hea_log_herding_error)
-    stream << "# hea_log_herding_error" << std::endl;
+    stream << "# hea_log_herding_error " << std::endl;
   if (options._hea_log_target)
-    stream << "# hea_log_target" << std::endl;
+    stream << "# hea_log_target " << std::endl;
   if (options._hea_log_target_norm)
-    stream << "# hea_log_target_norm" << std::endl;
+    stream << "# hea_log_target_norm " << std::endl;
   if (options._hea_randomize_bit_order)
-    stream << "# hea_randomize_bit_order" << std::endl;
+    stream << "# hea_randomize_bit_order " << std::endl;
   if (options._incremental_evaluation)
-    stream << "# incremental_evaluation" << std::endl;
+    stream << "# incremental_evaluation " << std::endl;
   if (options._load_solution)
-    stream << "# load_solution" << std::endl;
+    stream << "# load_solution " << std::endl;
   if (options._log_improvement)
-    stream << "# log_improvement" << std::endl;
+    stream << "# log_improvement " << std::endl;
   if (options._map_display)
-    stream << "# map_display" << std::endl;
+    stream << "# map_display " << std::endl;
   if (options._map_random)
-    stream << "# map_random" << std::endl;
+    stream << "# map_random " << std::endl;
   if (options._map_surjective)
-    stream << "# map_surjective" << std::endl;
+    stream << "# map_surjective " << std::endl;
   if (options._mmas_strict)
-    stream << "# mmas_strict" << std::endl;
+    stream << "# mmas_strict " << std::endl;
   if (options._negation)
-    stream << "# negation" << std::endl;
+    stream << "# negation " << std::endl;
   if (options._parsed_modifier)
-    stream << "# parsed_modifier" << std::endl;
+    stream << "# parsed_modifier " << std::endl;
   if (options._pn_allow_no_mutation)
-    stream << "# pn_allow_no_mutation" << std::endl;
+    stream << "# pn_allow_no_mutation " << std::endl;
   if (options._print_default_parameters)
-    stream << "# print_default_parameters" << std::endl;
+    stream << "# print_default_parameters " << std::endl;
   if (options._print_description)
-    stream << "# print_description" << std::endl;
+    stream << "# print_description " << std::endl;
   if (options._print_parameters)
-    stream << "# print_parameters" << std::endl;
+    stream << "# print_parameters " << std::endl;
   if (options._print_results)
-    stream << "# print_results" << std::endl;
+    stream << "# print_results " << std::endl;
   if (options._print_solution)
-    stream << "# print_solution" << std::endl;
+    stream << "# print_solution " << std::endl;
   if (options._prior_noise)
-    stream << "# prior_noise" << std::endl;
+    stream << "# prior_noise " << std::endl;
   if (options._pv_log_entropy)
-    stream << "# pv_log_entropy" << std::endl;
+    stream << "# pv_log_entropy " << std::endl;
   if (options._pv_log_pv)
-    stream << "# pv_log_pv" << std::endl;
+    stream << "# pv_log_pv " << std::endl;
   if (options._record_evaluation_time)
-    stream << "# record_evaluation_time" << std::endl;
+    stream << "# record_evaluation_time " << std::endl;
   if (options._record_total_time)
-    stream << "# record_total_time" << std::endl;
+    stream << "# record_total_time " << std::endl;
   if (options._restart)
-    stream << "# restart" << std::endl;
+    stream << "# restart " << std::endl;
   if (options._rls_strict)
-    stream << "# rls_strict" << std::endl;
+    stream << "# rls_strict " << std::endl;
   if (options._rw_log_value)
-    stream << "# rw_log_value" << std::endl;
+    stream << "# rw_log_value " << std::endl;
   if (options._save_description)
-    stream << "# save_description" << std::endl;
+    stream << "# save_description " << std::endl;
   if (options._save_results)
-    stream << "# save_results" << std::endl;
+    stream << "# save_results " << std::endl;
   if (options._save_solution)
-    stream << "# save_solution" << std::endl;
+    stream << "# save_solution " << std::endl;
   if (options._stop_on_maximum)
-    stream << "# stop_on_maximum" << std::endl;
+    stream << "# stop_on_maximum " << std::endl;
   if (options._stop_on_target)
-    stream << "# stop_on_target" << std::endl;
+    stream << "# stop_on_target " << std::endl;
   stream << "# last_parameter" << std::endl;
   stream << "# exec_name = " << options._exec_name << std::endl;
   stream << "# version = " << options._version << std::endl;
