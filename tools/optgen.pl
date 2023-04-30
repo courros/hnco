@@ -133,22 +133,21 @@ sub generate_header
         "\n",
         "  };\n\n");
 
-    my @plist = map {
-	my $parameter = $parameters->{$_};
-	my $value = $parameter->{value};
-	($parameter->{type} eq "string" ?
-	 "  _$_(\"$value\"),\n" :
-	 "  _$_($value),\n") .
-	 "  _opt_$_(false)";
-    } sort(keys(%$parameters));
+    #
+    # Parameters
+    #
 
     foreach (sort(keys(%$parameters))) {
 	my $parameter = $parameters->{$_};
         $file->print(
             "  /// ", $parameter->{description}, "\n",
             "  ", $type_conversion{$parameter->{type}}, " _$_ = ", ($parameter->{type} eq "string" ? qq("$parameter->{value}") : $parameter->{value}), ";\n",
-            "  bool _opt_$_ = false;\n\n");
+            "  bool _with_$_ = false;\n\n");
     }
+
+    #
+    # Flags
+    #
 
     foreach (sort(keys(%$flags))) {
 	my $flag = $flags->{$_};
@@ -156,6 +155,10 @@ sub generate_header
             "  /// $flag->{description}\n",
             "  bool _$_ = false;\n\n");
     }
+
+    #
+    # Help member functions
+    #
 
     $file->print(
         "  /// Print help message\n",
@@ -172,7 +175,7 @@ sub generate_header
         "  void print_version(std::ostream& stream) const;\n\n",
         "public:\n\n",
         "  /// Default constructor\n",
-        "  $classname();\n\n",
+	"  $classname(): _exec_name(\"$exec\") {}\n\n",
         "  /// Constructor\n",
         "  $classname(int argc, char *argv[], bool ignore_bad_options = false);\n\n");
 
@@ -184,23 +187,16 @@ sub generate_header
 	my $parameter = $parameters->{$_};
 	my $type = $parameter->{type};
         $file->print(
-            "  /// Get $_\n",
+            "  /// Get the value of $_\n",
             "  ", $type_conversion{$type}, " get_$_() const { return _$_; }\n\n",
-            "  /// Set $_\n",
-            "  void set_$_(", $type_conversion{$type}, " x) {\n",
-            "    _$_ = x;\n",
-            "    _opt_$_ = true;\n",
-            "  }\n\n",
-            "  /// Get set-flag for $_\n",
-            "  bool set_$_() const { return _opt_$_; }\n\n");
+            "  /// With parameter $_\n",
+            "  bool with_$_() const { return _with_$_; }\n\n");
     }
 
     foreach (sort(keys(%$flags))) {
         $file->print(
-            "  /// Get $_\n",
-            "  bool with_$_() const { return _$_; }\n\n",
-            "  /// Set $_\n",
-            "  void set_$_() { _$_ = true; }\n\n");
+            "  /// With the flag $_\n",
+            "  bool with_$_() const { return _$_; }\n\n");
     }
 
     $file->print(
@@ -232,7 +228,7 @@ sub generate_source
 	"#include \"$header\"\n\n",
         "using namespace $namespace;\n\n";
 
-    generate_source_constructors();
+    generate_source_constructor();
     generate_source_help();
     generate_source_additional_section_help();
     generate_source_version();
@@ -241,13 +237,8 @@ sub generate_source
     close(SRC);
 }
 
-sub generate_source_constructors()
+sub generate_source_constructor()
 {
-    print SRC
-	"$classname\:\:$classname():\n",
-	"  _exec_name(\"$exec\")\n",
-        "{}\n\n";
-
     print SRC
 	"$classname\:\:$classname(int argc, char *argv[], bool ignore_bad_options):\n",
 	"  _exec_name(argv[0])\n",
@@ -308,24 +299,20 @@ sub generate_source_constructors()
 	my $uppercase = uc($_);
 	print SRC
 	    "    case OPTION_$uppercase:\n",
-	    "      set_$_(";
-
-	if (not exists($parameter->{type})) {
-	    print "$_\n";
-	    exit 1;
-	}
+            "      _with_$_ = true;\n",
+            "      _$_ = ";
 
         my $type = $parameter->{type};
 	if ($type eq "int" or $type eq "bool") {
-	    print SRC "atoi(optarg));\n";
+	    print SRC "atoi(optarg);\n";
 	} elsif ($type eq "unsigned") {
-	    print SRC "strtoul(optarg, NULL, 0));\n";
+	    print SRC "strtoul(optarg, NULL, 0);\n";
 	} elsif ($type eq "double") {
-	    print SRC "atof(optarg));\n";
+	    print SRC "atof(optarg);\n";
 	} elsif ($type eq "string") {
-	    print SRC "std::string(optarg));\n";
+	    print SRC "std::string(optarg);\n";
 	} else {
-	    die "$type: unknown type\n";
+	    die "optgen.pl: $type: unknown type\n";
 	}
 
 	print SRC "      break;\n\n"
@@ -509,14 +496,20 @@ sub generate_source_version()
         "}\n\n";
 }
 
-sub generate_source_stream() {
-    print SRC <<EOF;
-std::ostream& $namespace\:\:operator<<(std::ostream& stream, const $classname& options)
+sub generate_source_stream()
 {
-EOF
+    print SRC
+        "std::ostream& $namespace\:\:operator<<(std::ostream& stream, const $classname& options)\n",
+        "{\n";
+
     foreach(sort(keys(%$parameters))) {
 	my $parameter = $parameters->{$_};
-	print SRC "  stream << \"# $_ = \" << options._$_ << std::endl;\n";
+        my $type = $parameter->{type};
+	if ($type eq "string") {
+            print SRC "  stream << \"# $_ = \\\"\" << options._$_ << \"\\\"\" << std::endl;\n";
+	} else {
+            print SRC "  stream << \"# $_ = \" << options._$_ << std::endl;\n";
+	}
     }
 
     foreach(sort(keys(%$flags))) {
