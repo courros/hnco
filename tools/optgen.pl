@@ -247,8 +247,7 @@ sub generate_source
     open(SRC, ">$source");
 
     print SRC
-	"#include <unistd.h>\n",
-	"#include <stdlib.h>\n",
+	"#include <cstdlib>\n",
 	"#include <getopt.h>\n\n",
 	"#include \"$header\"\n\n",
         "using namespace $namespace;\n\n";
@@ -329,11 +328,11 @@ sub generate_source_constructor()
 
         my $type = $parameter->{type};
 	if ($type eq "int" or $type eq "bool") {
-	    print SRC "atoi(optarg);\n";
+	    print SRC "std::atoi(optarg);\n";
 	} elsif ($type eq "unsigned") {
-	    print SRC "strtoul(optarg, NULL, 0);\n";
+	    print SRC "std::strtoul(optarg, NULL, 0);\n";
 	} elsif ($type eq "double") {
-	    print SRC "atof(optarg);\n";
+	    print SRC "std::atof(optarg);\n";
 	} elsif ($type eq "string") {
 	    print SRC "std::string(optarg);\n";
 	} else {
