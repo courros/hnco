@@ -25,7 +25,8 @@ my %type_conversion = (
     int      => "int",
     string   => "std::string",
     double   => "double",
-    unsigned => "unsigned"
+    unsigned => "unsigned",
+    bool     => "bool"
     );
 
 #
@@ -141,14 +142,18 @@ sub generate_header
 
     foreach (sort(keys(%$parameters))) {
 	my $parameter = $parameters->{$_};
+        $file->print("  /// ", $parameter->{description}, "\n");
+        my $type = $type_conversion{$parameter->{type}};
         if (exists($parameter->{default})) {
-            $file->print(
-                "  /// ", $parameter->{description}, "\n",
-                "  ", $type_conversion{$parameter->{type}}, " _$_ = ", ($parameter->{type} eq "string" ? qq("$parameter->{default}") : $parameter->{default}), ";\n");
+            if ($parameter->{type} eq "string") {
+                $file->print("  $type _$_ = ", qq("$parameter->{default}"), ";\n");
+            } elsif ($parameter->{type} eq "bool") {
+                $file->print("  $type _$_ = ", ($parameter->{default} ? "true" : "false"), ";\n");
+            } else {
+                $file->print("  $type _$_ = ", $parameter->{default}, ";\n");
+            }
         } else {
-            $file->print(
-                "  /// ", $parameter->{description}, "\n",
-                "  ", $type_conversion{$parameter->{type}}, " _$_;\n");
+            $file->print("  $type _$_;\n");
         }
         $file->print("  bool _with_$_ = false;\n\n");
     }
@@ -193,15 +198,15 @@ sub generate_header
 
     foreach (sort(keys(%$parameters))) {
 	my $parameter = $parameters->{$_};
-	my $type = $parameter->{type};
+        my $type = $type_conversion{$parameter->{type}};
         $file->print("  /// Get the value of $_\n");
         if (exists($parameter->{default})) {
-            my $line = qq/  $type_conversion{$type} get_$_() const { return _$_; }/;
+            my $line = qq/  $type get_$_() const { return _$_; }/;
             $file->print($line);
             $file->print("\n\n");
         } else {
             my @lines = (
-                qq/  $type_conversion{$type} get_$_() const {/,
+                qq/  $type get_$_() const {/,
                 qq/    if (_with_$_)/,
                 qq/      return _$_;/,
                 qq/    else/,
@@ -327,8 +332,10 @@ sub generate_source_constructor()
             "      _$_ = ";
 
         my $type = $parameter->{type};
-	if ($type eq "int" or $type eq "bool") {
+	if ($type eq "int") {
 	    print SRC "std::atoi(optarg);\n";
+	} elsif ($type eq "bool") {
+	    print SRC "(std::string(optarg) == \"true\") ? true : false;\n";
 	} elsif ($type eq "unsigned") {
 	    print SRC "std::strtoul(optarg, NULL, 0);\n";
 	} elsif ($type eq "double") {
@@ -395,11 +402,14 @@ sub generate_source_help_par
 
     my $default = "no default";
     if (exists($parameter->{default})) {
-        $default = $parameter->{default};
         if ($type eq "string") {
+            $default = $parameter->{default};
             $default = qq(\\"$default\\");
+        } elsif ($type eq "bool") {
+            $default = ($parameter->{default} ? "true" : "false");
+        } else {
+            $default = "default to $parameter->{default}";
         }
-        $default = "default to $default";
     }
 
     if (exists($parameter->{optchar})) {
@@ -538,12 +548,20 @@ sub generate_source_stream()
         if (exists($parameter->{default})) {
             if ($type eq "string") {
                 push @lines, qq(  stream << "# $_ = \\"" << options._$_ << "\\"" << std::endl;);
+            } elsif ($type eq "bool") {
+                push @lines, qq(  stream << "# $_ = " << (options._$_ ? "true" : "false") << std::endl;);
             } else {
                 push @lines, qq(  stream << "# $_ = " << options._$_ << std::endl;);
             }
         } else {
             push @lines, "  if (options._with_$_)";
-            push @lines, "    stream << \"# $_ = \" << options._$_ << std::endl;";
+            if ($type eq "string") {
+                push @lines, qq(    stream << "# $_ = \\"" << options._$_ << "\\"" << std::endl;);
+            } elsif ($type eq "bool") {
+                push @lines, qq(    stream << "# $_ = " << (options._$_ ? "true" : "false") << std::endl;);
+            } else {
+                push @lines, qq(    stream << "# $_ = " << options._$_ << std::endl;);
+            }
         }
     }
 
