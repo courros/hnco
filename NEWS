@@ -1,5 +1,13 @@
 * Version 0.23 (unreleased)
 
+optgen.pl:
+- handle parameters with no default value (e.g. seed)
+- added boolean type (in addition to flags)
+- option classes: removed setters
+- option classes: renamed member functions set_* -> with_*
+- json file: renamed property value -> default
+- json file: renamed property alternatives -> values
+
 
 * Version 0.22 (2023-02-05)
 
