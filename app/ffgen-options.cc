@@ -1,5 +1,4 @@
-#include <unistd.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <getopt.h>
 
 #include "ffgen-options.hh"
@@ -50,88 +49,88 @@ FfgenOptions::FfgenOptions(int argc, char *argv[], bool ignore_bad_options):
     case 's':
     case OPTION_BV_SIZE:
       _with_bv_size = true;
-      _bv_size = atoi(optarg);
+      _bv_size = std::atoi(optarg);
       break;
 
     case OPTION_COUPLING_CONSTANT:
       _with_coupling_constant = true;
-      _coupling_constant = atof(optarg);
+      _coupling_constant = std::atof(optarg);
       break;
 
     case OPTION_EP_UPPER_BOUND:
       _with_ep_upper_bound = true;
-      _ep_upper_bound = atof(optarg);
+      _ep_upper_bound = std::atof(optarg);
       break;
 
     case OPTION_FIELD_CONSTANT:
       _with_field_constant = true;
-      _field_constant = atof(optarg);
+      _field_constant = std::atof(optarg);
       break;
 
     case 'F':
     case OPTION_FUNCTION:
       _with_function = true;
-      _function = atoi(optarg);
+      _function = std::atoi(optarg);
       break;
 
     case OPTION_LIN_DISTANCE:
       _with_lin_distance = true;
-      _lin_distance = atof(optarg);
+      _lin_distance = std::atof(optarg);
       break;
 
     case OPTION_LIN_GENERATOR:
       _with_lin_generator = true;
-      _lin_generator = atoi(optarg);
+      _lin_generator = std::atoi(optarg);
       break;
 
     case OPTION_LIN_INITIAL_WEIGHT:
       _with_lin_initial_weight = true;
-      _lin_initial_weight = atof(optarg);
+      _lin_initial_weight = std::atof(optarg);
       break;
 
     case OPTION_LIN_RATIO:
       _with_lin_ratio = true;
-      _lin_ratio = atof(optarg);
+      _lin_ratio = std::atof(optarg);
       break;
 
     case OPTION_MS_NUM_CLAUSES:
       _with_ms_num_clauses = true;
-      _ms_num_clauses = atoi(optarg);
+      _ms_num_clauses = std::atoi(optarg);
       break;
 
     case OPTION_MS_NUM_LITERALS_PER_CLAUSE:
       _with_ms_num_literals_per_clause = true;
-      _ms_num_literals_per_clause = atoi(optarg);
+      _ms_num_literals_per_clause = std::atoi(optarg);
       break;
 
     case OPTION_NK_K:
       _with_nk_k = true;
-      _nk_k = atoi(optarg);
+      _nk_k = std::atoi(optarg);
       break;
 
     case OPTION_NN1_GENERATOR:
       _with_nn1_generator = true;
-      _nn1_generator = atoi(optarg);
+      _nn1_generator = std::atoi(optarg);
       break;
 
     case OPTION_NN2_GENERATOR:
       _with_nn2_generator = true;
-      _nn2_generator = atoi(optarg);
+      _nn2_generator = std::atoi(optarg);
       break;
 
     case OPTION_NN2_NUM_COLUMNS:
       _with_nn2_num_columns = true;
-      _nn2_num_columns = atoi(optarg);
+      _nn2_num_columns = std::atoi(optarg);
       break;
 
     case OPTION_NN2_NUM_ROWS:
       _with_nn2_num_rows = true;
-      _nn2_num_rows = atoi(optarg);
+      _nn2_num_rows = std::atoi(optarg);
       break;
 
     case OPTION_PART_UPPER_BOUND:
       _with_part_upper_bound = true;
-      _part_upper_bound = atoi(optarg);
+      _part_upper_bound = std::atoi(optarg);
       break;
 
     case 'p':
@@ -142,32 +141,32 @@ FfgenOptions::FfgenOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_SEED:
       _with_seed = true;
-      _seed = atoi(optarg);
+      _seed = std::atoi(optarg);
       break;
 
     case OPTION_STDDEV:
       _with_stddev = true;
-      _stddev = atof(optarg);
+      _stddev = std::atof(optarg);
       break;
 
     case OPTION_SUDOKU_NUM_EMPTY_CELLS:
       _with_sudoku_num_empty_cells = true;
-      _sudoku_num_empty_cells = atoi(optarg);
+      _sudoku_num_empty_cells = std::atoi(optarg);
       break;
 
     case OPTION_WALSH2_GENERATOR:
       _with_walsh2_generator = true;
-      _walsh2_generator = atoi(optarg);
+      _walsh2_generator = std::atoi(optarg);
       break;
 
     case OPTION_WALSH2_ISING_ALPHA:
       _with_walsh2_ising_alpha = true;
-      _walsh2_ising_alpha = atof(optarg);
+      _walsh2_ising_alpha = std::atof(optarg);
       break;
 
     case OPTION_WALSH_NUM_FEATURES:
       _with_walsh_num_features = true;
-      _walsh_num_features = atoi(optarg);
+      _walsh_num_features = std::atoi(optarg);
       break;
 
     case OPTION_MS_PLANTED_SOLUTION:
@@ -215,7 +214,7 @@ void FfgenOptions::print_help(std::ostream& stream) const
   stream << "            171: Nearest neighbor Ising model in one dimension" << std::endl;
   stream << "            172: Nearest neighbor Ising model in two dimensions" << std::endl;
   stream << "            190: Sudoku" << std::endl;
-  stream << "  -p, --path (type string, default to \"function.dat\")" << std::endl;
+  stream << "  -p, --path (type string, \"function.dat\")" << std::endl;
   stream << "          Path (relative or absolute) of a function file" << std::endl;
   stream << "      --seed (type int, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;

@@ -1,5 +1,4 @@
-#include <unistd.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <getopt.h>
 
 #include "hnco-mo-options.hh"
@@ -57,13 +56,13 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case 'A':
     case OPTION_ALGORITHM:
       _with_algorithm = true;
-      _algorithm = atoi(optarg);
+      _algorithm = std::atoi(optarg);
       break;
 
     case 's':
     case OPTION_BV_SIZE:
       _with_bv_size = true;
-      _bv_size = atoi(optarg);
+      _bv_size = std::atoi(optarg);
       break;
 
     case OPTION_DESCRIPTION_PATH:
@@ -73,23 +72,23 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_EA_CROSSOVER_PROBABILITY:
       _with_ea_crossover_probability = true;
-      _ea_crossover_probability = atof(optarg);
+      _ea_crossover_probability = std::atof(optarg);
       break;
 
     case OPTION_EA_MU:
       _with_ea_mu = true;
-      _ea_mu = atoi(optarg);
+      _ea_mu = std::atoi(optarg);
       break;
 
     case 'm':
     case OPTION_EA_MUTATION_RATE:
       _with_ea_mutation_rate = true;
-      _ea_mutation_rate = atof(optarg);
+      _ea_mutation_rate = std::atof(optarg);
       break;
 
     case OPTION_EA_TOURNAMENT_SIZE:
       _with_ea_tournament_size = true;
-      _ea_tournament_size = atoi(optarg);
+      _ea_tournament_size = std::atoi(optarg);
       break;
 
     case OPTION_FN_NAME:
@@ -104,39 +103,39 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_FP_LOWER_BOUND:
       _with_fp_lower_bound = true;
-      _fp_lower_bound = atof(optarg);
+      _fp_lower_bound = std::atof(optarg);
       break;
 
     case OPTION_FP_NUM_BITS:
       _with_fp_num_bits = true;
-      _fp_num_bits = atoi(optarg);
+      _fp_num_bits = std::atoi(optarg);
       break;
 
     case OPTION_FP_PRECISION:
       _with_fp_precision = true;
-      _fp_precision = atof(optarg);
+      _fp_precision = std::atof(optarg);
       break;
 
     case OPTION_FP_UPPER_BOUND:
       _with_fp_upper_bound = true;
-      _fp_upper_bound = atof(optarg);
+      _fp_upper_bound = std::atof(optarg);
       break;
 
     case 'F':
     case OPTION_FUNCTION:
       _with_function = true;
-      _function = atoi(optarg);
+      _function = std::atoi(optarg);
       break;
 
     case 'i':
     case OPTION_NUM_ITERATIONS:
       _with_num_iterations = true;
-      _num_iterations = atoi(optarg);
+      _num_iterations = std::atoi(optarg);
       break;
 
     case OPTION_NUM_THREADS:
       _with_num_threads = true;
-      _num_threads = atoi(optarg);
+      _num_threads = std::atoi(optarg);
       break;
 
     case 'p':
@@ -147,12 +146,12 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_REP_CATEGORICAL_REPRESENTATION:
       _with_rep_categorical_representation = true;
-      _rep_categorical_representation = atoi(optarg);
+      _rep_categorical_representation = std::atoi(optarg);
       break;
 
     case OPTION_REP_NUM_ADDITIONAL_BITS:
       _with_rep_num_additional_bits = true;
-      _rep_num_additional_bits = atoi(optarg);
+      _rep_num_additional_bits = std::atoi(optarg);
       break;
 
     case OPTION_RESULTS_PATH:
@@ -162,7 +161,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_SEED:
       _with_seed = true;
-      _seed = strtoul(optarg, NULL, 0);
+      _seed = std::strtoul(optarg, NULL, 0);
       break;
 
     case OPTION_SOLUTION_PATH:
@@ -236,7 +235,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "General" << std::endl;
-  stream << "      --description-path (type string, default to \"description.txt\")" << std::endl;
+  stream << "      --description-path (type string, \"description.txt\")" << std::endl;
   stream << "          Path of the description file" << std::endl;
   stream << "      --num-threads (type int, default to 1)" << std::endl;
   stream << "          Number of threads" << std::endl;
@@ -248,11 +247,11 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print the parameters" << std::endl;
   stream << "      --print-pareto-front" << std::endl;
   stream << "          Print the Pareto front" << std::endl;
-  stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
+  stream << "      --results-path (type string, \"results.json\")" << std::endl;
   stream << "          Path of the results file" << std::endl;
   stream << "      --seed (type unsigned, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
-  stream << "      --solution-path (type string, default to \"solution.dat\")" << std::endl;
+  stream << "      --solution-path (type string, \"solution.dat\")" << std::endl;
   stream << "          Path of the solution file" << std::endl;
   stream << std::endl;
   stream << "Functions" << std::endl;
@@ -272,7 +271,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            181: Integer multivariate function (objectives are separated by double colons ::)" << std::endl;
   stream << "            182: Complex multivariate function (squared magnitude of, objectives are separated by double colons ::)" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
-  stream << "  -p, --path (type string, default to \"function.dat\")" << std::endl;
+  stream << "  -p, --path (type string, \"function.dat\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
   stream << std::endl;
   stream << "Algorithms" << std::endl;
@@ -296,7 +295,7 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Function parser" << std::endl;
-  stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
+  stream << "      --fp-expression (type string, \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
   stream << "          Expression to parse" << std::endl;
   stream << "      --fp-lower-bound (type double, default to -2)" << std::endl;
   stream << "          Lower bound" << std::endl;
@@ -356,7 +355,7 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# ea_mutation_rate = " << options._ea_mutation_rate << std::endl;
   stream << "# ea_tournament_size = " << options._ea_tournament_size << std::endl;
   if (options._with_fn_name)
-    stream << "# fn_name = " << options._fn_name << std::endl;
+    stream << "# fn_name = \"" << options._fn_name << "\"" << std::endl;
   stream << "# fp_expression = \"" << options._fp_expression << "\"" << std::endl;
   stream << "# fp_lower_bound = " << options._fp_lower_bound << std::endl;
   stream << "# fp_num_bits = " << options._fp_num_bits << std::endl;

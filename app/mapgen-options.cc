@@ -1,5 +1,4 @@
-#include <unistd.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <getopt.h>
 
 #include "mapgen-options.hh"
@@ -32,19 +31,19 @@ MapgenOptions::MapgenOptions(int argc, char *argv[], bool ignore_bad_options):
     case 'x':
     case OPTION_INPUT_SIZE:
       _with_input_size = true;
-      _input_size = atoi(optarg);
+      _input_size = std::atoi(optarg);
       break;
 
     case 'M':
     case OPTION_MAP:
       _with_map = true;
-      _map = atoi(optarg);
+      _map = std::atoi(optarg);
       break;
 
     case 'y':
     case OPTION_OUTPUT_SIZE:
       _with_output_size = true;
-      _output_size = atoi(optarg);
+      _output_size = std::atoi(optarg);
       break;
 
     case 'p':
@@ -55,17 +54,17 @@ MapgenOptions::MapgenOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_SEED:
       _with_seed = true;
-      _seed = atoi(optarg);
+      _seed = std::atoi(optarg);
       break;
 
     case OPTION_TS_LENGTH:
       _with_ts_length = true;
-      _ts_length = atoi(optarg);
+      _ts_length = std::atoi(optarg);
       break;
 
     case OPTION_TS_SAMPLING_MODE:
       _with_ts_sampling_mode = true;
-      _ts_sampling_mode = atoi(optarg);
+      _ts_sampling_mode = std::atoi(optarg);
       break;
 
     case OPTION_SURJECTIVE:
@@ -105,7 +104,7 @@ void MapgenOptions::print_help(std::ostream& stream) const
   stream << "            6: Affine (transvection sequence)" << std::endl;
   stream << "  -y, --output-size (type int, default to 100)" << std::endl;
   stream << "          Output bit vector size" << std::endl;
-  stream << "  -p, --path (type string, default to \"map.dat\")" << std::endl;
+  stream << "  -p, --path (type string, \"map.dat\")" << std::endl;
   stream << "          Path (relative or absolute) of a map file" << std::endl;
   stream << "      --seed (type int, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;

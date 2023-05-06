@@ -1,5 +1,4 @@
-#include <unistd.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <getopt.h>
 
 #include "hnco-options.hh"
@@ -143,39 +142,39 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case 'A':
     case OPTION_ALGORITHM:
       _with_algorithm = true;
-      _algorithm = atoi(optarg);
+      _algorithm = std::atoi(optarg);
       break;
 
     case OPTION_BM_MC_RESET_STRATEGY:
       _with_bm_mc_reset_strategy = true;
-      _bm_mc_reset_strategy = atoi(optarg);
+      _bm_mc_reset_strategy = std::atoi(optarg);
       break;
 
     case OPTION_BM_NUM_GS_CYCLES:
       _with_bm_num_gs_cycles = true;
-      _bm_num_gs_cycles = atoi(optarg);
+      _bm_num_gs_cycles = std::atoi(optarg);
       break;
 
     case OPTION_BM_NUM_GS_STEPS:
       _with_bm_num_gs_steps = true;
-      _bm_num_gs_steps = atoi(optarg);
+      _bm_num_gs_steps = std::atoi(optarg);
       break;
 
     case OPTION_BM_SAMPLING:
       _with_bm_sampling = true;
-      _bm_sampling = atoi(optarg);
+      _bm_sampling = std::atoi(optarg);
       break;
 
     case 'b':
     case OPTION_BUDGET:
       _with_budget = true;
-      _budget = atoi(optarg);
+      _budget = std::atoi(optarg);
       break;
 
     case 's':
     case OPTION_BV_SIZE:
       _with_bv_size = true;
-      _bv_size = atoi(optarg);
+      _bv_size = std::atoi(optarg);
       break;
 
     case OPTION_DESCRIPTION_PATH:
@@ -185,53 +184,53 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_EA_CROSSOVER_BIAS:
       _with_ea_crossover_bias = true;
-      _ea_crossover_bias = atof(optarg);
+      _ea_crossover_bias = std::atof(optarg);
       break;
 
     case OPTION_EA_CROSSOVER_PROBABILITY:
       _with_ea_crossover_probability = true;
-      _ea_crossover_probability = atof(optarg);
+      _ea_crossover_probability = std::atof(optarg);
       break;
 
     case OPTION_EA_LAMBDA:
       _with_ea_lambda = true;
-      _ea_lambda = atoi(optarg);
+      _ea_lambda = std::atoi(optarg);
       break;
 
     case OPTION_EA_MU:
       _with_ea_mu = true;
-      _ea_mu = atoi(optarg);
+      _ea_mu = std::atoi(optarg);
       break;
 
     case 'm':
     case OPTION_EA_MUTATION_RATE:
       _with_ea_mutation_rate = true;
-      _ea_mutation_rate = atof(optarg);
+      _ea_mutation_rate = std::atof(optarg);
       break;
 
     case OPTION_EA_MUTATION_RATE_MAX:
       _with_ea_mutation_rate_max = true;
-      _ea_mutation_rate_max = atof(optarg);
+      _ea_mutation_rate_max = std::atof(optarg);
       break;
 
     case OPTION_EA_MUTATION_RATE_MIN:
       _with_ea_mutation_rate_min = true;
-      _ea_mutation_rate_min = atof(optarg);
+      _ea_mutation_rate_min = std::atof(optarg);
       break;
 
     case OPTION_EA_SUCCESS_RATIO:
       _with_ea_success_ratio = true;
-      _ea_success_ratio = atof(optarg);
+      _ea_success_ratio = std::atof(optarg);
       break;
 
     case OPTION_EA_TOURNAMENT_SIZE:
       _with_ea_tournament_size = true;
-      _ea_tournament_size = atoi(optarg);
+      _ea_tournament_size = std::atoi(optarg);
       break;
 
     case OPTION_EA_UPDATE_STRENGTH:
       _with_ea_update_strength = true;
-      _ea_update_strength = atof(optarg);
+      _ea_update_strength = std::atof(optarg);
       break;
 
     case OPTION_EXPRESSION:
@@ -246,18 +245,18 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_FN_NUM_TRAPS:
       _with_fn_num_traps = true;
-      _fn_num_traps = atoi(optarg);
+      _fn_num_traps = std::atoi(optarg);
       break;
 
     case OPTION_FN_PREFIX_LENGTH:
       _with_fn_prefix_length = true;
-      _fn_prefix_length = atoi(optarg);
+      _fn_prefix_length = std::atoi(optarg);
       break;
 
     case 't':
     case OPTION_FN_THRESHOLD:
       _with_fn_threshold = true;
-      _fn_threshold = atoi(optarg);
+      _fn_threshold = std::atoi(optarg);
       break;
 
     case OPTION_FP_EXPRESSION:
@@ -267,50 +266,50 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_FP_LOWER_BOUND:
       _with_fp_lower_bound = true;
-      _fp_lower_bound = atof(optarg);
+      _fp_lower_bound = std::atof(optarg);
       break;
 
     case OPTION_FP_NUM_BITS:
       _with_fp_num_bits = true;
-      _fp_num_bits = atoi(optarg);
+      _fp_num_bits = std::atoi(optarg);
       break;
 
     case OPTION_FP_PRECISION:
       _with_fp_precision = true;
-      _fp_precision = atof(optarg);
+      _fp_precision = std::atof(optarg);
       break;
 
     case OPTION_FP_UPPER_BOUND:
       _with_fp_upper_bound = true;
-      _fp_upper_bound = atof(optarg);
+      _fp_upper_bound = std::atof(optarg);
       break;
 
     case 'F':
     case OPTION_FUNCTION:
       _with_function = true;
-      _function = atoi(optarg);
+      _function = std::atoi(optarg);
       break;
 
     case OPTION_HEA_RESET_PERIOD:
       _with_hea_reset_period = true;
-      _hea_reset_period = atoi(optarg);
+      _hea_reset_period = std::atoi(optarg);
       break;
 
     case 'l':
     case OPTION_LEARNING_RATE:
       _with_learning_rate = true;
-      _learning_rate = atof(optarg);
+      _learning_rate = std::atof(optarg);
       break;
 
     case 'M':
     case OPTION_MAP:
       _with_map = true;
-      _map = atoi(optarg);
+      _map = std::atoi(optarg);
       break;
 
     case OPTION_MAP_INPUT_SIZE:
       _with_map_input_size = true;
-      _map_input_size = atoi(optarg);
+      _map_input_size = std::atoi(optarg);
       break;
 
     case OPTION_MAP_PATH:
@@ -320,39 +319,39 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_MAP_TS_LENGTH:
       _with_map_ts_length = true;
-      _map_ts_length = atoi(optarg);
+      _map_ts_length = std::atoi(optarg);
       break;
 
     case OPTION_MAP_TS_SAMPLING_MODE:
       _with_map_ts_sampling_mode = true;
-      _map_ts_sampling_mode = atoi(optarg);
+      _map_ts_sampling_mode = std::atoi(optarg);
       break;
 
     case 'N':
     case OPTION_NEIGHBORHOOD:
       _with_neighborhood = true;
-      _neighborhood = atoi(optarg);
+      _neighborhood = std::atoi(optarg);
       break;
 
     case OPTION_NEIGHBORHOOD_ITERATOR:
       _with_neighborhood_iterator = true;
-      _neighborhood_iterator = atoi(optarg);
+      _neighborhood_iterator = std::atoi(optarg);
       break;
 
     case OPTION_NOISE_STDDEV:
       _with_noise_stddev = true;
-      _noise_stddev = atof(optarg);
+      _noise_stddev = std::atof(optarg);
       break;
 
     case 'i':
     case OPTION_NUM_ITERATIONS:
       _with_num_iterations = true;
-      _num_iterations = atoi(optarg);
+      _num_iterations = std::atoi(optarg);
       break;
 
     case OPTION_NUM_THREADS:
       _with_num_threads = true;
-      _num_threads = atoi(optarg);
+      _num_threads = std::atoi(optarg);
       break;
 
     case 'p':
@@ -363,43 +362,43 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_PN_MUTATION_RATE:
       _with_pn_mutation_rate = true;
-      _pn_mutation_rate = atof(optarg);
+      _pn_mutation_rate = std::atof(optarg);
       break;
 
     case OPTION_PN_NEIGHBORHOOD:
       _with_pn_neighborhood = true;
-      _pn_neighborhood = atoi(optarg);
+      _pn_neighborhood = std::atoi(optarg);
       break;
 
     case OPTION_PN_RADIUS:
       _with_pn_radius = true;
-      _pn_radius = atoi(optarg);
+      _pn_radius = std::atoi(optarg);
       break;
 
     case 'x':
     case OPTION_POPULATION_SIZE:
       _with_population_size = true;
-      _population_size = atoi(optarg);
+      _population_size = std::atoi(optarg);
       break;
 
     case OPTION_PV_LOG_NUM_COMPONENTS:
       _with_pv_log_num_components = true;
-      _pv_log_num_components = atoi(optarg);
+      _pv_log_num_components = std::atoi(optarg);
       break;
 
     case OPTION_RADIUS:
       _with_radius = true;
-      _radius = atoi(optarg);
+      _radius = std::atoi(optarg);
       break;
 
     case OPTION_REP_CATEGORICAL_REPRESENTATION:
       _with_rep_categorical_representation = true;
-      _rep_categorical_representation = atoi(optarg);
+      _rep_categorical_representation = std::atoi(optarg);
       break;
 
     case OPTION_REP_NUM_ADDITIONAL_BITS:
       _with_rep_num_additional_bits = true;
-      _rep_num_additional_bits = atoi(optarg);
+      _rep_num_additional_bits = std::atoi(optarg);
       break;
 
     case OPTION_RESULTS_PATH:
@@ -409,38 +408,38 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_RLS_PATIENCE:
       _with_rls_patience = true;
-      _rls_patience = atoi(optarg);
+      _rls_patience = std::atoi(optarg);
       break;
 
     case OPTION_SA_BETA_RATIO:
       _with_sa_beta_ratio = true;
-      _sa_beta_ratio = atof(optarg);
+      _sa_beta_ratio = std::atof(optarg);
       break;
 
     case OPTION_SA_INITIAL_ACCEPTANCE_PROBABILITY:
       _with_sa_initial_acceptance_probability = true;
-      _sa_initial_acceptance_probability = atof(optarg);
+      _sa_initial_acceptance_probability = std::atof(optarg);
       break;
 
     case OPTION_SA_NUM_TRANSITIONS:
       _with_sa_num_transitions = true;
-      _sa_num_transitions = atoi(optarg);
+      _sa_num_transitions = std::atoi(optarg);
       break;
 
     case OPTION_SA_NUM_TRIALS:
       _with_sa_num_trials = true;
-      _sa_num_trials = atoi(optarg);
+      _sa_num_trials = std::atoi(optarg);
       break;
 
     case OPTION_SEED:
       _with_seed = true;
-      _seed = strtoul(optarg, NULL, 0);
+      _seed = std::strtoul(optarg, NULL, 0);
       break;
 
     case 'y':
     case OPTION_SELECTION_SIZE:
       _with_selection_size = true;
-      _selection_size = atoi(optarg);
+      _selection_size = std::atoi(optarg);
       break;
 
     case OPTION_SOLUTION_PATH:
@@ -450,7 +449,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_TARGET:
       _with_target = true;
-      _target = atof(optarg);
+      _target = std::atof(optarg);
       break;
 
     case OPTION_ADDITIVE_GAUSSIAN_NOISE:
@@ -713,7 +712,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "General" << std::endl;
   stream << "      --concrete-solution" << std::endl;
   stream << "          Print or save the solution in the domain of the concrete function" << std::endl;
-  stream << "      --description-path (type string, default to \"description.txt\")" << std::endl;
+  stream << "      --description-path (type string, \"description.txt\")" << std::endl;
   stream << "          Path of the description file" << std::endl;
   stream << "      --load-solution" << std::endl;
   stream << "          Load a solution from a file" << std::endl;
@@ -731,7 +730,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print the solution" << std::endl;
   stream << "      --record-total-time" << std::endl;
   stream << "          Record total time" << std::endl;
-  stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
+  stream << "      --results-path (type string, \"results.json\")" << std::endl;
   stream << "          Path of the results file" << std::endl;
   stream << "      --save-description" << std::endl;
   stream << "          Save a description of the solution in a file" << std::endl;
@@ -741,7 +740,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Save the solution in a file" << std::endl;
   stream << "      --seed (type unsigned, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
-  stream << "      --solution-path (type string, default to \"solution.dat\")" << std::endl;
+  stream << "      --solution-path (type string, \"solution.dat\")" << std::endl;
   stream << "          Path of the solution file" << std::endl;
   stream << std::endl;
   stream << "Functions" << std::endl;
@@ -806,13 +805,13 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            200: Travelling salesman problem" << std::endl;
   stream << "            1000: Plugin" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
-  stream << "  -p, --path (type string, default to \"function.dat\")" << std::endl;
+  stream << "  -p, --path (type string, \"function.dat\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
   stream << std::endl;
   stream << "Function Modifiers" << std::endl;
   stream << "      --additive-gaussian-noise" << std::endl;
   stream << "          Additive Gaussian noise" << std::endl;
-  stream << "      --expression (type string, default to \"x\")" << std::endl;
+  stream << "      --expression (type string, \"x\")" << std::endl;
   stream << "          Expression of the variable x" << std::endl;
   stream << "      --negation" << std::endl;
   stream << "          Negation (hence minimization) of the function" << std::endl;
@@ -903,7 +902,7 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Function parser" << std::endl;
-  stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
+  stream << "      --fp-expression (type string, \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
   stream << "          Expression to parse" << std::endl;
   stream << "      --fp-lower-bound (type double, default to -2)" << std::endl;
   stream << "          Lower bound" << std::endl;
@@ -970,7 +969,7 @@ void HncoOptions::print_help_map(std::ostream& stream) const
   stream << "          Display the map and exit" << std::endl;
   stream << "      --map-input-size (type int, default to 100)" << std::endl;
   stream << "          Input size of linear and affine maps" << std::endl;
-  stream << "      --map-path (type string, default to \"map.dat\")" << std::endl;
+  stream << "      --map-path (type string, \"map.dat\")" << std::endl;
   stream << "          Path of a map file" << std::endl;
   stream << "      --map-random" << std::endl;
   stream << "          Sample a random map" << std::endl;
@@ -1164,7 +1163,7 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# ea_update_strength = " << options._ea_update_strength << std::endl;
   stream << "# expression = \"" << options._expression << "\"" << std::endl;
   if (options._with_fn_name)
-    stream << "# fn_name = " << options._fn_name << std::endl;
+    stream << "# fn_name = \"" << options._fn_name << "\"" << std::endl;
   stream << "# fn_num_traps = " << options._fn_num_traps << std::endl;
   stream << "# fn_prefix_length = " << options._fn_prefix_length << std::endl;
   stream << "# fn_threshold = " << options._fn_threshold << std::endl;
