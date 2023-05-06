@@ -237,6 +237,25 @@ CommandLineAlgorithmFactory::make(int bv_size)
     return algo;
   }
 
+  case 340: {
+    auto algo = new InformationTheoreticEa(bv_size, _options.get_population_size());
+
+    algo->set_initial_hamming_weight (_options.get_ea_it_initial_hamming_weight());
+    algo->set_learning_rate          (_options.get_learning_rate());
+    algo->set_mutation_rate_init     (_options.get_ea_mutation_rate() / bv_size);
+    algo->set_mutation_rate_max      (_options.get_ea_mutation_rate_max());
+    algo->set_mutation_rate_min      (_options.get_ea_mutation_rate_min());
+    algo->set_num_iterations         (_options.get_num_iterations());
+    algo->set_replacement            (_options.get_ea_it_replacement());
+    algo->set_selection_size         (_options.get_selection_size());
+
+    algo->set_allow_no_mutation      (_options.with_ea_allow_no_mutation());
+    algo->set_log_center_fitness     (_options.with_ea_it_log_center_fitness());
+    algo->set_log_mutation_rate      (_options.with_ea_log_mutation_rate());
+
+    return algo;
+  }
+
   case 400: {
     auto algo = new GeneticAlgorithm
       (bv_size,

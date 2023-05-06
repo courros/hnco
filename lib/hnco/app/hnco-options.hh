@@ -39,6 +39,8 @@ class HncoOptions {
     OPTION_DESCRIPTION_PATH,
     OPTION_EA_CROSSOVER_BIAS,
     OPTION_EA_CROSSOVER_PROBABILITY,
+    OPTION_EA_IT_INITIAL_HAMMING_WEIGHT,
+    OPTION_EA_IT_REPLACEMENT,
     OPTION_EA_LAMBDA,
     OPTION_EA_MU,
     OPTION_EA_MUTATION_RATE,
@@ -97,6 +99,7 @@ class HncoOptions {
     OPTION_CACHE_BUDGET,
     OPTION_CONCRETE_SOLUTION,
     OPTION_EA_ALLOW_NO_MUTATION,
+    OPTION_EA_IT_LOG_CENTER_FITNESS,
     OPTION_EA_LOG_MUTATION_RATE,
     OPTION_FN_DISPLAY,
     OPTION_FN_GET_BV_SIZE,
@@ -179,6 +182,14 @@ class HncoOptions {
   /// Crossover probability
   double _ea_crossover_probability = 0.5;
   bool _with_ea_crossover_probability = false;
+
+  /// Initial Hamming weight
+  int _ea_it_initial_hamming_weight;
+  bool _with_ea_it_initial_hamming_weight = false;
+
+  /// Selection for replacement in it-EA
+  int _ea_it_replacement = 0;
+  bool _with_ea_it_replacement = false;
 
   /// Offspring population size
   int _ea_lambda = 100;
@@ -403,6 +414,9 @@ class HncoOptions {
 
   /// Allow no mutation with standard bit mutation
   bool _ea_allow_no_mutation = false;
+
+  /// Log center fitness
+  bool _ea_it_log_center_fitness = false;
 
   /// Log mutation rate
   bool _ea_log_mutation_rate = false;
@@ -630,6 +644,23 @@ public:
 
   /// With parameter ea_crossover_probability
   bool with_ea_crossover_probability() const { return _with_ea_crossover_probability; }
+
+  /// Get the value of ea_it_initial_hamming_weight
+  int get_ea_it_initial_hamming_weight() const {
+    if (_with_ea_it_initial_hamming_weight)
+      return _ea_it_initial_hamming_weight;
+    else
+      throw std::runtime_error("HncoOptions::get_ea_it_initial_hamming_weight: Parameter ea_it_initial_hamming_weight has no default value and has not been set");
+    }
+
+  /// With parameter ea_it_initial_hamming_weight
+  bool with_ea_it_initial_hamming_weight() const { return _with_ea_it_initial_hamming_weight; }
+
+  /// Get the value of ea_it_replacement
+  int get_ea_it_replacement() const { return _ea_it_replacement; }
+
+  /// With parameter ea_it_replacement
+  bool with_ea_it_replacement() const { return _with_ea_it_replacement; }
 
   /// Get the value of ea_lambda
   int get_ea_lambda() const { return _ea_lambda; }
@@ -964,6 +995,9 @@ public:
 
   /// With the flag ea_allow_no_mutation
   bool with_ea_allow_no_mutation() const { return _ea_allow_no_mutation; }
+
+  /// With the flag ea_it_log_center_fitness
+  bool with_ea_it_log_center_fitness() const { return _ea_it_log_center_fitness; }
 
   /// With the flag ea_log_mutation_rate
   bool with_ea_log_mutation_rate() const { return _ea_log_mutation_rate; }

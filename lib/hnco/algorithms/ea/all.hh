@@ -22,6 +22,7 @@
 #define HNCO_ALGORITHMS_EA_ALL_H
 
 #include "genetic-algorithm.hh"
+#include "it-ea.hh"
 #include "mu-comma-lambda-ea.hh"
 #include "mu-plus-lambda-ea.hh"
 #include "one-plus-lambda-comma-lambda-ga.hh"

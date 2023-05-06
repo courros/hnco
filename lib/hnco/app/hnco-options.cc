@@ -19,6 +19,8 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"description-path", required_argument, 0, OPTION_DESCRIPTION_PATH},
     {"ea-crossover-bias", required_argument, 0, OPTION_EA_CROSSOVER_BIAS},
     {"ea-crossover-probability", required_argument, 0, OPTION_EA_CROSSOVER_PROBABILITY},
+    {"ea-it-initial-hamming-weight", required_argument, 0, OPTION_EA_IT_INITIAL_HAMMING_WEIGHT},
+    {"ea-it-replacement", required_argument, 0, OPTION_EA_IT_REPLACEMENT},
     {"ea-lambda", required_argument, 0, OPTION_EA_LAMBDA},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
     {"ea-mutation-rate", required_argument, 0, OPTION_EA_MUTATION_RATE},
@@ -77,6 +79,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"cache-budget", no_argument, 0, OPTION_CACHE_BUDGET},
     {"concrete-solution", no_argument, 0, OPTION_CONCRETE_SOLUTION},
     {"ea-allow-no-mutation", no_argument, 0, OPTION_EA_ALLOW_NO_MUTATION},
+    {"ea-it-log-center-fitness", no_argument, 0, OPTION_EA_IT_LOG_CENTER_FITNESS},
     {"ea-log-mutation-rate", no_argument, 0, OPTION_EA_LOG_MUTATION_RATE},
     {"fn-display", no_argument, 0, OPTION_FN_DISPLAY},
     {"fn-get-bv-size", no_argument, 0, OPTION_FN_GET_BV_SIZE},
@@ -190,6 +193,16 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_EA_CROSSOVER_PROBABILITY:
       _with_ea_crossover_probability = true;
       _ea_crossover_probability = std::atof(optarg);
+      break;
+
+    case OPTION_EA_IT_INITIAL_HAMMING_WEIGHT:
+      _with_ea_it_initial_hamming_weight = true;
+      _ea_it_initial_hamming_weight = std::atoi(optarg);
+      break;
+
+    case OPTION_EA_IT_REPLACEMENT:
+      _with_ea_it_replacement = true;
+      _ea_it_replacement = std::atoi(optarg);
       break;
 
     case OPTION_EA_LAMBDA:
@@ -482,6 +495,10 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_EA_ALLOW_NO_MUTATION:
       _ea_allow_no_mutation = true;
+      break;
+
+    case OPTION_EA_IT_LOG_CENTER_FITNESS:
+      _ea_it_log_center_fitness = true;
       break;
 
     case OPTION_EA_LOG_MUTATION_RATE:
@@ -854,6 +871,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            310: (mu+lambda) evolutionary algorithm (EA)" << std::endl;
   stream << "            320: (mu,lambda) evolutionary algorithm (EA)" << std::endl;
   stream << "            330: Two-rate (1+lambda) evolutionary algorithm (EA)" << std::endl;
+  stream << "            340: Information-theoretic evolutionary algorithm (EA)" << std::endl;
   stream << "            400: Genetic algorithm (GA)" << std::endl;
   stream << "            450: (1+(lambda,lambda)) genetic algorithm (GA)" << std::endl;
   stream << "            500: Population-based incremental learning (PBIL)" << std::endl;
@@ -1043,6 +1061,17 @@ void HncoOptions::print_help_ea(std::ostream& stream) const
   stream << "          Crossover bias" << std::endl;
   stream << "      --ea-crossover-probability (type double, default to 0.5)" << std::endl;
   stream << "          Crossover probability" << std::endl;
+  stream << "      --ea-it-initial-hamming-weight (type int, no default)" << std::endl;
+  stream << "          Initial Hamming weight" << std::endl;
+  stream << "      --ea-it-log-center-fitness" << std::endl;
+  stream << "          Log center fitness" << std::endl;
+  stream << "      --ea-it-replacement (type int, default to 0)" << std::endl;
+  stream << "          Selection for replacement in it-EA" << std::endl;
+  stream << "            0: Elitist replacement (eit-EA)" << std::endl;
+  stream << "            1: Non elitist replacement (neit-EA)" << std::endl;
+  stream << "            2: Maximum likelihood update (it-EA)" << std::endl;
+  stream << "            3: Incremental maximum likelihood update (it1-EA)" << std::endl;
+  stream << "            4: No replacement (static search)" << std::endl;
   stream << "      --ea-lambda (type int, default to 100)" << std::endl;
   stream << "          Offspring population size" << std::endl;
   stream << "      --ea-log-mutation-rate" << std::endl;
@@ -1153,6 +1182,9 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# description_path = \"" << options._description_path << "\"" << std::endl;
   stream << "# ea_crossover_bias = " << options._ea_crossover_bias << std::endl;
   stream << "# ea_crossover_probability = " << options._ea_crossover_probability << std::endl;
+  if (options._with_ea_it_initial_hamming_weight)
+    stream << "# ea_it_initial_hamming_weight = " << options._ea_it_initial_hamming_weight << std::endl;
+  stream << "# ea_it_replacement = " << options._ea_it_replacement << std::endl;
   stream << "# ea_lambda = " << options._ea_lambda << std::endl;
   stream << "# ea_mu = " << options._ea_mu << std::endl;
   stream << "# ea_mutation_rate = " << options._ea_mutation_rate << std::endl;
@@ -1221,6 +1253,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# concrete_solution " << std::endl;
   if (options._ea_allow_no_mutation)
     stream << "# ea_allow_no_mutation " << std::endl;
+  if (options._ea_it_log_center_fitness)
+    stream << "# ea_it_log_center_fitness " << std::endl;
   if (options._ea_log_mutation_rate)
     stream << "# ea_log_mutation_rate " << std::endl;
   if (options._fn_display)

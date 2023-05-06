@@ -63,6 +63,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.cc \
 	hnco/algorithms/ea/genetic-algorithm.hh \
+	hnco/algorithms/ea/it-ea.cc \
+	hnco/algorithms/ea/it-ea.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.cc \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
@@ -316,6 +318,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/ea/all.hh \
 	hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.hh \
+	hnco/algorithms/ea/it-ea.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \

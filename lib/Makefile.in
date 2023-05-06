@@ -198,6 +198,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.cc \
 	hnco/algorithms/ea/genetic-algorithm.hh \
+	hnco/algorithms/ea/it-ea.cc hnco/algorithms/ea/it-ea.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.cc \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
@@ -396,6 +397,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/decorators/restart.lo \
 	hnco/algorithms/ea/crossover.lo \
 	hnco/algorithms/ea/genetic-algorithm.lo \
+	hnco/algorithms/ea/it-ea.lo \
 	hnco/algorithms/ea/mu-comma-lambda-ea.lo \
 	hnco/algorithms/ea/mu-plus-lambda-ea.lo \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.lo \
@@ -508,6 +510,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/algorithms/decorators/$(DEPDIR)/restart.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/crossover.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/genetic-algorithm.Plo \
+	hnco/algorithms/ea/$(DEPDIR)/it-ea.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/mu-comma-lambda-ea.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo \
 	hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo \
@@ -636,6 +639,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/decorators/restart.hh \
 	hnco/algorithms/ea/all.hh hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.hh \
+	hnco/algorithms/ea/it-ea.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
@@ -938,6 +942,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.cc \
 	hnco/algorithms/ea/genetic-algorithm.hh \
+	hnco/algorithms/ea/it-ea.cc hnco/algorithms/ea/it-ea.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.cc \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
@@ -1126,6 +1131,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/decorators/restart.hh \
 	hnco/algorithms/ea/all.hh hnco/algorithms/ea/crossover.hh \
 	hnco/algorithms/ea/genetic-algorithm.hh \
+	hnco/algorithms/ea/it-ea.hh \
 	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
 	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
 	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
@@ -1377,6 +1383,8 @@ hnco/algorithms/ea/crossover.lo: hnco/algorithms/ea/$(am__dirstamp) \
 	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/ea/genetic-algorithm.lo:  \
 	hnco/algorithms/ea/$(am__dirstamp) \
+	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/ea/it-ea.lo: hnco/algorithms/ea/$(am__dirstamp) \
 	hnco/algorithms/ea/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/ea/mu-comma-lambda-ea.lo:  \
 	hnco/algorithms/ea/$(am__dirstamp) \
@@ -1786,6 +1794,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/decorators/$(DEPDIR)/restart.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/crossover.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/genetic-algorithm.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/it-ea.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-comma-lambda-ea.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo@am__quote@ # am--include-marker
@@ -2169,6 +2178,7 @@ distclean: distclean-am
 	-rm -f hnco/algorithms/decorators/$(DEPDIR)/restart.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/crossover.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/genetic-algorithm.Plo
+	-rm -f hnco/algorithms/ea/$(DEPDIR)/it-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/mu-comma-lambda-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo
@@ -2312,6 +2322,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/algorithms/decorators/$(DEPDIR)/restart.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/crossover.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/genetic-algorithm.Plo
+	-rm -f hnco/algorithms/ea/$(DEPDIR)/it-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/mu-comma-lambda-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/mu-plus-lambda-ea.Plo
 	-rm -f hnco/algorithms/ea/$(DEPDIR)/one-plus-lambda-comma-lambda-ga.Plo

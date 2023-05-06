@@ -340,6 +340,12 @@
             "section": "ea"
         },
 
+        "ea_it_log_center_fitness":
+        {
+            "description": "Log center fitness",
+            "section": "ea"
+        },
+
         "pv_log_pv":
         {
             "description": "Log probability vector",
@@ -1054,6 +1060,11 @@
                 },
 
                 {
+                    "value": 340,
+                    "description": "Information-theoretic evolutionary algorithm (EA)"
+                },
+
+                {
                     "value": 400,
                     "description": "Genetic algorithm (GA)"
                 },
@@ -1324,6 +1335,51 @@
             "type": "double",
             "default": 0.5,
             "description": "Crossover bias",
+            "section": "ea"
+        },
+
+        "ea_it_replacement":
+        {
+            "type": "int",
+            "default": 0,
+            "description": "Selection for replacement in it-EA",
+            "section": "ea",
+            "values":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Elitist replacement (eit-EA)"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Non elitist replacement (neit-EA)"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Maximum likelihood update (it-EA)"
+                },
+
+                {
+                    "value": 3,
+                    "description": "Incremental maximum likelihood update (it1-EA)"
+                },
+
+                {
+                    "value": 4,
+                    "description": "No replacement (static search)"
+                }
+
+            ]
+        },
+
+        "ea_it_initial_hamming_weight":
+        {
+            "type": "int",
+            "value": 0,
+            "description": "Initial Hamming weight",
             "section": "ea"
         },
 
