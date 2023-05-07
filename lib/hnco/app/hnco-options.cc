@@ -729,7 +729,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "General" << std::endl;
   stream << "      --concrete-solution" << std::endl;
   stream << "          Print or save the solution in the domain of the concrete function" << std::endl;
-  stream << "      --description-path (type string, \"description.txt\")" << std::endl;
+  stream << "      --description-path (type string, default to \"description.txt\")" << std::endl;
   stream << "          Path of the description file" << std::endl;
   stream << "      --load-solution" << std::endl;
   stream << "          Load a solution from a file" << std::endl;
@@ -747,7 +747,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print the solution" << std::endl;
   stream << "      --record-total-time" << std::endl;
   stream << "          Record total time" << std::endl;
-  stream << "      --results-path (type string, \"results.json\")" << std::endl;
+  stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
   stream << "          Path of the results file" << std::endl;
   stream << "      --save-description" << std::endl;
   stream << "          Save a description of the solution in a file" << std::endl;
@@ -755,9 +755,9 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Save the results in a file" << std::endl;
   stream << "      --save-solution" << std::endl;
   stream << "          Save the solution in a file" << std::endl;
-  stream << "      --seed (type unsigned, no default)" << std::endl;
+  stream << "      --seed (type unsigned, default to no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
-  stream << "      --solution-path (type string, \"solution.dat\")" << std::endl;
+  stream << "      --solution-path (type string, default to \"solution.dat\")" << std::endl;
   stream << "          Path of the solution file" << std::endl;
   stream << std::endl;
   stream << "Functions" << std::endl;
@@ -771,7 +771,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          If the maximum is known then print it and exit with status 0 else exit with status 1" << std::endl;
   stream << "      --fn-has-known-maximum" << std::endl;
   stream << "          Check whether the function has a known maximum" << std::endl;
-  stream << "      --fn-name (type string, no default)" << std::endl;
+  stream << "      --fn-name (type string, default to no default)" << std::endl;
   stream << "          Name of the function in the dynamic library" << std::endl;
   stream << "      --fn-num-traps (type int, default to 10)" << std::endl;
   stream << "          Number of traps" << std::endl;
@@ -822,13 +822,13 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            200: Travelling salesman problem" << std::endl;
   stream << "            1000: Plugin" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
-  stream << "  -p, --path (type string, \"function.dat\")" << std::endl;
+  stream << "  -p, --path (type string, default to \"function.dat\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
   stream << std::endl;
   stream << "Function Modifiers" << std::endl;
   stream << "      --additive-gaussian-noise" << std::endl;
   stream << "          Additive Gaussian noise" << std::endl;
-  stream << "      --expression (type string, \"x\")" << std::endl;
+  stream << "      --expression (type string, default to \"x\")" << std::endl;
   stream << "          Expression of the variable x" << std::endl;
   stream << "      --negation" << std::endl;
   stream << "          Negation (hence minimization) of the function" << std::endl;
@@ -920,7 +920,7 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Function parser" << std::endl;
-  stream << "      --fp-expression (type string, \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
+  stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
   stream << "          Expression to parse" << std::endl;
   stream << "      --fp-lower-bound (type double, default to -2)" << std::endl;
   stream << "          Lower bound" << std::endl;
@@ -987,7 +987,7 @@ void HncoOptions::print_help_map(std::ostream& stream) const
   stream << "          Display the map and exit" << std::endl;
   stream << "      --map-input-size (type int, default to 100)" << std::endl;
   stream << "          Input size of linear and affine maps" << std::endl;
-  stream << "      --map-path (type string, \"map.dat\")" << std::endl;
+  stream << "      --map-path (type string, default to \"map.dat\")" << std::endl;
   stream << "          Path of a map file" << std::endl;
   stream << "      --map-random" << std::endl;
   stream << "          Sample a random map" << std::endl;
@@ -1061,7 +1061,7 @@ void HncoOptions::print_help_ea(std::ostream& stream) const
   stream << "          Crossover bias" << std::endl;
   stream << "      --ea-crossover-probability (type double, default to 0.5)" << std::endl;
   stream << "          Crossover probability" << std::endl;
-  stream << "      --ea-it-initial-hamming-weight (type int, no default)" << std::endl;
+  stream << "      --ea-it-initial-hamming-weight (type int, default to no default)" << std::endl;
   stream << "          Initial Hamming weight" << std::endl;
   stream << "      --ea-it-log-center-fitness" << std::endl;
   stream << "          Log center fitness" << std::endl;

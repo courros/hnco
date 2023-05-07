@@ -235,7 +235,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "General" << std::endl;
-  stream << "      --description-path (type string, \"description.txt\")" << std::endl;
+  stream << "      --description-path (type string, default to \"description.txt\")" << std::endl;
   stream << "          Path of the description file" << std::endl;
   stream << "      --num-threads (type int, default to 1)" << std::endl;
   stream << "          Number of threads" << std::endl;
@@ -247,11 +247,11 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print the parameters" << std::endl;
   stream << "      --print-pareto-front" << std::endl;
   stream << "          Print the Pareto front" << std::endl;
-  stream << "      --results-path (type string, \"results.json\")" << std::endl;
+  stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
   stream << "          Path of the results file" << std::endl;
-  stream << "      --seed (type unsigned, no default)" << std::endl;
+  stream << "      --seed (type unsigned, default to no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
-  stream << "      --solution-path (type string, \"solution.dat\")" << std::endl;
+  stream << "      --solution-path (type string, default to \"solution.dat\")" << std::endl;
   stream << "          Path of the solution file" << std::endl;
   stream << std::endl;
   stream << "Functions" << std::endl;
@@ -263,7 +263,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print the size of bit vectors" << std::endl;
   stream << "      --fn-get-output-size" << std::endl;
   stream << "          Print the number of objectives" << std::endl;
-  stream << "      --fn-name (type string, no default)" << std::endl;
+  stream << "      --fn-name (type string, default to no default)" << std::endl;
   stream << "          Name of the function in the dynamic library" << std::endl;
   stream << "  -F, --function (type int, default to 180)" << std::endl;
   stream << "          Type of function" << std::endl;
@@ -271,7 +271,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            181: Integer multivariate function (objectives are separated by double colons ::)" << std::endl;
   stream << "            182: Complex multivariate function (squared magnitude of, objectives are separated by double colons ::)" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
-  stream << "  -p, --path (type string, \"function.dat\")" << std::endl;
+  stream << "  -p, --path (type string, default to \"function.dat\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
   stream << std::endl;
   stream << "Algorithms" << std::endl;
@@ -295,7 +295,7 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Function parser" << std::endl;
-  stream << "      --fp-expression (type string, \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
+  stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
   stream << "          Expression to parse" << std::endl;
   stream << "      --fp-lower-bound (type double, default to -2)" << std::endl;
   stream << "          Lower bound" << std::endl;

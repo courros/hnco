@@ -214,9 +214,9 @@ void FfgenOptions::print_help(std::ostream& stream) const
   stream << "            171: Nearest neighbor Ising model in one dimension" << std::endl;
   stream << "            172: Nearest neighbor Ising model in two dimensions" << std::endl;
   stream << "            190: Sudoku" << std::endl;
-  stream << "  -p, --path (type string, \"function.dat\")" << std::endl;
+  stream << "  -p, --path (type string, default to \"function.dat\")" << std::endl;
   stream << "          Path (relative or absolute) of a function file" << std::endl;
-  stream << "      --seed (type int, no default)" << std::endl;
+  stream << "      --seed (type int, default to no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
   stream << std::endl;
   stream << "Parameters" << std::endl;
