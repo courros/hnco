@@ -28,7 +28,7 @@
 #include <sstream>
 #include <string>
 
-#include "hnco/util.hh"
+#include "hnco/util.hh"         // hnco::join
 
 #include "fparser/fparser.hh"
 
@@ -86,7 +86,9 @@ public:
 
   /// Display the problem
   void display(std::ostream& stream) const {
-    stream << "Expression: f(" << join(begin(_variable_names), end(_variable_names), ", ") << ") = " << _expression << std::endl;
+    stream << "Expression: f("
+           << hnco::join(begin(_variable_names), end(_variable_names), ", ")
+           << ") = " << _expression << std::endl;
   }
 
   /// Evaluate
