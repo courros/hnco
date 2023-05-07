@@ -44,7 +44,7 @@ AC_CHECK_HEADERS([omp.h])
 AC_CHECK_HEADERS([pybind11/eval.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
-AX_CXX_COMPILE_STDCXX_14
+AX_CXX_COMPILE_STDCXX_17
 AC_OPENMP
 
 #
