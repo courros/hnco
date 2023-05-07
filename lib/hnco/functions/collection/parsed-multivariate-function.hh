@@ -35,7 +35,8 @@
 namespace hnco {
 namespace function {
 
-/** Parsed multivariate function.
+/**
+ * Parsed multivariate function.
  *
  * Uses the C++ library "Function Parser" (fparser):
  *
@@ -63,7 +64,8 @@ public:
   /// Codomain type
   using codomain_type = typename Parser::value_type;
 
-  /** Constructor.
+  /**
+   * Constructor.
    *
    * \param expression Expression to parse
    */
