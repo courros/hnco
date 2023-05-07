@@ -408,15 +408,15 @@ sub generate_source_help_par
         } elsif ($type eq "bool") {
             $default = ($parameter->{default} ? "true" : "false");
         } else {
-            $default = "default to $parameter->{default}";
+            $default = "$parameter->{default}";
         }
     }
 
     if (exists($parameter->{optchar})) {
 	my $optchar = $parameter->{optchar};
-	print SRC "  stream << \"  -$optchar, --$hyphen (type $type, $default)\" << std::endl;\n";
+	print SRC "  stream << \"  -$optchar, --$hyphen (type $type, default to $default)\" << std::endl;\n";
     } else {
-	print SRC "  stream << \"      --$hyphen (type $type, $default)\" << std::endl;\n";
+	print SRC "  stream << \"      --$hyphen (type $type, default to $default)\" << std::endl;\n";
     }
     print SRC "  stream << \"          $desc\" << std::endl;\n";
 
