@@ -249,7 +249,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print the Pareto front" << std::endl;
   stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
   stream << "          Path of the results file" << std::endl;
-  stream << "      --seed (type unsigned, default to no default)" << std::endl;
+  stream << "      --seed (type unsigned, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
   stream << "      --solution-path (type string, default to \"solution.dat\")" << std::endl;
   stream << "          Path of the solution file" << std::endl;
@@ -263,7 +263,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print the size of bit vectors" << std::endl;
   stream << "      --fn-get-output-size" << std::endl;
   stream << "          Print the number of objectives" << std::endl;
-  stream << "      --fn-name (type string, default to no default)" << std::endl;
+  stream << "      --fn-name (type string, no default)" << std::endl;
   stream << "          Name of the function in the dynamic library" << std::endl;
   stream << "  -F, --function (type int, default to 180)" << std::endl;
   stream << "          Type of function" << std::endl;

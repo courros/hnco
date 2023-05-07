@@ -755,7 +755,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Save the results in a file" << std::endl;
   stream << "      --save-solution" << std::endl;
   stream << "          Save the solution in a file" << std::endl;
-  stream << "      --seed (type unsigned, default to no default)" << std::endl;
+  stream << "      --seed (type unsigned, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
   stream << "      --solution-path (type string, default to \"solution.dat\")" << std::endl;
   stream << "          Path of the solution file" << std::endl;
@@ -771,7 +771,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          If the maximum is known then print it and exit with status 0 else exit with status 1" << std::endl;
   stream << "      --fn-has-known-maximum" << std::endl;
   stream << "          Check whether the function has a known maximum" << std::endl;
-  stream << "      --fn-name (type string, default to no default)" << std::endl;
+  stream << "      --fn-name (type string, no default)" << std::endl;
   stream << "          Name of the function in the dynamic library" << std::endl;
   stream << "      --fn-num-traps (type int, default to 10)" << std::endl;
   stream << "          Number of traps" << std::endl;
@@ -1061,7 +1061,7 @@ void HncoOptions::print_help_ea(std::ostream& stream) const
   stream << "          Crossover bias" << std::endl;
   stream << "      --ea-crossover-probability (type double, default to 0.5)" << std::endl;
   stream << "          Crossover probability" << std::endl;
-  stream << "      --ea-it-initial-hamming-weight (type int, default to no default)" << std::endl;
+  stream << "      --ea-it-initial-hamming-weight (type int, no default)" << std::endl;
   stream << "          Initial Hamming weight" << std::endl;
   stream << "      --ea-it-log-center-fitness" << std::endl;
   stream << "          Log center fitness" << std::endl;
