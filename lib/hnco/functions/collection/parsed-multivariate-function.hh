@@ -36,18 +36,17 @@ namespace hnco {
 namespace function {
 
 /** Parsed multivariate function.
-
-    Uses the C++ library "Function Parser" (fparser):
-
-    http://warp.povusers.org/FunctionParser/fparser.html
-
-    \warning The function string syntax depends on the chosen parser.
-
-*/
+ *
+ * Uses the C++ library "Function Parser" (fparser):
+ *
+ * http://warp.povusers.org/FunctionParser/fparser.html
+ *
+ * \warning The function string syntax depends on the chosen parser.
+ */
 template<class Parser>
 class ParsedMultivariateFunction {
 
-  /// Function parser
+  /// %Function parser
   Parser _fparser;
 
   /// Variable names
@@ -65,9 +64,9 @@ public:
   using codomain_type = typename Parser::value_type;
 
   /** Constructor.
-
-      \param expression Expression to parse
-  */
+   *
+   * \param expression Expression to parse
+   */
   ParsedMultivariateFunction(std::string expression)
     : _expression(expression)
   {
@@ -100,6 +99,9 @@ public:
 
   /// Get the number of variables
   int get_num_variables() { return _variable_names.size(); }
+
+  /// Get variable names
+  const std::vector<std::string>& get_variable_names() { return _variable_names; }
 
 };
 
