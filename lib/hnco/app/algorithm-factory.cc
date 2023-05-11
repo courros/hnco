@@ -33,26 +33,26 @@ using namespace hnco;
 
 
 Neighborhood *
-make_neighborhood(const HncoOptions& options)
+make_neighborhood(const HncoOptions& options, int bv_size)
 {
   switch(options.get_neighborhood()) {
 
   case 0:
-    return new SingleBitFlip(options.get_bv_size());
+    return new SingleBitFlip(bv_size);
 
   case 1: {
     auto neighborhood = new StandardBitMutation
-      (options.get_bv_size(),
-       options.get_ea_mutation_rate() / options.get_bv_size());
+      (bv_size,
+       options.get_ea_mutation_rate() / bv_size);
     neighborhood->set_allow_no_mutation(options.with_ea_allow_no_mutation());
     return neighborhood;
   }
 
   case 2:
-    return new HammingBall(options.get_bv_size(), options.get_radius());
+    return new HammingBall(bv_size, options.get_radius());
 
   case 3:
-    return new HammingSphere(options.get_bv_size(), options.get_radius());
+    return new HammingSphere(bv_size, options.get_radius());
 
   default:
     throw std::runtime_error("make_neighborhood: Unknown neighborhood type: " + std::to_string(options.get_neighborhood()));
@@ -61,15 +61,15 @@ make_neighborhood(const HncoOptions& options)
 
 
 NeighborhoodIterator *
-make_neighborhood_iterator(const HncoOptions& options)
+make_neighborhood_iterator(const HncoOptions& options, int bv_size)
 {
   switch(options.get_neighborhood_iterator()) {
 
   case 0:
-    return new SingleBitFlipIterator(options.get_bv_size());
+    return new SingleBitFlipIterator(bv_size);
 
   case 1:
-    return new HammingSphereIterator(options.get_bv_size(), options.get_radius());
+    return new HammingSphereIterator(bv_size, options.get_radius());
 
   default:
     throw std::runtime_error("make_neighborhood_iterator: Unknown neighborhood iterator type: " + std::to_string(options.get_neighborhood_iterator()));
@@ -94,7 +94,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
   }
 
   case 20: {
-    auto neighborhood = make_neighborhood(_options);
+    auto neighborhood = make_neighborhood(_options, bv_size);
     auto algo = new RandomWalk(bv_size, neighborhood);
     algo->set_incremental_evaluation(_options.with_incremental_evaluation());
     algo->set_num_iterations(_options.get_num_iterations());
@@ -112,7 +112,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
   }
 
   case 100: {
-    auto neighborhood = make_neighborhood(_options);
+    auto neighborhood = make_neighborhood(_options, bv_size);
     assert(neighborhood);
 
     auto algo = new RandomLocalSearch
@@ -130,7 +130,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
   }
 
   case 150: {
-    auto neighborhood = make_neighborhood_iterator(_options);
+    auto neighborhood = make_neighborhood_iterator(_options, bv_size);
     assert(neighborhood);
 
     auto algo = new SteepestAscentHillClimbing
@@ -143,7 +143,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
   }
 
   case 160: {
-    auto neighborhood = make_neighborhood_iterator(_options);
+    auto neighborhood = make_neighborhood_iterator(_options, bv_size);
     assert(neighborhood);
 
     auto algo = new FirstAscentHillClimbing
@@ -156,7 +156,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
   }
 
   case 200: {
-    auto neighborhood = make_neighborhood(_options);
+    auto neighborhood = make_neighborhood(_options, bv_size);
     assert(neighborhood);
 
     auto algo = new SimulatedAnnealing(bv_size, neighborhood);
