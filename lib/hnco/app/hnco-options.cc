@@ -125,10 +125,14 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"stop-on-target", no_argument, 0, OPTION_STOP_ON_TARGET},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
+    {"help-fn", no_argument, 0, OPTION_HELP_FN},
     {"help-fp", no_argument, 0, OPTION_HELP_FP},
     {"help-rep", no_argument, 0, OPTION_HELP_REP},
+    {"help-mod", no_argument, 0, OPTION_HELP_MOD},
+    {"help-ctrl", no_argument, 0, OPTION_HELP_CTRL},
     {"help-pn", no_argument, 0, OPTION_HELP_PN},
     {"help-map", no_argument, 0, OPTION_HELP_MAP},
+    {"help-alg", no_argument, 0, OPTION_HELP_ALG},
     {"help-ls", no_argument, 0, OPTION_HELP_LS},
     {"help-sa", no_argument, 0, OPTION_HELP_SA},
     {"help-ea", no_argument, 0, OPTION_HELP_EA},
@@ -681,6 +685,10 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       print_help(std::cerr);
       exit(0);
 
+    case OPTION_HELP_FN:
+      print_help_fn(std::cerr);
+      exit(0);
+
     case OPTION_HELP_FP:
       print_help_fp(std::cerr);
       exit(0);
@@ -689,12 +697,24 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       print_help_rep(std::cerr);
       exit(0);
 
+    case OPTION_HELP_MOD:
+      print_help_mod(std::cerr);
+      exit(0);
+
+    case OPTION_HELP_CTRL:
+      print_help_ctrl(std::cerr);
+      exit(0);
+
     case OPTION_HELP_PN:
       print_help_pn(std::cerr);
       exit(0);
 
     case OPTION_HELP_MAP:
       print_help_map(std::cerr);
+      exit(0);
+
+    case OPTION_HELP_ALG:
+      print_help_alg(std::cerr);
       exit(0);
 
     case OPTION_HELP_LS:
@@ -772,6 +792,41 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "      --solution-path (type string, default to \"solution.dat\")" << std::endl;
   stream << "          Path of the solution file" << std::endl;
   stream << std::endl;
+  stream  << "Additional Sections" << std::endl;
+  stream << "      --help-fn" << std::endl;
+  stream << "          Functions" << std::endl;
+  stream << "      --help-fp" << std::endl;
+  stream << "          Function parser" << std::endl;
+  stream << "      --help-rep" << std::endl;
+  stream << "          Representations" << std::endl;
+  stream << "      --help-mod" << std::endl;
+  stream << "          Function Modifiers" << std::endl;
+  stream << "      --help-ctrl" << std::endl;
+  stream << "          Function Controllers" << std::endl;
+  stream << "      --help-pn" << std::endl;
+  stream << "          Prior Noise" << std::endl;
+  stream << "      --help-map" << std::endl;
+  stream << "          Maps" << std::endl;
+  stream << "      --help-alg" << std::endl;
+  stream << "          Algorithms" << std::endl;
+  stream << "      --help-ls" << std::endl;
+  stream << "          Local Search" << std::endl;
+  stream << "      --help-sa" << std::endl;
+  stream << "          Simulated Annealing" << std::endl;
+  stream << "      --help-ea" << std::endl;
+  stream << "          Evolutionary Algorithms" << std::endl;
+  stream << "      --help-eda" << std::endl;
+  stream << "          Estimation of Distribution Algorithms" << std::endl;
+  stream << "      --help-hea" << std::endl;
+  stream << "          Herding Evolutionary Algorithms" << std::endl;
+  stream << "      --help-bm" << std::endl;
+  stream << "          Boltzmann Machine PBIL" << std::endl;
+}
+
+void HncoOptions::print_help_fn(std::ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Functions" << std::endl;
   stream << "  -s, --bv-size (type int, default to 100)" << std::endl;
   stream << "          Size of bit vectors" << std::endl;
@@ -837,94 +892,6 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "  -p, --path (type string, default to \"function.dat\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
   stream << std::endl;
-  stream << "Function Modifiers" << std::endl;
-  stream << "      --additive-gaussian-noise" << std::endl;
-  stream << "          Additive Gaussian noise" << std::endl;
-  stream << "      --expression (type string, default to \"x\")" << std::endl;
-  stream << "          Expression of the variable x" << std::endl;
-  stream << "      --negation" << std::endl;
-  stream << "          Negation (hence minimization) of the function" << std::endl;
-  stream << "      --noise-stddev (type double, default to 1)" << std::endl;
-  stream << "          Noise standard deviation" << std::endl;
-  stream << "      --parsed-modifier" << std::endl;
-  stream << "          Parsed modifier" << std::endl;
-  stream << std::endl;
-  stream << "Function Controllers" << std::endl;
-  stream << "  -b, --budget (type int, default to 10000)" << std::endl;
-  stream << "          Number of allowed function evaluations (<= 0 means indefinite)" << std::endl;
-  stream << "      --cache" << std::endl;
-  stream << "          Cache function evaluations" << std::endl;
-  stream << "      --cache-budget" << std::endl;
-  stream << "          Set cache on budget" << std::endl;
-  stream << "      --log-improvement" << std::endl;
-  stream << "          Log improvement" << std::endl;
-  stream << "      --record-evaluation-time" << std::endl;
-  stream << "          Record evaluation time" << std::endl;
-  stream << "      --stop-on-maximum" << std::endl;
-  stream << "          Stop on maximum" << std::endl;
-  stream << "      --stop-on-target" << std::endl;
-  stream << "          Stop on target" << std::endl;
-  stream << "      --target (type double, default to 100)" << std::endl;
-  stream << "          Target" << std::endl;
-  stream << std::endl;
-  stream << "Algorithms" << std::endl;
-  stream << "  -A, --algorithm (type int, default to 100)" << std::endl;
-  stream << "          Type of algorithm" << std::endl;
-  stream << "            0: Complete search" << std::endl;
-  stream << "            10: Random search" << std::endl;
-  stream << "            20: Random walk" << std::endl;
-  stream << "            30: Human, so you can try by yourself" << std::endl;
-  stream << "            100: Random local search" << std::endl;
-  stream << "            150: Steepest ascent hill climbing" << std::endl;
-  stream << "            160: First ascent hill climbing" << std::endl;
-  stream << "            200: Simulated annealing" << std::endl;
-  stream << "            300: (1+1) evolutionary algorithm (EA)" << std::endl;
-  stream << "            301: Self-adjusting (1+1) evolutionary algorithm (EA)" << std::endl;
-  stream << "            310: (mu+lambda) evolutionary algorithm (EA)" << std::endl;
-  stream << "            320: (mu,lambda) evolutionary algorithm (EA)" << std::endl;
-  stream << "            330: Two-rate (1+lambda) evolutionary algorithm (EA)" << std::endl;
-  stream << "            340: Information-theoretic evolutionary algorithm (EA)" << std::endl;
-  stream << "            400: Genetic algorithm (GA)" << std::endl;
-  stream << "            450: (1+(lambda,lambda)) genetic algorithm (GA)" << std::endl;
-  stream << "            500: Population-based incremental learning (PBIL)" << std::endl;
-  stream << "            501: PBIL with negative and positive selection" << std::endl;
-  stream << "            600: Univariate marginal distribution algorithm (UMDA)" << std::endl;
-  stream << "            700: Compact genetic algorithm (cGA)" << std::endl;
-  stream << "            800: Max-min ant system (MMAS)" << std::endl;
-  stream << "            900: Herding evolutionary algorithm (HEA) with symmetric Walsh moment" << std::endl;
-  stream << "            901: Herding evolutionary algorithm (HEA) with lower triangular Walsh moment" << std::endl;
-  stream << "            1000: Boltzmann machine PBIL with symmetric Walsh moment" << std::endl;
-  stream << "            1001: Boltzmann machine PBIL with lower triangular Walsh moment" << std::endl;
-  stream << "            1100: Mutual information maximizing input clustering (MIMIC)" << std::endl;
-  stream << "            1110: Hierarchical Bayesian optimization algorithm (hBOA)" << std::endl;
-  stream << "            1200: Linkage tree genetic algorithm (LTGA)" << std::endl;
-  stream << "            1300: Parameter-less population pyramid (P3)" << std::endl;
-  stream << "  -i, --num-iterations (type int, default to 0)" << std::endl;
-  stream << "          Number of iterations (<= 0 means indefinite)" << std::endl;
-  stream << "      --restart" << std::endl;
-  stream << "          Restart any algorithm an indefinite number of times" << std::endl;
-  stream << std::endl;
-  stream  << "Additional Sections" << std::endl;
-  stream << "      --help-fp" << std::endl;
-  stream << "          Function parser" << std::endl;
-  stream << "      --help-rep" << std::endl;
-  stream << "          Representations" << std::endl;
-  stream << "      --help-pn" << std::endl;
-  stream << "          Prior Noise" << std::endl;
-  stream << "      --help-map" << std::endl;
-  stream << "          Maps" << std::endl;
-  stream << "      --help-ls" << std::endl;
-  stream << "          Local Search" << std::endl;
-  stream << "      --help-sa" << std::endl;
-  stream << "          Simulated Annealing" << std::endl;
-  stream << "      --help-ea" << std::endl;
-  stream << "          Evolutionary Algorithms" << std::endl;
-  stream << "      --help-eda" << std::endl;
-  stream << "          Estimation of Distribution Algorithms" << std::endl;
-  stream << "      --help-hea" << std::endl;
-  stream << "          Herding Evolutionary Algorithms" << std::endl;
-  stream << "      --help-bm" << std::endl;
-  stream << "          Boltzmann Machine PBIL" << std::endl;
 }
 
 void HncoOptions::print_help_fp(std::ostream& stream) const
@@ -960,6 +927,48 @@ void HncoOptions::print_help_rep(std::ostream& stream) const
   stream << "            1: Linear" << std::endl;
   stream << "      --rep-num-additional-bits (type int, default to 2)" << std::endl;
   stream << "          Number of additional bits per element for permutation representation" << std::endl;
+  stream << std::endl;
+}
+
+void HncoOptions::print_help_mod(std::ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
+  stream << "Function Modifiers" << std::endl;
+  stream << "      --additive-gaussian-noise" << std::endl;
+  stream << "          Additive Gaussian noise" << std::endl;
+  stream << "      --expression (type string, default to \"x\")" << std::endl;
+  stream << "          Expression of the variable x" << std::endl;
+  stream << "      --negation" << std::endl;
+  stream << "          Negation (hence minimization) of the function" << std::endl;
+  stream << "      --noise-stddev (type double, default to 1)" << std::endl;
+  stream << "          Noise standard deviation" << std::endl;
+  stream << "      --parsed-modifier" << std::endl;
+  stream << "          Parsed modifier" << std::endl;
+  stream << std::endl;
+}
+
+void HncoOptions::print_help_ctrl(std::ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
+  stream << "Function Controllers" << std::endl;
+  stream << "  -b, --budget (type int, default to 10000)" << std::endl;
+  stream << "          Number of allowed function evaluations (<= 0 means indefinite)" << std::endl;
+  stream << "      --cache" << std::endl;
+  stream << "          Cache function evaluations" << std::endl;
+  stream << "      --cache-budget" << std::endl;
+  stream << "          Set cache on budget" << std::endl;
+  stream << "      --log-improvement" << std::endl;
+  stream << "          Log improvement" << std::endl;
+  stream << "      --record-evaluation-time" << std::endl;
+  stream << "          Record evaluation time" << std::endl;
+  stream << "      --stop-on-maximum" << std::endl;
+  stream << "          Stop on maximum" << std::endl;
+  stream << "      --stop-on-target" << std::endl;
+  stream << "          Stop on target" << std::endl;
+  stream << "      --target (type double, default to 100)" << std::endl;
+  stream << "          Target" << std::endl;
   stream << std::endl;
 }
 
@@ -1019,6 +1028,49 @@ void HncoOptions::print_help_map(std::ostream& stream) const
   stream << "            3: Unique destination" << std::endl;
   stream << "            4: Disjoint transvections" << std::endl;
   stream << "            5: Non commuting transvections" << std::endl;
+  stream << std::endl;
+}
+
+void HncoOptions::print_help_alg(std::ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
+  stream << "Algorithms" << std::endl;
+  stream << "  -A, --algorithm (type int, default to 100)" << std::endl;
+  stream << "          Type of algorithm" << std::endl;
+  stream << "            0: Complete search" << std::endl;
+  stream << "            10: Random search" << std::endl;
+  stream << "            20: Random walk" << std::endl;
+  stream << "            30: Human, so you can try by yourself" << std::endl;
+  stream << "            100: Random local search" << std::endl;
+  stream << "            150: Steepest ascent hill climbing" << std::endl;
+  stream << "            160: First ascent hill climbing" << std::endl;
+  stream << "            200: Simulated annealing" << std::endl;
+  stream << "            300: (1+1) evolutionary algorithm (EA)" << std::endl;
+  stream << "            301: Self-adjusting (1+1) evolutionary algorithm (EA)" << std::endl;
+  stream << "            310: (mu+lambda) evolutionary algorithm (EA)" << std::endl;
+  stream << "            320: (mu,lambda) evolutionary algorithm (EA)" << std::endl;
+  stream << "            330: Two-rate (1+lambda) evolutionary algorithm (EA)" << std::endl;
+  stream << "            340: Information-theoretic evolutionary algorithm (EA)" << std::endl;
+  stream << "            400: Genetic algorithm (GA)" << std::endl;
+  stream << "            450: (1+(lambda,lambda)) genetic algorithm (GA)" << std::endl;
+  stream << "            500: Population-based incremental learning (PBIL)" << std::endl;
+  stream << "            501: PBIL with negative and positive selection" << std::endl;
+  stream << "            600: Univariate marginal distribution algorithm (UMDA)" << std::endl;
+  stream << "            700: Compact genetic algorithm (cGA)" << std::endl;
+  stream << "            800: Max-min ant system (MMAS)" << std::endl;
+  stream << "            900: Herding evolutionary algorithm (HEA) with symmetric Walsh moment" << std::endl;
+  stream << "            901: Herding evolutionary algorithm (HEA) with lower triangular Walsh moment" << std::endl;
+  stream << "            1000: Boltzmann machine PBIL with symmetric Walsh moment" << std::endl;
+  stream << "            1001: Boltzmann machine PBIL with lower triangular Walsh moment" << std::endl;
+  stream << "            1100: Mutual information maximizing input clustering (MIMIC)" << std::endl;
+  stream << "            1110: Hierarchical Bayesian optimization algorithm (hBOA)" << std::endl;
+  stream << "            1200: Linkage tree genetic algorithm (LTGA)" << std::endl;
+  stream << "            1300: Parameter-less population pyramid (P3)" << std::endl;
+  stream << "  -i, --num-iterations (type int, default to 0)" << std::endl;
+  stream << "          Number of iterations (<= 0 means indefinite)" << std::endl;
+  stream << "      --restart" << std::endl;
+  stream << "          Restart any algorithm an indefinite number of times" << std::endl;
   stream << std::endl;
 }
 
