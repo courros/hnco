@@ -747,8 +747,23 @@
         "fp_precision":
         {
             "type": "double",
-            "default": "0.01",
-            "description": "Precision of the dyadic representation of a number",
+            "description": "Precision of the dyadic representation of a number (overwrite fp_num_bits)",
+            "section": "fp"
+        },
+
+        "fp_default_interval":
+        {
+            "type": "string",
+            "default": "[0, 1]",
+            "description": "Default interval",
+            "section": "fp"
+        },
+
+        "fp_intervals":
+        {
+            "type": "string",
+            "default": "x in [0, 1] y in [0, 1]",
+            "description": "Intervals",
             "section": "fp"
         },
 
@@ -1378,7 +1393,7 @@
         "ea_it_initial_hamming_weight":
         {
             "type": "int",
-            "value": 0,
+            "default": 0,
             "description": "Initial Hamming weight",
             "section": "ea"
         },

@@ -34,7 +34,9 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"fn-num-traps", required_argument, 0, OPTION_FN_NUM_TRAPS},
     {"fn-prefix-length", required_argument, 0, OPTION_FN_PREFIX_LENGTH},
     {"fn-threshold", required_argument, 0, OPTION_FN_THRESHOLD},
+    {"fp-default-interval", required_argument, 0, OPTION_FP_DEFAULT_INTERVAL},
     {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
+    {"fp-intervals", required_argument, 0, OPTION_FP_INTERVALS},
     {"fp-lower-bound", required_argument, 0, OPTION_FP_LOWER_BOUND},
     {"fp-num-bits", required_argument, 0, OPTION_FP_NUM_BITS},
     {"fp-precision", required_argument, 0, OPTION_FP_PRECISION},
@@ -272,9 +274,19 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _fn_threshold = std::atoi(optarg);
       break;
 
+    case OPTION_FP_DEFAULT_INTERVAL:
+      _with_fp_default_interval = true;
+      _fp_default_interval = std::string(optarg);
+      break;
+
     case OPTION_FP_EXPRESSION:
       _with_fp_expression = true;
       _fp_expression = std::string(optarg);
+      break;
+
+    case OPTION_FP_INTERVALS:
+      _with_fp_intervals = true;
+      _fp_intervals = std::string(optarg);
       break;
 
     case OPTION_FP_LOWER_BOUND:
@@ -920,14 +932,18 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Function parser" << std::endl;
+  stream << "      --fp-default-interval (type string, default to \"[0, 1]\")" << std::endl;
+  stream << "          Default interval" << std::endl;
   stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
   stream << "          Expression to parse" << std::endl;
+  stream << "      --fp-intervals (type string, default to \"x in [0, 1] y in [0, 1]\")" << std::endl;
+  stream << "          Intervals" << std::endl;
   stream << "      --fp-lower-bound (type double, default to -2)" << std::endl;
   stream << "          Lower bound" << std::endl;
   stream << "      --fp-num-bits (type int, default to 8)" << std::endl;
   stream << "          Number of bits in the dyadic representation of a number" << std::endl;
-  stream << "      --fp-precision (type double, default to 0.01)" << std::endl;
-  stream << "          Precision of the dyadic representation of a number" << std::endl;
+  stream << "      --fp-precision (type double, no default)" << std::endl;
+  stream << "          Precision of the dyadic representation of a number (overwrite fp_num_bits)" << std::endl;
   stream << "      --fp-upper-bound (type double, default to 2)" << std::endl;
   stream << "          Upper bound" << std::endl;
   stream << std::endl;
@@ -1061,7 +1077,7 @@ void HncoOptions::print_help_ea(std::ostream& stream) const
   stream << "          Crossover bias" << std::endl;
   stream << "      --ea-crossover-probability (type double, default to 0.5)" << std::endl;
   stream << "          Crossover probability" << std::endl;
-  stream << "      --ea-it-initial-hamming-weight (type int, no default)" << std::endl;
+  stream << "      --ea-it-initial-hamming-weight (type int, default to 0)" << std::endl;
   stream << "          Initial Hamming weight" << std::endl;
   stream << "      --ea-it-log-center-fitness" << std::endl;
   stream << "          Log center fitness" << std::endl;
@@ -1182,8 +1198,7 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# description_path = \"" << options._description_path << "\"" << std::endl;
   stream << "# ea_crossover_bias = " << options._ea_crossover_bias << std::endl;
   stream << "# ea_crossover_probability = " << options._ea_crossover_probability << std::endl;
-  if (options._with_ea_it_initial_hamming_weight)
-    stream << "# ea_it_initial_hamming_weight = " << options._ea_it_initial_hamming_weight << std::endl;
+  stream << "# ea_it_initial_hamming_weight = " << options._ea_it_initial_hamming_weight << std::endl;
   stream << "# ea_it_replacement = " << options._ea_it_replacement << std::endl;
   stream << "# ea_lambda = " << options._ea_lambda << std::endl;
   stream << "# ea_mu = " << options._ea_mu << std::endl;
@@ -1199,10 +1214,13 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# fn_num_traps = " << options._fn_num_traps << std::endl;
   stream << "# fn_prefix_length = " << options._fn_prefix_length << std::endl;
   stream << "# fn_threshold = " << options._fn_threshold << std::endl;
+  stream << "# fp_default_interval = \"" << options._fp_default_interval << "\"" << std::endl;
   stream << "# fp_expression = \"" << options._fp_expression << "\"" << std::endl;
+  stream << "# fp_intervals = \"" << options._fp_intervals << "\"" << std::endl;
   stream << "# fp_lower_bound = " << options._fp_lower_bound << std::endl;
   stream << "# fp_num_bits = " << options._fp_num_bits << std::endl;
-  stream << "# fp_precision = " << options._fp_precision << std::endl;
+  if (options._with_fp_precision)
+    stream << "# fp_precision = " << options._fp_precision << std::endl;
   stream << "# fp_upper_bound = " << options._fp_upper_bound << std::endl;
   stream << "# function = " << options._function << std::endl;
   stream << "# hea_reset_period = " << options._hea_reset_period << std::endl;

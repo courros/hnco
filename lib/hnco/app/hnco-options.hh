@@ -54,7 +54,9 @@ class HncoOptions {
     OPTION_FN_NUM_TRAPS,
     OPTION_FN_PREFIX_LENGTH,
     OPTION_FN_THRESHOLD,
+    OPTION_FP_DEFAULT_INTERVAL,
     OPTION_FP_EXPRESSION,
+    OPTION_FP_INTERVALS,
     OPTION_FP_LOWER_BOUND,
     OPTION_FP_NUM_BITS,
     OPTION_FP_PRECISION,
@@ -184,7 +186,7 @@ class HncoOptions {
   bool _with_ea_crossover_probability = false;
 
   /// Initial Hamming weight
-  int _ea_it_initial_hamming_weight;
+  int _ea_it_initial_hamming_weight = 0;
   bool _with_ea_it_initial_hamming_weight = false;
 
   /// Selection for replacement in it-EA
@@ -243,9 +245,17 @@ class HncoOptions {
   int _fn_threshold = 10;
   bool _with_fn_threshold = false;
 
+  /// Default interval
+  std::string _fp_default_interval = "[0, 1]";
+  bool _with_fp_default_interval = false;
+
   /// Expression to parse
   std::string _fp_expression = "(1-x)^2+100*(y-x^2)^2";
   bool _with_fp_expression = false;
+
+  /// Intervals
+  std::string _fp_intervals = "x in [0, 1] y in [0, 1]";
+  bool _with_fp_intervals = false;
 
   /// Lower bound
   double _fp_lower_bound = -2;
@@ -255,8 +265,8 @@ class HncoOptions {
   int _fp_num_bits = 8;
   bool _with_fp_num_bits = false;
 
-  /// Precision of the dyadic representation of a number
-  double _fp_precision = 0.01;
+  /// Precision of the dyadic representation of a number (overwrite fp_num_bits)
+  double _fp_precision;
   bool _with_fp_precision = false;
 
   /// Upper bound
@@ -646,12 +656,7 @@ public:
   bool with_ea_crossover_probability() const { return _with_ea_crossover_probability; }
 
   /// Get the value of ea_it_initial_hamming_weight
-  int get_ea_it_initial_hamming_weight() const {
-    if (_with_ea_it_initial_hamming_weight)
-      return _ea_it_initial_hamming_weight;
-    else
-      throw std::runtime_error("HncoOptions::get_ea_it_initial_hamming_weight: Parameter ea_it_initial_hamming_weight has no default value and has not been set");
-    }
+  int get_ea_it_initial_hamming_weight() const { return _ea_it_initial_hamming_weight; }
 
   /// With parameter ea_it_initial_hamming_weight
   bool with_ea_it_initial_hamming_weight() const { return _with_ea_it_initial_hamming_weight; }
@@ -745,11 +750,23 @@ public:
   /// With parameter fn_threshold
   bool with_fn_threshold() const { return _with_fn_threshold; }
 
+  /// Get the value of fp_default_interval
+  std::string get_fp_default_interval() const { return _fp_default_interval; }
+
+  /// With parameter fp_default_interval
+  bool with_fp_default_interval() const { return _with_fp_default_interval; }
+
   /// Get the value of fp_expression
   std::string get_fp_expression() const { return _fp_expression; }
 
   /// With parameter fp_expression
   bool with_fp_expression() const { return _with_fp_expression; }
+
+  /// Get the value of fp_intervals
+  std::string get_fp_intervals() const { return _fp_intervals; }
+
+  /// With parameter fp_intervals
+  bool with_fp_intervals() const { return _with_fp_intervals; }
 
   /// Get the value of fp_lower_bound
   double get_fp_lower_bound() const { return _fp_lower_bound; }
@@ -764,7 +781,12 @@ public:
   bool with_fp_num_bits() const { return _with_fp_num_bits; }
 
   /// Get the value of fp_precision
-  double get_fp_precision() const { return _fp_precision; }
+  double get_fp_precision() const {
+    if (_with_fp_precision)
+      return _fp_precision;
+    else
+      throw std::runtime_error("HncoOptions::get_fp_precision: Parameter fp_precision has no default value and has not been set");
+    }
 
   /// With parameter fp_precision
   bool with_fp_precision() const { return _with_fp_precision; }
