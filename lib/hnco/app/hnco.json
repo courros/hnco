@@ -712,22 +712,6 @@
         },
 
 
-        "fp_lower_bound":
-        {
-            "type": "double",
-            "default": -2,
-            "description": "Lower bound",
-            "section": "fp"
-        },
-
-        "fp_upper_bound":
-        {
-            "type": "double",
-            "default": 2,
-            "description": "Upper bound",
-            "section": "fp"
-        },
-
         "fp_expression":
         {
             "type": "string",

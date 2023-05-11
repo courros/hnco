@@ -37,10 +37,8 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"fp-default-interval", required_argument, 0, OPTION_FP_DEFAULT_INTERVAL},
     {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
     {"fp-intervals", required_argument, 0, OPTION_FP_INTERVALS},
-    {"fp-lower-bound", required_argument, 0, OPTION_FP_LOWER_BOUND},
     {"fp-num-bits", required_argument, 0, OPTION_FP_NUM_BITS},
     {"fp-precision", required_argument, 0, OPTION_FP_PRECISION},
-    {"fp-upper-bound", required_argument, 0, OPTION_FP_UPPER_BOUND},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"hea-reset-period", required_argument, 0, OPTION_HEA_RESET_PERIOD},
     {"learning-rate", required_argument, 0, OPTION_LEARNING_RATE},
@@ -293,11 +291,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _fp_intervals = std::string(optarg);
       break;
 
-    case OPTION_FP_LOWER_BOUND:
-      _with_fp_lower_bound = true;
-      _fp_lower_bound = std::atof(optarg);
-      break;
-
     case OPTION_FP_NUM_BITS:
       _with_fp_num_bits = true;
       _fp_num_bits = std::atoi(optarg);
@@ -306,11 +299,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_FP_PRECISION:
       _with_fp_precision = true;
       _fp_precision = std::atof(optarg);
-      break;
-
-    case OPTION_FP_UPPER_BOUND:
-      _with_fp_upper_bound = true;
-      _fp_upper_bound = std::atof(optarg);
       break;
 
     case 'F':
@@ -905,14 +893,10 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "          Expression to parse" << std::endl;
   stream << "      --fp-intervals (type string, default to \"x in [0, 1] y in [0, 1]\")" << std::endl;
   stream << "          Intervals" << std::endl;
-  stream << "      --fp-lower-bound (type double, default to -2)" << std::endl;
-  stream << "          Lower bound" << std::endl;
   stream << "      --fp-num-bits (type int, default to 8)" << std::endl;
   stream << "          Number of bits in the dyadic representation of a number" << std::endl;
   stream << "      --fp-precision (type double, no default)" << std::endl;
   stream << "          Precision of the dyadic representation of a number (overwrite fp_num_bits)" << std::endl;
-  stream << "      --fp-upper-bound (type double, default to 2)" << std::endl;
-  stream << "          Upper bound" << std::endl;
   stream << std::endl;
 }
 
@@ -1269,11 +1253,9 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# fp_default_interval = \"" << options._fp_default_interval << "\"" << std::endl;
   stream << "# fp_expression = \"" << options._fp_expression << "\"" << std::endl;
   stream << "# fp_intervals = \"" << options._fp_intervals << "\"" << std::endl;
-  stream << "# fp_lower_bound = " << options._fp_lower_bound << std::endl;
   stream << "# fp_num_bits = " << options._fp_num_bits << std::endl;
   if (options._with_fp_precision)
     stream << "# fp_precision = " << options._fp_precision << std::endl;
-  stream << "# fp_upper_bound = " << options._fp_upper_bound << std::endl;
   stream << "# function = " << options._function << std::endl;
   stream << "# hea_reset_period = " << options._hea_reset_period << std::endl;
   stream << "# learning_rate = " << options._learning_rate << std::endl;

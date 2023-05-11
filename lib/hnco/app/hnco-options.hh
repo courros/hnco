@@ -61,10 +61,8 @@ class HncoOptions {
     OPTION_FP_DEFAULT_INTERVAL,
     OPTION_FP_EXPRESSION,
     OPTION_FP_INTERVALS,
-    OPTION_FP_LOWER_BOUND,
     OPTION_FP_NUM_BITS,
     OPTION_FP_PRECISION,
-    OPTION_FP_UPPER_BOUND,
     OPTION_FUNCTION,
     OPTION_HEA_RESET_PERIOD,
     OPTION_LEARNING_RATE,
@@ -261,10 +259,6 @@ class HncoOptions {
   std::string _fp_intervals = "x in [0, 1] y in [0, 1]";
   bool _with_fp_intervals = false;
 
-  /// Lower bound
-  double _fp_lower_bound = -2;
-  bool _with_fp_lower_bound = false;
-
   /// Number of bits in the dyadic representation of a number
   int _fp_num_bits = 8;
   bool _with_fp_num_bits = false;
@@ -272,10 +266,6 @@ class HncoOptions {
   /// Precision of the dyadic representation of a number (overwrite fp_num_bits)
   double _fp_precision;
   bool _with_fp_precision = false;
-
-  /// Upper bound
-  double _fp_upper_bound = 2;
-  bool _with_fp_upper_bound = false;
 
   /// Type of function
   int _function = 0;
@@ -784,12 +774,6 @@ public:
   /// With parameter fp_intervals
   bool with_fp_intervals() const { return _with_fp_intervals; }
 
-  /// Get the value of fp_lower_bound
-  double get_fp_lower_bound() const { return _fp_lower_bound; }
-
-  /// With parameter fp_lower_bound
-  bool with_fp_lower_bound() const { return _with_fp_lower_bound; }
-
   /// Get the value of fp_num_bits
   int get_fp_num_bits() const { return _fp_num_bits; }
 
@@ -806,12 +790,6 @@ public:
 
   /// With parameter fp_precision
   bool with_fp_precision() const { return _with_fp_precision; }
-
-  /// Get the value of fp_upper_bound
-  double get_fp_upper_bound() const { return _fp_upper_bound; }
-
-  /// With parameter fp_upper_bound
-  bool with_fp_upper_bound() const { return _with_fp_upper_bound; }
 
   /// Get the value of function
   int get_function() const { return _function; }
