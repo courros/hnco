@@ -19,6 +19,10 @@
 */
 
 #include <iostream>
+#include <string>
+#include <sstream>
+#include <unordered_map>
+#include <optional>
 
 #include "config.h"
 
@@ -31,6 +35,84 @@ using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco;
 
+
+template<typename T>
+using Interval = std::pair<T, T>;
+
+template<typename T>
+std::ostream& operator<<(std::ostream& stream, const Interval<T> interval)
+{
+  stream << "[" << interval.first << ", " << interval.second << "]";
+  return stream;
+}
+
+template<typename T>
+std::optional<Interval<T>> parse_interval(std::istringstream &stream)
+{
+  char c;
+  stream >> c;
+  if (stream.fail() || c != '[') {
+    std::cerr << "parse_interval: expected [" << std::endl;
+    return {};
+  }
+
+  Interval<T> interval;
+
+  stream >> interval.first;
+  if (stream.fail()) {
+    std::cerr << "parse_interval: expected lower bound" << std::endl;
+    return {};
+  }
+
+  stream >> c;
+  if (stream.fail() || c != ',') {
+    std::cerr << "parse_interval: expected ," << std::endl;
+    return {};
+  }
+
+  stream >> interval.second;
+  if (stream.fail()) {
+    std::cerr << "parse_interval: expected upper bound" << std::endl;
+    return {};
+  }
+
+  stream >> c;
+  if (stream.fail() || c != ']') {
+    std::cerr << "parse_interval: expected ]" << std::endl;
+    return {};
+  }
+
+  return interval;
+}
+
+template<typename T>
+std::unordered_map<std::string, Interval<T>> parse_intervals(std::string str)
+{
+  std::unordered_map<std::string, Interval<T>> intervals;
+  std::istringstream stream(str);
+
+  while (stream.peek() != EOF) {
+    std::string name;
+    stream >> name;
+    if (stream.fail()) {
+      std::cerr << "parse_intervals: expected variable name" << std::endl;
+      break;
+    }
+    std::string keyword;
+    stream >> keyword;
+    if (stream.fail() || keyword != "in") {
+      std::cerr << "parse_intervals: expected keyword in followed by space after " << name << std::endl;
+      break;
+    }
+    auto opt = parse_interval<T>(stream);
+    if (opt)
+      intervals[name] = opt.value();
+    else
+      std::cerr << "parse_intervals: failed to parse interval for variable" << name << std::endl;
+  };
+
+  return intervals;
+}
 
 Function *
 CommandLineFunctionFactory::make()
@@ -205,21 +287,38 @@ CommandLineFunctionFactory::make()
     using Fn = ParsedMultivariateFunction<FunctionParser>;
     using Conv = ScalarToDouble<double>;
     auto instance = new Fn(_options.get_fp_expression());
-    if (_options.with_fp_num_bits()) {
-      auto reps = std::vector<Rep>
-        (instance->get_num_variables(),
-         Rep(_options.get_fp_lower_bound(),
-             _options.get_fp_upper_bound(),
-             _options.get_fp_num_bits()));
-      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
-    } else {
-      auto reps = std::vector<Rep>
-        (instance->get_num_variables(),
-         Rep(_options.get_fp_lower_bound(),
-             _options.get_fp_upper_bound(),
-             _options.get_fp_precision()));
-      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
+
+    Interval<double> default_interval;
+    std::istringstream stream(_options.get_fp_default_interval());
+    auto opt = parse_interval<double>(stream);
+    if (opt)
+      default_interval = opt.value();
+    else
+      throw std::runtime_error("CommandLineFunctionFactory::make: Function 180: Bad default interval: " + _options.get_fp_default_interval());
+
+    auto intervals = parse_intervals<double>(_options.get_fp_intervals());
+
+    std::vector<Rep> reps;
+    for (const auto& name : instance->get_variable_names()) {
+      Interval<double> interval;
+      if (intervals.count(name)) {
+        interval = intervals[name];
+      } else {
+        interval = default_interval;
+        std::cerr << "Warning: CommandLineFunctionFactory::make: No interval for " << name
+                  << " hence using default interval " << _options.get_fp_default_interval() << std::endl;
+      }
+      if (_options.with_fp_precision())
+        reps.push_back(Rep(interval.first,
+                           interval.second,
+                           _options.get_fp_precision()));
+      else
+        reps.push_back(Rep(interval.first,
+                           interval.second,
+                           _options.get_fp_num_bits()));
     }
+
+    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
   }
 
   case 181: {
@@ -228,10 +327,30 @@ CommandLineFunctionFactory::make()
     using Fn = ParsedMultivariateFunction<FunctionParser_li>;
     using Conv = ScalarToDouble<long>;
     auto instance = new Fn(_options.get_fp_expression());
-    auto reps = std::vector<Rep>
-      (instance->get_num_variables(),
-       Rep(_options.get_fp_lower_bound(),
-           _options.get_fp_upper_bound()));
+
+    Interval<long> default_interval;
+    std::istringstream stream(_options.get_fp_default_interval());
+    auto opt = parse_interval<long>(stream);
+    if (opt)
+      default_interval = opt.value();
+    else
+      throw std::runtime_error("CommandLineFunctionFactory::make: Bad default interval: " + _options.get_fp_default_interval());
+
+    auto intervals = parse_intervals<long>(_options.get_fp_intervals());
+
+    std::vector<Rep> reps;
+    for (const auto& name : instance->get_variable_names()) {
+      Interval<long> interval;
+      if (intervals.count(name)) {
+        interval = intervals[name];
+      } else {
+        interval = default_interval;
+        std::cerr << "Warning: CommandLineFunctionFactory::make: Function 181: No interval for " << name
+                  << " hence using default interval " << _options.get_fp_default_interval() << std::endl;
+      }
+      reps.push_back(Rep(interval.first, interval.second));
+    }
+
     return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
   }
 
@@ -242,17 +361,17 @@ CommandLineFunctionFactory::make()
     using Fn = ParsedMultivariateFunction<FunctionParser_cd>;
     using Conv = ComplexToDouble<double>;
     auto instance = new Fn(_options.get_fp_expression());
-    if (_options.with_fp_num_bits()) {
+    if (_options.with_fp_precision()) {
       FloatRep float_rep(_options.get_fp_lower_bound(),
-                       _options.get_fp_upper_bound(),
-                       _options.get_fp_num_bits());
+                         _options.get_fp_upper_bound(),
+                         _options.get_fp_precision());
       auto reps = std::vector<Rep>(instance->get_num_variables(),
                                    Rep(float_rep, float_rep));
       return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
     } else {
       FloatRep float_rep(_options.get_fp_lower_bound(),
-                       _options.get_fp_upper_bound(),
-                       _options.get_fp_precision());
+                         _options.get_fp_upper_bound(),
+                         _options.get_fp_num_bits());
       auto reps = std::vector<Rep>(instance->get_num_variables(),
                                    Rep(float_rep, float_rep));
       return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
