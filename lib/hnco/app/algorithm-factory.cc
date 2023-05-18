@@ -31,7 +31,12 @@ using namespace hnco::neighborhood;
 using namespace hnco::random;
 using namespace hnco;
 
-
+/* The function make_neighborhood must use its parameter bv_size
+   instead of options.get_bv_size() because options.get_bv_size() is
+   the size provided by the user on the command line whereas bv_size
+   is the size of the actual function to maximize. Both can be
+   different if, for example, the function has been loaded from a
+   file. */
 Neighborhood *
 make_neighborhood(const HncoOptions& options, int bv_size)
 {
@@ -60,6 +65,12 @@ make_neighborhood(const HncoOptions& options, int bv_size)
 }
 
 
+/* The function make_neighborhood_iterator must use its parameter
+   bv_size instead of options.get_bv_size() because
+   options.get_bv_size() is the size provided by the user on the
+   command line whereas bv_size is the size of the actual function to
+   maximize. Both can be different if, for example, the function has
+   been loaded from a file. */
 NeighborhoodIterator *
 make_neighborhood_iterator(const HncoOptions& options, int bv_size)
 {
