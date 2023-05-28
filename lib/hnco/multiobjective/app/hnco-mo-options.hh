@@ -31,11 +31,11 @@ class HncoOptions {
     OPTION_EA_MUTATION_RATE,
     OPTION_EA_TOURNAMENT_SIZE,
     OPTION_FN_NAME,
+    OPTION_FP_DEFAULT_INTERVAL,
     OPTION_FP_EXPRESSION,
-    OPTION_FP_LOWER_BOUND,
+    OPTION_FP_INTERVALS,
     OPTION_FP_NUM_BITS,
     OPTION_FP_PRECISION,
-    OPTION_FP_UPPER_BOUND,
     OPTION_FUNCTION,
     OPTION_NUM_ITERATIONS,
     OPTION_NUM_THREADS,
@@ -87,13 +87,17 @@ class HncoOptions {
   std::string _fn_name;
   bool _with_fn_name = false;
 
+  /// Default interval
+  std::string _fp_default_interval = "[0, 1]";
+  bool _with_fp_default_interval = false;
+
   /// Expression to parse
   std::string _fp_expression = "(1-x)^2+100*(y-x^2)^2";
   bool _with_fp_expression = false;
 
-  /// Lower bound
-  double _fp_lower_bound = -2;
-  bool _with_fp_lower_bound = false;
+  /// Intervals
+  std::string _fp_intervals = "x in [0, 1] y in [0, 1]";
+  bool _with_fp_intervals = false;
 
   /// Number of bits in the dyadic representation of a number
   int _fp_num_bits = 8;
@@ -102,10 +106,6 @@ class HncoOptions {
   /// Precision of the dyadic representation of a number
   double _fp_precision = 0.01;
   bool _with_fp_precision = false;
-
-  /// Upper bound
-  double _fp_upper_bound = 2;
-  bool _with_fp_upper_bound = false;
 
   /// Type of function
   int _function = 180;
@@ -243,17 +243,23 @@ public:
   /// With parameter fn_name
   bool with_fn_name() const { return _with_fn_name; }
 
+  /// Get the value of fp_default_interval
+  std::string get_fp_default_interval() const { return _fp_default_interval; }
+
+  /// With parameter fp_default_interval
+  bool with_fp_default_interval() const { return _with_fp_default_interval; }
+
   /// Get the value of fp_expression
   std::string get_fp_expression() const { return _fp_expression; }
 
   /// With parameter fp_expression
   bool with_fp_expression() const { return _with_fp_expression; }
 
-  /// Get the value of fp_lower_bound
-  double get_fp_lower_bound() const { return _fp_lower_bound; }
+  /// Get the value of fp_intervals
+  std::string get_fp_intervals() const { return _fp_intervals; }
 
-  /// With parameter fp_lower_bound
-  bool with_fp_lower_bound() const { return _with_fp_lower_bound; }
+  /// With parameter fp_intervals
+  bool with_fp_intervals() const { return _with_fp_intervals; }
 
   /// Get the value of fp_num_bits
   int get_fp_num_bits() const { return _fp_num_bits; }
@@ -266,12 +272,6 @@ public:
 
   /// With parameter fp_precision
   bool with_fp_precision() const { return _with_fp_precision; }
-
-  /// Get the value of fp_upper_bound
-  double get_fp_upper_bound() const { return _fp_upper_bound; }
-
-  /// With parameter fp_upper_bound
-  bool with_fp_upper_bound() const { return _with_fp_upper_bound; }
 
   /// Get the value of function
   int get_function() const { return _function; }

@@ -17,11 +17,11 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"ea-mutation-rate", required_argument, 0, OPTION_EA_MUTATION_RATE},
     {"ea-tournament-size", required_argument, 0, OPTION_EA_TOURNAMENT_SIZE},
     {"fn-name", required_argument, 0, OPTION_FN_NAME},
+    {"fp-default-interval", required_argument, 0, OPTION_FP_DEFAULT_INTERVAL},
     {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
-    {"fp-lower-bound", required_argument, 0, OPTION_FP_LOWER_BOUND},
+    {"fp-intervals", required_argument, 0, OPTION_FP_INTERVALS},
     {"fp-num-bits", required_argument, 0, OPTION_FP_NUM_BITS},
     {"fp-precision", required_argument, 0, OPTION_FP_PRECISION},
-    {"fp-upper-bound", required_argument, 0, OPTION_FP_UPPER_BOUND},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
     {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
@@ -96,14 +96,19 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _fn_name = std::string(optarg);
       break;
 
+    case OPTION_FP_DEFAULT_INTERVAL:
+      _with_fp_default_interval = true;
+      _fp_default_interval = std::string(optarg);
+      break;
+
     case OPTION_FP_EXPRESSION:
       _with_fp_expression = true;
       _fp_expression = std::string(optarg);
       break;
 
-    case OPTION_FP_LOWER_BOUND:
-      _with_fp_lower_bound = true;
-      _fp_lower_bound = std::atof(optarg);
+    case OPTION_FP_INTERVALS:
+      _with_fp_intervals = true;
+      _fp_intervals = std::string(optarg);
       break;
 
     case OPTION_FP_NUM_BITS:
@@ -114,11 +119,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_FP_PRECISION:
       _with_fp_precision = true;
       _fp_precision = std::atof(optarg);
-      break;
-
-    case OPTION_FP_UPPER_BOUND:
-      _with_fp_upper_bound = true;
-      _fp_upper_bound = std::atof(optarg);
       break;
 
     case 'F':
@@ -295,16 +295,16 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Function parser" << std::endl;
+  stream << "      --fp-default-interval (type string, default to \"[0, 1]\")" << std::endl;
+  stream << "          Default interval" << std::endl;
   stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
   stream << "          Expression to parse" << std::endl;
-  stream << "      --fp-lower-bound (type double, default to -2)" << std::endl;
-  stream << "          Lower bound" << std::endl;
+  stream << "      --fp-intervals (type string, default to \"x in [0, 1] y in [0, 1]\")" << std::endl;
+  stream << "          Intervals" << std::endl;
   stream << "      --fp-num-bits (type int, default to 8)" << std::endl;
   stream << "          Number of bits in the dyadic representation of a number" << std::endl;
   stream << "      --fp-precision (type double, default to 0.01)" << std::endl;
   stream << "          Precision of the dyadic representation of a number" << std::endl;
-  stream << "      --fp-upper-bound (type double, default to 2)" << std::endl;
-  stream << "          Upper bound" << std::endl;
   stream << std::endl;
 }
 
@@ -356,11 +356,11 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# ea_tournament_size = " << options._ea_tournament_size << std::endl;
   if (options._with_fn_name)
     stream << "# fn_name = \"" << options._fn_name << "\"" << std::endl;
+  stream << "# fp_default_interval = \"" << options._fp_default_interval << "\"" << std::endl;
   stream << "# fp_expression = \"" << options._fp_expression << "\"" << std::endl;
-  stream << "# fp_lower_bound = " << options._fp_lower_bound << std::endl;
+  stream << "# fp_intervals = \"" << options._fp_intervals << "\"" << std::endl;
   stream << "# fp_num_bits = " << options._fp_num_bits << std::endl;
   stream << "# fp_precision = " << options._fp_precision << std::endl;
-  stream << "# fp_upper_bound = " << options._fp_upper_bound << std::endl;
   stream << "# function = " << options._function << std::endl;
   stream << "# num_iterations = " << options._num_iterations << std::endl;
   stream << "# num_threads = " << options._num_threads << std::endl;

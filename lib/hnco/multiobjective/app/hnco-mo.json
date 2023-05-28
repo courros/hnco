@@ -213,22 +213,6 @@
         },
 
 
-        "fp_lower_bound":
-        {
-            "type": "double",
-            "default": -2,
-            "description": "Lower bound",
-            "section": "fp"
-        },
-
-        "fp_upper_bound":
-        {
-            "type": "double",
-            "default": 2,
-            "description": "Upper bound",
-            "section": "fp"
-        },
-
         "fp_expression":
         {
             "type": "string",
@@ -250,6 +234,22 @@
             "type": "double",
             "default": "0.01",
             "description": "Precision of the dyadic representation of a number",
+            "section": "fp"
+        },
+
+        "fp_default_interval":
+        {
+            "type": "string",
+            "default": "[0, 1]",
+            "description": "Default interval",
+            "section": "fp"
+        },
+
+        "fp_intervals":
+        {
+            "type": "string",
+            "default": "x in [0, 1] y in [0, 1]",
+            "description": "Intervals",
             "section": "fp"
         },
 
