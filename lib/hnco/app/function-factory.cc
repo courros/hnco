@@ -18,101 +18,17 @@
 
 */
 
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <unordered_map>
-#include <optional>
-
 #include "config.h"
 
 #include "hnco/functions/all.hh"
 
 #include "function-factory.hh"
+#include "make-multivariate-function-adapter.hh"
 
 using namespace hnco::app;
-using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco;
 
-
-template<typename T>
-using Interval = std::pair<T, T>;
-
-template<typename T>
-std::ostream& operator<<(std::ostream& stream, const Interval<T> interval)
-{
-  stream << "[" << interval.first << ", " << interval.second << "]";
-  return stream;
-}
-
-template<typename T>
-std::optional<Interval<T>> parse_interval(std::istringstream &stream)
-{
-  char c;
-  stream >> c;
-  if (stream.fail() || c != '[') {
-    std::cerr << "parse_interval: Expected [" << std::endl;
-    return {};
-  }
-
-  Interval<T> interval;
-
-  stream >> interval.first;
-  if (stream.fail()) {
-    std::cerr << "parse_interval: Expected lower bound" << std::endl;
-    return {};
-  }
-
-  stream >> c;
-  if (stream.fail() || c != ',') {
-    std::cerr << "parse_interval: Expected ," << std::endl;
-    return {};
-  }
-
-  stream >> interval.second;
-  if (stream.fail()) {
-    std::cerr << "parse_interval: Expected upper bound" << std::endl;
-    return {};
-  }
-
-  stream >> c;
-  if (stream.fail() || c != ']') {
-    std::cerr << "parse_interval: Expected ]" << std::endl;
-    return {};
-  }
-
-  return interval;
-}
-
-template<typename T>
-std::unordered_map<std::string, Interval<T>> parse_intervals(std::string str)
-{
-  std::unordered_map<std::string, Interval<T>> intervals;
-  std::istringstream stream(str);
-
-  while (stream.peek() != EOF) {
-    std::string name;
-    stream >> name;
-    if (stream.fail()) {
-      std::cerr << "parse_intervals: Expected variable name" << std::endl;
-      break;
-    }
-    std::string keyword;
-    stream >> keyword;
-    if (stream.fail() || keyword != "in") {
-      std::cerr << "parse_intervals: Expected keyword in followed by space after " << name << std::endl;
-      break;
-    }
-    auto opt = parse_interval<T>(stream);
-    if (opt)
-      intervals[name] = opt.value();
-    else
-      std::cerr << "parse_intervals: Failed to parse interval for variable " << name << std::endl;
-  };
-
-  return intervals;
-}
 
 Function *
 CommandLineFunctionFactory::make()
@@ -134,7 +50,8 @@ CommandLineFunctionFactory::make()
 
   case 5: {
     LinearFunction* instance = new LinearFunction;
-    instance->generate(_options.get_bv_size(), [w = 1] () mutable { double result = w; w *= 2; return result; });
+    instance->generate(_options.get_bv_size(),
+                       [w = 1] () mutable { double result = w; w *= 2; return result; });
     return instance;
   }
 
@@ -282,168 +199,59 @@ CommandLineFunctionFactory::make()
   }
 
   case 180: {
-    using namespace hnco::representation;
-    using Rep = DyadicFloatRepresentation<double>;
-    using Fn = ParsedMultivariateFunction<FunctionParser>;
-    using Conv = ScalarToDouble<double>;
-    auto instance = new Fn(_options.get_fp_expression());
-
-    Interval<double> default_interval;
-    std::istringstream stream(_options.get_fp_default_interval());
-    auto opt = parse_interval<double>(stream);
-    if (opt)
-      default_interval = opt.value();
-    else
-      throw std::runtime_error("CommandLineFunctionFactory::make: Function 180: Bad default interval: " + _options.get_fp_default_interval());
-
-    auto intervals = parse_intervals<double>(_options.get_fp_intervals());
-
-    std::vector<Rep> reps;
-    for (const auto& name : instance->get_variable_names()) {
-      Interval<double> interval;
-      if (intervals.count(name)) {
-        interval = intervals[name];
-      } else {
-        interval = default_interval;
-        std::cerr << "Warning: CommandLineFunctionFactory::make: No interval for " << name
-                  << " hence using default interval " << _options.get_fp_default_interval() << std::endl;
-      }
-      if (_options.with_fp_precision())
-        reps.push_back(Rep(interval.first,
-                           interval.second,
-                           _options.get_fp_precision()));
-      else
-        reps.push_back(Rep(interval.first,
-                           interval.second,
-                           _options.get_fp_num_bits()));
-    }
-
-    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
+    using Fn      = ParsedMultivariateFunction<FunctionParser>;
+    using Rep     = hnco::representation::DyadicFloatRepresentation<double>;
+    using Conv    = ScalarToDouble<double>;
+    using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
+    return make_multivariate_function_adapter_float<HncoOptions, Adapter>(_options);
   }
 
   case 181: {
-    using namespace hnco::representation;
-    using Rep = DyadicIntegerRepresentation<long>;
-    using Fn = ParsedMultivariateFunction<FunctionParser_li>;
-    using Conv = ScalarToDouble<long>;
-    auto instance = new Fn(_options.get_fp_expression());
-
-    Interval<long> default_interval;
-    std::istringstream stream(_options.get_fp_default_interval());
-    auto opt = parse_interval<long>(stream);
-    if (opt)
-      default_interval = opt.value();
-    else
-      throw std::runtime_error("CommandLineFunctionFactory::make: Function 181: Bad default interval: " + _options.get_fp_default_interval());
-
-    auto intervals = parse_intervals<long>(_options.get_fp_intervals());
-
-    std::vector<Rep> reps;
-    for (const auto& name : instance->get_variable_names()) {
-      Interval<long> interval;
-      if (intervals.count(name)) {
-        interval = intervals[name];
-      } else {
-        interval = default_interval;
-        std::cerr << "Warning: CommandLineFunctionFactory::make: Function 181: No interval for " << name
-                  << " hence using default interval " << _options.get_fp_default_interval() << std::endl;
-      }
-      reps.push_back(Rep(interval.first, interval.second));
-    }
-
-    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
+    using Fn      = ParsedMultivariateFunction<FunctionParser_li>;
+    using Rep     = hnco::representation::DyadicIntegerRepresentation<long>;
+    using Conv    = ScalarToDouble<long>;
+    using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
+    return make_multivariate_function_adapter_integer<HncoOptions, Adapter>(_options);
   }
 
   case 182: {
-    using namespace hnco::representation;
-    using FloatRep = DyadicFloatRepresentation<double>;
-    using Rep = DyadicComplexRepresentation<double>;
-    using Fn = ParsedMultivariateFunction<FunctionParser_cd>;
-    using Conv = ComplexToDouble<double>;
-    auto instance = new Fn(_options.get_fp_expression());
-
-    Interval<double> default_interval;
-    std::istringstream stream(_options.get_fp_default_interval());
-    auto opt = parse_interval<double>(stream);
-    if (opt)
-      default_interval = opt.value();
-    else
-      throw std::runtime_error("CommandLineFunctionFactory::make: Function 182: Bad default interval: " + _options.get_fp_default_interval());
-
-    auto intervals = parse_intervals<double>(_options.get_fp_intervals());
-
-    std::vector<Rep> reps;
-    for (const auto& name : instance->get_variable_names()) {
-      Interval<double> interval_re, interval_im;
-      std::string name_re = name + "_re";
-      std::string name_im = name + "_im";
-      if (intervals.count(name_re)) {
-        interval_re = intervals[name_re];
-      } else {
-        interval_re = default_interval;
-        std::cerr << "Warning: CommandLineFunctionFactory::make: No interval for " << name_re
-                  << " hence using default interval " << _options.get_fp_default_interval() << std::endl;
-      }
-      if (intervals.count(name_im)) {
-        interval_im = intervals[name_im];
-      } else {
-        interval_im = default_interval;
-        std::cerr << "Warning: CommandLineFunctionFactory::make: No interval for " << name_im
-                  << " hence using default interval " << _options.get_fp_default_interval() << std::endl;
-      }
-      if (_options.with_fp_precision()) {
-        FloatRep rep_re(interval_re.first,
-                        interval_re.second,
-                        _options.get_fp_precision());
-        FloatRep rep_im(interval_im.first,
-                        interval_im.second,
-                        _options.get_fp_precision());
-        reps.push_back(Rep(rep_re, rep_im));
-      } else {
-        FloatRep rep_re(interval_re.first,
-                        interval_re.second,
-                        _options.get_fp_num_bits());
-        FloatRep rep_im(interval_im.first,
-                        interval_im.second,
-                        _options.get_fp_num_bits());
-        reps.push_back(Rep(rep_re, rep_im));
-      }
-
-    }
-
-    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
+    using Fn      = ParsedMultivariateFunction<FunctionParser_cd>;
+    using Rep     = hnco::representation::DyadicComplexRepresentation<double>;
+    using Conv    = ComplexToDouble<double>;
+    using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
+    return make_multivariate_function_adapter_complex<HncoOptions, Adapter>(_options);
   }
 
   case 190: {
-    using namespace hnco::representation;
     using Fn = Sudoku;
     using Conv = ScalarToDouble<double>;
     auto instance = new Fn();
     instance->load(_options.get_path());
     switch (_options.get_rep_categorical_representation()) {
     case 0: {
-      using Rep = IntegerCategoricalRepresentation;
+      using Rep = hnco::representation::IntegerCategoricalRepresentation;
       auto reps = std::vector<Rep>(instance->get_num_variables(), Rep(9));
       return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
     }
     case 1: {
-      using Rep = LinearCategoricalRepresentation;
+      using Rep = hnco::representation::LinearCategoricalRepresentation;
       auto reps = std::vector<Rep>(instance->get_num_variables(), Rep(9));
       return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
     }
     default:
-      throw std::runtime_error("CommandLineFunctionFactory::make: Unknown categorical representation type: " + std::to_string(_options.get_rep_categorical_representation()));
+      throw std::runtime_error
+        ("CommandLineFunctionFactory::make: Unknown categorical representation type: "
+         + std::to_string(_options.get_rep_categorical_representation()));
     }
   }
 
   case 200: {
-    using namespace hnco::representation;
     auto instance = new Tsp();
     instance->load(_options.get_path());
     int num_elements = instance->get_num_elements();
     return new PermutationFunctionAdapter<Tsp>
       (instance,
-       PermutationRepresentation(num_elements, _options.get_rep_num_additional_bits()));
+       hnco::representation::PermutationRepresentation(num_elements, _options.get_rep_num_additional_bits()));
   }
 
 #ifdef ENABLE_PLUGIN
@@ -462,7 +270,9 @@ CommandLineFunctionFactory::make()
 #endif
 
   default:
-    throw std::runtime_error("CommandLineFunctionFactory::make: Unknown function type: " + std::to_string(_options.get_function()));
+    throw std::runtime_error
+      ("CommandLineFunctionFactory::make: Unknown function type: "
+       + std::to_string(_options.get_function()));
   }
 
 }
