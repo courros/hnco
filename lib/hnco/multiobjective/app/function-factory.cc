@@ -27,6 +27,7 @@
 #include "hnco/multiobjective/functions/all.hh"
 
 #include "function-factory.hh"
+#include "hnco/app/make-multivariate-function-adapter.hh"
 
 using namespace hnco::multiobjective::app;
 using namespace hnco::multiobjective::function;
@@ -42,63 +43,27 @@ CommandLineFunctionFactory::make()
   switch(_options.get_function()) {
 
   case 180: {
-    using namespace hnco::representation;
-    using Rep = DyadicFloatRepresentation<double>;
-    using Fn = ParsedMultivariateFunction<FunctionParser>;
-    using Conv = hnco::function::ScalarToDouble<double>;
-    auto instance = new Fn(_options.get_fp_expression());
-    if (_options.with_fp_num_bits()) {
-      auto reps = std::vector<Rep>
-        (instance->get_num_variables(),
-         Rep(_options.get_fp_lower_bound(),
-             _options.get_fp_upper_bound(),
-             _options.get_fp_num_bits()));
-      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
-    } else {
-      auto reps = std::vector<Rep>
-        (instance->get_num_variables(),
-         Rep(_options.get_fp_lower_bound(),
-             _options.get_fp_upper_bound(),
-             _options.get_fp_precision()));
-      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
-    }
+    using Fn      = ParsedMultivariateFunction<FunctionParser>;
+    using Rep     = hnco::representation::DyadicFloatRepresentation<double>;
+    using Conv    = hnco::function::ScalarToDouble<double>;
+    using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
+    return hnco::app::make_multivariate_function_adapter_float<HncoOptions, Adapter>(_options);
   }
 
   case 181: {
-    using namespace hnco::representation;
-    using Rep = DyadicIntegerRepresentation<long>;
-    using Fn = ParsedMultivariateFunction<FunctionParser_li>;
-    using Conv = hnco::function::ScalarToDouble<long>;
-    auto instance = new Fn(_options.get_fp_expression());
-    auto reps = std::vector<Rep>
-      (instance->get_num_variables(),
-       Rep(_options.get_fp_lower_bound(),
-           _options.get_fp_upper_bound()));
-    return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
+    using Fn      = ParsedMultivariateFunction<FunctionParser_li>;
+    using Rep     = hnco::representation::DyadicIntegerRepresentation<long>;
+    using Conv    = hnco::function::ScalarToDouble<long>;
+    using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
+    return hnco::app::make_multivariate_function_adapter_integer<HncoOptions, Adapter>(_options);
   }
 
   case 182: {
-    using namespace hnco::representation;
-    using FloatRep = DyadicFloatRepresentation<double>;
-    using Rep = DyadicComplexRepresentation<double>;
-    using Fn = ParsedMultivariateFunction<FunctionParser_cd>;
-    using Conv = hnco::function::ComplexToDouble<double>;
-    auto instance = new Fn(_options.get_fp_expression());
-    if (_options.with_fp_num_bits()) {
-      FloatRep float_rep(_options.get_fp_lower_bound(),
-                       _options.get_fp_upper_bound(),
-                       _options.get_fp_num_bits());
-      auto reps = std::vector<Rep>(instance->get_num_variables(),
-                                   Rep(float_rep, float_rep));
-      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
-    } else {
-      FloatRep float_rep(_options.get_fp_lower_bound(),
-                       _options.get_fp_upper_bound(),
-                       _options.get_fp_precision());
-      auto reps = std::vector<Rep>(instance->get_num_variables(),
-                                   Rep(float_rep, float_rep));
-      return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
-    }
+    using Fn      = ParsedMultivariateFunction<FunctionParser_cd>;
+    using Rep     = hnco::representation::DyadicComplexRepresentation<double>;
+    using Conv    = hnco::function::ComplexToDouble<double>;
+    using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
+    return hnco::app::make_multivariate_function_adapter_complex<HncoOptions, Adapter>(_options);
   }
 
 #ifdef ENABLE_PYTHON
