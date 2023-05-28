@@ -1,15 +1,27 @@
 * Version 0.23 (unreleased)
 
 Library:
-- Added algorithm::InformationTheoreticEa
+- Fixed: make_neighborhood and make_neighborhood_iterator use
+  parameter bv_size instead of options.get_bv_size()
+- Added class algorithm::InformationTheoreticEa
+- Added ParsedMultivariateFunction::get_variable_names (single and multi)
+- Added file make-multivariate-function-adapter.hh: sets intervals
+  individually per variable (single and multi)
 
 optgen.pl:
-- handle parameters with no default value (e.g. seed)
-- added boolean type (in addition to flags)
-- option classes: removed setters
-- option classes: renamed member functions set_* -> with_*
+- Handle parameters with no default value (e.g. seed)
+- Added boolean type (in addition to flags)
+- Option classes: removed setters
+- Option classes: renamed query member functions set_* -> with_*
 - json file: renamed property value -> default
 - json file: renamed property alternatives -> values
+
+Applications:
+- hnco, hnco-mo: removed parameters fp_lower_bound and fp_upper_bound
+- hnco, hnco-mo: added parameters fp_default_interval and fp_intervals
+
+Build:
+- Requires C++17
 
 Python:
 
