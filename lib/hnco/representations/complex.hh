@@ -56,6 +56,8 @@ public:
   /// Domain type
   using domain_type = std::complex<T>;
 
+  using float_representation_type = DyadicFloatRepresentation<T>;
+
   /** Constructor.
 
       \param real_part Representation of real part
