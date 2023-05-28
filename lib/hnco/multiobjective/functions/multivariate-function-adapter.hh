@@ -83,6 +83,12 @@ class MultivariateFunctionAdapter: public Function {
 
 public:
 
+  using function_type = Fn;
+
+  using representation_type = Rep;
+
+  using converter_type = Conv;
+
   /** Constructor.
 
       \param fn Multivariate function
@@ -147,8 +153,10 @@ public:
   void display(std::ostream& stream) const override {
     _function->display(stream);
     stream << "Representations:" << std::endl;
-    for (const auto& rep : _representations) {
-      rep.display(stream);
+    auto& vars = _function->get_variable_names();
+    for (size_t i = 0; i < vars.size(); i++) {
+      stream << vars[i] << ": ";
+      _representations[i].display(stream);
       stream << std::endl;
     }
     stream << get_bv_size() << " bits" << std::endl;
