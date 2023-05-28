@@ -266,9 +266,11 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/app/decorated-function-factory.hh \
 	hnco/app/function-factory.cc hnco/app/function-factory.hh \
 	hnco/app/hnco-options.cc hnco/app/hnco-options.hh \
-	hnco/app/hnco.json hnco/bit-matrix.cc hnco/bit-matrix.hh \
-	hnco/bit-vector.cc hnco/bit-vector.hh hnco/exception.hh \
-	hnco/functions/all.hh hnco/functions/collection/all.hh \
+	hnco/app/hnco.json \
+	hnco/app/make-multivariate-function-adapter.hh \
+	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
+	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
+	hnco/functions/collection/all.hh \
 	hnco/functions/collection/cancellation.cc \
 	hnco/functions/collection/cancellation.hh \
 	hnco/functions/collection/equal-products.cc \
@@ -680,6 +682,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/app/algorithm-factory.hh hnco/app/application.hh \
 	hnco/app/decorated-function-factory.hh \
 	hnco/app/function-factory.hh hnco/app/hnco-options.hh \
+	hnco/app/make-multivariate-function-adapter.hh \
 	hnco/bit-matrix.hh hnco/bit-vector.hh hnco/exception.hh \
 	hnco/functions/all.hh hnco/functions/collection/all.hh \
 	hnco/functions/collection/cancellation.hh \
@@ -1010,9 +1013,11 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/app/decorated-function-factory.hh \
 	hnco/app/function-factory.cc hnco/app/function-factory.hh \
 	hnco/app/hnco-options.cc hnco/app/hnco-options.hh \
-	hnco/app/hnco.json hnco/bit-matrix.cc hnco/bit-matrix.hh \
-	hnco/bit-vector.cc hnco/bit-vector.hh hnco/exception.hh \
-	hnco/functions/all.hh hnco/functions/collection/all.hh \
+	hnco/app/hnco.json \
+	hnco/app/make-multivariate-function-adapter.hh \
+	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
+	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
+	hnco/functions/collection/all.hh \
 	hnco/functions/collection/cancellation.cc \
 	hnco/functions/collection/cancellation.hh \
 	hnco/functions/collection/equal-products.cc \
@@ -1172,6 +1177,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/app/algorithm-factory.hh hnco/app/application.hh \
 	hnco/app/decorated-function-factory.hh \
 	hnco/app/function-factory.hh hnco/app/hnco-options.hh \
+	hnco/app/make-multivariate-function-adapter.hh \
 	hnco/bit-matrix.hh hnco/bit-vector.hh hnco/exception.hh \
 	hnco/functions/all.hh hnco/functions/collection/all.hh \
 	hnco/functions/collection/cancellation.hh \

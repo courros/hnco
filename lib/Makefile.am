@@ -147,6 +147,7 @@ libhnco_la_SOURCES = \
 	hnco/app/hnco-options.cc \
 	hnco/app/hnco-options.hh \
 	hnco/app/hnco.json \
+	hnco/app/make-multivariate-function-adapter.hh \
 	hnco/bit-matrix.cc \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.cc \
@@ -366,6 +367,7 @@ nobase_include_HEADERS = \
 	hnco/app/decorated-function-factory.hh \
 	hnco/app/function-factory.hh \
 	hnco/app/hnco-options.hh \
+	hnco/app/make-multivariate-function-adapter.hh \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.hh \
 	hnco/exception.hh \
