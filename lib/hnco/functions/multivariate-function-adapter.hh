@@ -78,6 +78,12 @@ class MultivariateFunctionAdapter: public Function {
 
 public:
 
+  using function_type = Fn;
+
+  using representation_type = Rep;
+
+  using converter_type = Conv;
+
   /** Constructor.
 
       \param fn Multivariate function
