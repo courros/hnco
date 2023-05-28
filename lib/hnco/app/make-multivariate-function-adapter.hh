@@ -69,6 +69,11 @@ std::optional<Interval<T>> parse_interval(std::istringstream &stream)
     return {};
   }
 
+  if (!(interval.first < interval.second)) {
+    std::cerr << "parse_interval: Lower bound must be lower than upper bound" << std::endl;
+    return {};
+  }
+
   stream >> c;
   if (stream.fail() || c != ']') {
     std::cerr << "parse_interval: Expected ]" << std::endl;
@@ -108,8 +113,8 @@ std::unordered_map<std::string, Interval<T>> parse_intervals(std::string str)
 }
 
 template<typename Options, typename Adapter>
-hnco::function::Function *
-make_multivariate_function_adapter_double(const Options& options)
+Adapter *
+make_multivariate_function_adapter_float(const Options& options)
 {
   using Fn = typename Adapter::function_type;
   using Rep = typename Adapter::representation_type;
@@ -124,7 +129,7 @@ make_multivariate_function_adapter_double(const Options& options)
     default_interval = opt.value();
   else
     throw std::runtime_error
-      ("make_multivariate_function_adapter_double: Bad default interval: "
+      ("make_multivariate_function_adapter_float: Bad default interval: "
        + options.get_fp_default_interval());
 
   auto intervals = parse_intervals<Float>(options.get_fp_intervals());
@@ -137,7 +142,7 @@ make_multivariate_function_adapter_double(const Options& options)
     } else {
       interval = default_interval;
       std::cerr
-        << "Warning: make_multivariate_function_adapter_double: No interval for " << name
+        << "Warning: make_multivariate_function_adapter_float: No interval for " << name
         << " hence using default interval " << options.get_fp_default_interval() << std::endl;
     }
     if (options.with_fp_precision())
@@ -154,7 +159,7 @@ make_multivariate_function_adapter_double(const Options& options)
 }
 
 template<typename Options, typename Adapter>
-hnco::function::Function *
+Adapter *
 make_multivariate_function_adapter_integer(const Options& options)
 {
   using Fn = typename Adapter::function_type;
@@ -187,6 +192,73 @@ make_multivariate_function_adapter_integer(const Options& options)
         << " hence using default interval " << options.get_fp_default_interval() << std::endl;
     }
     reps.push_back(Rep(interval.first, interval.second));
+  }
+
+  return new Adapter(instance, reps);
+}
+
+template<typename Options, typename Adapter>
+Adapter *
+make_multivariate_function_adapter_complex(const Options& options)
+{
+  using Fn       = typename Adapter::function_type;
+  using Rep      = typename Adapter::representation_type;
+  using FloatRep = typename Rep::float_representation_type;
+  using Float    = typename FloatRep::domain_type;
+
+  auto instance = new Fn(options.get_fp_expression());
+
+  Interval<Float> default_interval;
+  std::istringstream stream(options.get_fp_default_interval());
+  auto opt = parse_interval<Float>(stream);
+  if (opt)
+    default_interval = opt.value();
+  else
+    throw std::runtime_error
+      ("make_multivariate_function_adapter_complex: Bad default interval: "
+       + options.get_fp_default_interval());
+
+  auto intervals = parse_intervals<Float>(options.get_fp_intervals());
+
+  std::vector<Rep> reps;
+  for (const auto& name : instance->get_variable_names()) {
+    Interval<Float> interval_re, interval_im;
+    std::string name_re = name + "_re";
+    std::string name_im = name + "_im";
+    if (intervals.count(name_re)) {
+      interval_re = intervals[name_re];
+    } else {
+      interval_re = default_interval;
+      std::cerr
+        << "Warning: make_multivariate_function_adapter_complex: No interval for " << name_re
+        << " hence using default interval " << options.get_fp_default_interval() << std::endl;
+    }
+    if (intervals.count(name_im)) {
+      interval_im = intervals[name_im];
+    } else {
+      interval_im = default_interval;
+      std::cerr
+        << "Warning: make_multivariate_function_adapter_complex: No interval for " << name_im
+        << " hence using default interval " << options.get_fp_default_interval() << std::endl;
+    }
+    if (options.with_fp_precision()) {
+      FloatRep rep_re(interval_re.first,
+                      interval_re.second,
+                      options.get_fp_precision());
+      FloatRep rep_im(interval_im.first,
+                      interval_im.second,
+                      options.get_fp_precision());
+      reps.push_back(Rep(rep_re, rep_im));
+    } else {
+      FloatRep rep_re(interval_re.first,
+                      interval_re.second,
+                      options.get_fp_num_bits());
+      FloatRep rep_im(interval_im.first,
+                      interval_im.second,
+                      options.get_fp_num_bits());
+      reps.push_back(Rep(rep_re, rep_im));
+    }
+
   }
 
   return new Adapter(instance, reps);
