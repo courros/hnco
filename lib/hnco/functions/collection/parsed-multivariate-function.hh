@@ -86,9 +86,9 @@ public:
 
   /// Display the problem
   void display(std::ostream& stream) const {
-    stream << "Expression: f("
+    stream << "Expression: ("
            << hnco::join(begin(_variable_names), end(_variable_names), ", ")
-           << ") = " << _expression << std::endl;
+           << ") -> " << _expression << std::endl;
   }
 
   /// Evaluate
