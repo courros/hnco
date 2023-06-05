@@ -114,13 +114,13 @@ public:
   ParsedMultivariateFunction(std::string expression)
   {
     // Split expression into sub expressions
-    std::string delimiter = "::";
+    const std::string delimiter = "::";
     auto start = 0U;
-    auto end = expression.find(delimiter);
-    while (end != std::string::npos) {
-      _expressions.push_back(expression.substr(start, end - start));
-      start = end + delimiter.length();
-      end = expression.find(delimiter, start);
+    auto stop = expression.find(delimiter);
+    while (stop != std::string::npos) {
+      _expressions.push_back(expression.substr(start, stop - start));
+      start = stop + delimiter.length();
+      stop = expression.find(delimiter, start);
     }
     _expressions.push_back(expression.substr(start));
 
@@ -135,7 +135,7 @@ public:
         stream
           << "ParsedMultivariateFunction::ParsedMultivariateFunction: " << _parsers[i].ErrorMsg()
           << " at position: " << position
-          << " in _expression: " << _expressions[i];
+          << " in expression: " << _expressions[i];
         throw std::runtime_error(stream.str());
       }
       _parsers[i].Optimize();
