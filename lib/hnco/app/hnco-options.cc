@@ -891,7 +891,7 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "          Default interval" << std::endl;
   stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
   stream << "          Expression to parse" << std::endl;
-  stream << "      --fp-intervals (type string, default to \"x in [0, 1] y in [0, 1]\")" << std::endl;
+  stream << "      --fp-intervals (type string, default to \"x : [0, 1] ; y [0, 1]\")" << std::endl;
   stream << "          Intervals" << std::endl;
   stream << "      --fp-num-bits (type int, default to 8)" << std::endl;
   stream << "          Number of bits in the dyadic representation of a number" << std::endl;

@@ -746,7 +746,7 @@
         "fp_intervals":
         {
             "type": "string",
-            "default": "x in [0, 1] y in [0, 1]",
+            "default": "x : [0, 1] ; y [0, 1]",
             "description": "Intervals",
             "section": "fp"
         },

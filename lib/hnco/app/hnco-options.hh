@@ -256,7 +256,7 @@ class HncoOptions {
   bool _with_fp_expression = false;
 
   /// Intervals
-  std::string _fp_intervals = "x in [0, 1] y in [0, 1]";
+  std::string _fp_intervals = "x : [0, 1] ; y [0, 1]";
   bool _with_fp_intervals = false;
 
   /// Number of bits in the dyadic representation of a number
