@@ -33,15 +33,16 @@
 namespace hnco {
 namespace function {
 
-/** Multivariate function adapter.
-
-    The purpose of this class is to build a regular hnco function from
-    an arbitrary multivariate function. This is achieved using a
-    composition:
-    - Representations (Rep): hypercube -> domain
-    - Multivariate function (Fn): product of domains -> codomain
-    - Converter (Conv): codomain -> double
-*/
+/**
+ * Multivariate function adapter.
+ *
+ * The purpose of this class is to build a regular hnco function from
+ * an arbitrary multivariate function. This is achieved using a
+ * composition:
+ * - Representations (Rep): hypercube -> domain
+ * - Multivariate function (Fn): product of domains -> codomain
+ * - Converter (Conv): codomain -> double
+ */
 template<class Fn, class Rep, class Conv>
 class MultivariateFunctionAdapter: public Function {
   static_assert(std::is_same<
@@ -78,17 +79,21 @@ class MultivariateFunctionAdapter: public Function {
 
 public:
 
+  /// Function type
   using function_type = Fn;
 
+  /// Repreentation type
   using representation_type = Rep;
 
+  /// Converter type
   using converter_type = Conv;
 
-  /** Constructor.
-
-      \param fn Multivariate function
-      \param reps Representations
-  */
+  /**
+   * Constructor.
+   *
+   * \param fn Multivariate function
+   * \param reps Representations
+   */
   MultivariateFunctionAdapter(Fn *fn, std::vector<Rep> reps)
     : _function(fn)
     , _representations(reps)
@@ -98,7 +103,8 @@ public:
     assert(fn->get_num_variables() == int(reps.size()));
   }
 
-  /** @name Information about the function
+  /**
+   * @name Information about the function
    */
   ///@{
 
@@ -113,13 +119,15 @@ public:
   ///@}
 
 
-  /** @name Evaluation
+  /**
+   * @name Evaluation
    */
   ///@{
 
   /// Evaluate
   double evaluate(const bit_vector_t& bv) override {
     assert(get_bv_size() == int(bv.size()));
+
     unpack(bv);
     return _converter(_function->evaluate(_variables));
   }
@@ -127,15 +135,14 @@ public:
   ///@}
 
 
-  /** @name Display
+  /**
+   * @name Display
    */
   ///@{
 
   /// Display
   void display(std::ostream& stream) const override {
     _function->display(stream);
-    int n = _function->get_num_variables();
-    stream << n << (n == 1 ? " variable" : " variables") << std::endl;
     stream << "Representations:" << std::endl;
     for (const auto& rep : _representations) {
       rep.display(stream);

@@ -35,15 +35,16 @@ namespace multiobjective {
 namespace function {
 
 
-/** Multivariate function adapter.
-
-    The purpose of this class is to build a regular hnco function from
-    an arbitrary multivariate function. This is achieved using a
-    composition:
-    - Representations (Rep): hypercube -> domain
-    - Multivariate function (Fn): product of domains -> product of codomains
-    - Converter (Conv): codomain -> double
-*/
+/**
+ * Multivariate function adapter.
+ *
+ * The purpose of this class is to build a regular hnco function from
+ * an arbitrary multivariate function. This is achieved using a
+ * composition:
+ * - Representations (Rep): hypercube -> domain
+ * - Multivariate function (Fn): product of domains -> product of codomains
+ * - Converter (Conv): codomain -> double
+ */
 template<class Fn, class Rep, class Conv>
 class MultivariateFunctionAdapter: public Function {
   static_assert(std::is_same<
@@ -83,17 +84,21 @@ class MultivariateFunctionAdapter: public Function {
 
 public:
 
+  /// Function type
   using function_type = Fn;
 
+  /// Representation type
   using representation_type = Rep;
 
+  /// Converter type
   using converter_type = Conv;
 
-  /** Constructor.
-
-      \param fn Multivariate function
-      \param reps Representations
-  */
+  /**
+   * Constructor.
+   *
+   * \param fn Multivariate function
+   * \param reps Representations
+   */
   MultivariateFunctionAdapter(Fn *fn, std::vector<Rep> reps)
     : _function(fn)
     , _representations(reps)
@@ -105,7 +110,8 @@ public:
     _codomain_value.resize(_function->get_output_size());
   }
 
-  /** @name Information about the function
+  /**
+   * @name Information about the function
    */
   ///@{
 
@@ -125,14 +131,14 @@ public:
   ///@}
 
 
-  /** @name Evaluation
+  /**
+   * @name Evaluation
    */
   ///@{
 
   /// Evaluate
   void evaluate(const bit_vector_t& bv, value_t& value) override {
     const int output_size = get_output_size();
-
     assert(get_bv_size() == int(bv.size()));
     assert(output_size == int(value.size()));
 
@@ -145,7 +151,8 @@ public:
   ///@}
 
 
-  /** @name Display
+  /**
+   * @name Display
    */
   ///@{
 
@@ -153,13 +160,10 @@ public:
   void display(std::ostream& stream) const override {
     _function->display(stream);
     stream << "Representations:" << std::endl;
-    auto& vars = _function->get_variable_names();
-    for (size_t i = 0; i < vars.size(); i++) {
-      stream << vars[i] << ": ";
-      _representations[i].display(stream);
+    for (const auto& rep : _representations) {
+      rep.display(stream);
       stream << std::endl;
     }
-    stream << get_bv_size() << " bits" << std::endl;
   }
 
   /// Describe a bit vector

@@ -86,9 +86,10 @@ public:
 
   /// Display the problem
   void display(std::ostream& stream) const {
-    stream << "Expression: ("
-           << hnco::join(begin(_variable_names), end(_variable_names), ", ")
-           << ") -> " << _expression << std::endl;
+    stream << "ParsedMultivariateFunction:" << std::endl;
+    stream << "Variables: " << hnco::join(begin(_variable_names), end(_variable_names), ", ") << std::endl;
+    stream << "Expression:" << std::endl;
+    stream << _expression << std::endl;
   }
 
   /// Evaluate
