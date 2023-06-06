@@ -44,7 +44,7 @@ std::ostream& operator<<(std::ostream& stream, const Interval<T> interval)
 /**
  * Parse an interval.
  *
- * Format: [a,b]
+ * Format: "[a, b]"
  */
 template<typename T>
 std::optional<Interval<T>> parse_interval(std::string expression)
@@ -95,7 +95,7 @@ std::optional<Interval<T>> parse_interval(std::string expression)
 /**
  * Parse a declaration.
  *
- * Format: name:[a,b]
+ * Format: "name: [a, b]"
  *
  * Example : "x: [0, 1]"
  */
@@ -136,7 +136,7 @@ std::optional<std::pair<std::string, Interval<T>>> parse_declaration(std::string
  *
  * Format: list of declarations separated by semicolon
  *
- * Example: "x:[0, 1]; y:[1, 2]"
+ * Example: "x: [0, 1]; y: [1, 2]"
  */
 template<typename T>
 std::unordered_map<std::string, Interval<T>> parse_intervals(std::string expression)
