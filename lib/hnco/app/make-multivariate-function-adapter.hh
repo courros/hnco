@@ -29,9 +29,11 @@
 namespace hnco {
 namespace app {
 
+/// Interval
 template<typename T>
 using Interval = std::pair<T, T>;
 
+/// Insert an interval
 template<typename T>
 std::ostream& operator<<(std::ostream& stream, const Interval<T> interval)
 {
@@ -39,9 +41,16 @@ std::ostream& operator<<(std::ostream& stream, const Interval<T> interval)
   return stream;
 }
 
+/**
+ * Parse an interval.
+ *
+ * Format: [a,b]
+ */
 template<typename T>
-std::optional<Interval<T>> parse_interval(std::istringstream &stream)
+std::optional<Interval<T>> parse_interval(std::string expression)
 {
+  std::istringstream stream(expression);
+
   char c;
   stream >> c;
   if (stream.fail() || c != '[') {
@@ -83,48 +92,90 @@ std::optional<Interval<T>> parse_interval(std::istringstream &stream)
   return interval;
 }
 
+/**
+ * Parse a declaration.
+ *
+ * Format: name:[a,b]
+ *
+ * Example : "x: [0, 1]"
+ */
 template<typename T>
-std::unordered_map<std::string, Interval<T>> parse_intervals(std::string str)
+std::optional<std::pair<std::string, Interval<T>>> parse_declaration(std::string expression)
+{
+  const std::string delimiter = ":";
+
+  auto start = 0U;
+  auto stop = expression.find(delimiter);
+  if (stop == std::string::npos) {
+    std::cerr << "parse_declaration: Missing colon" << std::endl;
+    return {};
+  }
+
+  auto before = expression.substr(start, stop - start);
+  std::istringstream stream(before);
+  std::string name;
+  stream >> name;
+  if (stream.fail()) {
+    std::cerr << "parse_declaration: Expected variable name before colon" << std::endl;
+    return {};
+  }
+
+  start = stop + delimiter.length();
+  auto opt = parse_interval<T>(expression.substr(start));
+  if (opt)
+    return std::make_pair(name, opt.value());
+  else {
+    std::cerr << "parse_declaration: Failed to parse interval for variable " << name << std::endl;
+    return {};
+  }
+
+}
+
+/**
+ * Parse intervals
+ *
+ * Format: list of declarations separated by semicolon
+ *
+ * Example: "x:[0, 1]; y:[1, 2]"
+ */
+template<typename T>
+std::unordered_map<std::string, Interval<T>> parse_intervals(std::string expression)
 {
   std::unordered_map<std::string, Interval<T>> intervals;
-  std::istringstream stream(str);
 
-  while (stream.peek() != EOF) {
-    std::string name;
-    stream >> name;
-    if (stream.fail()) {
-      std::cerr << "parse_intervals: Expected variable name" << std::endl;
-      break;
-    }
-    std::string keyword;
-    stream >> keyword;
-    if (stream.fail() || keyword != "in") {
-      std::cerr << "parse_intervals: Expected keyword in followed by space after " << name << std::endl;
-      break;
-    }
-    auto opt = parse_interval<T>(stream);
+  const std::string delimiter = ";";
+  auto start = 0U;
+  auto stop = expression.find(delimiter);
+  auto opt = parse_declaration<T>(expression.substr(start, stop - start));
+  if (opt)
+    intervals.insert(opt.value());
+
+  while (stop != std::string::npos) {
+    start = stop + delimiter.length();
+    stop = expression.find(delimiter, start);
+    opt = parse_declaration<T>(expression.substr(start, stop - start));
     if (opt)
-      intervals[name] = opt.value();
-    else
-      std::cerr << "parse_intervals: Failed to parse interval for variable " << name << std::endl;
-  };
+      intervals.insert(opt.value());
+  }
 
   return intervals;
 }
 
+/**
+ * Make a multivariate function adapter over float domain.
+ */
 template<typename Options, typename Adapter>
 Adapter *
 make_multivariate_function_adapter_float(const Options& options)
 {
-  using Fn = typename Adapter::function_type;
-  using Rep = typename Adapter::representation_type;
+  using Fn    = typename Adapter::function_type;
+  using Rep   = typename Adapter::representation_type;
   using Float = typename Rep::domain_type;
 
   auto instance = new Fn(options.get_fp_expression());
 
   Interval<Float> default_interval;
-  std::istringstream stream(options.get_fp_default_interval());
-  auto opt = parse_interval<Float>(stream);
+  auto opt = parse_interval<Float>(options.get_fp_default_interval());
   if (opt)
     default_interval = opt.value();
   else
@@ -158,19 +209,21 @@ make_multivariate_function_adapter_float(const Options& options)
   return new Adapter(instance, reps);
 }
 
+/**
+ * Make a multivariate function adapter over integer domain.
+ */
 template<typename Options, typename Adapter>
 Adapter *
 make_multivariate_function_adapter_integer(const Options& options)
 {
-  using Fn = typename Adapter::function_type;
-  using Rep = typename Adapter::representation_type;
+  using Fn      = typename Adapter::function_type;
+  using Rep     = typename Adapter::representation_type;
   using Integer = typename Rep::domain_type;
 
   auto instance = new Fn(options.get_fp_expression());
 
   Interval<Integer> default_interval;
-  std::istringstream stream(options.get_fp_default_interval());
-  auto opt = parse_interval<Integer>(stream);
+  auto opt = parse_interval<Integer>(options.get_fp_default_interval());
   if (opt)
     default_interval = opt.value();
   else
@@ -197,6 +250,9 @@ make_multivariate_function_adapter_integer(const Options& options)
   return new Adapter(instance, reps);
 }
 
+/**
+ * Make a multivariate function adapter over complex domain.
+ */
 template<typename Options, typename Adapter>
 Adapter *
 make_multivariate_function_adapter_complex(const Options& options)
@@ -209,8 +265,7 @@ make_multivariate_function_adapter_complex(const Options& options)
   auto instance = new Fn(options.get_fp_expression());
 
   Interval<Float> default_interval;
-  std::istringstream stream(options.get_fp_default_interval());
-  auto opt = parse_interval<Float>(stream);
+  auto opt = parse_interval<Float>(options.get_fp_default_interval());
   if (opt)
     default_interval = opt.value();
   else
