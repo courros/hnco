@@ -134,7 +134,7 @@ std::optional<std::pair<std::string, Interval<T>>> parse_declaration(std::string
 /**
  * Parse intervals
  *
- * Format: list of declarations separated by semicolon
+ * Format: list of interval declarations separated by semicolon
  *
  * Example: "x: [0, 1]; y: [1, 2]"
  */
