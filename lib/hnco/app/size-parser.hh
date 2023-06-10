@@ -21,13 +21,14 @@
 #ifndef HNCO_APP_MAKE_MULTIVARIATE_FUNCTION_ADAPTER_H
 #define HNCO_APP_MAKE_MULTIVARIATE_FUNCTION_ADAPTER_H
 
-#include <iostream>
 #include <optional>
-#include <sstream>
 #include <unordered_map>
 
 namespace hnco {
 namespace app {
+
+std::optional<std::pair<std::string, int>> parse_size_declaration(std::string expression);
+std::unordered_map<std::string, int> parse_sizes(std::string expression);
 
 }
 }

@@ -18,10 +18,13 @@
 
 */
 
-#include "make-multivariate-function-adapter.hh"
+#include <iostream>
+#include <sstream>
 
-using namespace hnco::app;
-using namespace hnco;
+#include "size-parser.hh"
+
+namespace hnco {
+namespace app {
 
 std::optional<std::pair<std::string, int>> parse_size_declaration(std::string expression)
 {
@@ -80,4 +83,7 @@ std::unordered_map<std::string, int> parse_sizes(std::string expression)
     stop = expression.find(delimiter, start);
   }
   return sizes;
+}
+
+}
 }
