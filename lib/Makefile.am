@@ -148,6 +148,8 @@ libhnco_la_SOURCES = \
 	hnco/app/hnco-options.hh \
 	hnco/app/hnco.json \
 	hnco/app/make-multivariate-function-adapter.hh \
+	hnco/app/size-parser.cc \
+	hnco/app/size-parser.hh \
 	hnco/bit-matrix.cc \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.cc \
@@ -368,6 +370,7 @@ nobase_include_HEADERS = \
 	hnco/app/function-factory.hh \
 	hnco/app/hnco-options.hh \
 	hnco/app/make-multivariate-function-adapter.hh \
+	hnco/app/size-parser.hh \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.hh \
 	hnco/exception.hh \

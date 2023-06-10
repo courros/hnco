@@ -268,6 +268,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/app/hnco-options.cc hnco/app/hnco-options.hh \
 	hnco/app/hnco.json \
 	hnco/app/make-multivariate-function-adapter.hh \
+	hnco/app/size-parser.cc hnco/app/size-parser.hh \
 	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
 	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/collection/all.hh \
@@ -428,7 +429,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/app/algorithm-factory.lo hnco/app/application.lo \
 	hnco/app/decorated-function-factory.lo \
 	hnco/app/function-factory.lo hnco/app/hnco-options.lo \
-	hnco/bit-matrix.lo hnco/bit-vector.lo \
+	hnco/app/size-parser.lo hnco/bit-matrix.lo hnco/bit-vector.lo \
 	hnco/functions/collection/cancellation.lo \
 	hnco/functions/collection/equal-products.lo \
 	hnco/functions/collection/four-peaks.lo \
@@ -542,6 +543,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/app/$(DEPDIR)/decorated-function-factory.Plo \
 	hnco/app/$(DEPDIR)/function-factory.Plo \
 	hnco/app/$(DEPDIR)/hnco-options.Plo \
+	hnco/app/$(DEPDIR)/size-parser.Plo \
 	hnco/functions/$(DEPDIR)/function.Plo \
 	hnco/functions/collection/$(DEPDIR)/cancellation.Plo \
 	hnco/functions/collection/$(DEPDIR)/equal-products.Plo \
@@ -683,8 +685,9 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/app/decorated-function-factory.hh \
 	hnco/app/function-factory.hh hnco/app/hnco-options.hh \
 	hnco/app/make-multivariate-function-adapter.hh \
-	hnco/bit-matrix.hh hnco/bit-vector.hh hnco/exception.hh \
-	hnco/functions/all.hh hnco/functions/collection/all.hh \
+	hnco/app/size-parser.hh hnco/bit-matrix.hh hnco/bit-vector.hh \
+	hnco/exception.hh hnco/functions/all.hh \
+	hnco/functions/collection/all.hh \
 	hnco/functions/collection/cancellation.hh \
 	hnco/functions/collection/equal-products.hh \
 	hnco/functions/collection/four-peaks.hh \
@@ -1015,6 +1018,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/app/hnco-options.cc hnco/app/hnco-options.hh \
 	hnco/app/hnco.json \
 	hnco/app/make-multivariate-function-adapter.hh \
+	hnco/app/size-parser.cc hnco/app/size-parser.hh \
 	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
 	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/collection/all.hh \
@@ -1178,8 +1182,9 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/app/decorated-function-factory.hh \
 	hnco/app/function-factory.hh hnco/app/hnco-options.hh \
 	hnco/app/make-multivariate-function-adapter.hh \
-	hnco/bit-matrix.hh hnco/bit-vector.hh hnco/exception.hh \
-	hnco/functions/all.hh hnco/functions/collection/all.hh \
+	hnco/app/size-parser.hh hnco/bit-matrix.hh hnco/bit-vector.hh \
+	hnco/exception.hh hnco/functions/all.hh \
+	hnco/functions/collection/all.hh \
 	hnco/functions/collection/cancellation.hh \
 	hnco/functions/collection/equal-products.hh \
 	hnco/functions/collection/four-peaks.hh \
@@ -1509,6 +1514,8 @@ hnco/app/function-factory.lo: hnco/app/$(am__dirstamp) \
 	hnco/app/$(DEPDIR)/$(am__dirstamp)
 hnco/app/hnco-options.lo: hnco/app/$(am__dirstamp) \
 	hnco/app/$(DEPDIR)/$(am__dirstamp)
+hnco/app/size-parser.lo: hnco/app/$(am__dirstamp) \
+	hnco/app/$(DEPDIR)/$(am__dirstamp)
 hnco/$(am__dirstamp):
 	@$(MKDIR_P) hnco
 	@: > hnco/$(am__dirstamp)
@@ -1830,6 +1837,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/decorated-function-factory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/function-factory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/hnco-options.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/size-parser.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/function.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/cancellation.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/equal-products.Plo@am__quote@ # am--include-marker
@@ -2214,6 +2222,7 @@ distclean: distclean-am
 	-rm -f hnco/app/$(DEPDIR)/decorated-function-factory.Plo
 	-rm -f hnco/app/$(DEPDIR)/function-factory.Plo
 	-rm -f hnco/app/$(DEPDIR)/hnco-options.Plo
+	-rm -f hnco/app/$(DEPDIR)/size-parser.Plo
 	-rm -f hnco/functions/$(DEPDIR)/function.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/cancellation.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/equal-products.Plo
@@ -2358,6 +2367,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/app/$(DEPDIR)/decorated-function-factory.Plo
 	-rm -f hnco/app/$(DEPDIR)/function-factory.Plo
 	-rm -f hnco/app/$(DEPDIR)/hnco-options.Plo
+	-rm -f hnco/app/$(DEPDIR)/size-parser.Plo
 	-rm -f hnco/functions/$(DEPDIR)/function.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/cancellation.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/equal-products.Plo
