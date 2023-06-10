@@ -35,10 +35,12 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"fn-prefix-length", required_argument, 0, OPTION_FN_PREFIX_LENGTH},
     {"fn-threshold", required_argument, 0, OPTION_FN_THRESHOLD},
     {"fp-default-interval", required_argument, 0, OPTION_FP_DEFAULT_INTERVAL},
+    {"fp-default-precision", required_argument, 0, OPTION_FP_DEFAULT_PRECISION},
     {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
     {"fp-intervals", required_argument, 0, OPTION_FP_INTERVALS},
     {"fp-num-bits", required_argument, 0, OPTION_FP_NUM_BITS},
     {"fp-precision", required_argument, 0, OPTION_FP_PRECISION},
+    {"fp-precisions", required_argument, 0, OPTION_FP_PRECISIONS},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"hea-reset-period", required_argument, 0, OPTION_HEA_RESET_PERIOD},
     {"learning-rate", required_argument, 0, OPTION_LEARNING_RATE},
@@ -281,6 +283,11 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _fp_default_interval = std::string(optarg);
       break;
 
+    case OPTION_FP_DEFAULT_PRECISION:
+      _with_fp_default_precision = true;
+      _fp_default_precision = std::atof(optarg);
+      break;
+
     case OPTION_FP_EXPRESSION:
       _with_fp_expression = true;
       _fp_expression = std::string(optarg);
@@ -299,6 +306,11 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_FP_PRECISION:
       _with_fp_precision = true;
       _fp_precision = std::atof(optarg);
+      break;
+
+    case OPTION_FP_PRECISIONS:
+      _with_fp_precisions = true;
+      _fp_precisions = std::string(optarg);
       break;
 
     case 'F':
@@ -889,14 +901,18 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "Function parser" << std::endl;
   stream << "      --fp-default-interval (type string, default to \"[0, 1]\")" << std::endl;
   stream << "          Default interval" << std::endl;
+  stream << "      --fp-default-precision (type double, default to 1e-3)" << std::endl;
+  stream << "          Default precision of dyadic representations of numbers" << std::endl;
   stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
   stream << "          Expression to parse" << std::endl;
-  stream << "      --fp-intervals (type string, default to \"x : [0, 1] ; y [0, 1]\")" << std::endl;
-  stream << "          Intervals" << std::endl;
+  stream << "      --fp-intervals (type string, default to \"x: [0, 1]; y: [0, 1]\")" << std::endl;
+  stream << "          Intervals (supersedes fp_default_interval)" << std::endl;
   stream << "      --fp-num-bits (type int, default to 8)" << std::endl;
   stream << "          Number of bits in the dyadic representation of a number" << std::endl;
   stream << "      --fp-precision (type double, no default)" << std::endl;
-  stream << "          Precision of the dyadic representation of a number (overwrite fp_num_bits)" << std::endl;
+  stream << "          Precision of the dyadic representation of a number" << std::endl;
+  stream << "      --fp-precisions (type string, default to \"x: 1e-3; y: 1e-4\")" << std::endl;
+  stream << "          Per variable precisions of dyadic representations of numbers" << std::endl;
   stream << std::endl;
 }
 
@@ -1251,11 +1267,13 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# fn_prefix_length = " << options._fn_prefix_length << std::endl;
   stream << "# fn_threshold = " << options._fn_threshold << std::endl;
   stream << "# fp_default_interval = \"" << options._fp_default_interval << "\"" << std::endl;
+  stream << "# fp_default_precision = " << options._fp_default_precision << std::endl;
   stream << "# fp_expression = \"" << options._fp_expression << "\"" << std::endl;
   stream << "# fp_intervals = \"" << options._fp_intervals << "\"" << std::endl;
   stream << "# fp_num_bits = " << options._fp_num_bits << std::endl;
   if (options._with_fp_precision)
     stream << "# fp_precision = " << options._fp_precision << std::endl;
+  stream << "# fp_precisions = \"" << options._fp_precisions << "\"" << std::endl;
   stream << "# function = " << options._function << std::endl;
   stream << "# hea_reset_period = " << options._hea_reset_period << std::endl;
   stream << "# learning_rate = " << options._learning_rate << std::endl;

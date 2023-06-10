@@ -731,7 +731,15 @@
         "fp_precision":
         {
             "type": "double",
-            "description": "Precision of the dyadic representation of a number (overwrite fp_num_bits)",
+            "description": "Precision of the dyadic representation of a number",
+            "section": "fp"
+        },
+
+        "fp_intervals":
+        {
+            "type": "string",
+            "default": "x: [0, 1]; y: [0, 1]",
+            "description": "Intervals (supersedes fp_default_interval)",
             "section": "fp"
         },
 
@@ -743,11 +751,19 @@
             "section": "fp"
         },
 
-        "fp_intervals":
+        "fp_precisions":
         {
             "type": "string",
-            "default": "x : [0, 1] ; y [0, 1]",
-            "description": "Intervals",
+            "default": "x: 1e-3; y: 1e-4",
+            "description": "Per variable precisions of dyadic representations of numbers",
+            "section": "fp"
+        },
+
+        "fp_default_precision":
+        {
+            "type": "double",
+            "default": "1e-3",
+            "description": "Default precision of dyadic representations of numbers",
             "section": "fp"
         },
 

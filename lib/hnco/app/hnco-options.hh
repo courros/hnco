@@ -59,10 +59,12 @@ class HncoOptions {
     OPTION_FN_PREFIX_LENGTH,
     OPTION_FN_THRESHOLD,
     OPTION_FP_DEFAULT_INTERVAL,
+    OPTION_FP_DEFAULT_PRECISION,
     OPTION_FP_EXPRESSION,
     OPTION_FP_INTERVALS,
     OPTION_FP_NUM_BITS,
     OPTION_FP_PRECISION,
+    OPTION_FP_PRECISIONS,
     OPTION_FUNCTION,
     OPTION_HEA_RESET_PERIOD,
     OPTION_LEARNING_RATE,
@@ -251,21 +253,29 @@ class HncoOptions {
   std::string _fp_default_interval = "[0, 1]";
   bool _with_fp_default_interval = false;
 
+  /// Default precision of dyadic representations of numbers
+  double _fp_default_precision = 1e-3;
+  bool _with_fp_default_precision = false;
+
   /// Expression to parse
   std::string _fp_expression = "(1-x)^2+100*(y-x^2)^2";
   bool _with_fp_expression = false;
 
-  /// Intervals
-  std::string _fp_intervals = "x : [0, 1] ; y [0, 1]";
+  /// Intervals (supersedes fp_default_interval)
+  std::string _fp_intervals = "x: [0, 1]; y: [0, 1]";
   bool _with_fp_intervals = false;
 
   /// Number of bits in the dyadic representation of a number
   int _fp_num_bits = 8;
   bool _with_fp_num_bits = false;
 
-  /// Precision of the dyadic representation of a number (overwrite fp_num_bits)
+  /// Precision of the dyadic representation of a number
   double _fp_precision;
   bool _with_fp_precision = false;
+
+  /// Per variable precisions of dyadic representations of numbers
+  std::string _fp_precisions = "x: 1e-3; y: 1e-4";
+  bool _with_fp_precisions = false;
 
   /// Type of function
   int _function = 0;
@@ -762,6 +772,12 @@ public:
   /// With parameter fp_default_interval
   bool with_fp_default_interval() const { return _with_fp_default_interval; }
 
+  /// Get the value of fp_default_precision
+  double get_fp_default_precision() const { return _fp_default_precision; }
+
+  /// With parameter fp_default_precision
+  bool with_fp_default_precision() const { return _with_fp_default_precision; }
+
   /// Get the value of fp_expression
   std::string get_fp_expression() const { return _fp_expression; }
 
@@ -790,6 +806,12 @@ public:
 
   /// With parameter fp_precision
   bool with_fp_precision() const { return _with_fp_precision; }
+
+  /// Get the value of fp_precisions
+  std::string get_fp_precisions() const { return _fp_precisions; }
+
+  /// With parameter fp_precisions
+  bool with_fp_precisions() const { return _with_fp_precisions; }
 
   /// Get the value of function
   int get_function() const { return _function; }

@@ -4,7 +4,7 @@ Library:
 - Fixed: make_neighborhood and make_neighborhood_iterator use
   parameter bv_size instead of options.get_bv_size()
 - Added class algorithm::InformationTheoreticEa
-- Added ParsedMultivariateFunction::get_variable_names (single and multi)
+- Added ParsedMultivariateFunction::get_variable_names() (single and multi)
 - Added file make-multivariate-function-adapter.hh: sets intervals
   individually per variable (single and multi)
 
