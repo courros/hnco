@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_APP_MAKE_MULTIVARIATE_FUNCTION_ADAPTER_H
-#define HNCO_APP_MAKE_MULTIVARIATE_FUNCTION_ADAPTER_H
+#ifndef HNCO_APP_SIZE_PARSER_H
+#define HNCO_APP_SIZE_PARSER_H
 
 #include <optional>
 #include <unordered_map>
