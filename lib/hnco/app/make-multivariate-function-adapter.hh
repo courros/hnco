@@ -93,21 +93,21 @@ std::optional<Interval<T>> parse_interval(std::string expression)
 }
 
 /**
- * Parse a declaration.
+ * Parse an interval declaration.
  *
  * Format: "name: [a, b]"
  *
  * Example : "x: [0, 1]"
  */
 template<typename T>
-std::optional<std::pair<std::string, Interval<T>>> parse_declaration(std::string expression)
+std::optional<std::pair<std::string, Interval<T>>> parse_interval_declaration(std::string expression)
 {
   const std::string delimiter = ":";
 
   auto start = 0U;
   auto stop = expression.find(delimiter);
   if (stop == std::string::npos) {
-    std::cerr << "parse_declaration: Missing colon" << std::endl;
+    std::cerr << "parse_interval_declaration: Missing colon" << std::endl;
     return {};
   }
 
@@ -116,7 +116,7 @@ std::optional<std::pair<std::string, Interval<T>>> parse_declaration(std::string
   std::string name;
   stream >> name;
   if (stream.fail()) {
-    std::cerr << "parse_declaration: Expected variable name before colon" << std::endl;
+    std::cerr << "parse_interval_declaration: Expected variable name before colon" << std::endl;
     return {};
   }
 
@@ -125,7 +125,7 @@ std::optional<std::pair<std::string, Interval<T>>> parse_declaration(std::string
   if (opt)
     return std::make_pair(name, opt.value());
   else {
-    std::cerr << "parse_declaration: Failed to parse interval for variable " << name << std::endl;
+    std::cerr << "parse_interval_declaration: Failed to parse interval for variable " << name << std::endl;
     return {};
   }
 
@@ -141,24 +141,102 @@ std::optional<std::pair<std::string, Interval<T>>> parse_declaration(std::string
 template<typename T>
 std::unordered_map<std::string, Interval<T>> parse_intervals(std::string expression)
 {
-  std::unordered_map<std::string, Interval<T>> intervals;
-
   const std::string delimiter = ";";
+
+  std::unordered_map<std::string, Interval<T>> intervals;
   auto start = 0U;
   auto stop = expression.find(delimiter);
-  auto opt = parse_declaration<T>(expression.substr(start, stop - start));
-  if (opt)
-    intervals.insert(opt.value());
 
-  while (stop != std::string::npos) {
-    start = stop + delimiter.length();
-    stop = expression.find(delimiter, start);
-    opt = parse_declaration<T>(expression.substr(start, stop - start));
+  if (stop == std::string::npos) {
+    auto opt = parse_interval_declaration<T>(expression);
     if (opt)
       intervals.insert(opt.value());
+    return intervals;
   }
 
+  while (stop != std::string::npos) {
+    auto opt = parse_interval_declaration<T>(expression.substr(start, stop - start));
+    if (opt)
+      intervals.insert(opt.value());
+    start = stop + delimiter.length();
+    stop = expression.find(delimiter, start);
+  }
   return intervals;
+}
+
+/**
+ * Parse a precision declaration.
+ *
+ * Format: "name: floating point number"
+ *
+ * Example : "x: 1e-3"
+ */
+template<typename T>
+std::optional<std::pair<std::string, T>> parse_precision_declaration(std::string expression)
+{
+  const std::string delimiter = ":";
+
+  auto start = 0U;
+  auto stop = expression.find(delimiter);
+  if (stop == std::string::npos) {
+    std::cerr << "parse_precision_declaration: Missing colon" << std::endl;
+    return {};
+  }
+
+  auto before = expression.substr(start, stop - start);
+  std::istringstream stream(before);
+  std::string name;
+  stream >> name;
+  if (stream.fail()) {
+    std::cerr << "parse_precision_declaration: Expected variable name before colon" << std::endl;
+    return {};
+  }
+
+  start = stop + delimiter.length();
+  auto after = expression.substr(start);
+  stream.str(after);
+  T precision;
+  stream >> precision;
+  if (stream.fail()) {
+    std::cerr << "parse_precision_declaration: Expected precision" << std::endl;
+    return {};
+  }
+
+  return std::make_pair(name, precision);
+
+}
+
+/**
+ * Parse precisions
+ *
+ * Format: list of precision declarations separated by semicolon
+ *
+ * Example: "x: 1e-3; y: 0.01"
+ */
+template<typename T>
+std::unordered_map<std::string, T> parse_precisions(std::string expression)
+{
+  const std::string delimiter = ";";
+
+  std::unordered_map<std::string, T> precisions;
+  auto start = 0U;
+  auto stop = expression.find(delimiter);
+
+  if (stop == std::string::npos) {
+    auto opt = parse_precision_declaration<T>(expression);
+    if (opt)
+      precisions.insert(opt.value());
+    return precisions;
+  }
+
+  while (stop != std::string::npos) {
+    auto opt = parse_precision_declaration<T>(expression.substr(start, stop - start));
+    if (opt)
+      precisions.insert(opt.value());
+    start = stop + delimiter.length();
+    stop = expression.find(delimiter, start);
+  }
+  return precisions;
 }
 
 /**
