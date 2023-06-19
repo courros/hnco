@@ -77,11 +77,11 @@ bool difference_is_safe(T a, T b)
 template<class T>
 class DyadicIntegerRepresentation {
 
-  /// Number of bits
-  int _num_bits;
+  /// Size in bits
+  int _size;
 
-  /// Number of bits for a complete representation
-  int _num_bits_complete;
+  /// Exact size
+  int _exact_size;
 
   /// Lower bound of the interval
   T _lower_bound;
@@ -90,13 +90,13 @@ class DyadicIntegerRepresentation {
   T _upper_bound;
 
   /// The the number of bits of a complete representation
-  void set_num_bits_complete(T lower_bound, T upper_bound) {
+  void set_exact_size(T lower_bound, T upper_bound) {
     assert(lower_bound < upper_bound);
     assert(difference_is_safe(lower_bound, upper_bound));
 
-    _num_bits_complete = std::ceil(std::log(upper_bound - lower_bound + 1) / std::log(2));
-    assert(_num_bits_complete > 0);
-    assert(_num_bits_complete < int(sizeof(T) * 8));
+    _exact_size = std::ceil(std::log(upper_bound - lower_bound + 1) / std::log(2));
+    assert(_exact_size > 0);
+    assert(_exact_size < int(sizeof(T) * 8));
   }
 
 public:
@@ -108,21 +108,21 @@ public:
 
       The represented interval is [lower_bound..upper_bound].
 
-      \param num_bits Number of bits per integer
+      \param size Size in bits per integer
       \param lower_bound Lower bound of the interval
       \param upper_bound Upper bound of the interval
   */
-  DyadicIntegerRepresentation(T lower_bound, T upper_bound, int num_bits)
-    : _num_bits(num_bits)
+  DyadicIntegerRepresentation(T lower_bound, T upper_bound, int size)
+    : _size(size)
     , _lower_bound(lower_bound)
     , _upper_bound(upper_bound)
   {
-    assert(num_bits > 0);
-    assert(num_bits < int(sizeof(T) * 8));
+    assert(size > 0);
+    assert(size < int(sizeof(T) * 8));
 
-    set_num_bits_complete(lower_bound, upper_bound);
-    if (_num_bits > _num_bits_complete)
-      _num_bits = _num_bits_complete;
+    set_exact_size(lower_bound, upper_bound);
+    if (_size > _exact_size)
+      _size = _exact_size;
   }
 
   /** Constructor.
@@ -137,18 +137,18 @@ public:
     , _upper_bound(upper_bound)
   {
 
-    set_num_bits_complete(lower_bound, upper_bound);
-    _num_bits = _num_bits_complete;
+    set_exact_size(lower_bound, upper_bound);
+    _size = _exact_size;
   }
 
   /// Size of the representation
-  int size() const { return _num_bits; }
+  int size() const { return _size; }
 
   /// Unpack bit vector into a value
   domain_type unpack(const bit_vector_t& bv, int start) {
     std::size_t u = bv_to_size_type(bv, start, start + size());
-    if (_num_bits < _num_bits_complete)
-      u <<= (_num_bits_complete - _num_bits);
+    if (_size < _exact_size)
+      u <<= (_exact_size - _size);
     if (u > size_t(_upper_bound - _lower_bound))
       u = _upper_bound - _lower_bound;
     T result = _lower_bound + T(u);
