@@ -25,6 +25,9 @@
 #include <optional>
 #include <sstream>
 #include <unordered_map>
+#include <type_traits>          // std::is_same
+
+#include "size-parser.hh"
 
 namespace hnco {
 namespace app {
@@ -44,37 +47,42 @@ std::ostream& operator<<(std::ostream& stream, const Interval<T> interval)
 /**
  * Parse an interval.
  *
- * Format: "[a, b]"
+ * Format: "[scalar, scalar]"
+ *
+ * Example : "[0, 1]"
  */
 template<typename T>
 std::optional<Interval<T>> parse_interval(std::string expression)
 {
+  if (expression.empty())
+    return {};
+
   std::istringstream stream(expression);
 
   char c;
   stream >> c;
-  if (stream.fail() || c != '[') {
-    std::cerr << "parse_interval: Expected [" << std::endl;
+  if (!stream || c != '[') {
+    std::cerr << "parse_interval: Expect [" << std::endl;
     return {};
   }
 
   Interval<T> interval;
 
   stream >> interval.first;
-  if (stream.fail()) {
-    std::cerr << "parse_interval: Expected lower bound" << std::endl;
+  if (!stream) {
+    std::cerr << "parse_interval: Expect lower bound" << std::endl;
     return {};
   }
 
   stream >> c;
-  if (stream.fail() || c != ',') {
-    std::cerr << "parse_interval: Expected ," << std::endl;
+  if (!stream || c != ',') {
+    std::cerr << "parse_interval: Expect ," << std::endl;
     return {};
   }
 
   stream >> interval.second;
-  if (stream.fail()) {
-    std::cerr << "parse_interval: Expected upper bound" << std::endl;
+  if (!stream) {
+    std::cerr << "parse_interval: Expect upper bound" << std::endl;
     return {};
   }
 
@@ -84,8 +92,8 @@ std::optional<Interval<T>> parse_interval(std::string expression)
   }
 
   stream >> c;
-  if (stream.fail() || c != ']') {
-    std::cerr << "parse_interval: Expected ]" << std::endl;
+  if (!stream || c != ']') {
+    std::cerr << "parse_interval: Expect ]" << std::endl;
     return {};
   }
 
@@ -104,6 +112,9 @@ std::optional<std::pair<std::string, Interval<T>>> parse_interval_declaration(st
 {
   const std::string delimiter = ":";
 
+  if (expression.empty())
+    return {};
+
   auto start = 0U;
   auto stop = expression.find(delimiter);
   if (stop == std::string::npos) {
@@ -111,12 +122,12 @@ std::optional<std::pair<std::string, Interval<T>>> parse_interval_declaration(st
     return {};
   }
 
-  auto before = expression.substr(start, stop - start);
+  auto before = expression.substr(start, stop);
   std::istringstream stream(before);
   std::string name;
   stream >> name;
-  if (stream.fail()) {
-    std::cerr << "parse_interval_declaration: Expected variable name before colon" << std::endl;
+  if (!stream) {
+    std::cerr << "parse_interval_declaration: Expect variable name before colon" << std::endl;
     return {};
   }
 
@@ -144,15 +155,12 @@ std::unordered_map<std::string, Interval<T>> parse_intervals(std::string express
   const std::string delimiter = ";";
 
   std::unordered_map<std::string, Interval<T>> intervals;
+
+  if (expression.empty())
+    return intervals;
+
   auto start = 0U;
   auto stop = expression.find(delimiter);
-
-  if (stop == std::string::npos) {
-    auto opt = parse_interval_declaration<T>(expression);
-    if (opt)
-      intervals.insert(opt.value());
-    return intervals;
-  }
 
   while (stop != std::string::npos) {
     auto opt = parse_interval_declaration<T>(expression.substr(start, stop - start));
@@ -161,13 +169,18 @@ std::unordered_map<std::string, Interval<T>> parse_intervals(std::string express
     start = stop + delimiter.length();
     stop = expression.find(delimiter, start);
   }
+
+  auto opt = parse_interval_declaration<T>(expression.substr(start, stop - start));
+  if (opt)
+    intervals.insert(opt.value());
+
   return intervals;
 }
 
 /**
  * Parse a precision declaration.
  *
- * Format: "name: floating point number"
+ * Format: "string: floating point number"
  *
  * Example : "x: 1e-3"
  */
@@ -176,6 +189,9 @@ std::optional<std::pair<std::string, T>> parse_precision_declaration(std::string
 {
   const std::string delimiter = ":";
 
+  if (expression.empty())
+    return {};
+
   auto start = 0U;
   auto stop = expression.find(delimiter);
   if (stop == std::string::npos) {
@@ -183,23 +199,27 @@ std::optional<std::pair<std::string, T>> parse_precision_declaration(std::string
     return {};
   }
 
-  auto before = expression.substr(start, stop - start);
-  std::istringstream stream(before);
   std::string name;
-  stream >> name;
-  if (stream.fail()) {
-    std::cerr << "parse_precision_declaration: Expected variable name before colon" << std::endl;
-    return {};
+  {
+    auto before = expression.substr(start, stop);
+    std::istringstream stream(before);
+    stream >> name;
+    if (!stream) {
+      std::cerr << "parse_precision_declaration: Expect variable name before colon" << std::endl;
+      return {};
+    }
   }
 
   start = stop + delimiter.length();
-  auto after = expression.substr(start);
-  stream.str(after);
   T precision;
-  stream >> precision;
-  if (stream.fail()) {
-    std::cerr << "parse_precision_declaration: Expected precision" << std::endl;
-    return {};
+  {
+    auto after = expression.substr(start);
+    std::istringstream stream(after);
+    stream >> precision;
+    if (!stream) {
+      std::cerr << "parse_precision_declaration: "  << name << ": Expect precision after colon" << std::endl;
+      return {};
+    }
   }
 
   return std::make_pair(name, precision);
@@ -219,6 +239,10 @@ std::unordered_map<std::string, T> parse_precisions(std::string expression)
   const std::string delimiter = ";";
 
   std::unordered_map<std::string, T> precisions;
+
+  if (expression.empty())
+    return precisions;
+
   auto start = 0U;
   auto stop = expression.find(delimiter);
 
@@ -236,7 +260,51 @@ std::unordered_map<std::string, T> parse_precisions(std::string expression)
     start = stop + delimiter.length();
     stop = expression.find(delimiter, start);
   }
+
   return precisions;
+}
+
+/**
+ * Retrieve interval.
+ */
+template<typename T>
+Interval<T>
+retrieve_interval(std::string name, const std::unordered_map<std::string, Interval<T>>& intervals, Interval<T> default_interval)
+{
+  if (intervals.count(name)) {
+    return intervals.at(name);
+  } else {
+    std::cerr
+      << "Warning: retrieve_interval: No interval for " << name
+      << " hence using default interval " << default_interval << std::endl;
+    return default_interval;
+  }
+}
+
+/**
+ * Make a representation.
+ */
+template<typename Options, typename Rep>
+auto
+make_representation(std::string name,
+                    Interval<typename Rep::domain_type> interval,
+                    const std::unordered_map<std::string, typename Rep::domain_type>& precisions,
+                    const std::unordered_map<std::string, int>& sizes,
+                    const Options& options)
+{
+  if (precisions.count(name)) {
+    std::cerr << name << ": Using given precision" << std::endl;
+    return Rep(interval.first, interval.second, precisions.at(name));
+  } else if (sizes.count(name)) {
+    std::cerr << name << ": Using given size" << std::endl;
+    return Rep(interval.first, interval.second, sizes.at(name));
+  } else if (options.with_fp_default_precision()) {
+    std::cerr << name << ": Using default precision" << std::endl;
+    return Rep(interval.first, interval.second, options.get_fp_default_precision());
+  } else {
+    std::cerr << name << ": Using default size" << std::endl;
+    return Rep(interval.first, interval.second, options.get_fp_default_size());
+  }
 }
 
 /**
@@ -261,27 +329,15 @@ make_multivariate_function_adapter_float(const Options& options)
       ("make_multivariate_function_adapter_float: Bad default interval: "
        + options.get_fp_default_interval());
 
-  auto intervals = parse_intervals<Float>(options.get_fp_intervals());
+  auto intervals  = parse_intervals<Float>(options.get_fp_intervals());
+  auto precisions = parse_precisions<Float>(options.get_fp_precisions());
+  auto sizes      = parse_sizes(options.get_fp_sizes());
 
   std::vector<Rep> reps;
   for (const auto& name : instance->get_variable_names()) {
-    Interval<Float> interval;
-    if (intervals.count(name)) {
-      interval = intervals[name];
-    } else {
-      interval = default_interval;
-      std::cerr
-        << "Warning: make_multivariate_function_adapter_float: No interval for " << name
-        << " hence using default interval " << options.get_fp_default_interval() << std::endl;
-    }
-    if (options.with_fp_precision())
-      reps.push_back(Rep(interval.first,
-                         interval.second,
-                         options.get_fp_precision()));
-    else
-      reps.push_back(Rep(interval.first,
-                         interval.second,
-                         options.get_fp_num_bits()));
+    Interval<Float> interval = retrieve_interval<Float>(name, intervals, default_interval);
+    Rep rep = make_representation<Options, Rep>(name, interval, precisions, sizes, options);
+    reps.push_back(rep);
   }
 
   return new Adapter(instance, reps);
@@ -351,47 +407,19 @@ make_multivariate_function_adapter_complex(const Options& options)
       ("make_multivariate_function_adapter_complex: Bad default interval: "
        + options.get_fp_default_interval());
 
-  auto intervals = parse_intervals<Float>(options.get_fp_intervals());
+  auto intervals  = parse_intervals<Float>(options.get_fp_intervals());
+  auto precisions = parse_precisions<Float>(options.get_fp_precisions());
+  auto sizes      = parse_sizes(options.get_fp_sizes());
 
   std::vector<Rep> reps;
   for (const auto& name : instance->get_variable_names()) {
-    Interval<Float> interval_re, interval_im;
     std::string name_re = name + "_re";
     std::string name_im = name + "_im";
-    if (intervals.count(name_re)) {
-      interval_re = intervals[name_re];
-    } else {
-      interval_re = default_interval;
-      std::cerr
-        << "Warning: make_multivariate_function_adapter_complex: No interval for " << name_re
-        << " hence using default interval " << options.get_fp_default_interval() << std::endl;
-    }
-    if (intervals.count(name_im)) {
-      interval_im = intervals[name_im];
-    } else {
-      interval_im = default_interval;
-      std::cerr
-        << "Warning: make_multivariate_function_adapter_complex: No interval for " << name_im
-        << " hence using default interval " << options.get_fp_default_interval() << std::endl;
-    }
-    if (options.with_fp_precision()) {
-      FloatRep rep_re(interval_re.first,
-                      interval_re.second,
-                      options.get_fp_precision());
-      FloatRep rep_im(interval_im.first,
-                      interval_im.second,
-                      options.get_fp_precision());
-      reps.push_back(Rep(rep_re, rep_im));
-    } else {
-      FloatRep rep_re(interval_re.first,
-                      interval_re.second,
-                      options.get_fp_num_bits());
-      FloatRep rep_im(interval_im.first,
-                      interval_im.second,
-                      options.get_fp_num_bits());
-      reps.push_back(Rep(rep_re, rep_im));
-    }
-
+    Interval<Float> interval_re = retrieve_interval<Float>(name_re, intervals, default_interval);
+    Interval<Float> interval_im = retrieve_interval<Float>(name_im, intervals, default_interval);
+    FloatRep rep_re = make_representation<Options, FloatRep>(name_re, interval_re, precisions, sizes, options);
+    FloatRep rep_im = make_representation<Options, FloatRep>(name_im, interval_im, precisions, sizes, options);
+    reps.push_back(Rep(rep_re, rep_im));
   }
 
   return new Adapter(instance, reps);
