@@ -60,11 +60,11 @@ class HncoOptions {
     OPTION_FN_THRESHOLD,
     OPTION_FP_DEFAULT_INTERVAL,
     OPTION_FP_DEFAULT_PRECISION,
+    OPTION_FP_DEFAULT_SIZE,
     OPTION_FP_EXPRESSION,
     OPTION_FP_INTERVALS,
-    OPTION_FP_NUM_BITS,
-    OPTION_FP_PRECISION,
     OPTION_FP_PRECISIONS,
+    OPTION_FP_SIZES,
     OPTION_FUNCTION,
     OPTION_HEA_RESET_PERIOD,
     OPTION_LEARNING_RATE,
@@ -253,9 +253,13 @@ class HncoOptions {
   std::string _fp_default_interval = "[0, 1]";
   bool _with_fp_default_interval = false;
 
-  /// Default precision of dyadic representations of numbers
-  double _fp_default_precision = 1e-3;
+  /// Default precision of dyadic representations of numbers (supersedes fp_default_size)
+  double _fp_default_precision;
   bool _with_fp_default_precision = false;
+
+  /// Default size of dyadic representations of numbers
+  int _fp_default_size = 8;
+  bool _with_fp_default_size = false;
 
   /// Expression to parse
   std::string _fp_expression = "(1-x)^2+100*(y-x^2)^2";
@@ -265,17 +269,13 @@ class HncoOptions {
   std::string _fp_intervals = "x: [0, 1]; y: [0, 1]";
   bool _with_fp_intervals = false;
 
-  /// Number of bits in the dyadic representation of a number
-  int _fp_num_bits = 8;
-  bool _with_fp_num_bits = false;
-
-  /// Precision of the dyadic representation of a number
-  double _fp_precision;
-  bool _with_fp_precision = false;
-
-  /// Per variable precisions of dyadic representations of numbers
+  /// Per variable precisions of dyadic representations of numbers (supersedes fp_sizes)
   std::string _fp_precisions = "x: 1e-3; y: 1e-4";
   bool _with_fp_precisions = false;
+
+  /// Per variable size of dyadic representations of numbers (supersedes fp_default_precision)
+  std::string _fp_sizes = "x: 4; y: 6";
+  bool _with_fp_sizes = false;
 
   /// Type of function
   int _function = 0;
@@ -773,10 +773,21 @@ public:
   bool with_fp_default_interval() const { return _with_fp_default_interval; }
 
   /// Get the value of fp_default_precision
-  double get_fp_default_precision() const { return _fp_default_precision; }
+  double get_fp_default_precision() const {
+    if (_with_fp_default_precision)
+      return _fp_default_precision;
+    else
+      throw std::runtime_error("HncoOptions::get_fp_default_precision: Parameter fp_default_precision has no default value and has not been set");
+    }
 
   /// With parameter fp_default_precision
   bool with_fp_default_precision() const { return _with_fp_default_precision; }
+
+  /// Get the value of fp_default_size
+  int get_fp_default_size() const { return _fp_default_size; }
+
+  /// With parameter fp_default_size
+  bool with_fp_default_size() const { return _with_fp_default_size; }
 
   /// Get the value of fp_expression
   std::string get_fp_expression() const { return _fp_expression; }
@@ -790,28 +801,17 @@ public:
   /// With parameter fp_intervals
   bool with_fp_intervals() const { return _with_fp_intervals; }
 
-  /// Get the value of fp_num_bits
-  int get_fp_num_bits() const { return _fp_num_bits; }
-
-  /// With parameter fp_num_bits
-  bool with_fp_num_bits() const { return _with_fp_num_bits; }
-
-  /// Get the value of fp_precision
-  double get_fp_precision() const {
-    if (_with_fp_precision)
-      return _fp_precision;
-    else
-      throw std::runtime_error("HncoOptions::get_fp_precision: Parameter fp_precision has no default value and has not been set");
-    }
-
-  /// With parameter fp_precision
-  bool with_fp_precision() const { return _with_fp_precision; }
-
   /// Get the value of fp_precisions
   std::string get_fp_precisions() const { return _fp_precisions; }
 
   /// With parameter fp_precisions
   bool with_fp_precisions() const { return _with_fp_precisions; }
+
+  /// Get the value of fp_sizes
+  std::string get_fp_sizes() const { return _fp_sizes; }
+
+  /// With parameter fp_sizes
+  bool with_fp_sizes() const { return _with_fp_sizes; }
 
   /// Get the value of function
   int get_function() const { return _function; }
