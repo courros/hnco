@@ -55,15 +55,16 @@ class DyadicFloatRepresentation {
   /// Affine transformation
   T affine_transformation(T x) { return _lower_bound + _length * x; }
 
-  /** Compute lengths.
-
-      \param num_bits Number of bits per float number
-  */
-  void compute_lengths(int num_bits)
+  /**
+   * Compute lengths.
+   *
+   * \param size Size in bits per float number
+   */
+  void compute_lengths(int size)
   {
-    assert(num_bits > 0);
+    assert(size > 0);
 
-    _lengths = std::vector<T>(num_bits);
+    _lengths = std::vector<T>(size);
     T x = 0.5;
     for (size_t i = 0; i < _lengths.size(); i++) {
       _lengths[i] = x;
@@ -76,32 +77,34 @@ public:
   /// Domain type
   using domain_type = T;
 
-  /** Constructor.
-
-      The represented interval is [lower_bound, upper_bound).
-
-      \param lower_bound Lower bound of the interval
-      \param upper_bound Upper bound of the interval
-      \param num_bits Number of bits per float number
-  */
-  DyadicFloatRepresentation(T lower_bound, T upper_bound, int num_bits)
+  /**
+   * Constructor.
+   *
+   * The represented interval is [lower_bound, upper_bound).
+   *
+   * \param lower_bound Lower bound of the interval
+   * \param upper_bound Upper bound of the interval
+   * \param size Size in bits per float number
+   */
+  DyadicFloatRepresentation(T lower_bound, T upper_bound, int size)
     : _lower_bound(lower_bound)
     , _length(upper_bound - lower_bound)
   {
     assert(lower_bound < upper_bound);
-    assert(num_bits > 0);
+    assert(size > 0);
 
-    compute_lengths(num_bits);
+    compute_lengths(size);
   }
 
-  /** Constructor.
-
-      The represented interval is [lower_bound, upper_bound).
-
-      \param lower_bound Lower bound of the interval
-      \param upper_bound Upper bound of the interval
-      \param precision Precision
-  */
+  /**
+   * Constructor.
+   *
+   * The represented interval is [lower_bound, upper_bound).
+   *
+   * \param lower_bound Lower bound of the interval
+   * \param upper_bound Upper bound of the interval
+   * \param precision Precision
+   */
   DyadicFloatRepresentation(T lower_bound, T upper_bound, T precision)
     : _lower_bound(lower_bound)
     , _length(upper_bound - lower_bound)
@@ -109,8 +112,8 @@ public:
     assert(lower_bound < upper_bound);
     assert(precision > 0);
 
-    int num_bits = std::ceil(std::log(_length / precision) / std::log(2));
-    compute_lengths(num_bits);
+    int size = std::ceil(std::log(_length / precision) / std::log(2));
+    compute_lengths(size);
   }
 
   /// Size of the representation
