@@ -37,27 +37,30 @@ std::optional<std::pair<std::string, int>> parse_size_declaration(std::string ex
     return {};
   }
 
-  auto before = expression.substr(start, stop - start);
-  std::istringstream stream(before);
   std::string name;
-  stream >> name;
-  if (stream.fail()) {
-    std::cerr << "parse_size_declaration: Expected variable name before colon" << std::endl;
-    return {};
+  {
+    auto before = expression.substr(start, stop);
+    std::istringstream stream(before);
+    stream >> name;
+    if (!stream) {
+      std::cerr << "parse_size_declaration: Expected variable name before colon" << std::endl;
+      return {};
+    }
   }
 
   start = stop + delimiter.length();
-  auto after = expression.substr(start);
-  stream.str(after);
-  int size;
-  stream >> size;
-  if (stream.fail()) {
-    std::cerr << "parse_size_declaration: Expected size" << std::endl;
-    return {};
+  int size = 0;
+  {
+    auto after = expression.substr(start);
+    std::istringstream stream(after);
+    stream >> size;
+    if (!stream) {
+      std::cerr << "parse_size_declaration: " << name << ": Expected size" << std::endl;
+      return {};
+    }
   }
 
   return std::make_pair(name, size);
-
 }
 
 std::unordered_map<std::string, int> parse_sizes(std::string expression)
@@ -65,6 +68,10 @@ std::unordered_map<std::string, int> parse_sizes(std::string expression)
   const std::string delimiter = ";";
 
   std::unordered_map<std::string, int> sizes;
+
+  if (expression.empty())
+    return sizes;
+
   auto start = 0U;
   auto stop = expression.find(delimiter);
 
@@ -82,6 +89,7 @@ std::unordered_map<std::string, int> parse_sizes(std::string expression)
     start = stop + delimiter.length();
     stop = expression.find(delimiter, start);
   }
+
   return sizes;
 }
 
