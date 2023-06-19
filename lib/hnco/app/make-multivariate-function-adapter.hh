@@ -246,13 +246,6 @@ std::unordered_map<std::string, T> parse_precisions(std::string expression)
   auto start = 0U;
   auto stop = expression.find(delimiter);
 
-  if (stop == std::string::npos) {
-    auto opt = parse_precision_declaration<T>(expression);
-    if (opt)
-      precisions.insert(opt.value());
-    return precisions;
-  }
-
   while (stop != std::string::npos) {
     auto opt = parse_precision_declaration<T>(expression.substr(start, stop - start));
     if (opt)
@@ -260,6 +253,10 @@ std::unordered_map<std::string, T> parse_precisions(std::string expression)
     start = stop + delimiter.length();
     stop = expression.find(delimiter, start);
   }
+
+  auto opt = parse_precision_declaration<T>(expression.substr(start, stop - start));
+  if (opt)
+    precisions.insert(opt.value());
 
   return precisions;
 }
@@ -369,15 +366,7 @@ make_multivariate_function_adapter_integer(const Options& options)
 
   std::vector<Rep> reps;
   for (const auto& name : instance->get_variable_names()) {
-    Interval<Integer> interval;
-    if (intervals.count(name)) {
-      interval = intervals[name];
-    } else {
-      interval = default_interval;
-      std::cerr
-        << "Warning: make_multivariate_function_adapter_integer: No interval for " << name
-        << " hence using default interval " << options.get_fp_default_interval() << std::endl;
-    }
+    Interval<Integer> interval = retrieve_interval<Integer>(name, intervals, default_interval);
     reps.push_back(Rep(interval.first, interval.second));
   }
 
