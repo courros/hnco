@@ -32,6 +32,7 @@ std::optional<std::pair<std::string, int>> parse_size_declaration(std::string ex
 
   auto start = 0U;
   auto stop = expression.find(delimiter);
+
   if (stop == std::string::npos) {
     std::cerr << "parse_size_declaration: Missing colon" << std::endl;
     return {};
@@ -75,13 +76,6 @@ std::unordered_map<std::string, int> parse_sizes(std::string expression)
   auto start = 0U;
   auto stop = expression.find(delimiter);
 
-  if (stop == std::string::npos) {
-    auto opt = parse_size_declaration(expression);
-    if (opt)
-      sizes.insert(opt.value());
-    return sizes;
-  }
-
   while (stop != std::string::npos) {
     auto opt = parse_size_declaration(expression.substr(start, stop - start));
     if (opt)
@@ -89,6 +83,10 @@ std::unordered_map<std::string, int> parse_sizes(std::string expression)
     start = stop + delimiter.length();
     stop = expression.find(delimiter, start);
   }
+
+  auto opt = parse_size_declaration(expression.substr(start, stop - start));
+  if (opt)
+    sizes.insert(opt.value());
 
   return sizes;
 }
