@@ -144,8 +144,8 @@ class IntegerCategoricalRepresentation {
   /// Number of categories
   int _num_categories;
 
-  /// Number of bits
-  int _num_bits;
+  /// Size in bits
+  int _size;
 
 public:
 
@@ -172,11 +172,11 @@ public:
     // Not a power of 2
     if (b.count() != 1)
       index++;
-    _num_bits = index;
+    _size = index;
   }
 
   /// Size of the representation
-  int size() const { return _num_bits; }
+  int size() const { return _size; }
 
   /// Unpack bit vector into a category
   domain_type unpack(const bit_vector_t& bv, int start) {
@@ -189,7 +189,7 @@ public:
 
   /// Display
   void display(std::ostream& stream) const {
-    stream << "IntegerCategoricalRepresentation (" << _num_categories << " values) (" << _num_bits << " bits)";
+    stream << "IntegerCategoricalRepresentation (" << _num_categories << " values) (" << _size << " bits)";
   }
 
 };
