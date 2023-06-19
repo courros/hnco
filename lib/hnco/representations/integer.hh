@@ -23,16 +23,10 @@
 
 #include <assert.h>
 
-#include <vector>
 #include <iostream>             // std::ostream
 #include <cmath>                // std::log, std::ceil
-#include <complex>              // std::complex
-#include <bitset>               // std::bitset
 
-#include "hnco/util.hh"         // hnco::is_in_range
 #include "hnco/bit-vector.hh"
-#include "hnco/bit-matrix.hh"
-#include "hnco/iterator.hh"
 
 
 namespace hnco {
@@ -40,18 +34,19 @@ namespace hnco {
 namespace representation {
 
 
-/** Check whether the difference is safe.
-
-    The template parameter T must be an integral type such as int or
-    long.
-
-    The difference b - a is safe if it can be represented by the type
-    of a and b, i.e. there is no overflow.
-
-    \param a Smallest value
-    \param b Greatest value
-    \pre a < b
-*/
+/**
+ * Check whether the difference is safe.
+ *
+ * The template parameter T must be an integral type such as int or
+ * long.
+ *
+ * The difference b - a is safe if it can be represented by the type
+ * of a and b, i.e. there is no overflow.
+ *
+ * \param a Smallest value
+ * \param b Greatest value
+ * \pre a < b
+ */
 template<class T>
 bool difference_is_safe(T a, T b)
 {
@@ -80,7 +75,7 @@ class DyadicIntegerRepresentation {
   /// Size in bits
   int _size;
 
-  /// Exact size
+  /// Exact size required for a given interval
   int _exact_size;
 
   /// Lower bound of the interval
@@ -89,7 +84,7 @@ class DyadicIntegerRepresentation {
   /// Upper bound of the interval
   T _upper_bound;
 
-  /// The the number of bits of a complete representation
+  /// Set the exact size for a given interval
   void set_exact_size(T lower_bound, T upper_bound) {
     assert(lower_bound < upper_bound);
     assert(difference_is_safe(lower_bound, upper_bound));
@@ -104,14 +99,25 @@ public:
   /// Domain type
   using domain_type = T;
 
-  /** Constructor.
+  /// %Precision
+  struct Precision {
 
-      The represented interval is [lower_bound..upper_bound].
+    /// Precison
+    int precision;
 
-      \param size Size in bits per integer
-      \param lower_bound Lower bound of the interval
-      \param upper_bound Upper bound of the interval
-  */
+    /// Constructor
+    Precision(int precision): precision(precision) {}
+  };
+
+  /**
+   * Constructor.
+   *
+   * The represented interval is [lower_bound..upper_bound].
+   *
+   * \param lower_bound Lower bound of the interval
+   * \param upper_bound Upper bound of the interval
+   * \param size Size in bits per integer
+   */
   DyadicIntegerRepresentation(T lower_bound, T upper_bound, int size)
     : _size(size)
     , _lower_bound(lower_bound)
@@ -125,20 +131,43 @@ public:
       _size = _exact_size;
   }
 
-  /** Constructor.
-
-      The represented interval is [lower_bound..upper_bound].
-
-      \param lower_bound Lower bound of the interval
-      \param upper_bound Upper bound of the interval
-  */
+  /**
+   * Constructor.
+   *
+   * The represented interval is [lower_bound..upper_bound].
+   *
+   * \param lower_bound Lower bound of the interval
+   * \param upper_bound Upper bound of the interval
+   */
   DyadicIntegerRepresentation(T lower_bound, T upper_bound)
     : _lower_bound(lower_bound)
     , _upper_bound(upper_bound)
   {
-
     set_exact_size(lower_bound, upper_bound);
     _size = _exact_size;
+  }
+
+  /**
+   * Constructor.
+   *
+   * The represented interval is [lower_bound..upper_bound].
+   *
+   * \param lower_bound Lower bound of the interval
+   * \param upper_bound Upper bound of the interval
+   * \param precision %Precision
+   */
+  DyadicIntegerRepresentation(T lower_bound, T upper_bound, Precision precision)
+    : _lower_bound(lower_bound)
+    , _upper_bound(upper_bound)
+  {
+    if (precision.precision < 1)
+      throw std::runtime_error
+        ("DyadicIntegerRepresentation::DyadicIntegerRepresentation: Bad precision: " + std::to_string(precision.precision));
+
+    set_exact_size(lower_bound, upper_bound);
+    _size = std::ceil(_exact_size - std::log(precision.precision) / std::log(2));
+    if (_size > _exact_size)
+      _size = _exact_size;
   }
 
   /// Size of the representation
