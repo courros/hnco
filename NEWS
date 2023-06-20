@@ -2,11 +2,18 @@
 
 Library:
 - Fixed: make_neighborhood and make_neighborhood_iterator use
-  parameter bv_size instead of options.get_bv_size()
+  parameter bv_size instead of options.get_bv_size
 - Added class algorithm::InformationTheoreticEa
-- Added ParsedMultivariateFunction::get_variable_names() (single and multi)
-- Added file make-multivariate-function-adapter.hh: sets intervals
-  individually per variable (single and multi)
+- Added member function ParsedMultivariateFunction::get_variable_names (single and multi)
+- Added file app/make-multivariate-function-adapter.hh
+- Added files app/size-parser.hh and app/size-parser.cc
+- DyadicIntegerRepresentation: renamed _num_bits -> _size
+- DyadicIntegerRepresentation: renamed _num_bits_complete -> _exact_size
+- DyadicIntegerRepresentation: renamed set_num_bits_complete -> set_exact_size
+- DyadicIntegerRepresentation: added local struct Precision
+- DyadicIntegerRepresentation: added constructor with given precision
+- IntegerCategoricalRepresentation: renamed _num_bits -> _size
+- PermutationRepresentation: removed struct Element
 
 optgen.pl:
 - Handle parameters with no default value (e.g. seed)
@@ -16,9 +23,14 @@ optgen.pl:
 - json file: renamed property value -> default
 - json file: renamed property alternatives -> values
 
-Applications:
-- hnco, hnco-mo: removed parameters fp_lower_bound and fp_upper_bound
-- hnco, hnco-mo: added parameters fp_default_interval and fp_intervals
+hnco, hnco-mo:
+- removed parameters fp_lower_bound and fp_upper_bound
+- removed parameters fp_precision and fp_num_bits
+- added parameters fp_default_interval and fp_intervals
+- added parameters fp_default_precision and fp_precisions
+- added parameters fp_default_size and fp_sizes
+- intervals, precisions, and sizes can be set individually per
+  variable
 
 Build:
 - Requires C++17
