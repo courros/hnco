@@ -27,6 +27,7 @@
 #include <cmath>                // std::log, std::ceil
 
 #include "hnco/bit-vector.hh"
+#include "hnco/util.hh"         // hnco::clip_value
 
 
 namespace hnco {
@@ -166,8 +167,7 @@ public:
 
     set_exact_size(lower_bound, upper_bound);
     _size = std::ceil(_exact_size - std::log(precision.precision) / std::log(2));
-    if (_size > _exact_size)
-      _size = _exact_size;
+    _size = clip_value(_size, 1, _exact_size);
   }
 
   /// Size of the representation
