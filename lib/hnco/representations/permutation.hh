@@ -38,20 +38,8 @@ namespace representation {
 /// Permutation representation
 class PermutationRepresentation {
 
-public:
-
-  /// Element
-  struct Element {
-    /// Index
-    int index;
-    /// Value
-    int value;
-  };
-
-private:
-
-  /// Elements
-  std::vector<Element> _elements;
+  /// Values to be sorted
+  std::vector<int> _values;
 
   /// Element size in bits
   int _element_size;
@@ -72,18 +60,18 @@ public:
    * @param num_additional_bits Number of additional bits per element
    */
   PermutationRepresentation(int num_elements, int num_additional_bits)
-    : _elements(num_elements)
+    : _values(num_elements)
   {
     assert(num_elements > 0);
     assert(num_additional_bits > 0);
 
     int exact_element_size = std::ceil(std::log(num_elements) / std::log(2));
     _element_size = exact_element_size + num_additional_bits;
-    _size = _elements.size() * _element_size;
+    _size = _values.size() * _element_size;
   }
 
   /// Get number of elements
-  int get_num_elements() const { return _elements.size(); }
+  int get_num_elements() const { return _values.size(); }
 
   /// Size of the representation
   int size() const { return _size; }
@@ -91,26 +79,26 @@ public:
   /// Unpack bit vector into a permutation
   void unpack(const bit_vector_t& bv, int start, hnco::permutation_t& permutation) {
     assert(start >= 0);
-    assert(permutation.size() == _elements.size());
+    assert(permutation.size() == _values.size());
 
-    for (size_t i = 0; i < _elements.size(); i++) {
-      _elements[i].index = i;
-      _elements[i].value = bv_to_size_type(bv, start, start + _element_size);
+    for (size_t i = 0; i < _values.size(); i++) {
+      permutation[i] = i;
+      _values[i] = bv_to_size_type(bv, start, start + _element_size);
       start += _element_size;
     }
+    perm_shuffle(permutation);
+    auto compare = [this](int i, int j){ return _values[i] < _values[j]; };
+    std::sort(permutation.begin(), permutation.end(), compare);
 
-    std::sort(_elements.begin(), _elements.end(),
-              [](Element& a, Element& b){ return a.value < b.value; });
-    for (size_t i = 0; i < permutation.size(); i++)
-      permutation[i] = _elements[i].index;
     assert(hnco::perm_is_valid(permutation));
   }
 
   /// Display
   void display(std::ostream& stream) const {
-    stream << "PermutationRepresentation ("
-           << _elements.size() << " elements) ("
-           << _elements.size() << " * " << _element_size << " bits)";
+    stream << "PermutationRepresentation: "
+           << _values.size() << " elements * "
+           << _element_size << " bits ("
+           << _size << " bits)";
   }
 
 };
