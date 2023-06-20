@@ -68,8 +68,8 @@ public:
    * std::ceil(std::log(num_elements) / std::log(2)) +
    * num_additional_bits.
    *
-   * \param num_elements Number of elements
-   * \param num_additional_bits Number of additional bits per element
+   * @param num_elements Number of elements
+   * @param num_additional_bits Number of additional bits per element
    */
   PermutationRepresentation(int num_elements, int num_additional_bits)
     : _elements(num_elements)

@@ -44,9 +44,9 @@ namespace representation {
  * The difference b - a is safe if it can be represented by the type
  * of a and b, i.e. there is no overflow.
  *
- * \param a Smallest value
- * \param b Greatest value
- * \pre a < b
+ * @param a Smallest value
+ * @param b Greatest value
+ * @pre a < b
  */
 template<class T>
 bool difference_is_safe(T a, T b)
@@ -115,9 +115,9 @@ public:
    *
    * The represented interval is [lower_bound..upper_bound].
    *
-   * \param lower_bound Lower bound of the interval
-   * \param upper_bound Upper bound of the interval
-   * \param size Size in bits per integer
+   * @param lower_bound Lower bound of the interval
+   * @param upper_bound Upper bound of the interval
+   * @param size Size in bits per integer
    */
   DyadicIntegerRepresentation(T lower_bound, T upper_bound, int size)
     : _size(size)
@@ -137,8 +137,8 @@ public:
    *
    * The represented interval is [lower_bound..upper_bound].
    *
-   * \param lower_bound Lower bound of the interval
-   * \param upper_bound Upper bound of the interval
+   * @param lower_bound Lower bound of the interval
+   * @param upper_bound Upper bound of the interval
    */
   DyadicIntegerRepresentation(T lower_bound, T upper_bound)
     : _lower_bound(lower_bound)
@@ -153,9 +153,9 @@ public:
    *
    * The represented interval is [lower_bound..upper_bound].
    *
-   * \param lower_bound Lower bound of the interval
-   * \param upper_bound Upper bound of the interval
-   * \param precision %Precision
+   * @param lower_bound Lower bound of the interval
+   * @param upper_bound Upper bound of the interval
+   * @param precision %Precision
    */
   DyadicIntegerRepresentation(T lower_bound, T upper_bound, Precision precision)
     : _lower_bound(lower_bound)

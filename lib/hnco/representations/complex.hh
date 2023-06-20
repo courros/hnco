@@ -58,20 +58,22 @@ public:
 
   using float_representation_type = DyadicFloatRepresentation<T>;
 
-  /** Constructor.
-
-      \param real_part Representation of real part
-      \param imaginary_part Representation of imaginary part
-  */
+  /**
+   * Constructor.
+   *
+   * @param real_part Representation of real part
+   * @param imaginary_part Representation of imaginary part
+   */
   DyadicComplexRepresentation(DyadicFloatRepresentation<T> real_part, DyadicFloatRepresentation<T> imaginary_part)
     : _real_part(real_part)
     , _imaginary_part(imaginary_part)
   {}
 
-  /** Constructor.
-
-      \param rep Representation of both real and imaginary parts
-  */
+  /**
+   * Constructor.
+   *
+   * @param rep Representation of both real and imaginary parts
+   */
   DyadicComplexRepresentation(DyadicFloatRepresentation<T> rep)
     : DyadicComplexRepresentation(rep, rep)
   {}

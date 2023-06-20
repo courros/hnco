@@ -58,7 +58,7 @@ class DyadicFloatRepresentation {
   /**
    * Compute lengths.
    *
-   * \param size Size in bits per float number
+   * @param size Size in bits per float number
    */
   void compute_lengths(int size)
   {
@@ -82,9 +82,9 @@ public:
    *
    * The represented interval is [lower_bound, upper_bound).
    *
-   * \param lower_bound Lower bound of the interval
-   * \param upper_bound Upper bound of the interval
-   * \param size Size in bits per float number
+   * @param lower_bound Lower bound of the interval
+   * @param upper_bound Upper bound of the interval
+   * @param size Size in bits per float number
    */
   DyadicFloatRepresentation(T lower_bound, T upper_bound, int size)
     : _lower_bound(lower_bound)
@@ -101,9 +101,9 @@ public:
    *
    * The represented interval is [lower_bound, upper_bound).
    *
-   * \param lower_bound Lower bound of the interval
-   * \param upper_bound Upper bound of the interval
-   * \param precision Precision
+   * @param lower_bound Lower bound of the interval
+   * @param upper_bound Upper bound of the interval
+   * @param precision Precision
    */
   DyadicFloatRepresentation(T lower_bound, T upper_bound, T precision)
     : _lower_bound(lower_bound)

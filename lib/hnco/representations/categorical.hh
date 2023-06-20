@@ -26,13 +26,12 @@
 #include <vector>
 #include <iostream>             // std::ostream
 #include <cmath>                // std::log, std::ceil
-#include <complex>              // std::complex
 #include <bitset>               // std::bitset
 
 #include "hnco/util.hh"         // hnco::is_in_range
 #include "hnco/bit-vector.hh"
 #include "hnco/bit-matrix.hh"
-#include "hnco/iterator.hh"
+#include "hnco/iterator.hh"     // hnco::HypercubeIterator
 
 
 namespace hnco {
@@ -65,10 +64,11 @@ public:
   /// Domain type
   using domain_type = std::size_t;
 
-  /** Constructor.
-
-      \param num_categories Number of categories
-  */
+  /**
+   * Constructor.
+   *
+   * @param num_categories Number of categories
+   */
   LinearCategoricalRepresentation(int num_categories)
     : _num_categories(num_categories)
   {
@@ -152,9 +152,10 @@ public:
   /// Domain type
   using domain_type = std::size_t;
 
-  /** Constructor.
+  /**
+   * Constructor.
    *
-   * \param num_categories Number of categories
+   * @param num_categories Number of categories
    */
   IntegerCategoricalRepresentation(int num_categories)
     : _num_categories(num_categories)
