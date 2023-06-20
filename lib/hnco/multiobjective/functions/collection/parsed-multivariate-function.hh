@@ -29,7 +29,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-#include <algorithm>            // std::sort
+#include <algorithm>            // std::sort, std::remove_if
 
 #include "hnco/util.hh"         // hnco::join
 
@@ -198,8 +198,13 @@ public:
     std::sort(begin(sorted_names), end(sorted_names));
     stream << "Variables: " << hnco::join(sorted_names.begin(), sorted_names.end(), ", ") << std::endl;
     stream << "Objectives:" << std::endl;
-    for (size_t i = 0; i < _parsers.size(); i++)
-      stream << i << ": " << hnco::join(_names[i].begin(), _names[i].end(), ", ") << " -> " << _expressions[i] << std::endl;
+    for (size_t i = 0; i < _parsers.size(); i++) {
+      std::string str = _expressions[i];
+      str.erase(std::remove_if(str.begin(), str.end(),
+                               [](unsigned char c) { return std::isspace(c); }),
+                str.end());
+      stream << i << ": " << hnco::join(_names[i].begin(), _names[i].end(), ", ") << " -> " << str << std::endl;
+    }
   }
 
   /// Describe a solution

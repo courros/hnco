@@ -27,6 +27,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <algorithm>            // std::remove_if
 
 #include "hnco/util.hh"         // hnco::join
 
@@ -42,7 +43,7 @@ namespace function {
  *
  * http://warp.povusers.org/FunctionParser/fparser.html
  *
- * \warning The function string syntax depends on the chosen parser.
+ * @warning The function string syntax depends on the chosen parser.
  */
 template<class Parser>
 class ParsedMultivariateFunction {
@@ -67,7 +68,7 @@ public:
   /**
    * Constructor.
    *
-   * \param expression Expression to parse
+   * @param expression Expression to parse
    */
   ParsedMultivariateFunction(std::string expression)
     : _expression(expression)
@@ -89,7 +90,11 @@ public:
     stream << "ParsedMultivariateFunction:" << std::endl;
     stream << "Variables: " << hnco::join(begin(_variable_names), end(_variable_names), ", ") << std::endl;
     stream << "Expression:" << std::endl;
-    stream << _expression << std::endl;
+    std::string str = _expression;
+    str.erase(std::remove_if(str.begin(), str.end(),
+                             [](unsigned char c) { return std::isspace(c); }),
+              str.end());
+    stream << str << std::endl;
   }
 
   /// Evaluate
