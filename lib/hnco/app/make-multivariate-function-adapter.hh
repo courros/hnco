@@ -117,6 +117,7 @@ std::optional<std::pair<std::string, Interval<T>>> parse_interval_declaration(st
 
   auto start = 0U;
   auto stop = expression.find(delimiter);
+
   if (stop == std::string::npos) {
     std::cerr << "parse_interval_declaration: Missing colon" << std::endl;
     return {};
@@ -194,6 +195,7 @@ std::optional<std::pair<std::string, T>> parse_precision_declaration(std::string
 
   auto start = 0U;
   auto stop = expression.find(delimiter);
+
   if (stop == std::string::npos) {
     std::cerr << "parse_precision_declaration: Missing colon" << std::endl;
     return {};
@@ -347,9 +349,10 @@ template<typename Options, typename Adapter>
 Adapter *
 make_multivariate_function_adapter_integer(const Options& options)
 {
-  using Fn      = typename Adapter::function_type;
-  using Rep     = typename Adapter::representation_type;
-  using Integer = typename Rep::domain_type;
+  using Fn        = typename Adapter::function_type;
+  using Rep       = typename Adapter::representation_type;
+  using Integer   = typename Rep::domain_type;
+  using Precision = typename Rep::Precision;
 
   auto instance = new Fn(options.get_fp_expression());
 
@@ -362,12 +365,28 @@ make_multivariate_function_adapter_integer(const Options& options)
       ("make_multivariate_function_adapter_integer: Bad default interval: "
        + options.get_fp_default_interval());
 
-  auto intervals = parse_intervals<Integer>(options.get_fp_intervals());
+  auto intervals  = parse_intervals<Integer>(options.get_fp_intervals());
+  auto precisions = parse_precisions<Integer>(options.get_fp_precisions());
+  auto sizes      = parse_sizes(options.get_fp_sizes());
 
   std::vector<Rep> reps;
   for (const auto& name : instance->get_variable_names()) {
     Interval<Integer> interval = retrieve_interval<Integer>(name, intervals, default_interval);
-    reps.push_back(Rep(interval.first, interval.second));
+
+    if (precisions.count(name)) {
+      std::cerr << name << ": Using given precision" << std::endl;
+      reps.push_back(Rep(interval.first, interval.second, Precision(precisions.at(name))));
+    } else if (sizes.count(name)) {
+      std::cerr << name << ": Using given size" << std::endl;
+      reps.push_back(Rep(interval.first, interval.second, sizes.at(name)));
+    } else if (options.with_fp_default_precision()) {
+      std::cerr << name << ": Using default precision" << std::endl;
+      reps.push_back(Rep(interval.first, interval.second, options.get_fp_default_precision()));
+    } else {
+      std::cerr << name << ": Using default size" << std::endl;
+      reps.push_back(Rep(interval.first, interval.second, options.get_fp_default_size()));
+    }
+
   }
 
   return new Adapter(instance, reps);
