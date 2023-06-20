@@ -212,7 +212,6 @@
             "section": "fn"
         },
 
-
         "fp_expression":
         {
             "type": "string",
@@ -221,19 +220,11 @@
             "section": "fp"
         },
 
-        "fp_num_bits":
+        "fp_intervals":
         {
-            "type": "int",
-            "default": "8",
-            "description": "Number of bits in the dyadic representation of a number",
-            "section": "fp"
-        },
-
-        "fp_precision":
-        {
-            "type": "double",
-            "default": "0.01",
-            "description": "Precision of the dyadic representation of a number",
+            "type": "string",
+            "default": "x: [0, 1]; y: [0, 1]",
+            "description": "Intervals (supersedes fp_default_interval)",
             "section": "fp"
         },
 
@@ -245,11 +236,34 @@
             "section": "fp"
         },
 
-        "fp_intervals":
+        "fp_precisions":
         {
             "type": "string",
-            "default": "x: [0, 1] ; y: [0, 1]",
-            "description": "Intervals",
+            "default": "x: 1e-3; y: 1e-4",
+            "description": "Per variable precisions of dyadic representations of numbers (supersedes fp_sizes)",
+            "section": "fp"
+        },
+
+        "fp_default_precision":
+        {
+            "type": "double",
+            "description": "Default precision of dyadic representations of numbers (supersedes fp_default_size)",
+            "section": "fp"
+        },
+
+        "fp_sizes":
+        {
+            "type": "string",
+            "default": "x: 4; y: 6",
+            "description": "Per variable size of dyadic representations of numbers (supersedes fp_default_precision)",
+            "section": "fp"
+        },
+
+        "fp_default_size":
+        {
+            "type": "int",
+            "default": "8",
+            "description": "Default size of dyadic representations of numbers",
             "section": "fp"
         },
 

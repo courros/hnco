@@ -18,10 +18,12 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"ea-tournament-size", required_argument, 0, OPTION_EA_TOURNAMENT_SIZE},
     {"fn-name", required_argument, 0, OPTION_FN_NAME},
     {"fp-default-interval", required_argument, 0, OPTION_FP_DEFAULT_INTERVAL},
+    {"fp-default-precision", required_argument, 0, OPTION_FP_DEFAULT_PRECISION},
+    {"fp-default-size", required_argument, 0, OPTION_FP_DEFAULT_SIZE},
     {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
     {"fp-intervals", required_argument, 0, OPTION_FP_INTERVALS},
-    {"fp-num-bits", required_argument, 0, OPTION_FP_NUM_BITS},
-    {"fp-precision", required_argument, 0, OPTION_FP_PRECISION},
+    {"fp-precisions", required_argument, 0, OPTION_FP_PRECISIONS},
+    {"fp-sizes", required_argument, 0, OPTION_FP_SIZES},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
     {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
@@ -101,6 +103,16 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _fp_default_interval = std::string(optarg);
       break;
 
+    case OPTION_FP_DEFAULT_PRECISION:
+      _with_fp_default_precision = true;
+      _fp_default_precision = std::atof(optarg);
+      break;
+
+    case OPTION_FP_DEFAULT_SIZE:
+      _with_fp_default_size = true;
+      _fp_default_size = std::atoi(optarg);
+      break;
+
     case OPTION_FP_EXPRESSION:
       _with_fp_expression = true;
       _fp_expression = std::string(optarg);
@@ -111,14 +123,14 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _fp_intervals = std::string(optarg);
       break;
 
-    case OPTION_FP_NUM_BITS:
-      _with_fp_num_bits = true;
-      _fp_num_bits = std::atoi(optarg);
+    case OPTION_FP_PRECISIONS:
+      _with_fp_precisions = true;
+      _fp_precisions = std::string(optarg);
       break;
 
-    case OPTION_FP_PRECISION:
-      _with_fp_precision = true;
-      _fp_precision = std::atof(optarg);
+    case OPTION_FP_SIZES:
+      _with_fp_sizes = true;
+      _fp_sizes = std::string(optarg);
       break;
 
     case 'F':
@@ -297,14 +309,18 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "Function parser" << std::endl;
   stream << "      --fp-default-interval (type string, default to \"[0, 1]\")" << std::endl;
   stream << "          Default interval" << std::endl;
+  stream << "      --fp-default-precision (type double, no default)" << std::endl;
+  stream << "          Default precision of dyadic representations of numbers (supersedes fp_default_size)" << std::endl;
+  stream << "      --fp-default-size (type int, default to 8)" << std::endl;
+  stream << "          Default size of dyadic representations of numbers" << std::endl;
   stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
   stream << "          Expression to parse" << std::endl;
-  stream << "      --fp-intervals (type string, default to \"x: [0, 1] ; y: [0, 1]\")" << std::endl;
-  stream << "          Intervals" << std::endl;
-  stream << "      --fp-num-bits (type int, default to 8)" << std::endl;
-  stream << "          Number of bits in the dyadic representation of a number" << std::endl;
-  stream << "      --fp-precision (type double, default to 0.01)" << std::endl;
-  stream << "          Precision of the dyadic representation of a number" << std::endl;
+  stream << "      --fp-intervals (type string, default to \"x: [0, 1]; y: [0, 1]\")" << std::endl;
+  stream << "          Intervals (supersedes fp_default_interval)" << std::endl;
+  stream << "      --fp-precisions (type string, default to \"x: 1e-3; y: 1e-4\")" << std::endl;
+  stream << "          Per variable precisions of dyadic representations of numbers (supersedes fp_sizes)" << std::endl;
+  stream << "      --fp-sizes (type string, default to \"x: 4; y: 6\")" << std::endl;
+  stream << "          Per variable size of dyadic representations of numbers (supersedes fp_default_precision)" << std::endl;
   stream << std::endl;
 }
 
@@ -357,10 +373,13 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   if (options._with_fn_name)
     stream << "# fn_name = \"" << options._fn_name << "\"" << std::endl;
   stream << "# fp_default_interval = \"" << options._fp_default_interval << "\"" << std::endl;
+  if (options._with_fp_default_precision)
+    stream << "# fp_default_precision = " << options._fp_default_precision << std::endl;
+  stream << "# fp_default_size = " << options._fp_default_size << std::endl;
   stream << "# fp_expression = \"" << options._fp_expression << "\"" << std::endl;
   stream << "# fp_intervals = \"" << options._fp_intervals << "\"" << std::endl;
-  stream << "# fp_num_bits = " << options._fp_num_bits << std::endl;
-  stream << "# fp_precision = " << options._fp_precision << std::endl;
+  stream << "# fp_precisions = \"" << options._fp_precisions << "\"" << std::endl;
+  stream << "# fp_sizes = \"" << options._fp_sizes << "\"" << std::endl;
   stream << "# function = " << options._function << std::endl;
   stream << "# num_iterations = " << options._num_iterations << std::endl;
   stream << "# num_threads = " << options._num_threads << std::endl;
