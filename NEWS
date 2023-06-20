@@ -29,8 +29,8 @@ hnco, hnco-mo:
 - added parameters fp_default_interval and fp_intervals
 - added parameters fp_default_precision and fp_precisions
 - added parameters fp_default_size and fp_sizes
-- intervals, precisions, and sizes can be set individually per
-  variable
+- function parser: intervals, precisions, and sizes can be set
+  individually per variable (single and multi)
 
 Build:
 - Requires C++17
