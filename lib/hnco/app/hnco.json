@@ -169,7 +169,7 @@
 
         "save_description":
         {
-            "description": "Save a description of the solution in a file",
+            "description": "Save the description of the solution in a file",
             "section": "gen"
         },
 
@@ -448,7 +448,7 @@
         "solution_path":
         {
             "type": "string",
-            "default": "solution.dat",
+            "default": "solution.txt",
             "description": "Path of the solution file",
             "section": "gen"
         },
@@ -674,8 +674,8 @@
         {
             "optchar": "p",
             "type": "string",
-            "default": "function.dat",
-            "description": "Path of a function file",
+            "default": "function.txt",
+            "description": "Path of the function file",
             "section": "fn"
         },
 
@@ -709,6 +709,29 @@
             "type": "string",
             "description": "Name of the function in the dynamic library",
             "section": "fn"
+        },
+
+        "fp_source":
+        {
+            "type": "int",
+            "default": 0,
+            "description": "Source for the expression",
+            "section": "fp",
+            "values":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Expression given at the command-line"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Expression given in the function file"
+                }
+
+            ]
+
         },
 
         "fp_expression":
@@ -814,7 +837,6 @@
             "section": "ctrl"
         },
 
-
         "noise_stddev":
         {
             "type": "double",
@@ -830,7 +852,6 @@
             "description": "Expression of the variable x",
             "section": "mod"
         },
-
 
         "pn_mutation_rate":
         {
@@ -942,8 +963,8 @@
         "map_path":
         {
             "type": "string",
-            "default": "map.dat",
-            "description": "Path of a map file",
+            "default": "map.txt",
+            "description": "Path of the map file",
             "section": "map"
         },
 

@@ -144,7 +144,7 @@
         {
             "optchar": "p",
             "type": "string",
-            "default": "map.dat",
+            "default": "map.txt",
             "description": "Path (relative or absolute) of a map file"
         }
 

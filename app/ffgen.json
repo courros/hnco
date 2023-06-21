@@ -131,7 +131,7 @@
         {
             "optchar": "p",
             "type": "string",
-            "default": "function.dat",
+            "default": "function.txt",
             "description": "Path (relative or absolute) of a function file",
             "section": "gen"
         },

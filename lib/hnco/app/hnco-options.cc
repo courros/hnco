@@ -41,6 +41,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"fp-intervals", required_argument, 0, OPTION_FP_INTERVALS},
     {"fp-precisions", required_argument, 0, OPTION_FP_PRECISIONS},
     {"fp-sizes", required_argument, 0, OPTION_FP_SIZES},
+    {"fp-source", required_argument, 0, OPTION_FP_SOURCE},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"hea-reset-period", required_argument, 0, OPTION_HEA_RESET_PERIOD},
     {"learning-rate", required_argument, 0, OPTION_LEARNING_RATE},
@@ -311,6 +312,11 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_FP_SIZES:
       _with_fp_sizes = true;
       _fp_sizes = std::string(optarg);
+      break;
+
+    case OPTION_FP_SOURCE:
+      _with_fp_source = true;
+      _fp_source = std::atoi(optarg);
       break;
 
     case 'F':
@@ -782,14 +788,14 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
   stream << "          Path of the results file" << std::endl;
   stream << "      --save-description" << std::endl;
-  stream << "          Save a description of the solution in a file" << std::endl;
+  stream << "          Save the description of the solution in a file" << std::endl;
   stream << "      --save-results" << std::endl;
   stream << "          Save the results in a file" << std::endl;
   stream << "      --save-solution" << std::endl;
   stream << "          Save the solution in a file" << std::endl;
   stream << "      --seed (type unsigned, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
-  stream << "      --solution-path (type string, default to \"solution.dat\")" << std::endl;
+  stream << "      --solution-path (type string, default to \"solution.txt\")" << std::endl;
   stream << "          Path of the solution file" << std::endl;
   stream << std::endl;
   stream  << "Additional Sections" << std::endl;
@@ -889,8 +895,8 @@ void HncoOptions::print_help_fn(std::ostream& stream) const
   stream << "            200: Travelling salesman problem" << std::endl;
   stream << "            1000: Plugin" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
-  stream << "  -p, --path (type string, default to \"function.dat\")" << std::endl;
-  stream << "          Path of a function file" << std::endl;
+  stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
+  stream << "          Path of the function file" << std::endl;
   stream << std::endl;
 }
 
@@ -913,6 +919,10 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "          Per variable precisions of dyadic representations of numbers (supersedes fp_sizes)" << std::endl;
   stream << "      --fp-sizes (type string, default to \"x: 4; y: 6\")" << std::endl;
   stream << "          Per variable size of dyadic representations of numbers (supersedes fp_default_precision)" << std::endl;
+  stream << "      --fp-source (type int, default to 0)" << std::endl;
+  stream << "          Source for the expression" << std::endl;
+  stream << "            0: Expression given at the command-line" << std::endl;
+  stream << "            1: Expression given in the function file" << std::endl;
   stream << std::endl;
 }
 
@@ -1012,8 +1022,8 @@ void HncoOptions::print_help_map(std::ostream& stream) const
   stream << "          Display the map and exit" << std::endl;
   stream << "      --map-input-size (type int, default to 100)" << std::endl;
   stream << "          Input size of linear and affine maps" << std::endl;
-  stream << "      --map-path (type string, default to \"map.dat\")" << std::endl;
-  stream << "          Path of a map file" << std::endl;
+  stream << "      --map-path (type string, default to \"map.txt\")" << std::endl;
+  stream << "          Path of the map file" << std::endl;
   stream << "      --map-random" << std::endl;
   stream << "          Sample a random map" << std::endl;
   stream << "      --map-surjective" << std::endl;
@@ -1274,6 +1284,7 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# fp_intervals = \"" << options._fp_intervals << "\"" << std::endl;
   stream << "# fp_precisions = \"" << options._fp_precisions << "\"" << std::endl;
   stream << "# fp_sizes = \"" << options._fp_sizes << "\"" << std::endl;
+  stream << "# fp_source = " << options._fp_source << std::endl;
   stream << "# function = " << options._function << std::endl;
   stream << "# hea_reset_period = " << options._hea_reset_period << std::endl;
   stream << "# learning_rate = " << options._learning_rate << std::endl;

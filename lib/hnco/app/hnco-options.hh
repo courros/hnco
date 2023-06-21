@@ -65,6 +65,7 @@ class HncoOptions {
     OPTION_FP_INTERVALS,
     OPTION_FP_PRECISIONS,
     OPTION_FP_SIZES,
+    OPTION_FP_SOURCE,
     OPTION_FUNCTION,
     OPTION_HEA_RESET_PERIOD,
     OPTION_LEARNING_RATE,
@@ -277,6 +278,10 @@ class HncoOptions {
   std::string _fp_sizes = "x: 4; y: 6";
   bool _with_fp_sizes = false;
 
+  /// Source for the expression
+  int _fp_source = 0;
+  bool _with_fp_source = false;
+
   /// Type of function
   int _function = 0;
   bool _with_function = false;
@@ -297,8 +302,8 @@ class HncoOptions {
   int _map_input_size = 100;
   bool _with_map_input_size = false;
 
-  /// Path of a map file
-  std::string _map_path = "map.dat";
+  /// Path of the map file
+  std::string _map_path = "map.txt";
   bool _with_map_path = false;
 
   /// Transvection sequence length
@@ -329,8 +334,8 @@ class HncoOptions {
   int _num_threads = 1;
   bool _with_num_threads = false;
 
-  /// Path of a function file
-  std::string _path = "function.dat";
+  /// Path of the function file
+  std::string _path = "function.txt";
   bool _with_path = false;
 
   /// Mutation rate relative to bv_size
@@ -398,7 +403,7 @@ class HncoOptions {
   bool _with_selection_size = false;
 
   /// Path of the solution file
-  std::string _solution_path = "solution.dat";
+  std::string _solution_path = "solution.txt";
   bool _with_solution_path = false;
 
   /// Target
@@ -540,7 +545,7 @@ class HncoOptions {
   /// Log bit vector value during random walk
   bool _rw_log_value = false;
 
-  /// Save a description of the solution in a file
+  /// Save the description of the solution in a file
   bool _save_description = false;
 
   /// Save the results in a file
@@ -812,6 +817,12 @@ public:
 
   /// With parameter fp_sizes
   bool with_fp_sizes() const { return _with_fp_sizes; }
+
+  /// Get the value of fp_source
+  int get_fp_source() const { return _fp_source; }
+
+  /// With parameter fp_source
+  bool with_fp_source() const { return _with_fp_source; }
 
   /// Get the value of function
   int get_function() const { return _function; }

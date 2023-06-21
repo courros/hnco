@@ -42,7 +42,7 @@ class MapgenOptions {
   bool _with_output_size = false;
 
   /// Path (relative or absolute) of a map file
-  std::string _path = "map.dat";
+  std::string _path = "map.txt";
   bool _with_path = false;
 
   /// Seed for the random number generator

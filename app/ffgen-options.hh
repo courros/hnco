@@ -116,7 +116,7 @@ class FfgenOptions {
   bool _with_part_upper_bound = false;
 
   /// Path (relative or absolute) of a function file
-  std::string _path = "function.dat";
+  std::string _path = "function.txt";
   bool _with_path = false;
 
   /// Seed for the random number generator

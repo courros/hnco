@@ -104,7 +104,7 @@ void MapgenOptions::print_help(std::ostream& stream) const
   stream << "            6: Affine (transvection sequence)" << std::endl;
   stream << "  -y, --output-size (type int, default to 100)" << std::endl;
   stream << "          Output bit vector size" << std::endl;
-  stream << "  -p, --path (type string, default to \"map.dat\")" << std::endl;
+  stream << "  -p, --path (type string, default to \"map.txt\")" << std::endl;
   stream << "          Path (relative or absolute) of a map file" << std::endl;
   stream << "      --seed (type int, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
