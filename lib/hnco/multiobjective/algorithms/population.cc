@@ -20,7 +20,7 @@
 
 #include <omp.h>                // omp_get_thread_num
 
-#include "hnco/util.hh"         // hnco::is_in_range
+#include "hnco/util.hh"         // hnco::is_in_range, hnco::have_same_size
 
 #include "population.hh"
 
