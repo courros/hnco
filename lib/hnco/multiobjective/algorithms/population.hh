@@ -53,16 +53,16 @@ struct Population {
   /**
    * Constructor.
    * @param population_size %Population size
-   * @param n Size of bit vectors
+   * @param bv_size Size of bit vectors
    * @param num_objectives Number of objectives
    */
-  Population(int population_size, int n, int num_objectives)
-    : bvs(population_size, bit_vector_t(n))
+  Population(int population_size, int bv_size, int num_objectives)
+    : bvs(population_size, bit_vector_t(bv_size))
     , values(population_size, value_t(num_objectives))
   {
     ensure(population_size > 0,
            "multiobjective::Population::Population: population size must be positive");
-    ensure(n > 0,
+    ensure(bv_size > 0,
            "multiobjective::Population::Population: bit vector size must be positive");
     ensure(num_objectives > 0,
            "multiobjective::Population::Population: num_objectives must be positive");
@@ -74,10 +74,10 @@ struct Population {
   /**
    * Resize the population.
    * @param population_size %Population size
-   * @param n Size of bit vectors
+   * @param bv_size Size of bit vectors
    * @param num_objectives Number of objectives
    */
-  void resize(int population_size, int n, int num_objectives) {
+  void resize(int population_size, int bv_size, int num_objectives) {
     assert(population_size > 0);
 
     const int old_size = get_size();
@@ -85,7 +85,7 @@ struct Population {
     values.resize(population_size);
     if (population_size > old_size) {
       for (int i = old_size; i < population_size; i++) {
-        bvs[i] = bit_vector_t(n);
+        bvs[i] = bit_vector_t(bv_size);
         values[i] = value_t(num_objectives);
       }
     }
@@ -94,11 +94,14 @@ struct Population {
   /**
    * Shrink the population.
    * @param population_size %Population size
-   * @pre population_size < size()
+   * @pre population_size < get_size()
    */
   void shrink(int population_size) {
     assert(population_size > 0);
-    assert(population_size < get_size());
+
+    if (population_size > get_size())
+      return;
+    assert(population_size <= get_size());
 
     bvs.resize(population_size);
     values.resize(population_size);
