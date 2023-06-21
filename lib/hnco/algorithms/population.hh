@@ -30,7 +30,7 @@
 #include "hnco/functions/function.hh"
 #include "hnco/permutation.hh"
 #include "hnco/random.hh"       // random::Generator::engine
-#include "hnco/util.hh"         // hnco::ensure
+#include "hnco/util.hh"         // hnco::ensure, hnco::is_in_range
 
 
 namespace hnco {
@@ -94,14 +94,20 @@ struct Population {
    * @param i Index in the sorted population
    * @pre The population must be sorted.
    */
-  bit_vector_t& get_best_bv(int i) { return bvs[permutation[i]]; }
+  bit_vector_t& get_best_bv(int i) {
+    assert(hnco::is_in_range(i, permutation.size()));
+    return bvs[permutation[i]];
+  }
 
   /**
    * Get worst bit vector.
    * @param i Reversed index in the sorted population
    * @pre The population must be sorted.
    */
-  bit_vector_t& get_worst_bv(int i) { return get_best_bv(bvs.size() - 1 - i); }
+  bit_vector_t& get_worst_bv(int i) {
+    assert(hnco::is_in_range(i, permutation.size()));
+    return get_best_bv(bvs.size() - 1 - i);
+  }
 
   ///@}
 
