@@ -24,6 +24,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"fp-intervals", required_argument, 0, OPTION_FP_INTERVALS},
     {"fp-precisions", required_argument, 0, OPTION_FP_PRECISIONS},
     {"fp-sizes", required_argument, 0, OPTION_FP_SIZES},
+    {"fp-source", required_argument, 0, OPTION_FP_SOURCE},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
     {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
@@ -131,6 +132,11 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_FP_SIZES:
       _with_fp_sizes = true;
       _fp_sizes = std::string(optarg);
+      break;
+
+    case OPTION_FP_SOURCE:
+      _with_fp_source = true;
+      _fp_source = std::atoi(optarg);
       break;
 
     case 'F':
@@ -315,12 +321,16 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "          Default size of dyadic representations of numbers" << std::endl;
   stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
   stream << "          Expression to parse" << std::endl;
-  stream << "      --fp-intervals (type string, default to \"x: [0, 1]; y: [0, 1]\")" << std::endl;
-  stream << "          Intervals (supersedes fp_default_interval)" << std::endl;
-  stream << "      --fp-precisions (type string, default to \"x: 1e-3; y: 1e-4\")" << std::endl;
-  stream << "          Per variable precisions of dyadic representations of numbers (supersedes fp_sizes)" << std::endl;
-  stream << "      --fp-sizes (type string, default to \"x: 4; y: 6\")" << std::endl;
-  stream << "          Per variable size of dyadic representations of numbers (supersedes fp_default_precision)" << std::endl;
+  stream << "      --fp-intervals (type string, no default)" << std::endl;
+  stream << "          Intervals (supersedes fp_default_interval). Example: \"x: [0, 1]; y: [0, 1]\"" << std::endl;
+  stream << "      --fp-precisions (type string, no default)" << std::endl;
+  stream << "          Per variable precisions of dyadic representations of numbers (supersedes fp_sizes). Example: \"x: 1e-3; y: 1e-4\"" << std::endl;
+  stream << "      --fp-sizes (type string, no default)" << std::endl;
+  stream << "          Per variable size of dyadic representations of numbers (supersedes fp_default_precision). Example: \"x: 4; y: 6\"" << std::endl;
+  stream << "      --fp-source (type int, default to 0)" << std::endl;
+  stream << "          Source for the expression to parse" << std::endl;
+  stream << "            0: Command-line" << std::endl;
+  stream << "            1: Function file" << std::endl;
   stream << std::endl;
 }
 
@@ -377,9 +387,13 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
     stream << "# fp_default_precision = " << options._fp_default_precision << std::endl;
   stream << "# fp_default_size = " << options._fp_default_size << std::endl;
   stream << "# fp_expression = \"" << options._fp_expression << "\"" << std::endl;
-  stream << "# fp_intervals = \"" << options._fp_intervals << "\"" << std::endl;
-  stream << "# fp_precisions = \"" << options._fp_precisions << "\"" << std::endl;
-  stream << "# fp_sizes = \"" << options._fp_sizes << "\"" << std::endl;
+  if (options._with_fp_intervals)
+    stream << "# fp_intervals = \"" << options._fp_intervals << "\"" << std::endl;
+  if (options._with_fp_precisions)
+    stream << "# fp_precisions = \"" << options._fp_precisions << "\"" << std::endl;
+  if (options._with_fp_sizes)
+    stream << "# fp_sizes = \"" << options._fp_sizes << "\"" << std::endl;
+  stream << "# fp_source = " << options._fp_source << std::endl;
   stream << "# function = " << options._function << std::endl;
   stream << "# num_iterations = " << options._num_iterations << std::endl;
   stream << "# num_threads = " << options._num_threads << std::endl;

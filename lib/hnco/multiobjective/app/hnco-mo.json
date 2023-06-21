@@ -212,6 +212,29 @@
             "section": "fn"
         },
 
+        "fp_source":
+        {
+            "type": "int",
+            "default": 0,
+            "description": "Source for the expression to parse",
+            "section": "fp",
+            "values":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Command-line"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Function file"
+                }
+
+            ]
+
+        },
+
         "fp_expression":
         {
             "type": "string",
@@ -223,8 +246,7 @@
         "fp_intervals":
         {
             "type": "string",
-            "default": "x: [0, 1]; y: [0, 1]",
-            "description": "Intervals (supersedes fp_default_interval)",
+            "description": "Intervals (supersedes fp_default_interval). Example: \\\"x: [0, 1]; y: [0, 1]\\\"",
             "section": "fp"
         },
 
@@ -239,8 +261,7 @@
         "fp_precisions":
         {
             "type": "string",
-            "default": "x: 1e-3; y: 1e-4",
-            "description": "Per variable precisions of dyadic representations of numbers (supersedes fp_sizes)",
+            "description": "Per variable precisions of dyadic representations of numbers (supersedes fp_sizes). Example: \\\"x: 1e-3; y: 1e-4\\\"",
             "section": "fp"
         },
 
@@ -254,8 +275,7 @@
         "fp_sizes":
         {
             "type": "string",
-            "default": "x: 4; y: 6",
-            "description": "Per variable size of dyadic representations of numbers (supersedes fp_default_precision)",
+            "description": "Per variable size of dyadic representations of numbers (supersedes fp_default_precision). Example: \\\"x: 4; y: 6\\\"",
             "section": "fp"
         },
 
