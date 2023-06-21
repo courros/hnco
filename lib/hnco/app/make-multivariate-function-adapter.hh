@@ -22,6 +22,7 @@
 #define HNCO_APP_MAKE_MULTIVARIATE_FUNCTION_ADAPTER_H
 
 #include <iostream>
+#include <fstream>
 #include <optional>
 #include <sstream>
 #include <unordered_map>
@@ -307,6 +308,33 @@ make_representation(std::string name,
 }
 
 /**
+ * Make an expression from a source.
+ */
+template<typename Options>
+std::string make_expression(const Options& options)
+{
+  switch(options.get_fp_source()) {
+
+  case 0:
+    return options.get_fp_expression();
+
+  case 1: {
+    std::string path = options.get_path();
+    std::ifstream fstream(path);
+    if (!fstream)
+      throw std::runtime_error("make_expression: Cannot open " + path);
+    std::ostringstream sstream;
+    sstream << fstream.rdbuf();
+    return sstream.str();
+  }
+
+  default:
+    throw std::runtime_error("make_expression: Unknown source: "
+                             + std::to_string(options.get_fp_source()));
+  }
+}
+
+/**
  * Make a multivariate function adapter over float domain.
  */
 template<typename Options, typename Adapter>
@@ -317,7 +345,7 @@ make_multivariate_function_adapter_float(const Options& options)
   using Rep   = typename Adapter::representation_type;
   using Float = typename Rep::domain_type;
 
-  auto instance = new Fn(options.get_fp_expression());
+  auto instance = new Fn(make_expression<Options>(options));
 
   Interval<Float> default_interval;
   auto opt = parse_interval<Float>(options.get_fp_default_interval());
