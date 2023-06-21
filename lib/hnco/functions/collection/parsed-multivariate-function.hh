@@ -67,12 +67,19 @@ public:
 
   /**
    * Constructor.
-   *
    * @param expression Expression to parse
    */
   ParsedMultivariateFunction(std::string expression)
     : _expression(expression)
-  {
+  {}
+
+  /// Add a constant to the parser
+  bool add_constant(std::string name, domain_type value) { return _fparser.AddConstant(name, value); }
+
+  /**
+   * Parse the expression.
+   */
+  void parse() {
     int position = _fparser.ParseAndDeduceVariables(_expression, _variable_names);
     if (position != -1) {
       std::ostringstream stream;

@@ -111,8 +111,7 @@ public:
    *
    * \param expression Expression to parse
    */
-  ParsedMultivariateFunction(std::string expression)
-  {
+  ParsedMultivariateFunction(std::string expression) {
     // Split expression into sub expressions
     const std::string delimiter = "::";
     auto start = 0U;
@@ -124,10 +123,22 @@ public:
     }
     _expressions.push_back(expression.substr(start));
 
-    // Init parsers
     _parsers.resize(_expressions.size());
     _names.resize(_expressions.size());
     _variables.resize(_expressions.size());
+  }
+
+  /// Add a constant to the parsers
+  void add_constant(std::string name, domain_type value) {
+    for (auto& parser : _parsers)
+      parser.AddConstant(name, value);
+  }
+
+  /**
+   * Parse the expression.
+   */
+  void parse() {
+    // Init parsers
     for (size_t i = 0; i < _parsers.size(); i++) {
       int position = _parsers[i].ParseAndDeduceVariables(_expressions[i], _names[i]);
       if (position != -1) {

@@ -3,6 +3,7 @@
 Library:
 - Fixed: make_neighborhood and make_neighborhood_iterator use
   parameter bv_size instead of options.get_bv_size
+- Fixed assertion in multiobjective::algorithm::Population::shrink
 - Added class algorithm::InformationTheoreticEa
 - Added member function ParsedMultivariateFunction::get_variable_names (single and multi)
 - Added file app/make-multivariate-function-adapter.hh
@@ -14,6 +15,7 @@ Library:
 - DyadicIntegerRepresentation: added constructor with given precision
 - IntegerCategoricalRepresentation: renamed _num_bits -> _size
 - PermutationRepresentation: removed struct Element
+- ParsedMultivariateFunction: added member functions parse, add_constant (single and multi)
 
 optgen.pl:
 - Handle parameters with no default value (e.g. seed)
@@ -24,13 +26,15 @@ optgen.pl:
 - json file: renamed property alternatives -> values
 
 hnco, hnco-mo:
-- removed parameters fp_lower_bound and fp_upper_bound
-- removed parameters fp_precision and fp_num_bits
-- added parameters fp_default_interval and fp_intervals
-- added parameters fp_default_precision and fp_precisions
-- added parameters fp_default_size and fp_sizes
-- function parser: intervals, precisions, and sizes can be set
-  individually per variable (single and multi)
+- Function parser: intervals, precisions, and sizes can be set
+  individually per variable
+- Removed parameters fp_lower_bound and fp_upper_bound
+- Removed parameters fp_precision and fp_num_bits
+- Added parameters fp_default_interval and fp_intervals
+- Added parameters fp_default_precision and fp_precisions
+- Added parameters fp_default_size and fp_sizes
+- Added option --fp-source
+- Added constants pi and e for functions parsers (float, complex)
 
 Build:
 - Requires C++17

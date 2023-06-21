@@ -28,6 +28,9 @@
 #include <unordered_map>
 #include <type_traits>          // std::is_same
 
+#define _USE_MATH_DEFINES
+#include <cmath>                // M_PI, M_E
+
 #include "size-parser.hh"
 
 namespace hnco {
@@ -346,6 +349,9 @@ make_multivariate_function_adapter_float(const Options& options)
   using Float = typename Rep::domain_type;
 
   auto instance = new Fn(make_expression<Options>(options));
+  instance->add_constant("pi", M_PI);
+  instance->add_constant("e", M_E);
+  instance->parse();
 
   Interval<Float> default_interval;
   auto opt = parse_interval<Float>(options.get_fp_default_interval());
@@ -433,6 +439,9 @@ make_multivariate_function_adapter_complex(const Options& options)
   using Float    = typename FloatRep::domain_type;
 
   auto instance = new Fn(options.get_fp_expression());
+  instance->add_constant("pi", M_PI);
+  instance->add_constant("e", M_E);
+  instance->parse();
 
   Interval<Float> default_interval;
   auto opt = parse_interval<Float>(options.get_fp_default_interval());
