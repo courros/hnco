@@ -93,8 +93,9 @@ struct Population {
 
   /**
    * Shrink the population.
+   * If population_size > get_size(), does nothing.
    * @param population_size %Population size
-   * @pre population_size < get_size()
+   * @pre population_size > 0
    */
   void shrink(int population_size) {
     assert(population_size > 0);
