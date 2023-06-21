@@ -91,7 +91,7 @@ class HncoOptions {
   bool _with_fn_name = false;
 
   /// Default interval
-  std::string _fp_default_interval = "[0, 1]";
+  std::string _fp_default_interval = "[-3, 3]";
   bool _with_fp_default_interval = false;
 
   /// Default precision of dyadic representations of numbers (supersedes fp_default_size)
@@ -102,8 +102,8 @@ class HncoOptions {
   int _fp_default_size = 8;
   bool _with_fp_default_size = false;
 
-  /// Expression to parse
-  std::string _fp_expression = "(1-x)^2+100*(y-x^2)^2";
+  /// Expression to parse (objectives are separated by ::)
+  std::string _fp_expression = "A := sin(x) + cos(y); -A :: B := sqrt(x^2 + y^2); B";
   bool _with_fp_expression = false;
 
   /// Intervals (supersedes fp_default_interval). Example: \"x: [0, 1]; y: [0, 1]\"

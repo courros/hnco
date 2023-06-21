@@ -238,8 +238,8 @@
         "fp_expression":
         {
             "type": "string",
-            "default": "(1-x)^2+100*(y-x^2)^2",
-            "description": "Expression to parse",
+            "default": "A := sin(x) + cos(y); -A :: B := sqrt(x^2 + y^2); B",
+            "description": "Expression to parse (objectives are separated by ::)",
             "section": "fp"
         },
 
@@ -254,7 +254,7 @@
         "fp_default_interval":
         {
             "type": "string",
-            "default": "[0, 1]",
+            "default": "[-3, 3]",
             "description": "Default interval",
             "section": "fp"
         },

@@ -313,14 +313,14 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Function parser" << std::endl;
-  stream << "      --fp-default-interval (type string, default to \"[0, 1]\")" << std::endl;
+  stream << "      --fp-default-interval (type string, default to \"[-3, 3]\")" << std::endl;
   stream << "          Default interval" << std::endl;
   stream << "      --fp-default-precision (type double, no default)" << std::endl;
   stream << "          Default precision of dyadic representations of numbers (supersedes fp_default_size)" << std::endl;
   stream << "      --fp-default-size (type int, default to 8)" << std::endl;
   stream << "          Default size of dyadic representations of numbers" << std::endl;
-  stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
-  stream << "          Expression to parse" << std::endl;
+  stream << "      --fp-expression (type string, default to \"A := sin(x) + cos(y); -A :: B := sqrt(x^2 + y^2); B\")" << std::endl;
+  stream << "          Expression to parse (objectives are separated by ::)" << std::endl;
   stream << "      --fp-intervals (type string, default to \"\")" << std::endl;
   stream << "          Intervals (supersedes fp_default_interval). Example: \"x: [0, 1]; y: [0, 1]\"" << std::endl;
   stream << "      --fp-precisions (type string, default to \"\")" << std::endl;
