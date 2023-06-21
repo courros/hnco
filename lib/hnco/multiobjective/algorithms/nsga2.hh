@@ -36,11 +36,12 @@ namespace multiobjective {
 namespace algorithm {
 
 
-/** Front-distance pair.
-
-    A front-distance pair measures the quality of an individual within
-    a population.
-*/
+/**
+ * Front-distance pair.
+ *
+ * A front-distance pair measures the quality of an individual within
+ * a population.
+ */
 struct FrontDistancePair {
 
   /// Pareto front
@@ -51,11 +52,12 @@ struct FrontDistancePair {
 
 };
 
-/** Comparison operator for front-distance pairs.
-
-    Favors individuals with smaller Pareto front then greater crowding
-    distance.
-*/
+/**
+ * Comparison operator for front-distance pairs.
+ *
+ * Favors individuals with smaller Pareto front then greater crowding
+ * distance.
+ */
 inline bool operator<(const FrontDistancePair& a, const FrontDistancePair& b)
 {
   if (a.pareto_front < b.pareto_front)
@@ -65,19 +67,20 @@ inline bool operator<(const FrontDistancePair& a, const FrontDistancePair& b)
   return false;
 }
 
-/** NSGA-II.
-
-    NSGA-II is a (mu+mu) evolutionary algorithm for multiobjective
-    optimization.
-
-    Deb, Agrawal, Pratap, and Meyarivan, "A Fast Elitist Non-dominated
-    Sorting Genetic %Algorithm for Multi-objective Optimization:
-    NSGA-II", Parallel Problem Solving from Nature PPSN VI, 2000,
-    Springer Berlin Heidelberg.
-
-    https://link.springer.com/chapter/10.1007/3-540-45356-3_83
-
-*/
+/**
+ * NSGA-II.
+ *
+ * NSGA-II is a (mu+mu) evolutionary algorithm for multiobjective
+ * optimization.
+ *
+ * Deb, Agrawal, Pratap, and Meyarivan, "A Fast Elitist Non-dominated
+ * Sorting Genetic %Algorithm for Multi-objective Optimization:
+ * NSGA-II", Parallel Problem Solving from Nature PPSN VI, 2000,
+ * Springer Berlin Heidelberg.
+ * 
+ * https://link.springer.com/chapter/10.1007/3-540-45356-3_83
+ * 
+ */
 class Nsga2: public IterativeAlgorithm {
 
 protected:
@@ -121,7 +124,8 @@ protected:
   /// Selection by front distance pairs
   TournamentSelection<FrontDistancePair, std::less<FrontDistancePair>> _selection_by_front_distance_pair;
 
-  /** @name Parameters
+  /**
+   * @name Parameters
    */
   ///@{
 
@@ -139,7 +143,8 @@ protected:
 
   ///@}
 
-  /** @name Loop
+  /**
+   * @name Loop
    */
   ///@{
 
@@ -160,12 +165,12 @@ protected:
 
 public:
 
-  /** Constructor.
-
-      \param n Size of bit vectors
-      \param num_objectives Number of objectives
-      \param population_size Population size
-  */
+  /**
+   * Constructor.
+   * @param n Size of bit vectors
+   * @param num_objectives Number of objectives
+   * @param population_size Population size
+   */
   Nsga2(int n, int num_objectives, int population_size)
     : IterativeAlgorithm(n, num_objectives)
     , _parents(population_size, n, num_objectives)
@@ -185,7 +190,8 @@ public:
   /// Get solutions
   const Population& get_solutions() override { return _solutions; }
 
-  /** @name Setters
+  /**
+   * @name Setters
    */
   ///@{
 
