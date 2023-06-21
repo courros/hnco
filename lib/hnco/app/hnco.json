@@ -745,6 +745,7 @@
         "fp_intervals":
         {
             "type": "string",
+            "default": "",
             "description": "Intervals (supersedes fp_default_interval). Example: \\\"x: [0, 1]; y: [0, 1]\\\"",
             "section": "fp"
         },
@@ -760,6 +761,7 @@
         "fp_precisions":
         {
             "type": "string",
+            "default": "",
             "description": "Per variable precisions of dyadic representations of numbers (supersedes fp_sizes). Example: \\\"x: 1e-3; y: 1e-4\\\"",
             "section": "fp"
         },
@@ -774,6 +776,7 @@
         "fp_sizes":
         {
             "type": "string",
+            "default": "",
             "description": "Per variable size of dyadic representations of numbers (supersedes fp_default_precision). Example: \\\"x: 4; y: 6\\\"",
             "section": "fp"
         },
