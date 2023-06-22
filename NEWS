@@ -36,6 +36,7 @@ hnco, hnco-mo:
 - Added parameters fp_default_size and fp_sizes
 - Added parameter fp_source
 - Added constants pi and e for functions parsers (float, complex)
+- Added functions 183 (int -> double)
 
 Build:
 - Requires C++17
