@@ -388,7 +388,8 @@ make_multivariate_function_adapter_integer(const Options& options)
   using Integer   = typename Rep::domain_type;
   using Precision = typename Rep::Precision;
 
-  auto instance = new Fn(options.get_fp_expression());
+  auto instance = new Fn(make_expression<Options>(options));
+  instance->parse();
 
   Interval<Integer> default_interval;
   auto opt = parse_interval<Integer>(options.get_fp_default_interval());
@@ -416,9 +417,12 @@ make_multivariate_function_adapter_integer(const Options& options)
     } else if (options.with_fp_default_precision()) {
       std::cerr << name << ": Using default precision" << std::endl;
       reps.push_back(Rep(interval.first, interval.second, options.get_fp_default_precision()));
-    } else {
+    } else if (options.with_fp_default_size()) {
       std::cerr << name << ": Using default size" << std::endl;
       reps.push_back(Rep(interval.first, interval.second, options.get_fp_default_size()));
+    } else {
+      std::cerr << name << ": Using exact size" << std::endl;
+      reps.push_back(Rep(interval.first, interval.second));
     }
 
   }
@@ -438,7 +442,7 @@ make_multivariate_function_adapter_complex(const Options& options)
   using FloatRep = typename Rep::float_representation_type;
   using Float    = typename FloatRep::domain_type;
 
-  auto instance = new Fn(options.get_fp_expression());
+  auto instance = new Fn(make_expression<Options>(options));
   instance->add_constant("pi", M_PI);
   instance->add_constant("e", M_E);
   instance->parse();
