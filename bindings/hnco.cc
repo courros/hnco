@@ -887,6 +887,35 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def(py::init<int>())
       ;
 
+    py::class_<IterativeAlgorithm, Algorithm, PyIterativeAlgorithm>(module_algorithm, "IterativeAlgorithm")
+      .def(py::init<int>())
+      .def("init", &IterativeAlgorithmPublicist::init)
+      .def("set_num_iterations", &IterativeAlgorithm::set_num_iterations)
+      ;
+
+    py::class_<RandomSearch, IterativeAlgorithm>(module_algorithm, "RandomSearch")
+      .def(py::init<int>())
+      ;
+
+    py::class_<LocalSearchAlgorithm<neighborhood::Neighborhood>, IterativeAlgorithm>(module_algorithm, "LocalSearchAlgorithm");
+
+    py::class_<RandomWalk, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "RandomWalk")
+      .def(py::init<int, neighborhood::Neighborhood *>())
+      ;
+
+    py::class_<RandomLocalSearch, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "RandomLocalSearch")
+      .def(py::init<int, neighborhood::Neighborhood *>())
+      .def("set_patience", &RandomLocalSearch::set_patience)
+      ;
+
+    py::class_<SimulatedAnnealing, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "SimulatedAnnealing")
+      .def(py::init<int, neighborhood::Neighborhood *>())
+      .def("set_num_transitions", &SimulatedAnnealing::set_num_transitions)
+      .def("set_num_trials", &SimulatedAnnealing::set_num_trials)
+      .def("set_initial_acceptance_probability", &SimulatedAnnealing::set_initial_acceptance_probability)
+      .def("set_beta_ratio", &SimulatedAnnealing::set_beta_ratio)
+      ;
+
     py::class_<OnePlusOneEa, Algorithm>(module_algorithm, "OnePlusOneEa")
       .def(py::init<int>())
       .def("set_num_iterations", &OnePlusOneEa::set_num_iterations)
@@ -907,47 +936,34 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("set_incremental_evaluation", &SelfAdjustingOnePlusOneEa::set_incremental_evaluation)
       ;
 
-    py::class_<fast_efficient_p3::Hboa, Algorithm>(module_algorithm, "Hboa")
-      .def(py::init<int>())
-      .def("set_population_size", &fast_efficient_p3::Hboa::set_population_size)
+    py::class_<MuPlusLambdaEa, IterativeAlgorithm>(module_algorithm, "MuPlusLambdaEa")
+      .def(py::init<int, int, int>())
+      .def("set_mutation_rate", &MuPlusLambdaEa::set_mutation_rate)
+      .def("set_allow_no_mutation", &MuPlusLambdaEa::set_allow_no_mutation)
       ;
 
-    py::class_<fast_efficient_p3::Ltga, Algorithm>(module_algorithm, "Ltga")
-      .def(py::init<int>())
-      .def("set_population_size", &fast_efficient_p3::Ltga::set_population_size)
+    py::class_<MuCommaLambdaEa, IterativeAlgorithm>(module_algorithm, "MuCommaLambdaEa")
+      .def(py::init<int, int, int>())
+      .def("set_mutation_rate", &MuCommaLambdaEa::set_mutation_rate)
+      .def("set_allow_no_mutation", &MuCommaLambdaEa::set_allow_no_mutation)
       ;
 
-    py::class_<fast_efficient_p3::ParameterLessPopulationPyramid, Algorithm>(module_algorithm, "ParameterLessPopulationPyramid")
-      .def(py::init<int>())
+    py::class_<TwoRateOnePlusLambdaEa, IterativeAlgorithm>(module_algorithm, "TwoRateOnePlusLambdaEa")
+      .def(py::init<int, int>())
+      .def("set_mutation_rate_init", &TwoRateOnePlusLambdaEa::set_mutation_rate_init)
+      .def("set_allow_no_mutation", &TwoRateOnePlusLambdaEa::set_allow_no_mutation)
       ;
 
-    py::class_<IterativeAlgorithm, Algorithm, PyIterativeAlgorithm>(module_algorithm, "IterativeAlgorithm")
-      .def(py::init<int>())
-      .def("init", &IterativeAlgorithmPublicist::init)
-      .def("set_num_iterations", &IterativeAlgorithm::set_num_iterations)
-      ;
-
-    py::class_<RandomSearch, IterativeAlgorithm>(module_algorithm, "RandomSearch")
-      .def(py::init<int>())
-      ;
-
-    py::class_<LocalSearchAlgorithm<neighborhood::Neighborhood>, IterativeAlgorithm>(module_algorithm, "LocalSearchAlgorithm");
-
-    py::class_<RandomLocalSearch, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "RandomLocalSearch")
-      .def(py::init<int, neighborhood::Neighborhood *>())
-      .def("set_patience", &RandomLocalSearch::set_patience)
-      ;
-
-    py::class_<RandomWalk, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "RandomWalk")
-      .def(py::init<int, neighborhood::Neighborhood *>())
-      ;
-
-    py::class_<SimulatedAnnealing, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "SimulatedAnnealing")
-      .def(py::init<int, neighborhood::Neighborhood *>())
-      .def("set_num_transitions", &SimulatedAnnealing::set_num_transitions)
-      .def("set_num_trials", &SimulatedAnnealing::set_num_trials)
-      .def("set_initial_acceptance_probability", &SimulatedAnnealing::set_initial_acceptance_probability)
-      .def("set_beta_ratio", &SimulatedAnnealing::set_beta_ratio)
+    py::class_<InformationTheoreticEa, IterativeAlgorithm>(module_algorithm, "InformationTheoreticEa")
+      .def(py::init<int, int>())
+      .def("set_allow_no_mutation", &InformationTheoreticEa::set_allow_no_mutation)
+      .def("set_initial_hamming_weight", &InformationTheoreticEa::set_initial_hamming_weight)
+      .def("set_learning_rate", &InformationTheoreticEa::set_learning_rate)
+      .def("set_mutation_rate_init", &InformationTheoreticEa::set_mutation_rate_init)
+      .def("set_mutation_rate_max", &InformationTheoreticEa::set_mutation_rate_max)
+      .def("set_mutation_rate_min", &InformationTheoreticEa::set_mutation_rate_min)
+      .def("set_replacement", &InformationTheoreticEa::set_replacement)
+      .def("set_selection_size", &InformationTheoreticEa::set_selection_size)
       ;
 
     py::class_<GeneticAlgorithm, IterativeAlgorithm>(module_algorithm, "GeneticAlgorithm")
@@ -958,27 +974,40 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("set_allow_no_mutation", &GeneticAlgorithm::set_allow_no_mutation)
       ;
 
-    py::class_<Mimic, IterativeAlgorithm>(module_algorithm, "Mimic")
-      .def(py::init<int, int>())
-      .def("set_selection_size", &Mimic::set_selection_size)
-      ;
-
-    py::class_<MuCommaLambdaEa, IterativeAlgorithm>(module_algorithm, "MuCommaLambdaEa")
-      .def(py::init<int, int, int>())
-      .def("set_mutation_rate", &MuCommaLambdaEa::set_mutation_rate)
-      .def("set_allow_no_mutation", &MuCommaLambdaEa::set_allow_no_mutation)
-      ;
-
-    py::class_<MuPlusLambdaEa, IterativeAlgorithm>(module_algorithm, "MuPlusLambdaEa")
-      .def(py::init<int, int, int>())
-      .def("set_mutation_rate", &MuPlusLambdaEa::set_mutation_rate)
-      .def("set_allow_no_mutation", &MuPlusLambdaEa::set_allow_no_mutation)
-      ;
-
     py::class_<OnePlusLambdaCommaLambdaGa, IterativeAlgorithm>(module_algorithm, "OnePlusLambdaCommaLambdaGa")
       .def(py::init<int, int>())
       .def("set_mutation_rate", &OnePlusLambdaCommaLambdaGa::set_mutation_rate)
       .def("set_crossover_bias", &OnePlusLambdaCommaLambdaGa::set_crossover_bias)
+      ;
+
+    py::class_<PvAlgorithm, IterativeAlgorithm>(module_algorithm, "PvAlgorithm")
+      ;
+
+    py::class_<Pbil, PvAlgorithm>(module_algorithm, "Pbil")
+      .def(py::init<int, int>())
+      .def("set_learning_rate", &Pbil::set_learning_rate)
+      .def("set_selection_size", &Pbil::set_selection_size)
+      ;
+
+    py::class_<NpsPbil, PvAlgorithm>(module_algorithm, "NpsPbil")
+      .def(py::init<int, int>())
+      .def("set_learning_rate", &NpsPbil::set_learning_rate)
+      .def("set_selection_size", &NpsPbil::set_selection_size)
+      ;
+
+    py::class_<Umda, PvAlgorithm>(module_algorithm, "Umda")
+      .def(py::init<int, int>())
+      .def("set_selection_size", &Umda::set_selection_size)
+      ;
+
+    py::class_<CompactGa, PvAlgorithm>(module_algorithm, "CompactGa")
+      .def(py::init<int>())
+      .def("set_learning_rate", &CompactGa::set_learning_rate)
+      ;
+
+    py::class_<Mmas, PvAlgorithm>(module_algorithm, "Mmas")
+      .def(py::init<int>())
+      .def("set_learning_rate", &Mmas::set_learning_rate)
       ;
 
     {
@@ -1014,34 +1043,23 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     }
 
-    py::class_<PvAlgorithm, IterativeAlgorithm>(module_algorithm, "PvAlgorithm")
+    py::class_<Mimic, IterativeAlgorithm>(module_algorithm, "Mimic")
+      .def(py::init<int, int>())
+      .def("set_selection_size", &Mimic::set_selection_size)
       ;
 
-    py::class_<CompactGa, PvAlgorithm>(module_algorithm, "CompactGa")
+    py::class_<fast_efficient_p3::Hboa, Algorithm>(module_algorithm, "Hboa")
       .def(py::init<int>())
-      .def("set_learning_rate", &CompactGa::set_learning_rate)
+      .def("set_population_size", &fast_efficient_p3::Hboa::set_population_size)
       ;
 
-    py::class_<Mmas, PvAlgorithm>(module_algorithm, "Mmas")
+    py::class_<fast_efficient_p3::Ltga, Algorithm>(module_algorithm, "Ltga")
       .def(py::init<int>())
-      .def("set_learning_rate", &Mmas::set_learning_rate)
+      .def("set_population_size", &fast_efficient_p3::Ltga::set_population_size)
       ;
 
-    py::class_<Pbil, PvAlgorithm>(module_algorithm, "Pbil")
-      .def(py::init<int, int>())
-      .def("set_learning_rate", &Pbil::set_learning_rate)
-      .def("set_selection_size", &Pbil::set_selection_size)
-      ;
-
-    py::class_<NpsPbil, PvAlgorithm>(module_algorithm, "NpsPbil")
-      .def(py::init<int, int>())
-      .def("set_learning_rate", &NpsPbil::set_learning_rate)
-      .def("set_selection_size", &NpsPbil::set_selection_size)
-      ;
-
-    py::class_<Umda, PvAlgorithm>(module_algorithm, "Umda")
-      .def(py::init<int, int>())
-      .def("set_selection_size", &Umda::set_selection_size)
+    py::class_<fast_efficient_p3::ParameterLessPopulationPyramid, Algorithm>(module_algorithm, "ParameterLessPopulationPyramid")
+      .def(py::init<int>())
       ;
 
     py::class_<Population>(module_algorithm, "Population")
