@@ -888,9 +888,9 @@ void HncoOptions::print_help_fn(std::ostream& stream) const
   stream << "            162: Walsh expansion of degree 2" << std::endl;
   stream << "            171: Nearest neighbor Ising model in one dimension" << std::endl;
   stream << "            172: Nearest neighbor Ising model in two dimensions" << std::endl;
-  stream << "            180: Real multivariate function" << std::endl;
-  stream << "            181: Integer multivariate function" << std::endl;
-  stream << "            182: Complex multivariate function (squared magnitude of)" << std::endl;
+  stream << "            180: Real multivariate function (parser: double -> double)" << std::endl;
+  stream << "            181: Integer multivariate function (parser: long -> long, then cast to double)" << std::endl;
+  stream << "            182: Complex multivariate function (parser: complex -> complex, then square of the magnitude)" << std::endl;
   stream << "            190: Sudoku" << std::endl;
   stream << "            200: Travelling salesman problem" << std::endl;
   stream << "            1000: Plugin" << std::endl;

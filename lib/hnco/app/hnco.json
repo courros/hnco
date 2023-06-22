@@ -624,17 +624,17 @@
 
                 {
                     "value": 180,
-                    "description": "Real multivariate function"
+                    "description": "Real multivariate function (parser: double -> double)"
                 },
 
                 {
                     "value": 181,
-                    "description": "Integer multivariate function"
+                    "description": "Integer multivariate function (parser: long -> long, then cast to double)"
                 },
 
                 {
                     "value": 182,
-                    "description": "Complex multivariate function (squared magnitude of)"
+                    "description": "Complex multivariate function (parser: complex -> complex, then square of the magnitude)"
                 },
 
                 {
