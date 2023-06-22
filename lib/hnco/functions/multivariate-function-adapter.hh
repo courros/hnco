@@ -90,9 +90,8 @@ public:
 
   /**
    * Constructor.
-   *
-   * \param fn Multivariate function
-   * \param reps Representations
+   * @param fn Multivariate function
+   * @param reps Representations
    */
   MultivariateFunctionAdapter(Fn *fn, std::vector<Rep> reps)
     : _function(fn)
