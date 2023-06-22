@@ -66,6 +66,14 @@ CommandLineFunctionFactory::make()
     return hnco::app::make_multivariate_function_adapter_complex<HncoOptions, Adapter>(_options);
   }
 
+  case 183: {
+    using Fn      = ParsedMultivariateFunction<FunctionParser>;
+    using Rep     = hnco::representation::DyadicIntegerRepresentation<int>;
+    using Conv    = hnco::function::ScalarToDouble<double>;
+    using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
+    return hnco::app::make_multivariate_function_adapter_integer<HncoOptions, Adapter>(_options);
+  }
+
 #ifdef ENABLE_PYTHON
   case 1100:
     return new PythonFunction
@@ -74,7 +82,8 @@ CommandLineFunctionFactory::make()
 #endif
 
   default:
-    throw std::runtime_error("CommandLineFunctionFactory::make: Unknown function type: " + std::to_string(_options.get_function()));
+    throw std::runtime_error("CommandLineFunctionFactory::make: Unknown function type: "
+                             + std::to_string(_options.get_function()));
   }
 
 }
