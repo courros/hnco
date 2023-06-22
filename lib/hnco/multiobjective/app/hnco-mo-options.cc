@@ -269,7 +269,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Path of the results file" << std::endl;
   stream << "      --seed (type unsigned, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
-  stream << "      --solution-path (type string, default to \"solution.dat\")" << std::endl;
+  stream << "      --solution-path (type string, default to \"solution.txt\")" << std::endl;
   stream << "          Path of the solution file" << std::endl;
   stream << std::endl;
   stream << "Functions" << std::endl;
@@ -289,7 +289,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "            181: Integer multivariate function (objectives are separated by double colons ::)" << std::endl;
   stream << "            182: Complex multivariate function (squared magnitude of, objectives are separated by double colons ::)" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
-  stream << "  -p, --path (type string, default to \"function.dat\")" << std::endl;
+  stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
   stream << std::endl;
   stream << "Algorithms" << std::endl;
@@ -319,7 +319,7 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "          Default precision of dyadic representations of numbers (supersedes fp_default_size)" << std::endl;
   stream << "      --fp-default-size (type int, default to 8)" << std::endl;
   stream << "          Default size of dyadic representations of numbers" << std::endl;
-  stream << "      --fp-expression (type string, default to \"A := sin(x) + cos(y); -A :: B := sqrt(x^2 + y^2); B\")" << std::endl;
+  stream << "      --fp-expression (type string, default to \"sin(x) + cos(y) :: sqrt(x^2 + y^2)\")" << std::endl;
   stream << "          Expression to parse (objectives are separated by ::)" << std::endl;
   stream << "      --fp-intervals (type string, default to \"\")" << std::endl;
   stream << "          Intervals (supersedes fp_default_interval). Example: \"x: [0, 1]; y: [0, 1]\"" << std::endl;

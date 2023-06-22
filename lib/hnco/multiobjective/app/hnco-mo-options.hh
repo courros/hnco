@@ -103,7 +103,7 @@ class HncoOptions {
   bool _with_fp_default_size = false;
 
   /// Expression to parse (objectives are separated by ::)
-  std::string _fp_expression = "A := sin(x) + cos(y); -A :: B := sqrt(x^2 + y^2); B";
+  std::string _fp_expression = "sin(x) + cos(y) :: sqrt(x^2 + y^2)";
   bool _with_fp_expression = false;
 
   /// Intervals (supersedes fp_default_interval). Example: \"x: [0, 1]; y: [0, 1]\"
@@ -135,7 +135,7 @@ class HncoOptions {
   bool _with_num_threads = false;
 
   /// Path of a function file
-  std::string _path = "function.dat";
+  std::string _path = "function.txt";
   bool _with_path = false;
 
   /// Categorical representation
@@ -155,7 +155,7 @@ class HncoOptions {
   bool _with_seed = false;
 
   /// Path of the solution file
-  std::string _solution_path = "solution.dat";
+  std::string _solution_path = "solution.txt";
   bool _with_solution_path = false;
 
   /// Allow no mutation with standard bit mutation

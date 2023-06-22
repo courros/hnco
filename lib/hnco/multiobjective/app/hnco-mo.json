@@ -139,7 +139,7 @@
         "solution_path":
         {
             "type": "string",
-            "default": "solution.dat",
+            "default": "solution.txt",
             "description": "Path of the solution file",
             "section": "gen"
         },
@@ -200,7 +200,7 @@
         {
             "optchar": "p",
             "type": "string",
-            "default": "function.dat",
+            "default": "function.txt",
             "description": "Path of a function file",
             "section": "fn"
         },
@@ -238,7 +238,7 @@
         "fp_expression":
         {
             "type": "string",
-            "default": "A := sin(x) + cos(y); -A :: B := sqrt(x^2 + y^2); B",
+            "default": "sin(x) + cos(y) :: sqrt(x^2 + y^2)",
             "description": "Expression to parse (objectives are separated by ::)",
             "section": "fp"
         },
