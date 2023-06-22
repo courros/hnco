@@ -83,4 +83,4 @@ a.minimize([ufa])
 
 solutions = a.get_solutions()
 for bv in solutions.bvs:
-    ufa.describe(bv)
+    multi.bv_describe(bv, ufa)
