@@ -17,11 +17,11 @@ report:
 	make -C report
 
 clean:
-	rm -f report/pretty.json
-	rm -f log.defaults log.err log.parallel
 	rm -f commands.txt
-	rm -f candlesticks.gp scatter.gp
-	rm -rf graphics
+	rm -f log.defaults log.err log.parallel
+	rm -f candlesticks.gp mean.gp stddev.gp
+	rm -f report/pretty.json
 	rm -rf results
+	rm -rf graphics
 
 .PHONY: all default-parameters run report clean

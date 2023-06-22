@@ -5,6 +5,7 @@ default-parameters:
 
 run:
 	echo `date` >> log.err
+	uname -a >> log.err
 	hnco-runtime-skeleton.pl
 	time -a -o log.err hnco-runtime-run.pl
 
@@ -17,9 +18,10 @@ report:
 	make -C report
 
 clean:
-	rm -f log.defaults log.err
-	rm -f report/pretty.json
+	rm -f commands.txt
+	rm -f log.defaults log.err log.parallel
 	rm -f candlesticks.gp mean.gp stddev.gp
+	rm -f report/pretty.json
 	rm -rf results
 	rm -rf graphics
 
