@@ -23,7 +23,7 @@
 
 #include <assert.h>
 
-#include <type_traits>          // std::is_same
+#include <type_traits>          // std::is_same, std::is_convertible
 
 #include "hnco/representations/all.hh"
 
@@ -45,11 +45,11 @@ namespace function {
  */
 template<class Fn, class Rep, class Conv>
 class MultivariateFunctionAdapter: public Function {
-  static_assert(std::is_same<
-                typename Fn::domain_type,
-                typename Rep::domain_type
+  static_assert(std::is_convertible<
+                typename Rep::domain_type,
+                typename Fn::domain_type
                 >::value,
-                "MultivariateFunctionAdapter: domain types do not match");
+                "MultivariateFunctionAdapter: representation codomain and function domain types do not match");
   static_assert(std::is_same<
                 typename Fn::codomain_type,
                 typename Conv::codomain_type
@@ -63,7 +63,7 @@ class MultivariateFunctionAdapter: public Function {
   std::vector<Rep> _representations;
 
   /// Variables
-  std::vector<typename Rep::domain_type> _variables;
+  std::vector<typename Fn::domain_type> _variables;
 
   /// Converter from codomain to double
   Conv _converter;
@@ -82,7 +82,7 @@ public:
   /// Function type
   using function_type = Fn;
 
-  /// Repreentation type
+  /// Representation type
   using representation_type = Rep;
 
   /// Converter type
@@ -125,7 +125,7 @@ public:
 
   /// Evaluate
   double evaluate(const bit_vector_t& bv) override {
-    assert(get_bv_size() == int(bv.size()));
+    assert(int(bv.size()) == get_bv_size());
 
     unpack(bv);
     return _converter(_function->evaluate(_variables));
