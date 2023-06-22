@@ -389,6 +389,10 @@ make_multivariate_function_adapter_integer(const Options& options)
   using Precision = typename Rep::Precision;
 
   auto instance = new Fn(make_expression<Options>(options));
+  if constexpr(std::is_same<typename Fn::domain_type, double>::value) {
+    instance->add_constant("pi", M_PI);
+    instance->add_constant("e", M_E);
+  }
   instance->parse();
 
   Interval<Integer> default_interval;
