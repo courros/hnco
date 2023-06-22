@@ -5,7 +5,9 @@ Library:
   parameter bv_size instead of options.get_bv_size
 - Fixed assertion in multiobjective::algorithm::Population::shrink
 - Added class algorithm::InformationTheoreticEa
-- Added member function ParsedMultivariateFunction::get_variable_names (single and multi)
+- ParsedMultivariateFunction: added member function get_variable_names (single and multi)
+- ParsedMultivariateFunction: added member function parse (single and multi)
+- ParsedMultivariateFunction: added member function add_constant (single and multi)
 - Added file app/make-multivariate-function-adapter.hh
 - Added files app/size-parser.hh and app/size-parser.cc
 - DyadicIntegerRepresentation: renamed _num_bits -> _size
@@ -14,8 +16,7 @@ Library:
 - DyadicIntegerRepresentation: added local struct Precision
 - DyadicIntegerRepresentation: added constructor with given precision
 - IntegerCategoricalRepresentation: renamed _num_bits -> _size
-- PermutationRepresentation: removed struct Element
-- ParsedMultivariateFunction: added member functions parse, add_constant (single and multi)
+- PermutationRepresentation: removed local struct Element
 
 optgen.pl:
 - Handle parameters with no default value (e.g. seed)
@@ -33,13 +34,15 @@ hnco, hnco-mo:
 - Added parameters fp_default_interval and fp_intervals
 - Added parameters fp_default_precision and fp_precisions
 - Added parameters fp_default_size and fp_sizes
-- Added option --fp-source
+- Added parameter fp_source
 - Added constants pi and e for functions parsers (float, complex)
 
 Build:
 - Requires C++17
 
 Python:
+- Added bindings for TwoRateOnePlusLambdaEa
+- Added bindings for InformationTheoreticEa
 
 
 * Version 0.22 (2023-02-05)
