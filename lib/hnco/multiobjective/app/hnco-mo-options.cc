@@ -44,8 +44,10 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"print-pareto-front", no_argument, 0, OPTION_PRINT_PARETO_FRONT},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
+    {"help-fn", no_argument, 0, OPTION_HELP_FN},
     {"help-fp", no_argument, 0, OPTION_HELP_FP},
     {"help-rep", no_argument, 0, OPTION_HELP_REP},
+    {"help-alg", no_argument, 0, OPTION_HELP_ALG},
     {"help-ea", no_argument, 0, OPTION_HELP_EA},
     {0, no_argument, 0, 0}
   };
@@ -223,12 +225,20 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       print_help(std::cerr);
       exit(0);
 
+    case OPTION_HELP_FN:
+      print_help_fn(std::cerr);
+      exit(0);
+
     case OPTION_HELP_FP:
       print_help_fp(std::cerr);
       exit(0);
 
     case OPTION_HELP_REP:
       print_help_rep(std::cerr);
+      exit(0);
+
+    case OPTION_HELP_ALG:
+      print_help_alg(std::cerr);
       exit(0);
 
     case OPTION_HELP_EA:
@@ -272,6 +282,23 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "      --solution-path (type string, default to \"solution.txt\")" << std::endl;
   stream << "          Path of the solution file" << std::endl;
   stream << std::endl;
+  stream  << "Additional Sections" << std::endl;
+  stream << "      --help-fn" << std::endl;
+  stream << "          Functions" << std::endl;
+  stream << "      --help-fp" << std::endl;
+  stream << "          Function parser" << std::endl;
+  stream << "      --help-rep" << std::endl;
+  stream << "          Representations" << std::endl;
+  stream << "      --help-alg" << std::endl;
+  stream << "          Algorithms" << std::endl;
+  stream << "      --help-ea" << std::endl;
+  stream << "          Evolutionary Algorithms" << std::endl;
+}
+
+void HncoOptions::print_help_fn(std::ostream& stream) const
+{
+  stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Functions" << std::endl;
   stream << "  -s, --bv-size (type int, default to 100)" << std::endl;
   stream << "          Size of bit vectors" << std::endl;
@@ -285,27 +312,13 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Name of the function in the dynamic library" << std::endl;
   stream << "  -F, --function (type int, default to 180)" << std::endl;
   stream << "          Type of function" << std::endl;
-  stream << "            180: Real multivariate function (objectives are separated by double colons ::)" << std::endl;
-  stream << "            181: Integer multivariate function (objectives are separated by double colons ::)" << std::endl;
-  stream << "            182: Complex multivariate function (squared magnitude of, objectives are separated by double colons ::)" << std::endl;
+  stream << "            180: Real multivariate function (parser: double -> double)" << std::endl;
+  stream << "            181: Integer multivariate function (parser: long -> long, then cast to double)" << std::endl;
+  stream << "            182: Complex multivariate function (parser: complex -> complex, then square of the magnitude)" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
   stream << std::endl;
-  stream << "Algorithms" << std::endl;
-  stream << "  -A, --algorithm (type int, default to 1400)" << std::endl;
-  stream << "          Type of algorithm" << std::endl;
-  stream << "            1400: NGSA-II" << std::endl;
-  stream << "  -i, --num-iterations (type int, default to 100)" << std::endl;
-  stream << "          Number of iterations" << std::endl;
-  stream << std::endl;
-  stream  << "Additional Sections" << std::endl;
-  stream << "      --help-fp" << std::endl;
-  stream << "          Function parser" << std::endl;
-  stream << "      --help-rep" << std::endl;
-  stream << "          Representations" << std::endl;
-  stream << "      --help-ea" << std::endl;
-  stream << "          Evolutionary Algorithms" << std::endl;
 }
 
 void HncoOptions::print_help_fp(std::ostream& stream) const
@@ -345,6 +358,19 @@ void HncoOptions::print_help_rep(std::ostream& stream) const
   stream << "            1: Linear" << std::endl;
   stream << "      --rep-num-additional-bits (type int, default to 2)" << std::endl;
   stream << "          Number of additional bits per element for permutation representation" << std::endl;
+  stream << std::endl;
+}
+
+void HncoOptions::print_help_alg(std::ostream& stream) const
+{
+  stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
+  stream << "Algorithms" << std::endl;
+  stream << "  -A, --algorithm (type int, default to 100)" << std::endl;
+  stream << "          Type of algorithm" << std::endl;
+  stream << "            100: NSGA-II" << std::endl;
+  stream << "  -i, --num-iterations (type int, default to 100)" << std::endl;
+  stream << "          Number of iterations" << std::endl;
   stream << std::endl;
 }
 

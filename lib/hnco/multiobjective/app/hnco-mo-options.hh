@@ -19,7 +19,9 @@ class HncoOptions {
 
   enum {
     OPTION_HELP=256,
+    OPTION_HELP_ALG,
     OPTION_HELP_EA,
+    OPTION_HELP_FN,
     OPTION_HELP_FP,
     OPTION_HELP_REP,
     OPTION_VERSION,
@@ -59,7 +61,7 @@ class HncoOptions {
   };
 
   /// Type of algorithm
-  int _algorithm = 1400;
+  int _algorithm = 100;
   bool _with_algorithm = false;
 
   /// Size of bit vectors
@@ -185,11 +187,17 @@ class HncoOptions {
   /// Print help message
   void print_help(std::ostream& stream) const;
 
+  /// Print help message for section fn
+  void print_help_fn(std::ostream& stream) const;
+
   /// Print help message for section fp
   void print_help_fp(std::ostream& stream) const;
 
   /// Print help message for section rep
   void print_help_rep(std::ostream& stream) const;
+
+  /// Print help message for section alg
+  void print_help_alg(std::ostream& stream) const;
 
   /// Print help message for section ea
   void print_help_ea(std::ostream& stream) const;

@@ -34,7 +34,7 @@ CommandLineAlgorithmFactory::make(int bv_size, int num_objectives)
 {
   switch(_options.get_algorithm()) {
 
-  case 1400: {
+  case 100: {
     auto algo = new Nsga2
       (bv_size,
        num_objectives,
@@ -50,6 +50,7 @@ CommandLineAlgorithmFactory::make(int bv_size, int num_objectives)
   }
 
   default:
-    throw std::runtime_error("CommandLineAlgorithmFactory::make: Unknown algorithm type: " + std::to_string(_options.get_algorithm()));
+    throw std::runtime_error("CommandLineAlgorithmFactory::make: Unknown algorithm type: "
+                             + std::to_string(_options.get_algorithm()));
   }
 }

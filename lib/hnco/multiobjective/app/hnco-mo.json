@@ -26,7 +26,7 @@
         {
             "id": "fn",
             "title": "Functions",
-            "fold": false
+            "fold": true
         },
 
         {
@@ -44,7 +44,7 @@
         {
             "id": "alg",
             "title": "Algorithms",
-            "fold": false
+            "fold": true
         },
 
         {
@@ -165,17 +165,17 @@
 
                 {
                     "value": 180,
-                    "description": "Real multivariate function (objectives are separated by double colons ::)"
+                    "description": "Real multivariate function (parser: double -> double)"
                 },
 
                 {
                     "value": 181,
-                    "description": "Integer multivariate function (objectives are separated by double colons ::)"
+                    "description": "Integer multivariate function (parser: long -> long, then cast to double)"
                 },
 
                 {
                     "value": 182,
-                    "description": "Complex multivariate function (squared magnitude of, objectives are separated by double colons ::)"
+                    "description": "Complex multivariate function (parser: complex -> complex, then square of the magnitude)"
                 },
 
                 {
@@ -326,15 +326,15 @@
         {
             "optchar": "A",
             "type": "int",
-            "default": 1400,
+            "default": 100,
             "description": "Type of algorithm",
             "section": "alg",
             "values":
             [
 
                 {
-                    "value": 1400,
-                    "description": "NGSA-II"
+                    "value": 100,
+                    "description": "NSGA-II"
                 }
 
             ]
