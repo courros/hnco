@@ -312,9 +312,10 @@ void HncoOptions::print_help_fn(std::ostream& stream) const
   stream << "          Name of the function in the dynamic library" << std::endl;
   stream << "  -F, --function (type int, default to 180)" << std::endl;
   stream << "          Type of function" << std::endl;
-  stream << "            180: Real multivariate function (parser: double -> double)" << std::endl;
-  stream << "            181: Integer multivariate function (parser: long -> long, then cast to double)" << std::endl;
-  stream << "            182: Complex multivariate function (parser: complex -> complex, then square of the magnitude)" << std::endl;
+  stream << "            180: Real multivariate function (rep: bv -> double, parser: double -> double)" << std::endl;
+  stream << "            181: Integer multivariate function (rep: bv -> long, parser: long -> long, cast to double)" << std::endl;
+  stream << "            182: Complex multivariate function (rep: bv -> complex, parser: complex -> complex, square of the magnitude)" << std::endl;
+  stream << "            183: Integer multivariate function (rep: bv -> int, cast to double, parser: double -> double)" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
