@@ -103,19 +103,9 @@ sub generate_graphics
     open(GRAPHICS, ">graphics.gp")
         or die "hnco-observable-evolution-stat.pl: generate_graphics: cannot open graphics.gp\n";
 
-    # Font face and size
-    my $font = "";
-    if ($graphics->{font_face}) {
-        $font = $graphics->{font_face};
-    }
-    if ($graphics->{font_size}) {
-        $font = "$font,$graphics->{font_size}";
-    }
-    $font = qq("$font");
-
-    my $key = qq(font $font);
+    my $key;
     if ($graphics->{key}) {
-        $key = "$key $graphics->{key}";
+        $key = $graphics->{key};
     } else {
         $key = qq($key inside top right opaque vertical reverse Left title "Algorithm" left);
     }
@@ -157,15 +147,24 @@ sub generate_graphics
         print GRAPHICS "$transform->{function}($transform->{variable}) = $transform->{expression}\n";
         $data = "using $xcolumn:($transform->{function}(\$$ycolumn))";
     }
-
     print GRAPHICS "\n";
+
+    # Font face and size
+    my $font = "";
+    if ($graphics->{font_face}) {
+        $font = $graphics->{font_face};
+    }
+    if ($graphics->{font_size}) {
+        $font = "$font,$graphics->{font_size}";
+    }
+    $font = qq(font "$font");
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
 
         my $path = qq("$path_graphics/$function_id.eps");
         print GRAPHICS
-            $terminal{eps}, "\n",
+            "$terminal{eps} $font\n",
             "set output $path\n";
 
         print GRAPHICS "plot \\\n";
@@ -181,13 +180,13 @@ sub generate_graphics
 
         $path = qq("$path_graphics/$function_id.pdf");
         print GRAPHICS
-            $terminal{pdf}, "\n",
+            "$terminal{pdf} $font\n",
             "set output $path\n",
             "replot\n";
 
         $path = qq("$path_graphics/$function_id.png");
         print GRAPHICS
-            $terminal{png}, "\n",
+            "$terminal{png} $font\n",
             "set output $path\n",
             "replot\n\n";
     }
