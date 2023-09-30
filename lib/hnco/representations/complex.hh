@@ -23,40 +23,41 @@
 
 #include <assert.h>
 
-#include <vector>
 #include <iostream>             // std::ostream
-#include <cmath>                // std::log, std::ceil
 #include <complex>              // std::complex
-#include <bitset>               // std::bitset
 
 #include "hnco/util.hh"         // hnco::is_in_range
 #include "hnco/bit-vector.hh"
-#include "hnco/bit-matrix.hh"
-#include "hnco/iterator.hh"
-
-#include "float.hh"             // hnco::representation::DyadicFloatRepresentation
 
 
 namespace hnco {
 namespace representation {
 
 
-/// Dyadic complex representation
-template<class T>
-class DyadicComplexRepresentation {
-
-  /// Representation of the real part
-  DyadicFloatRepresentation<T> _real_part;
-
-  /// Representation of the imaginary part
-  DyadicFloatRepresentation<T> _imaginary_part;
+/// Complex representation
+template<class ScalarRep>
+class ComplexRepresentation {
 
 public:
 
-  /// Domain type
-  using domain_type = std::complex<T>;
+  /// Scalar representation
+  using scalar_rep = ScalarRep;
 
-  using float_representation_type = DyadicFloatRepresentation<T>;
+  /// Scalar type
+  using scalar_type = typename scalar_rep::domain_type;
+
+  /// Domain type
+  using domain_type = std::complex<scalar_type>;
+
+private:
+
+  /// Representation of the real part
+  scalar_rep _real_part;
+
+  /// Representation of the imaginary part
+  scalar_rep _imaginary_part;
+
+public:
 
   /**
    * Constructor.
@@ -64,7 +65,7 @@ public:
    * @param real_part Representation of real part
    * @param imaginary_part Representation of imaginary part
    */
-  DyadicComplexRepresentation(DyadicFloatRepresentation<T> real_part, DyadicFloatRepresentation<T> imaginary_part)
+  ComplexRepresentation(scalar_rep real_part, scalar_rep imaginary_part)
     : _real_part(real_part)
     , _imaginary_part(imaginary_part)
   {}
@@ -74,8 +75,8 @@ public:
    *
    * @param rep Representation of both real and imaginary parts
    */
-  DyadicComplexRepresentation(DyadicFloatRepresentation<T> rep)
-    : DyadicComplexRepresentation(rep, rep)
+  ComplexRepresentation(scalar_rep rep)
+    : ComplexRepresentation(rep, rep)
   {}
 
   /// Size of the representation
@@ -84,15 +85,15 @@ public:
   /// Unpack bit vector into a value
   domain_type unpack(const bit_vector_t& bv, int start) {
     assert(hnco::is_in_range(start, bv.size()));
-    T re = _real_part.unpack(bv, start);
+    scalar_type re = _real_part.unpack(bv, start);
     start += _real_part.size();
-    T im = _imaginary_part.unpack(bv, start);
-    return std::complex<T>(re, im);
+    scalar_type im = _imaginary_part.unpack(bv, start);
+    return domain_type(re, im);
   }
 
   /// Display
   void display(std::ostream& stream) const {
-    stream << "DyadicComplexRepresentation = ";
+    stream << "ComplexRepresentation = ";
     _real_part.display(stream);
     stream << ", ";
     _imaginary_part.display(stream);
