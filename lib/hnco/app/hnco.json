@@ -754,14 +754,6 @@
             "section": "fp"
         },
 
-        "fp_default_double_rep":
-        {
-            "type": "string",
-            "default": "double(0, 1, precision = 1e-3)",
-            "description": "Default representation for double",
-            "section": "fp"
-        },
-
         "fp_default_int_rep":
         {
             "type": "string",
@@ -775,6 +767,14 @@
             "type": "string",
             "default": "long(1, 100)",
             "description": "Default representation for long",
+            "section": "fp"
+        },
+
+        "fp_default_double_rep":
+        {
+            "type": "string",
+            "default": "double(0, 1, precision = 1e-3)",
+            "description": "Default representation for double",
             "section": "fp"
         },
 
