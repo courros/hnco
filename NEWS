@@ -8,8 +8,7 @@ Library:
 - ParsedMultivariateFunction: added member function get_variable_names (single and multi)
 - ParsedMultivariateFunction: added member function parse (single and multi)
 - ParsedMultivariateFunction: added member function add_constant (single and multi)
-- Added file app/make-multivariate-function-adapter.hh
-- Added files app/size-parser.hh and app/size-parser.cc
+- Added files app/make-multivariate-function-adapter.(hh|cc)
 - DyadicIntegerRepresentation: renamed _num_bits -> _size
 - DyadicIntegerRepresentation: renamed _num_bits_complete -> _exact_size
 - DyadicIntegerRepresentation: renamed set_num_bits_complete -> set_exact_size
@@ -27,14 +26,15 @@ optgen.pl:
 - json file: renamed property alternatives -> values
 
 hnco, hnco-mo:
-- Function parser: intervals, precisions, and sizes can be set
-  individually per variable
 - Removed parameters fp_lower_bound and fp_upper_bound
 - Removed parameters fp_precision and fp_num_bits
-- Added parameters fp_default_interval and fp_intervals
-- Added parameters fp_default_precision and fp_precisions
-- Added parameters fp_default_size and fp_sizes
 - Added parameter fp_source
+- Added parameter fp_representations
+- Added parameter fp_default_int_rep
+- Added parameter fp_default_long_rep
+- Added parameter fp_default_double_rep
+- Added parameter fp_default_precision_double
+- Added parameter fp_default_size_double
 - Added constants pi and e for functions parsers (float, complex)
 - Added functions 183 (int -> double)
 
