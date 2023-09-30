@@ -66,7 +66,7 @@ public:
     using namespace hnco::representation;
     using FloatRep = DyadicFloatRepresentation<double>;
     using IntegerRep = DyadicIntegerRepresentation<int>;
-    using ComplexRep = DyadicComplexRepresentation<double>;
+    using ComplexRep = ComplexRepresentation<FloatRep>;
     using CategoricalRep = LinearCategoricalRepresentation;
     using PermutationRep = PermutationRepresentation;
 
