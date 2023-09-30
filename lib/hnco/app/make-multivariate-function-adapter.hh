@@ -21,414 +21,344 @@
 #ifndef HNCO_APP_MAKE_MULTIVARIATE_FUNCTION_ADAPTER_H
 #define HNCO_APP_MAKE_MULTIVARIATE_FUNCTION_ADAPTER_H
 
+#include <assert.h>
+
 #include <iostream>
 #include <fstream>
 #include <optional>
 #include <sstream>
 #include <unordered_map>
-#include <type_traits>          // std::is_same
+#include <type_traits>          // std::is_same_v
+#include <variant>              // std::variant, std::get, std::visit
+
+#include "hnco/representations/all.hh"
 
 #define _USE_MATH_DEFINES
 #include <cmath>                // M_PI, M_E
 
-#include "size-parser.hh"
-
 namespace hnco {
 namespace app {
 
-/// Interval
-template<typename T>
-using Interval = std::pair<T, T>;
+using IntRep    = representation::DyadicIntegerRepresentation<int>;
+using LongRep   = representation::DyadicIntegerRepresentation<long>;
+using DoubleRep = representation::DyadicFloatRepresentation<double>;
 
-/// Insert an interval
-template<typename T>
-std::ostream& operator<<(std::ostream& stream, const Interval<T> interval)
+struct IntRepParams
 {
-  stream << "[" << interval.first << ", " << interval.second << "]";
-  return stream;
-}
+  int lower_bound;
+  int upper_bound;
+  IntRepParams() = default;
+  IntRepParams(int a, int b):
+    lower_bound(a),
+    upper_bound(b) {}
+  IntRep to_rep() { return IntRep(lower_bound, upper_bound); }
+};
 
-/**
- * Parse an interval.
- *
- * Format: "[scalar, scalar]"
- *
- * Example : "[0, 1]"
- */
-template<typename T>
-std::optional<Interval<T>> parse_interval(std::string expression)
+struct LongRepParams
 {
-  if (expression.empty())
-    return {};
+  long lower_bound;
+  long upper_bound;
+  LongRepParams() = default;
+  LongRepParams(long a, long b):
+    lower_bound(a),
+    upper_bound(b) {}
+  LongRep to_rep() { return LongRep(lower_bound, upper_bound); }
+};
 
-  std::istringstream stream(expression);
-
-  char c;
-  stream >> c;
-  if (!stream || c != '[') {
-    std::cerr << "parse_interval: Expect [" << std::endl;
-    return {};
-  }
-
-  Interval<T> interval;
-
-  stream >> interval.first;
-  if (!stream) {
-    std::cerr << "parse_interval: Expect lower bound" << std::endl;
-    return {};
-  }
-
-  stream >> c;
-  if (!stream || c != ',') {
-    std::cerr << "parse_interval: Expect ," << std::endl;
-    return {};
-  }
-
-  stream >> interval.second;
-  if (!stream) {
-    std::cerr << "parse_interval: Expect upper bound" << std::endl;
-    return {};
-  }
-
-  if (!(interval.first < interval.second)) {
-    std::cerr << "parse_interval: Lower bound must be lower than upper bound" << std::endl;
-    return {};
-  }
-
-  stream >> c;
-  if (!stream || c != ']') {
-    std::cerr << "parse_interval: Expect ]" << std::endl;
-    return {};
-  }
-
-  return interval;
-}
-
-/**
- * Parse an interval declaration.
- *
- * Format: "name: [a, b]"
- *
- * Example : "x: [0, 1]"
- */
-template<typename T>
-std::optional<std::pair<std::string, Interval<T>>> parse_interval_declaration(std::string expression)
+struct DoubleRepParams
 {
-  const std::string delimiter = ":";
-
-  if (expression.empty())
-    return {};
-
-  auto start = 0U;
-  auto stop = expression.find(delimiter);
-
-  if (stop == std::string::npos) {
-    std::cerr << "parse_interval_declaration: Missing colon" << std::endl;
-    return {};
-  }
-
-  auto before = expression.substr(start, stop);
-  std::istringstream stream(before);
-  std::string name;
-  stream >> name;
-  if (!stream) {
-    std::cerr << "parse_interval_declaration: Expect variable name before colon" << std::endl;
-    return {};
-  }
-
-  start = stop + delimiter.length();
-  auto opt = parse_interval<T>(expression.substr(start));
-  if (opt)
-    return std::make_pair(name, opt.value());
-  else {
-    std::cerr << "parse_interval_declaration: Failed to parse interval for variable " << name << std::endl;
-    return {};
-  }
-
-}
-
-/**
- * Parse intervals
- *
- * Format: list of interval declarations separated by semicolon
- *
- * Example: "x: [0, 1]; y: [1, 2]"
- */
-template<typename T>
-std::unordered_map<std::string, Interval<T>> parse_intervals(std::string expression)
-{
-  const std::string delimiter = ";";
-
-  std::unordered_map<std::string, Interval<T>> intervals;
-
-  if (expression.empty())
-    return intervals;
-
-  auto start = 0U;
-  auto stop = expression.find(delimiter);
-
-  while (stop != std::string::npos) {
-    auto opt = parse_interval_declaration<T>(expression.substr(start, stop - start));
-    if (opt)
-      intervals.insert(opt.value());
-    start = stop + delimiter.length();
-    stop = expression.find(delimiter, start);
-  }
-
-  auto opt = parse_interval_declaration<T>(expression.substr(start, stop - start));
-  if (opt)
-    intervals.insert(opt.value());
-
-  return intervals;
-}
-
-/**
- * Parse a precision declaration.
- *
- * Format: "string: floating point number"
- *
- * Example : "x: 1e-3"
- */
-template<typename T>
-std::optional<std::pair<std::string, T>> parse_precision_declaration(std::string expression)
-{
-  const std::string delimiter = ":";
-
-  if (expression.empty())
-    return {};
-
-  auto start = 0U;
-  auto stop = expression.find(delimiter);
-
-  if (stop == std::string::npos) {
-    std::cerr << "parse_precision_declaration: Missing colon" << std::endl;
-    return {};
-  }
-
-  std::string name;
-  {
-    auto before = expression.substr(start, stop);
-    std::istringstream stream(before);
-    stream >> name;
-    if (!stream) {
-      std::cerr << "parse_precision_declaration: Expect variable name before colon" << std::endl;
-      return {};
+  double lower_bound;
+  double upper_bound;
+  double precision;
+  int size;
+  int mode = 0;
+  DoubleRepParams() = default;
+  DoubleRepParams(double a, double b, double c):
+    lower_bound(a),
+    upper_bound(b),
+    precision(c),
+    mode(1) {}
+  DoubleRepParams(double a, double b, int c):
+    lower_bound(a),
+    upper_bound(b),
+    size(c),
+    mode(2) {}
+  DoubleRep to_rep() {
+    switch (mode) {
+    case 1:
+      return DoubleRep(lower_bound, upper_bound, precision);
+    case 2:
+      return DoubleRep(lower_bound, upper_bound, size);
+    default:
+      throw std::runtime_error("DoubleRepParams::to_rep: Unknown mode");
     }
   }
+};
 
-  start = stop + delimiter.length();
-  T precision;
-  {
-    auto after = expression.substr(start);
-    std::istringstream stream(after);
-    stream >> precision;
-    if (!stream) {
-      std::cerr << "parse_precision_declaration: "  << name << ": Expect precision after colon" << std::endl;
-      return {};
-    }
-  }
-
-  return std::make_pair(name, precision);
-
-}
+using variant_t = std::variant<IntRepParams, LongRepParams, DoubleRepParams>;
+using env_t = std::unordered_map<std::string, variant_t>;
 
 /**
- * Parse precisions
- *
- * Format: list of precision declarations separated by semicolon
- *
- * Example: "x: 1e-3; y: 0.01"
- */
-template<typename T>
-std::unordered_map<std::string, T> parse_precisions(std::string expression)
-{
-  const std::string delimiter = ";";
-
-  std::unordered_map<std::string, T> precisions;
-
-  if (expression.empty())
-    return precisions;
-
-  auto start = 0U;
-  auto stop = expression.find(delimiter);
-
-  while (stop != std::string::npos) {
-    auto opt = parse_precision_declaration<T>(expression.substr(start, stop - start));
-    if (opt)
-      precisions.insert(opt.value());
-    start = stop + delimiter.length();
-    stop = expression.find(delimiter, start);
-  }
-
-  auto opt = parse_precision_declaration<T>(expression.substr(start, stop - start));
-  if (opt)
-    precisions.insert(opt.value());
-
-  return precisions;
-}
-
-/**
- * Retrieve interval.
- */
-template<typename T>
-Interval<T>
-retrieve_interval(std::string name, const std::unordered_map<std::string, Interval<T>>& intervals, Interval<T> default_interval)
-{
-  if (intervals.count(name)) {
-    return intervals.at(name);
-  } else {
-    std::cerr
-      << "Warning: retrieve_interval: No interval for " << name
-      << " hence using default interval " << default_interval << std::endl;
-    return default_interval;
-  }
-}
-
-/**
- * Make a representation.
- */
-template<typename Options, typename Rep>
-auto
-make_representation(std::string name,
-                    Interval<typename Rep::domain_type> interval,
-                    const std::unordered_map<std::string, typename Rep::domain_type>& precisions,
-                    const std::unordered_map<std::string, int>& sizes,
-                    const Options& options)
-{
-  if (precisions.count(name)) {
-    std::cerr << name << ": Using given precision" << std::endl;
-    return Rep(interval.first, interval.second, precisions.at(name));
-  } else if (sizes.count(name)) {
-    std::cerr << name << ": Using given size" << std::endl;
-    return Rep(interval.first, interval.second, sizes.at(name));
-  } else if (options.with_fp_default_precision()) {
-    std::cerr << name << ": Using default precision" << std::endl;
-    return Rep(interval.first, interval.second, options.get_fp_default_precision());
-  } else {
-    std::cerr << name << ": Using default size" << std::endl;
-    return Rep(interval.first, interval.second, options.get_fp_default_size());
-  }
-}
-
-/**
- * Make an expression from a source.
+ * Get expression to parse.
  */
 template<typename Options>
-std::string make_expression(const Options& options)
+std::string get_expression(const Options& options)
 {
-  switch(options.get_fp_source()) {
-
+  switch (options.get_fp_source()) {
   case 0:
     return options.get_fp_expression();
-
   case 1: {
     std::string path = options.get_path();
     std::ifstream fstream(path);
     if (!fstream)
-      throw std::runtime_error("make_expression: Cannot open " + path);
+      throw std::runtime_error("get_expression: Cannot open " + path);
     std::ostringstream sstream;
     sstream << fstream.rdbuf();
     return sstream.str();
   }
-
   default:
-    throw std::runtime_error("make_expression: Unknown source: "
+    throw std::runtime_error("get_expression: Unknown source: "
                              + std::to_string(options.get_fp_source()));
   }
 }
 
 /**
- * Make a multivariate function adapter over float domain.
+ * Split string.
  */
-template<typename Options, typename Adapter>
-Adapter *
-make_multivariate_function_adapter_float(const Options& options)
+std::vector<std::string>
+split_string(std::string str, std::string delimiter);
+
+/**
+ * Parse an integer representation
+ */
+IntRepParams
+parse_int_rep(std::string expression);
+
+/**
+ * Parse a long representation
+ */
+LongRepParams
+parse_long_rep(std::string expression);
+
+/**
+ * Parse a double representation
+ */
+template<typename Options>
+DoubleRepParams
+parse_double_rep(std::string expression, const Options& options)
 {
-  using Fn    = typename Adapter::function_type;
-  using Rep   = typename Adapter::representation_type;
-  using Float = typename Rep::domain_type;
-
-  auto instance = new Fn(make_expression<Options>(options));
-  instance->add_constant("pi", M_PI);
-  instance->add_constant("e", M_E);
-  instance->parse();
-
-  Interval<Float> default_interval;
-  auto opt = parse_interval<Float>(options.get_fp_default_interval());
-  if (opt)
-    default_interval = opt.value();
-  else
-    throw std::runtime_error
-      ("make_multivariate_function_adapter_float: Bad default interval: "
-       + options.get_fp_default_interval());
-
-  auto intervals  = parse_intervals<Float>(options.get_fp_intervals());
-  auto precisions = parse_precisions<Float>(options.get_fp_precisions());
-  auto sizes      = parse_sizes(options.get_fp_sizes());
-
-  std::vector<Rep> reps;
-  for (const auto& name : instance->get_variable_names()) {
-    Interval<Float> interval = retrieve_interval<Float>(name, intervals, default_interval);
-    Rep rep = make_representation<Options, Rep>(name, interval, precisions, sizes, options);
-    reps.push_back(rep);
+  auto parameters = split_string(expression, ",");
+  if (parameters.size() < 2)
+    throw std::runtime_error("parse_double_rep: Not enough parameters");
+  if (parameters.size() > 3)
+    throw std::runtime_error("parse_double_rep: Too many parameters");
+  if (parameters.size() == 2) {
+    double a = std::stod(parameters[0]);
+    double b = std::stod(parameters[1]);
+    if (options.with_fp_default_precision_double())
+      return DoubleRepParams(a, b, options.get_fp_default_precision_double());
+    else if (options.with_fp_default_size_double())
+      return DoubleRepParams(a, b, options.get_fp_default_size_double());
+    else
+      throw std::runtime_error("parse_double_rep: Missing precision or size parameter");
   }
-
-  return new Adapter(instance, reps);
+  assert(parameters.size() == 3);
+  double a = std::stod(parameters[0]);
+  double b = std::stod(parameters[1]);
+  auto terms = split_string(parameters[2], "=");
+  if (terms.size() != 2)
+    throw std::runtime_error("parse_double_rep: Invalid key value parameter");
+  std::istringstream stream(terms[0]);
+  std::string key;
+  stream >> key;
+  if (!stream)
+    throw std::runtime_error("parse_double_rep: Missing or invalid key");
+  if (key == "precision")
+    return DoubleRepParams(a, b, std::stod(terms[1]));
+  else if (key == "size")
+    return DoubleRepParams(a, b, std::stoi(terms[1]));
+  else
+    throw std::runtime_error("parse_double_rep: Unknown key");
 }
 
 /**
- * Make a multivariate function adapter over integer domain.
+ * Parse a representation.
+ */
+template<typename Options>
+variant_t
+parse_representation(std::string expression, const Options& options)
+{
+  if (expression.empty())
+    throw std::runtime_error("parse_representation: Empty expression");
+
+  auto openp = expression.find("(");
+  if (openp == std::string::npos)
+    throw std::runtime_error("parse_representation: Missing opening parenthesis");
+
+  auto closep = expression.find(")", openp);
+  if (closep == std::string::npos)
+    throw std::runtime_error("parse_representation: Missing closing parenthesis");
+
+  std::string str1 = expression.substr(0, openp);
+  std::istringstream stream(str1);
+  std::string type;
+  stream >> type;
+  if (!stream)
+    throw std::runtime_error("parse_representation: Missing or invalid representation type");
+
+  std::string str2 = expression.substr(openp + 1, closep - openp - 1);
+  if (type == "int")
+    return parse_int_rep(str2);
+  else if (type == "long")
+    return parse_long_rep(str2);
+  else if (type == "double")
+    return parse_double_rep<Options>(str2, options);
+  else
+    throw std::runtime_error("parse_representation: Unknown representation type");
+}
+
+/**
+ * Parse representations
+ *
+ * Syntax:
+ *
+ * environment = declaration [; declaration]*
+ *
+ * declaration = name : representation
+ *
+ * representation =
+ *
+ * | int(a, b) where a, b are int
+ *
+ * | long(a, b) where a, b are long
+ *
+ * | double(a, b, precision = e) where a, b, e are double
+ *
+ * | double(a, b, size = n) where a, b are double, and n is int
+ *
+ * Example:
+ *
+ * "x: int(-100, 100); y: long(1, 10000); z: double(0, 1, precision = 1e-3)"
+ *
+ */
+template<typename Options>
+env_t
+parse_representations(std::string expression, const Options& options)
+{
+  env_t env;
+  auto declarations = split_string(expression, ";");
+  for (auto declaration : declarations) {
+    if (declaration.empty())
+      continue;
+    const std::string delimiter = ":";
+    auto stop = declaration.find(delimiter);
+    if (stop == std::string::npos)
+      throw std::runtime_error("parse_representations: Missing colon");
+    auto before = declaration.substr(0, stop);
+    std::istringstream stream(before);
+    std::string name;
+    stream >> name;
+    if (!stream)
+      throw std::runtime_error("parse_representations: Missing variable name before colon");
+    env[name] = parse_representation<Options>(declaration.substr(stop + delimiter.length()), options);
+  }
+  return env;
+}
+
+/**
+ * Get default representation
+ */
+template<typename Options, typename Rep>
+variant_t
+get_default_representation(const Options& options)
+{
+  using T = typename Rep::domain_type;
+
+  if constexpr (std::is_same_v<T, int>)
+    return parse_representation<Options>(options.get_fp_default_int_rep(), options);
+  else if constexpr (std::is_same_v<T, long>)
+    return parse_representation<Options>(options.get_fp_default_long_rep(), options);
+  else if constexpr  (std::is_same_v<T, double>)
+    return parse_representation<Options>(options.get_fp_default_double_rep(), options);
+  else
+    throw std::runtime_error("get_default_representation: Unknown type");
+}
+
+/**
+ * Get representation
+ */
+template<typename Rep>
+Rep
+get_representation(variant_t v);
+
+/**
+ * Get representation for int
+ */
+template<>
+inline
+IntRep
+get_representation(variant_t v)
+{
+  return std::get<IntRepParams>(v).to_rep();
+}
+
+/**
+ * Get representation for long
+ */
+template<>
+inline
+LongRep
+get_representation(variant_t v)
+{
+  return std::get<LongRepParams>(v).to_rep();
+}
+
+/**
+ * Get representation for double
+ */
+template<>
+inline
+DoubleRep
+get_representation(variant_t v)
+{
+  return std::get<DoubleRepParams>(v).to_rep();
+}
+
+/**
+ * Make a multivariate function adapter
  */
 template<typename Options, typename Adapter>
 Adapter *
-make_multivariate_function_adapter_integer(const Options& options)
+make_multivariate_function_adapter(const Options& options)
 {
-  using Fn        = typename Adapter::function_type;
-  using Rep       = typename Adapter::representation_type;
-  using Integer   = typename Rep::domain_type;
-  using Precision = typename Rep::Precision;
+  using Fn  = typename Adapter::function_type;
+  using Rep = typename Adapter::representation_type;
 
-  auto instance = new Fn(make_expression<Options>(options));
+  auto instance = new Fn(get_expression<Options>(options));
   if constexpr(std::is_same<typename Fn::domain_type, double>::value) {
     instance->add_constant("pi", M_PI);
     instance->add_constant("e", M_E);
   }
   instance->parse();
 
-  Interval<Integer> default_interval;
-  auto opt = parse_interval<Integer>(options.get_fp_default_interval());
-  if (opt)
-    default_interval = opt.value();
-  else
-    throw std::runtime_error
-      ("make_multivariate_function_adapter_integer: Bad default interval: "
-       + options.get_fp_default_interval());
-
-  auto intervals  = parse_intervals<Integer>(options.get_fp_intervals());
-  auto precisions = parse_precisions<Integer>(options.get_fp_precisions());
-  auto sizes      = parse_sizes(options.get_fp_sizes());
+  env_t env;
+  if (options.with_fp_representations())
+    env = parse_representations<Options>(options.get_fp_representations(), options);
+  auto default_representation = get_default_representation<Options, Rep>(options);
+  for (const auto& name : instance->get_variable_names()) {
+    if (env.count(name) == 0) {
+      env[name] = default_representation;
+      std::cerr << "make_multivariate_function_adapter: Missing representation for " << name << ". Using default representation." << std::endl;
+    } else if (env[name].index() != default_representation.index()) {
+      env[name] = default_representation;
+      std::cerr << "make_multivariate_function_adapter: Representation mismatch for " << name << ". Using default representation." << std::endl;
+    }
+  }
 
   std::vector<Rep> reps;
   for (const auto& name : instance->get_variable_names()) {
-    Interval<Integer> interval = retrieve_interval<Integer>(name, intervals, default_interval);
-
-    if (precisions.count(name)) {
-      std::cerr << name << ": Using given precision" << std::endl;
-      reps.push_back(Rep(interval.first, interval.second, Precision(precisions.at(name))));
-    } else if (sizes.count(name)) {
-      std::cerr << name << ": Using given size" << std::endl;
-      reps.push_back(Rep(interval.first, interval.second, sizes.at(name)));
-    } else if (options.with_fp_default_precision()) {
-      std::cerr << name << ": Using default precision" << std::endl;
-      reps.push_back(Rep(interval.first, interval.second, options.get_fp_default_precision()));
-    } else if (options.with_fp_default_size()) {
-      std::cerr << name << ": Using default size" << std::endl;
-      reps.push_back(Rep(interval.first, interval.second, options.get_fp_default_size()));
-    } else {
-      std::cerr << name << ": Using exact size" << std::endl;
-      reps.push_back(Rep(interval.first, interval.second));
-    }
-
+    assert(env.count(name) == 1);
+    reps.push_back(get_representation<Rep>(env[name]));
   }
 
   return new Adapter(instance, reps);
@@ -441,38 +371,34 @@ template<typename Options, typename Adapter>
 Adapter *
 make_multivariate_function_adapter_complex(const Options& options)
 {
-  using Fn       = typename Adapter::function_type;
-  using Rep      = typename Adapter::representation_type;
-  using FloatRep = typename Rep::float_representation_type;
-  using Float    = typename FloatRep::domain_type;
+  using Fn        = typename Adapter::function_type;
+  using Rep       = typename Adapter::representation_type;
+  using ScalarRep = typename Rep::scalar_rep;
 
-  auto instance = new Fn(make_expression<Options>(options));
+  auto instance = new Fn(get_expression<Options>(options));
   instance->add_constant("pi", M_PI);
   instance->add_constant("e", M_E);
   instance->parse();
 
-  Interval<Float> default_interval;
-  auto opt = parse_interval<Float>(options.get_fp_default_interval());
-  if (opt)
-    default_interval = opt.value();
-  else
-    throw std::runtime_error
-      ("make_multivariate_function_adapter_complex: Bad default interval: "
-       + options.get_fp_default_interval());
-
-  auto intervals  = parse_intervals<Float>(options.get_fp_intervals());
-  auto precisions = parse_precisions<Float>(options.get_fp_precisions());
-  auto sizes      = parse_sizes(options.get_fp_sizes());
+  env_t env;
+  if (options.with_fp_representations())
+    env = parse_representations<Options>(options.get_fp_representations(), options);
+  auto default_representation = get_default_representation<Options, ScalarRep>(options);
+  for (const auto& name : instance->get_variable_names()) {
+    if (env.count(name) == 0) {
+      env[name] = default_representation;
+      std::cerr << "make_multivariate_function_adapter: Missing representation for " << name << ". Using default representation." << std::endl;
+    } else if (env[name].index() != default_representation.index()) {
+      env[name] = default_representation;
+      std::cerr << "make_multivariate_function_adapter: Representation mismatch for " << name << ". Using default representation." << std::endl;
+    }
+  }
 
   std::vector<Rep> reps;
   for (const auto& name : instance->get_variable_names()) {
-    std::string name_re = name + "_re";
-    std::string name_im = name + "_im";
-    Interval<Float> interval_re = retrieve_interval<Float>(name_re, intervals, default_interval);
-    Interval<Float> interval_im = retrieve_interval<Float>(name_im, intervals, default_interval);
-    FloatRep rep_re = make_representation<Options, FloatRep>(name_re, interval_re, precisions, sizes, options);
-    FloatRep rep_im = make_representation<Options, FloatRep>(name_im, interval_im, precisions, sizes, options);
-    reps.push_back(Rep(rep_re, rep_im));
+    assert(env.count(name) == 1);
+    reps.push_back(get_representation<ScalarRep>(env[name + "_re"]));
+    reps.push_back(get_representation<ScalarRep>(env[name + "_im"]));
   }
 
   return new Adapter(instance, reps);

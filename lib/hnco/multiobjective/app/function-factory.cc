@@ -47,7 +47,7 @@ CommandLineFunctionFactory::make()
     using Rep     = hnco::representation::DyadicFloatRepresentation<double>;
     using Conv    = hnco::function::ScalarToDouble<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
-    return hnco::app::make_multivariate_function_adapter_float<HncoOptions, Adapter>(_options);
+    return hnco::app::make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }
 
   case 181: {
@@ -55,12 +55,12 @@ CommandLineFunctionFactory::make()
     using Rep     = hnco::representation::DyadicIntegerRepresentation<long>;
     using Conv    = hnco::function::ScalarToDouble<long>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
-    return hnco::app::make_multivariate_function_adapter_integer<HncoOptions, Adapter>(_options);
+    return hnco::app::make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }
 
   case 182: {
     using Fn      = ParsedMultivariateFunction<FunctionParser_cd>;
-    using Rep     = hnco::representation::DyadicComplexRepresentation<double>;
+    using Rep     = hnco::representation::ComplexRepresentation<hnco::app::DoubleRep>;
     using Conv    = hnco::function::ComplexToDouble<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return hnco::app::make_multivariate_function_adapter_complex<HncoOptions, Adapter>(_options);
@@ -71,7 +71,7 @@ CommandLineFunctionFactory::make()
     using Rep     = hnco::representation::DyadicIntegerRepresentation<int>;
     using Conv    = hnco::function::ScalarToDouble<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
-    return hnco::app::make_multivariate_function_adapter_integer<HncoOptions, Adapter>(_options);
+    return hnco::app::make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }
 
 #ifdef ENABLE_PYTHON

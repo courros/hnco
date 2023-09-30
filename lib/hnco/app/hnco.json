@@ -747,50 +747,48 @@
             "section": "fp"
         },
 
-        "fp_intervals":
+        "fp_representations":
         {
             "type": "string",
-            "default": "",
-            "description": "Intervals (supersedes fp_default_interval). Example: \\\"x: [0, 1]; y: [0, 1]\\\"",
+            "description": "Representations. Example: \\\"x: double(0, 1, precision = 1e-3); y: int(-100, 100); z: long(1, 10000)\\\"",
             "section": "fp"
         },
 
-        "fp_default_interval":
+        "fp_default_double_rep":
         {
             "type": "string",
-            "default": "[0, 1]",
-            "description": "Default interval",
+            "default": "double(0, 1, precision = 1e-3)",
+            "description": "Default representation for double",
             "section": "fp"
         },
 
-        "fp_precisions":
+        "fp_default_int_rep":
         {
             "type": "string",
-            "default": "",
-            "description": "Per variable precisions of dyadic representations of numbers (supersedes fp_sizes). Example: \\\"x: 1e-3; y: 1e-4\\\"",
+            "default": "int(1, 100)",
+            "description": "Default representation for int",
             "section": "fp"
         },
 
-        "fp_default_precision":
+        "fp_default_long_rep":
+        {
+            "type": "string",
+            "default": "long(1, 100)",
+            "description": "Default representation for long",
+            "section": "fp"
+        },
+
+        "fp_default_precision_double":
         {
             "type": "double",
-            "description": "Default precision of dyadic representations of numbers (supersedes fp_default_size)",
+            "description": "Default precision of double representations",
             "section": "fp"
         },
 
-        "fp_sizes":
-        {
-            "type": "string",
-            "default": "",
-            "description": "Per variable size of dyadic representations of numbers (supersedes fp_default_precision). Example: \\\"x: 4; y: 6\\\"",
-            "section": "fp"
-        },
-
-        "fp_default_size":
+        "fp_default_size_double":
         {
             "type": "int",
-            "default": "8",
-            "description": "Default size of dyadic representations of numbers",
+            "description": "Default size of double representations",
             "section": "fp"
         },
 

@@ -23,10 +23,6 @@
 
 #include <iostream>
 
-#include <boost/archive/text_iarchive.hpp>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/serialization/vector.hpp>
-
 #include "hnco/bit-vector.hh"
 #include "hnco/exception.hh"
 #include "hnco/neighborhoods/neighborhood-iterator.hh"

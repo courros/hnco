@@ -17,13 +17,13 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"ea-mutation-rate", required_argument, 0, OPTION_EA_MUTATION_RATE},
     {"ea-tournament-size", required_argument, 0, OPTION_EA_TOURNAMENT_SIZE},
     {"fn-name", required_argument, 0, OPTION_FN_NAME},
-    {"fp-default-interval", required_argument, 0, OPTION_FP_DEFAULT_INTERVAL},
-    {"fp-default-precision", required_argument, 0, OPTION_FP_DEFAULT_PRECISION},
-    {"fp-default-size", required_argument, 0, OPTION_FP_DEFAULT_SIZE},
+    {"fp-default-double-rep", required_argument, 0, OPTION_FP_DEFAULT_DOUBLE_REP},
+    {"fp-default-int-rep", required_argument, 0, OPTION_FP_DEFAULT_INT_REP},
+    {"fp-default-long-rep", required_argument, 0, OPTION_FP_DEFAULT_LONG_REP},
+    {"fp-default-precision-double", required_argument, 0, OPTION_FP_DEFAULT_PRECISION_DOUBLE},
+    {"fp-default-size-double", required_argument, 0, OPTION_FP_DEFAULT_SIZE_DOUBLE},
     {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
-    {"fp-intervals", required_argument, 0, OPTION_FP_INTERVALS},
-    {"fp-precisions", required_argument, 0, OPTION_FP_PRECISIONS},
-    {"fp-sizes", required_argument, 0, OPTION_FP_SIZES},
+    {"fp-representations", required_argument, 0, OPTION_FP_REPRESENTATIONS},
     {"fp-source", required_argument, 0, OPTION_FP_SOURCE},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
@@ -101,19 +101,29 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _fn_name = std::string(optarg);
       break;
 
-    case OPTION_FP_DEFAULT_INTERVAL:
-      _with_fp_default_interval = true;
-      _fp_default_interval = std::string(optarg);
+    case OPTION_FP_DEFAULT_DOUBLE_REP:
+      _with_fp_default_double_rep = true;
+      _fp_default_double_rep = std::string(optarg);
       break;
 
-    case OPTION_FP_DEFAULT_PRECISION:
-      _with_fp_default_precision = true;
-      _fp_default_precision = std::atof(optarg);
+    case OPTION_FP_DEFAULT_INT_REP:
+      _with_fp_default_int_rep = true;
+      _fp_default_int_rep = std::string(optarg);
       break;
 
-    case OPTION_FP_DEFAULT_SIZE:
-      _with_fp_default_size = true;
-      _fp_default_size = std::atoi(optarg);
+    case OPTION_FP_DEFAULT_LONG_REP:
+      _with_fp_default_long_rep = true;
+      _fp_default_long_rep = std::string(optarg);
+      break;
+
+    case OPTION_FP_DEFAULT_PRECISION_DOUBLE:
+      _with_fp_default_precision_double = true;
+      _fp_default_precision_double = std::atof(optarg);
+      break;
+
+    case OPTION_FP_DEFAULT_SIZE_DOUBLE:
+      _with_fp_default_size_double = true;
+      _fp_default_size_double = std::atoi(optarg);
       break;
 
     case OPTION_FP_EXPRESSION:
@@ -121,19 +131,9 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _fp_expression = std::string(optarg);
       break;
 
-    case OPTION_FP_INTERVALS:
-      _with_fp_intervals = true;
-      _fp_intervals = std::string(optarg);
-      break;
-
-    case OPTION_FP_PRECISIONS:
-      _with_fp_precisions = true;
-      _fp_precisions = std::string(optarg);
-      break;
-
-    case OPTION_FP_SIZES:
-      _with_fp_sizes = true;
-      _fp_sizes = std::string(optarg);
+    case OPTION_FP_REPRESENTATIONS:
+      _with_fp_representations = true;
+      _fp_representations = std::string(optarg);
       break;
 
     case OPTION_FP_SOURCE:
@@ -327,20 +327,20 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Function parser" << std::endl;
-  stream << "      --fp-default-interval (type string, default to \"[-3, 3]\")" << std::endl;
-  stream << "          Default interval" << std::endl;
-  stream << "      --fp-default-precision (type double, no default)" << std::endl;
-  stream << "          Default precision of dyadic representations of numbers (supersedes fp_default_size)" << std::endl;
-  stream << "      --fp-default-size (type int, default to 8)" << std::endl;
-  stream << "          Default size of dyadic representations of numbers" << std::endl;
+  stream << "      --fp-default-double-rep (type string, default to \"double(0, 1, precision = 1e-3)\")" << std::endl;
+  stream << "          Default representation for double" << std::endl;
+  stream << "      --fp-default-int-rep (type string, default to \"int(1, 100)\")" << std::endl;
+  stream << "          Default representation for int" << std::endl;
+  stream << "      --fp-default-long-rep (type string, default to \"long(1, 100)\")" << std::endl;
+  stream << "          Default representation for long" << std::endl;
+  stream << "      --fp-default-precision-double (type double, no default)" << std::endl;
+  stream << "          Default precision of double representations" << std::endl;
+  stream << "      --fp-default-size-double (type int, no default)" << std::endl;
+  stream << "          Default size of double representations" << std::endl;
   stream << "      --fp-expression (type string, default to \"sin(x) + cos(y) :: sqrt(x^2 + y^2)\")" << std::endl;
   stream << "          Expression to parse (objectives are separated by ::)" << std::endl;
-  stream << "      --fp-intervals (type string, default to \"\")" << std::endl;
-  stream << "          Intervals (supersedes fp_default_interval). Example: \"x: [0, 1]; y: [0, 1]\"" << std::endl;
-  stream << "      --fp-precisions (type string, default to \"\")" << std::endl;
-  stream << "          Per variable precisions of dyadic representations of numbers (supersedes fp_sizes). Example: \"x: 1e-3; y: 1e-4\"" << std::endl;
-  stream << "      --fp-sizes (type string, default to \"\")" << std::endl;
-  stream << "          Per variable size of dyadic representations of numbers (supersedes fp_default_precision). Example: \"x: 4; y: 6\"" << std::endl;
+  stream << "      --fp-representations (type string, no default)" << std::endl;
+  stream << "          Representations. Example: \"x: double(0, 1, precision = 1e-3); y: int(-100, 100); z: long(1, 10000)\"" << std::endl;
   stream << "      --fp-source (type int, default to 0)" << std::endl;
   stream << "          Source for the expression to parse" << std::endl;
   stream << "            0: Command-line" << std::endl;
@@ -409,14 +409,16 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# ea_tournament_size = " << options._ea_tournament_size << std::endl;
   if (options._with_fn_name)
     stream << "# fn_name = \"" << options._fn_name << "\"" << std::endl;
-  stream << "# fp_default_interval = \"" << options._fp_default_interval << "\"" << std::endl;
-  if (options._with_fp_default_precision)
-    stream << "# fp_default_precision = " << options._fp_default_precision << std::endl;
-  stream << "# fp_default_size = " << options._fp_default_size << std::endl;
+  stream << "# fp_default_double_rep = \"" << options._fp_default_double_rep << "\"" << std::endl;
+  stream << "# fp_default_int_rep = \"" << options._fp_default_int_rep << "\"" << std::endl;
+  stream << "# fp_default_long_rep = \"" << options._fp_default_long_rep << "\"" << std::endl;
+  if (options._with_fp_default_precision_double)
+    stream << "# fp_default_precision_double = " << options._fp_default_precision_double << std::endl;
+  if (options._with_fp_default_size_double)
+    stream << "# fp_default_size_double = " << options._fp_default_size_double << std::endl;
   stream << "# fp_expression = \"" << options._fp_expression << "\"" << std::endl;
-  stream << "# fp_intervals = \"" << options._fp_intervals << "\"" << std::endl;
-  stream << "# fp_precisions = \"" << options._fp_precisions << "\"" << std::endl;
-  stream << "# fp_sizes = \"" << options._fp_sizes << "\"" << std::endl;
+  if (options._with_fp_representations)
+    stream << "# fp_representations = \"" << options._fp_representations << "\"" << std::endl;
   stream << "# fp_source = " << options._fp_source << std::endl;
   stream << "# function = " << options._function << std::endl;
   stream << "# num_iterations = " << options._num_iterations << std::endl;

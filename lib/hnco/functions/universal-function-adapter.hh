@@ -44,6 +44,8 @@ namespace function {
 */
 class UniversalFunctionAdapter: public Function {
 
+  using DoubleRep = representation::DyadicFloatRepresentation<double>;
+
   /// Universal function
   UniversalFunction *_function;
 
@@ -54,7 +56,7 @@ class UniversalFunctionAdapter: public Function {
   std::vector<representation::DyadicFloatRepresentation<double>> _float_reps;
 
   /// Complex representations
-  std::vector<representation::DyadicComplexRepresentation<double>> _complex_reps;
+  std::vector<representation::ComplexRepresentation<DoubleRep>> _complex_reps;
 
   /// Categorical representations
   std::vector<representation::LinearCategoricalRepresentation> _categorical_reps;
@@ -133,7 +135,7 @@ public:
                            int num_boolean_vars,
                            std::vector<representation::DyadicIntegerRepresentation<int>> integer_reps,
                            std::vector<representation::DyadicFloatRepresentation<double>> float_reps,
-                           std::vector<representation::DyadicComplexRepresentation<double>> complex_reps,
+                           std::vector<representation::ComplexRepresentation<DoubleRep>> complex_reps,
                            std::vector<representation::LinearCategoricalRepresentation> categorical_reps,
                            std::vector<representation::PermutationRepresentation> permutation_reps)
     : _function(fn)
