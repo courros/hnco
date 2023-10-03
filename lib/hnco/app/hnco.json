@@ -770,7 +770,7 @@
 
         },
 
-        "representations_path":
+        "fp_representations_path":
         {
             "type": "string",
             "default": "representations.txt",

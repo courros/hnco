@@ -66,6 +66,7 @@ class HncoOptions {
     OPTION_FP_EXPRESSION,
     OPTION_FP_EXPRESSION_SOURCE,
     OPTION_FP_REPRESENTATIONS,
+    OPTION_FP_REPRESENTATIONS_PATH,
     OPTION_FP_REPRESENTATIONS_SOURCE,
     OPTION_FUNCTION,
     OPTION_HEA_RESET_PERIOD,
@@ -89,7 +90,6 @@ class HncoOptions {
     OPTION_RADIUS,
     OPTION_REP_CATEGORICAL_REPRESENTATION,
     OPTION_REP_NUM_ADDITIONAL_BITS,
-    OPTION_REPRESENTATIONS_PATH,
     OPTION_RESULTS_PATH,
     OPTION_RLS_PATIENCE,
     OPTION_SA_BETA_RATIO,
@@ -284,6 +284,10 @@ class HncoOptions {
   std::string _fp_representations;
   bool _with_fp_representations = false;
 
+  /// Path of the representations file
+  std::string _fp_representations_path = "representations.txt";
+  bool _with_fp_representations_path = false;
+
   /// Source for the representations
   int _fp_representations_source = 0;
   bool _with_fp_representations_source = false;
@@ -375,10 +379,6 @@ class HncoOptions {
   /// Number of additional bits per element for permutation representation
   int _rep_num_additional_bits = 2;
   bool _with_rep_num_additional_bits = false;
-
-  /// Path of the representations file
-  std::string _representations_path = "representations.txt";
-  bool _with_representations_path = false;
 
   /// Path of the results file
   std::string _results_path = "results.json";
@@ -844,6 +844,12 @@ public:
   /// With parameter fp_representations
   bool with_fp_representations() const { return _with_fp_representations; }
 
+  /// Get the value of fp_representations_path
+  std::string get_fp_representations_path() const { return _fp_representations_path; }
+
+  /// With parameter fp_representations_path
+  bool with_fp_representations_path() const { return _with_fp_representations_path; }
+
   /// Get the value of fp_representations_source
   int get_fp_representations_source() const { return _fp_representations_source; }
 
@@ -981,12 +987,6 @@ public:
 
   /// With parameter rep_num_additional_bits
   bool with_rep_num_additional_bits() const { return _with_rep_num_additional_bits; }
-
-  /// Get the value of representations_path
-  std::string get_representations_path() const { return _representations_path; }
-
-  /// With parameter representations_path
-  bool with_representations_path() const { return _with_representations_path; }
 
   /// Get the value of results_path
   std::string get_results_path() const { return _results_path; }

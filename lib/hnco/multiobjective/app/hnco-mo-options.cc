@@ -25,6 +25,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
     {"fp-expression-source", required_argument, 0, OPTION_FP_EXPRESSION_SOURCE},
     {"fp-representations", required_argument, 0, OPTION_FP_REPRESENTATIONS},
+    {"fp-representations-path", required_argument, 0, OPTION_FP_REPRESENTATIONS_PATH},
     {"fp-representations-source", required_argument, 0, OPTION_FP_REPRESENTATIONS_SOURCE},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
@@ -32,7 +33,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"path", required_argument, 0, OPTION_PATH},
     {"rep-categorical-representation", required_argument, 0, OPTION_REP_CATEGORICAL_REPRESENTATION},
     {"rep-num-additional-bits", required_argument, 0, OPTION_REP_NUM_ADDITIONAL_BITS},
-    {"representations-path", required_argument, 0, OPTION_REPRESENTATIONS_PATH},
     {"results-path", required_argument, 0, OPTION_RESULTS_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
     {"solution-path", required_argument, 0, OPTION_SOLUTION_PATH},
@@ -143,6 +143,11 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _fp_representations = std::string(optarg);
       break;
 
+    case OPTION_FP_REPRESENTATIONS_PATH:
+      _with_fp_representations_path = true;
+      _fp_representations_path = std::string(optarg);
+      break;
+
     case OPTION_FP_REPRESENTATIONS_SOURCE:
       _with_fp_representations_source = true;
       _fp_representations_source = std::atoi(optarg);
@@ -179,11 +184,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_REP_NUM_ADDITIONAL_BITS:
       _with_rep_num_additional_bits = true;
       _rep_num_additional_bits = std::atoi(optarg);
-      break;
-
-    case OPTION_REPRESENTATIONS_PATH:
-      _with_representations_path = true;
-      _representations_path = std::string(optarg);
       break;
 
     case OPTION_RESULTS_PATH:
@@ -357,12 +357,12 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "            1: Function file" << std::endl;
   stream << "      --fp-representations (type string, no default)" << std::endl;
   stream << "          Representations. Example: \"x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-100, 100); v: long(1, 10000)\"" << std::endl;
+  stream << "      --fp-representations-path (type string, default to \"representations.txt\")" << std::endl;
+  stream << "          Path of the representations file" << std::endl;
   stream << "      --fp-representations-source (type int, default to 0)" << std::endl;
   stream << "          Source for the representations" << std::endl;
   stream << "            0: Command-line" << std::endl;
   stream << "            1: Representations file" << std::endl;
-  stream << "      --representations-path (type string, default to \"representations.txt\")" << std::endl;
-  stream << "          Path of the representations file" << std::endl;
   stream << std::endl;
 }
 
@@ -438,6 +438,7 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# fp_expression_source = " << options._fp_expression_source << std::endl;
   if (options._with_fp_representations)
     stream << "# fp_representations = \"" << options._fp_representations << "\"" << std::endl;
+  stream << "# fp_representations_path = \"" << options._fp_representations_path << "\"" << std::endl;
   stream << "# fp_representations_source = " << options._fp_representations_source << std::endl;
   stream << "# function = " << options._function << std::endl;
   stream << "# num_iterations = " << options._num_iterations << std::endl;
@@ -445,7 +446,6 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# path = \"" << options._path << "\"" << std::endl;
   stream << "# rep_categorical_representation = " << options._rep_categorical_representation << std::endl;
   stream << "# rep_num_additional_bits = " << options._rep_num_additional_bits << std::endl;
-  stream << "# representations_path = \"" << options._representations_path << "\"" << std::endl;
   stream << "# results_path = \"" << options._results_path << "\"" << std::endl;
   if (options._with_seed)
     stream << "# seed = " << options._seed << std::endl;
