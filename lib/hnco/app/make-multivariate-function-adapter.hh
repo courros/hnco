@@ -129,11 +129,11 @@ std::string get_representations(const Options& options)
 {
   switch (options.get_fp_representations_source()) {
   case 0:
-    return options.get_fp_representations_source();
+    return options.get_fp_representations();
   case 1:
     return read_file_content(options.get_fp_representations_path());
   default:
-    throw std::runtime_error("get_expression: Unknown source: "
+    throw std::runtime_error("get_representations: Unknown source: "
                              + std::to_string(options.get_fp_representations_source()));
   }
 }
@@ -256,7 +256,12 @@ parse_representations(std::string expression, const Options& options)
     stream >> name;
     if (!stream)
       throw std::runtime_error("parse_representations: Missing variable name before colon");
-    env[name] = parse_representation<Options>(declaration.substr(stop + delimiter.length()), options);
+    try {
+      env[name] = parse_representation<Options>(declaration.substr(stop + delimiter.length()), options);
+    }
+    catch (std::runtime_error& e) {
+      throw std::runtime_error(name + ": " + e.what());
+    }
   }
   return env;
 }
@@ -322,9 +327,7 @@ make_multivariate_function_adapter(const Options& options)
   }
   instance->parse();
 
-  env_t env;
-  if (options.with_fp_representations())
-    env = parse_representations<Options>(options.get_fp_representations(), options);
+  env_t env = parse_representations<Options>(get_representations<Options>(options), options);
   auto default_representation = get_default_representation<Options, Rep>(options);
   for (const auto& name : instance->get_variable_names()) {
     if (env.count(name) == 0) {
@@ -361,25 +364,28 @@ make_multivariate_function_adapter_complex(const Options& options)
   instance->add_constant("e", M_E);
   instance->parse();
 
-  env_t env;
-  if (options.with_fp_representations())
-    env = parse_representations<Options>(options.get_fp_representations(), options);
+  env_t env = parse_representations<Options>(get_representations<Options>(options), options);
   auto default_representation = get_default_representation<Options, ScalarRep>(options);
   for (const auto& name : instance->get_variable_names()) {
-    if (env.count(name) == 0) {
-      env[name] = default_representation;
-      std::cerr << "make_multivariate_function_adapter: Missing representation for " << name << ". Using default representation." << std::endl;
-    } else if (env[name].index() != default_representation.index()) {
-      env[name] = default_representation;
-      std::cerr << "make_multivariate_function_adapter: Representation mismatch for " << name << ". Using default representation." << std::endl;
-    }
+    auto complete = [&](std::string str) -> void {
+      if (env.count(str) == 0) {
+        env[str] = default_representation;
+        std::cerr << "make_multivariate_function_adapter: Missing representation for " << str << ". Using default representation." << std::endl;
+      } else if (env[str].index() != default_representation.index()) {
+        env[str] = default_representation;
+        std::cerr << "make_multivariate_function_adapter: Representation mismatch for " << str << ". Using default representation." << std::endl;
+      }
+    };
+    complete(name + "_re");
+    complete(name + "_im");
   }
 
   std::vector<Rep> reps;
   for (const auto& name : instance->get_variable_names()) {
-    assert(env.count(name) == 1);
-    reps.push_back(get_representation<ScalarRep>(env[name + "_re"]));
-    reps.push_back(get_representation<ScalarRep>(env[name + "_im"]));
+    assert(env.count(name + "_re") == 1);
+    assert(env.count(name + "_im") == 1);
+    reps.push_back(Rep(get_representation<ScalarRep>(env[name + "_re"]),
+                       get_representation<ScalarRep>(env[name + "_im"])));
   }
 
   return new Adapter(instance, reps);
