@@ -643,6 +643,11 @@
                 },
 
                 {
+                    "value": 184,
+                    "description": "Mixed-integer multivariate function (rep: bv -> long or double, parser: double -> double)"
+                },
+
+                {
                     "value": 190,
                     "description": "Sudoku"
                 },

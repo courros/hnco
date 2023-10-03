@@ -230,6 +230,14 @@ CommandLineFunctionFactory::make()
     return make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }
 
+  case 184: {
+    using Fn        = ParsedMultivariateFunction<FunctionParser>;
+    using IntRep    = hnco::representation::DyadicIntegerRepresentation<long>;
+    using DoubleRep = hnco::representation::DyadicFloatRepresentation<double>;
+    using Adapter   = MixedIntegerMultivariateFunctionAdapter<Fn, IntRep, DoubleRep>;
+    return make_multivariate_function_adapter_mixed<HncoOptions, Adapter>(_options);
+  }
+
   case 190: {
     using Fn = Sudoku;
     using Conv = ScalarToDouble<double>;
