@@ -291,12 +291,11 @@ public:
   void display(std::ostream& stream) const override {
     _function->display(stream);
     stream << "Representations:" << std::endl;
-    for (const auto& rep : _int_reps) {
-      rep.display(stream);
-      stream << std::endl;
-    }
-    for (const auto& rep : _float_reps) {
-      rep.display(stream);
+    for (auto p : _lut) {
+      if (p.first)
+        _int_reps[p.second].display(stream);
+      else
+        _float_reps[p.second].display(stream);
       stream << std::endl;
     }
   }
