@@ -235,7 +235,7 @@ parse_representation(std::string expression, const Options& options)
  *
  * Example:
  *
- * "x: int(-100, 100); y: long(1, 10000); z: double(0, 1, precision = 1e-3)"
+ * "x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-100, 100); v: long(1, 10000)"
  */
 template<typename Options>
 env_t
