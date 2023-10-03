@@ -79,7 +79,7 @@ class MultivariateFunctionAdapter: public Function {
 
 public:
 
-  /// Function type
+  /// %Function type
   using function_type = Fn;
 
   /// Representation type
@@ -215,7 +215,7 @@ class MixedIntegerMultivariateFunctionAdapter: public Function {
 
 public:
 
-  /// Function type
+  /// %Function type
   using function_type = Fn;
 
   /// Integer type
@@ -229,6 +229,11 @@ public:
    * @param fn Multivariate function
    * @param int_reps Integer representations
    * @param float_reps Float representations
+   * @param lut Lookup table
+   *
+   * For each variable, the lookup table tells whether it is an
+   * integer or a float, and gives its index in the corresponding
+   * representation table, _int_reps or _float_reps.
    */
   MixedIntegerMultivariateFunctionAdapter(Fn *fn,
                                           std::vector<IntRep> int_reps,
