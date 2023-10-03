@@ -23,13 +23,9 @@
 
 #include <assert.h>
 
-#include <iostream>
-#include <fstream>
-#include <optional>
-#include <sstream>
 #include <unordered_map>
 #include <type_traits>          // std::is_same_v
-#include <variant>              // std::variant, std::get, std::visit
+#include <variant>              // std::variant, std::get
 
 #include "hnco/representations/all.hh"
 
@@ -39,8 +35,24 @@
 namespace hnco {
 namespace app {
 
+/**
+ * Read file content
+ */
+std::string read_file_content(std::string path);
+
+/**
+ * Split string.
+ */
+std::vector<std::string>
+split_string(std::string str, std::string delimiter);
+
+/// Int representation
 using IntRep    = representation::DyadicIntegerRepresentation<int>;
+
+/// Long representation
 using LongRep   = representation::DyadicIntegerRepresentation<long>;
+
+/// Double representation
 using DoubleRep = representation::DyadicFloatRepresentation<double>;
 
 struct IntRepParams
@@ -98,51 +110,40 @@ struct DoubleRepParams
 using variant_t = std::variant<IntRepParams, LongRepParams, DoubleRepParams>;
 using env_t = std::unordered_map<std::string, variant_t>;
 
-/**
- * Get expression to parse.
- */
 template<typename Options>
 std::string get_expression(const Options& options)
 {
-  switch (options.get_fp_source()) {
+  switch (options.get_fp_expression_source()) {
   case 0:
     return options.get_fp_expression();
-  case 1: {
-    std::string path = options.get_path();
-    std::ifstream fstream(path);
-    if (!fstream)
-      throw std::runtime_error("get_expression: Cannot open " + path);
-    std::ostringstream sstream;
-    sstream << fstream.rdbuf();
-    return sstream.str();
-  }
+  case 1:
+    return read_file_content(options.get_path());
   default:
     throw std::runtime_error("get_expression: Unknown source: "
-                             + std::to_string(options.get_fp_source()));
+                             + std::to_string(options.get_fp_expression_source()));
   }
 }
 
-/**
- * Split string.
- */
-std::vector<std::string>
-split_string(std::string str, std::string delimiter);
+template<typename Options>
+std::string get_representations(const Options& options)
+{
+  switch (options.get_fp_representations_source()) {
+  case 0:
+    return options.get_fp_representations_source();
+  case 1:
+    return read_file_content(options.get_fp_representations_path());
+  default:
+    throw std::runtime_error("get_expression: Unknown source: "
+                             + std::to_string(options.get_fp_representations_source()));
+  }
+}
 
-/**
- * Parse an integer representation
- */
 IntRepParams
 parse_int_rep(std::string expression);
 
-/**
- * Parse a long representation
- */
 LongRepParams
 parse_long_rep(std::string expression);
 
-/**
- * Parse a double representation
- */
 template<typename Options>
 DoubleRepParams
 parse_double_rep(std::string expression, const Options& options)
@@ -155,10 +156,10 @@ parse_double_rep(std::string expression, const Options& options)
   if (parameters.size() == 2) {
     double a = std::stod(parameters[0]);
     double b = std::stod(parameters[1]);
-    if (options.with_fp_default_precision_double())
-      return DoubleRepParams(a, b, options.get_fp_default_precision_double());
-    else if (options.with_fp_default_size_double())
-      return DoubleRepParams(a, b, options.get_fp_default_size_double());
+    if (options.with_fp_default_double_precision())
+      return DoubleRepParams(a, b, options.get_fp_default_double_precision());
+    else if (options.with_fp_default_double_size())
+      return DoubleRepParams(a, b, options.get_fp_default_double_size());
     else
       throw std::runtime_error("parse_double_rep: Missing precision or size parameter");
   }
@@ -181,9 +182,6 @@ parse_double_rep(std::string expression, const Options& options)
     throw std::runtime_error("parse_double_rep: Unknown key");
 }
 
-/**
- * Parse a representation.
- */
 template<typename Options>
 variant_t
 parse_representation(std::string expression, const Options& options)
@@ -220,26 +218,24 @@ parse_representation(std::string expression, const Options& options)
 /**
  * Parse representations
  *
+ * @param expression Expression to parse
+ * @param options Options
+ *
  * Syntax:
  *
- * environment = declaration [; declaration]*
+ * representations = declaration [; declaration]*
  *
  * declaration = name : representation
  *
  * representation =
- *
- * | int(a, b) where a, b are int
- *
- * | long(a, b) where a, b are long
- *
- * | double(a, b, precision = e) where a, b, e are double
- *
- * | double(a, b, size = n) where a, b are double, and n is int
+ * - int(a, b) where a, b are int
+ * - long(a, b) where a, b are long
+ * - double(a, b, precision = e) where a, b, e are double
+ * - double(a, b, size = n) where a, b are double, and n is int
  *
  * Example:
  *
  * "x: int(-100, 100); y: long(1, 10000); z: double(0, 1, precision = 1e-3)"
- *
  */
 template<typename Options>
 env_t
@@ -265,9 +261,6 @@ parse_representations(std::string expression, const Options& options)
   return env;
 }
 
-/**
- * Get default representation
- */
 template<typename Options, typename Rep>
 variant_t
 get_default_representation(const Options& options)
@@ -284,16 +277,10 @@ get_default_representation(const Options& options)
     throw std::runtime_error("get_default_representation: Unknown type");
 }
 
-/**
- * Get representation
- */
 template<typename Rep>
 Rep
 get_representation(variant_t v);
 
-/**
- * Get representation for int
- */
 template<>
 inline
 IntRep
@@ -302,9 +289,6 @@ get_representation(variant_t v)
   return std::get<IntRepParams>(v).to_rep();
 }
 
-/**
- * Get representation for long
- */
 template<>
 inline
 LongRep
@@ -313,9 +297,6 @@ get_representation(variant_t v)
   return std::get<LongRepParams>(v).to_rep();
 }
 
-/**
- * Get representation for double
- */
 template<>
 inline
 DoubleRep

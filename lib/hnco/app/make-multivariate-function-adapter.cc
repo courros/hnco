@@ -18,6 +18,10 @@
 
 */
 
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
 #include "hnco/functions/function.hh"
 
 #include "make-multivariate-function-adapter.hh"
@@ -25,6 +29,17 @@
 using namespace hnco::app;
 using namespace hnco::function;
 using namespace hnco;
+
+std::string
+hnco::app::read_file_content(std::string path)
+{
+  std::ifstream fstream(path);
+  if (!fstream)
+    throw std::runtime_error("read_file_content: Cannot open " + path);
+  std::ostringstream sstream;
+  sstream << fstream.rdbuf();
+  return sstream.str();
+}
 
 std::vector<std::string>
 hnco::app::split_string(std::string str, std::string delimiter)

@@ -33,20 +33,22 @@ class HncoOptions {
     OPTION_EA_MUTATION_RATE,
     OPTION_EA_TOURNAMENT_SIZE,
     OPTION_FN_NAME,
+    OPTION_FP_DEFAULT_DOUBLE_PRECISION,
     OPTION_FP_DEFAULT_DOUBLE_REP,
+    OPTION_FP_DEFAULT_DOUBLE_SIZE,
     OPTION_FP_DEFAULT_INT_REP,
     OPTION_FP_DEFAULT_LONG_REP,
-    OPTION_FP_DEFAULT_PRECISION_DOUBLE,
-    OPTION_FP_DEFAULT_SIZE_DOUBLE,
     OPTION_FP_EXPRESSION,
+    OPTION_FP_EXPRESSION_SOURCE,
     OPTION_FP_REPRESENTATIONS,
-    OPTION_FP_SOURCE,
+    OPTION_FP_REPRESENTATIONS_SOURCE,
     OPTION_FUNCTION,
     OPTION_NUM_ITERATIONS,
     OPTION_NUM_THREADS,
     OPTION_PATH,
     OPTION_REP_CATEGORICAL_REPRESENTATION,
     OPTION_REP_NUM_ADDITIONAL_BITS,
+    OPTION_REPRESENTATIONS_PATH,
     OPTION_RESULTS_PATH,
     OPTION_SEED,
     OPTION_SOLUTION_PATH,
@@ -92,9 +94,17 @@ class HncoOptions {
   std::string _fn_name;
   bool _with_fn_name = false;
 
+  /// Default precision of double representations
+  double _fp_default_double_precision;
+  bool _with_fp_default_double_precision = false;
+
   /// Default representation for double
   std::string _fp_default_double_rep = "double(0, 1, precision = 1e-3)";
   bool _with_fp_default_double_rep = false;
+
+  /// Default size of double representations
+  int _fp_default_double_size;
+  bool _with_fp_default_double_size = false;
 
   /// Default representation for int
   std::string _fp_default_int_rep = "int(1, 100)";
@@ -104,25 +114,21 @@ class HncoOptions {
   std::string _fp_default_long_rep = "long(1, 100)";
   bool _with_fp_default_long_rep = false;
 
-  /// Default precision of double representations
-  double _fp_default_precision_double;
-  bool _with_fp_default_precision_double = false;
-
-  /// Default size of double representations
-  int _fp_default_size_double;
-  bool _with_fp_default_size_double = false;
-
-  /// Expression to parse (objectives are separated by ::)
-  std::string _fp_expression = "sin(x) + cos(y) :: sqrt(x^2 + y^2)";
+  /// Mathematical expression
+  std::string _fp_expression = "(1-x)^2+100*(y-x^2)^2";
   bool _with_fp_expression = false;
 
-  /// Representations. Example: \"x: double(0, 1, precision = 1e-3); y: int(-100, 100); z: long(1, 10000)\"
+  /// Source for the expression to parse
+  int _fp_expression_source = 0;
+  bool _with_fp_expression_source = false;
+
+  /// Representations. Example: \"x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-100, 100); v: long(1, 10000)\"
   std::string _fp_representations;
   bool _with_fp_representations = false;
 
-  /// Source for the expression to parse
-  int _fp_source = 0;
-  bool _with_fp_source = false;
+  /// Source for the representations
+  int _fp_representations_source = 0;
+  bool _with_fp_representations_source = false;
 
   /// Type of function
   int _function = 180;
@@ -147,6 +153,10 @@ class HncoOptions {
   /// Number of additional bits per element for permutation representation
   int _rep_num_additional_bits = 2;
   bool _with_rep_num_additional_bits = false;
+
+  /// Path of the representations file
+  std::string _representations_path = "representations.txt";
+  bool _with_representations_path = false;
 
   /// Path of the results file
   std::string _results_path = "results.json";
@@ -266,11 +276,33 @@ public:
   /// With parameter fn_name
   bool with_fn_name() const { return _with_fn_name; }
 
+  /// Get the value of fp_default_double_precision
+  double get_fp_default_double_precision() const {
+    if (_with_fp_default_double_precision)
+      return _fp_default_double_precision;
+    else
+      throw std::runtime_error("HncoOptions::get_fp_default_double_precision: Parameter fp_default_double_precision has no default value and has not been set");
+    }
+
+  /// With parameter fp_default_double_precision
+  bool with_fp_default_double_precision() const { return _with_fp_default_double_precision; }
+
   /// Get the value of fp_default_double_rep
   std::string get_fp_default_double_rep() const { return _fp_default_double_rep; }
 
   /// With parameter fp_default_double_rep
   bool with_fp_default_double_rep() const { return _with_fp_default_double_rep; }
+
+  /// Get the value of fp_default_double_size
+  int get_fp_default_double_size() const {
+    if (_with_fp_default_double_size)
+      return _fp_default_double_size;
+    else
+      throw std::runtime_error("HncoOptions::get_fp_default_double_size: Parameter fp_default_double_size has no default value and has not been set");
+    }
+
+  /// With parameter fp_default_double_size
+  bool with_fp_default_double_size() const { return _with_fp_default_double_size; }
 
   /// Get the value of fp_default_int_rep
   std::string get_fp_default_int_rep() const { return _fp_default_int_rep; }
@@ -284,33 +316,17 @@ public:
   /// With parameter fp_default_long_rep
   bool with_fp_default_long_rep() const { return _with_fp_default_long_rep; }
 
-  /// Get the value of fp_default_precision_double
-  double get_fp_default_precision_double() const {
-    if (_with_fp_default_precision_double)
-      return _fp_default_precision_double;
-    else
-      throw std::runtime_error("HncoOptions::get_fp_default_precision_double: Parameter fp_default_precision_double has no default value and has not been set");
-    }
-
-  /// With parameter fp_default_precision_double
-  bool with_fp_default_precision_double() const { return _with_fp_default_precision_double; }
-
-  /// Get the value of fp_default_size_double
-  int get_fp_default_size_double() const {
-    if (_with_fp_default_size_double)
-      return _fp_default_size_double;
-    else
-      throw std::runtime_error("HncoOptions::get_fp_default_size_double: Parameter fp_default_size_double has no default value and has not been set");
-    }
-
-  /// With parameter fp_default_size_double
-  bool with_fp_default_size_double() const { return _with_fp_default_size_double; }
-
   /// Get the value of fp_expression
   std::string get_fp_expression() const { return _fp_expression; }
 
   /// With parameter fp_expression
   bool with_fp_expression() const { return _with_fp_expression; }
+
+  /// Get the value of fp_expression_source
+  int get_fp_expression_source() const { return _fp_expression_source; }
+
+  /// With parameter fp_expression_source
+  bool with_fp_expression_source() const { return _with_fp_expression_source; }
 
   /// Get the value of fp_representations
   std::string get_fp_representations() const {
@@ -323,11 +339,11 @@ public:
   /// With parameter fp_representations
   bool with_fp_representations() const { return _with_fp_representations; }
 
-  /// Get the value of fp_source
-  int get_fp_source() const { return _fp_source; }
+  /// Get the value of fp_representations_source
+  int get_fp_representations_source() const { return _fp_representations_source; }
 
-  /// With parameter fp_source
-  bool with_fp_source() const { return _with_fp_source; }
+  /// With parameter fp_representations_source
+  bool with_fp_representations_source() const { return _with_fp_representations_source; }
 
   /// Get the value of function
   int get_function() const { return _function; }
@@ -364,6 +380,12 @@ public:
 
   /// With parameter rep_num_additional_bits
   bool with_rep_num_additional_bits() const { return _with_rep_num_additional_bits; }
+
+  /// Get the value of representations_path
+  std::string get_representations_path() const { return _representations_path; }
+
+  /// With parameter representations_path
+  bool with_representations_path() const { return _with_representations_path; }
 
   /// Get the value of results_path
   std::string get_results_path() const { return _results_path; }

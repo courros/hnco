@@ -17,20 +17,22 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"ea-mutation-rate", required_argument, 0, OPTION_EA_MUTATION_RATE},
     {"ea-tournament-size", required_argument, 0, OPTION_EA_TOURNAMENT_SIZE},
     {"fn-name", required_argument, 0, OPTION_FN_NAME},
+    {"fp-default-double-precision", required_argument, 0, OPTION_FP_DEFAULT_DOUBLE_PRECISION},
     {"fp-default-double-rep", required_argument, 0, OPTION_FP_DEFAULT_DOUBLE_REP},
+    {"fp-default-double-size", required_argument, 0, OPTION_FP_DEFAULT_DOUBLE_SIZE},
     {"fp-default-int-rep", required_argument, 0, OPTION_FP_DEFAULT_INT_REP},
     {"fp-default-long-rep", required_argument, 0, OPTION_FP_DEFAULT_LONG_REP},
-    {"fp-default-precision-double", required_argument, 0, OPTION_FP_DEFAULT_PRECISION_DOUBLE},
-    {"fp-default-size-double", required_argument, 0, OPTION_FP_DEFAULT_SIZE_DOUBLE},
     {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
+    {"fp-expression-source", required_argument, 0, OPTION_FP_EXPRESSION_SOURCE},
     {"fp-representations", required_argument, 0, OPTION_FP_REPRESENTATIONS},
-    {"fp-source", required_argument, 0, OPTION_FP_SOURCE},
+    {"fp-representations-source", required_argument, 0, OPTION_FP_REPRESENTATIONS_SOURCE},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
     {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
     {"path", required_argument, 0, OPTION_PATH},
     {"rep-categorical-representation", required_argument, 0, OPTION_REP_CATEGORICAL_REPRESENTATION},
     {"rep-num-additional-bits", required_argument, 0, OPTION_REP_NUM_ADDITIONAL_BITS},
+    {"representations-path", required_argument, 0, OPTION_REPRESENTATIONS_PATH},
     {"results-path", required_argument, 0, OPTION_RESULTS_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
     {"solution-path", required_argument, 0, OPTION_SOLUTION_PATH},
@@ -101,9 +103,19 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _fn_name = std::string(optarg);
       break;
 
+    case OPTION_FP_DEFAULT_DOUBLE_PRECISION:
+      _with_fp_default_double_precision = true;
+      _fp_default_double_precision = std::atof(optarg);
+      break;
+
     case OPTION_FP_DEFAULT_DOUBLE_REP:
       _with_fp_default_double_rep = true;
       _fp_default_double_rep = std::string(optarg);
+      break;
+
+    case OPTION_FP_DEFAULT_DOUBLE_SIZE:
+      _with_fp_default_double_size = true;
+      _fp_default_double_size = std::atoi(optarg);
       break;
 
     case OPTION_FP_DEFAULT_INT_REP:
@@ -116,19 +128,14 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _fp_default_long_rep = std::string(optarg);
       break;
 
-    case OPTION_FP_DEFAULT_PRECISION_DOUBLE:
-      _with_fp_default_precision_double = true;
-      _fp_default_precision_double = std::atof(optarg);
-      break;
-
-    case OPTION_FP_DEFAULT_SIZE_DOUBLE:
-      _with_fp_default_size_double = true;
-      _fp_default_size_double = std::atoi(optarg);
-      break;
-
     case OPTION_FP_EXPRESSION:
       _with_fp_expression = true;
       _fp_expression = std::string(optarg);
+      break;
+
+    case OPTION_FP_EXPRESSION_SOURCE:
+      _with_fp_expression_source = true;
+      _fp_expression_source = std::atoi(optarg);
       break;
 
     case OPTION_FP_REPRESENTATIONS:
@@ -136,9 +143,9 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _fp_representations = std::string(optarg);
       break;
 
-    case OPTION_FP_SOURCE:
-      _with_fp_source = true;
-      _fp_source = std::atoi(optarg);
+    case OPTION_FP_REPRESENTATIONS_SOURCE:
+      _with_fp_representations_source = true;
+      _fp_representations_source = std::atoi(optarg);
       break;
 
     case 'F':
@@ -172,6 +179,11 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_REP_NUM_ADDITIONAL_BITS:
       _with_rep_num_additional_bits = true;
       _rep_num_additional_bits = std::atoi(optarg);
+      break;
+
+    case OPTION_REPRESENTATIONS_PATH:
+      _with_representations_path = true;
+      _representations_path = std::string(optarg);
       break;
 
     case OPTION_RESULTS_PATH:
@@ -327,24 +339,30 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Function parser" << std::endl;
+  stream << "      --fp-default-double-precision (type double, no default)" << std::endl;
+  stream << "          Default precision of double representations" << std::endl;
   stream << "      --fp-default-double-rep (type string, default to \"double(0, 1, precision = 1e-3)\")" << std::endl;
   stream << "          Default representation for double" << std::endl;
+  stream << "      --fp-default-double-size (type int, no default)" << std::endl;
+  stream << "          Default size of double representations" << std::endl;
   stream << "      --fp-default-int-rep (type string, default to \"int(1, 100)\")" << std::endl;
   stream << "          Default representation for int" << std::endl;
   stream << "      --fp-default-long-rep (type string, default to \"long(1, 100)\")" << std::endl;
   stream << "          Default representation for long" << std::endl;
-  stream << "      --fp-default-precision-double (type double, no default)" << std::endl;
-  stream << "          Default precision of double representations" << std::endl;
-  stream << "      --fp-default-size-double (type int, no default)" << std::endl;
-  stream << "          Default size of double representations" << std::endl;
-  stream << "      --fp-expression (type string, default to \"sin(x) + cos(y) :: sqrt(x^2 + y^2)\")" << std::endl;
-  stream << "          Expression to parse (objectives are separated by ::)" << std::endl;
-  stream << "      --fp-representations (type string, no default)" << std::endl;
-  stream << "          Representations. Example: \"x: double(0, 1, precision = 1e-3); y: int(-100, 100); z: long(1, 10000)\"" << std::endl;
-  stream << "      --fp-source (type int, default to 0)" << std::endl;
+  stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
+  stream << "          Mathematical expression" << std::endl;
+  stream << "      --fp-expression-source (type int, default to 0)" << std::endl;
   stream << "          Source for the expression to parse" << std::endl;
   stream << "            0: Command-line" << std::endl;
   stream << "            1: Function file" << std::endl;
+  stream << "      --fp-representations (type string, no default)" << std::endl;
+  stream << "          Representations. Example: \"x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-100, 100); v: long(1, 10000)\"" << std::endl;
+  stream << "      --fp-representations-source (type int, default to 0)" << std::endl;
+  stream << "          Source for the representations" << std::endl;
+  stream << "            0: Command-line" << std::endl;
+  stream << "            1: Representations file" << std::endl;
+  stream << "      --representations-path (type string, default to \"representations.txt\")" << std::endl;
+  stream << "          Path of the representations file" << std::endl;
   stream << std::endl;
 }
 
@@ -409,23 +427,25 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# ea_tournament_size = " << options._ea_tournament_size << std::endl;
   if (options._with_fn_name)
     stream << "# fn_name = \"" << options._fn_name << "\"" << std::endl;
+  if (options._with_fp_default_double_precision)
+    stream << "# fp_default_double_precision = " << options._fp_default_double_precision << std::endl;
   stream << "# fp_default_double_rep = \"" << options._fp_default_double_rep << "\"" << std::endl;
+  if (options._with_fp_default_double_size)
+    stream << "# fp_default_double_size = " << options._fp_default_double_size << std::endl;
   stream << "# fp_default_int_rep = \"" << options._fp_default_int_rep << "\"" << std::endl;
   stream << "# fp_default_long_rep = \"" << options._fp_default_long_rep << "\"" << std::endl;
-  if (options._with_fp_default_precision_double)
-    stream << "# fp_default_precision_double = " << options._fp_default_precision_double << std::endl;
-  if (options._with_fp_default_size_double)
-    stream << "# fp_default_size_double = " << options._fp_default_size_double << std::endl;
   stream << "# fp_expression = \"" << options._fp_expression << "\"" << std::endl;
+  stream << "# fp_expression_source = " << options._fp_expression_source << std::endl;
   if (options._with_fp_representations)
     stream << "# fp_representations = \"" << options._fp_representations << "\"" << std::endl;
-  stream << "# fp_source = " << options._fp_source << std::endl;
+  stream << "# fp_representations_source = " << options._fp_representations_source << std::endl;
   stream << "# function = " << options._function << std::endl;
   stream << "# num_iterations = " << options._num_iterations << std::endl;
   stream << "# num_threads = " << options._num_threads << std::endl;
   stream << "# path = \"" << options._path << "\"" << std::endl;
   stream << "# rep_categorical_representation = " << options._rep_categorical_representation << std::endl;
   stream << "# rep_num_additional_bits = " << options._rep_num_additional_bits << std::endl;
+  stream << "# representations_path = \"" << options._representations_path << "\"" << std::endl;
   stream << "# results_path = \"" << options._results_path << "\"" << std::endl;
   if (options._with_seed)
     stream << "# seed = " << options._seed << std::endl;

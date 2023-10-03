@@ -217,7 +217,7 @@
             "section": "fn"
         },
 
-        "fp_source":
+        "fp_expression_source":
         {
             "type": "int",
             "default": 0,
@@ -243,15 +243,46 @@
         "fp_expression":
         {
             "type": "string",
-            "default": "sin(x) + cos(y) :: sqrt(x^2 + y^2)",
-            "description": "Expression to parse (objectives are separated by ::)",
+            "default": "(1-x)^2+100*(y-x^2)^2",
+            "description": "Mathematical expression",
+            "section": "fp"
+        },
+
+        "fp_representations_source":
+        {
+            "type": "int",
+            "default": 0,
+            "description": "Source for the representations",
+            "section": "fp",
+            "values":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Command-line"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Representations file"
+                }
+
+            ]
+
+        },
+
+        "representations_path":
+        {
+            "type": "string",
+            "default": "representations.txt",
+            "description": "Path of the representations file",
             "section": "fp"
         },
 
         "fp_representations":
         {
             "type": "string",
-            "description": "Representations. Example: \\\"x: double(0, 1, precision = 1e-3); y: int(-100, 100); z: long(1, 10000)\\\"",
+            "description": "Representations. Example: \\\"x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-100, 100); v: long(1, 10000)\\\"",
             "section": "fp"
         },
 
@@ -279,14 +310,14 @@
             "section": "fp"
         },
 
-        "fp_default_precision_double":
+        "fp_default_double_precision":
         {
             "type": "double",
             "description": "Default precision of double representations",
             "section": "fp"
         },
 
-        "fp_default_size_double":
+        "fp_default_double_size":
         {
             "type": "int",
             "description": "Default size of double representations",
