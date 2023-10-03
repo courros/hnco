@@ -25,7 +25,7 @@
 
 #include <unordered_map>
 #include <type_traits>          // std::is_same_v
-#include <variant>              // std::variant, std::get
+#include <variant>              // std::variant, std::get, std::holds_alternative
 
 #include "hnco/representations/all.hh"
 
@@ -389,6 +389,59 @@ make_multivariate_function_adapter_complex(const Options& options)
   }
 
   return new Adapter(instance, reps);
+}
+
+/**
+ * Make a mixed-integer multivariate function adapter
+ */
+template<typename Options, typename Adapter>
+Adapter *
+make_multivariate_function_adapter_mixed(const Options& options)
+{
+  static_assert(std::is_same_v<typename Adapter::int_rep_type::domain_type, long>);
+  static_assert(std::is_same_v<typename Adapter::float_rep_type::domain_type, double>);
+
+  using Fn = typename Adapter::function_type;
+  auto instance = new Fn(get_expression<Options>(options));
+  instance->add_constant("pi", M_PI);
+  instance->add_constant("e", M_E);
+  instance->parse();
+
+  env_t env = parse_representations<Options>(get_representations<Options>(options), options);
+  auto default_long_rep = get_default_representation<Options, LongRep>(options);
+  auto default_double_rep = get_default_representation<Options, DoubleRep>(options);
+  for (const auto& name : instance->get_variable_names()) {
+    if (env.count(name) == 0) {
+      env[name] = default_double_rep;
+      std::cerr << "make_multivariate_function_adapter_mixed: Missing representation for " << name << ". Using default double representation." << std::endl;
+    } else if (env[name].index() != default_long_rep.index() &&
+               env[name].index() != default_double_rep.index()) {
+      env[name] = default_double_rep;
+      std::cerr << "make_multivariate_function_adapter: Invalid representation for " << name << ". Using default double representation." << std::endl;
+    }
+  }
+
+  std::vector<LongRep> long_reps;
+  std::vector<DoubleRep> double_reps;
+  std::vector<std::pair<bool, int>> lut(instance->get_num_variables());
+  int long_index = 0;
+  int double_index = 0;
+  int var_index = 0;
+  for (const auto& name : instance->get_variable_names()) {
+    assert(env.count(name) == 1);
+    auto v = env[name];
+    if (std::holds_alternative<LongRepParams>(v)) {
+      long_reps.push_back(get_representation<LongRep>(v));
+      lut[var_index++] = std::make_pair<bool, int>(true, long_index++);
+    } else {
+      double_reps.push_back(get_representation<DoubleRep>(v));
+      lut[var_index++] = std::make_pair<bool, int>(false, double_index++);
+    }
+  }
+  assert(var_index == instance->get_num_variables());
+  assert(var_index == long_index + double_index);
+
+  return new Adapter(instance, long_reps, double_reps, lut);
 }
 
 }
