@@ -21,7 +21,7 @@ Library:
 - IntegerCategoricalRepresentation: renamed _num_bits -> _size
 - PermutationRepresentation: removed local struct Element
 - Rename DyadicComplexRepresentation -> ComplexRepresentation
-- ComplexRepresentation is 2 scalar representations
+- ComplexRepresentation is made of 2 scalar representations
 
 optgen.pl:
 - Handle parameters with no default value (e.g. seed)
