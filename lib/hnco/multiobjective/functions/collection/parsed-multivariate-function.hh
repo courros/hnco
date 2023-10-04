@@ -88,8 +88,8 @@ private:
   /**
    * Indices.
    *
-   * Indexed by parser then variable. Then, _indices[i][j] is the index
-   * in the variable to evaluate (x) of the jth variable of the ith
+   * Indexed by parser then variable. Then, _indices[i][j] is the
+   * index in the vector to evaluate of the jth variable of the ith
    * parser.
    */
   std::vector<std::vector<int>> _indices;
@@ -160,14 +160,15 @@ public:
         name_set.insert(name);
     }
 
-    _ordered_names.resize(name_set.size());
+    // Order names
+    for (const auto& name : name_set)
+      _ordered_names.push_back(name);
+    std::sort(begin(_ordered_names), end(_ordered_names));
+
+    // Compute reverse hash
     std::unordered_map<std::string, int> index_of;
-    int index = 0;
-    for (const auto& name : name_set) {
-      assert(is_in_range(index, _ordered_names.size()));
-      _ordered_names[index] = name;
-      index_of[name] = index++;
-    }
+    for (std::size_t i = 0; i < _ordered_names.size(); i++)
+      index_of[_ordered_names[i]] = i;
 
     // Compute indices
     _indices.resize(_expressions.size());
@@ -187,16 +188,16 @@ public:
   int get_output_size() const { return _parsers.size(); }
 
   /// Evaluate
-  void evaluate(const std::vector<domain_type>& x, std::vector<codomain_type>& values) {
-    assert(int(x.size()) == get_num_variables());
+  void evaluate(const std::vector<domain_type>& xs, std::vector<codomain_type>& values) {
+    assert(int(xs.size()) == get_num_variables());
     assert(values.size() == _parsers.size());
 
     for (size_t i = 0; i < values.size(); i++) {
       auto& vars = _variables[i];
       auto& lut = _indices[i];
       for (size_t j = 0; j < vars.size(); j++) {
-        assert(is_in_range(lut[j], x.size()));
-        vars[j] = x[lut[j]];
+        assert(is_in_range(lut[j], xs.size()));
+        vars[j] = xs[lut[j]];
       }
       values[i] = _parsers[i].Eval(vars.data());
     }
@@ -205,9 +206,7 @@ public:
   /// Display the problem
   void display(std::ostream& stream) const {
     stream << "ParsedMultivariateFunction:" << std::endl;
-    auto sorted_names = _ordered_names;
-    std::sort(begin(sorted_names), end(sorted_names));
-    stream << "Variables: " << hnco::join(sorted_names.begin(), sorted_names.end(), ", ") << std::endl;
+    stream << "Variables: " << hnco::join(_ordered_names.begin(), _ordered_names.end(), ", ") << std::endl;
     stream << "Objectives:" << std::endl;
     for (size_t i = 0; i < _parsers.size(); i++) {
       std::string str = _expressions[i];
@@ -219,11 +218,11 @@ public:
   }
 
   /// Describe a solution
-  void describe(const std::vector<domain_type>& x, std::ostream& stream) {
-    assert(int(x.size()) == get_num_variables());
+  void describe(const std::vector<domain_type>& xs, std::ostream& stream) {
+    assert(int(xs.size()) == get_num_variables());
 
     for (size_t i = 0; i < _ordered_names.size(); i++)
-      stream << _ordered_names[i] << " = " << x[i] << std::endl;
+      stream << _ordered_names[i] << " = " << xs[i] << std::endl;
   }
 
   /// Get variable names
