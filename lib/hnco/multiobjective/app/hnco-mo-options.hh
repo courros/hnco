@@ -107,8 +107,8 @@ class HncoOptions {
   std::string _fp_default_long_rep = "long(1, 100)";
   bool _with_fp_default_long_rep = false;
 
-  /// Mathematical expression
-  std::string _fp_expression = "(1-x)^2+100*(y-x^2)^2";
+  /// Mathematical expression (list of objectives separated by ::)
+  std::string _fp_expression = "A := sin(x) + cos(y); A :: B := sqrt(x^2 + y^2); B";
   bool _with_fp_expression = false;
 
   /// Source for the expression to parse

@@ -326,8 +326,8 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "          Default representation for int" << std::endl;
   stream << "      --fp-default-long-rep (type string, default to \"long(1, 100)\")" << std::endl;
   stream << "          Default representation for long" << std::endl;
-  stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
-  stream << "          Mathematical expression" << std::endl;
+  stream << "      --fp-expression (type string, default to \"A := sin(x) + cos(y); A :: B := sqrt(x^2 + y^2); B\")" << std::endl;
+  stream << "          Mathematical expression (list of objectives separated by ::)" << std::endl;
   stream << "      --fp-expression-source (type int, default to 0)" << std::endl;
   stream << "          Source for the expression to parse" << std::endl;
   stream << "            0: Command-line" << std::endl;

@@ -224,8 +224,8 @@
         "fp_expression":
         {
             "type": "string",
-            "default": "(1-x)^2+100*(y-x^2)^2",
-            "description": "Mathematical expression",
+            "default": "A := sin(x) + cos(y); A :: B := sqrt(x^2 + y^2); B",
+            "description": "Mathematical expression (list of objectives separated by ::)",
             "section": "fp"
         },
 
