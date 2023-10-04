@@ -9,6 +9,10 @@ Library:
 - ParsedMultivariateFunction: added member function parse (single and multi)
 - ParsedMultivariateFunction: added member function add_constant (single and multi)
 - Added files app/make-multivariate-function-adapter.(hh|cc)
+- Added function make_multivariate_function_adapter
+- Added function make_multivariate_function_adapter_complex
+- Added function make_multivariate_function_adapter_mixed
+- Added class MixedIntegerMultivariateFunctionAdapter (single and multi)
 - DyadicIntegerRepresentation: renamed _num_bits -> _size
 - DyadicIntegerRepresentation: renamed _num_bits_complete -> _exact_size
 - DyadicIntegerRepresentation: renamed set_num_bits_complete -> set_exact_size
@@ -16,6 +20,8 @@ Library:
 - DyadicIntegerRepresentation: added constructor with given precision
 - IntegerCategoricalRepresentation: renamed _num_bits -> _size
 - PermutationRepresentation: removed local struct Element
+- Rename DyadicComplexRepresentation -> ComplexRepresentation
+- ComplexRepresentation is 2 scalar representations
 
 optgen.pl:
 - Handle parameters with no default value (e.g. seed)
@@ -38,10 +44,16 @@ hnco, hnco-mo:
 - Added parameter fp_representations_path
 - Added parameter fp_representations_source
 - Added constants pi and e for functions parsers (float, complex)
-- Added functions 183 (int -> double)
+- Added function 183 (int -> double)
+- Added function 184 (mixed-integer)
+
+hnco-mo:
+- Renumbered algorithm NSGA2 1400 -> 100
 
 Build:
 - Requires C++17
+- Doxygen: hide undocumented classes
+- Doxygen: hide undocumented members
 
 Python:
 - Added bindings for TwoRateOnePlusLambdaEa
