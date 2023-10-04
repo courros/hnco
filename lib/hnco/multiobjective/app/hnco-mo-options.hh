@@ -27,7 +27,6 @@ class HncoOptions {
     OPTION_VERSION,
     OPTION_ALGORITHM,
     OPTION_BV_SIZE,
-    OPTION_DESCRIPTION_PATH,
     OPTION_EA_CROSSOVER_PROBABILITY,
     OPTION_EA_MU,
     OPTION_EA_MUTATION_RATE,
@@ -49,9 +48,7 @@ class HncoOptions {
     OPTION_PATH,
     OPTION_REP_CATEGORICAL_REPRESENTATION,
     OPTION_REP_NUM_ADDITIONAL_BITS,
-    OPTION_RESULTS_PATH,
     OPTION_SEED,
-    OPTION_SOLUTION_PATH,
     OPTION_EA_ALLOW_NO_MUTATION,
     OPTION_FN_DISPLAY,
     OPTION_FN_GET_BV_SIZE,
@@ -69,10 +66,6 @@ class HncoOptions {
   /// Size of bit vectors
   int _bv_size = 100;
   bool _with_bv_size = false;
-
-  /// Path of the description file
-  std::string _description_path = "description.txt";
-  bool _with_description_path = false;
 
   /// Crossover probability
   double _ea_crossover_probability = 0.8;
@@ -158,17 +151,9 @@ class HncoOptions {
   int _rep_num_additional_bits = 2;
   bool _with_rep_num_additional_bits = false;
 
-  /// Path of the results file
-  std::string _results_path = "results.json";
-  bool _with_results_path = false;
-
   /// Seed for the random number generator
   unsigned _seed;
   bool _with_seed = false;
-
-  /// Path of the solution file
-  std::string _solution_path = "solution.txt";
-  bool _with_solution_path = false;
 
   /// Allow no mutation with standard bit mutation
   bool _ea_allow_no_mutation = false;
@@ -234,12 +219,6 @@ public:
 
   /// With parameter bv_size
   bool with_bv_size() const { return _with_bv_size; }
-
-  /// Get the value of description_path
-  std::string get_description_path() const { return _description_path; }
-
-  /// With parameter description_path
-  bool with_description_path() const { return _with_description_path; }
 
   /// Get the value of ea_crossover_probability
   double get_ea_crossover_probability() const { return _ea_crossover_probability; }
@@ -387,12 +366,6 @@ public:
   /// With parameter rep_num_additional_bits
   bool with_rep_num_additional_bits() const { return _with_rep_num_additional_bits; }
 
-  /// Get the value of results_path
-  std::string get_results_path() const { return _results_path; }
-
-  /// With parameter results_path
-  bool with_results_path() const { return _with_results_path; }
-
   /// Get the value of seed
   unsigned get_seed() const {
     if (_with_seed)
@@ -403,12 +376,6 @@ public:
 
   /// With parameter seed
   bool with_seed() const { return _with_seed; }
-
-  /// Get the value of solution_path
-  std::string get_solution_path() const { return _solution_path; }
-
-  /// With parameter solution_path
-  bool with_solution_path() const { return _with_solution_path; }
 
   /// With the flag ea_allow_no_mutation
   bool with_ea_allow_no_mutation() const { return _ea_allow_no_mutation; }

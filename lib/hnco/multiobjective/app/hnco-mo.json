@@ -128,30 +128,6 @@
             "section": "gen"
         },
 
-        "results_path":
-        {
-            "type": "string",
-            "default": "results.json",
-            "description": "Path of the results file",
-            "section": "gen"
-        },
-
-        "solution_path":
-        {
-            "type": "string",
-            "default": "solution.txt",
-            "description": "Path of the solution file",
-            "section": "gen"
-        },
-
-        "description_path":
-        {
-            "type": "string",
-            "default": "description.txt",
-            "description": "Path of the description file",
-            "section": "gen"
-        },
-
 
         "function":
         {
@@ -181,6 +157,11 @@
                 {
                     "value": 183,
                     "description": "Integer multivariate function (rep: bv -> int, cast to double, parser: double -> double)"
+                },
+
+                {
+                    "value": 184,
+                    "description": "Mixed-integer multivariate function (rep: bv -> long or double, parser: double -> double)"
                 },
 
                 {

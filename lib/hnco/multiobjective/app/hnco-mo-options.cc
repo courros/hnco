@@ -11,7 +11,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
   const struct option long_options[] = {
     {"algorithm", required_argument, 0, OPTION_ALGORITHM},
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
-    {"description-path", required_argument, 0, OPTION_DESCRIPTION_PATH},
     {"ea-crossover-probability", required_argument, 0, OPTION_EA_CROSSOVER_PROBABILITY},
     {"ea-mu", required_argument, 0, OPTION_EA_MU},
     {"ea-mutation-rate", required_argument, 0, OPTION_EA_MUTATION_RATE},
@@ -33,9 +32,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"path", required_argument, 0, OPTION_PATH},
     {"rep-categorical-representation", required_argument, 0, OPTION_REP_CATEGORICAL_REPRESENTATION},
     {"rep-num-additional-bits", required_argument, 0, OPTION_REP_NUM_ADDITIONAL_BITS},
-    {"results-path", required_argument, 0, OPTION_RESULTS_PATH},
     {"seed", required_argument, 0, OPTION_SEED},
-    {"solution-path", required_argument, 0, OPTION_SOLUTION_PATH},
     {"ea-allow-no-mutation", no_argument, 0, OPTION_EA_ALLOW_NO_MUTATION},
     {"fn-display", no_argument, 0, OPTION_FN_DISPLAY},
     {"fn-get-bv-size", no_argument, 0, OPTION_FN_GET_BV_SIZE},
@@ -70,11 +67,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_BV_SIZE:
       _with_bv_size = true;
       _bv_size = std::atoi(optarg);
-      break;
-
-    case OPTION_DESCRIPTION_PATH:
-      _with_description_path = true;
-      _description_path = std::string(optarg);
       break;
 
     case OPTION_EA_CROSSOVER_PROBABILITY:
@@ -186,19 +178,9 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _rep_num_additional_bits = std::atoi(optarg);
       break;
 
-    case OPTION_RESULTS_PATH:
-      _with_results_path = true;
-      _results_path = std::string(optarg);
-      break;
-
     case OPTION_SEED:
       _with_seed = true;
       _seed = std::strtoul(optarg, NULL, 0);
-      break;
-
-    case OPTION_SOLUTION_PATH:
-      _with_solution_path = true;
-      _solution_path = std::string(optarg);
       break;
 
     case OPTION_EA_ALLOW_NO_MUTATION:
@@ -275,8 +257,6 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "General" << std::endl;
-  stream << "      --description-path (type string, default to \"description.txt\")" << std::endl;
-  stream << "          Path of the description file" << std::endl;
   stream << "      --num-threads (type int, default to 1)" << std::endl;
   stream << "          Number of threads" << std::endl;
   stream << "      --print-default-parameters" << std::endl;
@@ -287,12 +267,8 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Print the parameters" << std::endl;
   stream << "      --print-pareto-front" << std::endl;
   stream << "          Print the Pareto front" << std::endl;
-  stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
-  stream << "          Path of the results file" << std::endl;
   stream << "      --seed (type unsigned, no default)" << std::endl;
   stream << "          Seed for the random number generator" << std::endl;
-  stream << "      --solution-path (type string, default to \"solution.txt\")" << std::endl;
-  stream << "          Path of the solution file" << std::endl;
   stream << std::endl;
   stream  << "Additional Sections" << std::endl;
   stream << "      --help-fn" << std::endl;
@@ -328,6 +304,7 @@ void HncoOptions::print_help_fn(std::ostream& stream) const
   stream << "            181: Integer multivariate function (rep: bv -> long, parser: long -> long, cast to double)" << std::endl;
   stream << "            182: Complex multivariate function (rep: bv -> complex, parser: complex -> complex, square of the magnitude)" << std::endl;
   stream << "            183: Integer multivariate function (rep: bv -> int, cast to double, parser: double -> double)" << std::endl;
+  stream << "            184: Mixed-integer multivariate function (rep: bv -> long or double, parser: double -> double)" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
@@ -420,7 +397,6 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
 {
   stream << "# algorithm = " << options._algorithm << std::endl;
   stream << "# bv_size = " << options._bv_size << std::endl;
-  stream << "# description_path = \"" << options._description_path << "\"" << std::endl;
   stream << "# ea_crossover_probability = " << options._ea_crossover_probability << std::endl;
   stream << "# ea_mu = " << options._ea_mu << std::endl;
   stream << "# ea_mutation_rate = " << options._ea_mutation_rate << std::endl;
@@ -446,10 +422,8 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# path = \"" << options._path << "\"" << std::endl;
   stream << "# rep_categorical_representation = " << options._rep_categorical_representation << std::endl;
   stream << "# rep_num_additional_bits = " << options._rep_num_additional_bits << std::endl;
-  stream << "# results_path = \"" << options._results_path << "\"" << std::endl;
   if (options._with_seed)
     stream << "# seed = " << options._seed << std::endl;
-  stream << "# solution_path = \"" << options._solution_path << "\"" << std::endl;
   if (options._ea_allow_no_mutation)
     stream << "# ea_allow_no_mutation " << std::endl;
   if (options._fn_display)
