@@ -74,6 +74,14 @@ CommandLineFunctionFactory::make()
     return hnco::app::make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }
 
+  case 184: {
+    using Fn        = ParsedMultivariateFunction<FunctionParser>;
+    using IntRep    = hnco::representation::DyadicIntegerRepresentation<long>;
+    using DoubleRep = hnco::representation::DyadicFloatRepresentation<double>;
+    using Adapter   = MixedIntegerMultivariateFunctionAdapter<Fn, IntRep, DoubleRep>;
+    return hnco::app::make_multivariate_function_adapter_mixed<HncoOptions, Adapter>(_options);
+  }
+
 #ifdef ENABLE_PYTHON
   case 1100:
     return new PythonFunction
