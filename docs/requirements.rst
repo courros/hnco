@@ -29,7 +29,7 @@ requires the ``minted`` latex package and a syntax highlighter called
 
 The library pybind11 is used to create Python bindings of ``libhnco``.
 
-Under Ubuntu 22.04 LTS and later, execute the following commands to
+Under Ubuntu 22.04 LTS and later, enter the following commands to
 install the necessary packages::
 
   sudo apt-get install build-essential libboost-serialization-dev

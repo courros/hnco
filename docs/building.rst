@@ -5,7 +5,7 @@
 
 The library and applications require a C++17 compiler.
 
-Execute the following commands in the source directory::
+Enter the following commands in the source directory::
 
   ./configure
   make
@@ -16,7 +16,7 @@ To turn optimization on and install everything under ``$HOME/.local/``::
   CXXFLAGS="-Wall -O3 -DNDEBUG" ./configure --prefix=$HOME/.local/
 
 If you want to locally install Bash completion scripts, you would
-rather execute::
+rather enter::
 
   bashcompdir=$HOME/.local/share/bash-completion/completions/ CXXFLAGS="-Wall -O3 -DNDEBUG" ./configure --prefix=$HOME/.local/
 
@@ -47,7 +47,7 @@ the python module for hnco, first build and install the library then::
 
   cd bindings
   python3 setup.py build
-  python3 setup.py install --prefix '~/.local'
+  python3 setup.py install --prefix '$HOME/.local'
 
 Installation of Perl scripts is taken care of by autotools. However,
 Perl modules are managed separately by ``Makefile.PL``. If you want to
