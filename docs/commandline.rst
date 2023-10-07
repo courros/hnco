@@ -2,8 +2,57 @@
  Command-line tools
 ====================
 
-HNCO provides the command-line tools ``hnco``, ``ffgen``, and
-``mapgen``.
+HNCO provides the command-line tools ``hnco``, ``hnco-mo``, ``ffgen``,
+and ``mapgen`` to optimize functions (single objective), optimize
+functions (multiobjective), generate functions, and generate maps
+respectively.
+
+To get the list of available options of ``hnco``, enter the following
+command::
+
+  hnco --help
+
+Help has been split into several sections given at the end of main
+help. For example, enter::
+
+  hnco --help-fn
+
+to get help about functions.
+
+On Ubuntu, you can get bash auto-completion by copying the file
+``hnco.bash`` under::
+
+  $HOME/.local/share/bash-completion/completions/
+
+This can be done automatically at build time.
+
+``hnco-mo``, ``ffgen`` and ``mapgen`` behaves similarly.
+
+-----
+ffgen
+-----
+
+``ffgen`` generates random instances of fitness functions and saves
+them to files which can be later loaded by ``hnco`` and used by
+different algorithms. HNCO uses the Boost serialization library with
+text format. The files are portable across different platforms.
+However they can only be read by programs compiled with the same (or
+newer) version of the library.
+
+For example, let us generate a random instance of Nk landscape and
+write it to a file::
+
+  ffgen -F 60 -s 100 --nk-k 4 --path nk.txt
+
+Meaning of the options:
+
+- ``-F 60`` sets the function type, here 60 represents Nk landscape
+
+- ``--path nk.txt`` sets the path to the file containing the function
+
+- ``-s 100`` sets the bit vector size to 100
+
+- ``--nk-k 4`` sets the parameter k to 4
 
 ----
 hnco
@@ -18,7 +67,7 @@ output so as to exactly reproduce the simulation later, including the
 same seed for random numbers.
 
 For example, to apply (1+1) EA to the previous Nk landscape instance,
-execute the following command::
+enter the following command::
 
   hnco -A 300 -F 60 --path nk.txt -b 200000 --print-results
 
@@ -50,40 +99,6 @@ Meaning of the options:
 - ``--log-improvement``: track progress
 
 - ``-b 0`` means no limit for the budget
-
------
-ffgen
------
-
-``ffgen`` generates random instances of fitness functions and saves
-them to files which can be later loaded by ``hnco`` and used by
-different algorithms. HNCO uses the Boost serialization library with
-text format. The files are portable across different platforms.
-However they can only be read by programs compiled with the same (or
-newer) version of the library.
-
-To get the list of available options, execute the following command::
-
-  ffgen --help
-
-On a unix-like operating system, you can get bash auto-completion by
-copying the file `ffgen.sh` under `.bash_completion.d/`. Similarly
-with `mapgen.sh` and `hnco.sh`.
-
-For example, let us generate a random instance of Nk landscape and
-write it to a file::
-
-  ffgen -F 60 -s 100 --nk-k 4 --path nk.txt
-
-Meaning of the options:
-
-- ``-F 60`` sets the function type, here 60 represents Nk landscape
-
-- ``--path nk.txt`` sets the path to the file containing the function
-
-- ``-s 100`` sets the bit vector size to 100
-
-- ``--nk-k 4`` sets the parameter k to 4
 
 ------
 mapgen
