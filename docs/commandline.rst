@@ -26,7 +26,7 @@ On Ubuntu, you can get bash auto-completion by copying the file
 
 This can be done automatically at build time.
 
-``hnco-mo``, ``ffgen`` and ``mapgen`` behaves similarly.
+``hnco-mo``, ``ffgen`` and ``mapgen`` behave similarly.
 
 -----
 ffgen
