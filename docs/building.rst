@@ -3,7 +3,7 @@
 ==========
 
 
-The library and applications require a C++14 compiler.
+The library and applications require a C++17 compiler.
 
 Execute the following commands in the source directory::
 
@@ -22,13 +22,13 @@ rather execute::
 
 Some configure options are relative to hnco only:
 
-- ``--enable-factorization`` to build the Factorization function
-  (requires libgmp-dev)
+- ``--enable-python`` to build the PythonFunction function (requires
+  python3)
 
 - ``--enable-plugin`` to build the Plugin function (requires libdl)
 
-- ``--enable-python`` to build the PythonFunction function (requires
-  python3)
+- ``--enable-factorization`` to build the Factorization function
+  (requires libgmp-dev)
 
 See ``./configure --help`` for other options.
 
