@@ -9,22 +9,30 @@ Optionally it can be built with the following libraries:
 
 - GNU GMP (``libgmp`` and ``libgmpxx``) for factorization
 
-The Perl scripts depend on the following modules:
+The Perl scripts running the experiments depend on the following
+modules:
 
 - ``JSON``
 
 - ``Statistics::Descriptive``
 
-They also depend on GNU parallel.
+- ``File::Slurp``
+
+- ``File::HomeDir``
+
+They also execute GNU parallel in case of distributed experiments. The
+results of such experiments are collected with ssh.
 
 You will need gnuplot and latex to generate reports, which finally
-requires the ``minted`` latex package and the executable
+requires the ``minted`` latex package and a syntax highlighter called
 ``pygmentize``.
 
-Under Ubuntu 20.04 LTS, execute the following commands to install the
-necessary packages::
+The library pybind11 is used to create Python bindings of ``libhnco``.
 
-  sudo apt-get install build-essential autoconf-archive libboost-serialization-dev
+Under Ubuntu 22.04 LTS and later, execute the following commands to
+install the necessary packages::
+
+  sudo apt-get install build-essential libboost-serialization-dev
   sudo apt-get install libgmp-dev
   sudo apt-get install parallel
   sudo apt-get install libfile-slurp-perl libfile-homedir-perl libjson-perl libstatistics-descriptive-perl
