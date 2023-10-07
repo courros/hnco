@@ -17,6 +17,7 @@ In Hypercubo Nigrae Capsulae Optimum
    library
    python
    commandline
+   tutorials
    experiments
    contributing
    name
