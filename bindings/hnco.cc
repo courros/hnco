@@ -52,9 +52,9 @@ PYBIND11_MAKE_OPAQUE(multiobjective::function::value_t);
 
 class PyIterator: public Iterator {
 public:
-  void init()                                   override { PYBIND11_OVERLOAD(void, Iterator, init, ); }
-  bool has_next()                               override { PYBIND11_OVERLOAD_PURE(bool, Iterator, has_next, ); }
-  const bit_vector_t& next()                    override { PYBIND11_OVERLOAD_PURE(const bit_vector_t&, Iterator, next, ); }
+  void init()                                   override { PYBIND11_OVERRIDE(void, Iterator, init, ); }
+  bool has_next()                               override { PYBIND11_OVERRIDE_PURE(bool, Iterator, has_next, ); }
+  const bit_vector_t& next()                    override { PYBIND11_OVERRIDE_PURE(const bit_vector_t&, Iterator, next, ); }
 };
 
 class HncoIterator
@@ -81,23 +81,23 @@ public:
 class PyNeighborhoodIterator: public neighborhood::NeighborhoodIterator {
 public:
   using neighborhood::NeighborhoodIterator::NeighborhoodIterator;
-  void set_origin(const bit_vector_t& x)        override { PYBIND11_OVERLOAD_PURE(void, neighborhood::NeighborhoodIterator, set_origin, ); }
+  void set_origin(const bit_vector_t& x)        override { PYBIND11_OVERRIDE_PURE(void, neighborhood::NeighborhoodIterator, set_origin, ); }
 };
 
 class PyNeighborhood: public neighborhood::Neighborhood {
 public:
   using neighborhood::Neighborhood::Neighborhood;
-  void set_origin(const bit_vector_t& x)        override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, set_origin, ); }
-  const bit_vector_t& get_origin() const        override { PYBIND11_OVERLOAD_PURE(const bit_vector_t&, neighborhood::Neighborhood, get_origin, ); }
-  const bit_vector_t& get_candidate() const     override { PYBIND11_OVERLOAD_PURE(const bit_vector_t&, neighborhood::Neighborhood, get_candidate, ); }
+  void set_origin(const bit_vector_t& x)        override { PYBIND11_OVERRIDE_PURE(void, neighborhood::Neighborhood, set_origin, ); }
+  const bit_vector_t& get_origin() const        override { PYBIND11_OVERRIDE_PURE(const bit_vector_t&, neighborhood::Neighborhood, get_origin, ); }
+  const bit_vector_t& get_candidate() const     override { PYBIND11_OVERRIDE_PURE(const bit_vector_t&, neighborhood::Neighborhood, get_candidate, ); }
   const sparse_bit_vector_t& get_flipped_bits() const
-                                                override { PYBIND11_OVERLOAD_PURE(const sparse_bit_vector_t&, neighborhood::Neighborhood, get_flipped_bits, ); }
-  void propose()                                override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, propose, ); }
-  void keep()                                   override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, keep, ); }
-  void forget()                                 override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, forget, ); }
-  void mutate(bit_vector_t& bv)                 override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, mutate, ); }
+                                                override { PYBIND11_OVERRIDE_PURE(const sparse_bit_vector_t&, neighborhood::Neighborhood, get_flipped_bits, ); }
+  void propose()                                override { PYBIND11_OVERRIDE_PURE(void, neighborhood::Neighborhood, propose, ); }
+  void keep()                                   override { PYBIND11_OVERRIDE_PURE(void, neighborhood::Neighborhood, keep, ); }
+  void forget()                                 override { PYBIND11_OVERRIDE_PURE(void, neighborhood::Neighborhood, forget, ); }
+  void mutate(bit_vector_t& bv)                 override { PYBIND11_OVERRIDE_PURE(void, neighborhood::Neighborhood, mutate, ); }
   void map(const bit_vector_t& input, bit_vector_t& output)
-                                                override { PYBIND11_OVERLOAD_PURE(void, neighborhood::Neighborhood, map, ); }
+                                                override { PYBIND11_OVERRIDE_PURE(void, neighborhood::Neighborhood, map, ); }
 };
 
 //
@@ -111,16 +111,16 @@ class PyFunction: public Function {
 public:
   using Function::Function;
   int get_bv_size() const override {
-    PYBIND11_OVERLOAD_PURE(int, Function, get_bv_size, );
+    PYBIND11_OVERRIDE_PURE(int, Function, get_bv_size, );
   }
   double evaluate(const bit_vector_t& x) override {
-    PYBIND11_OVERLOAD_PURE(double, Function, evaluate, x);
+    PYBIND11_OVERRIDE_PURE(double, Function, evaluate, x);
   }
   double get_maximum() const override {
-    PYBIND11_OVERLOAD(double, Function, get_maximum, );
+    PYBIND11_OVERRIDE(double, Function, get_maximum, );
   }
   bool has_known_maximum() const override {
-    PYBIND11_OVERLOAD(bool, Function, has_known_maximum, );
+    PYBIND11_OVERRIDE(bool, Function, has_known_maximum, );
   }
 };
 
@@ -133,7 +133,7 @@ public:
                   const std::vector<std::complex<double>>& complex_vars,
                   const std::vector<int>& categorical_vars,
                   const std::vector<permutation_t>& permutation_vars) override {
-    PYBIND11_OVERLOAD_PURE(double, UniversalFunction, evaluate,
+    PYBIND11_OVERRIDE_PURE(double, UniversalFunction, evaluate,
                            boolean_vars, integer_vars, float_vars, complex_vars, categorical_vars, permutation_vars);
   }
 };
@@ -152,10 +152,10 @@ class PyAlgorithm: public Algorithm {
 public:
   using Algorithm::Algorithm;
   void maximize(const std::vector<function::Function *>& functions) override {
-    PYBIND11_OVERLOAD_PURE(void, Algorithm, maximize, functions);
+    PYBIND11_OVERRIDE_PURE(void, Algorithm, maximize, functions);
   }
   void finalize() override {
-    PYBIND11_OVERLOAD(void, Algorithm, finalize, );
+    PYBIND11_OVERRIDE(void, Algorithm, finalize, );
   }
 };
 
@@ -170,10 +170,10 @@ class PyIterativeAlgorithm: public IterativeAlgorithm {
 public:
   using IterativeAlgorithm::IterativeAlgorithm;
   void init() override {
-    PYBIND11_OVERLOAD(void, IterativeAlgorithm, init, );
+    PYBIND11_OVERRIDE(void, IterativeAlgorithm, init, );
   }
   void iterate() override {
-    PYBIND11_OVERLOAD_PURE(void, IterativeAlgorithm, iterate, );
+    PYBIND11_OVERRIDE_PURE(void, IterativeAlgorithm, iterate, );
   }
 };
 
@@ -197,13 +197,13 @@ class PyFunction: public Function {
 public:
   using Function::Function;
   int get_bv_size() const override {
-    PYBIND11_OVERLOAD_PURE(int, Function, get_bv_size, );
+    PYBIND11_OVERRIDE_PURE(int, Function, get_bv_size, );
   }
   int get_output_size() const override {
-    PYBIND11_OVERLOAD_PURE(int, Function, get_output_size, );
+    PYBIND11_OVERRIDE_PURE(int, Function, get_output_size, );
   }
   void evaluate(const bit_vector_t& bv, value_t& value) override {
-    PYBIND11_OVERLOAD_PURE(void, Function, evaluate, bv, &value);
+    PYBIND11_OVERRIDE_PURE(void, Function, evaluate, bv, &value);
   }
 };
 
@@ -211,7 +211,7 @@ class PyUniversalFunction: public UniversalFunction {
 public:
   using UniversalFunction::UniversalFunction;
   int get_output_size() const override {
-    PYBIND11_OVERLOAD_PURE(int, UniversalFunction, get_output_size, );
+    PYBIND11_OVERRIDE_PURE(int, UniversalFunction, get_output_size, );
   }
   void evaluate(const bit_vector_t& boolean_vars,
                 const std::vector<int>& integer_vars,
@@ -220,7 +220,7 @@ public:
                 const std::vector<int>& categorical_vars,
                 const std::vector<permutation_t> permutation_vars,
                 value_t& value) override {
-    PYBIND11_OVERLOAD_PURE(void, UniversalFunction, evaluate,
+    PYBIND11_OVERRIDE_PURE(void, UniversalFunction, evaluate,
                            boolean_vars, integer_vars, float_vars, complex_vars, categorical_vars, permutation_vars, &value);
   }
 };
@@ -237,19 +237,19 @@ class PyAlgorithm: public Algorithm {
 public:
   using Algorithm::Algorithm;
   void minimize(const std::vector<function::Function *>& functions) override {
-    PYBIND11_OVERLOAD_PURE(void, Algorithm, minimize, functions);
+    PYBIND11_OVERRIDE_PURE(void, Algorithm, minimize, functions);
   }
   const Population& get_solutions() override {
-    PYBIND11_OVERLOAD_PURE(const Population&, Algorithm, get_solutions, );
+    PYBIND11_OVERRIDE_PURE(const Population&, Algorithm, get_solutions, );
   }
 };
 
 class PyIterativeAlgorithm: public IterativeAlgorithm {
 public:
   using IterativeAlgorithm::IterativeAlgorithm;
-  void init() override { PYBIND11_OVERLOAD(void, IterativeAlgorithm, init, ); }
-  void finalize() override { PYBIND11_OVERLOAD(void, IterativeAlgorithm, finalize, ); }
-  void iterate() override { PYBIND11_OVERLOAD_PURE(void, IterativeAlgorithm, iterate, ); }
+  void init() override { PYBIND11_OVERRIDE(void, IterativeAlgorithm, init, ); }
+  void finalize() override { PYBIND11_OVERRIDE(void, IterativeAlgorithm, finalize, ); }
+  void iterate() override { PYBIND11_OVERRIDE_PURE(void, IterativeAlgorithm, iterate, ); }
 };
 
 } // end of namespace algorithm
