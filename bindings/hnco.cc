@@ -122,9 +122,6 @@ public:
   bool has_known_maximum() const override {
     PYBIND11_OVERLOAD(bool, Function, has_known_maximum, );
   }
-  bool provides_incremental_evaluation() const override {
-    PYBIND11_OVERLOAD(bool, Function, provides_incremental_evaluation, );
-  }
 };
 
 class PyUniversalFunction: public UniversalFunction {
@@ -502,7 +499,6 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("get_bv_size", &Function::get_bv_size)
       .def("get_maximum", &Function::get_maximum)
       .def("has_known_maximum", &Function::has_known_maximum)
-      .def("provides_incremental_evaluation", &Function::provides_incremental_evaluation)
       .def("evaluate", &Function::evaluate)
       .def("__str__",
            [](Function& fn) {
