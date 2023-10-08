@@ -33,17 +33,16 @@ namespace function {
 
 
 /** Python function.
-
-    Uses pybind11.
-
-    The constructor initializes the python interpreter and the
-    destructor finalizes it.
-
-    The python code must import the hnco module (built separately) to
-    allow for communication between C++ and python. It must also
-    define a derived class that inherits Function and an instance of
-    it.
-*/
+ *
+ * Uses pybind11.
+ *
+ * The constructor initializes the python interpreter and the
+ * destructor finalizes it.
+ *
+ * The python code must import the hnco module (built separately) to
+ * allow for communication between C++ and python. It must also define
+ * a derived class that inherits Function and an instance of it.
+ */
 class PythonFunction:
     public Function {
 
@@ -56,20 +55,28 @@ class PythonFunction:
 public:
 
   /** Constructor.
-
-      \param path Path of the python file
-      \param name Name of the Function instance defined in the python file
-  */
+   *
+   * \param path Path of the python file
+   * \param name Name of the Function instance defined in the python file
+   */
   PythonFunction(std::string path, std::string name);
 
   /// Destructor
   ~PythonFunction();
 
   /// Get bit vector size
-  int get_bv_size() const;
+  int get_bv_size() const override;
+
+  /// Check for a known maximum.
+  bool has_known_maximum() const override;
+
+  /** Get the global maximum.
+   * \throw std::runtime_error
+   */
+  double get_maximum() const override;
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&);
+  double evaluate(const bit_vector_t&) override;
 
 };
 

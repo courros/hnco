@@ -49,7 +49,20 @@ PythonFunction::get_bv_size() const
   return _function->get_bv_size();
 }
 
-double PythonFunction::evaluate(const bit_vector_t& bv)
+bool
+PythonFunction::has_known_maximum() const
+{
+  return _function->has_known_maximum();
+}
+
+double
+PythonFunction::get_maximum() const
+{
+  return _function->get_maximum();
+}
+
+double
+PythonFunction::evaluate(const bit_vector_t& bv)
 {
   return _function->evaluate(bv);
 }
