@@ -329,7 +329,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Neighborhoods
   //
 
-  py::module module_neighborhood = module_hnco.def_submodule("neighborhood", "Neighborhoods");
+  py::module_ module_neighborhood = module_hnco.def_submodule("neighborhood", "Neighborhoods");
 
   {
     using namespace neighborhood;
@@ -380,7 +380,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Random numbers
   //
 
-  py::module module_random = module_hnco.def_submodule("random", "Random numbers");
+  py::module_ module_random = module_hnco.def_submodule("random", "Random numbers");
 
   {
     using namespace random;
@@ -398,7 +398,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Maps
   //
 
-  py::module module_map = module_hnco.def_submodule("map", "Maps");
+  py::module_ module_map = module_hnco.def_submodule("map", "Maps");
 
   {
     using namespace map;
@@ -492,7 +492,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Functions
   //
 
-  py::module module_function = module_hnco.def_submodule("function", "Functions");
+  py::module_ module_function = module_hnco.def_submodule("function", "Functions");
 
   {
     using namespace function;
@@ -678,7 +678,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     using IntegerRep = DyadicIntegerRepresentation<int>;
     using FloatRep = DyadicFloatRepresentation<double>;
-    using ComplexRep = DyadicComplexRepresentation<double>;
+    using ComplexRep = ComplexRepresentation<FloatRep>;
 
     py::class_<UniversalFunctionAdapter, Function>(module_function, "UniversalFunctionAdapter")
       .def(py::init<
@@ -708,7 +708,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Controllers
   //
 
-  py::module module_controller = module_function.def_submodule("controller", "Controllers");
+  py::module_ module_controller = module_function.def_submodule("controller", "Controllers");
 
   {
     using namespace function::controller;
@@ -755,7 +755,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Modifiers
   //
 
-  py::module module_modifier = module_function.def_submodule("modifier", "Modifiers");
+  py::module_ module_modifier = module_function.def_submodule("modifier", "Modifiers");
 
   {
     using namespace function::modifier;
@@ -789,7 +789,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Representations
   //
 
-  py::module module_representation = module_hnco.def_submodule("representation", "Representations");
+  py::module_ module_representation = module_hnco.def_submodule("representation", "Representations");
 
   {
     using namespace function;
@@ -797,7 +797,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     using IntegerRep = DyadicIntegerRepresentation<int>;
     using FloatRep = DyadicFloatRepresentation<double>;
-    using ComplexRep = DyadicComplexRepresentation<double>;
+    using ComplexRep = ComplexRepresentation<FloatRep>;
 
     py::class_<IntegerRep>(module_representation, "DyadicIntegerRepresentation")
       .def(py::init<int, int, int>())
@@ -825,7 +825,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    py::class_<ComplexRep>(module_representation, "DyadicComplexRepresentation")
+    py::class_<ComplexRep>(module_representation, "ComplexRepresentation")
       .def(py::init<FloatRep, FloatRep>())
       .def(py::init<FloatRep>())
       .def("size", &ComplexRep::size)
@@ -868,7 +868,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Algorithms
   //
 
-  py::module module_algorithm = module_hnco.def_submodule("algorithm", "Algorithms");
+  py::module_ module_algorithm = module_hnco.def_submodule("algorithm", "Algorithms");
 
   {
     using namespace algorithm;
@@ -1093,9 +1093,9 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Multiobjective
   //
 
-  py::module module_multiobjective = module_hnco.def_submodule("multiobjective", "Multiobjective optimization");
-  py::module module_multiobjective_function = module_multiobjective.def_submodule("function", "Functions for multiobjective optimization");
-  py::module module_multiobjective_algorithm = module_multiobjective.def_submodule("algorithm", "Algorithms for multiobjective optimization");
+  py::module_ module_multiobjective = module_hnco.def_submodule("multiobjective", "Multiobjective optimization");
+  py::module_ module_multiobjective_function = module_multiobjective.def_submodule("function", "Functions for multiobjective optimization");
+  py::module_ module_multiobjective_algorithm = module_multiobjective.def_submodule("algorithm", "Algorithms for multiobjective optimization");
 
   {
     using namespace multiobjective::function;
@@ -1130,7 +1130,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     using IntegerRep = DyadicIntegerRepresentation<int>;
     using FloatRep = DyadicFloatRepresentation<double>;
-    using ComplexRep = DyadicComplexRepresentation<double>;
+    using ComplexRep = ComplexRepresentation<FloatRep>;
 
     py::class_<UniversalFunctionAdapter, Function>(module_multiobjective_function, "UniversalFunctionAdapter")
       .def(py::init<
