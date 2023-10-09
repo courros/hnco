@@ -62,8 +62,8 @@ float_reps.append(float_rep)
 float_reps.append(float_rep)
 
 complex_reps = []
-complex_reps.append(rep.DyadicComplexRepresentation(float_rep, float_rep))
-complex_reps.append(rep.DyadicComplexRepresentation(float_rep, float_rep))
+complex_reps.append(rep.ComplexRepresentation(float_rep, float_rep))
+complex_reps.append(rep.ComplexRepresentation(float_rep, float_rep))
 
 categorical_reps = []
 categorical_reps.append(rep.LinearCategoricalRepresentation(4))
