@@ -45,9 +45,11 @@ Once generated, you will find it under ``doc/api/``.
 Python bindings are located under ``bindings/``. To build and install
 the python module for hnco, first build and install the library then::
 
-  cd bindings
-  python3 setup.py build
-  python3 setup.py install --prefix '$HOME/.local'
+  python3 -m build --wheel --no-isolation
+  python3 -m pip install --user --break-system-packages --force-reinstall ./dist/hnco-0.23-cp311-cp311-linux_x86_64.whl
+
+It should be noted that the resulting Python module is for local use
+only.
 
 Installation of Perl scripts is taken care of by autotools. However,
 Perl modules are managed separately by ``Makefile.PL``. If you want to

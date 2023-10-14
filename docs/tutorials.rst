@@ -56,7 +56,19 @@ See ``hnco --help-fp`` for more options for the parser.
 Python
 ------
 
-tbd.
+It is possible to define an arbitrary function in Python and maximize
+it from hnco without recompilation. For example, suppose that the file
+``one-max.py`` contains the following Python code:
+
+.. literalinclude:: ../bindings/examples/one-max.py
+   :language: py
+
+As can been seen, the class `MyFunction` provides an implementation of
+OneMax. Observe that the variable `f` refers to an instance of
+`MyFunction`. To maximize it from the command-line, enter the
+command::
+
+  hnco -F 1100 -p ./one-max.py --fn-name f
 
 Plugin
 ------
