@@ -3,14 +3,17 @@ import hnco.function as fn
 
 class MyFunction(fn.Function):
     def __init__(self, n):
-        super().__init__()
+        fn.Function.__init__(self) # Mandatory
         self.bv_size = n
 
-    def evaluate(self, boolean_vars):
-        return sum(boolean_vars)
+    def evaluate(self, bv):
+        return sum(bv)
 
     def get_bv_size(self):
         return self.bv_size
+
+    def has_known_maximum(self):
+        return True
 
     def get_maximum(self):
         return self.bv_size
