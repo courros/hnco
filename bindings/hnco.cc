@@ -52,20 +52,15 @@ PYBIND11_MAKE_OPAQUE(multiobjective::function::value_t);
 
 class PyIterator: public Iterator {
 public:
-  void init()                                   override { PYBIND11_OVERRIDE(void, Iterator, init, ); }
-  bool has_next()                               override { PYBIND11_OVERRIDE_PURE(bool, Iterator, has_next, ); }
-  const bit_vector_t& next()                    override { PYBIND11_OVERRIDE_PURE(const bit_vector_t&, Iterator, next, ); }
+  void init()                override { PYBIND11_OVERRIDE(void, Iterator, init, ); }
+  bool has_next()            override { PYBIND11_OVERRIDE_PURE(bool, Iterator, has_next, ); }
+  const bit_vector_t& next() override { PYBIND11_OVERRIDE_PURE(const bit_vector_t&, Iterator, next, ); }
 };
 
-class HncoIterator
-{
+class HncoIterator {
   Iterator& _iterator;
 public:
-  HncoIterator(Iterator& iterator)
-    : _iterator(iterator)
-  {
-    _iterator.init();
-  }
+  HncoIterator(Iterator& iterator): _iterator(iterator) { _iterator.init(); }
   const bit_vector_t& __next__() {
     if (_iterator.has_next())
       return _iterator.next();
@@ -110,18 +105,10 @@ namespace function {
 class PyFunction: public Function {
 public:
   using Function::Function;
-  int get_bv_size() const override {
-    PYBIND11_OVERRIDE_PURE(int, Function, get_bv_size, );
-  }
-  double evaluate(const bit_vector_t& x) override {
-    PYBIND11_OVERRIDE_PURE(double, Function, evaluate, x);
-  }
-  double get_maximum() const override {
-    PYBIND11_OVERRIDE(double, Function, get_maximum, );
-  }
-  bool has_known_maximum() const override {
-    PYBIND11_OVERRIDE(bool, Function, has_known_maximum, );
-  }
+  int get_bv_size() const                override { PYBIND11_OVERRIDE_PURE(int, Function, get_bv_size, ); }
+  double evaluate(const bit_vector_t& x) override { PYBIND11_OVERRIDE_PURE(double, Function, evaluate, x); }
+  double get_maximum() const             override { PYBIND11_OVERRIDE(double, Function, get_maximum, ); }
+  bool has_known_maximum() const         override { PYBIND11_OVERRIDE(bool, Function, has_known_maximum, ); }
 };
 
 class PyUniversalFunction: public UniversalFunction {
@@ -133,8 +120,7 @@ public:
                   const std::vector<std::complex<double>>& complex_vars,
                   const std::vector<int>& categorical_vars,
                   const std::vector<permutation_t>& permutation_vars) override {
-    PYBIND11_OVERRIDE_PURE(double, UniversalFunction, evaluate,
-                           boolean_vars, integer_vars, float_vars, complex_vars, categorical_vars, permutation_vars);
+    PYBIND11_OVERRIDE_PURE(double, UniversalFunction, evaluate, boolean_vars, integer_vars, float_vars, complex_vars, categorical_vars, permutation_vars);
   }
 };
 
@@ -151,12 +137,8 @@ namespace algorithm {
 class PyAlgorithm: public Algorithm {
 public:
   using Algorithm::Algorithm;
-  void maximize(const std::vector<function::Function *>& functions) override {
-    PYBIND11_OVERRIDE_PURE(void, Algorithm, maximize, functions);
-  }
-  void finalize() override {
-    PYBIND11_OVERRIDE(void, Algorithm, finalize, );
-  }
+  void maximize(const std::vector<function::Function *>& functions) override { PYBIND11_OVERRIDE_PURE(void, Algorithm, maximize, functions); }
+  void finalize()                                                   override { PYBIND11_OVERRIDE(void, Algorithm, finalize, ); }
 };
 
 class AlgorithmPublicist: public Algorithm {
@@ -169,12 +151,8 @@ public:
 class PyIterativeAlgorithm: public IterativeAlgorithm {
 public:
   using IterativeAlgorithm::IterativeAlgorithm;
-  void init() override {
-    PYBIND11_OVERRIDE(void, IterativeAlgorithm, init, );
-  }
-  void iterate() override {
-    PYBIND11_OVERRIDE_PURE(void, IterativeAlgorithm, iterate, );
-  }
+  void init()    override { PYBIND11_OVERRIDE(void, IterativeAlgorithm, init, ); }
+  void iterate() override { PYBIND11_OVERRIDE_PURE(void, IterativeAlgorithm, iterate, ); }
 };
 
 class IterativeAlgorithmPublicist: public IterativeAlgorithm {
@@ -196,23 +174,15 @@ namespace function {
 class PyFunction: public Function {
 public:
   using Function::Function;
-  int get_bv_size() const override {
-    PYBIND11_OVERRIDE_PURE(int, Function, get_bv_size, );
-  }
-  int get_output_size() const override {
-    PYBIND11_OVERRIDE_PURE(int, Function, get_output_size, );
-  }
-  void evaluate(const bit_vector_t& bv, value_t& value) override {
-    PYBIND11_OVERRIDE_PURE(void, Function, evaluate, bv, &value);
-  }
+  int get_bv_size() const                               override { PYBIND11_OVERRIDE_PURE(int, Function, get_bv_size, ); }
+  int get_output_size() const                           override { PYBIND11_OVERRIDE_PURE(int, Function, get_output_size, ); }
+  void evaluate(const bit_vector_t& bv, value_t& value) override { PYBIND11_OVERRIDE_PURE(void, Function, evaluate, bv, &value); }
 };
 
 class PyUniversalFunction: public UniversalFunction {
 public:
   using UniversalFunction::UniversalFunction;
-  int get_output_size() const override {
-    PYBIND11_OVERRIDE_PURE(int, UniversalFunction, get_output_size, );
-  }
+  int get_output_size() const override { PYBIND11_OVERRIDE_PURE(int, UniversalFunction, get_output_size, ); }
   void evaluate(const bit_vector_t& boolean_vars,
                 const std::vector<int>& integer_vars,
                 const std::vector<double>& float_vars,
@@ -220,8 +190,7 @@ public:
                 const std::vector<int>& categorical_vars,
                 const std::vector<permutation_t> permutation_vars,
                 value_t& value) override {
-    PYBIND11_OVERRIDE_PURE(void, UniversalFunction, evaluate,
-                           boolean_vars, integer_vars, float_vars, complex_vars, categorical_vars, permutation_vars, &value);
+    PYBIND11_OVERRIDE_PURE(void, UniversalFunction, evaluate, boolean_vars, integer_vars, float_vars, complex_vars, categorical_vars, permutation_vars, &value);
   }
 };
 
@@ -236,20 +205,16 @@ namespace algorithm {
 class PyAlgorithm: public Algorithm {
 public:
   using Algorithm::Algorithm;
-  void minimize(const std::vector<function::Function *>& functions) override {
-    PYBIND11_OVERRIDE_PURE(void, Algorithm, minimize, functions);
-  }
-  const Population& get_solutions() override {
-    PYBIND11_OVERRIDE_PURE(const Population&, Algorithm, get_solutions, );
-  }
+  void minimize(const std::vector<function::Function *>& functions) override { PYBIND11_OVERRIDE_PURE(void, Algorithm, minimize, functions); }
+  const Population& get_solutions()                                 override { PYBIND11_OVERRIDE_PURE(const Population&, Algorithm, get_solutions, ); }
 };
 
 class PyIterativeAlgorithm: public IterativeAlgorithm {
 public:
   using IterativeAlgorithm::IterativeAlgorithm;
-  void init() override { PYBIND11_OVERRIDE(void, IterativeAlgorithm, init, ); }
+  void init()     override { PYBIND11_OVERRIDE(void, IterativeAlgorithm, init, ); }
   void finalize() override { PYBIND11_OVERRIDE(void, IterativeAlgorithm, finalize, ); }
-  void iterate() override { PYBIND11_OVERRIDE_PURE(void, IterativeAlgorithm, iterate, ); }
+  void iterate()  override { PYBIND11_OVERRIDE_PURE(void, IterativeAlgorithm, iterate, ); }
 };
 
 } // end of namespace algorithm
@@ -260,9 +225,9 @@ public:
 // Modules
 //
 
-PYBIND11_MODULE(hnco, module_hnco) {
+PYBIND11_MODULE(hnco, m_hnco) {
  
-  py::bind_vector<bit_vector_t>(module_hnco, "BitVector")
+  py::bind_vector<bit_vector_t>(m_hnco, "BitVector")
     .def(py::init<int>())
     .def(py::init<int, bit_t>())
     .def("__str__",
@@ -274,7 +239,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
     .def("random", [](bit_vector_t& bv) { bv_random(bv); })
     ;
 
-  py::bind_vector<permutation_t>(module_hnco, "Permutation")
+  py::bind_vector<permutation_t>(m_hnco, "Permutation")
     .def(py::init<int>())
     .def("__str__",
          [](const permutation_t& permutation) {
@@ -285,7 +250,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
     .def("random", [](permutation_t& permutation) { perm_random(permutation); })
     ;
  
-  py::class_<algorithm::solution_t>(module_hnco, "Solution")
+  py::class_<algorithm::solution_t>(m_hnco, "Solution")
     .def("__str__",
          [](const algorithm::solution_t& s) {
            std::ostringstream stream;
@@ -301,12 +266,12 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Iterators
   //
 
-  py::class_<HncoIterator>(module_hnco, "HncoIterator")
+  py::class_<HncoIterator>(m_hnco, "HncoIterator")
     .def(py::init<Iterator&>())
     .def("__next__", &HncoIterator::__next__)
     ;
 
-  py::class_<Iterator, PyIterator>(module_hnco, "Iterator")
+  py::class_<Iterator, PyIterator>(m_hnco, "Iterator")
     .def("init", &Iterator::init)
     .def("has_next", &Iterator::has_next)
     .def("next", &Iterator::next)
@@ -316,34 +281,34 @@ PYBIND11_MODULE(hnco, module_hnco) {
          }, py::keep_alive<0, 1>())
     ;
 
-  py::class_<HypercubeIterator, Iterator>(module_hnco, "HypercubeIterator")
+  py::class_<HypercubeIterator, Iterator>(m_hnco, "HypercubeIterator")
     .def(py::init<int>())
     ;
 
-  module_hnco.def("bv_describe", [](const bit_vector_t& bv, function::Function *fn) { fn->describe(bv, std::cout); }, "Describe a bit vector in the context of a function");
+  m_hnco.def("bv_describe", [](const bit_vector_t& bv, function::Function *fn) { fn->describe(bv, std::cout); }, "Describe a bit vector in the context of a function");
 
   //
   // Neighborhoods
   //
 
-  py::module_ module_neighborhood = module_hnco.def_submodule("neighborhood", "Neighborhoods");
+  py::module_ m_nbh = m_hnco.def_submodule("neighborhood", "Neighborhoods");
 
   {
     using namespace neighborhood;
 
-    py::class_<NeighborhoodIterator, Iterator, PyNeighborhoodIterator>(module_neighborhood, "NeighborhoodIterator")
+    py::class_<NeighborhoodIterator, Iterator, PyNeighborhoodIterator>(m_nbh, "NeighborhoodIterator")
       .def("set_origin", &NeighborhoodIterator::set_origin)
       ;
 
-    py::class_<SingleBitFlipIterator, NeighborhoodIterator>(module_neighborhood, "SingleBitFlipIterator")
+    py::class_<SingleBitFlipIterator, NeighborhoodIterator>(m_nbh, "SingleBitFlipIterator")
       .def(py::init<int>())
       ;
 
-    py::class_<HammingSphereIterator, NeighborhoodIterator>(module_neighborhood, "HammingSphereIterator")
+    py::class_<HammingSphereIterator, NeighborhoodIterator>(m_nbh, "HammingSphereIterator")
       .def(py::init<int, int>())
       ;
 
-    py::class_<Neighborhood, PyNeighborhood>(module_neighborhood, "Neighborhood")
+    py::class_<Neighborhood, PyNeighborhood>(m_nbh, "Neighborhood")
       .def("set_origin", &Neighborhood::set_origin)
       .def("get_origin", &Neighborhood::get_origin)
       .def("get_candidate", &Neighborhood::get_candidate)
@@ -355,19 +320,19 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("mutate", &Neighborhood::mutate)
       ;
 
-    py::class_<SingleBitFlip, Neighborhood>(module_neighborhood, "SingleBitFlip")
+    py::class_<SingleBitFlip, Neighborhood>(m_nbh, "SingleBitFlip")
       .def(py::init<int>())
       ;
 
-    py::class_<HammingBall, Neighborhood>(module_neighborhood, "HammingBall")
+    py::class_<HammingBall, Neighborhood>(m_nbh, "HammingBall")
       .def(py::init<int, int>())
       ;
 
-    py::class_<HammingSphere, Neighborhood>(module_neighborhood, "HammingSphere")
+    py::class_<HammingSphere, Neighborhood>(m_nbh, "HammingSphere")
       .def(py::init<int, int>())
       ;
 
-    py::class_<StandardBitMutation, Neighborhood>(module_neighborhood, "StandardBitMutation")
+    py::class_<StandardBitMutation, Neighborhood>(m_nbh, "StandardBitMutation")
       .def(py::init<int, double>())
       ;
 
@@ -377,12 +342,12 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Random numbers
   //
 
-  py::module_ module_random = module_hnco.def_submodule("random", "Random numbers");
+  py::module_ m_rand = m_hnco.def_submodule("random", "Random numbers");
 
   {
     using namespace random;
 
-    py::class_<Generator>(module_random, "Generator")
+    py::class_<Generator>(m_rand, "Generator")
       .def_static("set_seed", static_cast<void (*)()>(&Generator::set_seed))
       .def_static("set_seed", static_cast<void (*)(unsigned)>(&Generator::set_seed))
       .def_static("reset", static_cast<void (*)()>(&Generator::reset))
@@ -395,12 +360,12 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Maps
   //
 
-  py::module_ module_map = module_hnco.def_submodule("map", "Maps");
+  py::module_ m_map = m_hnco.def_submodule("map", "Maps");
 
   {
     using namespace map;
 
-    py::class_<Map>(module_map, "Map")
+    py::class_<Map>(m_map, "Map")
       .def("map", &Map::map)
       .def("get_input_size", &Map::get_input_size)
       .def("get_output_size", &Map::get_output_size)
@@ -413,48 +378,48 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    py::class_<Translation, Map>(module_map, "Translation")
+    py::class_<Translation, Map>(m_map, "Translation")
       .def(py::init<>())
       .def("random", &Translation::random)
       .def("load", static_cast<void (Translation::*)(std::string)>(&Translation::load))
       .def("save", static_cast<void (Translation::*)(std::string) const>(&Translation::save))
       ;
 
-    py::class_<Permutation, Map>(module_map, "Permutation")
+    py::class_<Permutation, Map>(m_map, "Permutation")
       .def(py::init<>())
       .def("random", &Permutation::random)
       .def("load", static_cast<void (Permutation::*)(std::string)>(&Permutation::load))
       .def("save", static_cast<void (Permutation::*)(std::string) const>(&Permutation::save))
       ;
 
-    py::class_<LinearMap, Map>(module_map, "LinearMap")
+    py::class_<LinearMap, Map>(m_map, "LinearMap")
       .def(py::init<>())
       .def("random", &LinearMap::random)
       .def("load", static_cast<void (LinearMap::*)(std::string)>(&LinearMap::load))
       .def("save", static_cast<void (LinearMap::*)(std::string) const>(&LinearMap::save))
       ;
 
-    py::class_<AffineMap, Map>(module_map, "AffineMap")
+    py::class_<AffineMap, Map>(m_map, "AffineMap")
       .def(py::init<>())
       .def("random", &AffineMap::random)
       .def("load", static_cast<void (AffineMap::*)(std::string)>(&AffineMap::load))
       .def("save", static_cast<void (AffineMap::*)(std::string) const>(&AffineMap::save))
       ;
 
-    py::class_<MapComposition, Map>(module_map, "MapComposition")
+    py::class_<MapComposition, Map>(m_map, "MapComposition")
       .def(py::init<>())
       .def(py::init<Map *, Map *>())
       ;
 
-    py::class_<Injection, Map>(module_map, "Injection")
+    py::class_<Injection, Map>(m_map, "Injection")
       .def(py::init<const std::vector<int>&, int>())
       ;
 
-    py::class_<Projection, Map>(module_map, "Projection")
+    py::class_<Projection, Map>(m_map, "Projection")
       .def(py::init<const std::vector<int>&, int>())
       ;
 
-    py::class_<TsAffineMap, Map> ts_affine_map(module_map, "TsAffineMap");
+    py::class_<TsAffineMap, Map> ts_affine_map(m_map, "TsAffineMap");
 
     ts_affine_map
       .def(py::init<>())
@@ -480,8 +445,8 @@ PYBIND11_MODULE(hnco, module_hnco) {
   {
     using namespace exception;
 
-    py::register_exception<TargetReached>(module_hnco, "TargetReached");
-    py::register_exception<LastEvaluation>(module_hnco, "LastEvaluation");
+    py::register_exception<TargetReached>(m_hnco, "TargetReached");
+    py::register_exception<LastEvaluation>(m_hnco, "LastEvaluation");
 
   }
 
@@ -489,12 +454,12 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Functions
   //
 
-  py::module_ module_function = module_hnco.def_submodule("function", "Functions");
+  py::module_ m_fn = m_hnco.def_submodule("function", "Functions");
 
   {
     using namespace function;
 
-    py::class_<Function, PyFunction>(module_function, "Function")
+    py::class_<Function, PyFunction>(m_fn, "Function")
       .def(py::init<>())
       .def("get_bv_size", &Function::get_bv_size)
       .def("get_maximum", &Function::get_maximum)
@@ -508,26 +473,26 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    py::class_<AbstractMaxSat, Function>(module_function, "AbstractMaxSat")
+    py::class_<AbstractMaxSat, Function>(m_fn, "AbstractMaxSat")
       .def("load", &AbstractMaxSat::load)
       .def("save", &AbstractMaxSat::save)
       ;
 
-    py::class_<MaxSat, AbstractMaxSat>(module_function, "MaxSat")
+    py::class_<MaxSat, AbstractMaxSat>(m_fn, "MaxSat")
       .def(py::init<>())
       .def("random", static_cast<void (MaxSat::*)(int, int, int)>(&MaxSat::random))
       .def("random", static_cast<void (MaxSat::*)(const bit_vector_t&, int, int)>(&MaxSat::random))
       ;
 
-    py::class_<MaxNae3Sat, AbstractMaxSat>(module_function, "MaxNae3Sat")
+    py::class_<MaxNae3Sat, AbstractMaxSat>(m_fn, "MaxNae3Sat")
       .def(py::init<>())
       ;
 
-    py::class_<DeceptiveJump, Function>(module_function, "DeceptiveJump")
+    py::class_<DeceptiveJump, Function>(m_fn, "DeceptiveJump")
       .def(py::init<int, int>())
       ;
 
-    py::class_<EqualProducts, Function>(module_function, "EqualProducts")
+    py::class_<EqualProducts, Function>(m_fn, "EqualProducts")
       .def(py::init<>())
       .def("random", &EqualProducts::random)
       .def("load", &EqualProducts::load)
@@ -535,52 +500,52 @@ PYBIND11_MODULE(hnco, module_hnco) {
       ;
 
 #ifdef ENABLE_FACTORIZATION
-    py::class_<Factorization, Function>(module_function, "Factorization")
+    py::class_<Factorization, Function>(m_fn, "Factorization")
       .def(py::init<>())
       .def(py::init<const std::string>())
       .def("load", &Factorization::load)
       ;
 #endif
 
-    py::class_<FourPeaks, Function>(module_function, "FourPeaks")
+    py::class_<FourPeaks, Function>(m_fn, "FourPeaks")
       .def(py::init<int, int>())
       ;
 
 #ifdef ENABLE_PLUGIN
-    py::class_<FunctionPlugin, Function>(module_function, "FunctionPlugin")
+    py::class_<FunctionPlugin, Function>(m_fn, "FunctionPlugin")
       .def(py::init<int, std::string, std::string>())
       ;
 #endif
 
-    py::class_<Hiff, Function>(module_function, "Hiff")
+    py::class_<Hiff, Function>(m_fn, "Hiff")
       .def(py::init<int>())
       ;
 
-    py::class_<Jump, Function>(module_function, "Jump")
+    py::class_<Jump, Function>(m_fn, "Jump")
       .def(py::init<int, int>())
       ;
 
-    py::class_<Labs, Function>(module_function, "Labs")
+    py::class_<Labs, Function>(m_fn, "Labs")
       .def(py::init<int>())
       .def("set_merit_factor_flag", &Labs::set_merit_factor_flag)
       ;
 
-    py::class_<LeadingOnes, Function>(module_function, "LeadingOnes")
+    py::class_<LeadingOnes, Function>(m_fn, "LeadingOnes")
       .def(py::init<int>())
       ;
 
-    py::class_<LinearFunction, Function>(module_function, "LinearFunction")
+    py::class_<LinearFunction, Function>(m_fn, "LinearFunction")
       .def(py::init<>())
       .def("random", &LinearFunction::random)
       .def("load", &LinearFunction::load)
       .def("save", &LinearFunction::save)
       ;
 
-    py::class_<LongPath, Function>(module_function, "LongPath")
+    py::class_<LongPath, Function>(m_fn, "LongPath")
       .def(py::init<int, int>())
       ;
 
-    py::class_<NearestNeighborIsingModel1, Function>(module_function, "NearestNeighborIsingModel1")
+    py::class_<NearestNeighborIsingModel1, Function>(m_fn, "NearestNeighborIsingModel1")
       .def(py::init<>())
       .def("random", &NearestNeighborIsingModel1::random)
       .def("load", static_cast<void (NearestNeighborIsingModel1::*)(std::string)>(&NearestNeighborIsingModel1::load))
@@ -588,7 +553,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("set_periodic_boundary_conditions", &NearestNeighborIsingModel1::set_periodic_boundary_conditions)
       ;
 
-    py::class_<NearestNeighborIsingModel2, Function>(module_function, "NearestNeighborIsingModel2")
+    py::class_<NearestNeighborIsingModel2, Function>(m_fn, "NearestNeighborIsingModel2")
       .def(py::init<>())
       .def("random", &NearestNeighborIsingModel2::random)
       .def("load", static_cast<void (NearestNeighborIsingModel2::*)(std::string)>(&NearestNeighborIsingModel2::load))
@@ -596,79 +561,79 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("set_periodic_boundary_conditions", &NearestNeighborIsingModel2::set_periodic_boundary_conditions)
       ;
 
-    py::class_<Needle, Function>(module_function, "Needle")
+    py::class_<Needle, Function>(m_fn, "Needle")
       .def(py::init<int>())
       ;
 
-    py::class_<NkLandscape, Function>(module_function, "NkLandscape")
+    py::class_<NkLandscape, Function>(m_fn, "NkLandscape")
       .def(py::init<>())
       .def("random", &NkLandscape::random)
       .def("load", static_cast<void (NkLandscape::*)(std::string)>(&NkLandscape::load))
       .def("save", static_cast<void (NkLandscape::*)(std::string) const>(&NkLandscape::save))
       ;
 
-    py::class_<Partition, Function>(module_function, "Partition")
+    py::class_<Partition, Function>(m_fn, "Partition")
       .def(py::init<>())
       .def("random", &Partition::random)
       .def("load", static_cast<void (Partition::*)(std::string)>(&Partition::load))
       .def("save", static_cast<void (Partition::*)(std::string) const>(&Partition::save))
       ;
 
-    py::class_<OneMax, Function>(module_function, "OneMax")
+    py::class_<OneMax, Function>(m_fn, "OneMax")
       .def(py::init<int>())
       ;
 
-    py::class_<Plateau, Function>(module_function, "Plateau")
+    py::class_<Plateau, Function>(m_fn, "Plateau")
       .def(py::init<int>())
       ;
 
-    py::class_<Qubo, Function>(module_function, "Qubo")
+    py::class_<Qubo, Function>(m_fn, "Qubo")
       .def(py::init<>())
       .def("load", static_cast<void (Qubo::*)(std::string)>(&Qubo::load))
       ;
 
-    py::class_<Ridge, Function>(module_function, "Ridge")
+    py::class_<Ridge, Function>(m_fn, "Ridge")
       .def(py::init<int>())
       ;
 
-    py::class_<SixPeaks, Function>(module_function, "SixPeaks")
+    py::class_<SixPeaks, Function>(m_fn, "SixPeaks")
       .def(py::init<int, int>())
       ;
 
-    py::class_<SummationCancellation, Function>(module_function, "SummationCancellation")
+    py::class_<SummationCancellation, Function>(m_fn, "SummationCancellation")
       .def(py::init<int>())
       ;
 
-    py::class_<SinusSummationCancellation, SummationCancellation>(module_function, "SinusSummationCancellation")
+    py::class_<SinusSummationCancellation, SummationCancellation>(m_fn, "SinusSummationCancellation")
       .def(py::init<int>())
       ;
 
-    py::class_<Trap, Function>(module_function, "Trap")
+    py::class_<Trap, Function>(m_fn, "Trap")
       .def(py::init<int, int>())
       ;
 
-    py::class_<WalshExpansion, Function>(module_function, "WalshExpansion")
+    py::class_<WalshExpansion, Function>(m_fn, "WalshExpansion")
       .def(py::init<>())
       .def("random", &WalshExpansion::random)
       .def("load", static_cast<void (WalshExpansion::*)(std::string)>(&WalshExpansion::load))
       .def("save", static_cast<void (WalshExpansion::*)(std::string) const>(&WalshExpansion::save))
       ;
 
-    py::class_<WalshExpansion1, Function>(module_function, "WalshExpansion1")
+    py::class_<WalshExpansion1, Function>(m_fn, "WalshExpansion1")
       .def(py::init<>())
       .def("random", &WalshExpansion1::random)
       .def("load", static_cast<void (WalshExpansion1::*)(std::string)>(&WalshExpansion1::load))
       .def("save", static_cast<void (WalshExpansion1::*)(std::string) const>(&WalshExpansion1::save))
       ;
 
-    py::class_<WalshExpansion2, Function>(module_function, "WalshExpansion2")
+    py::class_<WalshExpansion2, Function>(m_fn, "WalshExpansion2")
       .def(py::init<>())
       .def("random", &WalshExpansion2::random)
       .def("load", static_cast<void (WalshExpansion2::*)(std::string)>(&WalshExpansion2::load))
       .def("save", static_cast<void (WalshExpansion2::*)(std::string) const>(&WalshExpansion2::save))
       ;
 
-    py::class_<Decorator, Function>(module_function, "Decorator");
+    py::class_<Decorator, Function>(m_fn, "Decorator");
 
     using namespace representation;
 
@@ -676,7 +641,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
     using FloatRep = DyadicFloatRepresentation<double>;
     using ComplexRep = ComplexRepresentation<FloatRep>;
 
-    py::class_<UniversalFunctionAdapter, Function>(module_function, "UniversalFunctionAdapter")
+    py::class_<UniversalFunctionAdapter, Function>(m_fn, "UniversalFunctionAdapter")
       .def(py::init<
            UniversalFunction *,
            int,
@@ -687,7 +652,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
            std::vector<PermutationRepresentation>>())
       ;
 
-    py::class_<UniversalFunction, PyUniversalFunction>(module_function, "UniversalFunction")
+    py::class_<UniversalFunction, PyUniversalFunction>(m_fn, "UniversalFunction")
       .def(py::init<>())
       .def("evaluate", &UniversalFunction::evaluate)
       .def("__str__",
@@ -704,35 +669,35 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Controllers
   //
 
-  py::module_ module_controller = module_function.def_submodule("controller", "Controllers");
+  py::module_ m_ctrl = m_fn.def_submodule("controller", "Controllers");
 
   {
     using namespace function::controller;
 
-    py::class_<Controller, function::Decorator>(module_controller, "Controller");
+    py::class_<Controller, function::Decorator>(m_ctrl, "Controller");
 
-    py::class_<StopOnTarget, Controller>(module_controller, "StopOnTarget")
+    py::class_<StopOnTarget, Controller>(m_ctrl, "StopOnTarget")
       .def(py::init<function::Function *, double>())
       .def("get_trigger", &StopOnTarget::get_trigger)
       ;
 
-    py::class_<StopOnMaximum, StopOnTarget>(module_controller, "StopOnMaximum")
+    py::class_<StopOnMaximum, StopOnTarget>(m_ctrl, "StopOnMaximum")
       .def(py::init<function::Function *>())
       ;
 
-    py::class_<CallCounter, Controller>(module_controller, "CallCounter")
+    py::class_<CallCounter, Controller>(m_ctrl, "CallCounter")
       .def(py::init<function::Function *>())
       .def("get_num_calls", &CallCounter::get_num_calls)
       ;
 
-    py::class_<OnBudgetFunction, CallCounter>(module_controller, "OnBudgetFunction")
+    py::class_<OnBudgetFunction, CallCounter>(m_ctrl, "OnBudgetFunction")
       .def(py::init<function::Function *, int>())
       ;
 
-    py::class_<ProgressTracker::Event>(module_controller, "Event")
+    py::class_<ProgressTracker::Event>(m_ctrl, "Event")
       ;
 
-    py::class_<ProgressTracker, CallCounter>(module_controller, "ProgressTracker")
+    py::class_<ProgressTracker, CallCounter>(m_ctrl, "ProgressTracker")
       .def(py::init<function::Function *>())
       .def("set_log_improvement", &ProgressTracker::set_log_improvement)
       .def("set_record_evaluation_time", &ProgressTracker::set_record_evaluation_time)
@@ -740,7 +705,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("get_last_improvement", &ProgressTracker::get_last_improvement)
       ;
 
-    py::class_<Cache, Controller>(module_controller, "Cache")
+    py::class_<Cache, Controller>(m_ctrl, "Cache")
       .def(py::init<function::Function *>())
       .def("get_lookup_ratio", &Cache::get_lookup_ratio)
       ;
@@ -751,31 +716,31 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Modifiers
   //
 
-  py::module_ module_modifier = module_function.def_submodule("modifier", "Modifiers");
+  py::module_ m_mod = m_fn.def_submodule("modifier", "Modifiers");
 
   {
     using namespace function::modifier;
     using namespace map;
 
-    py::class_<Modifier, function::Decorator>(module_modifier, "Modifier");
+    py::class_<Modifier, function::Decorator>(m_mod, "Modifier");
 
-    py::class_<AdditiveGaussianNoise, Modifier>(module_modifier, "AdditiveGaussianNoise")
+    py::class_<AdditiveGaussianNoise, Modifier>(m_mod, "AdditiveGaussianNoise")
       .def(py::init<function::Function *, double>())
       ;
 
-    py::class_<FunctionMapComposition, Modifier>(module_modifier, "FunctionMapComposition")
+    py::class_<FunctionMapComposition, Modifier>(m_mod, "FunctionMapComposition")
       .def(py::init<function::Function *, Map *>())
       ;
 
-    py::class_<Negation, Modifier>(module_modifier, "Negation")
+    py::class_<Negation, Modifier>(m_mod, "Negation")
       .def(py::init<function::Function *>())
       ;
 
-    py::class_<ParsedModifier, Modifier>(module_modifier, "ParsedModifier")
+    py::class_<ParsedModifier, Modifier>(m_mod, "ParsedModifier")
       .def(py::init<function::Function *, std::string>())
       ;
 
-    py::class_<PriorNoise, Modifier>(module_modifier, "PriorNoise")
+    py::class_<PriorNoise, Modifier>(m_mod, "PriorNoise")
       .def(py::init<function::Function *, neighborhood::Neighborhood *>())
       ;
 
@@ -785,7 +750,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Representations
   //
 
-  py::module_ module_representation = module_hnco.def_submodule("representation", "Representations");
+  py::module_ m_rep = m_hnco.def_submodule("representation", "Representations");
 
   {
     using namespace function;
@@ -795,7 +760,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
     using FloatRep = DyadicFloatRepresentation<double>;
     using ComplexRep = ComplexRepresentation<FloatRep>;
 
-    py::class_<IntegerRep>(module_representation, "DyadicIntegerRepresentation")
+    py::class_<IntegerRep>(m_rep, "DyadicIntegerRepresentation")
       .def(py::init<int, int, int>())
       .def(py::init<int, int>())
       .def("size", &IntegerRep::size)
@@ -808,7 +773,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    py::class_<FloatRep>(module_representation, "DyadicFloatRepresentation")
+    py::class_<FloatRep>(m_rep, "DyadicFloatRepresentation")
       .def(py::init<double, double, int>())
       .def(py::init<double, double, double>())
       .def("size", &FloatRep::size)
@@ -821,7 +786,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    py::class_<ComplexRep>(module_representation, "ComplexRepresentation")
+    py::class_<ComplexRep>(m_rep, "ComplexRepresentation")
       .def(py::init<FloatRep, FloatRep>())
       .def(py::init<FloatRep>())
       .def("size", &ComplexRep::size)
@@ -834,7 +799,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    py::class_<LinearCategoricalRepresentation>(module_representation, "LinearCategoricalRepresentation")
+    py::class_<LinearCategoricalRepresentation>(m_rep, "LinearCategoricalRepresentation")
       .def(py::init<int>())
       .def("size", &LinearCategoricalRepresentation::size)
       .def("unpack", &LinearCategoricalRepresentation::unpack)
@@ -846,7 +811,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    py::class_<PermutationRepresentation>(module_representation, "PermutationRepresentation")
+    py::class_<PermutationRepresentation>(m_rep, "PermutationRepresentation")
       .def(py::init<int, int>())
       .def("size", &PermutationRepresentation::size)
       .def("unpack", &PermutationRepresentation::unpack)
@@ -864,12 +829,12 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Algorithms
   //
 
-  py::module_ module_algorithm = module_hnco.def_submodule("algorithm", "Algorithms");
+  py::module_ m_algo = m_hnco.def_submodule("algorithm", "Algorithms");
 
   {
     using namespace algorithm;
 
-    py::class_<Algorithm, PyAlgorithm>(module_algorithm, "Algorithm")
+    py::class_<Algorithm, PyAlgorithm>(m_algo, "Algorithm")
       .def(py::init<int>())
       .def("get_solution", &Algorithm::get_solution)
       .def("maximize", &Algorithm::maximize)
@@ -879,32 +844,32 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def_readwrite("solution", &AlgorithmPublicist::_solution)
       ;
 
-    py::class_<CompleteSearch, Algorithm>(module_algorithm, "CompleteSearch")
+    py::class_<CompleteSearch, Algorithm>(m_algo, "CompleteSearch")
       .def(py::init<int>())
       ;
 
-    py::class_<IterativeAlgorithm, Algorithm, PyIterativeAlgorithm>(module_algorithm, "IterativeAlgorithm")
+    py::class_<IterativeAlgorithm, Algorithm, PyIterativeAlgorithm>(m_algo, "IterativeAlgorithm")
       .def(py::init<int>())
       .def("init", &IterativeAlgorithmPublicist::init)
       .def("set_num_iterations", &IterativeAlgorithm::set_num_iterations)
       ;
 
-    py::class_<RandomSearch, IterativeAlgorithm>(module_algorithm, "RandomSearch")
+    py::class_<RandomSearch, IterativeAlgorithm>(m_algo, "RandomSearch")
       .def(py::init<int>())
       ;
 
-    py::class_<LocalSearchAlgorithm<neighborhood::Neighborhood>, IterativeAlgorithm>(module_algorithm, "LocalSearchAlgorithm");
+    py::class_<LocalSearchAlgorithm<neighborhood::Neighborhood>, IterativeAlgorithm>(m_algo, "LocalSearchAlgorithm");
 
-    py::class_<RandomWalk, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "RandomWalk")
+    py::class_<RandomWalk, LocalSearchAlgorithm<neighborhood::Neighborhood>>(m_algo, "RandomWalk")
       .def(py::init<int, neighborhood::Neighborhood *>())
       ;
 
-    py::class_<RandomLocalSearch, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "RandomLocalSearch")
+    py::class_<RandomLocalSearch, LocalSearchAlgorithm<neighborhood::Neighborhood>>(m_algo, "RandomLocalSearch")
       .def(py::init<int, neighborhood::Neighborhood *>())
       .def("set_patience", &RandomLocalSearch::set_patience)
       ;
 
-    py::class_<SimulatedAnnealing, LocalSearchAlgorithm<neighborhood::Neighborhood>>(module_algorithm, "SimulatedAnnealing")
+    py::class_<SimulatedAnnealing, LocalSearchAlgorithm<neighborhood::Neighborhood>>(m_algo, "SimulatedAnnealing")
       .def(py::init<int, neighborhood::Neighborhood *>())
       .def("set_num_transitions", &SimulatedAnnealing::set_num_transitions)
       .def("set_num_trials", &SimulatedAnnealing::set_num_trials)
@@ -912,7 +877,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("set_beta_ratio", &SimulatedAnnealing::set_beta_ratio)
       ;
 
-    py::class_<OnePlusOneEa, Algorithm>(module_algorithm, "OnePlusOneEa")
+    py::class_<OnePlusOneEa, Algorithm>(m_algo, "OnePlusOneEa")
       .def(py::init<int>())
       .def("set_num_iterations", &OnePlusOneEa::set_num_iterations)
       .def("set_mutation_rate", &OnePlusOneEa::set_mutation_rate)
@@ -920,7 +885,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("set_incremental_evaluation", &OnePlusOneEa::set_incremental_evaluation)
       ;
 
-    py::class_<SelfAdjustingOnePlusOneEa, IterativeAlgorithm>(module_algorithm, "SelfAdjustingOnePlusOneEa")
+    py::class_<SelfAdjustingOnePlusOneEa, IterativeAlgorithm>(m_algo, "SelfAdjustingOnePlusOneEa")
       .def(py::init<int>())
       .def("set_num_iterations", &SelfAdjustingOnePlusOneEa::set_num_iterations)
       .def("set_mutation_rate_init", &SelfAdjustingOnePlusOneEa::set_mutation_rate_init)
@@ -932,25 +897,25 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("set_incremental_evaluation", &SelfAdjustingOnePlusOneEa::set_incremental_evaluation)
       ;
 
-    py::class_<MuPlusLambdaEa, IterativeAlgorithm>(module_algorithm, "MuPlusLambdaEa")
+    py::class_<MuPlusLambdaEa, IterativeAlgorithm>(m_algo, "MuPlusLambdaEa")
       .def(py::init<int, int, int>())
       .def("set_mutation_rate", &MuPlusLambdaEa::set_mutation_rate)
       .def("set_allow_no_mutation", &MuPlusLambdaEa::set_allow_no_mutation)
       ;
 
-    py::class_<MuCommaLambdaEa, IterativeAlgorithm>(module_algorithm, "MuCommaLambdaEa")
+    py::class_<MuCommaLambdaEa, IterativeAlgorithm>(m_algo, "MuCommaLambdaEa")
       .def(py::init<int, int, int>())
       .def("set_mutation_rate", &MuCommaLambdaEa::set_mutation_rate)
       .def("set_allow_no_mutation", &MuCommaLambdaEa::set_allow_no_mutation)
       ;
 
-    py::class_<TwoRateOnePlusLambdaEa, IterativeAlgorithm>(module_algorithm, "TwoRateOnePlusLambdaEa")
+    py::class_<TwoRateOnePlusLambdaEa, IterativeAlgorithm>(m_algo, "TwoRateOnePlusLambdaEa")
       .def(py::init<int, int>())
       .def("set_mutation_rate_init", &TwoRateOnePlusLambdaEa::set_mutation_rate_init)
       .def("set_allow_no_mutation", &TwoRateOnePlusLambdaEa::set_allow_no_mutation)
       ;
 
-    py::class_<InformationTheoreticEa, IterativeAlgorithm>(module_algorithm, "InformationTheoreticEa")
+    py::class_<InformationTheoreticEa, IterativeAlgorithm>(m_algo, "InformationTheoreticEa")
       .def(py::init<int, int>())
       .def("set_allow_no_mutation", &InformationTheoreticEa::set_allow_no_mutation)
       .def("set_initial_hamming_weight", &InformationTheoreticEa::set_initial_hamming_weight)
@@ -962,7 +927,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("set_selection_size", &InformationTheoreticEa::set_selection_size)
       ;
 
-    py::class_<GeneticAlgorithm, IterativeAlgorithm>(module_algorithm, "GeneticAlgorithm")
+    py::class_<GeneticAlgorithm, IterativeAlgorithm>(m_algo, "GeneticAlgorithm")
       .def(py::init<int, int>())
       .def("set_mutation_rate", &GeneticAlgorithm::set_mutation_rate)
       .def("set_crossover_probability", &GeneticAlgorithm::set_crossover_probability)
@@ -970,38 +935,38 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def("set_allow_no_mutation", &GeneticAlgorithm::set_allow_no_mutation)
       ;
 
-    py::class_<OnePlusLambdaCommaLambdaGa, IterativeAlgorithm>(module_algorithm, "OnePlusLambdaCommaLambdaGa")
+    py::class_<OnePlusLambdaCommaLambdaGa, IterativeAlgorithm>(m_algo, "OnePlusLambdaCommaLambdaGa")
       .def(py::init<int, int>())
       .def("set_mutation_rate", &OnePlusLambdaCommaLambdaGa::set_mutation_rate)
       .def("set_crossover_bias", &OnePlusLambdaCommaLambdaGa::set_crossover_bias)
       ;
 
-    py::class_<PvAlgorithm, IterativeAlgorithm>(module_algorithm, "PvAlgorithm")
+    py::class_<PvAlgorithm, IterativeAlgorithm>(m_algo, "PvAlgorithm")
       ;
 
-    py::class_<Pbil, PvAlgorithm>(module_algorithm, "Pbil")
+    py::class_<Pbil, PvAlgorithm>(m_algo, "Pbil")
       .def(py::init<int, int>())
       .def("set_learning_rate", &Pbil::set_learning_rate)
       .def("set_selection_size", &Pbil::set_selection_size)
       ;
 
-    py::class_<NpsPbil, PvAlgorithm>(module_algorithm, "NpsPbil")
+    py::class_<NpsPbil, PvAlgorithm>(m_algo, "NpsPbil")
       .def(py::init<int, int>())
       .def("set_learning_rate", &NpsPbil::set_learning_rate)
       .def("set_selection_size", &NpsPbil::set_selection_size)
       ;
 
-    py::class_<Umda, PvAlgorithm>(module_algorithm, "Umda")
+    py::class_<Umda, PvAlgorithm>(m_algo, "Umda")
       .def(py::init<int, int>())
       .def("set_selection_size", &Umda::set_selection_size)
       ;
 
-    py::class_<CompactGa, PvAlgorithm>(module_algorithm, "CompactGa")
+    py::class_<CompactGa, PvAlgorithm>(m_algo, "CompactGa")
       .def(py::init<int>())
       .def("set_learning_rate", &CompactGa::set_learning_rate)
       ;
 
-    py::class_<Mmas, PvAlgorithm>(module_algorithm, "Mmas")
+    py::class_<Mmas, PvAlgorithm>(m_algo, "Mmas")
       .def(py::init<int>())
       .def("set_learning_rate", &Mmas::set_learning_rate)
       ;
@@ -1011,7 +976,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
       {
         using Algo = Hea<SymmetricWalshMoment2Herding>;
-        py::class_<Algo, IterativeAlgorithm>(module_algorithm, "Hea")
+        py::class_<Algo, IterativeAlgorithm>(m_algo, "Hea")
           .def(py::init<int, int>())
           .def("set_bound_moment", &Algo::set_bound_moment)
           .def("set_learning_rate", &Algo::set_learning_rate)
@@ -1024,7 +989,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
       {
         using Algo = BmPbil<SymmetricWalshMoment2GibbsSampler>;
-        py::class_<Algo, IterativeAlgorithm>(module_algorithm, "BmPbil")
+        py::class_<Algo, IterativeAlgorithm>(m_algo, "BmPbil")
           .def(py::init<int, int>())
           .def("set_learning_rate", &Algo::set_learning_rate)
           .def("set_mc_reset_strategy", &Algo::set_mc_reset_strategy)
@@ -1039,26 +1004,26 @@ PYBIND11_MODULE(hnco, module_hnco) {
 
     }
 
-    py::class_<Mimic, IterativeAlgorithm>(module_algorithm, "Mimic")
+    py::class_<Mimic, IterativeAlgorithm>(m_algo, "Mimic")
       .def(py::init<int, int>())
       .def("set_selection_size", &Mimic::set_selection_size)
       ;
 
-    py::class_<fast_efficient_p3::Hboa, Algorithm>(module_algorithm, "Hboa")
+    py::class_<fast_efficient_p3::Hboa, Algorithm>(m_algo, "Hboa")
       .def(py::init<int>())
       .def("set_population_size", &fast_efficient_p3::Hboa::set_population_size)
       ;
 
-    py::class_<fast_efficient_p3::Ltga, Algorithm>(module_algorithm, "Ltga")
+    py::class_<fast_efficient_p3::Ltga, Algorithm>(m_algo, "Ltga")
       .def(py::init<int>())
       .def("set_population_size", &fast_efficient_p3::Ltga::set_population_size)
       ;
 
-    py::class_<fast_efficient_p3::ParameterLessPopulationPyramid, Algorithm>(module_algorithm, "ParameterLessPopulationPyramid")
+    py::class_<fast_efficient_p3::ParameterLessPopulationPyramid, Algorithm>(m_algo, "ParameterLessPopulationPyramid")
       .def(py::init<int>())
       ;
 
-    py::class_<Population>(module_algorithm, "Population")
+    py::class_<Population>(m_algo, "Population")
       .def(py::init<int, int>())
 
       .def("get_size", &Population::get_size)
@@ -1089,14 +1054,14 @@ PYBIND11_MODULE(hnco, module_hnco) {
   // Multiobjective
   //
 
-  py::module_ module_multiobjective = module_hnco.def_submodule("multiobjective", "Multiobjective optimization");
-  py::module_ module_multiobjective_function = module_multiobjective.def_submodule("function", "Functions for multiobjective optimization");
-  py::module_ module_multiobjective_algorithm = module_multiobjective.def_submodule("algorithm", "Algorithms for multiobjective optimization");
+  py::module_ m_multi = m_hnco.def_submodule("multiobjective", "Multiobjective optimization");
+  py::module_ m_multi_fn = m_multi.def_submodule("function", "Functions for multiobjective optimization");
+  py::module_ m_multi_algo = m_multi.def_submodule("algorithm", "Algorithms for multiobjective optimization");
 
   {
     using namespace multiobjective::function;
 
-    py::bind_vector<value_t>(module_multiobjective_function, "Value")
+    py::bind_vector<value_t>(m_multi_fn, "Value")
       .def(py::init<int>())
       .def(py::init<int, double>())
       .def("__str__",
@@ -1107,7 +1072,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    py::class_<Function, multiobjective::function::PyFunction>(module_multiobjective_function, "Function")
+    py::class_<Function, multiobjective::function::PyFunction>(m_multi_fn, "Function")
       .def(py::init<>())
       .def("get_bv_size", &Function::get_bv_size)
       .def("get_output_size", &Function::get_output_size)
@@ -1120,7 +1085,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
            })
       ;
 
-    module_multiobjective_function.def("bv_describe", [](const bit_vector_t& bv, multiobjective::function::Function *fn) { fn->describe(bv, std::cout); }, "Describe a bit vector in the context of a function");
+    m_multi_fn.def("bv_describe", [](const bit_vector_t& bv, multiobjective::function::Function *fn) { fn->describe(bv, std::cout); }, "Describe a bit vector in the context of a function");
 
     using namespace representation;
 
@@ -1128,7 +1093,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
     using FloatRep = DyadicFloatRepresentation<double>;
     using ComplexRep = ComplexRepresentation<FloatRep>;
 
-    py::class_<UniversalFunctionAdapter, Function>(module_multiobjective_function, "UniversalFunctionAdapter")
+    py::class_<UniversalFunctionAdapter, Function>(m_multi_fn, "UniversalFunctionAdapter")
       .def(py::init<
            UniversalFunction *,
            int,
@@ -1139,7 +1104,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
            std::vector<PermutationRepresentation>>())
       ;
 
-    py::class_<UniversalFunction, PyUniversalFunction>(module_multiobjective_function, "UniversalFunction")
+    py::class_<UniversalFunction, PyUniversalFunction>(m_multi_fn, "UniversalFunction")
       .def(py::init<>())
       .def("evaluate", &UniversalFunction::evaluate)
       .def("__str__",
@@ -1155,7 +1120,7 @@ PYBIND11_MODULE(hnco, module_hnco) {
   {
     using namespace multiobjective::algorithm;
 
-    py::class_<Population>(module_multiobjective_algorithm, "Population")
+    py::class_<Population>(m_multi_algo, "Population")
       .def(py::init<int, int, int>())
       .def("get_size", &Population::get_size)
       .def("random", &Population::random)
@@ -1164,17 +1129,17 @@ PYBIND11_MODULE(hnco, module_hnco) {
       .def_readwrite("values", &Population::values)
       ;
 
-    py::class_<Algorithm, multiobjective::algorithm::PyAlgorithm>(module_multiobjective_algorithm, "Algorithm")
+    py::class_<Algorithm, multiobjective::algorithm::PyAlgorithm>(m_multi_algo, "Algorithm")
       .def(py::init<int, int>())
       .def("get_solutions", &Algorithm::get_solutions, py::return_value_policy::reference)
       .def("minimize", &Algorithm::minimize)
       ;
 
-    py::class_<IterativeAlgorithm, Algorithm, multiobjective::algorithm::PyIterativeAlgorithm>(module_multiobjective_algorithm, "IterativeAlgorithm")
+    py::class_<IterativeAlgorithm, Algorithm, multiobjective::algorithm::PyIterativeAlgorithm>(m_multi_algo, "IterativeAlgorithm")
       .def("set_num_iterations", &IterativeAlgorithm::set_num_iterations)
       ;
 
-    py::class_<Nsga2, IterativeAlgorithm>(module_multiobjective_algorithm, "Nsga2")
+    py::class_<Nsga2, IterativeAlgorithm>(m_multi_algo, "Nsga2")
       .def(py::init<int, int, int>())
       .def("set_tournament_size", &Nsga2::set_tournament_size)
       .def("set_mutation_rate", &Nsga2::set_mutation_rate)
