@@ -38,10 +38,11 @@ namespace algorithm {
  * Reference:
  *
  * Benjamin Doerr, Christian Gießen, Carsten Witt, and Jing Yang.
- * 2017. The (1+λ) evolutionary algorithm with self-adjusting mutation
- * rate. In Proceedings of the Genetic and Evolutionary Computation
- * Conference (GECCO '17). Association for Computing Machinery, New
- * York, NY, USA, 1351–1358. https://doi.org/10.1145/3071178.3071279
+ * 2017. The (1+lambda) evolutionary algorithm with self-adjusting
+ * mutation rate. In Proceedings of the Genetic and Evolutionary
+ * Computation Conference (GECCO '17). Association for Computing
+ * Machinery, New York, NY, USA, 1351–1358.
+ * https://doi.org/10.1145/3071178.3071279
  */
 class TwoRateOnePlusLambdaEa: public IterativeAlgorithm {
 
