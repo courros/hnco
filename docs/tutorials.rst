@@ -2,9 +2,9 @@
 Tutorials
 =========
 
-------------------------------------------
-Optimize a user-defined function from hnco
-------------------------------------------
+-------------------------------------------------------------
+Optimize a user-defined function from hnco (single objective)
+-------------------------------------------------------------
 
 Parser
 ------
@@ -53,19 +53,21 @@ and ``representations.txt`` contains::
 
 See ``hnco --help-fp`` for more options for the parser.
 
+.. _single-hnco-python:
+
 Python
 ------
 
 It is possible to define an arbitrary function in Python and maximize
-it from hnco without recompilation. For example, suppose that the file
-``one-max.py`` contains the following Python code:
+it from hnco. For example, the file ``one-max.py`` in the directory
+``bindings/examples/`` defines the custom function ``MyFunction``:
 
 .. literalinclude:: ../bindings/examples/one-max.py
    :language: py
 
-As can been seen, the class `MyFunction` provides an implementation of
-OneMax. Observe that the variable `f` refers to an instance of
-`MyFunction`. To maximize it from the command-line, enter the
+As can been seen, the method ``evaluate`` implements OneMax (bit
+count). Observe that the variable ``f`` refers to an instance of
+``MyFunction``. To maximize it from the command-line, enter the
 command::
 
   hnco -F 1100 -p ./one-max.py --fn-name f
@@ -73,10 +75,81 @@ command::
 Plugin
 ------
 
-tbd.
+It is possible to load a dynamic library and maximize a given function
+in this library with hnco. For example, the file ``examples/onemax.c``
+contains the following definition:
 
---------------------------------------------
-Optimize a user-defined function from Python
---------------------------------------------
+.. code-block:: c
 
-tbd.
+   double onemax(const unsigned char *data, size_t len)
+   {
+     int result = 0;
+     size_t i;
+     for (i = 0; i < len; i++)
+       if (data[i])
+         result++;
+     return result;
+   }
+
+In the build directory, enter the following commands::
+
+  cd examples
+  make plugin
+
+which is equivalent to::
+
+  gcc -fPIC -c $(top_srcdir)/examples/onemax.c
+  gcc -shared -Wl,-soname,libfoo.so -o libfoo.so onemax.o
+
+Then, you can maximize ``onemax`` with::
+
+  hnco -F 1000 --path ./libfoo.so --fn-name onemax
+
+---------------------------------------------------------------
+Optimize a user-defined function from Python (single objective)
+---------------------------------------------------------------
+
+Just as in Section :ref:`single-hnco-python`, the file
+``singleobjective-function.py`` in the directory
+``bindings/examples/`` defines the custom function ``MyFunction`` then
+maximizes it with an algorithm, in this case `OnePlusOneEa`:
+
+.. code-block:: python
+
+   import hnco
+   import hnco.algorithm as algo
+   import hnco.function as fn
+   import hnco.random
+
+   hnco.random.Generator.set_seed()
+
+   class MyFunction(fn.Function):
+       def __init__(self, n):
+           fn.Function.__init__(self) # Mandatory
+           self.bv_size = n
+
+       def evaluate(self, bv):
+           return sum(bv)
+
+       def get_bv_size(self):
+           return self.bv_size
+
+   f = MyFunction(100)
+
+   a = algo.OnePlusOneEa(f.get_bv_size())
+   a.set_num_iterations(1000)
+   a.maximize([f])
+   a.finalize()                    # Set the solution
+
+   print(a.get_solution())
+
+To run the script, enter the command::
+
+  python3 singleobjective-function.py
+
+It is possible to go beyond bit vectors with the help of
+representations. In hnco, a universal function is a function defined
+on all the types represented in the library. For an example of
+universal function, see the file
+``singleobjective-universal-function.py`` in the directory
+``bindings/examples/``
