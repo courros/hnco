@@ -2,9 +2,6 @@
  Building
 ==========
 
-
-The library and applications require a C++17 compiler.
-
 Enter the following commands in the source directory::
 
   ./configure

@@ -2,6 +2,8 @@
 Requirements
 ============
 
+The library and applications require a C++17 compiler.
+
 ``libhnco`` itself only depends on the Boost serialization library.
 Optionally it can be built with the following libraries:
 
