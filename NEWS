@@ -28,8 +28,8 @@ optgen.pl:
 - Added boolean type (in addition to flags)
 - Option classes: removed setters
 - Option classes: renamed query member functions set_* -> with_*
-- json file: renamed property value -> default
-- json file: renamed property alternatives -> values
+- json file: renamed key value -> default
+- json file: renamed key alternatives -> values
 
 hnco, hnco-mo:
 - Removed parameters fp_lower_bound and fp_upper_bound
@@ -54,6 +54,7 @@ Build:
 - Requires C++17
 - Doxygen: hide undocumented classes
 - Doxygen: hide undocumented members
+- Doxygen: do not show files
 
 Python:
 - Added bindings for TwoRateOnePlusLambdaEa
@@ -78,14 +79,14 @@ Build:
 - optgen.pl: generate constructor taking a flag to ignore bad options
 
 Perl scripts:
-- hnco-runtime-run.pl: implemented optional algorithm property exec
+- hnco-runtime-run.pl: implemented optional algorithm key exec
 - hnco-runtime-run.pl: fixed dependent values
-- hnco-runtime-stat.pl: renamed properties title, name -> label
-- hnco-runtime-stat.pl: implemented optional properties logscale, title
-- hnco-benchmark-stat.pl: implemented optional algorithm property labels
-- hnco-observable-evolution-stat.pl: implemented optional function property label
-- hnco-observable-evolution-stat.pl: implemented optional graphics property transform
-- hnco-ecdf-stat.pl: implemented optional algorithm property labels
+- hnco-runtime-stat.pl: renamed keys title, name -> label
+- hnco-runtime-stat.pl: implemented optional keys logscale, title
+- hnco-benchmark-stat.pl: implemented optional algorithm key labels
+- hnco-observable-evolution-stat.pl: implemented optional function key label
+- hnco-observable-evolution-stat.pl: implemented optional graphics key transform
+- hnco-ecdf-stat.pl: implemented optional algorithm key labels
 
 Experiments:
 - Rerun experiment runtime
