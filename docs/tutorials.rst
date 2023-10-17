@@ -112,7 +112,7 @@ Optimize a user-defined function from Python (single objective)
 Just as in Section :ref:`single-hnco-python`, the file
 ``singleobjective-function.py`` in the directory
 ``bindings/examples/`` defines the custom function ``MyFunction`` then
-maximizes it with an algorithm, in this case `OnePlusOneEa`:
+maximizes it with an algorithm, in this case ``OnePlusOneEa``:
 
 .. code-block:: python
 

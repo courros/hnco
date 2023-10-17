@@ -89,7 +89,7 @@ functions (OneMax etc.).
 
 User-defined functions:
 
-- Multivariate function (parser for double, long, and complex)
+- Multivariate function (parser for double, long, or complex)
 - Mixed-integer multivariate function (long and double)
 - Plugin (load any C function in a dynamic library)
 - Python function (embedded interpreter)
