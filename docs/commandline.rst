@@ -42,17 +42,19 @@ newer) version of the library.
 For example, let us generate a random instance of Nk landscape and
 write it to a file::
 
-  ffgen -F 60 -s 100 --nk-k 4 --path nk.txt
+  ffgen -F 60 --bv-size 100 --nk-k 4 --path nk.txt
 
 Meaning of the options:
 
-- ``-F 60`` sets the function type, here 60 represents Nk landscape
+- ``-F 60`` sets the function type, here 60 represents Nk landscape;
 
-- ``--path nk.txt`` sets the path to the file containing the function
+- ``--bv-size 100`` (``-s`` for short) sets the bit vector size to
+  100;
 
-- ``-s 100`` sets the bit vector size to 100
+- ``--nk-k 4`` sets the parameter k to 4;
 
-- ``--nk-k 4`` sets the parameter k to 4
+- ``--path nk.txt`` (``-p`` for short) sets the path to the file
+  containing the function.
 
 ----
 hnco
@@ -60,45 +62,74 @@ hnco
 
 ``hnco`` allows you to apply any algorithm to any function in the
 library. Its command-line interface offers a complete set of
-parameters, which allows systematic experiments through scripts
-written in any language. ``hnco`` writes results to the standard
-output in text format. It is able to embed all parameters in the
-output so as to exactly reproduce the simulation later, including the
-same seed for random numbers.
+parameters, which lends itself to systematic experiments through
+scripts written in any language. ``hnco`` writes results to the
+standard output in text format. It is able to embed all parameters in
+the output so as to exactly reproduce the simulation later, including
+the same seed for random numbers.
 
 For example, to apply (1+1) EA to the previous Nk landscape instance,
 enter the following command::
 
-  hnco -A 300 -F 60 --path nk.txt -b 200000 --print-results
+  hnco -A 300 \
+       -F 60 --path nk.txt --budget 200000 \
+       --record-total-time \
+       --record-evaluation-time \
+       --print-results \
+       --save-solution
 
 Meaning of the options:
 
-- ``-A 300`` sets the algorithm type, here 300 represents (1+1) EA
+- ``-A 300`` sets the algorithm type, here 300 represents (1+1) EA;
 
-- ``-F 60`` sets the function type, here 60 represents Nk landscape
+- ``-F 60`` sets the function type, here 60 represents Nk landscape;
 
-- ``--path nk.txt`` sets the path to the file containing the function
+- ``--path nk.txt`` (``-p`` for short) sets the path to the file
+  containing the function;
 
-- ``-b 200000`` sets the budget to 200000 evaluations
+- ``--budget 200000`` (``-b`` for short) sets the budget to 200000
+  evaluations;
 
-- ``--print-results`` prints in JSON the maximum, the number of
-  evaluations needed to reach it, the total time (clock time), and the
-  time spent in evaluating solutions.
+- ``--record-total-time`` records the total time;
+
+- ``--record-evaluation-time`` records the time spent evaluating the
+  function;
+
+- ``--print-results`` prints the results in JSON format;
+
+- ``--save-solution`` saves the solution (bit vector) in text format.
+
+Here are the results:
+
+.. code-block:: json
+
+   {
+     "value": 0.840228,
+     "num_evaluations": 33286,
+     "total_num_evaluations": 200000,
+     "total_time": 1.82004,
+     "evaluation_time": 1.37866
+   }
+
+The best function value is 0.840228 and has been reached at evaluation
+33286 out of 200000 evaluations. The whole run has taken approximately
+1.8s. The computation of evaluation time is quite costly so we usually
+do not record it.
 
 As another example, let us apply (1+1) EA to OneMax::
 
-  hnco -A 300 -s 100000 --stop-on-maximum --log-improvement -b 0
+  hnco -A 300 -s 10000 --stop-on-maximum --log-improvement -b 0
 
 Meaning of the options:
 
-- ``-s 100000`` sets the bit vector size to 100000
+- ``-s 10000`` sets the bit vector size to 10000;
 
 - ``--stop-on-maximum`` tells ``hnco`` to stop as soon as it has found
-  the maximum
+  the maximum;
 
-- ``--log-improvement``: track progress
+- ``--log-improvement`` turns on the progress tracker;
 
-- ``-b 0`` means no limit for the budget
+- ``-b 0`` means no limit for the budget.
 
 ------
 mapgen
