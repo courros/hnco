@@ -20,7 +20,7 @@
 
 #include <stdlib.h>             /* size_t */
 
-double onemax(const char *data, size_t len)
+double onemax(const unsigned char *data, size_t len)
 {
   int result = 0;
   size_t i;
