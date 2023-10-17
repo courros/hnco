@@ -2,45 +2,37 @@
  Experiments
 =============
 
-HNCO is distributed with the following experiments:
+HNCO is distributed with several experiments to analyze, benchmark, or
+tune black-box optimization algorithms.
 
-- ``experiments/examples/affine-onemax/``
+Each (example) experiment is located in a separate directory found in
+the directory ``experiments/examples/``. An experiment is described in
+a json file called ``plan.json``. A Makefile runs the simulations and
+generates the report. The command::
 
-- ``experiments/examples/algorithm-parameter/``
+  make
 
-- ``experiments/examples/autocorrelation/``
+takes care of everything. Sometimes we only need the simulations::
 
-- ``experiments/examples/benchmark/``
+  make run
 
-- ``experiments/examples/ecdf/``
+or only the report::
 
-- ``experiments/examples/fixed-target/``
+  make report
 
-- ``experiments/examples/function-parameter/``
+To clean all generated files, enter::
 
-- ``experiments/examples/lookup-ratio/``
-
-- ``experiments/examples/maximum-evolution/``
-
-- ``experiments/examples/observable-evolution/``
-
-- ``experiments/examples/runtime/``
-
-- ``experiments/examples/walsh-transforms/``
-
-In each directory, a Makefile runs the simulations and generates the
-report. The experiment itself is described in a json file called
-``plan.json``.
+  make clean
 
 All experiments can use GNU parallel to run the simulations in
 parallel hence take advantage of multicore architectures. To use GNU
-parallel, simply set the field ``parallel`` to ``true``.
+parallel, set the key ``parallel`` to ``true``.
 
 There is also limited support for remote execution. A list of remote
-hosts can be specified in ``plan.json`` under the name ``servers``.
-For each server, a hostname (or ip address) must be given. The
-relative working directories must be the same on each server. GNU
-parallel connects to servers with ssh.
+hosts can be specified in ``plan.json`` with the key ``servers``. For
+each server, a hostname (or ip address) must be given. The relative
+working directories of servers must be identical. GNU parallel
+connects to servers with ssh.
 
 -------------
 Affine OneMax
