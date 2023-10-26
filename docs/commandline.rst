@@ -66,7 +66,7 @@ parameters, which lends itself to systematic experiments through
 scripts written in any language. ``hnco`` writes results to the
 standard output in text format. It is able to embed all parameters in
 the output so as to exactly reproduce the simulation later, including
-the same seed for random numbers.
+the same seed for random numbers. By default, maximization is assumed.
 
 For example, to apply (1+1) EA to the previous Nk landscape instance,
 enter the following command::
@@ -130,6 +130,16 @@ Meaning of the options:
 - ``--log-improvement`` turns on the progress tracker;
 
 - ``-b 0`` means no limit for the budget.
+
+-------
+hnco-mo
+-------
+
+``hnco-mo`` is the command-line tool for multiobjective optimization.
+It provides fewer options than ``hnco``. The only functions available
+are user defined functions similar to those found in ``hnco``. The
+only algorithm available is NSGA-II. By default, minimization is
+assumed.
 
 ------
 mapgen
