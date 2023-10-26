@@ -1,10 +1,11 @@
-* Version 0.23 (unreleased)
+* Version 0.23 (2023-10-26)
 
 Highlight:
 - New function: mixed-integer multivariate function
 - Improved representation specifications for function parser
 - Improved cli options (no default, boolean)
-- New algorithm: InformationTheoreticEa,
+- New algorithm: InformationTheoreticEa
+- Added tutorials
 
 Library:
 - Fixed: make_neighborhood and make_neighborhood_iterator use
