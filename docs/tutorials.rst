@@ -2,9 +2,9 @@
 Tutorials
 =========
 
--------------------------------------------------------------
-Optimize a user-defined function from hnco (single objective)
--------------------------------------------------------------
+---------------------------------------------------------------
+Optimizing a user-defined function from hnco (single objective)
+---------------------------------------------------------------
 
 Parser
 ------
@@ -104,9 +104,9 @@ Then, you can maximize ``onemax`` with::
 
   hnco -F 1000 --path ./libfoo.so --fn-name onemax
 
----------------------------------------------------------------
-Optimize a user-defined function from Python (single objective)
----------------------------------------------------------------
+-----------------------------------------------------------------
+Optimizing a user-defined function from Python (single objective)
+-----------------------------------------------------------------
 
 It is possible to define and optimize an arbitrary function in Python.
 The file ``single-function.py`` in the directory
@@ -120,9 +120,9 @@ To run the script, enter the command::
 
   python3 single-function.py
 
-------------------------------------------------------------------------
-Optimize a user-defined function from hnco-mo (multiobjective objective)
-------------------------------------------------------------------------
+--------------------------------------------------------------------------
+Optimizing a user-defined function from hnco-mo (multiobjective objective)
+--------------------------------------------------------------------------
 
 Parser
 ------
@@ -197,9 +197,9 @@ Since no representation is need in this example, the option
 ``--print-description`` simply prints the binary description of
 solutions along with their objectives.
 
------------------------------------------------------------------------
-Optimize a user-defined function from Python (multiobjective objective)
------------------------------------------------------------------------
+-------------------------------------------------------------------------
+Optimizing a user-defined function from Python (multiobjective objective)
+-------------------------------------------------------------------------
 
 It is possible to define and optimize an arbitrary function in Python.
 For example, the file ``multi-function-complete.py`` in the directory
