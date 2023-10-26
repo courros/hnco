@@ -1,11 +1,11 @@
-#ifndef EA_IT_EA_H
-#define EA_IT_EA_H
+#ifndef HNCO_ALGORITHMS_EA_IT_EA_H
+#define HNCO_ALGORITHMS_EA_IT_EA_H
 
 #include <assert.h>
 
-#include <hnco/algorithms/iterative-algorithm.hh>
-#include <hnco/algorithms/population.hh>
-#include <hnco/neighborhoods/neighborhood.hh>
+#include "hnco/algorithms/iterative-algorithm.hh"
+#include "hnco/algorithms/population.hh"
+#include "hnco/neighborhoods/neighborhood.hh"
 
 
 namespace hnco {
