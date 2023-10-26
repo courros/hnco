@@ -8,12 +8,13 @@ Enter the following commands in the source directory::
   make
   make install
 
-To turn optimization on and install everything under ``$HOME/.local/``::
+To turn optimization on and install all executables in
+``$HOME/.local/``, instead of ``./configure``, enter the command::
 
   CXXFLAGS="-Wall -O3 -DNDEBUG" ./configure --prefix=$HOME/.local/
 
-If you want to locally install Bash completion scripts, you would
-rather enter::
+Additionally, if you also want to install Bash completion scripts in
+``$HOME/.local/``, instead of ``./configure``, enter the command::
 
   bashcompdir=$HOME/.local/share/bash-completion/completions/ CXXFLAGS="-Wall -O3 -DNDEBUG" ./configure --prefix=$HOME/.local/
 
@@ -37,29 +38,31 @@ To generate the API documentation::
 
   make doc
 
-Once generated, you will find it under ``doc/api/``.
+Once generated, you will find it in ``doc/api/``.
 
-Python bindings are located under ``bindings/``. To build and install
-the python module for hnco, first build and install the library then::
+The source file for the Python bindings is located in ``bindings/``.
+To build and install the Python module for hnco, enter the commands::
 
   python3 -m build --wheel --no-isolation
   python3 -m pip install --user --break-system-packages --force-reinstall ./dist/hnco-0.24-cp311-cp311-linux_x86_64.whl
 
-It should be noted that the resulting Python module is for local use
-only.
+To ensure that Python will find the module, add this line to the
+appropriate startup file of your shell::
 
-Installation of Perl scripts is taken care of by autotools. However,
-Perl modules are managed separately by ``Makefile.PL``. If you want to
-install them under ``$HOME/.local/``, do the following::
+  export PYTHONPATH=$HOME/.local/lib/python3.11/site-packages
+
+Installation of Perl scripts is taken care of by the Makefile.
+However, Perl modules are managed separately by ``Makefile.PL``. If
+you want to install them in ``$HOME/.local/``, do the following::
 
   cd experiments/modules
   perl Makefile.PL INSTALL_BASE=$HOME/.local/
   make
   make install
 
-Modules will be installed under ``$HOME/.local/lib/perl5/``. If you
-want perl to find them, add this line to the appropriate startup file
-of your shell::
+Modules will be installed in ``$HOME/.local/lib/perl5/``. If you want
+perl to find them, add this line to the appropriate startup file of
+your shell::
 
   export PERLLIB="$HOME/.local/lib/perl5"
 
