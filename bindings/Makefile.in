@@ -284,12 +284,14 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 EXTRA_DIST = \
 	examples/bindings.py \
-	examples/multiobjective-function.py \
-	examples/multiobjective-universal-function.py \
-	examples/one-max.py \
+	examples/multi-function-complete.py \
+	examples/multi-function.py \
+	examples/multi-universal-function-complete.py \
 	examples/progress-tracker.py \
 	examples/runtime.py \
-	examples/universal-function.py \
+	examples/single-function-complete.py \
+	examples/single-function.py \
+	examples/single-universal-function-complete.py \
 	hnco.cc \
 	setup.py
 
