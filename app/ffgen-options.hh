@@ -14,7 +14,7 @@ class FfgenOptions {
   std::string _exec_name;
 
   /// Name Version
-  std::string _version = "0.23";
+  std::string _version = "0.24";
 
   enum {
     OPTION_HELP=256,
