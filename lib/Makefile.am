@@ -50,6 +50,38 @@ libhnco_la_SOURCES = \
 	fparser/fparser.hh \
 	fparser/fpconfig.hh \
 	fparser/fpoptimizer.cc \
+	gomea/src/common/gomea_defs.hpp \
+	gomea/src/common/linkage_config.cpp \
+	gomea/src/common/linkage_config.hpp \
+	gomea/src/common/linkage_model.cpp \
+	gomea/src/common/linkage_model.hpp \
+	gomea/src/common/output_statistics.cpp \
+	gomea/src/common/output_statistics.hpp \
+	gomea/src/common/partial_solution.cpp \
+	gomea/src/common/partial_solution.hpp \
+	gomea/src/common/solution.cpp \
+	gomea/src/common/solution.hpp \
+	gomea/src/discrete/Config.cpp \
+	gomea/src/discrete/Config.hpp \
+	gomea/src/discrete/Population.cpp \
+	gomea/src/discrete/Population.hpp \
+	gomea/src/discrete/gomea.cpp \
+	gomea/src/discrete/gomea.hpp \
+	gomea/src/discrete/gomeaIMS.cpp \
+	gomea/src/discrete/gomeaIMS.hpp \
+	gomea/src/discrete/shared.hpp \
+	gomea/src/discrete/utils.cpp \
+	gomea/src/discrete/utils.hpp \
+	gomea/src/fitness/bbo_fitness.cpp \
+	gomea/src/fitness/bbo_fitness.hpp \
+	gomea/src/fitness/fitness.cpp \
+	gomea/src/fitness/fitness.hpp \
+	gomea/src/utils/embed.cpp \
+	gomea/src/utils/embed.hpp \
+	gomea/src/utils/time.cpp \
+	gomea/src/utils/time.hpp \
+	gomea/src/utils/tools.cpp \
+	gomea/src/utils/tools.hpp \
 	hnco/algorithms/algorithm.cc \
 	hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh \
@@ -312,6 +344,23 @@ nobase_include_HEADERS = \
 	fparser/extrasrc/fptypes.hh \
 	fparser/fparser.hh \
 	fparser/fpconfig.hh \
+	gomea/src/common/gomea_defs.hpp \
+	gomea/src/common/linkage_config.hpp \
+	gomea/src/common/linkage_model.hpp \
+	gomea/src/common/output_statistics.hpp \
+	gomea/src/common/partial_solution.hpp \
+	gomea/src/common/solution.hpp \
+	gomea/src/discrete/Config.hpp \
+	gomea/src/discrete/Population.hpp \
+	gomea/src/discrete/gomea.hpp \
+	gomea/src/discrete/gomeaIMS.hpp \
+	gomea/src/discrete/shared.hpp \
+	gomea/src/discrete/utils.hpp \
+	gomea/src/fitness/bbo_fitness.hpp \
+	gomea/src/fitness/fitness.hpp \
+	gomea/src/utils/embed.hpp \
+	gomea/src/utils/time.hpp \
+	gomea/src/utils/tools.hpp \
 	hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh \
 	hnco/algorithms/complete-search.hh \

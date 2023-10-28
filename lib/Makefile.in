@@ -188,6 +188,28 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	fparser/extrasrc/fp_opcode_add.inc fparser/extrasrc/fpaux.hh \
 	fparser/extrasrc/fptypes.hh fparser/fparser.cc \
 	fparser/fparser.hh fparser/fpconfig.hh fparser/fpoptimizer.cc \
+	gomea/src/common/gomea_defs.hpp \
+	gomea/src/common/linkage_config.cpp \
+	gomea/src/common/linkage_config.hpp \
+	gomea/src/common/linkage_model.cpp \
+	gomea/src/common/linkage_model.hpp \
+	gomea/src/common/output_statistics.cpp \
+	gomea/src/common/output_statistics.hpp \
+	gomea/src/common/partial_solution.cpp \
+	gomea/src/common/partial_solution.hpp \
+	gomea/src/common/solution.cpp gomea/src/common/solution.hpp \
+	gomea/src/discrete/Config.cpp gomea/src/discrete/Config.hpp \
+	gomea/src/discrete/Population.cpp \
+	gomea/src/discrete/Population.hpp gomea/src/discrete/gomea.cpp \
+	gomea/src/discrete/gomea.hpp gomea/src/discrete/gomeaIMS.cpp \
+	gomea/src/discrete/gomeaIMS.hpp gomea/src/discrete/shared.hpp \
+	gomea/src/discrete/utils.cpp gomea/src/discrete/utils.hpp \
+	gomea/src/fitness/bbo_fitness.cpp \
+	gomea/src/fitness/bbo_fitness.hpp \
+	gomea/src/fitness/fitness.cpp gomea/src/fitness/fitness.hpp \
+	gomea/src/utils/embed.cpp gomea/src/utils/embed.hpp \
+	gomea/src/utils/time.cpp gomea/src/utils/time.hpp \
+	gomea/src/utils/tools.cpp gomea/src/utils/tools.hpp \
 	hnco/algorithms/algorithm.cc hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh hnco/algorithms/complete-search.cc \
 	hnco/algorithms/complete-search.hh \
@@ -395,7 +417,16 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	fast-efficient-p3/Population.lo fast-efficient-p3/Pyramid.lo \
 	fast-efficient-p3/Record.lo fast-efficient-p3/Util.lo \
 	fparser/fparser.lo fparser/fpoptimizer.lo \
-	hnco/algorithms/algorithm.lo \
+	gomea/src/common/linkage_config.lo \
+	gomea/src/common/linkage_model.lo \
+	gomea/src/common/output_statistics.lo \
+	gomea/src/common/partial_solution.lo \
+	gomea/src/common/solution.lo gomea/src/discrete/Config.lo \
+	gomea/src/discrete/Population.lo gomea/src/discrete/gomea.lo \
+	gomea/src/discrete/gomeaIMS.lo gomea/src/discrete/utils.lo \
+	gomea/src/fitness/bbo_fitness.lo gomea/src/fitness/fitness.lo \
+	gomea/src/utils/embed.lo gomea/src/utils/time.lo \
+	gomea/src/utils/tools.lo hnco/algorithms/algorithm.lo \
 	hnco/algorithms/complete-search.lo \
 	hnco/algorithms/decorators/restart.lo \
 	hnco/algorithms/ea/crossover.lo \
@@ -501,6 +532,21 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	fast-efficient-p3/$(DEPDIR)/Util.Plo \
 	fparser/$(DEPDIR)/fparser.Plo \
 	fparser/$(DEPDIR)/fpoptimizer.Plo \
+	gomea/src/common/$(DEPDIR)/linkage_config.Plo \
+	gomea/src/common/$(DEPDIR)/linkage_model.Plo \
+	gomea/src/common/$(DEPDIR)/output_statistics.Plo \
+	gomea/src/common/$(DEPDIR)/partial_solution.Plo \
+	gomea/src/common/$(DEPDIR)/solution.Plo \
+	gomea/src/discrete/$(DEPDIR)/Config.Plo \
+	gomea/src/discrete/$(DEPDIR)/Population.Plo \
+	gomea/src/discrete/$(DEPDIR)/gomea.Plo \
+	gomea/src/discrete/$(DEPDIR)/gomeaIMS.Plo \
+	gomea/src/discrete/$(DEPDIR)/utils.Plo \
+	gomea/src/fitness/$(DEPDIR)/bbo_fitness.Plo \
+	gomea/src/fitness/$(DEPDIR)/fitness.Plo \
+	gomea/src/utils/$(DEPDIR)/embed.Plo \
+	gomea/src/utils/$(DEPDIR)/time.Plo \
+	gomea/src/utils/$(DEPDIR)/tools.Plo \
 	hnco/$(DEPDIR)/bit-matrix.Plo hnco/$(DEPDIR)/bit-vector.Plo \
 	hnco/$(DEPDIR)/iterator.Plo hnco/$(DEPDIR)/permutation.Plo \
 	hnco/$(DEPDIR)/random.Plo hnco/$(DEPDIR)/sparse-bit-vector.Plo \
@@ -638,8 +684,19 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	fparser/extrasrc/fp_identifier_parser.inc \
 	fparser/extrasrc/fp_opcode_add.inc fparser/extrasrc/fpaux.hh \
 	fparser/extrasrc/fptypes.hh fparser/fparser.hh \
-	fparser/fpconfig.hh hnco/algorithms/algorithm.hh \
-	hnco/algorithms/all.hh hnco/algorithms/complete-search.hh \
+	fparser/fpconfig.hh gomea/src/common/gomea_defs.hpp \
+	gomea/src/common/linkage_config.hpp \
+	gomea/src/common/linkage_model.hpp \
+	gomea/src/common/output_statistics.hpp \
+	gomea/src/common/partial_solution.hpp \
+	gomea/src/common/solution.hpp gomea/src/discrete/Config.hpp \
+	gomea/src/discrete/Population.hpp gomea/src/discrete/gomea.hpp \
+	gomea/src/discrete/gomeaIMS.hpp gomea/src/discrete/shared.hpp \
+	gomea/src/discrete/utils.hpp gomea/src/fitness/bbo_fitness.hpp \
+	gomea/src/fitness/fitness.hpp gomea/src/utils/embed.hpp \
+	gomea/src/utils/time.hpp gomea/src/utils/tools.hpp \
+	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
+	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/decorators/all.hh \
 	hnco/algorithms/decorators/restart.hh \
 	hnco/algorithms/ea/all.hh hnco/algorithms/ea/crossover.hh \
@@ -938,6 +995,28 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	fparser/extrasrc/fp_opcode_add.inc fparser/extrasrc/fpaux.hh \
 	fparser/extrasrc/fptypes.hh fparser/fparser.cc \
 	fparser/fparser.hh fparser/fpconfig.hh fparser/fpoptimizer.cc \
+	gomea/src/common/gomea_defs.hpp \
+	gomea/src/common/linkage_config.cpp \
+	gomea/src/common/linkage_config.hpp \
+	gomea/src/common/linkage_model.cpp \
+	gomea/src/common/linkage_model.hpp \
+	gomea/src/common/output_statistics.cpp \
+	gomea/src/common/output_statistics.hpp \
+	gomea/src/common/partial_solution.cpp \
+	gomea/src/common/partial_solution.hpp \
+	gomea/src/common/solution.cpp gomea/src/common/solution.hpp \
+	gomea/src/discrete/Config.cpp gomea/src/discrete/Config.hpp \
+	gomea/src/discrete/Population.cpp \
+	gomea/src/discrete/Population.hpp gomea/src/discrete/gomea.cpp \
+	gomea/src/discrete/gomea.hpp gomea/src/discrete/gomeaIMS.cpp \
+	gomea/src/discrete/gomeaIMS.hpp gomea/src/discrete/shared.hpp \
+	gomea/src/discrete/utils.cpp gomea/src/discrete/utils.hpp \
+	gomea/src/fitness/bbo_fitness.cpp \
+	gomea/src/fitness/bbo_fitness.hpp \
+	gomea/src/fitness/fitness.cpp gomea/src/fitness/fitness.hpp \
+	gomea/src/utils/embed.cpp gomea/src/utils/embed.hpp \
+	gomea/src/utils/time.cpp gomea/src/utils/time.hpp \
+	gomea/src/utils/tools.cpp gomea/src/utils/tools.hpp \
 	hnco/algorithms/algorithm.cc hnco/algorithms/algorithm.hh \
 	hnco/algorithms/all.hh hnco/algorithms/complete-search.cc \
 	hnco/algorithms/complete-search.hh \
@@ -1134,8 +1213,19 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	fparser/extrasrc/fp_identifier_parser.inc \
 	fparser/extrasrc/fp_opcode_add.inc fparser/extrasrc/fpaux.hh \
 	fparser/extrasrc/fptypes.hh fparser/fparser.hh \
-	fparser/fpconfig.hh hnco/algorithms/algorithm.hh \
-	hnco/algorithms/all.hh hnco/algorithms/complete-search.hh \
+	fparser/fpconfig.hh gomea/src/common/gomea_defs.hpp \
+	gomea/src/common/linkage_config.hpp \
+	gomea/src/common/linkage_model.hpp \
+	gomea/src/common/output_statistics.hpp \
+	gomea/src/common/partial_solution.hpp \
+	gomea/src/common/solution.hpp gomea/src/discrete/Config.hpp \
+	gomea/src/discrete/Population.hpp gomea/src/discrete/gomea.hpp \
+	gomea/src/discrete/gomeaIMS.hpp gomea/src/discrete/shared.hpp \
+	gomea/src/discrete/utils.hpp gomea/src/fitness/bbo_fitness.hpp \
+	gomea/src/fitness/fitness.hpp gomea/src/utils/embed.hpp \
+	gomea/src/utils/time.hpp gomea/src/utils/tools.hpp \
+	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
+	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/decorators/all.hh \
 	hnco/algorithms/decorators/restart.hh \
 	hnco/algorithms/ea/all.hh hnco/algorithms/ea/crossover.hh \
@@ -1364,6 +1454,62 @@ fparser/fparser.lo: fparser/$(am__dirstamp) \
 	fparser/$(DEPDIR)/$(am__dirstamp)
 fparser/fpoptimizer.lo: fparser/$(am__dirstamp) \
 	fparser/$(DEPDIR)/$(am__dirstamp)
+gomea/src/common/$(am__dirstamp):
+	@$(MKDIR_P) gomea/src/common
+	@: > gomea/src/common/$(am__dirstamp)
+gomea/src/common/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) gomea/src/common/$(DEPDIR)
+	@: > gomea/src/common/$(DEPDIR)/$(am__dirstamp)
+gomea/src/common/linkage_config.lo: gomea/src/common/$(am__dirstamp) \
+	gomea/src/common/$(DEPDIR)/$(am__dirstamp)
+gomea/src/common/linkage_model.lo: gomea/src/common/$(am__dirstamp) \
+	gomea/src/common/$(DEPDIR)/$(am__dirstamp)
+gomea/src/common/output_statistics.lo:  \
+	gomea/src/common/$(am__dirstamp) \
+	gomea/src/common/$(DEPDIR)/$(am__dirstamp)
+gomea/src/common/partial_solution.lo:  \
+	gomea/src/common/$(am__dirstamp) \
+	gomea/src/common/$(DEPDIR)/$(am__dirstamp)
+gomea/src/common/solution.lo: gomea/src/common/$(am__dirstamp) \
+	gomea/src/common/$(DEPDIR)/$(am__dirstamp)
+gomea/src/discrete/$(am__dirstamp):
+	@$(MKDIR_P) gomea/src/discrete
+	@: > gomea/src/discrete/$(am__dirstamp)
+gomea/src/discrete/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) gomea/src/discrete/$(DEPDIR)
+	@: > gomea/src/discrete/$(DEPDIR)/$(am__dirstamp)
+gomea/src/discrete/Config.lo: gomea/src/discrete/$(am__dirstamp) \
+	gomea/src/discrete/$(DEPDIR)/$(am__dirstamp)
+gomea/src/discrete/Population.lo: gomea/src/discrete/$(am__dirstamp) \
+	gomea/src/discrete/$(DEPDIR)/$(am__dirstamp)
+gomea/src/discrete/gomea.lo: gomea/src/discrete/$(am__dirstamp) \
+	gomea/src/discrete/$(DEPDIR)/$(am__dirstamp)
+gomea/src/discrete/gomeaIMS.lo: gomea/src/discrete/$(am__dirstamp) \
+	gomea/src/discrete/$(DEPDIR)/$(am__dirstamp)
+gomea/src/discrete/utils.lo: gomea/src/discrete/$(am__dirstamp) \
+	gomea/src/discrete/$(DEPDIR)/$(am__dirstamp)
+gomea/src/fitness/$(am__dirstamp):
+	@$(MKDIR_P) gomea/src/fitness
+	@: > gomea/src/fitness/$(am__dirstamp)
+gomea/src/fitness/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) gomea/src/fitness/$(DEPDIR)
+	@: > gomea/src/fitness/$(DEPDIR)/$(am__dirstamp)
+gomea/src/fitness/bbo_fitness.lo: gomea/src/fitness/$(am__dirstamp) \
+	gomea/src/fitness/$(DEPDIR)/$(am__dirstamp)
+gomea/src/fitness/fitness.lo: gomea/src/fitness/$(am__dirstamp) \
+	gomea/src/fitness/$(DEPDIR)/$(am__dirstamp)
+gomea/src/utils/$(am__dirstamp):
+	@$(MKDIR_P) gomea/src/utils
+	@: > gomea/src/utils/$(am__dirstamp)
+gomea/src/utils/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) gomea/src/utils/$(DEPDIR)
+	@: > gomea/src/utils/$(DEPDIR)/$(am__dirstamp)
+gomea/src/utils/embed.lo: gomea/src/utils/$(am__dirstamp) \
+	gomea/src/utils/$(DEPDIR)/$(am__dirstamp)
+gomea/src/utils/time.lo: gomea/src/utils/$(am__dirstamp) \
+	gomea/src/utils/$(DEPDIR)/$(am__dirstamp)
+gomea/src/utils/tools.lo: gomea/src/utils/$(am__dirstamp) \
+	gomea/src/utils/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/$(am__dirstamp):
 	@$(MKDIR_P) hnco/algorithms
 	@: > hnco/algorithms/$(am__dirstamp)
@@ -1732,6 +1878,14 @@ mostlyclean-compile:
 	-rm -f fast-efficient-p3/*.lo
 	-rm -f fparser/*.$(OBJEXT)
 	-rm -f fparser/*.lo
+	-rm -f gomea/src/common/*.$(OBJEXT)
+	-rm -f gomea/src/common/*.lo
+	-rm -f gomea/src/discrete/*.$(OBJEXT)
+	-rm -f gomea/src/discrete/*.lo
+	-rm -f gomea/src/fitness/*.$(OBJEXT)
+	-rm -f gomea/src/fitness/*.lo
+	-rm -f gomea/src/utils/*.$(OBJEXT)
+	-rm -f gomea/src/utils/*.lo
 	-rm -f hnco/*.$(OBJEXT)
 	-rm -f hnco/*.lo
 	-rm -f hnco/algorithms/*.$(OBJEXT)
@@ -1790,6 +1944,21 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@fast-efficient-p3/$(DEPDIR)/Util.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@fparser/$(DEPDIR)/fparser.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@fparser/$(DEPDIR)/fpoptimizer.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/common/$(DEPDIR)/linkage_config.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/common/$(DEPDIR)/linkage_model.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/common/$(DEPDIR)/output_statistics.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/common/$(DEPDIR)/partial_solution.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/common/$(DEPDIR)/solution.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/discrete/$(DEPDIR)/Config.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/discrete/$(DEPDIR)/Population.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/discrete/$(DEPDIR)/gomea.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/discrete/$(DEPDIR)/gomeaIMS.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/discrete/$(DEPDIR)/utils.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/fitness/$(DEPDIR)/bbo_fitness.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/fitness/$(DEPDIR)/fitness.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/utils/$(DEPDIR)/embed.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/utils/$(DEPDIR)/time.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/utils/$(DEPDIR)/tools.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/bit-matrix.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/bit-vector.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/iterator.Plo@am__quote@ # am--include-marker
@@ -1940,6 +2109,10 @@ clean-libtool:
 	-rm -rf .libs _libs
 	-rm -rf fast-efficient-p3/.libs fast-efficient-p3/_libs
 	-rm -rf fparser/.libs fparser/_libs
+	-rm -rf gomea/src/common/.libs gomea/src/common/_libs
+	-rm -rf gomea/src/discrete/.libs gomea/src/discrete/_libs
+	-rm -rf gomea/src/fitness/.libs gomea/src/fitness/_libs
+	-rm -rf gomea/src/utils/.libs gomea/src/utils/_libs
 	-rm -rf hnco/.libs hnco/_libs
 	-rm -rf hnco/algorithms/.libs hnco/algorithms/_libs
 	-rm -rf hnco/algorithms/decorators/.libs hnco/algorithms/decorators/_libs
@@ -2110,6 +2283,14 @@ distclean-generic:
 	-rm -f fast-efficient-p3/$(am__dirstamp)
 	-rm -f fparser/$(DEPDIR)/$(am__dirstamp)
 	-rm -f fparser/$(am__dirstamp)
+	-rm -f gomea/src/common/$(DEPDIR)/$(am__dirstamp)
+	-rm -f gomea/src/common/$(am__dirstamp)
+	-rm -f gomea/src/discrete/$(DEPDIR)/$(am__dirstamp)
+	-rm -f gomea/src/discrete/$(am__dirstamp)
+	-rm -f gomea/src/fitness/$(DEPDIR)/$(am__dirstamp)
+	-rm -f gomea/src/fitness/$(am__dirstamp)
+	-rm -f gomea/src/utils/$(DEPDIR)/$(am__dirstamp)
+	-rm -f gomea/src/utils/$(am__dirstamp)
 	-rm -f hnco/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/$(am__dirstamp)
 	-rm -f hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
@@ -2175,6 +2356,21 @@ distclean: distclean-am
 	-rm -f fast-efficient-p3/$(DEPDIR)/Util.Plo
 	-rm -f fparser/$(DEPDIR)/fparser.Plo
 	-rm -f fparser/$(DEPDIR)/fpoptimizer.Plo
+	-rm -f gomea/src/common/$(DEPDIR)/linkage_config.Plo
+	-rm -f gomea/src/common/$(DEPDIR)/linkage_model.Plo
+	-rm -f gomea/src/common/$(DEPDIR)/output_statistics.Plo
+	-rm -f gomea/src/common/$(DEPDIR)/partial_solution.Plo
+	-rm -f gomea/src/common/$(DEPDIR)/solution.Plo
+	-rm -f gomea/src/discrete/$(DEPDIR)/Config.Plo
+	-rm -f gomea/src/discrete/$(DEPDIR)/Population.Plo
+	-rm -f gomea/src/discrete/$(DEPDIR)/gomea.Plo
+	-rm -f gomea/src/discrete/$(DEPDIR)/gomeaIMS.Plo
+	-rm -f gomea/src/discrete/$(DEPDIR)/utils.Plo
+	-rm -f gomea/src/fitness/$(DEPDIR)/bbo_fitness.Plo
+	-rm -f gomea/src/fitness/$(DEPDIR)/fitness.Plo
+	-rm -f gomea/src/utils/$(DEPDIR)/embed.Plo
+	-rm -f gomea/src/utils/$(DEPDIR)/time.Plo
+	-rm -f gomea/src/utils/$(DEPDIR)/tools.Plo
 	-rm -f hnco/$(DEPDIR)/bit-matrix.Plo
 	-rm -f hnco/$(DEPDIR)/bit-vector.Plo
 	-rm -f hnco/$(DEPDIR)/iterator.Plo
@@ -2320,6 +2516,21 @@ maintainer-clean: maintainer-clean-am
 	-rm -f fast-efficient-p3/$(DEPDIR)/Util.Plo
 	-rm -f fparser/$(DEPDIR)/fparser.Plo
 	-rm -f fparser/$(DEPDIR)/fpoptimizer.Plo
+	-rm -f gomea/src/common/$(DEPDIR)/linkage_config.Plo
+	-rm -f gomea/src/common/$(DEPDIR)/linkage_model.Plo
+	-rm -f gomea/src/common/$(DEPDIR)/output_statistics.Plo
+	-rm -f gomea/src/common/$(DEPDIR)/partial_solution.Plo
+	-rm -f gomea/src/common/$(DEPDIR)/solution.Plo
+	-rm -f gomea/src/discrete/$(DEPDIR)/Config.Plo
+	-rm -f gomea/src/discrete/$(DEPDIR)/Population.Plo
+	-rm -f gomea/src/discrete/$(DEPDIR)/gomea.Plo
+	-rm -f gomea/src/discrete/$(DEPDIR)/gomeaIMS.Plo
+	-rm -f gomea/src/discrete/$(DEPDIR)/utils.Plo
+	-rm -f gomea/src/fitness/$(DEPDIR)/bbo_fitness.Plo
+	-rm -f gomea/src/fitness/$(DEPDIR)/fitness.Plo
+	-rm -f gomea/src/utils/$(DEPDIR)/embed.Plo
+	-rm -f gomea/src/utils/$(DEPDIR)/time.Plo
+	-rm -f gomea/src/utils/$(DEPDIR)/tools.Plo
 	-rm -f hnco/$(DEPDIR)/bit-matrix.Plo
 	-rm -f hnco/$(DEPDIR)/bit-vector.Plo
 	-rm -f hnco/$(DEPDIR)/iterator.Plo
