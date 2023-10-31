@@ -37,13 +37,13 @@ using namespace hnco;
 ParameterLessPopulationPyramid::ParameterLessPopulationPyramid(int n):
   Algorithm(n)
 {
-  _pimpl = new Implementation();
+  _implementation = new Implementation();
 }
 
 
 ParameterLessPopulationPyramid::~ParameterLessPopulationPyramid()
 {
-  delete _pimpl;
+  delete _implementation;
 }
 
 
@@ -52,26 +52,27 @@ ParameterLessPopulationPyramid::maximize(const std::vector<function::Function *>
 {
   set_functions(functions);
 
-  _pimpl->configuration.set("cluster_ordering", std::string("least_linked_first"));
-  _pimpl->configuration.set("disable_solution_outfile", 1);
-  _pimpl->configuration.set("donate_until_different", 0);
-  _pimpl->configuration.set("hill_climber", std::string("no_action"));
-  _pimpl->configuration.set("keep_zeros", 0);
-  _pimpl->configuration.set("no_singles", 0);
-  _pimpl->configuration.set("only_add_improvements", 1);
-  _pimpl->configuration.set("precision", 65536);
-  _pimpl->configuration.set("restrict_cluster_size", 0);
-  _pimpl->configuration.set("solution_file", std::string("p3-solution.txt"));
-  _pimpl->configuration.set("verbosity", 0);
-  _pimpl->configuration.set("wait_until_k_modeled", 0);
-  _pimpl->configuration.set("prevent_duplicates", 1);
-  _pimpl->configuration.set("length", get_bv_size());
-  _pimpl->evaluator = std::make_shared<HncoEvaluator>(_function);
-  _pimpl->middle_layer = std::make_shared<Middle_Layer>(_pimpl->configuration,
-                                                        _pimpl->evaluator);
+  _implementation->configuration.set("cluster_ordering", std::string("least_linked_first"));
+  _implementation->configuration.set("disable_solution_outfile", 1);
+  _implementation->configuration.set("donate_until_different", 0);
+  _implementation->configuration.set("hill_climber", std::string("no_action"));
+  _implementation->configuration.set("keep_zeros", 0);
+  _implementation->configuration.set("no_singles", 0);
+  _implementation->configuration.set("only_add_improvements", 1);
+  _implementation->configuration.set("precision", 65536);
+  _implementation->configuration.set("restrict_cluster_size", 0);
+  _implementation->configuration.set("solution_file", std::string("p3-solution.txt"));
+  _implementation->configuration.set("verbosity", 0);
+  _implementation->configuration.set("wait_until_k_modeled", 0);
+  _implementation->configuration.set("prevent_duplicates", 1);
+  _implementation->configuration.set("length", get_bv_size());
+  _implementation->evaluator = std::make_shared<HncoEvaluator>(_function);
+  _implementation->middle_layer = std::make_shared<Middle_Layer>(_implementation->configuration,
+                                                                 _implementation->evaluator);
+
   Pyramid pyramid(hnco::random::Generator::engine,
-                  _pimpl->middle_layer,
-                  _pimpl->configuration);
+                  _implementation->middle_layer,
+                  _implementation->configuration);
   while (pyramid.iterate()) {}
 }
 
@@ -79,6 +80,6 @@ ParameterLessPopulationPyramid::maximize(const std::vector<function::Function *>
 void
 ParameterLessPopulationPyramid::finalize()
 {
-  bv_from_vector_bool(_solution.first, _pimpl->middle_layer->best_solution);
-  _solution.second = _pimpl->middle_layer->best_fitness;
+  bv_from_vector_bool(_solution.first, _implementation->middle_layer->best_solution);
+  _solution.second = _implementation->middle_layer->best_fitness;
 }

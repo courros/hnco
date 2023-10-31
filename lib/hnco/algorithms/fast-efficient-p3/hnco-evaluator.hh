@@ -21,7 +21,7 @@
 #ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_HNCO_EVALUATOR_H
 #define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_HNCO_EVALUATOR_H
 
-#include <assert.h>
+#include <cassert>
 
 #include "hnco/functions/function.hh"
 
@@ -33,8 +33,7 @@ namespace algorithm {
 namespace fast_efficient_p3 {
 
 /// Evaluator for HNCO functions
-class HncoEvaluator:
-    public Evaluator {
+class HncoEvaluator: public Evaluator {
 
   /// HNCO function
   hnco::function::Function *_function;

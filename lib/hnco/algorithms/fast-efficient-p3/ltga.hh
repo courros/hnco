@@ -35,14 +35,17 @@ struct Implementation;
 
 /** Linkage Tree Genetic %Algorithm.
 
-    Implementation of the Linkage Tree Genetic %Algorithm Designed to
-    match the variant in the paper: "Hierarchical problem solving
-    with the linkage tree genetic algorithm" by D. Thierens and
-    P. A. N. Bosman
+    %Implementation of the Linkage Tree Genetic %Algorithm.
 
     Author: Brian W. Goldman
 
     Integrated into HNCO by Arnaud Berny
+
+    Reference:
+
+    "Hierarchical problem solving with the linkage tree genetic
+    algorithm" by D. Thierens and P. A. N. Bosman
+
 */
 class Ltga: public Algorithm {
 
@@ -54,7 +57,7 @@ class Ltga: public Algorithm {
       A raw pointer is used instead of a unique_ptr because the latter
       will not compile with pybind11.
   */
-  Implementation *_pimpl;;
+  Implementation *_implementation;;
 
   /// Population size
   int _population_size = 10;

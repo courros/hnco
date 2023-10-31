@@ -34,19 +34,22 @@ struct Implementation;
 
 /** Hierarchical Bayesian Optimization %Algorithm.
 
-    Implementation of the Hierarchical Bayesian Optimization
-    %Algorithm and helper classes based on the publication: Pelikan,
-    M. and Goldberg, D. (2006). Hierarchical bayesian optimization
-    algorithm. In Scalable Optimization via Probabilistic Modeling,
-    volume 33 of Studies in Computational Intelligence, pages
-    63–90. Springer Berlin Heidelberg.
+    %Implementation of the Hierarchical Bayesian Optimization
+    %Algorithm.
 
     Author: Brian W. Goldman
 
     Integrated into HNCO by Arnaud Berny
+
+    Reference:
+
+    Pelikan, M. and Goldberg, D. (2006). Hierarchical bayesian
+    optimization algorithm. In Scalable Optimization via Probabilistic
+    Modeling, volume 33 of Studies in Computational Intelligence,
+    pages 63–90. Springer Berlin Heidelberg.
+
 */
-class Hboa:
-    public Algorithm {
+class Hboa: public Algorithm {
 
   /** Pointer to implementation.
 
@@ -56,7 +59,7 @@ class Hboa:
       A raw pointer is used instead of a unique_ptr because the latter
       will not compile with pybind11.
   */
-  Implementation *_pimpl;;
+  Implementation *_implementation;
 
   /// Population size
   int _population_size = 10;

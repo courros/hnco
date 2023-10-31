@@ -37,21 +37,20 @@ struct Implementation;
 
 /** Parameter-less %Population Pyramid.
 
-    Implemention of the Parameter-less %Population Pyramid (P3 for
+    %Implementation of the Parameter-less %Population Pyramid (P3 for
     short).
 
     Author: Brian W. Goldman
+
+    Integrated into HNCO by Arnaud Berny
 
     Reference:
 
     "Fast and Efficient Black Box Optimization using the
     Parameter-less Population Pyramid" by B. W. Goldman and
     W. F. Punch
-
-    Integrated into HNCO by Arnaud Berny
 */
-class ParameterLessPopulationPyramid:
-    public Algorithm {
+class ParameterLessPopulationPyramid: public Algorithm {
 
   /** Pointer to implementation.
 
@@ -61,7 +60,7 @@ class ParameterLessPopulationPyramid:
       A raw pointer is used instead of a unique_ptr because the latter
       will not compile with pybind11.
   */
-  Implementation *_pimpl;;
+  Implementation *_implementation;;
 
 public:
 

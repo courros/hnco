@@ -36,13 +36,13 @@ using namespace hnco;
 Ltga::Ltga(int n):
   Algorithm(n)
 {
-  _pimpl = new Implementation();
+  _implementation = new Implementation();
 }
 
 
 Ltga::~Ltga()
 {
-  delete _pimpl;
+  delete _implementation;
 }
 
 
@@ -51,25 +51,26 @@ Ltga::maximize(const std::vector<function::Function *>& functions)
 {
   set_functions(functions);
 
-  _pimpl->configuration.set("binary_insert", 1);
-  _pimpl->configuration.set("cluster_ordering", std::string("least_linked_first"));
-  _pimpl->configuration.set("disable_solution_outfile", 1);
-  _pimpl->configuration.set("donate_until_different", 0);
-  _pimpl->configuration.set("hill_climber", std::string("no_action"));
-  _pimpl->configuration.set("keep_zeros", 0);
-  _pimpl->configuration.set("no_singles", 0);
-  _pimpl->configuration.set("precision", 65536);
-  _pimpl->configuration.set("restrict_cluster_size", 0);
-  _pimpl->configuration.set("solution_file", std::string("ltga-solution.txt"));
-  _pimpl->configuration.set("verbosity", 0);
-  _pimpl->configuration.set("length", get_bv_size());
-  _pimpl->configuration.set("pop_size", _population_size);
-  _pimpl->evaluator = std::make_shared<HncoEvaluator>(_function);
-  _pimpl->middle_layer = std::make_shared<Middle_Layer>(_pimpl->configuration,
-                                                        _pimpl->evaluator);
+  _implementation->configuration.set("binary_insert", 1);
+  _implementation->configuration.set("cluster_ordering", std::string("least_linked_first"));
+  _implementation->configuration.set("disable_solution_outfile", 1);
+  _implementation->configuration.set("donate_until_different", 0);
+  _implementation->configuration.set("hill_climber", std::string("no_action"));
+  _implementation->configuration.set("keep_zeros", 0);
+  _implementation->configuration.set("no_singles", 0);
+  _implementation->configuration.set("precision", 65536);
+  _implementation->configuration.set("restrict_cluster_size", 0);
+  _implementation->configuration.set("solution_file", std::string("ltga-solution.txt"));
+  _implementation->configuration.set("verbosity", 0);
+  _implementation->configuration.set("length", get_bv_size());
+  _implementation->configuration.set("pop_size", _population_size);
+  _implementation->evaluator = std::make_shared<HncoEvaluator>(_function);
+  _implementation->middle_layer = std::make_shared<Middle_Layer>(_implementation->configuration,
+                                                                 _implementation->evaluator);
+
   LTGA ltga(hnco::random::Generator::engine,
-            _pimpl->middle_layer,
-            _pimpl->configuration);
+            _implementation->middle_layer,
+            _implementation->configuration);
   while (ltga.iterate()) {}
 }
 
@@ -77,6 +78,6 @@ Ltga::maximize(const std::vector<function::Function *>& functions)
 void
 Ltga::finalize()
 {
-  bv_from_vector_bool(_solution.first, _pimpl->middle_layer->best_solution);
-  _solution.second = _pimpl->middle_layer->best_fitness;
+  bv_from_vector_bool(_solution.first, _implementation->middle_layer->best_solution);
+  _solution.second = _implementation->middle_layer->best_fitness;
 }
