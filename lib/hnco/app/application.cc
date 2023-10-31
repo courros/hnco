@@ -197,7 +197,7 @@ CommandLineApplication::print_results(double total_time, bool target_reached)
   ProgressTracker *tracker = _decorated_function_factory.get_tracker();
   ProgressTracker::Event last_improvement = tracker->get_last_improvement();
 
-  results << "{\n  \"value\": "                    << last_improvement.value;
+  results << "{\n  \"value\": "                    << last_improvement.solution.second;
   results << ",\n  \"num_evaluations\": "          << last_improvement.num_evaluations;
   results << ",\n  \"total_num_evaluations\": "    << tracker->get_num_calls();
   results << ",\n  \"total_time\": "               << total_time;

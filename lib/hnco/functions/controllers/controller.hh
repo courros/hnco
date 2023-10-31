@@ -21,8 +21,7 @@
 #ifndef HNCO_FUNCTIONS_CONTROLLERS_CONTROLLER_H
 #define HNCO_FUNCTIONS_CONTROLLERS_CONTROLLER_H
 
-#include <assert.h>
-
+#include <cassert>
 #include <iostream>
 #include <unordered_map>
 
@@ -76,7 +75,7 @@ public:
   ///@{
 
   /// Safely evaluate a bit vector
-  double evaluate_safely(const bit_vector_t& x) { return _function->evaluate_safely(x); }
+  double evaluate_safely(const bit_vector_t& bv) { return _function->evaluate_safely(bv); }
 
   ///@}
 
@@ -125,13 +124,13 @@ public:
    * Incrementally evaluate a bit vector.
    * @throw TargetReached
    */
-  double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+  double evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
   /**
    * Update after a safe evaluation.
    * @throw TargetReached
    */
-  void update(const bit_vector_t& x, double value);
+  void update(const bit_vector_t& bv, double value);
 
   ///@}
 
@@ -178,10 +177,10 @@ public:
   double evaluate(const bit_vector_t&);
 
   /// Incrementally evaluate a bit vector
-  double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+  double evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
   /// Update after a safe evaluation
-  void update(const bit_vector_t& x, double value);
+  void update(const bit_vector_t& bv, double value);
 
   ///@}
 
@@ -221,13 +220,13 @@ public:
    * Incrementally evaluate a bit vector.
    * @throw LastEvaluation
    */
-  double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+  double evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
   /**
    * Update after a safe evaluation
    * @throw LastEvaluation
    */
-  void update(const bit_vector_t& x, double value);
+  void update(const bit_vector_t& bv, double value);
 
   ///@}
 
@@ -235,8 +234,8 @@ public:
 
 
 /**
- * ProgressTracker. A ProgressTracker is a CallCounter which keeps
- * track the last improvement, that is its value and the number of
+ * Progress tracker. A %ProgressTracker is a CallCounter which keeps
+ * track of the last improvement, that is its value and the number of
  * evaluations needed to reach it.
  */    
 class ProgressTracker: public CallCounter {
@@ -249,8 +248,8 @@ public:
     /// Number of evaluations
     int num_evaluations;
 
-    /// Value
-    double value;
+    /// Solution
+    algorithm::solution_t solution;
 
   };
 
@@ -276,10 +275,18 @@ protected:
    */
   bool _record_evaluation_time = false;
 
+  /**
+   * Record bit vector.
+   */
+  bool _record_bit_vector = false;
+
   ///@}
 
   /// Update last improvement
-  void update_last_improvement(double value);
+  void update_last_improvement(const bit_vector_t& bv, double value);
+
+  /// Update last improvement (details)
+  void update_last_improvement_details(const bit_vector_t& bv, double value);
 
 public:
 
@@ -287,7 +294,10 @@ public:
   ProgressTracker(Function *function):
     CallCounter(function)
   {
+    assert(function);
+
     _last_improvement.num_evaluations = 0;
+    _last_improvement.solution.first.resize(function->get_bv_size());
   }
 
   /**
@@ -299,10 +309,10 @@ public:
   double evaluate(const bit_vector_t&);
 
   /// Incrementally evaluate a bit vector
-  double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits);
+  double evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits);
 
   /// Update after a safe evaluation
-  void update(const bit_vector_t& x, double value);
+  void update(const bit_vector_t& bv, double value);
 
   ///@}
 
@@ -331,10 +341,13 @@ public:
   ///@{
 
   /// Log improvement
-  void set_log_improvement(bool x) { _log_improvement = x; }
+  void set_log_improvement(bool b) { _log_improvement = b; }
 
   /// Record evaluation time
   void set_record_evaluation_time(bool b) { _record_evaluation_time = b; }
+
+  /// Record bit vector
+  void set_record_bit_vector(bool b) { _record_bit_vector = b; }
 
   ///@}
 
