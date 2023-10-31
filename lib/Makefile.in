@@ -244,6 +244,10 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.cc \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
+	hnco/algorithms/gomea/all.hh hnco/algorithms/gomea/gomea.cc \
+	hnco/algorithms/gomea/gomea.hh \
+	hnco/algorithms/gomea/hnco-fitness.hh \
+	hnco/algorithms/gomea/implementation.hh \
 	hnco/algorithms/human.cc hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
 	hnco/algorithms/iterative-algorithm.hh \
@@ -441,7 +445,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/fast-efficient-p3/hboa.lo \
 	hnco/algorithms/fast-efficient-p3/ltga.lo \
 	hnco/algorithms/fast-efficient-p3/p3.lo \
-	hnco/algorithms/human.lo \
+	hnco/algorithms/gomea/gomea.lo hnco/algorithms/human.lo \
 	hnco/algorithms/iterative-algorithm.lo \
 	hnco/algorithms/ls/first-ascent-hill-climbing.lo \
 	hnco/algorithms/ls/random-local-search.lo \
@@ -570,6 +574,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo \
 	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo \
 	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo \
+	hnco/algorithms/gomea/$(DEPDIR)/gomea.Plo \
 	hnco/algorithms/ls/$(DEPDIR)/first-ascent-hill-climbing.Plo \
 	hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo \
 	hnco/algorithms/ls/$(DEPDIR)/random-walk.Plo \
@@ -716,6 +721,9 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/implementation.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
+	hnco/algorithms/gomea/all.hh hnco/algorithms/gomea/gomea.hh \
+	hnco/algorithms/gomea/hnco-fitness.hh \
+	hnco/algorithms/gomea/implementation.hh \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/ls/all.hh \
@@ -1051,6 +1059,10 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.cc \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
+	hnco/algorithms/gomea/all.hh hnco/algorithms/gomea/gomea.cc \
+	hnco/algorithms/gomea/gomea.hh \
+	hnco/algorithms/gomea/hnco-fitness.hh \
+	hnco/algorithms/gomea/implementation.hh \
 	hnco/algorithms/human.cc hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
 	hnco/algorithms/iterative-algorithm.hh \
@@ -1245,6 +1257,9 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/implementation.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
+	hnco/algorithms/gomea/all.hh hnco/algorithms/gomea/gomea.hh \
+	hnco/algorithms/gomea/hnco-fitness.hh \
+	hnco/algorithms/gomea/implementation.hh \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/ls/all.hh \
@@ -1575,6 +1590,14 @@ hnco/algorithms/fast-efficient-p3/ltga.lo:  \
 hnco/algorithms/fast-efficient-p3/p3.lo:  \
 	hnco/algorithms/fast-efficient-p3/$(am__dirstamp) \
 	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/gomea/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/gomea
+	@: > hnco/algorithms/gomea/$(am__dirstamp)
+hnco/algorithms/gomea/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/gomea/$(DEPDIR)
+	@: > hnco/algorithms/gomea/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/gomea/gomea.lo: hnco/algorithms/gomea/$(am__dirstamp) \
+	hnco/algorithms/gomea/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/human.lo: hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/iterative-algorithm.lo:  \
@@ -1896,6 +1919,8 @@ mostlyclean-compile:
 	-rm -f hnco/algorithms/ea/*.lo
 	-rm -f hnco/algorithms/fast-efficient-p3/*.$(OBJEXT)
 	-rm -f hnco/algorithms/fast-efficient-p3/*.lo
+	-rm -f hnco/algorithms/gomea/*.$(OBJEXT)
+	-rm -f hnco/algorithms/gomea/*.lo
 	-rm -f hnco/algorithms/ls/*.$(OBJEXT)
 	-rm -f hnco/algorithms/ls/*.lo
 	-rm -f hnco/algorithms/pv/*.$(OBJEXT)
@@ -1985,6 +2010,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/gomea/$(DEPDIR)/gomea.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/first-ascent-hill-climbing.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/random-walk.Plo@am__quote@ # am--include-marker
@@ -2118,6 +2144,7 @@ clean-libtool:
 	-rm -rf hnco/algorithms/decorators/.libs hnco/algorithms/decorators/_libs
 	-rm -rf hnco/algorithms/ea/.libs hnco/algorithms/ea/_libs
 	-rm -rf hnco/algorithms/fast-efficient-p3/.libs hnco/algorithms/fast-efficient-p3/_libs
+	-rm -rf hnco/algorithms/gomea/.libs hnco/algorithms/gomea/_libs
 	-rm -rf hnco/algorithms/ls/.libs hnco/algorithms/ls/_libs
 	-rm -rf hnco/algorithms/pv/.libs hnco/algorithms/pv/_libs
 	-rm -rf hnco/algorithms/walsh-moment/.libs hnco/algorithms/walsh-moment/_libs
@@ -2301,6 +2328,8 @@ distclean-generic:
 	-rm -f hnco/algorithms/ea/$(am__dirstamp)
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/algorithms/fast-efficient-p3/$(am__dirstamp)
+	-rm -f hnco/algorithms/gomea/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/algorithms/gomea/$(am__dirstamp)
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/algorithms/ls/$(am__dirstamp)
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
@@ -2397,6 +2426,7 @@ distclean: distclean-am
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo
+	-rm -f hnco/algorithms/gomea/$(DEPDIR)/gomea.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/first-ascent-hill-climbing.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/random-walk.Plo
@@ -2557,6 +2587,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/hboa.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo
+	-rm -f hnco/algorithms/gomea/$(DEPDIR)/gomea.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/first-ascent-hill-climbing.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo
 	-rm -f hnco/algorithms/ls/$(DEPDIR)/random-walk.Plo

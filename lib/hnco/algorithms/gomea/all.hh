@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_GOMEA_H
-#define HNCO_ALGORITHMS_GOMEA_H
+#ifndef HNCO_ALGORITHMS_GOMEA_ALL_H
+#define HNCO_ALGORITHMS_GOMEA_ALL_H
 
 #include "gomea.hh"
 

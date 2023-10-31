@@ -18,36 +18,36 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_IMPLEMENTATION_H
-#define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_IMPLEMENTATION_H
+#ifndef HNCO_ALGORITHMS_GOMEA_IMPLEMENTATION_H
+#define HNCO_ALGORITHMS_GOMEA_IMPLEMENTATION_H
 
 #include <memory>               // std::shared_ptr
 
-#include "fast-efficient-p3/Configuration.h"
-#include "fast-efficient-p3/MiddleLayer.h"
+#include "hnco/functions/controllers/all.hh" // hnco::function::controller::ProgressTracker
+#include "gomea/src/discrete/Config.hpp"
 
-#include "hnco-evaluator.hh"
+#include "hnco-fitness.hh"
 
 
 namespace hnco {
 namespace algorithm {
-namespace fast_efficient_p3 {
+namespace gomea {
 
   /// %Implementation
   struct Implementation  {
 
     /// Configuration
-    Configuration configuration;
+    ::gomea::discrete::Config configuration;
 
-    /// Evaluator
-    std::shared_ptr<HncoEvaluator> evaluator;
+    /// Fitness
+    std::shared_ptr<HncoFitness> fitness;
 
-    /// Middle layer
-    std::shared_ptr<Middle_Layer> middle_layer;
+    /// Progress tracker
+    std::shared_ptr<hnco::function::controller::ProgressTracker> tracker;
 
   };
 
-} // end of namespace fast_efficient_p3
+} // end of namespace gomea
 } // end of namespace algorithm
 } // end of namespace hnco
 

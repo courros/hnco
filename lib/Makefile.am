@@ -120,6 +120,11 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.cc \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
+	hnco/algorithms/gomea/all.hh \
+	hnco/algorithms/gomea/gomea.cc \
+	hnco/algorithms/gomea/gomea.hh \
+	hnco/algorithms/gomea/hnco-fitness.hh \
+	hnco/algorithms/gomea/implementation.hh \
 	hnco/algorithms/human.cc \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
@@ -384,6 +389,10 @@ nobase_include_HEADERS = \
 	hnco/algorithms/fast-efficient-p3/implementation.hh \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
+	hnco/algorithms/gomea/all.hh \
+	hnco/algorithms/gomea/gomea.hh \
+	hnco/algorithms/gomea/hnco-fitness.hh \
+	hnco/algorithms/gomea/implementation.hh \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/ls/all.hh \

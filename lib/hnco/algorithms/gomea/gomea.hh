@@ -55,7 +55,7 @@ class Gomea: public Algorithm {
       A raw pointer is used instead of a unique_ptr because the latter
       will not compile with pybind11.
   */
-  Implementation *_impl;;
+  Implementation *_implementation;;
 
 public:
 
@@ -74,7 +74,7 @@ public:
 };
 
 
-} // end of namespace fast_efficient_p3
+} // end of namespace gomea
 } // end of namespace algorithm
 } // end of namespace hnco
 

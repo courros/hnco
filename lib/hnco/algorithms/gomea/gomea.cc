@@ -21,11 +21,13 @@
 #include "hnco/random.hh"
 
 #include "gomea/src/discrete/Config.hpp"
+#include "gomea/src/discrete/gomeaIMS.hpp"
 
 #include "hnco-fitness.hh"
 #include "implementation.hh"
 #include "gomea.hh"
 
+using namespace hnco::function::controller;
 using namespace hnco::algorithm::gomea;
 using namespace hnco::algorithm;
 using namespace hnco;
@@ -34,13 +36,13 @@ using namespace hnco;
 Gomea::Gomea(int n):
   Algorithm(n)
 {
-  _pimpl = new Implementation();
+  _implementation = new Implementation();
 }
 
 
 Gomea::~Gomea()
 {
-  delete _pimpl;
+  delete _implementation;
 }
 
 
@@ -49,33 +51,33 @@ Gomea::maximize(const std::vector<function::Function *>& functions)
 {
   set_functions(functions);
 
-  _pimpl->configuration.set("cluster_ordering", std::string("least_linked_first"));
-  _pimpl->configuration.set("disable_solution_outfile", 1);
-  _pimpl->configuration.set("donate_until_different", 0);
-  _pimpl->configuration.set("hill_climber", std::string("no_action"));
-  _pimpl->configuration.set("keep_zeros", 0);
-  _pimpl->configuration.set("no_singles", 0);
-  _pimpl->configuration.set("only_add_improvements", 1);
-  _pimpl->configuration.set("precision", 65536);
-  _pimpl->configuration.set("restrict_cluster_size", 0);
-  _pimpl->configuration.set("solution_file", std::string("p3-solution.txt"));
-  _pimpl->configuration.set("verbosity", 0);
-  _pimpl->configuration.set("wait_until_k_modeled", 0);
-  _pimpl->configuration.set("prevent_duplicates", 1);
-  _pimpl->configuration.set("length", get_bv_size());
-  _pimpl->evaluator = std::make_shared<HncoEvaluator>(_function);
-  _pimpl->middle_layer = std::make_shared<Middle_Layer>(_pimpl->configuration,
-                                                        _pimpl->evaluator);
-  Pyramid pyramid(hnco::random::Generator::engine,
-                  _pimpl->middle_layer,
-                  _pimpl->configuration);
-  while (pyramid.iterate()) {}
+  auto tracker = _implementation->tracker;
+  tracker = std::make_shared<ProgressTracker>(_function);
+  tracker->set_record_bit_vector(true);
+
+  _implementation->fitness = std::make_shared<HncoFitness>(tracker.get());
+
+  _implementation->configuration.fitness                    = _implementation->fitness.get();
+  // _implementation->configuration.linkage_config             = linkage_model.c_inst;
+  // _implementation->configuration.folder                     = "output_discrete_gomea";
+  // _implementation->configuration.maximumNumberOfGOMEAs      = max_number_of_populations;
+  // _implementation->configuration.IMSsubgenerationFactor     = IMS_subgeneration_factor;
+  // _implementation->configuration.basePopulationSize         = base_population_size;
+  // _implementation->configuration.maxArchiveSize             = 1000 ;
+  // _implementation->configuration.maximumNumberOfEvaluations = max_number_of_evaluations;
+  // _implementation->configuration.maximumNumberOfGenerations = max_number_of_generations;
+  // _implementation->configuration.maximumNumberOfSeconds     = max_number_of_seconds;
+  // _implementation->configuration.randomSeed                 = random_seed;
+  // _implementation->configuration.fix_seed                   = true;
+
+  ::gomea::discrete::gomeaIMS gomea(&_implementation->configuration);
+  gomea.run();
 }
 
 
 void
 Gomea::finalize()
 {
-  bv_from_vector_bool(_solution.first, _pimpl->middle_layer->best_solution);
-  _solution.second = _pimpl->middle_layer->best_fitness;
+  ProgressTracker::Event last_improvement = _implementation->tracker->get_last_improvement();
+  _solution = last_improvement.solution;
 }

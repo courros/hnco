@@ -33,7 +33,7 @@ namespace gomea {
 
 /// Fitness for HNCO functions
 class HncoFitness:
-    public BBOFitnessFunction_t<char> {
+    public ::gomea::fitness::BBOFitnessFunction_t<char> {
 
   /// HNCO function
   hnco::function::Function *_function;
@@ -44,14 +44,15 @@ class HncoFitness:
 public:
 
   /// Constructor
-  HncoFitness(hnco::function::Function *function):
-    _function(function) {
-    assert(function);
+  HncoFitness(hnco::function::Function *function)
+    : BBOFitnessFunction_t<char>(function->get_bv_size())
+    , _function(function)
+  {
     _bv = bit_vector_t(_function->get_bv_size());
   }
 
   /// Evaluate a bit vector
-  double objectiveFunction(int objective_index, vec_t<char>& variables) {
+  double objectiveFunction(int objective_index, ::gomea::vec_t<char>& variables) override {
     assert(variables.size() == _bv.size());
     for (size_t i = 0; i < _bv.size(); ++i)
       _bv[i] = variables[i];
