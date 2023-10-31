@@ -37,13 +37,22 @@ struct Implementation;
 
 /** GOMEA.
 
-    Implemention of the GOMEA.
+    %Implemention of the GOMEA.
 
     Author: Anton Bouter
 
-    Reference:
-
     Integrated into HNCO by Arnaud Berny
+
+    References:
+
+    - A Joint Python/C++ Library for Efficient yet Accessible
+      Black-Box and Gray-Box Optimization with GOMEA, Anton Bouter and
+      Peter A.N. Bosman
+
+    - Parameterless Gene-pool Optimal Mixing Evolutionary Algorithms,
+      Arkadiy Dushatskiy, Marco Virgolin, Anton Bouter, Dirk Thierens,
+      and Peter A. N. Bosman
+
 */
 class Gomea: public Algorithm {
 
