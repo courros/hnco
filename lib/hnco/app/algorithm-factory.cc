@@ -478,6 +478,11 @@ CommandLineAlgorithmFactory::make(int bv_size)
     return algo;
   }
 
+  case 1250: {
+    auto algo = new hnco::algorithm::gomea::Gomea(bv_size);
+    return algo;
+  }
+
   case 1300:
     return new hnco::algorithm::fast_efficient_p3::ParameterLessPopulationPyramid(bv_size);
 

@@ -26,6 +26,7 @@
 #include "decorators/all.hh"
 #include "ea/all.hh"
 #include "fast-efficient-p3/all.hh"
+#include "gomea/all.hh"
 #include "human.hh"
 #include "iterative-algorithm.hh"
 #include "ls/all.hh"

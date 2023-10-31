@@ -24,6 +24,7 @@
 #include <memory>               // std::shared_ptr
 
 #include "hnco/functions/controllers/all.hh" // hnco::function::controller::ProgressTracker
+#include "gomea/src/common/linkage_config.hpp"
 #include "gomea/src/discrete/Config.hpp"
 
 #include "hnco-fitness.hh"
@@ -36,8 +37,11 @@ namespace gomea {
   /// %Implementation
   struct Implementation  {
 
+    /// Linkage configuration
+    ::gomea::linkage_config_t linkage_config;
+
     /// Configuration
-    ::gomea::discrete::Config configuration;
+    ::gomea::discrete::Config config;
 
     /// Fitness
     std::shared_ptr<HncoFitness> fitness;

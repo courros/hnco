@@ -1209,6 +1209,11 @@
                 },
 
                 {
+                    "value": 1250,
+                    "description": "GOMEA"
+                },
+
+                {
                     "value": 1300,
                     "description": "Parameter-less population pyramid (P3)"
                 }

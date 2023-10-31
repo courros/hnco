@@ -21,7 +21,7 @@
 #ifndef HNCO_ALGORITHMS_GOMEA_HNCO_FITNESS_H
 #define HNCO_ALGORITHMS_GOMEA_HNCO_FITNESS_H
 
-#include <assert.h>
+#include <cassert>
 
 #include "hnco/functions/function.hh"
 
@@ -54,8 +54,10 @@ public:
   /// Evaluate a bit vector
   double objectiveFunction(int objective_index, ::gomea::vec_t<char>& variables) override {
     assert(variables.size() == _bv.size());
-    for (size_t i = 0; i < _bv.size(); ++i)
+    for (size_t i = 0; i < _bv.size(); ++i) {
+      assert(variables[i] == 0 || variables[i] == 1);
       _bv[i] = variables[i];
+    }
     return _function->evaluate(_bv);
   }
 

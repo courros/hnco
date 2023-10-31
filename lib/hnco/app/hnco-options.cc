@@ -1096,6 +1096,7 @@ void HncoOptions::print_help_alg(std::ostream& stream) const
   stream << "            1100: Mutual information maximizing input clustering (MIMIC)" << std::endl;
   stream << "            1110: Hierarchical Bayesian optimization algorithm (hBOA)" << std::endl;
   stream << "            1200: Linkage tree genetic algorithm (LTGA)" << std::endl;
+  stream << "            1250: GOMEA" << std::endl;
   stream << "            1300: Parameter-less population pyramid (P3)" << std::endl;
   stream << "  -i, --num-iterations (type int, default to 0)" << std::endl;
   stream << "          Number of iterations (<= 0 means indefinite)" << std::endl;
