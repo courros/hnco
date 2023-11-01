@@ -16,8 +16,8 @@ References
   Library for Efficient yet Accessible Black-Box and Gray-Box
   Optimization with GOMEA. In Proceedings of the Genetic and
   Evolutionary Computation Conference Companion (GECCO '23). ACM,
-  1864-1872.
-  `doi:10.1145/3583133.3596361<https://doi.org/10.1145/3583133.3596361>`_
+  1864-1872. `doi:10.1145/3583133.3596361
+  <https://doi.org/10.1145/3583133.3596361>`_
 
 - Brian W. Goldman, `FastEfficientP3
   <https://github.com/brianwgoldman/FastEfficientP3>`_.
