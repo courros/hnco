@@ -24,7 +24,7 @@
 #include "algorithm.hh"
 #include "complete-search.hh"
 #include "decorators/all.hh"
-#include "ea/all.hh"
+#include "evolutionary-algorithms/all.hh"
 #include "fast-efficient-p3/all.hh"
 #include "gomea/all.hh"
 #include "human.hh"

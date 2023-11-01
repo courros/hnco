@@ -18,7 +18,7 @@
 
 */
 
-#include "hnco/algorithms/ea/one-plus-one-ea.hh"
+#include "hnco/algorithms/evolutionary-algorithms/one-plus-one-ea.hh"
 #include "hnco/functions/controllers/controller.hh"
 #include "hnco/functions/modifiers/modifier.hh"
 #include "hnco/functions/collection/theory.hh"

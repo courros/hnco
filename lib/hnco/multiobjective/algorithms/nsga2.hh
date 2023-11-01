@@ -23,7 +23,7 @@
 
 #include <functional>           // std::less
 
-#include "hnco/algorithms/ea/crossover.hh"    // hnco::algorithm::UniformCrossover
+#include "hnco/algorithms/evolutionary-algorithms/crossover.hh"    // hnco::algorithm::UniformCrossover
 #include "hnco/neighborhoods/neighborhood.hh" // hnco::neighborhood::StandardBitMutation
 
 #include "iterative-algorithm.hh"

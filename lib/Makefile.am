@@ -92,27 +92,27 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/decorators/all.hh \
 	hnco/algorithms/decorators/restart.cc \
 	hnco/algorithms/decorators/restart.hh \
-	hnco/algorithms/ea/all.hh \
-	hnco/algorithms/ea/crossover.cc \
-	hnco/algorithms/ea/crossover.hh \
-	hnco/algorithms/ea/genetic-algorithm.cc \
-	hnco/algorithms/ea/genetic-algorithm.hh \
-	hnco/algorithms/ea/it-ea.cc \
-	hnco/algorithms/ea/it-ea.hh \
-	hnco/algorithms/ea/mu-comma-lambda-ea.cc \
-	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
-	hnco/algorithms/ea/mu-plus-lambda-ea.cc \
-	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
-	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.cc \
-	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
-	hnco/algorithms/ea/one-plus-one-ea.hh \
-	hnco/algorithms/ea/random-selection.cc \
-	hnco/algorithms/ea/random-selection.hh \
-	hnco/algorithms/ea/selection.hh \
-	hnco/algorithms/ea/self-adjusting-one-plus-one-ea.cc \
-	hnco/algorithms/ea/self-adjusting-one-plus-one-ea.hh \
-	hnco/algorithms/ea/two-rate-one-plus-lambda-ea.cc \
-	hnco/algorithms/ea/two-rate-one-plus-lambda-ea.hh \
+	hnco/algorithms/evolutionary-algorithms/all.hh \
+	hnco/algorithms/evolutionary-algorithms/crossover.cc \
+	hnco/algorithms/evolutionary-algorithms/crossover.hh \
+	hnco/algorithms/evolutionary-algorithms/genetic-algorithm.cc \
+	hnco/algorithms/evolutionary-algorithms/genetic-algorithm.hh \
+	hnco/algorithms/evolutionary-algorithms/it-ea.cc \
+	hnco/algorithms/evolutionary-algorithms/it-ea.hh \
+	hnco/algorithms/evolutionary-algorithms/mu-comma-lambda-ea.cc \
+	hnco/algorithms/evolutionary-algorithms/mu-comma-lambda-ea.hh \
+	hnco/algorithms/evolutionary-algorithms/mu-plus-lambda-ea.cc \
+	hnco/algorithms/evolutionary-algorithms/mu-plus-lambda-ea.hh \
+	hnco/algorithms/evolutionary-algorithms/one-plus-lambda-comma-lambda-ga.cc \
+	hnco/algorithms/evolutionary-algorithms/one-plus-lambda-comma-lambda-ga.hh \
+	hnco/algorithms/evolutionary-algorithms/one-plus-one-ea.hh \
+	hnco/algorithms/evolutionary-algorithms/random-selection.cc \
+	hnco/algorithms/evolutionary-algorithms/random-selection.hh \
+	hnco/algorithms/evolutionary-algorithms/selection.hh \
+	hnco/algorithms/evolutionary-algorithms/self-adjusting-one-plus-one-ea.cc \
+	hnco/algorithms/evolutionary-algorithms/self-adjusting-one-plus-one-ea.hh \
+	hnco/algorithms/evolutionary-algorithms/two-rate-one-plus-lambda-ea.cc \
+	hnco/algorithms/evolutionary-algorithms/two-rate-one-plus-lambda-ea.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.cc \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
@@ -375,18 +375,18 @@ nobase_include_HEADERS = \
 	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/decorators/all.hh \
 	hnco/algorithms/decorators/restart.hh \
-	hnco/algorithms/ea/all.hh \
-	hnco/algorithms/ea/crossover.hh \
-	hnco/algorithms/ea/genetic-algorithm.hh \
-	hnco/algorithms/ea/it-ea.hh \
-	hnco/algorithms/ea/mu-comma-lambda-ea.hh \
-	hnco/algorithms/ea/mu-plus-lambda-ea.hh \
-	hnco/algorithms/ea/one-plus-lambda-comma-lambda-ga.hh \
-	hnco/algorithms/ea/one-plus-one-ea.hh \
-	hnco/algorithms/ea/random-selection.hh \
-	hnco/algorithms/ea/selection.hh \
-	hnco/algorithms/ea/self-adjusting-one-plus-one-ea.hh \
-	hnco/algorithms/ea/two-rate-one-plus-lambda-ea.hh \
+	hnco/algorithms/evolutionary-algorithms/all.hh \
+	hnco/algorithms/evolutionary-algorithms/crossover.hh \
+	hnco/algorithms/evolutionary-algorithms/genetic-algorithm.hh \
+	hnco/algorithms/evolutionary-algorithms/it-ea.hh \
+	hnco/algorithms/evolutionary-algorithms/mu-comma-lambda-ea.hh \
+	hnco/algorithms/evolutionary-algorithms/mu-plus-lambda-ea.hh \
+	hnco/algorithms/evolutionary-algorithms/one-plus-lambda-comma-lambda-ga.hh \
+	hnco/algorithms/evolutionary-algorithms/one-plus-one-ea.hh \
+	hnco/algorithms/evolutionary-algorithms/random-selection.hh \
+	hnco/algorithms/evolutionary-algorithms/selection.hh \
+	hnco/algorithms/evolutionary-algorithms/self-adjusting-one-plus-one-ea.hh \
+	hnco/algorithms/evolutionary-algorithms/two-rate-one-plus-lambda-ea.hh \
 	hnco/algorithms/fast-efficient-p3/all.hh \
 	hnco/algorithms/fast-efficient-p3/hboa.hh \
 	hnco/algorithms/fast-efficient-p3/hnco-evaluator.hh \
