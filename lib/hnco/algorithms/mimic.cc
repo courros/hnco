@@ -23,7 +23,7 @@
 
 #include <algorithm>            // std::fill, std::min, std::swap, std::min_element, std::all_of
 
-#include "hnco/algorithms/pv/probability-vector.hh"
+#include "hnco/algorithms/probability-vector/probability-vector.hh"
 #include "hnco/random.hh"
 
 #include "mimic.hh"

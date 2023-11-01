@@ -31,7 +31,7 @@
 #include "iterative-algorithm.hh"
 #include "local-search/all.hh"
 #include "mimic.hh"
-#include "pv/all.hh"
+#include "probability-vector/all.hh"
 #include "random-search.hh"
 #include "walsh-moment/all.hh"
 

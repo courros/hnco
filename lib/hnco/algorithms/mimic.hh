@@ -26,7 +26,7 @@
 
 #include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/algorithms/population.hh"
-#include "hnco/algorithms/pv/probability-vector.hh"
+#include "hnco/algorithms/probability-vector/probability-vector.hh"
 #include "hnco/exception.hh"
 #include "hnco/permutation.hh"
 

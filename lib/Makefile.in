@@ -269,16 +269,22 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/local-search/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/mimic.cc hnco/algorithms/mimic.hh \
 	hnco/algorithms/population.cc hnco/algorithms/population.hh \
-	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.cc \
-	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.cc \
-	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.cc \
-	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.cc \
-	hnco/algorithms/pv/pbil.hh \
-	hnco/algorithms/pv/probability-vector.cc \
-	hnco/algorithms/pv/probability-vector.hh \
-	hnco/algorithms/pv/pv-algorithm.cc \
-	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.cc \
-	hnco/algorithms/pv/umda.hh hnco/algorithms/random-search.cc \
+	hnco/algorithms/probability-vector/all.hh \
+	hnco/algorithms/probability-vector/compact-ga.cc \
+	hnco/algorithms/probability-vector/compact-ga.hh \
+	hnco/algorithms/probability-vector/mmas.cc \
+	hnco/algorithms/probability-vector/mmas.hh \
+	hnco/algorithms/probability-vector/nps-pbil.cc \
+	hnco/algorithms/probability-vector/nps-pbil.hh \
+	hnco/algorithms/probability-vector/pbil.cc \
+	hnco/algorithms/probability-vector/pbil.hh \
+	hnco/algorithms/probability-vector/probability-vector.cc \
+	hnco/algorithms/probability-vector/probability-vector.hh \
+	hnco/algorithms/probability-vector/pv-algorithm.cc \
+	hnco/algorithms/probability-vector/pv-algorithm.hh \
+	hnco/algorithms/probability-vector/umda.cc \
+	hnco/algorithms/probability-vector/umda.hh \
+	hnco/algorithms/random-search.cc \
 	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
 	hnco/algorithms/walsh-moment/bm-pbil.hh \
@@ -457,10 +463,13 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/local-search/simulated-annealing.lo \
 	hnco/algorithms/local-search/steepest-ascent-hill-climbing.lo \
 	hnco/algorithms/mimic.lo hnco/algorithms/population.lo \
-	hnco/algorithms/pv/compact-ga.lo hnco/algorithms/pv/mmas.lo \
-	hnco/algorithms/pv/nps-pbil.lo hnco/algorithms/pv/pbil.lo \
-	hnco/algorithms/pv/probability-vector.lo \
-	hnco/algorithms/pv/pv-algorithm.lo hnco/algorithms/pv/umda.lo \
+	hnco/algorithms/probability-vector/compact-ga.lo \
+	hnco/algorithms/probability-vector/mmas.lo \
+	hnco/algorithms/probability-vector/nps-pbil.lo \
+	hnco/algorithms/probability-vector/pbil.lo \
+	hnco/algorithms/probability-vector/probability-vector.lo \
+	hnco/algorithms/probability-vector/pv-algorithm.lo \
+	hnco/algorithms/probability-vector/umda.lo \
 	hnco/algorithms/random-search.lo \
 	hnco/algorithms/walsh-moment/gibbs-sampler.lo \
 	hnco/algorithms/walsh-moment/herding.lo \
@@ -583,13 +592,13 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/algorithms/local-search/$(DEPDIR)/random-walk.Plo \
 	hnco/algorithms/local-search/$(DEPDIR)/simulated-annealing.Plo \
 	hnco/algorithms/local-search/$(DEPDIR)/steepest-ascent-hill-climbing.Plo \
-	hnco/algorithms/pv/$(DEPDIR)/compact-ga.Plo \
-	hnco/algorithms/pv/$(DEPDIR)/mmas.Plo \
-	hnco/algorithms/pv/$(DEPDIR)/nps-pbil.Plo \
-	hnco/algorithms/pv/$(DEPDIR)/pbil.Plo \
-	hnco/algorithms/pv/$(DEPDIR)/probability-vector.Plo \
-	hnco/algorithms/pv/$(DEPDIR)/pv-algorithm.Plo \
-	hnco/algorithms/pv/$(DEPDIR)/umda.Plo \
+	hnco/algorithms/probability-vector/$(DEPDIR)/compact-ga.Plo \
+	hnco/algorithms/probability-vector/$(DEPDIR)/mmas.Plo \
+	hnco/algorithms/probability-vector/$(DEPDIR)/nps-pbil.Plo \
+	hnco/algorithms/probability-vector/$(DEPDIR)/pbil.Plo \
+	hnco/algorithms/probability-vector/$(DEPDIR)/probability-vector.Plo \
+	hnco/algorithms/probability-vector/$(DEPDIR)/pv-algorithm.Plo \
+	hnco/algorithms/probability-vector/$(DEPDIR)/umda.Plo \
 	hnco/algorithms/walsh-moment/$(DEPDIR)/gibbs-sampler.Plo \
 	hnco/algorithms/walsh-moment/$(DEPDIR)/herding.Plo \
 	hnco/algorithms/walsh-moment/$(DEPDIR)/walsh-moment.Plo \
@@ -740,11 +749,14 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/local-search/simulated-annealing.hh \
 	hnco/algorithms/local-search/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/mimic.hh hnco/algorithms/population.hh \
-	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
-	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
-	hnco/algorithms/pv/pbil.hh \
-	hnco/algorithms/pv/probability-vector.hh \
-	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
+	hnco/algorithms/probability-vector/all.hh \
+	hnco/algorithms/probability-vector/compact-ga.hh \
+	hnco/algorithms/probability-vector/mmas.hh \
+	hnco/algorithms/probability-vector/nps-pbil.hh \
+	hnco/algorithms/probability-vector/pbil.hh \
+	hnco/algorithms/probability-vector/probability-vector.hh \
+	hnco/algorithms/probability-vector/pv-algorithm.hh \
+	hnco/algorithms/probability-vector/umda.hh \
 	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
 	hnco/algorithms/walsh-moment/bm-pbil.hh \
@@ -1090,16 +1102,22 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/local-search/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/mimic.cc hnco/algorithms/mimic.hh \
 	hnco/algorithms/population.cc hnco/algorithms/population.hh \
-	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.cc \
-	hnco/algorithms/pv/compact-ga.hh hnco/algorithms/pv/mmas.cc \
-	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.cc \
-	hnco/algorithms/pv/nps-pbil.hh hnco/algorithms/pv/pbil.cc \
-	hnco/algorithms/pv/pbil.hh \
-	hnco/algorithms/pv/probability-vector.cc \
-	hnco/algorithms/pv/probability-vector.hh \
-	hnco/algorithms/pv/pv-algorithm.cc \
-	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.cc \
-	hnco/algorithms/pv/umda.hh hnco/algorithms/random-search.cc \
+	hnco/algorithms/probability-vector/all.hh \
+	hnco/algorithms/probability-vector/compact-ga.cc \
+	hnco/algorithms/probability-vector/compact-ga.hh \
+	hnco/algorithms/probability-vector/mmas.cc \
+	hnco/algorithms/probability-vector/mmas.hh \
+	hnco/algorithms/probability-vector/nps-pbil.cc \
+	hnco/algorithms/probability-vector/nps-pbil.hh \
+	hnco/algorithms/probability-vector/pbil.cc \
+	hnco/algorithms/probability-vector/pbil.hh \
+	hnco/algorithms/probability-vector/probability-vector.cc \
+	hnco/algorithms/probability-vector/probability-vector.hh \
+	hnco/algorithms/probability-vector/pv-algorithm.cc \
+	hnco/algorithms/probability-vector/pv-algorithm.hh \
+	hnco/algorithms/probability-vector/umda.cc \
+	hnco/algorithms/probability-vector/umda.hh \
+	hnco/algorithms/random-search.cc \
 	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
 	hnco/algorithms/walsh-moment/bm-pbil.hh \
@@ -1283,11 +1301,14 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/local-search/simulated-annealing.hh \
 	hnco/algorithms/local-search/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/mimic.hh hnco/algorithms/population.hh \
-	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
-	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
-	hnco/algorithms/pv/pbil.hh \
-	hnco/algorithms/pv/probability-vector.hh \
-	hnco/algorithms/pv/pv-algorithm.hh hnco/algorithms/pv/umda.hh \
+	hnco/algorithms/probability-vector/all.hh \
+	hnco/algorithms/probability-vector/compact-ga.hh \
+	hnco/algorithms/probability-vector/mmas.hh \
+	hnco/algorithms/probability-vector/nps-pbil.hh \
+	hnco/algorithms/probability-vector/pbil.hh \
+	hnco/algorithms/probability-vector/probability-vector.hh \
+	hnco/algorithms/probability-vector/pv-algorithm.hh \
+	hnco/algorithms/probability-vector/umda.hh \
 	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
 	hnco/algorithms/walsh-moment/bm-pbil.hh \
@@ -1643,28 +1664,33 @@ hnco/algorithms/mimic.lo: hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/population.lo: hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/pv/$(am__dirstamp):
-	@$(MKDIR_P) hnco/algorithms/pv
-	@: > hnco/algorithms/pv/$(am__dirstamp)
-hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) hnco/algorithms/pv/$(DEPDIR)
-	@: > hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/pv/compact-ga.lo: hnco/algorithms/pv/$(am__dirstamp) \
-	hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/pv/mmas.lo: hnco/algorithms/pv/$(am__dirstamp) \
-	hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/pv/nps-pbil.lo: hnco/algorithms/pv/$(am__dirstamp) \
-	hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/pv/pbil.lo: hnco/algorithms/pv/$(am__dirstamp) \
-	hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/pv/probability-vector.lo:  \
-	hnco/algorithms/pv/$(am__dirstamp) \
-	hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/pv/pv-algorithm.lo:  \
-	hnco/algorithms/pv/$(am__dirstamp) \
-	hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/pv/umda.lo: hnco/algorithms/pv/$(am__dirstamp) \
-	hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/probability-vector/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/probability-vector
+	@: > hnco/algorithms/probability-vector/$(am__dirstamp)
+hnco/algorithms/probability-vector/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/probability-vector/$(DEPDIR)
+	@: > hnco/algorithms/probability-vector/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/probability-vector/compact-ga.lo:  \
+	hnco/algorithms/probability-vector/$(am__dirstamp) \
+	hnco/algorithms/probability-vector/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/probability-vector/mmas.lo:  \
+	hnco/algorithms/probability-vector/$(am__dirstamp) \
+	hnco/algorithms/probability-vector/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/probability-vector/nps-pbil.lo:  \
+	hnco/algorithms/probability-vector/$(am__dirstamp) \
+	hnco/algorithms/probability-vector/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/probability-vector/pbil.lo:  \
+	hnco/algorithms/probability-vector/$(am__dirstamp) \
+	hnco/algorithms/probability-vector/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/probability-vector/probability-vector.lo:  \
+	hnco/algorithms/probability-vector/$(am__dirstamp) \
+	hnco/algorithms/probability-vector/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/probability-vector/pv-algorithm.lo:  \
+	hnco/algorithms/probability-vector/$(am__dirstamp) \
+	hnco/algorithms/probability-vector/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/probability-vector/umda.lo:  \
+	hnco/algorithms/probability-vector/$(am__dirstamp) \
+	hnco/algorithms/probability-vector/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/random-search.lo: hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/walsh-moment/$(am__dirstamp):
@@ -1939,8 +1965,8 @@ mostlyclean-compile:
 	-rm -f hnco/algorithms/gomea/*.lo
 	-rm -f hnco/algorithms/local-search/*.$(OBJEXT)
 	-rm -f hnco/algorithms/local-search/*.lo
-	-rm -f hnco/algorithms/pv/*.$(OBJEXT)
-	-rm -f hnco/algorithms/pv/*.lo
+	-rm -f hnco/algorithms/probability-vector/*.$(OBJEXT)
+	-rm -f hnco/algorithms/probability-vector/*.lo
 	-rm -f hnco/algorithms/walsh-moment/*.$(OBJEXT)
 	-rm -f hnco/algorithms/walsh-moment/*.lo
 	-rm -f hnco/app/*.$(OBJEXT)
@@ -2031,13 +2057,13 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/local-search/$(DEPDIR)/random-walk.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/local-search/$(DEPDIR)/simulated-annealing.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/local-search/$(DEPDIR)/steepest-ascent-hill-climbing.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/compact-ga.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/mmas.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/nps-pbil.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/pbil.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/probability-vector.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/pv-algorithm.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/umda.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/probability-vector/$(DEPDIR)/compact-ga.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/probability-vector/$(DEPDIR)/mmas.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/probability-vector/$(DEPDIR)/nps-pbil.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/probability-vector/$(DEPDIR)/pbil.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/probability-vector/$(DEPDIR)/probability-vector.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/probability-vector/$(DEPDIR)/pv-algorithm.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/probability-vector/$(DEPDIR)/umda.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/walsh-moment/$(DEPDIR)/gibbs-sampler.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/walsh-moment/$(DEPDIR)/herding.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/walsh-moment/$(DEPDIR)/walsh-moment.Plo@am__quote@ # am--include-marker
@@ -2161,7 +2187,7 @@ clean-libtool:
 	-rm -rf hnco/algorithms/fast-efficient-p3/.libs hnco/algorithms/fast-efficient-p3/_libs
 	-rm -rf hnco/algorithms/gomea/.libs hnco/algorithms/gomea/_libs
 	-rm -rf hnco/algorithms/local-search/.libs hnco/algorithms/local-search/_libs
-	-rm -rf hnco/algorithms/pv/.libs hnco/algorithms/pv/_libs
+	-rm -rf hnco/algorithms/probability-vector/.libs hnco/algorithms/probability-vector/_libs
 	-rm -rf hnco/algorithms/walsh-moment/.libs hnco/algorithms/walsh-moment/_libs
 	-rm -rf hnco/app/.libs hnco/app/_libs
 	-rm -rf hnco/functions/.libs hnco/functions/_libs
@@ -2347,8 +2373,8 @@ distclean-generic:
 	-rm -f hnco/algorithms/gomea/$(am__dirstamp)
 	-rm -f hnco/algorithms/local-search/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/algorithms/local-search/$(am__dirstamp)
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
-	-rm -f hnco/algorithms/pv/$(am__dirstamp)
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/algorithms/probability-vector/$(am__dirstamp)
 	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/algorithms/walsh-moment/$(am__dirstamp)
 	-rm -f hnco/app/$(DEPDIR)/$(am__dirstamp)
@@ -2446,13 +2472,13 @@ distclean: distclean-am
 	-rm -f hnco/algorithms/local-search/$(DEPDIR)/random-walk.Plo
 	-rm -f hnco/algorithms/local-search/$(DEPDIR)/simulated-annealing.Plo
 	-rm -f hnco/algorithms/local-search/$(DEPDIR)/steepest-ascent-hill-climbing.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/compact-ga.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/mmas.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/nps-pbil.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/pbil.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/probability-vector.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/pv-algorithm.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/umda.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/compact-ga.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/mmas.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/nps-pbil.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/pbil.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/probability-vector.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/pv-algorithm.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/umda.Plo
 	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/gibbs-sampler.Plo
 	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/herding.Plo
 	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/walsh-moment.Plo
@@ -2606,13 +2632,13 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/algorithms/local-search/$(DEPDIR)/random-walk.Plo
 	-rm -f hnco/algorithms/local-search/$(DEPDIR)/simulated-annealing.Plo
 	-rm -f hnco/algorithms/local-search/$(DEPDIR)/steepest-ascent-hill-climbing.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/compact-ga.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/mmas.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/nps-pbil.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/pbil.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/probability-vector.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/pv-algorithm.Plo
-	-rm -f hnco/algorithms/pv/$(DEPDIR)/umda.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/compact-ga.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/mmas.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/nps-pbil.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/pbil.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/probability-vector.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/pv-algorithm.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/umda.Plo
 	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/gibbs-sampler.Plo
 	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/herding.Plo
 	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/walsh-moment.Plo

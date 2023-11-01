@@ -24,7 +24,7 @@
 #include <vector>
 
 #include "hnco/bit-vector.hh"
-#include "hnco/algorithms/pv/probability-vector.hh"
+#include "hnco/algorithms/probability-vector/probability-vector.hh"
 
 #include "walsh-moment.hh"
 

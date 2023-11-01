@@ -146,21 +146,21 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/mimic.hh \
 	hnco/algorithms/population.cc \
 	hnco/algorithms/population.hh \
-	hnco/algorithms/pv/all.hh \
-	hnco/algorithms/pv/compact-ga.cc \
-	hnco/algorithms/pv/compact-ga.hh \
-	hnco/algorithms/pv/mmas.cc \
-	hnco/algorithms/pv/mmas.hh \
-	hnco/algorithms/pv/nps-pbil.cc \
-	hnco/algorithms/pv/nps-pbil.hh \
-	hnco/algorithms/pv/pbil.cc \
-	hnco/algorithms/pv/pbil.hh \
-	hnco/algorithms/pv/probability-vector.cc \
-	hnco/algorithms/pv/probability-vector.hh \
-	hnco/algorithms/pv/pv-algorithm.cc \
-	hnco/algorithms/pv/pv-algorithm.hh \
-	hnco/algorithms/pv/umda.cc \
-	hnco/algorithms/pv/umda.hh \
+	hnco/algorithms/probability-vector/all.hh \
+	hnco/algorithms/probability-vector/compact-ga.cc \
+	hnco/algorithms/probability-vector/compact-ga.hh \
+	hnco/algorithms/probability-vector/mmas.cc \
+	hnco/algorithms/probability-vector/mmas.hh \
+	hnco/algorithms/probability-vector/nps-pbil.cc \
+	hnco/algorithms/probability-vector/nps-pbil.hh \
+	hnco/algorithms/probability-vector/pbil.cc \
+	hnco/algorithms/probability-vector/pbil.hh \
+	hnco/algorithms/probability-vector/probability-vector.cc \
+	hnco/algorithms/probability-vector/probability-vector.hh \
+	hnco/algorithms/probability-vector/pv-algorithm.cc \
+	hnco/algorithms/probability-vector/pv-algorithm.hh \
+	hnco/algorithms/probability-vector/umda.cc \
+	hnco/algorithms/probability-vector/umda.hh \
 	hnco/algorithms/random-search.cc \
 	hnco/algorithms/random-search.hh \
 	hnco/algorithms/solution.hh \
@@ -407,14 +407,14 @@ nobase_include_HEADERS = \
 	hnco/algorithms/local-search/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/mimic.hh \
 	hnco/algorithms/population.hh \
-	hnco/algorithms/pv/all.hh \
-	hnco/algorithms/pv/compact-ga.hh \
-	hnco/algorithms/pv/mmas.hh \
-	hnco/algorithms/pv/nps-pbil.hh \
-	hnco/algorithms/pv/pbil.hh \
-	hnco/algorithms/pv/probability-vector.hh \
-	hnco/algorithms/pv/pv-algorithm.hh \
-	hnco/algorithms/pv/umda.hh \
+	hnco/algorithms/probability-vector/all.hh \
+	hnco/algorithms/probability-vector/compact-ga.hh \
+	hnco/algorithms/probability-vector/mmas.hh \
+	hnco/algorithms/probability-vector/nps-pbil.hh \
+	hnco/algorithms/probability-vector/pbil.hh \
+	hnco/algorithms/probability-vector/probability-vector.hh \
+	hnco/algorithms/probability-vector/pv-algorithm.hh \
+	hnco/algorithms/probability-vector/umda.hh \
 	hnco/algorithms/random-search.hh \
 	hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
