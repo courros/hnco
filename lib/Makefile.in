@@ -210,11 +210,11 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	gomea/src/fitness/gbo_fitness.hpp \
 	gomea/src/fitness/benchmarks-discrete.hpp \
 	gomea/src/fitness/fitness.cpp gomea/src/fitness/fitness.hpp \
-	gomea/src/utils/embed.cpp gomea/src/utils/embed.hpp \
-	gomea/src/utils/time.cpp gomea/src/utils/time.hpp \
-	gomea/src/utils/tools.cpp gomea/src/utils/tools.hpp \
-	hnco/algorithms/algorithm.cc hnco/algorithms/algorithm.hh \
-	hnco/algorithms/all.hh hnco/algorithms/complete-search.cc \
+	gomea/src/utils/embed.hpp gomea/src/utils/time.cpp \
+	gomea/src/utils/time.hpp gomea/src/utils/tools.cpp \
+	gomea/src/utils/tools.hpp hnco/algorithms/algorithm.cc \
+	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
+	hnco/algorithms/complete-search.cc \
 	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/decorators/all.hh \
 	hnco/algorithms/decorators/restart.cc \
@@ -431,8 +431,8 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	gomea/src/discrete/Population.lo gomea/src/discrete/gomea.lo \
 	gomea/src/discrete/gomeaIMS.lo gomea/src/discrete/utils.lo \
 	gomea/src/fitness/bbo_fitness.lo gomea/src/fitness/fitness.lo \
-	gomea/src/utils/embed.lo gomea/src/utils/time.lo \
-	gomea/src/utils/tools.lo hnco/algorithms/algorithm.lo \
+	gomea/src/utils/time.lo gomea/src/utils/tools.lo \
+	hnco/algorithms/algorithm.lo \
 	hnco/algorithms/complete-search.lo \
 	hnco/algorithms/decorators/restart.lo \
 	hnco/algorithms/ea/crossover.lo \
@@ -550,7 +550,6 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	gomea/src/discrete/$(DEPDIR)/utils.Plo \
 	gomea/src/fitness/$(DEPDIR)/bbo_fitness.Plo \
 	gomea/src/fitness/$(DEPDIR)/fitness.Plo \
-	gomea/src/utils/$(DEPDIR)/embed.Plo \
 	gomea/src/utils/$(DEPDIR)/time.Plo \
 	gomea/src/utils/$(DEPDIR)/tools.Plo \
 	hnco/$(DEPDIR)/bit-matrix.Plo hnco/$(DEPDIR)/bit-vector.Plo \
@@ -1029,11 +1028,11 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	gomea/src/fitness/gbo_fitness.hpp \
 	gomea/src/fitness/benchmarks-discrete.hpp \
 	gomea/src/fitness/fitness.cpp gomea/src/fitness/fitness.hpp \
-	gomea/src/utils/embed.cpp gomea/src/utils/embed.hpp \
-	gomea/src/utils/time.cpp gomea/src/utils/time.hpp \
-	gomea/src/utils/tools.cpp gomea/src/utils/tools.hpp \
-	hnco/algorithms/algorithm.cc hnco/algorithms/algorithm.hh \
-	hnco/algorithms/all.hh hnco/algorithms/complete-search.cc \
+	gomea/src/utils/embed.hpp gomea/src/utils/time.cpp \
+	gomea/src/utils/time.hpp gomea/src/utils/tools.cpp \
+	gomea/src/utils/tools.hpp hnco/algorithms/algorithm.cc \
+	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
+	hnco/algorithms/complete-search.cc \
 	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/decorators/all.hh \
 	hnco/algorithms/decorators/restart.cc \
@@ -1529,8 +1528,6 @@ gomea/src/utils/$(am__dirstamp):
 gomea/src/utils/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) gomea/src/utils/$(DEPDIR)
 	@: > gomea/src/utils/$(DEPDIR)/$(am__dirstamp)
-gomea/src/utils/embed.lo: gomea/src/utils/$(am__dirstamp) \
-	gomea/src/utils/$(DEPDIR)/$(am__dirstamp)
 gomea/src/utils/time.lo: gomea/src/utils/$(am__dirstamp) \
 	gomea/src/utils/$(DEPDIR)/$(am__dirstamp)
 gomea/src/utils/tools.lo: gomea/src/utils/$(am__dirstamp) \
@@ -1991,7 +1988,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@gomea/src/discrete/$(DEPDIR)/utils.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@gomea/src/fitness/$(DEPDIR)/bbo_fitness.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@gomea/src/fitness/$(DEPDIR)/fitness.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@gomea/src/utils/$(DEPDIR)/embed.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@gomea/src/utils/$(DEPDIR)/time.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@gomea/src/utils/$(DEPDIR)/tools.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/$(DEPDIR)/bit-matrix.Plo@am__quote@ # am--include-marker
@@ -2407,7 +2403,6 @@ distclean: distclean-am
 	-rm -f gomea/src/discrete/$(DEPDIR)/utils.Plo
 	-rm -f gomea/src/fitness/$(DEPDIR)/bbo_fitness.Plo
 	-rm -f gomea/src/fitness/$(DEPDIR)/fitness.Plo
-	-rm -f gomea/src/utils/$(DEPDIR)/embed.Plo
 	-rm -f gomea/src/utils/$(DEPDIR)/time.Plo
 	-rm -f gomea/src/utils/$(DEPDIR)/tools.Plo
 	-rm -f hnco/$(DEPDIR)/bit-matrix.Plo
@@ -2568,7 +2563,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f gomea/src/discrete/$(DEPDIR)/utils.Plo
 	-rm -f gomea/src/fitness/$(DEPDIR)/bbo_fitness.Plo
 	-rm -f gomea/src/fitness/$(DEPDIR)/fitness.Plo
-	-rm -f gomea/src/utils/$(DEPDIR)/embed.Plo
 	-rm -f gomea/src/utils/$(DEPDIR)/time.Plo
 	-rm -f gomea/src/utils/$(DEPDIR)/tools.Plo
 	-rm -f hnco/$(DEPDIR)/bit-matrix.Plo

@@ -79,7 +79,6 @@ libhnco_la_SOURCES = \
 	gomea/src/fitness/benchmarks-discrete.hpp \
 	gomea/src/fitness/fitness.cpp \
 	gomea/src/fitness/fitness.hpp \
-	gomea/src/utils/embed.cpp \
 	gomea/src/utils/embed.hpp \
 	gomea/src/utils/time.cpp \
 	gomea/src/utils/time.hpp \
