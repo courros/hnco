@@ -24,7 +24,7 @@ Library features:
 - Support for user defined functions (function parser, python
   function, plugin)
 - Population with parallel evaluation
-- 27 builtin algorithms (EAs...)
+- 28 builtin algorithms (EAs...)
 - Support for multiobjective optimization
 - Python bindings
 - 79 unit tests

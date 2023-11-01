@@ -72,6 +72,7 @@ Here is the list of currently available algorithms:
 - Mutual information maximizing input clustering
 - Hierarchical Bayesian Optimization Algorithm
 - Linkage Tree Genetic Algorithm
+- Gene-pool Optimal Mixing Evolutionary Algorithm
 - Parameter-less Population Pyramid
 - NSGA-II (multiobjective)
 

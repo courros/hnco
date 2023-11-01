@@ -13,6 +13,9 @@ stay on the same bit vector when no mutation occurs.
 The library embeds code from Brian W. Goldman's project
 FastEfficientP3 to provide Hboa, Ltga, and P3 algorithms.
 
+The library embeds code from Anton Bouter to provide the Gomea
+algorithm.
+
 The library is distributed with fparser. Quoting the preface of
 fparser:
 
