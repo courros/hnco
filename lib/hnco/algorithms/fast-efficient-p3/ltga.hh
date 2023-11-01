@@ -21,8 +21,6 @@
 #ifndef HNCO_ALGORITHMS_FAST_EFFICIENT_P3_LTGA_H
 #define HNCO_ALGORITHMS_FAST_EFFICIENT_P3_LTGA_H
 
-#include <memory>               // std::unique_ptr
-
 #include "hnco/algorithms/algorithm.hh"
 
 
