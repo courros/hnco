@@ -21,9 +21,14 @@
 #ifndef HNCO_ALGORITHMS_GOMEA_GOMEA_H
 #define HNCO_ALGORITHMS_GOMEA_GOMEA_H
 
-#include <memory>               // std::unique_ptr
+#include <memory>               // std::shared_ptr
 
 #include "hnco/algorithms/algorithm.hh"
+#include "hnco/functions/controllers/all.hh" // hnco::function::controller::ProgressTracker
+#include "gomea/src/common/linkage_config.hpp"
+#include "gomea/src/discrete/Config.hpp"
+
+#include "hnco-fitness.hh"
 
 
 namespace hnco {
@@ -37,7 +42,7 @@ struct Implementation;
 
 /** GOMEA.
 
-    %Implemention of the GOMEA.
+    %Implemention of the Gene-pool Optimal Mixing Evolutionary Algorithm.
 
     Author: Anton Bouter
 
@@ -56,23 +61,22 @@ struct Implementation;
 */
 class Gomea: public Algorithm {
 
-  /** Pointer to implementation.
+  /// Linkage configuration
+  ::gomea::linkage_config_t _linkage_config;
 
-      The main motivation for this pattern is to avoid including
-      declarations from gomea into the global namespace.
+  /// Configuration
+  ::gomea::discrete::Config _config;
 
-      A raw pointer is used instead of a unique_ptr because the latter
-      will not compile with pybind11.
-  */
-  Implementation *_implementation;;
+  /// Fitness
+  std::shared_ptr<HncoFitness> _fitness;
+
+  /// Progress tracker
+  std::shared_ptr<hnco::function::controller::ProgressTracker> _tracker;
 
 public:
 
   /// Constructor
-  Gomea(int n);
-
-  /// Destructor
-  ~Gomea();
+  Gomea(int n): Algorithm(n) {}
 
   /// Maximize
   void maximize(const std::vector<function::Function *>& functions);

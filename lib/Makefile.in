@@ -246,9 +246,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
 	hnco/algorithms/gomea/all.hh hnco/algorithms/gomea/gomea.cc \
 	hnco/algorithms/gomea/gomea.hh \
-	hnco/algorithms/gomea/hnco-fitness.hh \
-	hnco/algorithms/gomea/implementation.hh \
-	hnco/algorithms/human.cc hnco/algorithms/human.hh \
+	hnco/algorithms/gomea/hnco-fitness.hh hnco/algorithms/human.cc \
+	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/ls/all.hh \
@@ -722,9 +721,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
 	hnco/algorithms/gomea/all.hh hnco/algorithms/gomea/gomea.hh \
-	hnco/algorithms/gomea/hnco-fitness.hh \
-	hnco/algorithms/gomea/implementation.hh \
-	hnco/algorithms/human.hh \
+	hnco/algorithms/gomea/hnco-fitness.hh hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
@@ -1061,9 +1058,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
 	hnco/algorithms/gomea/all.hh hnco/algorithms/gomea/gomea.cc \
 	hnco/algorithms/gomea/gomea.hh \
-	hnco/algorithms/gomea/hnco-fitness.hh \
-	hnco/algorithms/gomea/implementation.hh \
-	hnco/algorithms/human.cc hnco/algorithms/human.hh \
+	hnco/algorithms/gomea/hnco-fitness.hh hnco/algorithms/human.cc \
+	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/ls/all.hh \
@@ -1258,9 +1254,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/fast-efficient-p3/ltga.hh \
 	hnco/algorithms/fast-efficient-p3/p3.hh \
 	hnco/algorithms/gomea/all.hh hnco/algorithms/gomea/gomea.hh \
-	hnco/algorithms/gomea/hnco-fitness.hh \
-	hnco/algorithms/gomea/implementation.hh \
-	hnco/algorithms/human.hh \
+	hnco/algorithms/gomea/hnco-fitness.hh hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/ls/all.hh \
 	hnco/algorithms/ls/first-ascent-hill-climbing.hh \

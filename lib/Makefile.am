@@ -124,7 +124,6 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/gomea/gomea.cc \
 	hnco/algorithms/gomea/gomea.hh \
 	hnco/algorithms/gomea/hnco-fitness.hh \
-	hnco/algorithms/gomea/implementation.hh \
 	hnco/algorithms/human.cc \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
@@ -392,7 +391,6 @@ nobase_include_HEADERS = \
 	hnco/algorithms/gomea/all.hh \
 	hnco/algorithms/gomea/gomea.hh \
 	hnco/algorithms/gomea/hnco-fitness.hh \
-	hnco/algorithms/gomea/implementation.hh \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
 	hnco/algorithms/ls/all.hh \
