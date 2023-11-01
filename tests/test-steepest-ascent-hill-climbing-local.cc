@@ -18,7 +18,7 @@
 
 */
 
-#include "hnco/algorithms/ls/steepest-ascent-hill-climbing.hh"
+#include "hnco/algorithms/local-search/steepest-ascent-hill-climbing.hh"
 #include "hnco/functions/collection/labs.hh"
 #include "hnco/random.hh"
 

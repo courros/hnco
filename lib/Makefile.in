@@ -253,18 +253,18 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
 	hnco/algorithms/iterative-algorithm.hh \
-	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
-	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
-	hnco/algorithms/ls/local-search-algorithm.hh \
-	hnco/algorithms/ls/random-local-search.cc \
-	hnco/algorithms/ls/random-local-search.hh \
-	hnco/algorithms/ls/random-walk.cc \
-	hnco/algorithms/ls/random-walk.hh \
-	hnco/algorithms/ls/simulated-annealing.cc \
-	hnco/algorithms/ls/simulated-annealing.hh \
-	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
-	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
+	hnco/algorithms/local-search/all.hh \
+	hnco/algorithms/local-search/first-ascent-hill-climbing.cc \
+	hnco/algorithms/local-search/first-ascent-hill-climbing.hh \
+	hnco/algorithms/local-search/local-search-algorithm.hh \
+	hnco/algorithms/local-search/random-local-search.cc \
+	hnco/algorithms/local-search/random-local-search.hh \
+	hnco/algorithms/local-search/random-walk.cc \
+	hnco/algorithms/local-search/random-walk.hh \
+	hnco/algorithms/local-search/simulated-annealing.cc \
+	hnco/algorithms/local-search/simulated-annealing.hh \
+	hnco/algorithms/local-search/steepest-ascent-hill-climbing.cc \
+	hnco/algorithms/local-search/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/mimic.cc hnco/algorithms/mimic.hh \
 	hnco/algorithms/population.cc hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.cc \
@@ -449,11 +449,11 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/fast-efficient-p3/p3.lo \
 	hnco/algorithms/gomea/gomea.lo hnco/algorithms/human.lo \
 	hnco/algorithms/iterative-algorithm.lo \
-	hnco/algorithms/ls/first-ascent-hill-climbing.lo \
-	hnco/algorithms/ls/random-local-search.lo \
-	hnco/algorithms/ls/random-walk.lo \
-	hnco/algorithms/ls/simulated-annealing.lo \
-	hnco/algorithms/ls/steepest-ascent-hill-climbing.lo \
+	hnco/algorithms/local-search/first-ascent-hill-climbing.lo \
+	hnco/algorithms/local-search/random-local-search.lo \
+	hnco/algorithms/local-search/random-walk.lo \
+	hnco/algorithms/local-search/simulated-annealing.lo \
+	hnco/algorithms/local-search/steepest-ascent-hill-climbing.lo \
 	hnco/algorithms/mimic.lo hnco/algorithms/population.lo \
 	hnco/algorithms/pv/compact-ga.lo hnco/algorithms/pv/mmas.lo \
 	hnco/algorithms/pv/nps-pbil.lo hnco/algorithms/pv/pbil.lo \
@@ -576,11 +576,11 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo \
 	hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo \
 	hnco/algorithms/gomea/$(DEPDIR)/gomea.Plo \
-	hnco/algorithms/ls/$(DEPDIR)/first-ascent-hill-climbing.Plo \
-	hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo \
-	hnco/algorithms/ls/$(DEPDIR)/random-walk.Plo \
-	hnco/algorithms/ls/$(DEPDIR)/simulated-annealing.Plo \
-	hnco/algorithms/ls/$(DEPDIR)/steepest-ascent-hill-climbing.Plo \
+	hnco/algorithms/local-search/$(DEPDIR)/first-ascent-hill-climbing.Plo \
+	hnco/algorithms/local-search/$(DEPDIR)/random-local-search.Plo \
+	hnco/algorithms/local-search/$(DEPDIR)/random-walk.Plo \
+	hnco/algorithms/local-search/$(DEPDIR)/simulated-annealing.Plo \
+	hnco/algorithms/local-search/$(DEPDIR)/steepest-ascent-hill-climbing.Plo \
 	hnco/algorithms/pv/$(DEPDIR)/compact-ga.Plo \
 	hnco/algorithms/pv/$(DEPDIR)/mmas.Plo \
 	hnco/algorithms/pv/$(DEPDIR)/nps-pbil.Plo \
@@ -729,13 +729,13 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/gomea/all.hh hnco/algorithms/gomea/gomea.hh \
 	hnco/algorithms/gomea/hnco-fitness.hh hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
-	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
-	hnco/algorithms/ls/local-search-algorithm.hh \
-	hnco/algorithms/ls/random-local-search.hh \
-	hnco/algorithms/ls/random-walk.hh \
-	hnco/algorithms/ls/simulated-annealing.hh \
-	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
+	hnco/algorithms/local-search/all.hh \
+	hnco/algorithms/local-search/first-ascent-hill-climbing.hh \
+	hnco/algorithms/local-search/local-search-algorithm.hh \
+	hnco/algorithms/local-search/random-local-search.hh \
+	hnco/algorithms/local-search/random-walk.hh \
+	hnco/algorithms/local-search/simulated-annealing.hh \
+	hnco/algorithms/local-search/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/mimic.hh hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
 	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
@@ -1071,18 +1071,18 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
 	hnco/algorithms/iterative-algorithm.hh \
-	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
-	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
-	hnco/algorithms/ls/local-search-algorithm.hh \
-	hnco/algorithms/ls/random-local-search.cc \
-	hnco/algorithms/ls/random-local-search.hh \
-	hnco/algorithms/ls/random-walk.cc \
-	hnco/algorithms/ls/random-walk.hh \
-	hnco/algorithms/ls/simulated-annealing.cc \
-	hnco/algorithms/ls/simulated-annealing.hh \
-	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
-	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
+	hnco/algorithms/local-search/all.hh \
+	hnco/algorithms/local-search/first-ascent-hill-climbing.cc \
+	hnco/algorithms/local-search/first-ascent-hill-climbing.hh \
+	hnco/algorithms/local-search/local-search-algorithm.hh \
+	hnco/algorithms/local-search/random-local-search.cc \
+	hnco/algorithms/local-search/random-local-search.hh \
+	hnco/algorithms/local-search/random-walk.cc \
+	hnco/algorithms/local-search/random-walk.hh \
+	hnco/algorithms/local-search/simulated-annealing.cc \
+	hnco/algorithms/local-search/simulated-annealing.hh \
+	hnco/algorithms/local-search/steepest-ascent-hill-climbing.cc \
+	hnco/algorithms/local-search/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/mimic.cc hnco/algorithms/mimic.hh \
 	hnco/algorithms/population.cc hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.cc \
@@ -1269,13 +1269,13 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/gomea/all.hh hnco/algorithms/gomea/gomea.hh \
 	hnco/algorithms/gomea/hnco-fitness.hh hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
-	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
-	hnco/algorithms/ls/local-search-algorithm.hh \
-	hnco/algorithms/ls/random-local-search.hh \
-	hnco/algorithms/ls/random-walk.hh \
-	hnco/algorithms/ls/simulated-annealing.hh \
-	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
+	hnco/algorithms/local-search/all.hh \
+	hnco/algorithms/local-search/first-ascent-hill-climbing.hh \
+	hnco/algorithms/local-search/local-search-algorithm.hh \
+	hnco/algorithms/local-search/random-local-search.hh \
+	hnco/algorithms/local-search/random-walk.hh \
+	hnco/algorithms/local-search/simulated-annealing.hh \
+	hnco/algorithms/local-search/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/mimic.hh hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh hnco/algorithms/pv/compact-ga.hh \
 	hnco/algorithms/pv/mmas.hh hnco/algorithms/pv/nps-pbil.hh \
@@ -1610,26 +1610,27 @@ hnco/algorithms/human.lo: hnco/algorithms/$(am__dirstamp) \
 hnco/algorithms/iterative-algorithm.lo:  \
 	hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/ls/$(am__dirstamp):
-	@$(MKDIR_P) hnco/algorithms/ls
-	@: > hnco/algorithms/ls/$(am__dirstamp)
-hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) hnco/algorithms/ls/$(DEPDIR)
-	@: > hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/ls/first-ascent-hill-climbing.lo:  \
-	hnco/algorithms/ls/$(am__dirstamp) \
-	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/ls/random-local-search.lo:  \
-	hnco/algorithms/ls/$(am__dirstamp) \
-	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/ls/random-walk.lo: hnco/algorithms/ls/$(am__dirstamp) \
-	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/ls/simulated-annealing.lo:  \
-	hnco/algorithms/ls/$(am__dirstamp) \
-	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
-hnco/algorithms/ls/steepest-ascent-hill-climbing.lo:  \
-	hnco/algorithms/ls/$(am__dirstamp) \
-	hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/local-search/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/local-search
+	@: > hnco/algorithms/local-search/$(am__dirstamp)
+hnco/algorithms/local-search/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) hnco/algorithms/local-search/$(DEPDIR)
+	@: > hnco/algorithms/local-search/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/local-search/first-ascent-hill-climbing.lo:  \
+	hnco/algorithms/local-search/$(am__dirstamp) \
+	hnco/algorithms/local-search/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/local-search/random-local-search.lo:  \
+	hnco/algorithms/local-search/$(am__dirstamp) \
+	hnco/algorithms/local-search/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/local-search/random-walk.lo:  \
+	hnco/algorithms/local-search/$(am__dirstamp) \
+	hnco/algorithms/local-search/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/local-search/simulated-annealing.lo:  \
+	hnco/algorithms/local-search/$(am__dirstamp) \
+	hnco/algorithms/local-search/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/local-search/steepest-ascent-hill-climbing.lo:  \
+	hnco/algorithms/local-search/$(am__dirstamp) \
+	hnco/algorithms/local-search/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/mimic.lo: hnco/algorithms/$(am__dirstamp) \
 	hnco/algorithms/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/population.lo: hnco/algorithms/$(am__dirstamp) \
@@ -1928,8 +1929,8 @@ mostlyclean-compile:
 	-rm -f hnco/algorithms/fast-efficient-p3/*.lo
 	-rm -f hnco/algorithms/gomea/*.$(OBJEXT)
 	-rm -f hnco/algorithms/gomea/*.lo
-	-rm -f hnco/algorithms/ls/*.$(OBJEXT)
-	-rm -f hnco/algorithms/ls/*.lo
+	-rm -f hnco/algorithms/local-search/*.$(OBJEXT)
+	-rm -f hnco/algorithms/local-search/*.lo
 	-rm -f hnco/algorithms/pv/*.$(OBJEXT)
 	-rm -f hnco/algorithms/pv/*.lo
 	-rm -f hnco/algorithms/walsh-moment/*.$(OBJEXT)
@@ -2017,11 +2018,11 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/gomea/$(DEPDIR)/gomea.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/first-ascent-hill-climbing.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/random-walk.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/simulated-annealing.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/ls/$(DEPDIR)/steepest-ascent-hill-climbing.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/local-search/$(DEPDIR)/first-ascent-hill-climbing.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/local-search/$(DEPDIR)/random-local-search.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/local-search/$(DEPDIR)/random-walk.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/local-search/$(DEPDIR)/simulated-annealing.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/local-search/$(DEPDIR)/steepest-ascent-hill-climbing.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/compact-ga.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/mmas.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/pv/$(DEPDIR)/nps-pbil.Plo@am__quote@ # am--include-marker
@@ -2151,7 +2152,7 @@ clean-libtool:
 	-rm -rf hnco/algorithms/ea/.libs hnco/algorithms/ea/_libs
 	-rm -rf hnco/algorithms/fast-efficient-p3/.libs hnco/algorithms/fast-efficient-p3/_libs
 	-rm -rf hnco/algorithms/gomea/.libs hnco/algorithms/gomea/_libs
-	-rm -rf hnco/algorithms/ls/.libs hnco/algorithms/ls/_libs
+	-rm -rf hnco/algorithms/local-search/.libs hnco/algorithms/local-search/_libs
 	-rm -rf hnco/algorithms/pv/.libs hnco/algorithms/pv/_libs
 	-rm -rf hnco/algorithms/walsh-moment/.libs hnco/algorithms/walsh-moment/_libs
 	-rm -rf hnco/app/.libs hnco/app/_libs
@@ -2336,8 +2337,8 @@ distclean-generic:
 	-rm -f hnco/algorithms/fast-efficient-p3/$(am__dirstamp)
 	-rm -f hnco/algorithms/gomea/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/algorithms/gomea/$(am__dirstamp)
-	-rm -f hnco/algorithms/ls/$(DEPDIR)/$(am__dirstamp)
-	-rm -f hnco/algorithms/ls/$(am__dirstamp)
+	-rm -f hnco/algorithms/local-search/$(DEPDIR)/$(am__dirstamp)
+	-rm -f hnco/algorithms/local-search/$(am__dirstamp)
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/algorithms/pv/$(am__dirstamp)
 	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/$(am__dirstamp)
@@ -2432,11 +2433,11 @@ distclean: distclean-am
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo
 	-rm -f hnco/algorithms/gomea/$(DEPDIR)/gomea.Plo
-	-rm -f hnco/algorithms/ls/$(DEPDIR)/first-ascent-hill-climbing.Plo
-	-rm -f hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo
-	-rm -f hnco/algorithms/ls/$(DEPDIR)/random-walk.Plo
-	-rm -f hnco/algorithms/ls/$(DEPDIR)/simulated-annealing.Plo
-	-rm -f hnco/algorithms/ls/$(DEPDIR)/steepest-ascent-hill-climbing.Plo
+	-rm -f hnco/algorithms/local-search/$(DEPDIR)/first-ascent-hill-climbing.Plo
+	-rm -f hnco/algorithms/local-search/$(DEPDIR)/random-local-search.Plo
+	-rm -f hnco/algorithms/local-search/$(DEPDIR)/random-walk.Plo
+	-rm -f hnco/algorithms/local-search/$(DEPDIR)/simulated-annealing.Plo
+	-rm -f hnco/algorithms/local-search/$(DEPDIR)/steepest-ascent-hill-climbing.Plo
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/compact-ga.Plo
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/mmas.Plo
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/nps-pbil.Plo
@@ -2592,11 +2593,11 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/ltga.Plo
 	-rm -f hnco/algorithms/fast-efficient-p3/$(DEPDIR)/p3.Plo
 	-rm -f hnco/algorithms/gomea/$(DEPDIR)/gomea.Plo
-	-rm -f hnco/algorithms/ls/$(DEPDIR)/first-ascent-hill-climbing.Plo
-	-rm -f hnco/algorithms/ls/$(DEPDIR)/random-local-search.Plo
-	-rm -f hnco/algorithms/ls/$(DEPDIR)/random-walk.Plo
-	-rm -f hnco/algorithms/ls/$(DEPDIR)/simulated-annealing.Plo
-	-rm -f hnco/algorithms/ls/$(DEPDIR)/steepest-ascent-hill-climbing.Plo
+	-rm -f hnco/algorithms/local-search/$(DEPDIR)/first-ascent-hill-climbing.Plo
+	-rm -f hnco/algorithms/local-search/$(DEPDIR)/random-local-search.Plo
+	-rm -f hnco/algorithms/local-search/$(DEPDIR)/random-walk.Plo
+	-rm -f hnco/algorithms/local-search/$(DEPDIR)/simulated-annealing.Plo
+	-rm -f hnco/algorithms/local-search/$(DEPDIR)/steepest-ascent-hill-climbing.Plo
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/compact-ga.Plo
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/mmas.Plo
 	-rm -f hnco/algorithms/pv/$(DEPDIR)/nps-pbil.Plo

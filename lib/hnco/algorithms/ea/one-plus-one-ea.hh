@@ -22,7 +22,7 @@
 #define HNCO_ALGORITHMS_EA_ONE_PLUS_ONE_EA_H
 
 #include "hnco/algorithms/algorithm.hh"
-#include "hnco/algorithms/ls/random-local-search.hh"
+#include "hnco/algorithms/local-search/random-local-search.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 
 

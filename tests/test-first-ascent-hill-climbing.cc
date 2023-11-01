@@ -18,7 +18,7 @@
 
 */
 
-#include "hnco/algorithms/ls/first-ascent-hill-climbing.hh"
+#include "hnco/algorithms/local-search/first-ascent-hill-climbing.hh"
 #include "hnco/functions/collection/theory.hh"
 #include "hnco/random.hh"
 

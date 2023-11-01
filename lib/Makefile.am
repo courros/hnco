@@ -130,18 +130,18 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.cc \
 	hnco/algorithms/iterative-algorithm.hh \
-	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/first-ascent-hill-climbing.cc \
-	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
-	hnco/algorithms/ls/local-search-algorithm.hh \
-	hnco/algorithms/ls/random-local-search.cc \
-	hnco/algorithms/ls/random-local-search.hh \
-	hnco/algorithms/ls/random-walk.cc \
-	hnco/algorithms/ls/random-walk.hh \
-	hnco/algorithms/ls/simulated-annealing.cc \
-	hnco/algorithms/ls/simulated-annealing.hh \
-	hnco/algorithms/ls/steepest-ascent-hill-climbing.cc \
-	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
+	hnco/algorithms/local-search/all.hh \
+	hnco/algorithms/local-search/first-ascent-hill-climbing.cc \
+	hnco/algorithms/local-search/first-ascent-hill-climbing.hh \
+	hnco/algorithms/local-search/local-search-algorithm.hh \
+	hnco/algorithms/local-search/random-local-search.cc \
+	hnco/algorithms/local-search/random-local-search.hh \
+	hnco/algorithms/local-search/random-walk.cc \
+	hnco/algorithms/local-search/random-walk.hh \
+	hnco/algorithms/local-search/simulated-annealing.cc \
+	hnco/algorithms/local-search/simulated-annealing.hh \
+	hnco/algorithms/local-search/steepest-ascent-hill-climbing.cc \
+	hnco/algorithms/local-search/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/mimic.cc \
 	hnco/algorithms/mimic.hh \
 	hnco/algorithms/population.cc \
@@ -398,13 +398,13 @@ nobase_include_HEADERS = \
 	hnco/algorithms/gomea/hnco-fitness.hh \
 	hnco/algorithms/human.hh \
 	hnco/algorithms/iterative-algorithm.hh \
-	hnco/algorithms/ls/all.hh \
-	hnco/algorithms/ls/first-ascent-hill-climbing.hh \
-	hnco/algorithms/ls/local-search-algorithm.hh \
-	hnco/algorithms/ls/random-local-search.hh \
-	hnco/algorithms/ls/random-walk.hh \
-	hnco/algorithms/ls/simulated-annealing.hh \
-	hnco/algorithms/ls/steepest-ascent-hill-climbing.hh \
+	hnco/algorithms/local-search/all.hh \
+	hnco/algorithms/local-search/first-ascent-hill-climbing.hh \
+	hnco/algorithms/local-search/local-search-algorithm.hh \
+	hnco/algorithms/local-search/random-local-search.hh \
+	hnco/algorithms/local-search/random-walk.hh \
+	hnco/algorithms/local-search/simulated-annealing.hh \
+	hnco/algorithms/local-search/steepest-ascent-hill-climbing.hh \
 	hnco/algorithms/mimic.hh \
 	hnco/algorithms/population.hh \
 	hnco/algorithms/pv/all.hh \

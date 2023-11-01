@@ -29,7 +29,7 @@
 #include "gomea/all.hh"
 #include "human.hh"
 #include "iterative-algorithm.hh"
-#include "ls/all.hh"
+#include "local-search/all.hh"
 #include "mimic.hh"
 #include "pv/all.hh"
 #include "random-search.hh"
