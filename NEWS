@@ -7,6 +7,9 @@ Library:
 Build:
 - Added directory lib/gomea/
 - Added directory lib/hnco/algorithms/gomea/
+- Renamed directory algorithms/ea/ -> algorithms/evolutionary-algorithms/
+- Renamed directory algorithms/ls/ -> algorithms/local-search/
+- Renamed directory algorithms/pv/ -> algorithms/probability-vector/
 
 
 * Version 0.23 (2023-10-26)
