@@ -26,7 +26,6 @@ setup(
     name="hnco",
     version=__version__,
     author="Arnaud Berny",
-    author_email="dev@courros.fr",
     url="https://github.com/courros/hnco",
     description="Python module for hnco",
     ext_modules=ext_modules,

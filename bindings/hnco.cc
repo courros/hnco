@@ -1019,6 +1019,10 @@ PYBIND11_MODULE(hnco, m_hnco) {
       .def("set_population_size", &fast_efficient_p3::Ltga::set_population_size)
       ;
 
+    py::class_<hnco::algorithm::gomea::Gomea, Algorithm>(m_algo, "Gomea")
+      .def(py::init<int>())
+      ;
+
     py::class_<fast_efficient_p3::ParameterLessPopulationPyramid, Algorithm>(m_algo, "ParameterLessPopulationPyramid")
       .def(py::init<int>())
       ;

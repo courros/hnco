@@ -50,6 +50,7 @@ libhnco_la_SOURCES = \
 	fparser/fparser.hh \
 	fparser/fpconfig.hh \
 	fparser/fpoptimizer.cc \
+	gomea/lib/cxxopts-3.1.1/include/cxxopts.hpp \
 	gomea/src/common/gomea_defs.hpp \
 	gomea/src/common/linkage_config.cpp \
 	gomea/src/common/linkage_config.hpp \
@@ -74,6 +75,8 @@ libhnco_la_SOURCES = \
 	gomea/src/discrete/utils.hpp \
 	gomea/src/fitness/bbo_fitness.cpp \
 	gomea/src/fitness/bbo_fitness.hpp \
+	gomea/src/fitness/gbo_fitness.hpp \
+	gomea/src/fitness/benchmarks-discrete.hpp \
 	gomea/src/fitness/fitness.cpp \
 	gomea/src/fitness/fitness.hpp \
 	gomea/src/utils/embed.cpp \
@@ -348,6 +351,7 @@ nobase_include_HEADERS = \
 	fparser/extrasrc/fptypes.hh \
 	fparser/fparser.hh \
 	fparser/fpconfig.hh \
+	gomea/lib/cxxopts-3.1.1/include/cxxopts.hpp \
 	gomea/src/common/gomea_defs.hpp \
 	gomea/src/common/linkage_config.hpp \
 	gomea/src/common/linkage_model.hpp \
@@ -361,7 +365,9 @@ nobase_include_HEADERS = \
 	gomea/src/discrete/shared.hpp \
 	gomea/src/discrete/utils.hpp \
 	gomea/src/fitness/bbo_fitness.hpp \
+	gomea/src/fitness/benchmarks-discrete.hpp \
 	gomea/src/fitness/fitness.hpp \
+	gomea/src/fitness/gbo_fitness.hpp \
 	gomea/src/utils/embed.hpp \
 	gomea/src/utils/time.hpp \
 	gomea/src/utils/tools.hpp \
@@ -534,4 +540,6 @@ hnco/multiobjective/app/hnco-mo-options.hh hnco/multiobjective/app/hnco-mo-optio
 	cd $(top_srcdir)/lib/hnco/multiobjective/app && $(top_srcdir)/tools/optgen.pl hnco-mo.json
 
 EXTRA_DIST = \
-	fast-efficient-p3/LICENSE.txt
+	fast-efficient-p3/LICENSE.txt \
+	gomea/LICENSE \
+	gomea/lib/cxxopts-3.1.1/LICENSE
