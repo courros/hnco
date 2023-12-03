@@ -57,14 +57,10 @@ inline bit_t random_bit(double p) { return (random::Generator::uniform() < p) ? 
 
 /** @name Types and functions related to bit vectors
 
-    Output and input-output function parameters appear at the
-    beginning of the parameter list.
+    bit_vector_t parameters passed by reference must have the right
+    size for the considered function.
 
-    Output and input-output bit_vector_t parameters are passed by
-    reference and must have the right size for the considered
-    function.
-
-    Input bit_vector_t parameters are passed by const reference.
+    Input only bit_vector_t parameters are passed by const reference.
 */
 ///@{
 
@@ -72,10 +68,10 @@ inline bit_t random_bit(double p) { return (random::Generator::uniform() < p) ? 
 using bit_vector_t = std::vector<bit_t>;
 
 /// Display bit vector
-inline std::string bv_domain(const bit_vector_t& x) { return std::string("bit vector (") + std::to_string(x.size()) + std::string(" bits)"); }
-
-/// Display bit vector
 void bv_display(const bit_vector_t& v, std::ostream& stream);
+
+/// Return a string with the type and size of a bit vector
+inline std::string bv_domain(const bit_vector_t& x) { return std::string("bit vector (") + std::to_string(x.size()) + std::string(" bits)"); }
 
 /// Check whether the bit vector is valid
 inline bool bv_is_valid(const bit_vector_t& x) { return std::all_of(x.begin(), x.end(), [](bit_t b){ return b == 0 || b == 1; }); }
