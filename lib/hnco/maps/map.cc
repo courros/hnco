@@ -35,15 +35,10 @@ using namespace hnco;
 void
 Translation::map(const bit_vector_t& input, bit_vector_t& output)
 {
-  assert(_bv.size() == input.size());
-  assert(_bv.size() == output.size());
+  assert(input.size() == _bv.size());
+  assert(output.size() == _bv.size());
 
-  for (size_t i = 0; i < output.size(); i++) {
-    if (_bv[i])
-      output[i] = bit_flip(input[i]);
-    else
-      output[i] = input[i];
-  }
+  bv_add(output, input, _bv);
 }
 
 
