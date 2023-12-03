@@ -56,11 +56,11 @@ Mimic::sample(bit_vector_t& bv)
   assert(perm_is_valid(_permutation));
 
   // First component
-  bv[_permutation[0]] = bit_random(_parameters[1][0]);
+  bv[_permutation[0]] = random_bit(_parameters[1][0]);
 
   // Other components
   for (size_t i = 1; i < bv.size(); i++)
-    bv[_permutation[i]] = bit_random(_parameters[bv[_permutation[i - 1]]][i]);
+    bv[_permutation[i]] = random_bit(_parameters[bv[_permutation[i - 1]]][i]);
 }
 
 void
