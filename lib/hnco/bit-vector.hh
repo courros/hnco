@@ -100,14 +100,18 @@ inline void bv_clear(bit_vector_t& x) { std::fill(x.begin(), x.end(), 0); }
 /// Flip a single bit
 inline void bv_flip(bit_vector_t& x, int i) { bit_flip(x[i]); }
 
-/// Flip many bits
+/**
+ * Flip many bits given by a bit vector.
+ * \param x Input-output bit vector
+ * \param mask Bits to flip
+ */
 void bv_flip(bit_vector_t& x, const bit_vector_t& mask);
 
-/** Flip many bits of a bit vector.
-
-    \param x Input-output bit vector
-    \param sbv Bits to flip
-*/
+/**
+ * Flip many bits given by a sparse bit vector.
+ * \param x Input-output bit vector
+ * \param sbv Bits to flip
+ */
 void bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv);
 
 /// Sample a random bit vector
