@@ -28,6 +28,7 @@
 #include <cstdint>              // std::uint8_t
 
 #include "random.hh"
+#include "sparse-bit-vector.hh"
 
 extern "C" {
   /// Dummy function to help autoconf
@@ -46,10 +47,10 @@ namespace hnco {
 using bit_t = std::uint8_t;
 
 /// Flip bit
-inline bit_t bit_flip(bit_t b) { return b ? 0 : 1; }
+inline void bit_flip(bit_t& b) { b = b ? 0 : 1; }
 
 /// Sample a random bit
-inline bit_t bit_random(double p) { return (random::Generator::uniform() < p) ? 1 : 0; }
+inline bit_t random_bit(double p) { return (random::Generator::uniform() < p) ? 1 : 0; }
 
 ///@}
 
@@ -101,10 +102,17 @@ bit_t bv_dot_product(const bit_vector_t& x, const std::vector<bool>& y);
 inline void bv_clear(bit_vector_t& x) { std::fill(x.begin(), x.end(), 0); }
 
 /// Flip a single bit
-inline void bv_flip(bit_vector_t& x, int i) { x[i] = bit_flip(x[i]); }
+inline void bv_flip(bit_vector_t& x, int i) { bit_flip(x[i]); }
 
 /// Flip many bits
 void bv_flip(bit_vector_t& x, const bit_vector_t& mask);
+
+/** Flip many bits of a bit vector.
+
+    \param x Input-output bit vector
+    \param sbv Bits to flip
+*/
+void bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv);
 
 /// Sample a random bit vector
 inline void bv_random(bit_vector_t& x) { std::generate(x.begin(), x.end(), []() { return random::Generator::bernoulli(); }); }

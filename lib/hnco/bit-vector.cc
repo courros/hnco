@@ -99,6 +99,15 @@ hnco::bv_flip(bit_vector_t& x, const bit_vector_t& mask)
 }
 
 void
+hnco::bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv)
+{
+  assert(sbv_is_valid(sbv, x.size()));
+
+  for (auto index : sbv)
+    bv_flip(x, index);
+}
+
+void
 hnco::bv_random(bit_vector_t& x, int k)
 {
   assert(k >= 0);
