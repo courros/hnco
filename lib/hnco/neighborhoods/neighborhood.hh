@@ -113,18 +113,18 @@ public:
   virtual void propose() {
     assert(_candidate == _origin);
     sample_bits();
-    sbv_flip(_candidate, _flipped_bits);
+    bv_flip(_candidate, _flipped_bits);
   }
 
   /// Keep the candidate bit vector
   virtual void keep() {
-    sbv_flip(_origin, _flipped_bits);
+    bv_flip(_origin, _flipped_bits);
     assert(_candidate == _origin);
   }
 
   /// Forget the candidate bit vector
   virtual void forget() {
-    sbv_flip(_candidate, _flipped_bits);
+    bv_flip(_candidate, _flipped_bits);
     assert(_candidate == _origin);
   }
 
@@ -137,7 +137,7 @@ public:
   virtual void mutate(bit_vector_t& bv) {
     assert(bv.size() == _origin.size());
     sample_bits();
-    sbv_flip(bv, _flipped_bits);
+    bv_flip(bv, _flipped_bits);
   }
 
   /** %Map.
@@ -153,7 +153,7 @@ public:
     assert(output.size() == _origin.size());
     copy(input.begin(), input.end(), output.begin());
     sample_bits();
-    sbv_flip(output, _flipped_bits);
+    bv_flip(output, _flipped_bits);
   }
 
 };

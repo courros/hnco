@@ -111,7 +111,7 @@ HammingSphereIterator::next()
     _initial_state = false;
   } else {
     // Restore the current bit vector to its original value
-    sbv_flip(_current, _bit_indexes);
+    bv_flip(_current, _bit_indexes);
 
     // Last index
     int i = _radius - 1;
@@ -129,7 +129,7 @@ HammingSphereIterator::next()
   }
 
   // Flip the current bit vector
-  sbv_flip(_current, _bit_indexes);
+  bv_flip(_current, _bit_indexes);
 
   return _current;
 }
