@@ -143,7 +143,7 @@ void bv_add(bit_vector_t& dest, const bit_vector_t& x, const bit_vector_t& y);
 
     \warning Vectors must be of the same size.
 */
-void bv_to_vector_bool(std::vector<bool>& y, const bit_vector_t& x);
+void bv_to_vector_bool(const bit_vector_t& x, std::vector<bool>& y);
 
 /** Convert a bool vector to a bit vector.
 

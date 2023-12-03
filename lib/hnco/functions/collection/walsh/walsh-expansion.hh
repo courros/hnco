@@ -94,7 +94,7 @@ public:
     for (size_t i = 0; i < _terms.size(); i++) {
       WalshTerm& t = _terms[i];
       bv_random(bv);
-      bv_to_vector_bool(feature, bv);
+      bv_to_vector_bool(bv, feature);
       t.feature = feature;
       t.coefficient = generator();
     }
