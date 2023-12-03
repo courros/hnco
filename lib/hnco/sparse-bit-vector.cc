@@ -18,8 +18,6 @@
 
 */
 
-#include <assert.h>
-
 #include <algorithm>            // std::is_sorted
 
 #include "sparse-bit-vector.hh"
@@ -51,32 +49,8 @@ hnco::sbv_is_valid(const sparse_bit_vector_t& sbv, int n)
 }
 
 void
-hnco::sbv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv)
-{
-  assert(sbv_is_valid(sbv, x.size()));
-
-  for (auto index : sbv)
-    bv_flip(x, index);
-}
-
-void
 hnco::sbv_display(const sparse_bit_vector_t& v, std::ostream& stream)
 {
   for (auto c : v)
     stream << c << " ";
-}
-
-sparse_bit_vector_t
-hnco::sbv_from_bv(const bit_vector_t& bv)
-{
-  sparse_bit_vector_t result;
-  result.reserve(bv_hamming_weight(bv));
-
-  for (size_t i = 0; i < bv.size(); i++)
-    if (bv[i])
-      result.push_back(i);
-
-  assert(int(result.size()) == bv_hamming_weight(bv));
-
-  return result;
 }

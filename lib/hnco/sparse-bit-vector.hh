@@ -22,20 +22,15 @@
 #define HNCO_SPARSE_BIT_VECTOR_H
 
 #include <iostream>
-
-#include "bit-vector.hh"
+#include <vector>
 
 
 namespace hnco {
 
 
-/** @name Types and functions related to sparse bit vectors
-
-    Output and input-output function parameters appear at the
-    beginning of the parameter list.
-
-    Input object parameters are passed by const reference.
-*/
+/**
+ * @name Types and functions related to sparse bit vectors
+ */
 ///@{
 
 /** Sparse bit vector.
@@ -69,18 +64,8 @@ bool sbv_is_valid(const sparse_bit_vector_t& sbv);
 */
 bool sbv_is_valid(const sparse_bit_vector_t& sbv, int n);
 
-/** Flip many bits of a bit vector.
-
-    \param x Input-output bit vector
-    \param sbv Bits to flip
-*/
-void sbv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv);
-
 /// Display sparse bit vector
 void sbv_display(const sparse_bit_vector_t& v, std::ostream& stream);
-
-/// Convert a bit vector to a sparse bit vector
-sparse_bit_vector_t sbv_from_bv(const bit_vector_t& bv);
 
 ///@}
 
