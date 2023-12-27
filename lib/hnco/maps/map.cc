@@ -141,9 +141,7 @@ AffineMap::map(const bit_vector_t& input, bit_vector_t& output)
   assert(output.size() == _bm.size());
 
   bm_multiply(output, _bm, input);
-  for (size_t i = 0; i < output.size(); i++)
-    if (_bv[i])
-      bv_flip(output, i);
+  bv_add(output, _bv);
 }
 
 
@@ -259,7 +257,7 @@ TsAffineMap::map(const bit_vector_t& input, bit_vector_t& output)
 
   output = input;
   ts_multiply(output, _ts);
-  bv_flip(output, _bv);
+  bv_add(output, _bv);
 }
 
 
