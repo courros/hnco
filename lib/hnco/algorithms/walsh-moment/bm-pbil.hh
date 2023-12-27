@@ -83,19 +83,13 @@ public:
   /// Markov chain reset mode
   enum class ResetMode {
 
-    /** No reset.
-
-     */
+    /** No reset. */
     no_reset,
 
-    /** Reset MC at the beginning of each iteration.
-
-     */
+    /** Reset the Markov chain at the beginning of each iteration. */
     iteration,
 
-    /** Reset MC before sampling each bit vector.
-
-     */
+    /** Reset the Markov chain before sampling each bit vector. */
     bit_vector
 
   };
