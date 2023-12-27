@@ -637,22 +637,22 @@ public:
   enum class SamplingMode {
 
     /// Unconstrained
-    Unconstrained,
+    unconstrained,
 
     /// Commuting transvections
-    CommutingTransvections,
+    commuting_transvections,
 
     /// %Transvection sequence with unique source
-    UniqueSource,
+    unique_source,
 
     /// %Transvection sequence with unique destination
-    UniqueDestination,
+    unique_destination,
 
     /// Disjoint transvections
-    DisjointTransvections,
+    disjoint_transvections,
 
     /// Non commuting transvections
-    NonCommutingTransvections
+    non_commuting_transvections
 
   };
 

@@ -217,27 +217,27 @@ TsAffineMap::random(int n, int t, SamplingMode mode)
 
   switch (mode) {
 
-  case SamplingMode::Unconstrained:
+  case SamplingMode::unconstrained:
     ts_random(_ts, n, t);
     break;
 
-  case SamplingMode::CommutingTransvections:
+  case SamplingMode::commuting_transvections:
     ts_random_commuting(_ts, n, t);
     break;
 
-  case SamplingMode::UniqueSource:
+  case SamplingMode::unique_source:
     ts_random_unique_source(_ts, n, t);
     break;
 
-  case SamplingMode::UniqueDestination:
+  case SamplingMode::unique_destination:
     ts_random_unique_destination(_ts, n, t);
     break;
 
-  case SamplingMode::DisjointTransvections:
+  case SamplingMode::disjoint_transvections:
     ts_random_disjoint(_ts, n, t);
     break;
 
-  case SamplingMode::NonCommutingTransvections:
+  case SamplingMode::non_commuting_transvections:
     ts_random_non_commuting(_ts, n, t);
     break;
 

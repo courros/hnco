@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     int t = dist_t(Generator::engine);
 
     TsAffineMap src;
-    src.random(n, t, TsAffineMap::SamplingMode::Unconstrained);
+    src.random(n, t, TsAffineMap::SamplingMode::unconstrained);
     {
       std::ofstream ofs(path);
       boost::archive::text_oarchive oa(ofs);
