@@ -92,7 +92,7 @@ InformationTheoreticEa::ml_update(bool equivalent_individuals, std::pair<int, in
       } else if (2 * _likelihoods[i] < _selection_size) {
         _center.first[i] = 0;
       } else {
-        _center.first[i] = random_bit(0.5);
+        _center.first[i] = bit_random(0.5);
       }
     }
   } else {
@@ -102,7 +102,7 @@ InformationTheoreticEa::ml_update(bool equivalent_individuals, std::pair<int, in
       } else if (2 * _likelihoods[i] < _selection_size) {
         _center.first[i] = 1;
       } else {
-        _center.first[i] = random_bit(0.5);
+        _center.first[i] = bit_random(0.5);
       }
     }
   }
