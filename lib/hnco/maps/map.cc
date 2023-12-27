@@ -217,34 +217,32 @@ TsAffineMap::random(int n, int t, SamplingMode mode)
 
   switch (mode) {
 
-  case Unconstrained:
+  case SamplingMode::Unconstrained:
     ts_random(_ts, n, t);
     break;
 
-  case CommutingTransvections:
+  case SamplingMode::CommutingTransvections:
     ts_random_commuting(_ts, n, t);
     break;
 
-  case UniqueSource:
+  case SamplingMode::UniqueSource:
     ts_random_unique_source(_ts, n, t);
     break;
 
-  case UniqueDestination:
+  case SamplingMode::UniqueDestination:
     ts_random_unique_destination(_ts, n, t);
     break;
 
-  case DisjointTransvections:
+  case SamplingMode::DisjointTransvections:
     ts_random_disjoint(_ts, n, t);
     break;
 
-  case NonCommutingTransvections:
+  case SamplingMode::NonCommutingTransvections:
     ts_random_non_commuting(_ts, n, t);
     break;
 
   default:
-    std::ostringstream stream;
-    stream << mode;
-    throw std::runtime_error("TsAffineMap::random: Unknown sampling mode: " + stream.str());
+    throw std::runtime_error("TsAffineMap::random: Unknown sampling mode: " + static_cast<int>(mode));
   }
 }
 

@@ -634,25 +634,25 @@ private:
 public:
 
   /// Sampling mode
-  enum SamplingMode {
+  enum class SamplingMode {
 
-                     /// Unconstrained
-                     Unconstrained,
+    /// Unconstrained
+    Unconstrained,
 
-                     /// Commuting transvections
-                     CommutingTransvections,
+    /// Commuting transvections
+    CommutingTransvections,
 
-                     /// %Transvection sequence with unique source
-                     UniqueSource,
+    /// %Transvection sequence with unique source
+    UniqueSource,
 
-                     /// %Transvection sequence with unique destination
-                     UniqueDestination,
+    /// %Transvection sequence with unique destination
+    UniqueDestination,
 
-                     /// Disjoint transvections
-                     DisjointTransvections,
+    /// Disjoint transvections
+    DisjointTransvections,
 
-                     /// Non commuting transvections
-                     NonCommutingTransvections
+    /// Non commuting transvections
+    NonCommutingTransvections
 
   };
 
