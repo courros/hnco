@@ -250,9 +250,7 @@ InformationTheoreticEa::iterate()
     break;
 
   default:
-    std::ostringstream stream;
-    stream << _replacement;
-    throw std::runtime_error("InformationTheoreticEa::iterate: Unknown replacement: " + stream.str());
+    throw std::runtime_error("InformationTheoreticEa::iterate: Unknown replacement: " + static_cast<int>(_replacement));
 
   }
 

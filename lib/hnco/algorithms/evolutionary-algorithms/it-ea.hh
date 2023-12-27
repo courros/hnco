@@ -20,26 +20,22 @@ class InformationTheoreticEa: public IterativeAlgorithm {
 public:
 
   /// Selection for replacement
-  struct Replacement {
+  enum class Replacement {
 
-    enum {
+    /// Elitist replacement
+    elitist               = 0,
 
-      /// Elitist replacement
-      elitist               = 0,
+    /// Non elitist replacement
+    non_elitist           = 1,
 
-      /// Non elitist replacement
-      non_elitist           = 1,
+    /// Maximum likelihood update
+    ml_update             = 2,
 
-      /// Maximum likelihood update
-      ml_update             = 2,
+    /// Incremental maximum likelihood update
+    incremental_ml_update = 3,
 
-      /// Incremental maximum likelihood update
-      incremental_ml_update = 3,
-
-      /// No replacement (static search)
-      no_replacement        = 4
-
-    };
+    /// No replacement (static search)
+    no_replacement        = 4
 
   };
 
@@ -81,7 +77,7 @@ public:
   void set_mutation_rate_max(double r) { _mutation_rate_max = r; }
 
   /// Set replacement
-  void set_replacement(int n) { _replacement = n; }
+  void set_replacement(Replacement replacement) { _replacement = replacement; }
 
   /// Set the initial Hamming weight
   void set_initial_hamming_weight(int n) { _initial_hamming_weight = n; }
@@ -148,7 +144,7 @@ protected:
   int _initial_hamming_weight = 0;
 
   /// Replacement
-  int _replacement = Replacement::elitist;
+  Replacement _replacement = Replacement::elitist;
 
   /// Allow no mutation
   bool _allow_no_mutation = false;
