@@ -89,16 +89,6 @@ hnco::bv_dot_product(const bit_vector_t& x, const std::vector<bool>& y)
 }
 
 void
-hnco::bv_flip(bit_vector_t& x, const bit_vector_t& mask)
-{
-  assert(mask.size() == x.size());
-
-  for (std::size_t i = 0; i < x.size(); i++)
-    if (mask[i])
-      bv_flip(x, i);
-}
-
-void
 hnco::bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv)
 {
   assert(sbv_is_valid(sbv, x.size()));
