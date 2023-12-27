@@ -9,6 +9,7 @@ Library:
 - Added bit_add
 - bit_flip uses bit_add
 - Removed bv_flip with bit_vector_t parameter
+- Removed hnco::clip_value
 
 Build:
 - Added directory lib/gomea/
