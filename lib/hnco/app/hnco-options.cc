@@ -10,9 +10,9 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 {
   const struct option long_options[] = {
     {"algorithm", required_argument, 0, OPTION_ALGORITHM},
-    {"bm-mc-reset-strategy", required_argument, 0, OPTION_BM_MC_RESET_STRATEGY},
     {"bm-num-gs-cycles", required_argument, 0, OPTION_BM_NUM_GS_CYCLES},
     {"bm-num-gs-steps", required_argument, 0, OPTION_BM_NUM_GS_STEPS},
+    {"bm-reset-mode", required_argument, 0, OPTION_BM_RESET_MODE},
     {"bm-sampling-mode", required_argument, 0, OPTION_BM_SAMPLING_MODE},
     {"budget", required_argument, 0, OPTION_BUDGET},
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
@@ -157,11 +157,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _algorithm = std::atoi(optarg);
       break;
 
-    case OPTION_BM_MC_RESET_STRATEGY:
-      _with_bm_mc_reset_strategy = true;
-      _bm_mc_reset_strategy = std::atoi(optarg);
-      break;
-
     case OPTION_BM_NUM_GS_CYCLES:
       _with_bm_num_gs_cycles = true;
       _bm_num_gs_cycles = std::atoi(optarg);
@@ -170,6 +165,11 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_BM_NUM_GS_STEPS:
       _with_bm_num_gs_steps = true;
       _bm_num_gs_steps = std::atoi(optarg);
+      break;
+
+    case OPTION_BM_RESET_MODE:
+      _with_bm_reset_mode = true;
+      _bm_reset_mode = std::atoi(optarg);
       break;
 
     case OPTION_BM_SAMPLING_MODE:
@@ -1245,17 +1245,17 @@ void HncoOptions::print_help_bm(std::ostream& stream) const
   stream << "          Log 1-norm of the parameters" << std::endl;
   stream << "      --bm-log-norm-infinite" << std::endl;
   stream << "          Log infinite norm of the parameters" << std::endl;
-  stream << "      --bm-mc-reset-strategy (type int, default to 1)" << std::endl;
-  stream << "          Markov chain reset strategy" << std::endl;
-  stream << "            0: No reset" << std::endl;
-  stream << "            1: Reset MC at the beginning of each iteration" << std::endl;
-  stream << "            2: Reset MC before sampling each bit vector" << std::endl;
   stream << "      --bm-negative-positive-selection" << std::endl;
   stream << "          Negative and positive selection" << std::endl;
   stream << "      --bm-num-gs-cycles (type int, default to 1)" << std::endl;
   stream << "          Number of Gibbs sampler cycles per bit vector" << std::endl;
   stream << "      --bm-num-gs-steps (type int, default to 100)" << std::endl;
   stream << "          Number of Gibbs sampler steps per bit vector" << std::endl;
+  stream << "      --bm-reset-mode (type int, default to 1)" << std::endl;
+  stream << "          Markov chain reset mode" << std::endl;
+  stream << "            0: No reset" << std::endl;
+  stream << "            1: Reset the Markov chain at the beginning of each iteration" << std::endl;
+  stream << "            2: Reset the Markov chain before sampling each bit vector" << std::endl;
   stream << "      --bm-sampling-mode (type int, default to 1)" << std::endl;
   stream << "          Sampling mode for the Boltzmann machine" << std::endl;
   stream << "            0: Asynchronous sampling" << std::endl;
@@ -1272,9 +1272,9 @@ void HncoOptions::print_version(std::ostream& stream) const
 std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& options)
 {
   stream << "# algorithm = " << options._algorithm << std::endl;
-  stream << "# bm_mc_reset_strategy = " << options._bm_mc_reset_strategy << std::endl;
   stream << "# bm_num_gs_cycles = " << options._bm_num_gs_cycles << std::endl;
   stream << "# bm_num_gs_steps = " << options._bm_num_gs_steps << std::endl;
+  stream << "# bm_reset_mode = " << options._bm_reset_mode << std::endl;
   stream << "# bm_sampling_mode = " << options._bm_sampling_mode << std::endl;
   stream << "# budget = " << options._budget << std::endl;
   stream << "# bv_size = " << options._bv_size << std::endl;

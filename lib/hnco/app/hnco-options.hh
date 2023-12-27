@@ -34,9 +34,9 @@ class HncoOptions {
     OPTION_HELP_SA,
     OPTION_VERSION,
     OPTION_ALGORITHM,
-    OPTION_BM_MC_RESET_STRATEGY,
     OPTION_BM_NUM_GS_CYCLES,
     OPTION_BM_NUM_GS_STEPS,
+    OPTION_BM_RESET_MODE,
     OPTION_BM_SAMPLING_MODE,
     OPTION_BUDGET,
     OPTION_BV_SIZE,
@@ -156,10 +156,6 @@ class HncoOptions {
   int _algorithm = 100;
   bool _with_algorithm = false;
 
-  /// Markov chain reset strategy
-  int _bm_mc_reset_strategy = 1;
-  bool _with_bm_mc_reset_strategy = false;
-
   /// Number of Gibbs sampler cycles per bit vector
   int _bm_num_gs_cycles = 1;
   bool _with_bm_num_gs_cycles = false;
@@ -167,6 +163,10 @@ class HncoOptions {
   /// Number of Gibbs sampler steps per bit vector
   int _bm_num_gs_steps = 100;
   bool _with_bm_num_gs_steps = false;
+
+  /// Markov chain reset mode
+  int _bm_reset_mode = 1;
+  bool _with_bm_reset_mode = false;
 
   /// Sampling mode for the Boltzmann machine
   int _bm_sampling_mode = 1;
@@ -632,12 +632,6 @@ public:
   /// With parameter algorithm
   bool with_algorithm() const { return _with_algorithm; }
 
-  /// Get the value of bm_mc_reset_strategy
-  int get_bm_mc_reset_strategy() const { return _bm_mc_reset_strategy; }
-
-  /// With parameter bm_mc_reset_strategy
-  bool with_bm_mc_reset_strategy() const { return _with_bm_mc_reset_strategy; }
-
   /// Get the value of bm_num_gs_cycles
   int get_bm_num_gs_cycles() const { return _bm_num_gs_cycles; }
 
@@ -649,6 +643,12 @@ public:
 
   /// With parameter bm_num_gs_steps
   bool with_bm_num_gs_steps() const { return _with_bm_num_gs_steps; }
+
+  /// Get the value of bm_reset_mode
+  int get_bm_reset_mode() const { return _bm_reset_mode; }
+
+  /// With parameter bm_reset_mode
+  bool with_bm_reset_mode() const { return _with_bm_reset_mode; }
 
   /// Get the value of bm_sampling_mode
   int get_bm_sampling_mode() const { return _bm_sampling_mode; }

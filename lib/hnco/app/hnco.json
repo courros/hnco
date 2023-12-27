@@ -1549,11 +1549,11 @@
 
         },
 
-        "bm_mc_reset_strategy":
+        "bm_reset_mode":
         {
             "type": "int",
             "default": 1,
-            "description": "Markov chain reset strategy",
+            "description": "Markov chain reset mode",
             "section": "bm",
             "values":
             [
@@ -1565,12 +1565,12 @@
 
                 {
                     "value": 1,
-                    "description": "Reset MC at the beginning of each iteration"
+                    "description": "Reset the Markov chain at the beginning of each iteration"
                 },
 
                 {
                     "value": 2,
-                    "description": "Reset MC before sampling each bit vector"
+                    "description": "Reset the Markov chain before sampling each bit vector"
                 }
 
             ]

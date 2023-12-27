@@ -421,7 +421,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
        _options.get_population_size());
 
     algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_reset_mode(static_cast<BM::ResetMode>(_options.get_bm_mc_reset_strategy()));
+    algo->set_reset_mode(static_cast<BM::ResetMode>(_options.get_bm_reset_mode()));
     algo->set_negative_positive_selection(_options.with_bm_negative_positive_selection());
     algo->set_num_gs_cycles(_options.get_bm_num_gs_cycles());
     algo->set_num_gs_steps(_options.get_bm_num_gs_steps());
@@ -443,7 +443,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
        _options.get_population_size());
 
     algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_reset_mode(static_cast<BM::ResetMode>(_options.get_bm_mc_reset_strategy()));
+    algo->set_reset_mode(static_cast<BM::ResetMode>(_options.get_bm_reset_mode()));
     algo->set_negative_positive_selection(_options.with_bm_negative_positive_selection());
     algo->set_num_gs_cycles(_options.get_bm_num_gs_cycles());
     algo->set_num_gs_steps(_options.get_bm_num_gs_steps());
