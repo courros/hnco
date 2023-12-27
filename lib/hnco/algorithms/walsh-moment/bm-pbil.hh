@@ -51,6 +51,7 @@ class BmPbil: public IterativeAlgorithm {
 
 public:
 
+  /// Markov chain sampling mode
   enum class SamplingMode {
 
     /** Asynchronous sampling.
@@ -79,6 +80,7 @@ public:
 
   };
 
+  /// Markov chain reset mode
   enum class ResetMode {
 
     /** No reset.
@@ -124,7 +126,8 @@ protected:
   /// Permutation
   permutation_t _permutation;
 
-  /** @name Parameters
+  /**
+   * @name Parameters
    */
   ///@{
 
@@ -151,7 +154,8 @@ protected:
 
   ///@}
 
-  /** @name Logging
+  /**
+   * @name Logging
    */
   ///@{
 
@@ -163,7 +167,8 @@ protected:
 
   ///@}
 
-  /** @name Loop
+  /**
+   * @name Loop
    */
   ///@{
 
@@ -295,7 +300,8 @@ public:
     _choose_bit(0, n - 1),
     _permutation(n) {}
 
-  /** @name Setters for parameters
+  /**
+   * @name Setters for parameters
    */
   ///@{
 
@@ -322,11 +328,12 @@ public:
   void set_sampling_mode(SamplingMode mode) { _sampling_mode = mode; }
 
   /// Set the reset mode
-  void set_reset_mode(ResetMode reset_mode) { _reset_mode = reset_mode; }
+  void set_reset_mode(ResetMode mode) { _reset_mode = mode; }
 
   ///@}
 
-  /** @name Setters for logging
+  /**
+   * @name Setters for logging
    */
   ///@{
 
