@@ -135,7 +135,8 @@ hnco::bv_add(bit_vector_t& dest, const bit_vector_t& src)
   assert(dest.size() == src.size());
 
   for (std::size_t i = 0; i < dest.size(); i++)
-    dest[i] = (src[i] + dest[i]) % 2;
+    bit_add(dest[i], src[i]);
+    // dest[i] = (src[i] + dest[i]) % 2;
 }
 
 void
@@ -145,7 +146,8 @@ hnco::bv_add(bit_vector_t& dest, const bit_vector_t& x, const bit_vector_t& y)
   assert(dest.size() == y.size());
 
   for (std::size_t i = 0; i < dest.size(); i++)
-    dest[i] = (x[i] + y[i]) % 2;
+    bit_add(dest[i], x[i], y[i]);
+    // dest[i] = (x[i] + y[i]) % 2;
 }
 
 void

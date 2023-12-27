@@ -39,33 +39,57 @@ extern "C" {
 namespace hnco {
 
 
-/** @name Types and functions related to bit
+/**
+ * @name Types and functions related to bits
  */
 ///@{
 
 /// Bit
 using bit_t = std::uint8_t;
 
-/// Flip bit
-inline void bit_flip(bit_t& b) { b = b ? 0 : 1; }
+/**
+ * Add bits.
+ * Implements dest = dest xor b
+ * @param dest Destination bit
+ * @param b Operand
+ */
+inline void bit_add(bit_t& dest, bit_t b) { dest ^= b; }
 
-/// Sample a random bit
-inline bit_t random_bit(double p) { return (random::Generator::uniform() < p) ? 1 : 0; }
+/**
+ * Add bits.
+ * Implements dest = b1 xor b2
+ * @param dest Destination bit
+ * @param b1 First operand
+ * @param b2 Second operand
+ */
+inline void bit_add(bit_t& dest, bit_t b1, bit_t b2) { dest = b1 ^ b2; }
+
+/**
+ * Flip a bit.
+ * @param b Bit to flip
+ */
+inline void bit_flip(bit_t& b) { bit_add(b, 1); }
+
+/**
+ * Sample a random bit.
+ * @param p Probability of 1
+ */
+inline bit_t bit_random(double p) { return (random::Generator::uniform() < p) ? 1 : 0; }
 
 ///@}
 
 
-/** @name Types and functions related to bit vectors
-
-    Output and input-output function parameters appear at the
-    beginning of the parameter list.
-
-    Output and input-output bit_vector_t parameters are passed by
-    reference and must have the right size for the considered
-    function.
-
-    Input bit_vector_t parameters are passed by const reference.
-*/
+/**
+ * @name Types and functions related to bit vectors
+ *
+ * Output and input-output function parameters appear at the beginning
+ * of the parameter list.
+ *
+ * Output and input-output bit_vector_t parameters are passed by
+ * reference and must have the right size for the considered function.
+ *
+ * Input bit_vector_t parameters are passed by const reference.
+ */
 ///@{
 
 /// Bit vector
