@@ -37,7 +37,7 @@ class HncoOptions {
     OPTION_BM_MC_RESET_STRATEGY,
     OPTION_BM_NUM_GS_CYCLES,
     OPTION_BM_NUM_GS_STEPS,
-    OPTION_BM_SAMPLING,
+    OPTION_BM_SAMPLING_MODE,
     OPTION_BUDGET,
     OPTION_BV_SIZE,
     OPTION_DESCRIPTION_PATH,
@@ -169,8 +169,8 @@ class HncoOptions {
   bool _with_bm_num_gs_steps = false;
 
   /// Sampling mode for the Boltzmann machine
-  int _bm_sampling = 1;
-  bool _with_bm_sampling = false;
+  int _bm_sampling_mode = 1;
+  bool _with_bm_sampling_mode = false;
 
   /// Number of allowed function evaluations (<= 0 means indefinite)
   int _budget = 10000;
@@ -650,11 +650,11 @@ public:
   /// With parameter bm_num_gs_steps
   bool with_bm_num_gs_steps() const { return _with_bm_num_gs_steps; }
 
-  /// Get the value of bm_sampling
-  int get_bm_sampling() const { return _bm_sampling; }
+  /// Get the value of bm_sampling_mode
+  int get_bm_sampling_mode() const { return _bm_sampling_mode; }
 
-  /// With parameter bm_sampling
-  bool with_bm_sampling() const { return _with_bm_sampling; }
+  /// With parameter bm_sampling_mode
+  bool with_bm_sampling_mode() const { return _with_bm_sampling_mode; }
 
   /// Get the value of budget
   int get_budget() const { return _budget; }

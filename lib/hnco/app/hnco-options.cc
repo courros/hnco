@@ -13,7 +13,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"bm-mc-reset-strategy", required_argument, 0, OPTION_BM_MC_RESET_STRATEGY},
     {"bm-num-gs-cycles", required_argument, 0, OPTION_BM_NUM_GS_CYCLES},
     {"bm-num-gs-steps", required_argument, 0, OPTION_BM_NUM_GS_STEPS},
-    {"bm-sampling", required_argument, 0, OPTION_BM_SAMPLING},
+    {"bm-sampling-mode", required_argument, 0, OPTION_BM_SAMPLING_MODE},
     {"budget", required_argument, 0, OPTION_BUDGET},
     {"bv-size", required_argument, 0, OPTION_BV_SIZE},
     {"description-path", required_argument, 0, OPTION_DESCRIPTION_PATH},
@@ -172,9 +172,9 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _bm_num_gs_steps = std::atoi(optarg);
       break;
 
-    case OPTION_BM_SAMPLING:
-      _with_bm_sampling = true;
-      _bm_sampling = std::atoi(optarg);
+    case OPTION_BM_SAMPLING_MODE:
+      _with_bm_sampling_mode = true;
+      _bm_sampling_mode = std::atoi(optarg);
       break;
 
     case 'b':
@@ -1256,7 +1256,7 @@ void HncoOptions::print_help_bm(std::ostream& stream) const
   stream << "          Number of Gibbs sampler cycles per bit vector" << std::endl;
   stream << "      --bm-num-gs-steps (type int, default to 100)" << std::endl;
   stream << "          Number of Gibbs sampler steps per bit vector" << std::endl;
-  stream << "      --bm-sampling (type int, default to 1)" << std::endl;
+  stream << "      --bm-sampling-mode (type int, default to 1)" << std::endl;
   stream << "          Sampling mode for the Boltzmann machine" << std::endl;
   stream << "            0: Asynchronous sampling" << std::endl;
   stream << "            1: Asynchronous sampling with full scan" << std::endl;
@@ -1275,7 +1275,7 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# bm_mc_reset_strategy = " << options._bm_mc_reset_strategy << std::endl;
   stream << "# bm_num_gs_cycles = " << options._bm_num_gs_cycles << std::endl;
   stream << "# bm_num_gs_steps = " << options._bm_num_gs_steps << std::endl;
-  stream << "# bm_sampling = " << options._bm_sampling << std::endl;
+  stream << "# bm_sampling_mode = " << options._bm_sampling_mode << std::endl;
   stream << "# budget = " << options._budget << std::endl;
   stream << "# bv_size = " << options._bv_size << std::endl;
   stream << "# description_path = \"" << options._description_path << "\"" << std::endl;

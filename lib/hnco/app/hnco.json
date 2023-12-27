@@ -1521,7 +1521,7 @@
             "section": "bm"
         },
 
-        "bm_sampling":
+        "bm_sampling_mode":
         {
             "type": "int",
             "default": 1,

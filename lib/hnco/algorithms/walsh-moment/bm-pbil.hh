@@ -51,7 +51,7 @@ class BmPbil: public IterativeAlgorithm {
 
 public:
 
-  enum {
+  enum class SamplingMode {
 
     /** Asynchronous sampling.
 
@@ -59,7 +59,7 @@ public:
         selected then updated by Gibbs sampling. This step is
         repeated _num_gs_steps times.
     */
-    SAMPLING_ASYNCHRONOUS,
+    asynchronous,
 
     /** Asynchronous sampling with full scan.
 
@@ -67,7 +67,7 @@ public:
         and all components of the internal state are updated by
         Gibbs sampling in the order defined by the permutation.
     */
-    SAMPLING_ASYNCHRONOUS_FULL_SCAN,
+    asynchronous_full_scan,
 
     /** Synchronous sampling.
 
@@ -75,26 +75,26 @@ public:
         probability vector made of the very marginal probabilities
         used in Gibbs sampling.
     */
-    SAMPLING_SYNCHRONOUS
+    synchronous
 
   };
 
-  enum {
+  enum class ResetMode {
 
     /** No reset.
 
      */
-    RESET_NO_RESET,
+    no_reset,
 
     /** Reset MC at the beginning of each iteration.
 
      */
-    RESET_ITERATION,
+    iteration,
 
     /** Reset MC before sampling each bit vector.
 
      */
-    RESET_BIT_VECTOR
+    bit_vector
 
   };
 
@@ -144,10 +144,10 @@ protected:
   bool _negative_positive_selection = false;
 
   /// Sampling mode
-  int _sampling = SAMPLING_ASYNCHRONOUS;
+  SamplingMode _sampling_mode = SamplingMode::asynchronous;
 
-  /// MC reset strategy
-  int _mc_reset_strategy = RESET_NO_RESET;
+  /// Reset mode
+  ResetMode _reset_mode = ResetMode::no_reset;
 
   ///@}
 
@@ -178,12 +178,12 @@ protected:
 
   /// Single iteration
   void iterate() override {
-    if (_mc_reset_strategy == RESET_ITERATION)
+    if (_reset_mode == ResetMode::iteration)
       _gibbs_sampler.init();
 
     // Sample population
     for (int i = 0; i < _population.get_size(); i++) {
-      if (_mc_reset_strategy == RESET_BIT_VECTOR)
+      if (_reset_mode == ResetMode::bit_vector)
         _gibbs_sampler.init();
       sample(_population.bvs[i]);
     }
@@ -244,20 +244,18 @@ protected:
 
   /// Sample a bit vector
   void sample(bit_vector_t& x) {
-    switch (_sampling) {
-    case SAMPLING_ASYNCHRONOUS:
+    switch (_sampling_mode) {
+    case SamplingMode::asynchronous:
       sample_asynchronous();
       break;
-    case SAMPLING_ASYNCHRONOUS_FULL_SCAN:
+    case SamplingMode::asynchronous_full_scan:
       sample_asynchronous_full_scan();
       break;
-    case SAMPLING_SYNCHRONOUS:
+    case SamplingMode::synchronous:
       sample_synchronous();
       break;
     default:
-      std::ostringstream stream;
-      stream << _sampling;
-      throw std::runtime_error("BmPbil::sample: Unknown _sampling: " + stream.str());
+      throw std::runtime_error("BmPbil::sample: Unknown _sampling_mode: " + static_cast<int>(_sampling_mode));
     }
     x = _gibbs_sampler.get_state();
   }
@@ -321,10 +319,10 @@ public:
   void set_negative_positive_selection(bool x) { _negative_positive_selection = x; }
 
   /// Set the sampling mode
-  void set_sampling(int x) { _sampling = x; }
+  void set_sampling_mode(SamplingMode mode) { _sampling_mode = mode; }
 
-  /// Set the MC reset strategy
-  void set_mc_reset_strategy(int x) { _mc_reset_strategy = x; }
+  /// Set the reset mode
+  void set_reset_mode(ResetMode reset_mode) { _reset_mode = reset_mode; }
 
   ///@}
 

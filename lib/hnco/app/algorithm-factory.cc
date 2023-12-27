@@ -415,18 +415,18 @@ CommandLineAlgorithmFactory::make(int bv_size)
 
   case 1000: {
     using namespace walsh_moment;
-
-    auto algo = new BmPbil<SymmetricWalshMoment2GibbsSampler>
+    using BM = BmPbil<SymmetricWalshMoment2GibbsSampler>;
+    auto algo = new BM
       (bv_size,
        _options.get_population_size());
 
     algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_mc_reset_strategy(_options.get_bm_mc_reset_strategy());
+    algo->set_reset_mode(static_cast<BM::ResetMode>(_options.get_bm_mc_reset_strategy()));
     algo->set_negative_positive_selection(_options.with_bm_negative_positive_selection());
     algo->set_num_gs_cycles(_options.get_bm_num_gs_cycles());
     algo->set_num_gs_steps(_options.get_bm_num_gs_steps());
     algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_sampling(_options.get_bm_sampling());
+    algo->set_sampling_mode(static_cast<BM::SamplingMode>(_options.get_bm_sampling_mode()));
     algo->set_selection_size(_options.get_selection_size());
 
     algo->set_log_norm_1(_options.with_bm_log_norm_1());
@@ -437,18 +437,18 @@ CommandLineAlgorithmFactory::make(int bv_size)
 
   case 1001: {
     using namespace walsh_moment;
-
-    auto algo = new BmPbil<LowerTriangularWalshMoment2GibbsSampler>
+    using BM = BmPbil<LowerTriangularWalshMoment2GibbsSampler>;
+    auto algo = new BM
       (bv_size,
        _options.get_population_size());
 
     algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_mc_reset_strategy(_options.get_bm_mc_reset_strategy());
+    algo->set_reset_mode(static_cast<BM::ResetMode>(_options.get_bm_mc_reset_strategy()));
     algo->set_negative_positive_selection(_options.with_bm_negative_positive_selection());
     algo->set_num_gs_cycles(_options.get_bm_num_gs_cycles());
     algo->set_num_gs_steps(_options.get_bm_num_gs_steps());
     algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_sampling(_options.get_bm_sampling());
+    algo->set_sampling_mode(static_cast<BM::SamplingMode>(_options.get_bm_sampling_mode()));
     algo->set_selection_size(_options.get_selection_size());
 
     algo->set_log_norm_1(_options.with_bm_log_norm_1());
