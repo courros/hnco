@@ -66,7 +66,7 @@ hnco::function::compute_walsh_transform(function::Function *fn, std::vector<func
   for (std::size_t i = 0; i < coefficients.size(); i++) {
     if (coefficients[i]) {
       bv_from_size_type(bv, i);
-      bv_to_vector_bool(bv, feature);
+      bv_to_vector_bool(feature, bv);
       terms.push_back({.feature = feature, .coefficient = coefficients[i]});
     }
   }
@@ -122,7 +122,7 @@ hnco::function::compute_fast_walsh_transform(function::Function *fn, std::vector
   for (std::size_t i = 0; i < coefficients.size(); i++) {
     if (coefficients[i]) {
       bv_from_size_type(bv, i);
-      bv_to_vector_bool(bv, feature);
+      bv_to_vector_bool(feature, bv);
       terms.push_back({.feature = feature, .coefficient = coefficients[i]});
     }
   }
