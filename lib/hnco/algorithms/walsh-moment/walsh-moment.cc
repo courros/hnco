@@ -18,12 +18,13 @@
 
 */
 
-#include <assert.h>
-#include <math.h>		// std::sqrt
+#include <algorithm>            // std::clamp
+#include <cassert>
+#include <cmath>		// std::sqrt
 
 #include "hnco/util.hh"
 
-#include "matrix.hh" // hnco::algorithm::matrix_is_symmetric
+#include "matrix.hh"           // hnco::algorithm::matrix_is_symmetric
 #include "walsh-moment.hh"
 
 
@@ -167,12 +168,12 @@ LowerTriangularWalshMoment2::bound(double margin)
   assert(low < high);
 
   for (size_t i = 0; i < first_moment.size(); i++) {
-    first_moment[i] = clip_value(first_moment[i], low, high);
+    first_moment[i] = std::clamp(first_moment[i], low, high);
     assert(is_in_interval(first_moment[i], -1, 1));
 
     std::vector<double>& row = second_moment[i];
     for (size_t j = 0; j < i; j++) {
-      row[j] = clip_value(row[j], low, high);
+      row[j] = std::clamp(row[j], low, high);
       assert(is_in_interval(row[j], -1, 1));
     }
   }
@@ -384,12 +385,12 @@ SymmetricWalshMoment2::bound(double margin)
   assert(low < high);
 
   for (size_t i = 0; i < first_moment.size(); i++) {
-    first_moment[i] = clip_value(first_moment[i], low, high);
+    first_moment[i] = std::clamp(first_moment[i], low, high);
     assert(is_in_interval(first_moment[i], -1, 1));
 
     std::vector<double>& row = second_moment[i];
     for (size_t j = 0; j < i; j++) {
-      row[j] = clip_value(row[j], low, high);
+      row[j] = std::clamp(row[j], low, high);
       assert(is_in_interval(row[j], -1, 1));
 
       second_moment[j][i] = row[j];

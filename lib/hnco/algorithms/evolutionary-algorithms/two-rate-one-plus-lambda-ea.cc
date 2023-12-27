@@ -18,10 +18,10 @@
 
 */
 
-#include <algorithm>            // std::max, std::min
+#include <algorithm>            // std::max, std::min, std::clamp
 
 #include "hnco/logging/logger.hh"
-#include "hnco/util.hh"         // hnco::is_in_range, hnco::clip_value
+#include "hnco/util.hh"         // hnco::is_in_range
 
 #include "two-rate-one-plus-lambda-ea.hh"
 
@@ -88,7 +88,7 @@ TwoRateOnePlusLambdaEa::iterate()
       _mutation_rate = _mutation_rate / 2;
     else
       _mutation_rate = 2 * _mutation_rate;
-    _mutation_rate = clip_value(_mutation_rate, low, high);
+    _mutation_rate = std::clamp(_mutation_rate, low, high);
   }
 
 }

@@ -21,13 +21,12 @@
 #ifndef HNCO_REPRESENTATIONS_INTEGER_H
 #define HNCO_REPRESENTATIONS_INTEGER_H
 
-#include <assert.h>
-
-#include <iostream>             // std::ostream
+#include <algorithm>            // std::clamp
+#include <cassert>
 #include <cmath>                // std::log, std::ceil
+#include <iostream>             // std::ostream
 
 #include "hnco/bit-vector.hh"
-#include "hnco/util.hh"         // hnco::clip_value
 
 
 namespace hnco {
@@ -167,7 +166,7 @@ public:
 
     set_exact_size(lower_bound, upper_bound);
     _size = std::ceil(_exact_size - std::log(precision.precision) / std::log(2));
-    _size = clip_value(_size, 1, _exact_size);
+    _size = std::clamp(_size, 1, _exact_size);
   }
 
   /// Size of the representation

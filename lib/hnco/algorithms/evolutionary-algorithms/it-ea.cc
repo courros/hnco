@@ -1,4 +1,6 @@
-#include <hnco/util.hh>         // hnco::is_in_range, hnco::clip_value
+#include <algorithm>            // std::clamp
+
+#include <hnco/util.hh>         // hnco::is_in_range
 #include <hnco/logging/logger.hh>
 
 #include "it-ea.hh"
@@ -184,7 +186,7 @@ InformationTheoreticEa::igo_update(bool equivalent_individuals, std::pair<int, i
 
   // Update mutation rate.
   _mutation_rate += _learning_rate * (target - _mutation_rate);
-  _mutation_rate = hnco::clip_value(_mutation_rate, _mutation_rate_min, _mutation_rate_max);
+  _mutation_rate = std::clamp(_mutation_rate, _mutation_rate_min, _mutation_rate_max);
 }
 
 
