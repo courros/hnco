@@ -61,7 +61,7 @@ class SelfAdjustingOnePlusOneEa: public IterativeAlgorithm {
   double _mutation_rate_min;
 
   /// Maximum mutation rate
-  double _mutation_rate_max = 1;
+  double _mutation_rate_max = 0.5;
 
   /// Success ratio
   double _success_ratio = 4;
