@@ -161,11 +161,14 @@ make_prior_noise_neighborhood(const HncoOptions& options, int bv_size)
       (bv_size);
 
   case 1: {
-    auto nh = new StandardBitMutation
-      (bv_size,
-       options.get_pn_mutation_rate() / bv_size);
-    nh->set_allow_no_mutation(options.with_pn_allow_no_mutation());
-    return nh;
+    auto neighborhood = new StandardBitMutation(bv_size);
+
+    neighborhood->set_allow_no_mutation(options.with_pn_allow_no_mutation());
+
+    if (options.with_pn_mutation_rate())
+      neighborhood->set_mutation_rate(options.get_pn_mutation_rate());
+
+    return neighborhood;
   }
 
   case 2:

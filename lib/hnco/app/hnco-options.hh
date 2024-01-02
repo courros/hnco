@@ -348,8 +348,8 @@ class HncoOptions {
   std::string _path = "function.txt";
   bool _with_path = false;
 
-  /// Mutation rate relative to bv_size
-  double _pn_mutation_rate = 1;
+  /// Mutation rate
+  double _pn_mutation_rate;
   bool _with_pn_mutation_rate = false;
 
   /// Type of neighborhood
@@ -951,7 +951,12 @@ public:
   bool with_path() const { return _with_path; }
 
   /// Get the value of pn_mutation_rate
-  double get_pn_mutation_rate() const { return _pn_mutation_rate; }
+  double get_pn_mutation_rate() const {
+    if (_with_pn_mutation_rate)
+      return _pn_mutation_rate;
+    else
+      throw std::runtime_error("HncoOptions::get_pn_mutation_rate: Parameter pn_mutation_rate has no default value and has not been set");
+    }
 
   /// With parameter pn_mutation_rate
   bool with_pn_mutation_rate() const { return _with_pn_mutation_rate; }

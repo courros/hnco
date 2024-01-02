@@ -1009,8 +1009,8 @@ void HncoOptions::print_help_pn(std::ostream& stream) const
   stream << "Prior Noise" << std::endl;
   stream << "      --pn-allow-no-mutation" << std::endl;
   stream << "          Allow no mutation with standard bit mutation" << std::endl;
-  stream << "      --pn-mutation-rate (type double, default to 1)" << std::endl;
-  stream << "          Mutation rate relative to bv_size" << std::endl;
+  stream << "      --pn-mutation-rate (type double, no default)" << std::endl;
+  stream << "          Mutation rate" << std::endl;
   stream << "      --pn-neighborhood (type int, default to 0)" << std::endl;
   stream << "          Type of neighborhood" << std::endl;
   stream << "            0: Single bit flip" << std::endl;
@@ -1326,7 +1326,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# num_iterations = " << options._num_iterations << std::endl;
   stream << "# num_threads = " << options._num_threads << std::endl;
   stream << "# path = \"" << options._path << "\"" << std::endl;
-  stream << "# pn_mutation_rate = " << options._pn_mutation_rate << std::endl;
+  if (options._with_pn_mutation_rate)
+    stream << "# pn_mutation_rate = " << options._pn_mutation_rate << std::endl;
   stream << "# pn_neighborhood = " << options._pn_neighborhood << std::endl;
   stream << "# pn_radius = " << options._pn_radius << std::endl;
   stream << "# population_size = " << options._population_size << std::endl;

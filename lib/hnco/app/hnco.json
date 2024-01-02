@@ -895,8 +895,7 @@
         "pn_mutation_rate":
         {
             "type": "double",
-            "default": 1.0,
-            "description": "Mutation rate relative to bv_size",
+            "description": "Mutation rate",
             "section": "pn"
         },
 
