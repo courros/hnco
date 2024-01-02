@@ -18,6 +18,11 @@ Build:
 - Renamed directory algorithms/ls/ -> algorithms/local-search/
 - Renamed directory algorithms/pv/ -> algorithms/probability-vector/
 
+hnco:
+- ea_mutation_rate, ea_mutation_rate_min, and pn_mutation_rate: no
+  default value. Set only when explicitly provided at the command
+  line.
+
 
 * Version 0.23 (2023-10-26)
 
