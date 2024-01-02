@@ -269,6 +269,10 @@ public:
     _bernoulli_dist(p),
     _binomial_dist(n, p) {}
 
+  /** @name Setters
+   */
+  ///@{
+
   /** Set mutation rate.
 
       Sets _rejection_sampling to true if E(X) < sqrt(n), where X is
@@ -281,10 +285,6 @@ public:
     if (p < 1 / std::sqrt(_origin.size()))
       _rejection_sampling = true;
   }
-
-  /** @name Setters
-   */
-  ///@{
 
   /// Set the flag _allow_no_mutation
   void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }
