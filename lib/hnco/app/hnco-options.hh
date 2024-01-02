@@ -208,16 +208,16 @@ class HncoOptions {
   int _ea_mu = 10;
   bool _with_ea_mu = false;
 
-  /// Mutation rate relative to bv_size (fixed or initial value)
-  double _ea_mutation_rate = 1;
+  /// Mutation rate (fixed or initial value)
+  double _ea_mutation_rate;
   bool _with_ea_mutation_rate = false;
 
   /// Maximum mutation rate
-  double _ea_mutation_rate_max = 1;
+  double _ea_mutation_rate_max = 0.5;
   bool _with_ea_mutation_rate_max = false;
 
   /// Minimum mutation rate
-  double _ea_mutation_rate_min = 0.01;
+  double _ea_mutation_rate_min;
   bool _with_ea_mutation_rate_min = false;
 
   /// Success rate for for self-adjusting mutation rate
@@ -711,7 +711,12 @@ public:
   bool with_ea_mu() const { return _with_ea_mu; }
 
   /// Get the value of ea_mutation_rate
-  double get_ea_mutation_rate() const { return _ea_mutation_rate; }
+  double get_ea_mutation_rate() const {
+    if (_with_ea_mutation_rate)
+      return _ea_mutation_rate;
+    else
+      throw std::runtime_error("HncoOptions::get_ea_mutation_rate: Parameter ea_mutation_rate has no default value and has not been set");
+    }
 
   /// With parameter ea_mutation_rate
   bool with_ea_mutation_rate() const { return _with_ea_mutation_rate; }
@@ -723,7 +728,12 @@ public:
   bool with_ea_mutation_rate_max() const { return _with_ea_mutation_rate_max; }
 
   /// Get the value of ea_mutation_rate_min
-  double get_ea_mutation_rate_min() const { return _ea_mutation_rate_min; }
+  double get_ea_mutation_rate_min() const {
+    if (_with_ea_mutation_rate_min)
+      return _ea_mutation_rate_min;
+    else
+      throw std::runtime_error("HncoOptions::get_ea_mutation_rate_min: Parameter ea_mutation_rate_min has no default value and has not been set");
+    }
 
   /// With parameter ea_mutation_rate_min
   bool with_ea_mutation_rate_min() const { return _with_ea_mutation_rate_min; }

@@ -1340,15 +1340,13 @@
         {
             "optchar": "m",
             "type": "double",
-            "default": 1.0,
-            "description": "Mutation rate relative to bv_size (fixed or initial value)",
+            "description": "Mutation rate (fixed or initial value)",
             "section": "ea"
         },
 
         "ea_mutation_rate_min":
         {
             "type": "double",
-            "default": 0.01,
             "description": "Minimum mutation rate",
             "section": "ea"
         },
@@ -1356,7 +1354,7 @@
         "ea_mutation_rate_max":
         {
             "type": "double",
-            "default": 1,
+            "default": 0.5,
             "description": "Maximum mutation rate",
             "section": "ea"
         },

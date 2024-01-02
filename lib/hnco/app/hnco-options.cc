@@ -1177,11 +1177,11 @@ void HncoOptions::print_help_ea(std::ostream& stream) const
   stream << "          Log mutation rate" << std::endl;
   stream << "      --ea-mu (type int, default to 10)" << std::endl;
   stream << "          Parent population size" << std::endl;
-  stream << "  -m, --ea-mutation-rate (type double, default to 1)" << std::endl;
-  stream << "          Mutation rate relative to bv_size (fixed or initial value)" << std::endl;
-  stream << "      --ea-mutation-rate-max (type double, default to 1)" << std::endl;
+  stream << "  -m, --ea-mutation-rate (type double, no default)" << std::endl;
+  stream << "          Mutation rate (fixed or initial value)" << std::endl;
+  stream << "      --ea-mutation-rate-max (type double, default to 0.5)" << std::endl;
   stream << "          Maximum mutation rate" << std::endl;
-  stream << "      --ea-mutation-rate-min (type double, default to 0.01)" << std::endl;
+  stream << "      --ea-mutation-rate-min (type double, no default)" << std::endl;
   stream << "          Minimum mutation rate" << std::endl;
   stream << "      --ea-success-ratio (type double, default to 4)" << std::endl;
   stream << "          Success rate for for self-adjusting mutation rate" << std::endl;
@@ -1285,9 +1285,11 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# ea_it_replacement = " << options._ea_it_replacement << std::endl;
   stream << "# ea_lambda = " << options._ea_lambda << std::endl;
   stream << "# ea_mu = " << options._ea_mu << std::endl;
-  stream << "# ea_mutation_rate = " << options._ea_mutation_rate << std::endl;
+  if (options._with_ea_mutation_rate)
+    stream << "# ea_mutation_rate = " << options._ea_mutation_rate << std::endl;
   stream << "# ea_mutation_rate_max = " << options._ea_mutation_rate_max << std::endl;
-  stream << "# ea_mutation_rate_min = " << options._ea_mutation_rate_min << std::endl;
+  if (options._with_ea_mutation_rate_min)
+    stream << "# ea_mutation_rate_min = " << options._ea_mutation_rate_min << std::endl;
   stream << "# ea_success_ratio = " << options._ea_success_ratio << std::endl;
   stream << "# ea_tournament_size = " << options._ea_tournament_size << std::endl;
   stream << "# ea_update_strength = " << options._ea_update_strength << std::endl;

@@ -46,10 +46,13 @@ make_neighborhood(const HncoOptions& options, int bv_size)
     return new SingleBitFlip(bv_size);
 
   case 1: {
-    auto neighborhood = new StandardBitMutation
-      (bv_size,
-       options.get_ea_mutation_rate() / bv_size);
+    auto neighborhood = new StandardBitMutation(bv_size);
+
     neighborhood->set_allow_no_mutation(options.with_ea_allow_no_mutation());
+
+    if (options.with_ea_mutation_rate())
+      neighborhood->set_mutation_rate(options.get_ea_mutation_rate());
+
     return neighborhood;
   }
 
@@ -184,10 +187,13 @@ CommandLineAlgorithmFactory::make(int bv_size)
   case 300: {
     auto algo = new OnePlusOneEa(bv_size);
 
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_mutation_rate(_options.get_ea_mutation_rate() / bv_size);
-    algo->set_incremental_evaluation(_options.with_incremental_evaluation());
-    algo->set_allow_no_mutation(_options.with_ea_allow_no_mutation());
+    algo->set_num_iterations         (_options.get_num_iterations());
+
+    algo->set_allow_no_mutation      (_options.with_ea_allow_no_mutation());
+    algo->set_incremental_evaluation (_options.with_incremental_evaluation());
+
+    if (_options.with_ea_mutation_rate())
+      algo->set_mutation_rate(_options.get_ea_mutation_rate());
 
     return algo;
   }
@@ -195,15 +201,20 @@ CommandLineAlgorithmFactory::make(int bv_size)
   case 301: {
     auto algo = new SelfAdjustingOnePlusOneEa(bv_size);
 
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_mutation_rate_init(_options.get_ea_mutation_rate() / bv_size);
-    algo->set_mutation_rate_min(_options.get_ea_mutation_rate_min());
-    algo->set_mutation_rate_max(_options.get_ea_mutation_rate_max());
-    algo->set_update_strength(_options.get_ea_update_strength());
-    algo->set_success_ratio(_options.get_ea_success_ratio());
-    algo->set_allow_no_mutation(_options.with_ea_allow_no_mutation());
-    algo->set_incremental_evaluation(_options.with_incremental_evaluation());
-    algo->set_log_mutation_rate(_options.with_ea_log_mutation_rate());
+    algo->set_mutation_rate_max      (_options.get_ea_mutation_rate_max());
+    algo->set_num_iterations         (_options.get_num_iterations());
+    algo->set_success_ratio          (_options.get_ea_success_ratio());
+    algo->set_update_strength        (_options.get_ea_update_strength());
+
+    algo->set_allow_no_mutation      (_options.with_ea_allow_no_mutation());
+    algo->set_incremental_evaluation (_options.with_incremental_evaluation());
+    algo->set_log_mutation_rate      (_options.with_ea_log_mutation_rate());
+
+    if (_options.with_ea_mutation_rate())
+      algo->set_mutation_rate_init(_options.get_ea_mutation_rate());
+
+    if (_options.with_ea_mutation_rate_min())
+      algo->set_mutation_rate_min(_options.get_ea_mutation_rate_min());
 
     return algo;
   }
@@ -214,9 +225,12 @@ CommandLineAlgorithmFactory::make(int bv_size)
        _options.get_ea_mu(),
        _options.get_ea_lambda());
 
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_mutation_rate(_options.get_ea_mutation_rate() / bv_size);
-    algo->set_allow_no_mutation(_options.with_ea_allow_no_mutation());
+    algo->set_num_iterations    (_options.get_num_iterations());
+
+    algo->set_allow_no_mutation (_options.with_ea_allow_no_mutation());
+
+    if (_options.with_ea_mutation_rate())
+      algo->set_mutation_rate(_options.get_ea_mutation_rate());
 
     return algo;
   }
@@ -227,9 +241,12 @@ CommandLineAlgorithmFactory::make(int bv_size)
        _options.get_ea_mu(),
        _options.get_ea_lambda());
 
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_mutation_rate(_options.get_ea_mutation_rate() / bv_size);
-    algo->set_allow_no_mutation(_options.with_ea_allow_no_mutation());
+    algo->set_num_iterations    (_options.get_num_iterations());
+
+    algo->set_allow_no_mutation (_options.with_ea_allow_no_mutation());
+
+    if (_options.with_ea_mutation_rate())
+      algo->set_mutation_rate(_options.get_ea_mutation_rate());
 
     return algo;
   }
@@ -239,11 +256,13 @@ CommandLineAlgorithmFactory::make(int bv_size)
       (bv_size,
        _options.get_ea_lambda());
 
-    algo->set_allow_no_mutation  (_options.with_ea_allow_no_mutation());
-    algo->set_mutation_rate_init (_options.get_ea_mutation_rate() / bv_size);
     algo->set_num_iterations     (_options.get_num_iterations());
 
+    algo->set_allow_no_mutation  (_options.with_ea_allow_no_mutation());
     algo->set_log_mutation_rate  (_options.with_ea_log_mutation_rate());
+
+    if (_options.with_ea_mutation_rate())
+      algo->set_mutation_rate_init(_options.get_ea_mutation_rate());
 
     return algo;
   }
@@ -253,9 +272,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
 
     algo->set_initial_hamming_weight (_options.get_ea_it_initial_hamming_weight());
     algo->set_learning_rate          (_options.get_learning_rate());
-    algo->set_mutation_rate_init     (_options.get_ea_mutation_rate() / bv_size);
     algo->set_mutation_rate_max      (_options.get_ea_mutation_rate_max());
-    algo->set_mutation_rate_min      (_options.get_ea_mutation_rate_min());
     algo->set_num_iterations         (_options.get_num_iterations());
     algo->set_replacement            (static_cast<InformationTheoreticEa::Replacement>(_options.get_ea_it_replacement()));
     algo->set_selection_size         (_options.get_selection_size());
@@ -263,6 +280,12 @@ CommandLineAlgorithmFactory::make(int bv_size)
     algo->set_allow_no_mutation      (_options.with_ea_allow_no_mutation());
     algo->set_log_center_fitness     (_options.with_ea_it_log_center_fitness());
     algo->set_log_mutation_rate      (_options.with_ea_log_mutation_rate());
+
+    if (_options.with_ea_mutation_rate())
+      algo->set_mutation_rate_init(_options.get_ea_mutation_rate());
+
+    if (_options.with_ea_mutation_rate_min())
+      algo->set_mutation_rate_min(_options.get_ea_mutation_rate_min());
 
     return algo;
   }
@@ -272,11 +295,14 @@ CommandLineAlgorithmFactory::make(int bv_size)
       (bv_size,
        _options.get_ea_mu());
 
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_mutation_rate(_options.get_ea_mutation_rate() / bv_size);
-    algo->set_crossover_probability(_options.get_ea_crossover_probability());
-    algo->set_tournament_size(_options.get_ea_tournament_size());
-    algo->set_allow_no_mutation(_options.with_ea_allow_no_mutation());
+    algo->set_crossover_probability (_options.get_ea_crossover_probability());
+    algo->set_num_iterations        (_options.get_num_iterations());
+    algo->set_tournament_size       (_options.get_ea_tournament_size());
+
+    algo->set_allow_no_mutation     (_options.with_ea_allow_no_mutation());
+
+    if (_options.with_ea_mutation_rate())
+      algo->set_mutation_rate(_options.get_ea_mutation_rate());
 
     return algo;
   }
@@ -286,9 +312,11 @@ CommandLineAlgorithmFactory::make(int bv_size)
       (bv_size,
        _options.get_ea_mu());
 
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_mutation_rate(_options.get_ea_mutation_rate() / bv_size);
     algo->set_crossover_bias(_options.get_ea_crossover_bias());
+    algo->set_num_iterations(_options.get_num_iterations());
+
+    if (_options.with_ea_mutation_rate())
+      algo->set_mutation_rate(_options.get_ea_mutation_rate());
 
     return algo;
   }
@@ -298,13 +326,13 @@ CommandLineAlgorithmFactory::make(int bv_size)
       (bv_size,
        _options.get_population_size());
 
-    algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_selection_size(_options.get_selection_size());
+    algo->set_learning_rate      (_options.get_learning_rate());
+    algo->set_num_iterations     (_options.get_num_iterations());
+    algo->set_selection_size     (_options.get_selection_size());
 
-    algo->set_log_entropy(_options.with_pv_log_entropy());
-    algo->set_log_num_components(_options.get_pv_log_num_components());
-    algo->set_log_pv(_options.with_pv_log_pv());
+    algo->set_log_entropy        (_options.with_pv_log_entropy());
+    algo->set_log_num_components (_options.get_pv_log_num_components());
+    algo->set_log_pv             (_options.with_pv_log_pv());
 
     return algo;
   }
@@ -314,13 +342,13 @@ CommandLineAlgorithmFactory::make(int bv_size)
       (bv_size,
        _options.get_population_size());
 
-    algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_selection_size(_options.get_selection_size());
+    algo->set_learning_rate      (_options.get_learning_rate());
+    algo->set_num_iterations     (_options.get_num_iterations());
+    algo->set_selection_size     (_options.get_selection_size());
 
-    algo->set_log_entropy(_options.with_pv_log_entropy());
-    algo->set_log_num_components(_options.get_pv_log_num_components());
-    algo->set_log_pv(_options.with_pv_log_pv());
+    algo->set_log_entropy        (_options.with_pv_log_entropy());
+    algo->set_log_num_components (_options.get_pv_log_num_components());
+    algo->set_log_pv             (_options.with_pv_log_pv());
 
     return algo;
   }
@@ -330,12 +358,12 @@ CommandLineAlgorithmFactory::make(int bv_size)
       (bv_size,
        _options.get_population_size());
 
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_selection_size(_options.get_selection_size());
+    algo->set_num_iterations     (_options.get_num_iterations());
+    algo->set_selection_size     (_options.get_selection_size());
 
-    algo->set_log_entropy(_options.with_pv_log_entropy());
-    algo->set_log_num_components(_options.get_pv_log_num_components());
-    algo->set_log_pv(_options.with_pv_log_pv());
+    algo->set_log_entropy        (_options.with_pv_log_entropy());
+    algo->set_log_num_components (_options.get_pv_log_num_components());
+    algo->set_log_pv             (_options.with_pv_log_pv());
 
     return algo;
   }
@@ -343,12 +371,12 @@ CommandLineAlgorithmFactory::make(int bv_size)
   case 700: {
     auto algo = new CompactGa(bv_size);
 
-    algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_num_iterations(_options.get_num_iterations());
+    algo->set_learning_rate      (_options.get_learning_rate());
+    algo->set_num_iterations     (_options.get_num_iterations());
 
-    algo->set_log_entropy(_options.with_pv_log_entropy());
-    algo->set_log_num_components(_options.get_pv_log_num_components());
-    algo->set_log_pv(_options.with_pv_log_pv());
+    algo->set_log_entropy        (_options.with_pv_log_entropy());
+    algo->set_log_num_components (_options.get_pv_log_num_components());
+    algo->set_log_pv             (_options.with_pv_log_pv());
 
     return algo;
   }
@@ -356,15 +384,15 @@ CommandLineAlgorithmFactory::make(int bv_size)
   case 800: {
     auto algo = new Mmas(bv_size);
 
-    algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_num_iterations(_options.get_num_iterations());
+    algo->set_learning_rate      (_options.get_learning_rate());
+    algo->set_num_iterations     (_options.get_num_iterations());
+
+    algo->set_log_entropy        (_options.with_pv_log_entropy());
+    algo->set_log_num_components (_options.get_pv_log_num_components());
+    algo->set_log_pv             (_options.with_pv_log_pv());
 
     if (_options.with_mmas_strict())
       algo->set_compare(std::greater<double>());
-
-    algo->set_log_entropy(_options.with_pv_log_entropy());
-    algo->set_log_num_components(_options.get_pv_log_num_components());
-    algo->set_log_pv(_options.with_pv_log_pv());
 
     return algo;
   }
@@ -376,17 +404,17 @@ CommandLineAlgorithmFactory::make(int bv_size)
       Hea<SymmetricWalshMoment2Herding>(bv_size,
                                         _options.get_population_size());
 
-    algo->set_bound_moment(_options.with_hea_bound_moment());
-    algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_randomize_bit_order(_options.with_hea_randomize_bit_order());
-    algo->set_reset_period(_options.get_hea_reset_period());
-    algo->set_selection_size(_options.get_selection_size());
+    algo->set_bound_moment        (_options.with_hea_bound_moment());
+    algo->set_learning_rate       (_options.get_learning_rate());
+    algo->set_num_iterations      (_options.get_num_iterations());
+    algo->set_randomize_bit_order (_options.with_hea_randomize_bit_order());
+    algo->set_reset_period        (_options.get_hea_reset_period());
+    algo->set_selection_size      (_options.get_selection_size());
 
-    algo->set_log_delta_norm(_options.with_hea_log_delta_norm());
-    algo->set_log_target_norm(_options.with_hea_log_target_norm());
-    algo->set_log_herding_error(_options.with_hea_log_herding_error());
-    algo->set_log_target(_options.with_hea_log_target());
+    algo->set_log_delta_norm      (_options.with_hea_log_delta_norm());
+    algo->set_log_target_norm     (_options.with_hea_log_target_norm());
+    algo->set_log_herding_error   (_options.with_hea_log_herding_error());
+    algo->set_log_target          (_options.with_hea_log_target());
 
     return algo;
   }
@@ -398,17 +426,17 @@ CommandLineAlgorithmFactory::make(int bv_size)
       Hea<LowerTriangularWalshMoment2Herding>(bv_size,
                                               _options.get_population_size());
 
-    algo->set_bound_moment(_options.with_hea_bound_moment());
-    algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_randomize_bit_order(_options.with_hea_randomize_bit_order());
-    algo->set_reset_period(_options.get_hea_reset_period());
-    algo->set_selection_size(_options.get_selection_size());
+    algo->set_bound_moment        (_options.with_hea_bound_moment());
+    algo->set_learning_rate       (_options.get_learning_rate());
+    algo->set_num_iterations      (_options.get_num_iterations());
+    algo->set_randomize_bit_order (_options.with_hea_randomize_bit_order());
+    algo->set_reset_period        (_options.get_hea_reset_period());
+    algo->set_selection_size      (_options.get_selection_size());
 
-    algo->set_log_delta_norm(_options.with_hea_log_delta_norm());
-    algo->set_log_target_norm(_options.with_hea_log_target_norm());
-    algo->set_log_herding_error(_options.with_hea_log_herding_error());
-    algo->set_log_target(_options.with_hea_log_target());
+    algo->set_log_delta_norm      (_options.with_hea_log_delta_norm());
+    algo->set_log_target_norm     (_options.with_hea_log_target_norm());
+    algo->set_log_herding_error   (_options.with_hea_log_herding_error());
+    algo->set_log_target          (_options.with_hea_log_target());
 
     return algo;
   }
@@ -420,17 +448,17 @@ CommandLineAlgorithmFactory::make(int bv_size)
       (bv_size,
        _options.get_population_size());
 
-    algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_reset_mode(static_cast<BM::ResetMode>(_options.get_bm_reset_mode()));
-    algo->set_negative_positive_selection(_options.with_bm_negative_positive_selection());
-    algo->set_num_gs_cycles(_options.get_bm_num_gs_cycles());
-    algo->set_num_gs_steps(_options.get_bm_num_gs_steps());
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_sampling_mode(static_cast<BM::SamplingMode>(_options.get_bm_sampling_mode()));
-    algo->set_selection_size(_options.get_selection_size());
+    algo->set_learning_rate               (_options.get_learning_rate());
+    algo->set_num_gs_cycles               (_options.get_bm_num_gs_cycles());
+    algo->set_num_gs_steps                (_options.get_bm_num_gs_steps());
+    algo->set_num_iterations              (_options.get_num_iterations());
+    algo->set_reset_mode                  (static_cast<BM::ResetMode>(_options.get_bm_reset_mode()));
+    algo->set_sampling_mode               (static_cast<BM::SamplingMode>(_options.get_bm_sampling_mode()));
+    algo->set_selection_size              (_options.get_selection_size());
 
-    algo->set_log_norm_1(_options.with_bm_log_norm_1());
-    algo->set_log_norm_infinite(_options.with_bm_log_norm_infinite());
+    algo->set_log_norm_1                  (_options.with_bm_log_norm_1());
+    algo->set_log_norm_infinite           (_options.with_bm_log_norm_infinite());
+    algo->set_negative_positive_selection (_options.with_bm_negative_positive_selection());
 
     return algo;
   }
@@ -442,17 +470,17 @@ CommandLineAlgorithmFactory::make(int bv_size)
       (bv_size,
        _options.get_population_size());
 
-    algo->set_learning_rate(_options.get_learning_rate());
-    algo->set_reset_mode(static_cast<BM::ResetMode>(_options.get_bm_reset_mode()));
-    algo->set_negative_positive_selection(_options.with_bm_negative_positive_selection());
-    algo->set_num_gs_cycles(_options.get_bm_num_gs_cycles());
-    algo->set_num_gs_steps(_options.get_bm_num_gs_steps());
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_sampling_mode(static_cast<BM::SamplingMode>(_options.get_bm_sampling_mode()));
-    algo->set_selection_size(_options.get_selection_size());
+    algo->set_learning_rate               (_options.get_learning_rate());
+    algo->set_num_gs_cycles               (_options.get_bm_num_gs_cycles());
+    algo->set_num_gs_steps                (_options.get_bm_num_gs_steps());
+    algo->set_num_iterations              (_options.get_num_iterations());
+    algo->set_reset_mode                  (static_cast<BM::ResetMode>(_options.get_bm_reset_mode()));
+    algo->set_sampling_mode               (static_cast<BM::SamplingMode>(_options.get_bm_sampling_mode()));
+    algo->set_selection_size              (_options.get_selection_size());
 
-    algo->set_log_norm_1(_options.with_bm_log_norm_1());
-    algo->set_log_norm_infinite(_options.with_bm_log_norm_infinite());
+    algo->set_log_norm_1                  (_options.with_bm_log_norm_1());
+    algo->set_log_norm_infinite           (_options.with_bm_log_norm_infinite());
+    algo->set_negative_positive_selection (_options.with_bm_negative_positive_selection());
 
     return algo;
   }
