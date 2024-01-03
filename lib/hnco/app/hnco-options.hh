@@ -14,7 +14,7 @@ class HncoOptions {
   std::string _exec_name;
 
   /// Name Version
-  std::string _version = "0.24";
+  std::string _version = "0.25";
 
   enum {
     OPTION_HELP=256,

@@ -44,7 +44,7 @@ The source file for the Python bindings is located in ``bindings/``.
 To build and install the Python module for hnco, enter the commands::
 
   python3 -m build --wheel --no-isolation
-  python3 -m pip install --user --break-system-packages --force-reinstall ./dist/hnco-0.24-cp311-cp311-linux_x86_64.whl
+  python3 -m pip install --user --break-system-packages --force-reinstall ./dist/hnco-0.25-cp311-cp311-linux_x86_64.whl
 
 To ensure that Python will find the module, add this line to the
 appropriate startup file of your shell::
