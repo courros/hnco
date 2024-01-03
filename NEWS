@@ -1,4 +1,7 @@
-* Version 0.24 (unreleased)
+* Version 0.24 (2024-01-03)
+
+Highlight:
+- New algorithm: Gomea
 
 Library:
 - Added namespace hnco::algorithm::gomea
