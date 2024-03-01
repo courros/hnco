@@ -39,6 +39,7 @@ Restart::iterate(bool first_iteration)
 void
 Restart::maximize(const std::vector<function::Function *>& functions)
 {
+  set_functions(functions);
   if (_num_iterations > 0) {
     for (int i = 0; i < _num_iterations; i++) {
       iterate(i == 0);
