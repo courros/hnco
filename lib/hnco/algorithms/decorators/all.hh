@@ -21,6 +21,7 @@
 #ifndef HNCO_ALGORITHMS_DECORATORS_ALL_H
 #define HNCO_ALGORITHMS_DECORATORS_ALL_H
 
+#include "decorator.hh"
 #include "restart.hh"
 
 #endif

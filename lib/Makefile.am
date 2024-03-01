@@ -90,6 +90,7 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/complete-search.cc \
 	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/decorators/all.hh \
+	hnco/algorithms/decorators/decorator.hh \
 	hnco/algorithms/decorators/restart.cc \
 	hnco/algorithms/decorators/restart.hh \
 	hnco/algorithms/evolutionary-algorithms/all.hh \
@@ -374,6 +375,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/all.hh \
 	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/decorators/all.hh \
+	hnco/algorithms/decorators/decorator.hh \
 	hnco/algorithms/decorators/restart.hh \
 	hnco/algorithms/evolutionary-algorithms/all.hh \
 	hnco/algorithms/evolutionary-algorithms/crossover.hh \
