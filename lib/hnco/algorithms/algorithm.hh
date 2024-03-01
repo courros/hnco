@@ -107,9 +107,6 @@ protected:
     _function = functions[0];
   }
 
-  /// Get bit vector size
-  int get_bv_size() { return _solution.first.size(); }
-
 public:
 
   /// Constructor
@@ -143,9 +140,12 @@ public:
   virtual void finalize() {}
 
   /// Get the solution
-  const solution_t& get_solution() { return _solution; }
+  virtual const solution_t& get_solution() { return _solution; }
 
   ///@}
+
+  /// Get bit vector size
+  int get_bv_size() const { return _solution.first.size(); }
 
   /// Set the log context
   void set_log_context(logging::LogContext *log_context) { _log_context = log_context; }
