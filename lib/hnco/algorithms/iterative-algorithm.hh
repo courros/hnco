@@ -96,17 +96,18 @@ public:
 
   ///@}
 
-  /** @name Setters
+  /**
+   * @name Setters
    */
   ///@{
 
-  /** Set the number of iterations.
-
-      \param x Number of iterations
-
-      \warning x <= 0 means indefinite
-  */
-  void set_num_iterations(int x) { _num_iterations = x; }
+  /**
+   * Set the number of iterations.
+   *
+   * @param n Number of iterations
+   * @warning n <= 0 means indefinite
+   */
+  void set_num_iterations(int n) { _num_iterations = n; }
 
   ///@}
 
