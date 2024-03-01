@@ -179,13 +179,14 @@ CommandLineApplication::make_algorithm()
 {
   _algorithm = _algorithm_factory.make(_fn->get_bv_size());
 
-  // In hnco, this happened before set_log_context.
-  if (_options.with_restart()) {
-    _algorithm = new Restart(_options.get_bv_size(), _algorithm);
-  }
-
   _log_context = new logging::ProgressTrackerContext(_decorated_function_factory.get_tracker());
   _algorithm->set_log_context(_log_context);
+
+  // In the old hnco application, this happened before
+  // set_log_context.
+  if (_options.with_restart()) {
+    _algorithm = new Restart(_algorithm);
+  }
 
 }
 
