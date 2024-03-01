@@ -18,8 +18,6 @@
 
 */
 
-#include "hnco/exception.hh"
-
 #include "restart.hh"
 
 
@@ -28,13 +26,26 @@ using namespace hnco::exception;
 
 
 void
-Restart::iterate()
+Restart::iterate(bool first_iteration)
 {
   _algorithm->maximize(_functions);
   _algorithm->finalize();
-
-  if (_iteration == 0)
+  if (first_iteration)
     _solution = _algorithm->get_solution();
   else
     update_solution(_algorithm->get_solution());
+}
+
+void
+Restart::maximize(const std::vector<function::Function *>& functions)
+{
+  if (_num_iterations > 0) {
+    for (int i = 0; i < _num_iterations; i++) {
+      iterate(i == 0);
+    }
+  } else {
+    for (int i = 0;; i++) {
+      iterate(i == 0);
+    }
+  }
 }

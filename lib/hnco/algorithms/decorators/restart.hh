@@ -21,9 +21,7 @@
 #ifndef HNCO_ALGORITHMS_DECORATORS_RESTART_H
 #define HNCO_ALGORITHMS_DECORATORS_RESTART_H
 
-#include <assert.h>
-
-#include "hnco/algorithms/iterative-algorithm.hh"
+#include "decorator.hh"
 
 
 namespace hnco {
@@ -32,34 +30,53 @@ namespace algorithm {
 
 /** %Restart.
 
-    %Restart an Algorithm an indefinite number of times. Should be
-    used in conjonction with OnBudgetFunction or StopOnMaximum.
+    %Restart an algorithm an indefinite number of times. The %Restart
+    decorator can be used in conjonction with OnBudgetFunction or
+    StopOnMaximum.
 */
-class Restart: public IterativeAlgorithm {
+class Restart: public Decorator {
 
-protected:
+  /// Number of iterations
+  int _num_iterations = 0;
 
-  /// Algorithm
-  Algorithm *_algorithm;
-
-  /** @name Loop
+  /**
+   * Iterate.
+   *
+   * @param first_iteration Boolean which is true if this is the first
+   * iteration.
    */
-  ///@{
-
-  /// Single iteration
-  void iterate() override;
-
-  ///@}
+  void iterate(bool first_iteration);
 
 public:
 
   /// Constructor
-  Restart(int n, Algorithm *algorithm)
-    : IterativeAlgorithm(n)
-    , _algorithm(algorithm)
-  {
-    assert(algorithm);
-  }
+  Restart(Algorithm *algorithm)
+    : Decorator(algorithm)
+  {}
+
+  /**
+   * @name Optimization
+   */
+  ///@{
+
+  /// Maximize
+  void maximize(const std::vector<function::Function *>& functions) override;
+
+  ///@}
+
+  /** @name Setters
+   */
+  ///@{
+
+  /**
+   * Set the number of iterations.
+   *
+   * @param n Number of iterations
+   * @warning n <= 0 means indefinite
+   */
+  void set_num_iterations(int n) { _num_iterations = n; }
+
+  ///@}
 
 };
 
