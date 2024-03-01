@@ -28,11 +28,7 @@ namespace hnco {
 namespace algorithm {
 
 
-/** Algorithm decorator.
- *
- * By default, an algorithm decorator delegates everything to the
- * decorated algorithm.
- */
+/// Algorithm decorator
 class Decorator: public Algorithm {
 
 protected:
@@ -42,32 +38,18 @@ protected:
 
 public:
 
-  /** Constructor.
+  /**
+   * Constructor.
    *
-   * The Decorator itself is an Algorithm created with the same bit
+   * The decorator itself is an algorithm created with the same bit
    * vector size as that of the decorated algorithm.
    *
-   * @pre Parameter a must be a pointer to a valid Algorithm.
+   * @pre algorithm must be a pointer to a valid Algorithm.
    */
-  Decorator(Algorithm *a)
-    : Algorithm(a->get_bv_size())
-    , _algorithm(a)
+  Decorator(Algorithm *algorithm)
+    : Algorithm(algorithm->get_bv_size())
+    , _algorithm(algorithm)
   {}
-
-  /** @name Optimization
-   */
-  ///@{
-
-  /// Maximize
-  void maximize(const std::vector<function::Function *>& functions) override { _algorithm->maximize(functions); }
-
-  /// Finalize
-  void finalize() override { _algorithm->finalize(); }
-
-  /// Get the solution
-  const solution_t& get_solution() override { return _algorithm->get_solution(); }
-
-  ///@}
     
 };
 
