@@ -1,5 +1,10 @@
 * Version 0.25 (unreleased)
 
+Library:
+- Added class algorithm::Decorator
+- Added file hnco/algorithms/decorators/decorator.hh
+- class Restart derives from algorithm::Decorator
+
 
 * Version 0.24 (2024-01-03)
 
