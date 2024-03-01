@@ -53,10 +53,10 @@ count:
 	cd $(top_srcdir) && (find . -name "*.hh" -or -name "*.cc" -or -name "*.h" -or -name "*.cpp" | xargs wc -l)
 
 count-hnco:
-	cloc --no3 --by-file-by-lang $(top_srcdir)/lib/hnco $(top_srcdir)/experiments $(top_srcdir)/app $(top_srcdir)/tests $(top_srcdir)/bindings
+	cloc --no3 --by-file-by-lang $(top_srcdir)/lib/hnco $(top_srcdir)/experiments/modules $(top_srcdir)/experiments/scripts $(top_srcdir)/app $(top_srcdir)/tests $(top_srcdir)/bindings
 
 count-all:
-	cloc --no3 --by-file-by-lang $(top_srcdir)/lib $(top_srcdir)/experiments $(top_srcdir)/app $(top_srcdir)/tests $(top_srcdir)/bindings
+	cloc --no3 --by-file-by-lang $(top_srcdir)/lib $(top_srcdir)/experiments/modules $(top_srcdir)/experiments/scripts $(top_srcdir)/app $(top_srcdir)/tests $(top_srcdir)/bindings
 
 #
 # Bash completion scripts
