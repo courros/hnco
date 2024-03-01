@@ -28,12 +28,13 @@ namespace hnco {
 namespace algorithm {
 
 
-/** %Restart.
-
-    %Restart an algorithm an indefinite number of times. The %Restart
-    decorator can be used in conjonction with OnBudgetFunction or
-    StopOnMaximum.
-*/
+/**
+ * %Restart.
+ *
+ * %Restart an algorithm an indefinite number of times. The %Restart
+ * decorator can be used in conjonction with OnBudgetFunction or
+ * StopOnMaximum.
+ */
 class Restart: public Decorator {
 
   /// Number of iterations
@@ -64,7 +65,8 @@ public:
 
   ///@}
 
-  /** @name Setters
+  /**
+   * @name Setters
    */
   ///@{
 
