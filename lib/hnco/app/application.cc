@@ -195,23 +195,23 @@ CommandLineApplication::print_results(double total_time, bool target_reached)
 {
   std::ostringstream results;
 
-  ProgressTracker *tracker = _decorated_function_factory.get_tracker();
-  ProgressTracker::Event last_improvement = tracker->get_last_improvement();
+  auto tracker = _decorated_function_factory.get_tracker();
+  auto last_improvement = tracker->get_last_improvement();
 
-  results << "{\n  \"value\": "                    << last_improvement.solution.second;
-  results << ",\n  \"num_evaluations\": "          << last_improvement.num_evaluations;
-  results << ",\n  \"total_num_evaluations\": "    << tracker->get_num_calls();
-  results << ",\n  \"total_time\": "               << total_time;
-  results << ",\n  \"evaluation_time\": "          << tracker->get_evaluation_time();
+  results
+    << "{\n  \"value\": "                    << last_improvement.solution.second
+    << ",\n  \"num_evaluations\": "          << last_improvement.num_evaluations
+    << ",\n  \"total_num_evaluations\": "    << tracker->get_num_calls()
+    << ",\n  \"total_time\": "               << total_time
+    << ",\n  \"evaluation_time\": "          << tracker->get_evaluation_time();
 
   if (_options.with_stop_on_maximum() || _options.with_stop_on_target()) {
-    if (target_reached)
-      results << ",\n  \"success\": true";
-    else
-      results << ",\n  \"success\": false";
+    results
+      << std::boolalpha
+      << ",\n  \"success\": " << target_reached;
   }
 
-  Cache *cache = _decorated_function_factory.get_cache();
+  auto cache = _decorated_function_factory.get_cache();
   if (cache)
     results << ",\n  \"lookup_ratio\": " << cache->get_lookup_ratio();
 
