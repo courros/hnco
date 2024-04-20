@@ -110,7 +110,7 @@ public:
   };
 
   /**
-   * Constructor.
+   * Constructor with given size.
    *
    * The represented interval is [lower_bound..upper_bound].
    *
@@ -148,7 +148,7 @@ public:
   }
 
   /**
-   * Constructor.
+   * Constructor with given precision.
    *
    * The represented interval is [lower_bound..upper_bound].
    *
@@ -167,6 +167,20 @@ public:
     set_exact_size(lower_bound, upper_bound);
     _size = std::ceil(_exact_size - std::log(precision.precision) / std::log(2));
     _size = std::clamp(_size, 1, _exact_size);
+  }
+
+  /**
+   * Constructor.
+   * The represented interval is [0..n-1].
+   * @param n Number of elements
+   */
+  DyadicIntegerRepresentation(T n)
+    : _lower_bound(0)
+    , _upper_bound(n - 1)
+  {
+    assert(n > 0);
+    set_exact_size(_lower_bound, _upper_bound);
+    _size = _exact_size;
   }
 
   /// Size of the representation
