@@ -69,7 +69,7 @@ public:
     stream << "ValueSet "
            << "{"
            << hnco::join(_values.begin(), _values.end(), ", ")
-           << stream << "} ("
+           << "} ("
            << size() << " bits)";
   }
 };
