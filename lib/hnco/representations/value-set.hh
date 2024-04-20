@@ -27,7 +27,7 @@
 #include <iostream>             // std::ostream
 #include <algorithm>            // std::sort
 
-#include "hnco/util.hh"         // hnco::is_in_range
+#include "hnco/util.hh"         // hnco::is_in_range, hnco::join
 #include "hnco/bit-vector.hh"
 
 #include "integer.hh"           // hnco::representation::DyadicIntegerRepresentation
@@ -61,13 +61,16 @@ public:
   domain_type unpack(const bit_vector_t& bv, int start) {
     assert(hnco::is_in_range(start, bv.size()));
     int index = _index_representation.unpack(bv, start);
-    assert(hnco::is_in_range(index, _values.size()))
+    assert(hnco::is_in_range(index, _values.size()));
     return _values[index];
   }
   /// Display
   void display(std::ostream& stream) const {
-    stream << "ValueSet " << "{";
-    stream << "} (" << size() << " bits)";
+    stream << "ValueSet "
+           << "{"
+           << hnco::join(_values.begin(), _values.end(), ", ")
+           << stream << "} ("
+           << size() << " bits)";
   }
 };
 
