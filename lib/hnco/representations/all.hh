@@ -26,5 +26,6 @@
 #include "float.hh"
 #include "integer.hh"
 #include "permutation.hh"
+#include "value-set.hh"
 
 #endif

@@ -307,6 +307,7 @@ libhnco_la_SOURCES = \
 	hnco/representations/float.hh \
 	hnco/representations/integer.hh \
 	hnco/representations/permutation.hh \
+	hnco/representations/value-set.hh \
 	hnco/serialization.hh \
 	hnco/sparse-bit-vector.cc \
 	hnco/sparse-bit-vector.hh \
@@ -509,6 +510,7 @@ nobase_include_HEADERS = \
 	hnco/representations/float.hh \
 	hnco/representations/integer.hh \
 	hnco/representations/permutation.hh \
+	hnco/representations/value-set.hh \
 	hnco/serialization.hh \
 	hnco/sparse-bit-vector.hh \
 	hnco/stop-watch.hh \

@@ -408,7 +408,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/representations/categorical.hh \
 	hnco/representations/complex.hh hnco/representations/float.hh \
 	hnco/representations/integer.hh \
-	hnco/representations/permutation.hh hnco/serialization.hh \
+	hnco/representations/permutation.hh \
+	hnco/representations/value-set.hh hnco/serialization.hh \
 	hnco/sparse-bit-vector.cc hnco/sparse-bit-vector.hh \
 	hnco/stop-watch.hh hnco/util.hh \
 	hnco/functions/collection/factorization.cc \
@@ -836,7 +837,8 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/representations/categorical.hh \
 	hnco/representations/complex.hh hnco/representations/float.hh \
 	hnco/representations/integer.hh \
-	hnco/representations/permutation.hh hnco/serialization.hh \
+	hnco/representations/permutation.hh \
+	hnco/representations/value-set.hh hnco/serialization.hh \
 	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
 	hnco/functions/collection/factorization.hh \
 	hnco/functions/collection/plugin.hh \
@@ -1243,7 +1245,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/representations/categorical.hh \
 	hnco/representations/complex.hh hnco/representations/float.hh \
 	hnco/representations/integer.hh \
-	hnco/representations/permutation.hh hnco/serialization.hh \
+	hnco/representations/permutation.hh \
+	hnco/representations/value-set.hh hnco/serialization.hh \
 	hnco/sparse-bit-vector.cc hnco/sparse-bit-vector.hh \
 	hnco/stop-watch.hh hnco/util.hh $(am__append_1) \
 	$(am__append_2) $(am__append_3)
@@ -1390,7 +1393,8 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/representations/categorical.hh \
 	hnco/representations/complex.hh hnco/representations/float.hh \
 	hnco/representations/integer.hh \
-	hnco/representations/permutation.hh hnco/serialization.hh \
+	hnco/representations/permutation.hh \
+	hnco/representations/value-set.hh hnco/serialization.hh \
 	hnco/sparse-bit-vector.hh hnco/stop-watch.hh hnco/util.hh \
 	$(am__append_4) $(am__append_5) $(am__append_6)
 BUILT_SOURCES = \
