@@ -27,8 +27,8 @@
 
 using namespace hnco::app;
 using namespace hnco::function;
+using namespace hnco::representation;
 using namespace hnco;
-
 
 Function *
 CommandLineFunctionFactory::make()
@@ -200,7 +200,7 @@ CommandLineFunctionFactory::make()
 
   case 180: {
     using Fn      = ParsedMultivariateFunction<FunctionParser>;
-    using Rep     = hnco::representation::DyadicFloatRepresentation<double>;
+    using Rep     = DyadicFloatRepresentation<double>;
     using Conv    = ScalarToDouble<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
@@ -208,7 +208,7 @@ CommandLineFunctionFactory::make()
 
   case 181: {
     using Fn      = ParsedMultivariateFunction<FunctionParser_li>;
-    using Rep     = hnco::representation::DyadicIntegerRepresentation<long>;
+    using Rep     = DyadicIntegerRepresentation<long>;
     using Conv    = ScalarToDouble<long>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
@@ -216,7 +216,7 @@ CommandLineFunctionFactory::make()
 
   case 182: {
     using Fn      = ParsedMultivariateFunction<FunctionParser_cd>;
-    using Rep     = hnco::representation::ComplexRepresentation<DoubleRep>;
+    using Rep     = ComplexRepresentation<DoubleRep>;
     using Conv    = ComplexToDouble<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return make_multivariate_function_adapter_complex<HncoOptions, Adapter>(_options);
@@ -224,7 +224,7 @@ CommandLineFunctionFactory::make()
 
   case 183: {
     using Fn      = ParsedMultivariateFunction<FunctionParser>;
-    using Rep     = hnco::representation::DyadicIntegerRepresentation<int>;
+    using Rep     = DyadicIntegerRepresentation<int>;
     using Conv    = ScalarToDouble<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
@@ -232,8 +232,8 @@ CommandLineFunctionFactory::make()
 
   case 184: {
     using Fn        = ParsedMultivariateFunction<FunctionParser>;
-    using IntRep    = hnco::representation::DyadicIntegerRepresentation<long>;
-    using DoubleRep = hnco::representation::DyadicFloatRepresentation<double>;
+    using IntRep    = DyadicIntegerRepresentation<long>;
+    using DoubleRep = DyadicFloatRepresentation<double>;
     using Adapter   = MixedIntegerMultivariateFunctionAdapter<Fn, IntRep, DoubleRep>;
     return make_multivariate_function_adapter_mixed<HncoOptions, Adapter>(_options);
   }
@@ -245,12 +245,12 @@ CommandLineFunctionFactory::make()
     instance->load(_options.get_path());
     switch (_options.get_rep_categorical_representation()) {
     case 0: {
-      using Rep = hnco::representation::IntegerCategoricalRepresentation;
+      using Rep = IntegerCategoricalRepresentation;
       auto reps = std::vector<Rep>(instance->get_num_variables(), Rep(9));
       return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
     }
     case 1: {
-      using Rep = hnco::representation::LinearCategoricalRepresentation;
+      using Rep = LinearCategoricalRepresentation;
       auto reps = std::vector<Rep>(instance->get_num_variables(), Rep(9));
       return new MultivariateFunctionAdapter<Fn, Rep, Conv>(instance, reps);
     }
@@ -267,7 +267,7 @@ CommandLineFunctionFactory::make()
     int num_elements = instance->get_num_elements();
     return new PermutationFunctionAdapter<Tsp>
       (instance,
-       hnco::representation::PermutationRepresentation(num_elements, _options.get_rep_num_additional_bits()));
+       PermutationRepresentation(num_elements, _options.get_rep_num_additional_bits()));
   }
 
 #ifdef ENABLE_PLUGIN

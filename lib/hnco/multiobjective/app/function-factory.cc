@@ -19,18 +19,18 @@
 */
 
 #include <iostream>
-#include <stdexcept>            // std::runtime_error
 
 #include "config.h"
 
 #include "hnco/functions/converter.hh"
 #include "hnco/multiobjective/functions/all.hh"
+#include "hnco/app/make-multivariate-function-adapter.hh"
 
 #include "function-factory.hh"
-#include "hnco/app/make-multivariate-function-adapter.hh"
 
 using namespace hnco::multiobjective::app;
 using namespace hnco::multiobjective::function;
+using namespace hnco::representation;
 using namespace hnco;
 
 
@@ -44,7 +44,7 @@ CommandLineFunctionFactory::make()
 
   case 180: {
     using Fn      = ParsedMultivariateFunction<FunctionParser>;
-    using Rep     = hnco::representation::DyadicFloatRepresentation<double>;
+    using Rep     = DyadicFloatRepresentation<double>;
     using Conv    = hnco::function::ScalarToDouble<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return hnco::app::make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
@@ -52,7 +52,7 @@ CommandLineFunctionFactory::make()
 
   case 181: {
     using Fn      = ParsedMultivariateFunction<FunctionParser_li>;
-    using Rep     = hnco::representation::DyadicIntegerRepresentation<long>;
+    using Rep     = DyadicIntegerRepresentation<long>;
     using Conv    = hnco::function::ScalarToDouble<long>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return hnco::app::make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
@@ -60,7 +60,7 @@ CommandLineFunctionFactory::make()
 
   case 182: {
     using Fn      = ParsedMultivariateFunction<FunctionParser_cd>;
-    using Rep     = hnco::representation::ComplexRepresentation<hnco::app::DoubleRep>;
+    using Rep     = ComplexRepresentation<hnco::app::DoubleRep>;
     using Conv    = hnco::function::ComplexToDouble<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return hnco::app::make_multivariate_function_adapter_complex<HncoOptions, Adapter>(_options);
@@ -68,7 +68,7 @@ CommandLineFunctionFactory::make()
 
   case 183: {
     using Fn      = ParsedMultivariateFunction<FunctionParser>;
-    using Rep     = hnco::representation::DyadicIntegerRepresentation<int>;
+    using Rep     = DyadicIntegerRepresentation<int>;
     using Conv    = hnco::function::ScalarToDouble<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return hnco::app::make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
@@ -76,8 +76,8 @@ CommandLineFunctionFactory::make()
 
   case 184: {
     using Fn        = ParsedMultivariateFunction<FunctionParser>;
-    using IntRep    = hnco::representation::DyadicIntegerRepresentation<long>;
-    using DoubleRep = hnco::representation::DyadicFloatRepresentation<double>;
+    using IntRep    = DyadicIntegerRepresentation<long>;
+    using DoubleRep = DyadicFloatRepresentation<double>;
     using Adapter   = MixedIntegerMultivariateFunctionAdapter<Fn, IntRep, DoubleRep>;
     return hnco::app::make_multivariate_function_adapter_mixed<HncoOptions, Adapter>(_options);
   }
