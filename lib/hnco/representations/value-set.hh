@@ -42,6 +42,7 @@ class ValueSet {
   std::vector<T> _values;
   /// Index representation
   DyadicIntegerRepresentation<int> _index_representation;
+
 public:
   /// Domain type
   using domain_type = T;
@@ -51,8 +52,7 @@ public:
    */
   ValueSet(const std::vector<T>& values)
     : _values(values)
-    , _index_representation(values.size())
-  {
+    , _index_representation(values.size()) {
     std::sort(begin(_values), end(_values));
   }
   /// Size of the representation
@@ -68,7 +68,7 @@ public:
   void display(std::ostream& stream) const {
     stream << "ValueSet "
            << "{"
-           << hnco::join(_values.begin(), _values.end(), ", ")
+           << hnco::join(begin(_values), end(_values), ", ")
            << "} ("
            << size() << " bits)";
   }
