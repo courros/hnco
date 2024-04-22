@@ -61,7 +61,7 @@ make_multivariate_function_adapter(const Options& options)
   std::vector<Rep> reps;
   for (const auto& name : instance->get_variable_names()) {
     assert(env.count(name) == 1);
-    reps.push_back(variant_to_rep<Rep>(env[name]));
+    reps.push_back(param_var_to_rep<Rep>(env[name]));
   }
 
   return new Adapter(instance, reps);
@@ -103,8 +103,8 @@ make_multivariate_function_adapter_complex(const Options& options)
   for (const auto& name : instance->get_variable_names()) {
     assert(env.count(name + "_re") == 1);
     assert(env.count(name + "_im") == 1);
-    reps.push_back(Rep(variant_to_rep<ScalarRep>(env[name + "_re"]),
-                       variant_to_rep<ScalarRep>(env[name + "_im"])));
+    reps.push_back(Rep(param_var_to_rep<ScalarRep>(env[name + "_re"]),
+                       param_var_to_rep<ScalarRep>(env[name + "_im"])));
   }
 
   return new Adapter(instance, reps);

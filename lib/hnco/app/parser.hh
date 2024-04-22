@@ -112,9 +112,9 @@ struct ValueSetRepParams
   ValueSetRep to_rep() { return ValueSetRep(values); }
 };
 
-using variant_t = std::variant<IntRepParams, LongRepParams, DoubleRepParams, ValueSetRepParams>;
+using param_var_t = std::variant<IntRepParams, LongRepParams, DoubleRepParams, ValueSetRepParams>;
 
-using env_t = std::unordered_map<std::string, variant_t>;
+using env_t = std::unordered_map<std::string, param_var_t>;
 
 template<typename Options>
 std::string get_expression(const Options& options)
@@ -190,7 +190,7 @@ ValueSetRepParams
 parse_value_set_rep(std::string expression);
 
 template<typename Options>
-variant_t
+param_var_t
 parse_representation(std::string expression, const Options& options)
 {
   if (expression.empty())
@@ -276,7 +276,7 @@ parse_representations(std::string expression, const Options& options)
 }
 
 template<typename Options, typename Rep>
-variant_t
+param_var_t
 get_default_representation(const Options& options)
 {
   using T = typename Rep::domain_type;
@@ -293,27 +293,27 @@ get_default_representation(const Options& options)
 
 template<typename Rep>
 Rep
-variant_to_rep(variant_t v);
+param_var_to_rep(param_var_t v);
 
 template<>
 inline
 IntRep
-variant_to_rep(variant_t v) { return std::get<IntRepParams>(v).to_rep(); }
+param_var_to_rep(param_var_t v) { return std::get<IntRepParams>(v).to_rep(); }
 
 template<>
 inline
 LongRep
-variant_to_rep(variant_t v) { return std::get<LongRepParams>(v).to_rep(); }
+param_var_to_rep(param_var_t v) { return std::get<LongRepParams>(v).to_rep(); }
 
 template<>
 inline
 DoubleRep
-variant_to_rep(variant_t v) { return std::get<DoubleRepParams>(v).to_rep(); }
+param_var_to_rep(param_var_t v) { return std::get<DoubleRepParams>(v).to_rep(); }
 
 template<>
 inline
 ValueSetRep
-variant_to_rep(variant_t v) { return std::get<ValueSetRepParams>(v).to_rep(); }
+param_var_to_rep(param_var_t v) { return std::get<ValueSetRepParams>(v).to_rep(); }
 
 }
 }

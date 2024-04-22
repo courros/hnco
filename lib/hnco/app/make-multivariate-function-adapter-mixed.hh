@@ -78,14 +78,14 @@ make_multivariate_function_adapter_mixed(const Options& options)
     assert(env.count(name) == 1);
     auto v = env[name];
     if (std::holds_alternative<LongRepParams>(v)) {
-      long_reps.push_back(variant_to_rep<LongRep>(v));
+      long_reps.push_back(param_var_to_rep<LongRep>(v));
       lut[var_index++] = std::make_pair<bool, int>(true, long_index++);
     } else if (std::holds_alternative<DoubleRepParams>(v)) {
-      double_reps.push_back(variant_to_rep<DoubleRep>(v));
+      double_reps.push_back(param_var_to_rep<DoubleRep>(v));
       lut[var_index++] = std::make_pair<bool, int>(false, double_index++);
     } else {
       assert(std::holds_alternative<ValueSetRepParams>(v));
-      value_set_reps.push_back(variant_to_rep<ValueSetRep>(v));
+      value_set_reps.push_back(param_var_to_rep<ValueSetRep>(v));
       lut[var_index++] = std::make_pair<bool, int>(false, value_set_index++);
     }
   }
