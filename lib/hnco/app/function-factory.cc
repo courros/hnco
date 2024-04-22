@@ -24,6 +24,7 @@
 
 #include "function-factory.hh"
 #include "make-multivariate-function-adapter.hh"
+#include "make-multivariate-function-adapter-mixed.hh"
 
 using namespace hnco::app;
 using namespace hnco::function;

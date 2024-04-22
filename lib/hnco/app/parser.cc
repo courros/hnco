@@ -24,7 +24,7 @@
 
 #include "hnco/functions/function.hh"
 
-#include "make-multivariate-function-adapter.hh"
+#include "parser.hh"
 
 using namespace hnco::app;
 using namespace hnco::function;

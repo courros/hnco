@@ -75,10 +75,10 @@ libhnco_la_SOURCES = \
 	gomea/src/discrete/utils.hpp \
 	gomea/src/fitness/bbo_fitness.cpp \
 	gomea/src/fitness/bbo_fitness.hpp \
-	gomea/src/fitness/gbo_fitness.hpp \
 	gomea/src/fitness/benchmarks-discrete.hpp \
 	gomea/src/fitness/fitness.cpp \
 	gomea/src/fitness/fitness.hpp \
+	gomea/src/fitness/gbo_fitness.hpp \
 	gomea/src/utils/embed.hpp \
 	gomea/src/utils/time.cpp \
 	gomea/src/utils/time.hpp \
@@ -186,8 +186,10 @@ libhnco_la_SOURCES = \
 	hnco/app/hnco-options.cc \
 	hnco/app/hnco-options.hh \
 	hnco/app/hnco.json \
-	hnco/app/make-multivariate-function-adapter.cc \
+	hnco/app/make-multivariate-function-adapter-mixed.hh \
 	hnco/app/make-multivariate-function-adapter.hh \
+	hnco/app/parser.cc \
+	hnco/app/parser.hh \
 	hnco/bit-matrix.cc \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.cc \
@@ -432,7 +434,9 @@ nobase_include_HEADERS = \
 	hnco/app/decorated-function-factory.hh \
 	hnco/app/function-factory.hh \
 	hnco/app/hnco-options.hh \
+	hnco/app/make-multivariate-function-adapter-mixed.hh \
 	hnco/app/make-multivariate-function-adapter.hh \
+	hnco/app/parser.hh \
 	hnco/bit-matrix.hh \
 	hnco/bit-vector.hh \
 	hnco/exception.hh \

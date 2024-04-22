@@ -207,14 +207,13 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	gomea/src/discrete/utils.cpp gomea/src/discrete/utils.hpp \
 	gomea/src/fitness/bbo_fitness.cpp \
 	gomea/src/fitness/bbo_fitness.hpp \
-	gomea/src/fitness/gbo_fitness.hpp \
 	gomea/src/fitness/benchmarks-discrete.hpp \
 	gomea/src/fitness/fitness.cpp gomea/src/fitness/fitness.hpp \
-	gomea/src/utils/embed.hpp gomea/src/utils/time.cpp \
-	gomea/src/utils/time.hpp gomea/src/utils/tools.cpp \
-	gomea/src/utils/tools.hpp hnco/algorithms/algorithm.cc \
-	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
-	hnco/algorithms/complete-search.cc \
+	gomea/src/fitness/gbo_fitness.hpp gomea/src/utils/embed.hpp \
+	gomea/src/utils/time.cpp gomea/src/utils/time.hpp \
+	gomea/src/utils/tools.cpp gomea/src/utils/tools.hpp \
+	hnco/algorithms/algorithm.cc hnco/algorithms/algorithm.hh \
+	hnco/algorithms/all.hh hnco/algorithms/complete-search.cc \
 	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/decorators/all.hh \
 	hnco/algorithms/decorators/decorator.hh \
@@ -304,10 +303,11 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/app/function-factory.cc hnco/app/function-factory.hh \
 	hnco/app/hnco-options.cc hnco/app/hnco-options.hh \
 	hnco/app/hnco.json \
-	hnco/app/make-multivariate-function-adapter.cc \
+	hnco/app/make-multivariate-function-adapter-mixed.hh \
 	hnco/app/make-multivariate-function-adapter.hh \
-	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
-	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
+	hnco/app/parser.cc hnco/app/parser.hh hnco/bit-matrix.cc \
+	hnco/bit-matrix.hh hnco/bit-vector.cc hnco/bit-vector.hh \
+	hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/collection/all.hh \
 	hnco/functions/collection/cancellation.cc \
 	hnco/functions/collection/cancellation.hh \
@@ -479,8 +479,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/app/algorithm-factory.lo hnco/app/application.lo \
 	hnco/app/decorated-function-factory.lo \
 	hnco/app/function-factory.lo hnco/app/hnco-options.lo \
-	hnco/app/make-multivariate-function-adapter.lo \
-	hnco/bit-matrix.lo hnco/bit-vector.lo \
+	hnco/app/parser.lo hnco/bit-matrix.lo hnco/bit-vector.lo \
 	hnco/functions/collection/cancellation.lo \
 	hnco/functions/collection/equal-products.lo \
 	hnco/functions/collection/four-peaks.lo \
@@ -609,7 +608,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/app/$(DEPDIR)/decorated-function-factory.Plo \
 	hnco/app/$(DEPDIR)/function-factory.Plo \
 	hnco/app/$(DEPDIR)/hnco-options.Plo \
-	hnco/app/$(DEPDIR)/make-multivariate-function-adapter.Plo \
+	hnco/app/$(DEPDIR)/parser.Plo \
 	hnco/functions/$(DEPDIR)/function.Plo \
 	hnco/functions/collection/$(DEPDIR)/cancellation.Plo \
 	hnco/functions/collection/$(DEPDIR)/equal-products.Plo \
@@ -771,9 +770,11 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/app/algorithm-factory.hh hnco/app/application.hh \
 	hnco/app/decorated-function-factory.hh \
 	hnco/app/function-factory.hh hnco/app/hnco-options.hh \
+	hnco/app/make-multivariate-function-adapter-mixed.hh \
 	hnco/app/make-multivariate-function-adapter.hh \
-	hnco/bit-matrix.hh hnco/bit-vector.hh hnco/exception.hh \
-	hnco/functions/all.hh hnco/functions/collection/all.hh \
+	hnco/app/parser.hh hnco/bit-matrix.hh hnco/bit-vector.hh \
+	hnco/exception.hh hnco/functions/all.hh \
+	hnco/functions/collection/all.hh \
 	hnco/functions/collection/cancellation.hh \
 	hnco/functions/collection/equal-products.hh \
 	hnco/functions/collection/four-peaks.hh \
@@ -1044,14 +1045,13 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	gomea/src/discrete/utils.cpp gomea/src/discrete/utils.hpp \
 	gomea/src/fitness/bbo_fitness.cpp \
 	gomea/src/fitness/bbo_fitness.hpp \
-	gomea/src/fitness/gbo_fitness.hpp \
 	gomea/src/fitness/benchmarks-discrete.hpp \
 	gomea/src/fitness/fitness.cpp gomea/src/fitness/fitness.hpp \
-	gomea/src/utils/embed.hpp gomea/src/utils/time.cpp \
-	gomea/src/utils/time.hpp gomea/src/utils/tools.cpp \
-	gomea/src/utils/tools.hpp hnco/algorithms/algorithm.cc \
-	hnco/algorithms/algorithm.hh hnco/algorithms/all.hh \
-	hnco/algorithms/complete-search.cc \
+	gomea/src/fitness/gbo_fitness.hpp gomea/src/utils/embed.hpp \
+	gomea/src/utils/time.cpp gomea/src/utils/time.hpp \
+	gomea/src/utils/tools.cpp gomea/src/utils/tools.hpp \
+	hnco/algorithms/algorithm.cc hnco/algorithms/algorithm.hh \
+	hnco/algorithms/all.hh hnco/algorithms/complete-search.cc \
 	hnco/algorithms/complete-search.hh \
 	hnco/algorithms/decorators/all.hh \
 	hnco/algorithms/decorators/decorator.hh \
@@ -1141,10 +1141,11 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/app/function-factory.cc hnco/app/function-factory.hh \
 	hnco/app/hnco-options.cc hnco/app/hnco-options.hh \
 	hnco/app/hnco.json \
-	hnco/app/make-multivariate-function-adapter.cc \
+	hnco/app/make-multivariate-function-adapter-mixed.hh \
 	hnco/app/make-multivariate-function-adapter.hh \
-	hnco/bit-matrix.cc hnco/bit-matrix.hh hnco/bit-vector.cc \
-	hnco/bit-vector.hh hnco/exception.hh hnco/functions/all.hh \
+	hnco/app/parser.cc hnco/app/parser.hh hnco/bit-matrix.cc \
+	hnco/bit-matrix.hh hnco/bit-vector.cc hnco/bit-vector.hh \
+	hnco/exception.hh hnco/functions/all.hh \
 	hnco/functions/collection/all.hh \
 	hnco/functions/collection/cancellation.cc \
 	hnco/functions/collection/cancellation.hh \
@@ -1327,9 +1328,11 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/app/algorithm-factory.hh hnco/app/application.hh \
 	hnco/app/decorated-function-factory.hh \
 	hnco/app/function-factory.hh hnco/app/hnco-options.hh \
+	hnco/app/make-multivariate-function-adapter-mixed.hh \
 	hnco/app/make-multivariate-function-adapter.hh \
-	hnco/bit-matrix.hh hnco/bit-vector.hh hnco/exception.hh \
-	hnco/functions/all.hh hnco/functions/collection/all.hh \
+	hnco/app/parser.hh hnco/bit-matrix.hh hnco/bit-vector.hh \
+	hnco/exception.hh hnco/functions/all.hh \
+	hnco/functions/collection/all.hh \
 	hnco/functions/collection/cancellation.hh \
 	hnco/functions/collection/equal-products.hh \
 	hnco/functions/collection/four-peaks.hh \
@@ -1732,8 +1735,8 @@ hnco/app/function-factory.lo: hnco/app/$(am__dirstamp) \
 	hnco/app/$(DEPDIR)/$(am__dirstamp)
 hnco/app/hnco-options.lo: hnco/app/$(am__dirstamp) \
 	hnco/app/$(DEPDIR)/$(am__dirstamp)
-hnco/app/make-multivariate-function-adapter.lo:  \
-	hnco/app/$(am__dirstamp) hnco/app/$(DEPDIR)/$(am__dirstamp)
+hnco/app/parser.lo: hnco/app/$(am__dirstamp) \
+	hnco/app/$(DEPDIR)/$(am__dirstamp)
 hnco/$(am__dirstamp):
 	@$(MKDIR_P) hnco
 	@: > hnco/$(am__dirstamp)
@@ -2080,7 +2083,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/decorated-function-factory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/function-factory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/hnco-options.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/make-multivariate-function-adapter.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/parser.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/function.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/cancellation.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/equal-products.Plo@am__quote@ # am--include-marker
@@ -2495,7 +2498,7 @@ distclean: distclean-am
 	-rm -f hnco/app/$(DEPDIR)/decorated-function-factory.Plo
 	-rm -f hnco/app/$(DEPDIR)/function-factory.Plo
 	-rm -f hnco/app/$(DEPDIR)/hnco-options.Plo
-	-rm -f hnco/app/$(DEPDIR)/make-multivariate-function-adapter.Plo
+	-rm -f hnco/app/$(DEPDIR)/parser.Plo
 	-rm -f hnco/functions/$(DEPDIR)/function.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/cancellation.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/equal-products.Plo
@@ -2655,7 +2658,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/app/$(DEPDIR)/decorated-function-factory.Plo
 	-rm -f hnco/app/$(DEPDIR)/function-factory.Plo
 	-rm -f hnco/app/$(DEPDIR)/hnco-options.Plo
-	-rm -f hnco/app/$(DEPDIR)/make-multivariate-function-adapter.Plo
+	-rm -f hnco/app/$(DEPDIR)/parser.Plo
 	-rm -f hnco/functions/$(DEPDIR)/function.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/cancellation.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/equal-products.Plo

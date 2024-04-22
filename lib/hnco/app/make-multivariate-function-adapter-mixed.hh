@@ -24,8 +24,6 @@
 #define _USE_MATH_DEFINES
 #include <cmath>                // M_PI, M_E
 
-#include "hnco/representations/all.hh"
-
 #include "parser.hh"
 
 namespace hnco {
@@ -74,6 +72,7 @@ make_multivariate_function_adapter_mixed(const Options& options)
   int long_index = 0;
   int double_index = 0;
   int value_set_index = 0;
+
   int var_index = 0;
   for (const auto& name : instance->get_variable_names()) {
     assert(env.count(name) == 1);
@@ -91,7 +90,6 @@ make_multivariate_function_adapter_mixed(const Options& options)
     }
   }
   assert(var_index == instance->get_num_variables());
-  assert(var_index == long_index + double_index + value_set_index);
 
   return new Adapter(instance, long_reps, double_reps, lut);
 }

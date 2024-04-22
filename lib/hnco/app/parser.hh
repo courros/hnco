@@ -27,6 +27,8 @@
 #include <type_traits>          // std::is_same_v
 #include <variant>              // std::variant, std::get, std::holds_alternative
 
+#include "hnco/representations/all.hh"
+
 namespace hnco {
 namespace app {
 
