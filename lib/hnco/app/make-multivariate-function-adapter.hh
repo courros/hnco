@@ -21,16 +21,15 @@
 #ifndef HNCO_APP_MAKE_MULTIVARIATE_FUNCTION_ADAPTER_H
 #define HNCO_APP_MAKE_MULTIVARIATE_FUNCTION_ADAPTER_H
 
-#include <assert.h>
+#include <cassert>
+#define _USE_MATH_DEFINES
+#include <cmath>                // M_PI, M_E
 
 #include <unordered_map>
 #include <type_traits>          // std::is_same_v
 #include <variant>              // std::variant, std::get, std::holds_alternative
 
 #include "hnco/representations/all.hh"
-
-#define _USE_MATH_DEFINES
-#include <cmath>                // M_PI, M_E
 
 namespace hnco {
 namespace app {
@@ -41,28 +40,28 @@ namespace app {
 std::string read_file_content(std::string path);
 
 /**
- * Split string.
+ * Split string
  */
 std::vector<std::string>
 split_string(std::string str, std::string delimiter);
 
 /// Int representation
-using IntRep    = representation::DyadicIntegerRepresentation<int>;
-
+using IntRep      = representation::DyadicIntegerRepresentation<int>;
 /// Long representation
-using LongRep   = representation::DyadicIntegerRepresentation<long>;
-
+using LongRep     = representation::DyadicIntegerRepresentation<long>;
 /// Double representation
-using DoubleRep = representation::DyadicFloatRepresentation<double>;
+using DoubleRep   = representation::DyadicFloatRepresentation<double>;
+/// Value set representation
+using ValueSetRep = representation::ValueSetRepresentation<double>;
 
 struct IntRepParams
 {
   int lower_bound;
   int upper_bound;
   IntRepParams() = default;
-  IntRepParams(int a, int b):
-    lower_bound(a),
-    upper_bound(b) {}
+  IntRepParams(int a, int b)
+    : lower_bound(a)
+    , upper_bound(b) {}
   IntRep to_rep() { return IntRep(lower_bound, upper_bound); }
 };
 
@@ -71,9 +70,9 @@ struct LongRepParams
   long lower_bound;
   long upper_bound;
   LongRepParams() = default;
-  LongRepParams(long a, long b):
-    lower_bound(a),
-    upper_bound(b) {}
+  LongRepParams(long a, long b)
+    : lower_bound(a)
+    , upper_bound(b) {}
   LongRep to_rep() { return LongRep(lower_bound, upper_bound); }
 };
 
@@ -85,16 +84,16 @@ struct DoubleRepParams
   int size;
   int mode = 0;
   DoubleRepParams() = default;
-  DoubleRepParams(double a, double b, double c):
-    lower_bound(a),
-    upper_bound(b),
-    precision(c),
-    mode(1) {}
-  DoubleRepParams(double a, double b, int c):
-    lower_bound(a),
-    upper_bound(b),
-    size(c),
-    mode(2) {}
+  DoubleRepParams(double a, double b, double c)
+    : lower_bound(a)
+    , upper_bound(b)
+    , precision(c)
+    , mode(1) {}
+  DoubleRepParams(double a, double b, int c)
+    : lower_bound(a)
+    , upper_bound(b)
+    , size(c)
+    , mode(2) {}
   DoubleRep to_rep() {
     switch (mode) {
     case 1:
@@ -105,6 +104,14 @@ struct DoubleRepParams
       throw std::runtime_error("DoubleRepParams::to_rep: Unknown mode");
     }
   }
+};
+
+struct ValueSetRepParams
+{
+  std::vector<double> values;
+  ValueSetRepParams() = default;
+  ValueSetRepParams(std::vector<double> vs): values(vs) {}
+  ValueSetRep to_rep() { return ValueSetRep(values); }
 };
 
 using variant_t = std::variant<IntRepParams, LongRepParams, DoubleRepParams>;
@@ -153,9 +160,9 @@ parse_double_rep(std::string expression, const Options& options)
     throw std::runtime_error("parse_double_rep: Not enough parameters");
   if (parameters.size() > 3)
     throw std::runtime_error("parse_double_rep: Too many parameters");
+  double a = std::stod(parameters[0]);
+  double b = std::stod(parameters[1]);
   if (parameters.size() == 2) {
-    double a = std::stod(parameters[0]);
-    double b = std::stod(parameters[1]);
     if (options.with_fp_default_double_precision())
       return DoubleRepParams(a, b, options.get_fp_default_double_precision());
     else if (options.with_fp_default_double_size())
@@ -164,8 +171,6 @@ parse_double_rep(std::string expression, const Options& options)
       throw std::runtime_error("parse_double_rep: Missing precision or size parameter");
   }
   assert(parameters.size() == 3);
-  double a = std::stod(parameters[0]);
-  double b = std::stod(parameters[1]);
   auto terms = split_string(parameters[2], "=");
   if (terms.size() != 2)
     throw std::runtime_error("parse_double_rep: Invalid key value parameter");
@@ -181,6 +186,9 @@ parse_double_rep(std::string expression, const Options& options)
   else
     throw std::runtime_error("parse_double_rep: Unknown key");
 }
+
+ValueSetRepParams
+parse_value_set_rep(std::string expression);
 
 template<typename Options>
 variant_t
