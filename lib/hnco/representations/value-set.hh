@@ -37,7 +37,7 @@ namespace representation {
 
 /// Value set
 template<class T>
-class ValueSet {
+class ValueSetRepresentation {
   /// Values
   std::vector<T> _values;
   /// Index representation
@@ -50,7 +50,7 @@ public:
    * Constructor.
    * @param values Values
    */
-  ValueSet(const std::vector<T>& values)
+  ValueSetRepresentation(const std::vector<T>& values)
     : _values(values)
     , _index_representation(values.size()) {
     std::sort(begin(_values), end(_values));
@@ -66,7 +66,7 @@ public:
   }
   /// Display
   void display(std::ostream& stream) const {
-    stream << "ValueSet "
+    stream << "ValueSetRepresentation "
            << "{"
            << hnco::join(begin(_values), end(_values), ", ")
            << "} ("
