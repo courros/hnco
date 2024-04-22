@@ -77,3 +77,13 @@ hnco::app::parse_long_rep(std::string expression)
   long b = std::stol(parameters[1]);
   return LongRepParams(a, b);
 }
+
+ValueSetRepParams
+parse_value_set_rep(std::string expression)
+{
+  auto parameters = split_string(expression, ",");
+  std::vector<double> values;
+  for (auto s : parameters)
+    values.push_back(std::stod(s));
+  return ValueSetRepParams(values);
+}
