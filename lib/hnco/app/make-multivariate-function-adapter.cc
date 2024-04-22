@@ -79,7 +79,7 @@ hnco::app::parse_long_rep(std::string expression)
 }
 
 ValueSetRepParams
-parse_value_set_rep(std::string expression)
+hnco::app::parse_value_set_rep(std::string expression)
 {
   auto parameters = split_string(expression, ",");
   std::vector<double> values;
