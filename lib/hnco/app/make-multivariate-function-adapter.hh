@@ -115,6 +115,31 @@ struct ValueSetRepParams
 };
 
 using variant_t = std::variant<IntRepParams, LongRepParams, DoubleRepParams, ValueSetRepParams>;
+
+template<typename Rep>
+Rep
+variant_to_rep(variant_t v);
+
+template<>
+inline
+IntRep
+variant_to_rep(variant_t v) { return std::get<IntRepParams>(v).to_rep(); }
+
+template<>
+inline
+LongRep
+variant_to_rep(variant_t v) { return std::get<LongRepParams>(v).to_rep(); }
+
+template<>
+inline
+DoubleRep
+variant_to_rep(variant_t v) { return std::get<DoubleRepParams>(v).to_rep(); }
+
+template<>
+inline
+ValueSetRep
+variant_to_rep(variant_t v) { return std::get<ValueSetRepParams>(v).to_rep(); }
+
 using env_t = std::unordered_map<std::string, variant_t>;
 
 template<typename Options>
@@ -292,34 +317,6 @@ get_default_representation(const Options& options)
     throw std::runtime_error("get_default_representation: Unknown type");
 }
 
-template<typename Rep>
-Rep
-get_representation(variant_t v);
-
-template<>
-inline
-IntRep
-get_representation(variant_t v)
-{
-  return std::get<IntRepParams>(v).to_rep();
-}
-
-template<>
-inline
-LongRep
-get_representation(variant_t v)
-{
-  return std::get<LongRepParams>(v).to_rep();
-}
-
-template<>
-inline
-DoubleRep
-get_representation(variant_t v)
-{
-  return std::get<DoubleRepParams>(v).to_rep();
-}
-
 /**
  * Make a multivariate function adapter
  */
@@ -352,7 +349,7 @@ make_multivariate_function_adapter(const Options& options)
   std::vector<Rep> reps;
   for (const auto& name : instance->get_variable_names()) {
     assert(env.count(name) == 1);
-    reps.push_back(get_representation<Rep>(env[name]));
+    reps.push_back(variant_to_rep<Rep>(env[name]));
   }
 
   return new Adapter(instance, reps);
@@ -394,8 +391,8 @@ make_multivariate_function_adapter_complex(const Options& options)
   for (const auto& name : instance->get_variable_names()) {
     assert(env.count(name + "_re") == 1);
     assert(env.count(name + "_im") == 1);
-    reps.push_back(Rep(get_representation<ScalarRep>(env[name + "_re"]),
-                       get_representation<ScalarRep>(env[name + "_im"])));
+    reps.push_back(Rep(variant_to_rep<ScalarRep>(env[name + "_re"]),
+                       variant_to_rep<ScalarRep>(env[name + "_im"])));
   }
 
   return new Adapter(instance, reps);
@@ -424,32 +421,44 @@ make_multivariate_function_adapter_mixed(const Options& options)
     if (env.count(name) == 0) {
       env[name] = default_double_rep;
       std::cerr << "make_multivariate_function_adapter_mixed: Missing representation for " << name << ". Using default double representation." << std::endl;
-    } else if (env[name].index() != default_long_rep.index() &&
-               env[name].index() != default_double_rep.index()) {
-      env[name] = default_double_rep;
-      std::cerr << "make_multivariate_function_adapter: Invalid representation for " << name << ". Using default double representation." << std::endl;
+    } else {
+      auto v = env[name];
+      if (std::holds_alternative<IntRepParams>(v)) {
+        env[name] = default_double_rep;
+        std::cerr << "make_multivariate_function_adapter: Invalid representation for " << name << ". Using default double representation." << std::endl;
+      } else {
+        assert(std::holds_alternative<LongRepParams>(v) ||
+               std::holds_alternative<DoubleRepParams>(v) ||
+               std::holds_alternative<ValueSetRepParams>(v));
+      }
     }
   }
 
   std::vector<LongRep> long_reps;
   std::vector<DoubleRep> double_reps;
+  std::vector<ValueSetRep> value_set_reps;
   std::vector<std::pair<bool, int>> lut(instance->get_num_variables());
   int long_index = 0;
   int double_index = 0;
+  int value_set_index = 0;
   int var_index = 0;
   for (const auto& name : instance->get_variable_names()) {
     assert(env.count(name) == 1);
     auto v = env[name];
     if (std::holds_alternative<LongRepParams>(v)) {
-      long_reps.push_back(get_representation<LongRep>(v));
+      long_reps.push_back(variant_to_rep<LongRep>(v));
       lut[var_index++] = std::make_pair<bool, int>(true, long_index++);
-    } else {
-      double_reps.push_back(get_representation<DoubleRep>(v));
+    } else if (std::holds_alternative<DoubleRepParams>(v)) {
+      double_reps.push_back(variant_to_rep<DoubleRep>(v));
       lut[var_index++] = std::make_pair<bool, int>(false, double_index++);
+    } else {
+      assert(std::holds_alternative<ValueSetRepParams>(v));
+      value_set_reps.push_back(variant_to_rep<ValueSetRep>(v));
+      lut[var_index++] = std::make_pair<bool, int>(false, value_set_index++);
     }
   }
   assert(var_index == instance->get_num_variables());
-  assert(var_index == long_index + double_index);
+  assert(var_index == long_index + double_index + value_set_index);
 
   return new Adapter(instance, long_reps, double_reps, lut);
 }
