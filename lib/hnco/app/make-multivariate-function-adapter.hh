@@ -114,7 +114,7 @@ struct ValueSetRepParams
   ValueSetRep to_rep() { return ValueSetRep(values); }
 };
 
-using variant_t = std::variant<IntRepParams, LongRepParams, DoubleRepParams>;
+using variant_t = std::variant<IntRepParams, LongRepParams, DoubleRepParams, ValueSetRepParams>;
 using env_t = std::unordered_map<std::string, variant_t>;
 
 template<typename Options>
@@ -219,13 +219,14 @@ parse_representation(std::string expression, const Options& options)
     return parse_long_rep(str2);
   else if (type == "double")
     return parse_double_rep<Options>(str2, options);
+  else if (type == "set")
+    return parse_value_set_rep(str2);
   else
     throw std::runtime_error("parse_representation: Unknown representation type");
 }
 
 /**
- * Parse representations
- *
+ * Parse representations.
  * @param expression Expression to parse
  * @param options Options
  *
@@ -240,10 +241,11 @@ parse_representation(std::string expression, const Options& options)
  * - long(a, b) where a, b are long
  * - double(a, b, precision = e) where a, b, e are double
  * - double(a, b, size = n) where a, b are double, and n is int
+ * - set(x1, x2, ..., xn) where all xi's are double and n is a non zero natural
  *
  * Example:
  *
- * "x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-100, 100); v: long(1, 10000)"
+ * "x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-100, 100); v: long(1, 10000); w: set(1.1, 2.2, 3.3)"
  */
 template<typename Options>
 env_t
