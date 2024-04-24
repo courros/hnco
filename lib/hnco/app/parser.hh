@@ -44,11 +44,11 @@ std::vector<std::string>
 split_string(std::string str, std::string delimiter);
 
 /// Int representation
-using IntRep      = representation::DyadicIntegerRepresentation<int>;
+using IntRep = representation::DyadicIntegerRepresentation<int>;
 /// Long representation
-using LongRep     = representation::DyadicIntegerRepresentation<long>;
+using LongRep = representation::DyadicIntegerRepresentation<long>;
 /// Double representation
-using DoubleRep   = representation::DyadicFloatRepresentation<double>;
+using DoubleRep = representation::DyadicFloatRepresentation<double>;
 /// Value set representation
 using ValueSetRep = representation::ValueSetRepresentation<double>;
 
@@ -135,7 +135,10 @@ std::string get_representations(const Options& options)
 {
   switch (options.get_fp_representations_source()) {
   case 0:
-    return options.get_fp_representations();
+    if (options.with_fp_representations())
+      return options.get_fp_representations();
+    else
+      return {};
   case 1:
     return read_file_content(options.get_fp_representations_path());
   default:
