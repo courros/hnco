@@ -4,6 +4,14 @@ Library:
 - Added class algorithm::Decorator
 - Added file hnco/algorithms/decorators/decorator.hh
 - class Restart derives from algorithm::Decorator
+- DyadicIntegerRepresentation: added constructor for [0..n-1]
+- Added class ValueSetRepresentation
+- Added files app/parser.(hh|cc)
+- Updated function parse_representation
+- Function get_representations checks for unset option fp_representations
+- Renamed MixedIntegerMultivariateFunctionAdapter -> MixedRepresentationMultivariateFunctionAdapter (single and multi)
+- Defined representation variant type app::rep_var_t
+- MixedRepresentationMultivariateFunctionAdapter: template parameter RepVariant must be a variant of representations (single and multi)
 
 
 * Version 0.24 (2024-01-03)
