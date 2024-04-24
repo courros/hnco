@@ -32,11 +32,11 @@ namespace app {
 using rep_var_t = std::variant<IntRep, LongRep, DoubleRep, ValueSetRep>;
 
 /**
- * Make a mixed-integer multivariate function adapter
+ * Make a mixed-type multivariate function adapter
  */
 template<typename Options, typename Adapter>
 Adapter *
-make_multivariate_function_adapter_mixed(const Options& options)
+make_mixed_type_multivariate_function_adapter(const Options& options)
 {
   using Fn = typename Adapter::function_type;
   auto instance = new Fn(get_expression<Options>(options));
@@ -50,7 +50,7 @@ make_multivariate_function_adapter_mixed(const Options& options)
   for (const auto& name : instance->get_variable_names()) {
     if (env.count(name) == 0) {
       env[name] = default_double_rep;
-      std::cerr << "make_multivariate_function_adapter_mixed: Missing representation for " << name << ". Using default double representation." << std::endl;
+      std::cerr << "make_mixed_type_multivariate_function_adapter: Missing representation for " << name << ". Using default double representation." << std::endl;
     } else {
       auto v = env[name];
       if (std::holds_alternative<IntRepParams>(v)) {

@@ -184,7 +184,7 @@ public:
  * - Multivariate function (Fn): product of domains -> product of codomains (double)
  */
 template<typename Fn, typename RepVariant>
-class MixedIntegerMultivariateFunctionAdapter: public Function {
+class MixedTypeMultivariateFunctionAdapter: public Function {
   /// Multivariate function
   Fn *_function;
   /// Representation variants
@@ -208,7 +208,7 @@ public:
    * @param fn Multivariate function
    * @param vs Representation variants
    */
-  MixedIntegerMultivariateFunctionAdapter(Fn *fn, const std::vector<RepVariant>& vs)
+  MixedTypeMultivariateFunctionAdapter(Fn *fn, const std::vector<RepVariant>& vs)
     : _function(fn)
     , _rep_variants(vs) {
     assert(fn);

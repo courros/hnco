@@ -77,8 +77,8 @@ CommandLineFunctionFactory::make()
 
   case 184: {
     using Fn = ParsedMultivariateFunction<FunctionParser>;
-    using Adapter = MixedIntegerMultivariateFunctionAdapter<Fn, hnco::app::rep_var_t>;
-    return hnco::app::make_multivariate_function_adapter_mixed<HncoOptions, Adapter>(_options);
+    using Adapter = MixedTypeMultivariateFunctionAdapter<Fn, hnco::app::rep_var_t>;
+    return hnco::app::make_mixed_type_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }
 
 #ifdef ENABLE_PYTHON

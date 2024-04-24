@@ -233,8 +233,8 @@ CommandLineFunctionFactory::make()
 
   case 184: {
     using Fn      = ParsedMultivariateFunction<FunctionParser>;
-    using Adapter = MixedIntegerMultivariateFunctionAdapter<Fn, rep_var_t>;
-    return make_multivariate_function_adapter_mixed<HncoOptions, Adapter>(_options);
+    using Adapter = MixedTypeMultivariateFunctionAdapter<Fn, rep_var_t>;
+    return make_mixed_type_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }
 
   case 190: {
