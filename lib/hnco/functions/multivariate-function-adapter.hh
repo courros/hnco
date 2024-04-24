@@ -129,7 +129,7 @@ public:
 };
 
 /**
- * Mixed-type multivariate function adapter.
+ * Mixed-representation multivariate function adapter.
  *
  * The purpose of this class is to build a regular hnco function from
  * an arbitrary multivariate function. This is achieved using a
@@ -138,7 +138,7 @@ public:
  * - Multivariate function (Fn): product of domains -> double
  */
 template<typename Fn, typename RepVariant>
-class MixedTypeMultivariateFunctionAdapter: public Function {
+class MixedRepresentationMultivariateFunctionAdapter: public Function {
   /// Multivariate function
   Fn *_function;
   /// Representation variants
@@ -163,7 +163,7 @@ public:
    * @param fn Multivariate function
    * @param vs Representation variants
    */
-  MixedTypeMultivariateFunctionAdapter(Fn *fn, const std::vector<RepVariant>& vs)
+  MixedRepresentationMultivariateFunctionAdapter(Fn *fn, const std::vector<RepVariant>& vs)
     : _function(fn)
     , _rep_variants(vs) {
     assert(fn);

@@ -76,7 +76,7 @@ CommandLineFunctionFactory::make()
 
   case 184: {
     using Fn = ParsedMultivariateFunction<FunctionParser>;
-    using Adapter = MixedTypeMultivariateFunctionAdapter<Fn, hnco::app::rep_var_t>;
+    using Adapter = MixedRepresentationMultivariateFunctionAdapter<Fn, hnco::app::rep_var_t>;
     return hnco::app::make_mixed_type_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }
 
