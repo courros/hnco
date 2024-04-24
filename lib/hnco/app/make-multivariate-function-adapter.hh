@@ -110,6 +110,51 @@ make_multivariate_function_adapter_complex(const Options& options)
   return new Adapter(instance, reps);
 }
 
+/// Representation variant
+using rep_var_t = std::variant<IntRep, LongRep, DoubleRep, ValueSetRep>;
+
+/**
+ * Make a mixed-type multivariate function adapter
+ */
+template<typename Options, typename Adapter>
+Adapter *
+make_mixed_type_multivariate_function_adapter(const Options& options)
+{
+  using Fn = typename Adapter::function_type;
+  auto instance = new Fn(get_expression<Options>(options));
+  instance->add_constant("pi", M_PI);
+  instance->add_constant("e", M_E);
+  instance->parse();
+
+  env_t env = parse_representations<Options>(get_representations<Options>(options), options);
+  auto default_long_rep = get_default_representation<Options, LongRep>(options);
+  auto default_double_rep = get_default_representation<Options, DoubleRep>(options);
+  for (const auto& name : instance->get_variable_names()) {
+    if (env.count(name) == 0) {
+      env[name] = default_double_rep;
+      std::cerr << "make_mixed_type_multivariate_function_adapter: Missing representation for " << name << ". Using default double representation." << std::endl;
+    } else {
+      auto v = env[name];
+      if (std::holds_alternative<IntRepParams>(v)) {
+        env[name] = default_double_rep;
+        std::cerr << "make_multivariate_function_adapter: Invalid representation for " << name << ". Using default double representation." << std::endl;
+      } else {
+        assert(std::holds_alternative<LongRepParams>(v) ||
+               std::holds_alternative<DoubleRepParams>(v) ||
+               std::holds_alternative<ValueSetRepParams>(v));
+      }
+    }
+  }
+
+  std::vector<rep_var_t> rep_variants;
+  for (const auto& name : instance->get_variable_names()) {
+    assert(env.count(name) == 1);
+    rep_variants.push_back(std::visit([](auto&& arg) { return rep_var_t(arg.to_rep()); }, env[name]));
+  }
+
+  return new Adapter(instance, rep_variants);
+}
+
 }
 }
 
