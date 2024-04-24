@@ -34,13 +34,18 @@ namespace function {
 
 /**
  * Multivariate function adapter.
+ * @tparam Fn Type of the function
+ * @tparam Rep Type of the representation
+ * @tparam Rep Type of the converter
  *
  * The purpose of this class is to build a regular hnco function from
  * an arbitrary multivariate function. This is achieved using a
  * composition:
- * - Representations (Rep): hypercube -> domain
+ * - Representations (Rep): bit vector -> domain
  * - Multivariate function (Fn): product of domains -> codomain
  * - Converter (Conv): codomain -> double
+ *
+ * All representations are of the same type.
  */
 template<class Fn, class Rep, class Conv>
 class MultivariateFunctionAdapter: public Function {
@@ -130,12 +135,17 @@ public:
 
 /**
  * Mixed-representation multivariate function adapter.
+ * @tparam Fn Type of the function
+ * @tparam RepVariant Type of the representation variant
  *
  * The purpose of this class is to build a regular hnco function from
  * an arbitrary multivariate function. This is achieved using a
  * composition:
- * - Representations (Rep): hypercube -> domain
+ * - Representations (Rep): bit vector -> domain
  * - Multivariate function (Fn): product of domains -> double
+ *
+ * Representations can be of different types thanks to the use of a
+ * variant.
  */
 template<typename Fn, typename RepVariant>
 class MixedRepresentationMultivariateFunctionAdapter: public Function {

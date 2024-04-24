@@ -192,6 +192,11 @@ parse_double_rep(std::string expression, const Options& options)
 ValueSetRepParams
 parse_value_set_rep(std::string expression);
 
+/**
+ * Parse a representation.
+ * @param expression Expression to parse
+ * @param options Options
+ */
 template<typename Options>
 param_var_t
 parse_representation(std::string expression, const Options& options)
