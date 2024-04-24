@@ -232,10 +232,8 @@ CommandLineFunctionFactory::make()
   }
 
   case 184: {
-    using Fn        = ParsedMultivariateFunction<FunctionParser>;
-    using IntRep    = DyadicIntegerRepresentation<long>;
-    using DoubleRep = DyadicFloatRepresentation<double>;
-    using Adapter   = MixedIntegerMultivariateFunctionAdapter<Fn, IntRep, DoubleRep>;
+    using Fn      = ParsedMultivariateFunction<FunctionParser>;
+    using Adapter = MixedIntegerMultivariateFunctionAdapter<Fn, rep_var_t>;
     return make_multivariate_function_adapter_mixed<HncoOptions, Adapter>(_options);
   }
 

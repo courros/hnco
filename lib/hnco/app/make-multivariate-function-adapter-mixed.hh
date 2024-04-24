@@ -29,6 +29,8 @@
 namespace hnco {
 namespace app {
 
+using rep_var_t = std::variant<IntRep, LongRep, DoubleRep, ValueSetRep>;
+
 /**
  * Make a mixed-integer multivariate function adapter
  */
@@ -36,9 +38,6 @@ template<typename Options, typename Adapter>
 Adapter *
 make_multivariate_function_adapter_mixed(const Options& options)
 {
-  static_assert(std::is_same_v<typename Adapter::int_rep_type::domain_type, long>);
-  static_assert(std::is_same_v<typename Adapter::float_rep_type::domain_type, double>);
-
   using Fn = typename Adapter::function_type;
   auto instance = new Fn(get_expression<Options>(options));
   instance->add_constant("pi", M_PI);
@@ -65,33 +64,13 @@ make_multivariate_function_adapter_mixed(const Options& options)
     }
   }
 
-  std::vector<LongRep> long_reps;
-  std::vector<DoubleRep> double_reps;
-  std::vector<ValueSetRep> value_set_reps;
-  std::vector<std::pair<bool, int>> lut(instance->get_num_variables());
-  int long_index = 0;
-  int double_index = 0;
-  int value_set_index = 0;
-
-  int var_index = 0;
+  std::vector<rep_var_t> rep_variants;
   for (const auto& name : instance->get_variable_names()) {
     assert(env.count(name) == 1);
-    auto v = env[name];
-    if (std::holds_alternative<LongRepParams>(v)) {
-      long_reps.push_back(param_var_to_rep<LongRep>(v));
-      lut[var_index++] = std::make_pair<bool, int>(true, long_index++);
-    } else if (std::holds_alternative<DoubleRepParams>(v)) {
-      double_reps.push_back(param_var_to_rep<DoubleRep>(v));
-      lut[var_index++] = std::make_pair<bool, int>(false, double_index++);
-    } else {
-      assert(std::holds_alternative<ValueSetRepParams>(v));
-      value_set_reps.push_back(param_var_to_rep<ValueSetRep>(v));
-      lut[var_index++] = std::make_pair<bool, int>(false, value_set_index++);
-    }
+    rep_variants.push_back(std::visit([](auto&& arg) { return rep_var_t(arg.to_rep()); }, env[name]));
   }
-  assert(var_index == instance->get_num_variables());
 
-  return new Adapter(instance, long_reps, double_reps, lut);
+  return new Adapter(instance, rep_variants);
 }
 
 }

@@ -21,19 +21,17 @@
 #ifndef HNCO_MULTIOBJECTIVE_FUNCTIONS_MULTIVARIATE_FUNCTION_ADAPTER_H
 #define HNCO_MULTIOBJECTIVE_FUNCTIONS_MULTIVARIATE_FUNCTION_ADAPTER_H
 
-#include <assert.h>
-
+#include <cassert>
 #include <type_traits>          // std::is_same, std::is_convertible
+#include <variant>              // std::visit
 
 #include "hnco/representations/all.hh"
 
 #include "function.hh"
 
-
 namespace hnco {
 namespace multiobjective {
 namespace function {
-
 
 /**
  * Multivariate function adapter.
@@ -185,157 +183,84 @@ public:
  * - Representations (Rep): hypercube -> domain
  * - Multivariate function (Fn): product of domains -> product of codomains (double)
  */
-template<typename Fn, typename IntRep, typename FloatRep>
+template<typename Fn, typename RepVariant>
 class MixedIntegerMultivariateFunctionAdapter: public Function {
-  static_assert(std::is_convertible<
-                typename FloatRep::domain_type,
-                typename Fn::domain_type
-                >::value,
-                "multiobjective::function::MixedIntegerMultivariateFunctionAdapter: representation domain and function domain types do not match");
-  static_assert(std::is_convertible<
-                typename IntRep::domain_type,
-                typename Fn::domain_type
-                >::value,
-                "multiobjective::function::MixedIntegerMultivariateFunctionAdapter: representation domain and function domain types do not match");
-
   /// Multivariate function
   Fn *_function;
-
-  /// Integer representations
-  std::vector<IntRep> _int_reps;
-
-  /// Float representations
-  std::vector<FloatRep> _float_reps;
-
+  /// Representation variants
+  std::vector<RepVariant> _rep_variants;
   /// Variables
   std::vector<typename Fn::domain_type> _variables;
-
-  /// Lookup table
-  std::vector<std::pair<bool, int>> _lut;
-
-  /// Unpack a bit vector into values
   void unpack(const bit_vector_t& bv) {
     int start = 0;
     for (size_t i = 0; i < _variables.size(); i++) {
-      auto& p = _lut[i];
-      if (p.first) {
-        assert(is_in_range(p.second, _int_reps.size()));
-        _variables[i] = _int_reps[p.second].unpack(bv, start);
-        start += _int_reps[p.second].size();
-      } else {
-        assert(is_in_range(p.second, _float_reps.size()));
-        _variables[i] = _float_reps[p.second].unpack(bv, start);
-        start += _float_reps[p.second].size();
-      }
+      auto& v = _rep_variants[i];
+      _variables[i] = std::visit([&](auto&& arg) { return double(arg.unpack(bv, start)); }, v);
+      start += std::visit([](auto&& arg) { return arg.size(); }, v);
     }
   }
 
 public:
-
   /// Function type
   using function_type = Fn;
-
-  /// Integer type
-  using int_rep_type = IntRep;
-
-  /// Float type
-  using float_rep_type = FloatRep;
-
   /**
    * Constructor.
    * @param fn Multivariate function
-   * @param int_reps Integer representations
-   * @param float_reps Float representations
-   * @param lut Lookup table
-   *
-   * For each variable, the lookup table tells whether it is an
-   * integer or a float, and gives its index in the corresponding
-   * representation table, _int_reps or _float_reps.
+   * @param vs Representation variants
    */
-  MixedIntegerMultivariateFunctionAdapter(Fn *fn,
-                                          std::vector<IntRep> int_reps,
-                                          std::vector<FloatRep> float_reps,
-                                          std::vector<std::pair<bool, int>> lut)
+  MixedIntegerMultivariateFunctionAdapter(Fn *fn, const std::vector<RepVariant>& vs)
     : _function(fn)
-    , _int_reps(int_reps)
-    , _float_reps(float_reps)
-    , _lut(lut)
-  {
-    const int total_size = int(int_reps.size() + float_reps.size());
-
+    , _rep_variants(vs) {
     assert(fn);
-    assert(fn->get_num_variables() == total_size);
-
-    _variables.resize(total_size);
-    _lut.resize(total_size);
+    assert(fn->get_num_variables() == int(vs.size()));
+    _variables.resize(vs.size());
   }
-
   /**
    * @name Information about the function
    */
   ///@{
-
-  /// Get bit vector size
   int get_bv_size() const override {
     int result = 0;
-    for (const auto& rep : _int_reps)
-      result += rep.size();
-    for (const auto& rep : _float_reps)
-      result += rep.size();
+    for (const auto& v : _rep_variants)
+      result += std::visit([](auto&& arg) { return arg.size(); }, v);
     return result;
   }
-
   /// Get output size (number of objectives)
   int get_output_size() const override {
     return _function->get_output_size();
   }
-
   ///@}
-
-
   /**
    * @name Evaluation
    */
   ///@{
-
   /// Evaluate
   void evaluate(const bit_vector_t& bv, value_t& value) override {
     assert(get_bv_size() == int(bv.size()));
     assert(get_output_size() == int(value.size()));
-
     unpack(bv);
     _function->evaluate(_variables, value);
   }
-
   ///@}
-
-
   /**
    * @name Display
    */
   ///@{
-
   /// Display
   void display(std::ostream& stream) const override {
     _function->display(stream);
     stream << "Representations:" << std::endl;
-    for (auto p : _lut) {
-      if (p.first)
-        _int_reps[p.second].display(stream);
-      else
-        _float_reps[p.second].display(stream);
+    for (const auto& v : _rep_variants) {
+      std::visit([&](auto&& arg) { arg.display(stream); }, v);
       stream << std::endl;
     }
   }
-
   /// Describe a bit vector
   void describe(const bit_vector_t& bv, std::ostream& stream) override {
     unpack(bv);
     _function->describe(_variables, stream);
   }
-
   ///@}
-
 };
 
 
