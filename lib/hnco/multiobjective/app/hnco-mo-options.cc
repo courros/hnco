@@ -326,14 +326,14 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "          Default representation for int" << std::endl;
   stream << "      --fp-default-long-rep (type string, default to \"long(1, 100)\")" << std::endl;
   stream << "          Default representation for long" << std::endl;
-  stream << "      --fp-expression (type string, default to \"A := sin(x) + cos(y); A :: B := sqrt(x^2 + y^2); B\")" << std::endl;
+  stream << "      --fp-expression (type string, default to \"sin(x) + cos(y) :: sqrt(x^2 + y^2)\")" << std::endl;
   stream << "          Mathematical expression (list of objectives separated by ::)" << std::endl;
   stream << "      --fp-expression-source (type int, default to 0)" << std::endl;
   stream << "          Source for the expression to parse" << std::endl;
   stream << "            0: Command-line" << std::endl;
   stream << "            1: Function file" << std::endl;
   stream << "      --fp-representations (type string, no default)" << std::endl;
-  stream << "          Representations. Example: \"x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-100, 100); v: long(1, 10000)\"" << std::endl;
+  stream << "          Representations. Example: \"x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-10, 10); v: long(-100, 100); w: set(1.1, 2.2, 3.3)\"" << std::endl;
   stream << "      --fp-representations-path (type string, default to \"representations.txt\")" << std::endl;
   stream << "          Path of the representations file" << std::endl;
   stream << "      --fp-representations-source (type int, default to 0)" << std::endl;

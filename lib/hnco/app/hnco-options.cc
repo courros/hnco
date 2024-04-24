@@ -936,7 +936,7 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "            0: Command-line" << std::endl;
   stream << "            1: Function file" << std::endl;
   stream << "      --fp-representations (type string, no default)" << std::endl;
-  stream << "          Representations. Example: \"x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-100, 100); v: long(1, 10000)\"" << std::endl;
+  stream << "          Representations. Example: \"x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-10, 10); v: long(-100, 100); w: set(1.1, 2.2, 3.3)\"" << std::endl;
   stream << "      --fp-representations-path (type string, default to \"representations.txt\")" << std::endl;
   stream << "          Path of the representations file" << std::endl;
   stream << "      --fp-representations-source (type int, default to 0)" << std::endl;

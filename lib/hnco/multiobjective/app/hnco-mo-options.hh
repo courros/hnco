@@ -108,14 +108,14 @@ class HncoOptions {
   bool _with_fp_default_long_rep = false;
 
   /// Mathematical expression (list of objectives separated by ::)
-  std::string _fp_expression = "A := sin(x) + cos(y); A :: B := sqrt(x^2 + y^2); B";
+  std::string _fp_expression = "sin(x) + cos(y) :: sqrt(x^2 + y^2)";
   bool _with_fp_expression = false;
 
   /// Source for the expression to parse
   int _fp_expression_source = 0;
   bool _with_fp_expression_source = false;
 
-  /// Representations. Example: \"x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-100, 100); v: long(1, 10000)\"
+  /// Representations. Example: \"x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-10, 10); v: long(-100, 100); w: set(1.1, 2.2, 3.3)\"
   std::string _fp_representations;
   bool _with_fp_representations = false;
 
