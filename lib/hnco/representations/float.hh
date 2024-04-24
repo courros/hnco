@@ -138,7 +138,7 @@ public:
 
   /// Display
   void display(std::ostream& stream) const {
-    stream << "DyadicFloatRepresentation " << "[" << _lower_bound << ", " << (_lower_bound + _length) << "] (" << size() << " bits)";
+    stream << "DyadicFloatRepresentation " << "[" << _lower_bound << ", " << (_lower_bound + _length) << ") (" << size() << " bits)";
   }
 
 };

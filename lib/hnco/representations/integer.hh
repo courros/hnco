@@ -202,7 +202,7 @@ public:
 
   /// Display
   void display(std::ostream& stream) const {
-    stream << "DyadicIntegerRepresentation " << "[" << _lower_bound << ", " << _upper_bound << "] (" << size() << " bits)";
+    stream << "DyadicIntegerRepresentation " << "[" << _lower_bound << ".." << _upper_bound << "] (" << size() << " bits)";
   }
 
 };
