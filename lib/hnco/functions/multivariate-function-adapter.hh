@@ -137,6 +137,7 @@ public:
  * Mixed-representation multivariate function adapter.
  * @tparam Fn Type of the multivariate function
  * @tparam RepVariant Type of the representation variant
+ * @pre RepVariant must be a variant of representations.
  *
  * The purpose of this class is to build a regular hnco function from
  * an arbitrary multivariate function. This is achieved using a
