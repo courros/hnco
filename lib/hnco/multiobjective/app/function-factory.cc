@@ -25,7 +25,6 @@
 #include "hnco/functions/converter.hh"
 #include "hnco/multiobjective/functions/all.hh"
 #include "hnco/app/make-multivariate-function-adapter.hh"
-#include "hnco/app/make-multivariate-function-adapter-mixed.hh"
 
 #include "function-factory.hh"
 
