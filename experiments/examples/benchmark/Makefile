@@ -19,7 +19,7 @@ report:
 clean:
 	rm -f commands.txt
 	rm -f log.defaults log.err log.parallel
-	rm -f candlesticks.gp mean.gp stddev.gp
+	rm -f candlesticks.gp scatter.gp
 	rm -f report/pretty.json
 	rm -rf results
 	rm -rf graphics
