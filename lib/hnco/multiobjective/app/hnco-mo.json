@@ -205,29 +205,6 @@
             "section": "fp"
         },
 
-        "fp_representations_source":
-        {
-            "type": "int",
-            "default": 0,
-            "description": "Source for the representations",
-            "section": "fp",
-            "values":
-            [
-
-                {
-                    "value": 0,
-                    "description": "Command-line"
-                },
-
-                {
-                    "value": 1,
-                    "description": "Representations file"
-                }
-
-            ]
-
-        },
-
         "fp_representations_path":
         {
             "type": "string",

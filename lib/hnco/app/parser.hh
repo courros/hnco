@@ -128,18 +128,10 @@ std::string get_expression(const Options& options)
 template<typename Options>
 std::string get_representations(const Options& options)
 {
-  switch (options.get_fp_representations_source()) {
-  case 0:
-    if (options.with_fp_representations())
-      return options.get_fp_representations();
-    else
-      return {};
-  case 1:
+  if (options.with_fp_representations())
+    return options.get_fp_representations();
+  else
     return read_file_content(options.get_fp_representations_path());
-  default:
-    throw std::runtime_error("get_representations: Unknown source: "
-                             + std::to_string(options.get_fp_representations_source()));
-  }
 }
 
 IntRepParams

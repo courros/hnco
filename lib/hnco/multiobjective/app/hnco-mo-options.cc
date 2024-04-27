@@ -24,7 +24,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
     {"fp-representations", required_argument, 0, OPTION_FP_REPRESENTATIONS},
     {"fp-representations-path", required_argument, 0, OPTION_FP_REPRESENTATIONS_PATH},
-    {"fp-representations-source", required_argument, 0, OPTION_FP_REPRESENTATIONS_SOURCE},
     {"function", required_argument, 0, OPTION_FUNCTION},
     {"num-iterations", required_argument, 0, OPTION_NUM_ITERATIONS},
     {"num-threads", required_argument, 0, OPTION_NUM_THREADS},
@@ -132,11 +131,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_FP_REPRESENTATIONS_PATH:
       _with_fp_representations_path = true;
       _fp_representations_path = std::string(optarg);
-      break;
-
-    case OPTION_FP_REPRESENTATIONS_SOURCE:
-      _with_fp_representations_source = true;
-      _fp_representations_source = std::atoi(optarg);
       break;
 
     case 'F':
@@ -326,10 +320,6 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "          Representations. Example: \"x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-10, 10); v: long(-100, 100); w: set(1.1, 2.2, 3.3)\"" << std::endl;
   stream << "      --fp-representations-path (type string, default to \"representations.txt\")" << std::endl;
   stream << "          Path of the representations file" << std::endl;
-  stream << "      --fp-representations-source (type int, default to 0)" << std::endl;
-  stream << "          Source for the representations" << std::endl;
-  stream << "            0: Command-line" << std::endl;
-  stream << "            1: Representations file" << std::endl;
   stream << std::endl;
 }
 
@@ -405,7 +395,6 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   if (options._with_fp_representations)
     stream << "# fp_representations = \"" << options._fp_representations << "\"" << std::endl;
   stream << "# fp_representations_path = \"" << options._fp_representations_path << "\"" << std::endl;
-  stream << "# fp_representations_source = " << options._fp_representations_source << std::endl;
   stream << "# function = " << options._function << std::endl;
   stream << "# num_iterations = " << options._num_iterations << std::endl;
   stream << "# num_threads = " << options._num_threads << std::endl;

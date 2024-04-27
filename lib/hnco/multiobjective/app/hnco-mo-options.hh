@@ -40,7 +40,6 @@ class HncoOptions {
     OPTION_FP_EXPRESSION,
     OPTION_FP_REPRESENTATIONS,
     OPTION_FP_REPRESENTATIONS_PATH,
-    OPTION_FP_REPRESENTATIONS_SOURCE,
     OPTION_FUNCTION,
     OPTION_NUM_ITERATIONS,
     OPTION_NUM_THREADS,
@@ -117,10 +116,6 @@ class HncoOptions {
   /// Path of the representations file
   std::string _fp_representations_path = "representations.txt";
   bool _with_fp_representations_path = false;
-
-  /// Source for the representations
-  int _fp_representations_source = 0;
-  bool _with_fp_representations_source = false;
 
   /// Type of function
   int _function = 180;
@@ -317,12 +312,6 @@ public:
 
   /// With parameter fp_representations_path
   bool with_fp_representations_path() const { return _with_fp_representations_path; }
-
-  /// Get the value of fp_representations_source
-  int get_fp_representations_source() const { return _fp_representations_source; }
-
-  /// With parameter fp_representations_source
-  bool with_fp_representations_source() const { return _with_fp_representations_source; }
 
   /// Get the value of function
   int get_function() const { return _function; }
