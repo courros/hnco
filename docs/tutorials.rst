@@ -22,7 +22,7 @@ its own type and bounds. For example::
     --fp-expression "x^2 + y^2 + z^2" \
     --fp-representations "x: double(-5, 5); y: double(-5, 5); z: double(-5, 5)" \
     --fp-default-double-size 8 \
-    --negation \
+    --minimize \
     --print-description
 
 Each representation occupies 8 bits of the bit vector. The size or
@@ -32,7 +32,7 @@ given for some variable, the default double representation is used
 instead.
 
 Minimization, instead of maximization, is achieved with the option
-``--negation``.
+``--minimize``.
 
 The last option ``--print-description`` prints the solution in terms
 of representation, not in terms of bit vector.
@@ -48,7 +48,7 @@ instead of the command-line::
     --path ./function.txt \
     --fp-representations-path ./representations.txt \
     --fp-default-double-size 8 \
-    --negation \
+    --minimize \
     --print-description
 
 where ``function.txt`` contains::
