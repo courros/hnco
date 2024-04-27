@@ -29,6 +29,30 @@
 namespace hnco {
 namespace app {
 
+template<typename Rep>
+Rep
+param_var_to_rep(param_var_t v);
+
+template<>
+inline
+IntRep
+param_var_to_rep(param_var_t v) { return std::get<IntRepParams>(v).to_rep(); }
+
+template<>
+inline
+LongRep
+param_var_to_rep(param_var_t v) { return std::get<LongRepParams>(v).to_rep(); }
+
+template<>
+inline
+DoubleRep
+param_var_to_rep(param_var_t v) { return std::get<DoubleRepParams>(v).to_rep(); }
+
+template<>
+inline
+ValueSetRep
+param_var_to_rep(param_var_t v) { return std::get<ValueSetRepParams>(v).to_rep(); }
+
 /**
  * Make a multivariate function adapter
  */
