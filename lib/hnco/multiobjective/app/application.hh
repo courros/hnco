@@ -54,9 +54,6 @@ class CommandLineApplication {
   /// Algorithm
   hnco::multiobjective::algorithm::Algorithm *_algorithm = nullptr;
 
-  /// Log context
-  logging::ProgressTrackerContext *_log_context = nullptr;
-
   /// Initialization
   void init();
 
