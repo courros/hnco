@@ -90,8 +90,10 @@ functions (OneMax etc.).
 
 User-defined functions:
 
-- Multivariate function (parser for double, long, or complex)
-- Mixed-integer multivariate function (long and double)
+- Multivariate function (representations for int, long, double, or
+  complex)
+- Mixed-representation multivariate function (representations for
+  long, double, and finite set of double values)
 - Plugin (load any C function in a dynamic library)
 - Python function (embedded interpreter)
 

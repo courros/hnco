@@ -6,52 +6,91 @@ Tutorials
 Optimizing a user-defined function from hnco (single objective)
 ---------------------------------------------------------------
 
-Parser
-------
+Function parser
+---------------
 
 Suppose we want to minimize the function defined by::
 
-  f(x, y, z) = x^2 + y^2 + z^2
+  f(x, y, z) = (x - 1)^2 + (y - 2)^2 + (z - 3)^2 + cos(x + y + z)
 
-over [-1, 1]^3. Each variable can have its own domain. In hnco, since
-the basic search space is the hypercube (bit vectors), we have to
-specify each representation with its type, bounds, and precision. For
-example::
+over [-5, 5]^3. In hnco, since the basic search space is a hypercube
+(bit vectors), we have to specify variable representations, each with
+its own type and bounds. For example::
 
-  hnco -F 180 --fp-expression "-(x^2+y^2+z^2)" \
-              --fp-representations "x: double(-1, 1, precision = 1e-3); y: double(-1, 1, size = 8); z: double(-1, 1)" \
-              --fp-default-double-size 4 \
-              --print-description
+  hnco \
+    -A 500 -b 10000 \
+    -F 180 \
+    --fp-expression "(x - 1)^2 + (y - 2)^2 + (z - 3)^2 + cos(x + y + z)" \
+    --fp-representations "x: double(-5, 5); y: double(-5, 5); z: double(-5, 5)" \
+    --fp-default-double-size 8 \
+    --negation \
+    --print-description
 
-The precision can be implicitly defined in terms of size, that is the
-number of bits used for the representation. If no precision is given,
-then a default precision must be provided. If no representation is
-given for some variable, the default representation is used instead.
-The resulting function can be displayed with the option
-``--fn-display``. The last option ``--print-description`` prints the
-solution in terms of representation, not in terms of bit vector.
+The chosen algorithm is PBIL with a budget of 10000 function
+evaluations. However, all algorithms can be used instead.
+
+Each representation occupies 8 bits of the bit vector. The size or
+precision can be individually specified as in ``double(-5, 5, size =
+4)`` or ``double(-5, 5, precision = 1e-3)``. If no representation is
+given for some variable, the default double representation is used
+instead.
+
+Minimization, instead of maximization, is achieved with the option
+``--negation``.
+
+The last option ``--print-description`` prints the solution in terms
+of representation, not in terms of bit vector.
 
 Both the function and representations can be specified in files
 instead of the command-line::
 
-  hnco -F 180 --fp-expression-source 1 \
-              --path ./function.txt \
-              --fp-representations-source 1 \
-              --fp-representations-path ./representations.txt \
-              --fp-default-double-size 4 \
-              --print-description
+  hnco \
+    -A 500 -b 10000 \
+    -F 180 \
+    --fp-expression-source 1 --path ./function.txt \
+    --fp-representations-source 1 --fp-representations-path ./representations.txt \
+    --fp-default-double-size 8 \
+    --negation \
+    --print-description
 
 where ``function.txt`` contains::
 
-  -(x^2+y^2+z^2)
+  (x - 1)^2 + (y - 2)^2 + (z - 3)^2 + cos(x + y + z)
 
 and ``representations.txt`` contains::
 
-  x: double(-1, 1, precision = 1e-3);
-  y: double(-1, 1, size = 8);
-  z: double(-1, 1)
+  x: double(-5, 5);
+  y: double(-5, 5);
+  z: double(-5, 5)
 
-See ``hnco --help-fp`` for more options for the parser.
+The function can be displayed with the option ``--fn-display``::
+
+  Warning: DecoratedFunctionFactory::make_function: After _function_factory.make(), bv_size changed from 100 to 42
+  ParsedMultivariateFunction:
+  Variables: x, y, z
+  Expression:
+  (x-1)^2+(y-2)^2+(z-3)^2+cos(x+y+z)
+  Representations:
+  DyadicFloatRepresentation [-5, 5) (14 bits)
+  DyadicFloatRepresentation [-5, 5) (14 bits)
+  DyadicFloatRepresentation [-5, 5) (14 bits)
+
+See ``hnco --help-fp`` for more options for the function parser.
+
+Here are the available parsers:
+
+- 180: rep: bv -> double, parser: [double] -> double
+- 181: rep: bv -> long, parser: [long] -> long, cast to double
+- 182: rep: bv -> complex, parser: [complex] -> complex, square of the magnitude
+- 183: rep: bv -> int, cast to double, parser: [double] -> double
+- 184: rep: bv -> long, double, or set, parser: [double] -> double
+
+For example, the last parser allows to minimize the same function as
+above with the following representations::
+
+  x: double(-5, 5);
+  y: long(-5, 5);
+  z: set(1.1, 2.2, -3.3)
 
 Python
 ------
@@ -124,8 +163,8 @@ To run the script, enter the command::
 Optimizing a user-defined function from hnco-mo (multiobjective objective)
 --------------------------------------------------------------------------
 
-Parser
-------
+Function parser
+---------------
 
 Suppose we want to optimize the mixed-integer function defined by::
 
@@ -174,7 +213,7 @@ and B) which increases the readibility in the case of complex
 functions. It should be noted that each definition is local to its
 objective.
 
-See ``hnco-mo --help-fp`` for more options for the parser.
+See ``hnco-mo --help-fp`` for more options for the function parser.
 
 Python
 ------

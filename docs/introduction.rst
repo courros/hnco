@@ -15,7 +15,7 @@ Library features:
 
 - Bit vectors as basic search space
 - Representations for integer, float, complex, categorical and
-  permutation values
+  permutation values as well as finite sets of values
 - Neighborhoods and neighborhood iterators for local search
 - Maps from bit vectors to bit vectors
 - Function decorators to control evaluation (budget...)
