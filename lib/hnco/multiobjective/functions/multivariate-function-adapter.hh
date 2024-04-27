@@ -175,7 +175,7 @@ public:
 };
 
 /**
- * Mixed-integer multivariate function adapter.
+ * Mixed-representation multivariate function adapter.
  *
  * The purpose of this class is to build a regular hnco function from
  * an arbitrary multivariate function. This is achieved using a

@@ -904,7 +904,7 @@ void HncoOptions::print_help_fn(std::ostream& stream) const
   stream << "            181: Integer multivariate function (rep: bv -> long, parser: [long] -> long, cast to double)" << std::endl;
   stream << "            182: Complex multivariate function (rep: bv -> complex, parser: [complex] -> complex, square of the magnitude)" << std::endl;
   stream << "            183: Integer multivariate function (rep: bv -> int, cast to double, parser: [double] -> double)" << std::endl;
-  stream << "            184: Mixed-integer multivariate function (rep: bv -> long or double, parser: [double] -> double)" << std::endl;
+  stream << "            184: Mixed-representation multivariate function (rep: bv -> long, double, or set, parser: [double] -> double)" << std::endl;
   stream << "            190: Sudoku" << std::endl;
   stream << "            200: Travelling salesman problem" << std::endl;
   stream << "            1000: Plugin" << std::endl;

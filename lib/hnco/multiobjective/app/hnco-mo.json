@@ -161,7 +161,7 @@
 
                 {
                     "value": 184,
-                    "description": "Mixed-integer multivariate function (rep: bv -> long or double, parser: [double] -> double)"
+                    "description": "Mixed-representation multivariate function (rep: bv -> long, double, or set, parser: [double] -> double)"
                 },
 
                 {
