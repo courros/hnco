@@ -119,15 +119,10 @@ using env_t = std::unordered_map<std::string, param_var_t>;
 template<typename Options>
 std::string get_expression(const Options& options)
 {
-  switch (options.get_fp_expression_source()) {
-  case 0:
+  if (options.with_fp_expression())
     return options.get_fp_expression();
-  case 1:
+  else
     return read_file_content(options.get_path());
-  default:
-    throw std::runtime_error("get_expression: Unknown source: "
-                             + std::to_string(options.get_fp_expression_source()));
-  }
 }
 
 template<typename Options>

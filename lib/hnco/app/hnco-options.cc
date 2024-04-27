@@ -40,7 +40,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"fp-default-int-rep", required_argument, 0, OPTION_FP_DEFAULT_INT_REP},
     {"fp-default-long-rep", required_argument, 0, OPTION_FP_DEFAULT_LONG_REP},
     {"fp-expression", required_argument, 0, OPTION_FP_EXPRESSION},
-    {"fp-expression-source", required_argument, 0, OPTION_FP_EXPRESSION_SOURCE},
     {"fp-representations", required_argument, 0, OPTION_FP_REPRESENTATIONS},
     {"fp-representations-path", required_argument, 0, OPTION_FP_REPRESENTATIONS_PATH},
     {"fp-representations-source", required_argument, 0, OPTION_FP_REPRESENTATIONS_SOURCE},
@@ -309,11 +308,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_FP_EXPRESSION:
       _with_fp_expression = true;
       _fp_expression = std::string(optarg);
-      break;
-
-    case OPTION_FP_EXPRESSION_SOURCE:
-      _with_fp_expression_source = true;
-      _fp_expression_source = std::atoi(optarg);
       break;
 
     case OPTION_FP_REPRESENTATIONS:
@@ -929,12 +923,8 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "          Default representation for int" << std::endl;
   stream << "      --fp-default-long-rep (type string, default to \"long(1, 100)\")" << std::endl;
   stream << "          Default representation for long" << std::endl;
-  stream << "      --fp-expression (type string, default to \"(1-x)^2+100*(y-x^2)^2\")" << std::endl;
+  stream << "      --fp-expression (type string, no default)" << std::endl;
   stream << "          Mathematical expression" << std::endl;
-  stream << "      --fp-expression-source (type int, default to 0)" << std::endl;
-  stream << "          Source for the expression to parse" << std::endl;
-  stream << "            0: Command-line" << std::endl;
-  stream << "            1: Function file" << std::endl;
   stream << "      --fp-representations (type string, no default)" << std::endl;
   stream << "          Representations. Example: \"x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-10, 10); v: long(-100, 100); w: set(1.1, 2.2, 3.3)\"" << std::endl;
   stream << "      --fp-representations-path (type string, default to \"representations.txt\")" << std::endl;
@@ -1306,8 +1296,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# fp_default_double_size = " << options._fp_default_double_size << std::endl;
   stream << "# fp_default_int_rep = \"" << options._fp_default_int_rep << "\"" << std::endl;
   stream << "# fp_default_long_rep = \"" << options._fp_default_long_rep << "\"" << std::endl;
-  stream << "# fp_expression = \"" << options._fp_expression << "\"" << std::endl;
-  stream << "# fp_expression_source = " << options._fp_expression_source << std::endl;
+  if (options._with_fp_expression)
+    stream << "# fp_expression = \"" << options._fp_expression << "\"" << std::endl;
   if (options._with_fp_representations)
     stream << "# fp_representations = \"" << options._fp_representations << "\"" << std::endl;
   stream << "# fp_representations_path = \"" << options._fp_representations_path << "\"" << std::endl;

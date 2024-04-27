@@ -721,33 +721,9 @@
             "section": "fn"
         },
 
-        "fp_expression_source":
-        {
-            "type": "int",
-            "default": 0,
-            "description": "Source for the expression to parse",
-            "section": "fp",
-            "values":
-            [
-
-                {
-                    "value": 0,
-                    "description": "Command-line"
-                },
-
-                {
-                    "value": 1,
-                    "description": "Function file"
-                }
-
-            ]
-
-        },
-
         "fp_expression":
         {
             "type": "string",
-            "default": "(1-x)^2+100*(y-x^2)^2",
             "description": "Mathematical expression",
             "section": "fp"
         },
