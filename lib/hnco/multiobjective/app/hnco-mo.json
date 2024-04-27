@@ -198,33 +198,9 @@
             "section": "fn"
         },
 
-        "fp_expression_source":
-        {
-            "type": "int",
-            "default": 0,
-            "description": "Source for the expression to parse",
-            "section": "fp",
-            "values":
-            [
-
-                {
-                    "value": 0,
-                    "description": "Command-line"
-                },
-
-                {
-                    "value": 1,
-                    "description": "Function file"
-                }
-
-            ]
-
-        },
-
         "fp_expression":
         {
             "type": "string",
-            "default": "sin(x) + cos(y) :: sqrt(x^2 + y^2)",
             "description": "Mathematical expression (list of objectives separated by ::)",
             "section": "fp"
         },

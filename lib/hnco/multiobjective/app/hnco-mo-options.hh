@@ -38,7 +38,6 @@ class HncoOptions {
     OPTION_FP_DEFAULT_INT_REP,
     OPTION_FP_DEFAULT_LONG_REP,
     OPTION_FP_EXPRESSION,
-    OPTION_FP_EXPRESSION_SOURCE,
     OPTION_FP_REPRESENTATIONS,
     OPTION_FP_REPRESENTATIONS_PATH,
     OPTION_FP_REPRESENTATIONS_SOURCE,
@@ -108,12 +107,8 @@ class HncoOptions {
   bool _with_fp_default_long_rep = false;
 
   /// Mathematical expression (list of objectives separated by ::)
-  std::string _fp_expression = "sin(x) + cos(y) :: sqrt(x^2 + y^2)";
+  std::string _fp_expression;
   bool _with_fp_expression = false;
-
-  /// Source for the expression to parse
-  int _fp_expression_source = 0;
-  bool _with_fp_expression_source = false;
 
   /// Representations. Example: \"x: double(0, 1); y: double(0, 1, precision = 1e-3); z: double(0, 1, size = 8); u: int(-10, 10); v: long(-100, 100); w: set(1.1, 2.2, 3.3)\"
   std::string _fp_representations;
@@ -296,16 +291,15 @@ public:
   bool with_fp_default_long_rep() const { return _with_fp_default_long_rep; }
 
   /// Get the value of fp_expression
-  std::string get_fp_expression() const { return _fp_expression; }
+  std::string get_fp_expression() const {
+    if (_with_fp_expression)
+      return _fp_expression;
+    else
+      throw std::runtime_error("HncoOptions::get_fp_expression: Parameter fp_expression has no default value and has not been set");
+    }
 
   /// With parameter fp_expression
   bool with_fp_expression() const { return _with_fp_expression; }
-
-  /// Get the value of fp_expression_source
-  int get_fp_expression_source() const { return _fp_expression_source; }
-
-  /// With parameter fp_expression_source
-  bool with_fp_expression_source() const { return _with_fp_expression_source; }
 
   /// Get the value of fp_representations
   std::string get_fp_representations() const {
