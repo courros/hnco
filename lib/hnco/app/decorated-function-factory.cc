@@ -239,8 +239,8 @@ DecoratedFunctionFactory::make_function_modifier()
     function = new ParsedModifier(function, _options.get_expression());
   }
 
-  // Negation
-  if (_options.with_negation()) {
+  // Minimize
+  if (_options.with_minimize()) {
     function = new Negation(function);
   }
 

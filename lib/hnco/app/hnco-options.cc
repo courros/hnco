@@ -102,8 +102,8 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"map-display", no_argument, 0, OPTION_MAP_DISPLAY},
     {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
     {"map-surjective", no_argument, 0, OPTION_MAP_SURJECTIVE},
+    {"minimize", no_argument, 0, OPTION_MINIMIZE},
     {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
-    {"negation", no_argument, 0, OPTION_NEGATION},
     {"parsed-modifier", no_argument, 0, OPTION_PARSED_MODIFIER},
     {"pn-allow-no-mutation", no_argument, 0, OPTION_PN_ALLOW_NO_MUTATION},
     {"print-default-parameters", no_argument, 0, OPTION_PRINT_DEFAULT_PARAMETERS},
@@ -599,12 +599,12 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _map_surjective = true;
       break;
 
-    case OPTION_MMAS_STRICT:
-      _mmas_strict = true;
+    case OPTION_MINIMIZE:
+      _minimize = true;
       break;
 
-    case OPTION_NEGATION:
-      _negation = true;
+    case OPTION_MMAS_STRICT:
+      _mmas_strict = true;
       break;
 
     case OPTION_PARSED_MODIFIER:
@@ -949,8 +949,8 @@ void HncoOptions::print_help_mod(std::ostream& stream) const
   stream << "          Additive Gaussian noise" << std::endl;
   stream << "      --expression (type string, default to \"x\")" << std::endl;
   stream << "          Expression of the variable x" << std::endl;
-  stream << "      --negation" << std::endl;
-  stream << "          Negation (hence minimization) of the function" << std::endl;
+  stream << "      --minimize" << std::endl;
+  stream << "          Minimize, instead of maximize, the function (implemented as the negation of the provided function)" << std::endl;
   stream << "      --noise-stddev (type double, default to 1)" << std::endl;
   stream << "          Noise standard deviation" << std::endl;
   stream << "      --parsed-modifier" << std::endl;
@@ -1381,10 +1381,10 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# map_random " << std::endl;
   if (options._map_surjective)
     stream << "# map_surjective " << std::endl;
+  if (options._minimize)
+    stream << "# minimize " << std::endl;
   if (options._mmas_strict)
     stream << "# mmas_strict " << std::endl;
-  if (options._negation)
-    stream << "# negation " << std::endl;
   if (options._parsed_modifier)
     stream << "# parsed_modifier " << std::endl;
   if (options._pn_allow_no_mutation)

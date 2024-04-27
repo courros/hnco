@@ -254,9 +254,9 @@
         },
 
 
-        "negation":
+        "minimize":
         {
-            "description": "Negation (hence minimization) of the function",
+            "description": "Minimize, instead of maximize, the function (implemented as the negation of the provided function)",
             "section": "mod"
         },
 

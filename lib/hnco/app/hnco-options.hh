@@ -126,8 +126,8 @@ class HncoOptions {
     OPTION_MAP_DISPLAY,
     OPTION_MAP_RANDOM,
     OPTION_MAP_SURJECTIVE,
+    OPTION_MINIMIZE,
     OPTION_MMAS_STRICT,
-    OPTION_NEGATION,
     OPTION_PARSED_MODIFIER,
     OPTION_PN_ALLOW_NO_MUTATION,
     OPTION_PRINT_DEFAULT_PARAMETERS,
@@ -494,11 +494,11 @@ class HncoOptions {
   /// Ensure that the sampled linear or affine map is surjective
   bool _map_surjective = false;
 
+  /// Minimize, instead of maximize, the function (implemented as the negation of the provided function)
+  bool _minimize = false;
+
   /// Strict (>) max-min ant system
   bool _mmas_strict = false;
-
-  /// Negation (hence minimization) of the function
-  bool _negation = false;
 
   /// Parsed modifier
   bool _parsed_modifier = false;
@@ -1135,11 +1135,11 @@ public:
   /// With the flag map_surjective
   bool with_map_surjective() const { return _map_surjective; }
 
+  /// With the flag minimize
+  bool with_minimize() const { return _minimize; }
+
   /// With the flag mmas_strict
   bool with_mmas_strict() const { return _mmas_strict; }
-
-  /// With the flag negation
-  bool with_negation() const { return _negation; }
 
   /// With the flag parsed_modifier
   bool with_parsed_modifier() const { return _parsed_modifier; }

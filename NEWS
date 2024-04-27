@@ -17,6 +17,9 @@ hnco, hnco-mo:
 - Removed parameter fp_expression_source
 - Removed parameter fp_representations_source
 
+hnco:
+- Renamed parameter negation -> minimize
+
 
 * Version 0.24 (2024-01-03)
 
