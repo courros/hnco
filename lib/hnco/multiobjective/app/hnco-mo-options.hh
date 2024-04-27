@@ -98,11 +98,11 @@ class HncoOptions {
   bool _with_fp_default_double_size = false;
 
   /// Default representation for int
-  std::string _fp_default_int_rep = "int(1, 100)";
+  std::string _fp_default_int_rep = "int(-10, 10)";
   bool _with_fp_default_int_rep = false;
 
   /// Default representation for long
-  std::string _fp_default_long_rep = "long(1, 100)";
+  std::string _fp_default_long_rep = "long(-100, 100)";
   bool _with_fp_default_long_rep = false;
 
   /// Mathematical expression (list of objectives separated by ::)

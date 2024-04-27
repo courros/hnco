@@ -746,7 +746,7 @@
         "fp_default_int_rep":
         {
             "type": "string",
-            "default": "int(1, 100)",
+            "default": "int(-10, 10)",
             "description": "Default representation for int",
             "section": "fp"
         },
@@ -754,7 +754,7 @@
         "fp_default_long_rep":
         {
             "type": "string",
-            "default": "long(1, 100)",
+            "default": "long(-100, 100)",
             "description": "Default representation for long",
             "section": "fp"
         },

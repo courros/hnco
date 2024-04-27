@@ -913,9 +913,9 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
   stream << "          Default representation for double" << std::endl;
   stream << "      --fp-default-double-size (type int, no default)" << std::endl;
   stream << "          Default size of double representations" << std::endl;
-  stream << "      --fp-default-int-rep (type string, default to \"int(1, 100)\")" << std::endl;
+  stream << "      --fp-default-int-rep (type string, default to \"int(-10, 10)\")" << std::endl;
   stream << "          Default representation for int" << std::endl;
-  stream << "      --fp-default-long-rep (type string, default to \"long(1, 100)\")" << std::endl;
+  stream << "      --fp-default-long-rep (type string, default to \"long(-100, 100)\")" << std::endl;
   stream << "          Default representation for long" << std::endl;
   stream << "      --fp-expression (type string, no default)" << std::endl;
   stream << "          Mathematical expression" << std::endl;
