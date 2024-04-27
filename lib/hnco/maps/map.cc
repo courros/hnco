@@ -242,7 +242,7 @@ TsAffineMap::random(int n, int t, SamplingMode mode)
     break;
 
   default:
-    throw std::runtime_error("TsAffineMap::random: Unknown sampling mode: " + static_cast<int>(mode));
+    throw std::runtime_error("TsAffineMap::random: Unknown sampling mode: " + std::to_string(static_cast<int>(mode)));
   }
 }
 

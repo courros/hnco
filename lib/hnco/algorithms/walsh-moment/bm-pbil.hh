@@ -254,7 +254,7 @@ protected:
       sample_synchronous();
       break;
     default:
-      throw std::runtime_error("BmPbil::sample: Unknown _sampling_mode: " + static_cast<int>(_sampling_mode));
+      throw std::runtime_error("BmPbil::sample: Unknown _sampling_mode: " + std::to_string(static_cast<int>(_sampling_mode)));
     }
     x = _gibbs_sampler.get_state();
   }

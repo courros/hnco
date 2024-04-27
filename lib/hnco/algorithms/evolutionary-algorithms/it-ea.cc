@@ -250,7 +250,7 @@ InformationTheoreticEa::iterate()
     break;
 
   default:
-    throw std::runtime_error("InformationTheoreticEa::iterate: Unknown replacement: " + static_cast<int>(_replacement));
+    throw std::runtime_error("InformationTheoreticEa::iterate: Unknown replacement: " + std::to_string(static_cast<int>(_replacement)));
 
   }
 
