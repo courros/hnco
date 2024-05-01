@@ -21,7 +21,7 @@
 #ifndef HNCO_FUNCTIONS_COLLECTION_QUBO_H
 #define HNCO_FUNCTIONS_COLLECTION_QUBO_H
 
-#include <iostream>
+#include <iosfwd>
 #include <fstream>
 #include <vector>
 

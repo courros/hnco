@@ -21,7 +21,7 @@
 #ifndef HNCO_FUNCTIONS_ISING_NEAREST_NEIGHBOR_ISING_MODEL_2_H
 #define HNCO_FUNCTIONS_ISING_NEAREST_NEIGHBOR_ISING_MODEL_2_H
 
-#include <iostream>
+#include <iosfwd>
 #include <vector>
 
 #include <boost/serialization/vector.hpp>

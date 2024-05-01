@@ -18,7 +18,7 @@
 
 */
 
-#include <iostream>             // std::endl
+#include <iostream>             // std::ostream
 #include <algorithm>            // std::max_element
 
 #include "hnco/random.hh"

@@ -21,7 +21,7 @@
 #ifndef HNCO_FUNCTIONS_WALSH_WALSH_EXPANSION_2_H
 #define HNCO_FUNCTIONS_WALSH_WALSH_EXPANSION_2_H
 
-#include <iostream>
+#include <iosfwd>
 #include <vector>
 #include <fstream>
 

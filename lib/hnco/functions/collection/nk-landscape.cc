@@ -20,6 +20,8 @@
 
 #include <assert.h>
 
+#include <iostream>
+
 #include "hnco/random.hh"
 
 #include "nk-landscape.hh"

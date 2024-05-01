@@ -22,7 +22,7 @@
 #define HNCO_BIT_VECTOR_H
 
 #include <algorithm>            // std::all_of, std::generate, std::fill
-#include <iostream>
+#include <iosfwd>
 #include <numeric>              // std::accumulate
 #include <vector>
 #include <cstdint>              // std::uint8_t

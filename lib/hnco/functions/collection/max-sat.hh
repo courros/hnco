@@ -21,7 +21,8 @@
 #ifndef HNCO_FUNCTIONS_COLLECTION_MAXSAT_H
 #define HNCO_FUNCTIONS_COLLECTION_MAXSAT_H
 
-#include <iostream>
+#include <iosfwd>
+
 #include <fstream>              // std:ifstream, std::ofstream
 #include <vector>
 

@@ -21,6 +21,7 @@
 #include <assert.h>
 
 #include <string>               // std::getline
+#include <iostream>
 
 #include "util.hh"              // hnco::have_same_size
 #include "bit-vector.hh"

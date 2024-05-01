@@ -21,8 +21,6 @@
 #ifndef HNCO_FUNCTIONS_WALSH_TERM_H
 #define HNCO_FUNCTIONS_WALSH_TERM_H
 
-#include <iostream>
-
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/serialization/vector.hpp>

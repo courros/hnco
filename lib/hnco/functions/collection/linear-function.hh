@@ -21,7 +21,8 @@
 #ifndef HNCO_FUNCTIONS_COLLECTION_LINEAR_FUNCTION_H
 #define HNCO_FUNCTIONS_COLLECTION_LINEAR_FUNCTION_H
 
-#include <iostream>
+#include <iosfwd>
+
 #include <vector>
 #include <algorithm>            // std::generate, std::min
 

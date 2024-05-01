@@ -21,7 +21,7 @@
 #ifndef HNCO_FUNCTIONS_COLLECTION_EQUAL_PRODUCTS_H
 #define HNCO_FUNCTIONS_COLLECTION_EQUAL_PRODUCTS_H
 
-#include <iostream>
+#include <iosfwd>
 #include <vector>
 
 #include <boost/serialization/vector.hpp>

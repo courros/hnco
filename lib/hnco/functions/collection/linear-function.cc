@@ -20,6 +20,8 @@
 
 #include <assert.h>
 
+#include <iostream>
+
 #include "hnco/random.hh"
 
 #include "linear-function.hh"

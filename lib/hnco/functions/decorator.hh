@@ -21,9 +21,9 @@
 #ifndef HNCO_FUNCTIONS_DECORATOR_H
 #define HNCO_FUNCTIONS_DECORATOR_H
 
-#include <iostream>
+#include <iosfwd>
 
-#include "hnco/functions/function.hh"
+#include "function.hh"
 
 
 namespace hnco {

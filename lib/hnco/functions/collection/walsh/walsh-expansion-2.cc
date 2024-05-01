@@ -20,6 +20,7 @@
 
 #include <assert.h>
 
+#include <iostream>
 #include <cmath>                // std::fabs, std::pow
 #include <algorithm>            // std::fill, std::min
 

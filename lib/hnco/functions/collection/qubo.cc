@@ -20,6 +20,7 @@
 
 #include <assert.h>
 
+#include <iostream>
 #include <sstream>              // std::ostringstream
 
 #include "hnco/exception.hh"

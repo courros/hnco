@@ -21,7 +21,7 @@
 #ifndef HNCO_FUNCTIONS_FUNCTION_H
 #define HNCO_FUNCTIONS_FUNCTION_H
 
-#include <iostream>
+#include <iosfwd>
 
 #include "hnco/bit-vector.hh"
 #include "hnco/exception.hh"

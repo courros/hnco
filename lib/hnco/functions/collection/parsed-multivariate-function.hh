@@ -23,10 +23,10 @@
 
 #include <assert.h>
 
-#include <vector>
-#include <iostream>
+#include <iosfwd>
 #include <sstream>
 #include <string>
+#include <vector>
 #include <algorithm>            // std::remove_if
 
 #include "hnco/util.hh"         // hnco::join

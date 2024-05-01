@@ -23,7 +23,7 @@
 
 #include <assert.h>
 
-#include <iostream>
+#include <iosfwd>
 #include <vector>
 
 #include <boost/serialization/vector.hpp>

@@ -21,75 +21,79 @@
 #ifndef HNCO_FUNCTIONS_COLLECTION_TSP_H
 #define HNCO_FUNCTIONS_COLLECTION_TSP_H
 
-#include <iostream>
+#include <cassert>
+#include <iosfwd>
 #include <vector>
 
-#include "hnco/functions/function.hh"
 #include "hnco/permutation.hh"  // hnco::permutation_t
-#include "hnco/serialization.hh"
-
+#include "hnco/random.hh"       // hnco::random::Generator::normal
 
 namespace hnco {
 namespace function {
 
-
-/** Traveling salesman problem.
-
-    Source: TSPLIB 95, Gerhard Reinelt
-*/
+/**
+ * Traveling salesman problem.
+ *
+ * Source: TSPLIB 95, Gerhard Reinelt
+ *
+ * http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/
+ */
 class Tsp {
-
 private:
-
+  /// Instance name
   std::string _name;
+  /// Comment
   std::string _comment;
+  /// Number of cities
   int _num_cities;
-  std::vector<float> _x;
-  std::vector<float> _y;
-  int _edge_weight_type = ATT;
-  enum {
+  /// Abscissas of cities
+  std::vector<float> _xs;
+  /// Ordinates of cities
+  std::vector<float> _ys;
+  /// Edge weight type
+  enum class EdgeWeightType {
+    /// ATT
     ATT,
+    /// Euclidean 2D
     EUC_2D
   };
-
+  /// Edge weith type
+  EdgeWeightType _edge_weight_type = EdgeWeightType::ATT;
   /// Distances
   std::vector<std::vector<float>> _distances;
-
-  /** @name Load and save instance
+  /**
+   * @name Load and save instance
    */
   ///@{
-
-  /** Load an instance.
-
-      \throw std::runtime_error
-  */
+  /**
+   * Load an instance.
+   * \throw std::runtime_error
+   */
   void load_(std::istream& stream);
+  /// Load coordinates
   void load_coordinates(std::istream& stream);
-
-  /// Save an instance
+  /**
+   * Save an instance.
+   * \warning Does nothing
+   */
   void save_(std::ostream& stream) const;
-
   ///@}
-
   void compute_distances();
   void compute_distances_att();
   void compute_distances_euc_2d();
 
 public:
-
   /// Default constructor
   Tsp() {}
-
-
-  /** @name Instance generators
+  /**
+   * @name Instance generators
    */
   ///@{
-
-  /** Instance generator.
-
-      \param n Number of vertices
-      \param generator Generator for distances
-  */
+  /**
+   * Instance generator.
+   * \param n Number of vertices
+   * \param generator Generator for distances
+   */
   template<class Generator>
   void generate(int n, Generator generator) {
     assert(n > 0);
@@ -103,67 +107,45 @@ public:
         _distances[j][i] = d;
       }
   }
-
-  /** Random instance.
-
-      Distances are sampled from the normal distribution.
-
-      \param n Number of vertices
-  */
+  /**
+   * Random instance.
+   * \param n Number of vertices
+   *
+   * Distances are sampled from the normal distribution.
+   */
   void random(int n) {
     assert(n > 0);
     generate(n, hnco::random::Generator::normal);
   }
-
   ///@}
-
-  /** @name Load and save instance
+  /**
+   * @name Load and save instance
    */
   ///@{
-
-  /** Load instance.
-
-      \param path Path of the instance to load
-      \throw std::runtime_error
-  */
-  void load(std::string path) {
-    std::ifstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("Tsp::load: Cannot open " + path);
-    load_(stream);
-  }
-
-  /** Save instance.
-
-      \param path Path of the instance to save
-      \throw std::runtime_error
-  */
-  void save(std::string path) const {
-    std::ofstream stream(path);
-    if (!stream.good())
-      throw std::runtime_error("Tsp::save: Cannot open " + path);
-    save_(stream);
-  }
-
+  /**
+   * Load instance.
+   * \param path Path of the instance to load
+   * \throw std::runtime_error
+   */
+  void load(std::string path);
+  /**
+   * Save instance.
+   * \param path Path of the instance to save
+   * \throw std::runtime_error
+   */
+  void save(std::string path) const;
   ///@}
-
   /// Get the number of elements
   int get_num_elements() const { return _distances.size(); }
-
   /// Display the problem
   void display(std::ostream& stream) const;
-
   /// Describe a solution
   void describe(const hnco::permutation_t& permutation, std::ostream& stream);
-
   /// Evaluate a solution
   double evaluate(const hnco::permutation_t& permutation);
-
 };
-
 
 } // end of namespace function
 } // end of namespace hnco
-
 
 #endif

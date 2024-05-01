@@ -21,7 +21,7 @@
 #ifndef HNCO_FUNCTIONS_COLLECTION_NK_LANDSCAPE_H
 #define HNCO_FUNCTIONS_COLLECTION_NK_LANDSCAPE_H
 
-#include <iostream>
+#include <iosfwd>
 #include <vector>
 
 #include <boost/serialization/vector.hpp>
