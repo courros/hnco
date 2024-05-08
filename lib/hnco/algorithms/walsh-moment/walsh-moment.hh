@@ -21,11 +21,10 @@
 #ifndef HNCO_ALGORITHMS_WALSH_MOMENT_WALSH_MOMENT_H
 #define HNCO_ALGORITHMS_WALSH_MOMENT_WALSH_MOMENT_H
 
+#include <iosfwd>
 #include <vector>
-#include <iostream>
 
 #include "hnco/bit-vector.hh"
-
 
 namespace hnco {
 namespace algorithm {

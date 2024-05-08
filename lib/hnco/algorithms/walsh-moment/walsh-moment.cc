@@ -18,17 +18,19 @@
 
 */
 
+#include <iostream>
 #include <algorithm>            // std::clamp
 #include <cassert>
 #include <cmath>		// std::sqrt
 
-#include "hnco/util.hh"
+#include "hnco/util.hh"         // hnco::have_same_size, hnco::is_in_interval, hnco::square
 
 #include "matrix.hh"           // hnco::algorithm::matrix_is_symmetric
 #include "walsh-moment.hh"
 
-
 using namespace hnco::algorithm::walsh_moment;
+using namespace hnco::algorithm;
+using namespace hnco;
 
 LowerTriangularWalshMoment2::LowerTriangularWalshMoment2(int n)
 {
