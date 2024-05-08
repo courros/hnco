@@ -32,11 +32,11 @@ bool check()
   using TM = LowerTriangularWalshMoment2;
   using SM = SymmetricWalshMoment2;
 
-  Dist dist_n(1, 1000); // bit vector size
-  Dist dist_e(0, 10); // exponent
-  for (int c = 0; c < 100; c++) {
-    const int n = dist_n(Generator::engine); // bit vector dimension
-    const int population_size = 1 << dist_e(Generator::engine); // The population size is a power of 2.
+  Dist dist_n(1, 10); // bit vector size
+  Dist dist_population_size(1, 10); // population size
+  for (int c = 0; c < 10; c++) {
+    const int n = dist_n(Generator::engine);
+    const int population_size = dist_population_size(Generator::engine);
     bit_vector_t bv(n);
     TM triangular(n);
     SM symmetric(n);
