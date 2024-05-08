@@ -34,10 +34,10 @@ bool check()
   using SM = SymmetricWalshMoment2;
   using SH = SymmetricWalshMoment2Herding;
 
-  Dist dist_n(1, 10); // bit vector size
-  Dist dist_population_size(1, 10); // population size
-  Dist dist_sequence_size(1, 10); // sequence size
-  for (int c = 0; c < 10; c++) {
+  Dist dist_n(1, 100); // bit vector size
+  Dist dist_population_size(1, 100); // population size
+  Dist dist_sequence_size(1, 100); // sequence size
+  for (int c = 0; c < 100; c++) {
     const int n = dist_n(Generator::engine); // bit vector dimension
     const int population_size = dist_population_size(Generator::engine);
     const int sequence_size = dist_sequence_size(Generator::engine);
