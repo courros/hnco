@@ -18,8 +18,6 @@
 
 */
 
-#include <iostream>
-
 #include "hnco/bit-vector.hh"
 #include "hnco/random.hh"
 #include "hnco/algorithms/walsh-moment/walsh-moment.hh"
@@ -31,13 +29,17 @@ using namespace hnco;
 bool check()
 {
   using Dist = std::uniform_int_distribution<int>;
-  Dist dist_n(1, 5); // bit vector size
-  LowerTriangularWalshMoment2 triangular(n);
-  SymmetricWalshMoment2 symmetric(n);
-  Dist dist_exponent(0, 10);
-  for (int i = 0; i < 100; i++) {
-    size_t population_size = 1 << dist_exponent(Generator::engine); // The population size is a power of 2.
+  using TM = LowerTriangularWalshMoment2;
+  using SM = SymmetricWalshMoment2;
+
+  Dist dist_n(1, 1000); // bit vector size
+  Dist dist_e(0, 10); // exponent
+  for (int c = 0; c < 100; c++) {
+    const int n = dist_n(Generator::engine); // bit vector dimension
+    const int population_size = 1 << dist_e(Generator::engine); // The population size is a power of 2.
     bit_vector_t bv(n);
+    TM triangular(n);
+    SM symmetric(n);
     triangular.init();
     symmetric.init();
     for (int k = 0; k < population_size; k++) {
@@ -45,8 +47,13 @@ bool check()
       triangular.add(bv);
       symmetric.add(bv);
     }
-    if (triangular != symmetric)
-      return false;
+    for (int i = 0; i < n; i++)
+      if (triangular.first_moment[i] != symmetric.first_moment[i])
+        return false;
+    for (int i = 0; i < n; i++)
+      for (int j = 0; j < i; j++)
+        if (triangular.second_moment[i][j] != symmetric.second_moment[i][j])
+          return false;
   }
   return true;
 }
