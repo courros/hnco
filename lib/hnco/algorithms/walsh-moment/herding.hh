@@ -25,6 +25,14 @@
 
 #include "walsh-moment.hh"
 
+/**
+ * @file herding.hh
+ * Herding algorihms.
+ *
+ * Herding algorithms for the generation of quasi-random sequences of
+ * bit vectors of given second Walsh moment.
+ */
+
 
 namespace hnco {
 namespace algorithm {
