@@ -133,7 +133,7 @@ check_PROGRAMS = test-bm-add-columns$(EXEEXT) \
 	test-first-ascent-hill-climbing-local$(EXEEXT) \
 	test-hamming-sphere$(EXEEXT) \
 	test-hamming-sphere-iterator$(EXEEXT) \
-	test-hypercube-iterator$(EXEEXT) \
+	test-herding-sample$(EXEEXT) test-hypercube-iterator$(EXEEXT) \
 	test-incremental-linear-function$(EXEEXT) \
 	test-incremental-negation$(EXEEXT) \
 	test-incremental-nn-ising-1$(EXEEXT) \
@@ -379,6 +379,10 @@ test_hamming_sphere_iterator_OBJECTS =  \
 	$(am_test_hamming_sphere_iterator_OBJECTS)
 test_hamming_sphere_iterator_LDADD = $(LDADD)
 test_hamming_sphere_iterator_DEPENDENCIES = ../lib/libhnco.la
+am_test_herding_sample_OBJECTS = test-herding-sample.$(OBJEXT)
+test_herding_sample_OBJECTS = $(am_test_herding_sample_OBJECTS)
+test_herding_sample_LDADD = $(LDADD)
+test_herding_sample_DEPENDENCIES = ../lib/libhnco.la
 am_test_hypercube_iterator_OBJECTS =  \
 	test-hypercube-iterator.$(OBJEXT)
 test_hypercube_iterator_OBJECTS =  \
@@ -699,6 +703,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-columns.Po \
 	./$(DEPDIR)/test-first-ascent-hill-climbing.Po \
 	./$(DEPDIR)/test-hamming-sphere-iterator.Po \
 	./$(DEPDIR)/test-hamming-sphere.Po \
+	./$(DEPDIR)/test-herding-sample.Po \
 	./$(DEPDIR)/test-hypercube-iterator.Po \
 	./$(DEPDIR)/test-incremental-linear-function.Po \
 	./$(DEPDIR)/test-incremental-negation.Po \
@@ -810,6 +815,7 @@ SOURCES = $(test_bm_add_columns_SOURCES) $(test_bm_add_rows_SOURCES) \
 	$(test_first_ascent_hill_climbing_local_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
 	$(test_hamming_sphere_iterator_SOURCES) \
+	$(test_herding_sample_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
 	$(test_incremental_linear_function_SOURCES) \
 	$(test_incremental_negation_SOURCES) \
@@ -885,6 +891,7 @@ DIST_SOURCES = $(test_bm_add_columns_SOURCES) \
 	$(test_first_ascent_hill_climbing_local_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
 	$(test_hamming_sphere_iterator_SOURCES) \
+	$(test_herding_sample_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
 	$(test_incremental_linear_function_SOURCES) \
 	$(test_incremental_negation_SOURCES) \
@@ -1340,6 +1347,7 @@ test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-local.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
+test_herding_sample_SOURCES = test-herding-sample.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
 test_incremental_linear_function_SOURCES = test-incremental-linear-function.cc
 test_incremental_negation_SOURCES = test-incremental-negation.cc
@@ -1586,6 +1594,10 @@ test-hamming-sphere-iterator$(EXEEXT): $(test_hamming_sphere_iterator_OBJECTS) $
 	@rm -f test-hamming-sphere-iterator$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_hamming_sphere_iterator_OBJECTS) $(test_hamming_sphere_iterator_LDADD) $(LIBS)
 
+test-herding-sample$(EXEEXT): $(test_herding_sample_OBJECTS) $(test_herding_sample_DEPENDENCIES) $(EXTRA_test_herding_sample_DEPENDENCIES) 
+	@rm -f test-herding-sample$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_herding_sample_OBJECTS) $(test_herding_sample_LDADD) $(LIBS)
+
 test-hypercube-iterator$(EXEEXT): $(test_hypercube_iterator_OBJECTS) $(test_hypercube_iterator_DEPENDENCIES) $(EXTRA_test_hypercube_iterator_DEPENDENCIES) 
 	@rm -f test-hypercube-iterator$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_hypercube_iterator_OBJECTS) $(test_hypercube_iterator_LDADD) $(LIBS)
@@ -1810,6 +1822,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-first-ascent-hill-climbing.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere-iterator.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-herding-sample.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hypercube-iterator.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-linear-function.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-negation.Po@am__quote@ # am--include-marker
@@ -2317,6 +2330,13 @@ test-hamming-sphere-iterator.log: test-hamming-sphere-iterator$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-herding-sample.log: test-herding-sample$(EXEEXT)
+	@p='test-herding-sample$(EXEEXT)'; \
+	b='test-herding-sample'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-hypercube-iterator.log: test-hypercube-iterator$(EXEEXT)
 	@p='test-hypercube-iterator$(EXEEXT)'; \
 	b='test-hypercube-iterator'; \
@@ -2773,6 +2793,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere.Po
+	-rm -f ./$(DEPDIR)/test-herding-sample.Po
 	-rm -f ./$(DEPDIR)/test-hypercube-iterator.Po
 	-rm -f ./$(DEPDIR)/test-incremental-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-incremental-negation.Po
@@ -2898,6 +2919,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere.Po
+	-rm -f ./$(DEPDIR)/test-herding-sample.Po
 	-rm -f ./$(DEPDIR)/test-hypercube-iterator.Po
 	-rm -f ./$(DEPDIR)/test-incremental-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-incremental-negation.Po

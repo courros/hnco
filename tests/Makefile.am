@@ -50,6 +50,7 @@ check_PROGRAMS = \
 	test-first-ascent-hill-climbing-local \
 	test-hamming-sphere \
 	test-hamming-sphere-iterator \
+	test-herding-sample \
 	test-hypercube-iterator \
 	test-incremental-linear-function \
 	test-incremental-negation \
@@ -141,6 +142,7 @@ test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-local.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
+test_herding_sample_SOURCES = test-herding-sample.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
 test_incremental_linear_function_SOURCES = test-incremental-linear-function.cc
 test_incremental_negation_SOURCES = test-incremental-negation.cc
