@@ -43,43 +43,43 @@ struct TriangularMoment {
    */
   TriangularMoment(int n);
   /**
-   * Display Walsh moment.
+   * Display moment.
    *
    * A TriangularMoment is displayed as a full symmetric
    * matrix with diagonal entries equal to first moments and
    * off-diagonal entries equal to second moments.
    */
   void display(std::ostream& stream);
-  /// Initialize Walsh moment
+  /// Initialize moment
   void init();
-  /// Add a bit vector to a Walsh moment
+  /// Add a bit vector
   void add(const bit_vector_t& bv);
-  /// Average each Walsh moment
+  /// Compute average
   void average(int count);
   /**
-   * Update a Walsh moment.
-   * @param wm Target Walsh moment
+   * Update a moment.
+   * @param tm Target moment
    * @param rate Learning rate
    * @post For all i, is_in_interval(first_moment[i], -1, 1)
    * @post For all j < i, is_in_interval(second_moment[i][j], -1, 1)
    *
    * This member function implements:
    *
-   * self += rate * (wm1 - self)
+   * self += rate * (tm1 - self)
    */
-  void update(const TriangularMoment& wm, double rate);
+  void update(const TriangularMoment& tm, double rate);
   /**
-   * Update a Walsh moment.
-   * @param wm1 Target Walsh moment
-   * @param wm2 Walsh moment to move away from
+   * Update a moment.
+   * @param tm1 Target moment
+   * @param tm2 Moment to move away from
    * @param rate Learning rate
    *
    * This member function implements:
    *
-   * self += rate * (wm1 - wm2)
+   * self += rate * (tm1 - tm2)
    *
-   * The resulting entries are not necessarily those of a Walsh
-   * moment, that is
+   * The resulting entries are not necessarily those of a moment, that
+   * is
    *
    * is_in_interval(first_moment[i], -1, 1) or
    *
@@ -87,35 +87,35 @@ struct TriangularMoment {
    *
    * might fail for some i, j.
    */
-  void update(const TriangularMoment& wm1, const TriangularMoment& wm2, double rate);
+  void update(const TriangularMoment& tm1, const TriangularMoment& tm2, double rate);
   /**
    * Compute a scaled difference between two moments.
    * @param lambda Scale
-   * @param wm1 First Walsh moment
-   * @param wm2 Second Walsh moment
+   * @param tm1 First moment
+   * @param tm2 Second moment
    *
    * This member function implements:
    *
-   * self = lambda * wm1 - wm2
+   * self = lambda * tm1 - tm2
    *
    * It is mostly useful in herding (Hea).
    */
-  void scaled_difference(double lambda, const TriangularMoment& wm1, const TriangularMoment& wm2);
+  void scaled_difference(double lambda, const TriangularMoment& tm1, const TriangularMoment& tm2);
   /**
-   * Bound Walsh moment.
+   * Bound moment.
    * @param margin Distance from the -1/1 bounds
    *
-   * Ensure that the distance from each Walsh moment to the -1/1
-   * bounds is greater or equal to the given margin.
+   * Ensure that the distance from each moment to the -1/1 bounds is
+   * greater or equal to the given margin.
    */
   void bound(double margin);
-  /// 1-norm of the Walsh moment
+  /// 1-norm
   double norm_1() const;
-  /// 2-norm of the Walsh moment
+  /// 2-norm
   double norm_2() const;
-  /// infinite-norm of the Walsh moment
+  /// infinite-norm
   double norm_infinite() const;
-  /// distance between the Walsh moment and another Walsh moment
+  /// distance between the moment and another moment
   double distance(const TriangularMoment& wm) const;
 };
 
@@ -133,25 +133,25 @@ struct FullMoment {
    */
   FullMoment(int n);
   /**
-   * Display Walsh moment.
+   * Display moment.
    *
    * A FullMoment is displayed as a full symmetric matrix
    * with diagonal entries equal to first moments and off-diagonal
    * entries equal to second moments.
    */
   void display(std::ostream& stream);
-  /// Initialize Walsh moment
+  /// Initialize moment
   void init();
-  /// Add a bit vector to a Walsh moment
+  /// Add a bit vector
   void add(const bit_vector_t& bv);
   /**
-   * Average each Walsh moment.
+   * Compute average.
    * @post matrix_is_symmetric(second_moment)
    */
   void average(int count);
   /**
-   * Update a Walsh moment.
-   * @param wm Target Walsh moment
+   * Update a moment.
+   * @param fm Target moment
    * @param rate Learning rate
    * @post For all i, is_in_interval(first_moment[i], -1, 1)
    * @post For all i != j, is_in_interval(second_moment[i][j], -1, 1)
@@ -159,20 +159,21 @@ struct FullMoment {
    *
    * This member function implements:
    *
-   * self += rate * (wm1 - self)
+   * self += rate * (fm1 - self)
    */
-  void update(const FullMoment& wm, double rate);
+  void update(const FullMoment& fm, double rate);
   /**
-   * Update a Walsh moment.
-   * @param wm1 Target Walsh moment
-   * @param wm2 Walsh moment to move away from
+   * Update a moment.
+   * @param fm1 Target moment
+   * @param fm2 Moment to move away from
    * @param rate Learning rate
    *
    * This member function implements:
    *
-   * self += rate * (wm1 - wm2)
+   * self += rate * (fm1 - fm2)
    *
-   * The resulting entries are not necessarily those of a Walsh moment, that is
+   * The resulting entries are not necessarily those of a moment, that
+   * is
    *
    * is_in_interval(first_moment[i], -1, 1) or
    *
@@ -180,36 +181,36 @@ struct FullMoment {
    *
    * might fail for some i != j.
    */
-  void update(const FullMoment& wm1, const FullMoment& wm2, double rate);
+  void update(const FullMoment& fm1, const FullMoment& fm2, double rate);
   /**
    * Compute a scaled difference between two moments.
    * @param lambda Scale
-   * @param wm1 First Walsh moment
-   * @param wm2 Second Walsh moment
+   * @param fm1 First moment
+   * @param fm2 Second moment
    *
    * This member function implements:
    *
-   * self = lambda * wm1 - wm2
+   * self = lambda * fm1 - fm2
    *
    * It is mostly useful in herding (Hea).
    */
-  void scaled_difference(double lambda, const FullMoment& wm1, const FullMoment& wm2);
+  void scaled_difference(double lambda, const FullMoment& fm1, const FullMoment& fm2);
   /**
-   * Bound Walsh moment.
+   * Bound moment.
    * @param margin Distance from the -1/1 bounds
    *
-   * Ensure that the distance from each Walsh moment to the -1/1
-   * bounds is greater or equal to the given margin.
+   * Ensure that the distance from each moment to the -1/1 bounds is
+   * greater or equal to the given margin.
    */
   void bound(double margin);
-  /// 1-norm of the Walsh moment
+  /// 1-norm
   double norm_1() const;
-  /// 2-norm of the Walsh moment
+  /// 2-norm
   double norm_2() const;
-  /// infinite-norm of the Walsh moment
+  /// infinite-norm
   double norm_infinite() const;
-  /// distance between the Walsh moment and another Walsh moment
-  double distance(const FullMoment& wm) const;
+  /// distance between the moment and another moment
+  double distance(const FullMoment& fm) const;
 };
 
 }
