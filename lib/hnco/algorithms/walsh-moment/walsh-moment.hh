@@ -30,9 +30,9 @@ namespace algorithm {
 namespace walsh_moment {
 
 /**
- * Lower triangular Walsh moment.
+ * Triangular moment.
  */
-struct LowerTriangularWalshMoment2 {
+struct TriangularMoment {
   /// First moment
   std::vector<double> first_moment;
   /// Second moment
@@ -41,11 +41,11 @@ struct LowerTriangularWalshMoment2 {
    * Constructor.
    * @param n Size of bit vector
    */
-  LowerTriangularWalshMoment2(int n);
+  TriangularMoment(int n);
   /**
    * Display Walsh moment.
    *
-   * A LowerTriangularWalshMoment2 is displayed as a full symmetric
+   * A TriangularMoment is displayed as a full symmetric
    * matrix with diagonal entries equal to first moments and
    * off-diagonal entries equal to second moments.
    */
@@ -67,7 +67,7 @@ struct LowerTriangularWalshMoment2 {
    *
    * self += rate * (wm1 - self)
    */
-  void update(const LowerTriangularWalshMoment2& wm, double rate);
+  void update(const TriangularMoment& wm, double rate);
   /**
    * Update a Walsh moment.
    * @param wm1 Target Walsh moment
@@ -87,7 +87,7 @@ struct LowerTriangularWalshMoment2 {
    *
    * might fail for some i, j.
    */
-  void update(const LowerTriangularWalshMoment2& wm1, const LowerTriangularWalshMoment2& wm2, double rate);
+  void update(const TriangularMoment& wm1, const TriangularMoment& wm2, double rate);
   /**
    * Compute a scaled difference between two moments.
    * @param lambda Scale
@@ -100,9 +100,7 @@ struct LowerTriangularWalshMoment2 {
    *
    * It is mostly useful in herding (Hea).
    */
-  void scaled_difference(double lambda,
-                         const LowerTriangularWalshMoment2& wm1,
-                         const LowerTriangularWalshMoment2& wm2);
+  void scaled_difference(double lambda, const TriangularMoment& wm1, const TriangularMoment& wm2);
   /**
    * Bound Walsh moment.
    * @param margin Distance from the -1/1 bounds
@@ -118,13 +116,13 @@ struct LowerTriangularWalshMoment2 {
   /// infinite-norm of the Walsh moment
   double norm_infinite() const;
   /// distance between the Walsh moment and another Walsh moment
-  double distance(const LowerTriangularWalshMoment2& wm) const;
+  double distance(const TriangularMoment& wm) const;
 };
 
 /**
- * Symmetric Walsh moment.
+ * Full moment.
  */
-struct SymmetricWalshMoment2 {
+struct FullMoment {
   /// First moment
   std::vector<double> first_moment;
   /// Second moment
@@ -133,11 +131,11 @@ struct SymmetricWalshMoment2 {
    * Constructor.
    * @param n Size of bit vector
    */
-  SymmetricWalshMoment2(int n);
+  FullMoment(int n);
   /**
    * Display Walsh moment.
    *
-   * A SymmetricWalshMoment2 is displayed as a full symmetric matrix
+   * A FullMoment is displayed as a full symmetric matrix
    * with diagonal entries equal to first moments and off-diagonal
    * entries equal to second moments.
    */
@@ -163,7 +161,7 @@ struct SymmetricWalshMoment2 {
    *
    * self += rate * (wm1 - self)
    */
-  void update(const SymmetricWalshMoment2& wm, double rate);
+  void update(const FullMoment& wm, double rate);
   /**
    * Update a Walsh moment.
    * @param wm1 Target Walsh moment
@@ -182,7 +180,7 @@ struct SymmetricWalshMoment2 {
    *
    * might fail for some i != j.
    */
-  void update(const SymmetricWalshMoment2& wm1, const SymmetricWalshMoment2& wm2, double rate);
+  void update(const FullMoment& wm1, const FullMoment& wm2, double rate);
   /**
    * Compute a scaled difference between two moments.
    * @param lambda Scale
@@ -195,9 +193,7 @@ struct SymmetricWalshMoment2 {
    *
    * It is mostly useful in herding (Hea).
    */
-  void scaled_difference(double lambda,
-                         const SymmetricWalshMoment2& wm1,
-                         const SymmetricWalshMoment2& wm2);
+  void scaled_difference(double lambda, const FullMoment& wm1, const FullMoment& wm2);
   /**
    * Bound Walsh moment.
    * @param margin Distance from the -1/1 bounds
@@ -213,7 +209,7 @@ struct SymmetricWalshMoment2 {
   /// infinite-norm of the Walsh moment
   double norm_infinite() const;
   /// distance between the Walsh moment and another Walsh moment
-  double distance(const SymmetricWalshMoment2& wm) const;
+  double distance(const FullMoment& wm) const;
 };
 
 }

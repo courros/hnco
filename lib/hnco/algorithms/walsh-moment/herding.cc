@@ -29,7 +29,7 @@ using namespace hnco::algorithm::walsh_moment;
 
 
 void
-LowerTriangularWalshMoment2Herding::init()
+TriangularMomentHerding::init()
 {
   _time = 0;
   _count.init();
@@ -37,14 +37,14 @@ LowerTriangularWalshMoment2Herding::init()
 }
 
 double
-LowerTriangularWalshMoment2Herding::error(const LowerTriangularWalshMoment2& target)
+TriangularMomentHerding::error(const TriangularMoment& target)
 {
   _error.scaled_difference(_time, target, _count);
   return _error.norm_2();
 }
 
 void
-LowerTriangularWalshMoment2Herding::sample(const LowerTriangularWalshMoment2& target, bit_vector_t& bv)
+TriangularMomentHerding::sample(const TriangularMoment& target, bit_vector_t& bv)
 {
   assert(have_same_size(bv, _permutation));
 
@@ -83,7 +83,7 @@ LowerTriangularWalshMoment2Herding::sample(const LowerTriangularWalshMoment2& ta
 }
 
 void
-SymmetricWalshMoment2Herding::init()
+FullMomentHerding::init()
 {
   _time = 0;
   _count.init();
@@ -91,14 +91,14 @@ SymmetricWalshMoment2Herding::init()
 }
 
 double
-SymmetricWalshMoment2Herding::error(const SymmetricWalshMoment2& target)
+FullMomentHerding::error(const FullMoment& target)
 {
   _error.scaled_difference(_time, target, _count);
   return _error.norm_2();
 }
 
 void
-SymmetricWalshMoment2Herding::sample(const SymmetricWalshMoment2& target, bit_vector_t& bv)
+FullMomentHerding::sample(const FullMoment& target, bit_vector_t& bv)
 {
   assert(have_same_size(bv, _permutation));
 

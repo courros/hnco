@@ -29,10 +29,10 @@ using namespace hnco;
 bool check()
 {
   using Dist = std::uniform_int_distribution<int>;
-  using TM = LowerTriangularWalshMoment2;
-  using TH = LowerTriangularWalshMoment2Herding;
-  using SM = SymmetricWalshMoment2;
-  using SH = SymmetricWalshMoment2Herding;
+  using TM = TriangularMoment;
+  using TH = TriangularMomentHerding;
+  using SM = FullMoment;
+  using SH = FullMomentHerding;
 
   Dist dist_n(1, 100); // bit vector size
   Dist dist_population_size(1, 100); // population size

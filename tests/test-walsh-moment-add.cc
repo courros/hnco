@@ -29,8 +29,8 @@ using namespace hnco;
 bool check()
 {
   using Dist = std::uniform_int_distribution<int>;
-  using TM = LowerTriangularWalshMoment2;
-  using SM = SymmetricWalshMoment2;
+  using TM = TriangularMoment;
+  using SM = FullMoment;
 
   Dist dist_n(1, 100); // bit vector size
   Dist dist_population_size(1, 100); // population size

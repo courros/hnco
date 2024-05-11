@@ -975,7 +975,7 @@ PYBIND11_MODULE(hnco, m_hnco) {
       using namespace algorithm::walsh_moment;
 
       {
-        using Algo = Hea<SymmetricWalshMoment2Herding>;
+        using Algo = Hea<FullMomentHerding>;
         py::class_<Algo, IterativeAlgorithm>(m_algo, "Hea")
           .def(py::init<int, int>())
           .def("set_bound_moment", &Algo::set_bound_moment)
@@ -988,7 +988,7 @@ PYBIND11_MODULE(hnco, m_hnco) {
       }
 
       {
-        using Algo = BmPbil<SymmetricWalshMoment2GibbsSampler>;
+        using Algo = BmPbil<FullMomentGibbsSampler>;
         py::class_<Algo, IterativeAlgorithm>(m_algo, "BmPbil")
           .def(py::init<int, int>())
           .def("set_learning_rate", &Algo::set_learning_rate)

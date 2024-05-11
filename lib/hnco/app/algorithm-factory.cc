@@ -401,7 +401,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
     using namespace walsh_moment;
 
     auto algo = new
-      Hea<SymmetricWalshMoment2Herding>(bv_size,
+      Hea<FullMomentHerding>(bv_size,
                                         _options.get_population_size());
 
     algo->set_bound_moment        (_options.get_hea_bound_moment());
@@ -423,7 +423,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
     using namespace walsh_moment;
 
     auto algo = new
-      Hea<LowerTriangularWalshMoment2Herding>(bv_size,
+      Hea<TriangularMomentHerding>(bv_size,
                                               _options.get_population_size());
 
     algo->set_bound_moment        (_options.get_hea_bound_moment());
@@ -443,7 +443,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
 
   case 1000: {
     using namespace walsh_moment;
-    using BM = BmPbil<SymmetricWalshMoment2GibbsSampler>;
+    using BM = BmPbil<FullMomentGibbsSampler>;
     auto algo = new BM
       (bv_size,
        _options.get_population_size());
@@ -465,7 +465,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
 
   case 1001: {
     using namespace walsh_moment;
-    using BM = BmPbil<LowerTriangularWalshMoment2GibbsSampler>;
+    using BM = BmPbil<TriangularMomentGibbsSampler>;
     auto algo = new BM
       (bv_size,
        _options.get_population_size());
