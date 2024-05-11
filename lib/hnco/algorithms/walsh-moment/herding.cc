@@ -20,13 +20,11 @@
 
 #include <cassert>
 
-#include "hnco/util.hh"
+#include "hnco/util.hh"         // hnco::have_same_size
 
 #include "herding.hh"
 
-
 using namespace hnco::algorithm::walsh_moment;
-
 
 void
 TriangularMomentHerding::init()
@@ -46,7 +44,7 @@ TriangularMomentHerding::error(const TriangularMoment& target)
 void
 TriangularMomentHerding::sample(const TriangularMoment& target, bit_vector_t& bv)
 {
-  assert(have_same_size(bv, _permutation));
+  assert(hnco::have_same_size(bv, _permutation));
 
   const int bv_size = _permutation.size();
 
@@ -100,7 +98,7 @@ FullMomentHerding::error(const FullMoment& target)
 void
 FullMomentHerding::sample(const FullMoment& target, bit_vector_t& bv)
 {
-  assert(have_same_size(bv, _permutation));
+  assert(hnco::have_same_size(bv, _permutation));
 
   const int bv_size = _permutation.size();
 
