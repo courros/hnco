@@ -472,7 +472,7 @@ class HncoOptions {
   /// Log herding error (moment discrepancy)
   bool _hea_log_herding_error = false;
 
-  /// Log target moment as a symmetric matrix
+  /// Log target moment as a full matrix
   bool _hea_log_target = false;
 
   /// Log target 2-norm (distance to uniform moment)

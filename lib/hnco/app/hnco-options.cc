@@ -5,6 +5,8 @@
 
 using namespace hnco::app;
 
+bool check_string_as_bool(std::string str) { return str == "true" || str == "false"; }
+
 HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
   _exec_name(argv[0])
 {
@@ -326,13 +328,21 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       break;
 
     case OPTION_HEA_BOUND_MOMENT:
+      if (!check_string_as_bool(std::string(optarg))) {
+        std::cerr << _exec_name << ": hea_bound_moment must be true or false" << std::endl;
+        exit(1);
+      }
       _with_hea_bound_moment = true;
-      _hea_bound_moment = (std::string(optarg) == "true") ? true : false;
+      _hea_bound_moment = (std::string(optarg) == "true");
       break;
 
     case OPTION_HEA_RANDOMIZE_BIT_ORDER:
+      if (!check_string_as_bool(std::string(optarg))) {
+        std::cerr << _exec_name << ": hea_randomize_bit_order must be true or false" << std::endl;
+        exit(1);
+      }
       _with_hea_randomize_bit_order = true;
-      _hea_randomize_bit_order = (std::string(optarg) == "true") ? true : false;
+      _hea_randomize_bit_order = (std::string(optarg) == "true");
       break;
 
     case OPTION_HEA_RESET_PERIOD:
@@ -1071,10 +1081,10 @@ void HncoOptions::print_help_alg(std::ostream& stream) const
   stream << "            600: Univariate marginal distribution algorithm (UMDA)" << std::endl;
   stream << "            700: Compact genetic algorithm (cGA)" << std::endl;
   stream << "            800: Max-min ant system (MMAS)" << std::endl;
-  stream << "            900: Herding evolutionary algorithm (HEA) with symmetric Walsh moment" << std::endl;
-  stream << "            901: Herding evolutionary algorithm (HEA) with lower triangular Walsh moment" << std::endl;
-  stream << "            1000: Boltzmann machine PBIL with symmetric Walsh moment" << std::endl;
-  stream << "            1001: Boltzmann machine PBIL with lower triangular Walsh moment" << std::endl;
+  stream << "            900: Herding evolutionary algorithm (HEA) with full moment" << std::endl;
+  stream << "            901: Herding evolutionary algorithm (HEA) with triangular moment" << std::endl;
+  stream << "            1000: Boltzmann machine PBIL with full moment" << std::endl;
+  stream << "            1001: Boltzmann machine PBIL with triangular moment" << std::endl;
   stream << "            1100: Mutual information maximizing input clustering (MIMIC)" << std::endl;
   stream << "            1110: Hierarchical Bayesian optimization algorithm (hBOA)" << std::endl;
   stream << "            1200: Linkage tree genetic algorithm (LTGA)" << std::endl;
@@ -1208,7 +1218,7 @@ void HncoOptions::print_help_hea(std::ostream& stream) const
   stream << "      --hea-log-herding-error" << std::endl;
   stream << "          Log herding error (moment discrepancy)" << std::endl;
   stream << "      --hea-log-target" << std::endl;
-  stream << "          Log target moment as a symmetric matrix" << std::endl;
+  stream << "          Log target moment as a full matrix" << std::endl;
   stream << "      --hea-log-target-norm" << std::endl;
   stream << "          Log target 2-norm (distance to uniform moment)" << std::endl;
   stream << "      --hea-randomize-bit-order (type bool, default to true)" << std::endl;
@@ -1253,6 +1263,7 @@ void HncoOptions::print_version(std::ostream& stream) const
 
 std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& options)
 {
+  stream << std::boolalpha;
   stream << "# algorithm = " << options._algorithm << std::endl;
   stream << "# bm_num_gs_cycles = " << options._bm_num_gs_cycles << std::endl;
   stream << "# bm_num_gs_steps = " << options._bm_num_gs_steps << std::endl;
@@ -1294,8 +1305,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# fp_representations = \"" << options._fp_representations << "\"" << std::endl;
   stream << "# fp_representations_path = \"" << options._fp_representations_path << "\"" << std::endl;
   stream << "# function = " << options._function << std::endl;
-  stream << "# hea_bound_moment = " << (options._hea_bound_moment ? "true" : "false") << std::endl;
-  stream << "# hea_randomize_bit_order = " << (options._hea_randomize_bit_order ? "true" : "false") << std::endl;
+  stream << "# hea_bound_moment = " << options._hea_bound_moment << std::endl;
+  stream << "# hea_randomize_bit_order = " << options._hea_randomize_bit_order << std::endl;
   stream << "# hea_reset_period = " << options._hea_reset_period << std::endl;
   stream << "# learning_rate = " << options._learning_rate << std::endl;
   stream << "# map = " << options._map << std::endl;

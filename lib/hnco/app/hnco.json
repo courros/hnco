@@ -384,7 +384,7 @@
 
         "hea_log_target":
         {
-            "description": "Log target moment as a symmetric matrix",
+            "description": "Log target moment as a full matrix",
             "section": "hea"
         },
 
@@ -1115,22 +1115,22 @@
 
                 {
                     "value": 900,
-                    "description": "Herding evolutionary algorithm (HEA) with symmetric Walsh moment"
+                    "description": "Herding evolutionary algorithm (HEA) with full moment"
                 },
 
                 {
                     "value": 901,
-                    "description": "Herding evolutionary algorithm (HEA) with lower triangular Walsh moment"
+                    "description": "Herding evolutionary algorithm (HEA) with triangular moment"
                 },
 
                 {
                     "value": 1000,
-                    "description": "Boltzmann machine PBIL with symmetric Walsh moment"
+                    "description": "Boltzmann machine PBIL with full moment"
                 },
 
                 {
                     "value": 1001,
-                    "description": "Boltzmann machine PBIL with lower triangular Walsh moment"
+                    "description": "Boltzmann machine PBIL with triangular moment"
                 },
 
                 {
