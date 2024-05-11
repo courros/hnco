@@ -18,7 +18,7 @@
 
 */
 
-#include <assert.h>
+#include <cassert>
 
 #include "hnco/util.hh"
 

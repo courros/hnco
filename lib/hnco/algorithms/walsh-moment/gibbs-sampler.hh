@@ -21,8 +21,6 @@
 #ifndef HNCO_ALGORITHMS_WALSH_MOMENT_GIBBS_SAMPLER_H
 #define HNCO_ALGORITHMS_WALSH_MOMENT_GIBBS_SAMPLER_H
 
-#include <vector>
-
 #include "hnco/bit-vector.hh"
 #include "hnco/algorithms/probability-vector/probability-vector.hh"
 
