@@ -399,10 +399,9 @@ CommandLineAlgorithmFactory::make(int bv_size)
 
   case 900: {
     using namespace walsh_moment;
-
-    auto algo = new
-      Hea<FullMomentHerding>(bv_size,
-                                        _options.get_population_size());
+    auto algo = new Hea<FullMomentHerding>
+      (bv_size,
+       _options.get_population_size());
 
     algo->set_bound_moment        (_options.get_hea_bound_moment());
     algo->set_learning_rate       (_options.get_learning_rate());
@@ -421,10 +420,9 @@ CommandLineAlgorithmFactory::make(int bv_size)
 
   case 901: {
     using namespace walsh_moment;
-
-    auto algo = new
-      Hea<TriangularMomentHerding>(bv_size,
-                                              _options.get_population_size());
+    auto algo = new Hea<TriangularMomentHerding>
+      (bv_size,
+       _options.get_population_size());
 
     algo->set_bound_moment        (_options.get_hea_bound_moment());
     algo->set_learning_rate       (_options.get_learning_rate());
