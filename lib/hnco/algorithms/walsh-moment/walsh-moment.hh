@@ -54,7 +54,10 @@ struct TriangularMoment {
   void init();
   /// Add a bit vector
   void add(const bit_vector_t& bv);
-  /// Compute average
+  /**
+   * Compute average.
+   * @param count Number of previsously added bit vectors
+   */
   void average(int count);
   /**
    * Update a moment.
@@ -146,6 +149,7 @@ struct FullMoment {
   void add(const bit_vector_t& bv);
   /**
    * Compute average.
+   * @param count Number of previsously added bit vectors
    * @post matrix_is_symmetric(second_moment)
    */
   void average(int count);
