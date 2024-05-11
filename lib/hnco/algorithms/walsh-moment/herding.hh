@@ -64,7 +64,7 @@ public:
   using Moment = TriangularMoment;
   /**
    * Constructor.
-   * \param n Size of bit vectors
+   * @param n Size of bit vectors
    */
   TriangularMomentHerding(int n):
     _delta(n),
@@ -120,7 +120,7 @@ public:
   using Moment = FullMoment;
   /**
    * Constructor.
-   * \param n Size of bit vectors
+   * @param n Size of bit vectors
    */
   FullMomentHerding(int n):
     _delta(n),
