@@ -57,7 +57,9 @@ bool check()
     SH sh(n);
     bit_vector_t bv_th(n);
     bit_vector_t bv_sh(n);
+    th.set_randomize_bit_order(false);
     th.init();
+    sh.set_randomize_bit_order(false);
     sh.init();
     for (int k = 0; k < sequence_size; k++) {
       th.sample(tm, bv_th);

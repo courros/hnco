@@ -404,17 +404,17 @@ CommandLineAlgorithmFactory::make(int bv_size)
       Hea<SymmetricWalshMoment2Herding>(bv_size,
                                         _options.get_population_size());
 
-    algo->set_bound_moment        (_options.with_hea_bound_moment());
+    algo->set_bound_moment        (_options.get_hea_bound_moment());
     algo->set_learning_rate       (_options.get_learning_rate());
     algo->set_num_iterations      (_options.get_num_iterations());
-    algo->set_randomize_bit_order (_options.with_hea_randomize_bit_order());
+    algo->set_randomize_bit_order (_options.get_hea_randomize_bit_order());
     algo->set_reset_period        (_options.get_hea_reset_period());
     algo->set_selection_size      (_options.get_selection_size());
 
     algo->set_log_delta_norm      (_options.with_hea_log_delta_norm());
-    algo->set_log_target_norm     (_options.with_hea_log_target_norm());
     algo->set_log_herding_error   (_options.with_hea_log_herding_error());
     algo->set_log_target          (_options.with_hea_log_target());
+    algo->set_log_target_norm     (_options.with_hea_log_target_norm());
 
     return algo;
   }
@@ -426,17 +426,17 @@ CommandLineAlgorithmFactory::make(int bv_size)
       Hea<LowerTriangularWalshMoment2Herding>(bv_size,
                                               _options.get_population_size());
 
-    algo->set_bound_moment        (_options.with_hea_bound_moment());
+    algo->set_bound_moment        (_options.get_hea_bound_moment());
     algo->set_learning_rate       (_options.get_learning_rate());
     algo->set_num_iterations      (_options.get_num_iterations());
-    algo->set_randomize_bit_order (_options.with_hea_randomize_bit_order());
+    algo->set_randomize_bit_order (_options.get_hea_randomize_bit_order());
     algo->set_reset_period        (_options.get_hea_reset_period());
     algo->set_selection_size      (_options.get_selection_size());
 
     algo->set_log_delta_norm      (_options.with_hea_log_delta_norm());
-    algo->set_log_target_norm     (_options.with_hea_log_target_norm());
     algo->set_log_herding_error   (_options.with_hea_log_herding_error());
     algo->set_log_target          (_options.with_hea_log_target());
+    algo->set_log_target_norm     (_options.with_hea_log_target_norm());
 
     return algo;
   }

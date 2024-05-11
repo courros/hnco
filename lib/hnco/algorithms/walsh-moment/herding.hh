@@ -33,166 +33,124 @@
  * bit vectors of given second Walsh moment.
  */
 
-
 namespace hnco {
 namespace algorithm {
 namespace walsh_moment {
 
-
-/** Herding with lower triangular Walsh moment.
-
+/**
+ * Herding with lower triangular Walsh moment.
  */
 class LowerTriangularWalshMoment2Herding {
-
-protected:
-
   /// Delta moment
   LowerTriangularWalshMoment2 _delta;
-
   /// Counter moment
   LowerTriangularWalshMoment2 _count;
-
   /// Error moment
   LowerTriangularWalshMoment2 _error;
-
   /// Permutation
   permutation_t _permutation;
-
   /// Time
   int _time;
-
-  /** @name Parameters
+  /**
+   * @name Parameters
    */
   ///@{
-
   /// Randomize bit order
-  bool _randomize_bit_order = false;
-
+  bool _randomize_bit_order = true;
   ///@}
 
 public:
-
   /// Walsh moment type
   using Moment = LowerTriangularWalshMoment2;
-
-  /** Constructor.
-
-      \param n Size of bit vectors
-  */
+  /**
+   * Constructor.
+   * \param n Size of bit vectors
+   */
   LowerTriangularWalshMoment2Herding(int n):
     _delta(n),
     _count(n),
     _error(n),
     _permutation(n, 0) {}
-
   /// Initialization
   void init();
-
   /// Sample a bit vector
   void sample(const LowerTriangularWalshMoment2& target, bit_vector_t& x);
-
   /// Compute the error
   double error(const LowerTriangularWalshMoment2& target);
-
-  /** @name Getters
+  /**
+   * @name Getters
    */
   ///@{
-
   /// Get delta
   const LowerTriangularWalshMoment2& get_delta() const { return _delta; }
-
   ///@}
-
-  /** @name Setters
+  /**
+   * @name Setters
    */
   ///@{
-
   /// Randomize bit order
-  void set_randomize_bit_order(bool x) { _randomize_bit_order = x; }
-
+  void set_randomize_bit_order(bool b) { _randomize_bit_order = b; }
   ///@}
-
 };
 
-/** Herding with symmetric Walsh moment.
-
+/**
+ * Herding with symmetric Walsh moment.
  */
 class SymmetricWalshMoment2Herding {
-
-protected:
-
   /// Delta moment
   SymmetricWalshMoment2 _delta;
-
   /// Counter moment
   SymmetricWalshMoment2 _count;
-
   /// Error moment
   SymmetricWalshMoment2 _error;
-
   /// Permutation
   permutation_t _permutation;
-
   /// Time
   int _time;
-
-  /** @name Parameters
+  /**
+   * @name Parameters
    */
   ///@{
-
   /// Randomize bit order
-  bool _randomize_bit_order = false;
-
+  bool _randomize_bit_order = true;
   ///@}
 
 public:
-
   /// Walsh moment type
   using Moment = SymmetricWalshMoment2;
-
-  /** Constructor.
-
-      \param n Size of bit vectors
-  */
+  /**
+   * Constructor.
+   * \param n Size of bit vectors
+   */
   SymmetricWalshMoment2Herding(int n):
     _delta(n),
     _count(n),
     _error(n),
     _permutation(n, 0) {}
-
   /// Initialization
   void init();
-
   /// Sample a bit vector
   void sample(const SymmetricWalshMoment2& target, bit_vector_t& x);
-
   /// Compute the error
   double error(const SymmetricWalshMoment2& target);
-
-  /** @name Getters
+  /**
+   * @name Getters
    */
   ///@{
-
   /// Get delta
   const SymmetricWalshMoment2& get_delta() const { return _delta; }
-
   ///@}
-
-  /** @name Setters
+  /**
+   * @name Setters
    */
   ///@{
-
   /// Randomize bit order
-  void set_randomize_bit_order(bool x) { _randomize_bit_order = x; }
-
+  void set_randomize_bit_order(bool b) { _randomize_bit_order = b; }
   ///@}
-
 };
 
-
 }
 }
 }
-
 
 #endif

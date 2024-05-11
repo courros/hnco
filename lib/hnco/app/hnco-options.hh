@@ -67,6 +67,8 @@ class HncoOptions {
     OPTION_FP_REPRESENTATIONS,
     OPTION_FP_REPRESENTATIONS_PATH,
     OPTION_FUNCTION,
+    OPTION_HEA_BOUND_MOMENT,
+    OPTION_HEA_RANDOMIZE_BIT_ORDER,
     OPTION_HEA_RESET_PERIOD,
     OPTION_LEARNING_RATE,
     OPTION_MAP,
@@ -114,12 +116,10 @@ class HncoOptions {
     OPTION_FN_HAS_KNOWN_MAXIMUM,
     OPTION_FN_PROVIDES_INCREMENTAL_EVALUATION,
     OPTION_FN_WALSH_TRANSFORM,
-    OPTION_HEA_BOUND_MOMENT,
     OPTION_HEA_LOG_DELTA_NORM,
     OPTION_HEA_LOG_HERDING_ERROR,
     OPTION_HEA_LOG_TARGET,
     OPTION_HEA_LOG_TARGET_NORM,
-    OPTION_HEA_RANDOMIZE_BIT_ORDER,
     OPTION_INCREMENTAL_EVALUATION,
     OPTION_LOAD_SOLUTION,
     OPTION_LOG_IMPROVEMENT,
@@ -285,6 +285,14 @@ class HncoOptions {
   /// Type of function
   int _function = 0;
   bool _with_function = false;
+
+  /// Bound moment after update
+  bool _hea_bound_moment = true;
+  bool _with_hea_bound_moment = false;
+
+  /// Randomize bit order
+  bool _hea_randomize_bit_order = true;
+  bool _with_hea_randomize_bit_order = false;
 
   /// Reset period (<= 0 means no reset)
   int _hea_reset_period = 0;
@@ -458,9 +466,6 @@ class HncoOptions {
   /// Compute the Walsh transform of the function
   bool _fn_walsh_transform = false;
 
-  /// Bound moment after update
-  bool _hea_bound_moment = false;
-
   /// Log delta (moment increment) 2-norm
   bool _hea_log_delta_norm = false;
 
@@ -472,9 +477,6 @@ class HncoOptions {
 
   /// Log target 2-norm (distance to uniform moment)
   bool _hea_log_target_norm = false;
-
-  /// Randomize bit order
-  bool _hea_randomize_bit_order = false;
 
   /// Incremental evaluation
   bool _incremental_evaluation = false;
@@ -855,6 +857,18 @@ public:
   /// With parameter function
   bool with_function() const { return _with_function; }
 
+  /// Get the value of hea_bound_moment
+  bool get_hea_bound_moment() const { return _hea_bound_moment; }
+
+  /// With parameter hea_bound_moment
+  bool with_hea_bound_moment() const { return _with_hea_bound_moment; }
+
+  /// Get the value of hea_randomize_bit_order
+  bool get_hea_randomize_bit_order() const { return _hea_randomize_bit_order; }
+
+  /// With parameter hea_randomize_bit_order
+  bool with_hea_randomize_bit_order() const { return _with_hea_randomize_bit_order; }
+
   /// Get the value of hea_reset_period
   int get_hea_reset_period() const { return _hea_reset_period; }
 
@@ -1099,9 +1113,6 @@ public:
   /// With the flag fn_walsh_transform
   bool with_fn_walsh_transform() const { return _fn_walsh_transform; }
 
-  /// With the flag hea_bound_moment
-  bool with_hea_bound_moment() const { return _hea_bound_moment; }
-
   /// With the flag hea_log_delta_norm
   bool with_hea_log_delta_norm() const { return _hea_log_delta_norm; }
 
@@ -1113,9 +1124,6 @@ public:
 
   /// With the flag hea_log_target_norm
   bool with_hea_log_target_norm() const { return _hea_log_target_norm; }
-
-  /// With the flag hea_randomize_bit_order
-  bool with_hea_randomize_bit_order() const { return _hea_randomize_bit_order; }
 
   /// With the flag incremental_evaluation
   bool with_incremental_evaluation() const { return _incremental_evaluation; }
