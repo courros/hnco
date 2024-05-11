@@ -162,8 +162,8 @@ class Hea: public algorithm::IterativeAlgorithm {
 public:
   /**
    * Constructor.
-   * \param n Size of bit vectors
-   * \param population_size Population size
+   * @param n Size of bit vectors
+   * @param population_size Population size
    *
    * _margin is initialized to 1 / n.
    */
@@ -190,9 +190,9 @@ public:
   void set_selection_size(int n) { _selection_size = n; }
   /**
    * Set the reset period
-   * \param x Reset period
+   * @param n Reset period
    *
-   * x <= 0 means no reset.
+   * n <= 0 means no reset.
    */
   void set_reset_period(int n) { _reset_period = n; }
   /// Set the learning rate
