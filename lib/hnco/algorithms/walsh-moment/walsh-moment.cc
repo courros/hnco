@@ -66,7 +66,7 @@ TriangularMoment::init()
 void
 TriangularMoment::add(const bit_vector_t& bv)
 {
-  assert(have_same_size(bv, first_moment));
+  assert(hnco::have_same_size(bv, first_moment));
 
   for (size_t i = 0; i < bv.size(); i++) {
     std::vector<double>& row = second_moment[i];
@@ -106,7 +106,7 @@ TriangularMoment::average(int count)
 void
 TriangularMoment::update(const TriangularMoment& tm, double rate)
 {
-  assert(have_same_size(tm.first_moment, first_moment));
+  assert(hnco::have_same_size(tm.first_moment, first_moment));
 
   for (size_t i = 0; i < first_moment.size(); i++) {
     first_moment[i] += rate * (tm.first_moment[i] - first_moment[i]);
@@ -124,8 +124,8 @@ TriangularMoment::update(const TriangularMoment& tm, double rate)
 void
 TriangularMoment::update(const TriangularMoment& tm1, const TriangularMoment& tm2, double rate)
 {
-  assert(have_same_size(tm1.first_moment, first_moment));
-  assert(have_same_size(tm2.first_moment, first_moment));
+  assert(hnco::have_same_size(tm1.first_moment, first_moment));
+  assert(hnco::have_same_size(tm2.first_moment, first_moment));
 
   for (size_t i = 0; i < first_moment.size(); i++) {
     first_moment[i] += rate * (tm1.first_moment[i] - tm2.first_moment[i]);
@@ -142,8 +142,8 @@ TriangularMoment::update(const TriangularMoment& tm1, const TriangularMoment& tm
 void
 TriangularMoment::scaled_difference(double lambda, const TriangularMoment& tm1, const TriangularMoment& tm2)
 {
-  assert(have_same_size(tm1.first_moment, first_moment));
-  assert(have_same_size(tm2.first_moment, first_moment));
+  assert(hnco::have_same_size(tm1.first_moment, first_moment));
+  assert(hnco::have_same_size(tm2.first_moment, first_moment));
 
   for (size_t i = 0; i < first_moment.size(); i++) {
     first_moment[i] = lambda * tm1.first_moment[i] - tm2.first_moment[i];
@@ -219,7 +219,7 @@ TriangularMoment::norm_infinite() const
 double
 TriangularMoment::distance(const TriangularMoment& tm) const
 {
-  assert(have_same_size(tm.first_moment, first_moment));
+  assert(hnco::have_same_size(tm.first_moment, first_moment));
 
   double result = 0;
   for (size_t i = 0; i < first_moment.size(); i++) {
@@ -312,7 +312,7 @@ FullMoment::average(int count)
 void
 FullMoment::update(const FullMoment& fm, double rate)
 {
-  assert(have_same_size(fm.first_moment, first_moment));
+  assert(hnco::have_same_size(fm.first_moment, first_moment));
 
   for (size_t i = 0; i < first_moment.size(); i++) {
     first_moment[i] += rate * (fm.first_moment[i] - first_moment[i]);
@@ -333,8 +333,8 @@ FullMoment::update(const FullMoment& fm, double rate)
 void
 FullMoment::update(const FullMoment& fm1, const FullMoment& fm2, double rate)
 {
-  assert(have_same_size(fm1.first_moment, first_moment));
-  assert(have_same_size(fm2.first_moment, first_moment));
+  assert(hnco::have_same_size(fm1.first_moment, first_moment));
+  assert(hnco::have_same_size(fm2.first_moment, first_moment));
 
   for (size_t i = 0; i < first_moment.size(); i++) {
     first_moment[i] += rate * (fm1.first_moment[i] - fm2.first_moment[i]);
@@ -353,18 +353,19 @@ FullMoment::update(const FullMoment& fm1, const FullMoment& fm2, double rate)
 void
 FullMoment::scaled_difference(double lambda, const FullMoment& fm1, const FullMoment& fm2)
 {
-  assert(have_same_size(fm1.first_moment, first_moment));
-  assert(have_same_size(fm2.first_moment, first_moment));
+  assert(hnco::have_same_size(fm1.first_moment, first_moment));
+  assert(hnco::have_same_size(fm2.first_moment, first_moment));
 
-  for (size_t i = 0; i < first_moment.size(); i++) {
+  const size_t bv_size = first_moment.size();
+  for (size_t i = 0; i < bv_size; i++) {
     first_moment[i] = lambda * fm1.first_moment[i] - fm2.first_moment[i];
-    std::vector<double>& row = second_moment[i];
-    const std::vector<double>& row1 = fm1.second_moment[i];
-    const std::vector<double>& row2 = fm2.second_moment[i];
+    auto& row = second_moment[i];
+    const auto& row1 = fm1.second_moment[i];
+    const auto& row2 = fm2.second_moment[i];
     for (size_t j = 0; j < i; j++) {
-      row[j] = lambda * row1[j] - row2[j];
-
-      second_moment[j][i] = row[j];
+      double tmp = lambda * row1[j] - row2[j];
+      row[j] = tmp;
+      second_moment[j][i] = tmp;
     }
   }
 }
@@ -434,7 +435,7 @@ FullMoment::norm_infinite() const
 double
 FullMoment::distance(const FullMoment& fm) const
 {
-  assert(have_same_size(fm.first_moment, first_moment));
+  assert(hnco::have_same_size(fm.first_moment, first_moment));
 
   double result = 0;
   for (size_t i = 0; i < first_moment.size(); i++) {
