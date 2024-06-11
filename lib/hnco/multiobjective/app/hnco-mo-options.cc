@@ -5,6 +5,8 @@
 
 using namespace hnco::multiobjective::app;
 
+inline bool check_string_as_bool(std::string str) { return str == "true" || str == "false"; }
+
 HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
   _exec_name(argv[0])
 {
@@ -375,6 +377,7 @@ void HncoOptions::print_version(std::ostream& stream) const
 
 std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const HncoOptions& options)
 {
+  stream << std::boolalpha;
   stream << "# algorithm = " << options._algorithm << std::endl;
   stream << "# bv_size = " << options._bv_size << std::endl;
   stream << "# ea_crossover_probability = " << options._ea_crossover_probability << std::endl;

@@ -5,6 +5,8 @@
 
 using namespace hnco::app;
 
+inline bool check_string_as_bool(std::string str) { return str == "true" || str == "false"; }
+
 FfgenOptions::FfgenOptions(int argc, char *argv[], bool ignore_bad_options):
   _exec_name(argv[0])
 {
@@ -307,6 +309,7 @@ void FfgenOptions::print_version(std::ostream& stream) const
 
 std::ostream& hnco::app::operator<<(std::ostream& stream, const FfgenOptions& options)
 {
+  stream << std::boolalpha;
   stream << "# bv_size = " << options._bv_size << std::endl;
   stream << "# coupling_constant = " << options._coupling_constant << std::endl;
   stream << "# ep_upper_bound = " << options._ep_upper_bound << std::endl;

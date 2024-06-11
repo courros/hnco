@@ -5,7 +5,7 @@
 
 using namespace hnco::app;
 
-bool check_string_as_bool(std::string str) { return str == "true" || str == "false"; }
+inline bool check_string_as_bool(std::string str) { return str == "true" || str == "false"; }
 
 HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
   _exec_name(argv[0])
