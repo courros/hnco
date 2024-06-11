@@ -270,7 +270,7 @@ sub generate_source
 sub generate_source_check_string_as_bool()
 {
     print SRC
-        "bool check_string_as_bool(std::string str) { return str == \"true\" || str == \"false\"; }\n\n";
+        "inline bool check_string_as_bool(std::string str) { return str == \"true\" || str == \"false\"; }\n\n";
 }
 
 sub generate_source_constructor()
