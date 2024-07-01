@@ -41,44 +41,65 @@ my $obj = from_json(read_file($json));
 # Global variables
 #
 
-my $code       = $obj->{code};
-my $flags      = $obj->{flags};
-my $order      = $obj->{order};
-my $parameters = $obj->{parameters};
-my $sections   = $obj->{sections};
-my $version    = $obj->{version};
+my $code        = $obj->{code};
+my $description = $obj->{description};
+my $flags       = $obj->{flags};
+my $order       = $obj->{order};
+my $parameters  = $obj->{parameters};
+my $sections    = $obj->{sections};
+my $version     = $obj->{version};
+my $files       = $obj->{files};
 
-my $exec       = $obj->{files}->{exec};
-my $header     = $obj->{files}->{header};
-my $source     = $obj->{files}->{source};
+my $exec        = $files->{exec};
+my $header      = $files->{header};
+my $source      = $files->{source};
 
-my $classname  = $code->{classname};
-my $namespace  = join "::", @{ $code->{namespace} };
+my $classname   = $code->{classname};
+my $namespace   = join "::", @{ $code->{namespace} };
 
-my %section_hash    = ();
 my @folded_sections = ();
 
+my %section_hash    = ();
+
+# For each section id, list of options (parameter or flag)
+my %option_hash     = ();
+
+# requirement: section ids are unique
 foreach (@$sections) {
-    $section_hash{$_->{id}} = $_;
+    my $id = $_->{id};
+    if (exists($section_hash{$_})) {
+        die "optgen.pl: already used section id: $id\n";
+    }
+    $section_hash{$id} = $_;
     if ($_->{fold}) {
-        push @folded_sections, $_->{id};
+        push @folded_sections, $id;
     }
 }
 
-# For each section id, list of options (parameter or flag)
-my %options = ();
+# requirement: @$order and keys(%section_hash) are identical
+foreach (@$order) {
+    unless (exists($section_hash{$_})) {
+        die "optgen.pl: order: unkown section id: ", $_, "\n";
+    }
+}
+
+if (@$order != keys(%section_hash)) {
+    die "optgen.pl: array order is incomplete\n";
+}
 
 foreach (keys(%$parameters)) {
-    if ($parameters->{$_}->{section}) {
-        my $id = $parameters->{$_}->{section};
-        push @{ $options{$id} }, $_;
+    my $parameter = $parameters->{$_};
+    if (exists($parameter->{section})) {
+        my $id = $parameter->{section};
+        push @{ $option_hash{$id} }, $_;
     }
 }
 
 foreach (keys(%$flags)) {
-    if ($flags->{$_}->{section}) {
-        my $id = $flags->{$_}->{section};
-        push @{ $options{$id} }, $_;
+    my $flag = $flags->{$_};
+    if (exists($flag->{section})) {
+        my $id = $flag->{section};
+        push @{ $option_hash{$id} }, $_;
     }
 }
 
@@ -146,7 +167,7 @@ sub generate_header
         my $type = $type_conversion{$parameter->{type}};
         if (exists($parameter->{default})) {
             if ($parameter->{type} eq "string") {
-                $file->print("  $type _$_ = ", qq("$parameter->{default}"), ";\n");
+                $file->print(qq(  $type _$_ = "$parameter->{default}";\n));
             } elsif ($parameter->{type} eq "bool") {
                 $file->print("  $type _$_ = ", ($parameter->{default} ? "true" : "false"), ";\n");
             } else {
@@ -455,8 +476,9 @@ sub generate_source_help_folded_section
     my $hyphen = "help-$id";
     $hyphen =~ s/_/-/g;
 
-    print SRC "  stream << ", qq("      --$hyphen"), " << std::endl;\n";
-    print SRC "  stream << ", qq("          $section_hash{$id}->{title}"), " << std::endl;\n";
+    print SRC
+        qq(  stream << "      --$hyphen" << std::endl;\n),
+        qq(  stream << "          $section_hash{$id}->{title}" << std::endl;\n);
 }
 
 sub generate_source_help()
@@ -466,27 +488,29 @@ sub generate_source_help()
     print SRC
 	"void $classname\:\:print_help(std::ostream& stream) const\n",
 	"{\n",
-        "  stream << ", qq("$obj->{description}"), " << std::endl << std::endl;\n",
-        "  stream << ", qq("usage: "), " << _exec_name << ", qq(" [--help] [--version] [options]"), " << std::endl << std::endl;\n";
+        qq(  stream << "$description" << std::endl << std::endl;\n),
+        qq(  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;\n);
 
-    if ($obj->{sections}) {
+    if ($sections) {
 	foreach (@$order) {
-            if (not $section_hash{$_}->{fold}) {
+            unless ($section_hash{$_}->{fold}) {
                 my $title = $section_hash{$_}->{title};
-                print SRC "  stream << ", qq("$title"), " << std::endl;\n";
-                my @list = @{ $options{$_} };
-                foreach (sort(@list)) {
-                    if (exists($parameters->{$_})) {
-                        generate_source_help_par $_;
-                    } else {
-                        generate_source_help_flag $_;
+                print SRC qq(  stream << "$title" << std::endl;\n);
+                if (exists($option_hash{$_})) {
+                    my @list = @{ $option_hash{$_} };
+                    foreach (sort(@list)) {
+                        if (exists($parameters->{$_})) {
+                            generate_source_help_par $_;
+                        } else {
+                            generate_source_help_flag $_;
+                        }
                     }
                 }
                 print SRC "  stream << std::endl;\n";
             }
 	}
         if (@folded_sections) {
-            print SRC "  stream  << ", qq("Additional Sections"), " << std::endl;\n";
+            print SRC qq(  stream << "Additional Sections" << std::endl;\n);
             foreach (@folded_sections) {
                 generate_source_help_folded_section($_);
             }
@@ -511,15 +535,17 @@ sub generate_source_additional_section_help()
         print SRC
             "void $classname\:\:print_help_$_(std::ostream& stream) const\n",
             "{\n",
-            "  stream << ", qq("$obj->{description}"), " << std::endl << std::endl;\n",
-            "  stream << ", qq("usage: "), " << _exec_name << ", qq(" [--help] [--version] [options]"), " << std::endl << std::endl;\n";
+            qq(  stream << "$description" << std::endl << std::endl;\n),
+            qq(  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;\n);
         my $title = $section_hash{$_}->{title};
-        print SRC "  stream << ", qq("$title"), " << std::endl;\n";
-        foreach (sort(@{ $options{$_} })) {
-            if (exists($parameters->{$_})) {
-                generate_source_help_par $_;
-            } else {
-                generate_source_help_flag $_;
+        print SRC qq(  stream << "$title" << std::endl;\n);
+        if (exists($option_hash{$_})) {
+            foreach (sort(@{ $option_hash{$_} })) {
+                if (exists($parameters->{$_})) {
+                    generate_source_help_par $_;
+                } else {
+                    generate_source_help_flag $_;
+                }
             }
         }
         print SRC "  stream << std::endl;\n";
@@ -590,7 +616,8 @@ sub generate_source_stream()
 
 sub generate_completion
 {
-    open(COMP, ">$exec.bash") || die "Cannot open $exec.bash\n";;
+    open(COMP, ">$exec.bash")
+        or die "optgen.pl: cannot open $exec.bash\n";
 
     my @list = map {
 	my $hyphen = $_;
