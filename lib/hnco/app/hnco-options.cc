@@ -798,7 +798,7 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "      --solution-path (type string, default to \"solution.txt\")" << std::endl;
   stream << "          Path of the solution file" << std::endl;
   stream << std::endl;
-  stream  << "Additional Sections" << std::endl;
+  stream << "Additional Sections" << std::endl;
   stream << "      --help-fn" << std::endl;
   stream << "          Functions" << std::endl;
   stream << "      --help-fp" << std::endl;
