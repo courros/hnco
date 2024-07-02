@@ -59,10 +59,10 @@ my $namespace   = join "::", @{ $code->{namespace} };
 
 my @folded_sections = ();
 
-my %section_by_id    = ();
+my %section_by_id   = ();
 
 # For each section id, list of options (parameter or flag)
-my %options_by_id     = ();
+my %options_by_id   = ();
 
 # requirement: section ids are unique
 foreach (@$sections) {
@@ -87,6 +87,7 @@ if (@$order != keys(%section_by_id)) {
     die "optgen.pl: array order is incomplete\n";
 }
 
+# Group parameters and flags by section
 foreach (keys(%$parameters)) {
     my $parameter = $parameters->{$_};
     if (exists($parameter->{section})) {
@@ -100,6 +101,15 @@ foreach (keys(%$flags)) {
     if (exists($flag->{section})) {
         my $id = $flag->{section};
         push @{ $options_by_id{$id} }, $_;
+    }
+}
+
+# Check for empty sections
+foreach (@$order) {
+    if (exists($options_by_id{$_})) {
+        next;
+    } else {
+        print "optgen.pl: $_ is an empty section\n";
     }
 }
 
