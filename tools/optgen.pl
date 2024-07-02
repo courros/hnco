@@ -67,7 +67,7 @@ my %option_hash     = ();
 # requirement: section ids are unique
 foreach (@$sections) {
     my $id = $_->{id};
-    if (exists($section_hash{$_})) {
+    if (exists($section_hash{$id})) {
         die "optgen.pl: already used section id: $id\n";
     }
     $section_hash{$id} = $_;
