@@ -59,31 +59,31 @@ my $namespace   = join "::", @{ $code->{namespace} };
 
 my @folded_sections = ();
 
-my %section_hash    = ();
+my %section_by_id    = ();
 
 # For each section id, list of options (parameter or flag)
-my %option_hash     = ();
+my %options_by_id     = ();
 
 # requirement: section ids are unique
 foreach (@$sections) {
     my $id = $_->{id};
-    if (exists($section_hash{$id})) {
+    if (exists($section_by_id{$id})) {
         die "optgen.pl: already used section id: $id\n";
     }
-    $section_hash{$id} = $_;
+    $section_by_id{$id} = $_;
     if ($_->{fold}) {
         push @folded_sections, $id;
     }
 }
 
-# requirement: @$order and keys(%section_hash) are identical
+# requirement: @$order and keys(%section_by_id) are identical
 foreach (@$order) {
-    unless (exists($section_hash{$_})) {
+    unless (exists($section_by_id{$_})) {
         die "optgen.pl: order: unkown section id: ", $_, "\n";
     }
 }
 
-if (@$order != keys(%section_hash)) {
+if (@$order != keys(%section_by_id)) {
     die "optgen.pl: array order is incomplete\n";
 }
 
@@ -91,7 +91,7 @@ foreach (keys(%$parameters)) {
     my $parameter = $parameters->{$_};
     if (exists($parameter->{section})) {
         my $id = $parameter->{section};
-        push @{ $option_hash{$id} }, $_;
+        push @{ $options_by_id{$id} }, $_;
     }
 }
 
@@ -99,7 +99,7 @@ foreach (keys(%$flags)) {
     my $flag = $flags->{$_};
     if (exists($flag->{section})) {
         my $id = $flag->{section};
-        push @{ $option_hash{$id} }, $_;
+        push @{ $options_by_id{$id} }, $_;
     }
 }
 
@@ -478,7 +478,7 @@ sub generate_source_help_folded_section
 
     print SRC
         qq(  stream << "      --$hyphen" << std::endl;\n),
-        qq(  stream << "          $section_hash{$id}->{title}" << std::endl;\n);
+        qq(  stream << "          $section_by_id{$id}->{title}" << std::endl;\n);
 }
 
 sub generate_source_help()
@@ -493,11 +493,11 @@ sub generate_source_help()
 
     if ($sections) {
 	foreach (@$order) {
-            unless ($section_hash{$_}->{fold}) {
-                my $title = $section_hash{$_}->{title};
+            unless ($section_by_id{$_}->{fold}) {
+                my $title = $section_by_id{$_}->{title};
                 print SRC qq(  stream << "$title" << std::endl;\n);
-                if (exists($option_hash{$_})) {
-                    my @list = @{ $option_hash{$_} };
+                if (exists($options_by_id{$_})) {
+                    my @list = @{ $options_by_id{$_} };
                     foreach (sort(@list)) {
                         if (exists($parameters->{$_})) {
                             generate_source_help_par $_;
@@ -537,10 +537,10 @@ sub generate_source_additional_section_help()
             "{\n",
             qq(  stream << "$description" << std::endl << std::endl;\n),
             qq(  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;\n);
-        my $title = $section_hash{$_}->{title};
+        my $title = $section_by_id{$_}->{title};
         print SRC qq(  stream << "$title" << std::endl;\n);
-        if (exists($option_hash{$_})) {
-            foreach (sort(@{ $option_hash{$_} })) {
+        if (exists($options_by_id{$_})) {
+            foreach (sort(@{ $options_by_id{$_} })) {
                 if (exists($parameters->{$_})) {
                     generate_source_help_par $_;
                 } else {
