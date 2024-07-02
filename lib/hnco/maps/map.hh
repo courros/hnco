@@ -589,21 +589,19 @@ public:
 };
 
 
-/** %Transvection sequence affine map.
-
-    An affine map f from \f$F_2^m\f$ to \f$F_2^n\f$ is defined by
-    \f$f(x) = Ax + b\f$, where A is an n x m bit matrix and b is an
-    n-dimensional bit vector.
-
-    In TsAffineMap, A is a finite product of transvections
-    represented by a transvection_sequence_t.
-*/
+/**
+ * %Transvection sequence affine map.
+ *
+ * An affine map f from \f$F_2^m\f$ to \f$F_2^n\f$ is defined by
+ * \f$f(x) = Ax + b\f$, where A is an n x m bit matrix and b is an
+ * n-dimensional bit vector.
+ *
+ * In TsAffineMap, A is a finite product of transvections represented
+ * by a transvection_sequence_t.
+ */
 class TsAffineMap: public Map {
-
 private:
-
   friend class boost::serialization::access;
-
   /// Save
   template<class Archive>
   void save(Archive& ar, const unsigned int version) const
@@ -611,100 +609,76 @@ private:
     ar & _bv;
     ar & _ts;
   }
-
   /// Load
   template<class Archive>
   void load(Archive& ar, const unsigned int version)
   {
     ar & _bv;
     ar & _ts;
-
     assert(bv_is_valid(_bv));
     assert(ts_is_valid(_ts, _bv.size()));
   }
-
   BOOST_SERIALIZATION_SPLIT_MEMBER()
-
   /// %Transvection sequence
   transvection_sequence_t _ts;
-
   /// %Translation vector
   bit_vector_t _bv;
 
 public:
-
   /// Sampling mode
   enum class SamplingMode {
-
     /// Unconstrained
     unconstrained,
-
     /// Commuting transvections
     commuting_transvections,
-
     /// %Transvection sequence with unique source
     unique_source,
-
     /// %Transvection sequence with unique destination
     unique_destination,
-
     /// Disjoint transvections
     disjoint_transvections,
-
     /// Non commuting transvections
     non_commuting_transvections
-
   };
-
-  /** Random instance.
-
-      \param n Dimension
-      \param t Length of sequence of transvections
-      \param mode Sampling mode
-  */
+  /**
+   * Random instance.
+   * @param n Dimension
+   * @param t Length of sequence of transvections
+   * @param mode Sampling mode
+   */
   void random(int n, int t, SamplingMode mode);
-
   /// %Map
   void map(const bit_vector_t& input, bit_vector_t& output) override;
-
   /// Get input size
   int get_input_size() const override { return _bv.size(); }
-
   /// Get output size
   int get_output_size() const override { return _bv.size(); }
-
-  /** Check for surjective map.
-
-      \return true
-  */
+  /**
+   * Check for surjective map.
+   * @return true
+   */
   bool is_surjective() const override { return true; }
-
   /// Display
   void display(std::ostream& stream) const override;
-
-  /// Inverse
-  void inverse() { std::reverse(_ts.begin(), _ts.end()); }
-
-  /** @name Load and save map
+  /// Invert the map
+  void invert() { std::reverse(_ts.begin(), _ts.end()); }
+  /**
+   * @name Load and save map
    */
   ///@{
-
-  /** Load map.
-
-      \param path Path of the file
-      \throw std::runtime_error
-  */
+  /**
+   * Load map.
+   * @param path Path of the file
+   * @throw std::runtime_error
+   */
   void load(std::string path) { load_from_archive(*this, path, "TsAffineMap"); }
-
-  /** Save map.
-
-      \param path Path of the file
-      \throw std::runtime_error
-  */
+  /**
+   * Save map.
+   * @param path Path of the file
+   * @throw std::runtime_error
+   */
   void save(std::string path) const { save_to_archive(*this, path, "TsAffineMap"); }
-
   ///@}
-
 };
 
 
