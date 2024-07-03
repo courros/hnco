@@ -94,6 +94,7 @@ check_PROGRAMS = \
 	test-ts-random-non-commuting \
 	test-ts-random-unique-destination-is-involution \
 	test-ts-random-unique-source-is-involution \
+	test-tsaffinemap-invert \
 	test-walsh-transform
 
 if ENABLE_FACTORIZATION
@@ -184,6 +185,7 @@ test_ts_random_disjoint_is_involution_SOURCES = test-ts-random-disjoint-is-invol
 test_ts_random_non_commuting_SOURCES = test-ts-random-non-commuting.cc
 test_ts_random_unique_destination_is_involution_SOURCES = test-ts-random-unique-destination-is-involution.cc
 test_ts_random_unique_source_is_involution_SOURCES = test-ts-random-unique-source-is-involution.cc
+test_tsaffinemap_invert_SOURCES = test-tsaffinemap-invert.cc
 test_walsh_transform_SOURCES = test-walsh-transform.cc
 
 TESTS = $(check_PROGRAMS)

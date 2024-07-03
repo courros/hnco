@@ -176,7 +176,8 @@ check_PROGRAMS = test-bm-add-columns$(EXEEXT) \
 	test-ts-random-non-commuting$(EXEEXT) \
 	test-ts-random-unique-destination-is-involution$(EXEEXT) \
 	test-ts-random-unique-source-is-involution$(EXEEXT) \
-	test-walsh-transform$(EXEEXT) $(am__EXEEXT_1)
+	test-tsaffinemap-invert$(EXEEXT) test-walsh-transform$(EXEEXT) \
+	$(am__EXEEXT_1)
 @ENABLE_FACTORIZATION_TRUE@am__append_1 = test-complete-search-factorization
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -644,6 +645,12 @@ test_ts_random_unique_source_is_involution_OBJECTS =  \
 test_ts_random_unique_source_is_involution_LDADD = $(LDADD)
 test_ts_random_unique_source_is_involution_DEPENDENCIES =  \
 	../lib/libhnco.la
+am_test_tsaffinemap_invert_OBJECTS =  \
+	test-tsaffinemap-invert.$(OBJEXT)
+test_tsaffinemap_invert_OBJECTS =  \
+	$(am_test_tsaffinemap_invert_OBJECTS)
+test_tsaffinemap_invert_LDADD = $(LDADD)
+test_tsaffinemap_invert_DEPENDENCIES = ../lib/libhnco.la
 am_test_walsh_transform_OBJECTS = test-walsh-transform.$(OBJEXT)
 test_walsh_transform_OBJECTS = $(am_test_walsh_transform_OBJECTS)
 test_walsh_transform_LDADD = $(LDADD)
@@ -738,6 +745,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-columns.Po \
 	./$(DEPDIR)/test-ts-random-non-commuting.Po \
 	./$(DEPDIR)/test-ts-random-unique-destination-is-involution.Po \
 	./$(DEPDIR)/test-ts-random-unique-source-is-involution.Po \
+	./$(DEPDIR)/test-tsaffinemap-invert.Po \
 	./$(DEPDIR)/test-walsh-transform.Po
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
@@ -848,6 +856,7 @@ SOURCES = $(test_bm_add_columns_SOURCES) $(test_bm_add_rows_SOURCES) \
 	$(test_ts_random_non_commuting_SOURCES) \
 	$(test_ts_random_unique_destination_is_involution_SOURCES) \
 	$(test_ts_random_unique_source_is_involution_SOURCES) \
+	$(test_tsaffinemap_invert_SOURCES) \
 	$(test_walsh_transform_SOURCES)
 DIST_SOURCES = $(test_bm_add_columns_SOURCES) \
 	$(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
@@ -922,6 +931,7 @@ DIST_SOURCES = $(test_bm_add_columns_SOURCES) \
 	$(test_ts_random_non_commuting_SOURCES) \
 	$(test_ts_random_unique_destination_is_involution_SOURCES) \
 	$(test_ts_random_unique_source_is_involution_SOURCES) \
+	$(test_tsaffinemap_invert_SOURCES) \
 	$(test_walsh_transform_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -1376,6 +1386,7 @@ test_ts_random_disjoint_is_involution_SOURCES = test-ts-random-disjoint-is-invol
 test_ts_random_non_commuting_SOURCES = test-ts-random-non-commuting.cc
 test_ts_random_unique_destination_is_involution_SOURCES = test-ts-random-unique-destination-is-involution.cc
 test_ts_random_unique_source_is_involution_SOURCES = test-ts-random-unique-source-is-involution.cc
+test_tsaffinemap_invert_SOURCES = test-tsaffinemap-invert.cc
 test_walsh_transform_SOURCES = test-walsh-transform.cc
 TESTS = $(check_PROGRAMS)
 DISTCLEANFILES = \
@@ -1753,6 +1764,10 @@ test-ts-random-unique-source-is-involution$(EXEEXT): $(test_ts_random_unique_sou
 	@rm -f test-ts-random-unique-source-is-involution$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_ts_random_unique_source_is_involution_OBJECTS) $(test_ts_random_unique_source_is_involution_LDADD) $(LIBS)
 
+test-tsaffinemap-invert$(EXEEXT): $(test_tsaffinemap_invert_OBJECTS) $(test_tsaffinemap_invert_DEPENDENCIES) $(EXTRA_test_tsaffinemap_invert_DEPENDENCIES) 
+	@rm -f test-tsaffinemap-invert$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_tsaffinemap_invert_OBJECTS) $(test_tsaffinemap_invert_LDADD) $(LIBS)
+
 test-walsh-transform$(EXEEXT): $(test_walsh_transform_OBJECTS) $(test_walsh_transform_DEPENDENCIES) $(EXTRA_test_walsh_transform_DEPENDENCIES) 
 	@rm -f test-walsh-transform$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_walsh_transform_OBJECTS) $(test_walsh_transform_LDADD) $(LIBS)
@@ -1841,6 +1856,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ts-random-non-commuting.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ts-random-unique-destination-is-involution.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ts-random-unique-source-is-involution.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-tsaffinemap-invert.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-walsh-transform.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
@@ -2611,6 +2627,13 @@ test-ts-random-unique-source-is-involution.log: test-ts-random-unique-source-is-
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-tsaffinemap-invert.log: test-tsaffinemap-invert$(EXEEXT)
+	@p='test-tsaffinemap-invert$(EXEEXT)'; \
+	b='test-tsaffinemap-invert'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-walsh-transform.log: test-walsh-transform$(EXEEXT)
 	@p='test-walsh-transform$(EXEEXT)'; \
 	b='test-walsh-transform'; \
@@ -2796,6 +2819,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-ts-random-non-commuting.Po
 	-rm -f ./$(DEPDIR)/test-ts-random-unique-destination-is-involution.Po
 	-rm -f ./$(DEPDIR)/test-ts-random-unique-source-is-involution.Po
+	-rm -f ./$(DEPDIR)/test-tsaffinemap-invert.Po
 	-rm -f ./$(DEPDIR)/test-walsh-transform.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
@@ -2920,6 +2944,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-ts-random-non-commuting.Po
 	-rm -f ./$(DEPDIR)/test-ts-random-unique-destination-is-involution.Po
 	-rm -f ./$(DEPDIR)/test-ts-random-unique-source-is-involution.Po
+	-rm -f ./$(DEPDIR)/test-tsaffinemap-invert.Po
 	-rm -f ./$(DEPDIR)/test-walsh-transform.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
