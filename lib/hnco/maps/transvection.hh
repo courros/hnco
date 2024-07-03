@@ -107,21 +107,21 @@ struct Transvection {
 
   /**
    * Multiply a bit vector from the left.
-   * @param x Bit vector
+   * @param bv Bit vector
    * @pre is_valid()
    * @pre is_valid(x.size())
    * @warning This function modifies the given bit vector.
    */
-  void multiply(bit_vector_t& x) const;
+  void multiply(bit_vector_t& bv) const;
 
   /**
    * Multiply a bit matrix from the left.
-   * @param M Bit matrix
+   * @param bm Bit matrix
    * @pre is_valid()
    * @pre is_valid(bm_num_rows(M))
    * @warning This function modifies the given bit vector.
    */
-  void multiply(bit_matrix_t& M) const;
+  void multiply(bit_matrix_t& bm) const;
 };
 
 /// Check whether two transvections commute
@@ -244,22 +244,22 @@ void ts_random_non_commuting(transvection_sequence_t& ts, int n, int t);
 /**
  * Multiply a vector by a transvection sequence from the left.
  * @param ts %Transvection sequence
- * @param x Bit vector
+ * @param bv Bit vector
  * @pre ts_is_valid(ts)
  * @pre ts_is_valid(ts, x.size())
  * @warning This function modifies the given bit vector.
  */
-void ts_multiply(bit_vector_t& x, const transvection_sequence_t& ts);
+void ts_multiply(bit_vector_t& bv, const transvection_sequence_t& ts);
 
 /**
  * Multiply a matrix by a transvection sequence from the left.
  * @param ts %Transvection sequence
- * @param M Bit matrix
+ * @param bm Bit matrix
  * @pre ts_is_valid(ts)
  * @pre ts_is_valid(ts, bm_num_rows(M))
  * @warning This function modifies the given bit vector.
  */
-void ts_multiply(bit_matrix_t& M, const transvection_sequence_t& ts);
+void ts_multiply(bit_matrix_t& bm, const transvection_sequence_t& ts);
 
 ///@}
 

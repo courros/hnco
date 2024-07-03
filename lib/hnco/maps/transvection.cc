@@ -102,24 +102,24 @@ Transvection::random_non_commuting(int n, const Transvection& a)
 
 
 void
-Transvection::multiply(bit_vector_t& x) const
+Transvection::multiply(bit_vector_t& bv) const
 {
   assert(is_valid());
-  assert(is_valid(x.size()));
-  assert(bv_is_valid(x));
+  assert(is_valid(bv.size()));
+  assert(bv_is_valid(bv));
 
-  if (x[column_index])
-    bv_flip(x, row_index);
+  if (bv[column_index])
+    bv_flip(bv, row_index);
 }
 
 
 void
-Transvection::multiply(bit_matrix_t& M) const
+Transvection::multiply(bit_matrix_t& bm) const
 {
   assert(is_valid());
-  assert(is_valid(bm_num_rows(M)));
+  assert(is_valid(bm_num_rows(bm)));
 
-  bm_add_rows(M, row_index, column_index);
+  bm_add_rows(bm, row_index, column_index);
 }
 
 
@@ -353,21 +353,21 @@ void hnco::map::ts_random_non_commuting(transvection_sequence_t& ts, int n, int 
 }
 
 
-void hnco::map::ts_multiply(bit_vector_t& x, const transvection_sequence_t& ts)
+void hnco::map::ts_multiply(bit_vector_t& bv, const transvection_sequence_t& ts)
 {
   assert(ts_is_valid(ts));
-  assert(ts_is_valid(ts, x.size()));
+  assert(ts_is_valid(ts, bv.size()));
 
   for (const auto& tv : ts)
-    tv.multiply(x);
+    tv.multiply(bv);
 }
 
 
-void hnco::map::ts_multiply(bit_matrix_t& M, const transvection_sequence_t& ts)
+void hnco::map::ts_multiply(bit_matrix_t& bm, const transvection_sequence_t& ts)
 {
   assert(ts_is_valid(ts));
-  assert(ts_is_valid(ts, bm_num_rows(M)));
+  assert(ts_is_valid(ts, bm_num_rows(bm)));
 
   for (const auto& tv : ts)
-    tv.multiply(M);
+    tv.multiply(bm);
 }
