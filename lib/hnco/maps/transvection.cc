@@ -18,7 +18,7 @@
 
 */
 
-#include <algorithm>            // std::shuffle
+#include <algorithm>            // std::shuffle, std::reverse
 #include <math.h>               // std::sqrt
 
 #include "hnco/random.hh"
@@ -370,4 +370,11 @@ void hnco::map::ts_multiply(bit_matrix_t& bm, const transvection_sequence_t& ts)
 
   for (const auto& tv : ts)
     tv.multiply(bm);
+}
+
+void
+hnco::map::ts_invert(transvection_sequence_t& ts)
+{
+  assert(ts_is_valid(ts));
+  std::reverse(ts.begin(), ts.end());
 }

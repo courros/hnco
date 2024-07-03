@@ -261,6 +261,13 @@ void ts_multiply(bit_vector_t& bv, const transvection_sequence_t& ts);
  */
 void ts_multiply(bit_matrix_t& bm, const transvection_sequence_t& ts);
 
+/**
+ * Invert a transvection sequence.
+ * @param ts %Transvection sequence
+ * @pre ts_is_valid(ts)
+ */
+void ts_invert(transvection_sequence_t& ts);
+
 ///@}
 
 } // end of namespace map
