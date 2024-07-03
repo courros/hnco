@@ -210,7 +210,7 @@ void
 TsAffineMap::random(int n, int t, SamplingMode mode)
 {
   assert(n > 0);
-  assert(t > 0);
+  assert(t >= 0);
 
   _bv.resize(n);
   bv_random(_bv);
@@ -263,4 +263,11 @@ void
 TsAffineMap::display(std::ostream& stream) const
 {
   ts_display(_ts, stream);
+}
+
+void
+TsAffineMap::invert()
+{
+  std::reverse(_ts.begin(), _ts.end());
+  ts_multiply(_bv, _ts);
 }

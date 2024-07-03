@@ -21,7 +21,6 @@
 #ifndef HNCO_MAPS_MAP_H
 #define HNCO_MAPS_MAP_H
 
-#include <algorithm>            // std::reverse
 #include <iostream>             // std::ostream
 #include <vector>
 
@@ -645,6 +644,7 @@ public:
    * @param n Dimension
    * @param t Length of sequence of transvections
    * @param mode Sampling mode
+   * @pre t >= 0
    */
   void random(int n, int t, SamplingMode mode);
   /// %Map
@@ -661,7 +661,7 @@ public:
   /// Display
   void display(std::ostream& stream) const override;
   /// Invert the map
-  void invert() { std::reverse(_ts.begin(), _ts.end()); }
+  void invert();
   /**
    * @name Load and save map
    */
