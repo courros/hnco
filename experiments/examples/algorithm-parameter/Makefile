@@ -5,8 +5,9 @@ default-parameters:
 
 run:
 	echo `date` >> log.err
+	uname -a >> log.err
 	hnco-algorithm-parameter-skeleton.pl
-	time -a -o log.err hnco-algorithm-parameter-run.pl
+	time -o log.err -a hnco-algorithm-parameter-run.pl
 
 report:
 	hnco-algorithm-parameter-stat.pl
@@ -18,9 +19,10 @@ report:
 	make -C report
 
 clean:
+	rm -f commands.txt
+	rm -f log.defaults log.err log.parallel
 	rm -f candlesticks.gp mean.gp stddev.gp scatter.gp
 	rm -f report/pretty.json
-	rm -f log.defaults log.err log.parallel
 	rm -rf graphics
 	rm -rf results
 
