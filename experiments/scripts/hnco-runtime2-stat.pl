@@ -63,18 +63,16 @@ my $obj = from_json(read_file($plan));
 # Global variables
 #
 
-my $algorithms          = $obj->{algorithms};
-my $budget              = $obj->{budget};
-my $num_runs            = $obj->{num_runs};
-my $parallel            = $obj->{parallel};
-my $parameter1          = $obj->{parameter1};
-my $parameter2          = $obj->{parameter2};
-my $servers             = $obj->{servers};
+my $root_graphics = "graphics";
+my $root_report   = "report";
+my $root_results  = "results";
+my $root_stats    = "stats";
 
-my $root_graphics       = "graphics";
-my $root_report         = "report";
-my $root_results        = "results";
-my $root_stats          = "stats";
+my $algorithms    = $obj->{algorithms};
+my $graphics      = $obj->{graphics};
+my $num_runs      = $obj->{num_runs};
+my $parameter1    = $obj->{parameter1};
+my $parameter2    = $obj->{parameter2};
 
 my $data = {};
 
@@ -201,10 +199,20 @@ sub generate_gnuplot
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set ylabel \"Runtime\"\n",
-        "set logscale y\n",
-        "set format y", qq("10^{\%T}"), "\n",
+        qq(set format y "10^{\%T}"\n),
         "set autoscale fix\n",
-        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n\n";
+        "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
+
+    if ($graphics->{all}->{logscale}) {
+        print GRAPHICS
+            "set logscale y 10\n",
+            qq(set format y "10^{\%T}"\n);
+    } else {
+        print GRAPHICS
+            "unset logscale y\n",
+            "set format y\n";
+    }
+    print GRAPHICS "\n";
 
     foreach my $a (@$algorithms) {
         foreach my $measure (@summary_statistics) {
@@ -225,15 +233,6 @@ sub generate_gnuplot_section
     my $prefix_stats = "$root_stats/$algorithm_id";
     my $prefix_graphics = "$root_graphics/$algorithm_id";
 
-    my $quoted_string = qq("$variable->{xlabel}");
-    print GRAPHICS "set xlabel $quoted_string\n";
-
-    $quoted_string = qq("$parameter->{title}");
-    print GRAPHICS
-        "set key default\n",
-        "set key " . ($parameter->{key} ||
-                      "reverse Left outside right center box vertical") . " title $quoted_string\n";
-
     # Font face and size
     my $font = "";
     if ($variable->{font_face}) {
@@ -244,32 +243,41 @@ sub generate_gnuplot_section
     }
     $font = qq(font "$font");
 
-    my $path = "$prefix_graphics/$measure-$parameter->{id}";
-    $quoted_string = qq("$path.pdf");
+    my $key = $font;
+    if ($graphics->{all}->{key}) {
+        $key = "$key $graphics->{all}->{key}";
+    } else {
+        $key = "$key outside right vertical reverse Left top box";
+    }
+
+    print GRAPHICS
+        "unset key\n",
+        "set key $key\n",
+        qq(set xlabel "$variable->{label}"\n);
+
+    my $basename = "$prefix_graphics/$measure-$parameter->{id}";
     print GRAPHICS
         "$terminal{pdf} $font\n",
-        "set output $quoted_string\n";
+        qq(set output "$basename.pdf"\n);
     print GRAPHICS "plot \\\n";
     print GRAPHICS
         join ", \\\n",
         (map {
             my $key = "$parameter->{id}-$_";
             my $path = qq("$prefix_stats/$measure-$key.dat");
-            my $title = qq("$parameter->{entry} = $_");
+            my $title = qq("$parameter->{key} = $_");
             "  $path using 1:2 with l lw 2 title $title";
          } reverse(@{ $parameter->{values} }));
     print GRAPHICS "\n";
 
-    $quoted_string = qq("$path.eps");
     print GRAPHICS
         "$terminal{eps} $font\n",
-        "set output $quoted_string\n",
+        qq(set output "$basename.eps"\n),
         "replot\n";
 
-    $quoted_string = qq("$path.png");
     print GRAPHICS
         "$terminal{png} $font\n",
-        "set output $quoted_string\n",
+        qq(set output "$basename.png"\n),
         "replot\n\n";
 }
 
@@ -283,9 +291,9 @@ sub generate_latex
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
 
-        print LATEX latex_section("$a->{name}");
+        print LATEX latex_section("$a->{label}");
         foreach ($parameter1, $parameter2) {
-            print LATEX latex_subsection("$_->{xlabel}");
+            print LATEX latex_subsection("Parameter $_->{label}");
             foreach my $measure (@summary_statistics) {
                 print LATEX latex_subsubsection("$measure");
                 print LATEX latex_begin_center();
