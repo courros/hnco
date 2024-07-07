@@ -66,41 +66,23 @@ my $obj = from_json(read_file($plan));
 # Global variables
 #
 
-my $algorithms        = $obj->{algorithms};
-my $budget            = $obj->{budget};
-my $functions         = $obj->{functions};
-my $graphics          = $obj->{graphics};
-my $num_runs          = $obj->{num_runs};
-my $num_targets       = $obj->{num_targets};
+my $algorithms  = $obj->{algorithms};
+my $budget      = $obj->{budget};
+my $functions   = $obj->{functions};
+my $graphics    = $obj->{graphics};
+my $num_runs    = $obj->{num_runs};
+my $num_targets = $obj->{num_targets};
 
-my $groups            = $graphics->{groups};
+my $groups      = $graphics->{groups}; # Beware autovivification!
 
 # Hash indexed by algorithm ids
 my $algorithm_from_id = {};
 
 #
-# Make directories
-#
-
-my @directories = ("$path_graphics",
-                   "$path_results",
-                   "$path_results/ecdf");
-
-foreach my $section ("global", map { $_->{id} } @$functions) {
-    push @directories, "$path_results/ecdf/$section";
-    foreach ("raw", "all", "groups") {
-        push @directories, "$path_results/ecdf/$section/$_";
-    }
-    foreach (map { $_->{id} } @$groups) {
-        push @directories, "$path_results/ecdf/$section/groups/$_";
-    }
-}
-
-make_directories(@directories);
-
-#
 # Processing
 #
+
+make_directories();
 
 add_missing_properties();
 
@@ -131,7 +113,19 @@ generate_latex();
 
 sub make_directories
 {
-    foreach (@_) {
+    my @dirs = ("$path_graphics", "$path_results", "$path_results/ecdf");
+    my @sections = ("global", map { $_->{id} } @$functions);
+    foreach my $section (@sections) {
+        my $path = "$path_results/ecdf/$section";
+        push @dirs, "$path";
+        foreach ("raw", "all", "groups") {
+            push @dirs, "$path/$_";
+        }
+        foreach (map { $_->{id} } @$groups) {
+            push @dirs, "$path/groups/$_";
+        }
+    }
+    foreach (@dirs) {
         unless (-d "$_") {
             mkdir "$_";
             print "Created $_\n";
@@ -660,33 +654,53 @@ sub generate_latex
     my $path = "$path_report/results.tex";
     my $file = IO::File->new($path, '>')
         or die "hnco-ecdf-stat.pl: generate_latex: Cannot open $path\n";
-    $file->print(latex_graphicspath($path_graphics),
-                 latex_section("Global results"),
-                 latex_subsection("All algorithms"),
-                 latex_begin_center(),
-                 latex_includegraphics("global"),
-                 latex_end_center(),
-                 latex_subsection("Groups"));
-    foreach my $group (@$groups) {
-        my $group_id = $group->{id};
-        $file->print(latex_subsubsection("$group_id"),
-                     latex_begin_center(),
-                     latex_includegraphics("global-$group_id"),
-                     latex_end_center());
-    }
-    foreach my $f (@$functions) {
-        my $function_id = $f->{id};
-        $file->print(latex_section("Results for $function_id"),
+
+    if (@$groups) {
+        $file->print(latex_graphicspath($path_graphics),
+                     latex_section("Global results"),
                      latex_subsection("All algorithms"),
                      latex_begin_center(),
-                     latex_includegraphics("$function_id"),
+                     latex_includegraphics("global"),
                      latex_end_center(),
                      latex_subsection("Groups"));
         foreach my $group (@$groups) {
             my $group_id = $group->{id};
             $file->print(latex_subsubsection("$group_id"),
                          latex_begin_center(),
-                         latex_includegraphics("$function_id-$group_id"),
+                         latex_includegraphics("global-$group_id"),
+                         latex_end_center());
+        }
+    } else {
+        $file->print(latex_graphicspath($path_graphics),
+                     latex_section("Global results"),
+                     latex_begin_center(),
+                     latex_includegraphics("global"),
+                     latex_end_center());
+    }
+
+    if (@$groups) {
+        foreach my $f (@$functions) {
+            my $function_id = $f->{id};
+            $file->print(latex_section("Results for $function_id"),
+                         latex_subsection("All algorithms"),
+                         latex_begin_center(),
+                         latex_includegraphics("$function_id"),
+                         latex_end_center(),
+                         latex_subsection("Groups"));
+            foreach my $group (@$groups) {
+                my $group_id = $group->{id};
+                $file->print(latex_subsubsection("$group_id"),
+                             latex_begin_center(),
+                             latex_includegraphics("$function_id-$group_id"),
+                             latex_end_center());
+            }
+        }
+    } else {
+        foreach my $f (@$functions) {
+            my $function_id = $f->{id};
+            $file->print(latex_section("Results for $function_id"),
+                         latex_begin_center(),
+                         latex_includegraphics("$function_id"),
                          latex_end_center());
         }
     }
