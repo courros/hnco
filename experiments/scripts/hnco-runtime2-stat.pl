@@ -19,7 +19,6 @@
 
 use strict;
 use warnings;
-
 use JSON;
 use Statistics::Descriptive;
 use List::Util qw(min max);
@@ -63,10 +62,10 @@ my $obj = from_json(read_file($plan));
 # Global variables
 #
 
-my $root_graphics = "graphics";
-my $root_report   = "report";
-my $root_results  = "results";
-my $root_stats    = "stats";
+my $path_graphics = "graphics";
+my $path_report   = "report";
+my $path_results  = "results";
+my $path_stats    = "stats";
 
 my $algorithms    = $obj->{algorithms};
 my $graphics      = $obj->{graphics};
@@ -119,7 +118,7 @@ sub compute_statistics
             $data->{$algorithm_id}->{$key1} = {};
             foreach my $v2 (@{ $parameter2->{values} }) {
                 my $key2 = "$parameter2->{id}-$v2";
-                my $prefix = "$root_results/$algorithm_id/$key1/$key2";
+                my $prefix = "$path_results/$algorithm_id/$key1/$key2";
                 my $SD = Statistics::Descriptive::Full->new();
                 foreach (1 .. $algorithm_num_runs) {
                     my $path = "$prefix/$_.out";
@@ -127,7 +126,7 @@ sub compute_statistics
                         my $obj = from_json(read_file($path));
                         $SD->add_data($obj->{total_num_evaluations});
                     } else {
-                        die "hnco-runtime2-stat.pl: compute_statistics: Cannot open '$path': $!\n";
+                        die "hnco-runtime2-stat.pl: compute_statistics: Cannot open '$path': $!";
                     }
                 }
                 $data->{$algorithm_id}->{$key1}->{$key2} = { min       => $SD->min(),
@@ -148,13 +147,13 @@ sub generate_data
 
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
-        my $prefix = "$root_stats/$algorithm_id";
+        my $prefix = "$path_stats/$algorithm_id";
 
         foreach my $v1 (@{ $parameter1->{values} }) {
             my $key1 = "$parameter1->{id}-$v1";
             my $path = "$prefix/$measure-$key1.dat";
             my $file = IO::File->new($path, '>')
-                or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!\n";
+                or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!";
             foreach my $v2 (@{ $parameter2->{values} }) {
                 my $key2 = "$parameter2->{id}-$v2";
                 $file->printf("%e %e\n", $v2, $data->{$algorithm_id}->{$key1}->{$key2}->{$measure});
@@ -166,7 +165,7 @@ sub generate_data
             my $key2 = "$parameter2->{id}-$v2";
             my $path = "$prefix/$measure-$key2.dat";
             my $file = IO::File->new($path, '>')
-                or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!\n";
+                or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!";
             foreach my $v1 (@{ $parameter1->{values} }) {
                 my $key1 = "$parameter1->{id}-$v1";
                 $file->printf("%e %e\n", $v1, $data->{$algorithm_id}->{$key1}->{$key2}->{$measure});
@@ -176,7 +175,7 @@ sub generate_data
 
         my $path = "$prefix/$measure.dat";
         my $file = IO::File->new($path, '>')
-            or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!\n";
+            or die "hnco-runtime2-stat.pl: generate_data: Cannot open '$path': $!";
         foreach my $v1 (@{ $parameter1->{values} }) {
             my $key1 = "$parameter1->{id}-$v1";
             foreach my $v2 (@{ $parameter2->{values} }) {
@@ -192,10 +191,10 @@ sub generate_data
 sub generate_gnuplot
 {
     my $path = "graphics.gp";
-    open(GRAPHICS, ">$path")
-        or die "hnco-runtime2-stat.pl: generate_gnuplot: Cannot open '$path': $!\n";
+    open(my $fh, ">$path")
+        or die "hnco-runtime2-stat.pl: generate_gnuplot: Cannot open '$path': $!";
 
-    print GRAPHICS
+    print $fh
         "#!/usr/bin/gnuplot -persist\n",
         "set grid\n",
         "set ylabel \"Runtime\"\n",
@@ -204,34 +203,34 @@ sub generate_gnuplot
         "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n";
 
     if ($graphics->{all}->{logscale}) {
-        print GRAPHICS
+        print $fh
             "set logscale y 10\n",
             qq(set format y "10^{\%T}"\n);
     } else {
-        print GRAPHICS
+        print $fh
             "unset logscale y\n",
             "set format y\n";
     }
-    print GRAPHICS "\n";
+    print $fh "\n";
 
     foreach my $a (@$algorithms) {
         foreach my $measure (@summary_statistics) {
-            generate_gnuplot_section($a, $parameter1, $parameter2, $measure);
-            generate_gnuplot_section($a, $parameter2, $parameter1, $measure);
+            generate_gnuplot_section($a, $parameter1, $parameter2, $measure, $fh);
+            generate_gnuplot_section($a, $parameter2, $parameter1, $measure, $fh);
         }
     }
 
-    close(GRAPHICS);
+    close($fh);
     system("chmod a+x graphics.gp");
 }
 
 sub generate_gnuplot_section
 {
-    my ($a, $variable, $parameter, $measure) = @_;
+    my ($a, $variable, $parameter, $measure, $fh) = @_;
 
     my $algorithm_id = $a->{id};
-    my $prefix_stats = "$root_stats/$algorithm_id";
-    my $prefix_graphics = "$root_graphics/$algorithm_id";
+    my $prefix_stats = "$path_stats/$algorithm_id";
+    my $prefix_graphics = "$path_graphics/$algorithm_id";
 
     # Font face and size
     my $font = "";
@@ -250,17 +249,17 @@ sub generate_gnuplot_section
         $key = "$key outside right vertical reverse Left top box";
     }
 
-    print GRAPHICS
+    print $fh
         "unset key\n",
         "set key $key\n",
         qq(set xlabel "$variable->{label}"\n);
 
     my $basename = "$prefix_graphics/$measure-$parameter->{id}";
-    print GRAPHICS
+    print $fh
         "$terminal{pdf} $font\n",
         qq(set output "$basename.pdf"\n);
-    print GRAPHICS "plot \\\n";
-    print GRAPHICS
+    print $fh "plot \\\n";
+    print $fh
         join ", \\\n",
         (map {
             my $key = "$parameter->{id}-$_";
@@ -268,14 +267,14 @@ sub generate_gnuplot_section
             my $title = qq("$parameter->{key} = $_");
             "  $path using 1:2 with l lw 2 title $title";
          } reverse(@{ $parameter->{values} }));
-    print GRAPHICS "\n";
+    print $fh "\n";
 
-    print GRAPHICS
+    print $fh
         "$terminal{eps} $font\n",
         qq(set output "$basename.eps"\n),
         "replot\n";
 
-    print GRAPHICS
+    print $fh
         "$terminal{png} $font\n",
         qq(set output "$basename.png"\n),
         "replot\n\n";
@@ -283,25 +282,22 @@ sub generate_gnuplot_section
 
 sub generate_latex
 {
-    open(LATEX, ">$root_report/results.tex")
-        or die "hnco-runtime2-stat.pl: generate_latex: Cannot open '$root_report/results.tex': $!\n";
+    open(my $fh, ">$path_report/results.tex")
+        or die "hnco-runtime2-stat.pl: generate_latex: Cannot open '$path_report/results.t': $!";
 
-    print LATEX latex_graphicspath($root_graphics);
-
+    print $fh latex_graphicspath($path_graphics);
     foreach my $a (@$algorithms) {
-        my $algorithm_id = $a->{id};
-
-        print LATEX latex_section("$a->{label}");
-        foreach ($parameter1, $parameter2) {
-            print LATEX latex_subsection("Parameter $_->{label}");
+        print $fh latex_section("$a->{label}");
+        foreach my $p ($parameter2, $parameter1) {
+            print $fh latex_subsection("$p->{label}");
             foreach my $measure (@summary_statistics) {
-                print LATEX latex_subsubsection("$measure");
-                print LATEX latex_begin_center();
-                print LATEX latex_includegraphics("$algorithm_id/$measure-$_->{id}");
-                print LATEX latex_end_center();
+                print $fh latex_subsubsection("$measure");
+                print $fh latex_begin_center();
+                print $fh latex_includegraphics("$a->{id}/$measure-$p->{id}");
+                print $fh latex_end_center();
             }
         }
     }
 
-    close(LATEX);
+    close($fh);
 }
