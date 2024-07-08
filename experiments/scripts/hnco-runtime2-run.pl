@@ -84,27 +84,27 @@ if ($parallel) {
 sub iterate_algorithms
 {
     my ($prefix, $cmd) = @_;
-    foreach my $a (@$algorithms) {
-        my $algorithm_id = $a->{id};
-        print "$algorithm_id\n\n";
-        iterate_parameter1_values("$prefix/$algorithm_id", "$cmd $a->{opt}", $a);
+    foreach my $algorithm (@$algorithms) {
+        my $id = $algorithm->{id};
+        print "$id\n\n";
+        iterate_parameter1_values("$prefix/$id", "$cmd $algorithm->{opt}");
         print "\n";
     }
 }
 
 sub iterate_parameter1_values
 {
-    my ($prefix, $cmd, $a) = @_;
+    my ($prefix, $cmd) = @_;
     foreach my $value (@{ $parameter1->{values} }) {
         print "$parameter1->{id} = $value\n\n";
-        iterate_parameter2_values("$prefix/$parameter1->{id}-$value", "$cmd --$parameter1->{id} $value", $a);
+        iterate_parameter2_values("$prefix/$parameter1->{id}-$value", "$cmd --$parameter1->{id} $value");
         print "\n";
     }
 }
 
 sub iterate_parameter2_values
 {
-    my ($prefix, $cmd, $a) = @_;
+    my ($prefix, $cmd) = @_;
     foreach my $value (@{ $parameter2->{values} }) {
         print "$parameter2->{id} = $value: ";
         iterate_runs("$prefix/$parameter2->{id}-$value", "$cmd --$parameter2->{id} $value");
