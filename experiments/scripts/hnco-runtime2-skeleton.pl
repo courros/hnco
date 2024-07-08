@@ -19,7 +19,6 @@
 
 use strict;
 use warnings;
-
 use JSON;
 use File::Slurp qw(read_file);
 
@@ -45,11 +44,11 @@ my $obj = from_json(read_file($plan));
 # Global variables
 #
 
-my $algorithms          = $obj->{algorithms};
-my $parallel            = $obj->{parallel};
-my $parameter1          = $obj->{parameter1};
-my $parameter2          = $obj->{parameter2};
-my $servers             = $obj->{servers};
+my $algorithms = $obj->{algorithms};
+my $parallel   = $obj->{parallel};
+my $parameter1 = $obj->{parameter1};
+my $parameter2 = $obj->{parameter2};
+my $servers    = $obj->{servers};
 
 #
 # Parameter values
@@ -66,24 +65,29 @@ foreach ($parameter1, $parameter2) {
 # Processing
 #
 
-unless (-d $path_results) {
-    mkdir $path_results;
-    print "Created $path_results\n";
-}
-
+make_path($path_results);
 results_iterate_algorithms($path_results);
 
-foreach ("stats", "graphics") {
-    unless (-d $_) {
-        mkdir $_;
-        print "Created $_\n";
-    }
-    iterate_algorithms($_);
-}
+make_path($path_results);
+iterate_algorithms($path_results);
+
+make_path($path_graphics);
+iterate_algorithms($path_graphics);
 
 #
 # Local functions
 #
+
+sub make_path
+{
+    my ($path) = @_;
+    if (-d $path) {
+        die qq(hnco-runtime2-skeleton.pl: make_path: "$path" already exists\n)
+    } else {
+        mkdir $path;
+        print "Created $path\n";
+    }
+}
 
 sub results_iterate_algorithms
 {
@@ -91,10 +95,7 @@ sub results_iterate_algorithms
     foreach my $a (@$algorithms) {
         my $algorithm_id = $a->{id};
         my $path = "$prefix/$algorithm_id";
-        unless (-d $path) {
-            mkdir "$path";
-            print "Created $path\n";
-        }
+        make_path($path);
         results_iterate_parameter1($path);
     }
 }
@@ -104,10 +105,7 @@ sub results_iterate_parameter1
     my ($prefix) = @_;
     foreach (@{ $parameter1->{values} }) {
         my $path = "$prefix/$parameter1->{id}-$_";
-        unless (-d $path) {
-            mkdir "$path";
-            print "Created $path\n";
-        }
+        make_path($path);
         results_iterate_parameter2($path);
     }
 }
@@ -117,10 +115,7 @@ sub results_iterate_parameter2
     my ($prefix) = @_;
     foreach (@{ $parameter2->{values} }) {
         my $path = "$prefix/$parameter2->{id}-$_";
-        unless (-d $path) {
-            mkdir "$path";
-            print "Created $path\n";
-        }
+        make_path($path);
     }
 }
 
@@ -129,9 +124,6 @@ sub iterate_algorithms
     my ($prefix) = @_;
     foreach (@$algorithms) {
         my $path = "$prefix/$_->{id}";
-        unless (-d $path) {
-            mkdir "$path";
-            print "Created $path\n";
-        }
+        make_path($path);
     }
 }
