@@ -26,7 +26,9 @@ use File::Slurp qw(read_file);
 # Global constants
 #
 
-my $path_results = "results";
+my $path_graphics = "graphics";
+my $path_results  = "results";
+my $path_stats    = "stats";
 
 #
 # Read plan
@@ -68,8 +70,8 @@ foreach ($parameter1, $parameter2) {
 make_path($path_results);
 results_iterate_algorithms($path_results);
 
-make_path($path_results);
-iterate_algorithms($path_results);
+make_path($path_stats);
+iterate_algorithms($path_stats);
 
 make_path($path_graphics);
 iterate_algorithms($path_graphics);
