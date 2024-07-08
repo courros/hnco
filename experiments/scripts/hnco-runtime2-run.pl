@@ -100,13 +100,14 @@ sub iterate_values
     foreach my $value1 (@{ $parameter1->{values} }) {
         print "$id1 = $value1\n\n";
         foreach my $value2 (@{ $parameter2->{values} }) {
-            print "$id2 = $value2: ";
-            my $v1 = $value1;
-            if (exists $parameter1->{expression}) {
-                $v1 = eval  $parameter1->{expression};
-                print "with $id1 = $v1: ";
+            print "$id2 = $value2 ";
+            my $v2 = $value2;
+            if (exists $parameter2->{expression}) {
+                $v2 = eval  $parameter2->{expression};
+                print "-> $v2 ";
             }
-            iterate_runs("$prefix/$id1-$value1/$id2-$value2", "$cmd --$id1 $v1 --$id2 $value2");
+            print ": ";
+            iterate_runs("$prefix/$id1-$value1/$id2-$value2", "$cmd --$id1 $value1 --$id2 $v2");
             print "\n";
         }
         print "\n";
