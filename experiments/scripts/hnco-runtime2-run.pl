@@ -19,10 +19,8 @@
 
 use strict;
 use warnings;
-
 use JSON;
 use File::Slurp qw(read_file write_file);
-
 use HNCO::Run qw(gnu_parallel);
 
 #
@@ -47,12 +45,13 @@ my $obj = from_json(read_file($plan));
 # Global variables
 #
 
-my $algorithms          = $obj->{algorithms};
-my $budget              = $obj->{budget};
-my $parallel            = $obj->{parallel};
-my $parameter1          = $obj->{parameter1};
-my $parameter2          = $obj->{parameter2};
-my $servers             = $obj->{servers};
+my $algorithms = $obj->{algorithms};
+my $budget     = $obj->{budget};
+my $num_runs   = $obj->{num_runs};
+my $parallel   = $obj->{parallel};
+my $parameter1 = $obj->{parameter1};
+my $parameter2 = $obj->{parameter2};
+my $servers    = $obj->{servers};
 
 #
 # Parameter values
@@ -106,20 +105,16 @@ sub iterate_parameter1_values
 sub iterate_parameter2_values
 {
     my ($prefix, $cmd, $a) = @_;
-    my $num_runs = $obj->{num_runs};
-    if ($a->{deterministic}) {
-        $num_runs = 1;
-    }
     foreach my $value (@{ $parameter2->{values} }) {
         print "$parameter2->{id} = $value: ";
-        iterate_runs("$prefix/$parameter2->{id}-$value", "$cmd --$parameter2->{id} $value", $num_runs);
+        iterate_runs("$prefix/$parameter2->{id}-$value", "$cmd --$parameter2->{id} $value");
         print "\n";
     }
 }
 
 sub iterate_runs
 {
-    my ($prefix, $cmd, $num_runs) = @_;
+    my ($prefix, $cmd) = @_;
     if ($parallel) {
         foreach (1 .. $num_runs) {
             push @commands, "$cmd > $prefix/$_.out 2> $prefix/$_.err";
