@@ -87,27 +87,28 @@ sub iterate_algorithms
     foreach my $algorithm (@$algorithms) {
         my $id = $algorithm->{id};
         print "$id\n\n";
-        iterate_parameter1_values("$prefix/$id", "$cmd $algorithm->{opt}");
+        iterate_values("$prefix/$id", "$cmd $algorithm->{opt}");
         print "\n";
     }
 }
 
-sub iterate_parameter1_values
+sub iterate_values
 {
     my ($prefix, $cmd) = @_;
-    foreach my $value (@{ $parameter1->{values} }) {
-        print "$parameter1->{id} = $value\n\n";
-        iterate_parameter2_values("$prefix/$parameter1->{id}-$value", "$cmd --$parameter1->{id} $value");
-        print "\n";
-    }
-}
-
-sub iterate_parameter2_values
-{
-    my ($prefix, $cmd) = @_;
-    foreach my $value (@{ $parameter2->{values} }) {
-        print "$parameter2->{id} = $value: ";
-        iterate_runs("$prefix/$parameter2->{id}-$value", "$cmd --$parameter2->{id} $value");
+    my $id1 = $parameter1->{id};
+    my $id2 = $parameter2->{id};
+    foreach my $value1 (@{ $parameter1->{values} }) {
+        print "$id1 = $value1\n\n";
+        foreach my $value2 (@{ $parameter2->{values} }) {
+            print "$id2 = $value2: ";
+            my $v1 = $value1;
+            if (exists $parameter1->{expression}) {
+                $v1 = eval  $parameter1->{expression};
+                print "with $id1 = $v1: ";
+            }
+            iterate_runs("$prefix/$id1-$value1/$id2-$value2", "$cmd --$id1 $v1 --$id2 $value2");
+            print "\n";
+        }
         print "\n";
     }
 }
