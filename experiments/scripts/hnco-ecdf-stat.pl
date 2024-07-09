@@ -46,9 +46,9 @@ use HNCO::Report qw(
 # Global constants
 #
 
-my $path_results        = "results";
-my $path_graphics       = "graphics";
-my $path_report         = "report";
+my $path_results  = "results";
+my $path_graphics = "graphics";
+my $path_report   = "report";
 
 #
 # Read plan
@@ -171,7 +171,7 @@ sub compute_ranges
         foreach (1 .. $algorithm_num_runs) {
             my $path = "$prefix/$_.out";
             my $file = IO::File->new($path, '<')
-                or die "hnco-ecdf-stat.pl: compute_ranges: Cannot open '$path': $!\n";
+                or die "hnco-ecdf-stat.pl: compute_ranges: Cannot open '$path': $!";
             my @lines = $file->getlines();
             push @algorithm_min, get_value($lines[0]);
             push @algorithm_max, get_value($lines[-1]);
@@ -205,7 +205,7 @@ sub collect_events
     foreach (1 .. $algorithm_num_runs) {
         my $path = "$path_results/$function_id/$algorithm_id/$_.out";
         my $file = IO::File->new($path, '<')
-            or die "hnco-ecdf-stat.pl: generate_ecdf_function_raw: Cannot open '$path': $!\n";
+            or die "hnco-ecdf-stat.pl: generate_ecdf_function_raw: Cannot open '$path': $!";
         my @lines = $file->getlines();
         $file->close();
       TARGETS: {
@@ -240,7 +240,7 @@ sub generate_ecdf_function_raw
         my @sorted_events = sort { $a <=> $b } @events;
         my $path = "$path_results/ecdf/$function_id/raw/$algorithm_id.dat";
         my $file = IO::File->new($path, '>')
-            or die "hnco-ecdf-stat.pl: generate_ecdf_function_raw: Cannot open '$path': $!\n";
+            or die "hnco-ecdf-stat.pl: generate_ecdf_function_raw: Cannot open '$path': $!";
         my $i = 0;
         while ($i < @sorted_events) {
             my $head = $sorted_events[$i];
@@ -272,7 +272,7 @@ sub generate_ecdf_global_raw
         my @sorted_events = sort { $a <=> $b } @events;
         my $path = "$path_results/ecdf/global/raw/$algorithm_id.dat";
         my $file = IO::File->new($path, '>')
-            or die "hnco-ecdf-stat.pl: generate_ecdf_global_raw: Cannot open '$path': $!\n";
+            or die "hnco-ecdf-stat.pl: generate_ecdf_global_raw: Cannot open '$path': $!";
         my $i = 0;
         while ($i < @sorted_events) {
             my $head = $sorted_events[$i];
@@ -294,7 +294,7 @@ sub sort_algorithms
     foreach my $id (@$ids) {
         my $path = "$prefix/$id.dat";
         my $file = IO::File->new($path, '<')
-            or die "hnco-ecdf-stat.pl: sort_algorithms: Cannot open '$path': $!\n";
+            or die "hnco-ecdf-stat.pl: sort_algorithms: Cannot open '$path': $!";
         my @lines = $file->getlines();
         $file->close();
         $levels{$id} = get_value($lines[-1]);
@@ -310,7 +310,7 @@ sub compute_ecdf_ranges
     foreach my $id (@$ids) {
         my $path = "$prefix/$id.dat";
         my $file = IO::File->new($path, '<')
-            or die "hnco-ecdf-stat.pl: compute_ecdf_ranges: Cannot open '$path': $!\n";
+            or die "hnco-ecdf-stat.pl: compute_ecdf_ranges: Cannot open '$path': $!";
         my @lines = $file->getlines();
         $file->close();
         push @lows, get_value($lines[0]);
@@ -330,12 +330,12 @@ sub generate_ecdf_function_all
     foreach (@sorted) {
         my $path = "$prefix/raw/$_.dat";
         my $file = IO::File->new($path, '<')
-            or die "hnco-ecdf-stat.pl: generate_ecdf_function_all: Cannot open '$path': $!\n";
+            or die "hnco-ecdf-stat.pl: generate_ecdf_function_all: Cannot open '$path': $!";
         my @lines = $file->getlines();
         $file->close();
         $path = "$prefix/all/$_.dat";
         $file = IO::File->new($path, '>')
-            or die "hnco-ecdf-stat.pl: generate_ecdf_function_all: Cannot open '$path': $!\n";
+            or die "hnco-ecdf-stat.pl: generate_ecdf_function_all: Cannot open '$path': $!";
         $file->print(@lines);
         $file->printf("%d %e\n", $budget, get_value($lines[-1]));
         $file->printf("%d %e\n", 10 * $budget, $low + ($i + 0.5) * ($high - $low) / @sorted);
@@ -357,12 +357,12 @@ sub generate_ecdf_function_groups
         foreach (@sorted) {
             my $path = "$prefix/raw/$_.dat";
             my $file = IO::File->new($path, '<')
-                or die "hnco-ecdf-stat.pl: generate_ecdf_function_all: Cannot open '$path': $!\n";
+                or die "hnco-ecdf-stat.pl: generate_ecdf_function_all: Cannot open '$path': $!";
             my @lines = $file->getlines();
             $file->close();
             $path = "$prefix/groups/$group_id/$_.dat";
             $file = IO::File->new($path, '>')
-                or die "hnco-ecdf-stat.pl: generate_ecdf_function_groups: Cannot open '$path': $!\n";
+                or die "hnco-ecdf-stat.pl: generate_ecdf_function_groups: Cannot open '$path': $!";
             $file->print(@lines);
             $file->printf("%d %e\n", $budget, get_value($lines[-1]));
             $file->printf("%d %e\n", 10 * $budget, $low + ($i + 0.5) * ($high - $low) / @sorted);
