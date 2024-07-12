@@ -193,8 +193,7 @@ sub compute_ranges
 sub compute_targets
 {
     my $fn = shift;
-    my $function_id = $fn->{id};
-    my @targets = map { $fn->{min} + $_ * ($fn->{max} - $fn->{min}) / $num_targets} (1 .. $num_targets);
+    my @targets = map { $fn->{min} + $_ * ($fn->{max} - $fn->{min}) / ($num_targets - 1)} (0 .. ($num_targets - 1));
     $fn->{targets} = \@targets;
 }
 
