@@ -18,10 +18,9 @@
 
 */
 
-#include <assert.h>
-#include <math.h>		// std::log
-
 #include <algorithm>            // std::min, std::max
+#include <cassert>
+#include <cmath>		// std::log
 
 #include "hnco/random.hh"
 
@@ -29,8 +28,8 @@
 
 using namespace hnco::random;
 
-
-double hnco::algorithm::pv_entropy(const pv_t& pv)
+double
+hnco::algorithm::pv_entropy(const pv_t& pv)
 {
   double s = 0;
   for (size_t i = 0; i < pv.size(); i++) {
@@ -43,34 +42,46 @@ double hnco::algorithm::pv_entropy(const pv_t& pv)
   return -s;
 }
 
-void hnco::algorithm::pv_sample(bit_vector_t& x, const pv_t& pv)
+void
+hnco::algorithm::pv_sample(bit_vector_t& bv, const pv_t& pv)
 {
-  assert(x.size() == pv.size());
+  assert(bv.size() == pv.size());
 
-  for (size_t i = 0; i < x.size(); i++) {
+  for (size_t i = 0; i < bv.size(); i++) {
     if (Generator::uniform() < pv[i])
-      x[i] = 1;
+      bv[i] = 1;
     else
-      x[i] = 0;
+      bv[i] = 0;
   }
 }
 
-void hnco::algorithm::pv_add(pv_t& pv, const bit_vector_t& x)
+void
+hnco::algorithm::pv_add(pv_t& pv, const bit_vector_t& bv)
 {
-  assert(x.size() == pv.size());
+  assert(bv.size() == pv.size());
 
   for (size_t i = 0; i < pv.size(); i++)
-    if (x[i] == 1)
+    if (bv[i] == 1)
       pv[i]++;
 }
 
-void hnco::algorithm::pv_average(pv_t& pv, int count)
+void
+hnco::algorithm::pv_add(pv_t& pv, const bit_vector_t& bv, double weight)
+{
+  assert(bv.size() == pv.size());
+  for (size_t i = 0; i < pv.size(); i++)
+    pv[i] += weight * bv[i];
+}
+
+void
+hnco::algorithm::pv_average(pv_t& pv, int count)
 {
   for (size_t i = 0; i < pv.size(); i++)
     pv[i] /= count;
 }
 
-void hnco::algorithm::pv_update(pv_t& pv, double rate, const pv_t& x, const pv_t& y)
+void
+hnco::algorithm::pv_update(pv_t& pv, double rate, const pv_t& x, const pv_t& y)
 {
   assert(x.size() == pv.size());
   assert(y.size() == pv.size());
@@ -79,7 +90,8 @@ void hnco::algorithm::pv_update(pv_t& pv, double rate, const pv_t& x, const pv_t
     pv[i] += rate * (x[i] - y[i]);
 }
 
-void hnco::algorithm::pv_bound(pv_t& pv, double lower_bound, double upper_bound)
+void
+hnco::algorithm::pv_bound(pv_t& pv, double lower_bound, double upper_bound)
 {
   for (size_t i = 0; i < pv.size(); i++) {
     pv[i] = std::min(upper_bound, pv[i]);
