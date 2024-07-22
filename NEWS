@@ -12,6 +12,15 @@ Library:
 - Renamed MixedIntegerMultivariateFunctionAdapter -> MixedRepresentationMultivariateFunctionAdapter (single and multi)
 - Defined representation variant type app::rep_var_t
 - MixedRepresentationMultivariateFunctionAdapter: template parameter RepVariant must be a variant of representations (single and multi)
+- Added map::ts_invert
+- Fixed TsAffineMap::invert
+- Added algorithm::FitnessProportionateSelection
+- Added algorithm::BoltzmannSelection
+- Added hnco::fail_with
+- Added hnco::algorithm::pv_add for weighted bit vectors
+
+Tests:
+- Added test-tsaffinemap-invert
 
 hnco, hnco-mo:
 - Removed parameter fp_expression_source
@@ -19,6 +28,18 @@ hnco, hnco-mo:
 
 hnco:
 - Renamed parameter negation -> minimize
+
+optgen.pl:
+- Check empty sections and section ids
+- Renamed hashes
+
+Perl scripts:
+- hnco-ecdf-stat.pl: updated make_directories
+- hnco-ecdf-stat.pl: make fmin the first of the n targets
+- hnco-runtime2-skeleton.pl: added make_path
+- hnco-runtime2-run.pl: merge iterate_parameter1_values and iterate_parameter2_values
+- hnco-runtime2-run.pl: exchange parameter1 and parameter2
+- hnco-runtime2-stat.pl: use scalar as FILEHANDLE
 
 
 * Version 0.24 (2024-01-03)
