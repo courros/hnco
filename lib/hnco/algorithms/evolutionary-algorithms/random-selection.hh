@@ -22,29 +22,25 @@
 #define HNCO_ALGORITHMS_RANDOM_SELECTION_H
 
 #include <functional>           // std::greater
+#include <random>               // std::discrete_distribution
 
 #include "hnco/algorithms/population.hh"
 #include "hnco/multiobjective/algorithms/random-selection.hh"
 #include "hnco/random.hh"
 
-
 namespace hnco {
 namespace algorithm {
-
 
 /**
  * Random selection. Used as selection for reproduction in
  * evolutionary algorithms.
  */
-class RandomSelection
-{
+class RandomSelection {
 protected:
-
   /// %Population to select from
   const Population& _population;
 
 public:
-
   /**
    * Constructor.
    * @param population %Population to select from
@@ -52,25 +48,18 @@ public:
   RandomSelection(const Population& population)
     : _population(population)
   {}
-
   /// Initialize
   virtual void init() {}
-
   /// Select an individual in the population
   virtual const bit_vector_t& select() = 0;
-
 };
 
-
 /// Uniform selection
-class UniformSelection: public RandomSelection
-{
-
+class UniformSelection: public RandomSelection {
   /// Random index
   std::uniform_int_distribution<int> _choose_individual;
 
 public:
-
   /**
    * Constructor.
    * @param population %Population to select from
@@ -79,35 +68,26 @@ public:
     : RandomSelection(population)
     , _choose_individual(0, population.get_size() - 1)
   {}
-
   /// Select an individual in the population
   const bit_vector_t& select() override;
-
 };
-
 
 /**
  * Tournament selection. Reuses the
  * hnco::multiobjective::algorithm::TournamentSelection class.
  */
-class TournamentSelection: public RandomSelection
-{
-
+class TournamentSelection: public RandomSelection {
   /// Tournament selection
   hnco::multiobjective::algorithm::TournamentSelection<double, std::greater<double>> _tournament_selection;
-
   /**
    * @name Parameters
    */
   ///@{
-
   /// Tournament size
   int _tournament_size = 2;
-
   ///@}
 
 public:
-
   /**
    * Constructor.
    * @param population %Population to select from
@@ -116,10 +96,8 @@ public:
     : RandomSelection(population)
     , _tournament_selection(population.bvs, population.values)
   {}
-
   /// Initialize
   void init() override;
-  
   /**
    * Select an individual in the population. The selection only
    * requires that the population be evaluated, not necessarily
@@ -127,22 +105,60 @@ public:
    * @pre The population must be evaluated.
    */
   const bit_vector_t& select() override;
-
   /**
    * @name Setters
    */
   ///@{
-
   /// Set the tournament size
   void set_tournament_size(int n) { _tournament_size = n; }
-
   ///@}
-
 };
 
+/// Fitness proportionate selection
+class FitnessProportionateSelection: public RandomSelection {
+protected:
+  /// Distribution
+  std::discrete_distribution<> _distribution;
+
+public:
+  /**
+   * Constructor.
+   * @param population %Population to select from
+   * @pre population.values must be positive
+   */
+  FitnessProportionateSelection(const Population& population)
+    : RandomSelection(population)
+  {}
+  /// Initialize
+  void init() override;
+  /// Select an individual in the population
+  const bit_vector_t& select() override;
+};
+
+/// Boltzmann selection
+class BoltzmannSelection: public FitnessProportionateSelection {
+  /// Exponentiated fitnesses
+  std::vector<double> _exponentiated_fitnesses;
+  /// Beta
+  double _beta = 1;
+
+public:
+  /**
+   * Constructor.
+   * @param population %Population to select from
+   * @pre population.values must be positive
+   */
+  BoltzmannSelection(const Population& population)
+    : FitnessProportionateSelection(population)
+    , _exponentiated_fitnesses(population.get_size())
+  {}
+  /// Initialize
+  void init() override;
+  /// Set beta
+  void set_beta(double beta) { _beta = beta; }
+};
 
 }
 }
-
 
 #endif

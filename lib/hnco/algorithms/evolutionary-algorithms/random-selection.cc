@@ -18,21 +18,22 @@
 
 */
 
-#include "random-selection.hh"
+#include <algorithm>		// std::max_element
+#include <cassert>
+#include <cmath>		// std::exp
 
+#include "random-selection.hh"
 
 using namespace hnco::algorithm;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
 
-
 const bit_vector_t&
 UniformSelection::select()
 {
   return _population.bvs[_choose_individual(Generator::engine)];
 }
-
 
 void
 TournamentSelection::init()
@@ -45,4 +46,38 @@ const bit_vector_t&
 TournamentSelection::select()
 {
   return _tournament_selection.select();
+}
+
+void
+FitnessProportionateSelection::init()
+{
+  std::discrete_distribution<>::param_type params(_population.values.begin(), _population.values.end());
+  _distribution.param(params);
+}
+
+const bit_vector_t&
+FitnessProportionateSelection::select()
+{
+  const int index = _distribution(Generator::engine);
+  assert(is_in_range(index, _population.bvs.size()));
+  return _population.bvs[index];
+}
+
+void
+BoltzmannSelection::init()
+{
+  const auto& ys = _population.values;
+  auto& zs = _exponentiated_fitnesses;
+
+  auto iter = std::max_element(ys.begin(), ys.end());
+  const double fmax = *iter;
+
+  const int N = _population.get_size();
+  for (int i = 0; i < N; i++) {
+    zs[i] = std::exp(_beta * (ys[i] - fmax));
+    assert(zs[i] <= 1);
+  }
+
+  std::discrete_distribution<>::param_type params(zs.begin(), zs.end());
+  _distribution.param(params);
 }
