@@ -21,20 +21,17 @@
 #ifndef HNCO_UTIL_H
 #define HNCO_UTIL_H
 
-#include <assert.h>
-#include <math.h>               // std::exp
-
-#include <string>               // std::string
+#include <cassert>
+#include <cmath>               // std::exp
 #include <sstream>              // std::ostringstream
-
+#include <string>               // std::string
 
 namespace hnco {
 
-
 /**
  * Ensure that a condition is satisfied or throw a runtime exception.
- * \param b Boolean
- * \param message Message to display if the boolean is false
+ * @param b Boolean
+ * @param message Message to display if the boolean is false
  */
 inline void ensure(bool b, const std::string message)
 {
@@ -42,6 +39,15 @@ inline void ensure(bool b, const std::string message)
     throw std::runtime_error(message);
 }
 
+/**
+ * Fail with message and code
+ * @param message Message
+ * @param code Code
+ */
+inline void fail_with(const std::string message, int code)
+{
+  throw std::runtime_error(message + std::to_string(code));
+}
 
 /**
  * @name Range checking
@@ -50,24 +56,23 @@ inline void ensure(bool b, const std::string message)
 
 /**
  * Check whether an index is in a given range.
- * \param i Index
- * \param a Lower bound
- * \param b Upper bound (excluded)
- * \return true if i >= a and i < b
+ * @param i Index
+ * @param a Lower bound
+ * @param b Upper bound (excluded)
+ * @return true if i >= a and i < b
  */
 inline bool is_in_range(int i, int a, int b) { return i >= a && i < b; }
 
 /**
  * Check whether an index is in a given range.
  * The lower bound is implicit and is equal to 0.
- * \param i Index
- * \param n Upper bound (excluded)
- * \return true if i >= 0 and i < n
+ * @param i Index
+ * @param n Upper bound (excluded)
+ * @return true if i >= 0 and i < n
  */
 inline bool is_in_range(int i, int n) { return is_in_range(i, 0, n); }
 
 ///@}
-
 
 /**
  * @name Intervals
@@ -79,16 +84,13 @@ inline bool is_in_interval(double x, double a, double b) { return x >= a && x <=
 
 ///@}
 
-
 /// Check whether two containers have the same size
 template<class A, class B>
 bool have_same_size(const A& a, const B& b) { return a.size() == b.size(); }
 
-
 /// Generic square function
 template<class T>
 T square(T x) { return x * x; }
-
 
 /// Logistic function (sigmoid)
 inline double logistic(double x)
@@ -100,7 +102,6 @@ inline double logistic(double x)
     return tmp / (1 + tmp);
   }
 }
-
 
 /// Convert to string and join elements of a container (from SO)
 template <typename Iter>
@@ -114,8 +115,6 @@ std::string join(Iter begin, Iter end, std::string const& separator)
   return result.str();
 }
 
-
 } // end of namespace hnco
-
 
 #endif
