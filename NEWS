@@ -12,12 +12,12 @@ Library:
 - Renamed MixedIntegerMultivariateFunctionAdapter -> MixedRepresentationMultivariateFunctionAdapter (single and multi)
 - Defined representation variant type app::rep_var_t
 - MixedRepresentationMultivariateFunctionAdapter: template parameter RepVariant must be a variant of representations (single and multi)
-- Added map::ts_invert
+- Added function map::ts_invert
 - Fixed TsAffineMap::invert
-- Added algorithm::FitnessProportionateSelection
-- Added algorithm::BoltzmannSelection
-- Added hnco::fail_with
-- Added hnco::algorithm::pv_add for weighted bit vectors
+- Added class algorithm::FitnessProportionateSelection
+- Added class algorithm::BoltzmannSelection
+- Added function hnco::fail_with
+- Added function hnco::algorithm::pv_add for weighted bit vectors
 
 Tests:
 - Added test-tsaffinemap-invert
