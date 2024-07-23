@@ -32,8 +32,8 @@ namespace hnco {
 namespace algorithm {
 
 /**
- * Random selection. Used as selection for reproduction in
- * evolutionary algorithms.
+ * Random selection.
+ * Used as selection for reproduction in evolutionary algorithms.
  */
 class RandomSelection {
 protected:
@@ -73,8 +73,9 @@ public:
 };
 
 /**
- * Tournament selection. Reuses the
- * hnco::multiobjective::algorithm::TournamentSelection class.
+ * Tournament selection.
+ * Reuses the hnco::multiobjective::algorithm::TournamentSelection
+ * class.
  */
 class TournamentSelection: public RandomSelection {
   /// Tournament selection
@@ -99,9 +100,9 @@ public:
   /// Initialize
   void init() override;
   /**
-   * Select an individual in the population. The selection only
-   * requires that the population be evaluated, not necessarily
-   * sorted.
+   * Select an individual in the population.
+   * The selection only requires that the population be evaluated, not
+   * necessarily sorted.
    * @pre The population must be evaluated.
    */
   const bit_vector_t& select() override;
