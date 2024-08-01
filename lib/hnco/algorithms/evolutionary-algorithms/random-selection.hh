@@ -147,7 +147,6 @@ public:
   /**
    * Constructor.
    * @param population %Population to select from
-   * @pre population.values must be positive
    */
   BoltzmannSelection(const Population& population)
     : FitnessProportionateSelection(population)
