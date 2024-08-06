@@ -29,94 +29,77 @@
 
 #include "gibbs-sampler.hh"
 
-
 namespace hnco {
 namespace algorithm {
 namespace walsh_moment {
 
-/** Boltzmann machine PBIL.
-
-    The BM model is slightly different from the one given in the
-    reference below. More precisely, 0/1 variables are mapped to
-    -1/+1 variables as in Walsh analysis.
-
-    Reference:
-
-    Arnaud Berny. 2002. Boltzmann machine for population-based
-    incremental learning. In ECAI 2002. IOS Press, Lyon.
-
-*/
+/**
+ * Boltzmann machine PBIL.
+ * The BM model is slightly different from the one given in the
+ * reference below. More precisely, 0/1 variables are mapped to -1/+1
+ * variables as in Walsh analysis.
+ *
+ * Reference:
+ *
+ * Arnaud Berny. 2002. Boltzmann machine for population-based
+ * incremental learning. In ECAI 2002. IOS Press, Lyon.
+ */
 template<class GibbsSampler>
 class BmPbil: public IterativeAlgorithm {
-
 public:
-
   /// Markov chain sampling mode
-  enum class SamplingMode {
-
-    /** Asynchronous sampling.
-
-        A single component of the internal state is randomly
-        selected then updated by Gibbs sampling. This step is
-        repeated _num_gs_steps times.
-    */
-    asynchronous,
-
-    /** Asynchronous sampling with full scan.
-
-        To sample a new bit vector, a random permutation is sampled
-        and all components of the internal state are updated by
-        Gibbs sampling in the order defined by the permutation.
-    */
-    asynchronous_full_scan,
-
-    /** Synchronous sampling.
-
-        The full internal state is updated in one step from the
-        probability vector made of the very marginal probabilities
-        used in Gibbs sampling.
-    */
-    synchronous
-
+  struct SamplingMode {
+    enum {
+      /**
+       * Asynchronous sampling.
+       * A single component of the internal state is randomly selected
+       * then updated by Gibbs sampling. This step is repeated
+       * _num_gs_steps times.
+       */
+      asynchronous,
+      /**
+       * Asynchronous sampling with full scan.
+       * To sample a new bit vector, a random permutation is sampled and
+       * all components of the internal state are updated by Gibbs
+       * sampling in the order defined by the permutation.
+       */
+      asynchronous_full_scan,
+      /**
+       * Synchronous sampling.
+       * The full internal state is updated in one step from the
+       * probability vector made of the very marginal probabilities used
+       * in Gibbs sampling.
+       */
+      synchronous
+    };
   };
-
   /// Markov chain reset mode
-  enum class ResetMode {
-
-    /** No reset. */
-    no_reset,
-
-    /** Reset the Markov chain at the beginning of each iteration. */
-    iteration,
-
-    /** Reset the Markov chain before sampling each bit vector. */
-    bit_vector
-
+  struct ResetMode {
+    enum {
+      /// No reset
+      no_reset,
+      /// Reset the Markov chain at the beginning of each iteration
+      iteration,
+      /// Reset the Markov chain before sampling each bit vector
+      bit_vector
+    };
   };
 
 protected:
-
   /// Population
   Population _population;
-
   /// Model parameters
   typename GibbsSampler::Moment _model_parameters;
-
   /// Model
   GibbsSampler _gibbs_sampler;
-
   /// Parameters averaged over all individuals
   typename GibbsSampler::Moment _walsh_moment_all;
-
   /// Parameters averaged over selected individuals
   typename GibbsSampler::Moment _walsh_moment_best;
-
   /// Parameters averaged over negatively selected individuals
   typename GibbsSampler::Moment _walsh_moment_worst;
-
   /// Uniform distribution on bit_vector_t components
   std::uniform_int_distribution<int> _choose_bit;
-
   /// Permutation
   permutation_t _permutation;
 
@@ -124,41 +107,30 @@ protected:
    * @name Parameters
    */
   ///@{
-
   /// Selection size (number of selected individuals in the population)
   int _selection_size = 1;
-
   /// Learning rate
   double _learning_rate = 1e-3;
-
   /// Number of gibbs sampler steps
   int _num_gs_steps = 100;
-
   /// Number of gibbs sampler cycles
   int _num_gs_cycles = 1;
-
   /// Negative and positive selection
   bool _negative_positive_selection = false;
-
   /// Sampling mode
-  SamplingMode _sampling_mode = SamplingMode::asynchronous;
-
+  int _sampling_mode = SamplingMode::asynchronous;
   /// Reset mode
-  ResetMode _reset_mode = ResetMode::no_reset;
-
+  int _reset_mode = ResetMode::no_reset;
   ///@}
 
   /**
    * @name Logging
    */
   ///@{
-
   /// Log infinite norm of the model parameters
   bool _log_norm_infinite = false;
-
   /// Log 1-norm of the model parameters
   bool _log_norm_1 = false;
-
   ///@}
 
   /**
@@ -235,14 +207,13 @@ protected:
       l.line() << _model_parameters.norm_1() << " ";
 
   }
-
   ///@}
 
   /// Set flag for something to log
   void set_something_to_log() { _something_to_log = _log_norm_infinite || _log_norm_1; }
 
   /// Sample a bit vector
-  void sample(bit_vector_t& x) {
+  void sample(bit_vector_t& bv) {
     switch (_sampling_mode) {
     case SamplingMode::asynchronous:
       sample_asynchronous();
@@ -254,9 +225,9 @@ protected:
       sample_synchronous();
       break;
     default:
-      throw std::runtime_error("BmPbil::sample: Unknown _sampling_mode: " + std::to_string(static_cast<int>(_sampling_mode)));
+      fail_with("BmPbil::sample: Unknown _sampling_mode: ", _sampling_mode);
     }
-    x = _gibbs_sampler.get_state();
+    bv = _gibbs_sampler.get_state();
   }
 
   /// Asynchronous sampling
@@ -281,7 +252,6 @@ protected:
   }
 
 public:
-
   /// Constructor
   BmPbil(int n, int population_size):
     IterativeAlgorithm(n),
@@ -298,53 +268,39 @@ public:
    * @name Setters for parameters
    */
   ///@{
-
-  /** Set the selection size.
-
-      The selection size is the number of selected individuals in
-      the population.
-  */
-  void set_selection_size(int x) { _selection_size = x; }
-
+  /**
+   * Set the selection size.
+   * The selection size is the number of selected individuals in the
+   * population.
+   */
+  void set_selection_size(int size) { _selection_size = size; }
   /// Set the learning rate
-  void set_learning_rate(double x) { _learning_rate = x; }
-
+  void set_learning_rate(double rate) { _learning_rate = rate; }
   /// Set the number of gibbs sampler steps
-  void set_num_gs_steps(int x) { _num_gs_steps = x; }
-
+  void set_num_gs_steps(int n) { _num_gs_steps = n; }
   /// Set the number of gibbs sampler cycles
-  void set_num_gs_cycles(int x) { _num_gs_cycles = x; }
-
+  void set_num_gs_cycles(int n) { _num_gs_cycles = n; }
   /// Set negative and positive selection
-  void set_negative_positive_selection(bool x) { _negative_positive_selection = x; }
-
+  void set_negative_positive_selection(bool b) { _negative_positive_selection = b; }
   /// Set the sampling mode
-  void set_sampling_mode(SamplingMode mode) { _sampling_mode = mode; }
-
+  void set_sampling_mode(int mode) { _sampling_mode = mode; }
   /// Set the reset mode
-  void set_reset_mode(ResetMode mode) { _reset_mode = mode; }
-
+  void set_reset_mode(int mode) { _reset_mode = mode; }
   ///@}
 
   /**
    * @name Setters for logging
    */
   ///@{
-
   /// Log infinite norm of the model parameters
-  void set_log_norm_infinite(bool x) { _log_norm_infinite = x; }
-
+  void set_log_norm_infinite(bool b) { _log_norm_infinite = b; }
   /// Log 1-norm of the model parameters
-  void set_log_norm_1(bool x) { _log_norm_1 = x; }
-
+  void set_log_norm_1(bool b) { _log_norm_1 = b; }
   ///@}
-
 };
-
 
 } // end of namespace walsh_moment
 } // end of namespace algorithm
 } // end of namespace hnco
-
 
 #endif

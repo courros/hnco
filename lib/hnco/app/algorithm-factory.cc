@@ -274,7 +274,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
     algo->set_learning_rate          (_options.get_learning_rate());
     algo->set_mutation_rate_max      (_options.get_ea_mutation_rate_max());
     algo->set_num_iterations         (_options.get_num_iterations());
-    algo->set_replacement            (static_cast<InformationTheoreticEa::Replacement>(_options.get_ea_it_replacement()));
+    algo->set_replacement            (InformationTheoreticEa::Replacement(_options.get_ea_it_replacement()));
     algo->set_selection_size         (_options.get_selection_size());
 
     algo->set_allow_no_mutation      (_options.with_ea_allow_no_mutation());
@@ -452,8 +452,8 @@ CommandLineAlgorithmFactory::make(int bv_size)
     algo->set_num_gs_cycles               (_options.get_bm_num_gs_cycles());
     algo->set_num_gs_steps                (_options.get_bm_num_gs_steps());
     algo->set_num_iterations              (_options.get_num_iterations());
-    algo->set_reset_mode                  (static_cast<BM::ResetMode>(_options.get_bm_reset_mode()));
-    algo->set_sampling_mode               (static_cast<BM::SamplingMode>(_options.get_bm_sampling_mode()));
+    algo->set_reset_mode                  (_options.get_bm_reset_mode());
+    algo->set_sampling_mode               (_options.get_bm_sampling_mode());
     algo->set_selection_size              (_options.get_selection_size());
 
     algo->set_log_norm_1                  (_options.with_bm_log_norm_1());
@@ -474,8 +474,8 @@ CommandLineAlgorithmFactory::make(int bv_size)
     algo->set_num_gs_cycles               (_options.get_bm_num_gs_cycles());
     algo->set_num_gs_steps                (_options.get_bm_num_gs_steps());
     algo->set_num_iterations              (_options.get_num_iterations());
-    algo->set_reset_mode                  (static_cast<BM::ResetMode>(_options.get_bm_reset_mode()));
-    algo->set_sampling_mode               (static_cast<BM::SamplingMode>(_options.get_bm_sampling_mode()));
+    algo->set_reset_mode                  (_options.get_bm_reset_mode());
+    algo->set_sampling_mode               (_options.get_bm_sampling_mode());
     algo->set_selection_size              (_options.get_selection_size());
 
     algo->set_log_norm_1                  (_options.with_bm_log_norm_1());
