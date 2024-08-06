@@ -133,7 +133,7 @@ check_PROGRAMS = test-bm-add-columns$(EXEEXT) \
 	test-first-ascent-hill-climbing-local$(EXEEXT) \
 	test-hamming-sphere$(EXEEXT) \
 	test-hamming-sphere-iterator$(EXEEXT) \
-	test-hypercube-iterator$(EXEEXT) \
+	test-herding-sample$(EXEEXT) test-hypercube-iterator$(EXEEXT) \
 	test-incremental-linear-function$(EXEEXT) \
 	test-incremental-negation$(EXEEXT) \
 	test-incremental-nn-ising-1$(EXEEXT) \
@@ -176,7 +176,8 @@ check_PROGRAMS = test-bm-add-columns$(EXEEXT) \
 	test-ts-random-non-commuting$(EXEEXT) \
 	test-ts-random-unique-destination-is-involution$(EXEEXT) \
 	test-ts-random-unique-source-is-involution$(EXEEXT) \
-	test-tsaffinemap-invert$(EXEEXT) test-walsh-transform$(EXEEXT) \
+	test-tsaffinemap-invert$(EXEEXT) \
+	test-walsh-moment-add$(EXEEXT) test-walsh-transform$(EXEEXT) \
 	$(am__EXEEXT_1)
 @ENABLE_FACTORIZATION_TRUE@am__append_1 = test-complete-search-factorization
 subdir = tests
@@ -379,6 +380,10 @@ test_hamming_sphere_iterator_OBJECTS =  \
 	$(am_test_hamming_sphere_iterator_OBJECTS)
 test_hamming_sphere_iterator_LDADD = $(LDADD)
 test_hamming_sphere_iterator_DEPENDENCIES = ../lib/libhnco.la
+am_test_herding_sample_OBJECTS = test-herding-sample.$(OBJEXT)
+test_herding_sample_OBJECTS = $(am_test_herding_sample_OBJECTS)
+test_herding_sample_LDADD = $(LDADD)
+test_herding_sample_DEPENDENCIES = ../lib/libhnco.la
 am_test_hypercube_iterator_OBJECTS =  \
 	test-hypercube-iterator.$(OBJEXT)
 test_hypercube_iterator_OBJECTS =  \
@@ -651,6 +656,10 @@ test_tsaffinemap_invert_OBJECTS =  \
 	$(am_test_tsaffinemap_invert_OBJECTS)
 test_tsaffinemap_invert_LDADD = $(LDADD)
 test_tsaffinemap_invert_DEPENDENCIES = ../lib/libhnco.la
+am_test_walsh_moment_add_OBJECTS = test-walsh-moment-add.$(OBJEXT)
+test_walsh_moment_add_OBJECTS = $(am_test_walsh_moment_add_OBJECTS)
+test_walsh_moment_add_LDADD = $(LDADD)
+test_walsh_moment_add_DEPENDENCIES = ../lib/libhnco.la
 am_test_walsh_transform_OBJECTS = test-walsh-transform.$(OBJEXT)
 test_walsh_transform_OBJECTS = $(am_test_walsh_transform_OBJECTS)
 test_walsh_transform_LDADD = $(LDADD)
@@ -701,6 +710,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-columns.Po \
 	./$(DEPDIR)/test-first-ascent-hill-climbing.Po \
 	./$(DEPDIR)/test-hamming-sphere-iterator.Po \
 	./$(DEPDIR)/test-hamming-sphere.Po \
+	./$(DEPDIR)/test-herding-sample.Po \
 	./$(DEPDIR)/test-hypercube-iterator.Po \
 	./$(DEPDIR)/test-incremental-linear-function.Po \
 	./$(DEPDIR)/test-incremental-negation.Po \
@@ -746,6 +756,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-columns.Po \
 	./$(DEPDIR)/test-ts-random-unique-destination-is-involution.Po \
 	./$(DEPDIR)/test-ts-random-unique-source-is-involution.Po \
 	./$(DEPDIR)/test-tsaffinemap-invert.Po \
+	./$(DEPDIR)/test-walsh-moment-add.Po \
 	./$(DEPDIR)/test-walsh-transform.Po
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
@@ -812,6 +823,7 @@ SOURCES = $(test_bm_add_columns_SOURCES) $(test_bm_add_rows_SOURCES) \
 	$(test_first_ascent_hill_climbing_local_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
 	$(test_hamming_sphere_iterator_SOURCES) \
+	$(test_herding_sample_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
 	$(test_incremental_linear_function_SOURCES) \
 	$(test_incremental_negation_SOURCES) \
@@ -857,6 +869,7 @@ SOURCES = $(test_bm_add_columns_SOURCES) $(test_bm_add_rows_SOURCES) \
 	$(test_ts_random_unique_destination_is_involution_SOURCES) \
 	$(test_ts_random_unique_source_is_involution_SOURCES) \
 	$(test_tsaffinemap_invert_SOURCES) \
+	$(test_walsh_moment_add_SOURCES) \
 	$(test_walsh_transform_SOURCES)
 DIST_SOURCES = $(test_bm_add_columns_SOURCES) \
 	$(test_bm_add_rows_SOURCES) $(test_bm_identity_SOURCES) \
@@ -887,6 +900,7 @@ DIST_SOURCES = $(test_bm_add_columns_SOURCES) \
 	$(test_first_ascent_hill_climbing_local_SOURCES) \
 	$(test_hamming_sphere_SOURCES) \
 	$(test_hamming_sphere_iterator_SOURCES) \
+	$(test_herding_sample_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
 	$(test_incremental_linear_function_SOURCES) \
 	$(test_incremental_negation_SOURCES) \
@@ -932,6 +946,7 @@ DIST_SOURCES = $(test_bm_add_columns_SOURCES) \
 	$(test_ts_random_unique_destination_is_involution_SOURCES) \
 	$(test_ts_random_unique_source_is_involution_SOURCES) \
 	$(test_tsaffinemap_invert_SOURCES) \
+	$(test_walsh_moment_add_SOURCES) \
 	$(test_walsh_transform_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -1342,6 +1357,7 @@ test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-local.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
+test_herding_sample_SOURCES = test-herding-sample.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
 test_incremental_linear_function_SOURCES = test-incremental-linear-function.cc
 test_incremental_negation_SOURCES = test-incremental-negation.cc
@@ -1387,6 +1403,7 @@ test_ts_random_non_commuting_SOURCES = test-ts-random-non-commuting.cc
 test_ts_random_unique_destination_is_involution_SOURCES = test-ts-random-unique-destination-is-involution.cc
 test_ts_random_unique_source_is_involution_SOURCES = test-ts-random-unique-source-is-involution.cc
 test_tsaffinemap_invert_SOURCES = test-tsaffinemap-invert.cc
+test_walsh_moment_add_SOURCES = test-walsh-moment-add.cc
 test_walsh_transform_SOURCES = test-walsh-transform.cc
 TESTS = $(check_PROGRAMS)
 DISTCLEANFILES = \
@@ -1588,6 +1605,10 @@ test-hamming-sphere-iterator$(EXEEXT): $(test_hamming_sphere_iterator_OBJECTS) $
 	@rm -f test-hamming-sphere-iterator$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_hamming_sphere_iterator_OBJECTS) $(test_hamming_sphere_iterator_LDADD) $(LIBS)
 
+test-herding-sample$(EXEEXT): $(test_herding_sample_OBJECTS) $(test_herding_sample_DEPENDENCIES) $(EXTRA_test_herding_sample_DEPENDENCIES) 
+	@rm -f test-herding-sample$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_herding_sample_OBJECTS) $(test_herding_sample_LDADD) $(LIBS)
+
 test-hypercube-iterator$(EXEEXT): $(test_hypercube_iterator_OBJECTS) $(test_hypercube_iterator_DEPENDENCIES) $(EXTRA_test_hypercube_iterator_DEPENDENCIES) 
 	@rm -f test-hypercube-iterator$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_hypercube_iterator_OBJECTS) $(test_hypercube_iterator_LDADD) $(LIBS)
@@ -1768,6 +1789,10 @@ test-tsaffinemap-invert$(EXEEXT): $(test_tsaffinemap_invert_OBJECTS) $(test_tsaf
 	@rm -f test-tsaffinemap-invert$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_tsaffinemap_invert_OBJECTS) $(test_tsaffinemap_invert_LDADD) $(LIBS)
 
+test-walsh-moment-add$(EXEEXT): $(test_walsh_moment_add_OBJECTS) $(test_walsh_moment_add_DEPENDENCIES) $(EXTRA_test_walsh_moment_add_DEPENDENCIES) 
+	@rm -f test-walsh-moment-add$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_walsh_moment_add_OBJECTS) $(test_walsh_moment_add_LDADD) $(LIBS)
+
 test-walsh-transform$(EXEEXT): $(test_walsh_transform_OBJECTS) $(test_walsh_transform_DEPENDENCIES) $(EXTRA_test_walsh_transform_DEPENDENCIES) 
 	@rm -f test-walsh-transform$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_walsh_transform_OBJECTS) $(test_walsh_transform_LDADD) $(LIBS)
@@ -1812,6 +1837,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-first-ascent-hill-climbing.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere-iterator.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hamming-sphere.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-herding-sample.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hypercube-iterator.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-linear-function.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-negation.Po@am__quote@ # am--include-marker
@@ -1857,6 +1883,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ts-random-unique-destination-is-involution.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ts-random-unique-source-is-involution.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-tsaffinemap-invert.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-walsh-moment-add.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-walsh-transform.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
@@ -2319,6 +2346,13 @@ test-hamming-sphere-iterator.log: test-hamming-sphere-iterator$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-herding-sample.log: test-herding-sample$(EXEEXT)
+	@p='test-herding-sample$(EXEEXT)'; \
+	b='test-herding-sample'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-hypercube-iterator.log: test-hypercube-iterator$(EXEEXT)
 	@p='test-hypercube-iterator$(EXEEXT)'; \
 	b='test-hypercube-iterator'; \
@@ -2634,6 +2668,13 @@ test-tsaffinemap-invert.log: test-tsaffinemap-invert$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-walsh-moment-add.log: test-walsh-moment-add$(EXEEXT)
+	@p='test-walsh-moment-add$(EXEEXT)'; \
+	b='test-walsh-moment-add'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-walsh-transform.log: test-walsh-transform$(EXEEXT)
 	@p='test-walsh-transform$(EXEEXT)'; \
 	b='test-walsh-transform'; \
@@ -2775,6 +2816,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere.Po
+	-rm -f ./$(DEPDIR)/test-herding-sample.Po
 	-rm -f ./$(DEPDIR)/test-hypercube-iterator.Po
 	-rm -f ./$(DEPDIR)/test-incremental-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-incremental-negation.Po
@@ -2820,6 +2862,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-ts-random-unique-destination-is-involution.Po
 	-rm -f ./$(DEPDIR)/test-ts-random-unique-source-is-involution.Po
 	-rm -f ./$(DEPDIR)/test-tsaffinemap-invert.Po
+	-rm -f ./$(DEPDIR)/test-walsh-moment-add.Po
 	-rm -f ./$(DEPDIR)/test-walsh-transform.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
@@ -2900,6 +2943,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-first-ascent-hill-climbing.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere-iterator.Po
 	-rm -f ./$(DEPDIR)/test-hamming-sphere.Po
+	-rm -f ./$(DEPDIR)/test-herding-sample.Po
 	-rm -f ./$(DEPDIR)/test-hypercube-iterator.Po
 	-rm -f ./$(DEPDIR)/test-incremental-linear-function.Po
 	-rm -f ./$(DEPDIR)/test-incremental-negation.Po
@@ -2945,6 +2989,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-ts-random-unique-destination-is-involution.Po
 	-rm -f ./$(DEPDIR)/test-ts-random-unique-source-is-involution.Po
 	-rm -f ./$(DEPDIR)/test-tsaffinemap-invert.Po
+	-rm -f ./$(DEPDIR)/test-walsh-moment-add.Po
 	-rm -f ./$(DEPDIR)/test-walsh-transform.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic

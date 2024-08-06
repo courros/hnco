@@ -21,47 +21,46 @@
 #ifndef HNCO_MULTIOBJECTIVE_APP_ALGORITHM_FACTORY_H
 #define HNCO_MULTIOBJECTIVE_APP_ALGORITHM_FACTORY_H
 
-#include "hnco/multiobjective/algorithms/algorithm.hh"
-
-#include "hnco-mo-options.hh"
-
-
 namespace hnco {
 namespace multiobjective {
+
+namespace algorithm {
+class Algorithm;
+}
+
 namespace app {
 
+class HncoOptions;
 
 /// Algorithm factory
 class AlgorithmFactory {
 public:
-  /** Make an algorithm.
-
-      \param bv_size Bit vector size
+  /**
+   * Make an algorithm.
+   * @param bv_size Bit vector size
+   * @param num_objectives Number of objectives
    */
   virtual hnco::multiobjective::algorithm::Algorithm *make(int bv_size, int num_objectives) = 0;
 };
 
-
 /// Command line algorithm factory
-class CommandLineAlgorithmFactory :
-  public AlgorithmFactory {
+class CommandLineAlgorithmFactory : public AlgorithmFactory {
   /// HNCO options
   const HncoOptions& _options;
+
 public:
   /// Constructor
   CommandLineAlgorithmFactory(const HncoOptions& options)
     : _options(options) {}
   /** Make an algorithm.
-
-      \param bv_size Bit vector size
+   * @param bv_size Bit vector size
+   * @param num_objectives Number of objectives
    */
   hnco::multiobjective::algorithm::Algorithm *make(int bv_size, int num_objectives);
 };
 
-
 } // end of namespace algorithm
 } // end of namespace multiobjective
 } // end of namespace hnco
-
 
 #endif

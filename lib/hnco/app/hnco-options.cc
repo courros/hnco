@@ -5,6 +5,8 @@
 
 using namespace hnco::app;
 
+inline bool check_string_as_bool(std::string str) { return str == "true" || str == "false"; }
+
 HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
   _exec_name(argv[0])
 {
@@ -43,6 +45,8 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"fp-representations", required_argument, 0, OPTION_FP_REPRESENTATIONS},
     {"fp-representations-path", required_argument, 0, OPTION_FP_REPRESENTATIONS_PATH},
     {"function", required_argument, 0, OPTION_FUNCTION},
+    {"hea-bound-moment", required_argument, 0, OPTION_HEA_BOUND_MOMENT},
+    {"hea-randomize-bit-order", required_argument, 0, OPTION_HEA_RANDOMIZE_BIT_ORDER},
     {"hea-reset-period", required_argument, 0, OPTION_HEA_RESET_PERIOD},
     {"learning-rate", required_argument, 0, OPTION_LEARNING_RATE},
     {"map", required_argument, 0, OPTION_MAP},
@@ -90,12 +94,10 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"fn-has-known-maximum", no_argument, 0, OPTION_FN_HAS_KNOWN_MAXIMUM},
     {"fn-provides-incremental-evaluation", no_argument, 0, OPTION_FN_PROVIDES_INCREMENTAL_EVALUATION},
     {"fn-walsh-transform", no_argument, 0, OPTION_FN_WALSH_TRANSFORM},
-    {"hea-bound-moment", no_argument, 0, OPTION_HEA_BOUND_MOMENT},
     {"hea-log-delta-norm", no_argument, 0, OPTION_HEA_LOG_DELTA_NORM},
     {"hea-log-herding-error", no_argument, 0, OPTION_HEA_LOG_HERDING_ERROR},
     {"hea-log-target", no_argument, 0, OPTION_HEA_LOG_TARGET},
     {"hea-log-target-norm", no_argument, 0, OPTION_HEA_LOG_TARGET_NORM},
-    {"hea-randomize-bit-order", no_argument, 0, OPTION_HEA_RANDOMIZE_BIT_ORDER},
     {"incremental-evaluation", no_argument, 0, OPTION_INCREMENTAL_EVALUATION},
     {"load-solution", no_argument, 0, OPTION_LOAD_SOLUTION},
     {"log-improvement", no_argument, 0, OPTION_LOG_IMPROVEMENT},
@@ -325,6 +327,24 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _function = std::atoi(optarg);
       break;
 
+    case OPTION_HEA_BOUND_MOMENT:
+      if (!check_string_as_bool(std::string(optarg))) {
+        std::cerr << _exec_name << ": hea_bound_moment must be true or false" << std::endl;
+        exit(1);
+      }
+      _with_hea_bound_moment = true;
+      _hea_bound_moment = (std::string(optarg) == "true");
+      break;
+
+    case OPTION_HEA_RANDOMIZE_BIT_ORDER:
+      if (!check_string_as_bool(std::string(optarg))) {
+        std::cerr << _exec_name << ": hea_randomize_bit_order must be true or false" << std::endl;
+        exit(1);
+      }
+      _with_hea_randomize_bit_order = true;
+      _hea_randomize_bit_order = (std::string(optarg) == "true");
+      break;
+
     case OPTION_HEA_RESET_PERIOD:
       _with_hea_reset_period = true;
       _hea_reset_period = std::atoi(optarg);
@@ -551,10 +571,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _fn_walsh_transform = true;
       break;
 
-    case OPTION_HEA_BOUND_MOMENT:
-      _hea_bound_moment = true;
-      break;
-
     case OPTION_HEA_LOG_DELTA_NORM:
       _hea_log_delta_norm = true;
       break;
@@ -569,10 +585,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_HEA_LOG_TARGET_NORM:
       _hea_log_target_norm = true;
-      break;
-
-    case OPTION_HEA_RANDOMIZE_BIT_ORDER:
-      _hea_randomize_bit_order = true;
       break;
 
     case OPTION_INCREMENTAL_EVALUATION:
@@ -1069,10 +1081,10 @@ void HncoOptions::print_help_alg(std::ostream& stream) const
   stream << "            600: Univariate marginal distribution algorithm (UMDA)" << std::endl;
   stream << "            700: Compact genetic algorithm (cGA)" << std::endl;
   stream << "            800: Max-min ant system (MMAS)" << std::endl;
-  stream << "            900: Herding evolutionary algorithm (HEA) with symmetric Walsh moment" << std::endl;
-  stream << "            901: Herding evolutionary algorithm (HEA) with lower triangular Walsh moment" << std::endl;
-  stream << "            1000: Boltzmann machine PBIL with symmetric Walsh moment" << std::endl;
-  stream << "            1001: Boltzmann machine PBIL with lower triangular Walsh moment" << std::endl;
+  stream << "            900: Herding evolutionary algorithm (HEA) with full moment" << std::endl;
+  stream << "            901: Herding evolutionary algorithm (HEA) with triangular moment" << std::endl;
+  stream << "            1000: Boltzmann machine PBIL with full moment" << std::endl;
+  stream << "            1001: Boltzmann machine PBIL with triangular moment" << std::endl;
   stream << "            1100: Mutual information maximizing input clustering (MIMIC)" << std::endl;
   stream << "            1110: Hierarchical Bayesian optimization algorithm (hBOA)" << std::endl;
   stream << "            1200: Linkage tree genetic algorithm (LTGA)" << std::endl;
@@ -1199,17 +1211,17 @@ void HncoOptions::print_help_hea(std::ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Herding Evolutionary Algorithms" << std::endl;
-  stream << "      --hea-bound-moment" << std::endl;
+  stream << "      --hea-bound-moment (type bool, default to true)" << std::endl;
   stream << "          Bound moment after update" << std::endl;
   stream << "      --hea-log-delta-norm" << std::endl;
   stream << "          Log delta (moment increment) 2-norm" << std::endl;
   stream << "      --hea-log-herding-error" << std::endl;
   stream << "          Log herding error (moment discrepancy)" << std::endl;
   stream << "      --hea-log-target" << std::endl;
-  stream << "          Log target moment as a symmetric matrix" << std::endl;
+  stream << "          Log target moment as a full matrix" << std::endl;
   stream << "      --hea-log-target-norm" << std::endl;
   stream << "          Log target 2-norm (distance to uniform moment)" << std::endl;
-  stream << "      --hea-randomize-bit-order" << std::endl;
+  stream << "      --hea-randomize-bit-order (type bool, default to true)" << std::endl;
   stream << "          Randomize bit order" << std::endl;
   stream << "      --hea-reset-period (type int, default to 0)" << std::endl;
   stream << "          Reset period (<= 0 means no reset)" << std::endl;
@@ -1251,6 +1263,7 @@ void HncoOptions::print_version(std::ostream& stream) const
 
 std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& options)
 {
+  stream << std::boolalpha;
   stream << "# algorithm = " << options._algorithm << std::endl;
   stream << "# bm_num_gs_cycles = " << options._bm_num_gs_cycles << std::endl;
   stream << "# bm_num_gs_steps = " << options._bm_num_gs_steps << std::endl;
@@ -1292,6 +1305,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# fp_representations = \"" << options._fp_representations << "\"" << std::endl;
   stream << "# fp_representations_path = \"" << options._fp_representations_path << "\"" << std::endl;
   stream << "# function = " << options._function << std::endl;
+  stream << "# hea_bound_moment = " << options._hea_bound_moment << std::endl;
+  stream << "# hea_randomize_bit_order = " << options._hea_randomize_bit_order << std::endl;
   stream << "# hea_reset_period = " << options._hea_reset_period << std::endl;
   stream << "# learning_rate = " << options._learning_rate << std::endl;
   stream << "# map = " << options._map << std::endl;
@@ -1357,8 +1372,6 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# fn_provides_incremental_evaluation " << std::endl;
   if (options._fn_walsh_transform)
     stream << "# fn_walsh_transform " << std::endl;
-  if (options._hea_bound_moment)
-    stream << "# hea_bound_moment " << std::endl;
   if (options._hea_log_delta_norm)
     stream << "# hea_log_delta_norm " << std::endl;
   if (options._hea_log_herding_error)
@@ -1367,8 +1380,6 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# hea_log_target " << std::endl;
   if (options._hea_log_target_norm)
     stream << "# hea_log_target_norm " << std::endl;
-  if (options._hea_randomize_bit_order)
-    stream << "# hea_randomize_bit_order " << std::endl;
   if (options._incremental_evaluation)
     stream << "# incremental_evaluation " << std::endl;
   if (options._load_solution)

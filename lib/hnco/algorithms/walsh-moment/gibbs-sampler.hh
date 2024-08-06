@@ -21,8 +21,6 @@
 #ifndef HNCO_ALGORITHMS_WALSH_MOMENT_GIBBS_SAMPLER_H
 #define HNCO_ALGORITHMS_WALSH_MOMENT_GIBBS_SAMPLER_H
 
-#include <vector>
-
 #include "hnco/bit-vector.hh"
 #include "hnco/algorithms/probability-vector/probability-vector.hh"
 
@@ -34,11 +32,11 @@ namespace algorithm {
 namespace walsh_moment {
 
 
-/// Gibbs sampler with lower triangular Walsh moments
-class LowerTriangularWalshMoment2GibbsSampler {
+/// Gibbs sampler with triangular moments
+class TriangularMomentGibbsSampler {
 
   /// Model parameters
-  const LowerTriangularWalshMoment2& _model_parameters;
+  const TriangularMoment& _model_parameters;
 
   /// State of the Gibbs sampler
   bit_vector_t _state;
@@ -49,10 +47,10 @@ class LowerTriangularWalshMoment2GibbsSampler {
 public:
 
   /// Walsh moment type
-  using Moment = LowerTriangularWalshMoment2;
+  using Moment = TriangularMoment;
 
   /// Constructor
-  LowerTriangularWalshMoment2GibbsSampler(int n, const LowerTriangularWalshMoment2& mp):
+  TriangularMomentGibbsSampler(int n, const TriangularMoment& mp):
     _model_parameters(mp),
     _state(n),
     _pv(n) {}
@@ -71,11 +69,11 @@ public:
 
 };
 
-/// Gibbs sampler with symmetric Walsh moments
-class SymmetricWalshMoment2GibbsSampler {
+/// Gibbs sampler with full moments
+class FullMomentGibbsSampler {
 
   /// Model parameters
-  const SymmetricWalshMoment2& _model_parameters;
+  const FullMoment& _model_parameters;
 
   /// State of the Gibbs sampler
   bit_vector_t _state;
@@ -86,10 +84,10 @@ class SymmetricWalshMoment2GibbsSampler {
 public:
 
   /// Walsh moment type
-  using Moment = SymmetricWalshMoment2;
+  using Moment = FullMoment;
 
   /// Constructor
-  SymmetricWalshMoment2GibbsSampler(int n, const SymmetricWalshMoment2& mp):
+  FullMomentGibbsSampler(int n, const FullMoment& mp):
     _model_parameters(mp),
     _state(n),
     _pv(n) {}

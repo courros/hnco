@@ -18,19 +18,21 @@
 
 */
 
+#include <iostream>
 #include <algorithm>            // std::clamp
 #include <cassert>
 #include <cmath>		// std::sqrt
 
-#include "hnco/util.hh"
+#include "hnco/util.hh"         // hnco::have_same_size, hnco::is_in_interval, hnco::square
 
 #include "matrix.hh"           // hnco::algorithm::matrix_is_symmetric
 #include "walsh-moment.hh"
 
-
 using namespace hnco::algorithm::walsh_moment;
+using namespace hnco::algorithm;
+using namespace hnco;
 
-LowerTriangularWalshMoment2::LowerTriangularWalshMoment2(int n)
+TriangularMoment::TriangularMoment(int n)
 {
   assert(n > 0);
 
@@ -41,7 +43,7 @@ LowerTriangularWalshMoment2::LowerTriangularWalshMoment2(int n)
 }
 
 void
-LowerTriangularWalshMoment2::display(std::ostream& stream)
+TriangularMoment::display(std::ostream& stream)
 {
   for (size_t i = 0; i < first_moment.size(); i++) {
     for (size_t j = 0; j < i; j++)
@@ -54,7 +56,7 @@ LowerTriangularWalshMoment2::display(std::ostream& stream)
 }
 
 void
-LowerTriangularWalshMoment2::init()
+TriangularMoment::init()
 {
   std::fill(first_moment.begin(), first_moment.end(), 0);
   for (auto& row : second_moment)
@@ -62,9 +64,9 @@ LowerTriangularWalshMoment2::init()
 }
 
 void
-LowerTriangularWalshMoment2::add(const bit_vector_t& bv)
+TriangularMoment::add(const bit_vector_t& bv)
 {
-  assert(have_same_size(bv, first_moment));
+  assert(hnco::have_same_size(bv, first_moment));
 
   for (size_t i = 0; i < bv.size(); i++) {
     std::vector<double>& row = second_moment[i];
@@ -87,7 +89,7 @@ LowerTriangularWalshMoment2::add(const bit_vector_t& bv)
 }
 
 void
-LowerTriangularWalshMoment2::average(int count)
+TriangularMoment::average(int count)
 {
   for (size_t i = 0; i < first_moment.size(); i++) {
     first_moment[i] /= count;
@@ -102,16 +104,16 @@ LowerTriangularWalshMoment2::average(int count)
 }
 
 void
-LowerTriangularWalshMoment2::update(const LowerTriangularWalshMoment2& wm, double rate)
+TriangularMoment::update(const TriangularMoment& tm, double rate)
 {
-  assert(have_same_size(wm.first_moment, first_moment));
+  assert(hnco::have_same_size(tm.first_moment, first_moment));
 
   for (size_t i = 0; i < first_moment.size(); i++) {
-    first_moment[i] += rate * (wm.first_moment[i] - first_moment[i]);
+    first_moment[i] += rate * (tm.first_moment[i] - first_moment[i]);
     assert(is_in_interval(first_moment[i], -1, 1));
 
     std::vector<double>& row = second_moment[i];
-    const std::vector<double>& row2 = wm.second_moment[i];
+    const std::vector<double>& row2 = tm.second_moment[i];
     for (size_t j = 0; j < i; j++) {
       row[j] += rate * (row2[j] - row[j]);
       assert(is_in_interval(row[j], -1, 1));
@@ -120,19 +122,17 @@ LowerTriangularWalshMoment2::update(const LowerTriangularWalshMoment2& wm, doubl
 }
 
 void
-LowerTriangularWalshMoment2::update(const LowerTriangularWalshMoment2& wm1,
-                                    const LowerTriangularWalshMoment2& wm2,
-                                    double rate)
+TriangularMoment::update(const TriangularMoment& tm1, const TriangularMoment& tm2, double rate)
 {
-  assert(have_same_size(wm1.first_moment, first_moment));
-  assert(have_same_size(wm2.first_moment, first_moment));
+  assert(hnco::have_same_size(tm1.first_moment, first_moment));
+  assert(hnco::have_same_size(tm2.first_moment, first_moment));
 
   for (size_t i = 0; i < first_moment.size(); i++) {
-    first_moment[i] += rate * (wm1.first_moment[i] - wm2.first_moment[i]);
+    first_moment[i] += rate * (tm1.first_moment[i] - tm2.first_moment[i]);
 
     std::vector<double>& row = second_moment[i];
-    const std::vector<double>& row1 = wm1.second_moment[i];
-    const std::vector<double>& row2 = wm2.second_moment[i];
+    const std::vector<double>& row1 = tm1.second_moment[i];
+    const std::vector<double>& row2 = tm2.second_moment[i];
     for (size_t j = 0; j < i; j++) {
       row[j] += rate * (row1[j] - row2[j]);
     }
@@ -140,18 +140,16 @@ LowerTriangularWalshMoment2::update(const LowerTriangularWalshMoment2& wm1,
 }
 
 void
-LowerTriangularWalshMoment2::scaled_difference(double lambda,
-                                              const LowerTriangularWalshMoment2& wm1,
-                                              const LowerTriangularWalshMoment2& wm2)
+TriangularMoment::scaled_difference(double lambda, const TriangularMoment& tm1, const TriangularMoment& tm2)
 {
-  assert(have_same_size(wm1.first_moment, first_moment));
-  assert(have_same_size(wm2.first_moment, first_moment));
+  assert(hnco::have_same_size(tm1.first_moment, first_moment));
+  assert(hnco::have_same_size(tm2.first_moment, first_moment));
 
   for (size_t i = 0; i < first_moment.size(); i++) {
-    first_moment[i] = lambda * wm1.first_moment[i] - wm2.first_moment[i];
+    first_moment[i] = lambda * tm1.first_moment[i] - tm2.first_moment[i];
     std::vector<double>& row = second_moment[i];
-    const std::vector<double>& row1 = wm1.second_moment[i];
-    const std::vector<double>& row2 = wm2.second_moment[i];
+    const std::vector<double>& row1 = tm1.second_moment[i];
+    const std::vector<double>& row2 = tm2.second_moment[i];
     for (size_t j = 0; j < i; j++) {
       row[j] = lambda * row1[j] - row2[j];
     }
@@ -159,7 +157,7 @@ LowerTriangularWalshMoment2::scaled_difference(double lambda,
 }
 
 void
-LowerTriangularWalshMoment2::bound(double margin)
+TriangularMoment::bound(double margin)
 {
   assert(is_in_interval(margin, 0, 1));
 
@@ -180,7 +178,7 @@ LowerTriangularWalshMoment2::bound(double margin)
 }
 
 double
-LowerTriangularWalshMoment2::norm_1() const
+TriangularMoment::norm_1() const
 {
   double result = 0;
   for (size_t i = 0; i < first_moment.size(); i++) {
@@ -193,7 +191,7 @@ LowerTriangularWalshMoment2::norm_1() const
 }
 
 double
-LowerTriangularWalshMoment2::norm_2() const
+TriangularMoment::norm_2() const
 {
   double result = 0;
   for (size_t i = 0; i < first_moment.size(); i++) {
@@ -206,7 +204,7 @@ LowerTriangularWalshMoment2::norm_2() const
 }
 
 double
-LowerTriangularWalshMoment2::norm_infinite() const
+TriangularMoment::norm_infinite() const
 {
   double result = 0;
   for (size_t i = 0; i < first_moment.size(); i++) {
@@ -219,22 +217,22 @@ LowerTriangularWalshMoment2::norm_infinite() const
 }
 
 double
-LowerTriangularWalshMoment2::distance(const LowerTriangularWalshMoment2& wm) const
+TriangularMoment::distance(const TriangularMoment& tm) const
 {
-  assert(have_same_size(wm.first_moment, first_moment));
+  assert(hnco::have_same_size(tm.first_moment, first_moment));
 
   double result = 0;
   for (size_t i = 0; i < first_moment.size(); i++) {
-    result += square(first_moment[i] - wm.first_moment[i]);
+    result += square(first_moment[i] - tm.first_moment[i]);
     const std::vector<double>& row = second_moment[i];
-    const std::vector<double>& row2 = wm.second_moment[i];
+    const std::vector<double>& row2 = tm.second_moment[i];
     for (size_t j = 0; j < i; j++)
       result += square(row[j] - row2[j]);
   }
   return std::sqrt(result);
 }
 
-SymmetricWalshMoment2::SymmetricWalshMoment2(int n)
+FullMoment::FullMoment(int n)
 {
   assert(n > 0);
 
@@ -245,7 +243,7 @@ SymmetricWalshMoment2::SymmetricWalshMoment2(int n)
 }
 
 void
-SymmetricWalshMoment2::display(std::ostream& stream)
+FullMoment::display(std::ostream& stream)
 {
   const size_t dimension = first_moment.size();
   for (size_t i = 0; i < dimension; i++) {
@@ -261,7 +259,7 @@ SymmetricWalshMoment2::display(std::ostream& stream)
 }
 
 void
-SymmetricWalshMoment2::init()
+FullMoment::init()
 {
   std::fill(first_moment.begin(), first_moment.end(), 0);
   for (auto& row : second_moment)
@@ -269,7 +267,7 @@ SymmetricWalshMoment2::init()
 }
 
 void
-SymmetricWalshMoment2::add(const bit_vector_t& bv)
+FullMoment::add(const bit_vector_t& bv)
 {
   assert(have_same_size(bv, first_moment));
 
@@ -294,7 +292,7 @@ SymmetricWalshMoment2::add(const bit_vector_t& bv)
 }
 
 void
-SymmetricWalshMoment2::average(int count)
+FullMoment::average(int count)
 {
   for (size_t i = 0; i < first_moment.size(); i++) {
     first_moment[i] /= count;
@@ -312,16 +310,16 @@ SymmetricWalshMoment2::average(int count)
 }
 
 void
-SymmetricWalshMoment2::update(const SymmetricWalshMoment2& wm, double rate)
+FullMoment::update(const FullMoment& fm, double rate)
 {
-  assert(have_same_size(wm.first_moment, first_moment));
+  assert(hnco::have_same_size(fm.first_moment, first_moment));
 
   for (size_t i = 0; i < first_moment.size(); i++) {
-    first_moment[i] += rate * (wm.first_moment[i] - first_moment[i]);
+    first_moment[i] += rate * (fm.first_moment[i] - first_moment[i]);
     assert(is_in_interval(first_moment[i], -1, 1));
 
     std::vector<double>& row = second_moment[i];
-    const std::vector<double>& row2 = wm.second_moment[i];
+    const std::vector<double>& row2 = fm.second_moment[i];
     for (size_t j = 0; j < i; j++) {
       row[j] += rate * (row2[j] - row[j]);
       assert(is_in_interval(row[j], -1, 1));
@@ -333,19 +331,17 @@ SymmetricWalshMoment2::update(const SymmetricWalshMoment2& wm, double rate)
 }
 
 void
-SymmetricWalshMoment2::update(const SymmetricWalshMoment2& wm1,
-                                    const SymmetricWalshMoment2& wm2,
-                                    double rate)
+FullMoment::update(const FullMoment& fm1, const FullMoment& fm2, double rate)
 {
-  assert(have_same_size(wm1.first_moment, first_moment));
-  assert(have_same_size(wm2.first_moment, first_moment));
+  assert(hnco::have_same_size(fm1.first_moment, first_moment));
+  assert(hnco::have_same_size(fm2.first_moment, first_moment));
 
   for (size_t i = 0; i < first_moment.size(); i++) {
-    first_moment[i] += rate * (wm1.first_moment[i] - wm2.first_moment[i]);
+    first_moment[i] += rate * (fm1.first_moment[i] - fm2.first_moment[i]);
 
     std::vector<double>& row = second_moment[i];
-    const std::vector<double>& row1 = wm1.second_moment[i];
-    const std::vector<double>& row2 = wm2.second_moment[i];
+    const std::vector<double>& row1 = fm1.second_moment[i];
+    const std::vector<double>& row2 = fm2.second_moment[i];
     for (size_t j = 0; j < i; j++) {
       row[j] += rate * (row1[j] - row2[j]);
 
@@ -355,28 +351,27 @@ SymmetricWalshMoment2::update(const SymmetricWalshMoment2& wm1,
 }
 
 void
-SymmetricWalshMoment2::scaled_difference(double lambda,
-                                              const SymmetricWalshMoment2& wm1,
-                                              const SymmetricWalshMoment2& wm2)
+FullMoment::scaled_difference(double lambda, const FullMoment& fm1, const FullMoment& fm2)
 {
-  assert(have_same_size(wm1.first_moment, first_moment));
-  assert(have_same_size(wm2.first_moment, first_moment));
+  assert(hnco::have_same_size(fm1.first_moment, first_moment));
+  assert(hnco::have_same_size(fm2.first_moment, first_moment));
 
-  for (size_t i = 0; i < first_moment.size(); i++) {
-    first_moment[i] = lambda * wm1.first_moment[i] - wm2.first_moment[i];
-    std::vector<double>& row = second_moment[i];
-    const std::vector<double>& row1 = wm1.second_moment[i];
-    const std::vector<double>& row2 = wm2.second_moment[i];
+  const size_t bv_size = first_moment.size();
+  for (size_t i = 0; i < bv_size; i++) {
+    first_moment[i] = lambda * fm1.first_moment[i] - fm2.first_moment[i];
+    auto& row = second_moment[i];
+    const auto& row1 = fm1.second_moment[i];
+    const auto& row2 = fm2.second_moment[i];
     for (size_t j = 0; j < i; j++) {
-      row[j] = lambda * row1[j] - row2[j];
-
-      second_moment[j][i] = row[j];
+      double tmp = lambda * row1[j] - row2[j];
+      row[j] = tmp;
+      second_moment[j][i] = tmp;
     }
   }
 }
 
 void
-SymmetricWalshMoment2::bound(double margin)
+FullMoment::bound(double margin)
 {
   assert(is_in_interval(margin, 0, 1));
 
@@ -399,7 +394,7 @@ SymmetricWalshMoment2::bound(double margin)
 }
 
 double
-SymmetricWalshMoment2::norm_1() const
+FullMoment::norm_1() const
 {
   double result = 0;
   for (size_t i = 0; i < first_moment.size(); i++) {
@@ -412,7 +407,7 @@ SymmetricWalshMoment2::norm_1() const
 }
 
 double
-SymmetricWalshMoment2::norm_2() const
+FullMoment::norm_2() const
 {
   double result = 0;
   for (size_t i = 0; i < first_moment.size(); i++) {
@@ -425,7 +420,7 @@ SymmetricWalshMoment2::norm_2() const
 }
 
 double
-SymmetricWalshMoment2::norm_infinite() const
+FullMoment::norm_infinite() const
 {
   double result = 0;
   for (size_t i = 0; i < first_moment.size(); i++) {
@@ -438,15 +433,15 @@ SymmetricWalshMoment2::norm_infinite() const
 }
 
 double
-SymmetricWalshMoment2::distance(const SymmetricWalshMoment2& wm) const
+FullMoment::distance(const FullMoment& fm) const
 {
-  assert(have_same_size(wm.first_moment, first_moment));
+  assert(hnco::have_same_size(fm.first_moment, first_moment));
 
   double result = 0;
   for (size_t i = 0; i < first_moment.size(); i++) {
-    result += square(first_moment[i] - wm.first_moment[i]);
+    result += square(first_moment[i] - fm.first_moment[i]);
     const std::vector<double>& row = second_moment[i];
-    const std::vector<double>& row2 = wm.second_moment[i];
+    const std::vector<double>& row2 = fm.second_moment[i];
     for (size_t j = 0; j < i; j++)
       result += square(row[j] - row2[j]);
   }

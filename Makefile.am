@@ -44,7 +44,7 @@ EXTRA_DIST = \
 # Code management
 #
 
-.PHONY: doc count count-hnco count-all
+.PHONY: doc count count-hnco count-all pdf
 
 doc:
 	cd $(top_srcdir) && doxygen
@@ -57,6 +57,9 @@ count-hnco:
 
 count-all:
 	cloc --no3 --by-file-by-lang $(top_srcdir)/lib $(top_srcdir)/experiments/modules $(top_srcdir)/experiments/scripts $(top_srcdir)/app $(top_srcdir)/tests $(top_srcdir)/bindings
+
+pdf:
+	cd $(top_srcdir)/docs/local/latex && rubber -d refman.tex
 
 #
 # Bash completion scripts

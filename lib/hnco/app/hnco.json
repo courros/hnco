@@ -364,12 +364,6 @@
             "section": "eda"
         },
 
-        "hea_randomize_bit_order":
-        {
-            "description": "Randomize bit order",
-            "section": "hea"
-        },
-
         "hea_log_herding_error":
         {
             "description": "Log herding error (moment discrepancy)",
@@ -390,13 +384,7 @@
 
         "hea_log_target":
         {
-            "description": "Log target moment as a symmetric matrix",
-            "section": "hea"
-        },
-
-        "hea_bound_moment":
-        {
-            "description": "Bound moment after update",
+            "description": "Log target moment as a full matrix",
             "section": "hea"
         },
 
@@ -1127,22 +1115,22 @@
 
                 {
                     "value": 900,
-                    "description": "Herding evolutionary algorithm (HEA) with symmetric Walsh moment"
+                    "description": "Herding evolutionary algorithm (HEA) with full moment"
                 },
 
                 {
                     "value": 901,
-                    "description": "Herding evolutionary algorithm (HEA) with lower triangular Walsh moment"
+                    "description": "Herding evolutionary algorithm (HEA) with triangular moment"
                 },
 
                 {
                     "value": 1000,
-                    "description": "Boltzmann machine PBIL with symmetric Walsh moment"
+                    "description": "Boltzmann machine PBIL with full moment"
                 },
 
                 {
                     "value": 1001,
-                    "description": "Boltzmann machine PBIL with lower triangular Walsh moment"
+                    "description": "Boltzmann machine PBIL with triangular moment"
                 },
 
                 {
@@ -1445,6 +1433,22 @@
             "default": 5,
             "description": "Number of probability vector components to log",
             "section": "eda"
+        },
+
+        "hea_randomize_bit_order":
+        {
+            "type": "bool",
+            "default": true,
+            "description": "Randomize bit order",
+            "section": "hea"
+        },
+
+        "hea_bound_moment":
+        {
+            "type": "bool",
+            "default": true,
+            "description": "Bound moment after update",
+            "section": "hea"
         },
 
         "hea_reset_period":

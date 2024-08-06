@@ -399,51 +399,49 @@ CommandLineAlgorithmFactory::make(int bv_size)
 
   case 900: {
     using namespace walsh_moment;
+    auto algo = new Hea<FullMomentHerding>
+      (bv_size,
+       _options.get_population_size());
 
-    auto algo = new
-      Hea<SymmetricWalshMoment2Herding>(bv_size,
-                                        _options.get_population_size());
-
-    algo->set_bound_moment        (_options.with_hea_bound_moment());
+    algo->set_bound_moment        (_options.get_hea_bound_moment());
     algo->set_learning_rate       (_options.get_learning_rate());
     algo->set_num_iterations      (_options.get_num_iterations());
-    algo->set_randomize_bit_order (_options.with_hea_randomize_bit_order());
+    algo->set_randomize_bit_order (_options.get_hea_randomize_bit_order());
     algo->set_reset_period        (_options.get_hea_reset_period());
     algo->set_selection_size      (_options.get_selection_size());
 
     algo->set_log_delta_norm      (_options.with_hea_log_delta_norm());
-    algo->set_log_target_norm     (_options.with_hea_log_target_norm());
     algo->set_log_herding_error   (_options.with_hea_log_herding_error());
     algo->set_log_target          (_options.with_hea_log_target());
+    algo->set_log_target_norm     (_options.with_hea_log_target_norm());
 
     return algo;
   }
 
   case 901: {
     using namespace walsh_moment;
+    auto algo = new Hea<TriangularMomentHerding>
+      (bv_size,
+       _options.get_population_size());
 
-    auto algo = new
-      Hea<LowerTriangularWalshMoment2Herding>(bv_size,
-                                              _options.get_population_size());
-
-    algo->set_bound_moment        (_options.with_hea_bound_moment());
+    algo->set_bound_moment        (_options.get_hea_bound_moment());
     algo->set_learning_rate       (_options.get_learning_rate());
     algo->set_num_iterations      (_options.get_num_iterations());
-    algo->set_randomize_bit_order (_options.with_hea_randomize_bit_order());
+    algo->set_randomize_bit_order (_options.get_hea_randomize_bit_order());
     algo->set_reset_period        (_options.get_hea_reset_period());
     algo->set_selection_size      (_options.get_selection_size());
 
     algo->set_log_delta_norm      (_options.with_hea_log_delta_norm());
-    algo->set_log_target_norm     (_options.with_hea_log_target_norm());
     algo->set_log_herding_error   (_options.with_hea_log_herding_error());
     algo->set_log_target          (_options.with_hea_log_target());
+    algo->set_log_target_norm     (_options.with_hea_log_target_norm());
 
     return algo;
   }
 
   case 1000: {
     using namespace walsh_moment;
-    using BM = BmPbil<SymmetricWalshMoment2GibbsSampler>;
+    using BM = BmPbil<FullMomentGibbsSampler>;
     auto algo = new BM
       (bv_size,
        _options.get_population_size());
@@ -465,7 +463,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
 
   case 1001: {
     using namespace walsh_moment;
-    using BM = BmPbil<LowerTriangularWalshMoment2GibbsSampler>;
+    using BM = BmPbil<TriangularMomentGibbsSampler>;
     auto algo = new BM
       (bv_size,
        _options.get_population_size());

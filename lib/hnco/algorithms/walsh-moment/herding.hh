@@ -25,166 +25,132 @@
 
 #include "walsh-moment.hh"
 
+/**
+ * @file herding.hh
+ * Herding algorihms.
+ *
+ * Herding algorithms for the generation of quasi-random sequences of
+ * bit vectors of given second Walsh moment.
+ */
 
 namespace hnco {
 namespace algorithm {
 namespace walsh_moment {
 
-
-/** Herding with lower triangular Walsh moment.
-
+/**
+ * Herding with lower triangular Walsh moment.
  */
-class LowerTriangularWalshMoment2Herding {
-
-protected:
-
+class TriangularMomentHerding {
   /// Delta moment
-  LowerTriangularWalshMoment2 _delta;
-
+  TriangularMoment _delta;
   /// Counter moment
-  LowerTriangularWalshMoment2 _count;
-
+  TriangularMoment _count;
   /// Error moment
-  LowerTriangularWalshMoment2 _error;
-
+  TriangularMoment _error;
   /// Permutation
   permutation_t _permutation;
-
   /// Time
   int _time;
-
-  /** @name Parameters
+  /**
+   * @name Parameters
    */
   ///@{
-
   /// Randomize bit order
-  bool _randomize_bit_order = false;
-
+  bool _randomize_bit_order = true;
   ///@}
 
 public:
-
   /// Walsh moment type
-  using Moment = LowerTriangularWalshMoment2;
-
-  /** Constructor.
-
-      \param n Size of bit vectors
-  */
-  LowerTriangularWalshMoment2Herding(int n):
+  using Moment = TriangularMoment;
+  /**
+   * Constructor.
+   * @param n Size of bit vectors
+   */
+  TriangularMomentHerding(int n):
     _delta(n),
     _count(n),
     _error(n),
     _permutation(n, 0) {}
-
   /// Initialization
   void init();
-
   /// Sample a bit vector
-  void sample(const LowerTriangularWalshMoment2& target, bit_vector_t& x);
-
+  void sample(const TriangularMoment& target, bit_vector_t& x);
   /// Compute the error
-  double error(const LowerTriangularWalshMoment2& target);
-
-  /** @name Getters
+  double error(const TriangularMoment& target);
+  /**
+   * @name Getters
    */
   ///@{
-
   /// Get delta
-  const LowerTriangularWalshMoment2& get_delta() const { return _delta; }
-
+  const TriangularMoment& get_delta() const { return _delta; }
   ///@}
-
-  /** @name Setters
+  /**
+   * @name Setters
    */
   ///@{
-
   /// Randomize bit order
-  void set_randomize_bit_order(bool x) { _randomize_bit_order = x; }
-
+  void set_randomize_bit_order(bool b) { _randomize_bit_order = b; }
   ///@}
-
 };
 
-/** Herding with symmetric Walsh moment.
-
+/**
+ * Herding with full moments.
  */
-class SymmetricWalshMoment2Herding {
-
-protected:
-
+class FullMomentHerding {
   /// Delta moment
-  SymmetricWalshMoment2 _delta;
-
+  FullMoment _delta;
   /// Counter moment
-  SymmetricWalshMoment2 _count;
-
+  FullMoment _count;
   /// Error moment
-  SymmetricWalshMoment2 _error;
-
+  FullMoment _error;
   /// Permutation
   permutation_t _permutation;
-
   /// Time
   int _time;
-
-  /** @name Parameters
+  /**
+   * @name Parameters
    */
   ///@{
-
   /// Randomize bit order
-  bool _randomize_bit_order = false;
-
+  bool _randomize_bit_order = true;
   ///@}
 
 public:
-
   /// Walsh moment type
-  using Moment = SymmetricWalshMoment2;
-
-  /** Constructor.
-
-      \param n Size of bit vectors
-  */
-  SymmetricWalshMoment2Herding(int n):
+  using Moment = FullMoment;
+  /**
+   * Constructor.
+   * @param n Size of bit vectors
+   */
+  FullMomentHerding(int n):
     _delta(n),
     _count(n),
     _error(n),
     _permutation(n, 0) {}
-
   /// Initialization
   void init();
-
   /// Sample a bit vector
-  void sample(const SymmetricWalshMoment2& target, bit_vector_t& x);
-
+  void sample(const FullMoment& target, bit_vector_t& x);
   /// Compute the error
-  double error(const SymmetricWalshMoment2& target);
-
-  /** @name Getters
+  double error(const FullMoment& target);
+  /**
+   * @name Getters
    */
   ///@{
-
   /// Get delta
-  const SymmetricWalshMoment2& get_delta() const { return _delta; }
-
+  const FullMoment& get_delta() const { return _delta; }
   ///@}
-
-  /** @name Setters
+  /**
+   * @name Setters
    */
   ///@{
-
   /// Randomize bit order
-  void set_randomize_bit_order(bool x) { _randomize_bit_order = x; }
-
+  void set_randomize_bit_order(bool b) { _randomize_bit_order = b; }
   ///@}
-
 };
 
-
 }
 }
 }
-
 
 #endif

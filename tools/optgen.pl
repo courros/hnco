@@ -288,6 +288,7 @@ sub generate_source
 	"#include \"$header\"\n\n",
         "using namespace $namespace;\n\n";
 
+    generate_source_check_string_as_bool();
     generate_source_constructor();
     generate_source_help();
     generate_source_additional_section_help();
@@ -295,6 +296,12 @@ sub generate_source
     generate_source_stream();
 
     close(SRC);
+}
+
+sub generate_source_check_string_as_bool()
+{
+    print SRC
+        "inline bool check_string_as_bool(std::string str) { return str == \"true\" || str == \"false\"; }\n\n";
 }
 
 sub generate_source_constructor()
@@ -305,21 +312,18 @@ sub generate_source_constructor()
         "{\n";
 
     print SRC "  const struct option long_options[] = {\n";
-
     my @plist = map {
 	my $uppercase = uc($_);
 	my $hyphen = $_;
 	$hyphen =~ s/_/-/g;
 	"    {\"$hyphen\", required_argument, 0, OPTION_$uppercase}"
     } sort(keys(%$parameters));
-
     my @flist = map {
 	my $uppercase = uc($_);
 	my $hyphen = $_;
 	$hyphen =~ s/_/-/g;
 	"    {\"$hyphen\", no_argument, 0, OPTION_$uppercase}"
     } (sort(keys(%$flags)), "version", "help", map { "help_$_" } @folded_sections);
-
     print SRC join ",\n", (@plist, @flist);
     print SRC
 	",\n",
@@ -329,15 +333,11 @@ sub generate_source_constructor()
     @plist = map {
 	my $optchar = $parameters->{$_}->{optchar};
 	"$optchar:"
-    }
-    grep { exists($parameters->{$_}->{optchar}); } sort(keys(%$parameters));
-
+    } grep { exists($parameters->{$_}->{optchar}); } sort(keys(%$parameters));
     @flist = map {
 	my $optchar = $flags->{$_}->{optchar};
 	"$optchar"
-    }
-    grep { exists($flags->{$_}->{optchar}); } sort(keys(%$flags));
-
+    } grep { exists($flags->{$_}->{optchar}); } sort(keys(%$flags));
     print SRC
 	"  const char *short_options = \"" . join("", (@plist, @flist)) . "\";\n",
 	"  optind = 0;\n",
@@ -348,25 +348,30 @@ sub generate_source_constructor()
 	"    switch (option) {\n";
 
     foreach (sort(keys(%$parameters))) {
-
         my $parameter = $parameters->{$_};
 
 	if (exists($parameter->{optchar})) {
 	    my $optchar = $parameter->{optchar};
 	    print SRC "    case \'$optchar\':\n";
 	}
-
 	my $uppercase = uc($_);
-	print SRC
-	    "    case OPTION_$uppercase:\n",
-            "      _with_$_ = true;\n",
-            "      _$_ = ";
+	print SRC "    case OPTION_$uppercase:\n";
 
         my $type = $parameter->{type};
+        if ($type eq "bool") {
+            print SRC
+                "      if (!check_string_as_bool(std::string(optarg))) {\n",
+                "        std::cerr << _exec_name << \": $_ must be true or false\" << std::endl;\n",
+                "        exit(1);\n",
+                "      }\n";
+        }
+	print SRC
+            "      _with_$_ = true;\n",
+            "      _$_ = ";
 	if ($type eq "int") {
 	    print SRC "std::atoi(optarg);\n";
 	} elsif ($type eq "bool") {
-	    print SRC "(std::string(optarg) == \"true\") ? true : false;\n";
+	    print SRC "(std::string(optarg) == \"true\");\n";
 	} elsif ($type eq "unsigned") {
 	    print SRC "std::strtoul(optarg, NULL, 0);\n";
 	} elsif ($type eq "double") {
@@ -578,6 +583,7 @@ sub generate_source_stream()
 
     push @lines, "std::ostream& $namespace\:\:operator<<(std::ostream& stream, const $classname& options)";
     push @lines, "{";
+    push @lines, qq(  stream << std::boolalpha;);
 
     foreach (sort(keys(%$parameters))) {
 	my $parameter = $parameters->{$_};
@@ -585,8 +591,6 @@ sub generate_source_stream()
         if (exists($parameter->{default})) {
             if ($type eq "string") {
                 push @lines, qq(  stream << "# $_ = \\"" << options._$_ << "\\"" << std::endl;);
-            } elsif ($type eq "bool") {
-                push @lines, qq(  stream << "# $_ = " << (options._$_ ? "true" : "false") << std::endl;);
             } else {
                 push @lines, qq(  stream << "# $_ = " << options._$_ << std::endl;);
             }
@@ -594,8 +598,6 @@ sub generate_source_stream()
             push @lines, "  if (options._with_$_)";
             if ($type eq "string") {
                 push @lines, qq(    stream << "# $_ = \\"" << options._$_ << "\\"" << std::endl;);
-            } elsif ($type eq "bool") {
-                push @lines, qq(    stream << "# $_ = " << (options._$_ ? "true" : "false") << std::endl;);
             } else {
                 push @lines, qq(    stream << "# $_ = " << options._$_ << std::endl;);
             }

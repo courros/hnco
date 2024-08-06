@@ -5,6 +5,8 @@
 
 using namespace hnco::app;
 
+inline bool check_string_as_bool(std::string str) { return str == "true" || str == "false"; }
+
 MapgenOptions::MapgenOptions(int argc, char *argv[], bool ignore_bad_options):
   _exec_name(argv[0])
 {
@@ -129,6 +131,7 @@ void MapgenOptions::print_version(std::ostream& stream) const
 
 std::ostream& hnco::app::operator<<(std::ostream& stream, const MapgenOptions& options)
 {
+  stream << std::boolalpha;
   stream << "# input_size = " << options._input_size << std::endl;
   stream << "# map = " << options._map << std::endl;
   stream << "# output_size = " << options._output_size << std::endl;

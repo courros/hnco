@@ -26,6 +26,7 @@
 #include <fstream>              // std::ifstream, std::ofstream
 #include <iostream>
 
+#include "hnco/multiobjective/algorithms/algorithm.hh"
 #include "hnco/multiobjective/algorithms/pareto-front-computation.hh"
 #include "hnco/random.hh"
 #include "hnco/stop-watch.hh"   // StopWatch

@@ -21,13 +21,12 @@
 #include "hnco/multiobjective/algorithms/all.hh"
 
 #include "algorithm-factory.hh"
-
+#include "hnco-mo-options.hh"
 
 using namespace hnco::multiobjective::algorithm;
 using namespace hnco::multiobjective::app;
 using namespace hnco::random;
 using namespace hnco;
-
 
 Algorithm *
 CommandLineAlgorithmFactory::make(int bv_size, int num_objectives)

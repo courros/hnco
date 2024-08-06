@@ -18,7 +18,7 @@
 
 */
 
-#include <assert.h>
+#include <cassert>
 
 #include "hnco/random.hh"       // hnco::random::Generator
 #include "hnco/util.hh"         // hnco::logistic, hnco::is_in_range
@@ -31,13 +31,13 @@ using namespace hnco::random;
 using namespace hnco::algorithm::walsh_moment;
 
 void
-LowerTriangularWalshMoment2GibbsSampler::init()
+TriangularMomentGibbsSampler::init()
 {
   bv_random(_state);
 }
 
 void
-LowerTriangularWalshMoment2GibbsSampler::update(int i)
+TriangularMomentGibbsSampler::update(int i)
 {
   assert(is_in_range(i, 0, _state.size()));
 
@@ -65,7 +65,7 @@ LowerTriangularWalshMoment2GibbsSampler::update(int i)
 }
 
 void
-LowerTriangularWalshMoment2GibbsSampler::update_sync()
+TriangularMomentGibbsSampler::update_sync()
 {
   for (size_t i = 0; i < _pv.size(); i++) {
     double delta = _model_parameters.first_moment[i];
@@ -86,13 +86,13 @@ LowerTriangularWalshMoment2GibbsSampler::update_sync()
 }
 
 void
-SymmetricWalshMoment2GibbsSampler::init()
+FullMomentGibbsSampler::init()
 {
   bv_random(_state);
 }
 
 void
-SymmetricWalshMoment2GibbsSampler::update(int i)
+FullMomentGibbsSampler::update(int i)
 {
   assert(is_in_range(i, 0, _state.size()));
 
@@ -120,7 +120,7 @@ SymmetricWalshMoment2GibbsSampler::update(int i)
 }
 
 void
-SymmetricWalshMoment2GibbsSampler::update_sync()
+FullMomentGibbsSampler::update_sync()
 {
   for (size_t i = 0; i < _pv.size(); i++) {
     double delta = _model_parameters.first_moment[i];

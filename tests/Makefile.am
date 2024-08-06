@@ -50,6 +50,7 @@ check_PROGRAMS = \
 	test-first-ascent-hill-climbing-local \
 	test-hamming-sphere \
 	test-hamming-sphere-iterator \
+	test-herding-sample \
 	test-hypercube-iterator \
 	test-incremental-linear-function \
 	test-incremental-negation \
@@ -95,6 +96,7 @@ check_PROGRAMS = \
 	test-ts-random-unique-destination-is-involution \
 	test-ts-random-unique-source-is-involution \
 	test-tsaffinemap-invert \
+	test-walsh-moment-add \
 	test-walsh-transform
 
 if ENABLE_FACTORIZATION
@@ -141,6 +143,7 @@ test_first_ascent_hill_climbing_SOURCES = test-first-ascent-hill-climbing.cc
 test_first_ascent_hill_climbing_local_SOURCES = test-first-ascent-hill-climbing-local.cc
 test_hamming_sphere_SOURCES = test-hamming-sphere.cc
 test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
+test_herding_sample_SOURCES = test-herding-sample.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
 test_incremental_linear_function_SOURCES = test-incremental-linear-function.cc
 test_incremental_negation_SOURCES = test-incremental-negation.cc
@@ -186,6 +189,7 @@ test_ts_random_non_commuting_SOURCES = test-ts-random-non-commuting.cc
 test_ts_random_unique_destination_is_involution_SOURCES = test-ts-random-unique-destination-is-involution.cc
 test_ts_random_unique_source_is_involution_SOURCES = test-ts-random-unique-source-is-involution.cc
 test_tsaffinemap_invert_SOURCES = test-tsaffinemap-invert.cc
+test_walsh_moment_add_SOURCES = test-walsh-moment-add.cc
 test_walsh_transform_SOURCES = test-walsh-transform.cc
 
 TESTS = $(check_PROGRAMS)

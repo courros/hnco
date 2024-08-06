@@ -23,7 +23,6 @@
 
 #include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/algorithms/population.hh"
-#include "hnco/exception.hh"
 #include "hnco/logging/logger.hh"
 #include "hnco/permutation.hh"
 
