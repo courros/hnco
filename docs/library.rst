@@ -162,7 +162,7 @@ Random local search algorithms, including simulated algorithm, can use
 the following neighborhoods:
 
 - Single bit flip
-- Bernoulli process
+- Standard bit mutation
 - Hamming ball
 - Hamming sphere
 
