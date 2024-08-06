@@ -18,19 +18,17 @@
 
 */
 
-#include <assert.h>
-
+#include <cassert>
 #include <sstream>              // std::ostringstream
 
 #include "hnco/exception.hh"
+#include "hnco/util.hh"         // hnco::fail_with
 
 #include "map.hh"
-
 
 using namespace hnco::exception;
 using namespace hnco::map;
 using namespace hnco;
-
 
 void
 Translation::map(const bit_vector_t& input, bit_vector_t& output)
@@ -40,7 +38,6 @@ Translation::map(const bit_vector_t& input, bit_vector_t& output)
 
   bv_add(output, input, _bv);
 }
-
 
 void
 Translation::display(std::ostream& stream) const
@@ -58,7 +55,6 @@ Translation::display(std::ostream& stream) const
   stream << std::endl;
 }
 
-
 void
 Permutation::map(const bit_vector_t& input, bit_vector_t& output)
 {
@@ -70,7 +66,6 @@ Permutation::map(const bit_vector_t& input, bit_vector_t& output)
     output[i] = input[_permutation[i]];
   }
 }
-
 
 void
 LinearMap::random(int rows, int cols, bool surjective)
@@ -91,7 +86,6 @@ LinearMap::random(int rows, int cols, bool surjective)
   }
 }
 
-
 void
 LinearMap::map(const bit_vector_t& input, bit_vector_t& output)
 {
@@ -100,7 +94,6 @@ LinearMap::map(const bit_vector_t& input, bit_vector_t& output)
   bm_multiply(output, _bm, input);
 }
 
-
 bool
 LinearMap::is_surjective() const
 {
@@ -108,7 +101,6 @@ LinearMap::is_surjective() const
   bm_row_echelon_form(M);
   return bm_rank(M) == bm_num_rows(_bm);
 }
-
 
 void
 AffineMap::random(int rows, int cols, bool surjective)
@@ -134,7 +126,6 @@ AffineMap::random(int rows, int cols, bool surjective)
   assert(bm_num_rows(_bm) == int(_bv.size()));
 }
 
-
 void
 AffineMap::map(const bit_vector_t& input, bit_vector_t& output)
 {
@@ -144,7 +135,6 @@ AffineMap::map(const bit_vector_t& input, bit_vector_t& output)
   bv_add(output, _bv);
 }
 
-
 bool
 AffineMap::is_surjective() const
 {
@@ -152,7 +142,6 @@ AffineMap::is_surjective() const
   bm_row_echelon_form(M);
   return bm_rank(M) == bm_num_rows(_bm);
 }
-
 
 void
 AffineMap::display(std::ostream& stream) const
@@ -165,7 +154,6 @@ AffineMap::display(std::ostream& stream) const
   stream << std::endl;
 }
 
-
 Injection::Injection(const std::vector<int>& bit_positions, int output_size):
   _bit_positions(bit_positions),
   _output_size(output_size)
@@ -173,7 +161,6 @@ Injection::Injection(const std::vector<int>& bit_positions, int output_size):
   if (output_size < int(bit_positions.size()))
     throw std::runtime_error("Injection::Injection: output size must be greater or equal to input size");
 }
-
 
 void
 Injection::map(const bit_vector_t& input, bit_vector_t& output)
@@ -185,7 +172,6 @@ Injection::map(const bit_vector_t& input, bit_vector_t& output)
     output[_bit_positions[i]] = input[i];
 }
 
-
 Projection::Projection(const std::vector<int>& bit_positions, int input_size):
   _bit_positions(bit_positions),
   _input_size(input_size)
@@ -193,7 +179,6 @@ Projection::Projection(const std::vector<int>& bit_positions, int input_size):
   if (input_size < int(bit_positions.size()))
     throw std::runtime_error("Projection::Projection: input size must be greater or equal to output size");
 }
-
 
 void
 Projection::map(const bit_vector_t& input, bit_vector_t& output)
@@ -205,9 +190,8 @@ Projection::map(const bit_vector_t& input, bit_vector_t& output)
     output[i] = input[_bit_positions[i]];
 }
 
-
 void
-TsAffineMap::random(int n, int t, SamplingMode mode)
+TsAffineMap::random(int n, int t, int mode)
 {
   assert(n > 0);
   assert(t >= 0);
@@ -242,10 +226,9 @@ TsAffineMap::random(int n, int t, SamplingMode mode)
     break;
 
   default:
-    throw std::runtime_error("TsAffineMap::random: Unknown sampling mode: " + std::to_string(static_cast<int>(mode)));
+    fail_with("TsAffineMap::random: Unknown sampling mode: ", mode);
   }
 }
-
 
 void
 TsAffineMap::map(const bit_vector_t& input, bit_vector_t& output)
@@ -257,7 +240,6 @@ TsAffineMap::map(const bit_vector_t& input, bit_vector_t& output)
   ts_multiply(output, _ts);
   bv_add(output, _bv);
 }
-
 
 void
 TsAffineMap::display(std::ostream& stream) const

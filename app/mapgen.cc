@@ -102,7 +102,7 @@ void generate_map(MapgenOptions& options)
       std::cerr << "Only input size is taken into account" << std::endl;
     map.random(options.get_input_size(),
                options.get_ts_length(),
-               static_cast<TsAffineMap::SamplingMode>(options.get_ts_sampling_mode()));
+               options.get_ts_sampling_mode());
     std::ofstream stream(options.get_path());
     boost::archive::text_oarchive archive(stream);
     std::cout << "Writing affine map (transvection sequence) to " << options.get_path() << " ... ";

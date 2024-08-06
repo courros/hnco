@@ -625,19 +625,21 @@ private:
 
 public:
   /// Sampling mode
-  enum class SamplingMode {
-    /// Unconstrained
-    unconstrained,
-    /// Commuting transvections
-    commuting_transvections,
-    /// %Transvection sequence with unique source
-    unique_source,
-    /// %Transvection sequence with unique destination
-    unique_destination,
-    /// Disjoint transvections
-    disjoint_transvections,
-    /// Non commuting transvections
-    non_commuting_transvections
+  struct SamplingMode {
+    enum {
+      /// Unconstrained
+      unconstrained,
+      /// Commuting transvections
+      commuting_transvections,
+      /// %Transvection sequence with unique source
+      unique_source,
+      /// %Transvection sequence with unique destination
+      unique_destination,
+      /// Disjoint transvections
+      disjoint_transvections,
+      /// Non commuting transvections
+      non_commuting_transvections
+    };
   };
   /**
    * Random instance.
@@ -646,7 +648,7 @@ public:
    * @param mode Sampling mode
    * @pre t >= 0
    */
-  void random(int n, int t, SamplingMode mode);
+  void random(int n, int t, int mode);
   /// %Map
   void map(const bit_vector_t& input, bit_vector_t& output) override;
   /// Get input size
