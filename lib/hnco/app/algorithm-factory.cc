@@ -274,7 +274,7 @@ CommandLineAlgorithmFactory::make(int bv_size)
     algo->set_learning_rate          (_options.get_learning_rate());
     algo->set_mutation_rate_max      (_options.get_ea_mutation_rate_max());
     algo->set_num_iterations         (_options.get_num_iterations());
-    algo->set_replacement            (InformationTheoreticEa::Replacement(_options.get_ea_it_replacement()));
+    algo->set_replacement            (_options.get_ea_it_replacement());
     algo->set_selection_size         (_options.get_selection_size());
 
     algo->set_allow_no_mutation      (_options.with_ea_allow_no_mutation());

@@ -250,8 +250,7 @@ InformationTheoreticEa::iterate()
     break;
 
   default:
-    throw std::runtime_error("InformationTheoreticEa::iterate: Unknown replacement: " + std::to_string(static_cast<int>(_replacement)));
-
+    fail_with("InformationTheoreticEa::iterate: Unknown replacement: ", _replacement);
   }
 
   igo_update(equivalent_individuals, range, c);
