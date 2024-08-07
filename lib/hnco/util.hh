@@ -44,6 +44,7 @@ inline void ensure(bool b, const std::string message)
  * @param message Message
  * @param code Code
  */
+[[noreturn]]
 inline void fail_with(const std::string message, int code)
 {
   throw std::runtime_error(message + std::to_string(code));
