@@ -25,6 +25,7 @@
 #include "hnco/functions/converter.hh"
 #include "hnco/multiobjective/functions/all.hh"
 #include "hnco/app/make-multivariate-function-adapter.hh"
+#include "hnco/util.hh"         // hnco::fail_with
 
 #include "function-factory.hh"
 
@@ -128,8 +129,7 @@ CommandLineFunctionFactory::make()
 #endif
 
   default:
-    throw std::runtime_error("CommandLineFunctionFactory::make: Unknown function type: "
-                             + std::to_string(_options.get_function()));
+    fail_with("CommandLineFunctionFactory::make: Unknown function type: ",
+              _options.get_function());
   }
-
 }

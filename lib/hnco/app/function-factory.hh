@@ -37,19 +37,19 @@ public:
 };
 
 /// Command line function factory
-class CommandLineFunctionFactory :
-  public FunctionFactory {
+class CommandLineFunctionFactory : public FunctionFactory {
   /// HNCO options
   const HncoOptions& _options;
 public:
   /// Constructor
   CommandLineFunctionFactory(const HncoOptions& options)
-    : _options(options) {}
+    : _options(options)
+  {}
   /// Make a function
   hnco::function::Function *make();
 };
 
-}
-}
+} // end of namespace app
+} // end of namespace hnco
 
 #endif
