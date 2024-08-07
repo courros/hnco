@@ -18,15 +18,14 @@
 
 */
 
+#include <iostream>
+
 #include "hnco/random.hh"
 
 #include "modifier.hh"
 
-
-using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::function::modifier;
-
 
 double
 Negation::evaluate(const bit_vector_t& x)
@@ -34,13 +33,11 @@ Negation::evaluate(const bit_vector_t& x)
   return -_function->evaluate(x);
 }
 
-
 double
 Negation::evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
   return -_function->evaluate_incrementally(x, -value, flipped_bits);
 }
-
 
 double
 FunctionMapComposition::evaluate(const bit_vector_t& x)
@@ -53,11 +50,9 @@ void
 FunctionMapComposition::describe(const bit_vector_t& x, std::ostream& stream)
 {
   assert(int(x.size()) == get_bv_size());
-
   _map->map(x, _bv);
   return _function->describe(_bv, stream);
 }
-
 
 double
 AdditiveGaussianNoise::evaluate(const bit_vector_t& x)
