@@ -36,6 +36,7 @@ hnco::app::read_file_content(std::string path)
   std::ifstream fstream(path);
   if (!fstream)
     throw std::runtime_error("read_file_content: Cannot open " + path);
+  std::cerr << "hnco::app::read_file_content: Reading content from file: " << path << std::endl;
   std::ostringstream sstream;
   sstream << fstream.rdbuf();
   return sstream.str();

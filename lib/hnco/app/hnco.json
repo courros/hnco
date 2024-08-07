@@ -646,6 +646,26 @@
                 },
 
                 {
+                    "value": 210,
+                    "description": "Real multivariate equation (rep: bv -> double, parser: [double] -> double, finally x -> -fabs(x))"
+                },
+
+                {
+                    "value": 211,
+                    "description": "Integer multivariate equation (rep: bv -> long, parser: [long] -> long, finally x -> -fabs(x))"
+                },
+
+                {
+                    "value": 212,
+                    "description": "Complex multivariate equation (rep: bv -> complex, parser: [complex] -> complex, finally z -> -|z|^2)"
+                },
+
+                {
+                    "value": 213,
+                    "description": "Integer multivariate equation (rep: bv -> int, cast to double, parser: [double] -> double, finally x -> -fabs(x))"
+                },
+
+                {
                     "value": 1000,
                     "description": "Plugin"
                 },

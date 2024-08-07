@@ -145,6 +145,7 @@ Adapter *
 make_mixed_type_multivariate_function_adapter(const Options& options)
 {
   using Fn = typename Adapter::function_type;
+
   auto instance = new Fn(get_expression<Options>(options));
   instance->add_constant("pi", M_PI);
   instance->add_constant("e", M_E);

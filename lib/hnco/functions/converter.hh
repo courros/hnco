@@ -21,8 +21,8 @@
 #ifndef HNCO_FUNCTIONS_CONVERTER_H
 #define HNCO_FUNCTIONS_CONVERTER_H
 
-#include <complex>              // std::complex
-
+#include <cmath>                // std::fabs
+#include <complex>              // std::complex, std::norm
 
 namespace hnco {
 namespace function {
@@ -30,29 +30,49 @@ namespace function {
 /// Convert a scalar to a double
 template<class T>
 struct ScalarToDouble {
-
   /// Codomain type
   using codomain_type = T;
-
   /// Convert to double
   double operator()(T x) { return x; }
+};
 
+/// Convert a scalar to a double
+template<class T>
+struct EquationScalarToDouble {
+  /// Codomain type
+  using codomain_type = T;
+  /**
+   * Convert to double.
+   * @return The opposite of the absolute value of its argument.
+   */
+  double operator()(T x) { return -std::fabs(x); }
 };
 
 /// Convert a complex to a double
 template<class T>
 struct ComplexToDouble {
-
   /// Codomain type
   using codomain_type = std::complex<T>;
-
-  /// Convert to double
+  /**
+   * Convert to double.
+   * @return The squared magnitude of its argument.
+   */
   double operator()(std::complex<T> z) { return std::norm(z); }
+};
 
+/// Convert a complex to a double
+template<class T>
+struct EquationComplexToDouble {
+  /// Codomain type
+  using codomain_type = std::complex<T>;
+  /**
+   * Convert to double.
+   * @return The opposite of the squared magnitude of its argument.
+   */
+  double operator()(std::complex<T> z) { return -std::norm(z); }
 };
 
 } // end of namespace function
 } // end of namespace hnco
-
 
 #endif

@@ -268,6 +268,38 @@ CommandLineFunctionFactory::make()
        PermutationRepresentation(num_elements, _options.get_rep_num_additional_bits()));
   }
 
+  case 210: {
+    using Fn      = ParsedMultivariateFunction<FunctionParser>;
+    using Rep     = DyadicFloatRepresentation<double>;
+    using Conv    = EquationScalarToDouble<double>;
+    using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
+    return make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
+  }
+
+  case 211: {
+    using Fn      = ParsedMultivariateFunction<FunctionParser_li>;
+    using Rep     = DyadicIntegerRepresentation<long>;
+    using Conv    = EquationScalarToDouble<long>;
+    using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
+    return make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
+  }
+
+  case 212: {
+    using Fn      = ParsedMultivariateFunction<FunctionParser_cd>;
+    using Rep     = ComplexRepresentation<DoubleRep>;
+    using Conv    = EquationComplexToDouble<double>;
+    using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
+    return make_multivariate_function_adapter_complex<HncoOptions, Adapter>(_options);
+  }
+
+  case 213: {
+    using Fn      = ParsedMultivariateFunction<FunctionParser>;
+    using Rep     = DyadicIntegerRepresentation<int>;
+    using Conv    = EquationScalarToDouble<double>;
+    using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
+    return make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
+  }
+
 #ifdef ENABLE_PLUGIN
   case 1000:
     return new FunctionPlugin

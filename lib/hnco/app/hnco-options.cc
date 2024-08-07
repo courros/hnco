@@ -907,6 +907,10 @@ void HncoOptions::print_help_fn(std::ostream& stream) const
   stream << "            184: Mixed-representation multivariate function (rep: bv -> long, double, or set, parser: [double] -> double)" << std::endl;
   stream << "            190: Sudoku" << std::endl;
   stream << "            200: Travelling salesman problem" << std::endl;
+  stream << "            210: Real multivariate equation (rep: bv -> double, parser: [double] -> double, finally x -> -fabs(x))" << std::endl;
+  stream << "            211: Integer multivariate equation (rep: bv -> long, parser: [long] -> long, finally x -> -fabs(x))" << std::endl;
+  stream << "            212: Complex multivariate equation (rep: bv -> complex, parser: [complex] -> complex, finally z -> -|z|^2)" << std::endl;
+  stream << "            213: Integer multivariate equation (rep: bv -> int, cast to double, parser: [double] -> double, finally x -> -fabs(x))" << std::endl;
   stream << "            1000: Plugin" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
