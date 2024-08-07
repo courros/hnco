@@ -232,7 +232,8 @@ CommandLineFunctionFactory::make()
 
   case 184: {
     using Fn      = ParsedMultivariateFunction<FunctionParser>;
-    using Adapter = MixedRepresentationMultivariateFunctionAdapter<Fn, rep_var_t>;
+    using Conv    = ScalarToDouble<double>;
+    using Adapter = MixedRepresentationMultivariateFunctionAdapter<Fn, rep_var_t, Conv>;
     return make_mixed_type_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }
 
@@ -298,6 +299,13 @@ CommandLineFunctionFactory::make()
     using Conv    = EquationScalarToDouble<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
+  }
+
+  case 214: {
+    using Fn      = ParsedMultivariateFunction<FunctionParser>;
+    using Conv    = EquationScalarToDouble<double>;
+    using Adapter = MixedRepresentationMultivariateFunctionAdapter<Fn, rep_var_t, Conv>;
+    return make_mixed_type_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }
 
 #ifdef ENABLE_PLUGIN

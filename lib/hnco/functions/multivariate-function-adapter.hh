@@ -147,17 +147,21 @@ public:
  * - Multivariate function: product of domains -> codomain
  * - Converter: codomain -> double
  *
- * Representations can be of different types thanks to the use of a
- * variant.
+ * Representations can be of different types thanks to the use of
+ * variants.
  */
-template<typename Fn, typename RepVariant>
+template<typename Fn, typename RepVariant, class Conv>
 class MixedRepresentationMultivariateFunctionAdapter: public Function {
+  static_assert(std::is_same<typename Fn::codomain_type, typename Conv::codomain_type>::value,
+                "MixedRepresentationMultivariateFunctionAdapter: codomain types do not match");
   /// Multivariate function
   Fn *_function;
   /// Representation variants
   std::vector<RepVariant> _rep_variants;
   /// Variables
   std::vector<typename Fn::domain_type> _variables;
+  /// Converter from codomain to double
+  Conv _converter;
   /// Unpack a bit vector into values
   void unpack(const bit_vector_t& bv) {
     int start = 0;
@@ -203,7 +207,7 @@ public:
   double evaluate(const bit_vector_t& bv) override {
     assert(int(bv.size()) == get_bv_size());
     unpack(bv);
-    return _function->evaluate(_variables);
+    return _converter(_function->evaluate(_variables));
   }
   ///@}
   /**
