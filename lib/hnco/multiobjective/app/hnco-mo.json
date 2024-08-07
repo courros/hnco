@@ -141,27 +141,52 @@
 
                 {
                     "value": 180,
-                    "description": "Real multivariate function (rep: bv -> double, parser: [double] -> double)"
+                    "description": "Real multivariate functions (rep: bv -> double | parser: [double] -> [double])"
                 },
 
                 {
                     "value": 181,
-                    "description": "Integer multivariate function (rep: bv -> long, parser: [long] -> long, cast to double)"
+                    "description": "Integer multivariate functions (rep: bv -> long | parser: [long] -> [long] | cast to double)"
                 },
 
                 {
                     "value": 182,
-                    "description": "Complex multivariate function (rep: bv -> complex, parser: [complex] -> complex, square of the magnitude)"
+                    "description": "Complex multivariate functions (rep: bv -> complex | parser: [complex] -> [complex] | z -> |z|^2)"
                 },
 
                 {
                     "value": 183,
-                    "description": "Integer multivariate function (rep: bv -> int, cast to double, parser: [double] -> double)"
+                    "description": "Integer multivariate functions (rep: bv -> int | cast to double | parser: [double] -> [double])"
                 },
 
                 {
                     "value": 184,
-                    "description": "Mixed-representation multivariate function (rep: bv -> long, double, or set, parser: [double] -> double)"
+                    "description": "Mixed-representation multivariate functions (rep: bv -> long, double, or set | parser: [double] -> [double])"
+                },
+
+                {
+                    "value": 210,
+                    "description": "System of real multivariate equations (rep: bv -> double | parser: [double] -> [double] | x -> -|x|)"
+                },
+
+                {
+                    "value": 211,
+                    "description": "System of integer multivariate equations (rep: bv -> long | parser: [long] -> [long] | x -> -|x|)"
+                },
+
+                {
+                    "value": 212,
+                    "description": "System of complex multivariate equations (rep: bv -> complex | parser: [complex] -> [complex] | z -> -|z|^2)"
+                },
+
+                {
+                    "value": 213,
+                    "description": "System of integer multivariate equations (rep: bv -> int | cast to double | parser: [double] -> [double] | x -> -|x|)"
+                },
+
+                {
+                    "value": 214,
+                    "description": "System of mixed-representation multivariate equations (rep: bv -> long, double, or set | parser: [double] -> [double] | x -> -|x|)"
                 },
 
                 {

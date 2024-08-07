@@ -35,6 +35,9 @@ namespace function {
 
 /**
  * Multivariate function adapter.
+ * @tparam Fn Type of the multivariate function
+ * @tparam Rep Type of representations
+ * @tparam Conv Type of the converter
  *
  * The purpose of this class is to build a regular hnco function from
  * an arbitrary multivariate function. This is achieved using a
@@ -45,29 +48,22 @@ namespace function {
  */
 template<class Fn, class Rep, class Conv>
 class MultivariateFunctionAdapter: public Function {
-  static_assert(std::is_convertible<
-                typename Rep::domain_type,
-                typename Fn::domain_type
-                >::value,
-                "multiobjective::function::MultivariateFunctionAdapter: domain types do not match");
-  static_assert(std::is_same<
-                typename Fn::codomain_type,
-                typename Conv::codomain_type
-                >::value,
-                "multiobjective::function::MultivariateFunctionAdapter: codomain types do not match");
+
+  static_assert
+  (std::is_convertible<typename Rep::domain_type, typename Fn::domain_type>::value,
+   "multiobjective::function::MultivariateFunctionAdapter: domain types do not match");
+  static_assert
+  (std::is_same<typename Fn::codomain_type, typename Conv::codomain_type>::value,
+   "multiobjective::function::MultivariateFunctionAdapter: codomain types do not match");
 
   /// Multivariate function
   Fn *_function;
-
   /// Representations
   std::vector<Rep> _representations;
-
   /// Variables
   std::vector<typename Fn::domain_type> _variables;
-
   /// Codomain value
   std::vector<typename Fn::codomain_type> _codomain_value;
-
   /// Converter from codomain to double
   Conv _converter;
 
@@ -81,21 +77,17 @@ class MultivariateFunctionAdapter: public Function {
   }
 
 public:
-
   /// Function type
   using function_type = Fn;
-
   /// Representation type
   using representation_type = Rep;
-
   /// Converter type
   using converter_type = Conv;
 
   /**
    * Constructor.
-   *
-   * \param fn Multivariate function
-   * \param reps Representations
+   * @param fn Multivariate function
+   * @param reps Representations
    */
   MultivariateFunctionAdapter(Fn *fn, std::vector<Rep> reps)
     : _function(fn)
@@ -104,7 +96,6 @@ public:
   {
     assert(fn);
     assert(fn->get_num_variables() == int(reps.size()));
-
     _codomain_value.resize(_function->get_output_size());
   }
 
@@ -112,7 +103,6 @@ public:
    * @name Information about the function
    */
   ///@{
-
   /// Get bit vector size
   int get_bv_size() const override {
     int result = 0;
@@ -120,40 +110,32 @@ public:
       result += rep.size();
     return result;
   }
-
   /// Get output size (number of objectives)
   int get_output_size() const override {
     return _function->get_output_size();
   }
-
   ///@}
-
 
   /**
    * @name Evaluation
    */
   ///@{
-
   /// Evaluate
   void evaluate(const bit_vector_t& bv, value_t& value) override {
     const int output_size = get_output_size();
     assert(get_bv_size() == int(bv.size()));
     assert(output_size == int(value.size()));
-
     unpack(bv);
     _function->evaluate(_variables, _codomain_value);
     for (int i = 0; i < output_size; i++)
       value[i] = _converter(_codomain_value[i]);
   }
-
   ///@}
-
 
   /**
    * @name Display
    */
   ///@{
-
   /// Display
   void display(std::ostream& stream) const override {
     _function->display(stream);
@@ -163,34 +145,45 @@ public:
       stream << std::endl;
     }
   }
-
   /// Describe a bit vector
   void describe(const bit_vector_t& bv, std::ostream& stream) override {
     unpack(bv);
     _function->describe(_variables, stream);
   }
-
   ///@}
-
 };
 
 /**
  * Mixed-representation multivariate function adapter.
+ * @tparam Fn Type of the multivariate function
+ * @tparam RepVariant Type of the representation variant
+ * @tparam Conv Type of the converter
+ * @pre RepVariant must be a variant of representations.
  *
  * The purpose of this class is to build a regular hnco function from
  * an arbitrary multivariate function. This is achieved using a
  * composition:
  * - Representations (Rep): hypercube -> domain
- * - Multivariate function (Fn): product of domains -> product of codomains (double)
+ * - Multivariate function (Fn): product of domains -> product of codomains
+ * - Converter (Conv): codomain -> double
  */
-template<typename Fn, typename RepVariant>
+template<typename Fn, typename RepVariant, class Conv>
 class MixedRepresentationMultivariateFunctionAdapter: public Function {
+
+  static_assert
+  (std::is_same<typename Fn::codomain_type, typename Conv::codomain_type>::value,
+   "multiobjective::function::MultivariateFunctionAdapter: codomain types do not match");
+
   /// Multivariate function
   Fn *_function;
   /// Representation variants
   std::vector<RepVariant> _rep_variants;
   /// Variables
   std::vector<typename Fn::domain_type> _variables;
+  /// Converter from codomain to double
+  Conv _converter;
+
+  /// Unpack a bit vector into variables
   void unpack(const bit_vector_t& bv) {
     int start = 0;
     for (size_t i = 0; i < _variables.size(); i++) {
@@ -203,6 +196,7 @@ class MixedRepresentationMultivariateFunctionAdapter: public Function {
 public:
   /// Function type
   using function_type = Fn;
+
   /**
    * Constructor.
    * @param fn Multivariate function
@@ -210,11 +204,13 @@ public:
    */
   MixedRepresentationMultivariateFunctionAdapter(Fn *fn, const std::vector<RepVariant>& vs)
     : _function(fn)
-    , _rep_variants(vs) {
+    , _rep_variants(vs)
+  {
     assert(fn);
     assert(fn->get_num_variables() == int(vs.size()));
     _variables.resize(vs.size());
   }
+
   /**
    * @name Information about the function
    */
@@ -230,6 +226,7 @@ public:
     return _function->get_output_size();
   }
   ///@}
+
   /**
    * @name Evaluation
    */
@@ -240,8 +237,11 @@ public:
     assert(get_output_size() == int(value.size()));
     unpack(bv);
     _function->evaluate(_variables, value);
+    for (std::size_t i = 0; i < value.size(); i++)
+      value[i] = _converter(value[i]);
   }
   ///@}
+
   /**
    * @name Display
    */
