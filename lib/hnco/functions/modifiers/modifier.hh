@@ -73,9 +73,9 @@ public:
    */
   ///@{
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&) override;
+  double evaluate(const bit_vector_t& bv) override;
   /// Incrementally evaluate a bit vector
-  double evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits) override;
+  double evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits) override;
   ///@}
 };
 
@@ -83,8 +83,8 @@ public:
 class FunctionMapComposition: public Modifier {
   /// Map
   hnco::map::Map *_map;
-  /// Image of bit vectors under the map
-  bit_vector_t _bv;
+  /// Map output
+  bit_vector_t _output;
 
 public:
   /**
@@ -99,7 +99,7 @@ public:
     assert(map);
     if (map->get_output_size() != function->get_bv_size())
       throw std::runtime_error("FunctionMapComposition::FunctionMapComposition: _function and _map must be compatible");
-    _bv.resize(function->get_bv_size());
+    _output.resize(function->get_bv_size());
   }
 
   /**
@@ -130,14 +130,14 @@ public:
   ///@}
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&) override;
+  double evaluate(const bit_vector_t& bv) override;
 
   /**
    * @name Display
    */
   ///@{
   /// Describe a bit vector
-  void describe(const bit_vector_t& x, std::ostream& stream) override;
+  void describe(const bit_vector_t& bv, std::ostream& stream) override;
   ///@}
 };
 
@@ -162,7 +162,7 @@ public:
   ///@}
 
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&) override;
+  double evaluate(const bit_vector_t& bv) override;
 };
 
 } // end of namespace modifier

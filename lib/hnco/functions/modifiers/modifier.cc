@@ -28,34 +28,34 @@ using namespace hnco::function;
 using namespace hnco::function::modifier;
 
 double
-Negation::evaluate(const bit_vector_t& x)
+Negation::evaluate(const bit_vector_t& bv)
 {
-  return -_function->evaluate(x);
+  return -_function->evaluate(bv);
 }
 
 double
-Negation::evaluate_incrementally(const bit_vector_t& x, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+Negation::evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
-  return -_function->evaluate_incrementally(x, -value, flipped_bits);
+  return -_function->evaluate_incrementally(bv, -value, flipped_bits);
 }
 
 double
-FunctionMapComposition::evaluate(const bit_vector_t& x)
+FunctionMapComposition::evaluate(const bit_vector_t& bv)
 {
-  _map->map(x, _bv);
-  return _function->evaluate(_bv);
+  _map->map(bv, _output);
+  return _function->evaluate(_output);
 }
 
 void
-FunctionMapComposition::describe(const bit_vector_t& x, std::ostream& stream)
+FunctionMapComposition::describe(const bit_vector_t& bv, std::ostream& stream)
 {
-  assert(int(x.size()) == get_bv_size());
-  _map->map(x, _bv);
-  return _function->describe(_bv, stream);
+  assert(int(bv.size()) == get_bv_size());
+  _map->map(bv, _output);
+  return _function->describe(_output, stream);
 }
 
 double
-AdditiveGaussianNoise::evaluate(const bit_vector_t& x)
+AdditiveGaussianNoise::evaluate(const bit_vector_t& bv)
 {
-  return _function->evaluate(x) + _dist(random::Generator::engine);
+  return _function->evaluate(bv) + _dist(random::Generator::engine);
 }
