@@ -244,7 +244,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
 void HncoOptions::print_help(std::ostream& stream) const
 {
-  stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
+  stream << "HNCO for multiobjective optimization (minimization)" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "General" << std::endl;
   stream << "      --num-threads (type int, default to 1)" << std::endl;
@@ -275,7 +275,7 @@ void HncoOptions::print_help(std::ostream& stream) const
 
 void HncoOptions::print_help_fn(std::ostream& stream) const
 {
-  stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
+  stream << "HNCO for multiobjective optimization (minimization)" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Functions" << std::endl;
   stream << "  -s, --bv-size (type int, default to 100)" << std::endl;
@@ -295,11 +295,11 @@ void HncoOptions::print_help_fn(std::ostream& stream) const
   stream << "            182: Complex multivariate functions (rep: bv -> complex | parser: [complex] -> [complex] | z -> |z|^2)" << std::endl;
   stream << "            183: Integer multivariate functions (rep: bv -> int | cast to double | parser: [double] -> [double])" << std::endl;
   stream << "            184: Mixed-representation multivariate functions (rep: bv -> long, double, or set | parser: [double] -> [double])" << std::endl;
-  stream << "            210: System of real multivariate equations (rep: bv -> double | parser: [double] -> [double] | x -> -|x|)" << std::endl;
-  stream << "            211: System of integer multivariate equations (rep: bv -> long | parser: [long] -> [long] | x -> -|x|)" << std::endl;
-  stream << "            212: System of complex multivariate equations (rep: bv -> complex | parser: [complex] -> [complex] | z -> -|z|^2)" << std::endl;
-  stream << "            213: System of integer multivariate equations (rep: bv -> int | cast to double | parser: [double] -> [double] | x -> -|x|)" << std::endl;
-  stream << "            214: System of mixed-representation multivariate equations (rep: bv -> long, double, or set | parser: [double] -> [double] | x -> -|x|)" << std::endl;
+  stream << "            210: System of real multivariate equations (rep: bv -> double | parser: [double] -> [double] | x -> |x|)" << std::endl;
+  stream << "            211: System of integer multivariate equations (rep: bv -> long | parser: [long] -> [long] | x -> |x|)" << std::endl;
+  stream << "            212: System of complex multivariate equations (rep: bv -> complex | parser: [complex] -> [complex] | z -> |z|^2)" << std::endl;
+  stream << "            213: System of integer multivariate equations (rep: bv -> int | cast to double | parser: [double] -> [double] | x -> |x|)" << std::endl;
+  stream << "            214: System of mixed-representation multivariate equations (rep: bv -> long, double, or set | parser: [double] -> [double] | x -> |x|)" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
@@ -308,7 +308,7 @@ void HncoOptions::print_help_fn(std::ostream& stream) const
 
 void HncoOptions::print_help_fp(std::ostream& stream) const
 {
-  stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
+  stream << "HNCO for multiobjective optimization (minimization)" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Function parser" << std::endl;
   stream << "      --fp-default-double-precision (type double, no default)" << std::endl;
@@ -332,7 +332,7 @@ void HncoOptions::print_help_fp(std::ostream& stream) const
 
 void HncoOptions::print_help_rep(std::ostream& stream) const
 {
-  stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
+  stream << "HNCO for multiobjective optimization (minimization)" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Representations" << std::endl;
   stream << "      --rep-categorical-representation (type int, default to 0)" << std::endl;
@@ -346,7 +346,7 @@ void HncoOptions::print_help_rep(std::ostream& stream) const
 
 void HncoOptions::print_help_alg(std::ostream& stream) const
 {
-  stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
+  stream << "HNCO for multiobjective optimization (minimization)" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Algorithms" << std::endl;
   stream << "  -A, --algorithm (type int, default to 100)" << std::endl;
@@ -359,7 +359,7 @@ void HncoOptions::print_help_alg(std::ostream& stream) const
 
 void HncoOptions::print_help_ea(std::ostream& stream) const
 {
-  stream << "HNCO for multiobjective optimization" << std::endl << std::endl;
+  stream << "HNCO for multiobjective optimization (minimization)" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "Evolutionary Algorithms" << std::endl;
   stream << "      --ea-allow-no-mutation" << std::endl;

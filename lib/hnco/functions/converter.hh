@@ -36,39 +36,39 @@ struct ScalarToDouble {
   double operator()(T x) { return x; }
 };
 
-/// Convert a scalar to a double
+/// Absolute value of a scalar
 template<class T>
-struct EquationScalarToDouble {
+struct AbsoluteValue {
   /// Codomain type
   using codomain_type = T;
-  /**
-   * Convert to double.
-   * @return The opposite of the absolute value of its argument.
-   */
+  /// Absolute value
+  double operator()(T x) { return std::fabs(x); }
+};
+
+/// Opposite absolute value of a scalar
+template<class T>
+struct OppositeAbsoluteValue {
+  /// Codomain type
+  using codomain_type = T;
+  /// Opposite absolute value
   double operator()(T x) { return -std::fabs(x); }
 };
 
-/// Convert a complex to a double
+/// Squared magnitude of a complex number
 template<class T>
-struct ComplexToDouble {
+struct SquaredMagnitude {
   /// Codomain type
   using codomain_type = std::complex<T>;
-  /**
-   * Convert to double.
-   * @return The squared magnitude of its argument.
-   */
+  /// squared magnitude
   double operator()(std::complex<T> z) { return std::norm(z); }
 };
 
-/// Convert a complex to a double
+/// Opposite squared magnitude of a complex number
 template<class T>
-struct EquationComplexToDouble {
+struct OppositeSquaredMagnitude {
   /// Codomain type
   using codomain_type = std::complex<T>;
-  /**
-   * Convert to double.
-   * @return The opposite of the squared magnitude of its argument.
-   */
+  /// Opposite squared magnitude
   double operator()(std::complex<T> z) { return -std::norm(z); }
 };
 

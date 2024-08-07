@@ -218,7 +218,7 @@ CommandLineFunctionFactory::make()
   case 182: {
     using Fn      = ParsedMultivariateFunction<FunctionParser_cd>;
     using Rep     = ComplexRepresentation<DoubleRep>;
-    using Conv    = ComplexToDouble<double>;
+    using Conv    = SquaredMagnitude<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return make_multivariate_function_adapter_complex<HncoOptions, Adapter>(_options);
   }
@@ -272,7 +272,7 @@ CommandLineFunctionFactory::make()
   case 210: {
     using Fn      = ParsedMultivariateFunction<FunctionParser>;
     using Rep     = DyadicFloatRepresentation<double>;
-    using Conv    = EquationScalarToDouble<double>;
+    using Conv    = OppositeAbsoluteValue<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }
@@ -280,7 +280,7 @@ CommandLineFunctionFactory::make()
   case 211: {
     using Fn      = ParsedMultivariateFunction<FunctionParser_li>;
     using Rep     = DyadicIntegerRepresentation<long>;
-    using Conv    = EquationScalarToDouble<long>;
+    using Conv    = OppositeAbsoluteValue<long>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }
@@ -288,7 +288,7 @@ CommandLineFunctionFactory::make()
   case 212: {
     using Fn      = ParsedMultivariateFunction<FunctionParser_cd>;
     using Rep     = ComplexRepresentation<DoubleRep>;
-    using Conv    = EquationComplexToDouble<double>;
+    using Conv    = OppositeSquaredMagnitude<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return make_multivariate_function_adapter_complex<HncoOptions, Adapter>(_options);
   }
@@ -296,14 +296,14 @@ CommandLineFunctionFactory::make()
   case 213: {
     using Fn      = ParsedMultivariateFunction<FunctionParser>;
     using Rep     = DyadicIntegerRepresentation<int>;
-    using Conv    = EquationScalarToDouble<double>;
+    using Conv    = OppositeAbsoluteValue<double>;
     using Adapter = MultivariateFunctionAdapter<Fn, Rep, Conv>;
     return make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }
 
   case 214: {
     using Fn      = ParsedMultivariateFunction<FunctionParser>;
-    using Conv    = EquationScalarToDouble<double>;
+    using Conv    = OppositeAbsoluteValue<double>;
     using Adapter = MixedRepresentationMultivariateFunctionAdapter<Fn, rep_var_t, Conv>;
     return make_mixed_type_multivariate_function_adapter<HncoOptions, Adapter>(_options);
   }

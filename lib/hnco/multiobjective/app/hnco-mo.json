@@ -11,7 +11,7 @@
         "classname": "HncoOptions"
     },
 
-    "description": "HNCO for multiobjective optimization",
+    "description": "HNCO for multiobjective optimization (minimization)",
 
     "version": "0.25",
 
@@ -166,27 +166,27 @@
 
                 {
                     "value": 210,
-                    "description": "System of real multivariate equations (rep: bv -> double | parser: [double] -> [double] | x -> -|x|)"
+                    "description": "System of real multivariate equations (rep: bv -> double | parser: [double] -> [double] | x -> |x|)"
                 },
 
                 {
                     "value": 211,
-                    "description": "System of integer multivariate equations (rep: bv -> long | parser: [long] -> [long] | x -> -|x|)"
+                    "description": "System of integer multivariate equations (rep: bv -> long | parser: [long] -> [long] | x -> |x|)"
                 },
 
                 {
                     "value": 212,
-                    "description": "System of complex multivariate equations (rep: bv -> complex | parser: [complex] -> [complex] | z -> -|z|^2)"
+                    "description": "System of complex multivariate equations (rep: bv -> complex | parser: [complex] -> [complex] | z -> |z|^2)"
                 },
 
                 {
                     "value": 213,
-                    "description": "System of integer multivariate equations (rep: bv -> int | cast to double | parser: [double] -> [double] | x -> -|x|)"
+                    "description": "System of integer multivariate equations (rep: bv -> int | cast to double | parser: [double] -> [double] | x -> |x|)"
                 },
 
                 {
                     "value": 214,
-                    "description": "System of mixed-representation multivariate equations (rep: bv -> long, double, or set | parser: [double] -> [double] | x -> -|x|)"
+                    "description": "System of mixed-representation multivariate equations (rep: bv -> long, double, or set | parser: [double] -> [double] | x -> |x|)"
                 },
 
                 {
