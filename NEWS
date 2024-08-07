@@ -18,9 +18,16 @@ Library:
 - Added class algorithm::BoltzmannSelection
 - Added function hnco::fail_with
 - Added function hnco::algorithm::pv_add for weighted bit vectors
+- Replaced enum class with enum nested within struct
+- Renamed moment structs in namespace algorithm::walsh_moment
+- Changed bit_add into a pure function
+- Optimized algorithm::walsh_moment::FullMoment::scaled_difference
+- Added multivariate equations
 
 Tests:
 - Added test-tsaffinemap-invert
+- Added test-walsh-moment-add.cc
+- Added test-herding-sample.cc
 
 hnco, hnco-mo:
 - Removed parameter fp_expression_source
@@ -28,10 +35,15 @@ hnco, hnco-mo:
 
 hnco:
 - Renamed parameter negation -> minimize
+- Changed hea flags to boolean parameters
+
+Build:
+- Added target pdf to compile refman.pdf
 
 optgen.pl:
 - Check empty sections and section ids
 - Renamed hashes
+- Added function generate_source_check_string_as_bool
 
 Perl scripts:
 - hnco-ecdf-stat.pl: updated make_directories
