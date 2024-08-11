@@ -135,13 +135,13 @@ check_PROGRAMS = test-bm-add-columns$(EXEEXT) \
 	test-hamming-sphere-iterator$(EXEEXT) \
 	test-herding-sample$(EXEEXT) test-hypercube-iterator$(EXEEXT) \
 	test-incremental-linear-function$(EXEEXT) \
-	test-incremental-negation$(EXEEXT) \
 	test-incremental-nn-ising-1$(EXEEXT) \
 	test-incremental-nn-ising-2$(EXEEXT) \
 	test-incremental-one-max$(EXEEXT) \
 	test-incremental-one-max-hamming-ball$(EXEEXT) \
 	test-incremental-one-max-hamming-sphere$(EXEEXT) \
 	test-incremental-one-max-single-bit-flip$(EXEEXT) \
+	test-incremental-opposite-function$(EXEEXT) \
 	test-incremental-walsh-expansion-1$(EXEEXT) \
 	test-injection-projection$(EXEEXT) \
 	test-nsga2-pareto-front-computation$(EXEEXT) \
@@ -396,12 +396,6 @@ test_incremental_linear_function_OBJECTS =  \
 	$(am_test_incremental_linear_function_OBJECTS)
 test_incremental_linear_function_LDADD = $(LDADD)
 test_incremental_linear_function_DEPENDENCIES = ../lib/libhnco.la
-am_test_incremental_negation_OBJECTS =  \
-	test-incremental-negation.$(OBJEXT)
-test_incremental_negation_OBJECTS =  \
-	$(am_test_incremental_negation_OBJECTS)
-test_incremental_negation_LDADD = $(LDADD)
-test_incremental_negation_DEPENDENCIES = ../lib/libhnco.la
 am_test_incremental_nn_ising_1_OBJECTS =  \
 	test-incremental-nn-ising-1.$(OBJEXT)
 test_incremental_nn_ising_1_OBJECTS =  \
@@ -441,6 +435,12 @@ test_incremental_one_max_single_bit_flip_OBJECTS =  \
 test_incremental_one_max_single_bit_flip_LDADD = $(LDADD)
 test_incremental_one_max_single_bit_flip_DEPENDENCIES =  \
 	../lib/libhnco.la
+am_test_incremental_opposite_function_OBJECTS =  \
+	test-incremental-opposite-function.$(OBJEXT)
+test_incremental_opposite_function_OBJECTS =  \
+	$(am_test_incremental_opposite_function_OBJECTS)
+test_incremental_opposite_function_LDADD = $(LDADD)
+test_incremental_opposite_function_DEPENDENCIES = ../lib/libhnco.la
 am_test_incremental_walsh_expansion_1_OBJECTS =  \
 	test-incremental-walsh-expansion-1.$(OBJEXT)
 test_incremental_walsh_expansion_1_OBJECTS =  \
@@ -713,13 +713,13 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-columns.Po \
 	./$(DEPDIR)/test-herding-sample.Po \
 	./$(DEPDIR)/test-hypercube-iterator.Po \
 	./$(DEPDIR)/test-incremental-linear-function.Po \
-	./$(DEPDIR)/test-incremental-negation.Po \
 	./$(DEPDIR)/test-incremental-nn-ising-1.Po \
 	./$(DEPDIR)/test-incremental-nn-ising-2.Po \
 	./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po \
 	./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po \
 	./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po \
 	./$(DEPDIR)/test-incremental-one-max.Po \
+	./$(DEPDIR)/test-incremental-opposite-function.Po \
 	./$(DEPDIR)/test-incremental-walsh-expansion-1.Po \
 	./$(DEPDIR)/test-injection-projection.Po \
 	./$(DEPDIR)/test-nsga2-pareto-front-computation.Po \
@@ -826,13 +826,13 @@ SOURCES = $(test_bm_add_columns_SOURCES) $(test_bm_add_rows_SOURCES) \
 	$(test_herding_sample_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
 	$(test_incremental_linear_function_SOURCES) \
-	$(test_incremental_negation_SOURCES) \
 	$(test_incremental_nn_ising_1_SOURCES) \
 	$(test_incremental_nn_ising_2_SOURCES) \
 	$(test_incremental_one_max_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
 	$(test_incremental_one_max_hamming_sphere_SOURCES) \
 	$(test_incremental_one_max_single_bit_flip_SOURCES) \
+	$(test_incremental_opposite_function_SOURCES) \
 	$(test_incremental_walsh_expansion_1_SOURCES) \
 	$(test_injection_projection_SOURCES) \
 	$(test_nsga2_pareto_front_computation_SOURCES) \
@@ -903,13 +903,13 @@ DIST_SOURCES = $(test_bm_add_columns_SOURCES) \
 	$(test_herding_sample_SOURCES) \
 	$(test_hypercube_iterator_SOURCES) \
 	$(test_incremental_linear_function_SOURCES) \
-	$(test_incremental_negation_SOURCES) \
 	$(test_incremental_nn_ising_1_SOURCES) \
 	$(test_incremental_nn_ising_2_SOURCES) \
 	$(test_incremental_one_max_SOURCES) \
 	$(test_incremental_one_max_hamming_ball_SOURCES) \
 	$(test_incremental_one_max_hamming_sphere_SOURCES) \
 	$(test_incremental_one_max_single_bit_flip_SOURCES) \
+	$(test_incremental_opposite_function_SOURCES) \
 	$(test_incremental_walsh_expansion_1_SOURCES) \
 	$(test_injection_projection_SOURCES) \
 	$(test_nsga2_pareto_front_computation_SOURCES) \
@@ -1360,13 +1360,13 @@ test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
 test_herding_sample_SOURCES = test-herding-sample.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
 test_incremental_linear_function_SOURCES = test-incremental-linear-function.cc
-test_incremental_negation_SOURCES = test-incremental-negation.cc
 test_incremental_nn_ising_1_SOURCES = test-incremental-nn-ising-1.cc
 test_incremental_nn_ising_2_SOURCES = test-incremental-nn-ising-2.cc
 test_incremental_one_max_SOURCES = test-incremental-one-max.cc
 test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
 test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
+test_incremental_opposite_function_SOURCES = test-incremental-opposite-function.cc
 test_incremental_walsh_expansion_1_SOURCES = test-incremental-walsh-expansion-1.cc
 test_injection_projection_SOURCES = test-injection-projection.cc
 test_nsga2_pareto_front_computation_SOURCES = test-nsga2-pareto-front-computation.cc test-pareto-front-computation.hh
@@ -1617,10 +1617,6 @@ test-incremental-linear-function$(EXEEXT): $(test_incremental_linear_function_OB
 	@rm -f test-incremental-linear-function$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_linear_function_OBJECTS) $(test_incremental_linear_function_LDADD) $(LIBS)
 
-test-incremental-negation$(EXEEXT): $(test_incremental_negation_OBJECTS) $(test_incremental_negation_DEPENDENCIES) $(EXTRA_test_incremental_negation_DEPENDENCIES) 
-	@rm -f test-incremental-negation$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_negation_OBJECTS) $(test_incremental_negation_LDADD) $(LIBS)
-
 test-incremental-nn-ising-1$(EXEEXT): $(test_incremental_nn_ising_1_OBJECTS) $(test_incremental_nn_ising_1_DEPENDENCIES) $(EXTRA_test_incremental_nn_ising_1_DEPENDENCIES) 
 	@rm -f test-incremental-nn-ising-1$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_nn_ising_1_OBJECTS) $(test_incremental_nn_ising_1_LDADD) $(LIBS)
@@ -1644,6 +1640,10 @@ test-incremental-one-max-hamming-sphere$(EXEEXT): $(test_incremental_one_max_ham
 test-incremental-one-max-single-bit-flip$(EXEEXT): $(test_incremental_one_max_single_bit_flip_OBJECTS) $(test_incremental_one_max_single_bit_flip_DEPENDENCIES) $(EXTRA_test_incremental_one_max_single_bit_flip_DEPENDENCIES) 
 	@rm -f test-incremental-one-max-single-bit-flip$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_one_max_single_bit_flip_OBJECTS) $(test_incremental_one_max_single_bit_flip_LDADD) $(LIBS)
+
+test-incremental-opposite-function$(EXEEXT): $(test_incremental_opposite_function_OBJECTS) $(test_incremental_opposite_function_DEPENDENCIES) $(EXTRA_test_incremental_opposite_function_DEPENDENCIES) 
+	@rm -f test-incremental-opposite-function$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_incremental_opposite_function_OBJECTS) $(test_incremental_opposite_function_LDADD) $(LIBS)
 
 test-incremental-walsh-expansion-1$(EXEEXT): $(test_incremental_walsh_expansion_1_OBJECTS) $(test_incremental_walsh_expansion_1_DEPENDENCIES) $(EXTRA_test_incremental_walsh_expansion_1_DEPENDENCIES) 
 	@rm -f test-incremental-walsh-expansion-1$(EXEEXT)
@@ -1840,13 +1840,13 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-herding-sample.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-hypercube-iterator.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-linear-function.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-negation.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-nn-ising-1.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-nn-ising-2.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-one-max.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-opposite-function.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-incremental-walsh-expansion-1.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-injection-projection.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-nsga2-pareto-front-computation.Po@am__quote@ # am--include-marker
@@ -2367,13 +2367,6 @@ test-incremental-linear-function.log: test-incremental-linear-function$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-test-incremental-negation.log: test-incremental-negation$(EXEEXT)
-	@p='test-incremental-negation$(EXEEXT)'; \
-	b='test-incremental-negation'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-incremental-nn-ising-1.log: test-incremental-nn-ising-1$(EXEEXT)
 	@p='test-incremental-nn-ising-1$(EXEEXT)'; \
 	b='test-incremental-nn-ising-1'; \
@@ -2412,6 +2405,13 @@ test-incremental-one-max-hamming-sphere.log: test-incremental-one-max-hamming-sp
 test-incremental-one-max-single-bit-flip.log: test-incremental-one-max-single-bit-flip$(EXEEXT)
 	@p='test-incremental-one-max-single-bit-flip$(EXEEXT)'; \
 	b='test-incremental-one-max-single-bit-flip'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-incremental-opposite-function.log: test-incremental-opposite-function$(EXEEXT)
+	@p='test-incremental-opposite-function$(EXEEXT)'; \
+	b='test-incremental-opposite-function'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -2819,13 +2819,13 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-herding-sample.Po
 	-rm -f ./$(DEPDIR)/test-hypercube-iterator.Po
 	-rm -f ./$(DEPDIR)/test-incremental-linear-function.Po
-	-rm -f ./$(DEPDIR)/test-incremental-negation.Po
 	-rm -f ./$(DEPDIR)/test-incremental-nn-ising-1.Po
 	-rm -f ./$(DEPDIR)/test-incremental-nn-ising-2.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max.Po
+	-rm -f ./$(DEPDIR)/test-incremental-opposite-function.Po
 	-rm -f ./$(DEPDIR)/test-incremental-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-injection-projection.Po
 	-rm -f ./$(DEPDIR)/test-nsga2-pareto-front-computation.Po
@@ -2946,13 +2946,13 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-herding-sample.Po
 	-rm -f ./$(DEPDIR)/test-hypercube-iterator.Po
 	-rm -f ./$(DEPDIR)/test-incremental-linear-function.Po
-	-rm -f ./$(DEPDIR)/test-incremental-negation.Po
 	-rm -f ./$(DEPDIR)/test-incremental-nn-ising-1.Po
 	-rm -f ./$(DEPDIR)/test-incremental-nn-ising-2.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-ball.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-hamming-sphere.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max-single-bit-flip.Po
 	-rm -f ./$(DEPDIR)/test-incremental-one-max.Po
+	-rm -f ./$(DEPDIR)/test-incremental-opposite-function.Po
 	-rm -f ./$(DEPDIR)/test-incremental-walsh-expansion-1.Po
 	-rm -f ./$(DEPDIR)/test-injection-projection.Po
 	-rm -f ./$(DEPDIR)/test-nsga2-pareto-front-computation.Po

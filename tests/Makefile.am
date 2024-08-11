@@ -53,13 +53,13 @@ check_PROGRAMS = \
 	test-herding-sample \
 	test-hypercube-iterator \
 	test-incremental-linear-function \
-	test-incremental-negation \
 	test-incremental-nn-ising-1 \
 	test-incremental-nn-ising-2 \
 	test-incremental-one-max \
 	test-incremental-one-max-hamming-ball \
 	test-incremental-one-max-hamming-sphere \
 	test-incremental-one-max-single-bit-flip \
+	test-incremental-opposite-function \
 	test-incremental-walsh-expansion-1 \
 	test-injection-projection \
 	test-nsga2-pareto-front-computation \
@@ -146,13 +146,13 @@ test_hamming_sphere_iterator_SOURCES = test-hamming-sphere-iterator.cc
 test_herding_sample_SOURCES = test-herding-sample.cc
 test_hypercube_iterator_SOURCES = test-hypercube-iterator.cc
 test_incremental_linear_function_SOURCES = test-incremental-linear-function.cc
-test_incremental_negation_SOURCES = test-incremental-negation.cc
 test_incremental_nn_ising_1_SOURCES = test-incremental-nn-ising-1.cc
 test_incremental_nn_ising_2_SOURCES = test-incremental-nn-ising-2.cc
 test_incremental_one_max_SOURCES = test-incremental-one-max.cc
 test_incremental_one_max_hamming_ball_SOURCES = test-incremental-one-max-hamming-ball.cc
 test_incremental_one_max_hamming_sphere_SOURCES = test-incremental-one-max-hamming-sphere.cc
 test_incremental_one_max_single_bit_flip_SOURCES = test-incremental-one-max-single-bit-flip.cc
+test_incremental_opposite_function_SOURCES = test-incremental-opposite-function.cc
 test_incremental_walsh_expansion_1_SOURCES = test-incremental-walsh-expansion-1.cc
 test_injection_projection_SOURCES = test-injection-projection.cc
 test_nsga2_pareto_front_computation_SOURCES = test-nsga2-pareto-front-computation.cc test-pareto-front-computation.hh
