@@ -9,16 +9,30 @@ In Hypercubo Nigrae Capsulae Optimum
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Part 1
 
    introduction
    requirements
    building
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Part 2
+
    library
-   python
    commandline
-   tutorials
    experiments
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Part 3: Tutorials
+
+   tutorials
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Part 4
+
    contributing
    name
    acknowledgments
