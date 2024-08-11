@@ -22,7 +22,7 @@ Library:
 - Renamed moment structs in namespace algorithm::walsh_moment
 - Changed bit_add into a pure function
 - Optimized algorithm::walsh_moment::FullMoment::scaled_difference
-- Added multivariate equations
+- Renamed converters
 
 Tests:
 - Added test-tsaffinemap-invert
@@ -36,6 +36,10 @@ hnco, hnco-mo:
 hnco:
 - Renamed parameter negation -> minimize
 - Changed hea flags to boolean parameters
+- Added multivariate equations
+
+hnco-mo:
+- Added systems of multivariate equations
 
 Build:
 - Added target pdf to compile refman.pdf
