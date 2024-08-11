@@ -17,8 +17,8 @@ To run the script, enter the command::
 
   python3 single-function.py
 
-Multiobjective objective
-------------------------
+Multiobjective
+--------------
 
 It is possible to define and optimize an arbitrary function in Python.
 For example, the file ``multi-function-complete.py`` in the directory
