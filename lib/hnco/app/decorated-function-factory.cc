@@ -241,7 +241,7 @@ DecoratedFunctionFactory::make_function_modifier()
 
   // Minimize
   if (_options.with_minimize()) {
-    function = new Negation(function);
+    function = new OppositeFunction(function);
   }
 
   // Additive gaussian noise

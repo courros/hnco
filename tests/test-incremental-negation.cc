@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
   for (int i = 0; i < num_runs; i++) {
     int bv_size = dist(Generator::engine);
     OneMax f0(bv_size);
-    Negation function(&f0);
+    OppositeFunction function(&f0);
 
     StandardBitMutation neighborhood(bv_size);
     bit_vector_t bv(bv_size);

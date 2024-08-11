@@ -28,13 +28,13 @@ using namespace hnco::function;
 using namespace hnco::function::modifier;
 
 double
-Negation::evaluate(const bit_vector_t& bv)
+OppositeFunction::evaluate(const bit_vector_t& bv)
 {
   return -_function->evaluate(bv);
 }
 
 double
-Negation::evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+OppositeFunction::evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
   return -_function->evaluate_incrementally(bv, -value, flipped_bits);
 }

@@ -732,7 +732,7 @@ PYBIND11_MODULE(hnco, m_hnco) {
       .def(py::init<function::Function *, Map *>())
       ;
 
-    py::class_<Negation, Modifier>(m_mod, "Negation")
+    py::class_<OppositeFunction, Modifier>(m_mod, "OppositeFunction")
       .def(py::init<function::Function *>())
       ;
 

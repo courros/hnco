@@ -42,16 +42,16 @@ public:
 };
 
 /**
- * Negation.
- * Use cases:
- * - for algorithms which minimize rather than maximize a function
- * - for functions one wishes to minimize
- * - when minimization is needed inside an algorithm
+ * Opposite function.
+ * Possible use cases:
+ * - To minimize rather than maximize a function
+ * - To apply an algorithm that minimizes rather than maximizes a function
+ * - When minimization is needed inside an algorithm
  */
-class Negation: public Modifier {
+class OppositeFunction: public Modifier {
 public:
   /// Constructor
-  Negation(Function *function)
+  OppositeFunction(Function *function)
     : Modifier(function)
   {}
 

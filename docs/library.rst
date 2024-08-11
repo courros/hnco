@@ -150,7 +150,7 @@ Function modifiers:
 
 - AdditiveGaussianNoise
 - FunctionMapComposition
-- Negation
+- OppositeFunction
 - PriorNoise
 - ParsedModifier
 
