@@ -622,7 +622,7 @@
 
                 {
                     "value": 182,
-                    "description": "Complex multivariate function (rep: bv -> complex | parser: [complex] -> complex | z -> |z|^2)"
+                    "description": "Complex multivariate function (rep: bv -> complex | parser: [complex] -> complex | z -> std::norm(z))"
                 },
 
                 {
@@ -647,27 +647,27 @@
 
                 {
                     "value": 210,
-                    "description": "Real multivariate equation (rep: bv -> double | parser: [double] -> double | x -> -|x|)"
+                    "description": "Real multivariate equation (rep: bv -> double | parser: [double] -> double | x -> -std::fabs(x))"
                 },
 
                 {
                     "value": 211,
-                    "description": "Integer multivariate equation (rep: bv -> long | parser: [long] -> long | x -> -|x|)"
+                    "description": "Integer multivariate equation (rep: bv -> long | parser: [long] -> long | n -> -std::fabs(n))"
                 },
 
                 {
                     "value": 212,
-                    "description": "Complex multivariate equation (rep: bv -> complex | parser: [complex] -> complex | z -> -|z|^2)"
+                    "description": "Complex multivariate equation (rep: bv -> complex | parser: [complex] -> complex | z -> -std::norm(z))"
                 },
 
                 {
                     "value": 213,
-                    "description": "Integer multivariate equation (rep: bv -> int | cast to double | parser: [double] -> double | x -> -|x|)"
+                    "description": "Integer multivariate equation (rep: bv -> int | cast to double | parser: [double] -> double | x -> -std::fabs(x))"
                 },
 
                 {
                     "value": 214,
-                    "description": "Mixed-representation multivariate equation (rep: bv -> long, double, or set | parser: [double] -> double | x -> -|x|)"
+                    "description": "Mixed-representation multivariate equation (rep: bv -> long, double, or set | parser: [double] -> double | x -> -std::fabs(x))"
                 },
 
                 {
