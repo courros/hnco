@@ -292,14 +292,14 @@ void HncoOptions::print_help_fn(std::ostream& stream) const
   stream << "          Type of function" << std::endl;
   stream << "            180: Real multivariate functions (rep: bv -> double | parser: [double] -> [double])" << std::endl;
   stream << "            181: Integer multivariate functions (rep: bv -> long | parser: [long] -> [long] | cast to double)" << std::endl;
-  stream << "            182: Complex multivariate functions (rep: bv -> complex | parser: [complex] -> [complex] | z -> |z|^2)" << std::endl;
+  stream << "            182: Complex multivariate functions (rep: bv -> complex | parser: [complex] -> [complex] | z -> std::norm(z))" << std::endl;
   stream << "            183: Integer multivariate functions (rep: bv -> int | cast to double | parser: [double] -> [double])" << std::endl;
   stream << "            184: Mixed-representation multivariate functions (rep: bv -> long, double, or set | parser: [double] -> [double])" << std::endl;
-  stream << "            210: System of real multivariate equations (rep: bv -> double | parser: [double] -> [double] | x -> |x|)" << std::endl;
-  stream << "            211: System of integer multivariate equations (rep: bv -> long | parser: [long] -> [long] | x -> |x|)" << std::endl;
-  stream << "            212: System of complex multivariate equations (rep: bv -> complex | parser: [complex] -> [complex] | z -> |z|^2)" << std::endl;
-  stream << "            213: System of integer multivariate equations (rep: bv -> int | cast to double | parser: [double] -> [double] | x -> |x|)" << std::endl;
-  stream << "            214: System of mixed-representation multivariate equations (rep: bv -> long, double, or set | parser: [double] -> [double] | x -> |x|)" << std::endl;
+  stream << "            210: System of real multivariate equations (rep: bv -> double | parser: [double] -> [double] | x -> std::fabs(x))" << std::endl;
+  stream << "            211: System of integer multivariate equations (rep: bv -> long | parser: [long] -> [long] | n -> std::fabs(n))" << std::endl;
+  stream << "            212: System of complex multivariate equations (rep: bv -> complex | parser: [complex] -> [complex] | z -> std::norm(z))" << std::endl;
+  stream << "            213: System of integer multivariate equations (rep: bv -> int | cast to double | parser: [double] -> [double] | x -> std::fabs(x))" << std::endl;
+  stream << "            214: System of mixed-representation multivariate equations (rep: bv -> long, double, or set | parser: [double] -> [double] | x -> std::fabs(x))" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
   stream << "          Path of a function file" << std::endl;
@@ -368,8 +368,8 @@ void HncoOptions::print_help_ea(std::ostream& stream) const
   stream << "          Crossover probability" << std::endl;
   stream << "      --ea-mu (type int, default to 100)" << std::endl;
   stream << "          Parent population size" << std::endl;
-  stream << "  -m, --ea-mutation-rate (type double, default to 1)" << std::endl;
-  stream << "          Mutation rate relative to bv_size" << std::endl;
+  stream << "  -m, --ea-mutation-rate (type double, no default)" << std::endl;
+  stream << "          Mutation rate" << std::endl;
   stream << "      --ea-tournament-size (type int, default to 2)" << std::endl;
   stream << "          Tournament size" << std::endl;
   stream << std::endl;
@@ -387,7 +387,8 @@ std::ostream& hnco::multiobjective::app::operator<<(std::ostream& stream, const 
   stream << "# bv_size = " << options._bv_size << std::endl;
   stream << "# ea_crossover_probability = " << options._ea_crossover_probability << std::endl;
   stream << "# ea_mu = " << options._ea_mu << std::endl;
-  stream << "# ea_mutation_rate = " << options._ea_mutation_rate << std::endl;
+  if (options._with_ea_mutation_rate)
+    stream << "# ea_mutation_rate = " << options._ea_mutation_rate << std::endl;
   stream << "# ea_tournament_size = " << options._ea_tournament_size << std::endl;
   if (options._with_fn_name)
     stream << "# fn_name = \"" << options._fn_name << "\"" << std::endl;

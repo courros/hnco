@@ -30,11 +30,9 @@
 #include "pareto-front-computation.hh"
 #include "random-selection.hh"
 
-
 namespace hnco {
 namespace multiobjective {
 namespace algorithm {
-
 
 /**
  * Front-distance pair.
@@ -43,13 +41,10 @@ namespace algorithm {
  * a population.
  */
 struct FrontDistancePair {
-
   /// Pareto front
   int pareto_front;
-
   /// Crowding distance
   double crowding_distance;
-
 };
 
 /**
@@ -82,45 +77,31 @@ inline bool operator<(const FrontDistancePair& a, const FrontDistancePair& b)
  * 
  */
 class Nsga2: public IterativeAlgorithm {
-
 protected:
-
   /// Parent population
   Population _parents;
-
   /// Offspring population
   Population _offsprings;
-
   /// Full population
   Population _full_population;
-
   /// Solutions
   Population _solutions;
-
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation;
-
   /// Do crossover
   std::bernoulli_distribution _do_crossover;
-
   /// Uniform crossover
   hnco::algorithm::UniformCrossover _crossover;
-
   /// Pareto front computation
   Nsga2ParetoFrontComputation _pareto_front_computation;
-
   /// Pareto fronts
   std::vector<int> _pareto_fronts;
-
   /// Crowding distances
   std::vector<double> _crowding_distances;
-
   /// Permutation relative to Pareto front
   hnco::permutation_t _permutation;
-
   /// Front distance pairs
   std::vector<FrontDistancePair> _front_distance_pairs;
-
   /// Selection by front distance pairs
   TournamentSelection<FrontDistancePair, std::less<FrontDistancePair>> _selection_by_front_distance_pair;
 
@@ -128,43 +109,31 @@ protected:
    * @name Parameters
    */
   ///@{
-
   /// Tournament size
   int _tournament_size = 2;
-
   /// Mutation rate
   double _mutation_rate;
-
   /// Allow no mutation
   bool _allow_no_mutation = false;
-
   /// Crossover probability
   double _crossover_probability = 0.8;
-
   ///@}
 
   /**
    * @name Loop
    */
   ///@{
-
   /// Initialize
   void init() override;
-
   /// Single iteration
   void iterate() override;
-
   /// Finalize
   void finalize() override;
-
   /// Log
   void log() override {}
-
   ///@}
 
-
 public:
-
   /**
    * Constructor.
    * @param n Size of bit vectors
@@ -194,27 +163,20 @@ public:
    * @name Setters
    */
   ///@{
-
   /// Set the tournament size
-  void set_tournament_size(int n) { _tournament_size = n; }
-
+  void set_tournament_size(int size) { _tournament_size = size; }
   /// Set the mutation rate
-  void set_mutation_rate(double p) { _mutation_rate = p; }
-
+  void set_mutation_rate(double rate) { _mutation_rate = rate; }
   /// Set the flag _allow_no_mutation
   void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }
-
   /// Set the crossover probability
   void set_crossover_probability(double p) { _crossover_probability = p; }
-
   ///@}
 
 };
 
-
 } // end of namespace algorithm
 } // end of namespace multiobjective
 } // end of namespace hnco
-
 
 #endif

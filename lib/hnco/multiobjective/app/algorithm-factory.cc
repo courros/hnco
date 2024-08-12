@@ -39,11 +39,13 @@ CommandLineAlgorithmFactory::make(int bv_size, int num_objectives)
        num_objectives,
        _options.get_ea_mu());
 
-    algo->set_allow_no_mutation(_options.with_ea_allow_no_mutation());
-    algo->set_crossover_probability(_options.get_ea_crossover_probability());
-    algo->set_mutation_rate(_options.get_ea_mutation_rate() / bv_size);
-    algo->set_num_iterations(_options.get_num_iterations());
-    algo->set_tournament_size(_options.get_ea_tournament_size());
+    algo->set_allow_no_mutation     (_options.with_ea_allow_no_mutation());
+    algo->set_crossover_probability (_options.get_ea_crossover_probability());
+    algo->set_num_iterations        (_options.get_num_iterations());
+    algo->set_tournament_size       (_options.get_ea_tournament_size());
+
+    if (_options.with_ea_mutation_rate())
+      algo->set_mutation_rate(_options.get_ea_mutation_rate());
 
     return algo;
   }

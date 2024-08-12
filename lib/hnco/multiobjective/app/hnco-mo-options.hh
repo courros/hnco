@@ -73,8 +73,8 @@ class HncoOptions {
   int _ea_mu = 100;
   bool _with_ea_mu = false;
 
-  /// Mutation rate relative to bv_size
-  double _ea_mutation_rate = 1;
+  /// Mutation rate
+  double _ea_mutation_rate;
   bool _with_ea_mutation_rate = false;
 
   /// Tournament size
@@ -223,7 +223,12 @@ public:
   bool with_ea_mu() const { return _with_ea_mu; }
 
   /// Get the value of ea_mutation_rate
-  double get_ea_mutation_rate() const { return _ea_mutation_rate; }
+  double get_ea_mutation_rate() const {
+    if (_with_ea_mutation_rate)
+      return _ea_mutation_rate;
+    else
+      throw std::runtime_error("HncoOptions::get_ea_mutation_rate: Parameter ea_mutation_rate has no default value and has not been set");
+    }
 
   /// With parameter ea_mutation_rate
   bool with_ea_mutation_rate() const { return _with_ea_mutation_rate; }

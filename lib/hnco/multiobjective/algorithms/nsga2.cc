@@ -27,10 +27,8 @@
 
 #include "nsga2.hh"
 
-
 using namespace hnco::multiobjective::algorithm;
 using namespace hnco::random;
-
 
 void
 Nsga2::init()
