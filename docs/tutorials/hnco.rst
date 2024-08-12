@@ -2,16 +2,20 @@
 Optimizing a user-defined function from hnco (single objective)
 ===============================================================
 
+.. _tutorial-hnco-parser:
+
 Function parser
 ---------------
 
-Suppose we want to minimize the function defined by::
+Suppose we want to minimize the function defined by
+
+.. math::
 
   f(x, y, z) = x^2 + y^2 + z^2
 
-over [-5, 5]^3. In hnco, since the basic search space is a hypercube
-(bit vectors), we have to specify variable representations, each with
-its own type and bounds. For example::
+over :math:`[-5, 5]^3`. In hnco, since the basic search space is a
+hypercube (bit vectors), we have to specify variable representations,
+each with its own type and bounds. For example::
 
   hnco \
     -F 180 \
@@ -30,11 +34,11 @@ instead.
 Minimization, instead of maximization, is achieved with the option
 ``--minimize``.
 
+No algorithm is specified in the command so that the default algorithm
+(random local search) is applied with the default budget.
+
 The last option ``--print-description`` prints the solution in terms
 of representation, not in terms of bit vector.
-
-The function is minimized with the default algorithm (random local
-search) but all algorithms can be used instead.
 
 Both the function and representations can be specified in files
 instead of the command-line::
@@ -81,6 +85,8 @@ Here are the available parsers:
 
 182
   rep: bv -> complex | parser: [complex] -> complex | z -> std::norm(z)
+
+  Here, ``std::norm`` computes the squared magnitude of its argument.
 
 183
   rep: bv -> int | cast to double | parser: [double] -> double

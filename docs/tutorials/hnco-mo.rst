@@ -5,12 +5,14 @@
 Function parser
 ---------------
 
-Suppose we want to optimize the mixed-integer function defined by::
+Suppose we want to minimize the mixed-integer function defined by
 
-  f(x, y) = (sin(x) + cos(y), x^2 + y^2)
+.. math::
 
-over [-10, 10] x [-50 .. 50]. The command-line interface of
-``hnco-mo`` is similar to that of ``hnco``. Therefore, we will only
+  f(x, y) = (\sin(x) + \cos(y), x^2 + y^2)
+
+over :math:`[-10, 10] \times [-50 .. 50]`. The command-line interface
+of ``hnco-mo`` is similar to that of ``hnco``. Therefore, we will only
 outline the differences between them. The different objectives are
 separated by double colon::
 

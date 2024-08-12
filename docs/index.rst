@@ -30,6 +30,7 @@ In Hypercubo Nigrae Capsulae Optimum
    tutorials/hnco
    tutorials/hnco-mo
    tutorials/python
+   tutorials/equations
 
 .. toctree::
    :maxdepth: 2

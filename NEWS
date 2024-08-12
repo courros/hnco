@@ -40,6 +40,9 @@ hnco:
 
 hnco-mo:
 - Added systems of multivariate equations
+- ea_mutation_rate is an absolute mutation rate (as opposed to
+  relative to bv_size). It has no default value. Set algorithm
+  parameters only when explicitly provided at the command line.
 
 Build:
 - Added target pdf to compile refman.pdf
@@ -82,9 +85,10 @@ Build:
 - Renamed directory algorithms/pv/ -> algorithms/probability-vector/
 
 hnco:
-- ea_mutation_rate, ea_mutation_rate_min, and pn_mutation_rate: no
-  default value. Set only when explicitly provided at the command
-  line.
+- ea_mutation_rate, ea_mutation_rate_min, and pn_mutation_rate are
+  absolute mutation rates (as opposed to relative to bv_size). They
+  have no default value. Set algorithm parameters only when explicitly
+  provided at the command line.
 
 
 * Version 0.23 (2023-10-26)
