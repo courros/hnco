@@ -428,13 +428,13 @@ PYBIND11_MODULE(hnco, m_hnco) {
       .def("save", static_cast<void (TsAffineMap::*)(std::string) const>(&TsAffineMap::save))
       ;
 
-    py::enum_<TsAffineMap::SamplingMode>(ts_affine_map, "SamplingMode")
-      .value("Unconstrained", TsAffineMap::SamplingMode::Unconstrained)
-      .value("CommutingTransvections", TsAffineMap::SamplingMode::CommutingTransvections)
-      .value("UniqueSource", TsAffineMap::SamplingMode::UniqueSource)
-      .value("UniqueDestination", TsAffineMap::SamplingMode::UniqueDestination)
-      .value("DisjointTransvections", TsAffineMap::SamplingMode::DisjointTransvections)
-      .value("NonCommutingTransvections", TsAffineMap::SamplingMode::NonCommutingTransvections)
+    py::enum_<TsAffineMap::SamplingMode::mode>(ts_affine_map, "SamplingMode")
+      .value("Unconstrained", TsAffineMap::SamplingMode::unconstrained)
+      .value("CommutingTransvections", TsAffineMap::SamplingMode::commuting_transvections)
+      .value("UniqueSource", TsAffineMap::SamplingMode::unique_source)
+      .value("UniqueDestination", TsAffineMap::SamplingMode::unique_destination)
+      .value("DisjointTransvections", TsAffineMap::SamplingMode::disjoint_transvections)
+      .value("NonCommutingTransvections", TsAffineMap::SamplingMode::non_commuting_transvections)
       .export_values();
   }
 
@@ -992,12 +992,12 @@ PYBIND11_MODULE(hnco, m_hnco) {
         py::class_<Algo, IterativeAlgorithm>(m_algo, "BmPbil")
           .def(py::init<int, int>())
           .def("set_learning_rate", &Algo::set_learning_rate)
-          .def("set_mc_reset_strategy", &Algo::set_mc_reset_strategy)
           .def("set_negative_positive_selection", &Algo::set_negative_positive_selection)
           .def("set_num_gs_cycles", &Algo::set_num_gs_cycles)
           .def("set_num_gs_steps", &Algo::set_num_gs_steps)
           .def("set_num_iterations", &Algo::set_num_iterations)
-          .def("set_sampling", &Algo::set_sampling)
+          .def("set_reset_mode", &Algo::set_reset_mode)
+          .def("set_sampling_mode", &Algo::set_sampling_mode)
           .def("set_selection_size", &Algo::set_selection_size)
           ;
       }
