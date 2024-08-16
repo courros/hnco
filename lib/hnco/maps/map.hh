@@ -626,7 +626,7 @@ private:
 public:
   /// Sampling mode
   struct SamplingMode {
-    enum {
+    enum mode {
       /// Unconstrained
       unconstrained,
       /// Commuting transvections
