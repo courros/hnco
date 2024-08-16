@@ -415,7 +415,6 @@ EXTRA_DIST = \
 	docs/introduction.rst \
 	docs/library.rst \
 	docs/name.rst \
-	docs/python.rst \
 	docs/references.rst \
 	docs/requirements.rst \
 	tools/optgen.pl
