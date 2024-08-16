@@ -23,6 +23,7 @@ Library:
 - Changed bit_add into a pure function
 - Optimized algorithm::walsh_moment::FullMoment::scaled_difference
 - Renamed converters
+- Rename function::modifier::Negation -> OppositeFunction
 
 Tests:
 - Added test-tsaffinemap-invert
