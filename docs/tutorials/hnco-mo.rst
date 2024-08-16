@@ -12,11 +12,15 @@ Suppose we want to minimize the mixed-integer function defined by
   f(x, y) = (\sin(x) + \cos(y), x^2 + y^2)
 
 over :math:`[-10, 10] \times [-50 .. 50]`. The command-line interface
-of ``hnco-mo`` is similar to that of ``hnco``. Therefore, we will only
-outline the differences between them. The different objectives are
-separated by double colon::
+of ``hnco-mo`` is similar to that of ``hnco``. We have to specify the
+variable representations, each with its own type (in this case a
+``double`` and a ``long``) and bounds. The different objectives are
+separated by double colon. In the following command, we apply the
+default algorithm (NSGA-II) for 100 iterations with a population of 3
+individuals to the resulting function::
 
   hnco-mo \
+    -i 100 --ea-mu 3 \
     -F 184 \
     --fp-expression "sin(x) + cos(y) :: x^2 + y^2" \
     --fp-representations "x: double(-10, 10, precision = 0.001); y: long(-50, 50)" \
@@ -27,6 +31,21 @@ solutions in terms of representation, not in terms of bit vector. The
 option ``--print-pareto-front`` only prints the objectives of non
 dominated solutions. This is useful to visualize the Pareto front, for
 example with gnuplot.
+
+Here is a possible output::
+
+  Warning: CommandLineApplication::make_function: After _function_factory.make(), bv_size changed from 100 to 22
+  Objectives: (1.00061, 3.72529e-07)
+  x = 0.000610352
+  y = 0
+
+  Objectives: (-1.94874, 34.0061)
+  x = 5.00061
+  y = 3
+
+  Objectives: (-1.94223, 12.5386)
+  x = -1.8811
+  y = 3
 
 Both the function and representations can be specified in files
 instead of the command-line::
@@ -68,6 +87,25 @@ The function can be displayed with the option ``--fn-display``::
   Representations:
   DyadicFloatRepresentation [-10, 10) (15 bits)
   DyadicIntegerRepresentation [-50..50] (7 bits)
+
+Here are the available parsers:
+
+180
+  ``rep: bv -> double | parser: [double] -> [double]``
+
+181
+  ``rep: bv -> long | parser: [long] -> [long] | cast to double``
+
+182
+  ``rep: bv -> complex | parser: [complex] -> [complex] | z -> std::norm(z)``
+
+  Here, ``std::norm`` computes the squared magnitude of its argument.
+
+183
+  ``rep: bv -> int | cast to double | parser: [double] -> [double]``
+
+184
+  ``rep: bv -> long, double, or set | parser: [double] -> [double]``
 
 Python
 ------

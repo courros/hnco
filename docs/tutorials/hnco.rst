@@ -13,9 +13,9 @@ Suppose we want to minimize the function defined by
 
   f(x, y, z) = x^2 + y^2 + z^2
 
-over :math:`[-5, 5]^3`. In hnco, since the basic search space is a
-hypercube (bit vectors), we have to specify variable representations,
-each with its own type and bounds. For example::
+over :math:`[-5, 5]^3`. In ``hnco``, since the basic search space is a
+hypercube (bit vectors), we have to specify the variable
+representations, each with its own type and bounds. For example::
 
   hnco \
     -F 180 \
@@ -35,10 +35,22 @@ Minimization, instead of maximization, is achieved with the option
 ``--minimize``.
 
 No algorithm is specified in the command so that the default algorithm
-(random local search) is applied with the default budget.
+(random local search without restart) is applied with the default
+budget.
 
 The last option ``--print-description`` prints the solution in terms
 of representation, not in terms of bit vector.
+
+Here is a possible output::
+
+  Warning: DecoratedFunctionFactory::make_function: After _function_factory.make(), bv_size changed from 100 to 24
+  x = -0.0390625
+  y = 0
+  z = 0
+
+Note that ``hnco`` does not indicate that it has consumed its budget.
+This is because random local search stops after some given number of
+unsuccessful moves (sometimes called patience).
 
 Both the function and representations can be specified in files
 instead of the command-line::
@@ -78,21 +90,21 @@ The function can be displayed with the option ``--fn-display``::
 Here are the available parsers:
 
 180
-  rep: bv -> double | parser: [double] -> double
+  ``rep: bv -> double | parser: [double] -> double``
 
 181
-  rep: bv -> long | parser: [long] -> long | cast to double
+  ``rep: bv -> long | parser: [long] -> long | cast to double``
 
 182
-  rep: bv -> complex | parser: [complex] -> complex | z -> std::norm(z)
+  ``rep: bv -> complex | parser: [complex] -> complex | z -> std::norm(z)``
 
   Here, ``std::norm`` computes the squared magnitude of its argument.
 
 183
-  rep: bv -> int | cast to double | parser: [double] -> double
+  ``rep: bv -> int | cast to double | parser: [double] -> double``
 
 184
-  rep: bv -> long, double, or set | parser: [double] -> double
+  ``rep: bv -> long, double, or set | parser: [double] -> double``
 
 For example, the last parser allows to minimize the same function as
 above with the following representations::
@@ -117,7 +129,7 @@ Python
 ------
 
 It is possible to define an arbitrary function in Python and maximize
-it from hnco. For example, the file ``single-function.py`` in the
+it from ``hnco``. For example, the file ``single-function.py`` in the
 directory ``bindings/examples/`` defines the custom function
 ``MyFunction``:
 
@@ -135,8 +147,8 @@ Plugin
 ------
 
 It is possible to load a dynamic library and maximize a given function
-in this library with hnco. For example, the file ``examples/onemax.c``
-contains the following definition:
+in this library with ``hnco``. For example, the file
+``examples/onemax.c`` contains the following definition:
 
 .. code-block:: c
 
