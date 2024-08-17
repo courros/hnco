@@ -14,7 +14,7 @@ class MapgenOptions {
   std::string _exec_name;
 
   /// Name Version
-  std::string _version = "0.25";
+  std::string _version = "0.26";
 
   enum {
     OPTION_HELP=256,
