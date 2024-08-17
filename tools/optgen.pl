@@ -46,7 +46,7 @@ my $description = $obj->{description};
 my $flags       = $obj->{flags};
 my $order       = $obj->{order};
 my $parameters  = $obj->{parameters};
-my $sections    = $obj->{sections};
+my $sections    = $obj->{sections}; # Beware autovivification!
 my $version     = $obj->{version};
 my $files       = $obj->{files};
 
@@ -506,7 +506,7 @@ sub generate_source_help()
         qq(  stream << "$description" << std::endl << std::endl;\n),
         qq(  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;\n);
 
-    if ($sections) {
+    if (@$sections) {
 	foreach (@$order) {
             unless ($section_by_id{$_}->{fold}) {
                 my $title = $section_by_id{$_}->{title};
