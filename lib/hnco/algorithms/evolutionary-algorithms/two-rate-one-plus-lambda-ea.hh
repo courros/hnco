@@ -46,8 +46,9 @@ public:
   TwoRateOnePlusLambdaEa(int n, int population_size)
     : IterativeAlgorithm(n)
     , _population(population_size, n)
-    , _created_with_small_rate(population_size)
     , _mutation_operator(n)
+    , _mutation_rate_init(2 / double(n))
+    , _mutation_rate_min(2 / double(n))
   {}
 
   /**
@@ -71,8 +72,6 @@ public:
 protected:
   /// Population
   Population _population;
-  /// Indicates whether an individual has been created with the small mutation rate
-  bit_vector_t _created_with_small_rate;
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation_operator;
   /// Mutation rate
@@ -84,6 +83,10 @@ protected:
   ///@{
   /// Initial mutation rate
   double _mutation_rate_init;
+  /// Minimum mutation rate
+  double _mutation_rate_min;
+  /// Maximum mutation rate
+  double _mutation_rate_max = 0.25;
   /// Allow no mutation
   bool _allow_no_mutation = false;
   ///@}

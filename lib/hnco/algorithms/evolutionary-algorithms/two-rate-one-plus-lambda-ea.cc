@@ -43,21 +43,17 @@ TwoRateOnePlusLambdaEa::init()
 void
 TwoRateOnePlusLambdaEa::iterate()
 {
-  // Generate population
   const int lambda = _population.get_size();
   const int mid = lambda / 2;
 
+  // Generate population
   _mutation_operator.set_mutation_rate(_mutation_rate / 2);
-  for (int i = 0; i < mid; i++) {
+  for (int i = 0; i < mid; i++)
     _mutation_operator.map(_solution.first, _population.bvs[i]);
-    _created_with_small_rate[i] = 1;
-  }
 
-  _mutation_operator.set_mutation_rate(2 * _mutation_rate);
-  for (int i = mid; i < lambda; i++) {
+  _mutation_operator.set_mutation_rate(_mutation_rate * 2);
+  for (int i = mid; i < lambda; i++)
     _mutation_operator.map(_solution.first, _population.bvs[i]);
-    _created_with_small_rate[i] = 0;
-  }
 
   // Evaluate and sort
   if (_functions.size() > 1)
@@ -65,28 +61,20 @@ TwoRateOnePlusLambdaEa::iterate()
   else
     _population.evaluate(_function);
   _population.sort();
-
-  if (_population.get_best_value() >= _solution.second) {
-    _solution.first = _population.get_best_bv();
-    _solution.second = _population.get_best_value();
-  }
+  update_solution(_population.get_best_bv(), _population.get_best_value());
 
   // Update mutation rate
-  const int n = get_bv_size();
-  const double low = 2 / double(n);
-  const double high = 0.25;
   double x = Generator::uniform();
   if (x < 0.25)
-    _mutation_rate = std::max(_mutation_rate / 2, low);
+    _mutation_rate = std::max(_mutation_rate / 2, _mutation_rate_min);
   else if (x < 0.5)
-    _mutation_rate = std::min(2 * _mutation_rate, high);
+    _mutation_rate = std::min(_mutation_rate * 2, _mutation_rate_max);
   else {
-    assert(is_in_range(_population.permutation[0], _created_with_small_rate.size()));
-    if (_created_with_small_rate[_population.permutation[0]])
+    if (_population.get_best_index(0) < mid)
       _mutation_rate = _mutation_rate / 2;
     else
-      _mutation_rate = 2 * _mutation_rate;
-    _mutation_rate = std::clamp(_mutation_rate, low, high);
+      _mutation_rate = _mutation_rate * 2;
+    _mutation_rate = std::clamp(_mutation_rate, _mutation_rate_min, _mutation_rate_max);
   }
 
 }
@@ -95,7 +83,7 @@ void
 TwoRateOnePlusLambdaEa::log()
 {
   assert(_something_to_log);
+  assert(_log_mutation_rate);
   logging::Logger logger(_log_context);
-  if (_log_mutation_rate)
-    logger << _mutation_rate;
+  logger << _mutation_rate;
 }
