@@ -21,9 +21,8 @@
 #ifndef HNCO_ALGORITHMS_POPULATION_H
 #define HNCO_ALGORITHMS_POPULATION_H
 
-#include <assert.h>
-
 #include <algorithm>            // std::sort
+#include <cassert>
 #include <utility>              // std::pair
 
 #include "hnco/bit-vector.hh"
@@ -32,118 +31,56 @@
 #include "hnco/random.hh"       // random::Generator::engine
 #include "hnco/util.hh"         // hnco::ensure, hnco::is_in_range
 
-
 namespace hnco {
 namespace algorithm {
 
-
 /// %Population
 struct Population {
-
   /// %Function type
   using Function = hnco::function::Function;
-
   /// Bit vectors
   std::vector<bit_vector_t> bvs;
-
   /// Values
   std::vector<double> values;
-
   /// Permutation
   hnco::permutation_t permutation;
 
   /**
    * Constructor.
-   * @param population_size Population size
+   * @param size Population size
    * @param n Bit vector size
    */
-  Population(int population_size, int n)
-    : bvs(population_size, bit_vector_t(n))
-    , values(population_size)
-    , permutation(population_size)
+  Population(int size, int n)
+    : bvs(size, bit_vector_t(n))
+    , values(size)
+    , permutation(size)
   {
-    ensure(population_size > 0, "Population::Population: population size must be positive");
+    ensure(size > 0, "Population::Population: population size must be positive");
     ensure(n > 0, "Population::Population: bit vector size must be positive");
-
     perm_identity(permutation);
   }
 
+  /**
+   * @name Properties
+   */
+  ///@{
   /// Get population size
   int get_size() const { return bvs.size(); }
-
   /// Get bit vector size
   int get_bv_size() const { return bvs[0].size(); }
+///@}
 
   /// Sample a random population
   void random();
-
-
-  /**
-   * @name Get sorted bit vectors
-   */
-  ///@{
-
-  /**
-   * Get best bit vector.
-   * @pre The population must be sorted.
-   */
-  bit_vector_t& get_best_bv() { return bvs[permutation[0]]; }
-
-  /**
-   * Get best bit vector.
-   * @param i Index in the sorted population
-   * @pre The population must be sorted.
-   */
-  bit_vector_t& get_best_bv(int i) {
-    assert(hnco::is_in_range(i, permutation.size()));
-    return bvs[permutation[i]];
-  }
-
-  /**
-   * Get worst bit vector.
-   * @param i Reversed index in the sorted population
-   * @pre The population must be sorted.
-   */
-  bit_vector_t& get_worst_bv(int i) {
-    assert(hnco::is_in_range(i, permutation.size()));
-    return get_best_bv(bvs.size() - 1 - i);
-  }
-
-  ///@}
-
-
-  /**
-   * @name Get sorted values
-   */
-  ///@{
-
-  /**
-   * Get best value.
-   * @pre The population must be sorted.
-   */
-  double get_best_value() const { return values[permutation[0]]; }
-
-  /**
-   * Get best value.
-   * @param i Index in the sorted population
-   * @pre The population must be sorted.
-   */
-  double get_best_value(int i) const { return values[permutation[i]]; }
-
-  ///@}
-
 
   /**
    * @name Evaluation and sorting
    */
   ///@{
-
   /// Evaluate the population
   void evaluate(Function *function);
-
   /// Evaluate the population in parallel
   void evaluate_in_parallel(const std::vector<Function *>& functions);
-
   /**
    * Sort the population. Only the permutation is sorted using the
    * order defined by i < j if values[i] > values[j]. Before sorting,
@@ -154,7 +91,6 @@ struct Population {
     auto compare = [this](int i, int j){ return values[i] > values[j]; };
     std::sort(permutation.begin(), permutation.end(), compare);
   }
-
   /**
    * Partially sort the population. Only the permutation is sorted
    * using the order defined by i < j if values[i] > values[j]. Before
@@ -163,12 +99,10 @@ struct Population {
    */
   void partial_sort(int selection_size) {
     assert(selection_size > 0);
-
     perm_shuffle(permutation);
     auto compare = [this](int i, int j){ return values[i] > values[j]; };
     std::partial_sort(permutation.begin(), permutation.begin() + selection_size, permutation.end(), compare);
   }
-
   /**
    * Get equivalent bit vectors. This member function returns a pair
    * of ints (a, b) such that,
@@ -182,15 +116,78 @@ struct Population {
    * @param index Bit vector's index in the sorted population
    * @pre The population must be sorted.
    */
-  std::pair<int, int> get_equivalent_bvs(int index);
+  std::pair<int, int> get_equivalent_bvs(int index) const;
+  ///@}
 
+  /**
+   * @name Get sorted bit vectors
+   */
+  ///@{
+  /**
+   * Get best bit vector.
+   * @pre The population must be sorted.
+   */
+  bit_vector_t& get_best_bv() { return bvs[permutation[0]]; }
+  /**
+   * Get best bit vector.
+   * @param i Index in the sorted population
+   * @pre The population must be sorted.
+   */
+  bit_vector_t& get_best_bv(int i) {
+    assert(hnco::is_in_range(i, permutation.size()));
+    return bvs[permutation[i]];
+  }
+  /**
+   * Get worst bit vector.
+   * @param i Backward index in the sorted population
+   * @pre The population must be sorted.
+   */
+  bit_vector_t& get_worst_bv(int i) { return get_best_bv(int(bvs.size()) - 1 - i); }
+  ///@}
+
+  /**
+   * @name Get sorted values
+   */
+  ///@{
+  /**
+   * Get best value.
+   * @pre The population must be sorted.
+   */
+  double get_best_value() const { return values[permutation[0]]; }
+  /**
+   * Get best value.
+   * @param i Index in the sorted population
+   * @pre The population must be sorted.
+   */
+  double get_best_value(int i) const {
+    assert(hnco::is_in_range(i, permutation.size()));
+    return values[permutation[i]];
+  }
+  ///@}
+
+  /**
+   * @name Get sorted indices
+   */
+  ///@{
+  /**
+   * Get best index.
+   * @pre The population must be sorted.
+   */
+  int get_best_index() const { return permutation[0]; }
+  /**
+   * Get best index.
+   * @param i Index in the sorted population
+   * @pre The population must be sorted.
+   */
+  int get_best_index(int i) const {
+    assert(hnco::is_in_range(i, permutation.size()));
+    return permutation[i];
+  }
   ///@}
 
 };
 
-
 }
 }
-
 
 #endif

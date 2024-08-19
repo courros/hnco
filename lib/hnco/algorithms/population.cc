@@ -27,12 +27,10 @@
 
 #include "population.hh"
 
-
 using namespace hnco::algorithm;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
-
 
 void
 Population::random()
@@ -40,7 +38,6 @@ Population::random()
   for (auto& bv : bvs)
     bv_random(bv);
 }
-
 
 void
 Population::evaluate(Function *function)
@@ -51,7 +48,6 @@ Population::evaluate(Function *function)
   for (size_t i = 0; i < bvs.size(); i++)
     values[i] = function->evaluate(bvs[i]);
 }
-
 
 void
 Population::evaluate_in_parallel(const std::vector<Function *>& fns)
@@ -72,9 +68,8 @@ Population::evaluate_in_parallel(const std::vector<Function *>& fns)
     fns[0]->update(bvs[i], values[i]);
 }
 
-
 std::pair<int, int>
-Population::get_equivalent_bvs(int index)
+Population::get_equivalent_bvs(int index) const
 {
   assert(is_in_range(index, permutation.size()));
 
