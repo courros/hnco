@@ -19,18 +19,17 @@
 */
 
 #include <algorithm>            // std::max, std::min, std::clamp
+#include <cassert>
 
 #include "hnco/logging/logger.hh"
 #include "hnco/util.hh"         // hnco::is_in_range
 
 #include "two-rate-one-plus-lambda-ea.hh"
 
-
 using namespace hnco::algorithm;
 using namespace hnco::function;
 using namespace hnco::random;
 using namespace hnco;
-
 
 void
 TwoRateOnePlusLambdaEa::init()
@@ -40,7 +39,6 @@ TwoRateOnePlusLambdaEa::init()
   _mutation_operator.set_allow_no_mutation(_allow_no_mutation);
   set_something_to_log();
 }
-
 
 void
 TwoRateOnePlusLambdaEa::iterate()
@@ -80,7 +78,7 @@ TwoRateOnePlusLambdaEa::iterate()
   double x = Generator::uniform();
   if (x < 0.25)
     _mutation_rate = std::max(_mutation_rate / 2, low);
-  else if ( x < 0.5)
+  else if (x < 0.5)
     _mutation_rate = std::min(2 * _mutation_rate, high);
   else {
     assert(is_in_range(_population.permutation[0], _created_with_small_rate.size()));
@@ -93,15 +91,11 @@ TwoRateOnePlusLambdaEa::iterate()
 
 }
 
-
 void
 TwoRateOnePlusLambdaEa::log()
 {
   assert(_something_to_log);
-
-  logging::Logger l(_log_context);
-
+  logging::Logger logger(_log_context);
   if (_log_mutation_rate)
-    l.line() << _mutation_rate << " ";
-
+    logger << _mutation_rate;
 }

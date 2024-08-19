@@ -18,77 +18,54 @@
 
 */
 
-#ifndef HNCO_LOG_LOGGER_H
-#define HNCO_LOG_LOGGER_H
+#ifndef HNCO_LOGGING_LOGGER_H
+#define HNCO_LOGGING_LOGGER_H
 
-#include <iostream>             // std::cout, std::ostream
-#include <string>
+#include <iostream>             // std::cout
 #include <sstream>              // std::ostringstream
+#include <string>
 
-#include "hnco/logging/log-context.hh"
-
+#include "log-context.hh"
 
 namespace hnco {
-
 /// Logging
 namespace logging {
 
-
-/** %Logger.
-
-    Simple logger inspired by the Log class published in Dr. Dobb's:
-
-    https://www.drdobbs.com/cpp/logging-in-c/201804215
-*/
+/**
+ * %Logger.
+ *
+ * Simple logger inspired by the Log class published in Dr. Dobb's:
+ *
+ * https://www.drdobbs.com/cpp/logging-in-c/201804215
+ */
 class Logger {
-
-  /// Output stream
-  static std::ostream *_stream;
-
   /// Line
   std::ostringstream _line;
-
 public:
-
-  /// Get the stream
-  static std::ostream& stream() { return *_stream; }
-
-  /// Set the stream
-  static void set_stream(std::ostream *stream) { _stream = stream; }
-
   /// Default constructor
   Logger() {}
-
-  /** Constructor.
-
-      The constructor converts the context to a string which it writes
-      at the beginning of the line.
-
-      \param context Log context
-  */
+  /**
+   * Constructor.
+   * @param context Log context
+   */
   Logger(LogContext *context) {
     if (context)
       _line << context->to_string() << " ";
   }
-
-  /// Get the line
-  std::ostringstream& line() { return _line; }
-
-  /** Destructor.
-
-      Send the line to the output stream and add an end of line.
-  */
-  virtual ~Logger() { (*_stream) << _line.str() << std::endl; }
-
+  /**
+   * Destructor.
+   * Sends _line to std::cout and flushes it.
+   */
+  virtual ~Logger() { std::cout << _line.str() << std::endl; }
+  /// Append data to the line
+  template<class T>
+  Logger& operator<<(T value) {
+    _line << value << " ";
+    return *this;
+  }
 };
 
-
-/// Helper logging macro
-#define HNCO_LOG(context) hnco::logging::Logger(context).line()
-
-
-} // end of namespace log
+} // end of namespace logging
 } // end of namespace hnco
-
 
 #endif

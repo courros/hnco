@@ -22,26 +22,20 @@
 
 #include "pv-algorithm.hh"
 
-
 using namespace hnco::function;
 using namespace hnco::algorithm;
 using namespace hnco;
-
 
 void
 PvAlgorithm::log()
 {
   assert(_something_to_log);
-
-  logging::Logger l(_log_context);
-
+  logging::Logger logger(_log_context);
   if (_log_entropy)
-    l.line() << pv_entropy(_pv) << " ";
-
+    logger << pv_entropy(_pv);
   if (_log_pv) {
     int upper_bound = std::min(_log_num_components, int(_pv.size()));
     for (int i = 0; i < upper_bound; i++)
-      l.line() << _pv[i] << " ";
+      logger << _pv[i];
   }
-
 }

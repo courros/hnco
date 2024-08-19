@@ -368,9 +368,9 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/universal-function-adapter.hh \
 	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
-	hnco/logging/log-context.hh hnco/logging/logger.cc \
-	hnco/logging/logger.hh hnco/maps/map.cc hnco/maps/map.hh \
-	hnco/maps/transvection.cc hnco/maps/transvection.hh \
+	hnco/logging/log-context.hh hnco/logging/logger.hh \
+	hnco/maps/map.cc hnco/maps/map.hh hnco/maps/transvection.cc \
+	hnco/maps/transvection.hh \
 	hnco/multiobjective/algorithms/algorithm.hh \
 	hnco/multiobjective/algorithms/all.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.cc \
@@ -504,8 +504,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/functions/modifiers/modifier.lo \
 	hnco/functions/modifiers/parsed-modifier.lo \
 	hnco/functions/modifiers/prior-noise.lo hnco/iterator.lo \
-	hnco/logging/logger.lo hnco/maps/map.lo \
-	hnco/maps/transvection.lo \
+	hnco/maps/map.lo hnco/maps/transvection.lo \
 	hnco/multiobjective/algorithms/iterative-algorithm.lo \
 	hnco/multiobjective/algorithms/nsga2.lo \
 	hnco/multiobjective/algorithms/population.lo \
@@ -636,7 +635,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/modifier.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo \
-	hnco/logging/$(DEPDIR)/logger.Plo hnco/maps/$(DEPDIR)/map.Plo \
+	hnco/maps/$(DEPDIR)/map.Plo \
 	hnco/maps/$(DEPDIR)/transvection.Plo \
 	hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo \
 	hnco/multiobjective/algorithms/$(DEPDIR)/nsga2.Plo \
@@ -1204,9 +1203,9 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/universal-function-adapter.hh \
 	hnco/functions/universal-function.hh \
 	hnco/functions/walsh-term.hh hnco/iterator.cc hnco/iterator.hh \
-	hnco/logging/log-context.hh hnco/logging/logger.cc \
-	hnco/logging/logger.hh hnco/maps/map.cc hnco/maps/map.hh \
-	hnco/maps/transvection.cc hnco/maps/transvection.hh \
+	hnco/logging/log-context.hh hnco/logging/logger.hh \
+	hnco/maps/map.cc hnco/maps/map.hh hnco/maps/transvection.cc \
+	hnco/maps/transvection.hh \
 	hnco/multiobjective/algorithms/algorithm.hh \
 	hnco/multiobjective/algorithms/all.hh \
 	hnco/multiobjective/algorithms/iterative-algorithm.cc \
@@ -1854,14 +1853,6 @@ hnco/functions/modifiers/prior-noise.lo:  \
 	hnco/functions/modifiers/$(am__dirstamp) \
 	hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
 hnco/iterator.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
-hnco/logging/$(am__dirstamp):
-	@$(MKDIR_P) hnco/logging
-	@: > hnco/logging/$(am__dirstamp)
-hnco/logging/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) hnco/logging/$(DEPDIR)
-	@: > hnco/logging/$(DEPDIR)/$(am__dirstamp)
-hnco/logging/logger.lo: hnco/logging/$(am__dirstamp) \
-	hnco/logging/$(DEPDIR)/$(am__dirstamp)
 hnco/maps/$(am__dirstamp):
 	@$(MKDIR_P) hnco/maps
 	@: > hnco/maps/$(am__dirstamp)
@@ -1990,8 +1981,6 @@ mostlyclean-compile:
 	-rm -f hnco/functions/controllers/*.lo
 	-rm -f hnco/functions/modifiers/*.$(OBJEXT)
 	-rm -f hnco/functions/modifiers/*.lo
-	-rm -f hnco/logging/*.$(OBJEXT)
-	-rm -f hnco/logging/*.lo
 	-rm -f hnco/maps/*.$(OBJEXT)
 	-rm -f hnco/maps/*.lo
 	-rm -f hnco/multiobjective/algorithms/*.$(OBJEXT)
@@ -2108,7 +2097,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/modifier.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/logging/$(DEPDIR)/logger.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/maps/$(DEPDIR)/map.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/maps/$(DEPDIR)/transvection.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo@am__quote@ # am--include-marker
@@ -2203,7 +2191,6 @@ clean-libtool:
 	-rm -rf hnco/functions/collection/walsh/.libs hnco/functions/collection/walsh/_libs
 	-rm -rf hnco/functions/controllers/.libs hnco/functions/controllers/_libs
 	-rm -rf hnco/functions/modifiers/.libs hnco/functions/modifiers/_libs
-	-rm -rf hnco/logging/.libs hnco/logging/_libs
 	-rm -rf hnco/maps/.libs hnco/maps/_libs
 	-rm -rf hnco/multiobjective/algorithms/.libs hnco/multiobjective/algorithms/_libs
 	-rm -rf hnco/multiobjective/app/.libs hnco/multiobjective/app/_libs
@@ -2398,8 +2385,6 @@ distclean-generic:
 	-rm -f hnco/functions/controllers/$(am__dirstamp)
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/functions/modifiers/$(am__dirstamp)
-	-rm -f hnco/logging/$(DEPDIR)/$(am__dirstamp)
-	-rm -f hnco/logging/$(am__dirstamp)
 	-rm -f hnco/maps/$(DEPDIR)/$(am__dirstamp)
 	-rm -f hnco/maps/$(am__dirstamp)
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/$(am__dirstamp)
@@ -2523,7 +2508,6 @@ distclean: distclean-am
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo
-	-rm -f hnco/logging/$(DEPDIR)/logger.Plo
 	-rm -f hnco/maps/$(DEPDIR)/map.Plo
 	-rm -f hnco/maps/$(DEPDIR)/transvection.Plo
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo
@@ -2683,7 +2667,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo
-	-rm -f hnco/logging/$(DEPDIR)/logger.Plo
 	-rm -f hnco/maps/$(DEPDIR)/map.Plo
 	-rm -f hnco/maps/$(DEPDIR)/transvection.Plo
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo

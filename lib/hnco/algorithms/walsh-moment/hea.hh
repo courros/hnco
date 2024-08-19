@@ -145,17 +145,16 @@ class Hea: public algorithm::IterativeAlgorithm {
   void log() override {
     assert(_something_to_log);
     if (_log_target) {
-      _target.display(logging::Logger::stream());
+      _target.display(std::cout);
       return;
     }
-    logging::Logger l(_log_context);
-    // Single line
+    logging::Logger logger(_log_context);
     if (_log_herding_error)
-      l.line() << _herding_error << " ";
+      logger << _herding_error;
     if (_log_target_norm)
-      l.line() << _target_norm << " ";
+      logger << _target_norm;
     if (_log_delta_norm)
-      l.line() << _delta_norm << " ";
+      logger << _delta_norm;
   }
   ///@}
 

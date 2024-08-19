@@ -25,10 +25,8 @@
 
 #include "hnco/functions/controllers/controller.hh"
 
-
 namespace hnco {
 namespace logging {
-
 
 /**
  * Log context. A log context gives an algorithm more information
@@ -39,27 +37,22 @@ namespace logging {
  */
 class LogContext {
 public:
-
-  /// Get context
+  /// Convert context to string
   virtual std::string to_string() = 0;
 };
 
-
 /// Log context for ProgressTracker
 class ProgressTrackerContext: public LogContext {
-
   /// Progress tracker
   function::controller::ProgressTracker *_progress_tracker;
 
 public:
-
   /// Constructor
   ProgressTrackerContext(function::controller::ProgressTracker *pt)
     : _progress_tracker(pt)
   {}
-
   /**
-   * Get context.
+   * Convert context to string.
    * @return A string made of the following information:
    * - Number of evaluations
    * - Number of evaluations to find the best so far solution
@@ -67,19 +60,15 @@ public:
    */
   std::string to_string() {
     assert(_progress_tracker);
-
     std::ostringstream stream;
     stream
       << _progress_tracker->get_num_calls() << " "
       << _progress_tracker->get_last_improvement();
     return stream.str();
   }
-
 };
 
-
 }
 }
-
 
 #endif

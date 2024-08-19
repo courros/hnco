@@ -18,19 +18,16 @@
 
 */
 
-#include <assert.h>
-
 #include <algorithm>            // std::max, std::min
+#include <cassert>
 #include <cmath>                // std::pow
 
 #include "hnco/logging/logger.hh"
 
 #include "self-adjusting-one-plus-one-ea.hh"
 
-
 using namespace hnco::algorithm;
 using namespace hnco;
-
 
 void
 SelfAdjustingOnePlusOneEa::init()
@@ -45,7 +42,6 @@ SelfAdjustingOnePlusOneEa::init()
   set_something_to_log();
 }
 
-
 void
 SelfAdjustingOnePlusOneEa::iterate()
 {
@@ -57,7 +53,6 @@ SelfAdjustingOnePlusOneEa::iterate()
   else
     iterate_full();
 }
-
 
 void
 SelfAdjustingOnePlusOneEa::iterate_full()
@@ -80,7 +75,6 @@ SelfAdjustingOnePlusOneEa::iterate_full()
   _mutation.set_mutation_rate(_mutation_rate);
 
 }
-
 
 void
 SelfAdjustingOnePlusOneEa::iterate_incremental()
@@ -107,7 +101,6 @@ SelfAdjustingOnePlusOneEa::iterate_incremental()
 
 }
 
-
 void
 SelfAdjustingOnePlusOneEa::finalize()
 {
@@ -115,15 +108,11 @@ SelfAdjustingOnePlusOneEa::finalize()
   // _solution.second has been taken care of
 }
 
-
 void
 SelfAdjustingOnePlusOneEa::log()
 {
   assert(_something_to_log);
-
-  logging::Logger l(_log_context);
-
+  logging::Logger logger(_log_context);
   if (_log_mutation_rate)
-    l.line() << _mutation_rate << " ";
-
+    logger << _mutation_rate;
 }

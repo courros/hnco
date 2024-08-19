@@ -21,16 +21,12 @@
 #ifndef HNCO_ALGORITHMS_EA_TWO_RATE_ONE_PLUS_LAMBDA_EA
 #define HNCO_ALGORITHMS_EA_TWO_RATE_ONE_PLUS_LAMBDA_EA
 
-#include <assert.h>
-
 #include "hnco/algorithms/iterative-algorithm.hh"
 #include "hnco/algorithms/population.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 
-
 namespace hnco {
 namespace algorithm {
-
 
 /**
  * Two-rate (1+lambda) evolutionary algorithm.
@@ -45,9 +41,7 @@ namespace algorithm {
  * https://doi.org/10.1145/3071178.3071279
  */
 class TwoRateOnePlusLambdaEa: public IterativeAlgorithm {
-
 public:
-
   /// Constructor
   TwoRateOnePlusLambdaEa(int n, int population_size)
     : IterativeAlgorithm(n)
@@ -60,35 +54,27 @@ public:
    * @name Setters
    */
   ///@{
-
   /// Set the initial mutation rate
-  void set_mutation_rate_init(double r) { _mutation_rate_init = r; }
-
+  void set_mutation_rate_init(double rate) { _mutation_rate_init = rate; }
   /// Allow no mutation
   void set_allow_no_mutation(bool b) { _allow_no_mutation = b; }
-
   ///@}
 
   /**
    * @name Setters for logging
    */
   ///@{
-
   /// Log mutation rate
   void set_log_mutation_rate(bool b) { _log_mutation_rate = b; }
-
   ///@}
 
 protected:
-
   /// Population
   Population _population;
-
+  /// Indicates whether an individual has been created with the small mutation rate
   bit_vector_t _created_with_small_rate;
-
   /// Mutation operator
   neighborhood::StandardBitMutation _mutation_operator;
-
   /// Mutation rate
   double _mutation_rate;
 
@@ -96,49 +82,37 @@ protected:
    * @name Parameters
    */
   ///@{
-
   /// Initial mutation rate
   double _mutation_rate_init;
-
   /// Allow no mutation
   bool _allow_no_mutation = false;
-
   ///@}
 
   /**
    * @name Logging
    */
   ///@{
-
   /// Log entropy
   bool _log_mutation_rate = false;
-
   ///@}
 
   /**
    * @name Loop
    */
   ///@{
-
   /// Initialization
   void init() override;
-
   /// Single iteration
   void iterate() override;
-
   /// Log
   void log() override;
-
   ///@}
 
   /// Set flag for something to log
   void set_something_to_log() { _something_to_log = _log_mutation_rate; }
-
 };
-
 
 } // end of namespace algorithm
 } // end of namespace hnco
-
 
 #endif

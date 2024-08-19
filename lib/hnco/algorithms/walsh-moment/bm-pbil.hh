@@ -196,15 +196,11 @@ protected:
   /// Log
   void log() override {
     assert(_something_to_log);
-
-    logging::Logger l(_log_context);
-
+    logging::Logger logger(_log_context);
     if (_log_norm_infinite)
-      l.line() << _model_parameters.norm_infinite() << " ";
-
+      logger << _model_parameters.norm_infinite();
     if (_log_norm_1)
-      l.line() << _model_parameters.norm_1() << " ";
-
+      logger << _model_parameters.norm_1();
   }
   ///@}
 

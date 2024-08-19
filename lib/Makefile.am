@@ -261,7 +261,6 @@ libhnco_la_SOURCES = \
 	hnco/iterator.cc \
 	hnco/iterator.hh \
 	hnco/logging/log-context.hh \
-	hnco/logging/logger.cc \
 	hnco/logging/logger.hh \
 	hnco/maps/map.cc \
 	hnco/maps/map.hh \

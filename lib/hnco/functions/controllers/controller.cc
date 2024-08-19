@@ -22,11 +22,10 @@
 
 #include "controller.hh"
 
-
+using namespace hnco;
 using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::function::controller;
-
 
 double
 StopOnTarget::evaluate(const bit_vector_t& bv)
@@ -40,7 +39,6 @@ StopOnTarget::evaluate(const bit_vector_t& bv)
   return value;
 }
 
-
 double
 StopOnTarget::evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
@@ -53,7 +51,6 @@ StopOnTarget::evaluate_incrementally(const bit_vector_t& bv, double value, const
   return result;
 }
 
-
 void
 StopOnTarget::update(const bit_vector_t& bv, double value)
 {
@@ -65,7 +62,6 @@ StopOnTarget::update(const bit_vector_t& bv, double value)
   }
 }
 
-
 double
 CallCounter::evaluate(const bit_vector_t& bv)
 {
@@ -73,7 +69,6 @@ CallCounter::evaluate(const bit_vector_t& bv)
   _num_calls++;
   return value;
 }
-
 
 double
 CallCounter::evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits)
@@ -83,14 +78,12 @@ CallCounter::evaluate_incrementally(const bit_vector_t& bv, double value, const 
   return result;
 }
 
-
 void
 CallCounter::update(const bit_vector_t& bv, double value)
 {
   _function->update(bv, value);
   _num_calls++;
 }
-
 
 double
 OnBudgetFunction::evaluate(const bit_vector_t& bv)
@@ -100,7 +93,6 @@ OnBudgetFunction::evaluate(const bit_vector_t& bv)
   return CallCounter::evaluate(bv);
 }
 
-
 double
 OnBudgetFunction::evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
@@ -109,7 +101,6 @@ OnBudgetFunction::evaluate_incrementally(const bit_vector_t& bv, double value, c
   return CallCounter::evaluate_incrementally(bv, value, flipped_bits);
 }
 
-
 void
 OnBudgetFunction::update(const bit_vector_t& bv, double value)
 {
@@ -117,7 +108,6 @@ OnBudgetFunction::update(const bit_vector_t& bv, double value)
     throw LastEvaluation();
   CallCounter::update(bv, value);
 }
-
 
 double
 ProgressTracker::evaluate(const bit_vector_t& bv)
@@ -134,7 +124,6 @@ ProgressTracker::evaluate(const bit_vector_t& bv)
   return value;
 }
 
-
 double
 ProgressTracker::evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits)
 {
@@ -143,14 +132,12 @@ ProgressTracker::evaluate_incrementally(const bit_vector_t& bv, double value, co
   return result;
 }
 
-
 void
 ProgressTracker::update(const bit_vector_t& bv, double value)
 {
   CallCounter::update(bv, value);
   update_last_improvement(bv, value);
 }
-
 
 void
 ProgressTracker::update_last_improvement(const bit_vector_t& bv, double value)
@@ -163,7 +150,6 @@ ProgressTracker::update_last_improvement(const bit_vector_t& bv, double value)
   }
 }
 
-
 void
 ProgressTracker::update_last_improvement_details(const bit_vector_t& bv, double value)
 {
@@ -171,17 +157,16 @@ ProgressTracker::update_last_improvement_details(const bit_vector_t& bv, double 
   if (_record_bit_vector)
     _last_improvement.solution.first = bv;
   _last_improvement.solution.second = value;
-  if (_log_improvement)
-    HNCO_LOG() << _last_improvement;
+  if (_log_improvement) {
+    std::cout << _last_improvement << std::endl;
+  }
 }
-
 
 std::ostream& hnco::function::controller::operator<<(std::ostream& stream, const ProgressTracker::Event& event)
 {
   stream << event.num_evaluations << " " << event.solution.second;
   return stream;
 }
-
 
 double
 Cache::evaluate(const bit_vector_t& bv)

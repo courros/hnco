@@ -5,11 +5,9 @@
 
 #include "it-ea.hh"
 
-
 using namespace hnco::function;
 using namespace hnco::algorithm;
 using namespace hnco;
-
 
 template<typename Fn>
 int sample_from_arg(const std::vector<double>& values, Fn fn)
@@ -32,7 +30,6 @@ int sample_from_arg(const std::vector<double>& values, Fn fn)
   return index;
 }
 
-
 void
 InformationTheoreticEa::init()
 {
@@ -48,7 +45,6 @@ InformationTheoreticEa::init()
   set_something_to_log();
 }
 
-
 void
 InformationTheoreticEa::compute_masks(bool equivalent_individuals, std::pair<int, int> range, double c)
 {
@@ -60,7 +56,6 @@ InformationTheoreticEa::compute_masks(bool equivalent_individuals, std::pair<int
       bv_add(_masks[k], _center.first, _population.get_best_bv(k));
   }
 }
-
 
 void
 InformationTheoreticEa::ml_update(bool equivalent_individuals, std::pair<int, int> range, double c)
@@ -112,7 +107,6 @@ InformationTheoreticEa::ml_update(bool equivalent_individuals, std::pair<int, in
   _center.second = _function->evaluate(_center.first);
   update_solution(_center);
 }
-
 
 void
 InformationTheoreticEa::incremental_ml_update(bool equivalent_individuals, std::pair<int, int> range, double c)
@@ -166,7 +160,6 @@ InformationTheoreticEa::incremental_ml_update(bool equivalent_individuals, std::
   }
 }
 
-
 void
 InformationTheoreticEa::igo_update(bool equivalent_individuals, std::pair<int, int> range, double c)
 {
@@ -188,7 +181,6 @@ InformationTheoreticEa::igo_update(bool equivalent_individuals, std::pair<int, i
   _mutation_rate += _learning_rate * (target - _mutation_rate);
   _mutation_rate = std::clamp(_mutation_rate, _mutation_rate_min, _mutation_rate_max);
 }
-
 
 void
 InformationTheoreticEa::iterate()
@@ -256,18 +248,13 @@ InformationTheoreticEa::iterate()
   igo_update(equivalent_individuals, range, c);
 }
 
-
 void
 InformationTheoreticEa::log()
 {
   assert(_something_to_log);
-
-  logging::Logger l(_log_context);
-
+  logging::Logger logger(_log_context);
   if (_log_mutation_rate)
-    l.line() << _mutation_rate << " ";
-
+    logger << _mutation_rate;
   if (_log_center_fitness)
-    l.line() << _center.second << " ";
-
+    logger << _center.second;
 }

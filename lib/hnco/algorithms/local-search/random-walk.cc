@@ -74,6 +74,6 @@ void
 RandomWalk::log()
 {
   assert(_something_to_log);
-
-  HNCO_LOG() << _value;
+  logging::Logger logger(_log_context);
+  logger << _value;
 }
