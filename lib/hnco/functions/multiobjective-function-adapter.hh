@@ -24,7 +24,7 @@
 #include <cassert>
 #include <numeric>              // std::accumulate
 
-#include "hnco/multiobjective/function/function.hh"
+#include "hnco/multiobjective/functions/function.hh"
 
 #include "function.hh"
 
@@ -43,7 +43,7 @@ class MultiobjectiveFunctionAdapter: public Function {
   /// Multiobjective function
   multiobjective::function::Function *_function;
   /// Output value of the multiobjective function
-  multiobjective::Function::value_t _value;
+  multiobjective::function::value_t _value;
 
 public:
   /**
@@ -61,7 +61,7 @@ public:
    */
   ///@{
   /// Get bit vector size
-  int get_bv_size() const override { return _fn->get_bv_size(); }
+  int get_bv_size() const override { return _function->get_bv_size(); }
   ///@}
   /**
    * @name Evaluation
@@ -70,7 +70,7 @@ public:
   /// Evaluate
   double evaluate(const bit_vector_t& bv) override {
     _function->evaluate(bv, _value);
-    return std::accumulate(begin(_value), end(_value));
+    return std::accumulate(begin(_value), end(_value), 0);
   }
   ///@}
   /**
@@ -80,7 +80,7 @@ public:
   /// Display
   void display(std::ostream& stream) const override { _function->display(stream); }
   /// Describe a bit vector
-  void describe(const bit_vector_t& bv, std::ostream& stream) override { _function->describe(_bv, stream); }
+  void describe(const bit_vector_t& bv, std::ostream& stream) override { _function->describe(bv, stream); }
   ///@}
 };
 

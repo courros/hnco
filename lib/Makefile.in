@@ -363,6 +363,7 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.cc \
 	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/multiobjective-function-adapter.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/universal-function-adapter.hh \
@@ -802,6 +803,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/modifiers/modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/multiobjective-function-adapter.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/universal-function-adapter.hh \
@@ -1198,6 +1200,7 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.cc \
 	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/multiobjective-function-adapter.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/universal-function-adapter.hh \
@@ -1358,6 +1361,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/modifiers/modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/multiobjective-function-adapter.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/universal-function-adapter.hh \

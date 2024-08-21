@@ -253,6 +253,7 @@ libhnco_la_SOURCES = \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.cc \
 	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/multiobjective-function-adapter.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/universal-function-adapter.hh \
@@ -471,6 +472,7 @@ nobase_include_HEADERS = \
 	hnco/functions/modifiers/modifier.hh \
 	hnco/functions/modifiers/parsed-modifier.hh \
 	hnco/functions/modifiers/prior-noise.hh \
+	hnco/functions/multiobjective-function-adapter.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/universal-function-adapter.hh \

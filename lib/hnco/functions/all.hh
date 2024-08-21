@@ -27,6 +27,7 @@
 #include "decorator.hh"
 #include "function.hh"
 #include "modifiers/all.hh"
+#include "multiobjective-function-adapter.hh"
 #include "multivariate-function-adapter.hh"
 #include "permutation-function-adapter.hh"
 #include "universal-function-adapter.hh"
