@@ -205,7 +205,7 @@ CommandLineApplication::print_results(double total_time, bool target_reached)
     << ",\n  \"total_time\": "               << total_time
     << ",\n  \"evaluation_time\": "          << tracker->get_evaluation_time();
 
-  if (_options.with_stop_on_maximum() || _options.with_stop_on_target()) {
+  if (_options.with_stop_on_maximum() || _options.with_target()) {
     results
       << std::boolalpha
       << ",\n  \"success\": " << target_reached;
@@ -308,7 +308,7 @@ CommandLineApplication::maximize()
   if (_options.with_stop_on_maximum() && !target_reached)
     exit(2);
 
-  if (_options.with_stop_on_target() && !target_reached)
+  if (_options.with_target() && !target_reached)
     exit(3);
 
   exit(0);

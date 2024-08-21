@@ -301,7 +301,7 @@ DecoratedFunctionFactory::make_function_controller(Function *function)
       throw std::runtime_error("DecoratedFunctionFactory::make_function_controller (StopOnMaximum): Unknown maximum");
     }
   } else {
-    if (_options.with_stop_on_target()) {
+    if (_options.with_target()) {
       _stop_on_target = new StopOnTarget(function, _options.get_target());
       function = _stop_on_target;
     }

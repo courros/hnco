@@ -125,7 +125,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"save-results", no_argument, 0, OPTION_SAVE_RESULTS},
     {"save-solution", no_argument, 0, OPTION_SAVE_SOLUTION},
     {"stop-on-maximum", no_argument, 0, OPTION_STOP_ON_MAXIMUM},
-    {"stop-on-target", no_argument, 0, OPTION_STOP_ON_TARGET},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
     {"help-fn", no_argument, 0, OPTION_HELP_FN},
@@ -695,10 +694,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _stop_on_maximum = true;
       break;
 
-    case OPTION_STOP_ON_TARGET:
-      _stop_on_target = true;
-      break;
-
     case OPTION_HELP:
       print_help(std::cerr);
       exit(0);
@@ -1002,10 +997,8 @@ void HncoOptions::print_help_ctrl(std::ostream& stream) const
   stream << "          Record evaluation time" << std::endl;
   stream << "      --stop-on-maximum" << std::endl;
   stream << "          Stop on maximum" << std::endl;
-  stream << "      --stop-on-target" << std::endl;
-  stream << "          Stop on target" << std::endl;
-  stream << "      --target (type double, default to 100)" << std::endl;
-  stream << "          Target" << std::endl;
+  stream << "      --target (type double, no default)" << std::endl;
+  stream << "          Set a target" << std::endl;
   stream << std::endl;
 }
 
@@ -1354,7 +1347,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# seed = " << options._seed << std::endl;
   stream << "# selection_size = " << options._selection_size << std::endl;
   stream << "# solution_path = \"" << options._solution_path << "\"" << std::endl;
-  stream << "# target = " << options._target << std::endl;
+  if (options._with_target)
+    stream << "# target = " << options._target << std::endl;
   if (options._additive_gaussian_noise)
     stream << "# additive_gaussian_noise " << std::endl;
   if (options._bm_log_norm_1)
@@ -1449,8 +1443,6 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# save_solution " << std::endl;
   if (options._stop_on_maximum)
     stream << "# stop_on_maximum " << std::endl;
-  if (options._stop_on_target)
-    stream << "# stop_on_target " << std::endl;
   stream << "# last_parameter" << std::endl;
   stream << "# exec_name = " << options._exec_name << std::endl;
   stream << "# version = " << options._version << std::endl;

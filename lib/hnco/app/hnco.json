@@ -235,12 +235,6 @@
             "section": "ctrl"
         },
 
-        "stop_on_target":
-        {
-            "description": "Stop on target",
-            "section": "ctrl"
-        },
-
         "cache":
         {
             "description": "Cache function evaluations",
@@ -887,8 +881,7 @@
         "target":
         {
             "type": "double",
-            "default": 100.0,
-            "description": "Target",
+            "description": "Set a target",
             "section": "ctrl"
         },
 

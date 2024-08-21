@@ -146,8 +146,7 @@ class HncoOptions {
     OPTION_SAVE_DESCRIPTION,
     OPTION_SAVE_RESULTS,
     OPTION_SAVE_SOLUTION,
-    OPTION_STOP_ON_MAXIMUM,
-    OPTION_STOP_ON_TARGET
+    OPTION_STOP_ON_MAXIMUM
   };
 
   /// Type of algorithm
@@ -414,8 +413,8 @@ class HncoOptions {
   std::string _solution_path = "solution.txt";
   bool _with_solution_path = false;
 
-  /// Target
-  double _target = 100;
+  /// Set a target
+  double _target;
   bool _with_target = false;
 
   /// Additive Gaussian noise
@@ -558,9 +557,6 @@ class HncoOptions {
 
   /// Stop on maximum
   bool _stop_on_maximum = false;
-
-  /// Stop on target
-  bool _stop_on_target = false;
 
   /// Print help message
   void print_help(std::ostream& stream) const;
@@ -1060,7 +1056,12 @@ public:
   bool with_solution_path() const { return _with_solution_path; }
 
   /// Get the value of target
-  double get_target() const { return _target; }
+  double get_target() const {
+    if (_with_target)
+      return _target;
+    else
+      throw std::runtime_error("HncoOptions::get_target: Parameter target has no default value and has not been set");
+    }
 
   /// With parameter target
   bool with_target() const { return _with_target; }
@@ -1205,9 +1206,6 @@ public:
 
   /// With the flag stop_on_maximum
   bool with_stop_on_maximum() const { return _stop_on_maximum; }
-
-  /// With the flag stop_on_target
-  bool with_stop_on_target() const { return _stop_on_target; }
 
   friend std::ostream& operator<<(std::ostream&, const HncoOptions&);
 };
