@@ -22,14 +22,10 @@
 #include <cassert>
 
 #include "hnco/logging/logger.hh"
-#include "hnco/util.hh"         // hnco::is_in_range
 
 #include "two-rate-one-plus-lambda-ea.hh"
 
 using namespace hnco::algorithm;
-using namespace hnco::function;
-using namespace hnco::random;
-using namespace hnco;
 
 void
 TwoRateOnePlusLambdaEa::init()
@@ -45,13 +41,15 @@ TwoRateOnePlusLambdaEa::iterate()
 {
   const int lambda = _population.get_size();
   const int mid = lambda / 2;
+  const double low = _mutation_rate / 2;
+  const double high = _mutation_rate * 2;
 
   // Generate population
-  _mutation_operator.set_mutation_rate(_mutation_rate / 2);
+  _mutation_operator.set_mutation_rate(low);
   for (int i = 0; i < mid; i++)
     _mutation_operator.map(_solution.first, _population.bvs[i]);
 
-  _mutation_operator.set_mutation_rate(_mutation_rate * 2);
+  _mutation_operator.set_mutation_rate(high);
   for (int i = mid; i < lambda; i++)
     _mutation_operator.map(_solution.first, _population.bvs[i]);
 
@@ -64,16 +62,16 @@ TwoRateOnePlusLambdaEa::iterate()
   update_solution(_population.get_best_bv(), _population.get_best_value());
 
   // Update mutation rate
-  double x = Generator::uniform();
-  if (x < 0.25)
-    _mutation_rate = std::max(_mutation_rate / 2, _mutation_rate_min);
-  else if (x < 0.5)
-    _mutation_rate = std::min(_mutation_rate * 2, _mutation_rate_max);
+  double number = random::Generator::uniform();
+  if (number < 0.25)
+    _mutation_rate = std::max(low, _mutation_rate_min);
+  else if (number < 0.5)
+    _mutation_rate = std::min(high, _mutation_rate_max);
   else {
     if (_population.get_best_index(0) < mid)
-      _mutation_rate = _mutation_rate / 2;
+      _mutation_rate = low;
     else
-      _mutation_rate = _mutation_rate * 2;
+      _mutation_rate = high;
     _mutation_rate = std::clamp(_mutation_rate, _mutation_rate_min, _mutation_rate_max);
   }
 
