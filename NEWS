@@ -1,3 +1,10 @@
+* Version 0.26 (unreleased)
+
+Library:
+- Added algorithm::Population::get_best_index
+- Changed logging::Logger
+
+
 * Version 0.25 (2024-08-17)
 
 Library:
@@ -11,7 +18,7 @@ Library:
 - Function get_representations checks for unset option fp_representations
 - Renamed MixedIntegerMultivariateFunctionAdapter -> MixedRepresentationMultivariateFunctionAdapter (single and multi)
 - Defined representation variant type app::rep_var_t
-- MixedRepresentationMultivariateFunctionAdapter: template parameter RepVariant must be a variant of representations (single and multi)
+- MixedRepresentationMultivariateFunctionAdapter: template parameter RepVariant (single and multi)
 - Added function map::ts_invert
 - Fixed TsAffineMap::invert
 - Added class algorithm::FitnessProportionateSelection
@@ -23,7 +30,7 @@ Library:
 - Changed bit_add into a pure function
 - Optimized algorithm::walsh_moment::FullMoment::scaled_difference
 - Renamed converters
-- Rename function::modifier::Negation -> OppositeFunction
+- Renamed function::modifier::Negation -> OppositeFunction
 
 Tests:
 - Added test-tsaffinemap-invert
@@ -35,7 +42,7 @@ hnco, hnco-mo:
 - Removed parameter fp_representations_source
 
 hnco:
-- Renamed parameter negation -> minimize
+- Renamed flag negation -> minimize
 - Changed hea flags to boolean parameters
 - Added multivariate equations
 
