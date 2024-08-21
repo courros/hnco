@@ -70,7 +70,7 @@ public:
   /// Evaluate
   double evaluate(const bit_vector_t& bv) override {
     _function->evaluate(bv, _value);
-    return std::accumulate(begin(_value), end(_value), 0);
+    return std::accumulate(begin(_value), end(_value), double(0));
   }
   ///@}
   /**

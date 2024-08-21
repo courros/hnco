@@ -140,52 +140,52 @@
             [
 
                 {
-                    "value": 180,
-                    "description": "Real multivariate functions (rep: bv -> double | parser: [double] -> [double])"
+                    "value": 520,
+                    "description": "Real multivariate function (rep: bv -> double | parser: [double] -> [double])"
                 },
 
                 {
-                    "value": 181,
-                    "description": "Integer multivariate functions (rep: bv -> long | parser: [long] -> [long] | cast to double)"
+                    "value": 521,
+                    "description": "Integer multivariate function (rep: bv -> long | parser: [long] -> [long] | cast to double)"
                 },
 
                 {
-                    "value": 182,
-                    "description": "Complex multivariate functions (rep: bv -> complex | parser: [complex] -> [complex] | z -> std::norm(z))"
+                    "value": 522,
+                    "description": "Complex multivariate function (rep: bv -> complex | parser: [complex] -> [complex] | z -> std::norm(z))"
                 },
 
                 {
-                    "value": 183,
-                    "description": "Integer multivariate functions (rep: bv -> int | cast to double | parser: [double] -> [double])"
+                    "value": 523,
+                    "description": "Integer multivariate function (rep: bv -> int | cast to double | parser: [double] -> [double])"
                 },
 
                 {
-                    "value": 184,
-                    "description": "Mixed-representation multivariate functions (rep: bv -> long, double, or set | parser: [double] -> [double])"
+                    "value": 524,
+                    "description": "Mixed-representation multivariate function (rep: bv -> long, double, or set | parser: [double] -> [double])"
                 },
 
                 {
-                    "value": 210,
+                    "value": 530,
                     "description": "System of real multivariate equations (rep: bv -> double | parser: [double] -> [double] | x -> std::fabs(x))"
                 },
 
                 {
-                    "value": 211,
+                    "value": 531,
                     "description": "System of integer multivariate equations (rep: bv -> long | parser: [long] -> [long] | n -> std::fabs(n))"
                 },
 
                 {
-                    "value": 212,
+                    "value": 532,
                     "description": "System of complex multivariate equations (rep: bv -> complex | parser: [complex] -> [complex] | z -> std::norm(z))"
                 },
 
                 {
-                    "value": 213,
+                    "value": 533,
                     "description": "System of integer multivariate equations (rep: bv -> int | cast to double | parser: [double] -> [double] | x -> std::fabs(x))"
                 },
 
                 {
-                    "value": 214,
+                    "value": 534,
                     "description": "System of mixed-representation multivariate equations (rep: bv -> long, double, or set | parser: [double] -> [double] | x -> std::fabs(x))"
                 },
 
