@@ -3,6 +3,16 @@
 Library:
 - Added algorithm::Population::get_best_index
 - Changed logging::Logger
+- Added function::MultiobjectiveFunctionAdapter
+
+hnco:
+- Renumbered functions based on the function parser starting at 500
+- Added multiobjective optimization with linear combination of objectives
+- Removed flag --stop-on-target
+- Parameter target has no default value
+
+hnco-mo:
+- Renumbered functions based on the function parser starting at 520 (matches hnco numbering)
 
 
 * Version 0.25 (2024-08-17)
