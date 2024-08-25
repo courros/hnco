@@ -34,14 +34,14 @@ Mmas::init()
   pv_uniform(_pv);
 
   // Update probability vector
-  pv_update(_pv, _learning_rate, _solution.first);
+  pv_update(_pv, _solution.first, _learning_rate);
   pv_bound(_pv, _lower_bound, _upper_bound);
 }
 
 void
 Mmas::iterate()
 {
-  pv_sample(_x, _pv);
+  pv_sample(_pv, _x);
   double value = _function->evaluate(_x);
   if (_compare(value, _solution.second)) {
     _solution.first = _x;
@@ -49,6 +49,6 @@ Mmas::iterate()
   }
 
   // Update probability vector
-  pv_update(_pv, _learning_rate, _solution.first);
+  pv_update(_pv, _solution.first, _learning_rate);
   pv_bound(_pv, _lower_bound, _upper_bound);
 }

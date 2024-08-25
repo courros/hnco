@@ -50,10 +50,10 @@ double pv_entropy(const pv_t& pv);
 
 /**
  * Sample a bit vector.
- * @param bv Sampled bit vector
  * @param pv Probability vector
+ * @param bv Sampled bit vector
  */
-void pv_sample(bit_vector_t& bv, const pv_t& pv);
+void pv_sample(const pv_t& pv, bit_vector_t& bv);
 
 /**
  * Probability vector of the uniform distribution.
@@ -98,11 +98,11 @@ void pv_average(pv_t& pv, int count);
  * Update a probability vector.
  * Equivalent to pv += rate * (x - pv)
  * @param pv Probability vector
- * @param rate Rate
  * @param x Attractor bit vector
+ * @param rate Rate
  */
 template<class T>
-void pv_update(pv_t& pv, double rate, const T& x)
+void pv_update(pv_t& pv, const T& x, double rate)
 {
   assert(x.size() == pv.size());
 
@@ -114,11 +114,11 @@ void pv_update(pv_t& pv, double rate, const T& x)
  * Update a probability vector.
  * Equivalent to pv += rate(x - y)
  * @param pv Probability vector
- * @param rate Rate
  * @param x Attractor probability vector
  * @param y Repulsor probability vector
+ * @param rate Rate
  */
-void pv_update(pv_t& pv, double rate, const pv_t& x, const pv_t& y);
+void pv_update(pv_t& pv, const pv_t& x, const pv_t& y, double rate);
 
 /**
  * Bound the elements of a probability vector.

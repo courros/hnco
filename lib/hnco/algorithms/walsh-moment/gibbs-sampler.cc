@@ -82,7 +82,7 @@ TriangularMomentGibbsSampler::update_sync()
 
     _pv[i] = logistic(delta);
   }
-  pv_sample(_state, _pv);
+  pv_sample(_pv, _state);
 }
 
 void
@@ -137,5 +137,5 @@ FullMomentGibbsSampler::update_sync()
 
     _pv[i] = logistic(delta);
   }
-  pv_sample(_state, _pv);
+  pv_sample(_pv, _state);
 }

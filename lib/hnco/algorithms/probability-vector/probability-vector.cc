@@ -43,7 +43,7 @@ hnco::algorithm::pv_entropy(const pv_t& pv)
 }
 
 void
-hnco::algorithm::pv_sample(bit_vector_t& bv, const pv_t& pv)
+hnco::algorithm::pv_sample(const pv_t& pv, bit_vector_t& bv)
 {
   assert(bv.size() == pv.size());
 
@@ -81,7 +81,7 @@ hnco::algorithm::pv_average(pv_t& pv, int count)
 }
 
 void
-hnco::algorithm::pv_update(pv_t& pv, double rate, const pv_t& x, const pv_t& y)
+hnco::algorithm::pv_update(pv_t& pv, const pv_t& x, const pv_t& y, double rate)
 {
   assert(x.size() == pv.size());
   assert(y.size() == pv.size());

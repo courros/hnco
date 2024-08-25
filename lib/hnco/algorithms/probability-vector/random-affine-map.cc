@@ -69,7 +69,7 @@ RamUmda::iterate()
 
   // Generate new population
   for (int i = 0; i < _population_x.get_size(); i++) {
-    pv_sample(_a, _pv);
+    pv_sample(_pv, _a);
     _inverse_map.map(_a, _population_x.bvs[i]);
   }
 }
@@ -168,17 +168,17 @@ RamUmda2::iterate()
   // Generate new population
   for (int i = 0; i < _population_x.get_size(); i++) {
     if (Generator::uniform() < _crossover_probability) {
-      pv_sample(_a, _pv_y);
+      pv_sample(_pv_y, _a);
       _inverse_map.map(_a, _b);
-      pv_sample(_c, _pv);
+      pv_sample(_pv, _c);
       UniformCrossover crossover;
       crossover.recombine(_b, _c, _population_x.bvs[i]);
     } else {
       if (Generator::uniform() < _latent_space_probability) {
-        pv_sample(_a, _pv_y);
+        pv_sample(_pv_y, _a);
         _inverse_map.map(_a, _population_x.bvs[i]);
       } else {
-        pv_sample(_population_x.bvs[i], _pv);
+        pv_sample(_pv, _population_x.bvs[i]);
       }
     }
   }
