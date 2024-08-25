@@ -18,13 +18,14 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_PV_ALL_H
-#define HNCO_ALGORITHMS_PV_ALL_H
+#ifndef HNCO_ALGORITHMS_PROBABILITY_VECTOR_ALL_H
+#define HNCO_ALGORITHMS_PROBABILITY_VECTOR_ALL_H
 
 #include "compact-ga.hh"
 #include "mmas.hh"
 #include "nps-pbil.hh"
 #include "pbil.hh"
+#include "random-affine-map.hh"
 #include "umda.hh"
 
 #endif

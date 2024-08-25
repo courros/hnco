@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_PV_PBIL_H
-#define HNCO_ALGORITHMS_PV_PBIL_H
+#ifndef HNCO_ALGORITHMS_PROBABILITY_VECTOR_PBIL_H
+#define HNCO_ALGORITHMS_PROBABILITY_VECTOR_PBIL_H
 
 #include "hnco/algorithms/population.hh"
 

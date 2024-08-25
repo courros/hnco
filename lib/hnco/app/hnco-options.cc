@@ -66,6 +66,14 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"population-size", required_argument, 0, OPTION_POPULATION_SIZE},
     {"pv-log-num-components", required_argument, 0, OPTION_PV_LOG_NUM_COMPONENTS},
     {"radius", required_argument, 0, OPTION_RADIUS},
+    {"ram-crossover-probability", required_argument, 0, OPTION_RAM_CROSSOVER_PROBABILITY},
+    {"ram-latent-space-probability", required_argument, 0, OPTION_RAM_LATENT_SPACE_PROBABILITY},
+    {"ram-ts-length", required_argument, 0, OPTION_RAM_TS_LENGTH},
+    {"ram-ts-length-distribution-parameter", required_argument, 0, OPTION_RAM_TS_LENGTH_DISTRIBUTION_PARAMETER},
+    {"ram-ts-length-increment-period", required_argument, 0, OPTION_RAM_TS_LENGTH_INCREMENT_PERIOD},
+    {"ram-ts-length-lower-bound", required_argument, 0, OPTION_RAM_TS_LENGTH_LOWER_BOUND},
+    {"ram-ts-length-mode", required_argument, 0, OPTION_RAM_TS_LENGTH_MODE},
+    {"ram-ts-length-upper-bound", required_argument, 0, OPTION_RAM_TS_LENGTH_UPPER_BOUND},
     {"rep-categorical-representation", required_argument, 0, OPTION_REP_CATEGORICAL_REPRESENTATION},
     {"rep-num-additional-bits", required_argument, 0, OPTION_REP_NUM_ADDITIONAL_BITS},
     {"results-path", required_argument, 0, OPTION_RESULTS_PATH},
@@ -443,6 +451,46 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_RADIUS:
       _with_radius = true;
       _radius = std::atoi(optarg);
+      break;
+
+    case OPTION_RAM_CROSSOVER_PROBABILITY:
+      _with_ram_crossover_probability = true;
+      _ram_crossover_probability = std::atof(optarg);
+      break;
+
+    case OPTION_RAM_LATENT_SPACE_PROBABILITY:
+      _with_ram_latent_space_probability = true;
+      _ram_latent_space_probability = std::atof(optarg);
+      break;
+
+    case OPTION_RAM_TS_LENGTH:
+      _with_ram_ts_length = true;
+      _ram_ts_length = std::atoi(optarg);
+      break;
+
+    case OPTION_RAM_TS_LENGTH_DISTRIBUTION_PARAMETER:
+      _with_ram_ts_length_distribution_parameter = true;
+      _ram_ts_length_distribution_parameter = std::atof(optarg);
+      break;
+
+    case OPTION_RAM_TS_LENGTH_INCREMENT_PERIOD:
+      _with_ram_ts_length_increment_period = true;
+      _ram_ts_length_increment_period = std::atoi(optarg);
+      break;
+
+    case OPTION_RAM_TS_LENGTH_LOWER_BOUND:
+      _with_ram_ts_length_lower_bound = true;
+      _ram_ts_length_lower_bound = std::atoi(optarg);
+      break;
+
+    case OPTION_RAM_TS_LENGTH_MODE:
+      _with_ram_ts_length_mode = true;
+      _ram_ts_length_mode = std::atoi(optarg);
+      break;
+
+    case OPTION_RAM_TS_LENGTH_UPPER_BOUND:
+      _with_ram_ts_length_upper_bound = true;
+      _ram_ts_length_upper_bound = std::atoi(optarg);
       break;
 
     case OPTION_REP_CATEGORICAL_REPRESENTATION:
@@ -1087,6 +1135,8 @@ void HncoOptions::print_help_alg(std::ostream& stream) const
   stream << "            500: Population-based incremental learning (PBIL)" << std::endl;
   stream << "            501: PBIL with negative and positive selection" << std::endl;
   stream << "            600: Univariate marginal distribution algorithm (UMDA)" << std::endl;
+  stream << "            610: UMDA with implicit correlation (one probability vector)" << std::endl;
+  stream << "            612: UMDA with implicit correlation (two probability vectors)" << std::endl;
   stream << "            700: Compact genetic algorithm (cGA)" << std::endl;
   stream << "            800: Max-min ant system (MMAS)" << std::endl;
   stream << "            900: Herding evolutionary algorithm (HEA) with full moment" << std::endl;
@@ -1209,6 +1259,28 @@ void HncoOptions::print_help_eda(std::ostream& stream) const
   stream << "          Number of probability vector components to log" << std::endl;
   stream << "      --pv-log-pv" << std::endl;
   stream << "          Log probability vector" << std::endl;
+  stream << "      --ram-crossover-probability (type double, default to 0.1)" << std::endl;
+  stream << "          Crossover probability (RamUmda2)" << std::endl;
+  stream << "      --ram-latent-space-probability (type double, default to 0.5)" << std::endl;
+  stream << "          Probability of sampling from the latent space (RamUmda2)" << std::endl;
+  stream << "      --ram-ts-length (type int, default to 10)" << std::endl;
+  stream << "          Transvection sequence length" << std::endl;
+  stream << "      --ram-ts-length-distribution-parameter (type double, default to 0.1)" << std::endl;
+  stream << "          Parameter of the geometric distribution of the transvection sequence length" << std::endl;
+  stream << "      --ram-ts-length-increment-period (type int, default to 10000)" << std::endl;
+  stream << "          Transvection sequence length increment (or decrement) period" << std::endl;
+  stream << "      --ram-ts-length-lower-bound (type int, default to 0)" << std::endl;
+  stream << "          Lower bound for the transvection sequence length" << std::endl;
+  stream << "      --ram-ts-length-mode (type int, default to 0)" << std::endl;
+  stream << "          Transvection sequence length mode" << std::endl;
+  stream << "            0: Constant transvection sequence length" << std::endl;
+  stream << "            1: Increasing transvection sequence length" << std::endl;
+  stream << "            2: Decreasing transvection sequence length" << std::endl;
+  stream << "            3: Random transvection sequence length with uniform distribution" << std::endl;
+  stream << "            4: Random transvection sequence length with geometric distribution" << std::endl;
+  stream << "            5: Random transvection sequence length with reverse geometric distribution" << std::endl;
+  stream << "      --ram-ts-length-upper-bound (type int, default to 20)" << std::endl;
+  stream << "          Upper bound for the transvection sequence length" << std::endl;
   stream << "  -y, --selection-size (type int, default to 1)" << std::endl;
   stream << "          Selection size (number of selected individuals)" << std::endl;
   stream << std::endl;
@@ -1335,6 +1407,14 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# population_size = " << options._population_size << std::endl;
   stream << "# pv_log_num_components = " << options._pv_log_num_components << std::endl;
   stream << "# radius = " << options._radius << std::endl;
+  stream << "# ram_crossover_probability = " << options._ram_crossover_probability << std::endl;
+  stream << "# ram_latent_space_probability = " << options._ram_latent_space_probability << std::endl;
+  stream << "# ram_ts_length = " << options._ram_ts_length << std::endl;
+  stream << "# ram_ts_length_distribution_parameter = " << options._ram_ts_length_distribution_parameter << std::endl;
+  stream << "# ram_ts_length_increment_period = " << options._ram_ts_length_increment_period << std::endl;
+  stream << "# ram_ts_length_lower_bound = " << options._ram_ts_length_lower_bound << std::endl;
+  stream << "# ram_ts_length_mode = " << options._ram_ts_length_mode << std::endl;
+  stream << "# ram_ts_length_upper_bound = " << options._ram_ts_length_upper_bound << std::endl;
   stream << "# rep_categorical_representation = " << options._rep_categorical_representation << std::endl;
   stream << "# rep_num_additional_bits = " << options._rep_num_additional_bits << std::endl;
   stream << "# results_path = \"" << options._results_path << "\"" << std::endl;

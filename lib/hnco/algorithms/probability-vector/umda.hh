@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_PV_UMDA_H
-#define HNCO_ALGORITHMS_PV_UMDA_H
+#ifndef HNCO_ALGORITHMS_PROBABILITY_VECTOR_UMDA_H
+#define HNCO_ALGORITHMS_PROBABILITY_VECTOR_UMDA_H
 
 #include "hnco/algorithms/population.hh"
 

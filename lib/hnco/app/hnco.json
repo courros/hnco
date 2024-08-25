@@ -1172,6 +1172,16 @@
                 },
 
                 {
+                    "value": 610,
+                    "description": "UMDA with implicit correlation (one probability vector)"
+                },
+
+                {
+                    "value": 612,
+                    "description": "UMDA with implicit correlation (two probability vectors)"
+                },
+
+                {
                     "value": 700,
                     "description": "Compact genetic algorithm (cGA)"
                 },
@@ -1597,6 +1607,104 @@
 
             ]
 
+        },
+
+        "ram_ts_length_mode":
+        {
+            "type": "int",
+            "default": 0,
+            "description": "Transvection sequence length mode",
+            "section": "eda",
+            "values":
+            [
+
+                {
+                    "value": 0,
+                    "description": "Constant transvection sequence length"
+                },
+
+                {
+                    "value": 1,
+                    "description": "Increasing transvection sequence length"
+                },
+
+                {
+                    "value": 2,
+                    "description": "Decreasing transvection sequence length"
+                },
+
+                {
+                    "value": 3,
+                    "description": "Random transvection sequence length with uniform distribution"
+                },
+
+                {
+                    "value": 4,
+                    "description": "Random transvection sequence length with geometric distribution"
+                },
+
+                {
+                    "value": 5,
+                    "description": "Random transvection sequence length with reverse geometric distribution"
+                }
+
+            ]
+        },
+
+        "ram_ts_length":
+        {
+            "type": "int",
+            "default": 10,
+            "description": "Transvection sequence length",
+            "section": "eda"
+        },
+
+        "ram_ts_length_lower_bound":
+        {
+            "type": "int",
+            "default": 0,
+            "description": "Lower bound for the transvection sequence length",
+            "section": "eda"
+        },
+
+        "ram_ts_length_upper_bound":
+        {
+            "type": "int",
+            "default": 20,
+            "description": "Upper bound for the transvection sequence length",
+            "section": "eda"
+        },
+
+        "ram_ts_length_increment_period":
+        {
+            "type": "int",
+            "default": 10000,
+            "description": "Transvection sequence length increment (or decrement) period",
+            "section": "eda"
+        },
+
+        "ram_ts_length_distribution_parameter":
+        {
+            "type": "double",
+            "default": 0.1,
+            "description": "Parameter of the geometric distribution of the transvection sequence length",
+            "section": "eda"
+        },
+
+        "ram_crossover_probability":
+        {
+            "type": "double",
+            "default": 0.1,
+            "description": "Crossover probability (RamUmda2)",
+            "section": "eda"
+        },
+
+        "ram_latent_space_probability":
+        {
+            "type": "double",
+            "default": 0.5,
+            "description": "Probability of sampling from the latent space (RamUmda2)",
+            "section": "eda"
         }
 
     }
