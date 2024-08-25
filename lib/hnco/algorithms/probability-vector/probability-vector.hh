@@ -31,14 +31,6 @@ namespace algorithm {
 
 /**
  * @name Type and functions related to probability vectors
- *
- * Output and input-output function parameters appear at the beginning
- * of the parameter list.
- *
- * Output and input-output pv_t parameters are passed by reference and
- * must have the right size for the considered function.
- *
- * Input object parameters are passed by const reference.
  */
 ///@{
 
