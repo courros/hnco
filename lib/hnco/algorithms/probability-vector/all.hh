@@ -25,7 +25,7 @@
 #include "mmas.hh"
 #include "nps-pbil.hh"
 #include "pbil.hh"
-#include "random-affine-map.hh"
+#include "ram-umda.hh"
 #include "umda.hh"
 
 #endif

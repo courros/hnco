@@ -160,8 +160,8 @@ libhnco_la_SOURCES = \
 	hnco/algorithms/probability-vector/probability-vector.hh \
 	hnco/algorithms/probability-vector/pv-algorithm.cc \
 	hnco/algorithms/probability-vector/pv-algorithm.hh \
-	hnco/algorithms/probability-vector/random-affine-map.cc \
-	hnco/algorithms/probability-vector/random-affine-map.hh \
+	hnco/algorithms/probability-vector/ram-umda.cc \
+	hnco/algorithms/probability-vector/ram-umda.hh \
 	hnco/algorithms/probability-vector/umda.cc \
 	hnco/algorithms/probability-vector/umda.hh \
 	hnco/algorithms/random-search.cc \
@@ -420,7 +420,7 @@ nobase_include_HEADERS = \
 	hnco/algorithms/probability-vector/pbil.hh \
 	hnco/algorithms/probability-vector/probability-vector.hh \
 	hnco/algorithms/probability-vector/pv-algorithm.hh \
-	hnco/algorithms/probability-vector/random-affine-map.hh \
+	hnco/algorithms/probability-vector/ram-umda.hh \
 	hnco/algorithms/probability-vector/umda.hh \
 	hnco/algorithms/random-search.hh \
 	hnco/algorithms/solution.hh \

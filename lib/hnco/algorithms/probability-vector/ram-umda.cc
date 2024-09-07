@@ -23,7 +23,7 @@
 
 #include <hnco/algorithms/evolutionary-algorithms/crossover.hh> // hnco::algorithm::UniformCrossover
 
-#include "random-affine-map.hh"
+#include "ram-umda.hh"
 
 using namespace hnco::algorithm;
 using namespace hnco::function;
