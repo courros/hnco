@@ -134,7 +134,11 @@ public:
  *
  * Reference:
  *
- * Thomas Jansen, Analyzing Evolutionary Algorithms. Springer, 2013.
+ * Watson, R. A., Hornby, G. S., & Pollack, J. B. (1998). Modeling
+ * building-block interdependency. In Parallel Problem Solving from
+ * Nature—PPSN V: 5th International Conference Amsterdam, The
+ * Netherlands September 27–30, 1998 Proceedings 5 (pp. 97-106).
+ * Springer Berlin Heidelberg.
  */
 class Hiff: public Function {
   /// Bit vector size
