@@ -79,8 +79,6 @@ my $parameter           = $obj->{parameter};
 my $graphics            = $obj->{graphics};
 
 my $parameter_id        = $parameter->{id};
-my $parameter_name      = $parameter->{name} || $parameter_id;
-my $parameter_shortname = $parameter->{shortname} || $parameter_name;
 
 my @results = ();
 my @value_statistics = ();
@@ -294,9 +292,12 @@ sub generate_mean_gnuplot
     my $file = IO::File->new($path, '>')
         or die "hnco-algorithm-parameter-stat.pl: generate_mean_gnuplot: Cannot open $path\n";
 
+    my $context = $graphics->{mean};
+    my $label = $parameter->{labels}->{gnuplot};
+
     $file->print("#!/usr/bin/gnuplot -persist\n",
                  "set grid\n",
-                 qq(set xlabel "$parameter_name"\n),
+                 qq(set xlabel "$label"\n),
                  qq(set ylabel "Function value"\n),
                  "set autoscale fix\n",
                  "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n");
@@ -312,19 +313,16 @@ sub generate_mean_gnuplot
 
     # Font face and size
     my $font = "";
-    if ($graphics->{mean}->{font_face}) {
-        $font = $graphics->{mean}->{font_face};
+    if ($context->{font_face}) {
+        $font = $context->{font_face};
     }
-    if ($graphics->{mean}->{font_size}) {
-        $font = "$font,$graphics->{mean}->{font_size}";
+    if ($context->{font_size}) {
+        $font = "$font,$context->{font_size}";
     }
     $font = qq(font "$font");
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-
-        my $title = qq("$function_id: Mean value as a function of $parameter_name");
-        $file->print("set title $title\n");
 
         if ($f->{logscale}) {
             my $fmt = qq("10^{\%T}");
@@ -333,6 +331,10 @@ sub generate_mean_gnuplot
         } else {
             $file->print("unset logscale y\n",
                          "set format y\n");
+        }
+
+        if ($context->{title}) {
+            $file->print(qq(set title "Mean value of solutions as a function of $label ($function_id)"\n));
         }
 
         $path = qq("$path_graphics/$function_id/mean.pdf");
@@ -367,9 +369,12 @@ sub generate_stddev_gnuplot
     my $file = IO::File->new($path, '>')
         or die "hnco-algorithm-parameter-stat.pl: generate_stddev_gnuplot: Cannot open $path\n";
 
+    my $context = $graphics->{stddev};
+    my $label = $parameter->{labels}->{gnuplot};
+
     $file->print("#!/usr/bin/gnuplot -persist\n",
                  "set grid\n",
-                 qq(set xlabel "$parameter_name"\n),
+                 qq(set xlabel "$label"\n),
                  qq(set ylabel "Function value"\n),
                  "set autoscale fix\n",
                  qq(set format x "%.0h"\n),
@@ -386,19 +391,16 @@ sub generate_stddev_gnuplot
 
     # Font face and size
     my $font = "";
-    if ($graphics->{stddev}->{font_face}) {
-        $font = $graphics->{stddev}->{font_face};
+    if ($context->{font_face}) {
+        $font = $context->{font_face};
     }
-    if ($graphics->{stddev}->{font_size}) {
-        $font = "$font,$graphics->{stddev}->{font_size}";
+    if ($context->{font_size}) {
+        $font = "$font,$context->{font_size}";
     }
     $font = qq(font "$font");
 
     foreach my $f (@$functions) {
         my $function_id = $f->{id};
-
-        my $title = qq("$function_id: Standard deviation of value as a function of $parameter_name");
-        $file->print("set title $title\n");
 
         if ($f->{logscale}) {
             my $fmt = qq("10^{\%T}");
@@ -407,6 +409,10 @@ sub generate_stddev_gnuplot
         } else {
             $file->print("unset logscale y\n",
                          "set format y\n");
+        }
+
+        if ($context->{title}) {
+            $file->print(qq(set title "Standard deviation of value of solutions as a function of $label ($function_id)"\n));
         }
 
         $path = qq("$path_graphics/$function_id/stddev.pdf");
@@ -454,6 +460,10 @@ sub generate_scatter_gnuplot
     my $path = "scatter.gp";
     my $file = IO::File->new($path, '>')
         or die "hnco-algorithm-parameter-stat.pl: generate_scatter_gnuplot: Cannot open $path\n";
+
+    my $context = $graphics->{scatter};
+    my $label = $parameter->{labels}->{gnuplot};
+
     $file->print("#!/usr/bin/gnuplot -persist\n",
                  "set grid\n",
                  "set xlabel \"Number of evaluations\"\n",
@@ -465,11 +475,11 @@ sub generate_scatter_gnuplot
 
     # Font face and size
     my $font = "";
-    if ($graphics->{scatter}->{font_face}) {
-        $font = $graphics->{scatter}->{font_face};
+    if ($context->{font_face}) {
+        $font = $context->{font_face};
     }
-    if ($graphics->{scatter}->{font_size}) {
-        $font = "$font,$graphics->{scatter}->{font_size}";
+    if ($context->{font_size}) {
+        $font = "$font,$context->{font_size}";
     }
     $font = qq(font "$font");
 
@@ -521,9 +531,12 @@ sub generate_candlesticks_gnuplot
     my $file = IO::File->new($path, '>')
         or die "hnco-algorithm-parameter-stat.pl: generate_candlesticks_gnuplot: Cannot open $path\n";
 
+    my $context = $graphics->{candlesticks};
+    my $label = $parameter->{labels}->{gnuplot};
+
     $file->print("#!/usr/bin/gnuplot -persist\n",
                  "set grid\n",
-                 qq(set xlabel "$parameter_name"\n),
+                 qq(set xlabel "$label"\n),
                  qq(set ylabel "Function value"\n),
                  "set autoscale fix\n",
                  "set offsets graph 0.05, graph 0.05, graph 0.05, graph 0.05\n");
@@ -539,18 +552,18 @@ sub generate_candlesticks_gnuplot
 
     # Font face and size
     my $font = "";
-    if ($graphics->{candlesticks}->{font_face}) {
-        $font = $graphics->{candlesticks}->{font_face};
+    if ($context->{font_face}) {
+        $font = $context->{font_face};
     }
-    if ($graphics->{candlesticks}->{font_size}) {
-        $font = "$font,$graphics->{candlesticks}->{font_size}";
+    if ($context->{font_size}) {
+        $font = "$font,$context->{font_size}";
     }
     $font = qq(font "$font");
 
     # boxwidth
     my $boxwidth = 10;
-    if ($graphics->{candlesticks}->{boxwidth}) {
-        $boxwidth = $graphics->{candlesticks}->{boxwidth};
+    if ($context->{boxwidth}) {
+        $boxwidth = $context->{boxwidth};
     }
 
     foreach my $f (@$functions) {
@@ -615,9 +628,10 @@ sub generate_table_rank
     $quantiles .= ">{{\\nprounddigits{2}}}n{$width}{2}";
     $quantiles .= ">{{\\nprounddigits{0}}}n{$width}{0}";
 
+    my $label = $parameter->{labels}->{latex};
     $file->print("\\begin{tabular}{\@{} l $quantiles \@{}}\n",
                  "\\toprule\n",
-                 "{$parameter_shortname} & \\multicolumn{5}{l}{{Rank}} \\\\\n",
+                 "{$label} & \\multicolumn{5}{l}{{Rank}} \\\\\n",
                  "\\midrule\n",
                  "& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} \\\\\n",
                  "\\midrule\n");
@@ -675,9 +689,10 @@ sub generate_table_value
         $quantiles .= ">{{\\nprounddigits{$after_quantiles}}}n{$before}{$after_quantiles}";
         $quantiles .= ">{{\\nprounddigits{$after_min_max}}}n{$before}{$after_min_max}";
 
+        my $label = $parameter->{labels}->{latex};
         $file->print("\\begin{tabular}{\@{} l $quantiles \@{}}\n",
                      "\\toprule\n",
-                     "{$parameter_shortname} & \\multicolumn{5}{l}{{Function value}} \\\\\n",
+                     "{$label} & \\multicolumn{5}{l}{{Function value}} \\\\\n",
                      "\\midrule\n",
                      "& {min} & {\$Q_1\$} & {med.} & {\$Q_3\$} & {max} \\\\\n",
                      "\\midrule\n");
