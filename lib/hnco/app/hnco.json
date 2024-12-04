@@ -691,27 +691,27 @@
 
                 {
                     "value": 530,
-                    "description": "System of real multivariate equations (rep: bv -> double | parser: [double] -> [double] | x -> std::fabs(x) | linear combination)"
+                    "description": "System of real multivariate equations (rep: bv -> double | parser: [double] -> [double] | x -> -std::fabs(x) | linear combination)"
                 },
 
                 {
                     "value": 531,
-                    "description": "System of integer multivariate equations (rep: bv -> long | parser: [long] -> [long] | n -> std::fabs(n) | linear combination)"
+                    "description": "System of integer multivariate equations (rep: bv -> long | parser: [long] -> [long] | n -> -std::fabs(n) | linear combination)"
                 },
 
                 {
                     "value": 532,
-                    "description": "System of complex multivariate equations (rep: bv -> complex | parser: [complex] -> [complex] | z -> std::norm(z) | linear combination)"
+                    "description": "System of complex multivariate equations (rep: bv -> complex | parser: [complex] -> [complex] | z -> -std::norm(z) | linear combination)"
                 },
 
                 {
                     "value": 533,
-                    "description": "System of integer multivariate equations (rep: bv -> int | cast to double | parser: [double] -> [double] | x -> std::fabs(x) | linear combination)"
+                    "description": "System of integer multivariate equations (rep: bv -> int | cast to double | parser: [double] -> [double] | x -> -std::fabs(x) | linear combination)"
                 },
 
                 {
                     "value": 534,
-                    "description": "System of mixed-representation multivariate equations (rep: bv -> long, double, or set | parser: [double] -> [double] | x -> std::fabs(x) | linear combination)"
+                    "description": "System of mixed-representation multivariate equations (rep: bv -> long, double, or set | parser: [double] -> [double] | x -> -std::fabs(x) | linear combination)"
                 },
 
                 {

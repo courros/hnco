@@ -356,7 +356,7 @@ CommandLineFunctionFactory::make()
   case 530: {
     using Fn      = multiobjective::function::ParsedMultivariateFunction<FunctionParser>;
     using Rep     = DyadicFloatRepresentation<double>;
-    using Conv    = AbsoluteValue<double>;
+    using Conv    = OppositeAbsoluteValue<double>;
     using Adapter = multiobjective::function::MultivariateFunctionAdapter<Fn, Rep, Conv>;
     auto fn       = hnco::app::make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
     return new MultiobjectiveFunctionAdapter(fn);
@@ -365,7 +365,7 @@ CommandLineFunctionFactory::make()
   case 531: {
     using Fn      = multiobjective::function::ParsedMultivariateFunction<FunctionParser_li>;
     using Rep     = DyadicIntegerRepresentation<long>;
-    using Conv    = AbsoluteValue<long>;
+    using Conv    = OppositeAbsoluteValue<long>;
     using Adapter = multiobjective::function::MultivariateFunctionAdapter<Fn, Rep, Conv>;
     auto fn       = hnco::app::make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
     return new MultiobjectiveFunctionAdapter(fn);
@@ -374,7 +374,7 @@ CommandLineFunctionFactory::make()
   case 532: {
     using Fn      = multiobjective::function::ParsedMultivariateFunction<FunctionParser_cd>;
     using Rep     = ComplexRepresentation<hnco::app::DoubleRep>;
-    using Conv    = SquaredMagnitude<double>;
+    using Conv    = OppositeSquaredMagnitude<double>;
     using Adapter = multiobjective::function::MultivariateFunctionAdapter<Fn, Rep, Conv>;
     auto fn       = hnco::app::make_multivariate_function_adapter_complex<HncoOptions, Adapter>(_options);
     return new MultiobjectiveFunctionAdapter(fn);
@@ -383,7 +383,7 @@ CommandLineFunctionFactory::make()
   case 533: {
     using Fn      = multiobjective::function::ParsedMultivariateFunction<FunctionParser>;
     using Rep     = DyadicIntegerRepresentation<int>;
-    using Conv    = AbsoluteValue<double>;
+    using Conv    = OppositeAbsoluteValue<double>;
     using Adapter = multiobjective::function::MultivariateFunctionAdapter<Fn, Rep, Conv>;
     auto fn       = hnco::app::make_multivariate_function_adapter<HncoOptions, Adapter>(_options);
     return new MultiobjectiveFunctionAdapter(fn);
@@ -391,7 +391,7 @@ CommandLineFunctionFactory::make()
 
   case 534: {
     using Fn      = multiobjective::function::ParsedMultivariateFunction<FunctionParser>;
-    using Conv    = AbsoluteValue<double>;
+    using Conv    = OppositeAbsoluteValue<double>;
     using Adapter = multiobjective::function::MixedRepresentationMultivariateFunctionAdapter<Fn, hnco::app::rep_var_t, Conv>;
     auto fn       = hnco::app::make_mixed_type_multivariate_function_adapter<HncoOptions, Adapter>(_options);
     return new MultiobjectiveFunctionAdapter(fn);

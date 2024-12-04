@@ -960,11 +960,11 @@ void HncoOptions::print_help_fn(std::ostream& stream) const
   stream << "            522: Complex multivariate function, multiobjective optimization (rep: bv -> complex | parser: [complex] -> [complex] | z -> std::norm(z) | linear combination)" << std::endl;
   stream << "            523: Integer multivariate function, multiobjective optimization (rep: bv -> int | cast to double | parser: [double] -> [double] | linear combination)" << std::endl;
   stream << "            524: Mixed-representation multivariate function, multiobjective optimization (rep: bv -> long, double, or set | parser: [double] -> [double] | linear combination)" << std::endl;
-  stream << "            530: System of real multivariate equations (rep: bv -> double | parser: [double] -> [double] | x -> std::fabs(x) | linear combination)" << std::endl;
-  stream << "            531: System of integer multivariate equations (rep: bv -> long | parser: [long] -> [long] | n -> std::fabs(n) | linear combination)" << std::endl;
-  stream << "            532: System of complex multivariate equations (rep: bv -> complex | parser: [complex] -> [complex] | z -> std::norm(z) | linear combination)" << std::endl;
-  stream << "            533: System of integer multivariate equations (rep: bv -> int | cast to double | parser: [double] -> [double] | x -> std::fabs(x) | linear combination)" << std::endl;
-  stream << "            534: System of mixed-representation multivariate equations (rep: bv -> long, double, or set | parser: [double] -> [double] | x -> std::fabs(x) | linear combination)" << std::endl;
+  stream << "            530: System of real multivariate equations (rep: bv -> double | parser: [double] -> [double] | x -> -std::fabs(x) | linear combination)" << std::endl;
+  stream << "            531: System of integer multivariate equations (rep: bv -> long | parser: [long] -> [long] | n -> -std::fabs(n) | linear combination)" << std::endl;
+  stream << "            532: System of complex multivariate equations (rep: bv -> complex | parser: [complex] -> [complex] | z -> -std::norm(z) | linear combination)" << std::endl;
+  stream << "            533: System of integer multivariate equations (rep: bv -> int | cast to double | parser: [double] -> [double] | x -> -std::fabs(x) | linear combination)" << std::endl;
+  stream << "            534: System of mixed-representation multivariate equations (rep: bv -> long, double, or set | parser: [double] -> [double] | x -> -std::fabs(x) | linear combination)" << std::endl;
   stream << "            1000: Plugin" << std::endl;
   stream << "            1100: Python function (embedded interpreter)" << std::endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
