@@ -282,6 +282,8 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/probability-vector/probability-vector.hh \
 	hnco/algorithms/probability-vector/pv-algorithm.cc \
 	hnco/algorithms/probability-vector/pv-algorithm.hh \
+	hnco/algorithms/probability-vector/ram-umda.cc \
+	hnco/algorithms/probability-vector/ram-umda.hh \
 	hnco/algorithms/probability-vector/umda.cc \
 	hnco/algorithms/probability-vector/umda.hh \
 	hnco/algorithms/random-search.cc \
@@ -471,6 +473,7 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/algorithms/probability-vector/pbil.lo \
 	hnco/algorithms/probability-vector/probability-vector.lo \
 	hnco/algorithms/probability-vector/pv-algorithm.lo \
+	hnco/algorithms/probability-vector/ram-umda.lo \
 	hnco/algorithms/probability-vector/umda.lo \
 	hnco/algorithms/random-search.lo \
 	hnco/algorithms/walsh-moment/gibbs-sampler.lo \
@@ -598,6 +601,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/algorithms/probability-vector/$(DEPDIR)/pbil.Plo \
 	hnco/algorithms/probability-vector/$(DEPDIR)/probability-vector.Plo \
 	hnco/algorithms/probability-vector/$(DEPDIR)/pv-algorithm.Plo \
+	hnco/algorithms/probability-vector/$(DEPDIR)/ram-umda.Plo \
 	hnco/algorithms/probability-vector/$(DEPDIR)/umda.Plo \
 	hnco/algorithms/walsh-moment/$(DEPDIR)/gibbs-sampler.Plo \
 	hnco/algorithms/walsh-moment/$(DEPDIR)/herding.Plo \
@@ -757,6 +761,7 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/probability-vector/pbil.hh \
 	hnco/algorithms/probability-vector/probability-vector.hh \
 	hnco/algorithms/probability-vector/pv-algorithm.hh \
+	hnco/algorithms/probability-vector/ram-umda.hh \
 	hnco/algorithms/probability-vector/umda.hh \
 	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
@@ -1119,6 +1124,8 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/algorithms/probability-vector/probability-vector.hh \
 	hnco/algorithms/probability-vector/pv-algorithm.cc \
 	hnco/algorithms/probability-vector/pv-algorithm.hh \
+	hnco/algorithms/probability-vector/ram-umda.cc \
+	hnco/algorithms/probability-vector/ram-umda.hh \
 	hnco/algorithms/probability-vector/umda.cc \
 	hnco/algorithms/probability-vector/umda.hh \
 	hnco/algorithms/random-search.cc \
@@ -1315,6 +1322,7 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/algorithms/probability-vector/pbil.hh \
 	hnco/algorithms/probability-vector/probability-vector.hh \
 	hnco/algorithms/probability-vector/pv-algorithm.hh \
+	hnco/algorithms/probability-vector/ram-umda.hh \
 	hnco/algorithms/probability-vector/umda.hh \
 	hnco/algorithms/random-search.hh hnco/algorithms/solution.hh \
 	hnco/algorithms/walsh-moment/all.hh \
@@ -1698,6 +1706,9 @@ hnco/algorithms/probability-vector/probability-vector.lo:  \
 hnco/algorithms/probability-vector/pv-algorithm.lo:  \
 	hnco/algorithms/probability-vector/$(am__dirstamp) \
 	hnco/algorithms/probability-vector/$(DEPDIR)/$(am__dirstamp)
+hnco/algorithms/probability-vector/ram-umda.lo:  \
+	hnco/algorithms/probability-vector/$(am__dirstamp) \
+	hnco/algorithms/probability-vector/$(DEPDIR)/$(am__dirstamp)
 hnco/algorithms/probability-vector/umda.lo:  \
 	hnco/algorithms/probability-vector/$(am__dirstamp) \
 	hnco/algorithms/probability-vector/$(DEPDIR)/$(am__dirstamp)
@@ -2063,6 +2074,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/probability-vector/$(DEPDIR)/pbil.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/probability-vector/$(DEPDIR)/probability-vector.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/probability-vector/$(DEPDIR)/pv-algorithm.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/probability-vector/$(DEPDIR)/ram-umda.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/probability-vector/$(DEPDIR)/umda.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/walsh-moment/$(DEPDIR)/gibbs-sampler.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/algorithms/walsh-moment/$(DEPDIR)/herding.Plo@am__quote@ # am--include-marker
@@ -2474,6 +2486,7 @@ distclean: distclean-am
 	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/pbil.Plo
 	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/probability-vector.Plo
 	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/pv-algorithm.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/ram-umda.Plo
 	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/umda.Plo
 	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/gibbs-sampler.Plo
 	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/herding.Plo
@@ -2633,6 +2646,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/pbil.Plo
 	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/probability-vector.Plo
 	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/pv-algorithm.Plo
+	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/ram-umda.Plo
 	-rm -f hnco/algorithms/probability-vector/$(DEPDIR)/umda.Plo
 	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/gibbs-sampler.Plo
 	-rm -f hnco/algorithms/walsh-moment/$(DEPDIR)/herding.Plo

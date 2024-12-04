@@ -40,7 +40,7 @@ void
 Umda::iterate()
 {
   for (int i = 0; i < _population.get_size(); i++)
-    pv_sample(_population.bvs[i], _pv);
+    pv_sample(_pv, _population.bvs[i]);
 
   if (_functions.size() > 1)
     _population.evaluate_in_parallel(_functions);

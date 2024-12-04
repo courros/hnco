@@ -4,6 +4,8 @@ Library:
 - Added algorithm::Population::get_best_index
 - Changed logging::Logger
 - Added function::MultiobjectiveFunctionAdapter
+- Added RamUmda and RamUmda2
+- Reordered parameters of pv_sample and pv_update
 
 hnco:
 - Renumbered functions based on the function parser starting at 500

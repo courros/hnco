@@ -88,6 +88,14 @@ class HncoOptions {
     OPTION_POPULATION_SIZE,
     OPTION_PV_LOG_NUM_COMPONENTS,
     OPTION_RADIUS,
+    OPTION_RAM_CROSSOVER_PROBABILITY,
+    OPTION_RAM_LATENT_SPACE_PROBABILITY,
+    OPTION_RAM_TS_LENGTH,
+    OPTION_RAM_TS_LENGTH_DISTRIBUTION_PARAMETER,
+    OPTION_RAM_TS_LENGTH_INCREMENT_PERIOD,
+    OPTION_RAM_TS_LENGTH_LOWER_BOUND,
+    OPTION_RAM_TS_LENGTH_MODE,
+    OPTION_RAM_TS_LENGTH_UPPER_BOUND,
     OPTION_REP_CATEGORICAL_REPRESENTATION,
     OPTION_REP_NUM_ADDITIONAL_BITS,
     OPTION_RESULTS_PATH,
@@ -368,6 +376,38 @@ class HncoOptions {
   /// Radius of Hamming ball or sphere
   int _radius = 2;
   bool _with_radius = false;
+
+  /// Crossover probability (RamUmda2)
+  double _ram_crossover_probability = 0.1;
+  bool _with_ram_crossover_probability = false;
+
+  /// Probability of sampling from the latent space (RamUmda2)
+  double _ram_latent_space_probability = 0.5;
+  bool _with_ram_latent_space_probability = false;
+
+  /// Transvection sequence length
+  int _ram_ts_length = 10;
+  bool _with_ram_ts_length = false;
+
+  /// Parameter of the geometric distribution of the transvection sequence length
+  double _ram_ts_length_distribution_parameter = 0.1;
+  bool _with_ram_ts_length_distribution_parameter = false;
+
+  /// Transvection sequence length increment (or decrement) period
+  int _ram_ts_length_increment_period = 10000;
+  bool _with_ram_ts_length_increment_period = false;
+
+  /// Lower bound for the transvection sequence length
+  int _ram_ts_length_lower_bound = 0;
+  bool _with_ram_ts_length_lower_bound = false;
+
+  /// Transvection sequence length mode
+  int _ram_ts_length_mode = 0;
+  bool _with_ram_ts_length_mode = false;
+
+  /// Upper bound for the transvection sequence length
+  int _ram_ts_length_upper_bound = 20;
+  bool _with_ram_ts_length_upper_bound = false;
 
   /// Categorical representation
   int _rep_categorical_representation = 0;
@@ -983,6 +1023,54 @@ public:
 
   /// With parameter radius
   bool with_radius() const { return _with_radius; }
+
+  /// Get the value of ram_crossover_probability
+  double get_ram_crossover_probability() const { return _ram_crossover_probability; }
+
+  /// With parameter ram_crossover_probability
+  bool with_ram_crossover_probability() const { return _with_ram_crossover_probability; }
+
+  /// Get the value of ram_latent_space_probability
+  double get_ram_latent_space_probability() const { return _ram_latent_space_probability; }
+
+  /// With parameter ram_latent_space_probability
+  bool with_ram_latent_space_probability() const { return _with_ram_latent_space_probability; }
+
+  /// Get the value of ram_ts_length
+  int get_ram_ts_length() const { return _ram_ts_length; }
+
+  /// With parameter ram_ts_length
+  bool with_ram_ts_length() const { return _with_ram_ts_length; }
+
+  /// Get the value of ram_ts_length_distribution_parameter
+  double get_ram_ts_length_distribution_parameter() const { return _ram_ts_length_distribution_parameter; }
+
+  /// With parameter ram_ts_length_distribution_parameter
+  bool with_ram_ts_length_distribution_parameter() const { return _with_ram_ts_length_distribution_parameter; }
+
+  /// Get the value of ram_ts_length_increment_period
+  int get_ram_ts_length_increment_period() const { return _ram_ts_length_increment_period; }
+
+  /// With parameter ram_ts_length_increment_period
+  bool with_ram_ts_length_increment_period() const { return _with_ram_ts_length_increment_period; }
+
+  /// Get the value of ram_ts_length_lower_bound
+  int get_ram_ts_length_lower_bound() const { return _ram_ts_length_lower_bound; }
+
+  /// With parameter ram_ts_length_lower_bound
+  bool with_ram_ts_length_lower_bound() const { return _with_ram_ts_length_lower_bound; }
+
+  /// Get the value of ram_ts_length_mode
+  int get_ram_ts_length_mode() const { return _ram_ts_length_mode; }
+
+  /// With parameter ram_ts_length_mode
+  bool with_ram_ts_length_mode() const { return _with_ram_ts_length_mode; }
+
+  /// Get the value of ram_ts_length_upper_bound
+  int get_ram_ts_length_upper_bound() const { return _ram_ts_length_upper_bound; }
+
+  /// With parameter ram_ts_length_upper_bound
+  bool with_ram_ts_length_upper_bound() const { return _with_ram_ts_length_upper_bound; }
 
   /// Get the value of rep_categorical_representation
   int get_rep_categorical_representation() const { return _rep_categorical_representation; }

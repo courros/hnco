@@ -368,6 +368,48 @@ CommandLineAlgorithmFactory::make(int bv_size)
     return algo;
   }
 
+  case 610: {
+    auto algo = new RamUmda(bv_size, _options.get_population_size());
+
+    algo->set_num_iterations                   (_options.get_num_iterations());
+    algo->set_selection_size                   (_options.get_selection_size());
+
+    algo->set_ts_length                        (_options.get_ram_ts_length());
+    algo->set_ts_length_distribution_parameter (_options.get_ram_ts_length_distribution_parameter());
+    algo->set_ts_length_increment_period       (_options.get_ram_ts_length_increment_period());
+    algo->set_ts_length_lower_bound            (_options.get_ram_ts_length_lower_bound());
+    algo->set_ts_length_mode                   (_options.get_ram_ts_length_mode());
+    algo->set_ts_length_upper_bound            (_options.get_ram_ts_length_upper_bound());
+
+    algo->set_log_entropy                      (_options.with_pv_log_entropy());
+    algo->set_log_num_components               (_options.get_pv_log_num_components());
+    algo->set_log_pv                           (_options.with_pv_log_pv());
+
+    return algo;
+  }
+
+  case 612: {
+    auto algo = new RamUmda2(bv_size, _options.get_population_size());
+
+    algo->set_num_iterations                   (_options.get_num_iterations());
+    algo->set_selection_size                   (_options.get_selection_size());
+
+    algo->set_crossover_probability            (_options.get_ram_crossover_probability());
+    algo->set_latent_space_probability         (_options.get_ram_latent_space_probability());
+    algo->set_ts_length                        (_options.get_ram_ts_length());
+    algo->set_ts_length_distribution_parameter (_options.get_ram_ts_length_distribution_parameter());
+    algo->set_ts_length_increment_period       (_options.get_ram_ts_length_increment_period());
+    algo->set_ts_length_lower_bound            (_options.get_ram_ts_length_lower_bound());
+    algo->set_ts_length_mode                   (_options.get_ram_ts_length_mode());
+    algo->set_ts_length_upper_bound            (_options.get_ram_ts_length_upper_bound());
+
+    algo->set_log_entropy                      (_options.with_pv_log_entropy());
+    algo->set_log_num_components               (_options.get_pv_log_num_components());
+    algo->set_log_pv                           (_options.with_pv_log_pv());
+
+    return algo;
+  }
+
   case 700: {
     auto algo = new CompactGa(bv_size);
 

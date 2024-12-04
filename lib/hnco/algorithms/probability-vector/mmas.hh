@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_ALGORITHMS_PV_MMAS_H
-#define HNCO_ALGORITHMS_PV_MMAS_H
+#ifndef HNCO_ALGORITHMS_PROBABILITY_VECTOR_MMAS_H
+#define HNCO_ALGORITHMS_PROBABILITY_VECTOR_MMAS_H
 
 #include <functional>           // std::function
 

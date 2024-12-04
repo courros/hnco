@@ -39,7 +39,7 @@ void
 NpsPbil::iterate()
 {
   for (int i = 0; i < _population.get_size(); i++)
-    pv_sample(_population.bvs[i], _pv);
+    pv_sample(_pv, _population.bvs[i]);
 
   if (_functions.size() > 1)
     _population.evaluate_in_parallel(_functions);
@@ -61,7 +61,7 @@ NpsPbil::iterate()
     pv_add(_mean_worst, _population.get_best_bv(i));
   pv_average(_mean_worst, _selection_size);
 
-  pv_update(_pv, _learning_rate, _mean_best, _mean_worst);
+  pv_update(_pv, _mean_best, _mean_worst, _learning_rate);
   pv_bound(_pv, _lower_bound, _upper_bound);
 
 }
