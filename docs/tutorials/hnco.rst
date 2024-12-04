@@ -18,7 +18,7 @@ hypercube (bit vectors), we have to specify the variable
 representations, each with its own type and bounds. For example::
 
   hnco \
-    -F 180 \
+    -F 500 \
     --fp-expression "x^2 + y^2 + z^2" \
     --fp-representations "x: double(-5, 5); y: double(-5, 5); z: double(-5, 5)" \
     --fp-default-double-size 8 \
@@ -56,7 +56,7 @@ Both the function and representations can be specified in files
 instead of the command-line::
 
   hnco \
-    -F 180 \
+    -F 500 \
     --path ./function.txt \
     --fp-representations-path ./representations.txt \
     --fp-default-double-size 8 \
@@ -89,21 +89,21 @@ The function can be displayed with the option ``--fn-display``::
 
 Here are the available parsers:
 
-180
+500
   ``rep: bv -> double | parser: [double] -> double``
 
-181
+501
   ``rep: bv -> long | parser: [long] -> long | cast to double``
 
-182
+502
   ``rep: bv -> complex | parser: [complex] -> complex | z -> std::norm(z)``
 
   Here, ``std::norm`` computes the squared magnitude of its argument.
 
-183
+503
   ``rep: bv -> int | cast to double | parser: [double] -> double``
 
-184
+504
   ``rep: bv -> long, double, or set | parser: [double] -> double``
 
 For example, the last parser allows to minimize the same function as

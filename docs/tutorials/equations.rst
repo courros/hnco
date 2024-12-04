@@ -36,7 +36,7 @@ to the resulting function with a budget of 1000 evaluations::
 
   hnco \
     -A 300 -b 1000 \
-    -F 212 \
+    -F 512 \
     --fp-expression "z^2 + z + 1" \
     --fp-representations "z_re: double(-5, 5); z_im: double(-5, 5)" \
     --fp-default-double-size 8 \
@@ -64,21 +64,21 @@ rerun the algorithm several times.
 
 Here are the available parsers:
 
-210
+510
   ``rep: bv -> double | parser: [double] -> double | x -> -std::fabs(x)``
 
-211
+511
   ``rep: bv -> long | parser: [long] -> long | n -> -std::fabs(n)``
 
-212
+512
   ``rep: bv -> complex | parser: [complex] -> complex | z -> -std::norm(z)``
 
   Here, ``std::norm`` computes the squared magnitude of its argument.
 
-213
+513
   ``rep: bv -> int | cast to double | parser: [double] -> double | x -> -std::fabs(x)``
 
-214
+514
   ``rep: bv -> long, double, or set | parser: [double] -> double | x -> -std::fabs(x)``
 
 Solving systems of equations
@@ -113,7 +113,7 @@ function::
 
   hnco-mo \
     -i 1000 --ea-mu 100 \
-    -F 210 \
+    -F 530 \
     --fp-expression "4*x + 3*y - 1 :: 3*x + 2*y - 2" \
     --fp-representations "x: double(-10, 10); y: double(-10, 10)" \
     --fp-default-double-size 16 \
@@ -173,19 +173,19 @@ optimization to it with ``hnco`` as seen in
 
 Here are the available parsers:
 
-210
+530
   ``rep: bv -> double | parser: [double] -> [double] | x -> std::fabs(x)``
 
-211
+531
   ``rep: bv -> long | parser: [long] -> [long] | n -> std::fabs(n)``
 
-212
+532
   ``rep: bv -> complex | parser: [complex] -> [complex] | z -> std::norm(z)``
 
   Here, ``std::norm`` computes the squared magnitude of its argument.
 
-213
+533
   ``rep: bv -> int | cast to double | parser: [double] -> [double] | x -> std::fabs(x)``
 
-214
+534
   ``rep: bv -> long, double, or set | parser: [double] -> [double] | x -> std::fabs(x)``

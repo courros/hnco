@@ -21,7 +21,7 @@ individuals to the resulting function::
 
   hnco-mo \
     -i 100 --ea-mu 3 \
-    -F 184 \
+    -F 524 \
     --fp-expression "sin(x) + cos(y) :: x^2 + y^2" \
     --fp-representations "x: double(-10, 10, precision = 0.001); y: long(-50, 50)" \
     --print-description
@@ -51,7 +51,7 @@ Both the function and representations can be specified in files
 instead of the command-line::
 
   hnco-mo \
-    -F 184 \
+    -F 524 \
     --path ./function.txt \
     --fp-representations-path ./representations.txt \
     --print-description
@@ -90,21 +90,21 @@ The function can be displayed with the option ``--fn-display``::
 
 Here are the available parsers:
 
-180
+520
   ``rep: bv -> double | parser: [double] -> [double]``
 
-181
+521
   ``rep: bv -> long | parser: [long] -> [long] | cast to double``
 
-182
+522
   ``rep: bv -> complex | parser: [complex] -> [complex] | z -> std::norm(z)``
 
   Here, ``std::norm`` computes the squared magnitude of its argument.
 
-183
+523
   ``rep: bv -> int | cast to double | parser: [double] -> [double]``
 
-184
+524
   ``rep: bv -> long, double, or set | parser: [double] -> [double]``
 
 Python
