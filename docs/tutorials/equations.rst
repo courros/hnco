@@ -62,7 +62,7 @@ Sometimes, the algorithm gets stuck in a local maximum so that it is
 useful to monitor progress with the flag ``--log-improvement`` and
 rerun the algorithm several times.
 
-Here are the available parsers:
+Here are the available parsers with ``hnco-mo``:
 
 510
   ``rep: bv -> double | parser: [double] -> double | x -> -std::fabs(x)``
@@ -163,14 +163,6 @@ Here is a possible output::
 
 whereas the unique exact solution is :math:`(4, -5)`.
 
-It should be noted that, sometimes, the algorithm puts too much
-emphasis on a single objective, which can be detrimental to the other
-objectives. Hence, the set of non-dominated solutions can be void of
-any useful solution. In this case, it is still possible to combine the
-objectives into a single function and apply single objective
-optimization to it with ``hnco`` as seen in
-:ref:`tutorial-equation-hnco`.
-
 Here are the available parsers:
 
 530
@@ -189,3 +181,49 @@ Here are the available parsers:
 
 534
   ``rep: bv -> long, double, or set | parser: [double] -> [double] | x -> std::fabs(x)``
+
+It should be noted that, sometimes, the algorithm puts too much
+emphasis on a single objective, which can be detrimental to the other
+objectives. Hence, the set of non-dominated solutions can be void of
+any useful solution. In this case, it is still possible to combine the
+objectives into one and apply single objective optimization with
+``hnco`` as seen in :ref:`tutorial-equation-hnco`. Here, we apply PBIL
+with the same budget as before::
+
+       hnco \
+         -A 500 -b 100000 \
+         -F 530 \
+         --fp-expression "4*x + 3*y - 1 :: 3*x + 2*y - 2" \
+         --fp-representations "x: double(-10, 10); y: double(-10, 10)" \
+         --fp-default-double-size 16 \
+         --print-description
+
+Here is a possible output::
+
+  Warning: DecoratedFunctionFactory::make_function: After _function_factory.make(), bv_size changed from 100 to 32
+  Warning: CommandLineApplication::maximize: Last evaluation
+  x = 4.14032
+  y = -5.18616
+
+Here are the parsers available with ``hnco`` which combine multiple
+objectives into one:
+
+530
+  ``rep: bv -> double | parser: [double] -> [double] | x -> -std::fabs(x)``
+
+531
+  ``rep: bv -> long | parser: [long] -> [long] | n -> -std::fabs(n)``
+
+532
+  ``rep: bv -> complex | parser: [complex] -> [complex] | z -> -std::norm(z)``
+
+  Here, ``std::norm`` computes the squared magnitude of its argument.
+
+533
+  ``rep: bv -> int | cast to double | parser: [double] -> [double] | x -> -std::fabs(x)``
+
+534
+  ``rep: bv -> long, double, or set | parser: [double] -> [double] | x -> -std::fabs(x)``
+
+Note that opposite is needed since, by default, ``hnco`` maximizes the
+resulting function whereas ``hnco-mo`` minimizes it.
