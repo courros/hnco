@@ -6,6 +6,7 @@ Library:
 - Added function::MultiobjectiveFunctionAdapter
 - Added RamUmda and RamUmda2
 - Reordered parameters of pv_sample and pv_update
+- Fixed TwoRateOnePlusLambdaEa: initialize _mutation_rate_init in constructor
 
 hnco:
 - Renumbered functions based on the function parser starting at 500
@@ -15,6 +16,12 @@ hnco:
 
 hnco-mo:
 - Renumbered functions based on the function parser starting at 520 (matches hnco numbering)
+
+Perl scripts:
+- hnco-algorithm-parameter-stat.pl: renamed key parameter.name -> labels
+- hnco-algorithm-parameter-stat.pl: added key parameter.labels.latex and gnuplot
+- hnco-algorithm-parameter-stat.pl: added key graphics.mean.title
+- hnco-algorithm-parameter-stat.pl: added key graphics.stddev.title
 
 
 * Version 0.25 (2024-08-17)
