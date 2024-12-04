@@ -1,4 +1,4 @@
-* Version 0.26 (unreleased)
+* Version 0.26 (2024-12-04)
 
 Library:
 - Added algorithm::Population::get_best_index
