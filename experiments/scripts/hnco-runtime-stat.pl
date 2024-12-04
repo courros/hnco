@@ -46,12 +46,12 @@ use HNCO::Report qw(
 #
 
 my @summary_statistics = qw(min q1 median q3 max);
-my @pref_max = qw(median q1 q3 min max);
-my @pref_min = qw(median q3 q1 max min);
+my @pref_max           = qw(median q1 q3 min max);
+my @pref_min           = qw(median q3 q1 max min);
 
-my $path_graphics       = "graphics";
-my $path_report         = "report";
-my $path_results        = "results";
+my $path_graphics      = "graphics";
+my $path_report        = "report";
+my $path_results       = "results";
 
 #
 # Read plan
