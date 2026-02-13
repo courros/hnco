@@ -18,10 +18,6 @@
 
 */
 
-#include <assert.h>
-
-#include "hnco/exception.hh"
-
 #include "python-function.hh"
 
 
@@ -59,6 +55,12 @@ double
 PythonFunction::get_maximum() const
 {
   return _function->get_maximum();
+}
+
+void
+PythonFunction::display(std::ostream& stream) const
+{
+  return _function->display(stream);
 }
 
 double

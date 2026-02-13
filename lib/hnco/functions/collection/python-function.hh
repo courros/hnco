@@ -75,6 +75,9 @@ public:
    */
   double get_maximum() const override;
 
+  /// Display
+  void display(std::ostream& stream) const override;
+
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t&) override;
 
