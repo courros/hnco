@@ -113,20 +113,22 @@ public:
   ///@}
 
 
-  /** @name Display
+  /**
+   * @name Display
    */
   ///@{
 
   /// Display
   virtual void display(std::ostream& stream) const { stream << "Function" << std::endl; }
 
-  /** Describe a bit vector.
-
-      The member function Function::describe is not declared const for
-      the same reason Function::evaluate is not: it might need to
-      decode the given bit vector hence use some pre-allocated memory
-      buffer.
-  */
+  /**
+   * Describe a bit vector.
+   *
+   * The member function Function::describe is not declared const for
+   * the same reason Function::evaluate is not: it might need to
+   * decode the given bit vector hence use some pre-allocated memory
+   * buffer.
+   */
   virtual void describe(const bit_vector_t& x, std::ostream& stream) {
     bv_display(x, stream);
     stream << std::endl;

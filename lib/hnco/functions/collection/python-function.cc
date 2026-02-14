@@ -63,6 +63,12 @@ PythonFunction::display(std::ostream& stream) const
   return _function->display(stream);
 }
 
+void
+PythonFunction::describe(const bit_vector_t& bv, std::ostream& stream)
+{
+  _function->describe(bv, stream);
+}
+
 double
 PythonFunction::evaluate(const bit_vector_t& bv)
 {

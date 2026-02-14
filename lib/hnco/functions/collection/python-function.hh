@@ -54,7 +54,8 @@ class PythonFunction:
 
 public:
 
-  /** Constructor.
+  /**
+   * Constructor.
    *
    * \param path Path of the python file
    * \param name Name of the Function instance defined in the python file
@@ -70,16 +71,28 @@ public:
   /// Check for a known maximum.
   bool has_known_maximum() const override;
 
-  /** Get the global maximum.
+  /**
+   * Get the global maximum.
+   *
    * \throw std::runtime_error
    */
   double get_maximum() const override;
 
+  /**
+   * @name Display
+   */
+  ///@{
+
   /// Display
   void display(std::ostream& stream) const override;
 
+  /// Describe a bit vector
+  void describe(const bit_vector_t& bv, std::ostream& stream) override;
+
+  ///@}
+
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&) override;
+  double evaluate(const bit_vector_t& bv) override;
 
 };
 
