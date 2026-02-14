@@ -27,10 +27,8 @@
 
 #include "hnco/functions/function.hh"
 
-
 namespace hnco {
 namespace function {
-
 
 /** Python function.
  *
@@ -43,17 +41,13 @@ namespace function {
  * allow for communication between C++ and python. It must also define
  * a derived class that inherits Function and an instance of it.
  */
-class PythonFunction:
-    public Function {
-
+class PythonFunction: public Function {
   /// Module
   pybind11::object _scope;
-
   /// Function
   Function *_function;
 
 public:
-
   /**
    * Constructor.
    *
@@ -61,44 +55,32 @@ public:
    * \param name Name of the Function instance defined in the python file
    */
   PythonFunction(std::string path, std::string name);
-
   /// Destructor
   ~PythonFunction();
-
   /// Get bit vector size
   int get_bv_size() const override;
-
   /// Check for a known maximum.
   bool has_known_maximum() const override;
-
   /**
    * Get the global maximum.
    *
    * \throw std::runtime_error
    */
   double get_maximum() const override;
-
   /**
    * @name Display
    */
   ///@{
-
   /// Display
   void display(std::ostream& stream) const override;
-
   /// Describe a bit vector
   void describe(const bit_vector_t& bv, std::ostream& stream) override;
-
   ///@}
-
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t& bv) override;
-
 };
-
 
 } // end of namespace function
 } // end of namespace hnco
-
 
 #endif
