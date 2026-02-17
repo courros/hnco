@@ -6,6 +6,7 @@ Library:
 
 hnco:
 - Renamed flag concrete_solution -> map_solution
+- Added flag help_sol for section Solutions
 
 
 * Version 0.26 (2024-12-04)
