@@ -185,7 +185,7 @@ class HncoOptions {
   int _bv_size = 100;
   bool _with_bv_size = false;
 
-  /// Path of the description file
+  /// Set the path of the description file
   std::string _description_path = "description.txt";
   bool _with_description_path = false;
 
@@ -345,7 +345,7 @@ class HncoOptions {
   int _num_iterations = 0;
   bool _with_num_iterations = false;
 
-  /// Number of threads
+  /// Set the number of threads
   int _num_threads = 1;
   bool _with_num_threads = false;
 
@@ -417,7 +417,7 @@ class HncoOptions {
   int _rep_num_additional_bits = 2;
   bool _with_rep_num_additional_bits = false;
 
-  /// Path of the results file
+  /// Set the path of the results file
   std::string _results_path = "results.json";
   bool _with_results_path = false;
 
@@ -441,7 +441,7 @@ class HncoOptions {
   int _sa_num_trials = 100;
   bool _with_sa_num_trials = false;
 
-  /// Seed for the random number generator
+  /// Set the seed for the random number generator
   unsigned _seed;
   bool _with_seed = false;
 
@@ -449,7 +449,7 @@ class HncoOptions {
   int _selection_size = 1;
   bool _with_selection_size = false;
 
-  /// Path of the solution file
+  /// Set the path of the solution file
   std::string _solution_path = "solution.txt";
   bool _with_solution_path = false;
 

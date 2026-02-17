@@ -413,7 +413,7 @@
         "seed":
         {
             "type": "unsigned",
-            "description": "Seed for the random number generator",
+            "description": "Set the seed for the random number generator",
             "section": "gen"
         },
 
@@ -421,7 +421,7 @@
         {
             "type": "int",
             "default": 1,
-            "description": "Number of threads",
+            "description": "Set the number of threads",
             "section": "gen"
         },
 
@@ -429,7 +429,7 @@
         {
             "type": "string",
             "default": "results.json",
-            "description": "Path of the results file",
+            "description": "Set the path of the results file",
             "section": "gen"
         },
 
@@ -437,7 +437,7 @@
         {
             "type": "string",
             "default": "solution.txt",
-            "description": "Path of the solution file",
+            "description": "Set the path of the solution file",
             "section": "gen"
         },
 
@@ -445,7 +445,7 @@
         {
             "type": "string",
             "default": "description.txt",
-            "description": "Path of the description file",
+            "description": "Set the path of the description file",
             "section": "gen"
         },
 
