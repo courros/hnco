@@ -1,5 +1,13 @@
 * Version 0.27 (unreleased)
 
+Library:
+- PythonFunction: added member function display
+- PythonFunction: added member function describe
+
+hnco:
+- Renamed flag concrete_solution -> map_solution
+
+
 * Version 0.26 (2024-12-04)
 
 Library:
