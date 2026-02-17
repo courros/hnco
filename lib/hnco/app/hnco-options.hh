@@ -114,7 +114,6 @@ class HncoOptions {
     OPTION_BM_NEGATIVE_POSITIVE_SELECTION,
     OPTION_CACHE,
     OPTION_CACHE_BUDGET,
-    OPTION_CONCRETE_SOLUTION,
     OPTION_EA_ALLOW_NO_MUTATION,
     OPTION_EA_IT_LOG_CENTER_FITNESS,
     OPTION_EA_LOG_MUTATION_RATE,
@@ -133,6 +132,7 @@ class HncoOptions {
     OPTION_LOG_IMPROVEMENT,
     OPTION_MAP_DISPLAY,
     OPTION_MAP_RANDOM,
+    OPTION_MAP_SOLUTION,
     OPTION_MAP_SURJECTIVE,
     OPTION_MINIMIZE,
     OPTION_MMAS_STRICT,
@@ -475,9 +475,6 @@ class HncoOptions {
   /// Set cache on budget
   bool _cache_budget = false;
 
-  /// Print or save the solution in the domain of the concrete function
-  bool _concrete_solution = false;
-
   /// Allow no mutation with standard bit mutation
   bool _ea_allow_no_mutation = false;
 
@@ -531,6 +528,9 @@ class HncoOptions {
 
   /// Sample a random map
   bool _map_random = false;
+
+  /// Return map(x) instead of x = arg max (f . map)
+  bool _map_solution = false;
 
   /// Ensure that the sampled linear or affine map is surjective
   bool _map_surjective = false;
@@ -1172,9 +1172,6 @@ public:
   /// With the flag cache_budget
   bool with_cache_budget() const { return _cache_budget; }
 
-  /// With the flag concrete_solution
-  bool with_concrete_solution() const { return _concrete_solution; }
-
   /// With the flag ea_allow_no_mutation
   bool with_ea_allow_no_mutation() const { return _ea_allow_no_mutation; }
 
@@ -1228,6 +1225,9 @@ public:
 
   /// With the flag map_random
   bool with_map_random() const { return _map_random; }
+
+  /// With the flag map_solution
+  bool with_map_solution() const { return _map_solution; }
 
   /// With the flag map_surjective
   bool with_map_surjective() const { return _map_surjective; }

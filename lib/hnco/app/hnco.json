@@ -149,12 +149,6 @@
             "section": "gen"
         },
 
-        "concrete_solution":
-        {
-            "description": "Print or save the solution in the domain of the concrete function",
-            "section": "gen"
-        },
-
         "load_solution":
         {
             "description": "Load a solution from a file",
@@ -298,11 +292,19 @@
             "section": "map"
         },
 
+        "map_solution":
+        {
+            "description": "Return map(x) instead of x = arg max (f . map)",
+            "section": "map"
+        },
+
+
         "restart":
         {
             "description": "Restart any algorithm an indefinite number of times",
             "section": "alg"
         },
+
 
         "incremental_evaluation":
         {
@@ -322,6 +324,7 @@
             "section": "ls"
         },
 
+
         "ea_allow_no_mutation":
         {
             "description": "Allow no mutation with standard bit mutation",
@@ -340,6 +343,7 @@
             "section": "ea"
         },
 
+
         "pv_log_pv":
         {
             "description": "Log probability vector",
@@ -357,6 +361,7 @@
             "description": "Strict (>) max-min ant system",
             "section": "eda"
         },
+
 
         "hea_log_herding_error":
         {
@@ -381,6 +386,7 @@
             "description": "Log target moment as a full matrix",
             "section": "hea"
         },
+
 
         "bm_negative_positive_selection":
         {
@@ -778,6 +784,7 @@
             "section": "fn"
         },
 
+
         "fp_expression":
         {
             "type": "string",
@@ -838,6 +845,7 @@
             "section": "fp"
         },
 
+
         "rep_categorical_representation":
         {
             "type": "int",
@@ -869,6 +877,7 @@
             "section": "rep"
         },
 
+
         "budget":
         {
             "optchar": "b",
@@ -885,6 +894,7 @@
             "section": "ctrl"
         },
 
+
         "noise_stddev":
         {
             "type": "double",
@@ -900,6 +910,7 @@
             "description": "Expression of the variable x",
             "section": "mod"
         },
+
 
         "pn_mutation_rate":
         {
@@ -1065,6 +1076,7 @@
             "description": "Transvection sequence length",
             "section": "map"
         },
+
 
         "algorithm":
         {
@@ -1249,6 +1261,7 @@
             "section": "alg"
         },
 
+
         "neighborhood":
         {
             "optchar": "N",
@@ -1322,6 +1335,7 @@
             "section": "ls"
         },
 
+
         "sa_num_transitions":
         {
             "type": "int",
@@ -1353,6 +1367,7 @@
             "description": "Ratio for beta or inverse temperature",
             "section": "sa"
         },
+
 
         "ea_mutation_rate":
         {
@@ -1478,6 +1493,7 @@
             "section": "ea"
         },
 
+
         "population_size":
         {
             "optchar": "x",
@@ -1513,6 +1529,7 @@
             "section": "eda"
         },
 
+
         "hea_randomize_bit_order":
         {
             "type": "bool",
@@ -1536,6 +1553,7 @@
             "description": "Reset period (<= 0 means no reset)",
             "section": "hea"
         },
+
 
         "bm_num_gs_steps":
         {
@@ -1608,6 +1626,7 @@
             ]
 
         },
+
 
         "ram_ts_length_mode":
         {

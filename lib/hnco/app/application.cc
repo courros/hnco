@@ -231,38 +231,39 @@ CommandLineApplication::print_results(double total_time, bool target_reached)
 void
 CommandLineApplication::manage_solution(const bit_vector_t& bv)
 {
-  bit_vector_t concrete_solution = bv;
+  bit_vector_t solution = bv;
 
-  if (_options.with_concrete_solution()) {
+  // Map solution
+  if (_options.with_map_solution()) {
     Map *map = _decorated_function_factory.get_map();
     if (map) {
-      concrete_solution.resize(map->get_output_size());
-      map->map(bv, concrete_solution);
+      solution.resize(map->get_output_size());
+      map->map(bv, solution);
     }
   }
 
   // Print solution
   if (_options.with_print_solution()) {
-    bv_display(concrete_solution, std::cout);
+    bv_display(solution, std::cout);
     std::cout << std::endl;
   }
 
   // Save solution
   if (_options.with_save_solution()) {
     std::ofstream stream(_options.get_solution_path());
-    bv_display(concrete_solution, stream);
+    bv_display(solution, stream);
     stream << std::endl;
   }
 
   // Print description
   if (_options.with_print_description()) {
-    _fn->describe(concrete_solution, std::cout);
+    _fn->describe(solution, std::cout);
   }
 
   // Save description
   if (_options.with_save_description()) {
     std::ofstream stream(_options.get_description_path());
-    _fn->describe(concrete_solution, stream);
+    _fn->describe(solution, stream);
   }
 }
 

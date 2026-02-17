@@ -92,7 +92,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"bm-negative-positive-selection", no_argument, 0, OPTION_BM_NEGATIVE_POSITIVE_SELECTION},
     {"cache", no_argument, 0, OPTION_CACHE},
     {"cache-budget", no_argument, 0, OPTION_CACHE_BUDGET},
-    {"concrete-solution", no_argument, 0, OPTION_CONCRETE_SOLUTION},
     {"ea-allow-no-mutation", no_argument, 0, OPTION_EA_ALLOW_NO_MUTATION},
     {"ea-it-log-center-fitness", no_argument, 0, OPTION_EA_IT_LOG_CENTER_FITNESS},
     {"ea-log-mutation-rate", no_argument, 0, OPTION_EA_LOG_MUTATION_RATE},
@@ -111,6 +110,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"log-improvement", no_argument, 0, OPTION_LOG_IMPROVEMENT},
     {"map-display", no_argument, 0, OPTION_MAP_DISPLAY},
     {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
+    {"map-solution", no_argument, 0, OPTION_MAP_SOLUTION},
     {"map-surjective", no_argument, 0, OPTION_MAP_SURJECTIVE},
     {"minimize", no_argument, 0, OPTION_MINIMIZE},
     {"mmas-strict", no_argument, 0, OPTION_MMAS_STRICT},
@@ -578,10 +578,6 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _cache_budget = true;
       break;
 
-    case OPTION_CONCRETE_SOLUTION:
-      _concrete_solution = true;
-      break;
-
     case OPTION_EA_ALLOW_NO_MUTATION:
       _ea_allow_no_mutation = true;
       break;
@@ -652,6 +648,10 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
 
     case OPTION_MAP_RANDOM:
       _map_random = true;
+      break;
+
+    case OPTION_MAP_SOLUTION:
+      _map_solution = true;
       break;
 
     case OPTION_MAP_SURJECTIVE:
@@ -820,8 +820,6 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "General" << std::endl;
-  stream << "      --concrete-solution" << std::endl;
-  stream << "          Print or save the solution in the domain of the concrete function" << std::endl;
   stream << "      --description-path (type string, default to \"description.txt\")" << std::endl;
   stream << "          Path of the description file" << std::endl;
   stream << "      --load-solution" << std::endl;
@@ -1094,6 +1092,8 @@ void HncoOptions::print_help_map(std::ostream& stream) const
   stream << "          Path of the map file" << std::endl;
   stream << "      --map-random" << std::endl;
   stream << "          Sample a random map" << std::endl;
+  stream << "      --map-solution" << std::endl;
+  stream << "          Return map(x) instead of x = arg max (f . map)" << std::endl;
   stream << "      --map-surjective" << std::endl;
   stream << "          Ensure that the sampled linear or affine map is surjective" << std::endl;
   stream << "      --map-ts-length (type int, default to 10)" << std::endl;
@@ -1441,8 +1441,6 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# cache " << std::endl;
   if (options._cache_budget)
     stream << "# cache_budget " << std::endl;
-  if (options._concrete_solution)
-    stream << "# concrete_solution " << std::endl;
   if (options._ea_allow_no_mutation)
     stream << "# ea_allow_no_mutation " << std::endl;
   if (options._ea_it_log_center_fitness)
@@ -1479,6 +1477,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# map_display " << std::endl;
   if (options._map_random)
     stream << "# map_random " << std::endl;
+  if (options._map_solution)
+    stream << "# map_solution " << std::endl;
   if (options._map_surjective)
     stream << "# map_surjective " << std::endl;
   if (options._minimize)
