@@ -24,6 +24,12 @@
         },
 
         {
+            "id": "sol",
+            "title": "Solutions",
+            "fold": true
+        },
+
+        {
             "id": "fn",
             "title": "Functions",
             "fold": true
@@ -109,7 +115,7 @@
 
     ],
 
-    "order": [ "gen", "fn", "fp", "rep", "mod", "ctrl", "pn", "map", "alg", "ls", "sa", "ea", "eda", "hea", "bm" ],
+    "order": [ "gen", "sol", "fn", "fp", "rep", "mod", "ctrl", "pn", "map", "alg", "ls", "sa", "ea", "eda", "hea", "bm" ],
 
     "flags": {
 
@@ -125,52 +131,53 @@
             "section": "gen"
         },
 
+        "record_total_time":
+        {
+            "description": "Record total time",
+            "section": "gen"
+        },
+
+
         "print_results":
         {
             "description": "Print results",
-            "section": "gen"
+            "section": "sol"
         },
 
         "save_results":
         {
             "description": "Save the results in a file",
-            "section": "gen"
+            "section": "sol"
         },
 
         "print_solution":
         {
             "description": "Print the solution",
-            "section": "gen"
+            "section": "sol"
         },
 
         "save_solution":
         {
             "description": "Save the solution in a file",
-            "section": "gen"
+            "section": "sol"
         },
 
         "load_solution":
         {
             "description": "Load a solution from a file",
-            "section": "gen"
+            "section": "sol"
         },
 
         "print_description":
         {
             "description": "Print a description of the solution",
-            "section": "gen"
+            "section": "sol"
         },
 
         "save_description":
         {
             "description": "Save the description of the solution in a file",
-            "section": "gen"
-        },
-
-        "record_total_time":
-        {
-            "description": "Record total time",
-            "section": "gen"
+            "section": "sol"
         },
 
 
@@ -425,12 +432,13 @@
             "section": "gen"
         },
 
+
         "results_path":
         {
             "type": "string",
             "default": "results.json",
             "description": "Set the path of the results file",
-            "section": "gen"
+            "section": "sol"
         },
 
         "solution_path":
@@ -438,7 +446,7 @@
             "type": "string",
             "default": "solution.txt",
             "description": "Set the path of the solution file",
-            "section": "gen"
+            "section": "sol"
         },
 
         "description_path":
@@ -446,7 +454,7 @@
             "type": "string",
             "default": "description.txt",
             "description": "Set the path of the description file",
-            "section": "gen"
+            "section": "sol"
         },
 
 

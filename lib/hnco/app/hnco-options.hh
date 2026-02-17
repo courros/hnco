@@ -32,6 +32,7 @@ class HncoOptions {
     OPTION_HELP_PN,
     OPTION_HELP_REP,
     OPTION_HELP_SA,
+    OPTION_HELP_SOL,
     OPTION_VERSION,
     OPTION_ALGORITHM,
     OPTION_BM_NUM_GS_CYCLES,
@@ -600,6 +601,9 @@ class HncoOptions {
 
   /// Print help message
   void print_help(std::ostream& stream) const;
+
+  /// Print help message for section sol
+  void print_help_sol(std::ostream& stream) const;
 
   /// Print help message for section fn
   void print_help_fn(std::ostream& stream) const;

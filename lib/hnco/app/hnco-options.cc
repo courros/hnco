@@ -135,6 +135,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"stop-on-maximum", no_argument, 0, OPTION_STOP_ON_MAXIMUM},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
+    {"help-sol", no_argument, 0, OPTION_HELP_SOL},
     {"help-fn", no_argument, 0, OPTION_HELP_FN},
     {"help-fp", no_argument, 0, OPTION_HELP_FP},
     {"help-rep", no_argument, 0, OPTION_HELP_REP},
@@ -746,6 +747,10 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       print_help(std::cerr);
       exit(0);
 
+    case OPTION_HELP_SOL:
+      print_help_sol(std::cerr);
+      exit(0);
+
     case OPTION_HELP_FN:
       print_help_fn(std::cerr);
       exit(0);
@@ -820,38 +825,20 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
   stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
   stream << "General" << std::endl;
-  stream << "      --description-path (type string, default to \"description.txt\")" << std::endl;
-  stream << "          Set the path of the description file" << std::endl;
-  stream << "      --load-solution" << std::endl;
-  stream << "          Load a solution from a file" << std::endl;
   stream << "      --num-threads (type int, default to 1)" << std::endl;
   stream << "          Set the number of threads" << std::endl;
   stream << "      --print-default-parameters" << std::endl;
   stream << "          Print the default parameters and exit" << std::endl;
-  stream << "      --print-description" << std::endl;
-  stream << "          Print a description of the solution" << std::endl;
   stream << "      --print-parameters" << std::endl;
   stream << "          Print the parameters" << std::endl;
-  stream << "      --print-results" << std::endl;
-  stream << "          Print results" << std::endl;
-  stream << "      --print-solution" << std::endl;
-  stream << "          Print the solution" << std::endl;
   stream << "      --record-total-time" << std::endl;
   stream << "          Record total time" << std::endl;
-  stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
-  stream << "          Set the path of the results file" << std::endl;
-  stream << "      --save-description" << std::endl;
-  stream << "          Save the description of the solution in a file" << std::endl;
-  stream << "      --save-results" << std::endl;
-  stream << "          Save the results in a file" << std::endl;
-  stream << "      --save-solution" << std::endl;
-  stream << "          Save the solution in a file" << std::endl;
   stream << "      --seed (type unsigned, no default)" << std::endl;
   stream << "          Set the seed for the random number generator" << std::endl;
-  stream << "      --solution-path (type string, default to \"solution.txt\")" << std::endl;
-  stream << "          Set the path of the solution file" << std::endl;
   stream << std::endl;
   stream << "Additional Sections" << std::endl;
+  stream << "      --help-sol" << std::endl;
+  stream << "          Solutions" << std::endl;
   stream << "      --help-fn" << std::endl;
   stream << "          Functions" << std::endl;
   stream << "      --help-fp" << std::endl;
@@ -880,6 +867,34 @@ void HncoOptions::print_help(std::ostream& stream) const
   stream << "          Herding Evolutionary Algorithms" << std::endl;
   stream << "      --help-bm" << std::endl;
   stream << "          Boltzmann Machine PBIL" << std::endl;
+}
+
+void HncoOptions::print_help_sol(std::ostream& stream) const
+{
+  stream << "HNCO (in Hypercubo Nigrae Capsulae Optimum) -- optimization of black box functions defined on bit vectors" << std::endl << std::endl;
+  stream << "usage: " << _exec_name << " [--help] [--version] [options]" << std::endl << std::endl;
+  stream << "Solutions" << std::endl;
+  stream << "      --description-path (type string, default to \"description.txt\")" << std::endl;
+  stream << "          Set the path of the description file" << std::endl;
+  stream << "      --load-solution" << std::endl;
+  stream << "          Load a solution from a file" << std::endl;
+  stream << "      --print-description" << std::endl;
+  stream << "          Print a description of the solution" << std::endl;
+  stream << "      --print-results" << std::endl;
+  stream << "          Print results" << std::endl;
+  stream << "      --print-solution" << std::endl;
+  stream << "          Print the solution" << std::endl;
+  stream << "      --results-path (type string, default to \"results.json\")" << std::endl;
+  stream << "          Set the path of the results file" << std::endl;
+  stream << "      --save-description" << std::endl;
+  stream << "          Save the description of the solution in a file" << std::endl;
+  stream << "      --save-results" << std::endl;
+  stream << "          Save the results in a file" << std::endl;
+  stream << "      --save-solution" << std::endl;
+  stream << "          Save the solution in a file" << std::endl;
+  stream << "      --solution-path (type string, default to \"solution.txt\")" << std::endl;
+  stream << "          Set the path of the solution file" << std::endl;
+  stream << std::endl;
 }
 
 void HncoOptions::print_help_fn(std::ostream& stream) const
