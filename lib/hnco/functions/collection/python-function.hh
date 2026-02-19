@@ -30,12 +30,18 @@
 namespace hnco {
 namespace function {
 
-/** Python function.
+/**
+ * Python function.
  *
  * Uses pybind11.
  *
  * The constructor initializes the python interpreter and the
  * destructor finalizes it.
+ *
+ * @warning There can only be a single Python interpreter. Hence
+ * multiple instances of %PythonFunction cannot be evaluated in
+ * parallel, for example with
+ * algorithm::Population::evaluate_in_parallel.
  *
  * The python code must import the hnco module (built separately) to
  * allow for communication between C++ and python. It must also define
@@ -51,8 +57,8 @@ public:
   /**
    * Constructor.
    *
-   * \param path Path of the python file
-   * \param name Name of the Function instance defined in the python file
+   * @param path Path of the python file
+   * @param name Name of the Function instance defined in the python file
    */
   PythonFunction(std::string path, std::string name);
   /// Destructor
@@ -64,13 +70,14 @@ public:
   /**
    * Get the global maximum.
    *
-   * \throw std::runtime_error
+   * @throw std::runtime_error
    */
   double get_maximum() const override;
   /**
    * @name Display
    */
   ///@{
+
   /// Display
   void display(std::ostream& stream) const override;
   /// Describe a bit vector

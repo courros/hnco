@@ -44,9 +44,9 @@ struct Population {
   std::vector<double> values;
   /// Permutation
   hnco::permutation_t permutation;
-
   /**
    * Constructor.
+   *
    * @param size Population size
    * @param n Bit vector size
    */
@@ -59,32 +59,33 @@ struct Population {
     ensure(n > 0, "Population::Population: bit vector size must be positive");
     perm_identity(permutation);
   }
-
   /**
    * @name Properties
    */
   ///@{
+
   /// Get population size
   int get_size() const { return bvs.size(); }
   /// Get bit vector size
   int get_bv_size() const { return bvs[0].size(); }
-///@}
-
+  ///@}
   /// Sample a random population
   void random();
-
   /**
    * @name Evaluation and sorting
    */
   ///@{
+
   /// Evaluate the population
   void evaluate(Function *function);
   /// Evaluate the population in parallel
   void evaluate_in_parallel(const std::vector<Function *>& functions);
   /**
-   * Sort the population. Only the permutation is sorted using the
-   * order defined by i < j if values[i] > values[j]. Before sorting,
-   * the permutation is shuffled to break ties randomly.
+   * Sort the population.
+   *
+   * Only the permutation is sorted using the order defined by i < j
+   * if values[i] > values[j]. Before sorting, the permutation is
+   * shuffled to break ties randomly.
    */
   void sort() {
     perm_shuffle(permutation);
@@ -92,9 +93,12 @@ struct Population {
     std::sort(permutation.begin(), permutation.end(), compare);
   }
   /**
-   * Partially sort the population. Only the permutation is sorted
-   * using the order defined by i < j if values[i] > values[j]. Before
-   * sorting, the permutation is shuffled to break ties randomly.
+   * Partially sort the population.
+   *
+   * Only the permutation is sorted using the order defined by i < j
+   * if values[i] > values[j]. Before sorting, the permutation is
+   * shuffled to break ties randomly.
+   *
    * @param selection_size Sort the best selection_size individuals
    */
   void partial_sort(int selection_size) {
@@ -104,8 +108,9 @@ struct Population {
     std::partial_sort(permutation.begin(), permutation.begin() + selection_size, permutation.end(), compare);
   }
   /**
-   * Get equivalent bit vectors. This member function returns a pair
-   * of ints (a, b) such that,
+   * Get equivalent bit vectors.
+   *
+   * This member function returns a pair of ints (a, b) such that,
    * - for all i in [0, a), f(get_best_bv(i)) > f(get_best_bv(index))
    * - for all i in [a, b), f(get_best_bv(i)) = f(get_best_bv(index))
    * - for all i in [b, size), f(get_best_bv(i)) < f(get_best_bv(index))
@@ -113,23 +118,26 @@ struct Population {
    * Put another way, the range [a, b) is the equivalence class of
    * index, where two indices i and j are equivalent if
    * f(get_best_bv(i)) = f(get_best_bv(j)).
+   *
    * @param index Bit vector's index in the sorted population
    * @pre The population must be sorted.
    */
   std::pair<int, int> get_equivalent_bvs(int index) const;
   ///@}
-
   /**
    * @name Get sorted bit vectors
    */
   ///@{
+
   /**
    * Get best bit vector.
+   *
    * @pre The population must be sorted.
    */
   bit_vector_t& get_best_bv() { return bvs[permutation[0]]; }
   /**
    * Get best bit vector.
+   *
    * @param i Index in the sorted population
    * @pre The population must be sorted.
    */
@@ -139,23 +147,26 @@ struct Population {
   }
   /**
    * Get worst bit vector.
+   *
    * @param i Backward index in the sorted population
    * @pre The population must be sorted.
    */
   bit_vector_t& get_worst_bv(int i) { return get_best_bv(int(bvs.size()) - 1 - i); }
   ///@}
-
   /**
    * @name Get sorted values
    */
   ///@{
+
   /**
    * Get best value.
+   *
    * @pre The population must be sorted.
    */
   double get_best_value() const { return values[permutation[0]]; }
   /**
    * Get best value.
+   *
    * @param i Index in the sorted population
    * @pre The population must be sorted.
    */
@@ -164,18 +175,20 @@ struct Population {
     return values[permutation[i]];
   }
   ///@}
-
   /**
    * @name Get sorted indices
    */
   ///@{
+
   /**
    * Get best index.
+   *
    * @pre The population must be sorted.
    */
   int get_best_index() const { return permutation[0]; }
   /**
    * Get best index.
+   *
    * @param i Index in the sorted population
    * @pre The population must be sorted.
    */
@@ -184,10 +197,9 @@ struct Population {
     return permutation[i];
   }
   ///@}
-
 };
 
-}
-}
+} // end of namespace algorithm
+} // end of namespace hnco
 
 #endif
