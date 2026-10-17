@@ -74,9 +74,9 @@ CommandLineApplication::make_functions()
 {
   for (size_t i = 0; i < _fns.size(); i++) {
     Generator::reset();
-    _fns[i] = _decorated_function_factory.make_function_modifier();
+    _fns[i] = _decorated_function_factory.make_modified_function();
   }
-  _fns[0] = _decorated_function_factory.make_function_controller(_fns[0]);
+  _fns[0] = _decorated_function_factory.make_controlled_function(_fns[0]);
   _fn = _fns[0];
 }
 

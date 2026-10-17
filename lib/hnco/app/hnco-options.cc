@@ -52,6 +52,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"map", required_argument, 0, OPTION_MAP},
     {"map-input-size", required_argument, 0, OPTION_MAP_INPUT_SIZE},
     {"map-path", required_argument, 0, OPTION_MAP_PATH},
+    {"map-translation-bv", required_argument, 0, OPTION_MAP_TRANSLATION_BV},
     {"map-ts-length", required_argument, 0, OPTION_MAP_TS_LENGTH},
     {"map-ts-sampling-mode", required_argument, 0, OPTION_MAP_TS_SAMPLING_MODE},
     {"neighborhood", required_argument, 0, OPTION_NEIGHBORHOOD},
@@ -378,6 +379,11 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     case OPTION_MAP_PATH:
       _with_map_path = true;
       _map_path = std::string(optarg);
+      break;
+
+    case OPTION_MAP_TRANSLATION_BV:
+      _with_map_translation_bv = true;
+      _map_translation_bv = std::string(optarg);
       break;
 
     case OPTION_MAP_TS_LENGTH:
@@ -1111,6 +1117,8 @@ void HncoOptions::print_help_map(std::ostream& stream) const
   stream << "          Return map(x) instead of x = arg max (f . map)" << std::endl;
   stream << "      --map-surjective" << std::endl;
   stream << "          Ensure that the sampled linear or affine map is surjective" << std::endl;
+  stream << "      --map-translation-bv (type string, no default)" << std::endl;
+  stream << "          Translation bit vector" << std::endl;
   stream << "      --map-ts-length (type int, default to 10)" << std::endl;
   stream << "          Transvection sequence length" << std::endl;
   stream << "      --map-ts-sampling-mode (type int, default to 0)" << std::endl;
@@ -1407,6 +1415,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
   stream << "# map = " << options._map << std::endl;
   stream << "# map_input_size = " << options._map_input_size << std::endl;
   stream << "# map_path = \"" << options._map_path << "\"" << std::endl;
+  if (options._with_map_translation_bv)
+    stream << "# map_translation_bv = \"" << options._map_translation_bv << "\"" << std::endl;
   stream << "# map_ts_length = " << options._map_ts_length << std::endl;
   stream << "# map_ts_sampling_mode = " << options._map_ts_sampling_mode << std::endl;
   stream << "# neighborhood = " << options._neighborhood << std::endl;

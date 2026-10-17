@@ -33,57 +33,43 @@ namespace app {
 
 /// Decorated function factory
 class DecoratedFunctionFactory {
-
+private:
   /// HNCO options
   const HncoOptions& _options;
-
   /// Factory function
   FunctionFactory& _function_factory;
-
   /// Map
   hnco::map::Map *_map = nullptr;
-
   /// Tracker controller
   hnco::function::controller::ProgressTracker *_tracker = nullptr;
-
   /// Cache controller
   hnco::function::controller::Cache *_cache = nullptr;
-
   /// StopOnTarget controller
   hnco::function::controller::StopOnTarget *_stop_on_target = nullptr;
-
   /// Make a function
   hnco::function::Function *make_function();
 
 public:
-
   /// Constructor
   DecoratedFunctionFactory(const HncoOptions& options, FunctionFactory& function_factory)
     : _options(options)
     , _function_factory(function_factory)
   {}
-
-  /// Make a function modifier
-  hnco::function::Function *make_function_modifier();
-
-  /** Make a function controller.
-
-      \param function Decorated function
-  */
-  hnco::function::Function *make_function_controller(hnco::function::Function *function);
-
+  /// Make a modified function
+  hnco::function::Function *make_modified_function();
+  /**
+   * Make a controlled function.
+   * @param Uncontrolled function
+   */
+  hnco::function::Function *make_controlled_function(hnco::function::Function *function);
   /// Get map
   hnco::map::Map *get_map() { return _map; }
-
-  /// Get tracker controller
+  /// Get ProgressTracker controller
   hnco::function::controller::ProgressTracker *get_tracker() { return _tracker; }
-
   /// Get Cache controller
   hnco::function::controller::Cache *get_cache() { return _cache; }
-
   /// Get StopOnTarget controller
   hnco::function::controller::StopOnTarget *get_stop_on_target() { return _stop_on_target; }
-
 };
 
 } // end of namespace hnco::app

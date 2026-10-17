@@ -67,6 +67,11 @@ make_map(const HncoOptions& options, int bv_size)
       if (options.get_map_input_size() != bv_size)
         std::cerr << "Warning: make_map: Translation: using bv_size, discarding map_input_size" << std::endl;
       map->random(bv_size);
+    } else if (options.with_map_translation_bv()) {
+      bit_vector_t tbv = bv_from_string(options.get_map_translation_bv());
+      if (options.get_map_input_size() != bv_size || int(tbv.size()) != bv_size)
+        std::cerr << "Warning: make_map: Translation: using map_translation_bv, discarding bv_size and map_input_size" << std::endl;
+      map->set_bv(tbv);
     } else
       load_map<Translation>(map, options);
     return map;
@@ -191,10 +196,8 @@ make_prior_noise_neighborhood(const HncoOptions& options, int bv_size)
 Function *
 DecoratedFunctionFactory::make_function()
 {
-  if (_options.get_bv_size() <= 0)
-    throw std::runtime_error("DecoratedFunctionFactory::make_function: bv_size must be positive");
-
   Function *function = _function_factory.make();
+  assert(function);
 
   if (function->get_bv_size() != _options.get_bv_size()) {
     std::cerr << "Warning: DecoratedFunctionFactory::make_function: After _function_factory.make(), bv_size changed from "
@@ -203,13 +206,12 @@ DecoratedFunctionFactory::make_function()
   }
 
   assert(function->get_bv_size() > 0);
-
   return function;
 }
 
 
 Function *
-DecoratedFunctionFactory::make_function_modifier()
+DecoratedFunctionFactory::make_modified_function()
 {
   Function *function = make_function();
   assert(function);
@@ -223,7 +225,7 @@ DecoratedFunctionFactory::make_function_modifier()
   }
 
   if (function->get_bv_size() != bv_size) {
-    std::cerr << "Warning: DecoratedFunctionFactory::make_function_modifier: After composition by a map, bv_size changed from "
+    std::cerr << "Warning: DecoratedFunctionFactory::make_modified_function: After composition by a map, bv_size changed from "
               << bv_size << " to "
               << function->get_bv_size() << std::endl;
   }
@@ -254,7 +256,7 @@ DecoratedFunctionFactory::make_function_modifier()
 
 
 Function *
-DecoratedFunctionFactory::make_function_controller(Function *function)
+DecoratedFunctionFactory::make_controlled_function(Function *function)
 {
   assert(function);
 
@@ -298,7 +300,7 @@ DecoratedFunctionFactory::make_function_controller(Function *function)
       _stop_on_target = new StopOnMaximum(function);
       function = _stop_on_target;
     } else {
-      throw std::runtime_error("DecoratedFunctionFactory::make_function_controller (StopOnMaximum): Unknown maximum");
+      throw std::runtime_error("DecoratedFunctionFactory::make_controlled_function (StopOnMaximum): Unknown maximum");
     }
   } else {
     if (_options.with_target()) {

@@ -75,6 +75,7 @@ class HncoOptions {
     OPTION_MAP,
     OPTION_MAP_INPUT_SIZE,
     OPTION_MAP_PATH,
+    OPTION_MAP_TRANSLATION_BV,
     OPTION_MAP_TS_LENGTH,
     OPTION_MAP_TS_SAMPLING_MODE,
     OPTION_NEIGHBORHOOD,
@@ -321,6 +322,10 @@ class HncoOptions {
   /// Path of the map file
   std::string _map_path = "map.txt";
   bool _with_map_path = false;
+
+  /// Translation bit vector
+  std::string _map_translation_bv;
+  bool _with_map_translation_bv = false;
 
   /// Transvection sequence length
   int _map_ts_length = 10;
@@ -938,6 +943,17 @@ public:
 
   /// With parameter map_path
   bool with_map_path() const { return _with_map_path; }
+
+  /// Get the value of map_translation_bv
+  std::string get_map_translation_bv() const {
+    if (_with_map_translation_bv)
+      return _map_translation_bv;
+    else
+      throw std::runtime_error("HncoOptions::get_map_translation_bv: Parameter map_translation_bv has no default value and has not been set");
+    }
+
+  /// With parameter map_translation_bv
+  bool with_map_translation_bv() const { return _with_map_translation_bv; }
 
   /// Get the value of map_ts_length
   int get_map_ts_length() const { return _map_ts_length; }
