@@ -18,17 +18,18 @@
 
 */
 
-#include <cassert>
-#include <sstream>              // std::ostringstream
-
-#include "hnco/exception.hh"
-#include "hnco/util.hh"         // hnco::fail_with
-
 #include "map.hh"
 
-using namespace hnco::exception;
+#include "hnco/util.hh"         // hnco::fail_with
+
 using namespace hnco::map;
 using namespace hnco;
+
+void
+Map::display(std::ostream& stream) const
+{
+  stream << "Map: " << get_input_size() << " bits -> " << get_output_size() << " bits" << std::endl;
+}
 
 void
 Translation::map(const bit_vector_t& input, bit_vector_t& output)
@@ -42,16 +43,10 @@ Translation::map(const bit_vector_t& input, bit_vector_t& output)
 void
 Translation::display(std::ostream& stream) const
 {
-  const int length = 5;
-  stream << "Translation(" << _bv.size() << "): ";
-  int bound = std::min(length, int(_bv.size()));
-  for (int i = 0; i < bound; i++)
-    if (_bv[i])
-      stream << 1;
-    else
-      stream << 0;
-  if (length < int(_bv.size()))
-    stream << "...";
+  Map::display(stream);
+  stream << "AffineMap with: " << std::endl;
+  stream << "Bit vector:" << std::endl;
+  bv_display(_bv, stream);
   stream << std::endl;
 }
 
@@ -65,6 +60,15 @@ Permutation::map(const bit_vector_t& input, bit_vector_t& output)
   for (size_t i = 0; i < output.size(); i++) {
     output[i] = input[_permutation[i]];
   }
+}
+
+void
+Permutation::display(std::ostream& stream) const
+{
+  Map::display(stream);
+  stream << "Permutation with: " << std::endl;
+  perm_display(_permutation, stream);
+  stream << std::endl;
 }
 
 void
@@ -100,6 +104,16 @@ LinearMap::is_surjective() const
   bit_matrix_t M = _bm;
   bm_row_echelon_form(M);
   return bm_rank(M) == bm_num_rows(_bm);
+}
+
+void
+LinearMap::display(std::ostream& stream) const
+{
+  Map::display(stream);
+  stream << "Linear with: " << std::endl;
+  stream << "Bit matrix:" << std::endl;
+  bm_display(_bm, stream);
+  stream << std::endl;
 }
 
 void
@@ -146,12 +160,24 @@ AffineMap::is_surjective() const
 void
 AffineMap::display(std::ostream& stream) const
 {
-  stream << "AffineMap: " << get_input_size() << " bits -> " << get_output_size() << " bits" << std::endl;
-  stream << "Bit matrix is:" << std::endl;
+  Map::display(stream);
+  stream << "AffineMap with: " << std::endl;
+  stream << "Bit matrix:" << std::endl;
   bm_display(_bm, stream);
-  stream << "Bit vector is:" << std::endl;
+  stream << "Bit vector:" << std::endl;
   bv_display(_bv, stream);
   stream << std::endl;
+}
+
+void
+MapComposition::display(std::ostream& stream) const
+{
+  Map::display(stream);
+  stream << "MapComposition with: " << std::endl;
+  stream << "Outer map:" << std::endl;
+  _outer->display(stream);
+  stream << "Inner map:" << std::endl;
+  _inner->display(stream);
 }
 
 Injection::Injection(const std::vector<int>& bit_positions, int output_size):
@@ -172,6 +198,17 @@ Injection::map(const bit_vector_t& input, bit_vector_t& output)
     output[_bit_positions[i]] = input[i];
 }
 
+void
+Injection::display(std::ostream& stream) const
+{
+  Map::display(stream);
+  stream << "Injection with: " << std::endl;
+  stream << "Bit positions: ";
+  for (int i: _bit_positions)
+    stream << i << ", ";
+  stream << "last";
+}
+
 Projection::Projection(const std::vector<int>& bit_positions, int input_size):
   _bit_positions(bit_positions),
   _input_size(input_size)
@@ -188,6 +225,17 @@ Projection::map(const bit_vector_t& input, bit_vector_t& output)
 
   for (std::size_t i = 0; i < _bit_positions.size(); i++)
     output[i] = input[_bit_positions[i]];
+}
+
+void
+Projection::display(std::ostream& stream) const
+{
+  Map::display(stream);
+  stream << "Projection with: " << std::endl;
+  stream << "Bit positions: ";
+  for (int i: _bit_positions)
+    stream << i << ", ";
+  stream << "last";
 }
 
 void
@@ -244,6 +292,8 @@ TsAffineMap::map(const bit_vector_t& input, bit_vector_t& output)
 void
 TsAffineMap::display(std::ostream& stream) const
 {
+  Map::display(stream);
+  stream << "TsAffineMap with: " << std::endl;
   ts_display(_ts, stream);
 }
 
