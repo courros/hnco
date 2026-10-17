@@ -24,24 +24,24 @@
 #include "hnco/exception.hh"
 #include "hnco/maps/map.hh"
 #include "hnco/random.hh"
+#include "hnco/util.hh"         // hnco::fail_with
 
 #include "mapgen-options.hh"
 
-
 using namespace hnco::app;
-using namespace hnco::exception;
 using namespace hnco::map;
 using namespace hnco::random;
 using namespace hnco;
-
 
 void generate_map(MapgenOptions& options)
 {
   switch(options.get_map()) {
 
   case 1: {
+    if (options.get_output_size() != options.get_input_size())
+      std::cerr << "Warning: generate_map: Translation: input size and output size are different, using input size" << std::endl;
     Translation map;
-    map.random(options.get_output_size());
+    map.random(options.get_input_size());
     std::ofstream stream(options.get_path());
     boost::archive::text_oarchive archive(stream);
     std::cout << "Writing translation to " << options.get_path() << " ... ";
@@ -51,8 +51,10 @@ void generate_map(MapgenOptions& options)
   }
 
   case 2: {
+    if (options.get_output_size() != options.get_input_size())
+      std::cerr << "Warning: generate_map: Permutation: input size and output size are different, using input size" << std::endl;
     Permutation map;
-    map.random(options.get_output_size());
+    map.random(options.get_input_size());
     std::ofstream stream(options.get_path());
     boost::archive::text_oarchive archive(stream);
     std::cout << "Writing permutation to " << options.get_path() << " ... ";
@@ -62,10 +64,12 @@ void generate_map(MapgenOptions& options)
   }
 
   case 3: {
+    if (options.get_output_size() != options.get_input_size())
+      std::cerr << "Warning: generate_map: Composition of permutation and translation: input size and output size are different, using input size" << std::endl;
     Permutation permutation;
     Translation translation;
-    permutation.random(options.get_output_size());
-    translation.random(options.get_output_size());
+    permutation.random(options.get_input_size());
+    translation.random(options.get_input_size());
     std::ofstream stream(options.get_path());
     boost::archive::text_oarchive archive(stream);
     std::cout << "Writing permutation and translation to " << options.get_path() << " ... ";
@@ -97,9 +101,9 @@ void generate_map(MapgenOptions& options)
   }
 
   case 6: {
+    if (options.get_output_size() != options.get_input_size())
+      std::cerr << "Warning: generate_map: Affine map (transvection sequence): input size and output size are different, using input size" << std::endl;
     TsAffineMap map;
-    if (options.get_input_size() != options.get_output_size())
-      std::cerr << "Only input size is taken into account" << std::endl;
     map.random(options.get_input_size(),
                options.get_ts_length(),
                options.get_ts_sampling_mode());
@@ -112,8 +116,7 @@ void generate_map(MapgenOptions& options)
   }
 
   default: {
-    std::cerr << "Cannot create any map of type " << options.get_map() << std::endl;
-    exit(1);
+    fail_with("Cannot create any map of type ", options.get_map());
   }
 
   }
