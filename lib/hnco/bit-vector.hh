@@ -76,7 +76,6 @@ inline bit_t bit_random(double p) { return (random::Generator::uniform() < p) ? 
 
 ///@}
 
-
 /**
  * @name Types and functions related to bit vectors
  *
@@ -94,22 +93,22 @@ inline bit_t bit_random(double p) { return (random::Generator::uniform() < p) ? 
 using bit_vector_t = std::vector<bit_t>;
 
 /// Display bit vector
-inline std::string bv_domain(const bit_vector_t& x) { return std::string("bit vector (") + std::to_string(x.size()) + std::string(" bits)"); }
+inline std::string bv_domain(const bit_vector_t& bv) { return std::string("bit vector (") + std::to_string(bv.size()) + std::string(" bits)"); }
 
 /// Display bit vector
-void bv_display(const bit_vector_t& v, std::ostream& stream);
+void bv_display(const bit_vector_t& bv, std::ostream& stream);
 
 /// Check whether the bit vector is valid
-inline bool bv_is_valid(const bit_vector_t& x) { return std::all_of(x.begin(), x.end(), [](bit_t b){ return b == 0 || b == 1; }); }
+inline bool bv_is_valid(const bit_vector_t& bv) { return std::all_of(bv.begin(), bv.end(), [](bit_t b){ return b == 0 || b == 1; }); }
 
 /// Check whether the bit vector is zero
-inline bool bv_is_zero(const bit_vector_t& x) { return std::all_of(x.begin(), x.end(), [](bit_t b){ return b == 0; }); }
+inline bool bv_is_zero(const bit_vector_t& bv) { return std::all_of(bv.begin(), bv.end(), [](bit_t b){ return b == 0; }); }
 
 /// Hamming weight
-inline int bv_hamming_weight(const bit_vector_t& x) { return std::accumulate(x.begin(), x.end(), 0); }
+inline int bv_hamming_weight(const bit_vector_t& bv) { return std::accumulate(bv.begin(), bv.end(), 0); }
 
 /// Hamming weight
-int bv_hamming_weight(const std::vector<bool>& x);
+int bv_hamming_weight(const std::vector<bool>& bv);
 
 /// Hamming distance between two bit vectors
 int bv_hamming_distance(const bit_vector_t& x, const bit_vector_t& y);
@@ -121,121 +120,112 @@ bit_t bv_dot_product(const bit_vector_t& x, const bit_vector_t& y);
 bit_t bv_dot_product(const bit_vector_t& x, const std::vector<bool>& y);
 
 /// Clear bit vector
-inline void bv_clear(bit_vector_t& x) { std::fill(x.begin(), x.end(), 0); }
+inline void bv_clear(bit_vector_t& bv) { std::fill(bv.begin(), bv.end(), 0); }
 
-/** Add two bit vectors.
+/**
+ * Add two bit vectors.
+ * Equivalent to bv = bv + y.
+ * @param bv Destination bit vector
+ * @param y Source bit vector
+ * @pre Vectors must be of the same size.
+ */
+void bv_add(bit_vector_t& bv, const bit_vector_t& y);
 
-    Equivalent to dest = dest + src.
-
-    @param dest Destination bit vector
-    @param src Source bit vector
-
-    @warning Vectors must be of the same size.
-*/
-void bv_add(bit_vector_t& dest, const bit_vector_t& src);
-
-/** Add two bit vectors.
-
-    Equivalent to dest = x + y.
-
-    @param dest Destination bit vector
-    @param x First operand
-    @param y Second operand
-
-    @warning Vectors must be of the same size.
-*/
-void bv_add(bit_vector_t& dest, const bit_vector_t& x, const bit_vector_t& y);
+/**
+ * Add two bit vectors.
+ * Equivalent to bv = x + y.
+ * @param bv Destination bit vector
+ * @param x First operand
+ * @param y Second operand
+ * @pre Vectors must be of the same size.
+ */
+void bv_add(bit_vector_t& bv, const bit_vector_t& x, const bit_vector_t& y);
 
 /// Flip a single bit
-inline void bv_flip(bit_vector_t& x, int i) { bit_flip(x[i]); }
+inline void bv_flip(bit_vector_t& bv, int i) { bit_flip(bv[i]); }
 
 /**
  * Flip many bits given by a sparse bit vector.
- * @param x Input-output bit vector
+ * @param bv Input-output bit vector
  * @param sbv Bits to flip
  */
-void bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv);
+void bv_flip(bit_vector_t& bv, const sparse_bit_vector_t& sbv);
+
+/**
+ * Flip all bits.
+ * @param bv Input-output bit vector
+ */
+void bv_flip(bit_vector_t& bv);
 
 /// Sample a random bit vector
-inline void bv_random(bit_vector_t& x) { std::generate(x.begin(), x.end(), []() { return random::Generator::bernoulli(); }); }
+inline void bv_random(bit_vector_t& bv) { std::generate(bv.begin(), bv.end(), []() { return random::Generator::bernoulli(); }); }
 
 /// Sample a random bit vector with given Hamming weight
-void bv_random(bit_vector_t& x, int k);
+void bv_random(bit_vector_t& bv, int k);
 
-/** Convert a bit vector to a bool vector.
+/**
+ * Convert a bit vector to a bool vector.
+ * @pre Vectors must be of the same size.
+ */
+void bv_to_vector_bool(std::vector<bool>& y, const bit_vector_t& bv);
 
-    @warning Vectors must be of the same size.
-*/
-void bv_to_vector_bool(std::vector<bool>& y, const bit_vector_t& x);
+/**
+ * Convert a bool vector to a bit vector.
+ * @pre Vectors must be of the same size.
+ */
+void bv_from_vector_bool(bit_vector_t& bv, const std::vector<bool>& y);
 
-/** Convert a bool vector to a bit vector.
+/**
+ * Convert a small bit vector to a size_t.
+ * bv[0] is the least significant bit.
+ * @param bv Input bit vector
+ * @return An unsigned integer representing bv
+ * @pre bv.size() <= 8 * sizeof(std::size_t)
+ */
+std::size_t bv_to_size_type(const bit_vector_t& bv);
 
-    @warning Vectors must be of the same size.
-*/
-void bv_from_vector_bool(bit_vector_t& x, const std::vector<bool>& y);
+/**
+ * Convert a slice of a small bit vector to a size_t.
+ * bv[start] is the least significant bit.
+ * bv[stop-1] is the most significant bit.
+ * @param bv Input bit vector
+ * @param start Start bit
+ * @param stop Stop bit
+ * @return An unsigned integer representing bv[start], ..., bv[stop-1]
+ * @pre start in [0, bv.size())
+ * @pre stop in [start+1, bv.size()]
+ * @pre (stop - start) <= 8 * sizeof(std::size_t)
+ */
+std::size_t bv_to_size_type(const bit_vector_t& bv, int start, int stop);
 
-/** Convert a small bit vector to a size_t.
+/**
+ * Convert a size_t to a small bit vector.
+ * @param bv Output bit vector
+ * @param u Unsigned integer representing a bit vector
+ * @pre bv.size() <= 8 * sizeof(std::size_t)
+ * @warning Depending on the size of the output bit vector, some bits
+ * might be lost. The original bit vector can be reconstructed only
+ * if it is small and the unsigned integer u is the result of
+ * bv_to_size_type.
+ */
+void bv_from_size_type(bit_vector_t& bv, std::size_t u);
 
-    x[0] is the least significant bit.
-
-    @param x Input bit vector
-
-    @return An unsigned integer representing x
-
-    @pre x.size() <= 8 * sizeof(std::size_t)
-*/
-std::size_t bv_to_size_type(const bit_vector_t& x);
-
-/** Convert a slice of a small bit vector to a size_t.
-
-    x[start] is the least significant bit.
-
-    x[stop-1] is the most significant bit.
-
-    @param x Input bit vector
-    @param start Start bit
-    @param stop Stop bit
-
-    @return An unsigned integer representing x[start], ..., x[stop-1]
-
-    @pre start in [0, x.size())
-    @pre stop in [start+1, x.size()]
-    @pre (stop - start) <= 8 * sizeof(std::size_t)
-*/
-std::size_t bv_to_size_type(const bit_vector_t& x, int start, int stop);
-
-/** Convert a size_t to a small bit vector.
-
-    @param x Output bit vector
-    @param u Unsigned integer representing a bit vector
-
-    @pre x.size() <= 8 * sizeof(std::size_t)
-
-    @warning Depending on the size of the output bit vector, some bits
-    might be lost. The original bit vector can be reconstructed only
-    if it is small and the unsigned integer u is the result of
-    bv_to_size_type.
-*/
-void bv_from_size_type(bit_vector_t& x, std::size_t u);
-
-/** Read a bit vector from a string.
-
-    @param str Input string
-    @return A bit_vector_t
-*/
+/**
+ * Read a bit vector from a string.
+ * @param str Input string
+ * @return A bit_vector_t
+ */
 bit_vector_t bv_from_string(const std::string& str);
 
-/** Read a bit vector from a stream.
-
-    @param stream Input stream
-    @return A bit_vector_t
-*/
+/**
+ * Read a bit vector from a stream.
+ * @param stream Input stream
+ * @return A bit_vector_t
+ */
 bit_vector_t bv_from_stream(std::istream& stream);
 
 ///@}
 
-
 } // end of namespace hnco
-
 
 #endif

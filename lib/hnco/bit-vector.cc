@@ -18,7 +18,7 @@
 
 */
 
-#include <assert.h>
+#include <cassert>
 
 #include <string>               // std::getline
 #include <iostream>
@@ -26,17 +26,14 @@
 #include "util.hh"              // hnco::have_same_size
 #include "bit-vector.hh"
 
-
 using namespace hnco;
-
 
 void check_libhnco(void) {}
 
-
 void
-hnco::bv_display(const bit_vector_t& v, std::ostream& stream)
+hnco::bv_display(const bit_vector_t& bv, std::ostream& stream)
 {
-  for (auto c : v)
+  for (auto c : bv)
     if (c == 0)
       stream << 0;
     else
@@ -44,11 +41,11 @@ hnco::bv_display(const bit_vector_t& v, std::ostream& stream)
 }
 
 int
-hnco::bv_hamming_weight(const std::vector<bool>& x)
+hnco::bv_hamming_weight(const std::vector<bool>& bv)
 {
   int result = 0;
-  for (std::size_t i = 0; i < x.size(); i++)
-    if (x[i])
+  for (std::size_t i = 0; i < bv.size(); i++)
+    if (bv[i])
       result++;
   return result;
 }
@@ -90,64 +87,71 @@ hnco::bv_dot_product(const bit_vector_t& x, const std::vector<bool>& y)
 }
 
 void
-hnco::bv_flip(bit_vector_t& x, const sparse_bit_vector_t& sbv)
+hnco::bv_flip(bit_vector_t& bv, const sparse_bit_vector_t& sbv)
 {
-  assert(sbv_is_valid(sbv, x.size()));
+  assert(sbv_is_valid(sbv, bv.size()));
 
   for (auto index : sbv)
-    bv_flip(x, index);
+    bv_flip(bv, index);
 }
 
 void
-hnco::bv_random(bit_vector_t& x, int k)
+hnco::bv_flip(bit_vector_t& bv)
+{
+  for (std::size_t i = 0; i < bv.size(); i++)
+    bv_flip(bv, i);
+}
+
+void
+hnco::bv_random(bit_vector_t& bv, int k)
 {
   assert(k >= 0);
-  assert(k <= static_cast<int>(x.size()));
+  assert(k <= static_cast<int>(bv.size()));
 
-  int n = x.size();
-  for (size_t i = 0; i < x.size(); i++) {
+  int n = bv.size();
+  for (size_t i = 0; i < bv.size(); i++) {
     if (k > 0) {
       assert(n > 0);
       double p = double(k) / double(n);
       if (random::Generator::uniform() < p) {
-        x[i] = 1;
+        bv[i] = 1;
         k--;
       } else
-        x[i] = 0;
+        bv[i] = 0;
       n--;
     } else
-      x[i] = 0;
+      bv[i] = 0;
   }
 }
 
 void
-hnco::bv_add(bit_vector_t& dest, const bit_vector_t& src)
+hnco::bv_add(bit_vector_t& bv, const bit_vector_t& y)
 {
-  assert(dest.size() == src.size());
+  assert(bv.size() == y.size());
 
-  for (std::size_t i = 0; i < dest.size(); i++)
-    bit_flip(dest[i], src[i]);
-    // dest[i] = (src[i] + dest[i]) % 2;
+  for (std::size_t i = 0; i < bv.size(); i++)
+    bit_flip(bv[i], y[i]);
+    // bv[i] = (y[i] + bv[i]) % 2;
 }
 
 void
-hnco::bv_add(bit_vector_t& dest, const bit_vector_t& x, const bit_vector_t& y)
+hnco::bv_add(bit_vector_t& bv, const bit_vector_t& x, const bit_vector_t& y)
 {
-  assert(dest.size() == x.size());
-  assert(dest.size() == y.size());
+  assert(bv.size() == x.size());
+  assert(bv.size() == y.size());
 
-  for (std::size_t i = 0; i < dest.size(); i++)
-    dest[i] = bit_add(x[i], y[i]);
-    // dest[i] = (x[i] + y[i]) % 2;
+  for (std::size_t i = 0; i < bv.size(); i++)
+    bv[i] = bit_add(x[i], y[i]);
+    // bv[i] = (x[i] + y[i]) % 2;
 }
 
 void
-hnco::bv_to_vector_bool(std::vector<bool>& y, const bit_vector_t& x)
+hnco::bv_to_vector_bool(std::vector<bool>& y, const bit_vector_t& bv)
 {
-  assert(y.size() == x.size());
+  assert(y.size() == bv.size());
 
-  for (size_t i = 0; i < x.size(); i++) {
-    if (x[i])
+  for (size_t i = 0; i < bv.size(); i++) {
+    if (bv[i])
       y[i] = true;
     else
       y[i] = false;
@@ -155,27 +159,27 @@ hnco::bv_to_vector_bool(std::vector<bool>& y, const bit_vector_t& x)
 }
 
 void
-hnco::bv_from_vector_bool(bit_vector_t& x, const std::vector<bool>& y)
+hnco::bv_from_vector_bool(bit_vector_t& bv, const std::vector<bool>& y)
 {
-  assert(y.size() == x.size());
+  assert(y.size() == bv.size());
 
-  for (size_t i = 0; i < x.size(); i++) {
+  for (size_t i = 0; i < bv.size(); i++) {
     if (y[i])
-      x[i] = 1;
+      bv[i] = 1;
     else
-      x[i] = 0;
+      bv[i] = 0;
   }
 }
 
 std::size_t
-hnco::bv_to_size_type(const bit_vector_t& x)
+hnco::bv_to_size_type(const bit_vector_t& bv)
 {
-  assert(x.size() <= 8 * sizeof(std::size_t));
+  assert(bv.size() <= 8 * sizeof(std::size_t));
 
   std::size_t result = 0;
   std::size_t mask = 1;
-  for (size_t i = 0; i < x.size(); i++) {
-    if (x[i])
+  for (size_t i = 0; i < bv.size(); i++) {
+    if (bv[i])
       result |= mask;
     mask <<= 1;
   }
@@ -183,16 +187,16 @@ hnco::bv_to_size_type(const bit_vector_t& x)
 }
 
 std::size_t
-hnco::bv_to_size_type(const bit_vector_t& x, int start, int stop)
+hnco::bv_to_size_type(const bit_vector_t& bv, int start, int stop)
 {
-  assert(hnco::is_in_range(start, x.size()));
-  assert(hnco::is_in_range(stop, start + 1, x.size() + 1));
+  assert(hnco::is_in_range(start, bv.size()));
+  assert(hnco::is_in_range(stop, start + 1, bv.size() + 1));
   assert((stop - start) <= int(8 * sizeof(std::size_t)));
 
   std::size_t result = 0;
   std::size_t mask = 1;
   for (int i = start; i < stop; i++) {
-    if (x[i])
+    if (bv[i])
       result |= mask;
     mask <<= 1;
   }
@@ -200,16 +204,16 @@ hnco::bv_to_size_type(const bit_vector_t& x, int start, int stop)
 }
 
 void
-hnco::bv_from_size_type(bit_vector_t& x, std::size_t u)
+hnco::bv_from_size_type(bit_vector_t& bv, std::size_t u)
 {
-  assert(x.size() <= 8 * sizeof(std::size_t));
+  assert(bv.size() <= 8 * sizeof(std::size_t));
 
   std::size_t mask = 1;
-  for (size_t i = 0; i < x.size(); i++) {
+  for (size_t i = 0; i < bv.size(); i++) {
     if (u & mask)
-      x[i] = 1;
+      bv[i] = 1;
     else
-      x[i] = 0;
+      bv[i] = 0;
     mask <<= 1;
   }
 }
