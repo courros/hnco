@@ -3,10 +3,20 @@
 Library:
 - PythonFunction: added member function display
 - PythonFunction: added member function describe
+- Added bv_flip to flip all bits in a bit vector
+- Maps: added or updated member functions display
+- DecoratedFunctionFactory: renamed make_function_modifier -> make_modified_function
+- DecoratedFunctionFactory: renamed make_function_controller -> make_controlled_function
+- make_map: handle case map_translation_bv
 
 hnco:
 - Renamed flag concrete_solution -> map_solution
 - Added flag help_sol for section Solutions
+- Added option map_translation_bv
+- Added flag map_flip_translation_bv
+
+mapgen:
+- Updated warning messages
 
 
 * Version 0.26 (2024-12-04)

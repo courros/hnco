@@ -133,6 +133,7 @@ class HncoOptions {
     OPTION_LOAD_SOLUTION,
     OPTION_LOG_IMPROVEMENT,
     OPTION_MAP_DISPLAY,
+    OPTION_MAP_FLIP_TRANSLATION_BV,
     OPTION_MAP_RANDOM,
     OPTION_MAP_SOLUTION,
     OPTION_MAP_SURJECTIVE,
@@ -531,6 +532,9 @@ class HncoOptions {
 
   /// Display the map and exit
   bool _map_display = false;
+
+  /// Flip the translation bit vector
+  bool _map_flip_translation_bv = false;
 
   /// Sample a random map
   bool _map_random = false;
@@ -1242,6 +1246,9 @@ public:
 
   /// With the flag map_display
   bool with_map_display() const { return _map_display; }
+
+  /// With the flag map_flip_translation_bv
+  bool with_map_flip_translation_bv() const { return _map_flip_translation_bv; }
 
   /// With the flag map_random
   bool with_map_random() const { return _map_random; }

@@ -305,6 +305,12 @@
             "section": "map"
         },
 
+        "map_flip_translation_bv":
+        {
+            "description": "Flip the translation bit vector",
+            "section": "map"
+        },
+
 
         "restart":
         {

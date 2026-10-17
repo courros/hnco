@@ -110,6 +110,7 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
     {"load-solution", no_argument, 0, OPTION_LOAD_SOLUTION},
     {"log-improvement", no_argument, 0, OPTION_LOG_IMPROVEMENT},
     {"map-display", no_argument, 0, OPTION_MAP_DISPLAY},
+    {"map-flip-translation-bv", no_argument, 0, OPTION_MAP_FLIP_TRANSLATION_BV},
     {"map-random", no_argument, 0, OPTION_MAP_RANDOM},
     {"map-solution", no_argument, 0, OPTION_MAP_SOLUTION},
     {"map-surjective", no_argument, 0, OPTION_MAP_SURJECTIVE},
@@ -653,6 +654,10 @@ HncoOptions::HncoOptions(int argc, char *argv[], bool ignore_bad_options):
       _map_display = true;
       break;
 
+    case OPTION_MAP_FLIP_TRANSLATION_BV:
+      _map_flip_translation_bv = true;
+      break;
+
     case OPTION_MAP_RANDOM:
       _map_random = true;
       break;
@@ -1107,6 +1112,8 @@ void HncoOptions::print_help_map(std::ostream& stream) const
   stream << "            6: Affine (transvection sequence)" << std::endl;
   stream << "      --map-display" << std::endl;
   stream << "          Display the map and exit" << std::endl;
+  stream << "      --map-flip-translation-bv" << std::endl;
+  stream << "          Flip the translation bit vector" << std::endl;
   stream << "      --map-input-size (type int, default to 100)" << std::endl;
   stream << "          Input size of linear and affine maps" << std::endl;
   stream << "      --map-path (type string, default to \"map.txt\")" << std::endl;
@@ -1500,6 +1507,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const HncoOptions& opt
     stream << "# log_improvement " << std::endl;
   if (options._map_display)
     stream << "# map_display " << std::endl;
+  if (options._map_flip_translation_bv)
+    stream << "# map_flip_translation_bv " << std::endl;
   if (options._map_random)
     stream << "# map_random " << std::endl;
   if (options._map_solution)

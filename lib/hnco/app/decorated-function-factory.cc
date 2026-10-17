@@ -26,7 +26,6 @@
 
 using namespace hnco::algorithm;
 using namespace hnco::app;
-using namespace hnco::exception;
 using namespace hnco::function::controller;
 using namespace hnco::function::modifier;
 using namespace hnco::function;
@@ -34,7 +33,6 @@ using namespace hnco::map;
 using namespace hnco::neighborhood;
 using namespace hnco::random;
 using namespace hnco;
-
 
 template<class T>
 void load_map(T *map, const HncoOptions& options)
@@ -52,7 +50,6 @@ void load_map(T *map, const HncoOptions& options)
   }
 }
 
-
 Map *
 make_map(const HncoOptions& options, int bv_size)
 {
@@ -69,6 +66,8 @@ make_map(const HncoOptions& options, int bv_size)
       map->random(bv_size);
     } else if (options.with_map_translation_bv()) {
       bit_vector_t tbv = bv_from_string(options.get_map_translation_bv());
+      if (options.with_map_flip_translation_bv())
+        bv_flip(tbv);
       if (options.get_map_input_size() != bv_size || int(tbv.size()) != bv_size)
         std::cerr << "Warning: make_map: Translation: using map_translation_bv, discarding bv_size and map_input_size" << std::endl;
       map->set_bv(tbv);
@@ -152,9 +151,7 @@ make_map(const HncoOptions& options, int bv_size)
   }
 
   }
-
 }
-
 
 Neighborhood *
 make_prior_noise_neighborhood(const HncoOptions& options, int bv_size)
@@ -189,9 +186,7 @@ make_prior_noise_neighborhood(const HncoOptions& options, int bv_size)
   default:
     throw std::runtime_error("make_prior_noise_neighborhood: Unknown neighborhood type: " + std::to_string(options.get_neighborhood()));
   }
-
 }
-
 
 Function *
 DecoratedFunctionFactory::make_function()
@@ -208,7 +203,6 @@ DecoratedFunctionFactory::make_function()
   assert(function->get_bv_size() > 0);
   return function;
 }
-
 
 Function *
 DecoratedFunctionFactory::make_modified_function()
@@ -253,7 +247,6 @@ DecoratedFunctionFactory::make_modified_function()
 
   return function;
 }
-
 
 Function *
 DecoratedFunctionFactory::make_controlled_function(Function *function)
