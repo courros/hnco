@@ -18,16 +18,20 @@
 
 */
 
-#include <algorithm>            // std::copy, std::copy_backward
+#include "function.hh"
 
 #include "hnco/iterator.hh"
 
-#include "function.hh"
-
+#include <algorithm>            // std::copy, std::copy_backward
 
 using namespace hnco::function;
 using namespace hnco;
 
+void
+Function::display(std::ostream& stream) const
+{
+  stream << "Function: " << get_bv_size() << " bits -> double" << std::endl;
+}
 
 void
 hnco::function::compute_walsh_transform(function::Function *fn, std::vector<function::WalshTerm>& terms)

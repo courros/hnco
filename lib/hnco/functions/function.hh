@@ -105,7 +105,7 @@ public:
    */
   ///@{
   /// Display
-  virtual void display(std::ostream& stream) const { stream << "Function" << std::endl; }
+  virtual void display(std::ostream& stream) const;
   /**
    * Describe a bit vector.
    *
