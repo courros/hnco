@@ -25,6 +25,25 @@
 using namespace hnco::function;
 using namespace hnco;
 
+FourPeaks::FourPeaks(int bv_size, int threshold):
+  _bv_size(bv_size),
+  _threshold(threshold),
+  _maximum(2 * bv_size - threshold - 1)
+{
+  if (threshold > bv_size / 2 - 1) {
+    std::ostringstream stream;
+    stream << "FourPeaks::FourPeaks: _threshold must be <= " << bv_size / 2 - 1;
+    throw std::runtime_error(stream.str());
+  }
+}
+
+void
+FourPeaks::display(std::ostream& stream) const
+{
+  Function::display(stream);
+  stream << "FourPeaks" << std::endl;
+}
+
 inline int head(const bit_vector_t& bv, bit_t b)
 {
   int count = 0;
@@ -45,18 +64,6 @@ inline int tail(const bit_vector_t& bv, bit_t b)
     iter++;
   }
   return count;
-}
-
-FourPeaks::FourPeaks(int bv_size, int threshold):
-  _bv_size(bv_size),
-  _threshold(threshold),
-  _maximum(2 * bv_size - threshold - 1)
-{
-  if (threshold > bv_size / 2 - 1) {
-    std::ostringstream stream;
-    stream << "FourPeaks::FourPeaks: _threshold must be <= " << bv_size / 2 - 1;
-    throw std::runtime_error(stream.str());
-  }
 }
 
 double FourPeaks::evaluate(const bit_vector_t& bv)
@@ -80,6 +87,13 @@ SixPeaks::SixPeaks(int bv_size, int threshold):
     stream << "SixPeaks::SixPeaks: _threshold must be <= " << bv_size / 2 - 1;
     throw std::runtime_error(stream.str());
   }
+}
+
+void
+SixPeaks::display(std::ostream& stream) const
+{
+  Function::display(stream);
+  stream << "SixPeaks" << std::endl;
 }
 
 double SixPeaks::evaluate(const bit_vector_t& bv)

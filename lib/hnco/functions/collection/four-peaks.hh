@@ -86,6 +86,8 @@ public:
    * @return 2 * _bv_size - _threshold - 1
    */
   double get_maximum() const override { return _maximum; }
+  /// Display
+  void display(std::ostream& stream) const override;
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t&) override;
 };
@@ -152,6 +154,8 @@ public:
    * @return 2 * _bv_size - _threshold - 1
    */
   double get_maximum() const override { return _maximum; }
+  /// Display
+  void display(std::ostream& stream) const override;
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t&) override;
 };
