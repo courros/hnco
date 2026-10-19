@@ -18,41 +18,34 @@
 
 */
 
-#include <sstream>
-#include <string>
-
-#include "hnco/exception.hh"
-
 #include "four-peaks.hh"
 
+#include <sstream>              // std::ostringstream
 
-using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco;
 
-
-inline int head(const bit_vector_t& x, bit_t b)
+inline int head(const bit_vector_t& bv, bit_t b)
 {
   int count = 0;
-  bit_vector_t::const_iterator iter = x.begin();
-  while (iter != x.end() && *iter == b) {
+  bit_vector_t::const_iterator iter = bv.begin();
+  while (iter != bv.end() && *iter == b) {
     count++;
     iter++;
   }
   return count;
 }
 
-inline int tail(const bit_vector_t& x, bit_t b)
+inline int tail(const bit_vector_t& bv, bit_t b)
 {
   int count = 0;
-  bit_vector_t::const_reverse_iterator iter = x.rbegin();
-  while (iter != x.rend() && *iter == b) {
+  bit_vector_t::const_reverse_iterator iter = bv.rbegin();
+  while (iter != bv.rend() && *iter == b) {
     count++;
     iter++;
   }
   return count;
 }
-
 
 FourPeaks::FourPeaks(int bv_size, int threshold):
   _bv_size(bv_size),
@@ -66,17 +59,16 @@ FourPeaks::FourPeaks(int bv_size, int threshold):
   }
 }
 
-double FourPeaks::evaluate(const bit_vector_t& x)
+double FourPeaks::evaluate(const bit_vector_t& bv)
 {
-  int h1 = head(x, 1);
-  int t0 = tail(x, 0);
+  int h1 = head(bv, 1);
+  int t0 = tail(bv, 0);
   int result = std::max(h1, t0);
   if (h1 > _threshold && t0 > _threshold)
-    return result + x.size();
+    return result + bv.size();
   else
     return result;
 }
-
 
 SixPeaks::SixPeaks(int bv_size, int threshold):
   _bv_size(bv_size),
@@ -90,16 +82,16 @@ SixPeaks::SixPeaks(int bv_size, int threshold):
   }
 }
 
-double SixPeaks::evaluate(const bit_vector_t& x)
+double SixPeaks::evaluate(const bit_vector_t& bv)
 {
-  int h0 = head(x, 0);
-  int h1 = head(x, 1);
-  int t0 = tail(x, 0);
-  int t1 = tail(x, 1);
+  int h0 = head(bv, 0);
+  int h1 = head(bv, 1);
+  int t0 = tail(bv, 0);
+  int t1 = tail(bv, 1);
   int result = std::max({h0, h1, t0, t1});
   if ((h0 > _threshold && t1 > _threshold) ||
       (h1 > _threshold && t0 > _threshold))
-    return result + x.size();
+    return result + bv.size();
   else
     return result;
 }
