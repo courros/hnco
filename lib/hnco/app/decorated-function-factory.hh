@@ -59,7 +59,7 @@ public:
   hnco::function::Function *make_modified_function();
   /**
    * Make a controlled function.
-   * @param Uncontrolled function
+   * @param function Uncontrolled function
    */
   hnco::function::Function *make_controlled_function(hnco::function::Function *function);
   /// Get map
