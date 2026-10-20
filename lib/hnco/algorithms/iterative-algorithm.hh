@@ -23,99 +23,80 @@
 
 #include "algorithm.hh"
 
-
 namespace hnco {
 namespace algorithm {
 
-
 /// Iterative search
 class IterativeAlgorithm: public Algorithm {
-
 protected:
-
   /// Current iteration
   int _iteration;
-
   /// Last iteration
   bool _last_iteration = false;
-
   /// Something to log
   bool _something_to_log = false;
-
-  /** @name Parameters
+  /**
+   * @name Parameters
    */
   ///@{
-
   /// Number of iterations
   int _num_iterations = 0;
-
   ///@}
-
-  /** @name Loop
+  /**
+   * @name Loop
    */
   ///@{
-
   /// Initialize
   virtual void init() {}
-
   /// Single iteration
   virtual void iterate() = 0;
-
   /// Log
   virtual void log() {}
-
-  /** Loop.
-
-      Calls init() then enter the main loop which, at each iteration,
-      calls iterate() then log() only if _something_to_log is true.
-  */
+  /**
+   * Loop.
+   * - Initialize _last_iteration to false.
+   * - Call init().
+   * - Enter the loop.
+   *
+   * At each iteration, unless _last_iteration is true:
+   * - Call iterate().
+   * - Call log() if _something_to_log is true.
+   */
   virtual void loop() final;
-
   ///@}
 
-
 public:
-
-  /** Constructor.
-
-      \param n Size of bit vectors
-  */
+  /**
+   * Constructor.
+   * @param n Size of bit vectors
+   */
   IterativeAlgorithm(int n)
     : Algorithm(n)
   {}
-
-  /** @name Optimization
+  /**
+   * @name Optimization
    */
   ///@{
-
-  /** Maximize.
-
-      Calls set_functions() then loop.
-  */
+  /**
+   * Maximize.
+   * Calls set_functions() then loop.
+   */
   void maximize(const std::vector<function::Function *>& functions) override;
-
   ///@}
-
   /**
    * @name Setters
    */
   ///@{
-
   /**
    * Set the number of iterations.
-   *
    * @param n Number of iterations
    * @warning n <= 0 means indefinite
    */
   void set_num_iterations(int n) { _num_iterations = n; }
-
   ///@}
-
 };
-
 
 } // end of namespace algorithm
 } // end of namespace hnco
-
 
 #endif
