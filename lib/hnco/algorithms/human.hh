@@ -23,47 +23,39 @@
 
 #include "hnco/algorithms/iterative-algorithm.hh"
 
-
 namespace hnco {
 namespace algorithm {
 
-
 /// %Human
 class Human: public IterativeAlgorithm {
-
-protected:
-
+private:
   /// Candidate
   bit_vector_t _candidate;
-
-  /// Parse bit vector
-  void parse_bit_vector();
-
-  /** @name Loop
+  /**
+   * Parse bit vector
+   * @return true if the user has entered a valid bit vector, false if
+   * the user has entered the keyword "quit"
+   */
+  bool parse_bit_vector();
+  /**
+   * @name Loop
    */
   ///@{
-
   /// Initialize
   void init() override;
-
   /// Single iteration
   void iterate() override;
-
   ///@}
 
 public:
-
   /// Constructor
   Human(int n)
     : IterativeAlgorithm(n)
     , _candidate(n)
   {}
-
 };
-
 
 } // end of namespace algorithm
 } // end of namespace hnco
-
 
 #endif
