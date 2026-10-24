@@ -18,23 +18,20 @@
 
 */
 
-#include <assert.h>
-
-#include <iostream>
-#include <string>
-#include <sstream>
-
-#include "hnco/exception.hh"
-#include "hnco/random.hh"
-
 #include "max-sat.hh"
 
-using namespace hnco::exception;
+#include "hnco/random.hh"
+
+#include <iostream>
+#include <sstream>
+#include <fstream>              // std:ifstream, std::ofstream
+
+#include <cassert>
+
 using namespace hnco::function;
 using namespace hnco::random;
 
-
-void
+static void
 eat_white(std::istringstream& stream)
 {
   if (stream.eof())
@@ -48,18 +45,20 @@ eat_white(std::istringstream& stream)
     stream.putback(c);
 }
 
-
-bool
+static bool
 has_next_variable(std::istringstream& stream)
 {
   eat_white(stream);
   return stream.good();
 }
 
-
 void
-AbstractMaxSat::load_(std::istream& stream)
+AbstractMaxSat::load(std::string path)
 {
+  std::ifstream stream(path);
+  if (!stream.good())
+    throw std::runtime_error("AbstractMaxSat::load: Cannot open " + path);
+
   _expression.clear();
   _num_variables = 0;
 
@@ -148,10 +147,13 @@ AbstractMaxSat::load_(std::istream& stream)
   _expression.shrink_to_fit();
 }
 
-
 void
-AbstractMaxSat::save_(std::ostream& stream) const
+AbstractMaxSat::save(std::string path) const
 {
+  std::ofstream stream(path);
+  if (!stream.good())
+    throw std::runtime_error("AbstractMaxSat::save: Cannot open " + path);
+
   stream
     << "c HNCO AbstractMaxSat::save" << std::endl
     << "p cnf " << _num_variables << " " << _expression.size() << std::endl;
@@ -163,10 +165,11 @@ AbstractMaxSat::save_(std::ostream& stream) const
   }
 }
 
-
 void
 AbstractMaxSat::display(std::ostream& stream) const
 {
+  Function::display(stream);
+  stream << "AbstractMaxSat:" << std::endl;
   for (size_t i = 0; i < _expression.size(); i++) {
     if (i > 0)
       stream << " ^ ";
@@ -183,8 +186,15 @@ AbstractMaxSat::display(std::ostream& stream) const
     }
     stream << ")";
   }
+  stream << std::endl;
 }
 
+void
+MaxSat::display(std::ostream& stream) const
+{
+  AbstractMaxSat::display(stream);
+  stream << "MaxSat" << std::endl;
+}
 
 void
 MaxSat::random(int n, int k, int c)
@@ -212,7 +222,6 @@ MaxSat::random(int n, int k, int c)
     assert(count == bv_hamming_weight(x));
   }
 }
-
 
 void
 MaxSat::random(const bit_vector_t& solution, int k, int c)
@@ -257,17 +266,16 @@ MaxSat::random(const bit_vector_t& solution, int k, int c)
   assert(evaluate(solution) == double(_expression.size()));
 }
 
-
 double
-MaxSat::evaluate(const bit_vector_t& x)
+MaxSat::evaluate(const bit_vector_t& bv)
 {
   double result = 0;
 
   for (size_t i = 0; i < _expression.size(); i++) {
     for (size_t j = 0; j < _expression[i].size(); j++) {
       int lit = _expression[i][j];
-      if ((lit > 0 && (x[lit - 1] == 1)) ||
-          (lit < 0 && (x[-lit - 1] == 0))) {
+      if ((lit > 0 && (bv[lit - 1] == 1)) ||
+          (lit < 0 && (bv[-lit - 1] == 0))) {
         result++;
         break;
       }
@@ -277,9 +285,24 @@ MaxSat::evaluate(const bit_vector_t& x)
   return result;
 }
 
+void
+MaxNae3Sat::load(std::string path)
+{
+  AbstractMaxSat::load(path);
+  for (auto& clause: _expression)
+    if (clause.size() != 3)
+      throw std::runtime_error("MaxNae3Sat::load: All clauses must have exactly 3 literals");
+}
+
+void
+MaxNae3Sat::display(std::ostream& stream) const
+{
+  AbstractMaxSat::display(stream);
+  stream << "MaxNae3Sat" << std::endl;
+}
 
 double
-MaxNae3Sat::evaluate(const bit_vector_t& x)
+MaxNae3Sat::evaluate(const bit_vector_t& bv)
 {
   double result = 0;
 
@@ -287,8 +310,8 @@ MaxNae3Sat::evaluate(const bit_vector_t& x)
     int num_true_literals = 0;
     for (size_t j = 0; j < clause.size(); j++) {
       int literal = clause[j];
-      if ((literal > 0 && (x[literal - 1] == 1)) ||
-          (literal < 0 && (x[-literal - 1] == 0))) {
+      if ((literal > 0 && (bv[literal - 1] == 1)) ||
+          (literal < 0 && (bv[-literal - 1] == 0))) {
         num_true_literals++;
       }
     }
