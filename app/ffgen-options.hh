@@ -28,8 +28,6 @@ class FfgenOptions {
     OPTION_LIN_GENERATOR,
     OPTION_LIN_INITIAL_WEIGHT,
     OPTION_LIN_RATIO,
-    OPTION_MS_NUM_CLAUSES,
-    OPTION_MS_NUM_LITERALS_PER_CLAUSE,
     OPTION_NK_K,
     OPTION_NN1_GENERATOR,
     OPTION_NN2_GENERATOR,
@@ -37,14 +35,16 @@ class FfgenOptions {
     OPTION_NN2_NUM_ROWS,
     OPTION_PART_UPPER_BOUND,
     OPTION_PATH,
+    OPTION_SAT_NUM_CLAUSES,
+    OPTION_SAT_NUM_LITERALS_PER_CLAUSE,
     OPTION_SEED,
     OPTION_STDDEV,
     OPTION_SUDOKU_NUM_EMPTY_CELLS,
     OPTION_WALSH2_GENERATOR,
     OPTION_WALSH2_ISING_ALPHA,
     OPTION_WALSH_NUM_FEATURES,
-    OPTION_MS_PLANTED_SOLUTION,
-    OPTION_PERIODIC_BOUNDARY_CONDITIONS
+    OPTION_PERIODIC_BOUNDARY_CONDITIONS,
+    OPTION_SAT_PLANTED_SOLUTION
   };
 
   /// Size of bit vectors
@@ -83,14 +83,6 @@ class FfgenOptions {
   double _lin_ratio = 2;
   bool _with_lin_ratio = false;
 
-  /// Number of clauses
-  int _ms_num_clauses = 100;
-  bool _with_ms_num_clauses = false;
-
-  /// Number of literals per clause
-  int _ms_num_literals_per_clause = 3;
-  bool _with_ms_num_literals_per_clause = false;
-
   /// Each bit is connected to k other bits
   int _nk_k = 3;
   bool _with_nk_k = false;
@@ -119,6 +111,14 @@ class FfgenOptions {
   std::string _path = "function.txt";
   bool _with_path = false;
 
+  /// Number of clauses
+  int _sat_num_clauses = 100;
+  bool _with_sat_num_clauses = false;
+
+  /// Number of literals per clause
+  int _sat_num_literals_per_clause = 3;
+  bool _with_sat_num_literals_per_clause = false;
+
   /// Seed for the random number generator
   int _seed;
   bool _with_seed = false;
@@ -143,11 +143,11 @@ class FfgenOptions {
   int _walsh_num_features = 100;
   bool _with_walsh_num_features = false;
 
-  /// Generate an instance with a planted solution
-  bool _ms_planted_solution = false;
-
   /// Periodic boundary conditions
   bool _periodic_boundary_conditions = false;
+
+  /// Generate an instance with a planted solution
+  bool _sat_planted_solution = false;
 
   /// Print help message
   void print_help(std::ostream& stream) const;
@@ -217,18 +217,6 @@ public:
   /// With parameter lin_ratio
   bool with_lin_ratio() const { return _with_lin_ratio; }
 
-  /// Get the value of ms_num_clauses
-  int get_ms_num_clauses() const { return _ms_num_clauses; }
-
-  /// With parameter ms_num_clauses
-  bool with_ms_num_clauses() const { return _with_ms_num_clauses; }
-
-  /// Get the value of ms_num_literals_per_clause
-  int get_ms_num_literals_per_clause() const { return _ms_num_literals_per_clause; }
-
-  /// With parameter ms_num_literals_per_clause
-  bool with_ms_num_literals_per_clause() const { return _with_ms_num_literals_per_clause; }
-
   /// Get the value of nk_k
   int get_nk_k() const { return _nk_k; }
 
@@ -271,6 +259,18 @@ public:
   /// With parameter path
   bool with_path() const { return _with_path; }
 
+  /// Get the value of sat_num_clauses
+  int get_sat_num_clauses() const { return _sat_num_clauses; }
+
+  /// With parameter sat_num_clauses
+  bool with_sat_num_clauses() const { return _with_sat_num_clauses; }
+
+  /// Get the value of sat_num_literals_per_clause
+  int get_sat_num_literals_per_clause() const { return _sat_num_literals_per_clause; }
+
+  /// With parameter sat_num_literals_per_clause
+  bool with_sat_num_literals_per_clause() const { return _with_sat_num_literals_per_clause; }
+
   /// Get the value of seed
   int get_seed() const {
     if (_with_seed)
@@ -312,11 +312,11 @@ public:
   /// With parameter walsh_num_features
   bool with_walsh_num_features() const { return _with_walsh_num_features; }
 
-  /// With the flag ms_planted_solution
-  bool with_ms_planted_solution() const { return _ms_planted_solution; }
-
   /// With the flag periodic_boundary_conditions
   bool with_periodic_boundary_conditions() const { return _periodic_boundary_conditions; }
+
+  /// With the flag sat_planted_solution
+  bool with_sat_planted_solution() const { return _sat_planted_solution; }
 
   friend std::ostream& operator<<(std::ostream&, const FfgenOptions&);
 };

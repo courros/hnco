@@ -42,7 +42,7 @@
         },
 
         {
-            "id": "ms",
+            "id": "sat",
             "title": "Max-SAT",
             "fold": false
         },
@@ -91,7 +91,7 @@
 
     ],
 
-    "order": [ "gen", "param", "lin", "nk", "ms", "ep", "part", "walsh", "walsh2", "nn1", "nn2", "sudoku" ],
+    "order": [ "gen", "param", "lin", "nk", "sat", "ep", "part", "walsh", "walsh2", "nn1", "nn2", "sudoku" ],
 
     "flags": {
 
@@ -101,10 +101,10 @@
             "section": "param"
         },
 
-        "ms_planted_solution":
+        "sat_planted_solution":
         {
             "description": "Generate an instance with a planted solution",
-            "section": "ms"
+            "section": "sat"
         }
 
     },
@@ -289,20 +289,20 @@
             "section": "nk"
         },
 
-        "ms_num_literals_per_clause":
+        "sat_num_literals_per_clause":
         {
             "type": "int",
             "default": 3,
             "description": "Number of literals per clause",
-            "section": "ms"
+            "section": "sat"
         },
 
-        "ms_num_clauses":
+        "sat_num_clauses":
         {
             "type": "int",
             "default": 100,
             "description": "Number of clauses",
-            "section": "ms"
+            "section": "sat"
         },
 
         "ep_upper_bound":

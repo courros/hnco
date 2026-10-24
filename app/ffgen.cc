@@ -214,16 +214,16 @@ void generate_function(FfgenOptions& options)
 
   case 70: {
     MaxSat instance;
-    if (options.with_ms_planted_solution()) {
+    if (options.with_sat_planted_solution()) {
       bit_vector_t solution(options.get_bv_size());
       bv_random(solution);
       instance.random(solution,
-                      options.get_ms_num_literals_per_clause(),
-                      options.get_ms_num_clauses());
+                      options.get_sat_num_literals_per_clause(),
+                      options.get_sat_num_clauses());
     } else {
       instance.random(options.get_bv_size(),
-                      options.get_ms_num_literals_per_clause(),
-                      options.get_ms_num_clauses());
+                      options.get_sat_num_literals_per_clause(),
+                      options.get_sat_num_clauses());
     }
     std::cout << "Writing MaxSat to " << options.get_path() << " ... ";
     instance.save(options.get_path());

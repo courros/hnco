@@ -20,8 +20,6 @@ FfgenOptions::FfgenOptions(int argc, char *argv[], bool ignore_bad_options):
     {"lin-generator", required_argument, 0, OPTION_LIN_GENERATOR},
     {"lin-initial-weight", required_argument, 0, OPTION_LIN_INITIAL_WEIGHT},
     {"lin-ratio", required_argument, 0, OPTION_LIN_RATIO},
-    {"ms-num-clauses", required_argument, 0, OPTION_MS_NUM_CLAUSES},
-    {"ms-num-literals-per-clause", required_argument, 0, OPTION_MS_NUM_LITERALS_PER_CLAUSE},
     {"nk-k", required_argument, 0, OPTION_NK_K},
     {"nn1-generator", required_argument, 0, OPTION_NN1_GENERATOR},
     {"nn2-generator", required_argument, 0, OPTION_NN2_GENERATOR},
@@ -29,14 +27,16 @@ FfgenOptions::FfgenOptions(int argc, char *argv[], bool ignore_bad_options):
     {"nn2-num-rows", required_argument, 0, OPTION_NN2_NUM_ROWS},
     {"part-upper-bound", required_argument, 0, OPTION_PART_UPPER_BOUND},
     {"path", required_argument, 0, OPTION_PATH},
+    {"sat-num-clauses", required_argument, 0, OPTION_SAT_NUM_CLAUSES},
+    {"sat-num-literals-per-clause", required_argument, 0, OPTION_SAT_NUM_LITERALS_PER_CLAUSE},
     {"seed", required_argument, 0, OPTION_SEED},
     {"stddev", required_argument, 0, OPTION_STDDEV},
     {"sudoku-num-empty-cells", required_argument, 0, OPTION_SUDOKU_NUM_EMPTY_CELLS},
     {"walsh2-generator", required_argument, 0, OPTION_WALSH2_GENERATOR},
     {"walsh2-ising-alpha", required_argument, 0, OPTION_WALSH2_ISING_ALPHA},
     {"walsh-num-features", required_argument, 0, OPTION_WALSH_NUM_FEATURES},
-    {"ms-planted-solution", no_argument, 0, OPTION_MS_PLANTED_SOLUTION},
     {"periodic-boundary-conditions", no_argument, 0, OPTION_PERIODIC_BOUNDARY_CONDITIONS},
+    {"sat-planted-solution", no_argument, 0, OPTION_SAT_PLANTED_SOLUTION},
     {"version", no_argument, 0, OPTION_VERSION},
     {"help", no_argument, 0, OPTION_HELP},
     {0, no_argument, 0, 0}
@@ -95,16 +95,6 @@ FfgenOptions::FfgenOptions(int argc, char *argv[], bool ignore_bad_options):
       _lin_ratio = std::atof(optarg);
       break;
 
-    case OPTION_MS_NUM_CLAUSES:
-      _with_ms_num_clauses = true;
-      _ms_num_clauses = std::atoi(optarg);
-      break;
-
-    case OPTION_MS_NUM_LITERALS_PER_CLAUSE:
-      _with_ms_num_literals_per_clause = true;
-      _ms_num_literals_per_clause = std::atoi(optarg);
-      break;
-
     case OPTION_NK_K:
       _with_nk_k = true;
       _nk_k = std::atoi(optarg);
@@ -141,6 +131,16 @@ FfgenOptions::FfgenOptions(int argc, char *argv[], bool ignore_bad_options):
       _path = std::string(optarg);
       break;
 
+    case OPTION_SAT_NUM_CLAUSES:
+      _with_sat_num_clauses = true;
+      _sat_num_clauses = std::atoi(optarg);
+      break;
+
+    case OPTION_SAT_NUM_LITERALS_PER_CLAUSE:
+      _with_sat_num_literals_per_clause = true;
+      _sat_num_literals_per_clause = std::atoi(optarg);
+      break;
+
     case OPTION_SEED:
       _with_seed = true;
       _seed = std::atoi(optarg);
@@ -171,12 +171,12 @@ FfgenOptions::FfgenOptions(int argc, char *argv[], bool ignore_bad_options):
       _walsh_num_features = std::atoi(optarg);
       break;
 
-    case OPTION_MS_PLANTED_SOLUTION:
-      _ms_planted_solution = true;
-      break;
-
     case OPTION_PERIODIC_BOUNDARY_CONDITIONS:
       _periodic_boundary_conditions = true;
+      break;
+
+    case OPTION_SAT_PLANTED_SOLUTION:
+      _sat_planted_solution = true;
       break;
 
     case OPTION_HELP:
@@ -249,11 +249,11 @@ void FfgenOptions::print_help(std::ostream& stream) const
   stream << "          Each bit is connected to k other bits" << std::endl;
   stream << std::endl;
   stream << "Max-SAT" << std::endl;
-  stream << "      --ms-num-clauses (type int, default to 100)" << std::endl;
+  stream << "      --sat-num-clauses (type int, default to 100)" << std::endl;
   stream << "          Number of clauses" << std::endl;
-  stream << "      --ms-num-literals-per-clause (type int, default to 3)" << std::endl;
+  stream << "      --sat-num-literals-per-clause (type int, default to 3)" << std::endl;
   stream << "          Number of literals per clause" << std::endl;
-  stream << "      --ms-planted-solution" << std::endl;
+  stream << "      --sat-planted-solution" << std::endl;
   stream << "          Generate an instance with a planted solution" << std::endl;
   stream << std::endl;
   stream << "Equal Products" << std::endl;
@@ -319,8 +319,6 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const FfgenOptions& op
   stream << "# lin_generator = " << options._lin_generator << std::endl;
   stream << "# lin_initial_weight = " << options._lin_initial_weight << std::endl;
   stream << "# lin_ratio = " << options._lin_ratio << std::endl;
-  stream << "# ms_num_clauses = " << options._ms_num_clauses << std::endl;
-  stream << "# ms_num_literals_per_clause = " << options._ms_num_literals_per_clause << std::endl;
   stream << "# nk_k = " << options._nk_k << std::endl;
   stream << "# nn1_generator = " << options._nn1_generator << std::endl;
   stream << "# nn2_generator = " << options._nn2_generator << std::endl;
@@ -328,6 +326,8 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const FfgenOptions& op
   stream << "# nn2_num_rows = " << options._nn2_num_rows << std::endl;
   stream << "# part_upper_bound = " << options._part_upper_bound << std::endl;
   stream << "# path = \"" << options._path << "\"" << std::endl;
+  stream << "# sat_num_clauses = " << options._sat_num_clauses << std::endl;
+  stream << "# sat_num_literals_per_clause = " << options._sat_num_literals_per_clause << std::endl;
   if (options._with_seed)
     stream << "# seed = " << options._seed << std::endl;
   stream << "# stddev = " << options._stddev << std::endl;
@@ -335,10 +335,10 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const FfgenOptions& op
   stream << "# walsh2_generator = " << options._walsh2_generator << std::endl;
   stream << "# walsh2_ising_alpha = " << options._walsh2_ising_alpha << std::endl;
   stream << "# walsh_num_features = " << options._walsh_num_features << std::endl;
-  if (options._ms_planted_solution)
-    stream << "# ms_planted_solution " << std::endl;
   if (options._periodic_boundary_conditions)
     stream << "# periodic_boundary_conditions " << std::endl;
+  if (options._sat_planted_solution)
+    stream << "# sat_planted_solution " << std::endl;
   stream << "# last_parameter" << std::endl;
   stream << "# exec_name = " << options._exec_name << std::endl;
   stream << "# version = " << options._version << std::endl;
