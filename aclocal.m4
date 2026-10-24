@@ -1,6 +1,6 @@
-# generated automatically by aclocal 1.17 -*- Autoconf -*-
+# generated automatically by aclocal 1.18.1 -*- Autoconf -*-
 
-# Copyright (C) 1996-2024 Free Software Foundation, Inc.
+# Copyright (C) 1996-2025 Free Software Foundation, Inc.
 
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -32,7 +32,7 @@ To do so, use the procedure documented by the package, typically 'autoreconf'.])
 #
 #   Test for the Boost C++ libraries of a particular version (or newer)
 #
-#   If no path to the installed boost library is given the macro searchs
+#   If no path to the installed boost library is given the macro searches
 #   under /usr, /usr/local, /opt, /opt/local and /opt/homebrew and evaluates
 #   the $BOOST_ROOT environment variable. Further documentation is available
 #   at <http://randspringer.de/boost/index.html>.
@@ -55,7 +55,7 @@ To do so, use the procedure documented by the package, typically 'autoreconf'.])
 #   and this notice are preserved. This file is offered as-is, without any
 #   warranty.
 
-#serial 51
+#serial 55
 
 # example boost program (need to pass version)
 m4_define([_AX_BOOST_BASE_PROGRAM],
@@ -136,7 +136,7 @@ AC_DEFUN([_AX_BOOST_BASE_RUNDETECT],[
     AS_CASE([${host_cpu}],
       [x86_64],[libsubdirs="lib64 libx32 lib lib64"],
       [mips*64*],[libsubdirs="lib64 lib32 lib lib64"],
-      [ppc64|powerpc64|s390x|sparc64|aarch64|ppc64le|powerpc64le|riscv64|e2k],[libsubdirs="lib64 lib lib64"],
+      [ppc64|powerpc64|s390x|sparc64|aarch64|ppc64le|powerpc64le|riscv64|e2k|loongarch64],[libsubdirs="lib64 lib lib64"],
       [libsubdirs="lib"]
     )
 
@@ -311,6 +311,8 @@ AC_DEFUN([_AX_BOOST_BASE_RUNDETECT],[
         else
             AC_MSG_NOTICE([Your boost libraries seems to old (version $_version).])
         fi
+        BOOST_LDFLAGS=""
+        BOOST_CPPFLAGS=""
         # execute ACTION-IF-NOT-FOUND (if present):
         ifelse([$3], , :, [$3])
     else
@@ -455,8 +457,8 @@ AC_DEFUN([AX_BOOST_SERIALIZATION],
 #
 #   Check for baseline language coverage in the compiler for the specified
 #   version of the C++ standard.  If necessary, add switches to CXX and
-#   CXXCPP to enable support.  VERSION may be '11', '14', '17', or '20' for
-#   the respective C++ standard version.
+#   CXXCPP to enable support.  VERSION may be '11', '14', '17', '20', or
+#   '23' for the respective C++ standard version.
 #
 #   The second argument, if specified, indicates whether you insist on an
 #   extended mode (e.g. -std=gnu++11) or a strict conformance mode (e.g.
@@ -482,13 +484,14 @@ AC_DEFUN([AX_BOOST_SERIALIZATION],
 #   Copyright (c) 2019 Enji Cooper <yaneurabeya@gmail.com>
 #   Copyright (c) 2020 Jason Merrill <jason@redhat.com>
 #   Copyright (c) 2021 Jörn Heusipp <osmanx@problemloesungsmaschine.de>
+#   Copyright (c) 2015, 2022, 2023, 2024 Olly Betts
 #
 #   Copying and distribution of this file, with or without modification, are
 #   permitted in any medium without royalty provided the copyright notice
 #   and this notice are preserved.  This file is offered as-is, without any
 #   warranty.
 
-#serial 15
+#serial 23
 
 dnl  This macro is based on the code from the AX_CXX_COMPILE_STDCXX_11 macro
 dnl  (serial version number 13).
@@ -498,6 +501,7 @@ AC_DEFUN([AX_CXX_COMPILE_STDCXX], [dnl
         [$1], [14], [ax_cxx_compile_alternatives="14 1y"],
         [$1], [17], [ax_cxx_compile_alternatives="17 1z"],
         [$1], [20], [ax_cxx_compile_alternatives="20"],
+        [$1], [23], [ax_cxx_compile_alternatives="23"],
         [m4_fatal([invalid first argument `$1' to AX_CXX_COMPILE_STDCXX])])dnl
   m4_if([$2], [], [],
         [$2], [ext], [],
@@ -520,7 +524,7 @@ AC_DEFUN([AX_CXX_COMPILE_STDCXX], [dnl
       ac_success=yes
     fi])
 
-  m4_if([$2], [noext], [], [dnl
+  m4_if([$2], [noext], [dnl
   if test x$ac_success = xno; then
     for alternative in ${ax_cxx_compile_alternatives}; do
       switch="-std=gnu++${alternative}"
@@ -544,14 +548,23 @@ AC_DEFUN([AX_CXX_COMPILE_STDCXX], [dnl
     done
   fi])
 
-  m4_if([$2], [ext], [], [dnl
+  m4_if([$2], [ext], [dnl
   if test x$ac_success = xno; then
     dnl HP's aCC needs +std=c++11 according to:
     dnl http://h21007.www2.hp.com/portal/download/files/unprot/aCxx/PDF_Release_Notes/769149-001.pdf
     dnl Cray's crayCC needs "-h std=c++11"
+    dnl MSVC needs -std:c++NN for C++17 and later (default is C++14)
     for alternative in ${ax_cxx_compile_alternatives}; do
-      for switch in -std=c++${alternative} +std=c++${alternative} "-h std=c++${alternative}"; do
-        cachevar=AS_TR_SH([ax_cv_cxx_compile_cxx$1_$switch])
+      for switch in -std=c++${alternative} +std=c++${alternative} "-h std=c++${alternative}" MSVC; do
+        if test x"$switch" = xMSVC; then
+          dnl AS_TR_SH maps both `:` and `=` to `_` so -std:c++17 would collide
+          dnl with -std=c++17.  We suffix the cache variable name with _MSVC to
+          dnl avoid this.
+          switch=-std:c++${alternative}
+          cachevar=AS_TR_SH([ax_cv_cxx_compile_cxx$1_${switch}_MSVC])
+        else
+          cachevar=AS_TR_SH([ax_cv_cxx_compile_cxx$1_$switch])
+        fi
         AC_CACHE_CHECK(whether $CXX supports C++$1 features with $switch,
                        $cachevar,
           [ac_save_CXX="$CXX"
@@ -595,31 +608,41 @@ AC_DEFUN([AX_CXX_COMPILE_STDCXX], [dnl
 dnl  Test body for checking C++11 support
 
 m4_define([_AX_CXX_COMPILE_STDCXX_testbody_11],
-  _AX_CXX_COMPILE_STDCXX_testbody_new_in_11
+  [_AX_CXX_COMPILE_STDCXX_testbody_new_in_11]
 )
 
 dnl  Test body for checking C++14 support
 
 m4_define([_AX_CXX_COMPILE_STDCXX_testbody_14],
-  _AX_CXX_COMPILE_STDCXX_testbody_new_in_11
-  _AX_CXX_COMPILE_STDCXX_testbody_new_in_14
+  [_AX_CXX_COMPILE_STDCXX_testbody_new_in_11
+   _AX_CXX_COMPILE_STDCXX_testbody_new_in_14]
 )
 
 dnl  Test body for checking C++17 support
 
 m4_define([_AX_CXX_COMPILE_STDCXX_testbody_17],
-  _AX_CXX_COMPILE_STDCXX_testbody_new_in_11
-  _AX_CXX_COMPILE_STDCXX_testbody_new_in_14
-  _AX_CXX_COMPILE_STDCXX_testbody_new_in_17
+  [_AX_CXX_COMPILE_STDCXX_testbody_new_in_11
+   _AX_CXX_COMPILE_STDCXX_testbody_new_in_14
+   _AX_CXX_COMPILE_STDCXX_testbody_new_in_17]
 )
 
 dnl  Test body for checking C++20 support
 
 m4_define([_AX_CXX_COMPILE_STDCXX_testbody_20],
+  [_AX_CXX_COMPILE_STDCXX_testbody_new_in_11
+   _AX_CXX_COMPILE_STDCXX_testbody_new_in_14
+   _AX_CXX_COMPILE_STDCXX_testbody_new_in_17
+   _AX_CXX_COMPILE_STDCXX_testbody_new_in_20]
+)
+
+dnl  Test body for checking C++23 support
+
+m4_define([_AX_CXX_COMPILE_STDCXX_testbody_23],
   _AX_CXX_COMPILE_STDCXX_testbody_new_in_11
   _AX_CXX_COMPILE_STDCXX_testbody_new_in_14
   _AX_CXX_COMPILE_STDCXX_testbody_new_in_17
   _AX_CXX_COMPILE_STDCXX_testbody_new_in_20
+  _AX_CXX_COMPILE_STDCXX_testbody_new_in_23
 )
 
 
@@ -637,7 +660,17 @@ m4_define([_AX_CXX_COMPILE_STDCXX_testbody_new_in_11], [[
 // MSVC always sets __cplusplus to 199711L in older versions; newer versions
 // only set it correctly if /Zc:__cplusplus is specified as well as a
 // /std:c++NN switch:
+//
 // https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/
+//
+// The value __cplusplus ought to have is available in _MSVC_LANG since
+// Visual Studio 2015 Update 3:
+//
+// https://learn.microsoft.com/en-us/cpp/preprocessor/predefined-macros
+//
+// This was also the first MSVC version to support C++14 so we can't use the
+// value of either __cplusplus or _MSVC_LANG to quickly rule out MSVC having
+// C++11 or C++14 support, but we can check _MSVC_LANG for C++17 and later.
 #elif __cplusplus < 201103L && !defined _MSC_VER
 
 #error "This is not a C++11 compiler"
@@ -1053,7 +1086,7 @@ m4_define([_AX_CXX_COMPILE_STDCXX_testbody_new_in_17], [[
 
 #error "This is not a C++ compiler"
 
-#elif __cplusplus < 201703L && !defined _MSC_VER
+#elif (defined _MSVC_LANG ? _MSVC_LANG : __cplusplus) < 201703L
 
 #error "This is not a C++17 compiler"
 
@@ -1419,7 +1452,7 @@ namespace cxx17
 
 }  // namespace cxx17
 
-#endif  // __cplusplus < 201703L && !defined _MSC_VER
+#endif  // (defined _MSVC_LANG ? _MSVC_LANG : __cplusplus) < 201703L
 
 ]])
 
@@ -1432,7 +1465,7 @@ m4_define([_AX_CXX_COMPILE_STDCXX_testbody_new_in_20], [[
 
 #error "This is not a C++ compiler"
 
-#elif __cplusplus < 202002L && !defined _MSC_VER
+#elif (defined _MSVC_LANG ? _MSVC_LANG : __cplusplus) < 202002L
 
 #error "This is not a C++20 compiler"
 
@@ -1449,7 +1482,37 @@ namespace cxx20
 
 }  // namespace cxx20
 
-#endif  // __cplusplus < 202002L && !defined _MSC_VER
+#endif  // (defined _MSVC_LANG ? _MSVC_LANG : __cplusplus) < 202002L
+
+]])
+
+
+dnl  Tests for new features in C++23
+
+m4_define([_AX_CXX_COMPILE_STDCXX_testbody_new_in_23], [[
+
+#ifndef __cplusplus
+
+#error "This is not a C++ compiler"
+
+#elif (defined _MSVC_LANG ? _MSVC_LANG : __cplusplus) < 202302L
+
+#error "This is not a C++23 compiler"
+
+#else
+
+#include <version>
+
+namespace cxx23
+{
+
+// As C++23 supports feature test macros in the standard, there is no
+// immediate need to actually test for feature availability on the
+// Autoconf side.
+
+}  // namespace cxx23
+
+#endif  // (defined _MSVC_LANG ? _MSVC_LANG : __cplusplus) < 202302L
 
 ]])
 
@@ -1490,7 +1553,7 @@ AX_REQUIRE_DEFINED([AX_CXX_COMPILE_STDCXX])
 AC_DEFUN([AX_CXX_COMPILE_STDCXX_17], [AX_CXX_COMPILE_STDCXX([17], [$1], [$2])])
 
 # pkg.m4 - Macros to locate and use pkg-config.   -*- Autoconf -*-
-# serial 12 (pkg-config-0.29.2)
+# serial 13 (pkgconf)
 
 dnl Copyright © 2004 Scott James Remnant <scott@netsplit.com>.
 dnl Copyright © 2012-2015 Dan Nicholson <dbn.lists@gmail.com>
@@ -1506,9 +1569,7 @@ dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 dnl General Public License for more details.
 dnl
 dnl You should have received a copy of the GNU General Public License
-dnl along with this program; if not, write to the Free Software
-dnl Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
-dnl 02111-1307, USA.
+dnl along with this program; if not, see <https://www.gnu.org/licenses/>.
 dnl
 dnl As a special exception to the GNU General Public License, if you
 dnl distribute this file as part of a program that contains a
@@ -1537,8 +1598,8 @@ m4_if(m4_version_compare(PKG_MACROS_VERSION, [$1]), -1,
     [m4_fatal([pkg.m4 version $1 or higher is required but ]PKG_MACROS_VERSION[ found])])
 ])dnl PKG_PREREQ
 
-dnl PKG_PROG_PKG_CONFIG([MIN-VERSION])
-dnl ----------------------------------
+dnl PKG_PROG_PKG_CONFIG([MIN-VERSION], [ACTION-IF-NOT-FOUND])
+dnl ---------------------------------------------------------
 dnl Since: 0.16
 dnl
 dnl Search for the pkg-config tool and set the PKG_CONFIG variable to
@@ -1546,6 +1607,12 @@ dnl first found in the path. Checks that the version of pkg-config found
 dnl is at least MIN-VERSION. If MIN-VERSION is not specified, 0.9.0 is
 dnl used since that's the first version where most current features of
 dnl pkg-config existed.
+dnl
+dnl If pkg-config is not found or older than specified, it will result
+dnl in an empty PKG_CONFIG variable. To avoid widespread issues with
+dnl scripts not checking it, ACTION-IF-NOT-FOUND defaults to aborting.
+dnl You can specify [PKG_CONFIG=false] as an action instead, which would
+dnl result in pkg-config tests failing, but no bogus error messages.
 AC_DEFUN([PKG_PROG_PKG_CONFIG],
 [m4_pattern_forbid([^_?PKG_[A-Z_]+$])
 m4_pattern_allow([^PKG_CONFIG(_(PATH|LIBDIR|SYSROOT_DIR|ALLOW_SYSTEM_(CFLAGS|LIBS)))?$])
@@ -1566,6 +1633,9 @@ if test -n "$PKG_CONFIG"; then
 		AC_MSG_RESULT([no])
 		PKG_CONFIG=""
 	fi
+fi
+if test -z "$PKG_CONFIG"; then
+	m4_default([$2], [AC_MSG_ERROR([pkg-config not found])])
 fi[]dnl
 ])dnl PKG_PROG_PKG_CONFIG
 
@@ -1833,7 +1903,7 @@ AS_IF([test "$AS_TR_SH([with_]m4_tolower([$1]))" = "yes"],
         [AC_DEFINE([HAVE_][$1], 1, [Enable ]m4_tolower([$1])[ support])])
 ])dnl PKG_HAVE_DEFINE_WITH_MODULES
 
-# Copyright (C) 2002-2024 Free Software Foundation, Inc.
+# Copyright (C) 2002-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -1845,10 +1915,10 @@ AS_IF([test "$AS_TR_SH([with_]m4_tolower([$1]))" = "yes"],
 # generated from the m4 files accompanying Automake X.Y.
 # (This private macro should not be called outside this file.)
 AC_DEFUN([AM_AUTOMAKE_VERSION],
-[am__api_version='1.17'
+[am__api_version='1.18'
 dnl Some users find AM_AUTOMAKE_VERSION and mistake it for a way to
 dnl require some minimum version.  Point them to the right macro.
-m4_if([$1], [1.17], [],
+m4_if([$1], [1.18.1], [],
       [AC_FATAL([Do not call $0, use AM_INIT_AUTOMAKE([$1]).])])dnl
 ])
 
@@ -1864,14 +1934,14 @@ m4_define([_AM_AUTOCONF_VERSION], [])
 # Call AM_AUTOMAKE_VERSION and AM_AUTOMAKE_VERSION so they can be traced.
 # This function is AC_REQUIREd by AM_INIT_AUTOMAKE.
 AC_DEFUN([AM_SET_CURRENT_AUTOMAKE_VERSION],
-[AM_AUTOMAKE_VERSION([1.17])dnl
+[AM_AUTOMAKE_VERSION([1.18.1])dnl
 m4_ifndef([AC_AUTOCONF_VERSION],
   [m4_copy([m4_PACKAGE_VERSION], [AC_AUTOCONF_VERSION])])dnl
 _AM_AUTOCONF_VERSION(m4_defn([AC_AUTOCONF_VERSION]))])
 
 # AM_AUX_DIR_EXPAND                                         -*- Autoconf -*-
 
-# Copyright (C) 2001-2024 Free Software Foundation, Inc.
+# Copyright (C) 2001-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -1923,7 +1993,7 @@ am_aux_dir=`cd "$ac_aux_dir" && pwd`
 
 # AM_CONDITIONAL                                            -*- Autoconf -*-
 
-# Copyright (C) 1997-2024 Free Software Foundation, Inc.
+# Copyright (C) 1997-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -1954,7 +2024,7 @@ AC_CONFIG_COMMANDS_PRE(
 Usually this means the macro was only invoked conditionally.]])
 fi])])
 
-# Copyright (C) 1999-2024 Free Software Foundation, Inc.
+# Copyright (C) 1999-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2145,7 +2215,7 @@ _AM_SUBST_NOTMAKE([am__nodep])dnl
 
 # Generate code to set up dependency tracking.              -*- Autoconf -*-
 
-# Copyright (C) 1999-2024 Free Software Foundation, Inc.
+# Copyright (C) 1999-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2213,7 +2283,7 @@ AC_DEFUN([AM_OUTPUT_DEPENDENCY_COMMANDS],
 
 # Do all the work for Automake.                             -*- Autoconf -*-
 
-# Copyright (C) 1996-2024 Free Software Foundation, Inc.
+# Copyright (C) 1996-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2313,8 +2383,9 @@ AC_REQUIRE([AC_PROG_AWK])dnl
 AC_REQUIRE([AC_PROG_MAKE_SET])dnl
 AC_REQUIRE([AM_SET_LEADING_DOT])dnl
 _AM_IF_OPTION([tar-ustar], [_AM_PROG_TAR([ustar])],
-	      [_AM_IF_OPTION([tar-pax], [_AM_PROG_TAR([pax])],
-			     [_AM_PROG_TAR([v7])])])
+  [_AM_IF_OPTION([tar-pax], [_AM_PROG_TAR([pax])],
+    [_AM_IF_OPTION([tar-v7], [_AM_PROG_TAR([v7])],
+      [_AM_PROG_TAR([ustar])])])])
 _AM_IF_OPTION([no-dependencies],,
 [AC_PROVIDE_IFELSE([AC_PROG_CC],
 		  [_AM_DEPENDENCIES([CC])],
@@ -2390,7 +2461,7 @@ for _am_header in $config_headers :; do
 done
 echo "timestamp for $_am_arg" >`AS_DIRNAME(["$_am_arg"])`/stamp-h[]$_am_stamp_count])
 
-# Copyright (C) 2001-2024 Free Software Foundation, Inc.
+# Copyright (C) 2001-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2411,7 +2482,7 @@ if test x"${install_sh+set}" != xset; then
 fi
 AC_SUBST([install_sh])])
 
-# Copyright (C) 2003-2024 Free Software Foundation, Inc.
+# Copyright (C) 2003-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2432,7 +2503,7 @@ AC_SUBST([am__leading_dot])])
 
 # Check to see how 'make' treats includes.	            -*- Autoconf -*-
 
-# Copyright (C) 2001-2024 Free Software Foundation, Inc.
+# Copyright (C) 2001-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2475,7 +2546,7 @@ AC_SUBST([am__quote])])
 
 # Fake the existence of programs that GNU maintainers use.  -*- Autoconf -*-
 
-# Copyright (C) 1997-2024 Free Software Foundation, Inc.
+# Copyright (C) 1997-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2509,7 +2580,7 @@ fi
 
 # Helper functions for option handling.                     -*- Autoconf -*-
 
-# Copyright (C) 2001-2024 Free Software Foundation, Inc.
+# Copyright (C) 2001-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2538,7 +2609,7 @@ AC_DEFUN([_AM_SET_OPTIONS],
 AC_DEFUN([_AM_IF_OPTION],
 [m4_ifset(_AM_MANGLE_OPTION([$1]), [$2], [$3])])
 
-# Copyright (C) 1999-2024 Free Software Foundation, Inc.
+# Copyright (C) 1999-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2570,7 +2641,10 @@ AC_CACHE_CHECK(
       break
     fi
   done
-  rm -f core conftest*
+  # aligned with autoconf, so not including core; see bug#72225.
+  rm -f -r a.out a.exe b.out conftest.$ac_ext conftest.$ac_objext \
+    conftest.dSYM conftest1.$ac_ext conftest1.$ac_objext conftest1.dSYM \
+    conftest2.$ac_ext conftest2.$ac_objext conftest2.dSYM
   unset am_i])
 if test "$am_cv_prog_cc_c_o" != yes; then
    # Losing compiler, so override with the script.
@@ -2585,7 +2659,7 @@ AC_LANG_POP([C])])
 # For backward compatibility.
 AC_DEFUN_ONCE([AM_PROG_CC_C_O], [AC_REQUIRE([AC_PROG_CC])])
 
-# Copyright (C) 1999-2024 Free Software Foundation, Inc.
+# Copyright (C) 1999-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2955,7 +3029,7 @@ for i in list(range(0, 4)): minverhex = (minverhex << 8) + minver[[i]]
 sys.exit(sys.hexversion < minverhex)"
   AS_IF([AM_RUN_LOG([$1 -c "$prog"])], [$3], [$4])])
 
-# Copyright (C) 2022-2024 Free Software Foundation, Inc.
+# Copyright (C) 2022-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2971,7 +3045,7 @@ AS_IF([(rm -f && rm -fr && rm -rf) 2>/dev/null], [], [am__rm_f_notfound='""'])
 AC_SUBST(am__rm_f_notfound)
 ])
 
-# Copyright (C) 2001-2024 Free Software Foundation, Inc.
+# Copyright (C) 2001-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2990,7 +3064,7 @@ AC_DEFUN([AM_RUN_LOG],
 
 # Check to make sure that the build environment is sane.    -*- Autoconf -*-
 
-# Copyright (C) 1996-2024 Free Software Foundation, Inc.
+# Copyright (C) 1996-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -3159,10 +3233,12 @@ am_lf='
 '
 case `pwd` in
   *[[\\\"\#\$\&\'\`$am_lf]]*)
+    AC_MSG_RESULT([no])
     AC_MSG_ERROR([unsafe absolute working directory name]);;
 esac
 case $srcdir in
   *[[\\\"\#\$\&\'\`$am_lf\ \	]]*)
+    AC_MSG_RESULT([no])
     AC_MSG_ERROR([unsafe srcdir value: '$srcdir']);;
 esac
 
@@ -3215,7 +3291,7 @@ AC_CONFIG_COMMANDS_PRE(
 rm -f conftest.file
 ])
 
-# Copyright (C) 2009-2024 Free Software Foundation, Inc.
+# Copyright (C) 2009-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -3284,9 +3360,13 @@ fi
 # empty being verbose).
 AC_DEFUN([AM_SILENT_RULES],
 [AC_REQUIRE([_AM_SILENT_RULES])
-AM_DEFAULT_VERBOSITY=m4_if([$1], [yes], [0], [1])])
+AM_DEFAULT_VERBOSITY=m4_if([$1], [yes], [0], [1])m4_newline
+dnl We intentionally force a newline after the assignment, since a) nothing
+dnl good can come of more text following, and b) that was the behavior
+dnl before 1.17. See https://bugs.gnu.org/72267.
+])
 
-# Copyright (C) 2001-2024 Free Software Foundation, Inc.
+# Copyright (C) 2001-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -3314,7 +3394,7 @@ fi
 INSTALL_STRIP_PROGRAM="\$(install_sh) -c -s"
 AC_SUBST([INSTALL_STRIP_PROGRAM])])
 
-# Copyright (C) 2006-2024 Free Software Foundation, Inc.
+# Copyright (C) 2006-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -3333,7 +3413,7 @@ AC_DEFUN([AM_SUBST_NOTMAKE], [_AM_SUBST_NOTMAKE($@)])
 
 # Check how to create a tarball.                            -*- Autoconf -*-
 
-# Copyright (C) 2004-2024 Free Software Foundation, Inc.
+# Copyright (C) 2004-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -3468,7 +3548,7 @@ AC_SUBST([am__tar])
 AC_SUBST([am__untar])
 ]) # _AM_PROG_TAR
 
-# Copyright (C) 2022-2024 Free Software Foundation, Inc.
+# Copyright (C) 2022-2025 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
