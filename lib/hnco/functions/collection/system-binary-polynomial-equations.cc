@@ -25,11 +25,14 @@
 #include <sstream>
 #include <iosfwd>
 #include <fstream>              // std:ifstream, std::ofstream
+#include <algorithm>            // std::sort
+
+#include "hnco/app/parser.hh"   // hnco::app::split_string
+#include "hnco/random.hh"
 
 #include "system-binary-polynomial-equations.hh"
 
-#include "hnco/random.hh"
-
+using namespace hnco::app;
 using namespace hnco::function;
 using namespace hnco::random;
 
@@ -39,9 +42,6 @@ SystemBinaryPolynomialEquations::load(std::string path)
   std::ifstream stream(path);
   if (!stream.good())
     throw std::runtime_error("SystemBinaryPolynomialEquations::load: Cannot open " + path);
-
-  // Count variables
-  _num_variables = 0;
 
   while (!stream.eof()) {
     std::string line;
@@ -54,6 +54,10 @@ SystemBinaryPolynomialEquations::load(std::string path)
     if (line[0] == '#')
       continue;
 
+    // split at +
+    auto term_strs = split_string(line, "+");
+
+    // split at space
   }
 
 }
@@ -70,17 +74,77 @@ SystemBinaryPolynomialEquations::save(std::string path) const
 void
 SystemBinaryPolynomialEquations::display(std::ostream& stream) const
 {
+  Function::display(stream);
+  stream << "SystemBinaryPolynomialEquations" << std::endl;
+  for (auto& equation : _system) {
+    for (auto& term : equation) {
+      if (term.size() == 0)
+        stream << "1";
+      else {
+        for (auto variable : term) {
+          stream << _variable_names[variable] << " ";
+        }
+      }
+      stream << " + ";
+    }
+    stream << "= 0" << std::endl;
+  }
+}
 
+static
+void
+random_subset(std::vector<int>& subset, int n, int k)
+{
+  assert(k >= 0);
+  assert(k <= n);
+
+  for (int i = 0; i < n; i++) {
+    if (k > 0) {
+      assert(n > 0);
+      double p = double(k) / double(n);
+      if (Generator::uniform() < p) {
+        subset.push_back(i);
+        k--;
+      }
+      n--;
+    }
+  }
 }
 
 void
-SystemBinaryPolynomialEquations::random(int n, int d, int t)
+SystemBinaryPolynomialEquations::random(int num_variables, int num_equations, int degree, int num_terms_max)
 {
-  assert(n > 0);
-  assert(d > 0);
-  assert(t > 0);
+  assert(num_variables > 0);
+  assert(num_equations > 0);
+  assert(degree > 0);
+  assert(num_terms_max > 0);
 
-  _num_variables = n;
+  degree = std::min(degree, num_variables);
+
+  bit_vector_t is_used(num_variables, 0);
+
+  for (int j = 0; j < num_equations; j++) {
+    equation_t equation;
+    std::uniform_int_distribution<int> num_terms_dist(1, num_terms_max);
+    int num_terms = num_terms_dist(Generator::engine);
+    for (int t = 0; t < num_terms; t++) {
+      std::uniform_int_distribution<int> d_dist(0, degree);
+      int d = d_dist(Generator::engine);
+      term_t term;
+      random_subset(term, num_variables, d);
+      equation.push_back(term);
+      // If only a single term, it must not be the constant 1
+      for (auto i : term)
+        is_used[i] = 1;
+      std::sort(begin(term), end(term));
+    }
+    // sort by decreasing degree
+    _system.push_back(equation);
+  }
+
+  _variable_names.resize(num_variables);
+  for (int i = 0; i < num_variables; i++)
+    _variable_names[i] = "x" + std::to_string(i + 1);
 }
 
 double

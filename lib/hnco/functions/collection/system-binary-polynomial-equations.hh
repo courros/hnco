@@ -29,24 +29,30 @@ namespace function {
 /// System of binary polynomial equations
 class SystemBinaryPolynomialEquations : public Function {
 private:
-  /// Number of variables
-  int _num_variables;
-  /// Equations
-  std::vector<std::vector<std::vector<int>>> _equations;
+  /// Term type
+  using term_t = std::vector<int>;
+  /// Equation type
+  using equation_t = std::vector<term_t>;
+  /// System type
+  using system_t = std::vector<equation_t>;
+  /// System
+  system_t _system;
+  /// Variable names
+  std::vector<std::string> _variable_names;
 
 public:
   /// Default constructor
-  SystemBinaryPolynomialEquations():
-    _num_variables(0) {}
+  SystemBinaryPolynomialEquations() {}
   /**
    * Random instance.
-   * @param n Number of variables
-   * @param d Degree
-   * @param t Maximum number of terms
+   * @param num_variables Number of variables
+   * @param num_equations Number of equations
+   * @param degree Degree
+   * @param num_terms_max Maximum number of terms
    */
-  void random(int n, int d, int t);
+  void random(int num_variables, int num_equations, int degree, int num_terms_max);
   /// Get bit vector size
-  int get_bv_size() const override { return _num_variables; }
+  int get_bv_size() const override { return _variable_names.size(); }
 
   /**
    * @name IO
