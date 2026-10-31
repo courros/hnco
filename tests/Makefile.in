@@ -161,6 +161,7 @@ check_PROGRAMS = test-bm-add-columns$(EXEEXT) \
 	test-serialize-nn-ising-2$(EXEEXT) \
 	test-serialize-partition$(EXEEXT) \
 	test-serialize-permutation$(EXEEXT) \
+	test-serialize-system-binary-polynomial-equations$(EXEEXT) \
 	test-serialize-translation$(EXEEXT) \
 	test-serialize-ts-affine-map$(EXEEXT) \
 	test-serialize-walsh-expansion$(EXEEXT) \
@@ -543,6 +544,12 @@ test_serialize_permutation_OBJECTS =  \
 	$(am_test_serialize_permutation_OBJECTS)
 test_serialize_permutation_LDADD = $(LDADD)
 test_serialize_permutation_DEPENDENCIES = ../lib/libhnco.la
+am_test_serialize_system_binary_polynomial_equations_OBJECTS =  \
+	test-serialize-system-binary-polynomial-equations.$(OBJEXT)
+test_serialize_system_binary_polynomial_equations_OBJECTS = $(am_test_serialize_system_binary_polynomial_equations_OBJECTS)
+test_serialize_system_binary_polynomial_equations_LDADD = $(LDADD)
+test_serialize_system_binary_polynomial_equations_DEPENDENCIES =  \
+	../lib/libhnco.la
 am_test_serialize_translation_OBJECTS =  \
 	test-serialize-translation.$(OBJEXT)
 test_serialize_translation_OBJECTS =  \
@@ -739,6 +746,7 @@ am__depfiles_remade = ./$(DEPDIR)/test-bm-add-columns.Po \
 	./$(DEPDIR)/test-serialize-nn-ising-2.Po \
 	./$(DEPDIR)/test-serialize-partition.Po \
 	./$(DEPDIR)/test-serialize-permutation.Po \
+	./$(DEPDIR)/test-serialize-system-binary-polynomial-equations.Po \
 	./$(DEPDIR)/test-serialize-translation.Po \
 	./$(DEPDIR)/test-serialize-ts-affine-map.Po \
 	./$(DEPDIR)/test-serialize-walsh-expansion-1.Po \
@@ -852,6 +860,7 @@ SOURCES = $(test_bm_add_columns_SOURCES) $(test_bm_add_rows_SOURCES) \
 	$(test_serialize_nn_ising_2_SOURCES) \
 	$(test_serialize_partition_SOURCES) \
 	$(test_serialize_permutation_SOURCES) \
+	$(test_serialize_system_binary_polynomial_equations_SOURCES) \
 	$(test_serialize_translation_SOURCES) \
 	$(test_serialize_ts_affine_map_SOURCES) \
 	$(test_serialize_walsh_expansion_SOURCES) \
@@ -929,6 +938,7 @@ DIST_SOURCES = $(test_bm_add_columns_SOURCES) \
 	$(test_serialize_nn_ising_2_SOURCES) \
 	$(test_serialize_partition_SOURCES) \
 	$(test_serialize_permutation_SOURCES) \
+	$(test_serialize_system_binary_polynomial_equations_SOURCES) \
 	$(test_serialize_translation_SOURCES) \
 	$(test_serialize_ts_affine_map_SOURCES) \
 	$(test_serialize_walsh_expansion_SOURCES) \
@@ -1393,6 +1403,7 @@ test_serialize_nn_ising_1_SOURCES = test-serialize-nn-ising-1.cc
 test_serialize_nn_ising_2_SOURCES = test-serialize-nn-ising-2.cc
 test_serialize_partition_SOURCES = test-serialize-partition.cc
 test_serialize_permutation_SOURCES = test-serialize-permutation.cc
+test_serialize_system_binary_polynomial_equations_SOURCES = test-serialize-system-binary-polynomial-equations.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
 test_serialize_ts_affine_map_SOURCES = test-serialize-ts-affine-map.cc
 test_serialize_walsh_expansion_1_SOURCES = test-serialize-walsh-expansion-1.cc
@@ -1429,6 +1440,7 @@ DISTCLEANFILES = \
 	test-serialize-nn-ising-2.txt \
 	test-serialize-partition.txt \
 	test-serialize-permutation.txt \
+	test-serialize-system-binary-polynomial-equations.txt \
 	test-serialize-translation.txt \
 	test-serialize-ts-affine-map.txt \
 	test-serialize-walsh-expansion-1.txt \
@@ -1717,6 +1729,10 @@ test-serialize-permutation$(EXEEXT): $(test_serialize_permutation_OBJECTS) $(tes
 	@rm -f test-serialize-permutation$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_permutation_OBJECTS) $(test_serialize_permutation_LDADD) $(LIBS)
 
+test-serialize-system-binary-polynomial-equations$(EXEEXT): $(test_serialize_system_binary_polynomial_equations_OBJECTS) $(test_serialize_system_binary_polynomial_equations_DEPENDENCIES) $(EXTRA_test_serialize_system_binary_polynomial_equations_DEPENDENCIES) 
+	@rm -f test-serialize-system-binary-polynomial-equations$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_system_binary_polynomial_equations_OBJECTS) $(test_serialize_system_binary_polynomial_equations_LDADD) $(LIBS)
+
 test-serialize-translation$(EXEEXT): $(test_serialize_translation_OBJECTS) $(test_serialize_translation_DEPENDENCIES) $(EXTRA_test_serialize_translation_DEPENDENCIES) 
 	@rm -f test-serialize-translation$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_serialize_translation_OBJECTS) $(test_serialize_translation_LDADD) $(LIBS)
@@ -1868,6 +1884,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-nn-ising-2.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-partition.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-permutation.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-system-binary-polynomial-equations.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-translation.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-ts-affine-map.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-serialize-walsh-expansion-1.Po@am__quote@ # am--include-marker
@@ -2564,6 +2581,13 @@ test-serialize-permutation.log: test-serialize-permutation$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-serialize-system-binary-polynomial-equations.log: test-serialize-system-binary-polynomial-equations$(EXEEXT)
+	@p='test-serialize-system-binary-polynomial-equations$(EXEEXT)'; \
+	b='test-serialize-system-binary-polynomial-equations'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-serialize-translation.log: test-serialize-translation$(EXEEXT)
 	@p='test-serialize-translation$(EXEEXT)'; \
 	b='test-serialize-translation'; \
@@ -2873,6 +2897,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test-serialize-nn-ising-2.Po
 	-rm -f ./$(DEPDIR)/test-serialize-partition.Po
 	-rm -f ./$(DEPDIR)/test-serialize-permutation.Po
+	-rm -f ./$(DEPDIR)/test-serialize-system-binary-polynomial-equations.Po
 	-rm -f ./$(DEPDIR)/test-serialize-translation.Po
 	-rm -f ./$(DEPDIR)/test-serialize-ts-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-walsh-expansion-1.Po
@@ -3000,6 +3025,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test-serialize-nn-ising-2.Po
 	-rm -f ./$(DEPDIR)/test-serialize-partition.Po
 	-rm -f ./$(DEPDIR)/test-serialize-permutation.Po
+	-rm -f ./$(DEPDIR)/test-serialize-system-binary-polynomial-equations.Po
 	-rm -f ./$(DEPDIR)/test-serialize-translation.Po
 	-rm -f ./$(DEPDIR)/test-serialize-ts-affine-map.Po
 	-rm -f ./$(DEPDIR)/test-serialize-walsh-expansion-1.Po
