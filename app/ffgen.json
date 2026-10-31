@@ -84,6 +84,12 @@
         },
 
         {
+            "id": "sys",
+            "title": "System of binary polynomial equations",
+            "fold": false
+        },
+
+        {
             "id": "sudoku",
             "title": "Sudoku",
             "fold": false
@@ -91,7 +97,7 @@
 
     ],
 
-    "order": [ "gen", "param", "lin", "nk", "ms", "ep", "part", "walsh", "walsh2", "nn1", "nn2", "sudoku" ],
+    "order": [ "gen", "param", "lin", "nk", "ms", "ep", "part", "walsh", "walsh2", "nn1", "nn2", "sys", "sudoku" ],
 
     "flags": {
 
@@ -194,6 +200,11 @@
                 {
                     "value": 172,
                     "description": "Nearest neighbor Ising model in two dimensions"
+                },
+
+                {
+                    "value": 180,
+                    "description": "System of binary polynomial equations"
                 },
 
                 {
@@ -440,6 +451,30 @@
             "default": 10,
             "description": "Number of columns",
             "section": "nn2"
+        },
+
+        "sys_num_equations":
+        {
+            "type": "int",
+            "default": 100,
+            "description": "Number of equations",
+            "section": "sys"
+        },
+
+        "sys_degree":
+        {
+            "type": "int",
+            "default": 2,
+            "description": "Degree",
+            "section": "sys"
+        },
+
+        "sys_num_terms_max":
+        {
+            "type": "int",
+            "default": 100,
+            "description": "Maximum number of terms",
+            "section": "sys"
         },
 
         "sudoku_num_empty_cells":

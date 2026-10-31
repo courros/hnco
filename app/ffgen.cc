@@ -280,6 +280,18 @@ void generate_function(FfgenOptions& options)
     generate_nearest_neighbor_ising_model_2(options);
     break;
 
+  case 180: {
+    SystemBinaryPolynomialEquations instance;
+    instance.random(options.get_bv_size(),
+                    options.get_sys_num_equations(),
+                    options.get_sys_degree(),
+                    options.get_sys_num_terms_max());
+    std::cout << "Writing SystemBinaryPolynomialEquations to " << options.get_path() << " ... ";
+    instance.save(options.get_path());
+    std::cout << "done" << std::endl;
+    break;
+  }
+
   case 190: {
     Sudoku instance;
     instance.random(options.get_sudoku_num_empty_cells());
