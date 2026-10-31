@@ -77,6 +77,7 @@ check_PROGRAMS = \
 	test-serialize-nn-ising-2 \
 	test-serialize-partition \
 	test-serialize-permutation \
+	test-serialize-system-binary-polynomial-equations \
 	test-serialize-translation \
 	test-serialize-ts-affine-map \
 	test-serialize-walsh-expansion \
@@ -170,6 +171,7 @@ test_serialize_nn_ising_1_SOURCES = test-serialize-nn-ising-1.cc
 test_serialize_nn_ising_2_SOURCES = test-serialize-nn-ising-2.cc
 test_serialize_partition_SOURCES = test-serialize-partition.cc
 test_serialize_permutation_SOURCES = test-serialize-permutation.cc
+test_serialize_system_binary_polynomial_equations_SOURCES = test-serialize-system-binary-polynomial-equations.cc
 test_serialize_translation_SOURCES = test-serialize-translation.cc
 test_serialize_ts_affine_map_SOURCES = test-serialize-ts-affine-map.cc
 test_serialize_walsh_expansion_1_SOURCES = test-serialize-walsh-expansion-1.cc
@@ -208,6 +210,7 @@ DISTCLEANFILES = \
 	test-serialize-nn-ising-2.txt \
 	test-serialize-partition.txt \
 	test-serialize-permutation.txt \
+	test-serialize-system-binary-polynomial-equations.txt \
 	test-serialize-translation.txt \
 	test-serialize-ts-affine-map.txt \
 	test-serialize-walsh-expansion-1.txt \

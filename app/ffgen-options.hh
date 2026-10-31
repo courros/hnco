@@ -40,6 +40,9 @@ class FfgenOptions {
     OPTION_SEED,
     OPTION_STDDEV,
     OPTION_SUDOKU_NUM_EMPTY_CELLS,
+    OPTION_SYS_DEGREE,
+    OPTION_SYS_NUM_EQUATIONS,
+    OPTION_SYS_NUM_TERMS_MAX,
     OPTION_WALSH2_GENERATOR,
     OPTION_WALSH2_ISING_ALPHA,
     OPTION_WALSH_NUM_FEATURES,
@@ -130,6 +133,18 @@ class FfgenOptions {
   /// Number of empty cells
   int _sudoku_num_empty_cells = 10;
   bool _with_sudoku_num_empty_cells = false;
+
+  /// Degree
+  int _sys_degree = 2;
+  bool _with_sys_degree = false;
+
+  /// Number of equations
+  int _sys_num_equations = 100;
+  bool _with_sys_num_equations = false;
+
+  /// Maximum number of terms
+  int _sys_num_terms_max = 100;
+  bool _with_sys_num_terms_max = false;
 
   /// Type of WalshExpansion2 generator
   int _walsh2_generator = 0;
@@ -293,6 +308,24 @@ public:
 
   /// With parameter sudoku_num_empty_cells
   bool with_sudoku_num_empty_cells() const { return _with_sudoku_num_empty_cells; }
+
+  /// Get the value of sys_degree
+  int get_sys_degree() const { return _sys_degree; }
+
+  /// With parameter sys_degree
+  bool with_sys_degree() const { return _with_sys_degree; }
+
+  /// Get the value of sys_num_equations
+  int get_sys_num_equations() const { return _sys_num_equations; }
+
+  /// With parameter sys_num_equations
+  bool with_sys_num_equations() const { return _with_sys_num_equations; }
+
+  /// Get the value of sys_num_terms_max
+  int get_sys_num_terms_max() const { return _sys_num_terms_max; }
+
+  /// With parameter sys_num_terms_max
+  bool with_sys_num_terms_max() const { return _with_sys_num_terms_max; }
 
   /// Get the value of walsh2_generator
   int get_walsh2_generator() const { return _walsh2_generator; }

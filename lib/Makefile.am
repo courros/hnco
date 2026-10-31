@@ -228,6 +228,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/collection/qubo.hh \
 	hnco/functions/collection/sudoku.cc \
 	hnco/functions/collection/sudoku.hh \
+	hnco/functions/collection/system-binary-polynomial-equations.cc \
+	hnco/functions/collection/system-binary-polynomial-equations.hh \
 	hnco/functions/collection/theory.cc \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.cc \
@@ -459,6 +461,7 @@ nobase_include_HEADERS = \
 	hnco/functions/collection/partition.hh \
 	hnco/functions/collection/qubo.hh \
 	hnco/functions/collection/sudoku.hh \
+	hnco/functions/collection/system-binary-polynomial-equations.hh \
 	hnco/functions/collection/theory.hh \
 	hnco/functions/collection/trap.hh \
 	hnco/functions/collection/tsp.hh \

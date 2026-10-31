@@ -29,7 +29,7 @@ Library features:
 - 28 builtin algorithms (EAs...)
 - Support for multiobjective optimization
 - Python bindings
-- 82 unit tests
+- 83 unit tests
 
 Purposes:
 

@@ -625,6 +625,11 @@
                 },
 
                 {
+                    "value": 180,
+                    "description": "System of binary polynomial equations"
+                },
+
+                {
                     "value": 190,
                     "description": "Sudoku"
                 },

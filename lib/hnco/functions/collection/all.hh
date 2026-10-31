@@ -35,6 +35,7 @@
 #include "partition.hh"
 #include "qubo.hh"
 #include "sudoku.hh"
+#include "system-binary-polynomial-equations.hh"
 #include "theory.hh"
 #include "trap.hh"
 #include "tsp.hh"

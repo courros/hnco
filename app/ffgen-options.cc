@@ -32,6 +32,9 @@ FfgenOptions::FfgenOptions(int argc, char *argv[], bool ignore_bad_options):
     {"seed", required_argument, 0, OPTION_SEED},
     {"stddev", required_argument, 0, OPTION_STDDEV},
     {"sudoku-num-empty-cells", required_argument, 0, OPTION_SUDOKU_NUM_EMPTY_CELLS},
+    {"sys-degree", required_argument, 0, OPTION_SYS_DEGREE},
+    {"sys-num-equations", required_argument, 0, OPTION_SYS_NUM_EQUATIONS},
+    {"sys-num-terms-max", required_argument, 0, OPTION_SYS_NUM_TERMS_MAX},
     {"walsh2-generator", required_argument, 0, OPTION_WALSH2_GENERATOR},
     {"walsh2-ising-alpha", required_argument, 0, OPTION_WALSH2_ISING_ALPHA},
     {"walsh-num-features", required_argument, 0, OPTION_WALSH_NUM_FEATURES},
@@ -156,6 +159,21 @@ FfgenOptions::FfgenOptions(int argc, char *argv[], bool ignore_bad_options):
       _sudoku_num_empty_cells = std::atoi(optarg);
       break;
 
+    case OPTION_SYS_DEGREE:
+      _with_sys_degree = true;
+      _sys_degree = std::atoi(optarg);
+      break;
+
+    case OPTION_SYS_NUM_EQUATIONS:
+      _with_sys_num_equations = true;
+      _sys_num_equations = std::atoi(optarg);
+      break;
+
+    case OPTION_SYS_NUM_TERMS_MAX:
+      _with_sys_num_terms_max = true;
+      _sys_num_terms_max = std::atoi(optarg);
+      break;
+
     case OPTION_WALSH2_GENERATOR:
       _with_walsh2_generator = true;
       _walsh2_generator = std::atoi(optarg);
@@ -215,6 +233,7 @@ void FfgenOptions::print_help(std::ostream& stream) const
   stream << "            162: Walsh expansion of degree 2" << std::endl;
   stream << "            171: Nearest neighbor Ising model in one dimension" << std::endl;
   stream << "            172: Nearest neighbor Ising model in two dimensions" << std::endl;
+  stream << "            180: System of binary polynomial equations" << std::endl;
   stream << "            190: Sudoku" << std::endl;
   stream << "  -p, --path (type string, default to \"function.txt\")" << std::endl;
   stream << "          Path (relative or absolute) of a function file" << std::endl;
@@ -296,6 +315,14 @@ void FfgenOptions::print_help(std::ostream& stream) const
   stream << "      --nn2-num-rows (type int, default to 10)" << std::endl;
   stream << "          Number of rows" << std::endl;
   stream << std::endl;
+  stream << "System of binary polynomial equations" << std::endl;
+  stream << "      --sys-degree (type int, default to 2)" << std::endl;
+  stream << "          Degree" << std::endl;
+  stream << "      --sys-num-equations (type int, default to 100)" << std::endl;
+  stream << "          Number of equations" << std::endl;
+  stream << "      --sys-num-terms-max (type int, default to 100)" << std::endl;
+  stream << "          Maximum number of terms" << std::endl;
+  stream << std::endl;
   stream << "Sudoku" << std::endl;
   stream << "      --sudoku-num-empty-cells (type int, default to 10)" << std::endl;
   stream << "          Number of empty cells" << std::endl;
@@ -332,6 +359,9 @@ std::ostream& hnco::app::operator<<(std::ostream& stream, const FfgenOptions& op
     stream << "# seed = " << options._seed << std::endl;
   stream << "# stddev = " << options._stddev << std::endl;
   stream << "# sudoku_num_empty_cells = " << options._sudoku_num_empty_cells << std::endl;
+  stream << "# sys_degree = " << options._sys_degree << std::endl;
+  stream << "# sys_num_equations = " << options._sys_num_equations << std::endl;
+  stream << "# sys_num_terms_max = " << options._sys_num_terms_max << std::endl;
   stream << "# walsh2_generator = " << options._walsh2_generator << std::endl;
   stream << "# walsh2_ising_alpha = " << options._walsh2_ising_alpha << std::endl;
   stream << "# walsh_num_features = " << options._walsh_num_features << std::endl;

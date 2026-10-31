@@ -8,6 +8,7 @@ Library:
 - DecoratedFunctionFactory: renamed make_function_modifier -> make_modified_function
 - DecoratedFunctionFactory: renamed make_function_controller -> make_controlled_function
 - make_map: handle case map_translation_bv
+- Added class Function::SystemBinaryPolynomialEquations
 
 hnco:
 - Renamed flag concrete_solution -> map_solution
@@ -17,6 +18,9 @@ hnco:
 
 mapgen:
 - Updated warning messages
+
+ffgen:
+- Added SystemBinaryPolynomialEquations function with number 180
 
 
 * Version 0.26 (2024-12-04)
