@@ -39,6 +39,11 @@ private:
   system_t _system;
   /// Variable names
   std::vector<std::string> _variable_names;
+  /// Is an equation satisfied
+  bit_vector_t _is_satisfied;
+
+  /// Get the degree of the system
+  int get_degree() const;
 
 public:
   /// Default constructor
@@ -60,6 +65,8 @@ public:
   ///@{
   /// Display the expression
   void display(std::ostream& stream) const override;
+  /// Describe a bit vector
+  void describe(const bit_vector_t& bv, std::ostream& stream) override;
   /**
    * Load instance.
    *

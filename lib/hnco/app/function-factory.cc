@@ -200,6 +200,12 @@ CommandLineFunctionFactory::make()
     return instance;
   }
 
+  case 180: {
+    SystemBinaryPolynomialEquations *instance = new SystemBinaryPolynomialEquations;
+    instance->load(_options.get_path());
+    return instance;
+  }
+
   case 190: {
     using Fn = Sudoku;
     using Conv = ScalarToDouble<double>;
