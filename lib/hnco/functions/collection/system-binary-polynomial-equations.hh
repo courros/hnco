@@ -54,6 +54,7 @@ public:
    * @param num_equations Number of equations
    * @param degree Degree
    * @param num_terms_max Maximum number of terms
+   * @pre num_terms_max <= C(num_variables, 0) + C(num_variables, 1) + ... + C(num_variables, degree)
    */
   void random(int num_variables, int num_equations, int degree, int num_terms_max);
   /// Get bit vector size
@@ -71,6 +72,7 @@ public:
    * Load instance.
    *
    * Format:
+   * - The first line contains the ordered list of variables. The system follows.
    * - A line starting with # is a comment.
    * - An empty line is ignored.
    * - One polynomial per line.

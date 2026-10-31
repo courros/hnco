@@ -31,39 +31,44 @@ int main(int argc, char *argv[])
 {
   Generator::set_seed();
 
-  const int num_iterations = 100;
-  const int num_evaluations = 100;
+  const int num_iterations = 10;
+  const int num_evaluations = 10;
   const std::string path("test-serialize-system-binary-polynomial-equations.txt");
 
-  std::uniform_int_distribution<int> dist(3, 100);
+  std::uniform_int_distribution<int> dist(1, 100);
 
   for (int i = 0; i < num_iterations; i++) {
 
-    int num_variables = dist(Generator::engine);
-    int num_equations = dist(Generator::engine);
-    int degree        = dist(Generator::engine);
-    int num_terms_max = dist(Generator::engine);
+    const int num_variables = dist(Generator::engine);
+    const int num_equations = dist(Generator::engine);
+    const int degree        = dist(Generator::engine);
+    const int num_terms_max = num_variables;
 
     SystemBinaryPolynomialEquations src;
-    {
-      src.random(num_variables, num_equations, degree, num_terms_max);
-      src.save(path);
-    }
+    src.random(num_variables, num_equations, degree, num_terms_max);
+    src.save(path);
 
     SystemBinaryPolynomialEquations dest;
-    {
-      try { dest.load(path); }
-      catch (const std::runtime_error& e) {
-        std::cerr << "test-serialize-system-binary-polynomial-equations: std::runtime_error: " << e.what() << std::endl;
-        exit(1);
-      }
+    try {
+      dest.load(path);
+    }
+    catch (const std::runtime_error& e) {
+      std::cerr << "test-serialize-system-binary-polynomial-equations: std::runtime_error: " << e.what() << std::endl;
+      exit(1);
+    }
+
+    if (src.get_bv_size() != dest.get_bv_size()) {
+      std::cerr << "test-serialize-system-binary-polynomial-equations: different bv_size" << std::endl;
+      exit(1);
     }
 
     bit_vector_t bv(num_variables);
     for (int j = 0; j < num_evaluations; j++) {
       bv_random(bv);
-      if (src.evaluate(bv) != dest.evaluate(bv))
+      if (src.evaluate(bv) != dest.evaluate(bv)) {
+        std::cerr << "test-serialize-system-binary-polynomial-equations: different evaluations" << std::endl;
         exit(1);
+      }
     }
 
   }

@@ -37,15 +37,13 @@ using namespace hnco::random;
 
 static
 std::vector<std::string>
-parse_term(std::string str)
+split_items(std::string str)
 {
-  std::vector<std::string> variables;
   std::istringstream stream(str);
-
-  for (std::string variable; stream >> variable;)
-    variables.push_back(variable);
-
-  return variables;
+  std::vector<std::string> items;
+  for (std::string item; stream >> item;)
+    items.push_back(item);
+  return items;
 }
 
 static
@@ -72,62 +70,21 @@ random_subset(std::vector<int>& subset, int n, int k)
 }
 
 void
-SystemBinaryPolynomialEquations::load(std::string path)
-{
-  std::ifstream stream(path);
-  if (!stream.good())
-    throw std::runtime_error("SystemBinaryPolynomialEquations::load: Cannot open " + path);
-
-  _system.clear();
-  _variable_names.clear();
-
-  std::unordered_map<std::string, int> indices;
-
-  while (!stream.eof()) {
-    std::string line;
-    std::getline(stream, line);
-    if (line.empty())
-      continue;
-    // Comment
-    if (line[0] == '#')
-      continue;
-    equation_t equation;
-    auto ts = split_string(line, "+");
-    for (auto t : ts) {
-      term_t term;
-      auto vs = parse_term(t);
-      if (vs.empty())
-        continue;
-      if (!(vs.size() == 1 && vs[0] == "1")) {
-        for (auto v : vs) {
-          if (indices.count(v)) {
-            term.push_back(indices[v]);
-          } else {
-            indices[v] = _variable_names.size();
-            _variable_names.push_back(v);
-            term.push_back(indices[v]);
-          }
-        }
-      }
-      equation.push_back(term);
-    }
-    _system.push_back(equation);
-  }
-
-  _is_satisfied.resize(_system.size());
-}
-
-void
 SystemBinaryPolynomialEquations::save(std::string path) const
 {
   std::ofstream stream(path);
   if (!stream.good())
     throw std::runtime_error("SystemBinaryPolynomialEquations::save: Cannot open " + path);
 
+  for (auto& variable : _variable_names) {
+    stream << variable << " ";
+  }
+  stream << std::endl << std::endl;
+
   for (auto& equation : _system) {
     for (std::size_t j = 0; j < equation.size(); j++) {
       auto& term = equation[j];
-      if (term.size() == 0)
+      if (term.empty())
         stream << "1";
       else {
         for (std::size_t v = 0; v < term.size(); v++) {
@@ -141,6 +98,48 @@ SystemBinaryPolynomialEquations::save(std::string path) const
     }
     stream << std::endl;
   }
+}
+
+void
+SystemBinaryPolynomialEquations::load(std::string path)
+{
+  std::ifstream stream(path);
+  if (!stream.good())
+    throw std::runtime_error("SystemBinaryPolynomialEquations::load: Cannot open " + path);
+
+  std::string line;
+  std::getline(stream, line);
+  _variable_names = split_items(line);
+
+  std::unordered_map<std::string, int> indices;
+  for (std::size_t i = 0; i < _variable_names.size(); i++)
+    indices[_variable_names[i]] = i;
+
+  _system.clear();
+  while (!stream.eof()) {
+    std::getline(stream, line);
+    if (line.empty())
+      continue;
+    // Comment
+    if (line[0] == '#')
+      continue;
+    equation_t equation;
+    auto ts = split_string(line, "+");
+    for (auto t : ts) {
+      term_t term;
+      auto vs = split_items(t);
+      if (vs.empty())
+        continue;
+      if (!(vs.size() == 1 && vs[0] == "1")) {
+        for (auto v : vs)
+          term.push_back(indices[v]);
+      }
+      equation.push_back(term);
+    }
+    _system.push_back(equation);
+  }
+
+  _is_satisfied.resize(_system.size());
 }
 
 int
@@ -168,7 +167,7 @@ SystemBinaryPolynomialEquations::display(std::ostream& stream) const
   for (auto& equation : _system) {
     for (std::size_t j = 0; j < equation.size(); j++) {
       auto& term = equation[j];
-      if (term.size() == 0)
+      if (term.empty())
         stream << "1";
       else {
         for (std::size_t v = 0; v < term.size(); v++) {
@@ -189,14 +188,8 @@ SystemBinaryPolynomialEquations::describe(const bit_vector_t& bv, std::ostream& 
 {
   assert(bv.size() == _variable_names.size());
 
-  permutation_t permutation(bv.size());
-  perm_identity(permutation);
-  std::sort(begin(permutation), end(permutation), [this](int i, int j){ return _variable_names[i] < _variable_names[j]; });
-
-  for (std::size_t i = 0; i < bv.size(); i++) {
-    int index = permutation[i];
-    stream << _variable_names[index] << " = " << int(bv[index]) << std::endl;
-  }
+  for (std::size_t i = 0; i < bv.size(); i++)
+    stream << i << ": " << _variable_names[i] << " = " << int(bv[i]) << std::endl;
 }
 
 void
@@ -212,17 +205,17 @@ SystemBinaryPolynomialEquations::random(int num_variables, int num_equations, in
   bit_vector_t is_used(num_variables, 0);
   std::uniform_int_distribution<int> num_terms_dist(1, num_terms_max);
   std::uniform_int_distribution<int> d_dist(0, degree);
-  term_t term;
 
   for (int j = 0; j < num_equations; j++) {
     equation_t equation;
     int num_terms = num_terms_dist(Generator::engine);
     for (int t = 0; t < num_terms; t++) {
+      term_t term;
       do {
         term.clear();
         random_subset(term, num_variables, d_dist(Generator::engine));
       } while ((std::find(begin(equation), end(equation), term) != equation.end()) || // already sampled
-               (num_terms == 1 && term.size() == 0)); // avoid equation 1 = 0
+               (num_terms == 1 && term.empty())); // avoid equation 1 = 0
       equation.push_back(term);
       for (auto v : term)
         is_used[v] = 1;
@@ -231,6 +224,9 @@ SystemBinaryPolynomialEquations::random(int num_variables, int num_equations, in
     std::sort(begin(equation), end(equation), [](term_t& t1, term_t& t2) { return t1.size() > t2.size(); });
     _system.push_back(equation);
   }
+
+  if (bv_hamming_weight(is_used) != num_variables)
+    std::cerr << "Warning: SystemBinaryPolynomialEquations::random: Unused variables" << std::endl;
 
   _variable_names.resize(num_variables);
   for (int i = 0; i < num_variables; i++)
