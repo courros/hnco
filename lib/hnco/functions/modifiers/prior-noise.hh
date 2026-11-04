@@ -21,81 +21,56 @@
 #ifndef HNCO_FUNCTIONS_MODIFIERS_PRIOR_NOISE_H
 #define HNCO_FUNCTIONS_MODIFIERS_PRIOR_NOISE_H
 
-#include <assert.h>
+#include "modifier.hh"
 
 #include "hnco/neighborhoods/neighborhood.hh"
 
-#include "modifier.hh"
-
+#include <assert.h>
 
 namespace hnco {
 namespace function {
 namespace modifier {
 
-
 /// Prior noise
-class PriorNoise:
-    public Modifier {
-
+class PriorNoise: public Modifier {
   /// Neighborhood
   neighborhood::Neighborhood *_neighborhood;
-
   /// Noisy bit vector
   bit_vector_t _noisy_bv;
 
 public:
-
   /// Constructor
-  PriorNoise(Function *fn, neighborhood::Neighborhood *nh):
-    Modifier(fn),
-    _neighborhood(nh)
+  PriorNoise(Function *fn, neighborhood::Neighborhood *nh)
+    : Modifier(fn)
+    , _neighborhood(nh)
   {
     assert(fn);
     assert(nh);
+
     _noisy_bv.resize(fn->get_bv_size());
   }
 
-  /** @name Information about the function
+  /**
+   * Get the global maximum.
+   * 
+   * Delegation is questionable here.
    */
-  ///@{
-
-  /// Get bit vector size
-  int get_bv_size() const override { return _function->get_bv_size(); }
-
-  /** Get the global maximum.
-
-      Delegation is questionable here.
-  */
   double get_maximum() const override { return _function->get_maximum(); }
 
-  /** Check for a known maximum.
-
-      Delegation is questionable here.
-  */
+  /**
+   * Check for a known maximum.
+   * 
+   * Delegation is questionable here.
+   */
   bool has_known_maximum() const override { return _function->has_known_maximum(); }
 
-  /** Check whether the function provides incremental evaluation.
-      \return false */
-  bool provides_incremental_evaluation() const override { return false; }
-
-  ///@}
-
-
-  /** @name Evaluation
-   */
-  ///@{
-
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t&) override;
-
-  ///@}
+  double evaluate(const bit_vector_t& bv) override;
 
 };
-
 
 } // end of namespace modifier
 } // end of namespace function
 } // end of namespace hnco
-
 
 #endif
