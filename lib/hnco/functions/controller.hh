@@ -36,7 +36,13 @@ namespace function {
 /// Controllers
 namespace controller {
 
-/// Function %controller
+/**
+ * %Function controller.
+ *
+ * %Controller is a decorator class for Function. By default, it
+ * delegates to the controlled function all public member functions of
+ * Function except Function::evaluate_safely and Function::update.
+ */
 class Controller: public Function {
 protected:
   /// Controlled function

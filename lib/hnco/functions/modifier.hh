@@ -35,7 +35,13 @@ namespace function {
 /// Modifiers
 namespace modifier {
 
-/// %Function modifier
+/**
+ * %Function modifier.
+ *
+ * %Modifier is a decorator class for Function. By default, it
+ * delegates the member functions Function::get_bv_size,
+ * Function::display, and Function::describe.
+ */
 class Modifier: public Function {
 protected:
   /// Modified function
