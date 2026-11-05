@@ -170,24 +170,20 @@ public:
 
     _noisy_bv.resize(fn->get_bv_size());
   }
-
   /**
    * Get the global maximum.
    * 
    * Delegation is questionable here.
    */
   double get_maximum() const override { return _function->get_maximum(); }
-
   /**
    * Check for a known maximum.
    * 
    * Delegation is questionable here.
    */
   bool has_known_maximum() const override { return _function->has_known_maximum(); }
-
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t& bv) override;
-
 };
 
 } // end of namespace modifier
