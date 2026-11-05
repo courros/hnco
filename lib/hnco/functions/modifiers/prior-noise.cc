@@ -22,10 +22,3 @@
 
 using namespace hnco::function;
 using namespace hnco::function::modifier;
-
-double
-PriorNoise::evaluate(const bit_vector_t& bv)
-{
-  _neighborhood->map(bv, _noisy_bv);
-  return _function->evaluate(_noisy_bv);
-}

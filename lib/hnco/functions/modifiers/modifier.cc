@@ -76,3 +76,31 @@ AdditiveGaussianNoise::evaluate(const bit_vector_t& bv)
 {
   return _function->evaluate(bv) + _dist(random::Generator::engine);
 }
+
+ParsedModifier::ParsedModifier(Function *function, std::string expression)
+  : Modifier(function)
+{
+  int result = _fparser.Parse(expression, "x");
+  if (result != -1) {
+    std::ostringstream stream;
+    stream
+      << "ParsedModifier::ParsedModifier: " << _fparser.ErrorMsg()
+      << " at position: " << result
+      << " in expression: " << expression;
+    throw std::runtime_error(stream.str());
+  }
+}
+
+double
+ParsedModifier::evaluate(const bit_vector_t& x)
+{
+  _values[0] = _function->evaluate(x);
+  return _fparser.Eval(_values);
+}
+
+double
+PriorNoise::evaluate(const bit_vector_t& bv)
+{
+  _neighborhood->map(bv, _noisy_bv);
+  return _function->evaluate(_noisy_bv);
+}

@@ -23,24 +23,3 @@
 using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::function::modifier;
-
-ParsedModifier::ParsedModifier(Function *function, std::string expression)
-  : Modifier(function)
-{
-  int result = _fparser.Parse(expression, "x");
-  if (result != -1) {
-    std::ostringstream stream;
-    stream
-      << "ParsedModifier::ParsedModifier: " << _fparser.ErrorMsg()
-      << " at position: " << result
-      << " in expression: " << expression;
-    throw std::runtime_error(stream.str());
-  }
-}
-
-double
-ParsedModifier::evaluate(const bit_vector_t& x)
-{
-  _values[0] = _function->evaluate(x);
-  return _fparser.Eval(_values);
-}

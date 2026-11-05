@@ -31,43 +31,6 @@ namespace hnco {
 namespace function {
 namespace modifier {
 
-/// Prior noise
-class PriorNoise: public Modifier {
-  /// Neighborhood
-  neighborhood::Neighborhood *_neighborhood;
-  /// Noisy bit vector
-  bit_vector_t _noisy_bv;
-
-public:
-  /// Constructor
-  PriorNoise(Function *fn, neighborhood::Neighborhood *nh)
-    : Modifier(fn)
-    , _neighborhood(nh)
-  {
-    assert(nh);
-
-    _noisy_bv.resize(fn->get_bv_size());
-  }
-
-  /**
-   * Get the global maximum.
-   * 
-   * Delegation is questionable here.
-   */
-  double get_maximum() const override { return _function->get_maximum(); }
-
-  /**
-   * Check for a known maximum.
-   * 
-   * Delegation is questionable here.
-   */
-  bool has_known_maximum() const override { return _function->has_known_maximum(); }
-
-  /// Evaluate a bit vector
-  double evaluate(const bit_vector_t& bv) override;
-
-};
-
 } // end of namespace modifier
 } // end of namespace function
 } // end of namespace hnco
