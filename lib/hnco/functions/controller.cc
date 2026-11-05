@@ -20,6 +20,7 @@
 
 #include "controller.hh"
 
+#include "hnco/exception.hh"
 #include "hnco/logging/logger.hh"
 
 using namespace hnco;
