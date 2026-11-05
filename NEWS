@@ -16,6 +16,9 @@ Library:
 - Moved all controllers to functions/controller.*
 - Moved all Walsh analysis to functions/walsh.*
 
+Tests:
+- Added test-serialize-system-binary-polynomial-equations
+
 hnco:
 - Renamed flag concrete_solution -> map_solution
 - Added flag help_sol for section Solutions
