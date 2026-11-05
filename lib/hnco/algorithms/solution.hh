@@ -21,14 +21,13 @@
 #ifndef HNCO_ALGORITHMS_SOLUTION_H
 #define HNCO_ALGORITHMS_SOLUTION_H
 
+#include "hnco/bit-vector.hh"
 
 namespace hnco {
 namespace algorithm {
 
-
 /// Type of a solution
 using solution_t = std::pair<bit_vector_t, double>;
-
 
 } // end of namespace algorithm
 } // end of namespace hnco

@@ -35,7 +35,7 @@ namespace function {
 /// Controllers
 namespace controller {
 
-/// Controller
+/// Function %controller
 class Controller: public Function {
 protected:
   Function *_function;
@@ -43,7 +43,9 @@ public:
   /// Constructor
   Controller(Function *function)
     : _function(function)
-  {}
+  {
+    assert(function);
+  }
   /// Get bit vector size
   int get_bv_size() const                                                override { return _function->get_bv_size(); }
   /// Check for a known maximum

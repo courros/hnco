@@ -73,6 +73,15 @@ bool check()
     assert(population_seq.get_bv_size() == n);
     population_seq.random();
 
+    // for (int j = 0; j < population_size; j++) {
+    //   auto& bv = population_seq.bvs[j];
+    //   double value = fns[0]->evaluate(bv);
+    //   for (int k = 1; k < num_threads; k++) {
+    //     if (fns[k]->evaluate(bv) != value)
+    //       return false;
+    //   }
+    // }
+
     Population population_par(population_seq);
     assert(population_par.get_size() == population_size);
     assert(population_par.get_bv_size() == n);
