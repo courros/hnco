@@ -49,7 +49,7 @@ To build and install the Python module for hnco, enter the commands::
 To ensure that Python will find the module, add this line to the
 appropriate startup file of your shell::
 
-  export PYTHONPATH=$HOME/.local/lib/python3.11/site-packages
+  export PYTHONPATH=$HOME/.local/lib/python3.14/site-packages
 
 Installation of Perl scripts is taken care of by the Makefile.
 However, Perl modules are managed separately by ``Makefile.PL``. If
