@@ -521,6 +521,7 @@ private:
 public:
   /// Sampling mode
   struct SamplingMode {
+    /// Sampling mode
     enum mode {
       /// Unconstrained
       unconstrained,
