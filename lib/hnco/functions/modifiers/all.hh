@@ -22,7 +22,5 @@
 #define HNCO_FUNCTIONS_DECORATORS_ALL_H
 
 #include "modifier.hh"
-#include "prior-noise.hh"
-#include "parsed-modifier.hh"
 
 #endif

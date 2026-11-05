@@ -356,18 +356,11 @@ am__libhnco_la_SOURCES_DIST = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/collection/walsh/walsh-expansion-2.hh \
 	hnco/functions/collection/walsh/walsh-expansion.cc \
 	hnco/functions/collection/walsh/walsh-expansion.hh \
-	hnco/functions/controllers/all.hh \
-	hnco/functions/controllers/controller.cc \
-	hnco/functions/controllers/controller.hh \
-	hnco/functions/converter.hh hnco/functions/decorator.hh \
-	hnco/functions/function.cc hnco/functions/function.hh \
-	hnco/functions/modifiers/all.hh \
+	hnco/functions/controller.cc hnco/functions/controller.hh \
+	hnco/functions/converter.hh hnco/functions/function.cc \
+	hnco/functions/function.hh hnco/functions/modifiers/all.hh \
 	hnco/functions/modifiers/modifier.cc \
 	hnco/functions/modifiers/modifier.hh \
-	hnco/functions/modifiers/parsed-modifier.cc \
-	hnco/functions/modifiers/parsed-modifier.hh \
-	hnco/functions/modifiers/prior-noise.cc \
-	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/multiobjective-function-adapter.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
@@ -507,11 +500,8 @@ am_libhnco_la_OBJECTS = fast-efficient-p3/Configuration.lo \
 	hnco/functions/collection/walsh/walsh-expansion-1.lo \
 	hnco/functions/collection/walsh/walsh-expansion-2.lo \
 	hnco/functions/collection/walsh/walsh-expansion.lo \
-	hnco/functions/controllers/controller.lo \
-	hnco/functions/function.lo \
-	hnco/functions/modifiers/modifier.lo \
-	hnco/functions/modifiers/parsed-modifier.lo \
-	hnco/functions/modifiers/prior-noise.lo hnco/iterator.lo \
+	hnco/functions/controller.lo hnco/functions/function.lo \
+	hnco/functions/modifiers/modifier.lo hnco/iterator.lo \
 	hnco/maps/map.lo hnco/maps/transvection.lo \
 	hnco/multiobjective/algorithms/iterative-algorithm.lo \
 	hnco/multiobjective/algorithms/nsga2.lo \
@@ -616,6 +606,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/app/$(DEPDIR)/function-factory.Plo \
 	hnco/app/$(DEPDIR)/hnco-options.Plo \
 	hnco/app/$(DEPDIR)/parser.Plo \
+	hnco/functions/$(DEPDIR)/controller.Plo \
 	hnco/functions/$(DEPDIR)/function.Plo \
 	hnco/functions/collection/$(DEPDIR)/cancellation.Plo \
 	hnco/functions/collection/$(DEPDIR)/equal-products.Plo \
@@ -641,10 +632,7 @@ am__depfiles_remade = fast-efficient-p3/$(DEPDIR)/Configuration.Plo \
 	hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion-1.Plo \
 	hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion-2.Plo \
 	hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion.Plo \
-	hnco/functions/controllers/$(DEPDIR)/controller.Plo \
 	hnco/functions/modifiers/$(DEPDIR)/modifier.Plo \
-	hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo \
-	hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo \
 	hnco/maps/$(DEPDIR)/map.Plo \
 	hnco/maps/$(DEPDIR)/transvection.Plo \
 	hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo \
@@ -807,13 +795,9 @@ am__nobase_include_HEADERS_DIST = fast-efficient-p3/Configuration.h \
 	hnco/functions/collection/walsh/walsh-expansion-1.hh \
 	hnco/functions/collection/walsh/walsh-expansion-2.hh \
 	hnco/functions/collection/walsh/walsh-expansion.hh \
-	hnco/functions/controllers/all.hh \
-	hnco/functions/controllers/controller.hh \
-	hnco/functions/converter.hh hnco/functions/decorator.hh \
+	hnco/functions/controller.hh hnco/functions/converter.hh \
 	hnco/functions/function.hh hnco/functions/modifiers/all.hh \
 	hnco/functions/modifiers/modifier.hh \
-	hnco/functions/modifiers/parsed-modifier.hh \
-	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/multiobjective-function-adapter.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
@@ -1205,18 +1189,11 @@ libhnco_la_SOURCES = fast-efficient-p3/Configuration.cpp \
 	hnco/functions/collection/walsh/walsh-expansion-2.hh \
 	hnco/functions/collection/walsh/walsh-expansion.cc \
 	hnco/functions/collection/walsh/walsh-expansion.hh \
-	hnco/functions/controllers/all.hh \
-	hnco/functions/controllers/controller.cc \
-	hnco/functions/controllers/controller.hh \
-	hnco/functions/converter.hh hnco/functions/decorator.hh \
-	hnco/functions/function.cc hnco/functions/function.hh \
-	hnco/functions/modifiers/all.hh \
+	hnco/functions/controller.cc hnco/functions/controller.hh \
+	hnco/functions/converter.hh hnco/functions/function.cc \
+	hnco/functions/function.hh hnco/functions/modifiers/all.hh \
 	hnco/functions/modifiers/modifier.cc \
 	hnco/functions/modifiers/modifier.hh \
-	hnco/functions/modifiers/parsed-modifier.cc \
-	hnco/functions/modifiers/parsed-modifier.hh \
-	hnco/functions/modifiers/prior-noise.cc \
-	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/multiobjective-function-adapter.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
@@ -1373,13 +1350,9 @@ nobase_include_HEADERS = fast-efficient-p3/Configuration.h \
 	hnco/functions/collection/walsh/walsh-expansion-1.hh \
 	hnco/functions/collection/walsh/walsh-expansion-2.hh \
 	hnco/functions/collection/walsh/walsh-expansion.hh \
-	hnco/functions/controllers/all.hh \
-	hnco/functions/controllers/controller.hh \
-	hnco/functions/converter.hh hnco/functions/decorator.hh \
+	hnco/functions/controller.hh hnco/functions/converter.hh \
 	hnco/functions/function.hh hnco/functions/modifiers/all.hh \
 	hnco/functions/modifiers/modifier.hh \
-	hnco/functions/modifiers/parsed-modifier.hh \
-	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/multiobjective-function-adapter.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
@@ -1847,21 +1820,14 @@ hnco/functions/collection/walsh/walsh-expansion-2.lo:  \
 hnco/functions/collection/walsh/walsh-expansion.lo:  \
 	hnco/functions/collection/walsh/$(am__dirstamp) \
 	hnco/functions/collection/walsh/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/controllers/$(am__dirstamp):
-	@$(MKDIR_P) hnco/functions/controllers
-	@: >>hnco/functions/controllers/$(am__dirstamp)
-hnco/functions/controllers/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) hnco/functions/controllers/$(DEPDIR)
-	@: >>hnco/functions/controllers/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/controllers/controller.lo:  \
-	hnco/functions/controllers/$(am__dirstamp) \
-	hnco/functions/controllers/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/$(am__dirstamp):
 	@$(MKDIR_P) hnco/functions
 	@: >>hnco/functions/$(am__dirstamp)
 hnco/functions/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/functions/$(DEPDIR)
 	@: >>hnco/functions/$(DEPDIR)/$(am__dirstamp)
+hnco/functions/controller.lo: hnco/functions/$(am__dirstamp) \
+	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/function.lo: hnco/functions/$(am__dirstamp) \
 	hnco/functions/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/modifiers/$(am__dirstamp):
@@ -1871,12 +1837,6 @@ hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) hnco/functions/modifiers/$(DEPDIR)
 	@: >>hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
 hnco/functions/modifiers/modifier.lo:  \
-	hnco/functions/modifiers/$(am__dirstamp) \
-	hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/modifiers/parsed-modifier.lo:  \
-	hnco/functions/modifiers/$(am__dirstamp) \
-	hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
-hnco/functions/modifiers/prior-noise.lo:  \
 	hnco/functions/modifiers/$(am__dirstamp) \
 	hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
 hnco/iterator.lo: hnco/$(am__dirstamp) hnco/$(DEPDIR)/$(am__dirstamp)
@@ -2004,8 +1964,6 @@ mostlyclean-compile:
 	-rm -f hnco/functions/collection/ising/*.lo
 	-rm -f hnco/functions/collection/walsh/*.$(OBJEXT)
 	-rm -f hnco/functions/collection/walsh/*.lo
-	-rm -f hnco/functions/controllers/*.$(OBJEXT)
-	-rm -f hnco/functions/controllers/*.lo
 	-rm -f hnco/functions/modifiers/*.$(OBJEXT)
 	-rm -f hnco/functions/modifiers/*.lo
 	-rm -f hnco/maps/*.$(OBJEXT)
@@ -2097,6 +2055,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/function-factory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/hnco-options.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/app/$(DEPDIR)/parser.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/controller.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/$(DEPDIR)/function.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/cancellation.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/$(DEPDIR)/equal-products.Plo@am__quote@ # am--include-marker
@@ -2122,10 +2081,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion-1.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion-2.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/controllers/$(DEPDIR)/controller.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/modifier.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/maps/$(DEPDIR)/map.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/maps/$(DEPDIR)/transvection.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo@am__quote@ # am--include-marker
@@ -2218,7 +2174,6 @@ clean-libtool:
 	-rm -rf hnco/functions/collection/.libs hnco/functions/collection/_libs
 	-rm -rf hnco/functions/collection/ising/.libs hnco/functions/collection/ising/_libs
 	-rm -rf hnco/functions/collection/walsh/.libs hnco/functions/collection/walsh/_libs
-	-rm -rf hnco/functions/controllers/.libs hnco/functions/controllers/_libs
 	-rm -rf hnco/functions/modifiers/.libs hnco/functions/modifiers/_libs
 	-rm -rf hnco/maps/.libs hnco/maps/_libs
 	-rm -rf hnco/multiobjective/algorithms/.libs hnco/multiobjective/algorithms/_libs
@@ -2411,8 +2366,6 @@ distclean-generic:
 	-$(am__rm_f) hnco/functions/collection/ising/$(am__dirstamp)
 	-$(am__rm_f) hnco/functions/collection/walsh/$(DEPDIR)/$(am__dirstamp)
 	-$(am__rm_f) hnco/functions/collection/walsh/$(am__dirstamp)
-	-$(am__rm_f) hnco/functions/controllers/$(DEPDIR)/$(am__dirstamp)
-	-$(am__rm_f) hnco/functions/controllers/$(am__dirstamp)
 	-$(am__rm_f) hnco/functions/modifiers/$(DEPDIR)/$(am__dirstamp)
 	-$(am__rm_f) hnco/functions/modifiers/$(am__dirstamp)
 	-$(am__rm_f) hnco/maps/$(DEPDIR)/$(am__dirstamp)
@@ -2511,6 +2464,7 @@ distclean: distclean-am
 	-rm -f hnco/app/$(DEPDIR)/function-factory.Plo
 	-rm -f hnco/app/$(DEPDIR)/hnco-options.Plo
 	-rm -f hnco/app/$(DEPDIR)/parser.Plo
+	-rm -f hnco/functions/$(DEPDIR)/controller.Plo
 	-rm -f hnco/functions/$(DEPDIR)/function.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/cancellation.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/equal-products.Plo
@@ -2536,10 +2490,7 @@ distclean: distclean-am
 	-rm -f hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion-1.Plo
 	-rm -f hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion-2.Plo
 	-rm -f hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion.Plo
-	-rm -f hnco/functions/controllers/$(DEPDIR)/controller.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/modifier.Plo
-	-rm -f hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo
-	-rm -f hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo
 	-rm -f hnco/maps/$(DEPDIR)/map.Plo
 	-rm -f hnco/maps/$(DEPDIR)/transvection.Plo
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo
@@ -2672,6 +2623,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/app/$(DEPDIR)/function-factory.Plo
 	-rm -f hnco/app/$(DEPDIR)/hnco-options.Plo
 	-rm -f hnco/app/$(DEPDIR)/parser.Plo
+	-rm -f hnco/functions/$(DEPDIR)/controller.Plo
 	-rm -f hnco/functions/$(DEPDIR)/function.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/cancellation.Plo
 	-rm -f hnco/functions/collection/$(DEPDIR)/equal-products.Plo
@@ -2697,10 +2649,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion-1.Plo
 	-rm -f hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion-2.Plo
 	-rm -f hnco/functions/collection/walsh/$(DEPDIR)/walsh-expansion.Plo
-	-rm -f hnco/functions/controllers/$(DEPDIR)/controller.Plo
 	-rm -f hnco/functions/modifiers/$(DEPDIR)/modifier.Plo
-	-rm -f hnco/functions/modifiers/$(DEPDIR)/parsed-modifier.Plo
-	-rm -f hnco/functions/modifiers/$(DEPDIR)/prior-noise.Plo
 	-rm -f hnco/maps/$(DEPDIR)/map.Plo
 	-rm -f hnco/maps/$(DEPDIR)/transvection.Plo
 	-rm -f hnco/multiobjective/algorithms/$(DEPDIR)/iterative-algorithm.Plo

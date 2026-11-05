@@ -22,7 +22,6 @@
 #define HNCO_FUNCTIONS_ALL_H
 
 #include "collection/all.hh"
-#include "controllers/all.hh"
 #include "converter.hh"
 #include "decorator.hh"
 #include "function.hh"

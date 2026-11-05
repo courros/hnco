@@ -243,20 +243,14 @@ libhnco_la_SOURCES = \
 	hnco/functions/collection/walsh/walsh-expansion-2.hh \
 	hnco/functions/collection/walsh/walsh-expansion.cc \
 	hnco/functions/collection/walsh/walsh-expansion.hh \
-	hnco/functions/controllers/all.hh \
-	hnco/functions/controllers/controller.cc \
-	hnco/functions/controllers/controller.hh \
+	hnco/functions/controller.cc \
+	hnco/functions/controller.hh \
 	hnco/functions/converter.hh \
-	hnco/functions/decorator.hh \
 	hnco/functions/function.cc \
 	hnco/functions/function.hh \
 	hnco/functions/modifiers/all.hh \
 	hnco/functions/modifiers/modifier.cc \
 	hnco/functions/modifiers/modifier.hh \
-	hnco/functions/modifiers/parsed-modifier.cc \
-	hnco/functions/modifiers/parsed-modifier.hh \
-	hnco/functions/modifiers/prior-noise.cc \
-	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/multiobjective-function-adapter.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
@@ -469,15 +463,11 @@ nobase_include_HEADERS = \
 	hnco/functions/collection/walsh/walsh-expansion-1.hh \
 	hnco/functions/collection/walsh/walsh-expansion-2.hh \
 	hnco/functions/collection/walsh/walsh-expansion.hh \
-	hnco/functions/controllers/all.hh \
-	hnco/functions/controllers/controller.hh \
+	hnco/functions/controller.hh \
 	hnco/functions/converter.hh \
-	hnco/functions/decorator.hh \
 	hnco/functions/function.hh \
 	hnco/functions/modifiers/all.hh \
 	hnco/functions/modifiers/modifier.hh \
-	hnco/functions/modifiers/parsed-modifier.hh \
-	hnco/functions/modifiers/prior-noise.hh \
 	hnco/functions/multiobjective-function-adapter.hh \
 	hnco/functions/multivariate-function-adapter.hh \
 	hnco/functions/permutation-function-adapter.hh \
