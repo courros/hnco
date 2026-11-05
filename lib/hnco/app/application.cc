@@ -30,6 +30,7 @@
 #include "hnco/exception.hh"
 #include "hnco/random.hh"
 #include "hnco/stop-watch.hh"   // StopWatch
+#include "hnco/functions/walsh-term.hh"
 
 #include "application.hh"
 

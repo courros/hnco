@@ -255,6 +255,7 @@ libhnco_la_SOURCES = \
 	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/universal-function-adapter.hh \
 	hnco/functions/universal-function.hh \
+	hnco/functions/walsh-term.cc \
 	hnco/functions/walsh-term.hh \
 	hnco/iterator.cc \
 	hnco/iterator.hh \

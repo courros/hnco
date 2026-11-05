@@ -32,6 +32,7 @@
 #include "hnco/bit-matrix.hh"
 #include "hnco/functions/function.hh"
 #include "hnco/serialization.hh"
+#include "hnco/functions/walsh-term.hh"
 
 
 namespace hnco {
