@@ -25,7 +25,7 @@
 
 #include "hnco/neighborhoods/neighborhood.hh"
 
-#include <assert.h>
+#include <cassert>
 
 namespace hnco {
 namespace function {
@@ -44,7 +44,6 @@ public:
     : Modifier(fn)
     , _neighborhood(nh)
   {
-    assert(fn);
     assert(nh);
 
     _noisy_bv.resize(fn->get_bv_size());

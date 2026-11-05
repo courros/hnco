@@ -18,18 +18,14 @@
 
 */
 
-#include "hnco/exception.hh"
-
 #include "parsed-modifier.hh"
-
 
 using namespace hnco::exception;
 using namespace hnco::function;
 using namespace hnco::function::modifier;
 
-
-ParsedModifier::ParsedModifier(Function *function, std::string expression):
-  Modifier(function)
+ParsedModifier::ParsedModifier(Function *function, std::string expression)
+  : Modifier(function)
 {
   int result = _fparser.Parse(expression, "x");
   if (result != -1) {
@@ -41,7 +37,6 @@ ParsedModifier::ParsedModifier(Function *function, std::string expression):
     throw std::runtime_error(stream.str());
   }
 }
-
 
 double
 ParsedModifier::evaluate(const bit_vector_t& x)

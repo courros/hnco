@@ -21,61 +21,37 @@
 #ifndef HNCO_FUNCTIONS_MODIFIERS_PARSED_MODIFIER_H
 #define HNCO_FUNCTIONS_MODIFIERS_PARSED_MODIFIER_H
 
-#include <assert.h>
+#include "modifier.hh"
 
 #include "fparser/fparser.hh"
-
-#include "modifier.hh"
 
 namespace hnco {
 namespace function {
 namespace modifier {
 
-/** Parsed modifier.
-
-    Let f be the original function. Then the modified function is
-    equivalent to \f$g\circ f\f$, where g is a real function defined
-    by an expression \f$g(x)\f$ provided as a string.
-*/
-class ParsedModifier:
-    public Modifier {
-
+/**
+ * Parsed modifier.
+ *
+ * Let f be the original function. Then the modified function is
+ * equivalent to \f$g\circ f\f$, where g is a real function defined by
+ * an expression \f$g(x)\f$ provided as a string.
+ */
+class ParsedModifier: public Modifier {
   /// Function parser
   FunctionParser _fparser;
-
   /// Array of values
   double _values[1];
 
 public:
-
-  /** Constructor.
-
-      \param function Decorated function
-      \param expression Expression to parse
-  */
+  /**
+   * Constructor.
+   * @param function Decorated function
+   * @param expression Expression to parse
+   */
   ParsedModifier(Function *function, std::string expression);
-
-  /** @name Information about the function
-   */
-  ///@{
-
-  /// Get bit vector size
-  int get_bv_size() const override { return _function->get_bv_size(); }
-
-  ///@}
-
-
-  /** @name Evaluation
-   */
-  ///@{
-
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t&) override;
-
-  ///@}
-
 };
-
 
 } // end of namespace modifier
 } // end of namespace function

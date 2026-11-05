@@ -21,68 +21,59 @@
 #ifndef HNCO_FUNCTIONS_MODIFIERS_MODIFIER_H
 #define HNCO_FUNCTIONS_MODIFIERS_MODIFIER_H
 
-#include <cassert>
-#include <iosfwd>
-
-#include "hnco/functions/decorator.hh"
+#include "hnco/functions/function.hh"
 #include "hnco/maps/map.hh"
+
+#include <cassert>
 
 namespace hnco {
 namespace function {
 /// Modifiers
 namespace modifier {
 
-/// Function modifier
-class Modifier: public Decorator {
+/// %Function modifier
+class Modifier: public Function {
+protected:
+  /// Decorated function
+  Function *_function;
+
 public:
   /// Constructor
   Modifier(Function *function)
-    : Decorator(function)
-  {}
+    : _function(function)
+  {
+    assert(function);
+  }
+  /// Get bit vector size
+  int get_bv_size() const                                     override { return _function->get_bv_size(); }
+  /// Display
+  void display(std::ostream& stream) const                    override { _function->display(stream); }
+  /// Describe a bit vector
+  void describe(const bit_vector_t& bv, std::ostream& stream) override { _function->describe(bv, stream); }
 };
 
 /**
  * Opposite function.
- * Possible use cases:
- * - To minimize rather than maximize a function
- * - To apply an algorithm that minimizes rather than maximizes a function
- * - When minimization is needed inside an algorithm
+ * To minimize rather than maximize a function.
  */
 class OppositeFunction: public Modifier {
 public:
   /// Constructor
-  OppositeFunction(Function *function)
-    : Modifier(function)
-  {}
+  OppositeFunction(Function *function) : Modifier(function) {}
 
-  /**
-   * @name Properties
-   */
-  ///@{
-  /// Get bit vector size
-  int get_bv_size() const override { return _function->get_bv_size(); }
-  /**
-   * Check whether the function provides incremental evaluation.
-   * @return true
-   */
-  bool provides_incremental_evaluation() const override { return true; }
-  ///@}
-
-  /**
-   * @name Evaluation
-   */
-  ///@{
   /// Evaluate a bit vector
-  double evaluate(const bit_vector_t& bv) override;
+  double evaluate(const bit_vector_t& bv)                                override { return -_function->evaluate(bv); }
+  /// Check whether the function provides incremental evaluation
+  bool provides_incremental_evaluation() const                           override { return _function->provides_incremental_evaluation(); }
   /// Incrementally evaluate a bit vector
-  double evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits) override;
-  ///@}
+  double evaluate_incrementally(const bit_vector_t& bv, double value,
+                                const sparse_bit_vector_t& flipped_bits) override { return -_function->evaluate_incrementally(bv, -value, flipped_bits); }
 };
 
 /// Composition of a function and a map
 class FunctionMapComposition: public Modifier {
   /// Map
-  hnco::map::Map *_map;
+  map::Map *_map;
   /// Map output
   bit_vector_t _output;
 
@@ -92,53 +83,23 @@ public:
    * @pre map->get_output_size() == function->get_bv_size()
    * @throw std::runtime_error
    */
-  FunctionMapComposition(Function *function, hnco::map::Map *map)
-    : Modifier(function)
-    , _map(map)
-  {
-    assert(map);
-    if (map->get_output_size() != function->get_bv_size())
-      throw std::runtime_error("FunctionMapComposition::FunctionMapComposition: _function and _map must be compatible");
-    _output.resize(function->get_bv_size());
-  }
-
-  /**
-   * @name Properties
-   */
-  ///@{
-  /// Get bit vector size
+  FunctionMapComposition(Function *function, map::Map *map);
   int get_bv_size() const override { return _map->get_input_size(); }
   /**
    * Get the global maximum.
    * @throw std::runtime_error
    */
-  double get_maximum() const override {
-    if (has_known_maximum())
-      return _function->get_maximum();
-    else
-      throw std::runtime_error("Unknown maximum");
-  }
+  double get_maximum() const override;
   /**
    * Check for a known maximum.
    * @return true if the function has a known maximum and the map is
-   * bijective. */
-  bool has_known_maximum() const override {
-    return
-      _function->has_known_maximum() &&
-      _map->is_surjective();
-  }
-  ///@}
-
+   * bijective.
+   */
+  bool has_known_maximum() const override;
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t& bv) override;
-
-  /**
-   * @name Display
-   */
-  ///@{
   /// Describe a bit vector
   void describe(const bit_vector_t& bv, std::ostream& stream) override;
-  ///@}
 };
 
 /// Additive Gaussian Noise
@@ -152,15 +113,6 @@ public:
     : Modifier(function)
     , _dist(0, stddev)
   {}
-
-  /**
-   * @name Properties
-   */
-  ///@{
-  /// Get bit vector size
-  int get_bv_size() const override { return _function->get_bv_size(); }
-  ///@}
-
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t& bv) override;
 };
