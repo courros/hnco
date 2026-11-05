@@ -18,7 +18,7 @@
 
 */
 
-#include "walsh-term.hh"
+#include "walsh.hh"
 
 #include "hnco/neighborhoods/neighborhood-iterator.hh"
 

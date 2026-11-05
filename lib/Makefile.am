@@ -255,8 +255,8 @@ libhnco_la_SOURCES = \
 	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/universal-function-adapter.hh \
 	hnco/functions/universal-function.hh \
-	hnco/functions/walsh-term.cc \
-	hnco/functions/walsh-term.hh \
+	hnco/functions/walsh.cc \
+	hnco/functions/walsh.hh \
 	hnco/iterator.cc \
 	hnco/iterator.hh \
 	hnco/logging/log-context.hh \
@@ -472,7 +472,7 @@ nobase_include_HEADERS = \
 	hnco/functions/permutation-function-adapter.hh \
 	hnco/functions/universal-function-adapter.hh \
 	hnco/functions/universal-function.hh \
-	hnco/functions/walsh-term.hh \
+	hnco/functions/walsh.hh \
 	hnco/iterator.hh \
 	hnco/logging/log-context.hh \
 	hnco/logging/logger.hh \

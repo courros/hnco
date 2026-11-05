@@ -31,6 +31,6 @@
 #include "permutation-function-adapter.hh"
 #include "universal-function-adapter.hh"
 #include "universal-function.hh"
-#include "walsh-term.hh"
+#include "walsh.hh"
 
 #endif
