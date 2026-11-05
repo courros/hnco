@@ -18,9 +18,9 @@
 
 */
 
-#include "hnco/logging/logger.hh"
-
 #include "controller.hh"
+
+#include "hnco/logging/logger.hh"
 
 using namespace hnco;
 using namespace hnco::exception;
