@@ -18,10 +18,11 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_MODIFIERS_MODIFIER_H
-#define HNCO_FUNCTIONS_MODIFIERS_MODIFIER_H
+#ifndef HNCO_FUNCTIONS_MODIFIER_H
+#define HNCO_FUNCTIONS_MODIFIER_H
 
-#include "hnco/functions/function.hh"
+#include "function.hh"
+
 #include "hnco/maps/map.hh"
 #include "hnco/neighborhoods/neighborhood.hh"
 
@@ -37,7 +38,7 @@ namespace modifier {
 /// %Function modifier
 class Modifier: public Function {
 protected:
-  /// Decorated function
+  /// Modified function
   Function *_function;
 
 public:
@@ -62,7 +63,9 @@ public:
 class OppositeFunction: public Modifier {
 public:
   /// Constructor
-  OppositeFunction(Function *function) : Modifier(function) {}
+  OppositeFunction(Function *function)
+    : Modifier(function)
+  {}
 
   /// Evaluate a bit vector
   double evaluate(const bit_vector_t& bv)                                override { return -_function->evaluate(bv); }

@@ -23,7 +23,7 @@
 
 #include <sstream>              // std::ostringstream
 
-#include "hnco/functions/controllers/controller.hh"
+#include "hnco/functions/controller.hh"
 
 namespace hnco {
 namespace logging {

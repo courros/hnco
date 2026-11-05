@@ -22,10 +22,10 @@
 #define HNCO_FUNCTIONS_ALL_H
 
 #include "collection/all.hh"
+#include "controller.hh"
 #include "converter.hh"
-#include "decorator.hh"
 #include "function.hh"
-#include "modifiers/all.hh"
+#include "modifier.hh"
 #include "multiobjective-function-adapter.hh"
 #include "multivariate-function-adapter.hh"
 #include "permutation-function-adapter.hh"

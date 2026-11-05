@@ -18,12 +18,13 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_CONTROLLERS_CONTROLLER_H
-#define HNCO_FUNCTIONS_CONTROLLERS_CONTROLLER_H
+#ifndef HNCO_FUNCTIONS_CONTROLLER_H
+#define HNCO_FUNCTIONS_CONTROLLER_H
+
+#include "function.hh"
 
 #include "hnco/stop-watch.hh"
 #include "hnco/algorithms/solution.hh"
-#include "hnco/functions/function.hh"
 
 #include <cassert>
 #include <iostream>
@@ -38,7 +39,9 @@ namespace controller {
 /// Function %controller
 class Controller: public Function {
 protected:
+  /// Controlled function
   Function *_function;
+
 public:
   /// Constructor
   Controller(Function *function)

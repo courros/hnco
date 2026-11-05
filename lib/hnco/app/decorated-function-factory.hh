@@ -22,8 +22,8 @@
 #define HNCO_APP_DECORATED_FUNCTION_FACTORY
 
 #include "hnco/maps/map.hh"
-#include "hnco/functions/modifiers/all.hh"
-#include "hnco/functions/controllers/all.hh"
+#include "hnco/functions/modifier.hh"
+#include "hnco/functions/controller.hh"
 
 #include "hnco-options.hh"
 #include "function-factory.hh"

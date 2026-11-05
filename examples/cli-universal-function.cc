@@ -18,14 +18,14 @@
 
 */
 
-#include "hnco/app/algorithm-factory.hh"
-#include "hnco/app/application.hh"
-#include "hnco/app/function-factory.hh"
-#include "hnco/app/hnco-options.hh"
-#include "hnco/bit-vector.hh"
-#include "hnco/functions/universal-function-adapter.hh"
-#include "hnco/functions/universal-function.hh"
-#include "hnco/representations/all.hh"
+#include <hnco/app/algorithm-factory.hh>
+#include <hnco/app/application.hh>
+#include <hnco/app/function-factory.hh>
+#include <hnco/app/hnco-options.hh>
+#include <hnco/bit-vector.hh>
+#include <hnco/functions/universal-function-adapter.hh>
+#include <hnco/functions/universal-function.hh>
+#include <hnco/representations/all.hh>
 
 using namespace hnco::app;
 using namespace hnco::exception;

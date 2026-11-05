@@ -21,9 +21,9 @@
 #include <iostream>
 
 #include <hnco/algorithms/evolutionary-algorithms/mu-plus-lambda-ea.hh>
-#include "hnco/functions/controllers/controller.hh"
-#include "hnco/functions/collection/theory.hh"
-#include "hnco/random.hh"
+#include <hnco/functions/controller.hh>
+#include <hnco/functions/collection/theory.hh>
+#include <hnco/random.hh>
 
 using namespace hnco;
 using namespace hnco::algorithm;

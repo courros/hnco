@@ -24,10 +24,11 @@
 
 #include <iostream>
 
+using namespace hnco;
 using namespace hnco::function;
 using namespace hnco::function::modifier;
 
-FunctionMapComposition::FunctionMapComposition(Function *function, hnco::map::Map *map)
+FunctionMapComposition::FunctionMapComposition(Function *function, map::Map *map)
   : Modifier(function)
   , _map(map)
 {

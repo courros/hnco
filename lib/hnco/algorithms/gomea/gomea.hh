@@ -24,7 +24,7 @@
 #include <memory>               // std::shared_ptr
 
 #include "hnco/algorithms/algorithm.hh"
-#include "hnco/functions/controllers/all.hh" // hnco::function::controller::ProgressTracker
+#include "hnco/functions/controller.hh" // hnco::function::controller::ProgressTracker
 #include "gomea/src/common/linkage_config.hpp"
 #include "gomea/src/discrete/Config.hpp"
 

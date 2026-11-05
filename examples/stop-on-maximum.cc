@@ -20,10 +20,10 @@
 
 #include <iostream>
 
-#include "hnco/algorithms/evolutionary-algorithms/one-plus-one-ea.hh"
-#include "hnco/functions/controllers/controller.hh"
-#include "hnco/functions/collection/theory.hh"
-#include "hnco/random.hh"
+#include <hnco/algorithms/evolutionary-algorithms/one-plus-one-ea.hh>
+#include <hnco/functions/controller.hh>
+#include <hnco/functions/collection/theory.hh>
+#include <hnco/random.hh>
 
 using namespace hnco::algorithm;
 using namespace hnco::exception;
