@@ -34,7 +34,7 @@ Function::display(std::ostream& stream) const
 }
 
 bool
-hnco::function::bv_is_locally_maximal(const bit_vector_t& bv, Function& fn, hnco::neighborhood::NeighborhoodIterator& it)
+function::bv_is_locally_maximal(const bit_vector_t& bv, Function& fn, neighborhood::NeighborhoodIterator& it)
 {
   double value = fn.evaluate(bv);
   it.set_origin(bv);
@@ -47,7 +47,7 @@ hnco::function::bv_is_locally_maximal(const bit_vector_t& bv, Function& fn, hnco
 }
 
 bool
-hnco::function::bv_is_globally_maximal(const bit_vector_t& bv, Function& fn)
+function::bv_is_globally_maximal(const bit_vector_t& bv, Function& fn)
 {
   assert(fn.has_known_maximum());
   return fn.evaluate(bv) == fn.get_maximum();

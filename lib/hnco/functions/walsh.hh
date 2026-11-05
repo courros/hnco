@@ -18,8 +18,8 @@
 
 */
 
-#ifndef HNCO_FUNCTIONS_WALSH_TERM_H
-#define HNCO_FUNCTIONS_WALSH_TERM_H
+#ifndef HNCO_FUNCTIONS_WALSH_H
+#define HNCO_FUNCTIONS_WALSH_H
 
 #include "hnco/functions/function.hh"
 

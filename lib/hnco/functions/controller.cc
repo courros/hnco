@@ -41,7 +41,7 @@ StopOnTarget::evaluate(const bit_vector_t& bv)
 }
 
 double
-StopOnTarget::evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+StopOnTarget::evaluate_incrementally(const bit_vector_t& bv, double value, const sparse_bit_vector_t& flipped_bits)
 {
   double result = _function->evaluate_incrementally(bv, value, flipped_bits);
   if (result >= _target) {
@@ -72,7 +72,7 @@ CallCounter::evaluate(const bit_vector_t& bv)
 }
 
 double
-CallCounter::evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+CallCounter::evaluate_incrementally(const bit_vector_t& bv, double value, const sparse_bit_vector_t& flipped_bits)
 {
   double result = _function->evaluate_incrementally(bv, value, flipped_bits);
   _num_calls++;
@@ -95,7 +95,7 @@ OnBudgetFunction::evaluate(const bit_vector_t& bv)
 }
 
 double
-OnBudgetFunction::evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+OnBudgetFunction::evaluate_incrementally(const bit_vector_t& bv, double value, const sparse_bit_vector_t& flipped_bits)
 {
   if (_num_calls == _budget)
     throw LastEvaluation();
@@ -126,7 +126,7 @@ ProgressTracker::evaluate(const bit_vector_t& bv)
 }
 
 double
-ProgressTracker::evaluate_incrementally(const bit_vector_t& bv, double value, const hnco::sparse_bit_vector_t& flipped_bits)
+ProgressTracker::evaluate_incrementally(const bit_vector_t& bv, double value, const sparse_bit_vector_t& flipped_bits)
 {
   double result = CallCounter::evaluate_incrementally(bv, value, flipped_bits);
   update_last_improvement(bv, result);
@@ -163,7 +163,7 @@ ProgressTracker::update_last_improvement_details(const bit_vector_t& bv, double 
   }
 }
 
-std::ostream& hnco::function::controller::operator<<(std::ostream& stream, const ProgressTracker::Event& event)
+std::ostream& function::controller::operator<<(std::ostream& stream, const ProgressTracker::Event& event)
 {
   stream << event.num_evaluations << " " << event.solution.second;
   return stream;

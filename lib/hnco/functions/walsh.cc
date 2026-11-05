@@ -22,8 +22,10 @@
 
 #include "hnco/neighborhoods/neighborhood-iterator.hh"
 
+using namespace hnco;
+
 void
-hnco::function::compute_walsh_transform(function::Function *fn, std::vector<function::WalshTerm>& terms)
+function::compute_walsh_transform(function::Function *fn, std::vector<function::WalshTerm>& terms)
 {
   const int n = fn->get_bv_size();
 
@@ -67,7 +69,7 @@ hnco::function::compute_walsh_transform(function::Function *fn, std::vector<func
 }
 
 void
-hnco::function::compute_fast_walsh_transform(function::Function *fn, std::vector<function::WalshTerm>& terms)
+function::compute_fast_walsh_transform(function::Function *fn, std::vector<function::WalshTerm>& terms)
 {
   const int n = fn->get_bv_size();
 
